@@ -23,8 +23,7 @@
 
 #import "iTM2MacroKit_Controller.h"
 #import "iTM2MacroKit_Tree.h"
-#import "iTM2MacroKit_Model.h"
-
+#import "iTM2MacroKit_Action.h"
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
@@ -41,6 +40,12 @@ NSString * const iTM2MacrosDirectoryName = @"Macros";
 @end
 
 @interface iTM2MacroAbstractContextNode(Controller)
+/*!
+    @method     treeWithContentsOfURLs
+    @abstract   The shallow part of the macros and key bindings trees.
+    @discussion Only contains Domain, category and context level.
+    @result     The running tree
+*/
 + (id)treeWithContentsOfURLs;
 @end
 
@@ -49,7 +54,7 @@ NSString * const iTM2MacrosDirectoryName = @"Macros";
 {
 	NSString * requiredPathExtension = [self pathExtension];
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained later
-	// list all the *.iTM2-macros files
+	// list all the *."requiredPathExtension" files
 	// Create a Macros.localized in the Application\ Support folder as side effect
 	NSBundle * MB = [NSBundle mainBundle];
 	[MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
@@ -323,17 +328,14 @@ To Do List:
 	iTM2MacroRootNode * rootNode = [self macroTree];
 	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
 	iTM2MacroCategoryNode * categoryNode = [domainNode objectInChildrenWithCategory:category];
-#warning NO context in macros
+#warning NO context YET in macros
 	context = @"";
 	iTM2MacroContextNode * contextNode = [categoryNode objectInChildrenWithContext:context];
-	iTM2MacroList * macroList = [contextNode list];
-	iTM2MacroNode * leafNode = [macroList objectInChildrenWithID:ID];
-	if(!leafNode)
+	iTM2MacroNode * macro = [[contextNode macros] objectForKey:ID];
+	if(!macro)
 	{
-		leafNode = [[[iTM2MacroNode alloc] init] autorelease];
-		NSXMLElement * element = [NSXMLElement elementWithName:@"ACTION"];
-		[leafNode addMutableXMLElement:element];
-		[leafNode setID:ID];
+		macro = [[[iTM2MacroNode alloc] init] autorelease];
+		[macro setMacroID:ID];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"No macro with ID: %@ forContext:%@ ofCategory:%@ inDomain:%@",ID,context,category,domain);
@@ -344,7 +346,7 @@ To Do List:
 		}
 	}
 //iTM2_END;
-	return leafNode;
+	return macro;
 }
 #pragma mark =-=-=-=-=-  SAVE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveTree
@@ -360,8 +362,6 @@ To Do List:
 	// node is either the macro tree or the key bindings tree
 	NSArray * children = [node children];
 	NSEnumerator * E = [children objectEnumerator];
-	NSBundle * MB = [NSBundle mainBundle];
-	NSString * dir = [MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:NO];
 	while(node = [E nextObject])
 	{
 		// now the domain level
@@ -375,33 +375,22 @@ To Do List:
 			while(node = [EEE nextObject])
 			{
 				// now the context level
-				children = [node honoredDocumentURLs];
-				NSEnumerator * EEEE = [children objectEnumerator];
-				NSURL * url;
-				while(url = [EEEE nextObject])
+				NSURL * url = [node personalURL];
+				NSData * D = [node personalDataForSaving];
+				// if the "list" of this context node was never used, the documentForURL: returns nil and nothing is saved
+				// this is expected behavior because nothing was edited
+				if(D)
 				{
-//iTM2_LOG(@"url:%@",url);
-					if([url isFileURL])
+					NSError * localError = nil;
+					NSString * path = [url isFileURL]?[url path]:@"";
+					NSString * dirname = [path stringByDeletingLastPathComponent];
+					if([dirname length] && ![DFM createDeepDirectoryAtPath:dirname attributes:nil error:&localError])
 					{
-						NSString * path = [url path];
-						if([path belongsToDirectory:dir])
-						{
-							NSXMLDocument * document = [node documentForURL:url];
-							if(document)
-							{
-								NSData * D = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
-								NSError * localError = nil;
-								NSString * dirname = [path stringByDeletingLastPathComponent];
-								if(![DFM createDeepDirectoryAtPath:dirname attributes:nil error:&localError])
-								{
-									iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could create directory at %@",dirname]),localError);
-								}
-								else if(![D writeToURL:url options:NSAtomicWrite error:&localError])
-								{
-									iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Could not write to %@",url]),localError);
-								}
-							}
-						}
+						iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could create directory at %@",dirname]),localError);
+					}
+					else if(![D writeToURL:url options:NSAtomicWrite error:&localError])
+					{
+						iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Could not write to %@",url]),localError);
 					}
 				}
 			}
@@ -655,7 +644,7 @@ To Do List:
 		if(url)
 		{
 			NSError * localError = nil;
-			NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:NSXMLNodeCompactEmptyElement error:&localError] autorelease];
+			NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
 			if(localError)
 			{
 				[SDC presentError:localError];

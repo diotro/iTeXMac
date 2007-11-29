@@ -27,10 +27,13 @@
 
 #import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 
-@implementation iTM2MacroController(Action)
-#pragma mark =-=-=-=-=-  ACTION
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithText:forContext:ofCategory:inDomain:target:
-- (BOOL)executeMacroWithText:(NSString *)text forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
+@implementation iTM2MacroNode(PRIVATE_ACTION)
+- (SEL)action;
+{
+	return NSSelectorFromString(self.selector);
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithTarget:selector:substitutions:
+- (BOOL)executeMacroWithTarget:(id)target selector:(SEL)action substitutions:(NSDictionary *)theSubstitutions;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -38,59 +41,74 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	unsigned idx = 0;
-	BOOL result = NO;
-	while(idx<[text length])
+	if(action == @selector(noop:))
 	{
-		NSString * type = nil;
-		NSRange range = [text rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type ignoreComment:YES];
-		if(!range.length)
-		{
-			return NO;
-		}
-		else if(type)
-		{
-			NSRange fullRange = [text rangeOfPlaceholderAtIndex:range.location getType:nil ignoreComment:YES];
-			if(fullRange.location == range.location && fullRange.length > range.length)
-			{
-				fullRange.length = NSMaxRange(fullRange);
-				fullRange.location = NSMaxRange(range);
-				if(fullRange.length>fullRange.location)
-				{
-					fullRange.length-=fullRange.location;
-					if(fullRange.length>4)
-					{
-						fullRange.length-=4;
-						text = [text substringWithRange:fullRange];
-						iTM2MacroNode * leafNode = [self macroRunningNodeForID:text context:context ofCategory:category inDomain:domain];
-						SEL action = NULL;
-						NSString * actionName = [NSString stringWithFormat:@"insertMacro_%@:",type];
-						action = NSSelectorFromString(actionName);
-						result = result || [leafNode executeMacroWithTarget:target selector:action substitutions:nil];
-					}
-				}
-			}
-		}
-		idx = NSMaxRange(range);
+		return NO;
 	}
-
-//iTM2_START;
+	if(!target)
+	{
+		target = [[NSApp keyWindow] firstResponder];
+	}
+	BOOL result = NO;
+	NSMethodSignature * MS = nil;
+	if(action && (MS = [target methodSignatureForSelector:action]))
+	{
+here:
+		[self setSubstitutions:theSubstitutions];
+		if([MS numberOfArguments] == 3)
+		{
+			NS_DURING
+			[target performSelector:action withObject:self];
+			result = YES;
+			NS_HANDLER
+			NS_ENDHANDLER
+		}
+		else if([MS numberOfArguments] == 2)
+		{
+			NS_DURING
+			[target performSelector:action];
+			result = YES;
+			NS_HANDLER
+			NS_ENDHANDLER
+		}
+		else if(MS)
+		{
+		}
+		else if([[[NSApp keyWindow] firstResponder] tryToPerform:action with:self]
+			|| [[[NSApp mainWindow] firstResponder] tryToPerform:action with:self])
+		{
+			result = YES;
+		}
+		else
+		{
+			iTM2_LOG(@"No target for %@ with argument:%@", NSStringFromSelector(action),self);
+		}
+		[self setSubstitutions:nil];
+//iTM2_END;
+		return result;
+	}
+	if((action = [self action])
+			&& (MS = [target methodSignatureForSelector:action]))
+	{
+		goto here;
+	}
+	if((action = NSSelectorFromString([self macroID]))
+		&& (MS = [target methodSignatureForSelector:action]))
+	{
+		goto here;
+	}
+	if((action = NSSelectorFromString(@"insertMacro:"))
+		&& (MS = [target methodSignatureForSelector:action]))
+	{
+		goto here;
+	}
+//iTM2_END;
 	return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithID:forContext:ofCategory:inDomain:target:
-- (BOOL)executeMacroWithID:(NSString *)ID forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	iTM2MacroNode * leafNode = [self macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
-	BOOL result = [leafNode executeMacroWithTarget:target selector:NULL substitutions:nil];
-//iTM2_END;
-    return result;
-}
+@end
+
+@implementation iTM2MacroController(Action)
+#pragma mark =-=-=-=-=-  ACTION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ___catch:
 - (void)___catch:(id)sender;
 /*"Description forthcoming.
@@ -161,9 +179,9 @@ To Do List:
 		}
 		if([ID length])
 		{
-			if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain target:nil])
+			if([[self macroWithID:ID] executeMacroWithTarget:nil selector:NULL substitutions:nil])
 			{
-				NSMenu * recentMenu = [self macroMenuForContext:context ofCategory:@"Recent" inDomain:domain error:nil];
+				NSMenu * recentMenu = [self macroMenuForContext:[self macroContext] ofCategory:@"Recent" inDomain:[self macroDomain] error:nil];
 				int index = [recentMenu indexOfItemWithTitle:[sender title]];
 				if(index!=-1)
 				{
@@ -223,8 +241,8 @@ To Do List:
 @end
 
 @implementation NSObject(iTM2ExecuteMacro)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeMacro:
-- (BOOL)executeMacro:(NSString *)macro;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeMacroWithID:
+- (BOOL)executeMacroWithID:(NSString *)ID;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for macro.
 The key and its modifiers are 
@@ -234,16 +252,61 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	return [SMC executeMacroWithID:macro forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	return [[self macroWithID:ID] executeMacroWithTarget:self selector:NULL substitutions:nil];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithText:
+- (BOOL)executeMacroWithText:(NSString *)text;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned idx = 0;
+	BOOL result = NO;
+	while(idx<[text length])
+	{
+		NSString * type = nil;
+		NSRange range = [text rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type ignoreComment:YES];
+		if(!range.length)
+		{
+			return NO;
+		}
+		else if(type)
+		{
+			NSRange fullRange = [text rangeOfPlaceholderAtIndex:range.location getType:nil ignoreComment:YES];
+			if(fullRange.location == range.location && fullRange.length > range.length)
+			{
+				fullRange.length = NSMaxRange(fullRange);
+				fullRange.location = NSMaxRange(range);
+				if(fullRange.length>fullRange.location)
+				{
+					fullRange.length-=fullRange.location;
+					if(fullRange.length>4)
+					{
+						fullRange.length-=4;
+						text = [text substringWithRange:fullRange];
+						iTM2MacroNode * leafNode = [self macroWithID:text];
+						SEL action = NULL;
+						NSString * actionName = [NSString stringWithFormat:@"insertMacro_%@:",type];
+						action = NSSelectorFromString(actionName);
+						result = result || [leafNode executeMacroWithTarget:self selector:action substitutions:nil];
+					}
+				}
+			}
+		}
+		idx = NSMaxRange(range);
+	}
+
+//iTM2_START;
+	return NO;
 }
 @end
 
 @implementation NSView(iTM2ExecuteMacro)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
-- (BOOL)tryToExecuteMacro:(NSString *)macro;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacroWithID:
+- (BOOL)tryToExecuteMacroWithID:(NSString *)macro;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for macro.
 The key and its modifiers are 
@@ -253,15 +316,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [super tryToExecuteMacro:macro]
-			|| [[self superview] tryToExecuteMacro:macro]
-				|| [[self window] tryToExecuteMacro:macro];// not good
+    return [super tryToExecuteMacroWithID:macro]
+			|| [[self superview] tryToExecuteMacroWithID:macro]
+				|| [[self window] tryToExecuteMacroWithID:macro];// not good
 }
 @end
 
 @implementation NSWindow(iTM2ExecuteMacro)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
-- (BOOL)tryToExecuteMacro:(NSString *)macro;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacroWithID:
+- (BOOL)tryToExecuteMacroWithID:(NSString *)macro;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for macro.
 The key and its modifiers are 
@@ -271,15 +334,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [super tryToExecuteMacro:macro]
-			|| [[self delegate] executeMacro:macro]
-				|| [[self windowController] tryToExecuteMacro:macro];
+    return [super tryToExecuteMacroWithID:macro]
+			|| [[self delegate] executeMacroWithID:macro]
+				|| [[self windowController] tryToExecuteMacroWithID:macro];
 }
 @end
 
 @implementation NSWindowController(iTM2ExecuteMacro)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
-- (BOOL)tryToExecuteMacro:(NSString *)macro;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacroWithID:
+- (BOOL)tryToExecuteMacroWithID:(NSString *)macro;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for macro.
 The key and its modifiers are 
@@ -289,15 +352,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [super tryToExecuteMacro:macro]
-			|| [[self document] executeMacro:macro]
-				|| (([self owner] != self) && [[self owner] executeMacro:macro]);
+    return [super tryToExecuteMacroWithID:macro]
+			|| [[self document] executeMacroWithID:macro]
+				|| (([self owner] != self) && [[self owner] executeMacroWithID:macro]);
 }
 @end
 
 @implementation NSResponder(iTM2ExecuteMacro)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  executeStringInstruction:
-- (BOOL)executeMacro:(NSString *)macro;
+- (BOOL)executeMacroWithID:(NSString *)macro;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -307,10 +370,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [self tryToExecuteMacro:macro];
+    return [self tryToExecuteMacroWithID:macro] || [super executeMacroWithID:macro];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
-- (BOOL)tryToExecuteMacro:(NSString *)macro;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacroWithID:
+- (BOOL)tryToExecuteMacroWithID:(NSString *)macro;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for macro.
 The key and its modifiers are 
@@ -342,12 +405,37 @@ To Do List:
 }
 @end
 
-#import "iTM2MacroKit_Model.h"
 #import <iTM2Foundation/iTM2ContextKit.h>
 
+@implementation iTM2MacroNode(Action)
+- (NSString *)concreteArgument;
+{
+	id result = [self insertion];
+	if(!result)
+	{
+		result = [self macroID];
+	}
+	id theSubstitutions = [self substitutions];
+	if([theSubstitutions count])
+	{
+		NSString * string1, * string2;
+		NSMutableString * result = [NSMutableString stringWithString:result];
+		NSEnumerator * E = [theSubstitutions keyEnumerator];
+		NSRange range;
+		while(string1 = [E nextObject])
+		{
+			string2 = [theSubstitutions objectForKey:string1];
+			range = NSMakeRange(0,[result length]);
+			[result replaceOccurrencesOfString:string1 withString:string2 options:nil range:range];
+		}
+	}
+	return result;
+}
+@end
+
 @implementation NSTextView(iTM2ExecuteMacro)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacro:
-- (BOOL)tryToExecuteMacro:(NSString *)macro;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tryToExecuteMacroWithID:
+- (BOOL)tryToExecuteMacroWithID:(NSString *)macro;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for macro.
 The key and its modifiers are 
@@ -1206,4 +1294,3 @@ To Do List:
     return replacementString;
 }
 @end
-

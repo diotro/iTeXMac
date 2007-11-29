@@ -24,7 +24,6 @@
 #import "iTM2MacroKit.h"
 #import "iTM2MacroKit_Tree.h"
 #import "iTM2MacroKit_Prefs.h"
-#import "iTM2MacroKit_Model.h"
 #import "iTM2MacroKit_Controller.h"
 #import <iTM2Foundation/iTM2MacroKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
@@ -33,11 +32,1463 @@
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2PreferencesKit.h>
 
+
+#pragma mark =-=-=-=-=-  MACROS
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
+@interface iTM2MutableMacroNode(PRIVATE)
+- (unsigned)indexOfObjectInAvailableMacros:(id)object;
+- (void)removeObjectFromAvailableMacrosAtIndex:(int)index;
+- (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index;
+@end
+
+@implementation iTM2PrefsMacroNode
++ (void)initialize;
+{
+ 	iTM2_INIT_POOL;
+    [self setKeys:[NSArray arrayWithObjects:@"insertion",nil]
+		triggerChangeNotificationsForDependentKey:@"argument"];
+    [self setKeys:[NSArray arrayWithObjects:@"argument",@"shouldShowArgument",nil]
+		triggerChangeNotificationsForDependentKey:@"hiddenArgument"];
+    [self setKeys:[NSArray arrayWithObjects:@"argument",nil]
+		triggerChangeNotificationsForDependentKey:@"mustShowArgument"];
+    [self setKeys:[NSArray arrayWithObjects:@"macroID",nil]
+		triggerChangeNotificationsForDependentKey:@"isVisible"];
+    [self setKeys:[NSArray arrayWithObjects:@"macroID",nil]
+		triggerChangeNotificationsForDependentKey:@"actionName"];
+    [self setKeys:[NSArray arrayWithObjects:@"actionName",nil]
+		triggerChangeNotificationsForDependentKey:@"actionIdentifier"];
+	iTM2_RELEASE_POOL;
+	return;
+}
+- (id)owner;
+{
+	return owner;
+}
+- (void)setOwner:(id)anOwner;
+{
+	owner = anOwner;
+	return;
+}
+- (BOOL)isMutable;// bound
+{
+	return NO;
+}
+- (BOOL)isVisible;// bound
+{
+	return ![[self macroID] hasPrefix:@"."];
+}
+- (BOOL)isMessage;
+{
+	NSArray * responderMessages = [iTM2RuntimeBrowser responderMessages];
+	NSValue * V = [NSValue valueWithPointer:NSSelectorFromString([self macroID])];
+	return [responderMessages containsObject:V];
+}
+- (BOOL)shouldShowArgument;
+{
+	return shouldShowArgument;
+}
+- (void)setShouldShowArgument:(BOOL)flag;
+{
+	shouldShowArgument = flag;
+	return;
+}
+- (BOOL)mustShowArgument;
+{
+	return [[self insertion] length] != 0;
+}
+- (BOOL)hiddenArgument;
+{
+	return ![self mustShowArgument] && ![self shouldShowArgument];
+}
+- (NSString *)argument;// bound
+{
+	return [self insertion];
+}
+- (NSColor *)argumentTextColor;// bound
+{
+	return [NSColor disabledControlTextColor];
+}
+- (NSString *)actionName;// bound to the pref pane
+{
+	if(![self isVisible])	return nil;
+	if([self selector])		return [self selector];
+	if([self isMessage])	return [self macroID];
+							return @"insertMacro:";
+}
+- (NSString *)actionIdentifier;// bound to the pref pane
+{
+	NSString * AN = [self actionName];
+	if([AN hasPrefix:@"insertMacro"])
+	{
+		return @"insertMacro:";
+	}
+	if([AN isEqual:@"executeAsScript:"] || [AN isEqual:@"executeScriptAtPath:"])
+	{
+		return AN;
+	}
+	return @"noop:";
+}
+- (void)becomeMutable;
+{
+	[self willChangeValueForKey:@"isMutable"];// notify observers, in particular the key bindings with that macro
+	iTM2MutableMacroNode * copy = [[[iTM2MutableMacroNode alloc] init] autorelease];
+#define COPY(GETTER,SETTER) [copy SETTER:[self GETTER]];
+COPY(macroID,setMacroID)
+COPY(insertion,setInsertion)
+COPY(selector,setSelector)
+COPY(name,setName)
+COPY(macroDescription,setMacroDescription)
+COPY(tooltip,setTooltip)
+#undef COPY
+	id list = [self owner];
+	unsigned int idx = [list indexOfObjectInAvailableMacros:self];
+	[list insertObject:copy inAvailableMacrosAtIndex:idx];
+	[list setMacroSelectionIndexes:[NSIndexSet indexSetWithIndex:idx]];
+	[self didChangeValueForKey:@"isMutable"];// notify observers, in fact the property has not changed, but the observers will have a chance to behave properly
+	return;
+}
+- (NSString *)prettyMacroID;// bound to UI
+{
+	return [self macroID];
+}
+- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
+{
+	[super addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context];
+}
+- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;
+{
+	NS_DURING
+	[super removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath];
+	NS_HANDLER
+NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyPath);
+	NS_ENDHANDLER
+}
+@end
+
+@implementation iTM2MutableMacroNode
+- (NSString *)XMLString;
+{
+	NSMutableString * children = [NSMutableString string];
+	// first populate with the contents
+	if([[self name] length])				[children appendFormat:@"\t\t<NAME>%@</NAME>\n",[self name]];
+	if([[self macroDescription] length])	[children appendFormat:@"\t\t<DESC>%@</DESC>\n",[self macroDescription]];
+	if([[self tooltip] length])			[children appendFormat:@"\t\t<TIP>%@</TIP>\n",[self tooltip]];
+	if([[self insertion] length])			[children appendFormat:@"\t\t<INS>%@</INS>\n",[self insertion]];
+	NSMutableString * result = [NSMutableString stringWithFormat:@"\t<ACTION ID=\"%@\"",[self macroID]];
+	if([[self selector] length])
+		[result appendFormat:@" SEL=\"%@\"",[self selector]];
+	if([children length])
+		[result appendFormat:@">\n%@\t</ACTION>\n",children];		
+	else
+		[result appendString:@"/>\n"];
+	return result;
+}
++ (NSString *)XMLStringWithMacros:(NSDictionary *)theMacros;
+{
+	NSMutableString * result = [NSMutableString stringWithString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+@"	<!DOCTYPE MACROS [\n"
+@"	<!ELEMENT MACROS (ACTION)*>\n"
+@"	<!ELEMENT ACTION (INS?, NAME?, DESC?, TIP?)>\n"
+@"	<!ATTLIST ACTION ID CDATA #REQUIRED>\n"
+@"	<!ATTLIST ACTION SEL CDATA #IMPLIED>\n"
+@"	<!ELEMENT INS (#PCDATA)>\n"
+@"	<!ELEMENT NAME (#PCDATA)>\n"
+@"	<!ELEMENT DESC (#PCDATA)>\n"
+@"	<!ELEMENT TIP (#PCDATA)>\n"
+@"]>\n"
+@"<MACROS"];
+	NSMutableString * contents = [NSMutableString string];
+	NSEnumerator * E = [theMacros keyEnumerator];
+	NSString * ID;
+	while(ID = [E nextObject])
+	{
+		[contents appendString:[[theMacros objectForKey:ID] XMLString]];
+	}
+	if([contents length])
+	{
+		[result appendFormat:@">\n%@</MACROS>\n",contents];
+	}
+	else
+	{
+		[result appendString:@"/>\n"];
+	}
+	return result;
+}
+- (void)setPrettyMacroID:(NSString *)newID;// bound to UI
+{
+	if([newID length])
+	{
+		// no change if the newID is void
+		[self setMacroID:newID];
+	}
+	return;
+}
+- (BOOL)validatePrettyMacroID:(id *)ioValue error:(NSError **)outErrorRef;
+{
+	if(outErrorRef)
+	{
+		*outErrorRef = nil;
+	}
+	if(!ioValue)
+	{
+		return NO;
+	}
+    if([[self macroID] isEqual:*ioValue] || [self macroID] == *ioValue)
+	{
+		return YES;
+	}
+	if([[[self owner] personalMacros] objectForKey:*ioValue] || [[[self owner] macros] objectForKey:*ioValue])
+	{
+		if(outErrorRef)
+		{
+			*outErrorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
+				[NSDictionary dictionaryWithObjectsAndKeys:
+					NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, [self classBundle], ""), NSLocalizedDescriptionKey,
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"There is already a macro named %@", iTM2LocalizedExtension, [self classBundle], ""), *ioValue], NSLocalizedFailureReasonErrorKey,
+					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Don't choose %@", iTM2LocalizedExtension, [self classBundle], ""), *ioValue], NSLocalizedRecoverySuggestionErrorKey,
+						nil]];
+		}
+		return NO;
+	}
+    return YES;
+}
+- (void)setArgument: (NSString *)argument;
+{
+	[self setInsertion:argument];
+	return;
+}
+- (void)setActionName:(NSString *)newActionName;
+{
+	if([@"insertMacro:" isEqual:newActionName] || [@"noop:" isEqual:newActionName] || ![newActionName length])
+	{
+		self.selector = nil;
+	}
+	else
+	{
+		self.selector = newActionName;
+	}
+	return;
+}
+- (BOOL)isMutable;
+{
+	return YES;
+}
+- (NSColor *)argumentTextColor;// bound
+{
+	return [NSColor textColor];
+}
+#pragma mark =-=-=-=-=-  LEAF
+- (NSString *)codeNameWithModifiers;
+{
+	return @"codeNameWithModifiers";
+}
+@end
+
+@implementation iTM2MacroList
++ (void)initialize;
+{
+ 	iTM2_INIT_POOL;
+	[super initialize];
+	[self setKeys:[NSArray arrayWithObjects:@"customOnly",nil]
+			triggerChangeNotificationsForDependentKey:@"availableMacros"];
+	iTM2_RELEASE_POOL;
+	return;
+}
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey;
+{
+	BOOL result = ![theKey isEqualToString:@"availableMacros"] && [super automaticallyNotifiesObserversForKey:theKey];
+//iTM2_LOG(@"theKey:%@->%@",theKey,(result?@"yes":@"no"));
+    return result;
+}
+- (id)initWithParent:(id)parent;
+{
+	if(self = [super initWithParent:parent])
+	{
+		NSURL * personalUrl = [parent personalURL];
+		NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+		NSError * localError =  nil;
+		NSData * data;
+		NSDictionary * D;
+		if([personalUrl isFileURL] && [DFM fileExistsAtPath:[personalUrl path]])
+		{
+			data = [NSData dataWithContentsOfURL:personalUrl options:0 error:&localError];
+			if(localError)
+			{
+				iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
+			}
+			if(D = [iTM2MutableMacroNode macrosWithData:data owner:self])
+			{
+				[MD addEntriesFromDictionary:D];
+			}
+		}
+		[self setPersonalMacros:MD];
+		MD = [NSMutableDictionary dictionary];
+		NSEnumerator * E = [[parent valueForKeyPath:@"value.URLsPromise"] objectEnumerator];
+		NSURL * url;
+		while(url = [E nextObject])
+		{
+			if(![url isEqual:personalUrl])
+			{
+				localError = nil;
+				data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
+				if(localError)
+				{
+					iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
+				}
+				if(D = [iTM2PrefsMacroNode macrosWithData:data owner:self])
+				{
+					[MD addEntriesFromDictionary:D];
+				}
+			}
+		}
+		[self setMacros:MD];
+	}
+	return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _X_availableScripts
+- (NSArray *)_X_availableScripts;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * result = [self valueForKeyPath:@"value.availableScripts"];
+	if(result)
+	{
+		return result;
+	}
+	result = [NSMutableArray array];
+	id parent = [self parent];
+	NSString * category = [parent valueForKeyPath:@"value.category"];
+	parent = [parent parent];
+	NSString * subpath = [parent valueForKeyPath:@"value.domain"];
+	subpath = [subpath stringByAppendingPathComponent:category];
+	subpath = [subpath stringByAppendingPathComponent:iTM2MacroScriptsComponent];
+	NSBundle * MB = [NSBundle mainBundle];
+	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
+	NSEnumerator * E = [RA objectEnumerator];
+	NSString * path;
+	while(path = [E nextObject])
+	{
+		if([DFM pushDirectory:path])
+		{
+			if([DFM pushDirectory:subpath])
+			{
+				NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:@"."];
+				while(path = [DE nextObject])
+				{
+					BOOL flag;
+					if([path hasPrefix:@"."])
+					{
+						// do nothing, this is a hidden file
+					}
+					else if([path hasPrefix:@"."])// missing finder test (kIsVisibleFlag?)
+					{
+						// do nothing, this is a hidden file here too
+					}
+					else if([DFM fileExistsAtPath:path isDirectory:&flag] && flag)
+					{
+						// do nothing, this is a directory
+					}
+					else
+					{
+						[result addObject:path];
+					}
+				}
+				[DFM popDirectory];
+			}
+			else if([DFM fileExistsAtPath:subpath isDirectory:nil])
+			{
+				iTM2_LOG(@"*** SILENT Error: could not push \"%@/%@\"",[DFM currentDirectoryPath],subpath);
+			}
+			[DFM popDirectory];
+		}
+		else
+		{
+			iTM2_LOG(@"*** SILENT Error: could not push \"%@\"",path);
+		}
+	}
+	[result sortUsingSelector:@selector(compare:)];
+	[self setValue:result forKeyPath:@"value.availableScripts"];
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfAvailableScripts
+- (unsigned int)countOfAvailableScripts;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableScripts] count];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableScriptsAtIndex:
+- (id)objectInAvailableScriptsAtIndex:(int) index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableScripts] objectAtIndex:index];
+}
+- (NSMutableDictionary *)macros;
+{
+	return [self valueForKeyPath:@"value.macros"];
+}
+- (void)setMacros:(NSMutableDictionary *)macros;
+{
+	[self setValue:macros forKeyPath:@"value.macros"];
+}
+- (NSMutableDictionary *)personalMacros;
+{
+	return [self valueForKeyPath:@"value.personalMacros"];
+}
+- (void)setPersonalMacros:(NSMutableDictionary *)macros;
+{
+	[self setValue:macros forKeyPath:@"value.personalMacros"];
+}
+- (NSIndexPath *)indexPath;
+{
+	return nil;
+}
+- (id)nextSibling;
+{
+	return nil;
+}
+- (id)nextParentSibling;
+{
+	return nil;
+}
+- (id)macroWithID:(NSString *)ID;
+{
+	return [[self personalMacros] objectForKey:ID]?:[[self macros] objectForKey:ID];
+}
+#pragma mark =-=-=-=-=-  MACROS
+- (BOOL)customOnly;
+{
+	return [[self valueForKeyPath:@"value.customOnly"] boolValue];
+}
+- (BOOL)canCustomOnly;
+{
+	return YES;
+}
+- (void)setCustomOnly:(BOOL)argument;
+{
+	[self setValue:[NSNumber numberWithBool:argument] forKeyPath:@"value.customOnly"];
+	[self willChangeValueForKey:@"availableMacros"];
+	[self setValue:nil forKeyPath:@"value.availableMacros"];
+	[self didChangeValueForKey:@"availableMacros"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _X_availableMacros
+- (NSMutableArray *)_X_availableMacros;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = [self valueForKeyPath:@"value.availableMacros"];
+	if(result)
+	{
+		return result;
+	}
+	if([self customOnly])
+	{
+		result = [self personalMacros];
+	}
+	else
+	{
+		result = [NSMutableDictionary dictionaryWithDictionary:[self macros]];
+		[result addEntriesFromDictionary:[self personalMacros]];
+	}
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH \".\")"];
+	id Ks = [[result allKeys] filteredArrayUsingPredicate:predicate];
+	result = [result objectsForKeys:Ks notFoundMarker:[NSNull null]];
+	Ks = [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"macroID" ascending:YES] autorelease]];
+	result = [[result sortedArrayUsingDescriptors:Ks] mutableCopy];
+	[self setValue:result forKeyPath:@"value.availableMacros"];
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfAvailableMacros
+- (unsigned int)countOfAvailableMacros;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableMacros] count];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableMacrosAtIndex:
+- (id)objectInAvailableMacrosAtIndex:(int)index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableMacros] objectAtIndex:index];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableMacrosWithID:
+- (id)objectInAvailableMacrosWithID:(NSString *)ID;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	NSString *attributeName = @"macroID";
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K LIKE '%@'",attributeName, ID];
+	NSArray * result = [self _X_availableMacros];
+	result = [result filteredArrayUsingPredicate:predicate];
+	if(![result count])
+	{
+		result = [self _X_availableMacros];
+		NSEnumerator * E = [result objectEnumerator];
+		result = [NSMutableArray array];
+		id node;
+		while(node = [E nextObject])
+		{
+			if([ID isEqual:[node macroID]])
+			{
+				[(NSMutableArray *)result addObject:node];
+			}
+		}
+	}
+	result = [result lastObject];
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromAvailableMacrosAtIndex:
+- (void)removeObjectFromAvailableMacrosAtIndex:(int)index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * availableMacros = [self _X_availableMacros];
+	id O = [[[availableMacros objectAtIndex:index] retain] autorelease];
+	[[self personalMacros] removeObjectForKey:[O macroID]];
+	[O setOwner:nil];
+	id ON = [[self macros] objectForKey:[O macroID]];
+	if(ON)
+	{
+		[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableMacros"];
+		[availableMacros replaceObjectAtIndex:index withObject:ON];
+		[self didChange:NSKeyValueChangeReplacement valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableMacros"];
+	}
+	else
+	{
+		[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableMacros"];
+		[availableMacros removeObjectAtIndex:index];
+		[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableMacros"];
+	}
+	[self setValue:nil forKeyPath:@"value.cachedChildrenIDs"];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inAvailableMacrosAtIndex:
+- (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * ID = [object macroID];
+	NSArray * IDs = [[self personalMacros] allKeys];
+	if([IDs containsObject:ID])
+	{
+		// do nothing, this is already there
+		return;
+	}
+	IDs = [self availableIDs];// personal and other macros
+	if(![ID length])
+	{
+		ID = @"macro";
+		if([IDs containsObject:ID])
+		{
+			unsigned idx = 0;
+			do
+			{
+				ID = [NSString stringWithFormat:@"macro %i",++idx];
+			}
+			while([IDs containsObject:ID]);
+		}
+		[object setMacroID:ID];
+	}
+	[[self personalMacros] setObject:object forKey:ID];
+	[object setOwner:self];
+	id old = [[self macros] objectForKey:ID];
+	id AMs = [self _X_availableMacros];
+	unsigned idx = [AMs indexOfObject:old];
+	if(idx != NSNotFound)
+	{
+		[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:[NSIndexSet indexSetWithIndex:idx] forKey:@"availableMacros"];
+		[AMs removeObjectAtIndex:idx];
+		[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:[NSIndexSet indexSetWithIndex:idx] forKey:@"availableMacros"];
+		[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:idx] forKey:@"availableMacros"];
+		[AMs insertObject:object atIndex:idx];
+		[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:idx] forKey:@"availableMacros"];
+	}
+	else
+	{
+		[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableMacros"];
+		[AMs insertObject:object atIndex:index];
+		[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableMacros"];
+	}
+	[self setValue:nil forKeyPath:@"value.cachedChildrenIDs"];
+	IDs = [self availableIDs];// updated
+	if(![IDs containsObject:ID])
+	{
+		iTM2_LOG(@"***  THE MACRO WAS NOT ADDED");
+	}
+//iTM2_END;
+    return;
+}
+- (unsigned)indexOfObjectInAvailableMacros:(id)object;
+{
+	return [[self _X_availableMacros] indexOfObject:object];
+}
+- (NSArray *)availableIDs;
+{
+	return [[[self personalMacros] allKeys] arrayByAddingObjectsFromArray:[[self macros] allKeys]];
+}
+- (NSIndexSet *)macroSelectionIndexes;
+{
+	return [self valueForKeyPath:@"value.macroSelectionIndexes"];
+}
+- (void)setMacroSelectionIndexes:(NSIndexSet *)indexes;
+{
+	[self setValue:indexes forKeyPath:@"value.macroSelectionIndexes"];
+	return;
+}
+@end
+
+@implementation iTM2MacroAbstractContextNode(Preferences)
+- (Class)listClass;
+{
+	NSAssert1(NO,@"****  ERROR: You must override %@",NSStringFromSelector(_cmd));
+	return Nil;
+}
+- (id)list;
+{
+	id result = [self valueForKeyPath:@"value.list"];
+	if(!result)
+	{
+		result = [[[[self listClass] allocWithZone:[self zone]] initWithParent:self] autorelease];
+		[self setValue:result forKeyPath:@"value.list"];
+		result = [self valueForKeyPath:@"value.list"];
+	}
+	return result;
+}
+@end
+
+@implementation iTM2MacroContextNode(Preferences)
+- (Class)listClass;
+{
+	return [iTM2MacroList class];
+}
+- (NSData *)personalDataForSaving;
+{
+	return [[iTM2MutableMacroNode XMLStringWithMacros:[[self list] personalMacros]] dataUsingEncoding:NSUTF8StringEncoding];
+}
+@end
+
+@interface iTM2MacroArrayController: NSArrayController
+@end
+
+@implementation iTM2MacroArrayController
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  canRemove
+- (BOOL)canRemove;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSIndexSet * indexSet = [self selectionIndexes];
+	NSArray * RA = [self arrangedObjects];
+	unsigned int index = [indexSet firstIndex];
+	while(index != NSNotFound)
+	{
+		id O = [RA objectAtIndex:index];
+		if([O respondsToSelector:@selector(isMutable)] && [O isMutable])
+		{
+			return YES;
+		}
+		index = [indexSet indexGreaterThanIndex:index];
+	}
+	RA = [self content];
+//iTM2_END;
+    return NO;
+}
+@end
+
+#pragma mark -
+#pragma mark =-=-=-=-=-  KE* BINDINGS
+
+@interface iTM2KeyStroke(Preferences)
+- (BOOL)isShift;
+- (BOOL)isControl;
+- (BOOL)isCommand;
+- (BOOL)isAlternate;
+//- (BOOL)isFunction;
+- (BOOL)isHelp;
+- (BOOL)isAlphaShift;
+- (BOOL)isNumericPad;
+- (void)setIsShift:(BOOL)newFlag;
+- (void)setIsControl:(BOOL)newFlag;
+- (void)setIsCommand:(BOOL)newFlag;
+//- (void)setIsFunction:(BOOL)newFlag;
+- (void)setIsAlternate:(BOOL)newFlag;
+- (void)setIsHelp:(BOOL)newFlag;
+- (void)setIsAlphaShift:(BOOL)newFlag;
+- (void)setIsNumericPad:(BOOL)newFlag;
+@end
+
+@implementation iTM2KeyStroke(Preferences)
+#define DEFINE(GETTER,SETTER,CAN,FLAG)\
+- (BOOL)GETTER;{return (modifierFlags & FLAG) > 0;}\
+- (void)SETTER:(BOOL)yorn;{modifierFlags = (yorn?modifierFlags | FLAG:modifierFlags &~ FLAG);}\
+- (BOOL)CAN;{return [codeName length]>0;}
+DEFINE(isShift,setIsShift,canShift,NSShiftKeyMask)
+DEFINE(isControl,setIsControl,canControl,NSControlKeyMask)
+DEFINE(isCommand,setIsCommand,canCommand,NSCommandKeyMask)
+//DEFINE(isFunction,setIsFunction,canFunction,NSFunctionKeyMask)
+DEFINE(isAlternate,setIsAlternate,canAlternate,NSAlternateKeyMask)
+DEFINE(isHelp,setIsHelp,canHelp,NSHelpKeyMask)
+DEFINE(isAlphaShift,setIsAlphaShift,canAlphaShift,NSAlphaShiftKeyMask)
+DEFINE(isNumericPad,setIsNumericPad,canNumericPad,NSNumericPadKeyMask)
+#undef DEFINE
+@end
+
+@interface iTM2MutableKeyBindingNode(PRIVATE)
+- (void)setMacro:(id)new;
+@end
+
+@interface iTM2MutableKeyBindingNode(PRIVATE)
+- (unsigned)indexOfObjectInAvailableKeyBindings:(id)object;
+- (void)removeObjectFromAvailableKeyBindingsAtIndex:(int)index;
+- (void)insertObject:(id)object inAvailableKeyBindingsAtIndex:(int)index;
+- (id)objectInAvailableKeyBindingsAtIndexPath:(NSIndexPath *) indexPath;
+@end
+
+@interface iTM2MacroController(Prefs)
+- (id)mutableMacroRunningNodeForID:(NSString *)ID context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+@end
+
+@implementation iTM2PrefsKeyBindingNode
++ (void)initialize;
+{
+	iTM2_INIT_POOL;
+	[super initialize];
+    [self setKeys:[NSArray arrayWithObjects:@"modifierFlags",
+		@"isShift",@"isControl",@"isCommand",@"isAlternate",@"isHelp",@"isAlphaShift",@"isNumericPad",//@"isFunction",
+			@"codeName",@"altCodeName",nil]
+		triggerChangeNotificationsForDependentKey:@"key"];
+    [self setKeys:[NSArray arrayWithObjects:@"key",nil] triggerChangeNotificationsForDependentKey:@"prettyKey"];
+	[self setKeys:[NSArray arrayWithObject:@"availableKeyBindings"] triggerChangeNotificationsForDependentKey:@"prettyMacroID"];
+	[self setKeys:[NSArray arrayWithObject:@"macroID"] triggerChangeNotificationsForDependentKey:@"prettyMacroID"];
+	[self setKeys:[NSArray arrayWithObject:@"prettyMacroID"] triggerChangeNotificationsForDependentKey:@"macro"];
+	[self setKeys:[NSArray arrayWithObject:@"prettyMacroID"] triggerChangeNotificationsForDependentKey:@"isVisible"];
+	iTM2_RELEASE_POOL;
+}
+- (BOOL)customOnly;// not yet bound
+{
+	return NO;
+}
+- (BOOL)canCustomOnly;
+{
+	return NO;
+}
+- (id) init;
+{
+	if(self = [super init])
+	{
+		[value autorelease];
+		value = [[NSMutableDictionary dictionary] retain];
+	}
+	return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  otherNode
+- (id)otherNode;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil;
+}
+- (BOOL)isMutable;// bound
+{
+	return NO;
+}
+- (NSString *)prettyModifiers;// only function, control, command
+{
+	NSMutableString * result = [NSMutableString string];
+#if 0
+	if([self isFunction])
+	{
+		[result appendString:@"fn "];
+	}
+#endif
+	if([self isControl])
+	{
+		[result appendString:[NSString stringWithUTF8String:"ctrl "]];
+	}
+	if([self isCommand])
+	{
+		[result appendString:@"\xE2\x8C\x98"];//⌘
+	}
+	return [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+- (NSString *)prettyAltModifiers;// shift and alt if any
+{
+	NSMutableString * result = [NSMutableString string];
+	if([self isShift])
+	{
+		[result appendString:@"\xE2\x87\xA7"];//⇧
+	}
+	if([self isAlternate])
+	{
+		[result appendString:@"\xE2\x8C\xA5"];//⌥
+	}
+	return result;
+}
+- (NSString *)prettyCodeName;
+{
+	return [KCC localizedNameForCodeName:[self codeName]];
+}
+- (NSString *)prettyKey;
+{
+	NSString * prettyKey = [[NSString stringWithFormat:@"%@ %@ %@",[self prettyModifiers],[self prettyAltModifiers],[self prettyCodeName]]
+								stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	NSString * altCodeName = [self altCodeName];
+	if([altCodeName length])
+	{
+		prettyKey = [NSString stringWithFormat:@"%@ (%@)",prettyKey,altCodeName];
+	}
+	return [[prettyKey componentsSeparatedByString:@"  "] componentsJoinedByString:@" "];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _X_availableKeyBindings
+- (NSArray *)_X_availableKeyBindings;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSArray * result = [self valueForKeyPath:@"value.availableKeyBindings"];
+	if(result)
+	{
+		return result;
+	}
+	NSString *attributeName = @"macroID";
+	NSString *attributeValue = @"noop:";
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"!(%K LIKE '%@')",
+        attributeName, attributeValue];
+	result = [[self children] filteredArrayUsingPredicate:predicate];
+	[self setValue:result forKeyPath:@"value.availableKeyBindings"];
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfAvailableKeyBindings
+- (unsigned int)countOfAvailableKeyBindings;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableKeyBindings] count];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexOfObjectInAvailableKeyBindings:
+- (unsigned int)indexOfObjectInAvailableKeyBindings:(id)object;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableKeyBindings] indexOfObject:object];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableKeyBindingsAtIndex:
+- (id)objectInAvailableKeyBindingsAtIndex:(int) index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableKeyBindings] objectAtIndex:index];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableKeyBindingsAtIndexPath:
+- (id)objectInAvailableKeyBindingsAtIndexPath:(NSIndexPath *) indexPath;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	unsigned int length = [indexPath length];
+	unsigned int position = 0;
+	id result = self;
+	while(position < length)
+	{
+		result = [result objectInAvailableKeyBindingsAtIndex:[indexPath indexAtPosition:position++]];
+	}
+//iTM2_END;
+    return result;
+}
+- (id)macro;// bound to UI
+{
+	return [self valueForKeyPath:@"value.macro"];
+}
+- (void)setMacro:(id)new;
+{
+	id old = [self valueForKeyPath:@"value.macro"];
+	if(![new isEqual:old] && (new != old))
+	{
+		[self willChangeValueForKey:@"macro"];
+		[old removeObserver:self forKeyPath:@"isMutable"];
+		[self setValue:new forKeyPath:@"value.macro"];
+		[new addObserver:self forKeyPath:@"isMutable" options:0 context:self];
+		[self didChangeValueForKey:@"macro"];
+	}
+}
+- (void)setMacroID:(NSString *)newID;
+{
+	id oldID = [self macroID];
+	if(![oldID isEqual:newID] && (oldID != newID))
+	{
+		[super setMacroID:newID];
+		[self setMacro:[SMC mutableMacroRunningNodeForID:newID context:[self macroContext] ofCategory:[self macroCategory] inDomain:[self macroDomain]]];
+		[self setPrettyMacroID:([self countOfAvailableKeyBindings]?@"":newID)];
+	}
+	return;
+}
+- (NSString *)prettyMacroID;// bound to UI
+{
+	return [self valueForKeyPath:@"value.prettyMacroID"];
+}
+- (void)setPrettyMacroID:(NSString *)newID;// bound to UI
+{
+	[self setValue:newID forKeyPath:@"value.prettyMacroID"];
+	if([newID length])
+	{
+		id oldID = [self macroID];
+		if(![oldID isEqual:newID] && (oldID != newID))
+		{
+			[self setMacroID:newID];
+		}
+	}
+	return;
+}
+- (void)becomeMutable;
+{
+	NSMutableArray * KSs = [NSMutableArray array];
+	id parent = self;
+	do
+	{
+		[KSs addObject:parent];
+		parent = [self parent];
+		// this loop stops the first time it enconters a void code name
+		// the parent should be the 'otherNode' of the key bindings list
+	}
+	while([parent isKindOfClass:[iTM2PrefsKeyBindingNode class]] && [parent codeName]);
+	id list = [parent parent];
+	parent = list;
+	// now parent is the root mutable key binding node, aka a key binding list and the keyBindingEditor
+	unsigned int idx;
+	id KS;
+	NSEnumerator * E = [KSs reverseObjectEnumerator];
+	while(KS = [E nextObject])
+	{
+		idx = [parent indexOfObjectInAvailableKeyBindings:KS];
+		if(idx == NSNotFound)
+		{
+			iTM2MutableKeyBindingNode * copy;
+makeACopyOfKS:
+			copy = [[[iTM2MutableKeyBindingNode alloc] init] autorelease];
+#define COPY(GETTER,SETTER) [copy SETTER:[KS GETTER]];
+COPY(altCodeName,setAltCodeName)
+COPY(codeName,setCodeName)
+COPY(modifierFlags,setModifierFlags)
+#undef COPY
+			if([[KS children] count] == 0)
+			{
+				[copy setMacroID:[KS macroID]];
+			}
+			[parent insertObject:copy inAvailableKeyBindingsAtIndex:0];
+			parent = copy;
+		}
+		else
+		{
+			KS = [parent objectInAvailableKeyBindingsAtIndex:idx];
+			if([KS isMutable])
+			{
+				parent = KS;
+			}
+			else
+			{
+				goto makeACopyOfKS;
+			}
+		}
+	}
+	// now parent is a mutated copy of self
+	// I have to manage the selection
+	self = parent;
+	KSs = [NSMutableArray array];
+	do
+	{
+		[KSs addObject:parent];
+		parent = [self parent];
+		// this loop stops the first time it enconters a void code name
+		// the parent should be the key bindings list
+	}
+	while([parent isKindOfClass:[iTM2PrefsKeyBindingNode class]] && [parent codeName]);
+	NSIndexPath * indexPath = [[[NSIndexPath alloc] init] autorelease];
+	E = [KSs reverseObjectEnumerator];
+	while(KS = [E nextObject])
+	{
+		indexPath = [indexPath indexPathByAddingIndex:[parent indexOfObjectInAvailableKeyBindings:KS]];
+		parent = KS;
+	}
+	[list setKeyBindingSelectionIndexPaths:[NSArray arrayWithObject:indexPath]];
+	return;
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+{
+	if(context == self)
+	{
+		if([keyPath isEqual:@"isMutable"])
+		{
+			[self setMacro:[SMC mutableMacroRunningNodeForID:[self macroID] context:[self macroContext] ofCategory:[self macroCategory] inDomain:[self macroDomain]]];
+			return;
+		}
+	}
+	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	return;
+}
+- (void)dealloc;
+{
+	[self setMacro:nil];// cleans bindings
+	[value autorelease];
+	value = nil;
+	[super dealloc];
+}
+@end
+
+@implementation iTM2MutableKeyBindingNode
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey;
+{
+	BOOL result =
+		![theKey isEqualToString:@"availableKeyBindings"]
+			&& [super automaticallyNotifiesObserversForKey:theKey];
+//iTM2_LOG(@"theKey:%@->%@",theKey,(result?@"yes":@"no"));
+    return result;
+}
+- (void)becomeMutable;
+{
+	return;
+}
+- (BOOL)customOnly;
+{
+	return [[self valueForKeyPath:@"value.customOnly"] boolValue];
+}
+- (BOOL)canCustomOnly;
+{
+	return YES;
+}
+- (void)setCustomOnly:(BOOL)argument;
+{
+	[self setValue:[NSNumber numberWithBool:argument] forKeyPath:@"value.customOnly"];
+	[self willChangeValueForKey:@"availableKeyBindings"];
+	[self setValue:nil forKeyPath:@"value.availableKeyBindings"];
+	[self didChangeValueForKey:@"availableKeyBindings"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  otherNode
+- (id)otherNode;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(!otherNode)
+	{
+		NSAssert(([self parent] == nil || [[self parent] isKindOfClass:[iTM2MutableKeyBindingNode class]]),@"The parent must be a iTM2MutableKeyBindingNode...");
+		otherNode = [[[(iTM2MutableKeyBindingNode *)[self parent] otherNode] objectInChildrenWithKeyStroke:self] retain];
+	}
+//iTM2_END;
+    return otherNode;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOtherNode
+- (void)setOtherNode:(id)theOtherNode;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[otherNode autorelease];
+	otherNode = [theOtherNode retain];
+//iTM2_END;
+    return;
+}
+- (void)dealloc;
+{
+	[self setOtherNode:nil];
+	[super dealloc];
+}
+- (NSString *)XMLStringOfChildrenWithPrefix:(NSString *)prefix;
+{
+	NSMutableString * result = [NSMutableString string];
+	id child;
+	NSEnumerator * E = [[self children] objectEnumerator];
+	while(child = [E nextObject])
+	{
+		[result appendString:[child XMLStringWithPrefix:prefix]];
+	}
+	return result;
+}
+- (NSString *)XMLStringWithPrefix:(NSString *)prefix;
+{
+	if(([[self codeName] length] == 0) && ([self parent] != nil))// only the root is allowed not to have a KEY attribute
+	{
+		return @"";
+	}
+	if(![prefix length])
+	{
+		prefix = @"";
+	}
+	NSMutableString * result = [NSMutableString stringWithFormat:@"%@<BIND",prefix];
+	[result appendFormat:@" KEY=\"%@\"",[self key]];
+	id K = [self altCodeName];
+	if([K length] && ![K isEqual:[self codeName]])
+	{
+		[result appendFormat:@" ALT=\"%@\"",K];
+	}
+	K = [self XMLStringOfChildrenWithPrefix:[prefix stringByAppendingString:@"\t"]];
+	if([K length])
+	{
+		[result appendFormat:@">\n%@%@</BIND>\n",K,prefix];
+	}
+	else
+	{
+		K = [self macroID];
+		if([K length])
+		{
+			[result appendFormat:@" ID=\"%@\"/>\n",K];
+		}
+		else
+		{
+			[result appendString:@"/>\n"];
+		}
+	}
+	return result;
+}
+- (NSString *)XMLString;
+{
+	NSMutableString * result = [NSMutableString stringWithString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+@"	<!DOCTYPE BINDINGS [\n"
+@"	<!ELEMENT BINDINGS (BIND)*>\n"
+@"	<!ELEMENT BIND (BIND)*>\n"
+@"	<!ATTLIST BIND KEY CDATA #REQUIRED>\n"
+@"	<!ATTLIST BIND ID CDATA #IMPLIED>\n"
+@"	<!ATTLIST BIND ALT CDATA #IMPLIED>\n"
+@"]>\n"
+@"<BINDINGS"];
+	NSString * contents = [self XMLStringOfChildrenWithPrefix:@"\t"];
+	if([contents length])
+	{
+		[result appendFormat:@">\n%@</BINDINGS>\n",contents];
+	}
+	else
+	{
+		[result appendString:@"/>\n"];
+	}
+	return result;
+}
+- (void)updateKeyStroke;
+{
+	if([self otherNode])
+	{
+		// we can only change the key stroke of mutable nodes with no immutable counterpart
+		// this is due to binding internals
+		return;
+	}
+	NSEvent * E = [NSApp currentEvent];
+	if([E type] != NSKeyDown && [E type] != NSKeyUp)
+	{
+		return;
+	}
+	iTM2KeyStroke * KS = [iTM2KeyStroke keyStrokeWithEvent:E];
+	if([[self parent] objectInChildrenWithKeyStroke:KS])
+	{
+		// there is already such a keystroke
+		return;
+	}
+	if([[(id)[self parent] otherNode] objectInChildrenWithKeyStroke:KS])
+	{
+		// there is already such a keystroke
+		return;
+	}
+	[self setCodeName:[KS codeName]];
+	[self setAltCodeName:[KS altCodeName]];
+	[self setModifierFlags:[KS modifierFlags]];
+	return;
+}
+- (NSString *)description;
+{
+    return [NSString stringWithFormat:@"<%@(%#x):%@>",NSStringFromClass([self class]),self,[self macroID]];
+}
+- (BOOL)isMutable;
+{
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _X_availableKeyBindings
+- (NSMutableArray *)_X_availableKeyBindings;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * result = [self valueForKeyPath:@"value.availableKeyBindings"];
+	if(result)
+	{
+		return result;
+	}
+	NSMutableSet * candidates = [NSMutableSet setWithArray:[[self otherNode] children]];
+	[candidates addObjectsFromArray:[self children]];
+	NSString *attributeName = @"macroID";
+	NSString *attributeValue = @"noop:";
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"!(%K LIKE '%@')",
+        attributeName, attributeValue];
+	result = [[[candidates allObjects] filteredArrayUsingPredicate:predicate] mutableCopy];
+	[self setValue:result forKeyPath:@"value.availableKeyBindings"];
+//iTM2_END;
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexInAvailableKeyBindingsOfObject:
+- (unsigned int)indexInAvailableKeyBindingsOfObject:(id)object;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self _X_availableKeyBindings] indexOfObject:object];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inAvailableKeyBindingsAtIndex:
+- (void)insertObject:(id)object inAvailableKeyBindingsAtIndex:(int)index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// maybe the object is not inserted
+	if(!object)
+	{
+		return;
+	}
+	id old = [self objectInChildrenWithKeyStroke:object];
+	if(old)
+	{
+		// do nothing, this is already there
+		// it should be selected
+		return;
+	}
+	[self insertObject:object inChildrenAtIndex:0];
+	id already = [[self otherNode] objectInChildrenWithKeyStroke:object];
+	if(already)
+	{
+		[object setOtherNode:already];
+		unsigned alreadyIndex = [self indexOfObjectInAvailableKeyBindings:already];
+		if(alreadyIndex != NSNotFound)
+		{
+			[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:[NSIndexSet indexSetWithIndex:alreadyIndex] forKey:@"availableKeyBindings"];
+			[[self _X_availableKeyBindings] replaceObjectAtIndex:alreadyIndex withObject:object];
+			[self didChange:NSKeyValueChangeReplacement valuesAtIndexes:[NSIndexSet indexSetWithIndex:alreadyIndex] forKey:@"availableKeyBindings"];
+		}
+		else
+		{
+			// the previous node was not exposed, so do insert a new one
+			[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+			[[self _X_availableKeyBindings] insertObject:object atIndex:index];
+			[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+		}
+	}
+	else
+	{
+		[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+		[[self _X_availableKeyBindings] insertObject:object atIndex:index];
+		[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+	}
+	if(![self objectInChildrenWithKeyStroke:object])
+	{
+		iTM2_LOG(@"***  THE KEY WAS NOT ADDED");
+	}
+	[self setValue:nil forKeyPath:@"value.cachedChildrenIDs"];
+	[self setPrettyMacroID:@""];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromAvailableKeyBindingsAtIndex:
+- (void)removeObjectFromAvailableKeyBindingsAtIndex:(int)index;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id O = [[[self objectInAvailableKeyBindingsAtIndex:index] retain] autorelease];
+	id ON = [O otherNode];
+	if(ON)
+	{
+		[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+		[[self _X_availableKeyBindings] replaceObjectAtIndex:index withObject:ON];
+		[self didChange:NSKeyValueChangeReplacement valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+	}
+	else
+	{
+		[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+		[[self _X_availableKeyBindings] removeObjectAtIndex:index];
+		[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:[NSIndexSet indexSetWithIndex:index] forKey:@"availableKeyBindings"];
+	}
+	[(NSMutableArray *)[self children] removeObject:O];
+	[O setParent:nil];//
+	[self setValue:nil forKeyPath:@"value.cachedChildrenIDs"];
+	[self setPrettyMacroID:([self countOfAvailableKeyBindings]?@"":[self macroID])];
+//iTM2_END;
+    return;
+}
+- (id)objectInKeyBindingsWithKeyStroke:(iTM2KeyStroke *)keyStroke;
+{
+	// this is where the preferences are catched
+	return [self objectInChildrenWithKeyStroke:keyStroke]?:[[self otherNode] objectInChildrenWithKeyStroke:keyStroke];
+}
+@end
+
+@implementation iTM2KeyBindingList
+- (id)initWithParent:(id)parent;
+{
+	if(self = [super initWithParent:parent])
+	{
+		NSURL * personalUrl = [parent personalURL];
+		NSError * localError =  nil;
+		NSData * data;
+		if([personalUrl isFileURL] && [DFM fileExistsAtPath:[personalUrl path]])
+		{
+			data = [NSData dataWithContentsOfURL:personalUrl options:0 error:&localError];
+			if(localError)
+			{
+				iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
+			}
+			[self parseData:data];
+		}
+		iTM2PrefsKeyBindingNode * MKB = [[[iTM2PrefsKeyBindingNode alloc] initWithParent:self] autorelease];// not mutable!!
+		NSEnumerator * E = [[parent valueForKeyPath:@"value.URLsPromise"] objectEnumerator];
+		NSURL * url;
+		while(url = [E nextObject])
+		{
+			if(![url isEqual:personalUrl])
+			{
+				localError = nil;
+				data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
+				if(localError)
+				{
+					iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
+				}
+				[MKB parseData:data];
+			}
+		}
+		[self setOtherNode:MKB];
+	}
+	return self;
+}
+- (void)dealloc;
+{
+	[self setKeyBindingSelectionIndexPaths:nil];
+	[super dealloc];
+	return;
+}
+- (NSArray *)keyBindingSelectionIndexPaths;// bound to the key bindings controller
+{
+	return selectionIndexPaths;
+}
+- (void)setKeyBindingSelectionIndexPaths:(NSArray *)indexPaths;
+{
+	[selectionIndexPaths autorelease];
+	selectionIndexPaths = [indexPaths copy];
+	return;
+}
+@end
+
+@interface iTM2KeyBindingTreeController: NSTreeController
+@end
+
+@implementation iTM2KeyBindingTreeController
+@end
+
+@implementation iTM2KeyBindingContextNode(Preferences)
+- (Class)listClass;
+{
+	return [iTM2KeyBindingList class];
+}
+- (NSData *)personalDataForSaving;
+{
+	return [[[self list] XMLString] dataUsingEncoding:NSUTF8StringEncoding];
+}
+@end
+
+#pragma mark -
+#pragma mark =-=-=-=-=-  THE USER INTERFACE
+
 @interface iTM2MacroPrefPane: iTM2PreferencePane
 - (void)setSelectedMode:(NSString *)mode;
--(void)setMacroSelection:(id)new;
--(void)setKeyBindingSelection:(id)new;
--(BOOL)isEditingKeyBinding;
 @end
 
 @interface iTM2HumanReadableActionNameValueTransformer: NSValueTransformer
@@ -60,6 +1511,7 @@ To Do List:
 //iTM2_END;
     return @"3.Macro";
 }
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willSelect
 - (void)willSelect;
 /*"Description Forthcoming.
@@ -69,11 +1521,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[iTM2KeyCodesController sharedController];// needed to have a value transformer registered
 	[super willSelect];
     return;
 }
-#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willUnselect
 - (void)willUnselect;
 /*"Description Forthcoming.
@@ -87,6 +1537,15 @@ To Do List:
     return;
 }
 #endif
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
+{
+	NSTableView * TV = [notification object];
+	if([TV numberOfSelectedRows] == 1)
+	{
+		[TV scrollRowToVisible:[TV selectedRow]];
+	}
+	return;
+}
 #pragma mark =-=-=-=-=-  BINDINGS
 - (NSArray *)availableActionNames;
 {
@@ -218,13 +1677,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id old = [self valueForKey:@"macroEditor_meta"];
-	if(![old isEqual:new])
+	if(![old isEqual:new] && (old != new))
 	{
-		[self setMacroSelection:nil];
-		[self willChangeValueForKey:@"macroEditor"];
+		[old removeObserver:self forKeyPath:@"macroSelectionIndexes"];
 		[[old retain] autorelease];
 		[self setValue:new forKey:@"macroEditor_meta"];
-		[self didChangeValueForKey:@"macroEditor"];
+		[new addObserver:self forKeyPath:@"macroSelectionIndexes" options:0 context:self];
 	}
 //iTM2_END;
     return;
@@ -253,13 +1711,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id old = [self valueForKey:@"keyBindingEditor_meta"];
-	if(![old isEqual:new])
+	if(![old isEqual:new] && (old != new))
 	{
-		[self setKeyBindingSelection:nil];
-		[self willChangeValueForKey:@"keyBindingEditor"];
+		[old removeObserver:self forKeyPath:@"keyBindingSelectionIndexPaths"];
 		[[old retain] autorelease];
 		[self setValue:new forKey:@"keyBindingEditor_meta"];
-		[self didChangeValueForKey:@"keyBindingEditor"];
+		[new addObserver:self forKeyPath:@"keyBindingSelectionIndexPaths" options:0 context:self];
 	}
 //iTM2_END;
     return;
@@ -273,60 +1730,38 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#ifdef __I_WANT_EXC_BAD_ACCESS__
-	id new = nil;
-	[self setMacroEditor:new];
-	[self setKeyBindingEditor:new];
-#else
-	id new = nil;
-	id old = [self valueForKey:@"macroEditor_meta"];
-	if(![old isEqual:new])
-	{
-		[self setMacroSelection:nil];
-		[self willChangeValueForKey:@"macroEditor"];
-		[[old retain] autorelease];
-		[self setValue:new forKey:@"macroEditor_meta"];
-		[self didChangeValueForKey:@"macroEditor"];
-	}
-	old = [self valueForKey:@"keyBindingEditor_meta"];
-	if(![old isEqual:new])
-	{
-		[self setKeyBindingSelection:nil];
-		[self willChangeValueForKey:@"keyBindingEditor"];
-		[[old retain] autorelease];
-		[self setValue:new forKey:@"keyBindingEditor_meta"];
-		[self didChangeValueForKey:@"keyBindingEditor"];
-	}
-#endif
-	[self willChangeValueForKey:@"selectedMode"];
 	NSString * oldMode = [self selectedMode];
-	[self willChangeValueForKey:@"selectedMode"];
 	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
 	MD = [[MD mutableCopy] autorelease];
 	NSString * domain = [self selectedDomain];
 	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
 	[MD setValue:newMode forKey:domain];
 	[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
-	[self didChangeValueForKey:@"selectedMode"];
 	// change the editors
-	id editor = [SMC macroTree];
-	editor = [editor objectInChildrenWithDomain:domain]?:
-			[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
-	editor = [editor objectInChildrenWithCategory:newMode]?:
-			[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
-	editor = [editor objectInChildrenWithContext:@""]?:
-			[[[iTM2MacroContextNode alloc] initWithParent:editor context:@""] autorelease];
-	editor = [editor list];
-	[self setMacroEditor:editor];
-	editor = [SMC keyBindingTree];
-	editor = [editor objectInChildrenWithDomain:domain]?:
-			[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
-	editor = [editor objectInChildrenWithCategory:newMode]?:
-			[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
-	editor = [editor objectInChildrenWithContext:@""]?:
-			[[[iTM2KeyBindingContextNode alloc] initWithParent:editor context:@""] autorelease];
-	editor = [editor list];
-	[self setKeyBindingEditor:editor];
+	if(newMode)
+	{
+		id editor = [SMC macroTree];
+		editor = [editor objectInChildrenWithDomain:domain]?:
+				[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
+		editor = [editor objectInChildrenWithCategory:newMode]?:
+				[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
+		editor = [editor objectInChildrenWithContext:@""]?:
+				[[[iTM2MacroContextNode alloc] initWithParent:editor context:@""] autorelease];
+		[self setMacroEditor:[editor list]];// the macro editor MUST be changed first because key bindings use macros
+		editor = [SMC keyBindingTree];
+		editor = [editor objectInChildrenWithDomain:domain]?:
+				[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
+		editor = [editor objectInChildrenWithCategory:newMode]?:
+				[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
+		editor = [editor objectInChildrenWithContext:@""]?:
+				[[[iTM2KeyBindingContextNode alloc] initWithParent:editor context:@""] autorelease];
+		[self setKeyBindingEditor:[editor list]];
+	}
+	else
+	{
+		[self setMacroEditor:nil];
+		[self setKeyBindingEditor:nil];
+	}
 //iTM2_END;
     return;
 }
@@ -341,13 +1776,11 @@ To Do List:
 //iTM2_START;
 	[self setSelectedMode:nil];
 	[self willChangeValueForKey:@"availableModes"];
-	[self willChangeValueForKey:@"selectedDomain"];
 	NSString * key = @".";
 	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
 	MD = [[MD mutableCopy] autorelease];
 	[MD setValue:newDomain forKey:key];
 	[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
-	[self didChangeValueForKey:@"selectedDomain"];
 	[self didChangeValueForKey:@"availableModes"];
 	NSString * newMode = [MD objectForKey:newDomain];
 	NSArray * availableModes = [self availableModes];
@@ -384,9 +1817,7 @@ To Do List:
 	{
 		return;
 	}
-	[self willChangeValueForKey:@"macroSortDescriptors"];
 	metaSETTER(argument);
-	[self didChangeValueForKey:@"macroSortDescriptors"];
 	return;
 }
 -(id)keysTreeController;
@@ -403,123 +1834,6 @@ To Do List:
 	metaSETTER(argument);
 	return;
 }
--(id)selection;
-{
-	id result = [self valueForKey:@"selection_meta"];
-	return result;
-}
--(void)setSelection:(id)new;
-{
-	id old = [self valueForKey:@"selection_meta"];
-#if 0
-	ALLWAYS change the selections
-	if([old isEqual:new])
-	{
-		return;
-	}
-#endif
-	[self willChangeValueForKey:@"selection"];
-	[[old retain] autorelease];
-	[self setValue:new forKey:@"selection_meta"];
-	[self didChangeValueForKey:@"selection"];
-	return;
-}
--(id)keyBindingSelection;
-{
-	id result = [self valueForKey:@"keyBindingSelection_meta"];
-	return result;
-}
--(void)setKeyBindingSelection:(id)new;
-{
-	id old = [self valueForKey:@"keyBindingSelection_meta"];
-	if([old isEqual:[self selection]])
-	{
-		[self setSelection:nil];
-	}
-	if([old isEqual:new])
-	{
-		return;
-	}
-	[self willChangeValueForKey:@"canAddChildKeyBinding"];
-	[self willChangeValueForKey:@"canAddKeyBinding"];
-	[self willChangeValueForKey:@"keyBindingSelection"];
-	[[old retain] autorelease];
-	[self setValue:new forKey:@"keyBindingSelection_meta"];
-	[self didChangeValueForKey:@"keyBindingSelection"];
-	[self didChangeValueForKey:@"canAddKeyBinding"];
-	[self didChangeValueForKey:@"canAddChildKeyBinding"];
-	return;
-}
--(id)macroSelection;
-{
-	id result = [self valueForKey:@"macroSelection_meta"];
-	return result;
-}
--(void)setMacroSelection:(id)new;
-{
-	id old = [self valueForKey:@"macroSelection_meta"];
-	if([old isEqual:[self selection]])
-	{
-		[self setSelection:nil];
-	}
-	if([old isEqual:new])
-	{
-		return;
-	}
-	[self willChangeValueForKey:@"macroSelection"];
-	[old removeObserver:self forKeyPath:@"ID"];
-	[[old retain] autorelease];
-	[self setValue:new forKey:@"macroSelection_meta"];
-	[new addObserver:self forKeyPath:@"ID" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-	[self didChangeValueForKey:@"macroSelection"];
-	return;
-}
--(void)setupSelection;
-{
-	id keyBindingSelection = nil;
-	id macroSelection = nil;
-	id selections = nil;
-	if([self isEditingKeyBinding])
-	{
-		selections = [self keysTreeController];
-		selections = [selections selectedObjects];
-		NSString * ID;
-		if([selections count] == 1)
-		{
-			keyBindingSelection = [selections lastObject];
-			ID = [keyBindingSelection ID];
-			if(![keyBindingSelection countOfChildren])
-			{
-				macroSelection = [self macroEditor];
-				macroSelection = [macroSelection objectInAvailableMacrosWithID:ID];
-			}
-		}
-		else if([selections count] > 1)
-		{
-			id IDs = [selections valueForKey:@"ID"];
-			IDs = [NSSet setWithArray:IDs];
-			if([IDs count] == 1)
-			{
-				ID = [IDs anyObject];
-				macroSelection = [self macroEditor];
-				macroSelection = [macroSelection objectInAvailableMacrosWithID:ID];
-			}
-		}
-	}
-	else
-	{
-		selections = [self macrosArrayController];
-		selections = [selections selectedObjects];
-		if([selections count] == 1)
-		{
-			macroSelection = [selections lastObject];
-		}
-	}
-	[self setKeyBindingSelection:keyBindingSelection];
-	[self setMacroSelection:macroSelection];
-	[self setSelection:(macroSelection?:keyBindingSelection)];
-	return;
-}
 -(unsigned int)masterTabViewItemIndex;
 {
 	return [SUD integerForKey:@"iTM2MacroMasterTabViewItemIndex"];
@@ -529,252 +1843,8 @@ To Do List:
 	unsigned int oldIndex = [SUD integerForKey:@"iTM2MacroMasterTabViewItemIndex"];
 	if(oldIndex != newIndex)
 	{
-		[self willChangeValueForKey:@"isEditingKeyBinding"];
-		[self willChangeValueForKey:@"masterTabViewItemIndex"];
 		[SUD setInteger:newIndex forKey:@"iTM2MacroMasterTabViewItemIndex"];
-		[self didChangeValueForKey:@"masterTabViewItemIndex"];
-		[self didChangeValueForKey:@"isEditingKeyBinding"];
-		[self setupSelection];
 	}
-	return;
-}
--(BOOL)isEditingKeyBinding;
-{
-	return [self masterTabViewItemIndex]!=0;
-}
-#if 0
-THIS IS BUGGY, KVO spin lock
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeMacroSelection
-- (void)synchronizeMacroSelection;
-/*"Synchronize macro and the receiver's selection.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([self isEditingKeyBinding])
-	{
-		// do nothing;
-	}
-	NSArrayController * macrosArrayController = [self macrosArrayController];
-	NSArray * selectedObjects = [macrosArrayController selectedObjects];
-	id selection = [self selection];
-	if(!selection)
-	{
-		// if there is already one macro selected, use it as selection
-		if([selectedObjects count] == 1)
-		{
-			selection = [selectedObjects lastObject];
-			[self setSelection:selection];
-		}
-		return;
-	}
-	NSString * ID = [selection ID];
-	id macro = [self macroEditor];
-	if(macro = [macro objectInAvailableMacrosWithID:ID])
-	{
-		// select this macro;
-		NSArray * arrangedObjects = [macrosArrayController arrangedObjects];
-		unsigned int index = [arrangedObjects indexOfObject:macro];
-		NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
-		[macrosArrayController setSelectionIndexes:IS];
-	}
-	else
-	{
-		[macrosArrayController setSelectionIndexes:nil];
-	}
-	return;
-#if 0
-	NSTreeController * keysTreeController = [self keysTreeController];
-	NSArray * selectedObjects = [keysTreeController selectedObjects];
-	NSIndexSet * indexes = [NSIndexSet indexSet];
-	if([selectedObjects count] == 1)
-	{
-		id node = [selectedObjects lastObject];
-		NSArray * arrangedObjects = [macrosArrayController arrangedObjects];
-		NSEnumerator * E = [arrangedObjects objectEnumerator];
-		unsigned index = 0;
-		while(node = [E nextObject])
-		{
-			NSString * itsID = [node ID];
-			if([itsID isEqual:ID])
-			{
-				indexes = [NSIndexSet indexSetWithIndex:index];
-				break;
-			}
-			++index;
-		}
-	}
-	[macrosArrayController setSelectionIndexes:indexes];
-#endif
-//iTM2_END;
-	return;
-}
-- (void)synchronizeKeyBindingSelection;
-{
-	if(![self isEditingKeyBinding])
-	{
-		return;
-	}
-	id selection = [self selection];
-	NSTreeController * keysTreeController = [self keysTreeController];
-	NSArray * selectedObjects = [keysTreeController selectedObjects];
-	if(!selection)
-	{
-		if([selectedObjects count] == 1)
-		{
-			selection = [selectedObjects lastObject];
-			[self setSelection:selection];
-			return;
-		}
-		[self setSelectionIndexPaths:nil];
-		return;
-	}
-	NSString * newID = [selection ID];
-	NSDictionary * contentArrayBindingDict = [keysTreeController infoForBinding:@"contentArray"];
-	NSString * observedKeyPath = [contentArrayBindingDict objectForKey:NSObservedKeyPathKey];
-	NSString * childrenKeyPath = [keysTreeController childrenKeyPath];
-	NSMutableArray * childrenEnumeratorStack = [NSMutableArray array];
-	unsigned index = 0;
-	NSEnumerator * E = nil;		
-	id controller = nil;
-	NSIndexPath * IP = nil;
-	id children = nil;
-	if(controller = [contentArrayBindingDict objectForKey:NSObservedObjectKey])
-	{
-		if(children = [controller mutableArrayValueForKeyPath:observedKeyPath])
-		{
-			if([children count])
-			{
-#if 1
-				controller = [children objectAtIndex:0];
-				do
-				{
-					if([newID isEqual:[controller ID]])
-					{
-						if(![[controller children] count])
-						{
-							iTM2_LOG(@"FOUND:%@(%@)",controller,[controller indexPath]);
-						}
-					}
-				}
-				while(controller = [controller nextNode]);
-#endif
-pushed:
-				E = [children objectEnumerator];
-				index = 0;
-poped:
-				while(controller = [E nextObject])
-				{
-					if(children = [controller mutableArrayValueForKeyPath:childrenKeyPath])
-					{
-						if([children count])
-						{
-							IP = IP?[IP indexPathByAddingIndex:index]:[NSIndexPath indexPathWithIndex:index];
-							[childrenEnumeratorStack addObject:[NSNumber numberWithUnsignedInt:index]];
-							[childrenEnumeratorStack addObject:E];
-							goto pushed;
-						}
-						else
-						{
-							NSString * itsID = [controller ID];
-							if([itsID isEqual:newID])
-							{
-								IP = IP?[IP indexPathByAddingIndex:index]:[NSIndexPath indexPathWithIndex:index];
-								childrenEnumeratorStack =  nil;
-								E = nil;
-								// this will break here
-							}
-						}
-					}
-					++index;
-				}
-				if(E = [childrenEnumeratorStack lastObject])
-				{
-					[childrenEnumeratorStack removeLastObject];
-					index = [[childrenEnumeratorStack lastObject] unsignedIntValue];
-					[childrenEnumeratorStack removeLastObject];
-					IP = [IP indexPathByRemovingLastIndex];
-					++index;
-					goto poped;
-				}
-			}
-		}
-	}
-	if(IP)
-	{
-		[keysTreeController setSelectionIndexPaths:[NSArray arrayWithObject:IP]];
-	}
-	else
-	{
-		[self setSelection:nil];
-	}
-	return;
-}
-#endif
-- (void)macroNode:(iTM2MacroNode *)node didChangeIDFrom:(NSString *)oldID to:(NSString *)newID;
-{
-	if(!node)
-	{
-		return;
-	}
-	id parent = [node parent];
-	id D = [parent valueForKeyPath:@"value.cachedChildrenIDs"];
-	[D removeObjectForKey:oldID];
-	[D setObject:node forKey:newID];
-	NSTreeController * keysTreeController = [self keysTreeController];
-	NSDictionary * contentArrayBindingDict = [keysTreeController infoForBinding:@"contentArray"];
-	NSString * observedKeyPath = [contentArrayBindingDict objectForKey:NSObservedKeyPathKey];
-	NSString * childrenKeyPath = [keysTreeController childrenKeyPath];
-	NSMutableArray * childrenEnumeratorStack = [NSMutableArray array];
-	NSEnumerator * E = nil;		
-	id controller = nil;
-	id children = nil;
-	if(controller = [contentArrayBindingDict objectForKey:NSObservedObjectKey])
-	{
-		if(children = [controller mutableArrayValueForKeyPath:observedKeyPath])
-		{
-			if([children count])
-			{
-pushed:
-				E = [children objectEnumerator];
-poped:
-				while(controller = [E nextObject])
-				{
-					if(children = [controller mutableArrayValueForKeyPath:childrenKeyPath])
-					{
-						if([children count])
-						{
-							[childrenEnumeratorStack addObject:E];
-							goto pushed;
-						}
-						else
-						{
-							NSString * itsID = [controller ID];
-							if([itsID isEqual:oldID])
-							{
-								[controller setID:newID];
-							}
-						}
-					}
-				}
-				if(E = [childrenEnumeratorStack lastObject])
-				{
-					[childrenEnumeratorStack removeLastObject];
-					goto poped;
-				}
-			}
-		}
-	}
-}
-- (void)keyBindingNode:(iTM2MacroNode *)node didChangeIDFrom:(NSString *)oldID to:(NSString *)newID;
-{
-	if(!node)
-	{
-		return;
-	}
-	[self setupSelection];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroTestView
@@ -797,13 +1867,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self willChangeValueForKey:@"macroTestView"];
     metaSETTER(argument);
-	[self didChangeValueForKey:@"macroTestView"];
 	return;
 }
 #pragma mark =-=-=-=-=-  MACROS
-#warning edt: and browse: message suppor is missing (the 2 square buttons to edit external scripts)
+#warning edit: and browse: message support// is missing (the 2 square buttons to edit external scripts)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  apply
 - (IBAction)apply:(id)sender;
 /*"Desription Forthcoming.
@@ -878,77 +1946,16 @@ To Do List:
 	{
 		[super awakeFromNib];
 	}
-	[self addObserver:self forKeyPath:@"masterTabViewItemIndex_meta" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-	unsigned int index = [SUD integerForKey:@"iTM2MacroMasterTabViewItemIndex"];
-	[self setMasterTabViewItemIndex:index];// otherwise the segmented control is not properly highlighted
+//	[self addObserver:self forKeyPath:@"masterTabViewItemIndex_meta" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+	[self setMasterTabViewItemIndex:[SUD integerForKey:@"iTM2MacroMasterTabViewItemIndex"]];// otherwise the segmented control is not properly highlighted
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeValueForKeyPath:ofObject:change:context:
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([keyPath isEqual:@"macrosArrayController.selectedObjects"]||[keyPath isEqual:@"keysTreeController.selectedObjects"])
-	{
-		[self setupSelection];
-	}
-	else if([keyPath isEqual:@"keyBindingSelection.prettyKey"])
-	{
-		[self willChangeValueForKey:@"canAddKeyBinding"];
-		[self didChangeValueForKey:@"canAddKeyBinding"];
-		[self willChangeValueForKey:@"canAddChildKeyBinding"];
-		[self didChangeValueForKey:@"canAddChildKeyBinding"];
-	}
-	else if([keyPath isEqual:@"ID"])
-	{
-		// then change all the ID of the key bindings to the new one
-		NSString * newID = [change objectForKey:NSKeyValueChangeNewKey];
-		NSString * oldID = [change objectForKey:NSKeyValueChangeOldKey];
-		id node = [self keyBindingEditor];
-		while(node = [node nextNode])
-		{
-			if([[node ID] isEqual:oldID])
-			{
-				[node setID:newID];
-			}
-		}
-	}
-#if 0
-	else
-	{
-		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-	}
-#endif
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bindingsDealloc
-- (void)bindingsDealloc;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setMacrosArrayController:nil];
-	[self setKeysTreeController:nil];
-	[self setSelection:nil];
-	[self setMacroSelection:nil];
-	[self setKeyBindingSelection:nil];
-	[self removeObserver:self forKeyPath:@"macrosArrayController.selectedObjects"];
-	[self removeObserver:self forKeyPath:@"keysTreeController.selectedObjects"];
-	[self removeObserver:self forKeyPath:@"keyBindingSelection.prettyKey"];
-//iTM2_END;
-    return;
-}
+#warning FAILED missing canAddKeyBinding and canAddChildKeyBinding
 - (BOOL)canAddKeyBinding;
 {
+	return YES;
+#if 0
 	NSTreeController * KTC = [self keysTreeController];
 	NSArray * SOs = [KTC selectedObjects];
 	if([SOs count] > 1)
@@ -964,13 +1971,16 @@ To Do List:
 	else
 	{
 		node = [SOs lastObject];
-		node = [node parent];// this will be remove in the method below
+		node = [node parent];// this line will not appear in the method below
 	}
-	node = [node objectInAvailableKeyBindingsWithKey:@""];
+	node = [node objectInAvailableKeyBindingsWithKeyStroke:[iTM2KeyStroke keyStrokeWithKey:@""]];
 	return node == nil;
+#endif
 }
 - (BOOL)canAddChildKeyBinding;
 {
+	return YES;
+#if 0
 	NSTreeController * KTC = [self keysTreeController];
 	NSArray * SOs = [KTC selectedObjects];
 	if([SOs count] > 1)
@@ -993,6 +2003,7 @@ To Do List:
 	}
 	node = [node objectInAvailableKeyBindingsWithKey:@""];
 	return node == nil;
+#endif
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadMainView
 - (NSView *) loadMainView;
@@ -1003,6 +2014,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[iTM2KeyCodesController sharedController];// needed to have a value transformer registered
 	if(![NSValueTransformer valueTransformerForName:@"iTM2HumanReadableActionName"])
 	{
 		iTM2HumanReadableActionNameValueTransformer * transformer = [[[iTM2HumanReadableActionNameValueTransformer alloc] init] autorelease];
@@ -1026,17 +2038,21 @@ To Do List:
 		selectedDomain = [availableDomains lastObject];
 	}
 	[self setSelectedDomain:selectedDomain];// this will cascade all the initialization	
-	[self addObserver:self forKeyPath:@"macrosArrayController.selectedObjects" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-	[self addObserver:self forKeyPath:@"keysTreeController.selectedObjects" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-	[self addObserver:self forKeyPath:@"keyBindingSelection.prettyKey" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
 //iTM2_END;
     return [super loadMainView];
 }
-@end
-
-@implementation iTM2MacroList(Prefs_PRIVATE)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _X_availableScripts
-- (NSArray *)_X_availableScripts;
+- (BOOL)useMenuShortcuts;
+{
+	return [[self valueForKey:@"useMenuShortcuts_meta"] boolValue];
+}
+- (void)setUseMenuShortcuts:(BOOL)flag;
+{
+	[self setValue:[NSNumber numberWithBool:flag] forKey:@"useMenuShortcuts_meta"];
+	return;
+}
+#pragma mark =-=-=-=-=-  KVO
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeValueForKeyPath:ofObject:change:context:
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Nov  5 16:57:31 GMT 2006
@@ -1044,73 +2060,67 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMutableArray * result = [self valueForKeyPath:@"value.availableScripts"];
-	if(result)
+	if(context == self)
 	{
-		return result;
-	}
-	result = [NSMutableArray array];
-	id parent = [self parent];
-	NSString * category = [parent valueForKeyPath:@"value.category"];
-	parent = [parent parent];
-	NSString * subpath = [parent valueForKeyPath:@"value.domain"];
-	subpath = [subpath stringByAppendingPathComponent:category];
-	subpath = [subpath stringByAppendingPathComponent:iTM2MacroScriptsComponent];
-	NSBundle * MB = [NSBundle mainBundle];
-	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
-	NSEnumerator * E = [RA objectEnumerator];
-	NSString * path;
-	while(path = [E nextObject])
-	{
-		if([DFM pushDirectory:path])
+		id RA;
+		NSEnumerator * E;
+		id O;
+		id macroID;
+		if([keyPath isEqual:@"keyBindingSelectionIndexPaths"])
 		{
-			if([DFM pushDirectory:subpath])
+			RA = [NSMutableArray array];
+			E = [[[self keyBindingEditor] keyBindingSelectionIndexPaths] objectEnumerator];
+			while(O = [E nextObject])
 			{
-				NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:@"."];
-				while(path = [DE nextObject])
+				if(macroID = [[[self keyBindingEditor] objectInAvailableKeyBindingsAtIndexPath:O] macroID])
 				{
-					BOOL flag;
-					if([path hasPrefix:@"."])
+					[RA addObject:macroID];
+				}
+			}
+			E = [[NSSet setWithArray:RA] objectEnumerator];
+			RA = [NSMutableIndexSet indexSet];
+			while(macroID = [E nextObject])
+			{
+				if(O = [[[self macroEditor] personalMacros] objectForKey:macroID])
+				{
+					unsigned idx;
+here:
+					idx = [[self macroEditor] indexOfObjectInAvailableMacros:O];
+					if(idx!=NSNotFound)// unless exception raised
 					{
-						// do nothing, this is a hidden file
-					}
-					else
-					{
-						
-						if([path hasPrefix:@"."])// missing finder test (kIsVisibleFlag?)
-						{
-							// do nothing, this is a hidden file here too
-						}
-						else if([DFM fileExistsAtPath:path isDirectory:&flag] && flag)
-						{
-							// do nothing, this is a directory
-						}
-						else
-						{
-							[result addObject:path];
-						}
+						[RA addIndex:idx];
 					}
 				}
-				[DFM popDirectory];
+				else if(O = [[[self macroEditor] macros] objectForKey:macroID])
+				{
+					goto here;
+				}
 			}
-			else if([DFM fileExistsAtPath:subpath isDirectory:nil])
+			if([RA count])
 			{
-				iTM2_LOG(@"*** SILENT Error: could not push \"%@/%@\"",[DFM currentDirectoryPath],subpath);
+				[[self macroEditor] setMacroSelectionIndexes:RA];
 			}
-			[DFM popDirectory];
+			return;
 		}
-		else
+		else if([keyPath isEqual:@"macroSelectionIndexes"])
 		{
-			iTM2_LOG(@"*** SILENT Error: could not push \"%@\"",path);
+			return;// do nothing yet
+		}
+		else if([keyPath isEqual:@"keyBindingSelection.prettyKey"])
+		{
+			[self willChangeValueForKey:@"canAddKeyBinding"];
+			[self didChangeValueForKey:@"canAddKeyBinding"];
+			[self willChangeValueForKey:@"canAddChildKeyBinding"];
+			[self didChangeValueForKey:@"canAddChildKeyBinding"];
+			return;
 		}
 	}
-	[result sortUsingSelector:@selector(compare:)];
-	[self setValue:result forKeyPath:@"value.availableScripts"];
+	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 //iTM2_END;
-    return result;
+    return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfAvailableScripts
-- (unsigned int)countOfAvailableScripts;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bindingsDealloc
+- (void)bindingsDealloc;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Nov  5 16:57:31 GMT 2006
@@ -1118,75 +2128,22 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[self setMacrosArrayController:nil];
+	[self setKeysTreeController:nil];
+	[self setKeyBindingEditor:nil];
+	[self setMacroEditor:nil];
+//	[self removeObserver:self forKeyPath:@"masterTabViewItemIndex_meta"];
 //iTM2_END;
-    return [[self _X_availableScripts] count];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableScriptsAtIndex:
-- (id)objectInAvailableScriptsAtIndex:(int) index;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [[self _X_availableScripts] objectAtIndex:index];
+    return;
 }
 @end
 
 /*"Description forthcoming."*/
-@interface iTM2MacroArrayController: NSArrayController
-@end
-
-@implementation iTM2MacroArrayController
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  canRemove
-- (BOOL)canRemove;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSIndexSet * indexSet = [self selectionIndexes];
-	NSArray * RA = [self arrangedObjects];
-	unsigned int index = [indexSet firstIndex];
-	while(index != NSNotFound)
-	{
-		id O = [RA objectAtIndex:index];
-		if([O respondsToSelector:@selector(isMutable)] && [O isMutable])
-		{
-			return YES;
-		}
-		index = [indexSet indexGreaterThanIndex:index];
-	}
-	RA = [self content];
-//iTM2_END;
-    return NO;
-}
-- (void)insertObject:(id)object atArrangedObjectIndex:(unsigned int)index;    // inserts into the content objects and the arranged objects (as specified by index in the arranged objects) - will raise an exception if the object does not match all filters currently applied
-{
-	[super insertObject:(id)object atArrangedObjectIndex:(unsigned int)index];
-	NSArray * arrangedObjects = [self arrangedObjects];
-	index = [arrangedObjects indexOfObject:object];
-	[self setSelectionIndex:index];
-	return;
-}
-@end
-
-
-
-
-
-
-
-
-
-
 @interface iTM2MacroTableView:NSTableView
 @end
 
 @implementation iTM2MacroTableView
+#if 0
 - (void)copy:(id)sender;
 {
 	NSArray *columns = [self tableColumns];
@@ -1333,6 +2290,7 @@ To Do List:
 	NSString * availableType = [GP availableTypeFromArray:types];
 	return availableType != nil;
 }
+#endif
 @end
 
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
@@ -1341,6 +2299,7 @@ To Do List:
 @end
 
 @implementation iTM2KeyBindingOutlineView
+#if 0
 - (void)keyDown:(NSEvent *)theEvent;
 {
 	unsigned int modifierFlags = [theEvent modifierFlags];
@@ -1378,7 +2337,7 @@ To Do List:
 				}
 				// is there already a binding with that key
 				id parent = [selection parent];
-				id alreadyBinding = [parent objectInAvailableKeyBindingsWithKey:key];
+				id alreadyBinding = [parent objectInAvailableKeyBindingsWithCodeName:key];
 				NSError * error = nil;
 				if(alreadyBinding)
 				{
@@ -1406,7 +2365,6 @@ To Do List:
 						}
 						NSIndexPath * IP = [alreadyBinding indexPath];
 						[treeController setSelectionIndexPath:IP];
-						[[self delegate] setupSelection];
 						return;
 					}
 				}
@@ -1418,21 +2376,12 @@ To Do List:
 				iTM2_LOG(@"error:%@",error);
 				return;
 			}
-#if 0
-				NSAlphaShiftKeyMask =		1 << 16,
-	 =		1 << 17,
-	NSControlKeyMask =		1 << 18,
-	NSAlternateKeyMask =		1 << 19,
-	NSCommandKeyMask =		1 << 20,
-	NSNumericPadKeyMask =		1 << 21,
-	NSHelpKeyMask =			1 << 22,
-	NSFunctionKeyMask =		1 << 23,
-#endif
 		}
 	}
 	[super keyDown:theEvent];
 	return;
 }
+#endif
 @end
 
 @interface iTM2MacroPopUpButton:NSPopUpButton
@@ -1453,10 +2402,43 @@ To Do List:
 }
 @end
 
-@interface iTM2MacroEditor:NSTextView
-@end
-
-@implementation iTM2MacroEditor
+@implementation iTM2MacroController(Prefs)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mutableMacroRunningNodeForID:context:ofCategory:inDomain:
+- (id)mutableMacroRunningNodeForID:(NSString *)ID context:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 16:05:20 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	iTM2MacroRootNode * rootNode = [self macroTree];
+	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
+	iTM2MacroCategoryNode * categoryNode = [domainNode objectInChildrenWithCategory:category];
+	iTM2MacroContextNode * contextNode = [categoryNode objectInChildrenWithContext:context];
+	iTM2MacroList * list = [contextNode list];
+	iTM2MacroNode * macro = [[list personalMacros] objectForKey:ID];//
+	if(!macro)
+	{
+		macro = [[list macros] objectForKey:ID];
+	}
+	if(!macro)
+	{
+		macro = [[[iTM2PrefsMacroNode alloc] init] autorelease];
+		[macro setMacroID:ID];
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"No macro with ID: %@ forContext:%@ ofCategory:%@ inDomain:%@",ID,context,category,domain);
+			iTM2_LOG(@"[rootNode countOfChildren]:%i",[rootNode countOfChildren]);
+			iTM2_LOG(@"[domainNode countOfChildren]:%i",[domainNode countOfChildren]);
+			iTM2_LOG(@"[categoryNode countOfChildren]:%i",[categoryNode countOfChildren]);
+			iTM2_LOG(@"[contextNode countOfChildren]:%i",[contextNode countOfChildren]);
+		}
+	}
+//iTM2_LOG(@"%@",macro);
+//iTM2_END;
+	return macro;
+}
 @end
 
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
@@ -1474,20 +2456,23 @@ To Do List:
 	NSEnumerator * E = [sender objectEnumerator];
 	while(sender = [E nextObject])
 	{
-		if([sender respondsToSelector:@selector(executeMacroWithTarget:selector:substitutions:)])
+		if([sender respondsToSelector:@selector(executeMacroWithTarget:selector:substitutions:)])// for macro nodes
 		{
 			[sender executeMacroWithTarget:self selector:NULL substitutions:nil];
 		}
-		else if([sender isKindOfClass:[iTM2KeyBindingNode class]])
+		else if([sender isKindOfClass:[iTM2KeyBindingNode class]] && ![sender countOfAvailableKeyBindings])// for key binding nodes
 		{
-			NSString * ID = [sender ID];
-			NSString * domain = [self macroDomain];
-			NSString * category = [self macroCategory];
-			NSString * context = @"";//[self macroContext];
-			[SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain target:self];
+			[self executeMacroWithID:[sender macroID]];
 		}
 	}
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroWithID:
+- (id)macroWithID:(NSString *)ID;
+{
+	// this will be overriden by the text view used for testing macros and key bindings in the prefs pane
+	return	[SMC mutableMacroRunningNodeForID:ID context:[self macroContext] ofCategory:[self macroCategory] inDomain:[self macroDomain]]?:
+			[SMC macroRunningNodeForID:ID context:[self macroContext] ofCategory:[self macroCategory] inDomain:[self macroDomain]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
 - (NSString *)macroDomain;
@@ -1498,6 +2483,11 @@ To Do List:
 - (NSString *)macroCategory;
 {
     return [[self delegate] selectedMode];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroContext
+- (NSString *)macroContext;
+{
+    return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
 - (BOOL)handlesKeyBindings;
@@ -1511,6 +2501,11 @@ To Do List:
 //iTM2_END;
     return YES;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rootKeyBindings
+- (id)rootKeyBindings;
+{
+    return [[super rootKeyBindings] list];// this is where the default behaviour is overriden
+}
 @end
 
 #import <iTM2Foundation/iTM2BundleKit.h>
@@ -1519,6 +2514,7 @@ static id iTM2HumanReadableActionNames = nil;
 @implementation iTM2HumanReadableActionNameValueTransformer
 + (void)initialize;
 {
+ 	iTM2_INIT_POOL;
 	[super initialize];
 	if(!iTM2HumanReadableActionNames)
 	{
@@ -1536,6 +2532,7 @@ static id iTM2HumanReadableActionNames = nil;
 			}
 		}
 	}
+	iTM2_RELEASE_POOL;
 	return;
 }
 + (NSArray *)actionNames;
@@ -1599,600 +2596,50 @@ static id iTM2HumanReadableActionNames = nil;
 }
 @end
 
-@implementation iTM2MacroNode(Prefs)
-+ (void)prefsInitBindings;
-{
-    [self setKeys:[NSArray arrayWithObjects:@"argument",@"shouldShowArgument",nil]
-		triggerChangeNotificationsForDependentKey:@"hiddenArgument"];
-    [self setKeys:[NSArray arrayWithObjects:@"argument",nil]
-		triggerChangeNotificationsForDependentKey:@"mustShowArgument"];
-    [self setKeys:[NSArray arrayWithObjects:@"ID",nil]
-		triggerChangeNotificationsForDependentKey:@"isVisible"];
-    [self setKeys:[NSArray arrayWithObjects:@"ID",nil]
-		triggerChangeNotificationsForDependentKey:@"actionName"];
-    [self setKeys:[NSArray arrayWithObjects:@"actionName",nil]
-		triggerChangeNotificationsForDependentKey:@"macroTabViewItemIdentifier"];
-	return;
-}
-- (BOOL)shouldShowArgument;
-{
-	NSNumber * N = [self valueForKeyPath:@"value.shouldShowArgument"];
-	return [N boolValue];
-}
-- (void)setShouldShowArgument:(BOOL)flag;
-{
-	if(flag != [self shouldShowArgument])
-	{
-		[self willChangeValueForKey:@"shouldShowArgument"];
-		NSNumber * N = [NSNumber numberWithBool:flag];
-		[self setValue:N forKeyPath:@"value.shouldShowArgument"];
-		[self didChangeValueForKey:@"shouldShowArgument"];
-	}
-	return;
-}
-- (BOOL)mustShowArgument;
-{
-	return [[self argument] length] != 0;
-}
-- (BOOL)hiddenArgument;
-{
-	return ![self mustShowArgument] && ![self shouldShowArgument];
-}
+@interface NSResponder(iTM2EventCatcher)
+- (BOOL)iTM2_catchEvent:(NSEvent *)event;
 @end
 
-#pragma mark -
-#pragma mark =-=-=-=-=-  NOTHING BELOW THIS POINT
-#pragma mark -
-
-#if 0
-#pragma mark =-=-=-=-=-  CONCRETE CONTEXT NODES
-@implementation iTM2MacroAbstractContextNode
-
-@end
-
-#pragma mark =-=-=-=-=-  CONCRETE CONTEXT NODES
-@implementation iTM2MacroContextNode
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroSortDescriptors
-- (NSArray *)macroSortDescriptors;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSSortDescriptor * SD = [[[NSSortDescriptor allocWithZone:[self zone]] initWithKey:@"ID" ascending:YES] autorelease];
-//iTM2_END;
-    return [NSArray arrayWithObject:SD];
-}
-@end
-
-@interface iTM2MacroController(PRIVATE)
--- (void)setSelectedMode:(NSString *)mode;
-- (void)macroNode:(iTM2MacroNode *)node didChangeIDFrom:(NSString *)oldID to:(NSString *)newID;
-- (id)keyBindingTree;
-- (void)synchronizeMacroSelectionWithKeyBindingSelection;
-- (void)synchronizeKeyBindingSelection;
-- (id)keysTreeController;
-@end
-
-@implementation iTM2MacroNode: iTM2TreeNode
-- (BOOL)isVisible;
+@implementation NSTextView(iTM2EventCatcher)
+- (BOOL)iTM2_catchEvent:(NSEvent *)event;
 {
-	return ![[self ID] hasPrefix:@"."];
-}
-- (NSString *)macroDescription;
-{
-	NSXMLElement * element = [self XMLElement];
-	NSError * localError = nil;
-	NSArray * nodes = [element nodesForXPath:@"DESC" error:&localError];
-	if(localError)
+	id V = self;
+	while(V = [V superview])
 	{
-		iTM2_LOG(@"localError: %@", localError);
-		return @"Error: no description.";
-	}
-	NSXMLNode * node = [nodes lastObject];
-	if(node)
-	{
-		return [node stringValue];
-	}
-	else
-	{
-		return @"No description available";
-	}
-}
-- (NSString *)mode;
-{
-	NSXMLElement * element = [self XMLElement];
-	NSError * localError = nil;
-	NSArray * nodes = [element nodesForXPath:@"@MODE" error:&localError];
-	if(localError)
-	{
-		iTM2_LOG(@"localError: %@", localError);
-		return @"Error: MODE attribute?";
-	}
-	NSXMLNode * node = [nodes lastObject];
-	if(node)
-	{
-		return [node stringValue];
-	}
-	else
-	{
-		return @"";
-	}
-}
-@end
-
-@interface iTM2MacroMenuNode: iTM2MacroContextNode
-@end
-
-@implementation iTM2MacroMenuNode
-@end
-
-
-@implementation iTM2MacroController
-
-static id _iTM2MacroController = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	if(![NSValueTransformer valueTransformerForName:@"iTM2HumanReadableActionName"])
-	{
-		iTM2HumanReadableActionNameValueTransformer * transformer = [[[iTM2HumanReadableActionNameValueTransformer alloc] init] autorelease];
-		[NSValueTransformer setValueTransformer:transformer forName:@"iTM2HumanReadableActionName"];
-	}
-	if(![NSValueTransformer valueTransformerForName:@"iTM2TabViewItemIdentifierForAction"])
-	{
-		iTM2TabViewItemIdentifierForActionValueTransformer * transformer = [[[iTM2TabViewItemIdentifierForActionValueTransformer alloc] init] autorelease];
-		[NSValueTransformer setValueTransformer:transformer forName:@"iTM2TabViewItemIdentifierForAction"];
-	}
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ___catch:
-- (void)___catch:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validate___catch:
-- (BOOL)validate___catch:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return NO;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= ___insertMacro:
-- (void)___insertMacro:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSArray * RA = [sender representedObject];
-	if([RA isKindOfClass:[NSArray class]] && [RA count])
-	{
-		NSString * ID = [RA objectAtIndex:0];
-		NSString * context;
-		NSString * category;
-		NSString * domain;
-		if([RA count] > 3)
+		if([V iTM2_catchEvent:event])
 		{
-			context = [RA objectAtIndex:1];
-			category = [RA objectAtIndex:2];
-			domain = [RA objectAtIndex:3];
-		}
-		else
-		{
-			context = @"";
-			if([RA count] > 2)
-			{
-				category = [RA objectAtIndex:1];
-				domain = [RA objectAtIndex:2];
-			}
-			else
-			{
-				category = @"";
-				if([RA count] > 1)
-				{
-					context = @"";
-					domain = [RA objectAtIndex:1];
-				}
-				else
-				{
-					domain = @"";
-				}
-			}
-		}
-		if([ID length])
-		{
-			if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain target:nil])
-			{
-				NSMenu * recentMenu = [self macroMenuForContext:context ofCategory:@"Recent" inDomain:domain error:nil];
-				int index = [recentMenu indexOfItemWithTitle:[sender title]];
-				if(index!=-1)
-				{
-					[recentMenu removeItemAtIndex:index];
-				}
-				NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle:[sender title] action:[sender action] keyEquivalent:@""] autorelease];
-				[MI setTarget:self];// self is expected to last forever
-				[MI setRepresentedObject:RA];
-				[recentMenu insertItem:MI atIndex:1];
-				NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-				index = 0;
-				int max = [SUD integerForKey:@"iTM2NumberOfRecentMacros"];
-				while([recentMenu numberOfItems] > max)
-				{
-					[recentMenu removeItemAtIndex:[recentMenu numberOfItems]-1];
-				}
-				while(++index < [recentMenu numberOfItems])
-				{ 
-					MI = [recentMenu itemAtIndex:index];
-					RA = [MI  representedObject];
-					if(RA)
-					{
-						[MD setObject:RA forKey:[MI title]];
-					}
-				}
-				[SUD setObject:MD forKey:[NSString pathWithComponents:[NSArray arrayWithObjects:@"", @"Recent", domain, nil]]];
-			}
-		}
-	}
-	else if(RA)
-	{
-		iTM2_LOG(@"Unknown design [sender representedObject]:%@", RA);
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validate___insertMacro:
-- (BOOL)validate___insertMacro:(id)sender;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSArray * RA = [sender representedObject];
-	if([RA isKindOfClass:[NSArray class]] && ([RA count] > 2))
-	{
-		NSString * ID = [RA objectAtIndex:0];
-		if([ID length])
 			return YES;
-	}
-	iTM2_LOG(@"sender is:%@",sender);
-//iTM2_END;
-    return [sender hasSubmenu];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= executeMacroWithText:forContext:ofCategory:inDomain:target:
-- (BOOL)executeMacroWithText:(NSString *)text forContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain target:(id)target;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	unsigned idx = 0;
-	BOOL result = NO;
-	while(idx<[text length])
-	{
-		NSString * type = nil;
-		NSRange range = [text rangeOfNextPlaceholderMarkAfterIndex:idx getType:&type ignoreComment:YES];
-		if(!range.length)
-		{
-			return NO;
 		}
-		else if(type)
-		{
-			NSRange fullRange = [text rangeOfPlaceholderAtIndex:range.location getType:nil ignoreComment:YES];
-			if(fullRange.location == range.location && fullRange.length > range.length)
-			{
-				fullRange.length = NSMaxRange(fullRange);
-				fullRange.location = NSMaxRange(range);
-				if(fullRange.length>fullRange.location)
-				{
-					fullRange.length-=fullRange.location;
-					if(fullRange.length>4)
-					{
-						fullRange.length-=4;
-						text = [text substringWithRange:fullRange];
-						iTM2MacroNode * leafNode = [self macroRunningNodeForID:text context:context ofCategory:category inDomain:domain];
-						SEL action = NULL;
-						NSString * actionName = [NSString stringWithFormat:@"insertMacro_%@:",type];
-						action = NSSelectorFromString(actionName);
-						result = result || [leafNode executeMacroWithTarget:target selector:action substitutions:nil];
-					}
-				}
-			}
-		}
-		idx = NSMaxRange(range);
 	}
-
-//iTM2_START;
 	return NO;
 }
-#pragma mark =-=-=-=-=-  PREFERENCES
-- (BOOL)canEditActionName;
+@end
+
+@interface iTM2KeyBindingField: NSTextField
+@end
+
+@implementation iTM2KeyBindingField
+// setCellClass does not work on leopard at least, most probably because when dearchived, the control does not assume that its own cell class should change.
+// in 3.x nibs, just change the class of the cell
+- (BOOL)iTM2_catchEvent:(NSEvent *)event;
 {
-	iTM2MacroNode * node = [self selectedMacro];
-	return [node isVisible];
-}
-- (BOOL)canEdit;
-{
-	iTM2MacroNode * node = [self selectedMacro];
-	return [node isVisible];
-}
-- (BOOL)canHideArgumentView;
-{
-	iTM2MacroNode * node = [self selectedMacro];
-	NSString * argument = [node argument];
-	return [argument length]==0;
-}
-- (BOOL)showArgumentView;
-{
-	id result = metaGETTER;
-	if([result boolValue])
+	switch([event type])
 	{
-		return YES;
-	}
-	iTM2MacroNode * node = [self selectedMacro];
-	NSString * argument = [node argument];
-	return [argument length]>0;
-}
-#pragma mark =-=-=-=-=-  DELEGATE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuNeedsUpdate:
-- (void)menuNeedsUpdate:(NSMenu *)menu;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// availableModes:
-	NSArray * itemArray = [menu itemArray];
-	NSEnumerator * E = [itemArray objectEnumerator];
-	NSMenuItem * MI = nil;
-	SEL action = @selector(takeMacroModeFromRepresentedObject:);
-	NSMutableArray * availableModes = [NSMutableArray array];
-	NSString * mode;
-	while(MI = [E nextObject])
-	{
-		if([MI action] == action)
+		case NSKeyUp:
 		{
-			mode = [MI representedObject];
-			if(![availableModes containsObject:mode])
-			{
-				[availableModes addObject:mode];
-			}
+			NSDictionary * D = [self infoForBinding:@"value"];
+			id O = [D objectForKey:NSObservedObjectKey];
+			NSString * observedKeyPath = [D objectForKey:NSObservedKeyPathKey];
+			O = [O valueForKeyPath:[observedKeyPath stringByDeletingPathExtension]];
+			NS_DURING
+			[O valueForKey:@"updateKeyStroke"];// just in case it does not work
+			[self setStringValue:[O valueForKey:[observedKeyPath pathExtension]]];// update with the observed value,
+			[self selectText:nil];
+			NS_HANDLER
+			NS_ENDHANDLER
 		}
+		case NSKeyDown: return YES;
+		default: return [super  iTM2_catchEvent:event];
 	}
-	// expected modes:
-	id firstResponder = [NSApp keyWindow];
-	firstResponder = [firstResponder firstResponder];
-	NSString * domain = [firstResponder macroDomain];
-	iTM2MacroRootNode * rootNode = [self macroTree];
-	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
-	NSArray * expectedModes = [domainNode availableCategories];
-	//
-	if([expectedModes isEqual:availableModes])
-	{
-		return;
-	}
-	// remove items with takeMacroModeFromRepresentedObject:
-	E = [itemArray objectEnumerator];
-	while(MI = [E nextObject])
-	{
-		if([MI action] == action)
-		{
-			[menu removeItem:MI];
-		}
-	}
-	// recover the "Mode:" title menu item
-	int index = [menu indexOfItemWithRepresentedObject:@"iTM2_PRIVATE_MacroModeMenuItem"];
-	++index;
-
-	E = [expectedModes objectEnumerator];
-	while(mode = [E nextObject])
-	{
-		MI = [[[NSMenuItem allocWithZone:[menu zone]] initWithTitle:[mode description] action:action keyEquivalent:@""] autorelease];
-		[MI setRepresentedObject:mode];
-		[MI setIndentationLevel:1];
-		[menu insertItem:MI atIndex:index++];
-	}
-	MI = [NSMenuItem separatorItem];
-	[menu insertItem:MI atIndex:index++];
-	[menu cleanSeparators];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineViewSelectionDidChange:
-- (void)outlineViewSelectionDidChange:(NSNotification *)notification;
-/*"Synchronize macro selection with key binding selection.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSOutlineView * outlineView = [notification object];
-	NSWindow * W = [outlineView window];
-	if(outlineView != [W firstResponder])
-	{
-		return;
-	}
-	[self synchronizeMacroSelectionWithKeyBindingSelection];
-//iTM2_END;
-	return;
 }
 @end
-
-#import <iTM2Foundation/iTM2InstallationKit.h>
-
-@implementation iTM2MainInstaller(iTM2MacroKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2MacroKitCompleteInstallation
-+ (void)iTM2MacroKitCompleteInstallation;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMenu * M = [NSApp mainMenu];
-	NSMenuItem * MI = [M deepItemWithAction:@selector(macroMode:)];
-	if(MI)
-	{
-		M = [MI menu];
-		[MI setAction:NULL];
-		[MI setRepresentedObject:@"iTM2_PRIVATE_MacroModeMenuItem"];
-		[M setDelegate:SMC];
-	}
-	else
-	{
-		iTM2_LOG(@"No macros menu");
-	}
-//iTM2_END;
-    return;
-}
-@end
-
-
-@implementation iTM2GenericScriptButton
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroMenu
-- (NSMenu *)macroMenu;// don't call this "menu"!
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * name = NSStringFromClass([self class]);
-	NSRange R1 = [name rangeOfString:@"Script"];
-	if(R1.length)
-	{
-		NSRange R2 = [name rangeOfString:@"Button"];
-		if(R2.length && (R1.location += R1.length, (R2.location > R1.location)))
-		{
-			R1.length = R2.location - R1.location;
-			NSString * context = [name substringWithRange:R1];
-			NSString * category = [self macroCategory];
-			NSString * domain = [self macroDomain];
-			NSMenu * M = [SMC macroMenuForContext:context ofCategory:category inDomain:domain error:nil];
-			M = [[M deepCopy] autorelease];
-			// insert a void item for the title
-			[M insertItem:[[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease] atIndex:0];// for the title
-			return M;
-		}
-	}
-//iTM2_END;
-    return [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-}
-
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
-- (void)awakeFromNib;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([[iTM2GenericScriptButton superclass] instancesRespondToSelector:_cmd])
-		[super awakeFromNib];
-	[[self retain] autorelease];
-	NSView * superview = [self superview];
-	[self removeFromSuperviewWithoutNeedingDisplay];
-	[superview addSubview:self];
-	[DNC addObserver:self selector:@selector(popUpButtonCellWillPopUpNotification:) name:NSPopUpButtonCellWillPopUpNotification object:[self cell]];
-	[[self cell] setAutoenablesItems:YES];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= popUpButtonCellWillPopUpNotification:
-- (void)popUpButtonCellWillPopUpNotification:(NSNotification *)notification;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setMenu:[self macroMenu]];
-	[DNC removeObserver:self];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[DNC removeObserver:self];
-	[super dealloc];
-//iTM2_END;
-    return;
-}
-@end
-
-#pragma mark -
-#import <iTM2Foundation/iTM2StringKit.h>
-
-
-#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
-
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSTextStorage(iTM2Selection_MACRO)
-/*"Description forthcoming."*/
-@implementation NSTextStorage(iTM2Selection_MACRO)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertMacro:inRangeValue:
-- (void)insertMacro:(id)argument inRangeValue:(id)rangeValue;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if([argument isKindOfClass:[NSString class]] || [argument isKindOfClass:[NSDictionary class]])
-    {
-        NSTextView * TV = [self mainTextView];
-        if([rangeValue respondsToSelector:@selector(rangeValue)])
-            [TV setSelectedRange:[rangeValue rangeValue]];
-        [TV insertMacro:argument];        
-    }
-    else
-    {
-        NSLog(@"JL, you should have raised an exception!!! (code 1789)");
-    }
-    return;
-}
-@end
-#endif
