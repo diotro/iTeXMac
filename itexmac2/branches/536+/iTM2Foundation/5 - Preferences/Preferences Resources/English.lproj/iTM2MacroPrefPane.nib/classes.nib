@@ -18,20 +18,21 @@
 			<string>NSView</string>
 		</dict>
 		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showConTeXtManualsPrefs</key>
+				<string>id</string>
+				<key>showConTeXtPrefs</key>
+				<string>id</string>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
 			<key>CLASS</key>
 			<string>NSApplication</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSResponder</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>iTM2KeyBindingOutlineView</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSOutlineView</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>
@@ -63,14 +64,6 @@
 			<string>NSObject</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>iTM2MacroEditor</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSTextView</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>
@@ -170,17 +163,27 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>completeLaTeXEnvironment</key>
+				<string>id</string>
 				<key>doZoomIn</key>
 				<string>id</string>
 				<key>doZoomOut</key>
 				<string>id</string>
-				<key>insertMacro</key>
+				<key>findLaTeXEnvironment</key>
+				<string>id</string>
+				<key>moreCopy</key>
+				<string>id</string>
+				<key>moreCut</key>
+				<string>id</string>
+				<key>morePaste</key>
+				<string>id</string>
+				<key>performMoreFindAction</key>
 				<string>id</string>
 				<key>selectFirstPlaceholder</key>
 				<string>id</string>
-				<key>selectNextPlaceholder</key>
+				<key>toggleWatchDelimiter</key>
 				<string>id</string>
-				<key>selectPreviousPlaceholder</key>
+				<key>useLaTeXPackage</key>
 				<string>id</string>
 			</dict>
 			<key>CLASS</key>
@@ -240,6 +243,19 @@
 		</dict>
 		<dict>
 			<key>CLASS</key>
+			<string>iTM2KeyBindingField</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>editor</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSTextField</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
 			<string>NSButton</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
@@ -273,6 +289,14 @@
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSPreferencePane</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSTabViewItem</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>
