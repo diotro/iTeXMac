@@ -3,73 +3,73 @@
 <plist version="1.0">
 <dict>
 	<key>NUL</key>
-	<string>Null</string>
+	<string>Null (␀)</string>
 	<key>SOH</key>
-	<string>Start of Header</string>
+	<string>Start of Header (␁)</string>
 	<key>STX</key>
-	<string>Start of Text</string>
+	<string>Start of Text (␂)</string>
 	<key>ETX</key>
-	<string>End of Text</string>
+	<string>End of Text (␃)</string>
 	<key>EOT</key>
-	<string>End of Transmission</string>
+	<string>End of Transmission (␄)</string>
 	<key>ENQ</key>
-	<string>Enquiry</string>
+	<string>Enquiry (␅)</string>
 	<key>ACK</key>
-	<string>Acknowledge</string>
+	<string>Acknowledge (␆)</string>
 	<key>BEL</key>
-	<string>Bell</string>
+	<string>Bell (␇)</string>
 	<key>BS</key>
-	<string>Backspace</string>
+	<string>Backspace (␈)</string>
 	<key>HT</key>
 	<string>Horizontal Tab (⇥)</string>
 	<key>LF</key>
-	<string>Line Feed</string>
+	<string>Line Feed (␊)</string>
 	<key>VT</key>
-	<string>Vertical Tab</string>
+	<string>Vertical Tab (⤓)</string>
 	<key>FF</key>
-	<string>Form Feed</string>
+	<string>Form Feed (␌)</string>
 	<key>CR</key>
-	<string>Carriage Return</string>
+	<string>Carriage Return (␍)</string>
 	<key>SO</key>
-	<string>Shift Out</string>
+	<string>Shift Out (␎)</string>
 	<key>SI</key>
-	<string>Shift In</string>
+	<string>Shift In (␏)</string>
 	<key>DLE</key>
-	<string>Data Link Escape</string>
+	<string>Data Link Escape (␐)</string>
 	<key>DC1</key>
-	<string>DC1</string>
+	<string>DC1 (␑)</string>
 	<key>DC2</key>
-	<string>DC2</string>
+	<string>DC2 (␒)</string>
 	<key>DC3</key>
-	<string>DC3</string>
+	<string>DC3 (␓)</string>
 	<key>DC4</key>
-	<string>DC4</string>
+	<string>DC4 (␔)</string>
 	<key>NAK</key>
-	<string>Negative Acknowledge</string>
+	<string>Negative Acknowledge (␕)</string>
 	<key>SYN</key>
-	<string>Synchronous Idle</string>
+	<string>Synchronous Idle (␖)</string>
 	<key>ETB</key>
-	<string>End of Transmission Block</string>
+	<string>End of Transmission Block (␗)</string>
 	<key>CAN</key>
-	<string>Cancel</string>
+	<string>Cancel (␘)</string>
 	<key>EM</key>
-	<string>End of Medium</string>
+	<string>End of Medium (␙)</string>
 	<key>SUB</key>
-	<string>Substitute</string>
+	<string>Substitute (␚)</string>
 	<key>ESC</key>
-	<string>Escape</string>
+	<string>Escape (␛)</string>
 	<key>FS</key>
-	<string>File Separator</string>
+	<string>File Separator (␜)</string>
 	<key>GS</key>
-	<string>Group Separator</string>
+	<string>Group Separator (␝)</string>
 	<key>RS</key>
-	<string>Record Separator</string>
+	<string>Record Separator (␞)</string>
 	<key>US</key>
-	<string>Unit Separator</string>
+	<string>Unit Separator (␟)</string>
 	<key>SP</key>
 	<string>Space</string>
 	<key>DEL</key>
-	<string>Delete</string>
+	<string>Delete (⌫)</string>
 	<key>NSUpArrowFunctionKey</key>
 	<string>Up Arrow (↑)</string>
 	<key>NSDownArrowFunctionKey</key>
