@@ -72,6 +72,17 @@ void iTM2_LOG(NSString *fmt, ...)
 
 #import <ExceptionHandling/NSExceptionHandler.h>
 
+@interface NSResponder(iTM2EventCatcher)
+- (BOOL)iTM2_catchEvent:(NSEvent *)event;// see sendEvent: below
+@end
+
+@implementation NSResponder(PRIVATE)
+- (BOOL)iTM2_catchEvent:(NSEvent *)event;// see sendEvent: below
+{
+	return NO;
+}
+@end
+
 //#import <iTM2Foundation/iTM2DocumentControllerKit.h>
 static char * iTM2Application_sendApplicationDefinedEvent = nil;
 @implementation iTM2Application
@@ -175,7 +186,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([event type] == NSApplicationDefined)
+	if([[[self keyWindow] firstResponder] iTM2_catchEvent:event])
+	{
+		// this is used by the key bindings pref pane (text field to enter the key bindings)
+		return;
+	}
+	else if([event type] == NSApplicationDefined)
 	{
 		if(iTM2Application_sendApplicationDefinedEvent)
 		{
