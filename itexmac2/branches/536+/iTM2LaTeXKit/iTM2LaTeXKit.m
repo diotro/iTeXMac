@@ -570,10 +570,7 @@ To Do List:
 {
 //iTM2_START;
 #warning: MISSING we should guess the environment, math or text and use the appropriate command
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\textbf{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\textbf{}|text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
@@ -584,10 +581,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\textit{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\textit{}|text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
@@ -598,10 +592,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\underline{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\underline{}|text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignCenter:
@@ -612,10 +603,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\begin{center}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\begin{center}..."];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignRight:
@@ -626,10 +614,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\begin{flushright}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\begin{flushright}..."];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  alignLeft:
@@ -640,10 +625,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\begin{flushleft}..." forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\begin{flushleft}..."];
     return;
 }
 #if 0
@@ -829,10 +811,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\label{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\label{identifier}"];
 //iTM2_END;
     return;
 }
@@ -889,10 +868,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\ref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\ref{identifier}"];
 //iTM2_END;
     return;
 }
@@ -941,10 +917,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\eqref{identifier}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\eqref{identifier}"];
 //iTM2_END;
     return;
 }
@@ -1045,10 +1018,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\chapter{}|text_content" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\chapter{}|text_content"];
 //iTM2_END;
     return;
 }
@@ -1073,10 +1043,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\part{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\part{}|text"];
 //iTM2_END;
     return;
 }
@@ -1101,10 +1068,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\section{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\section{}|text"];
 //iTM2_END;
     return;
 }
@@ -1129,10 +1093,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\subsection{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\subsection{}|text"];
 //iTM2_END;
     return;
 }
@@ -1157,10 +1118,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\subsubsection{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\subsubsection{}|text"];
 //iTM2_END;
     return;
 }
@@ -1185,10 +1143,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\paragraph{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\paragraph{}|text"];
 //iTM2_END;
     return;
 }
@@ -1213,10 +1168,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"\\subparagraph{}|text" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"\\subparagraph{}|text"];
 //iTM2_END;
     return;
 }
