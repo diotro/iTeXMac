@@ -8,19 +8,25 @@
 	<string>Execute a script given its path</string>
 	<key>insertMacro:</key>
 	<string>Insert some text as macro</string>
-	<key>insertMacroBeforeTheSelection:</key>
+	<key>insertMacro_PREPEND_SELECTION:</key>
 	<string>Prepend macro to the selection</string>
-	<key>insertMacroAfterTheSelection:</key>
+	<key>insertMacro_APPEND_SELECTION:</key>
 	<string>Append macro to the selection</string>
-	<key>insertMacroAtTheBeginning:</key>
+	<key>insertMacro_REPLACE_SELECTION:</key>
+	<string>Replace the selected text</string>
+	<key>insertMacro_PREPEND_ALL:</key>
 	<string>Prepend macro to the text</string>
-	<key>insertMacroAtTheEnd:</key>
+	<key>insertMacro_REPLACE_ALL:</key>
+	<string>Replace all the text</string>
+	<key>insertMacro_APPEND_ALL:</key>
 	<string>Append macro to the text</string>
-	<key>insertMacroInPasteboard:</key>
-	<string>Copy a macro</string>
-	<key>insertMacroAtTheBeginningOfTheLine:</key>
+	<key>insertMacro_COPY:</key>
+	<string>Copy the macro to the clipboard</string>
+	<key>insertMacro_PREPEND_LINE:</key>
 	<string>Prepend macro to the line</string>
-	<key>insertMacroAtTheEndOfTheLine:</key>
+	<key>insertMacro_REPLACE_LINE:</key>
+	<string>Replace the whole line</string>
+	<key>insertMacro_APPEND_LINE:</key>
 	<string>Append macro to the line</string>
 </dict>
 </plist>
