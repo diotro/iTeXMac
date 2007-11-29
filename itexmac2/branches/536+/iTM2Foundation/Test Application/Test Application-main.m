@@ -8,10 +8,60 @@
 //  Copyright Laurens'Tribune 2005. All rights reserved.
 //
 
-int main(int argc, char *argv[])
-{
+#if 1
+int main (int argc, const char * argv[]) {
     return NSApplicationMain(argc, (const char **) argv);
 }
+#else
+// on 2007-11-19, problem with NSXMLDocument subclass
+// I cannot get my custom NSXMLElement subclass to be used properly in iTeXMac2
+// first step, this can be used here
+// second step, used from the preference pane
+@interface myXMLDocument:NSXMLDocument
+@end
+
+@interface MyCustomElementClass:NSXMLElement
+@end
+
+int main (int argc, const char * argv[]) {
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	NSString * path = @"/Users/itexmac2/Desktop/test.plist";
+	NSXMLDocument * doc = [[[myXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:nil] autorelease];
+	if(doc)
+	{
+		NSLog(@"root element:%@",[[doc rootElement] class]);
+	}
+	else if([[NSFileManager defaultManager] fileExistsAtPath:path])
+	{
+		NSLog(@"How come that we have failed?");
+	}
+	else
+	{
+		NSLog(@"No file available at:%@",path);
+	}
+    [pool drain];
+    return NSApplicationMain(argc, (const char **) argv);
+}
+
+@implementation myXMLDocument
++ (Class)replacementClassForClass:(Class)currentClass {
+    if ( currentClass == [NSXMLElement class] ) {
+NSLog(@"returning MyCustomElementClass");
+        return [MyCustomElementClass class];
+    }
+	return [super replacementClassForClass:currentClass];
+}
+@end
+
+@implementation MyCustomElementClass
+- (id) class;
+{
+	NSLog(@"I am a MyCustomElementClass instance");
+	return [super class];
+}
+@end
+#endif
+
 #import <iTM2Foundation/iTeXMac2.h>
 #import <OgreKit/OgreKit.h>
 #import <iTM2Foundation/ICURegEx.h>

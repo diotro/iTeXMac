@@ -76,7 +76,7 @@ To Do List:
 {
 	id result = nil;
 NS_DURING
-    result = [self instanceMethodSignatureForSelector:(SEL)aSelector];
+	result = [self instanceMethodSignatureForSelector:(SEL)aSelector];
 NS_HANDLER
 	result = nil;
 	iTM2_LOG(@"Exception catched");
@@ -84,6 +84,7 @@ NS_ENDHANDLER
 	return result;
 }
 @end
+
 @implementation iTM2RuntimeBrowser
 static id iTM2RuntimeBrowserDictionary = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
