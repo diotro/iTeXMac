@@ -28,6 +28,7 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2DistributedObjectKit.h>
 #import <iTM2Foundation/iTM2CursorKit.h>
+#import <iTM2Foundation/iTM2MacroKit.h>
 
 NSString * const iTM2TaskControllerIsDeafKey = @"iTM2TaskControllerIsDeaf";
 NSString * const iTM2TaskControllerIsMuteKey = @"iTM2TaskControllerIsMute";
@@ -2410,7 +2411,7 @@ To Do List:
 }
 - (void)executeAsScript:(id)sender;
 {
-	NSString * script = [sender argument];
+	NSString * script = [sender insertion];
 	// is it a lua script?
 	NSRange R = NSMakeRange(0,0);
 	[script getLineStart:nil end:nil contentsEnd:&R.length forRange:R];
@@ -2450,25 +2451,18 @@ To Do List:
 {
 	if([scriptPath isKindOfClass:[iTM2MacroNode class]])
 	{
-		scriptPath = [scriptPath argument];
+		scriptPath = [(iTM2MacroNode *)scriptPath macroID];
 	}
 	NSWindow * W = [NSApp keyWindow];
 	id FR = [W firstResponder];
-	NSString * context = [FR macroContext];
-	NSString * category = [FR macroCategory];
-	NSString * domain = [FR macroDomain];
-	NSString * result = nil;
-	if([DFM isExecutableFileAtPath:scriptPath])
+	if([DFM fileExistsAtPath:scriptPath])
 	{
-		result = [FR stringByExecutingScriptAtPath:scriptPath];
-		[SMC executeMacroWithText:result forContext:context ofCategory:category inDomain:domain target:FR];//delayed?
+		[FR executeMacroWithText:[FR stringByExecutingScriptAtPath:scriptPath]];//delayed?
 		return;
 	}
-	NSString * subpath = [domain stringByAppendingPathComponent:category];
-	subpath = [subpath stringByAppendingPathComponent:iTM2MacroScriptsComponent];
-	NSBundle * MB = [NSBundle mainBundle];
-	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
-	NSEnumerator * E = [RA reverseObjectEnumerator];
+	NSString * subpath = [[[self macroDomain] stringByAppendingPathComponent:[self macroCategory]]
+							stringByAppendingPathComponent:iTM2MacroScriptsComponent];
+	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension] reverseObjectEnumerator];
 	NSString * path;
 	while(path = [E nextObject])
 	{
@@ -2478,10 +2472,9 @@ To Do List:
 			{
 				path = [DFM currentDirectoryPath];
 				path = [path stringByAppendingPathComponent:scriptPath];
-				if([DFM fileExistsAtPath:scriptPath isDirectory:nil])
+				if([DFM fileExistsAtPath:scriptPath])
 				{
-					result = [FR stringByExecutingScriptAtPath:scriptPath];
-					[SMC executeMacroWithText:result forContext:context ofCategory:category inDomain:domain target:FR];//delayed?
+					[FR executeMacroWithText:[FR stringByExecutingScriptAtPath:scriptPath]];//delayed?
 					[DFM popDirectory];
 					return;
 				}
@@ -2498,6 +2491,7 @@ To Do List:
 			iTM2_LOG(@"*** SILENT Error: could not push \"%@\"",path);
 		}
 	}
+	iTM2_LOG(@"*** SILENT Error: could not execute script at \"%@\"",path);
 }
 @end
 
