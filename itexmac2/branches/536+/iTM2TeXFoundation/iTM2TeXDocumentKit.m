@@ -357,10 +357,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"_{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"_{}"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
@@ -371,10 +368,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"^{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"^{}"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
@@ -427,10 +421,7 @@ To Do List: Nothing at first glance.
 				[self superscript:self];
             else
 			{
-				NSString * macroDomain = [self macroDomain];
-				NSString * macroCategory = [self macroCategory];
-				NSString * macroContext = [self macroContext];
-                [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+				[self executeMacroWithID:@"{}"];
 			}
         }
         else
@@ -523,10 +514,7 @@ To Do List: Nothing at first glance.
 	
     if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-		NSString * macroDomain = [self macroDomain];
-		NSString * macroCategory = [self macroCategory];
-		NSString * macroContext = [self macroContext];
-        [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+        [self executeMacroWithID:@"{}"];
     }
     else
         [self insertText:@"{"];
@@ -1272,12 +1260,12 @@ To Do List:
 			NSURL * url = [NSURL fileURLWithPath:repository];
 			[iTM2TeXKeyBindingsManager_7bitsAccents addURLPromise:url];
 		}
-		iTM2TeXKeyBindingsManager_7bitsAccents = [iTM2TeXKeyBindingsManager_7bitsAccents list];
+		iTM2TeXKeyBindingsManager_7bitsAccents = [iTM2TeXKeyBindingsManager_7bitsAccents keyBindings];
 	}
     return iTM2TeXKeyBindingsManager_7bitsAccents;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeBindingForKey:
-- (BOOL)client:(id)C executeBindingForKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeBindingForKeyStroke:
+- (BOOL)client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1288,7 +1276,7 @@ To Do List:
 //iTM2_START;
 	if([C contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask])
 	{
-		id keyNode = [[[self class] the7bitsAccentsList] objectInAvailableKeyBindingsWithKey:key];
+		id keyNode = [[[self class] the7bitsAccentsList] objectInChildrenWithKeyStroke:keyStroke];
 		if(keyNode)
 		{
 			if([C respondsToSelector:@selector(hasMarkedText)] && [C hasMarkedText])
@@ -1343,7 +1331,7 @@ here:
 		}
 	}
 //iTM2_STOP;
-	return [super client:C executeBindingForKey:key];
+	return [super client:C executeBindingForKeyStroke:keyStroke];
 }
 @end
 
