@@ -283,11 +283,15 @@ static NSMutableDictionary * ICURegEx_cache = nil;
 }
 - (void)dealloc;
 {
-	if(_IVARS->uReplacement)
+	if(_IVARS)
 	{
-		_IVARS->uReplacement->releaseBuffer(-1);
+		if(_IVARS->uReplacement)
+		{
+			_IVARS->uReplacement->releaseBuffer(-1);
+		}
+		[_iVars release];
+		_iVars = nil;
 	}
-	[_iVars release];
 	[super dealloc];
 	return;
 }
@@ -1096,6 +1100,25 @@ static const UChar DOLLARSIGN = 0x24;
 		return NO;
 	}
 	return _IVARS->error!=nil;
+}
+- (void)displayMatchResult;
+{
+	if(!_IVARS)
+	{
+		NSLog(@"Nothing to display");
+		return;
+	}
+	NSLog(@"Match result:");
+	NSLog(@"search pattern:%@",[self searchPattern]);
+	NSLog(@"input string:%@",[self inputString]);
+	NSLog(@"input range:(%u,%u)",_IVARS->stringOffset,_IVARS->stringLength);
+	unsigned i = 0;
+	while(i<=[self numberOfCaptureGroups])
+	{
+		NSLog(@"%i:%@",i,[self substringOfCaptureGroupAtIndex:i]);
+		++i;
+	}
+	NSLog(@"");
 }
 @end
 

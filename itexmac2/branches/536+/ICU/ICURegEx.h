@@ -389,4 +389,13 @@ enum{
 */
 - (id)copyWithZone:(NSZone *)zone;
 
+/*!
+    @method     displayMatchResult:
+    @abstract   Forthcoming.
+    @discussion Forthcoming.
+	@param		None
+    @result     None
+*/
+- (void)displayMatchResult;
+
 @end
