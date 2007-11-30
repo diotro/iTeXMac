@@ -264,7 +264,7 @@ extern NSString * const iTM2MacroControllerComponent;
 - (id)objectInChildrenAtIndex:(unsigned int)index;
 - (void)insertObject:(id)object inChildrenAtIndex:(unsigned int)index;
 - (void)removeObjectFromChildrenAtIndex:(unsigned int)index;
-- (void)parseData:(NSData *)data;
+- (void)parseData:(NSData *)data uniqueKey:(BOOL)flag;
 - (id)objectInChildrenWithCodeName:(NSString *)theCodeName modifierFlags:(unsigned int)modifierFlags;
 - (id)objectInChildrenWithKeyStroke:(iTM2KeyStroke *)keyStroke;
 - (id)objectInKeyBindingsWithKeyStroke:(iTM2KeyStroke *)keyStroke;

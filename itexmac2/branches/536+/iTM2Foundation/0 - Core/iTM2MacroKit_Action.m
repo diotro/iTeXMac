@@ -525,6 +525,23 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro_ROUGH:
+- (void)insertMacro_ROUGH:(id)argument;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{
+//iTM2_LOG(@"argument:%@",argument);
+	NSRange affectedCharRange = [self selectedRange];
+	if([self shouldChangeTextInRange:affectedCharRange replacementString:argument])
+	{
+		[self replaceCharactersInRange:affectedCharRange withString:argument];
+		[self didChangeText];
+	}
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertMacro:
 - (void)insertMacro:(id)argument;
 /*"Description forthcoming.

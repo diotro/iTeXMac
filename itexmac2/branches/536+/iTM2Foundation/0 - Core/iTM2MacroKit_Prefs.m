@@ -131,6 +131,10 @@
 }
 - (void)becomeMutable;
 {
+	if([self isMutable])
+	{
+		return;
+	}
 	[self willChangeValueForKey:@"isMutable"];// notify observers, in particular the key bindings with that macro
 	iTM2MutableMacroNode * copy = [[[iTM2MutableMacroNode alloc] init] autorelease];
 #define COPY(GETTER,SETTER) [copy SETTER:[self GETTER]];
@@ -167,25 +171,20 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 @end
 
 @implementation iTM2MutableMacroNode
-- (NSString *)XMLString;
+- (NSXMLElement *)XMLElement;
 {
-	NSMutableString * children = [NSMutableString string];
-	// first populate with the contents
-	if([[self name] length])				[children appendFormat:@"\t\t<NAME>%@</NAME>\n",[self name]];
-	if([[self macroDescription] length])	[children appendFormat:@"\t\t<DESC>%@</DESC>\n",[self macroDescription]];
-	if([[self tooltip] length])			[children appendFormat:@"\t\t<TIP>%@</TIP>\n",[self tooltip]];
-	if([[self insertion] length])			[children appendFormat:@"\t\t<INS>%@</INS>\n",[self insertion]];
-	NSMutableString * result = [NSMutableString stringWithFormat:@"\t<ACTION ID=\"%@\"",[self macroID]];
-	if([[self selector] length])
-		[result appendFormat:@" SEL=\"%@\"",[self selector]];
-	if([children length])
-		[result appendFormat:@">\n%@\t</ACTION>\n",children];		
-	else
-		[result appendString:@"/>\n"];
+	NSXMLElement * result = [NSXMLElement elementWithName:@"ACTION"];
+	if([[self name] length])				[result addChild:[NSXMLElement elementWithName:@"NAME" stringValue:[self name]]];
+	if([[self macroDescription] length])	[result addChild:[NSXMLElement elementWithName:@"DESC" stringValue:[self macroDescription]]];
+	if([[self tooltip] length])				[result addChild:[NSXMLElement elementWithName:@"TIP"  stringValue:[self tooltip]]];
+	if([[self insertion] length])			[result addChild:[NSXMLElement elementWithName:@"INS"  stringValue:[self insertion]]];
+											[result addAttribute:[NSXMLNode attributeWithName:@"ID" stringValue:[self macroID]]];
+	if([[self selector] length])			[result addAttribute:[NSXMLNode attributeWithName:@"SEL" stringValue:[self selector]]];
 	return result;
 }
-+ (NSString *)XMLStringWithMacros:(NSDictionary *)theMacros;
++ (NSData *)XMLDataWithMacros:(NSDictionary *)theMacros;
 {
+#if 0
 	NSMutableString * result = [NSMutableString stringWithString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 @"	<!DOCTYPE MACROS [\n"
 @"	<!ELEMENT MACROS (ACTION)*>\n"
@@ -198,22 +197,17 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 @"	<!ELEMENT TIP (#PCDATA)>\n"
 @"]>\n"
 @"<MACROS"];
-	NSMutableString * contents = [NSMutableString string];
-	NSEnumerator * E = [theMacros keyEnumerator];
-	NSString * ID;
-	while(ID = [E nextObject])
+#endif
+	id root = [NSXMLElement elementWithName:@"MACROS"];
+	NSEnumerator * E = [theMacros objectEnumerator];
+	id node;
+	while(node = [E nextObject])
 	{
-		[contents appendString:[[theMacros objectForKey:ID] XMLString]];
+		[root addChild:[node XMLElement]];
 	}
-	if([contents length])
-	{
-		[result appendFormat:@">\n%@</MACROS>\n",contents];
-	}
-	else
-	{
-		[result appendString:@"/>\n"];
-	}
-	return result;
+	id document = [NSXMLDocument documentWithRootElement:root];
+	[document setCharacterEncoding:@"UTF-8"];
+	return [document XMLDataWithOptions:NSXMLNodePrettyPrint];
 }
 - (void)setPrettyMacroID:(NSString *)newID;// bound to UI
 {
@@ -711,7 +705,7 @@ To Do List:
 }
 - (NSData *)personalDataForSaving;
 {
-	return [[iTM2MutableMacroNode XMLStringWithMacros:[[self list] personalMacros]] dataUsingEncoding:NSUTF8StringEncoding];
+	return [iTM2MutableMacroNode XMLDataWithMacros:[[self list] personalMacros]];
 }
 @end
 
@@ -783,8 +777,10 @@ DEFINE(isNumericPad,setIsNumericPad,canNumericPad,NSNumericPadKeyMask)
 #undef DEFINE
 @end
 
-@interface iTM2MutableKeyBindingNode(PRIVATE)
+@interface iTM2PrefsKeyBindingNode(PRIVATE)
 - (void)setMacro:(id)new;
+- (void)setMacroID:(NSString *)newID;
+- (void)setPrettyMacroID:(NSString *)newID;// bound to UI
 @end
 
 @interface iTM2MutableKeyBindingNode(PRIVATE)
@@ -1018,6 +1014,11 @@ To Do List:
 }
 - (void)becomeMutable;
 {
+	if([self isMutable])
+	{
+		return;
+	}
+	[self willChangeValueForKey:@"isMutable"];
 	NSMutableArray * KSs = [NSMutableArray array];
 	id parent = self;
 	do
@@ -1087,6 +1088,7 @@ COPY(modifierFlags,setModifierFlags)
 		parent = KS;
 	}
 	[list setKeyBindingSelectionIndexPaths:[NSArray arrayWithObject:indexPath]];
+	[self didChangeValueForKey:@"isMutable"];
 	return;
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
@@ -1109,6 +1111,10 @@ COPY(modifierFlags,setModifierFlags)
 	value = nil;
 	[super dealloc];
 }
+@end
+
+@interface iTM2MutableKeyBindingNode(XML)
+- (void)feedXMLElement:(NSXMLElement *)element;// element is the parent
 @end
 
 @implementation iTM2MutableKeyBindingNode
@@ -1140,6 +1146,19 @@ COPY(modifierFlags,setModifierFlags)
 	[self didChangeValueForKey:@"availableKeyBindings"];
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyOtherNode
+- (id)lazyOtherNode;
+/*"Desription Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSAssert(([self parent] == nil || [[self parent] isKindOfClass:[iTM2MutableKeyBindingNode class]]),@"The parent must be a iTM2MutableKeyBindingNode...");
+//iTM2_END;
+	return [[(iTM2MutableKeyBindingNode *)[self parent] otherNode] objectInChildrenWithKeyStroke:self];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  otherNode
 - (id)otherNode;
 /*"Desription Forthcoming.
@@ -1151,8 +1170,7 @@ To Do List:
 //iTM2_START;
 	if(!otherNode)
 	{
-		NSAssert(([self parent] == nil || [[self parent] isKindOfClass:[iTM2MutableKeyBindingNode class]]),@"The parent must be a iTM2MutableKeyBindingNode...");
-		otherNode = [[[(iTM2MutableKeyBindingNode *)[self parent] otherNode] objectInChildrenWithKeyStroke:self] retain];
+		otherNode = [[self lazyOtherNode] retain];
 	}
 //iTM2_END;
     return otherNode;
@@ -1176,55 +1194,41 @@ To Do List:
 	[self setOtherNode:nil];
 	[super dealloc];
 }
-- (NSString *)XMLStringOfChildrenWithPrefix:(NSString *)prefix;
+- (void)feedElementWithChildren:(NSXMLElement *)element;
 {
-	NSMutableString * result = [NSMutableString string];
-	id child;
 	NSEnumerator * E = [[self children] objectEnumerator];
+	id child;
 	while(child = [E nextObject])
 	{
-		[result appendString:[child XMLStringWithPrefix:prefix]];
+		[child feedXMLElement:element];
 	}
-	return result;
+	return;
 }
-- (NSString *)XMLStringWithPrefix:(NSString *)prefix;
+- (void)feedXMLElement:(NSXMLElement *)element;// element is the parent
 {
 	if(([[self codeName] length] == 0) && ([self parent] != nil))// only the root is allowed not to have a KEY attribute
 	{
-		return @"";
+		return;
 	}
-	if(![prefix length])
-	{
-		prefix = @"";
-	}
-	NSMutableString * result = [NSMutableString stringWithFormat:@"%@<BIND",prefix];
-	[result appendFormat:@" KEY=\"%@\"",[self key]];
+	NSXMLElement * me = [NSXMLElement elementWithName:@"BIND"];
+	[me addAttribute:[NSXMLNode attributeWithName:@"KEY" stringValue:[self key]]];
 	id K = [self altCodeName];
 	if([K length] && ![K isEqual:[self codeName]])
 	{
-		[result appendFormat:@" ALT=\"%@\"",K];
+		[me addAttribute:[NSXMLNode attributeWithName:@"ALT" stringValue:K]];
 	}
-	K = [self XMLStringOfChildrenWithPrefix:[prefix stringByAppendingString:@"\t"]];
+	K = [self macroID];
 	if([K length])
 	{
-		[result appendFormat:@">\n%@%@</BIND>\n",K,prefix];
+		[me addAttribute:[NSXMLNode attributeWithName:@"ID" stringValue:K]];
 	}
-	else
-	{
-		K = [self macroID];
-		if([K length])
-		{
-			[result appendFormat:@" ID=\"%@\"/>\n",K];
-		}
-		else
-		{
-			[result appendString:@"/>\n"];
-		}
-	}
-	return result;
+	[element addChild:me];
+	[self feedElementWithChildren:me];
+	return;
 }
-- (NSString *)XMLString;
+- (NSData *)XMLData;
 {
+#if 0
 	NSMutableString * result = [NSMutableString stringWithString:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 @"	<!DOCTYPE BINDINGS [\n"
 @"	<!ELEMENT BINDINGS (BIND)*>\n"
@@ -1234,16 +1238,12 @@ To Do List:
 @"	<!ATTLIST BIND ALT CDATA #IMPLIED>\n"
 @"]>\n"
 @"<BINDINGS"];
-	NSString * contents = [self XMLStringOfChildrenWithPrefix:@"\t"];
-	if([contents length])
-	{
-		[result appendFormat:@">\n%@</BINDINGS>\n",contents];
-	}
-	else
-	{
-		[result appendString:@"/>\n"];
-	}
-	return result;
+#endif
+	NSXMLElement * root = [NSXMLElement elementWithName:@"BINDINGS"];
+	[self feedElementWithChildren:root];
+	id document = [NSXMLDocument documentWithRootElement:root];
+	[document setCharacterEncoding:@"UTF-8"];
+	return [document XMLDataWithOptions:NSXMLNodePrettyPrint|NSXMLNodeCompactEmptyElement];
 }
 - (void)updateKeyStroke;
 {
@@ -1465,6 +1465,18 @@ To Do List:
 	selectionIndexPaths = [indexPaths copy];
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyOtherNode
+- (id)lazyOtherNode;
+/*"Overriden, the inherited method is lazy, this one is not.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Sun Nov  5 16:57:31 GMT 2006
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil;
+}
 @end
 
 @interface iTM2KeyBindingTreeController: NSTreeController
@@ -1480,7 +1492,7 @@ To Do List:
 }
 - (NSData *)personalDataForSaving;
 {
-	return [[[self list] XMLString] dataUsingEncoding:NSUTF8StringEncoding];
+	return [[self list] XMLData];
 }
 @end
 
@@ -1889,7 +1901,7 @@ To Do List:
 	[SMC saveTree:node];
 	node = [SMC keyBindingTree];
 	[SMC saveTree:node];
-	[W makeFirstResponder:firstResponder]; 
+	[W makeFirstResponder:firstResponder];
 //iTM2_END;
     return;
 }
@@ -2503,8 +2515,17 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rootKeyBindings
 - (id)rootKeyBindings;
-{
-    return [[super rootKeyBindings] list];// this is where the default behaviour is overriden
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = [SMC keyBindingTree];
+	NSString * key = [self macroDomain];
+	result = [result objectInChildrenWithDomain:key];
+	key = [self macroCategory];
+	result = [result objectInChildrenWithCategory:key];
+#warning NO context mode supported
+	key = @"";//[self macroContext];
+	result = [result objectInChildrenWithContext:key];
+	return [result list];
 }
 @end
 

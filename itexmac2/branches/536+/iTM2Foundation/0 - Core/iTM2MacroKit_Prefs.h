@@ -36,8 +36,6 @@
 
 @interface iTM2MutableMacroNode:iTM2PrefsMacroNode
 - (void)setActionName:(NSString *)newActionName;
-- (NSString *)XMLString;
-+ (NSString *)XMLStringWithMacros:(NSDictionary *)theMacros;
 @end
 
 @interface iTM2MacroAbstractContextNode(Preferences)
@@ -73,8 +71,6 @@
 @private
 	iTM2PrefsKeyBindingNode * otherNode;
 }
-- (NSString *)XMLStringWithPrefix:(NSString *)prefix;// handling pretty printing
-- (NSString *)XMLString;
 @end
 
 @interface iTM2KeyBindingList:iTM2MutableKeyBindingNode

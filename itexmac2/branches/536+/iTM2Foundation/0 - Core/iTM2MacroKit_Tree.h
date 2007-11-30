@@ -55,6 +55,7 @@
 - (NSURL *)personalURL;
 - (NSData *)personalDataForSaving;
 + (NSString *)pathExtension;
+- (void)update;
 @end
 
 @interface iTM2MacroContextNode:iTM2MacroAbstractContextNode

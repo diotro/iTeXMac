@@ -570,12 +570,12 @@ To Do List:
 	{
 		if([C handlesKeyBindings])
 		{
-			id CKB = [self currentKeyBindingsOfClient:C];
 			if([self client:C executeBindingForKeyStroke:KS])// early entry point for 7bits accents
 			{
 				return YES;
 			}
-			id keyBinding = [CKB objectInKeyBindingsWithKeyStroke:KS];
+			id CKB = [self currentKeyBindingsOfClient:C];
+			id keyBinding = [CKB objectInChildrenWithKeyStroke:KS];
 			if([keyBinding countOfChildren]>0)
 			{
 				// down a level
@@ -1611,7 +1611,7 @@ To Do List:
 #warning NO context mode supported
 	key = @"";//[self macroContext];
 	result = [result objectInChildrenWithContext:key];
-	return result;
+	return [result keyBindings];
 }
 @end
 

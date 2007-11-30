@@ -167,7 +167,7 @@ To Do List:
 	if(didChange)
 	{
 		id afterObject = [self contextValueForKey:aKey domain:mask];
-	//iTM2_LOG(@"afterObject:%@",afterObject);
+//iTM2_LOG(@"afterObject:%@",afterObject);
 		if([object isEqual:afterObject] || (object == afterObject))
 		{
 			return YES;
@@ -200,6 +200,7 @@ To Do List:
 			id old = [D valueForKey:aKey];
 			if(![old isEqual:object])
 			{
+				[[old retain] autorelease];
 				[D takeValue:object forKey:aKey];
 				didChange |= iTM2ContextStandardLocalMask;
 			}

@@ -348,7 +348,7 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 @implementation NSApplication_iTM2DEBUG
 - (BOOL)sendAction:(SEL)theAction to:(id)theTarget from:(id)sender;
 {
-if(!_iTM2_DEBUG_LastAction)
+if(_iTM2_DEBUG_LastAction == nil)
 {
 	_iTM2_DEBUG_LastAction = theAction;
 	_iTM2_DEBUG_LastTarget = theTarget;

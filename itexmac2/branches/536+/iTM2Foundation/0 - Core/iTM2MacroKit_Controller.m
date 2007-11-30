@@ -377,8 +377,6 @@ To Do List:
 				// now the context level
 				NSURL * url = [node personalURL];
 				NSData * D = [node personalDataForSaving];
-				// if the "list" of this context node was never used, the documentForURL: returns nil and nothing is saved
-				// this is expected behavior because nothing was edited
 				if(D)
 				{
 					NSError * localError = nil;
@@ -392,6 +390,7 @@ To Do List:
 					{
 						iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Could not write to %@",url]),localError);
 					}
+					[node update];
 				}
 			}
 		}

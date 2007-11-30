@@ -36,7 +36,6 @@
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
-#import <iTM2Foundation/iTM2MacroKit_Model.h>
 
 #define TABLE @"iTM2TextKit"
 #define BUNDLE [iTM2TextDocument classBundle]
@@ -859,7 +858,7 @@ To Do List:
 #pragma mark =-=-=-=-=-  7 bits
 - (void)convertTo7bitsAccents:(id)sender;
 {
-	id ranges = [NSMutableArray array];
+	NSMutableArray * ranges = [NSMutableArray array];
 	NSMutableDictionary * map = [NSMutableDictionary dictionary];
 	NSEnumerator * E = [[iTM2TeXKeyBindingsManager the7bitsAccentsMapping] objectEnumerator];
 	NSString * before;
@@ -887,7 +886,7 @@ To Do List:
 			}
 		}
 	}
-	ranges = [ranges sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
+	ranges = (id)[ranges sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
 	NSMutableArray * replacements = [NSMutableArray array];
 	E = [ranges objectEnumerator];
 	while(V = [E nextObject])
@@ -896,7 +895,7 @@ To Do List:
 	}
 	if([ranges count] && [self shouldChangeTextInRanges:ranges replacementStrings:replacements])
 	{
-		E = [[ranges sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)] reverseObjectEnumerator];
+		E = [ranges reverseObjectEnumerator];
 		while(V = [E nextObject])
 		{
 			[self replaceCharactersInRange:[V rangeValue] withString:[map objectForKey:V]];
@@ -1177,6 +1176,15 @@ To Do List:
 }
 @end
 
+@interface iTM27BitsContextNode:iTM2KeyBindingContextNode
+@end
+@implementation iTM27BitsContextNode
+- (BOOL)uniqueKey;
+{
+	return NO;
+}
+@end
+
 @implementation iTM2TeXKeyBindingsManager
 static id iTM2TeXKeyBindingsManager_7bitsAccents = nil;
 +(void)load;
@@ -1199,14 +1207,17 @@ To Do List:
 	if(!mapping)
 	{
 		id list = [self the7bitsAccentsList];
-		[list honorURLPromises];
 		mapping = [[NSMutableArray array] retain];
 		NSEnumerator * E = [[list children] objectEnumerator];
 		id child;
 		while(child = [E nextObject])
 		{
-			[mapping addObject:[child key]];
-			[mapping addObject:[child ID]];
+			NSString * K = [child key];
+			if(![mapping containsObject:K])
+			{
+				[mapping addObject:K];
+				[mapping addObject:[child macroID]];
+			}
 		}
 	}
 	return mapping;
@@ -1221,22 +1232,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_LOG;
 	static id gnippam = nil;
-	if(!gnippam)
+	if(gnippam == nil)
 	{
 		id list = [self the7bitsAccentsList];
-		[list honorURLPromises];
 		gnippam = [[NSMutableDictionary dictionary] retain];
-		NSEnumerator * E = [[list children] objectEnumerator];
+		NSEnumerator * E = [[list children] reverseObjectEnumerator];// the first occurrence will be used
 		id child;
 		while(child = [E nextObject])
 		{
-			NSString * K = [child key];
-			NSEnumerator * e = [[child IDs] objectEnumerator];
-			NSString * ID;
-			while(ID = [e nextObject])
-			{
-				[gnippam setObject:K forKey:ID];
-			}
+			[gnippam setObject:[child key] forKey:[child macroID]];
 		}
 	}
 	return gnippam;
@@ -1251,7 +1255,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	if(!iTM2TeXKeyBindingsManager_7bitsAccents)
 	{
-		iTM2TeXKeyBindingsManager_7bitsAccents = [[iTM2KeyBindingContextNode alloc] initWithParent:nil context:@""];
+		iTM2TeXKeyBindingsManager_7bitsAccents = [[iTM27BitsContextNode alloc] initWithParent:nil context:@""];
 		NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"7bitsAccents" ofType:iTM2KeyBindingPathExtension];
 		NSEnumerator * E = [RA objectEnumerator];
 		NSString * repository = nil;
@@ -1277,57 +1281,14 @@ To Do List:
 	if([C contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask])
 	{
 		id keyNode = [[[self class] the7bitsAccentsList] objectInChildrenWithKeyStroke:keyStroke];
-		if(keyNode)
+		if(keyNode && [C respondsToSelector:@selector(insertMacro_ROUGH:)])
 		{
 			if([C respondsToSelector:@selector(hasMarkedText)] && [C hasMarkedText])
 			{
 				[C deleteBackward:nil];// this is the only mean I found to properly manage the undo stack for dead keys
 			}
-			BOOL result = NO;
-			NSMethodSignature * MS = nil;
-			NSString * ID = [keyNode ID];
-			SEL action = NSSelectorFromString(ID);
-			id argument = self;
-			if(action && (MS = [C methodSignatureForSelector:action]))
-			{
-here:
-				if([MS numberOfArguments] == 3)
-				{
-					NS_DURING
-					[C performSelector:action withObject:argument];
-					result = YES;
-					NS_HANDLER
-					NS_ENDHANDLER
-				}
-				else if([MS numberOfArguments] == 2)
-				{
-					NS_DURING
-					[C performSelector:action];
-					result = YES;
-					NS_HANDLER
-					NS_ENDHANDLER
-				}
-				else if(MS)
-				{
-				}
-				else if([[[NSApp keyWindow] firstResponder] tryToPerform:action with:argument]
-					|| [[[NSApp mainWindow] firstResponder] tryToPerform:action with:argument])
-				{
-					result = YES;
-				}
-				else
-				{
-					iTM2_LOG(@"No target for %@ with argument:%@", NSStringFromSelector(action),argument);
-				}
-		//iTM2_END;
-				return result;
-			}
-			if((action = NSSelectorFromString(@"insertMacro:"))
-				&& (MS = [C methodSignatureForSelector:action]))
-			{
-				argument = ID;
-				goto here;
-			}
+			[C performSelector:@selector(insertMacro_ROUGH:) withObject:[keyNode macroID]];
+			return YES;
 		}
 	}
 //iTM2_STOP;

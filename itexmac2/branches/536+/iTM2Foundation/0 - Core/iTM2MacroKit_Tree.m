@@ -162,6 +162,7 @@ DEFINE(codeName,setCodeName)
 			reserved:28;
 	} status;
 	ICURegEx * RE;
+	BOOL uniqueKey;
 }
 - (iTM2KeyBindingNode *)bindings;
 - (void)setBindings:(iTM2KeyBindingNode *)new;
@@ -171,6 +172,15 @@ DEFINE(codeName,setCodeName)
 @end
 
 @implementation iTM2KeyBindingParser
+- (BOOL)uniqueKey;
+{
+	return uniqueKey;
+}
+- (void)setUniqueKey:(BOOL)new;
+{
+	uniqueKey = new;
+	return;
+}
 - (iTM2KeyBindingNode *)bindings;
 {
 	return bindings;
@@ -224,8 +234,8 @@ DEFINE(codeName,setCodeName)
 					}
 				}
 				NSString * altCodeName = [attributeDict objectForKey:@"ALT"];
-				iTM2KeyBindingNode * KB = [current objectInChildrenWithCodeName:codeName modifierFlags:modifierFlags];
-				if(KB)
+				iTM2KeyBindingNode * KB;
+				if([self uniqueKey] && (KB = [current objectInChildrenWithCodeName:codeName modifierFlags:modifierFlags]))
 				{
 					[KB setMacroID:[attributeDict objectForKey:@"ID"]];
 					if(((modifierFlags & (NSShiftKeyMask|NSAlphaShiftKeyMask)) == 0) && ([codeName length] == 1))
@@ -446,13 +456,14 @@ To Do List:
 	}
 	return [self objectInChildrenWithKeyStroke:keyStroke];
 }
-- (void)parseData:(NSData *)data;
+- (void)parseData:(NSData *)data uniqueKey:(BOOL)flag;
 {
 	if(data)
 	{
 		NSXMLParser * parser = [[NSXMLParser alloc] initWithData:data];
 		iTM2KeyBindingParser * delegate = [[iTM2KeyBindingParser alloc] init];
 		[delegate setBindings:self];
+		[delegate setUniqueKey:flag];
 		[parser setDelegate:delegate];
 		[parser setShouldResolveExternalEntities:NO];
 		[parser parse];
@@ -902,6 +913,10 @@ NSString * const iTM2MacroPersonalComponent = @"Personal";
 {
     return [self valueForKeyPath:@"value.context"];
 }
+- (void)update;
+{
+	return;// subclassers will do what they want here
+}
 @end
 
 NSString * const iTM2MacroPathExtension = @"iTM2-macros";
@@ -954,7 +969,12 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 }
 - (void)setMacros:(NSMutableDictionary *)macros;
 {
+	[[[self valueForKeyPath:@"value.macros"] retain] autorelease];
 	[self setValue:macros forKeyPath:@"value.macros"];
+}
+- (void)update;
+{
+	[self setMacros:nil];
 }
 @end
 
@@ -965,43 +985,57 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 {
 	return iTM2KeyBindingPathExtension;
 }
+- (BOOL)uniqueKey;
+{
+	return YES;
+}
 - (iTM2KeyBindingNode *)keyBindings;
 {
 	iTM2KeyBindingNode * result = [self valueForKeyPath:@"value.keyBindings"];
-	if(!result)
+	if(result)
 	{
-		iTM2KeyBindingNode * MKB = [[[iTM2KeyBindingNode alloc] init] autorelease];
-		NSEnumerator * E = [[self valueForKeyPath:@"value.URLsPromise"] objectEnumerator];
-		NSURL * url = nil;
-		NSURL * personalURL = [self personalURL];
-		NSError * localError =  nil;
-		NSData * data = nil;
-		while(url = [E nextObject])
+		return result;
+	}
+	result = [[[iTM2KeyBindingNode alloc] init] autorelease];
+	NSEnumerator * E = [[self valueForKeyPath:@"value.URLsPromise"] objectEnumerator];
+	NSURL * url = nil;
+	NSURL * personalURL = [self personalURL];
+	NSError * localError =  nil;
+	NSData * data = nil;
+	while(url = [E nextObject])
+	{
+		if(![url isEqual:personalURL])
 		{
-			if(![url isEqual:personalURL])
+			data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
+			if(localError)
 			{
-				data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
-				if(localError)
-				{
-					iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
-					localError = nil;
-				}
-				[MKB parseData:data];
+				iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
+				localError = nil;
 			}
+			[result parseData:data uniqueKey:[self uniqueKey]];
 		}
+	}
+	BOOL isDirectory;
+	if([personalURL isFileURL] && [DFM fileExistsAtPath:[personalURL path] isDirectory:&isDirectory] && !isDirectory)
+	{
 		data = [NSData dataWithContentsOfURL:personalURL options:0 error:&localError];
 		if(localError)
 		{
 			iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalURL,localError);
 		}
-		[MKB parseData:data];
-		[self setKeyBindings:MKB];
+		[result parseData:data uniqueKey:[self uniqueKey]];
 	}
+	[self setKeyBindings:result];
 	return result;
 }
 - (void)setKeyBindings:(iTM2KeyBindingNode *)keyBindings;
 {
+	[[[self valueForKeyPath:@"value.keyBindings"] retain] autorelease];
 	[self setValue:keyBindings forKeyPath:@"value.keyBindings"];
+}
+- (void)update;
+{
+	[self setKeyBindings:nil];
 }
 @end
 
