@@ -1427,7 +1427,7 @@ To Do List:
 			{
 				iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
 			}
-			[self parseData:data];
+			[self parseData:data uniqueKey:YES];
 		}
 		iTM2PrefsKeyBindingNode * MKB = [[[iTM2PrefsKeyBindingNode alloc] initWithParent:self] autorelease];// not mutable!!
 		NSEnumerator * E = [[parent valueForKeyPath:@"value.URLsPromise"] objectEnumerator];
@@ -1442,7 +1442,7 @@ To Do List:
 				{
 					iTM2_LOG(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
 				}
-				[MKB parseData:data];
+				[MKB parseData:data uniqueKey:YES];
 			}
 		}
 		[self setOtherNode:MKB];
