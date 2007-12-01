@@ -1500,8 +1500,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * result = [NSMutableArray array];
-	NSArray * Bs = [self embeddedBundles];
-	NSEnumerator * E = [Bs objectEnumerator];
+	NSEnumerator * E = [[self embeddedBundles] objectEnumerator];
 	NSBundle * B;
 	while(B = [E nextObject])
 	{

@@ -8,19 +8,25 @@
 	<string>Executer un fichier script</string>
 	<key>insertMacro:</key>
 	<string>Insérer du texte comme macro</string>
-	<key>insertMacroBeforeTheSelection:</key>
+	<key>insertMacro_PREPEND_SELECTION:</key>
 	<string>Insérer avant la sélection</string>
-	<key>insertMacroAfterTheSelection:</key>
+	<key>insertMacro_REPLACE_SELECTION:</key>
+	<string>Remplacer la selection</string>
+	<key>insertMacro_APPEND_SELECTION:</key>
 	<string>Insérer après la sélection</string>
-	<key>insertMacroAtTheBeginning:</key>
+	<key>insertMacro_PREPEND_ALL:</key>
 	<string>Insérer au début</string>
-	<key>insertMacroAtTheEnd:</key>
+	<key>insertMacro_REPLACE_ALL:</key>
+	<string>Remplacer tout</string>
+	<key>insertMacro_APPEND_ALL:</key>
 	<string>Insérer à la fin</string>
-	<key>insertMacroAtTheBeginningOfTheLine:</key>
+	<key>insertMacro_PREPEND_LINE:</key>
 	<string>Insérer en début de ligne</string>
-	<key>insertMacroAtTheEndOfTheLine:</key>
+	<key>insertMacro_REPLACE_LINE:</key>
+	<string>Remplacer la line</string>
+	<key>insertMacro_APPEND_LINE:</key>
 	<string>Insérer en fin de ligne</string>
-	<key>insertMacroInPasteboard:</key>
+	<key>insertMacro_COPY:</key>
 	<string>Copier la macro</string>
-</dict>
+<</dict>
 </plist>

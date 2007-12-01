@@ -649,17 +649,17 @@ To Do List:
 //iTM2_START;
     NSDocument * doc = [[[self window] windowController] document];
     NSString * path = [[doc fileName] stringByResolvingSymlinksAndFinderAliasesInPath];
-    NSImage * I = [NSImage imageReadOnlyPencil];
+    NSImage * I = [NSImage iTM2_imageReadOnlyPencil];
     BOOL editable = NO;
     BOOL enabled = NO;
     if([[DFM fileAttributesAtPath:path traverseLink:YES] fileIsImmutable])
     {
-        I = [NSImage imageLock];
+        I = [NSImage iTM2_imageLock];
         enabled = YES;
     }
     else if([DFM isWritableFileAtPath:path])
     {
-        I = [NSImage imageUnlock];
+        I = [NSImage iTM2_imageUnlock];
         editable = YES;
         enabled = YES;
     }
@@ -711,7 +711,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self setTitle:@"Coffee"];
-    [self setImage:[NSImage imageJava]];
+    [self setImage:[NSImage iTM2_imageJava]];
     [self setBordered:NO];
     [self setImagePosition:NSImageOnly];
     [self setButtonType:NSMomentaryChangeButton];

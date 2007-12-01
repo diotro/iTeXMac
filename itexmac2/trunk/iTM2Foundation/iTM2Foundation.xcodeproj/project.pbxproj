@@ -68,8 +68,6 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
-		DC0D20970BFF2BD500440681 /* iTM2MacroKit_Model.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D1F6E0BFF03A400440681 /* iTM2MacroKit_Model.h */; };
-		DC0D20980BFF2BD600440681 /* iTM2MacroKit_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0D1F6F0BFF03A400440681 /* iTM2MacroKit_Model.m */; };
 		DC0D20990BFF2BD700440681 /* iTM2MacroKit_Tree.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D1F260BFEFF8800440681 /* iTM2MacroKit_Tree.h */; };
 		DC0D209A0BFF2BD700440681 /* iTM2MacroKit_Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0D1F270BFEFF8800440681 /* iTM2MacroKit_Tree.m */; };
 		DC0D209C0BFF2C0D00440681 /* iTM2MacroKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD403EF099498B0006B91DF /* iTM2MacroKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -730,8 +728,6 @@
 		DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TreeKit.m; sourceTree = "<group>"; };
 		DC0D1F260BFEFF8800440681 /* iTM2MacroKit_Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Tree.h; sourceTree = "<group>"; };
 		DC0D1F270BFEFF8800440681 /* iTM2MacroKit_Tree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Tree.m; sourceTree = "<group>"; };
-		DC0D1F6E0BFF03A400440681 /* iTM2MacroKit_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Model.h; sourceTree = "<group>"; };
-		DC0D1F6F0BFF03A400440681 /* iTM2MacroKit_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Model.m; sourceTree = "<group>"; };
 		DC0D21000BFF509D00440681 /* iTM2MacroKit_Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Action.h; sourceTree = "<group>"; };
 		DC0D21010BFF509D00440681 /* iTM2MacroKit_Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Action.m; sourceTree = "<group>"; };
 		DC0D211A0BFF50EA00440681 /* iTM2MacroKit_Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Controller.h; sourceTree = "<group>"; };
@@ -1469,8 +1465,6 @@
 				DCF61B6C0854654B003F5F79 /* iTM2KeyBindingsKit.h */,
 				DC0D1F260BFEFF8800440681 /* iTM2MacroKit_Tree.h */,
 				DC0D1F270BFEFF8800440681 /* iTM2MacroKit_Tree.m */,
-				DC0D1F6E0BFF03A400440681 /* iTM2MacroKit_Model.h */,
-				DC0D1F6F0BFF03A400440681 /* iTM2MacroKit_Model.m */,
 				DC0D211A0BFF50EA00440681 /* iTM2MacroKit_Controller.h */,
 				DC0D211B0BFF50EA00440681 /* iTM2MacroKit_Controller.m */,
 				DC0D21000BFF509D00440681 /* iTM2MacroKit_Action.h */,
@@ -1737,7 +1731,6 @@
 				DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */,
 				DC7A7A490B89C37900BD830B /* iTM2InheritanceKit.h in Headers */,
 				DC70F96B0BFC6283006C6A76 /* iTM2LuaInterpreter.h in Headers */,
-				DC0D20970BFF2BD500440681 /* iTM2MacroKit_Model.h in Headers */,
 				DC0D20990BFF2BD700440681 /* iTM2MacroKit_Tree.h in Headers */,
 				DC0D209C0BFF2C0D00440681 /* iTM2MacroKit.h in Headers */,
 				DC0D211C0BFF50EA00440681 /* iTM2MacroKit_Controller.h in Headers */,
@@ -2577,7 +2570,6 @@
 				DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */,
 				DC7A7A510B89C3C100BD830B /* iTM2InheritanceKit.m in Sources */,
 				DC70F96C0BFC6283006C6A76 /* iTM2LuaInterpreter.m in Sources */,
-				DC0D20980BFF2BD600440681 /* iTM2MacroKit_Model.m in Sources */,
 				DC0D209A0BFF2BD700440681 /* iTM2MacroKit_Tree.m in Sources */,
 				DC0D211D0BFF50EA00440681 /* iTM2MacroKit_Controller.m in Sources */,
 				DC5B9C440BFFAD4800CE4DB2 /* iTM2MacroKit_String.m in Sources */,

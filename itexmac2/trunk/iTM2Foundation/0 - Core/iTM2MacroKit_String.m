@@ -39,7 +39,7 @@ To Do List:
 	if(!_iTM2MacroTypes)
 	{
 		_iTM2MacroTypes = [[NSArray arrayWithObjects:
-			@"ACTION",@"PATH",@"COMMAND",@"COPY",@"MATH",
+			@"ACTION",@"PATH",@"COMMAND",@"COPY",@"MATH",// documented???
 			@"INPUT_PATH",@"INPUT_ALL",@"INPUT_SELECTION",@"INPUT_LINE",//unused?
 			@"PERL_INPUT_ALL",@"PERL_INPUT_SELECTION",@"PERL_INPUT_LINE",
 			@"PERL_REPLACE_SELECTION",@"PERL_REPLACE_LINE",@"PERL_REPLACE_ALL",

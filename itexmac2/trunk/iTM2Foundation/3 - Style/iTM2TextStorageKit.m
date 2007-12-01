@@ -27,6 +27,7 @@
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/ICURegEx.h>
 
 #warning DEBUGGGGG
 #undef __iTM2DebugEnabled__
@@ -161,6 +162,12 @@ To Do List:
 }
 @end
 
+@interface NSTextStorage(PRIVATE)
+// never ever call this method by yourself
+// this is buggy in leopard and is called by NSTextFinder
+- (unsigned)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range;
+@end
+
 @implementation iTM2TextStorage
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= init
 - (id)init;
@@ -239,6 +246,13 @@ To Do List:
 //iTM2_END;
     return;
 }
+- (void)edited:(unsigned)editedMask range:(NSRange)range changeInLength:(int)delta;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super edited:(unsigned)editedMask range:(NSRange)range changeInLength:(int)delta];
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isEqualToAttributedString:
 - (BOOL)isEqualToAttributedString:(NSAttributedString *)other;
 /*"Description forthcoming.
@@ -249,6 +263,18 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [_TextModel isEqualToString:[other string]];
+}
+- (void)beginEditing;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super beginEditing];
+    return;
+}
+- (void)endEditing;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super endEditing];
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  processEditing
 - (void)processEditing;
@@ -505,6 +531,99 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= replaceString:withString:ranges:options:inView:replacementRange:
+- (unsigned)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range;
+/*"Attribute changes are catched.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2: 12/05/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([SUD boolForKey:@"iTM2DontPatchNSTextStorageReplaceString"])
+	{
+		return [super replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range];
+	}
+	iTM2_INIT_POOL;
+	NSMutableDictionary * map = [NSMutableDictionary dictionary];
+	unsigned flags = ICUREMultilineOption;
+	if(options & 1)
+	{
+		flags |= ICURECaseSensitiveOption;
+	}
+	NSMutableString * pattern = [NSMutableString string];
+	if(options & 1<<16 || options & 1<<17)
+	{
+		[pattern appendString:@"\\b"];
+	}
+	unsigned end, contentsEnd;
+	NSRange R = NSMakeRange(0,0);
+	if(R.location<[old length])
+	{
+		[old getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+		R.length = contentsEnd-R.location;
+		[pattern appendString:[[old substringWithRange:R] stringByEscapingICUREControlCharacters]];
+		R.location = end;
+		while(R.location<[old length])
+		{
+			R.length = 0;
+			[old getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+			R.length = contentsEnd-R.location;
+			[pattern appendString:@"$.^"];
+			[pattern appendString:[[old substringWithRange:R] stringByEscapingICUREControlCharacters]];
+			R.location = end;
+		}
+	}
+	if(options & 1<<17)
+	{
+		[pattern appendString:@"\\b"];
+	}
+	NSString * myString = [self string];
+	NSRange myRange = NSMakeRange(0,[myString length]);
+	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:pattern options:flags error:nil] autorelease];
+	NSMutableString * replacementPattern = [NSMutableString stringWithString:new];
+	[replacementPattern replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:0 range:NSMakeRange(0,[new length])];
+	[replacementPattern replaceOccurrencesOfString:@"$" withString:@"\\$" options:0 range:NSMakeRange(0,[new length])];
+	[RE setReplacementPattern:replacementPattern];
+	NSEnumerator * E = [ranges objectEnumerator];
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		R = [V rangeValue];// V is free now
+		R = NSIntersectionRange(R,myRange);
+		if(R.length)
+		{
+			[RE setInputString:myString range:R];
+			while([RE nextMatch])
+			{
+				[map setObject:[RE replacementString] forKey:[NSValue valueWithRange:[RE rangeOfMatch]]];
+			}
+		}
+	}
+	NSArray * affectedRanges = [[map allKeys] sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
+	E = [affectedRanges objectEnumerator];
+	NSMutableArray * replacementStrings = [NSMutableArray array];
+	while(V = [E nextObject])
+	{
+		[replacementStrings addObject:[map objectForKey:V]];
+	}
+	unsigned result = 0;
+	if([affectedRanges count] && [view shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	{
+		[self beginEditing];
+		E = [affectedRanges reverseObjectEnumerator];
+		NSEnumerator * EE = [replacementStrings reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			[self replaceCharactersInRange:[V rangeValue] withString:[EE nextObject]];
+		}
+		[self endEditing];
+		result = [affectedRanges count];
+	}
+	iTM2_RELEASE_POOL;
+//iTM2_END;
+    return result;
+}
 #pragma mark =-=-=-=-=-=-=-=-=-=-  GETTING ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:effectiveRange:
 - (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
@@ -546,7 +665,7 @@ To Do List:
 	if(_SP)
 	{
 		id attributes = [_SP attributesAtIndex:aLocation longestEffectiveRange:aRangePtr inRange:aRangeLimit];
-		if(aRangePtr && aRangePtr->length==0)
+		if(aRangePtr && aRangePtr->length==0 && aLocation < length)
 		{
 			R = NSMakeRange(aLocation, length-aLocation);
 			*aRangePtr = R;
@@ -3099,7 +3218,7 @@ BesameMucho:
 			++last;
 		else
 		{
-			iTM2_LOG(@"!!!   ERROR: THIS IS AN UNEXPECTED SITUATION... please report bug or investigated further");
+			iTM2_LOG(@"!!!   ERROR: THIS IS AN UNEXPECTED SITUATION\nindex:%i, old count:%i, new count:%i\nplease report bug or investigated further",location,oldCount,newCount);
 		}
 	}
 	if(_ML->_EOLLength)
@@ -4849,7 +4968,9 @@ NSString * const iTM2TextStyleComponent = @"Styles.localized";
 
 NSString * const iTM2TextStyleExtension = @"iTM2-Style";
 NSString * const iTM2TextVariantExtension = @"iTM2-Variant";
-NSString * const iTM2TextAttributesModesComponent = @"modes.rtf";
+
+NSString * const iTM2TextAttributesPathExtension = @"rtf";
+NSString * const iTM2TextAttributesModesComponent = @"modes";
 
 NSString * const iTM2TextAttributesDidChangeNotification = @"iTM2TextAttributesDidChange";
 
@@ -5264,7 +5385,8 @@ iTM2_LOG(@"builtIn:%@",paths);
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
-			stylePath = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+			stylePath = [[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent]
+				stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 			[modesAttributes addEntriesFromDictionary:[[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr]];
 		}
 	}
@@ -5280,7 +5402,8 @@ iTM2_LOG(@"builtIn:%@",paths);
 			BOOL isDir = NO;
 			if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 			{
-				stylePath = [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+				stylePath = [[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent]
+					stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 				NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr];
 				[modesAttributes addEntriesFromDictionary:D];
 			}
@@ -5296,7 +5419,8 @@ iTM2_LOG(@"support:%@",paths);
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
-			stylePath= [stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+			stylePath= [[stylePath stringByAppendingPathComponent:iTM2TextAttributesModesComponent]
+				stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 			NSDictionary * D = [[self class] modesAttributesWithContentsOfFile:stylePath error:outErrorPtr];
 			[modesAttributes addEntriesFromDictionary:D];
 		}

@@ -23,8 +23,12 @@
 
 #import <iTM2Foundation/iTM2MacroKit.h>
 
-@interface iTM2MacroTreeNode(Tree)
-- (void)honorURLPromises;
+#import <iTM2Foundation/iTM2TreeKit.h>
+#import <iTM2Foundation/ICURegEx.h>
+
+// all the nodes used in macro management are descendants of this class
+// this will allow to change the ancestor only once
+@interface iTM2MacroTreeNode:iTM2TreeNode
 - (id)contextNode;
 @end
 
@@ -48,17 +52,18 @@
 @interface iTM2MacroAbstractContextNode:iTM2MacroTreeNode
 - (id)initWithParent:(iTM2MacroTreeNode *)parent context:(NSString *)context;
 - (void)addURLPromise:(NSURL *)url;
-- (void)readContentOfURL:(NSURL *)url;
-- (NSArray *)documentURLs;
-- (NSArray *)honoredDocumentURLs;
-- (NSXMLDocument *)documentForURL:(NSURL *)url;
-- (void)setDocument:(NSXMLDocument *)document forURL:(NSURL *)url;
 - (NSURL *)personalURL;
+- (NSData *)personalDataForSaving;
 + (NSString *)pathExtension;
-- (void)readXMLRootElement:(NSXMLElement *)element mutable:(BOOL)mutable;
-- (id)list;
+- (void)update;
 @end
 
-@interface iTM2MacroAbstractModelNode(Tree)
-- (void)readXMLElement:(NSXMLElement *)element mutable:(BOOL)mutable;
+@interface iTM2MacroContextNode:iTM2MacroAbstractContextNode
+- (NSMutableDictionary *)macros;
+- (void)setMacros:(NSMutableDictionary *)macros;
+@end
+
+@interface iTM2KeyBindingContextNode:iTM2MacroAbstractContextNode
+- (iTM2KeyBindingNode *)keyBindings;
+- (void)setKeyBindings:(iTM2KeyBindingNode *)keyBindings;
 @end

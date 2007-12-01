@@ -143,7 +143,7 @@
 - (BOOL)symbolicLinkExistsAtPath:(NSString *)path;
 
 /*!
-	@method			isVisibleFileAtPath
+	@method			isVisibleFileAtPath:
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			path
@@ -180,6 +180,17 @@
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (BOOL)createSoftLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+
+/*!
+	@method			isPrivateFileAtPath:
+	@abstract		Abstract forthcoming.
+	@discussion		Discussion forthcoming.
+	@param			path
+	@result			yorn.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)isPrivateFileAtPath:(NSString *)path;
 
 @end
 

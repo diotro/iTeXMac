@@ -119,6 +119,26 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectDocumentKit
 /*"Description forthcoming."*/
 @implementation iTM2TeXProjectDocument
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smallImageLogo
++ (NSImage *)smallImageLogo;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * name = @"showCurrentProjectSettings(small)";
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+	if([I iTM2_isNotNullImage])
+	{
+		return I;
+	}
+	I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectSettings"] copy];
+	[I iTM2_setSizeSmallIcon];
+	[I setName:name];
+    return I;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
@@ -423,7 +443,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSImage findImageNamed:@"showCurrentProjectFiles(small)"];
+	NSString * name = @"showCurrentProjectFiles(small)";
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+	if([I iTM2_isNotNullImage])
+	{
+		return I;
+	}
+	I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectFiles"] copy];
+	[I iTM2_setSizeSmallIcon];
+	[I setName:name];
+    return I;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
@@ -834,7 +863,7 @@ To Do List:
 		// - All the selected items do not have the same setting.
         if([[sender menu] numberOfItems] < 2)
 		{
-			[sender setMenu:[iTM2StringFormatController stringEncodingMenuWithAction:@selector(takeStringEncodingFromTag:) target:self]];
+			[sender setMenu:[iTM2StringFormatController stringEncodingMenuWithAction:@selector(takeStringEncodingFromTag:) target:self]];// the menu belongs to self (the target)
 		}		
 		// removing all the items with a iTM2_noop:action: this is mainly the "Multiple Selection" item
 		NSMenu * M = [sender menu];
@@ -1388,7 +1417,7 @@ To Do List:
 		// - All the selected items do not have the same setting.
         if([[sender menu] numberOfItems] < 2)
 		{
-			[sender setMenu:[iTM2StringFormatController EOLMenuWithAction:@selector(takeEOLFromTag:) target:self]];
+			[sender setMenu:[iTM2StringFormatController EOLMenuWithAction:@selector(takeEOLFromTag:) target:self]];// the menu belongs to self
 		}		
 		// removing all the items with a iTM2_noop:action: this is mainly the "Multiple Selection" item
 		NSMenu * M = [sender menu];

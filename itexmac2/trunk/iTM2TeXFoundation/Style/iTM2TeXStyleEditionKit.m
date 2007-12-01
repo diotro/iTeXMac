@@ -46,8 +46,6 @@ To Do List:
 }
 @end
 
-NSString * const iTM2TextAttributesModesIdentifier = @"modes";
-NSString * const iTM2TextAttributesSymbolsIdentifier = @"symbols";
 NSString * const iTM2TextAttributesSymbolIdentifier = @"symbol";
 NSString * const iTM2TextAttributesCommandIdentifier = @"command";
 
@@ -313,14 +311,17 @@ To Do List:
 			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
 			NSString * p;
 			while(p = [e nextObject])
-				if([[p pathExtension] isEqualToString:iTM2TextAttributesSymbolsExtension])
+				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
 					NSString * path = [stylePath stringByAppendingPathComponent:p];
 //iTM2_LOG(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfFile:path];
-					[MD setObject:symbolsAttributes forKey:key];
-					[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					if(symbolsAttributes)
+					{
+						[MD setObject:symbolsAttributes forKey:key];
+						[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					}
 				}
 				else if(iTM2DebugEnabled)
 				{
@@ -347,14 +348,17 @@ To Do List:
 			NSString * p;
 			while(p = [e nextObject])
 			{
-				if([[p pathExtension] isEqualToString:iTM2TextAttributesSymbolsExtension])
+				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
 					NSString * path = [stylePath stringByAppendingPathComponent:p];
 //iTM2_LOG(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfFile:path];
-					[MD setObject:symbolsAttributes forKey:key];
-					[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					if(symbolsAttributes)
+					{
+						[MD setObject:symbolsAttributes forKey:key];
+						[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					}
 				}
 				else if(iTM2DebugEnabled)
 				{
@@ -381,14 +385,17 @@ To Do List:
 			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
 			NSString * p;
 			while(p = [e nextObject])
-				if([[p pathExtension] isEqualToString:iTM2TextAttributesSymbolsExtension])
+				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
 					NSString * path = [stylePath stringByAppendingPathComponent:p];
 //iTM2_LOG(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfFile:path];
-					[MD setObject:symbolsAttributes forKey:key];
-					[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					if(symbolsAttributes)
+					{
+						[MD setObject:symbolsAttributes forKey:key];
+						[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					}
 				}
 				else if(iTM2DebugEnabled)
 				{
@@ -414,14 +421,17 @@ To Do List:
 			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
 			NSString * p;
 			while(p = [e nextObject])
-				if([[p pathExtension] isEqualToString:iTM2TextAttributesSymbolsExtension])
+				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
 					NSString * path = [stylePath stringByAppendingPathComponent:p];
 //iTM2_LOG(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfFile:path];
-					[MD setObject:symbolsAttributes forKey:key];
-					[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					if(symbolsAttributes)
+					{
+						[MD setObject:symbolsAttributes forKey:key];
+						[allSymbols addEntriesFromDictionary:symbolsAttributes];
+					}
 				}
 				else if(iTM2DebugEnabled)
 				{
@@ -460,7 +470,7 @@ To Do List:
 	while(CSK = [E nextObject])
 	{
 		int tag;
-		NSString * lastPathComponent = [CSK stringByAppendingPathExtension:iTM2TextAttributesSymbolsExtension];
+		NSString * lastPathComponent = [CSK stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 		NSString * fullPath = [fileName stringByAppendingPathComponent:lastPathComponent];
 //iTM2_LOG(@"RECYCLING FILE AT PATH: %@", fullPath);
 		success = success
@@ -529,9 +539,9 @@ To Do List:
             }
             [_EditedObjectsSets setObject:[NSMutableDictionary dictionary] forKey:CSK];
     //iTM2_LOG(@"SAVING %@", DOs);
-            NSString * lastPathComponent = [CSK stringByAppendingPathExtension:iTM2TextAttributesSymbolsExtension];
+            NSString * lastPathComponent = [CSK stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
             NSString * fullPath = [fileName stringByAppendingPathComponent:lastPathComponent];
-            success = ![lastPathComponent isEqual:iTM2TextAttributesModesComponent]
+            success = ![lastPathComponent isEqual:[iTM2TextAttributesModesComponent stringByAppendingPathExtension:iTM2TextAttributesPathExtension]]
 				&& [iTM2XtdTeXParserAttributesServer writeSymbolsAttributes:DOs toFile:fullPath];
 //iTM2_LOG(@"WRITING\n%@\nAT PATH:\n%@", DOs, fullPath);
         }

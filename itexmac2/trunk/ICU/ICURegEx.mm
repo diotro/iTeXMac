@@ -18,16 +18,21 @@
 
 @end
 
+typedef struct
+{
+@defs(ICURegEx)
+} ICURegExDef;
+
 @interface ICURegExIVars:NSObject
 {
 @public
-	NSString * pattern;
-	NSString * string;
-	NSString * replacement;
+	NSString * string;// the search string
+	NSString * replacement;// the replacement pattern
 	NSError * error;
-	unsigned stringOffset;
-	RegexPattern * regexPattern;
-	RegexMatcher * regexMatcher;
+	unsigned stringOffset;// when the search should take place only in a substring
+	unsigned stringLength;// when the search should take place only in a substring
+	RegexPattern * regexPattern;// ICU
+	RegexMatcher * regexMatcher;// ICU
 	UnicodeString * uString;
 	UnicodeString * uReplacement;
 	UErrorCode status;
@@ -43,8 +48,6 @@
 	replacement = nil;
 	[string autorelease];
 	string = nil;
-	[pattern autorelease];
-	pattern = nil;
 	delete regexPattern;
 	regexPattern = nil;
 	delete regexMatcher;
@@ -73,6 +76,37 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 @end
 
 @implementation ICURegEx
+static NSMutableDictionary * ICURegEx_cache = nil;
++ (void)initialize;
+{
+	iTM2_INIT_POOL;
+	[super initialize];
+	if(!ICURegEx_cache)
+	{
+		ICURegEx_cache = [[NSMutableDictionary dictionary] retain];
+	}
+	iTM2_RELEASE_POOL;
+	return;
+}
++ (id)regExWithSearchPattern:(NSString *)pattern;
+{
+	id result = [ICURegEx_cache objectForKey:pattern];
+	if(result)
+	{
+		return result;
+	}
+	NSError * localError = nil;
+	if(result = [[[self alloc] initWithSearchPattern:pattern options:0 error:&localError] autorelease])
+	{
+		[ICURegEx_cache setObject:result forKey:pattern];
+		return result;
+	}
+	if(localError)
+	{
+		iTM2_LOG(@"***  ERROR creating a regular expression wrapper for pattern:%@,reason:%@",pattern,localError);
+	}
+	return nil;
+}
 + (BOOL)isValidPattern:(NSString *)pattern options:(unsigned int)flags error:(NSError **)errorRef;
 {
 	// create the pattern
@@ -137,8 +171,8 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 - (id)initWithSearchPattern:(NSString *)pattern options:(unsigned int)flags error:(NSError **)errorRef;
 {
 	// allocate iVars
-	_iVars = [[ICURegExIVars allocWithZone:[self zone]] init];
-	if(!_iVars)
+	ICURegExIVars * iVars = [[ICURegExIVars allocWithZone:[self zone]] init];
+	if(!iVars)
 	{
 		if(errorRef)
 		{
@@ -151,7 +185,7 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 		return nil;
 	}
 	// then create the pattern
-	_IVARS->status = U_ZERO_ERROR;
+	iVars->status = U_ZERO_ERROR;
 	UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)pattern);
 	if(!buffer)
 	{
@@ -167,13 +201,13 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 	int32_t buffLength = CFStringGetLength((CFStringRef)pattern);
 	UnicodeString patString = UnicodeString(FALSE, buffer, buffLength);
 	UParseError pe;
-	_IVARS->regexPattern = RegexPattern::compile(patString,flags,pe,_IVARS->status);
-	if(U_FAILURE(_IVARS->status))
+	iVars->regexPattern = RegexPattern::compile(patString,flags,pe,iVars->status);
+	if(U_FAILURE(iVars->status))
 	{
 		if(errorRef)
 		{
 			NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				[[self class] errorDescriptionForStatus:_IVARS->status],NSLocalizedDescriptionKey,
+				[[self class] errorDescriptionForStatus:iVars->status],NSLocalizedDescriptionKey,
 					nil];
 			NSNumber * N;
 			if(pe.line>0)
@@ -206,32 +240,58 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 		[self dealloc];
 		return nil;
 	}
-	if(!_IVARS->regexPattern)
+	if(!iVars->regexPattern)
 	{
 		if(errorRef)
 		{
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Can't create regex pattern.",NSLocalizedDescriptionKey,
 					nil];
-			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:_IVARS->status userInfo:dict];
+			*errorRef = [NSError errorWithDomain:@"ICURegEx" code:iVars->status userInfo:dict];
 		}
 		[self dealloc];
 		return nil;
 	}
 	if(self = [super init])
 	{
-		[_IVARS->pattern autorelease];
-		_IVARS->pattern = [pattern retain];
+		_iVars = iVars;
+	}
+	else
+	{
+		[iVars release];
 	}
 	return self;
 }
+- (id)copyWithZone:(NSZone *)zone;
+{
+	id result = [[ICURegEx allocWithZone:zone] init];
+	if(result)
+	{
+		ICURegExIVars * iVars = [[ICURegExIVars allocWithZone:zone] init];
+		if(iVars)
+		{
+			if(_IVARS->replacement)
+			{
+				iVars->replacement = [_IVARS->replacement retain];
+				iVars->uReplacement = new UnicodeString(*_IVARS->uReplacement);
+			}
+			iVars->regexPattern = _IVARS->regexPattern->clone();
+		}
+		((ICURegExDef *)result)->_iVars = iVars;
+	}
+	return result;
+}
 - (void)dealloc;
 {
-	if(_IVARS->uReplacement)
+	if(_IVARS)
 	{
-		_IVARS->uReplacement->releaseBuffer(-1);
+		if(_IVARS->uReplacement)
+		{
+			_IVARS->uReplacement->releaseBuffer(-1);
+		}
+		[_iVars release];
+		_iVars = nil;
 	}
-	[_iVars release];
 	[super dealloc];
 	return;
 }
@@ -650,6 +710,10 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 	}
 	return YES;
 }
+- (NSString *)searchPattern;
+{
+	return [NSString stringWithUnicodeString:[self regexPattern]->pattern()];
+}
 - (NSString *)replacementPattern;
 {
 	return _IVARS->replacement;
@@ -661,6 +725,7 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 	if(_IVARS->uReplacement)
 	{
 		delete _IVARS->uReplacement;
+		_IVARS->uReplacement = nil;
 	}
 	if(_IVARS->replacement)
 	{
@@ -668,6 +733,13 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 	}
 	return;
 }
+- (void)forget;
+{
+	[self setReplacementPattern:nil];
+	[self setInputString:nil];
+	return;
+}
+
 static const UChar BACKSLASH  = 0x5c;
 static const UChar DOLLARSIGN = 0x24;
 - (NSString *)replacementString;
@@ -685,7 +757,7 @@ static const UChar DOLLARSIGN = 0x24;
 		_IVARS->error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return nil;
 	}
-	UnicodeString replacement = UnicodeString(*_IVARS->uReplacement);
+	UnicodeString replacement = UnicodeString(*_IVARS->uReplacement);// make a copy
 	UnicodeString dest = UnicodeString();
 	RegexPattern pattern = _IVARS->regexMatcher->pattern();
 	#define fPattern _IVARS->regexPattern
@@ -790,6 +862,24 @@ static const UChar DOLLARSIGN = 0x24;
 
     }
 	return [NSString stringWithUnicodeString:dest];
+}
+- (BOOL)matchString:(NSString *)string;
+{
+	[self setInputString:string];
+	BOOL result = [self nextMatch];
+	return result;
+}
+- (NSString *)stringByMatchingString:(NSString *)string replacementPattern:(NSString *)replacement;
+{
+	if([self matchString:string])
+	{
+		[self setReplacementPattern:replacement];
+		NSString * replacement = [self replacementString];
+		[self setInputString:nil];
+		return replacement;
+	}
+	[self forget];
+	return nil;
 }
 - (BOOL)matchesAtIndex:(int)index extendToTheEnd:(BOOL)yorn;
 {
@@ -1011,6 +1101,25 @@ static const UChar DOLLARSIGN = 0x24;
 	}
 	return _IVARS->error!=nil;
 }
+- (void)displayMatchResult;
+{
+	if(!_IVARS)
+	{
+		NSLog(@"Nothing to display");
+		return;
+	}
+	NSLog(@"Match result:");
+	NSLog(@"search pattern:%@",[self searchPattern]);
+	NSLog(@"input string:%@",[self inputString]);
+	NSLog(@"input range:(%u,%u)",_IVARS->stringOffset,_IVARS->stringLength);
+	unsigned i = 0;
+	while(i<=[self numberOfCaptureGroups])
+	{
+		NSLog(@"%i:%@",i,[self substringOfCaptureGroupAtIndex:i]);
+		++i;
+	}
+	NSLog(@"");
+}
 @end
 
 @implementation NSString (NSStringICUREAdditions)
@@ -1061,17 +1170,23 @@ static const UChar DOLLARSIGN = 0x24;
 
 - (NSString *)stringByEscapingICUREControlCharacters;
 {
+	// see http://www.icu-project.org/userguide/regexp.html
+	// "Characters that must be quoted to be treated as literals are * ? + [ ( ) { } ^ $ | \ . /"
 	NSMutableString * MS = [NSMutableString stringWithString:self];
 	[MS replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"|" withString:@"\\|" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"$" withString:@"\\$" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@"*" withString:@"\\*" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"+" withString:@"\\+" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@"?" withString:@"\\?" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"{" withString:@"\\{" options:NULL range:NSMakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"}" withString:@"\\}" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"+" withString:@"\\+" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"[" withString:@"\\[" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@"(" withString:@"\\(" options:NULL range:NSMakeRange(0,[MS length])];
 	[MS replaceOccurrencesOfString:@")" withString:@"\\)" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"{" withString:@"\\{" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"}" withString:@"\\}" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"^" withString:@"\\^" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"$" withString:@"\\$" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"|" withString:@"\\|" options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"." withString:@"\\." options:NULL range:NSMakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"/" withString:@"\\/" options:NULL range:NSMakeRange(0,[MS length])];
 	return MS;
 }
 

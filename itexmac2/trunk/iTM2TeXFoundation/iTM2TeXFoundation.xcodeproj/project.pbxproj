@@ -46,6 +46,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		51314DEA0D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 51314DE90D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings */; };
+		51314DEB0D01C0D800862683 /* Aqua2_Remove_Inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.png */; };
+		51314DED0D01C14B00862683 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51314DEC0D01C14B00862683 /* iTM2Gear.png */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC05CBBA0919FAB00003E471 /* iTM2TeXDocumentToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC05CBBB0919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */; };
@@ -94,12 +97,11 @@
 		DC7E91B908903606007D0CB2 /* iTM2TeXStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */; };
 		DC7E91BA08903606007D0CB2 /* iTM2TeXStyleEditionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7E91BB08903606007D0CB2 /* iTM2TeXStyleEditionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */; };
-		DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */; };
-		DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */; };
-		DC8B8E2208EAA58600B4C987 /* Aqua2_Add.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.tif */; };
-		DC8B8E2308EAA58600B4C987 /* Aqua2_Remove_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.tif */; };
-		DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.tif */; };
-		DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.tif */; };
+		DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.png */; };
+		DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.png */; };
+		DC8B8E2208EAA58600B4C987 /* Aqua2_Add.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.png */; };
+		DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.png */; };
+		DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.png */; };
 		DC90CF7F09978A1200C79525 /* iTM2ScriptColor.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7909978A1200C79525 /* iTM2ScriptColor.png */; };
 		DC90CF8009978A1200C79525 /* iTM2ScriptDocument.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7A09978A1200C79525 /* iTM2ScriptDocument.png */; };
 		DC90CF8109978A1200C79525 /* iTM2ScriptMath.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7B09978A1200C79525 /* iTM2ScriptMath.png */; };
@@ -295,6 +297,8 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		51314DE90D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "7bitsAccents.iTM2-key-bindings"; sourceTree = "<group>"; };
+		51314DEC0D01C14B00862683 /* iTM2Gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Gear.png; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Prepare iTM2Foundation-Info.plist"; sourceTree = "<group>"; };
 		DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXDocumentToolbar.h; sourceTree = "<group>"; };
@@ -346,12 +350,12 @@
 		DC7E91A508903606007D0CB2 /* iTM2TeXStyleEditionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStyleEditionKit.m; sourceTree = "<group>"; };
 		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
-		DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Inactive.tif; sourceTree = "<group>"; };
-		DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add_Pressed.tif; sourceTree = "<group>"; };
-		DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Add.tif; sourceTree = "<group>"; };
-		DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Inactive.tif; sourceTree = "<group>"; };
-		DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove_Pressed.tif; sourceTree = "<group>"; };
-		DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove.tif; sourceTree = "<group>"; };
+		DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Add_Inactive.png; sourceTree = "<group>"; };
+		DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Add_Pressed.png; sourceTree = "<group>"; };
+		DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Add.png; sourceTree = "<group>"; };
+		DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Remove_Inactive.png; sourceTree = "<group>"; };
+		DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Remove_Pressed.png; sourceTree = "<group>"; };
+		DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua2_Remove.png; sourceTree = "<group>"; };
 		DC90CF7909978A1200C79525 /* iTM2ScriptColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptColor.png; sourceTree = "<group>"; };
 		DC90CF7A09978A1200C79525 /* iTM2ScriptDocument.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptDocument.png; sourceTree = "<group>"; };
 		DC90CF7B09978A1200C79525 /* iTM2ScriptMath.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2ScriptMath.png; sourceTree = "<group>"; };
@@ -718,6 +722,7 @@
 		DCC7F3F10854AC9200F3EB8A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				51314DE90D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings */,
 				DCFBCB670CC045290093BF80 /* iTM2TeXProjectSmall.png */,
 				DCFBCB700CC0460A0093BF80 /* iTM2TeXDirectorySmall.png */,
 				DCCD2FD809E17ED40003EEF9 /* Inspector.strings */,
@@ -749,12 +754,12 @@
 				DCC7F45F0854AC9200F3EB8A /* PATHs.plist */,
 				DCD3A6640A38FA0400B5EE0C /* EnvironmentVariables.plist */,
 				DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */,
-				DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.tif */,
-				DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.tif */,
-				DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.tif */,
-				DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.tif */,
-				DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.tif */,
-				DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.tif */,
+				DC8B8E1A08EAA58500B4C987 /* Aqua2_Add_Inactive.png */,
+				DC8B8E1B08EAA58500B4C987 /* Aqua2_Add_Pressed.png */,
+				DC8B8E1C08EAA58500B4C987 /* Aqua2_Add.png */,
+				DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.png */,
+				DC8B8E1E08EAA58500B4C987 /* Aqua2_Remove_Pressed.png */,
+				DC8B8E1F08EAA58500B4C987 /* Aqua2_Remove.png */,
 				DC4E1A050CCDD63800F5CE3E /* bookmark.png */,
 				DC4E1A060CCDD63800F5CE3E /* cautionTypeset.png */,
 				DC4E1A080CCDD63800F5CE3E /* showCurrentPLog.png */,
@@ -771,6 +776,7 @@
 				DC90CF7D09978A1200C79525 /* iTM2ScriptText.png */,
 				DC90CF7E09978A1200C79525 /* iTM2ScriptUser.png */,
 				DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */,
+				51314DEC0D01C14B00862683 /* iTM2Gear.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -970,12 +976,12 @@
 				DCC7F4850854AC9200F3EB8A /* CompileFileExtensions.plist in Resources */,
 				DCC7F4BF0854AC9200F3EB8A /* PATHs.plist in Resources */,
 				DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */,
-				DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.tif in Resources */,
-				DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.tif in Resources */,
-				DC8B8E2208EAA58600B4C987 /* Aqua2_Add.tif in Resources */,
-				DC8B8E2308EAA58600B4C987 /* Aqua2_Remove_Inactive.tif in Resources */,
-				DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.tif in Resources */,
-				DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.tif in Resources */,
+				DC8B8E2108EAA58500B4C987 /* Aqua2_Add_Pressed.png in Resources */,
+				DC8B8E2008EAA58500B4C987 /* Aqua2_Add_Inactive.png in Resources */,
+				DC8B8E2208EAA58600B4C987 /* Aqua2_Add.png in Resources */,
+				DC8B8E2408EAA58600B4C987 /* Aqua2_Remove_Pressed.png in Resources */,
+				51314DEB0D01C0D800862683 /* Aqua2_Remove_Inactive.png in Resources */,
+				DC8B8E2508EAA58600B4C987 /* Aqua2_Remove.png in Resources */,
 				DC90CF8509978A1200C79525 /* iTM2ScriptColor.png in Resources */,
 				DC90CF8609978A1200C79525 /* iTM2ScriptDocument.png in Resources */,
 				DC90CF8709978A1200C79525 /* iTM2ScriptMath.png in Resources */,
@@ -1024,6 +1030,8 @@
 				DC4E1A140CCDD63800F5CE3E /* showCurrentProjectTerminal.png in Resources */,
 				DC4E1A150CCDD63800F5CE3E /* stopTypesetCurrentProject.png in Resources */,
 				DC4E1A160CCDD63800F5CE3E /* typesetCurrentProject.png in Resources */,
+				51314DEA0D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings in Resources */,
+				51314DED0D01C14B00862683 /* iTM2Gear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

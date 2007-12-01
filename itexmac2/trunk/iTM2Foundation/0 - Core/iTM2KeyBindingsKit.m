@@ -26,7 +26,7 @@
 #import <iTM2Foundation/iTM2KeyBindingsKit.h>
 #import <iTM2Foundation/iTM2TreeKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
-#import "iTM2MacroKit_Model.h"
+#import <iTM2Foundation/iTM2MacroKit_Tree.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2DocumentKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
@@ -94,7 +94,6 @@ To Do List:
 - (id)objectInChildrenWithCategory:(NSString *)key;
 - (id)objectInChildrenWithContext:(NSString *)key;
 - (id)objectInChildrenWithAltKey:(NSString *)key;
-- (id)macroKeyStroke;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2KeyBindingsManager
@@ -459,10 +458,6 @@ To Do List:
         _SM = [[[self class] selectorMapForIdentifier:identifier] retain];
         [_KBS autorelease];
         _KBS = [[NSMutableArray array] retain];
-        [_DEC autorelease];
-        _DEC = [[SUD stringForKey:@"iTM2KeyBindingsDeepEscape"] copy];
-        [_EC autorelease];
-        _EC = [[SUD stringForKey:@"iTM2KeyBindingsEscape"] copy];
 		_iTM2IMFlags.handlesKeyStrokes = handlesKeyStrokes? 1: 0;
 		_iTM2IMFlags.handlesKeyBindings = handlesKeyBindings? 1: 0;
 		if(iTM2DebugEnabled)
@@ -498,10 +493,6 @@ To Do List:
     _KBS = nil;
     [_CK autorelease];
     _CK = nil;
-    [_DEC autorelease];
-    _DEC = nil;
-    [_EC autorelease];
-    _EC = nil;
     [super dealloc];
     return;
 }
@@ -542,31 +533,16 @@ To Do List:
 	}
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentKeyBindings
-- (id)currentKeyBindings;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentKeyBindingsOfClient:
+- (id)currentKeyBindingsOfClient:(id)client;
 /*"Description forthcoming. Lazy initializer: the root key binding is returned when nothing else is available
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id result = [_KBS lastObject];
-    if(result)
-	{
-        return result;
-	}
-	if(!_CC)
-	{
-		return nil;
-	}
-	result = [SMC keyBindingTree];
-	NSString * key = [_CC macroDomain];
-	result = [result objectInChildrenWithDomain:key];
-	key = [_CC macroCategory];
-	result = [result objectInChildrenWithCategory:key];
-	result = [result objectInChildrenWithContext:@""];
-	result = [result list];
-	return result;
+//iTM2_END;
+	return [_KBS lastObject]?:[client rootKeyBindings];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentKeyBindings:
 - (void)setCurrentKeyBindings:(id)keyBindings;
@@ -668,14 +644,18 @@ To Do List:
         [self setCurrentClient:C];
 //NSLog(@"[theEvent charactersIgnoringModifiers]:%@", [theEvent charactersIgnoringModifiers]);
 //NSLog(@"[theEvent characters]:%@", [theEvent characters]);
-		iTM2MacroKeyStroke * keyStroke = [theEvent macroKeyStroke];
-		NSString * key = [keyStroke string];
-		if([key isEqualToString:_DEC])
+		iTM2KeyStroke * KS = [iTM2KeyStroke keyStrokeWithEvent:theEvent];
+		if(!KS)
+		{
+			return NO;
+		}
+		NSString * key = [KS key];
+		if([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
 		{
 			[self toggleDeepEscape:self];
 			return YES;
 		}
-		else if([key isEqualToString:_EC])
+		else if([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
 		{
 			[self toggleEscape:self];
 			return YES;
@@ -709,12 +689,12 @@ To Do List:
                     (flags & NSAlternateKeyMask? @"~": @""),
                     (flags & NSShiftKeyMask? @"$": @""),
                     unmodifiedCharacters];
-        if([key isEqualToString:_DEC])
+        if([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleDeepEscape:self];
             return YES;
         }
-        else if([key isEqualToString:_EC])
+        else if([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleEscape:self];
             return YES;
@@ -724,12 +704,12 @@ To Do List:
                     (flags & NSCommandKeyMask? @"@": @""),
                     (flags & NSControlKeyMask? @"^": @""),
                     unmodifiedCharacters];
-        if([key isEqualToString:_DEC])
+        if([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleDeepEscape:self];
             return YES;
         }
-        else if([key isEqualToString:_EC])
+        else if([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleEscape:self];
             return YES;
@@ -739,6 +719,20 @@ To Do List:
         return result;
     }
     return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeBindingForKeyStroke:
+- (BOOL)client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for instruction.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+#warning FAILED 7 bits accents support is missing
+//iTM2_STOP;
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:interpretKeyEvent:
 - (BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
@@ -750,42 +744,50 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id macroKeyStroke = [theEvent macroKeyStroke];
-	if(!macroKeyStroke)
+	iTM2KeyStroke * KS = [iTM2KeyStroke keyStrokeWithEvent:theEvent];
+	if(!KS)
 	{
 		return NO;
 	}
-//iTM2_LOG(@"[self currentKeyBindings] are:%@", [self currentKeyBindings]);
     [self setCurrentClient:C];
 	if(!_iTM2IMFlags.isDeepEscaped && !_iTM2IMFlags.isEscaped)
 	{
 		if([C handlesKeyBindings])
 		{
-			id CKB = [self currentKeyBindings];
-			NSString * key = [macroKeyStroke string];
-			id node = [CKB objectInAvailableKeyBindingsWithKey:key];
-			if([node countOfChildren]>0)
+			if([self client:C executeBindingForKeyStroke:KS])// early entry point for 7bits accents
+			{
+				return YES;
+			}
+			id CKB = [self currentKeyBindingsOfClient:C];
+			id keyBinding = [CKB objectInChildrenWithKeyStroke:KS];
+			if([keyBinding countOfChildren]>0)
 			{
 				// down a level
-				[self setCurrentKeyBindings:node];// this is where we wait for a further key stroke
+				[self setCurrentKeyBindings:keyBinding];// this is where we wait for a further key stroke
 				if([C respondsToSelector:@selector(cleanSelectionCache:)])
 				{
 					[C cleanSelectionCache:self];
 				}
 				return YES;
 			}
-			else if(node)
+			else if(keyBinding)
 			{
 				_iTM2IMFlags.isEscaped = 0;
 				_iTM2IMFlags.canEscape = 1;
-				NSString * ID = [node ID];
-				NSString * domain = [C macroDomain];
-				NSString * category = [C macroCategory];
-				NSString * context = @"";//[C macroContext];
-				if([SMC executeMacroWithID:ID forContext:context ofCategory:category inDomain:domain target:C])
+				iTM2MacroNode * macro = [C macroWithID:[keyBinding macroID]];
+				if(macro)
 				{
-					[self setCurrentKeyBindings:nil];
-					return YES;
+					// is there a dead key around?
+					if([C respondsToSelector:@selector(hasMarkedText)]  && [C hasMarkedText])
+					{
+						[C deleteBackward:nil];// this is the only mean I found to properly manage the undo stack
+					}
+					if([macro executeMacroWithTarget:C selector:NULL substitutions:nil])
+					{
+#warning ! FAILED: missing the escape key bindings stuff
+						[self setCurrentKeyBindings:nil];// do not forget this, in order to to 
+						return YES;
+					}
 				}
 				return NO;
 			}
@@ -914,10 +916,6 @@ To Do List:
             (@"Flushing Key Bindings.", TABLE,
                 [NSBundle bundleForClass:[self class]], "status info format, 1%@")]];
     _iTM2IMFlags.canEscape = 0;
-    [_DEC autorelease];
-    _DEC = [[SUD stringForKey:@"iTM2KeyBindingsDeepEscape"] copy];
-    [_EC autorelease];
-    _EC = [[SUD stringForKey:@"iTM2KeyBindingsEscape"] copy];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  postNotificationWithStatus:
@@ -1815,6 +1813,24 @@ To Do List:
 //iTM2_START;
     return NO;
 //iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  rootKeyBindings
+- (id)rootKeyBindings;
+/*"Description forthcoming. Lazy initializer: the root key binding is returned when nothing else is available
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id result = [SMC keyBindingTree];
+	NSString * key = [self macroDomain];
+	result = [result objectInChildrenWithDomain:key];
+	key = [self macroCategory];
+	result = [result objectInChildrenWithCategory:key];
+#warning NO context mode supported
+	key = @"";//[self macroContext];
+	result = [result objectInChildrenWithContext:key];
+	return [result keyBindings];
 }
 @end
 

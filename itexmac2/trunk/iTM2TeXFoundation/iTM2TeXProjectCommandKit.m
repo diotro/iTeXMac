@@ -72,7 +72,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSImage findImageNamed:@"showCurrentProjectSettings(small)"];
+	NSString * name = @"showCurrentProjectSettings(small)";
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+	if(![I iTM2_isNotNullImage])
+	{
+		I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectSettings"] copy];
+		[I iTM2_setSizeSmallIcon];
+		[I setName:name];
+	}
+    return I;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
 + (NSString *)inspectorType;
@@ -2219,9 +2227,9 @@ To Do List:
 	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];
 	if(!I)
 	{
-		NSString * path = [[NSBundle bundleForClass:self] pathForImageResource:@"iTeXMac2Mini"];
-		I = [[NSImage alloc] initWithContentsOfFile:path];
-		[I setName:@"iTeXMac2Mini"];// Who is the owner?
+		[sender setState:NSMixedState];
+		NSImage * I = [NSImage iTM2_cachedImageNamed:@"iTM2Gear"];
+		[sender setMixedStateImage:I];
 	}
 	[sender setMixedStateImage:I];// this does not work yet, may be in leopard...
 //iTM2_LOG(@"I: %@, MSI: %@", I, [sender mixedStateImage]);

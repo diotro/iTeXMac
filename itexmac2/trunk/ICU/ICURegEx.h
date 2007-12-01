@@ -120,7 +120,7 @@ enum{
 					It is up to the client to make such modifications.
 */
 
-@interface ICURegEx:NSObject
+@interface ICURegEx:NSObject<NSCopying>
 {
 @private
 	id _iVars;
@@ -181,10 +181,18 @@ enum{
 - (BOOL)setInputString:(NSString *)argument range:(NSRange)range;
 
 /*!
+    @method     searchPattern
+    @abstract   The search pattern.
+    @discussion Description forthcoming.
+    @result		a string
+*/
+- (NSString *)searchPattern;
+
+/*!
     @method     replacementPattern
     @abstract   The replacement pattern.
     @discussion Description forthcoming.
-    @param		a string
+    @result		a string
 */
 - (NSString *)replacementPattern;
 
@@ -206,8 +214,37 @@ enum{
 - (NSString *)replacementString;
 
 /*!
+    @method     matchString:
+    @abstract   One shot matcher
+    @discussion This is a convenient method, for one shot match. It sets the input string, test.
+				When you have termionated to work with the receiver, send the receiver a forget message.
+    @param      The input string.
+    @result     yorn
+*/
+- (BOOL)matchString:(NSString *)string;
+
+/*!
+    @method     stringByMatchingString:replacementPattern:
+    @abstract   Returns the replacement string when match
+    @discussion This is a convenient method, for one shot match/replacement. It sets the input string, test, then forget the input string.
+				If there is no match, nil is returned.
+    @param      The input string.
+    @result     yorn
+*/
+- (NSString *)stringByMatchingString:(NSString *)string replacementPattern:(NSString *)replacement;
+
+/*!
+    @method     forget
+    @abstract   Let the reciever forget its input string and repalcement pattern
+    @discussion When your work with a one shot RE is complete, send this message in order to clean its internals.
+    @param      None.
+    @result     None
+*/
+- (void)forget;
+
+/*!
     @method     matchesAtIndex:extendToTheEnd:
-    @abstract   Returns YES if the string matches the receiver's pattern
+    @abstract   Returns YES if the input string matches the receiver's pattern
     @discussion If the match succeeds then more information can be obtained via the <code>rangeOfMatch</code>,
 				<code>numberOfgroups</code>, and <code>rangeOfGroupAtIndex:</code> methods.
 				<p/>
@@ -333,5 +370,23 @@ enum{
     @result     A flag indicating whether the operation is successful or not
 */
 - (BOOL)resetAtIndex:(int)index;
+
+/*!
+    @method     copyWithZone:
+    @abstract   Make a copy of the receiver.
+    @discussion Creates a copy, the underlying pattern object is a clone, the repalce pattern is shared, but the search string is ignored.
+	@param		the zone
+    @result     The copy
+*/
+- (id)copyWithZone:(NSZone *)zone;
+
+/*!
+    @method     displayMatchResult:
+    @abstract   Forthcoming.
+    @discussion Forthcoming.
+	@param		None
+    @result     None
+*/
+- (void)displayMatchResult;
 
 @end

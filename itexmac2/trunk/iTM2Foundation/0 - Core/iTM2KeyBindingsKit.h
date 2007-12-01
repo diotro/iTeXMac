@@ -68,6 +68,32 @@ extern NSString * const iTM2NoKeyBindingsIdentifier;
 extern NSString * const iTM2KeyStrokeIntervalKey;
 
 /*!
+    @class		iTM2KeyStroke
+    @abstract	key stroke wrapper.
+    @discussion	Discussion forthcoming.
+*/
+@interface iTM2KeyStroke:NSObject
+{
+@private
+	NSString * codeName;
+	NSString * altCodeName;
+	unsigned int modifierFlags;
+}
++ (iTM2KeyStroke *)keyStrokeWithEvent:(NSEvent *)theEvent;
++ (iTM2KeyStroke *)keyStrokeWithKey:(NSString *)key;
+- (BOOL)isEqualToKeyStroke:(iTM2KeyStroke *)rhs;
+- (NSString *)codeName;
+- (void)setCodeName:(NSString *)newName;
+- (NSString *)altCodeName;
+- (void)setAltCodeName:(NSString *)newName;
+- (unsigned int)modifierFlags;
+- (void)setModifierFlags:(unsigned int)newModifiers;
+- (NSString *)key;
+- (NSString *)altKey;
+@end
+
+
+/*!
     @class		iTM2KeyBindingsManager
     @abstract	Key binding manager.
     @discussion	A key binding manager stores a hierarchy of dictionaries which keys are keystroke.
@@ -85,9 +111,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     id _SM;
     NSMutableArray * _KBS;
     NSString * _CK;
-    NSString * _DEC;
-    NSString * _EC;
-    id _CC;
+     id _CC;
     struct __iTM2IMFlags
     {
         unsigned int handlesKeyBindings: 1;
@@ -162,12 +186,16 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 /*!
     @method		currentKeyBindings
     @abstract	The current key binding.
-    @discussion	Some keyStrokes can imply loading another key bindings dictionary.
-                The next keystroke will be understood within the context of this dictionary.
-    @param		None.
+    @discussion	Some keyStrokes can imply loading another key bindings tree.
+                The next keystroke will be understood within the context of this tree.
+				If the receiver has not yet been initialized with a key bindings tree,
+				the client's rootKeyBindings tree is used.
+				In general, the client will use the receiver's default,
+				but prefs text test view will use its own management when editing the list of macros and key stokes.
+    @param		a client.
     @result		None.
 */
-- (id)currentKeyBindings;
+- (id)currentKeyBindingsOfClient:(id)client;
 
 /*!
     @method		client:performKeyEquivalent:
@@ -196,7 +224,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @method		client:interpretKeyEvent:
     @abstract	The given client wants the receiver to interpret the given key event..
     @discussion	The key event is transformed into a string. The last character is the key pressed and
-                the previous ones are the modifiers. In the following order,
+                the previous ones are the modifierFlags. In the following order,
                 - "@" stands for the command key,
                 - "^" stands for the control key,
                 - "~" stands for the option key,
@@ -209,6 +237,16 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @result		NO iff this event could not be interpreted..
 */
 - (BOOL)client:(id)C interpretKeyEvent:(NSEvent *)theEvent;
+
+/*!
+    @method		client:executeBindingForKeyStroke:
+    @abstract	Execute the macro for the given parameters.
+    @discussion	Subclassers will do their own job here to bypass the client:interpretKeyEvent: method.
+	@param		C is the client.
+    @param		keyStroke.
+    @result		yorn.
+*/
+- (BOOL)client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
 
 /*!
     @method		toggleEscape:
@@ -429,6 +467,15 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 */
 - (BOOL)interpretKeyStroke:(NSString *)key;
 
+/*
+    @method     rootKeyBindings
+    @abstract	The root key bindings
+    @discussion	Discussion forthcoming.
+    @param	    None
+    @result     a key binding root node
+*/
+- (id)rootKeyBindings;
+
 @end
 
 /*
@@ -505,37 +552,4 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 
 @interface iTM2KeyBindingsResponder: iTM2AutoInstallResponder
 - (IBAction)toggleNoKeyBindings:(id)irrelevant;
-@end
-
-/*!
-    @class       iTM2MacroKeyStroke
-    @superclass  NSObject
-    @abstract    A macro keyStroke
-    @discussion  There is a problem with keyStrokes with respect to modifiers. DO NOT USE THIS, CONSIDER THIS PRIVATE
-*/
-@interface iTM2MacroKeyStroke: NSObject <NSCopying>
-{
-@public
-	NSString * codeName;
-	NSString * _description;
-	NSString * _string;
-	BOOL isCommand;
-	BOOL isShift;
-	BOOL isAlternate;
-	BOOL isControl;
-	BOOL isFunction;
-}
-- (id)initWithCodeName:(NSString*)newCodeName;
-- (NSString *)string;
-- (NSString *)description;
-- (void)setCodeName:(NSString *)codeName;
-- (void)update;
-@end
-
-@interface NSString(iTM2MacroKeyStroke)
-- (iTM2MacroKeyStroke *)macroKeyStroke;
-@end
-
-@interface NSEvent(iTM2MacroKeyStroke)
-- (iTM2MacroKeyStroke *)macroKeyStroke;
 @end

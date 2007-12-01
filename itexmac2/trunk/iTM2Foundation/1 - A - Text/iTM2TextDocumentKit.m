@@ -1284,7 +1284,7 @@ To Do List:
 					R.size.width = [NSScroller scrollerWidth];
 					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
 					NSButton * B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitClose]];
+					[B setImage:[NSImage iTM2_imageSplitClose]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1295,7 +1295,7 @@ To Do List:
 					[scrollerToolbar setFrame:R];
 					R.origin = NSZeroPoint;
 					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitHorizontal]];
+					[B setImage:[NSImage iTM2_imageSplitHorizontal]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1304,7 +1304,7 @@ To Do List:
 					[B setTag:0];
 					[FCV addSubview:B];
 					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitVertical]];
+					[B setImage:[NSImage iTM2_imageSplitVertical]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1351,7 +1351,7 @@ To Do List:
 					R.size.width = [NSScroller scrollerWidth];
 					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
 					NSButton * B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitHorizontal]];
+					[B setImage:[NSImage iTM2_imageSplitHorizontal]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -1360,7 +1360,7 @@ To Do List:
 					[B setTag:0];
 					[FCV addSubview:B];
 					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					[B setImage:[NSImage imageSplitVertical]];
+					[B setImage:[NSImage iTM2_imageSplitVertical]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
@@ -2278,6 +2278,65 @@ To Do List:
 	[super insertText:aString];
 	return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deleteForward:
+- (void)deleteForward:(id)sender;
+/*"We do not paste attributes. There is a problem concerning attributes here.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	NSRange R = [self selectedRange];
+	if(R.length == 0)
+	{
+		NSTextStorage * TS = [self textStorage];
+		NSString * S = [TS string];
+		if(R.location<[S length])
+		{
+			NSRange attrRange;
+			NSDictionary * attrs = [TS attributesAtIndex:R.location effectiveRange:&attrRange];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				[self setSelectedRange:attrRange];
+			}
+		}
+	}
+	[super deleteForward:sender];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deleteBackward:
+- (void)deleteBackward:(id)sender;
+/*"We do not paste attributes. There is a problem concerning attributes here.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	NSRange R = [self selectedRange];
+	if(R.length == 0)
+	{
+		NSTextStorage * TS = [self textStorage];
+		if(R.location>0)
+		{
+			NSRange attrRange;
+			NSDictionary * attrs = [TS attributesAtIndex:R.location-1 effectiveRange:&attrRange];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				[self setSelectedRange:attrRange];
+			}
+		}
+	}
+	[super deleteBackward:sender];
+	return;
+}
+#if 0
+- (void)deleteWordForward:(id)sender;
+- (void)deleteWordBackward:(id)sender;
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paste:
 - (IBAction)paste:(id)sender;
 /*"We do not paste attributes. There is a problem concerning attributes here.
@@ -2459,7 +2518,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedRanges:affinity:stillSelecting:
 - (void)setSelectedRanges:(NSArray *)ranges affinity:(NSSelectionAffinity)affinity stillSelecting:(BOOL)stillSelectingFlag;
 /*"Description forthcoming.
@@ -2469,12 +2527,111 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2_LOG(@"range:%@",NSStringFromRange([[ranges lastObject] rangeValue]));
-	[super setSelectedRanges:ranges affinity:affinity stillSelecting:stillSelectingFlag];
-	iTM2_LOG(@"selectedRange:%@",NSStringFromRange([[[self selectedRanges] lastObject] rangeValue]));
+#warning Not yet fully implemented, when still selecting and other minor problems
+	if(stillSelectingFlag)
+	{
+		[super setSelectedRanges:ranges affinity:affinity stillSelecting:stillSelectingFlag];
+		return;
+	}
+	NSTextStorage * TS = [self textStorage];
+	NSRange R;
+	NSDictionary * attrs = nil;
+	NSRange attrsRange;
+	if([ranges count] == 1)
+	{
+		R = [[ranges lastObject] rangeValue];
+		if(R.length == 0)
+		{
+			NSEvent * E = [[self window] currentEvent];
+			unsigned type = [E type];
+			if(type == NSLeftMouseUp && R.location<[[self string] length])
+			{
+				// select the edge closest to the hit point
+				attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+				if([attrs objectForKey:NSGlyphInfoAttributeName])
+				{
+					R.location=R.location<=attrsRange.location + attrsRange.length/2?
+						attrsRange.location:NSMaxRange(attrsRange);
+					[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
+					return;
+				}
+			}
+			else if(type == NSKeyDown)
+			{
+				NSString * K = [E charactersIgnoringModifiers];
+				if([K length])
+				{
+					switch([K characterAtIndex:0])
+					{
+						case NSUpArrowFunctionKey:
+						case NSDownArrowFunctionKey:
+						case NSLeftArrowFunctionKey:
+						case NSRightArrowFunctionKey:
+						{
+							NSRange oldR = [[[self selectedRanges] lastObject] rangeValue];
+							if(R.location < oldR.location)
+							{
+								// we assume we are selecting up stream
+								if(R.location<[TS length])
+								{
+									attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+									if([attrs objectForKey:NSGlyphInfoAttributeName])
+									{
+										R.location = attrsRange.location;
+										[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
+										return;
+									}
+								}
+							}
+							else
+							{
+								// we assume we are selecting down stream
+								if(R.location)
+								{
+									if(R.location<=[TS length])
+									{
+										attrs = [TS attributesAtIndex:R.location-1 longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+										if([attrs objectForKey:NSGlyphInfoAttributeName])
+										{
+											R.location = NSMaxRange(attrsRange);
+											[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
+											return;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	NSEnumerator * E = [ranges objectEnumerator];
+	NSMutableArray * modifiedRanges = [NSMutableArray array];
+	NSValue * V;
+	while(V = [E nextObject])
+	{
+		NSRange R = [V rangeValue];
+		if(R.length)
+		{
+			attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				R = NSUnionRange(R,attrsRange);
+			}
+			attrs = [TS attributesAtIndex:NSMaxRange(R)-1 longestEffectiveRange:&attrsRange inRange:NSMakeRange(0,[[self string] length])];
+			if([attrs objectForKey:NSGlyphInfoAttributeName])
+			{
+				R = NSUnionRange(R,attrsRange);
+			}
+		}
+		[modifiedRanges addObject:V];
+	}
+	[super setSelectedRanges:modifiedRanges affinity:affinity stillSelecting:stillSelectingFlag];
 //iTM2_END;
     return;
 }
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectionRangeForProposedRange:granularity:
 - (NSRange)selectionRangeForProposedRange:(NSRange)proposedSelRange granularity:(NSSelectionGranularity)granularity;
 /*"Description forthcoming.

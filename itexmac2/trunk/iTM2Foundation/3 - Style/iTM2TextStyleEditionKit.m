@@ -40,6 +40,7 @@
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2textFieldKit.h>
 #import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
+#import <iTM2Foundation/iTM2ImageKit.h>
 
 #define TABLE @"TextStyle"
 #define BUNDLE [iTM2TextStyleDocument classBundle]
@@ -2763,7 +2764,7 @@ To Do List:
 		return YES;
 	}
 	NSString * fileName = [absoluteURL path];
-    NSString * stylePath = [fileName stringByAppendingPathComponent:iTM2TextAttributesModesComponent];
+    NSString * stylePath = [[fileName stringByAppendingPathComponent:iTM2TextAttributesModesComponent] stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 	iTM2TextSyntaxParserAttributesServer * AS = [self attributesServer];
 	NSDictionary * modesAttributes = [AS modesAttributes];
 	NSString * sampleString = [[self textView] string];
@@ -3156,7 +3157,9 @@ To Do List:
 	[sender setAction:@selector(submenuAction:)];
 	if(![sender image])
 	{
-		[sender setImage:[NSImage findImageNamed:@"iTM2FontsAndColors(small)"]];//size
+		NSImage * I = [NSImage iTM2_cachedImageNamed:@"iTM2FontsAndColors"];
+		[sender setImage:I];//size
+		[[sender image] iTM2_setSizeSmallIcon];
 	}
 	return YES;// message catcher
 }

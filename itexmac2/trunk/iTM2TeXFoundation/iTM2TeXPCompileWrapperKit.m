@@ -1273,12 +1273,12 @@ To Do List:
 //iTM2_START;
 	if(![sender image])
 	{
-		NSImage * I = [NSImage findImageNamed:@"compilePerformer(small)"];
-		if(!I)
+		NSImage * I = [NSImage iTM2_cachedImageNamed:@"compilePerformer"];
+		if(![I iTM2_isNotNullImage])
 		{
-			I = [NSImage findImageNamed:@"typesetCurrentProject(small)"];
-			I = [[I copy] autorelease];
-			[I setName:@"compilePerformer(small)"];
+			I = [[NSImage iTM2_cachedImageNamed:@"typesetCurrentProject"] copy];
+			[I setName:@"compilePerformer"];
+			[I iTM2_setSizeSmallIcon];
 		}
 		[sender setImage:I];//size
 	}

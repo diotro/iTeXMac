@@ -1316,7 +1316,7 @@ To Do List:
 					NSString * new = [self convertedString:old withDictionary:filter];
 					[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
 				}//if([document isKindOfClass:[iTM2TextDocument class]])
-				[document saveDocument:self];
+				[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				[[document undoManager] removeAllActions];
 			}
 			[mandatoryProject saveDocument:self];
@@ -1585,7 +1585,7 @@ To Do List:
 							NSString * new = [self convertedString:old withDictionary:filter];
 							[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:new];
 							[TS endEditing];
-							[document saveDocument:self];
+							[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 							[[document undoManager] removeAllActions];
 //iTM2_LOG(@"Open document saved");
 						}
@@ -1613,7 +1613,7 @@ To Do List:
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
 						if(PD != document)
 						{
-							[document saveDocument:self];
+							[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 							[document close];
 //iTM2_LOG(@"Document saved and closed");
 						}
@@ -1798,7 +1798,7 @@ To Do List:
 									iTM2_LOG(@"..........  ERROR: Could not change the project document file name -1.");
 								}
 							}
-							[document saveDocument:self];
+							[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 							[[document undoManager] removeAllActions];
 //iTM2_LOG(@"Open document saved");
 						}
@@ -1863,7 +1863,7 @@ To Do List:
 											if([DFM movePath:originalPath toPath:convertedPath handler:NULL])
 											{
 												[PD setFileName:convertedPath forKey:key makeRelative:YES];
-												[document setFileName:convertedPath];
+												[document setFileURL:[NSURL fileURLWithPath:convertedPath]];
 											}
 											else
 											{
@@ -1881,7 +1881,7 @@ To Do List:
 									[PD setFileName:convertedPath forKey:key makeRelative:YES];
 								}
 							}
-							[document saveDocument:self];
+							[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 							[document close];
 //iTM2_LOG(@"Document saved and closed");
 						}
@@ -1955,6 +1955,7 @@ To Do List:
 	NSString * oldProjectName = [self oldProjectName];
 	if(![oldProjectName length])
 	{
+		iTM2_LOG(@"*** ERROR: I have been asked to create a document in an old project, but Ii was not given an old project...");
 		return NO;//<< this is a bug
 	}
 	NSString * sourceName = [self standaloneFileName];
@@ -2028,7 +2029,7 @@ To Do List:
 				}
 				[oldProject saveDocument:self];
 				[[oldProject undoManager] removeAllActions];
-				[document saveDocument:self];
+				[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				[[document undoManager] removeAllActions];
 			}
 			else
@@ -2048,7 +2049,7 @@ To Do List:
 				}
 				[oldProject saveDocument:self];
 				[[oldProject undoManager] removeAllActions];
-				[document saveDocument:self];
+				[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				[[document undoManager] removeAllActions];
 			}
 		}
@@ -2101,7 +2102,7 @@ To Do List:
 					[SPC setProject:nil forFileName:targetName];
 					NSURL * url = [NSURL fileURLWithPath:targetName];
 					id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
-					[document saveDocument:self];
+					[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 					[[document undoManager] removeAllActions];
 				}
 				else
@@ -2230,7 +2231,7 @@ To Do List:
 					[document setStringRepresentation:new];
 				}
 //iTM2_LOG(@"(4.5) now is:%@",[NSDate date]);
-				[document saveDocument:self];
+				[document saveToURL:[document fileURL] ofType:[document fileType] forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				[document makeWindowControllers];
 				[document showWindows];
 //iTM2_LOG(@"(5) now is:%@",[NSDate date]);
@@ -2667,7 +2668,7 @@ To Do List:
 		return NO;
 	}
 //iTM2_END;
-	return YES;
+	return [[SPC availableProjectsForPath:directory] count]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanInsertInOldProject
 - (BOOL)selectedTemplateCanInsertInOldProject;
@@ -3544,5 +3545,10 @@ To Do List:
 }
 @end
 
-
+@implementation NSFileManager(NewDocumentKit)
+- (BOOL)newDocumentIsPrivateFileAtPath:(NSString *)path;
+{
+	return [[path pathComponents] containsObject:iTM2NewDPathComponent];
+}
+@end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2NewDocumentKit

@@ -38,6 +38,7 @@
 #import <iTM2Foundation/iTM2ViewKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/ICURegEx.h>
+#import <iTM2Foundation/iTM2ImageKit.h>
 
 NSString * const iTM2WrapperDocumentType = @"Wrapper Document";
 NSString * const iTM2ProjectDocumentType = @"Project Document";
@@ -759,7 +760,7 @@ changeName:
 	{
 		// can I catch a file name for that?
 		// I assume that only the files not in the faraway wrapper need to be retrieved
-		E = [oldMissingFileNames objectEnumerator];
+		E = [[oldMissingFileNames allObjects] objectEnumerator];
 		while(key = [E nextObject])
 		{
 			name = [self relativeFileNameForKey:key];
@@ -2159,6 +2160,33 @@ To Do List:
 //iTM2_END;
     return result;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  previousFileNameForKey:
+- (NSString *)previousFileNameForKey:(NSString *)key;
+/*"Return absolute file names,based on the previous file name of the receiver.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * result = [self fileName];
+	result = [result stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
+	result = [result stringByAppendingPathComponent:@"project"];
+	result = [DFM pathContentOfSymbolicLinkAtPath:result];
+	if([DFM isPrivateFileAtPath:result])
+	{
+		return @"";
+	}
+	if(![key isEqualToString:@"project"] && ![key isEqualToString:@"."])
+	{
+#warning ATTENTION: use the source directory here
+		result = [result stringByDeletingLastPathComponent];
+		result = [result stringByAppendingPathComponent:[self relativeFileNameForKey:key]];
+	}
+	result = [result stringByStandardizingPath];
+//iTM2_END;
+	return result;// does it exist? I don't care,the client will decide
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  oldAbsoluteFileNameForKey:
 - (NSString *)oldAbsoluteFileNameForKey:(NSString *)key;
 /*"Return absolute file names,based on the previous file name of the receiver.
@@ -2168,16 +2196,23 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([key isEqualToString:@"project"])
-	{
-		key = @".";
-	}
 	NSString * projectName = [self fileName];
 	projectName = [projectName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	projectName = [projectName stringByAppendingPathComponent:@"project"];
 	projectName = [DFM pathContentOfSoftLinkAtPath:projectName];
-	NSString * relativeName = [self relativeFileNameForKey:key];
-	NSString * result = [SPC absoluteFileNameWithFileName:relativeName relativeToProject:projectName];
+	NSString * result = @"";
+	if([DFM isPrivateFileAtPath:projectName])
+	{
+		return result;
+	}
+	if(![key isEqualToString:@"project"] && ![key isEqualToString:@"."])
+	{
+#warning ATTENTION: use the source directory here
+		result = [result stringByDeletingLastPathComponent];
+		NSString * relativeName = [self relativeFileNameForKey:key];
+		result = [SPC absoluteFileNameWithFileName:relativeName relativeToProject:projectName];
+	}
+	result = [result stringByStandardizingPath];
 //iTM2_END;
 	return result;// does it exist? I don't care,the client will decide
 }
@@ -2320,6 +2355,7 @@ To Do List:
 		}
 		dirName = [dirName stringByDeletingLastPathComponent];
 		dirName = [dirName lazyStringByResolvingSymlinksAndFinderAliasesInPath];// no more soft link
+#warning ERROR: MISSING THE SOURCE DIRECTORY MANAGEMENT HERE!!!
 		fileName = [fileName stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
 		[self setFileName:fileName forKey:key makeRelative:NO];
 		return;
@@ -2332,7 +2368,7 @@ To Do List:
 		NSAssert3([key isEqualToString:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %@,%@ != %@"),__iTM2_PRETTY_FUNCTION__,key,[self keyForFileName:fileName]);
 		[self keysDidChange];
 	}
-    return;
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keysDidChange
 - (void)keysDidChange;
@@ -2633,8 +2669,7 @@ To Do List:
 	NSString * target = nil;
 	while(K = [DE nextObject])
 	{
-		key = [K isEqualToString:@"project"]?@".":K;
-		source = [subdirectory stringByAppendingPathComponent:key];
+		source = [subdirectory stringByAppendingPathComponent:K];
 		NSURL * url = [NSURL fileURLWithPath:source];
 		NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
 		target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
@@ -2643,6 +2678,7 @@ To Do List:
 			// OK,this alias points to the given named file.
 			// the file was just moved around
 			// is it this key available
+			key = [K isEqualToString:@"project"]?@".":K;
 			target = [self absoluteFileNameForKey:key];
 			if([target pathIsEqual:fileName])
 			{
@@ -2682,13 +2718,13 @@ To Do List:
 	// subdirectory variable is free now
 	while(K = [DE nextObject])
 	{
-		key = [K isEqualToString:@"project"]?@".":K;
-		source = [subdirectory stringByAppendingPathComponent:key];
+		source = [subdirectory stringByAppendingPathComponent:K];
 		target = [DFM pathContentOfSoftLinkAtPath:source];
 		if([target pathIsEqual:fileName])
 		{
 			// OK,this soft link points to the given named file.
 			// is it this key available
+			key = [K isEqualToString:@"project"]?@".":K;
 			target = [self absoluteFileNameForKey:key];
 			if([target pathIsEqual:fileName])
 			{
@@ -2769,6 +2805,10 @@ To Do List:
 	NSURL * url = [NSURL fileURLWithPath:source];
 	NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
 	NSString * target = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
+	if([DFM isPrivateFileAtPath:target])
+	{
+		return @"";
+	}
 	if([DFM fileExistsAtPath:target])
 	{
 		return target;
@@ -2776,6 +2816,10 @@ To Do List:
 	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	source = [subdirectory stringByAppendingPathComponent:key];
 	target = [DFM pathContentOfSoftLinkAtPath:source];
+	if([DFM isPrivateFileAtPath:target])
+	{
+		return @"";
+	}
 	if([DFM fileExistsAtPath:target])
 	{
 		return target;
@@ -2787,6 +2831,10 @@ To Do List:
 	dirName = [dirName stringByDeletingLastPathComponent];
 	target = [dirName stringByAppendingPathComponent:target];
 	target = [target stringByStandardizingPath];
+	if([DFM isPrivateFileAtPath:target])
+	{
+		return @"";
+	}
 	if([DFM fileExistsAtPath:target])
 	{
 		return target;
@@ -3460,15 +3508,17 @@ absoluteFileNameIsChosen:
 			goto absoluteFileNameIsChosen;
 		}
 	}
-	else if([DFM fileExistsAtPath:farawayFileName])
-	{
-		// I also choose the absolute file name.
-		fileURL = [NSURL fileURLWithPath:farawayFileName];
-		return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
-	}
 	else if([absoluteFileName length])
 	{
 		NSString * recorded = [self recordedFileNameForKey:key];
+#warning TEST HERe
+x
+		if([DFM fileExistsAtPath:farawayFileName])
+		{
+			// I also choose the absolute file name.
+			fileURL = [NSURL fileURLWithPath:farawayFileName];
+			return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
+		}
 #warning Should I refuse directories as possible project subdocuments
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:recorded isDirectory:&isDirectory] && !isDirectory)
@@ -5043,8 +5093,8 @@ To Do List:
 		NSBeginAlertSheet(
 			NSLocalizedStringFromTableInBundle(@"Suppressing project documents references",iTM2ProjectTable,myBUNDLE,""),
 			NSLocalizedStringFromTableInBundle(@"Keep",iTM2ProjectTable,myBUNDLE,""),
-			NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,myBUNDLE,""),
 			NSLocalizedStringFromTableInBundle(@"Recycle",iTM2ProjectTable,myBUNDLE,""),
+			NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,myBUNDLE,""),
 			[sender window],
 			self,
 			NULL,
@@ -5076,9 +5126,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[recyclable autorelease];// was retained above
-	if(returnCode == NSAlertAlternateReturn)// cancel!!
+	if(returnCode == NSAlertOtherReturn)// cancel!!
 		return;
-	BOOL recycle = (returnCode == NSAlertOtherReturn);
+	BOOL recycle = (returnCode == NSAlertAlternateReturn);
     iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
     NSEnumerator * E = [recyclable objectEnumerator];
 	NSString * fileKey;
@@ -5800,18 +5850,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[super setFileURL:newURL];
 	NSString * newFileName = [newURL path];
 	NSURL * oldURL = [self fileURL];
 	if(!oldURL || [oldURL isEqual:newURL])
 	{
-		[super setFileURL:newURL];
 		return;
 	}
 	// this is not the first time we are asked to set the file URL
 	iTM2ProjectDocument * oldPD = [self project];
 	if(!oldPD || (self == (id)oldPD))
 	{
-		[super setFileURL:newURL];
 		return;
 	}
 	iTM2WrapperDocument * WD = [self wrapper];
@@ -5844,19 +5893,6 @@ To Do List:
 			{
 				iTM2_LOG(@"*** THERE IS SOMETHING WRONG WITH THAT FILE NAME:%@",name);
 			}
-#if 0
-			NSBeginAlertSheet(
-				NSLocalizedStringFromTableInBundle(@"Suppressing project documents references",iTM2ProjectTable,myBUNDLE,""),
-				NSLocalizedStringFromTableInBundle(@"Keep",iTM2ProjectTable,myBUNDLE,""),
-				NSLocalizedStringFromTableInBundle(@"Cancel",iTM2ProjectTable,myBUNDLE,""),
-				NSLocalizedStringFromTableInBundle(@"Recycle",iTM2ProjectTable,myBUNDLE,""),
-				[self frontWindow],
-				[self class],
-				NULL,
-				@selector(setFileNameSheetDidDismiss:returnCode:recycleName:),
-				[name retain],// will be released below
-				NSLocalizedStringFromTableInBundle(@"Also recycle the selected project documents?",iTM2ProjectTable,myBUNDLE,""));
-#endif
 		}
 	}
 	// removing all the previously existing document with the same file name
@@ -6595,7 +6631,15 @@ To Do List:
 //iTM2_START;
 	if(![sender image])
 	{
-		[sender setImage:[NSImage findImageNamed:@"showCurrentProjectSettings(small)"]];
+		NSString * name = @"projectShowSettings(small)";
+		NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+		if(![I iTM2_isNotNullImage])
+		{
+			I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectSettings"] copy];// cached!
+			[I setName:name];
+			[I iTM2_setSizeSmallIcon];
+		}
+		[sender setImage:I];
 	}
 //iTM2_END;
     return [SPC currentProject] != nil;

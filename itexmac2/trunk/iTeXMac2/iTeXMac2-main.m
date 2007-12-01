@@ -74,7 +74,7 @@ To Do List:
 @interface NSObject(OgreKit)
 - (void)setShouldHackFindMenu:(BOOL)yorn;
 - (void)setUseStylesInFindPanel:(BOOL)yorn;
-- (NSMenu *)findMenu;
+- (NSMenu *)iTM2_findMenu;
 @end
 @implementation NSApplication(OgreKit)
 - (void)ogreKitWillHackFindMenu:(id)textFinder
@@ -82,10 +82,12 @@ To Do List:
 	NSMenuItem * mi = [[self mainMenu] deepItemWithAction:@selector(OgreFindMenuItemAction:)];
 	if(mi)
 	{
-		NSMenu * menu = [textFinder findMenu];
-		menu = [[menu copy] autorelease];
-		[mi setAction:NULL];
-		[[mi menu] setSubmenu:menu forItem:mi];
+		NSMenu * menu = [textFinder iTM2_findMenu];// this does not work any longer in tiger
+		if(menu = [[menu copy] autorelease])
+		{
+			[mi setAction:NULL];
+			[[mi menu] setSubmenu:menu forItem:mi];
+		}
 	}
 	else
 	{
@@ -102,6 +104,8 @@ To Do List:
 	id textFinder = [[OgreTextFinder alloc] init];
 	if(textFinder)// beware of the bug
 	{
+		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"iTM2UseOgreKitFindPanel"]];
+iTM2_LOG(@"setShouldHackFindMenu: %@",([SUD boolForKey:@"iTM2UseOgreKitFindPanel"]?@"yes":@"no"));
 		[textFinder setShouldHackFindMenu:[SUD boolForKey:@"iTM2UseOgreKitFindPanel"]];
 		iTM2_LOG(@"OgreKit Properly installed");
 	}
@@ -114,7 +118,7 @@ To Do List:
 @end
 
 @implementation OgreTextFinder(OgreKit)
-- (NSMenu *)findMenu;
+- (NSMenu *)iTM2_findMenu;
 {
 	return findMenu;
 }

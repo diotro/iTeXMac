@@ -96,7 +96,8 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 /*!
     @method     macroTree
     @abstract   The macro running tree
-    @discussion Lazy initializer.
+    @discussion Lazy initializer. The domain and category nodes are iTM2MacroDomainNode and iTM2MacroCategoryNode instances.
+				The context nodes are iTM2MacroContextNodes.
     @result     The macro running tree
 */
 - (id)macroTree;
@@ -113,7 +114,8 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 /*!
     @method     keyBindingTree
     @abstract   The key binding running tree
-    @discussion Lazy initializer.
+    @discussion Lazy initializer. The domain and category nodes are iTM2MacroDomainNode and iTM2MacroCategoryNode instances.
+				The context nodes are iTM2KeyBindingContextNodes.
     @result     The key binding running tree
 */
 - (id)keyBindingTree;

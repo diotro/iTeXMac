@@ -20,5 +20,3 @@
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
 */
-
-#import "iTM2MacroKit_Tree.h"

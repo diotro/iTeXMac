@@ -853,8 +853,6 @@ To Do List:
         id validator = [NSApp targetForAction:@selector(performFindPanelAction:) to:[[NSApp mainWindow] firstResponder] from:self];
 		if(validator)
 			[self setEnabled:([isa target:validator validateUserInterfaceItem:(id)self]>0)];
-		[self setTarget:validator];
-		iTM2_LOG(@"validator is: %@", validator);
 	}
 	else
 		return [super isValid];

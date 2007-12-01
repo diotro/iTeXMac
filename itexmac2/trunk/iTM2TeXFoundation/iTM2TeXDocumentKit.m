@@ -327,7 +327,7 @@ To Do List: include the tetex path...
     else
     {
         NSString * P = [path stringByAppendingPathExtension:@"tex"];
-        if([[NSFileManager defaultManager] isReadableFileAtPath:P])
+        if([DFM isReadableFileAtPath:P])
             [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:P] display:YES error:nil];
         else
         {
@@ -384,10 +384,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"_{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"_{}"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  superscript:
@@ -398,10 +395,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	NSString * macroDomain = [self macroDomain];
-	NSString * macroCategory = [self macroCategory];
-	NSString * macroContext = [self macroContext];
-	[SMC executeMacroWithID:@"^{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+	[self executeMacroWithID:@"^{}"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertUnderscore:
@@ -454,10 +448,7 @@ To Do List: Nothing at first glance.
 				[self superscript:self];
             else
 			{
-				NSString * macroDomain = [self macroDomain];
-				NSString * macroCategory = [self macroCategory];
-				NSString * macroContext = [self macroContext];
-                [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+				[self executeMacroWithID:@"{}"];
 			}
         }
         else
@@ -550,10 +541,7 @@ To Do List: Nothing at first glance.
 	
     if(!R.location || ![S isControlAtIndex:R.location-1 escaped: &escaped] || escaped)
     {
-		NSString * macroDomain = [self macroDomain];
-		NSString * macroCategory = [self macroCategory];
-		NSString * macroContext = [self macroContext];
-        [SMC executeMacroWithID:@"{}" forContext:macroContext ofCategory:macroCategory inDomain:macroDomain target:self];
+        [self executeMacroWithID:@"{}"];
     }
     else
         [self insertText:@"{"];
@@ -895,7 +883,158 @@ To Do List:
 	}
     return;
 }
-#pragma mark =-=-=-=-=-  COMPLETION
+#pragma mark =-=-=-=-=-  7 bits
+- (void)convertTo7bitsAccents:(id)sender;
+{
+	NSMutableArray * ranges = [NSMutableArray array];
+	NSMutableDictionary * map = [NSMutableDictionary dictionary];
+	NSEnumerator * E = [[iTM2TeXKeyBindingsManager the7bitsAccentsMapping] objectEnumerator];
+	NSString * before;
+	NSString * after;
+	NSTextStorage * TS = [self textStorage];
+	NSString * S = [TS string];
+	NSValue * V;
+	while((before = [E nextObject]) && (after = [E nextObject]))
+	{
+		NSRange searchRange = NSMakeRange(0,[S length]);
+		while(searchRange.length>=[before length])
+		{
+			NSRange R = [S rangeOfString:before options:0L range:searchRange];
+			if(R.length)
+			{
+				V = [NSValue valueWithRange:R];
+				[ranges addObject:V];
+				[map setObject:after forKey:V];
+				searchRange.location = NSMaxRange(R);
+				searchRange.length = [S length] - searchRange.location;
+			}
+			else
+			{
+				searchRange.length = 0;
+			}
+		}
+	}
+	ranges = (id)[ranges sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
+	NSMutableArray * replacements = [NSMutableArray array];
+	E = [ranges objectEnumerator];
+	while(V = [E nextObject])
+	{
+		[replacements addObject:[map objectForKey:V]];
+	}
+	if([ranges count] && [self shouldChangeTextInRanges:ranges replacementStrings:replacements])
+	{
+		E = [ranges reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			[self replaceCharactersInRange:[V rangeValue] withString:[map objectForKey:V]];
+		}
+		[self didChangeText];
+	}
+    return;
+}
+- (void)convertFrom7bitsAccents:(id)sender;
+{
+	id ranges = [NSMutableArray array];
+	NSMutableDictionary * map = [NSMutableDictionary dictionary];
+	NSDictionary * gnippam = [iTM2TeXKeyBindingsManager the7bitsAccentsGnippam];
+	NSEnumerator * E = [gnippam keyEnumerator];
+	NSString * before;
+	NSString * after;
+	NSTextStorage * TS = [self textStorage];
+	NSString * S = [TS string];
+	NSValue * V;
+	NSRange R;
+	while(before = [E nextObject])
+	{
+		after = [gnippam objectForKey:before];
+		NSRange searchRange = NSMakeRange(0,[S length]);
+		while(searchRange.length>=[before length])
+		{
+			R = [S rangeOfString:before options:0L range:searchRange];
+			if(R.length)
+			{
+				V = [NSValue valueWithRange:R];
+				[ranges addObject:V];
+				[map setObject:after forKey:V];
+				searchRange.location = NSMaxRange(R);
+				searchRange.length = [S length] - searchRange.location;
+			}
+			else
+			{
+				searchRange.length = 0;
+			}
+		}
+	}
+	ranges = [ranges sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
+	NSMutableArray * replacements = [NSMutableArray array];
+	E = [ranges objectEnumerator];
+	while(V = [E nextObject])
+	{
+		[replacements addObject:[map objectForKey:V]];
+	}
+	if([ranges count] && [self shouldChangeTextInRanges:ranges replacementStrings:replacements])
+	{
+		E = [ranges reverseObjectEnumerator];
+		while(V = [E nextObject])
+		{
+			[self replaceCharactersInRange:[V rangeValue] withString:[map objectForKey:V]];
+		}
+		[self didChangeText];
+	}
+    return;
+}
+#pragma mark =-=-=-=-=-  STYLE
+- (NSArray *)rangesForUserTextChange;
+{
+	// Take the symbols into account
+	// symbols are a way to layout one glyph for a range of characters
+	// is only a part of the range is selected, it is expanded to the whole range
+	// 1 expand all the ranges to the left
+	// 2 expand all the ranges to the right
+	// 3 merge the overlapping ranges
+	NSMutableArray * result = [NSMutableArray array];
+	NSEnumerator * E = [[[super rangesForUserTextChange] sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)] objectEnumerator];
+	NSValue * V;
+	NSTextStorage * TS = [self textStorage];
+	while(V = [E nextObject])
+	{
+		NSRange R = [V rangeValue];
+		if(R.length)
+		{
+			NSRange r;
+			NSDictionary * attributes = [TS attributesAtIndex:R.location effectiveRange:&r];
+			if([attributes objectForKey:NSGlyphInfoAttributeName])
+			{
+				R = NSUnionRange(r,R);
+			}
+			attributes = [TS attributesAtIndex:NSMaxRange(R)-1 effectiveRange:&r];
+			if([attributes objectForKey:NSGlyphInfoAttributeName])
+			{
+				R = NSUnionRange(r,R);
+			}
+		}
+		[result addObject:[NSValue valueWithRange:R]];
+	}
+	E = [result objectEnumerator];
+	result = [NSMutableArray array];
+	V = [E nextObject];
+	NSValue * nextV;
+	while(nextV = [E nextObject])
+	{
+		if(NSMaxRange([V rangeValue])<[nextV rangeValue].location)
+		{
+			[result addObject:V];
+			V = nextV;
+		}
+		else
+		{
+			V = [NSValue valueWithRange:NSUnionRange([V rangeValue],[nextV rangeValue])];
+		}
+	}
+	[result addObject:V];
+	return result;
+}
+#pragma mark =-=-=-=-=-  COMPLETION & BINDINGS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeForUserCompletion
 - (NSRange)rangeForUserCompletion;
 /*"Desription Forthcoming.
@@ -980,6 +1119,208 @@ To Do List:
 	}
 //iTM2_END;
     return macro;
+}
+@end
+
+@implementation NSResponder(the7bitsAccents)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggle7bitsAccents:
+- (IBAction)toggle7bitsAccents:(id)sender;
+/*"The purpose is to return a macro with the proper indentation.
+This is also used with scripts.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+	if(!old)
+	{
+		NSBundle * B = [NSBundle bundleForClass:[iTM2TeXEditor class]];
+		if([self respondsToSelector:@selector(window)] && [(id)self window])
+		{
+			NSBeginAlertSheet(
+				NSLocalizedStringFromTableInBundle(@"7 bits accents", iTM2TeXProjectFrontendTable, B,"Panel title"),
+			NSLocalizedStringFromTableInBundle( @"OK", iTM2TeXProjectFrontendTable, B, "Button title"),
+			nil,//alt
+		NSLocalizedStringFromTableInBundle( @"Cancel", iTM2TeXProjectFrontendTable, B, "Button title"),//other
+			[(id)self window],
+			self,
+			NULL,
+			@selector(the7bitsAccentsSheetDidDismiss:returnCode:irrelevant:),
+			nil,// will be released in the delegate method above
+			NSLocalizedStringFromTableInBundle(@"Using \\'{e} instead of é will break synchronization. Use it anyway?", iTM2TeXProjectFrontendTable, B,"Panel contents"));
+		}
+		else if(NSAlertDefaultReturn == NSRunAlertPanel (
+				NSLocalizedStringFromTableInBundle(@"7 bits accents", iTM2TeXProjectFrontendTable, B,"Panel title"),
+			NSLocalizedStringFromTableInBundle(@"Using \\'{e} instead of é will break synchronization. Use it anyway?", iTM2TeXProjectFrontendTable, B,"Panel contents"),
+		NSLocalizedStringFromTableInBundle( @"OK", iTM2TeXProjectFrontendTable, B, "Button title"),
+		nil,//alt
+	NSLocalizedStringFromTableInBundle( @"Cancel", iTM2TeXProjectFrontendTable, B, "Button title")))
+		{
+			[self takeContextBool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+		}
+	}
+	else if([self respondsToSelector:@selector(window)])
+	{
+		[self takeContextBool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextPrivateMask];
+	}
+	else
+	{
+		[self takeContextBool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsSheetDidDismiss:returnCode:irrelevant:
+- (void)the7bitsAccentsSheetDidDismiss:(NSWindow *) sheet returnCode:(int) returnCode irrelevant:(id)nothing;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_LOG;
+	if(returnCode == NSAlertDefaultReturn)
+	{
+		[self takeContextBool:YES forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextPrivateMask];
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggle7bitsAccents:
+- (BOOL)validateToggle7bitsAccents:(id)sender;
+/*"The purpose is to return a macro with the proper indentation.
+This is also used with scripts.
+Version history: jlaurens AT users DOT sourceforge DOT net (1.0.10)
+- 1.2: 06/24/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL old = [self contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+	[sender setState:(old?NSOnState:NSOffState)];
+//iTM2_END;
+	return YES;
+}
+@end
+
+@interface iTM27BitsContextNode:iTM2KeyBindingContextNode
+@end
+@implementation iTM27BitsContextNode
+- (BOOL)uniqueKey;
+{
+	return NO;
+}
+@end
+
+@implementation iTM2TeXKeyBindingsManager
+static id iTM2TeXKeyBindingsManager_7bitsAccents = nil;
++(void)load;
+{
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+	[iTM2TeXKeyBindingsManager poseAsClass:[iTM2KeyBindingsManager class]];
+	iTM2_RELEASE_POOL;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsMapping
++ (id)the7bitsAccentsMapping;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_LOG;
+	static id mapping = nil;
+	if(!mapping)
+	{
+		id list = [self the7bitsAccentsList];
+		mapping = [[NSMutableArray array] retain];
+		NSEnumerator * E = [[list children] objectEnumerator];
+		id child;
+		while(child = [E nextObject])
+		{
+			NSString * K = [child key];
+			if(![mapping containsObject:K])
+			{
+				[mapping addObject:K];
+				[mapping addObject:[child macroID]];
+			}
+		}
+	}
+	return mapping;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsGnippam
++ (id)the7bitsAccentsGnippam;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_LOG;
+	static id gnippam = nil;
+	if(gnippam == nil)
+	{
+		id list = [self the7bitsAccentsList];
+		gnippam = [[NSMutableDictionary dictionary] retain];
+		NSEnumerator * E = [[list children] reverseObjectEnumerator];// the first occurrence will be used
+		id child;
+		while(child = [E nextObject])
+		{
+			[gnippam setObject:[child key] forKey:[child macroID]];
+		}
+	}
+	return gnippam;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsList
++ (id)the7bitsAccentsList;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	if(!iTM2TeXKeyBindingsManager_7bitsAccents)
+	{
+		iTM2TeXKeyBindingsManager_7bitsAccents = [[iTM27BitsContextNode alloc] initWithParent:nil context:@""];
+		NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"7bitsAccents" ofType:iTM2KeyBindingPathExtension];
+		NSEnumerator * E = [RA objectEnumerator];
+		NSString * repository = nil;
+		while(repository = [E nextObject])
+		{
+			NSURL * url = [NSURL fileURLWithPath:repository];
+			[iTM2TeXKeyBindingsManager_7bitsAccents addURLPromise:url];
+		}
+		iTM2TeXKeyBindingsManager_7bitsAccents = [iTM2TeXKeyBindingsManager_7bitsAccents keyBindings];
+	}
+    return iTM2TeXKeyBindingsManager_7bitsAccents;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeBindingForKeyStroke:
+- (BOOL)client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
+/*"Description forthcoming.
+If the event is a 1 char key down, it will ask the current key binding for instruction.
+The key and its modifiers are 
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([C contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask])
+	{
+		id keyNode = [[[self class] the7bitsAccentsList] objectInChildrenWithKeyStroke:keyStroke];
+		if(keyNode && [C respondsToSelector:@selector(insertMacro_ROUGH:)])
+		{
+			if([C respondsToSelector:@selector(hasMarkedText)] && [C hasMarkedText])
+			{
+				[C deleteBackward:nil];// this is the only mean I found to properly manage the undo stack for dead keys
+			}
+			[C performSelector:@selector(insertMacro_ROUGH:) withObject:[keyNode macroID]];
+			return YES;
+		}
+	}
+//iTM2_STOP;
+	return [super client:C executeBindingForKeyStroke:keyStroke];
 }
 @end
 

@@ -23,6 +23,7 @@
 
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2ImageKit.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSCursor(iTeXMac2)
 /*"Description forthcoming."*/
@@ -253,22 +254,7 @@ To Do List:
 + (NSCursor *)iTM2_cursorForSelector:(SEL)aSelector;
 {
 	NSString * name = NSStringFromSelector(aSelector);
-	NSImage * I = [NSImage imageNamed:name];
-	if(!I)
-	{
-		NSString * path = [[NSBundle iTM2FoundationBundle] pathForImageResource:name];
-		if(path)
-		{
-//iTM2_END;
-			I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
-			[I setName:name];
-		}
-		else
-		{
-			iTM2_LOG(@"Could not create %@...",name);
-			return [NSCursor arrowCursor];
-		}
-	}
+	NSImage * I = [NSImage iTM2_cachedImageNamed:name];
 	return [[[NSCursor allocWithZone:[self zone]] initWithImage:I hotSpot:NSMakePoint(7, 7)] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  resizeTopLeftCursor

@@ -1160,6 +1160,7 @@ extern NSString * const iTM2TextVariantExtension;
 */
 extern NSString * const iTM2TextStyleComponent;
 
+extern NSString * const iTM2TextAttributesPathExtension;
 extern NSString * const iTM2TextAttributesModesComponent;
 extern NSString * const iTM2TextAttributesDidChangeNotification;
 extern NSString * const iTM2TextDefaultStyle;

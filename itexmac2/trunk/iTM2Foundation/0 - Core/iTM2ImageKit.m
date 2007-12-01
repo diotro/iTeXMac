@@ -25,32 +25,125 @@
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 
+@interface NSImage(PRIVATE)
+- (void)iTM2_setSizeSmallIcon;
+- (void)iTM2_setSizeIcon;
+@end
+
+@interface iTM2NullImage: NSImage
+@end
+@implementation iTM2NullImage
+- (id)copyWitZone:(NSZone *)zone;
+{
+	if(self = [super copyWithZone:zone])
+	{
+		isa = [iTM2NullImage class];
+	}
+	return self;
+}
+@end
+@interface NSImage_iTeXMac2: NSImage
+@end
+@implementation NSImage_iTeXMac2
++ (void)load;
+{
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+	[self poseAsClass:[NSImage class]];
+	iTM2_RELEASE_POOL;
+}
++ (id)imageNamed:(NSString *)name;
+{
+	NSImage * result = [super imageNamed:name];
+	if(!result && [name length] && ![name hasPrefix:@"NS"])
+	{
+		NSString * path = [[[[NSBundle mainBundle] allPathsForImageResource:name] objectEnumerator] nextObject];
+		if([path length])
+		{
+			result = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[result setName:name];
+		}
+	}
+	return result;
+}
++ (NSImage *)iTM2_cachedImageNamed:(NSString *)name;
+{
+	NSImage * result = [super imageNamed:name];
+	if(result)
+	{
+		return result;
+	}
+	else if(result = [self  imageNamed:name])
+	{
+		[result retain];// persistent
+		return result;
+	}
+	else
+	{
+		result = [[NSImage iTM2_imageMissingImage] copy];
+		[result iTM2_setSizeSmallIcon];
+		[result setName:name];
+	}
+	return result;
+}
++(NSImage *)iTM2_imageMissingImage;
+{
+	NSString * name = @"QuestionMark";
+	NSImage * result = [super imageNamed:name];
+	if(!result)
+	{
+		NSString * path = [[[[NSBundle mainBundle] allPathsForImageResource:name] objectEnumerator] nextObject];
+		if([path length])
+		{
+			result = [[[iTM2NullImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			[result setName:name];
+		}
+	}
+	return result;
+}
+- (BOOL)iTM2_isNotNullImage;
+{
+	return ![self isKindOfClass:[iTM2NullImage class]];
+}
+@end
+
 #define DEFINE_IMAGE(SELECTOR, NAME)\
 + (NSImage *)SELECTOR;\
 {\
-	NSString * name = [NSString stringWithFormat:@"iTM2:%@",NAME];\
-	NSImage * I = [NSImage imageNamed:name];\
-	if(!I)\
-	{\
-		I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:\
-            [[iTM2Implementation classBundle] pathForImageResource:NAME]];\
-		[I setName:name];\
-	}\
-    return I;\
+	return [NSImage iTM2_cachedImageNamed:NAME];\
 }
 
 @implementation NSImage(iTM2ButtonKit_RWStatus)
-DEFINE_IMAGE(imageReadOnlyPencil, @"iTM2ReadOnlyPencil");
-DEFINE_IMAGE(imageLock, @"iTM2Lock");
-DEFINE_IMAGE(imageUnlock, @"iTM2Unlock");
-DEFINE_IMAGE(imageJava, @"Java");
-DEFINE_IMAGE(imageMissingImage, @"missing_image");
-DEFINE_IMAGE(imageBlueDimple, @"dimple_nib_aqua");
-DEFINE_IMAGE(imageGreyDimple, @"dimple_nib_grey_aqua");
-DEFINE_IMAGE(imageRedDimple, @"status-away");
-DEFINE_IMAGE(imageOrangeDimple, @"status-idle");
-DEFINE_IMAGE(imageGreenDimple, @"status-available");
-DEFINE_IMAGE(imageSplitClose, @"iTM2SplitClose");
-DEFINE_IMAGE(imageSplitHorizontal, @"iTM2SplitHorizontal");
-DEFINE_IMAGE(imageSplitVertical, @"iTM2SplitVertical");
+DEFINE_IMAGE(iTM2_imageReadOnlyPencil, @"iTM2ReadOnlyPencil");
+DEFINE_IMAGE(iTM2_imageLock, @"iTM2Lock");
+DEFINE_IMAGE(iTM2_imageUnlock, @"iTM2Unlock");
+DEFINE_IMAGE(iTM2_imageJava, @"Java");
+DEFINE_IMAGE(iTM2_imageBlueDimple, @"dimple_nib_aqua");
+DEFINE_IMAGE(iTM2_imageGreyDimple, @"dimple_nib_grey_aqua");
+DEFINE_IMAGE(iTM2_imageRedDimple, @"status-away");
+DEFINE_IMAGE(iTM2_imageOrangeDimple, @"status-idle");
+DEFINE_IMAGE(iTM2_imageGreenDimple, @"status-available");
+DEFINE_IMAGE(iTM2_imageSplitClose, @"iTM2SplitClose");
+DEFINE_IMAGE(iTM2_imageSplitHorizontal, @"iTM2SplitHorizontal");
+DEFINE_IMAGE(iTM2_imageSplitVertical, @"iTM2SplitVertical");
+DEFINE_IMAGE(iTM2_imageToggleDrawer, @"toggleDrawerToolbarImage");
+DEFINE_IMAGE(iTM2_imageLockDocument, @"imageLockDocumentToolbarImage");
+DEFINE_IMAGE(iTM2_imageOrderFrontColorPanel, @"imageOrderFrontColorPanelToolbarImage");
+DEFINE_IMAGE(iTM2_imageOrderFrontFontPanel, @"imageOrderFrontFontPanelToolbarImage");
+DEFINE_IMAGE(iTM2_imageSubscript, @"imageSubscriptToolbarImage");
+DEFINE_IMAGE(iTM2_imageSuperscript, @"imageSuperscriptToolbarImage");
+DEFINE_IMAGE(iTM2_imageUnlockDocument, @"imageUnlockDocumentToolbarImage");
+- (void)iTM2_setSizeSmallIcon;
+{
+	[self setScalesWhenResized:YES];
+	[self setSize:NSMakeSize(16,16)];
+	return;
+}
+- (void)iTM2_setSizeIcon;
+{
+	[self setScalesWhenResized:YES];
+	[self setSize:NSMakeSize(32,32)];
+	return;
+}
 @end
+

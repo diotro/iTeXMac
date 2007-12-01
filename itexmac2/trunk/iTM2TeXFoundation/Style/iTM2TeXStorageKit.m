@@ -24,7 +24,7 @@
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
 #import <iTM2TeXFoundation/iTM2TeXStringKit.h>
 
-NSString * const iTM2TextAttributesSymbolsExtension = @"rtf";
+NSString * const iTM2TextAttributesRegExComponent = @"regex";
 NSString * const iTM2TextAttributesDraftSymbolsExtension = @"DraftSymbols";
 NSString * const iTM2Text2ndSymbolColorAttributeName = @"iTM2Text2ndSymbolColorAttribute";
 NSString * const iTM2TextAttributesCharacterAttributeName = @"iTM2Character";
@@ -423,6 +423,8 @@ To Do List:
     {
         [_SymbolsAttributes autorelease];
         _SymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+        [_RegExAttributes autorelease];
+        _RegExAttributes = [[NSMutableDictionary dictionary] retain];
         [_CachedSymbolsAttributes autorelease];
         _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
         [self loadSymbolsAttributesWithVariant:variant];
@@ -441,6 +443,8 @@ To Do List:
 //iTM2_START;
     [_SymbolsAttributes autorelease];
     _SymbolsAttributes = nil;
+    [_RegExAttributes autorelease];
+    _RegExAttributes = nil;
     [_CachedSymbolsAttributes autorelease];
     _CachedSymbolsAttributes = nil;
     [super dealloc];
@@ -495,7 +499,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(!symbol)
+	if(![symbol length])
 		return nil;
     NSDictionary * symbolAttributes = [_CachedSymbolsAttributes objectForKey:symbol];
     if(symbolAttributes)
@@ -571,57 +575,67 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadSymbolsAttributesAtPath:
-- (void)loadSymbolsAttributesAtPath:(NSString *)stylePath;
-/*"The notification object is used to retrieve font and color info. If no object is given, the NSFontColorManager class object is used.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  regexAttributesWithContentsOfFile:
++ (NSDictionary *)regexAttributesWithContentsOfFile:(NSString *)fileName;
+/*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: NYI
+- 1.4: Wed Dec 17 09:32:38 GMT 2003
+To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"stylePath: %@", stylePath);
-    NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
-    NSString * p;
-    while(p = [e nextObject])
-        if([[p pathExtension] isEqual:iTM2TextAttributesSymbolsExtension]
-			&& ![p isEqual:iTM2TextAttributesModesComponent])
-        {
-            [_CachedSymbolsAttributes autorelease];
-            _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
-            NSString * symbolAttributesPath = [stylePath stringByAppendingPathComponent:p];
-            NSDictionary * symbolAttributes = [[self class] symbolsAttributesWithContentsOfFile:symbolAttributesPath];
-            if(iTM2DebugEnabled > 1000)
-            {
-                iTM2_LOG(@"We have loaded symbols attributes at path: %@", symbolAttributesPath);
-                NSMutableSet * set1 = [NSMutableSet setWithArray:[_SymbolsAttributes allKeys]];
-                NSSet * set2 = [NSSet setWithArray:[symbolAttributes allKeys]];
-                [set1 intersectSet:set2];
-                 iTM2_LOG(@"The overriden keys are: %@", set1);
-            }
-            [_SymbolsAttributes addEntriesFromDictionary:symbolAttributes];
-        }
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDraftSymbolsAttributesAtPath:
-- (void)loadDraftSymbolsAttributesAtPath:(NSString *)stylePath;
-/*"The notification object is used to retrieve font and color info. If no object is given, the NSFontColorManager class object is used.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: NYI
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"stylePath: %@", stylePath);
-    NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
-    NSString * p;
-    while(p = [e nextObject])
-        if([[p pathExtension] isEqualToString:iTM2TextAttributesDraftSymbolsExtension])
-        {
-            [_SymbolsAttributes addEntriesFromDictionary:
-                [[self class] symbolsAttributesWithContentsOfFile:[stylePath stringByAppendingPathComponent:p]]];
-        }
-    return;
+//iTM2_LOG(@"fileName is: %@", fileName);
+	// is it a regex file I am reading?
+	NSString * coreBaseName = [[fileName lastPathComponent] stringByDeletingPathExtension];
+	if(![coreBaseName isEqual:iTM2TextAttributesRegExComponent])
+	{
+		return [NSDictionary dictionary];
+	}
+    NSData * D = [NSData dataWithContentsOfFile:fileName];
+    if([D length])
+    {
+		NSError * error = nil;
+		NSTextStorage * TS = [[[NSTextStorage alloc] initWithData:D options:nil documentAttributes:nil error:&error] autorelease];
+		if(error)
+		{
+			NSLog(@"%@",error);
+		}
+		NSLayoutManager * LM = [[[NSLayoutManager alloc] init] autorelease];
+		[TS addLayoutManager:LM]; 
+		NSMutableDictionary * result = [NSMutableDictionary dictionary];
+		NSString * S = [TS string];
+		unsigned start = 0, contentsEnd;
+		NSRange R = NSMakeRange(0,0);
+		while(start<[S length])
+		{
+			[S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
+			if((contentsEnd-start>2) && ([S characterAtIndex:start+1]=='='))
+			{
+				NSMutableDictionary * attributes = [[[TS attributesAtIndex:start effectiveRange:nil] mutableCopy] autorelease];
+				NSFont * font = [attributes objectForKey:NSFontAttributeName];
+				if(font)
+				{
+					NSString * command = [S substringWithRange:NSMakeRange(start+2, contentsEnd-start-2)];
+					NSString * character = [S substringWithRange:NSMakeRange(start,1)];
+					[attributes setObject:character forKey:iTM2TextAttributesCharacterAttributeName];
+					NSRange charRange = NSMakeRange(start,1);
+					NSRange glyphRange = [LM glyphRangeForCharacterRange:charRange actualCharacterRange:nil];
+					NSGlyph glyph = [LM glyphAtIndex:glyphRange.location];
+					NSGlyphInfo * GI = [NSGlyphInfo glyphInfoWithGlyph:glyph forFont:font baseString:command];
+					[attributes setObject:GI forKey:NSGlyphInfoAttributeName];
+					ICURegEx * RE = [ICURegEx regExWithSearchPattern:command];
+					if(RE)
+					{
+						command = (id)RE;
+					}
+					[result setObject:attributes forKey:command];
+				}
+			}
+			start = R.location;
+		}
+		return result;
+    }
+    return [NSDictionary dictionary];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  symbolsAttributesWithContentsOfFile:
 + (NSDictionary *)symbolsAttributesWithContentsOfFile:(NSString *)fileName;
@@ -633,6 +647,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"fileName is: %@", fileName);
+	NSString * coreBaseName = [[fileName lastPathComponent] stringByDeletingPathExtension];
+	if([coreBaseName isEqual:iTM2TextAttributesModesComponent])
+	{
+		return nil;
+	}
     NSData * D = [NSData dataWithContentsOfFile:fileName];
     if([D length])
     {
@@ -673,6 +692,63 @@ To Do List:
 		return result;
     }
     return [NSDictionary dictionary];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadSymbolsAttributesAtPath:
+- (void)loadSymbolsAttributesAtPath:(NSString *)stylePath;
+/*"The notification object is used to retrieve font and color info. If no object is given, the NSFontColorManager class object is used.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: NYI
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_LOG(@"stylePath: %@", stylePath);
+    NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
+    NSString * p;
+    while(p = [e nextObject])
+        if([[p pathExtension] isEqual:iTM2TextAttributesPathExtension])
+		{
+			NSDictionary * attributes = nil;
+			if([p isEqual:[iTM2TextAttributesModesComponent stringByAppendingPathExtension:iTM2TextAttributesPathExtension]])
+			{
+				// do nothing, this is the modes.rtf
+			}
+			else if([p isEqual:[iTM2TextAttributesRegExComponent stringByAppendingPathExtension:iTM2TextAttributesPathExtension]])
+			{
+				[_CachedSymbolsAttributes autorelease];
+				_CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+				p = [stylePath stringByAppendingPathComponent:p];
+				attributes = [[self class] regexAttributesWithContentsOfFile:p];
+				if(iTM2DebugEnabled > 1000)
+				{
+					iTM2_LOG(@"We have loaded regex attributes at path: %@", p);
+					NSMutableSet * set1 = [NSMutableSet setWithArray:[_RegExAttributes allKeys]];
+					NSSet * set2 = [NSSet setWithArray:[attributes allKeys]];
+					[set1 intersectSet:set2];
+					 iTM2_LOG(@"The overriden keys are: %@", set1);
+				}
+				[_RegExAttributes addEntriesFromDictionary:attributes];
+			}
+			else 
+			{
+				[_CachedSymbolsAttributes autorelease];
+				_CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+				p = [stylePath stringByAppendingPathComponent:p];
+				if(attributes = [[self class] symbolsAttributesWithContentsOfFile:p])
+				{
+					if(iTM2DebugEnabled > 1000)
+					{
+						iTM2_LOG(@"We have loaded symbols attributes at path: %@", p);
+						NSMutableSet * set1 = [NSMutableSet setWithArray:[_SymbolsAttributes allKeys]];
+						NSSet * set2 = [NSSet setWithArray:[attributes allKeys]];
+						[set1 intersectSet:set2];
+						 iTM2_LOG(@"The overriden keys are: %@", set1);
+					}
+					[_SymbolsAttributes addEntriesFromDictionary:attributes];
+				}
+			}
+		}
+   return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeSymbolsAttributes:toFile:
 + (BOOL)writeSymbolsAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName;

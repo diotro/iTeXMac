@@ -3102,6 +3102,43 @@ NSString * const iTM2ToolbarProjectFilesItemIdentifier = @"showCurrentProjectFil
 NSString * const iTM2ToolbarProjectTerminalItemIdentifier = @"showCurrentProjectTerminal";
 
 @implementation iTM2ProjectDocumentResponder(TeXProject)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectShowTerminal:
+- (IBAction)projectShowTerminal:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [[SPC projectForSource:sender] showTerminal:sender];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateProjectShowTerminal:
+- (BOOL)validateProjectShowTerminal:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![sender image])
+	{
+		NSString * name = @"projectShowTerminal(small)";
+		NSImage * I = [NSImage iTM2_cachedImageNamed:name];
+		if(![I iTM2_isNotNullImage])
+		{
+			I = [[NSImage iTM2_cachedImageNamed:@"showCurrentProjectTerminal"] copy];
+			[I setName:name];
+			[I iTM2_setSizeSmallIcon];
+		}
+		[sender setImage:I];//size
+	}
+//iTM2_END;
+    return [SPC currentProject] != nil;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showCurrentProjectSettings:
 - (IBAction)showCurrentProjectSettings:(id) sender;
 /*"Description Forthcoming.
@@ -3167,8 +3204,7 @@ To Do List:
 			NSString * key = [MD objectForKey:S];
 			NSString * path = [PD absoluteFileNameForKey:key];
 			NSImage * I = [SWS iconForFile:path];
-			[I setScalesWhenResized:YES];
-			[I setSize:NSMakeSize(16,16)];
+			[I iTM2_setSizeSmallIcon];
 			[MI setImage:I];
 			[MI setRepresentedObject:
 				[NSDictionary dictionaryWithObjectsAndKeys:

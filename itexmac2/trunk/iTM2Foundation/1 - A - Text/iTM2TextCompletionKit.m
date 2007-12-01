@@ -29,6 +29,7 @@
 #import <iTM2Foundation/iTM2TreeKit.h>
 #import <iTM2Foundation/iTM2MenuKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
+#import <iTM2Foundation/iTM2MacroKit_Tree.h>
 #import <iTM2Foundation/iTM2TextKit.h>
 
 NSString * const iTM2CompletionComponent = @"Completion.localized";
@@ -91,14 +92,11 @@ NSString * const iTM2CompletionComponent = @"Completion.localized";
 - (id)objectInChildrenWithContext:(NSString *)key;
 - (id)objectInChildrenWithKey:(NSString *)key;
 - (id)objectInChildrenWithAltKey:(NSString *)key;
-- (id)macroKeyStroke;
 - (NSArray *)availableIDs;
 - (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index;
-- (void)insertObject:(id)object inAvailableMacrosAtIndex:(int)index withID:(NSString *)ID;
 @end
 
 #import "iTM2MacroKit_Tree.h"
-#import "iTM2MacroKit_Model.h"
 #import "iTM2MacroKit_Controller.h"
 
 @implementation iTM2MacroController(Completion)
@@ -115,18 +113,8 @@ To Do List:
 	iTM2MacroDomainNode * domainNode = [rootNode objectInChildrenWithDomain:domain];
 	iTM2MacroCategoryNode * categoryNode = [domainNode objectInChildrenWithCategory:category];
 	iTM2MacroContextNode * contextNode = [categoryNode objectInChildrenWithContext:context];
-	iTM2MacroList * macroList = [contextNode list];
-	NSArray * leafNodes = [macroList children];
-	NSEnumerator * E = [leafNodes objectEnumerator];
-	iTM2MacroNode * leafNode;
-	NSMutableArray * result = [NSMutableArray array];
-	while(leafNode = [E nextObject])
-	{
-		NSString * ID = [leafNode ID];
-		[result addObject:ID];
-	}
 //iTM2_END;
-	return result;
+	return [[contextNode macros] allKeys];
 }
 @end
 
@@ -229,6 +217,8 @@ To Do List:
 	}
 	return patriciaController;
 }
+#warning FAILED: addSelectionToCompletionForTextView broken
+#if 0
 - (void)addSelectionToCompletionForTextView:(NSTextView *)aTextView;
 {
 	NSParameterAssert(aTextView);
@@ -239,12 +229,9 @@ To Do List:
 	NSEnumerator * E = [selectedRanges objectEnumerator];
 	NSValue * V;
 	id node = [SMC macroTree];
-	NSString * domain = [aTextView macroDomain];
-	node = [node objectInChildrenWithDomain:domain];
-	NSString * category = [aTextView macroCategory];
-	node = [node objectInChildrenWithCategory:category];
-	NSString * context = [aTextView macroContext];
-	node = [node objectInChildrenWithContext:context];
+	node = [node objectInChildrenWithDomain:[aTextView macroDomain]];
+	node = [node objectInChildrenWithCategory:[aTextView macroCategory]];
+	node = [node objectInChildrenWithContext:[aTextView macroContext]];
 	NSArray * availableIDs = [node availableIDs];
 	while(V = [E nextObject])
 	{
@@ -253,17 +240,19 @@ To Do List:
 		if([substring length] && ![availableIDs containsObject:substring])
 		{
 			id object = [[[iTM2MacroNode allocWithZone:[node zone]] init] autorelease];
-			[node insertObject:object inAvailableMacrosAtIndex:0 withID:substring];
+			[object setMacroID:substring];
+			[node insertObject:object inAvailableMacrosAtIndex:0];
 			[stringList addObject:substring];
 		}
 	}
 	[patriciaController addStrings:stringList];
 	// save the modification
 	node = [SMC macroTree];
-	[SMC saveTree:node];
+	[SMC saveMacroTree:node];
 //iTM2_LOG(@"[patriciaController stringList]:%@",[patriciaController stringList]);
 	return;
 }
+#endif
 - (NSArray *)completionsForTextView:(NSTextView *)aTextView partialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexPtr;
 {
 	NSParameterAssert(aTextView);
@@ -502,7 +491,7 @@ grosbois:
 	// establish connections with the table view
 	[_TableView setDataSource:self];
 	[_TableView setDelegate:self];
-	[_TableView setTarget:self];
+	[_TableView setTarget:self];// self is expected to last forever
 	[_TableView setDoubleAction:@selector(_concludeCompletion:)];
 	[_TableView setAllowsMultipleSelection:NO];
 	[_TableView reloadData];
@@ -899,7 +888,7 @@ grosbois:
 		// where should I put this window
 		[_TableView setDataSource:self];
 		[_TableView setDelegate:self];
-		[_TableView setTarget:self];
+		[_TableView setTarget:self];// self is expecetd to last forever
 		[_TableView setDoubleAction:@selector(_concludeCompletion:)];
 		[_TableView setAllowsMultipleSelection:NO];
 		[_TableView reloadData];

@@ -1422,7 +1422,7 @@ To Do List:
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange;
 		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
-        canStringEncoding = (hardCodedStringEncoding == 0);
+        canStringEncoding = (hardCodedStringEncoding == 0 || hardCodedRange.length == 0);
         if(hardCodedStringEncoding && ![[NSString localizedNameOfStringEncoding:hardCodedStringEncoding] length])
 		{
 			iTM2_REPORTERROR(1,(@"Unknown encoding, Did you make a typo?"),nil);
@@ -1643,6 +1643,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	metaSETTER([NSNumber numberWithBool:yorn]);
+	[self takeContextBool:yorn forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 //	[[self implementation] takeMetaValue:[NSNumber numberWithBool:yorn] forKey:@"isStringEncodingHardCoded"];
 	return;
 }
@@ -2675,7 +2676,7 @@ To Do List:
 			initWithString:title attributes:attributes]
 				autorelease]];
 		[sender setEnabled:NO];
-		[sender setTarget:self];
+//		[sender setTarget:self]; NO!
 		[sender setTag:tag];
 		[sender setState:NSOnState];
 		[menu insertItem:sender atIndex:0];
@@ -2774,7 +2775,7 @@ To Do List:
 	{
 		if([sender action] == @selector(takeStringEncodingFromTag:))
 		{
-			[sender setTarget:self];
+//			[sender setTarget:self]; NO !
 			[sender setEnabled:enabled];
 			if([sender tag] == tag)
 			{
@@ -2803,7 +2804,7 @@ To Do List:
 		F = [SFM convertFont:F toHaveTrait:NSItalicFontMask];
 		[sender setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]] initWithString:title attributes:[NSDictionary dictionaryWithObjectsAndKeys:F, NSFontAttributeName, nil]] autorelease]];
 		[sender setEnabled:NO];
-		[sender setTarget:self];
+//		[sender setTarget:self]; NO !
 		[sender setTag:tag];
 		[sender setState:NSOnState];
 		[menu insertItem:sender atIndex:0];

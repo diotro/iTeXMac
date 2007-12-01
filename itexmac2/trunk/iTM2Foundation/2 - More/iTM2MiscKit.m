@@ -79,8 +79,7 @@ To Do List:
 	{
 		NSString * path = [SWS fullPathForApplication:@"Console"];
 		NSImage * I = [SWS iconForFile:path];
-		[I setScalesWhenResized:YES];
-		[I setSize:NSMakeSize(16,16)];
+		[I iTM2_setSizeSmallIcon];
 		[sender setImage:I];//size
 	}
 //iTM2_END;
@@ -434,6 +433,8 @@ NSString * const iTM2ToolbarSubscriptItemIdentifier = @"subscript";
 NSString * const iTM2ToolbarSuperscriptItemIdentifier = @"superscript";
 NSString * const iTM2ToolbarUnlockDocumentItemIdentifier = @"unlockDocument";
 
+are these images used?
+#if 0
 #define DEFINE_IMAGE(SELECTOR, IDENTIFIER)\
 + (NSImage *)SELECTOR;\
 {\
@@ -490,6 +491,7 @@ DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
 	return nil;
 }
 @end
+#endif
 
 @implementation NSToolbarItem(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDrawerToolbarItem:
@@ -616,6 +618,15 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert([anIdentifier length]);
 	NSParameterAssert(bundle);
+<<<<<<< .working
+=======
+	NSImage * I = [NSImage iTM2_cachedImageNamed:anIdentifier];
+	if(![I iTM2_isNotNullImage])
+	{
+		NSString * component = [anIdentifier stringByAppendingString:@"ToolbarImage"];
+		I = [NSImage iTM2_cachedImageNamed:component];
+	}
+>>>>>>> .merge-right.r690
 	NSToolbarItem * toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
 	[toolbarItem setImage:[NSImage findImageNamed:anIdentifier]];
 	[toolbarItem setLabel:
@@ -624,6 +635,13 @@ To Do List:
 		NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"PaletteLabel"], @"Toolbar", bundle, "")];
 	[toolbarItem setToolTip:
 		NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
+<<<<<<< .working
+=======
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", anIdentifier, [NSImage imageNamed:anIdentifier]);
+	}
+>>>>>>> .merge-right.r690
 //iTM2_END;
     return toolbarItem;
 }
@@ -662,11 +680,11 @@ To Do List:
 	}
 	
 	toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
-	
-	NSString * imageName = [NSString stringWithFormat:@"iTM2:%@",anIdentifier];
-	NSImage * I = [NSImage imageNamed:imageName];
-	if(!I)
+	NSString * imagePath = [[[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] objectEnumerator] nextObject];
+	NSImage * I = nil;
+	if([imagePath length])
 	{
+<<<<<<< .working
 		NSString * imagePath = [[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] lastObject];
 		if(I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath])
 		{
@@ -684,7 +702,25 @@ To Do List:
 			[toolbarItem setToolTip:
 				NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
 		}
+=======
+		I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath] autorelease];
+		NSBundle * bundle = [NSBundle bundleForResourceAtPath:imagePath];
+		[toolbarItem setLabel:
+			NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
+		[toolbarItem setPaletteLabel:
+			NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"PaletteLabel"], @"Toolbar", bundle, "")];
+		[toolbarItem setToolTip:
+			NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
+>>>>>>> .merge-right.r690
 	}
+	else
+	{
+		iTM2_LOG(@"*** iTM2 Packaging ERROR: missing image named: %@",anIdentifier);
+		I = [[[NSImage iTM2_imageMissingImage] copy] autorelease];
+		[I iTM2_setSizeIcon];
+	}
+	[I setName:anIdentifier];
+	[toolbarItem setImage:I];
 	[toolbarItems setObject:toolbarItem forKey:anIdentifier];
 	return [[toolbarItem copy] autorelease];
 }
@@ -801,3 +837,15 @@ To Do List:
     return;
 }
 @end
+
+@implementation NSValue(iTM2Range)
+- (NSComparisonResult)iTM2_compareRangeLocation:(id)rhs;
+{
+	unsigned l = [self rangeValue].location;
+	unsigned r = [rhs rangeValue].location;
+	if(l<r) return NSOrderedAscending;
+	if(l>r) return NSOrderedDescending;
+	return NSOrderedSame;
+}
+@end
+
