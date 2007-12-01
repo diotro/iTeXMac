@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>CompatibleVersion</key>
@@ -34,37 +34,24 @@
 	<string>10.4.7</string>
 	<key>ViewOptions</key>
 	<dict>
-		<key>GroupViewOptions</key>
-		<dict>
-			<key>GroupsDictionary</key>
-			<dict>
-				<key>OTHER</key>
-				<dict>
-					<key>IsCollapsed</key>
-					<false/>
-					<key>IsSummarized</key>
-					<false/>
-				</dict>
-			</dict>
-		</dict>
 		<key>SidebarWidth</key>
-		<integer>164</integer>
+		<integer>183</integer>
 		<key>ToolbarVisible</key>
-		<false/>
+		<true/>
 		<key>ViewHeight</key>
-		<integer>692</integer>
+		<integer>382</integer>
 		<key>ViewStyle</key>
-		<string>qrsb</string>
+		<string>icnv</string>
 		<key>WindowBounds</key>
 		<dict>
 			<key>bottom</key>
-			<integer>812</integer>
+			<integer>562</integer>
 			<key>left</key>
-			<integer>46</integer>
+			<integer>104</integer>
 			<key>right</key>
-			<integer>939</integer>
+			<integer>854</integer>
 			<key>top</key>
-			<integer>120</integer>
+			<integer>180</integer>
 		</dict>
 	</dict>
 </dict>
