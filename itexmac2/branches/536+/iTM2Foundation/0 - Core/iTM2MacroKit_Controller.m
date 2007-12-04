@@ -549,7 +549,7 @@ To Do List:
 		NSString * ID = [[element attributeForName:@"ID"] stringValue];
 		iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
 		name = [leafNode name];
-		if(!leafNode)
+		if(!name)
 		{
 			name = ID;
 		}
