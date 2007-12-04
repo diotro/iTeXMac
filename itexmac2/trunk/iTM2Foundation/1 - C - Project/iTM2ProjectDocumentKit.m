@@ -3384,6 +3384,7 @@ tahiti:
 		// Is it a document managed by iTeXMac2? Some document might need an external helper
 		NSString * extension = [fileName pathExtension];
 		NSString * typeName = [SDC typeFromFileExtension:extension];
+		[SPC setProject:self forFileName:fileName];// this is the weaker link project<->file name, the sooner, the better
 		if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outErrorPtr])
 		{
 			if([typeName isEqualToString:iTM2WildcardDocumentType])
@@ -3402,6 +3403,7 @@ tahiti:
 	//iTM2_LOG(@"self:%@,has documents:%@",self,[self subdocuments]);
 			goto tahiti;
 		}
+		[SPC setProject:nil forFileName:fileName];// no more linkage
 //iTM2_LOG(@"INFO:Could open document %@",fileName);
 		if(outErrorPtr)
 		{
@@ -5493,14 +5495,24 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hasProject
 - (BOOL)hasProject;
-/*"Description Forthcoming.
+/*"Lazy initializer. If setHasProject: has already been used, the value set then is returned.
+If this is the first time the receiver is asked for hasProject, then its answer relies upon the project controller -projectForFileName: method
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Mar 30 15:52:06 GMT 2005
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [metaGETTER boolValue];
+#warning FAILED: to be revisited, is it necessary to cache the project? Won't project for document or project for filename be efficient enough.
+	id wrapper = metaGETTER;
+	if(wrapper)// this assumes that setHasProject: is never called without good reason
+	{
+		return [wrapper boolValue];
+	}
+	id P = [SPC projectForFileName:[self fileName]];// weaker link
+	BOOL result = (P != nil);
+	[self setHasProject:result];
+	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setHasProject
 - (void)setHasProject:(BOOL)yorn;
@@ -6004,18 +6016,6 @@ To Do List:
 	return;
 }
 #endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  subdocumentFixImplementation
-- (void)subdocumentFixImplementation;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Mar 30 15:52:06 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setHasProject:NO];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
 - (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
@@ -6665,7 +6665,12 @@ To Do List:
 			{
 				NSString * path = [projectDocument absoluteFileNameForKey:key];
 				NSURL * url = [NSURL fileURLWithPath:path];
-                [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
+				NSError * localError = nil;
+                [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+				if(localError)
+				{
+					[SDC presentError:localError];
+				}
 			}
 			return;
 		}

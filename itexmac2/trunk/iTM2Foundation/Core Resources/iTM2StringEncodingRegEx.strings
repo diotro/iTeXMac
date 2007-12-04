@@ -10,5 +10,7 @@
 	<string>(?m)^\s*(?!%|\s).*\\enableregime\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]</string>
 	<key>texshop</key>
 	<string>(?m)^\s*%!\s*TEX\s*encoding\s*:\s*([[:letter:][:digit:][-]_]+)</string>
+	<key>itexmac2</key>
+	<string>(?m)^\s*%!\s*itexmac2?\s*\(\s*(?:charset|codeset|encoding)\s*\)\s*:\s*([[:letter:][:digit:][-]_]+)</string>
 </dict>
 </plist>

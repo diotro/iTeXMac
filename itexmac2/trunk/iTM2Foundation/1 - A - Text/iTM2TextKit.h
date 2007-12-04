@@ -95,12 +95,12 @@
 - (void)highlightRange:(NSRange)aRange cleanBefore:(BOOL)aFlag;
 
 /*!
-	@method		secondaryHighlightAtIndices:lengths:
-	@abstract	Highlights and scrolls to visible a range of characters.
+	@method		secondaryHighlightInRanges:
+	@abstract	Highlights and scrolls to visible ranges of characters.
 	@discussion	Uses the receiver's textView's highlightAndScrollToVisibleRange: message with the right argument..
 	@param		an NSString object.
 */
-- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
+- (void)secondaryHighlightInRanges:(NSArray * )ranges;
 
 /*!
     @method		visibleRange

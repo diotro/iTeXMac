@@ -179,8 +179,8 @@ To Do List:
     [self highlightAndScrollToVisibleRange:range];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  secondaryHighlightAtIndices:lengths:
-- (void)secondaryHighlightAtIndices:(NSArray * )indices lengths:(NSArray *)lengths;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  secondaryHighlightInRanges:
+- (void)secondaryHighlightInRanges:(NSArray *)ranges;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -193,23 +193,15 @@ To Do List:
     NSLayoutManager * LM;
     NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
             [NSColor secondarySelectedControlColor], NSBackgroundColorAttributeName, nil];
-	NSRange R = NSMakeRange(0, 0);
+	NSRange R = NSMakeRange(0, [TS length]);
     while (LM = [E1 nextObject])
     {
-		R.length = [TS length];
 		[LM removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:R];
-		R.length = 1;
-        id O;
-        NSEnumerator * E2 = [indices objectEnumerator];
-        while(O = [E2 nextObject])
+        id V;
+        NSEnumerator * E2 = [ranges objectEnumerator];
+        while(V = [E2 nextObject])
         {
-            R.location = [O intValue];
-            [LM addTemporaryAttributes:attributes forCharacterRange:R];
-        }
-        E2 = [lengths objectEnumerator];
-        while(O = [E2 nextObject])
-        {
-            [LM addTemporaryAttributes:attributes forCharacterRange:[O rangeValue]];
+             [LM addTemporaryAttributes:attributes forCharacterRange:[V rangeValue]];
         }
     }
     return;
