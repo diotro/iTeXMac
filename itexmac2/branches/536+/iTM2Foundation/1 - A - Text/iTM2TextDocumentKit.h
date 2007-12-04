@@ -120,6 +120,15 @@ extern NSString * const iTM2TextInspectorType;
 - (BOOL)isStringEncodingHardCoded;
 
 /*!
+	@method		setStringEncodingHardCoded:
+	@abstract	Forwards the message to its string formatter wrapping in for undo support.
+	@discussion Description forthcoming.
+	@param		yorn
+	@result		None
+*/
+- (void)setStringEncodingHardCoded:(BOOL)yorn;
+
+/*!
 	@method		setStringEncoding:
 	@abstract	Forwards the message to its string formatter adding the undo management.
 	@discussion Description forthcoming.

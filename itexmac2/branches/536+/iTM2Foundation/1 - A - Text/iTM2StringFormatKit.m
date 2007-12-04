@@ -2681,22 +2681,6 @@ To Do List:
 	[self validateWindowContent];
     return;
 }
-#if 0
-The job is done by the validateStringEncodingToggleAuto: below
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStringEncodingFromTag:
-- (BOOL)validateTakeStringEncodingFromTag:(id)sender;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	int expectedTag = [self stringEncoding];
-    [sender setState:(expectedTag == [sender tag]? NSOnState:NSOffState)];
-    return;
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
 - (IBAction)stringEncodingToggleAuto:(id)sender;
 /*"Description Forthcoming.

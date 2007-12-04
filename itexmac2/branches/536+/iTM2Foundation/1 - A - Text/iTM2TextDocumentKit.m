@@ -862,6 +862,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+#warning FAILED: -setStringEncoding: IS NEVER CALLED
     unsigned int old = [self stringEncoding];
     if(argument != old)
     {
@@ -884,91 +885,17 @@ To Do List:
 //iTM2_START;
     return [[self stringFormatter] isStringEncodingHardCoded];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
-- (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncodingHardCoded:
+- (void)setStringEncodingHardCoded:(BOOL)yorn;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net.
-To do list: ASK!!!
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[self stringFormatter] setStringEncoding:encoding];
-	NSURL * absoluteURL = [self fileURL];
-	NSString * typeName = [self fileType];
-    return [self revertToContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:error:
-- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
-/*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net.
-To do list: ASK!!!
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if([self stringEncoding] != encoding)
-    {
-        if([self isDocumentEdited])
-        {
-            NSWindow * docWindow = [NSApp mainWindow];
-			BOOL success = NO;
-            if(self != [[docWindow windowController] document])
-                docWindow = nil;
-            NSBeginAlertSheet(
-                [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Reverting to %@ string encoding.", TABLE, BUNDLE, "Sheet title"),
-					[NSString localizedNameOfStringEncoding:encoding]],
-                NSLocalizedStringFromTableInBundle(@"Revert", TABLE, BUNDLE, "Button title"),
-                NSLocalizedStringFromTableInBundle(@"Cancel", TABLE, BUNDLE, ""),
-                nil,
-                docWindow,
-                self,
-                NULL,
-                @selector(revertWithStringEncodingSheetDidDismiss:returnCode:contextInfo:),
-                [[NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithUnsignedInt:encoding],iTM2StringEncodingKey,
-					[NSValue valueWithPointer:outErrorPtr],@"outErrorPtr",
-					[NSValue valueWithPointer:&success],@"successPtr",
-						nil] retain],// will be released below
-                NSLocalizedStringFromTableInBundle(@"\"%@\" has been edited.  Are you sure you want to revert to saved?", TABLE, BUNDLE, ""),
-                [self fileName]);
-			return success;
-        }
-        else
-            return [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
-    }
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertWithStringEncodingSheetDidDismiss:returnCode:contextInfo:
-- (void)revertWithStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo;
-/*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net.
-To do list: ASK!!!
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [contextInfo autorelease];// was retained before
-	NSError ** outErrorPtr = [(NSValue *)[contextInfo objectForKey:@"outErrorPtr"] pointerValue];
-	BOOL * successPtr = [(NSValue *)[contextInfo objectForKey:@"successPtr"] pointerValue];
-	unsigned int encoding = [(NSNumber *)[contextInfo objectForKey:iTM2StringEncodingKey] unsignedIntValue];
-    if(returnCode == NSAlertDefaultReturn)
-	{
-		BOOL success = [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
-        if(successPtr)
-		{
-			*successPtr = success;
-		}
-	}
-	else
-	{
-        if(successPtr)
-		{
-			*successPtr = NO;
-		}
-        if(outErrorPtr)
-		{
-			*outErrorPtr = nil;// no need to put an out error because the user cancelled the action...
-		}
-	}
-    return;
+	[[self stringFormatter] setStringEncodingHardCoded:(BOOL)yorn];
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
@@ -1117,6 +1044,92 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 		return NO;
 	}
 	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
+- (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net.
+To do list: ASK!!!
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [[self stringFormatter] setStringEncoding:encoding];
+	NSURL * absoluteURL = [self fileURL];
+	NSString * typeName = [self fileType];
+    return [self stringRepresentationCompleteReadFromURL:absoluteURL ofType:typeName error:outErrorPtr];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:error:
+- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net.
+To do list: ASK!!!
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if([self stringEncoding] != encoding)
+    {
+        if([self isDocumentEdited])
+        {
+            NSWindow * docWindow = [NSApp mainWindow];
+			BOOL success = NO;
+            if(self != [[docWindow windowController] document])
+                docWindow = nil;
+            NSBeginAlertSheet(
+                [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Reverting to %@ string encoding.", TABLE, BUNDLE, "Sheet title"),
+					[NSString localizedNameOfStringEncoding:encoding]],
+                NSLocalizedStringFromTableInBundle(@"Revert", TABLE, BUNDLE, "Button title"),
+                NSLocalizedStringFromTableInBundle(@"Cancel", TABLE, BUNDLE, ""),
+                nil,
+                docWindow,
+                self,
+                NULL,
+                @selector(revertWithStringEncodingSheetDidDismiss:returnCode:contextInfo:),
+                [[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithUnsignedInt:encoding],iTM2StringEncodingKey,
+					[NSValue valueWithPointer:outErrorPtr],@"outErrorPtr",
+					[NSValue valueWithPointer:&success],@"successPtr",
+						nil] retain],// will be released below
+                NSLocalizedStringFromTableInBundle(@"\"%@\" has been edited.  Are you sure you want to revert to saved?", TABLE, BUNDLE, ""),
+                [self fileName]);
+			return success;
+        }
+        else
+            return [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
+    }
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertWithStringEncodingSheetDidDismiss:returnCode:contextInfo:
+- (void)revertWithStringEncodingSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo;
+/*"Description Forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net.
+To do list: ASK!!!
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [contextInfo autorelease];// was retained before
+	NSError ** outErrorPtr = [(NSValue *)[contextInfo objectForKey:@"outErrorPtr"] pointerValue];
+	BOOL * successPtr = [(NSValue *)[contextInfo objectForKey:@"successPtr"] pointerValue];
+	unsigned int encoding = [(NSNumber *)[contextInfo objectForKey:iTM2StringEncodingKey] unsignedIntValue];
+    if(returnCode == NSAlertDefaultReturn)
+	{
+		BOOL success = [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
+        if(successPtr)
+		{
+			*successPtr = success;
+		}
+	}
+	else
+	{
+        if(successPtr)
+		{
+			*successPtr = NO;
+		}
+        if(outErrorPtr)
+		{
+			*outErrorPtr = nil;// no need to put an out error because the user cancelled the action...
+		}
+	}
+    return;
 }
 @end
 
