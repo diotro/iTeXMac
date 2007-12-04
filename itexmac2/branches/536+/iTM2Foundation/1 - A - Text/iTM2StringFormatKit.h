@@ -136,6 +136,15 @@ extern NSString * const TWSEOLFileKey;
 - (NSString *)stringWithData:(NSData *)data;
 
 /*!
+	@method		stringWithData:
+	@abstract	Reads the string representation from the given URL.
+	@discussion Use stringWithData: on systems prior to leopard (not included).
+	@param data is the NSData object to be converted.
+	@result		An NSString instance.
+*/
+- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
+
+/*!
 	@method		EOL
 	@abstract	Returns the line endings used (NONE|UNIX|MAC|WINDOWS).
 	@discussion Description forthcoming.

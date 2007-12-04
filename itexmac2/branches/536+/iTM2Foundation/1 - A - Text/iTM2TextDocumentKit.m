@@ -671,7 +671,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[self stringFormatter] stringWithData:[self dataRepresentation]];
+//iTM2_END;
+    return metaGETTER;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringRepresentation:
 - (void)setStringRepresentation:(NSString *)argument;
@@ -682,145 +683,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSData * D = [[self stringFormatter] dataWithString:argument allowLossyConversion:NO];
-	if(D)
-	{
-		[self loadDataRepresentation:D ofType:[self modelType]];
-		return;
-	}
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"loading the data representation of length %i, type: %@", [D length], [self modelType]);
-	}
-	NSStringEncoding saveEncoding = [self stringEncoding];
-	unsigned result = NSRunCriticalAlertPanel(
-NSLocalizedStringFromTableInBundle(@"Saving.", TABLE, BUNDLE, "Critical Alert Panel Title"),
-NSLocalizedStringFromTableInBundle(@"Information may be lost while saving with encoding %@.", TABLE, BUNDLE, "unsaved"),
-NSLocalizedStringFromTableInBundle(@"Abort", TABLE, BUNDLE, "Abort"),
-NSLocalizedStringFromTableInBundle(@"Force", TABLE, BUNDLE, "Force"),
-NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms"),
-[NSString localizedNameOfStringEncoding:saveEncoding]);
-	if(NSAlertDefaultReturn == result)
-	{
-		return;// abort
-	}
-	else if(NSAlertErrorReturn == result)
-	{
-		//D = [[self stringFormatter] dataWithString:argument allowLossyConversion:NO];
-		[self loadDataRepresentation:D ofType:[self fileType]];
-		return;// error
-	}
-	else if(NSAlertOtherReturn == result)
-	{
-		NSMutableArray * MRAidx = [NSMutableArray array];
-		NSMutableArray * MRArng = [NSMutableArray array];
-		int idx = 0, top = [argument length];
-		int length = 0;
-		while (idx < top)
-		{
-			unichar c = [argument characterAtIndex:idx];
-//NSLog(@"character %@ at %i", [NSString stringWithCharacters:&c length:1], idx);
-			NSString * S = [NSString stringWithCharacters:&c length:1];
-			D = [S dataUsingEncoding:saveEncoding allowLossyConversion:NO];
-			if([D length])
-			{
-				// the current character has no problem of encoding
-				if(length>1)
-				{
-					// there was problems before
-					if(idx>=length)
-					{
-						[MRArng addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
-					}
-					else
-					{
-						iTM2_LOG(@"Warning: Character problem 1");
-					}
-				}
-				else if(length == 1)
-				{
-					if(idx>=length)
-					{
-						[MRAidx addObject:[NSNumber numberWithInt:idx-length]];
-					}
-					else
-					{
-						iTM2_LOG(@"Warning: Character problem 2");
-					}
-				}
-				// no more pending problems
-				length = 0;
-			}
-			else
-			{
-				// this character is problematic
-				iTM2_LOG(@"Warning: Character problem 3");
-				++length;
-			}
-			++idx;
-		}
-		// clean the pending stuff
-		if(length>1)
-		{
-			if(idx>=length)
-				[MRArng addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
-			else
-			{
-				iTM2_LOG(@"WARNING: Character problem 4");
-			}
-		}
-		else if(length == 1)
-		{
-			if(idx>=length)
-				[MRAidx addObject:[NSNumber numberWithInt:idx-length]];
-			else
-			{
-				iTM2_LOG(@"WARNING: Character problem 5");
-			}
-		}
-		// which range is the smallest?
-		NSRange toBeVisibleRange;
-		if([MRAidx count])
-		{
-			idx = [[MRAidx objectAtIndex:0] intValue];
-			if([MRArng count])
-			{
-				toBeVisibleRange = [[MRArng objectAtIndex:0] rangeValue];
-				if(idx<toBeVisibleRange.location)
-				{
-					toBeVisibleRange = NSMakeRange(idx,1);
-				}
-			}
-			else
-			{
-				toBeVisibleRange = NSMakeRange(idx,1);
-			}
-		}
-		else if([MRArng count])
-		{
-			toBeVisibleRange = [[MRArng objectAtIndex:0] rangeValue];
-		}
-		else
-		{
-			iTM2_LOG(@"I could not find the character encoding problem");
-			return;
-		}
-		NSEnumerator * E = [[self windowControllers] objectEnumerator];
-		id WC;
-		while(WC = [E nextObject])
-		{
-			if([WC isKindOfClass:[iTM2TextInspector class]])
-			{
-				NSTextView * TV = [WC textView];
-				[TV secondaryHighlightAtIndices:MRAidx lengths:MRArng];
-				[TV scrollRangeToVisible:toBeVisibleRange];
-			}
-		}
-		[self postNotificationWithStatus:
-			[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The highlighted characters can not be properly encoded using %@.", TABLE, BUNDLE, ""), [NSString localizedNameOfStringEncoding:saveEncoding]]
-				object: [self frontWindow]];
-		return;
-	}
+	metaSETTER(argument);
+//iTM2_END;
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage
 - (id)textStorage;
@@ -1120,6 +985,138 @@ To Do List:
 		iTM2_LOG(@"iTM2TextDocument type: %@", typeName);
 	}
     return [super readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteReadFromURL:ofType:error:
+- (BOOL)dataCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+/*"Now using direct NSString methods to manage the encoding properly.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteWriteToURL:ofType:error:
+- (BOOL)dataCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
+/*"Now using direct NSString methods to manage the encoding properly.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteReadFromURL:ofType:error:
+- (BOOL)stringRepresentationCompleteReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+/*"Now using direct NSString methods to manage the encoding properly.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{
+    return [[self stringFormatter] readFromURL:absoluteURL error:outErrorPtr];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteWriteToURL:ofType:error:
+- (BOOL)stringRepresentationCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
+/*"Now using direct NSString methods to manage the encoding properly.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{
+	NSStringEncoding saveEncoding = [self stringEncoding];
+	NSString * S = [self stringRepresentation];
+    if([S writeToURL:absoluteURL atomically:YES encoding:saveEncoding error:outErrorPtr])
+	{
+		iTM2_LOG(@"Data saved with encoding: %@", [NSString localizedNameOfStringEncoding:saveEncoding]);
+		return YES;
+	}
+	unsigned result = NSRunCriticalAlertPanel(
+NSLocalizedStringFromTableInBundle(@"Saving.", TABLE, BUNDLE, "Critical Alert Panel Title"),
+NSLocalizedStringFromTableInBundle(@"Information may be lost while saving with encoding %@.", TABLE, BUNDLE, "unsaved"),
+NSLocalizedStringFromTableInBundle(@"Ignore", TABLE, BUNDLE, "Ignore"),
+nil,
+NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms"),
+[NSString localizedNameOfStringEncoding:saveEncoding]);
+	if(NSAlertDefaultReturn == result)
+	{
+		return NO;// abort
+	}
+	else if(NSAlertOtherReturn == result)
+	{
+		NSMutableArray * MRA = [NSMutableArray array];
+		int idx = 0, top = [S length];
+		int length = 0;
+		NSRange R;
+		unsigned int firewall = 256;
+		id RP = [[NSAutoreleasePool alloc] init];
+		while (idx < top)
+		{
+			if(--firewall == 0)
+			{
+				[RP release];
+				RP = [[NSAutoreleasePool alloc] init];
+				firewall = 256;
+			}
+			R = [S rangeOfComposedCharacterSequenceAtIndex:idx];
+			if([[S substringWithRange:R] canBeConvertedToEncoding:saveEncoding])
+			{
+				// the current character has no problem of encoding
+				if(length)
+				{
+					// there was problems before
+					if(idx>=length)
+					{
+						[MRA addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
+					}
+					else
+					{
+						iTM2_LOG(@"Warning: Character problem 1");
+					}
+				}
+				// no more pending problems
+				length = 0;
+			}
+			else
+			{
+				// this character is problematic
+				iTM2_LOG(@"Warning: Character problem 3");
+				length += R.length;
+			}
+			idx = NSMaxRange(R);
+		}
+		[RP release];
+		RP = nil;
+		// clean the pending stuff
+		if(length)
+		{
+			if(idx>=length)
+				[MRA addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
+			else
+			{
+				iTM2_LOG(@"WARNING: Character problem 4");
+			}
+		}
+		if([MRA count])
+		{
+			NSEnumerator * E = [[self windowControllers] objectEnumerator];
+			id WC;
+			while(WC = [E nextObject])
+			{
+				if([WC isKindOfClass:[iTM2TextInspector class]])
+				{
+					NSTextView * TV = [WC textView];
+					[TV secondaryHighlightInRanges:MRA];
+					[TV scrollRangeToVisible:[[MRA objectAtIndex:0] rangeValue]];
+				}
+			}
+		}
+		[self postNotificationWithStatus:
+			[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The highlighted characters can not be properly encoded using %@.", TABLE, BUNDLE, ""), [NSString localizedNameOfStringEncoding:saveEncoding]]
+				object: [self frontWindow]];
+		return NO;
+	}
+	return NO;
 }
 @end
 
@@ -1503,7 +1500,14 @@ To Do List:
     {
         metaSETTER(argument);
         if(argument)
-            [[[self textView] layoutManager] replaceTextStorage:argument];
+		{
+			NSEnumerator * E = [[self textEditors] objectEnumerator];
+			NSTextView * TV;
+			while(TV = [E nextObject])
+			{
+				[[TV layoutManager] replaceTextStorage:argument];
+			}
+		}
     }
     return;
 }
@@ -1732,7 +1736,7 @@ To Do List:
 	}
     if([[[self textStorage] string] canBeConvertedToEncoding:encoding])
 	{
-		[[self textView] secondaryHighlightAtIndices:nil lengths:nil];// clean
+		[[self textView] secondaryHighlightInRanges:nil];// clean
 		[[self document] setStringEncoding:encoding];
 		return;
 	}
@@ -1763,69 +1767,74 @@ To Do List:
 	[stringEncodingInfo autorelease];// was retained above
 	if(NSAlertDefaultReturn == returnCode)
 	{
-		[[self textView] secondaryHighlightAtIndices:nil lengths:nil];
+		[[self textView] secondaryHighlightInRanges:nil];
 		return;
 	}
-	NSMutableArray * MRAidx = [NSMutableArray array];
-	NSMutableArray * MRArng = [NSMutableArray array];
-	NSString * _StringRepresentation = [[self textStorage] string];
+	NSMutableArray * MRA = [NSMutableArray array];
+	NSString * S = [[self textStorage] string];
 	unsigned int encoding = [stringEncodingInfo unsignedIntValue];
-	int idx = 0, top = [_StringRepresentation length];
+	int idx = 0, top = [S length];
+	NSRange R;
 	int length = 0;
+	unsigned int firewall = 256;
+	id RP = [[NSAutoreleasePool alloc] init];
 	while (idx < top)
 	{
-		unichar c = [_StringRepresentation characterAtIndex:idx];
-//NSLog(@"character %@ at %i", [NSString stringWithCharacters:&c length:1], idx);
-		id D = [[NSString stringWithCharacters:&c length:1] dataUsingEncoding:encoding allowLossyConversion:NO];
-		if([(NSString *)D length])
+		if(--firewall == 0)
 		{
-			if(length>1)
+			[RP release];
+			RP = [[NSAutoreleasePool alloc] init];
+			firewall = 256;
+		}
+		R = [S rangeOfComposedCharacterSequenceAtIndex:idx];
+		if([[S substringWithRange:R] canBeConvertedToEncoding:encoding])
+		{
+			// the current character has no problem of encoding
+			if(length)
 			{
+				// there was problems before
 				if(idx>=length)
-					[MRArng addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
+				{
+					[MRA addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
+				}
 				else
 				{
 					iTM2_LOG(@"Warning: Character problem 1");
 				}
 			}
-			else if(length == 1)
-			{
-				if(idx>=length)
-					[MRAidx addObject:[NSNumber numberWithInt:idx-length]];
-				else
-				{
-					iTM2_LOG(@"Warning: Character problem 2");
-				}
-			}
+			// no more pending problems
 			length = 0;
 		}
 		else
 		{
+			// this character is problematic
 			iTM2_LOG(@"Warning: Character problem 3");
-			++length;
+			length += R.length;
 		}
-		++idx;
+		idx = NSMaxRange(R);
 	}
+	[RP release];
+	RP = nil;
 	// clean the pending stuff
-	if(length>1)
+	if(length)
 	{
 		if(idx>=length)
-			[MRArng addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
-		else
-		{
-			iTM2_LOG(@"WARNING: Character problem 3 bis");
-		}
-	}
-	else if(length == 1)
-	{
-		if(idx>=length)
-			[MRAidx addObject:[NSNumber numberWithInt:idx-length]];
+			[MRA addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
 		else
 		{
 			iTM2_LOG(@"WARNING: Character problem 4");
 		}
 	}
-	[[self textView] secondaryHighlightAtIndices:MRAidx lengths:MRArng];
+	NSTextView * TV = [self textView];
+	if([MRA count])
+	{
+		[TV secondaryHighlightInRanges:MRA];
+		[TV scrollRangeToVisible:[[MRA objectAtIndex:0] rangeValue]];
+	}
+	else
+	{
+		[TV secondaryHighlightInRanges:nil];
+	}
 	[self postNotificationWithStatus:
 		[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The highlighted characters can not be properly encoded using %@.", TABLE, BUNDLE, ""),
 		[NSString localizedNameOfStringEncoding:encoding]]
