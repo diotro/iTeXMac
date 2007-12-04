@@ -194,47 +194,29 @@ To Do List: Nothing
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-#define ARETABLE @"iTM2AREStringEncodingTemplates"
+#define RETABLE @"iTM2StringEncodingRegEx"
 #warning QUALITY: test for the existence of the .strings file...
 	NSRange R = NSMakeRange(NSNotFound, 0);
-    NSString * headerStringEncodingString = [self stringForCommentedKey:iTM2StringEncodingHeaderKey forRange:NSMakeRange(0, 0) effectiveRange:nil inHeader:YES];
+    NSString * headerStringEncodingString = @"";
+	ICURegEx * RE = nil;
 //NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
     #if 1
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression allocWithZone:[self zone]] initWithString:
-                            NSLocalizedStringFromTableInBundle(@"inputenc", ARETABLE, BUNDLE, "")] autorelease];
+        RE = [ICURegEx regExWithSearchPattern:
+					NSLocalizedStringFromTableInBundle(@"itexmac2", RETABLE, BUNDLE, "") options:0 error:nil];
 //NSLog(@"ARE: %@", ARE);
-        NSArray * Rs = [self allRangesOfRegularExpression:ARE options:iTM2AREAdvancedMask range:NSMakeRange(0, MIN(4096, [self length]))];
-//NSLog(@"Rs: %@", Rs);
-        if([Rs count])
-        {
-            NSEnumerator * E = [Rs objectEnumerator];
-            NSArray * RA;
-            while(RA = [E nextObject])
-            {
-                R = [[RA objectAtIndex:0] rangeValue];
-//NSLog(@"[self substringWithRange:R]:%@", [self substringWithRange:R]);
-                unsigned TeXComment = NSNotFound;
-				if([self respondsToSelector:@selector(getLineStart:end:contentsEnd:TeXComment:forIndex:)])
-					[self getLineStart:nil end:nil contentsEnd:nil TeXComment:&TeXComment forIndex:R.location];
-				else
-					[self getLineStart:nil end:nil contentsEnd:nil forRange:R];
-                if((TeXComment==NSNotFound) || (TeXComment>=NSMaxRange(R)))
-                {
-                    NSRange subR = [[RA objectAtIndex:1] rangeValue];
-                    subR.location += R.location;
-                    headerStringEncodingString = [self substringWithRange:subR];
-                    break;
-                }
-            }
-        }
+		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
+		{
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
+		}
 //NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
         NS_HANDLER
 //NSLog(@"EXCEPTION");
 		iTM2_LOG(@"*** Exception catched (1): %@", [localException reason]);
-        headerStringEncodingString = [self stringForCommentedKey:iTM2StringEncodingHeaderKey forRange:NSMakeRange(0, 0) effectiveRange:nil inHeader:YES];
+        headerStringEncodingString = @"";
         NS_ENDHANDLER
 //NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
     }
@@ -243,33 +225,38 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression allocWithZone:[self zone]] initWithString:
-                    NSLocalizedStringFromTableInBundle(@"regime", ARETABLE, BUNDLE, "")] autorelease];
+        RE = [ICURegEx regExWithSearchPattern:
+					NSLocalizedStringFromTableInBundle(@"inputenc", RETABLE, BUNDLE, "") options:0 error:nil];
 //NSLog(@"ARE: %@", ARE);
-        NSArray * Rs = [self allRangesOfRegularExpression:ARE options:iTM2AREAdvancedMask range:NSMakeRange(0, MIN(4096, [self length]))];
-//NSLog(@"Rs: %@", Rs);
-        if([Rs count])
-        {
-            NSEnumerator * E = [Rs objectEnumerator];
-            NSArray * RA;
-            while(RA = [E nextObject])
-            {
-                R = [[RA objectAtIndex:0] rangeValue];
-//NSLog(@"[string substringWithRange:R]:%@", [string substringWithRange:R]);
-                unsigned TeXComment;
-                [self getLineStart:nil end:nil contentsEnd:nil TeXComment:&TeXComment forIndex:R.location];
-                if((TeXComment==NSNotFound) || (TeXComment>=NSMaxRange(R)))
-                {
-                    NSRange subR = [[RA objectAtIndex:1] rangeValue];
-                    subR.location += R.location;
-                    headerStringEncodingString = [NSString stringWithFormat:@"regime:%@", [self substringWithRange:subR]];
-                    break;
-                }
-            }
-        }
+		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
+		{
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
+		}
+//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
+        NS_HANDLER
+//NSLog(@"EXCEPTION");
+		iTM2_LOG(@"*** Exception catched (1): %@", [localException reason]);
+        headerStringEncodingString = @"";
+        NS_ENDHANDLER
+//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
+    }
+    #endif
+    #if 1
+    if(![headerStringEncodingString length])
+    {
+        NS_DURING
+        RE = [ICURegEx regExWithSearchPattern:
+                            NSLocalizedStringFromTableInBundle(@"regime", RETABLE, BUNDLE, "") options:0 error:nil];
+//NSLog(@"ARE: %@", ARE);
+		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
+		{
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
+		}
         NS_HANDLER
 		iTM2_LOG(@"*** Exception catched (2): %@", [localException reason]);
-        headerStringEncodingString = [self stringForCommentedKey:iTM2StringEncodingHeaderKey forRange:NSMakeRange(0, 0) effectiveRange:nil inHeader:YES];
+        headerStringEncodingString = @"";
         NS_ENDHANDLER
     }
     #endif
@@ -277,40 +264,38 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        iTM2ARegularExpression * ARE = [[[iTM2ARegularExpression allocWithZone:[self zone]] initWithString:
-                    NSLocalizedStringFromTableInBundle(@"emacs", ARETABLE, BUNDLE, "")] autorelease];
+        RE = [ICURegEx regExWithSearchPattern:
+					NSLocalizedStringFromTableInBundle(@"emacs", RETABLE, BUNDLE, "") options:0 error:nil];
 //NSLog(@"ARE: %@", ARE);
-        unsigned contentsEnd;
-        [self getLineStart:nil end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(0, 0)];
-        NSArray * Rs = [self allRangesOfRegularExpression:ARE options:iTM2AREAdvancedMask range:NSMakeRange(0, contentsEnd)];
-//NSLog(@"Rs: %@", Rs);
-        if([Rs count])
-        {
-            NSEnumerator * E = [Rs objectEnumerator];
-            NSArray * RA;
-            while(RA = [E nextObject])
-            {
-                R = [[RA objectAtIndex:0] rangeValue];
-                if(R.location != NSNotFound)
-                {
-//NSLog(@"[string substringWithRange:R]:%@", [string substringWithRange:R]);
-                    NSRange subR = [[RA objectAtIndex:1] rangeValue];
-                    subR.location += R.location;
-                    headerStringEncodingString = [NSString stringWithFormat:@"emacs:%@", [self substringWithRange:subR]];
-                    break;
-                }
-            }
-        }
+		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
+		{
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
+		}
         NS_HANDLER
 		iTM2_LOG(@"*** Exception catched (3): %@", [localException reason]);
-        headerStringEncodingString = [self stringForCommentedKey:iTM2StringEncodingHeaderKey forRange:NSMakeRange(0, 0) effectiveRange:nil inHeader:YES];
+        headerStringEncodingString = @"";
         NS_ENDHANDLER
     }
     #endif
+    #if 1
     if(![headerStringEncodingString length])
     {
-        headerStringEncodingString = [self stringForCommentedKey:iTM2StringEncodingHeaderKey forRange:NSMakeRange(0, 0) effectiveRange:nil inHeader:YES];
+        NS_DURING
+        RE = [ICURegEx regExWithSearchPattern:
+					NSLocalizedStringFromTableInBundle(@"texshop", RETABLE, BUNDLE, "") options:0 error:nil];
+//NSLog(@"ARE: %@", ARE);
+		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
+		{
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
+		}
+        NS_HANDLER
+		iTM2_LOG(@"*** Exception catched (4): %@", [localException reason]);
+        headerStringEncodingString = @"";
+        NS_ENDHANDLER
     }
+    #endif
 	if(stringEncodingRef)
 	{
 		* stringEncodingRef = [NSString stringEncodingWithName:headerStringEncodingString];
