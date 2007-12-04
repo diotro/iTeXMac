@@ -24,7 +24,7 @@
 #import <iTM2Foundation/iTM2StringFormatKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2ARegularExpressionKit.h>
+#import <iTM2Foundation/ICURegEx.h>
 #import <iTM2Foundation/iTM2StringKit.h>
 #import <iTM2Foundation/iTM2MenuKit.h>
 #import <iTM2Foundation/iTM2TextKit.h>
@@ -204,8 +204,27 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [ICURegEx regExWithSearchPattern:
-					NSLocalizedStringFromTableInBundle(@"itexmac2", RETABLE, BUNDLE, "") options:0 error:nil];
+        RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"itexmac2", RETABLE, BUNDLE, "")];
+//NSLog(@"ARE: %@", ARE);
+		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
+		{
+			R = [RE rangeOfCaptureGroupAtIndex:1];
+			headerStringEncodingString = [self substringWithRange:R];
+		}
+//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
+        NS_HANDLER
+//NSLog(@"EXCEPTION");
+		iTM2_LOG(@"*** Exception catched (1): %@", [localException reason]);
+        headerStringEncodingString = @"";
+        NS_ENDHANDLER
+//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
+    }
+    #endif
+    #if 1
+    if(![headerStringEncodingString length])
+    {
+        NS_DURING
+        RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"inputenc", RETABLE, BUNDLE, "")];
 //NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
@@ -226,28 +245,7 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:
-					NSLocalizedStringFromTableInBundle(@"inputenc", RETABLE, BUNDLE, "") options:0 error:nil];
-//NSLog(@"ARE: %@", ARE);
-		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
-		{
-			R = [RE rangeOfCaptureGroupAtIndex:1];
-			headerStringEncodingString = [self substringWithRange:R];
-		}
-//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
-        NS_HANDLER
-//NSLog(@"EXCEPTION");
-		iTM2_LOG(@"*** Exception catched (1): %@", [localException reason]);
-        headerStringEncodingString = @"";
-        NS_ENDHANDLER
-//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
-    }
-    #endif
-    #if 1
-    if(![headerStringEncodingString length])
-    {
-        NS_DURING
-        RE = [ICURegEx regExWithSearchPattern:
-                            NSLocalizedStringFromTableInBundle(@"regime", RETABLE, BUNDLE, "") options:0 error:nil];
+                            NSLocalizedStringFromTableInBundle(@"regime", RETABLE, BUNDLE, "")];
 //NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
@@ -264,8 +262,7 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [ICURegEx regExWithSearchPattern:
-					NSLocalizedStringFromTableInBundle(@"emacs", RETABLE, BUNDLE, "") options:0 error:nil];
+        RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"emacs", RETABLE, BUNDLE, "")];
 //NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
@@ -282,8 +279,7 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [ICURegEx regExWithSearchPattern:
-					NSLocalizedStringFromTableInBundle(@"texshop", RETABLE, BUNDLE, "") options:0 error:nil];
+        RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"texshop", RETABLE, BUNDLE, "")];
 //NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
@@ -1578,6 +1574,7 @@ try_another_encoding:
 						{
 							usedEncoding = preferredStringEncoding;
 							S = SS;
+							goto terminate;
 						}
 						preferredStringEncoding = [SUD integerForKey:iTM2StringEncodingPreferredKey];
 						if(preferredStringEncoding == usedEncoding)
