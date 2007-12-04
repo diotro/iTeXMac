@@ -205,6 +205,7 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"itexmac2", RETABLE, BUNDLE, "")];
+		[RE setInputString:self];
 //NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
@@ -225,7 +226,8 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"inputenc", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
@@ -244,9 +246,9 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [ICURegEx regExWithSearchPattern:
-                            NSLocalizedStringFromTableInBundle(@"regime", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+        RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"regime", RETABLE, BUNDLE, "")];
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
@@ -263,7 +265,8 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"emacs", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
@@ -280,7 +283,8 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"texshop", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
