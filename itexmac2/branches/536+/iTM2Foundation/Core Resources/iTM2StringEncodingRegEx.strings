@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>emacs</key>
+	<string>^.*-\*-\s*coding\s*:\s*(.*?)\s*(?:;|-\*-)</string>
+	<key>inputenc</key>
+	<string>(?m)^\s*(?!%|\s).*\\usepackage\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]\s*\{\s*inputenc\s*\}</string>
+	<key>regime</key>
+	<string>(?m)^\s*(?!%|\s).*\\enableregime\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]</string>
+	<key>texshop</key>
+	<string>(?m)^\s*%!\s*TEX\s*encoding\s*:\s*([[:letter:][:digit:][-]_]+)</string>
+</dict>
+</plist>
