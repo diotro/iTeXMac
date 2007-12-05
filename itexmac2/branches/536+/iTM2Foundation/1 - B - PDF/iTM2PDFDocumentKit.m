@@ -1685,7 +1685,10 @@ To Do List:
         [self setParametersHaveChanged:YES];
         [self setNeedsDisplay:YES];
     }
-    [[self window] makeFirstResponder:self];// Critical:see the responder added after the contentView (a bit tricky!!!)
+	if([self acceptsFirstResponder])
+	{
+		[[self window] makeFirstResponder:self];// Critical:see the responder added after the contentView (a bit tricky!!!)
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnificationWithDisplayMode:stickMode:
@@ -2284,8 +2287,10 @@ To Do List:
                         visibleSize.width, visibleSize.height),
                                 -visibleSize.width/2, -visibleSize.height/2)];
             }
-            if(![self window] || ![[self window] makeFirstResponder:subview])
+            if(![self window] || ![subview acceptsFirstResponder] || ![[self window] makeFirstResponder:subview])
+			{
                 NSLog(@"[[self window] makeFirstResponder:subview]:Refused");
+			}
 //            else
 //NSLog(@"%@ = %@", [[self window] firstResponder], subview);
         }

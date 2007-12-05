@@ -3712,7 +3712,7 @@ next:
 	{
 		[NSEvent stopPeriodicEvents];/* No longer need to refresh */
 		[[rootView superview] replaceSubview:rootView with:self];
-		[window makeFirstResponder:self];
+		[window makeFirstResponder:nil];
 		[[self superview] setNeedsDisplay:YES];
 		[window discardCursorRects];
 		id WC = [window windowController];

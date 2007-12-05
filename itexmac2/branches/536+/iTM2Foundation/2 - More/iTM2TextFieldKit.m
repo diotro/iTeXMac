@@ -102,7 +102,10 @@ To Do List:
 		unsigned int line = [sender intValue];
 		line = MAX(2,line)-1;
 		[TV highlightAndScrollToVisibleLine:line];
-		[W performSelector:@selector(makeFirstResponder:) withObject:TV afterDelay:0];
+		if([TV acceptsFirstResponder])
+		{
+			[W performSelector:@selector(makeFirstResponder:) withObject:TV afterDelay:0];
+		}
 	}
 	else
 	{
@@ -262,8 +265,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSControl * C = [[[NSApp keyWindow] contentView] controlWithAction:@selector(lineFieldAction:)];
-	if([C isValid])
+	if([C isValid] && [C acceptsFirstResponder])
+	{
 		[[C window] makeFirstResponder:C];
+	}
 //iTM2_END;
     return;
 }

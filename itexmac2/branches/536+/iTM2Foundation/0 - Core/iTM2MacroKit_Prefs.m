@@ -1896,12 +1896,15 @@ To Do List:
 	// did the argument text view saved its content?
 	NSWindow * W = [sender window];
 	NSResponder * firstResponder = [W firstResponder];
-	[W makeFirstResponder:nil]; 
+	[W makeFirstResponder:nil]; // in order to synchronize
 	id node = [SMC macroTree];
 	[SMC saveTree:node];
 	node = [SMC keyBindingTree];
 	[SMC saveTree:node];
-	[W makeFirstResponder:firstResponder];
+	if([firstResponder acceptsFirstResponder])
+	{
+		[W makeFirstResponder:firstResponder];
+	}
 //iTM2_END;
     return;
 }

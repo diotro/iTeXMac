@@ -1035,7 +1035,10 @@ To Do List:
 					_CurrentSetItem = MI;
 					// now we know what menu item should be selected.
 					[self validateWindowContent];
-					[[tableView window] makeFirstResponder:tableView];
+					if([tableView acceptsFirstResponder])
+					{
+						[[tableView window] makeFirstResponder:tableView];
+					}
 					break;
 				}
 		}
@@ -1322,7 +1325,7 @@ To Do List:
     }
 	[tv selectRow:row byExtendingSelection:NO];
     [self validateWindowContent];
-    if([[tv window] makeFirstResponder:tv])
+    if([tv acceptsFirstResponder] && [[tv window] makeFirstResponder:tv])
 	{
 #if 1
 		SEL selector = @selector(editColumn:row:withEvent:select:);
@@ -1883,7 +1886,7 @@ To Do List:
                 ([SV nextKeyView]?:
                 [SV previousKeyView]));
 //iTM2_LOG(@"NR is: %@", NR);
-        return NR? [W makeFirstResponder:SV]: NO;
+        return (NR != nil) && [SV acceptsFirstResponder] && [W makeFirstResponder:SV];
     }
     int column = [tableView editedColumn];
     if(column == [tableView numberOfColumns] - 1)

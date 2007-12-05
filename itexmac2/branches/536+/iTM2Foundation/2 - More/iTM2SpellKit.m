@@ -1272,7 +1272,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self validateWindowContent];
-	[[self window] makeFirstResponder:[notification object]];
+	if([[notification object] acceptsFirstResponder])
+	{
+		[[self window] makeFirstResponder:[notification object]];
+	}
 //iTM2_END;
     return;
 }
@@ -2184,7 +2187,7 @@ To Do List:
         [[self currentText] setSpellContextMode:TWSSpellDefaultContextMode];
         NSWindow * W = [[self currentText] window];
         id FR = [W firstResponder];
-        [W makeFirstResponder:[W contentView]];
+        [W makeFirstResponder:nil];
         [W makeFirstResponder:FR];
         [self validateWindowContent];
     }

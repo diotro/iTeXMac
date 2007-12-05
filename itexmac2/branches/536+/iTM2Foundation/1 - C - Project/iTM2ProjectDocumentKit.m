@@ -11035,7 +11035,7 @@ To Do List:
 	if(_ToggleProjectMode == iTM2ToggleNewProjectMode)
 	{
 		[sender setEnabled:YES];
-		if(![[[sender window] firstResponder] isEqual:sender])
+		if(![[[sender window] firstResponder] isEqual:sender] && [sender acceptsFirstResponder])
 		{
 			[[sender window] makeFirstResponder:sender];
 			[sender selectText:self];
@@ -11124,7 +11124,7 @@ To Do List:
 		if(new != _SelectedRow)
 			_SelectedRow = new;
 	}
-	else
+	else if([[sender superview] acceptsFirstResponder])
 	{
 		[[sender window] makeFirstResponder:[sender superview]];
 	}

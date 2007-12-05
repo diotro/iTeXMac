@@ -2357,7 +2357,10 @@ To Do List:
         [actualTableView selectRow:row byExtendingSelection:NO];
     else
         [actualTableView selectRow:([actualTableView numberOfRows] - 1) byExtendingSelection:NO];
-    [[actualTableView window] makeFirstResponder:actualTableView];
+	if([actualTableView acceptsFirstResponder])
+	{
+		[[actualTableView window] makeFirstResponder:actualTableView];
+	}
     [self updateChangeCount:NSChangeDone];
     [self validateWindowsContents];
     return;
@@ -2418,7 +2421,10 @@ To Do List:
     [_ActualStringEncodings insertObject:[NSString string] atIndex:SR];
     [actualTableView reloadData];
     [actualTableView selectRow:SR byExtendingSelection:NO];
-    [[actualTableView window] makeFirstResponder:actualTableView];
+ 	if([actualTableView acceptsFirstResponder])
+	{
+		[[actualTableView window] makeFirstResponder:actualTableView];
+	}
     [self updateChangeCount:NSChangeDone];
     [self validateWindowsContents];
     return;
@@ -2567,8 +2573,15 @@ To Do List:
                 [tv selectRow:row byExtendingSelection:NO];
             while(--length>0)
                 [tv selectRow:++row byExtendingSelection:YES];
-            [[tv window] makeFirstResponder:tv];
-            [self updateChangeCount:NSChangeDone];
+			if([tv acceptsFirstResponder])
+			{
+				[[tv window] makeFirstResponder:tv];
+			}
+ 			if([tv acceptsFirstResponder])
+			{
+				[[tv window] makeFirstResponder:tv];
+			}
+			[self updateChangeCount:NSChangeDone];
             [self validateWindowsContents];
             return YES;
         }

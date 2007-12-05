@@ -807,7 +807,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[notification object] makeFirstResponder:findTextField];
+	if([findTextField acceptsFirstResponder])
+	{
+		[[notification object] makeFirstResponder:findTextField];
+	}
 //iTM2_END;
     return;
 }

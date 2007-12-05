@@ -503,7 +503,10 @@ To Do List:
 		[container setAutoresizesSubviews:YES];
 		[V setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
 		[V centerInSuperview];
-		[W makeFirstResponder:[new initialKeyView]];
+		if([[new initialKeyView] acceptsFirstResponder])
+		{
+			[W makeFirstResponder:[new initialKeyView]];
+		}
 		[V validateWindowContent];
 	}
 	[old didUnselect];

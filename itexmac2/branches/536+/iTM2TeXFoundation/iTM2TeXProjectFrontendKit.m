@@ -1881,7 +1881,7 @@ To Do List:
 	[sender setStringValue:newProjectName];
 	if([self creationMode] == iTM2ToggleNewProjectMode)
 	{
-		if(![[[sender window] firstResponder] isEqual:sender])
+		if(![[[sender window] firstResponder] isEqual:sender] && [sender acceptsFirstResponder])
 		{
 			[[sender window] makeFirstResponder:sender];
 			[sender selectText:self];

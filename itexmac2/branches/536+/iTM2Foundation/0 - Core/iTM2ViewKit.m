@@ -1282,14 +1282,21 @@ To Do List:
 			superview = [view superview];
 		}
 		[view performSelector:@selector(class) withObject:nil afterDelay:5];// long autorelease
+		id FR = nil;
 		if([[ESV subviews] count] > 2)
 		{
 			int idx = [[ESV subviews] indexOfObject:view];
 			[view removeFromSuperview];
 			[[_window contentView] setNeedsDisplay:YES];
 			[self didRemoveSplittingView:view];
-			if(![_window firstResponder])
-				[_window makeFirstResponder:[[ESV subviews] objectAtIndex:(idx>0? idx-1:idx)]];
+			if((_window == [_window firstResponder]) || (nil == [_window firstResponder])
+			{
+				FR = [[ESV subviews] objectAtIndex:(idx>0? idx-1:idx)];
+				if([FR acceptsFirstResponder])
+				{
+					[_window makeFirstResponder:FR];
+				}
+			}
 		}
 		else
 		{
@@ -1301,8 +1308,14 @@ To Do List:
 			[view setFrame:[ESV frame]];
 			[[_window contentView] setNeedsDisplay:YES];
 			[self didRemoveSplittingView:ESV];
-			if(![_window firstResponder])
-				[_window makeFirstResponder:view];
+			if((_window == [_window firstResponder]) || (nil == [_window firstResponder])
+			{
+				FR = [[ESV subviews] objectAtIndex:(idx>0? idx-1:idx)];
+				if([FR acceptsFirstResponder])
+				{
+					[_window makeFirstResponder:FR];
+				}
+			}
 		}
 	}
 //iTM2_END;
@@ -1371,8 +1384,10 @@ To Do List:
 	}
 	else
 		return;
-	if(first)
+	if([first acceptsFirstResponder])
+	{
 		[_window performSelector:@selector(makeFirstResponder:) withObject:first afterDelay:0.001];// does not work?
+	}
 	[[_window contentView] setNeedsDisplay:YES];
 //iTM2_END;
 	return;
