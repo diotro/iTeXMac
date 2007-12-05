@@ -1054,9 +1054,12 @@ To do list: ASK!!!
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self stringFormatter] setStringEncoding:encoding];
-	NSURL * absoluteURL = [self fileURL];
-	NSString * typeName = [self fileType];
-    return [self stringRepresentationCompleteReadFromURL:absoluteURL ofType:typeName error:outErrorPtr];
+	if([self stringRepresentationCompleteReadFromURL:[self fileURL] ofType:[self fileType] error:outErrorPtr])
+	{
+		[[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeWithDocument)];
+		return YES;
+	}
+	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:error:
 - (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
