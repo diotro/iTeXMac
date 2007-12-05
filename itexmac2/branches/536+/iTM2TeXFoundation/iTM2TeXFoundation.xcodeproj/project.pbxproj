@@ -46,7 +46,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		518F7ED00CFFBBA500CECB41 /* untitled in Resources */ = {isa = PBXBuildFile; fileRef = 518F7ECF0CFFBBA500CECB41 /* untitled */; };
 		51B3E6340CDF8D360024D173 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B3E6330CDF8D360024D173 /* iTM2Gear.png */; };
 		51F1B9DD0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -955,7 +954,6 @@
 				DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */,
 				51B3E6340CDF8D360024D173 /* iTM2Gear.png in Resources */,
 				51F1B9DD0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings in Resources */,
-				518F7ED00CFFBBA500CECB41 /* untitled in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
