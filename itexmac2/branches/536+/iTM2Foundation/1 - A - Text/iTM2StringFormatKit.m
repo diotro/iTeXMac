@@ -2852,7 +2852,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	BOOL old = [SUD contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
-	[SUD takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+	[SUD takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
