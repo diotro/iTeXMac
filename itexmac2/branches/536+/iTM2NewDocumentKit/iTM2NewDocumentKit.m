@@ -1703,16 +1703,13 @@ To Do List:
 	}
 	NSString * projectName = fileName;
 	projectName = [projectName lastPathComponent];
-	
-	NSDictionary * filter = [self filterForProjectName:projectName];
-
 	[self takeContextValue:[targetName stringByDeletingLastPathComponent]
 		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
-	
 	if([DFM fileExistsAtPath:targetName])
 	{
 		iTM2_LOG(@"There is already a project at\n%@",targetName);
 	}
+	NSDictionary * filter = [self filterForProjectName:projectName];
 	if([DFM copyPath:sourceName toPath:fileName handler:nil])
 	{
 		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
@@ -1746,7 +1743,7 @@ To Do List:
 				while(originalPath = [E nextObject])
 				{
 					originalPath = [originalPath stringByStandardizingPath];
-					NSString * convertedPath = [self convertedString:originalPath withDictionary:filter];
+					convertedPath = [self convertedString:originalPath withDictionary:filter];
 					if(![convertedPath pathIsEqual:originalPath])
 					{
 						if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
@@ -1821,6 +1818,8 @@ To Do List:
 									iTM2StringFormatController * stringFormatter = [document stringFormatter];
 									NSStringEncoding encoding = [stringFormatter stringEncoding];
 									NSMutableDictionary * filteredFilter = [[filter mutableCopy] autorelease];
+									// convert the filter to then new encoding
+									// just in case this was not suitable, do not loose much.
 									NSEnumerator * E = [filter keyEnumerator];
 									NSString * key;
 									while(key = [E nextObject])
@@ -1831,12 +1830,7 @@ To Do List:
 										[filteredFilter setObject:translation forKey:key];
 									}
 									NSString * new = [self convertedString:old withDictionary:filteredFilter];
-									NSData * D = [stringFormatter dataWithString:new allowLossyConversion:YES];
-									if(D)
-									{
-										[document loadDataRepresentation:D ofType:[document modelType]]
-											|| [document loadDataRepresentation:D ofType:[document fileType]];
-									}
+									[document setStringRepresentation:new];
 									if([document isKindOfClass:[iTM2TeXDocument class]])
 									{
 										convertedPath = [[convertedPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:
