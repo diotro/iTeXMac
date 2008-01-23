@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri Sep 05 2003.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -256,6 +256,14 @@ To Do List:
 //iTM2_END;
    return macro;
 }
+@end
+
+NSString * const iTM2TeX7bitsAccentsKey = @"iTM2TeX7bitsAccents";
+
+@interface iTM2TeXKeyBindingsManager:iTM2KeyBindingsManager
++ (id)the7bitsAccentsList;
++ (id)the7bitsAccentsMapping;
++ (id)the7bitsAccentsGnippam;
 @end
 
 @implementation iTM2TeXEditor
@@ -790,7 +798,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![super shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
+	// if you have in your text the "alpha" word as is, not the name of a TeX command
 	{
 		return NO;
 	}
@@ -798,7 +806,7 @@ To Do List:
 	// some TeX commands are displayed just with one glyph
 	// when the style is extended latex for example, the \alpha command is replaced by the alpha greek letter
 	// There is a problem for text editing:
-	// if you have in your text the "alpha" word as is, no the name of a TeX command
+	// if you have in your text the "alpha" word as is, not the name of a TeX command
 	// and if you want to insert \foo just before "alpha"
 	// you place the cursor before the first a, the insert \, f, o, o, ' '
 	// What you want is "\foo alpha"
@@ -1149,11 +1157,11 @@ To Do List:
 			NULL,
 			@selector(the7bitsAccentsSheetDidDismiss:returnCode:irrelevant:),
 			nil,// will be released in the delegate method above
-			NSLocalizedStringFromTableInBundle(@"Using \\'{e} instead of é will break synchronization. Use it anyway?", iTM2TeXProjectFrontendTable, B,"Panel contents"));
+			NSLocalizedStringFromTableInBundle(@"Using \\'{e} instead of √© will break synchronization. Use it anyway?", iTM2TeXProjectFrontendTable, B,"Panel contents"));
 		}
 		else if(NSAlertDefaultReturn == NSRunAlertPanel (
 				NSLocalizedStringFromTableInBundle(@"7 bits accents", iTM2TeXProjectFrontendTable, B,"Panel title"),
-			NSLocalizedStringFromTableInBundle(@"Using \\'{e} instead of é will break synchronization. Use it anyway?", iTM2TeXProjectFrontendTable, B,"Panel contents"),
+			NSLocalizedStringFromTableInBundle(@"Using \\'{e} instead of √© will break synchronization. Use it anyway?", iTM2TeXProjectFrontendTable, B,"Panel contents"),
 		NSLocalizedStringFromTableInBundle( @"OK", iTM2TeXProjectFrontendTable, B, "Button title"),
 		nil,//alt
 	NSLocalizedStringFromTableInBundle( @"Cancel", iTM2TeXProjectFrontendTable, B, "Button title")))

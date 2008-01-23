@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Oct 16 2001.
-//  Copyright © 2004 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -69,6 +69,7 @@ NSString * const iTM2TeXSuperContinueSyntaxModeName = @"^^.";
 NSString * const iTM2TeXSuperShortSyntaxModeName = @"^.";
 NSString * const iTM2TeXSuperLongSyntaxModeName = @"^{}";
 NSString * const iTM2TeXAmpersandSyntaxModeName = @"&";
+NSString * const iTM2TeXAccentSyntaxModeName = @"\\'{}";
 NSString * const iTM2TeXPlaceholderDelimiterSyntaxModeName = @"@@@()@@@";
 
 NSString * const iTM2TeXCommandInputSyntaxModeName = @"\\input";
@@ -100,6 +101,7 @@ To Do List:
 			iTM2TeXSubSyntaxModeName, iTM2TeXSubShortSyntaxModeName, iTM2TeXSubLongSyntaxModeName,// +3
 			iTM2TeXSuperSyntaxModeName, iTM2TeXSuperContinueSyntaxModeName, iTM2TeXSuperShortSyntaxModeName, iTM2TeXSuperLongSyntaxModeName,// +4
 			iTM2TeXAmpersandSyntaxModeName,// +1
+			iTM2TeXAccentSyntaxModeName,// +1
 			iTM2TeXPlaceholderDelimiterSyntaxModeName,// +1
 				nil] retain];
 	}
@@ -260,6 +262,12 @@ To Do List:
 	[MRA addObject:attributes];
 	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
         [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
+        [NSColor colorWithCalibratedRed:0 green:0 blue:0.75 alpha:1], NSForegroundColorAttributeName,
+		iTM2TeXAccentSyntaxModeName,iTM2TextModeAttributeName,
+            nil];
+	[MRA addObject:attributes];
+	attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        [NSFont systemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName,
         [NSColor colorWithCalibratedRed:0.95 green:0.15 blue:0.15 alpha:0.5], NSForegroundColorAttributeName,
 		iTM2TeXPlaceholderDelimiterSyntaxModeName,iTM2TextModeAttributeName,
             nil];
@@ -376,8 +384,9 @@ To Do List:
     }
     if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
     {
-        _iTM2TeXPTeXFileNameLetterCharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
-            @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:/+-*[]=_"] retain];// no ( nor )
+        _iTM2TeXPTeXFileNameLetterCharacterSet = [NSMutableCharacterSet characterSetWithCharactersInString:@".,;\\+-*[]=_/:0123456789"];
+		[_iTM2TeXPTeXFileNameLetterCharacterSet formUnionWithCharacterSet:[NSCharacterSet letterCharacterSet]];
+		_iTM2TeXPTeXFileNameLetterCharacterSet = [_iTM2TeXPTeXFileNameLetterCharacterSet copy];
     }
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -490,8 +499,8 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-  SYMBOLS ATTRIBUTES
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesForSymbol:
-- (NSDictionary *)attributesForSymbol:(NSString *)symbol;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesForSymbol:mode:
+- (NSDictionary *)attributesForSymbol:(NSString *)symbol mode:(NSString *)modeName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -503,16 +512,24 @@ To Do List:
 		return nil;
     NSDictionary * symbolAttributes = [_CachedSymbolsAttributes objectForKey:symbol];
     if(symbolAttributes)
-        return symbolAttributes;
+        return [symbolAttributes isKindOfClass:[NSDictionary class]]?symbolAttributes:nil;
     symbolAttributes = [_SymbolsAttributes objectForKey:symbol];
     if(symbolAttributes)
     {
-        NSDictionary * commandAttributes = [self attributesForMode:iTM2TeXCommandSyntaxModeName];
-        NSColor * commandColor = [commandAttributes objectForKey:NSForegroundColorAttributeName];
+        id attributes = nil;
+		if([modeName length])
+		{
+			attributes = [self attributesForMode:modeName];
+		}
+		if(!attributes)
+		{
+			attributes = [self attributesForMode:iTM2TeXCommandSyntaxModeName];
+		}
+        NSColor * commandColor = [attributes objectForKey:NSForegroundColorAttributeName];
+		attributes = [NSMutableDictionary dictionaryWithDictionary:attributes];// If the command attributes are good...
+		[attributes addEntriesFromDictionary:symbolAttributes];
         if(commandColor)
         {
-            NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:commandAttributes];// If the command attributes are good...
-            [MD addEntriesFromDictionary:symbolAttributes];
             NSColor * symbolColor = [symbolAttributes objectForKey:iTM2Text2ndSymbolColorAttributeName];
             if(iTM2DebugEnabled > 999999 && !symbolColor)
             {
@@ -522,11 +539,12 @@ To Do List:
                 [[symbolColor colorWithAlphaComponent:1] blendedColorWithFraction:1-[symbolColor alphaComponent]
                                     ofColor: commandColor]:
                     commandColor;
-            [MD setObject:replacementColor forKey:NSForegroundColorAttributeName];
-            [_CachedSymbolsAttributes setObject:[NSDictionary dictionaryWithDictionary:MD] forKey:symbol];
-            return [_CachedSymbolsAttributes objectForKey:symbol];
+            [attributes setObject:replacementColor forKey:NSForegroundColorAttributeName];
         }
+		[_CachedSymbolsAttributes setObject:[NSDictionary dictionaryWithDictionary:attributes] forKey:symbol];
+		return [_CachedSymbolsAttributes objectForKey:symbol];
     }
+	[_CachedSymbolsAttributes setObject:[NSNull null] forKey:symbol];
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadSymbolsAttributesWithVariant:

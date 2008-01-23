@@ -388,9 +388,8 @@ To Do List: see the warning below
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * masterDirectory = [environment objectForKey:TWSShellEnvironmentMasterKey];
-	masterDirectory = [masterDirectory stringByDeletingLastPathComponent];
+	NSString * projectName  = [self getProjectNameFromContext:context];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -400,7 +399,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerFileKey])
 		{
 			argument = [E nextObject];
-			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
+			argument = [NSString absolutePathWithPath:argument base:[sourceURL path]];
 //iTM2_END;
 			return argument;
 		}
@@ -417,9 +416,8 @@ To Do List: see the warning below
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * masterDirectory = [environment objectForKey:TWSShellEnvironmentMasterKey];
-	masterDirectory = [masterDirectory stringByDeletingLastPathComponent];
+	NSString * projectName  = [self getProjectNameFromContext:context];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
 	NSMutableArray * RA = [NSMutableArray array];
 	NSString * argument = [self getFileNameFromContext:context];
 	if([argument length])
@@ -444,7 +442,7 @@ To Do List: see the warning below
 				else
 				{
 					argument = [E nextObject];
-					argument = [NSString absolutePathWithPath:argument base:masterDirectory];
+					argument = [NSString absolutePathWithPath:argument base:[sourceURL path]];
 					[RA addObject:argument];
 				}
 			}
@@ -462,9 +460,8 @@ To Do List: see the warning below
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * masterDirectory = [environment objectForKey:TWSShellEnvironmentMasterKey];
-	masterDirectory = [masterDirectory stringByDeletingLastPathComponent];
+	NSString * projectName  = [self getProjectNameFromContext:context];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -474,8 +471,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerSourceKey])
 		{
 			argument = [E nextObject];
-#warning FAILED: unstable, I must implement/use a TEX_WS_SourceFolder environment key in the ruby launcher
-			argument = [NSString absolutePathWithPath:argument base:masterDirectory];
+			argument = [NSString absolutePathWithPath:argument base:[sourceURL path]];
 //iTM2_END;
 			return argument;
 		}
@@ -782,24 +778,25 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * fileName = [self getFileNameFromContext:context];
-	id PD = [SPC projectForFileName:fileName];
+	id PD = [SPC projectForSource:fileName];
 	if(!PD)
 	{
-		NSURL * url = nil;
 		NSError * localError = nil;
 		NSString * projectName = [self getProjectNameFromContext:context];
-		PD = [SPC projectForFileName:projectName];
+		PD = [SPC projectForSource:projectName];
 		if(!PD)
 		{
+			NSURL * url = nil;
 			if([projectName length])
 			{
 				url = [NSURL fileURLWithPath:projectName];
 				PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
-				[PD newKeyForFileName:fileName];
+				[PD newFileKeyForURL:[NSURL fileURLWithPath:fileName]];
 			}
 			else
 			{
-				PD = [SPC newProjectForFileNameRef:&fileName display:YES error:nil];
+				url = [NSURL fileURLWithPath:fileName];
+				PD = [SPC newProjectForURLRef:&url display:YES error:nil];
 			}
 		}
 	}
@@ -867,25 +864,25 @@ To Do List: see the warning below
 	id doc = [SDC documentForURL:fileURL];
 	if(!doc)
 	{
-		iTM2ProjectDocument * PD = [SPC projectForFileName:fileName];
+		iTM2ProjectDocument * PD = [SPC projectForURL:fileURL];
 		NSError * localError = nil;
 		if(!PD)
 		{
 			NSString * projectName = [self getProjectNameFromContext:context];
 			if([projectName length])
 			{
-				PD = [SPC projectForFileName:projectName];
+				NSURL * projectURL = [NSURL fileURLWithPath:projectName];
+				PD = [SPC projectForURL:projectURL];
 				if(!PD)
 				{
-					NSURL * url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:NO error:&localError];
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:NO error:&localError];
 					if(localError)
 					{
 						[SDC presentError:localError];
 //iTM2_END;
 						return;
 					}
-					[PD newKeyForFileName:fileName save:YES];
+					[PD newFileKeyForURL:fileURL save:YES];
 					[PD makeDefaultInspector];
 					[PD showWindowsBelowFront:self];
 				}
@@ -932,7 +929,7 @@ nextValue:
 			goto nextKey;
 		}
 	}
-	[doc displayPageForLine:line column:column source:sourceName
+	[doc displayPageForLine:line column:column source:[NSURL fileURLWithPath:sourceName]
 					withHint:hints orderFront:!dontOrderFront force:YES];// or NO? a SUD here?
 	if(dontOrderFront)
 	{
@@ -959,12 +956,12 @@ To Do List: see the warning below
 	{
 		iTM2_REPORTERROR(1,@"Error in iTeXMac2 server invocation: the \"edit\" verb requires a \"-file foo\".",nil);
 	}
-	NSURL * url = [NSURL fileURLWithPath:fileName];
+	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
 	NSError * localError = nil;
 	unsigned int line = [self getLineFromContext:context];
 	unsigned int column = [self getColumnFromContext:context];
 	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
-	id doc = [SDC documentForURL:url];
+	id doc = [SDC documentForURL:fileURL];
 	if(doc)
 	{
 		[doc updateIfNeeded];
@@ -974,17 +971,17 @@ To Do List: see the warning below
 		NSString * projectName = [self getProjectNameFromContext:context];
 		if([projectName length])
 		{
-			url = [NSURL fileURLWithPath:projectName];
-			id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			NSURL * projectURL = [NSURL fileURLWithPath:projectName];
+			id projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
 			if(localError)
 			{
 				[SDC presentError:localError];
 //iTM2_END;
 				return;
 			}
-			[projectDocument newKeyForFileName:fileName save:YES];
+			[projectDocument newFileKeyForURL:fileURL save:YES];
 		}
-		doc = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
 		if(localError)
 		{
 			[SDC presentError:localError];
@@ -1082,7 +1079,7 @@ To Do List: None
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * projectName = [self getProjectNameFromContext:context];
-	iTM2TeXProjectDocument * PD = [SPC projectForFileName:projectName];
+	iTM2TeXProjectDocument * PD = [SPC projectForSource:projectName];
 	if(!PD)
 	{
 //iTM2_END;
@@ -1154,12 +1151,12 @@ To Do List: see the warning below
 #else
     NSString * projectName = [self getProjectNameFromContext:context];
     NSString * fileName = [self getFileNameFromContext:context];
-	NSURL * url = nil;
+	NSURL * fileURL = nil;
 	NSError * localError = nil;
 	if([projectName length])
 	{
-		url = [NSURL fileURLWithPath:projectName];
-		id projectDocument = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		NSURL * projectURL = [NSURL fileURLWithPath:projectName];
+		id projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
 		if(localError)
 		{
 			[SDC presentError:localError];
@@ -1168,9 +1165,9 @@ To Do List: see the warning below
 		}
 		if([fileName length])
 		{
-			[projectDocument newKeyForFileName:fileName save:YES];
-			url = [NSURL fileURLWithPath:fileName];
-			[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			fileURL = [NSURL fileURLWithPath:fileName];
+			[projectDocument newFileKeyForURL:fileURL save:YES];
+			[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
 			if(localError)
 			{
 				[SDC presentError:localError];
@@ -1181,10 +1178,10 @@ To Do List: see the warning below
 			return;
 		}
 	}
-	else
+	else if([fileName length])
 	{
-		url = [NSURL fileURLWithPath:fileName];
-		[SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+		fileURL = [NSURL fileURLWithPath:fileName];
+		[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
 		if(localError)
 		{
 			[SDC presentError:localError];
@@ -1212,7 +1209,8 @@ To Do List: see the warning below
     NSArray * fileNames = [self getFileNamesFromContext:context];
 	NSError * localError = nil;
 	NSString * fileName = nil;
-	NSURL * url = nil;
+	NSURL * fileURL = nil;
+	NSURL * projectURL = nil;
 	NSDocument * document = nil;
 	iTM2ProjectDocument * PD = nil;
 	NSEnumerator * E = [fileNames objectEnumerator];
@@ -1222,17 +1220,17 @@ To Do List: see the warning below
 		// update the contents if the document is on screen
 		while(fileName = [E nextObject])
 		{
-			url = [NSURL fileURLWithPath:fileName];
-			if(document = [SDC documentForURL:url])
+			fileURL = [NSURL fileURLWithPath:fileName];
+			if(document = [SDC documentForURL:fileURL])
 			{
 				[document updateIfNeeded];
 			}
-			else if(!(PD = [SPC projectForFileName:fileName]))
+			else if(!(PD = [SPC projectForURL:fileURL]))
 			{
-				if(!(PD = [SPC projectForFileName:projectName]))
+				projectURL = [NSURL fileURLWithPath:projectName];
+				if(!(PD = [SPC projectForURL:projectURL]))
 				{
-					url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
 					if(localError)
 					{
 						[SDC presentError:localError];
@@ -1240,7 +1238,7 @@ To Do List: see the warning below
 						return;
 					}
 				}
-				[PD newKeyForFileName:fileName];
+				[PD newFileKeyForURL:fileURL];
 			}
 		}
 //iTM2_END;
@@ -1248,20 +1246,20 @@ To Do List: see the warning below
 	}
 	while(fileName = [E nextObject])
 	{
-		url = [NSURL fileURLWithPath:fileName];
-		if(document = [SDC documentForURL:url])
+		fileURL = [NSURL fileURLWithPath:fileName];
+		if(document = [SDC documentForURL:fileURL])
 		{
 			[document updateIfNeeded];
 			[document showWindowsBelowFront:self];
 		}
 		else
 		{
-			if(!(PD = [SPC projectForFileName:fileName]))
+			if(!(PD = [SPC projectForURL:fileURL]))
 			{
-				if(!(PD = [SPC projectForFileName:projectName]))
+				projectURL = [NSURL fileURLWithPath:projectName];
+				if(!(PD = [SPC projectForURL:projectURL]))
 				{
-					NSURL * url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
 					if(localError)
 					{
 						[SDC presentError:localError];
@@ -1269,9 +1267,9 @@ To Do List: see the warning below
 						return;
 					}
 				}
-				[PD newKeyForFileName:fileName];
+				[PD newFileKeyForURL:fileURL];
 			}
-			document = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+			document = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
 			if(localError)
 			{
 				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
@@ -1300,7 +1298,7 @@ To Do List: see the warning below
     NSArray * fileNames = [self getFileNamesFromContext:context];
 	NSError * localError = nil;
 	NSString * fileName = nil;
-	NSURL * url = nil;
+	NSURL * fileURL = nil;
 	NSDocument * document = nil;
 	iTM2ProjectDocument * PD = nil;
 	NSEnumerator * E = [fileNames objectEnumerator];
@@ -1310,8 +1308,8 @@ To Do List: see the warning below
 		// update the contents if the document is on screen
 		while(fileName = [E nextObject])
 		{
-			url = [NSURL fileURLWithPath:fileName];
-			if(document = [SDC documentForURL:url])
+			fileURL = [NSURL fileURLWithPath:fileName];
+			if(document = [SDC documentForURL:fileURL])
 			{
 				[document updateIfNeeded];
 			}
@@ -1321,20 +1319,20 @@ To Do List: see the warning below
 	}
 	while(fileName = [E nextObject])
 	{
-		url = [NSURL fileURLWithPath:fileName];
-		if(document = [SDC documentForURL:url])
+		fileURL = [NSURL fileURLWithPath:fileName];
+		if(document = [SDC documentForURL:fileURL])
 		{
 			[document updateIfNeeded];
 			[document showWindowsBelowFront:self];
 		}
 		else
 		{
-			if(!(PD = [SPC projectForFileName:fileName]))
+			if(!(PD = [SPC projectForURL:fileURL]))
 			{
-				if(!(PD = [SPC projectForFileName:projectName]))
+				NSURL * projectURL = [NSURL fileURLWithPath:projectName];
+				if(!(PD = [SPC projectForURL:projectURL]))
 				{
-					NSURL * url = [NSURL fileURLWithPath:projectName];
-					PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
 					if(localError)
 					{
 						[SDC presentError:localError];
@@ -1343,7 +1341,7 @@ To Do List: see the warning below
 					}
 				}
 			}
-			document = [PD subdocumentForFileName:fileName];
+			document = [PD subdocumentForURL:fileURL];
 			[document updateIfNeeded];
 		}
 	}

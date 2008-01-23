@@ -217,24 +217,6 @@ extern NSString * const iTM2TeXProjectDefaultBaseNameKey;
 @interface iTM2TeXPShellScriptInspector: iTM2Inspector
 
 /*! 
-    @method     infosController
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      None
-    @result     an infos controller
-*/
-- (id)infosController;
-
-/*! 
-    @method     setInfosController:
-    @abstract   Abstract forthcoming.
-    @discussion Discussion forthcoming.
-    @param      An infos controller
-    @result     None
-*/
-- (void)setInfosController:(id)infosController;
-
-/*! 
     @method     textView
     @abstract   Abstract forthcoming.
     @discussion Discussion forthcoming
@@ -339,9 +321,6 @@ extern NSString * const iTM2TPFEShellKey;
 extern NSString * const iTM2TPFELabelKey;
 #define iVarLabel valueForKey: iTM2TPFELabelKey
 
-extern NSString * const iTM2TPFECommandsKey;
-extern NSString * const iTM2TPFECommandEnvironmentsKey;
-extern NSString * const iTM2TPFECommandScriptsKey;
 extern NSString * const iTM2TeXPCommandPropertiesKey;
 
 extern NSString * const iTM2ToolbarProjectSettingsItemIdentifier;

@@ -54,7 +54,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * key = [[self mainInfos] infoForKeyPaths:TWSMasterFileKey,nil];
-	if([key isEqualToString:@"...iTM2FrontDocument"])
+	if([key isEqualToString:iTM2ProjectFrontDocumentKey])
 	{
 		// get the front most document of the project
 		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
@@ -62,21 +62,19 @@ To Do List:
 		while(W = [E nextObject])
 		{
 			NSDocument * D = [[W windowController] document];
-			if([D isEqual:self])
-			{	
-				return @"";
-			}
-			if([[SPC projectForSource:D] isEqual:self])
+			if(![D isEqual:self] && [[SPC projectForSource:D] isEqual:self])
 			{
-				return [self keyForFileName:[D fileName]];
+				return [self fileKeyForURL:[D fileURL]];
 			}
 		}
 		return @"";
 	}
 	if([key length])
+	{
 		return key;
+	}
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:[self allFileKeys]];
-	[Ks removeObject:[self keyForFileName:[self fileName]]];
+	[Ks removeObject:[self fileKeyForURL:[self fileURL]]];
 	if([Ks count] == 1)
 	{
 		NSString * fileKey = [Ks lastObject];
@@ -94,7 +92,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([fileKey isEqualToString:@"...iTM2FrontDocument"] || [self nameForFileKey:fileKey])
+	if([fileKey isEqualToString:iTM2ProjectFrontDocumentKey] || [self nameForFileKey:fileKey])
 	{
 		[[self mainInfos] takeInfo:fileKey forKeyPaths:TWSMasterFileKey,nil];
 		return;

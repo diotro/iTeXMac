@@ -56,7 +56,7 @@ To Do List:
 	if([DFM fileExistsAtPath:path])
 	{
 		typeName = [SDC typeForContentsOfURL:url error:outErrorRef];
-		self = [super initWithContentsOfURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError **)outErrorRef];
+		self = [super initWithContentsOfURL:url ofType:typeName error:outErrorRef];
 		return self;
 	}
 	if(result = [SDC documentForURL:absoluteURL])
@@ -68,9 +68,8 @@ To Do List:
 	{
 		[self setFileURL:url];
 		[self setFileType:typeName];
-		path = [self fileName];
-		iTM2TeXProjectDocument * TPD = [SPC projectForFileName:path];
-		NSString * K = [TPD keyForFileName:path];
+		iTM2TeXProjectDocument * TPD = [SPC projectForURL:url];
+		NSString * K = [TPD fileKeyForURL:url];
 		[TPD setMasterFileKey:K];
 		id performer = [iTM2TeXPCommandManager commandPerformerForName:@"Compile"];
 		[performer performCommandForProject: TPD];

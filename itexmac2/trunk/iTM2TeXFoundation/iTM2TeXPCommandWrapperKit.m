@@ -121,7 +121,7 @@ To Do List:
     NSString * output = [self infoForKeyPaths:iTM2TeXPIndexOutputKey,nil];
     if(![output length])
     {
-		NSString * path = [[myTPD relativeFileNameForKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
+		NSString * path = [[myTPD nameForFileKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
 		[self takeInfo:([path length]? [path stringByAppendingPathExtension:iTM2TeXPIndexExtension]:@"") forKeyPaths:iTM2TeXPIndexOutputKey, nil];
         output = [self infoForKeyPaths:iTM2TeXPIndexOutputKey, nil]?: @"";
     }
@@ -547,7 +547,7 @@ To Do List:
     if(![output length])
     {
         iTM2TeXProjectDocument * myTPD = (iTM2TeXProjectDocument *)[self document];
-		output = [[[myTPD relativeFileNameForKey:[myTPD masterFileKey]] stringByDeletingPathExtension] stringByAppendingPathExtension:iTM2TeXPGlossaryExtension];
+		output = [[[myTPD nameForFileKey:[myTPD masterFileKey]] stringByDeletingPathExtension] stringByAppendingPathExtension:iTM2TeXPGlossaryExtension];
         [self takeInfo:output forKeyPaths:iTM2TeXPGlossaryOutputKey,nil];
         output = [self infoForKeyPaths:iTM2TeXPGlossaryOutputKey,nil]?: @"";
     }
@@ -948,7 +948,7 @@ To Do List:
     if(![output length])
     {
         iTM2TeXProjectDocument * myTPD = (iTM2TeXProjectDocument *)[self document];
-		output = [[myTPD relativeFileNameForKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
+		output = [[myTPD nameForFileKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
         [self takeInfo:output forKeyPaths:iTM2TeXPBibliographyAuxNameKey,nil];
         output = ([self infoForKeyPaths:iTM2TeXPBibliographyAuxNameKey,nil]?: @"");
     }

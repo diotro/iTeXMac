@@ -532,15 +532,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * fileName = [[self document] fileName];
-	if([fileName belongsToFarawayProjectsDirectory])
-	{
-		fileName = [fileName stringByStrippingFarawayProjectsDirectory];
-		fileName = [fileName enclosingWrapperFileName];
-		fileName = [fileName stringByDeletingLastPathComponent];
-		fileName = [@"..." stringByAppendingPathComponent:fileName];
-	}
-    [sender setStringValue:([fileName length]?fileName:([[self document] displayName]?:@""))];
+	NSURL * projectURL = [[self document] fileURL];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
+    [sender setStringValue:(sourceURL?[sourceURL path]:([[self document] displayName]?:@""))];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseMainFile:
@@ -591,7 +585,7 @@ To Do List:
         fileKey = [fileKeys objectAtIndex:row];
         if([fileKey length])
         {
-            NSString * FN = [project relativeFileNameForKey:fileKey];
+            NSString * FN = [project nameForFileKey:fileKey];
             if([FN length])
             {
                 [sender addItemWithTitle:FN];
@@ -671,7 +665,7 @@ To Do List:
     {
 		NSString * key = [orderedFileKeys objectAtIndex:row];
 		iTM2ProjectDocument * PD = [self document];
-        NSString * oldRelative = [PD relativeFileNameForKey:key];
+        NSString * oldRelative = [PD nameForFileKey:key];
         if(![oldRelative length])
 		{
 			return;
@@ -681,17 +675,9 @@ To Do List:
 		{
 			return;
 		}
-		NSString * projectName = [PD fileName];
-		NSString * dirName = [projectName stringByDeletingLastPathComponent];
-		if([dirName belongsToFarawayProjectsDirectory])
-		{
-			dirName = [dirName stringByDeletingLastPathComponent];
-			dirName = [dirName stringByStrippingFarawayProjectsDirectory];
-		}
-		NSString * new = [dirName stringByAppendingPathComponent:newRelative];
-		new = [new stringByStandardizingPath];
-		// is this file acceptable?
-		newRelative = [new stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+		NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[PD fileURL]];
+		NSURL * newURL = [NSURL URLWithString:[newRelative stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:sourceURL];
+		newRelative = [newURL pathRelativeToURL:sourceURL];
 		NSBundle * B = [iTM2ProjectDocument classBundle];
 		if([newRelative hasPrefix:@".."])
 		{
@@ -702,26 +688,25 @@ To Do List:
 				nil, NULL, NULL,
 				nil,// will be released below
 				NSLocalizedStringFromTableInBundle(@"The name %@ must not contain \"..\".", iTM2ProjectTable, B, ""),
-				new);
+				newRelative);
 			return;
 		}
-		NSString * old = [PD absoluteFileNameForKey:key];
-		old = [old stringByStandardizingPath];
-		if(![DFM fileExistsAtPath:old])
+		NSURL * oldURL = [PD URLForFileKey:key];
+		if(![DFM fileExistsAtPath:[[oldURL path] stringByStandardizingPath]])
 		{
 			// nothing to copy
 			return;
 		}
-		NSDocument * subDocument = [PD subdocumentForFileName:old];
+		NSDocument * subDocument = [PD subdocumentForURL:oldURL];
 		if([subDocument isDocumentEdited])
 		{
 			return;
 		}
-		if([old pathIsEqual:new])
+		if([[oldURL path] pathIsEqual:[newURL path]])
 		{
 			return;
 		}
-		NSString * newKey = [PD keyForFileName:new];
+		NSString * newKey = [PD fileKeyForURL:newURL];
 		if([newKey length])
 		{
 			NSBeginAlertSheet(
@@ -731,10 +716,10 @@ To Do List:
 				nil, NULL, NULL,
 				nil,// will be released below
 				NSLocalizedStringFromTableInBundle(@"The name %@ is already used.", iTM2ProjectTable, B, ""),
-				new);
+				[newURL path]);
 			return;
 		}
-		if([DFM fileExistsAtPath:new])
+		if([DFM fileExistsAtPath:[newURL path]])
 		{
 			// there is a possible conflict
 			NSBeginAlertSheet(
@@ -744,13 +729,13 @@ To Do List:
 				nil, NULL, NULL,
 				nil,
 				NSLocalizedStringFromTableInBundle(@"Already existing file at\n%@", iTM2ProjectTable, B, ""),
-				new);
+				[newURL path]);
 			return;
 		}
 		NSError * localError = nil;
-		if([DFM createDeepDirectoryAtPath:[new stringByDeletingLastPathComponent] attributes:nil error:&localError])
+		if([DFM createDeepDirectoryAtPath:[[newURL path] stringByDeletingLastPathComponent] attributes:nil error:&localError])
 		{
-			if(![DFM movePath:old toPath:new handler:nil])
+			if(![DFM movePath:[oldURL path] toPath:[newURL path] handler:nil])
 			{
 				NSBeginAlertSheet(
 					NSLocalizedStringFromTableInBundle(@"Naming problem", iTM2ProjectTable, B, ""),
@@ -761,11 +746,11 @@ To Do List:
 					NSLocalizedStringFromTableInBundle(@"A file could not move.", iTM2ProjectTable, B, ""));
 				return;
 			}
-			[subDocument setFileURL:[NSURL fileURLWithPath:new]];// before the project is aware of a file change
-			[PD setFileName:new forKey:key makeRelative:YES];// after the document name has changed
+			[subDocument setFileURL:newURL];// before the project is aware of a file change
+			[PD setName:newRelative forFileKey:key];// after the document name has changed
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"Name successfully changed from %@ to %@", old, new);
+				iTM2_LOG(@"Name successfully changed from %@ to %@", [oldURL path], [newURL path]);
 			}
 		}
 		else
@@ -809,7 +794,7 @@ To Do List:
 			NSArray * fileKeys = [self orderedFileKeys];
 			NSString * key = [fileKeys objectAtIndex:row];
 			iTM2ProjectDocument * PD = [self document];
-			NSDocument * D = [PD subdocumentForKey:key];
+			NSDocument * D = [PD subdocumentForFileKey:key];
 			editable = ![D isDocumentEdited];
 		}
         else
@@ -989,7 +974,7 @@ selectOneItem:
 		
 		id document = nil;
 		fileKey = [fileKeys objectAtIndex:row];
-		if(document = [project subdocumentForKey:fileKey])
+		if(document = [project subdocumentForFileKey:fileKey])
 		{
 			if([document isKindOfClass:[iTM2TextDocument class]])
 			{
@@ -1004,7 +989,7 @@ selectOneItem:
 				
 			}
 		}
-		NSString * fileName = [project relativeFileNameForKey:fileKey];
+		NSString * fileName = [project nameForFileKey:fileKey];
 		if([fileName length])
 		{
 			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
@@ -1086,7 +1071,7 @@ To Do List:
 		unsigned int old = [iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncodingName];
 		if(new != old)
 		{
-			id D = [project subdocumentForKey:fileKey];
+			id D = [project subdocumentForFileKey:fileKey];
 			if([D respondsToSelector:@selector(setStringEncoding:)])
 			{
 				[D setStringEncoding:new];
@@ -1140,7 +1125,7 @@ To Do List:
 		stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 		if(stringEncodingName)
 		{
-			id D = [project subdocumentForKey:fileKey];
+			id D = [project subdocumentForFileKey:fileKey];
 			if([D respondsToSelector:@selector(setStringEncoding:)])
 			{
 				[D setStringEncoding:new];
@@ -1187,7 +1172,7 @@ To Do List:
 	while(row < top)
 	{
 		NSString * fileKey = [fileKeys objectAtIndex:row];
-		NSString * fileName = [project relativeFileNameForKey:fileKey];
+		NSString * fileName = [project nameForFileKey:fileKey];
 		id isAuto = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 		BOOL old = [isAuto boolValue];
 		// this is a 3 states switch: YES, NO, inherited
@@ -1197,7 +1182,7 @@ To Do List:
 			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
 			if([C isSubclassOfClass:[iTM2TextDocument class]])
 			{
-				if(D = [project subdocumentForKey:fileKey])
+				if(D = [project subdocumentForFileKey:fileKey])
 				{
 					[D takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 				}
@@ -1280,7 +1265,7 @@ To Do List:
 	else
 	{
 		fileKey = [fileKeys objectAtIndex:row];
-		fileName = [project relativeFileNameForKey:fileKey];
+		fileName = [project nameForFileKey:fileKey];
 		if([fileName length])
 		{
 			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
@@ -1484,7 +1469,7 @@ To Do List:
 		else
         {
             fileKey = [fileKeys objectAtIndex:row];
-			fileName = [project relativeFileNameForKey:fileKey];
+			fileName = [project nameForFileKey:fileKey];
 			if([fileName length])
 			{
 				Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
@@ -1630,7 +1615,7 @@ To Do List:
 		NSString * old = [project propertyValueForKey:TWSEOLFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 		if(![new isEqualToString:old])
 		{
-			id D = [project subdocumentForKey:fileKey];
+			id D = [project subdocumentForFileKey:fileKey];
 			if([D respondsToSelector:@selector(setEOL:)])
 			{
 				[D setEOL:EOL];
@@ -2114,7 +2099,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:self];
-	NSString * fileKey = [TPD keyForFileName:[self fileName]];
+	NSString * fileKey = [TPD fileKeyForURL:[self fileURL]];
 	NSString * codeset = [TPD propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 //iTM2_END;
     return [codeset length]?[NSDictionary dictionaryWithObjectsAndKeys:

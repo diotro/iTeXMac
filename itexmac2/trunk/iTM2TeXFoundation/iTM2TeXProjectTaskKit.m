@@ -598,21 +598,17 @@ To Do List:
 	if(![path hasPrefix:iTM2PathComponentsSeparator])
 	{
 		iTM2TeXProjectDocument * TPD = (id)[self document];
-		NSString * dirname = [TPD buildDirectoryName];
-		NSString * otherName = [dirname stringByAppendingPathComponent:path];
-		otherName = [otherName stringByStandardizingPath];
-		if(![DFM fileExistsAtPath:otherName])
+		NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[TPD fileURL]];
+		NSString * clickedPath = [[NSURL URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:sourceURL] path];
+		if(![DFM fileExistsAtPath:clickedPath])
 		{
-			otherName = [TPD buildDirectoryName];
-			otherName = [dirname stringByAppendingPathComponent:path];
-			otherName = [otherName stringByStandardizingPath];
-			if(![DFM fileExistsAtPath:otherName])
+			NSURL * factoryURL = [SPC URLForFileKey:TWSFactoryKey filter:iTM2PCFilterRegular inProjectWithURL:[TPD fileURL]];
+			clickedPath = [[NSURL URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:factoryURL] path];
+			if(![DFM fileExistsAtPath:clickedPath])
 			{
-				dirname = [TPD masterFileKey];// won't work if the master file key is Front Document related
-				dirname = [TPD absoluteFileNameForKey:dirname];
-				dirname = [dirname stringByDeletingLastPathComponent];
-				otherName = [[dirname stringByAppendingPathComponent:path] stringByStandardizingPath];
-				if(![DFM fileExistsAtPath:otherName])
+				clickedPath = [[TPD URLForFileKey:[TPD masterFileKey]] path];// won't work if the master file key is Front Document related
+				clickedPath = [[[clickedPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:path] stringByStandardizingPath];
+				if(![DFM fileExistsAtPath:clickedPath])
 				{
 					// list all the subdocuments of the project and open the one with the same last path component
 					NSArray * allKeys = [TPD allFileKeys];
@@ -620,8 +616,8 @@ To Do List:
 					NSString * key = nil;
 					while(key = [E nextObject])
 					{
-						otherName = [TPD absoluteFileNameForKey:key];
-						if([[otherName lastPathComponent] pathIsEqual:path])
+						clickedPath = [[TPD URLForFileKey:key] path];
+						if([[clickedPath lastPathComponent] pathIsEqual:path])
 						{
 							goto resolved;
 						}
@@ -631,7 +627,7 @@ To Do List:
 			}
 		}
 resolved:
-		path = otherName;
+		path = clickedPath;
 	}
 	id N = [TS attribute:iTM2LogLinkLineAttributeName atIndex:charIndex effectiveRange:nil];
 	if([N unsignedIntValue]>0)

@@ -1499,8 +1499,6 @@ To Do List:
 //#import <iTM2Foundation/iTM2RuntimeBrowser.h>
 //#import <iTM2Foundation/iTM2NotificationKit.h>
 
-NSString * const TWSShellEnvironmentWrapperKey = @"TWSWrapper";
-NSString * const TWSShellEnvironmentMasterKey = @"TWSMaster";
 NSString * const TWSShellEnvironmentFrontKey = @"TWSFront";
 NSString * const TWSShellEnvironmentProjectKey = @"TWSProject";
 
@@ -2101,45 +2099,17 @@ To Do List: to be improved...
 					iTM2TeXProjectFrontendTable,
 						[self classBundle], nil),
 							localizedCommand,
-								[project relativeFileNameForKey:[project masterFileKey]],
+								[project nameForFileKey:[project masterFileKey]],
 									[project projectName]];
 		[self postNotificationWithStatus:status];
 //        [project saveProjectDocuments:self]; this is already done if necessary
 //iTM2_LOG(@"/\\/\\/\\/\\  1");
         iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
 //iTM2_LOG(@"/\\/\\/\\/\\  2");
-		NSString * MFK = [project masterFileKey];
-		NSDocument * CD = [SDC currentDocument];
-		if([MFK isEqualToString:@"...iTM2FrontDocument"])
-		{
-			MFK = [CD fileName];
-			MFK = [project keyForFileName:MFK];
-		}
-		else if(![MFK length])
-		{
-			// the project has not yet a master file key
-			NSArray * Ks = [project allFileKeys];
-#warning ERROR: IT IS NOT CLEAR
-			if([Ks count] == 1)
-			{
-				MFK = [Ks lastObject];
-				[project setMasterFileKey:MFK];
-			}
-			else
-			{
-				MFK = [CD fileName];
-				MFK = [project keyForFileName:MFK];
-				[project setMasterFileKey:@"...iTM2FrontDocument"];
-			}
-		}
-		NSString * master = [project relativeFileNameForKey:MFK];
 		[TW setLaunchPath:iTM2_Launch];
 //iTM2_LOG(@"/\\/\\/\\/\\  3");
 		NSDictionary * D = [SUD dictionaryForKey:iTM2EnvironmentVariablesKey];
 		[TW replaceEnvironment:D];
-		D = [self concreteEnvironmentDictionaryForProject:project]?:[NSDictionary dictionary];
-//iTM2_LOG(@"D is:%@",D);
-        [TW mergeEnvironment: D];
 //iTM2_LOG(@"[project commandEnvironmentDictionary] is: %@", [project commandEnvironmentDictionary]);
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
 //iTM2_LOG(@"[TW environment] is: %@", [TW environment]);
@@ -2161,15 +2131,16 @@ To Do List: to be improved...
         [TW addArgument:@"-p"];
         [TW addArgument:[project fileName]];
         [TW addArgument:@"-m"];
-        [TW addArgument:master];
-		[TW setEnvironmentString:[NSString farawayProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
+ 		[TW addArgument:[project masterFileKey]];
+		[TW setEnvironmentString:[NSString cachedProjectsDirectory] forKey:@"iTM2_Faraway_Projects_Directory"];
 		[TW setEnvironmentString:[NSBundle temporaryBaseProjectsDirectory] forKey:@"iTM2_Base_Projects_Directory"];
 		[TW setEnvironmentString:[project getTeXMFProgramsPath] forKey:@"iTM2_PATH_TeX_Programs"];
 		[TW setEnvironmentString:[project getOtherProgramsPath] forKey:@"iTM2_PATH_Other_Programs"];
 		[TW setEnvironmentString:[project getCompletePATHPrefix] forKey:@"iTM2_PATH_Prefix"];
 		[TW setEnvironmentString:[project getCompletePATHSuffix] forKey:@"iTM2_PATH_Suffix"];
 		[TW setEnvironmentString:[project getCompleteTEXMFOUTPUT] forKey:@"iTM2_TEXMFOUTPUT"];
-		if([project getPATHUsesLoginShell])
+		[TW setEnvironmentString:[[NSNumber numberWithInt:iTM2DebugEnabled] description] forKey:@"iTM2_Debug"];
+ 		if([project getPATHUsesLoginShell])
 		{
 			[TW setEnvironmentString:@"YES" forKey:@"iTM2_PATH_UsesLoginShell"];// not yet used?
 		}
@@ -2244,86 +2215,13 @@ To Do List:
 		{
 			scriptMode = nil;
 		}
+		return YES;
 	}
 //iTM2_LOG(@"commandName is: %@, scriptMode is: %@", commandName, scriptMode);
 	else if([scriptMode length])
 		return [TPD infoForKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,nil] != nil;
 	else
 		return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= concreteEnvironmentDictionaryForProject:
-+ (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
-/*"Sets up the riht file objects. The extension should be set by the one who will fill up a task environemnt.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- Thu Oct 28 14:05:13 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableDictionary * result = [NSMutableDictionary dictionary];
-//iTM2_LOG(@"4-iTM2_Compile_tex is: %@", [result objectForKey:@"iTM2_Compile_tex"]);
-	// more general stuff
-    [result takeValue:[project wrapperName] forKey:TWSShellEnvironmentWrapperKey];
-	NSDocument * CD = [SDC currentDocument];
-	if(CD == project)
-	{
-		NSArray * RA = [NSApp orderedWindows];
-		NSEnumerator * E = [RA objectEnumerator];
-		NSWindow * W;
-blablabla:
-		if(W = [E nextObject])
-		{
-			if(project == [SPC projectForSource:W])
-			{
-				id doc = [[W windowController] document];
-				if(project != doc)
-				{
-					CD = doc;
-				}
-				else
-				{
-					goto blablabla;
-				}
-			}
-		}
-	}
-	NSString * MFK = [CD fileName];
-	MFK = [project keyForFileName:MFK];
-	MFK = [project relativeFileNameForKey:MFK];
-    [result takeValue:MFK forKey:TWSShellEnvironmentFrontKey];
-	MFK = [project masterFileKey];
-	if([MFK isEqualToString:@"...iTM2FrontDocument"])
-	{
-		MFK = [project keyForFileName:[CD fileName]];
-	}
-	else if(![MFK length])
-	{
-		// the project has not yet a master file key
-		NSArray * Ks = [project allFileKeys];
-#warning ERROR: IT IS NOT CLEAR
-		if([Ks count] == 1)
-		{
-			MFK = [Ks lastObject];
-			[project setMasterFileKey:MFK];
-		}
-		else
-		{
-			MFK = [project keyForFileName:[CD fileName]];
-			[project setMasterFileKey:@"...iTM2FrontDocument"];
-		}
-	}
-#warning THIS SHOULD CHANGE TO THE RELATIVE FILENAME
-	NSString * master = [project absoluteFileNameForKey:MFK];
-    [result takeValue:master forKey:TWSShellEnvironmentMasterKey];
-    [result takeValue:[project fileName] forKey:TWSShellEnvironmentProjectKey];
-    [result takeValue:[NSNumber numberWithInt:iTM2DebugEnabled] forKey:@"iTM2_Debug"];
-//iTM2_LOG(@"=+=+=+=+=  -2-");
-	if(iTM2DebugEnabled>100)
-	{
-		iTM2_LOG(@"result for project %@ is: %@", project, result);
-	}
- //iTM2_END;
-    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mustSaveProjectDocumentsBefore
 + (BOOL)mustSaveProjectDocumentsBefore;

@@ -274,7 +274,7 @@ To Do List:
 //iTM2_START;
 	return [[[self metaInfos] infoForKeyPaths:iTM2DistributionKey,iTM2DistributionUseOutputDirectoryKey,nil] boolValue]?
 	([[self metaInfos] infoForKeyPaths:iTM2DistributionKey,iTM2DistributionOutputDirectoryKey,nil]?:@"")
-	:([[self fileName] stringByAppendingPathComponent:[[self relativeFileNameForKey:[self masterFileKey]] stringByDeletingLastPathComponent]]?: @"");
+	:([[self fileName] stringByAppendingPathComponent:[[self nameForFileKey:[self masterFileKey]] stringByDeletingLastPathComponent]]?: @"");
 }
 #pragma mark =-=-=-=-=-=-  DISTRIBUTIONS
 #define DISTRIBUTION(getter, setter)\

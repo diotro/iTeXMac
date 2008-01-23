@@ -24,6 +24,7 @@
 #import "iTM2TeXProjectDocumentKit.h"
 #import "iTM2TeXProjectFrontendKit.h"
 #import "iTM2TeXProjectTaskKit.h"
+#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <Carbon/Carbon.h>
 //#import <objc/objc-runtime.h>
@@ -33,11 +34,9 @@ NSString * const iTM2TeXProjectFrontendTable = @"Frontend";
 NSString * const iTM2TeXProjectExtendedInspectorVariant = @"Extended";
 
 NSString * const iTM2TPFEOutputFileExtensionKey = @"OutputFileExtension";
-NSString * const iTM2TPFECommandsKey = @"Commands";
-NSString * const iTM2TPFECommandEnvironmentsKey = @"CommandEnvironments";
-NSString * const iTM2TPFECommandScriptsKey = @"CommandScripts";
 
 NSString * const iTM2TPFEVoidMode = @"None";
+NSString * const iTM2TPFECustomMode = @"Custom";
 NSString * const iTM2TPFEBaseMode = @"Base";
 
 NSString * const iTM2TPFEPSOutput = @"PS";
@@ -74,7 +73,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:force:
-- (BOOL)displayPageForLine:(unsigned int) line column:(unsigned int) column source:(NSString *) source withHint:(NSDictionary *) hint orderFront:(BOOL) yorn force:(BOOL) force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -85,7 +84,7 @@ To Do List:
 	NSURL * url = nil;
 	NSString * output = nil;
 	NSDocument * D = nil;
-	iTM2TeXProjectDocument * TPD = [SPC projectForFileName:source];
+	iTM2TeXProjectDocument * TPD = [SPC projectForURL:sourceURL];
 	if(TPD)
 	{
 		NSArray * subdocuments = [TPD subdocuments];
@@ -93,8 +92,7 @@ To Do List:
 		BOOL displayed = NO;
 		while(D = [E nextObject])
 		{
-iTM2_LOG([D fileName]);
-			if([D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force])
+			if([D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force])
 			{
 				displayed = YES;
 			}
@@ -103,54 +101,47 @@ iTM2_LOG([D fileName]);
 			return YES;
 		if(!force)
 			return NO;
-		NSString * key = [TPD masterFileKey];
-		NSString * master = [TPD absoluteFileNameForKey:key];
-		if([master length])
+		NSString * masterKey = [TPD masterFileKey];
+		NSURL * masterURL = [TPD URLForFileKey:masterKey];
+		if(masterURL)
 		{
-			master = [master stringByDeletingPathExtension];
-			master = [master stringByAppendingPathExtension:[TPD outputFileExtension]];
-			output = master;
+			output = [[[masterURL path] stringByDeletingPathExtension] stringByAppendingPathExtension:[TPD outputFileExtension]];
 			url = [NSURL fileURLWithPath:output];
 			if(![TPD subdocumentForURL:url] &&
 				(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
 			{
-				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 			}
-			output = [output stringByStrippingFarawayProjectsDirectory];
-			url = [NSURL fileURLWithPath:output];
+			url = [url URLByRemovingCachedProjectComponent];
 			if(![TPD subdocumentForURL:url] &&
 				(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
 			{
-				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 			}
-			NSString * projectFileName = [TPD fileName];
 #warning THIS SHOULD BE REVISITED
-			if([projectFileName belongsToFarawayProjectsDirectory])
+			if([[TPD fileURL] belongsToCachedProjectsDirectory])
 			{
-				output = [projectFileName stringByDeletingLastPathComponent];
-				output = [output stringByAppendingPathComponent:[master lastPathComponent]];
-				url = [NSURL fileURLWithPath:output];
+				url = [TPD factoryURLForFileKey:masterKey];
 				if(![TPD subdocumentForURL:url] &&
 					(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
 				{
-					return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+					return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 				}
 			}
 		}
 	}
-	else if([source length])
+	else if(sourceURL)
 	{
-		output = [source stringByDeletingPathExtension];
-		output = [output stringByAppendingPathExtension:@"pdf"];
+		output = [[[sourceURL path] stringByDeletingPathExtension] stringByAppendingPathExtension:@"pdf"];
 		if([DFM fileExistsAtPath:output])// save some time
 		{
 			url = [NSURL fileURLWithPath:output];
 			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil])
-				return [D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];// time consuming
+				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];// time consuming
 		}
 	}
 //iTM2_END;
-	return [super displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force];
+	return [super displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 }
 @end
 
@@ -185,7 +176,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [IMPLEMENTATION modelValueForKey:iTM2TPFEOutputFileExtensionKey ofType:iTM2ProjectFrontendType]?:@"pdf";
+    return [self infoForKeyPaths:iTM2TPFEOutputFileExtensionKey,nil]?:@"pdf";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOutputFileExtension:
 - (void)setOutputFileExtension:(NSString *) extension;
@@ -196,221 +187,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[IMPLEMENTATION takeModelValue:extension forKey:iTM2TPFEOutputFileExtensionKey ofType:iTM2ProjectFrontendType];
+	[self takeInfo:extension forKeyPaths:iTM2TPFEOutputFileExtensionKey,nil];
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandWrapperForName:
-- (id)commandWrapperForName:(NSString *) name;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSEnumerator * E = [[self commandWrappers] objectEnumerator];
-	id result;
-	while(result = [E nextObject])
-		if([name isEqualToString:[result name]])
-			return result;
-	if(![name length])
-	{
-		iTM2_LOG(@"No Name Given");
-	}
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"NO COMMAND WRAPPER FOR NAME:-%@- ([self commandWrappers] are:%@), may be you need to update", name, [self commandWrappers]);
-	}
-#warning WHAT HAPPENS WHEN A NAME IS NOT KNOWN, IS IT STILL THERE ONCE saved?
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandWrappers
-- (id)commandWrappers;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id result = metaGETTER;
-	if(!result)
-	{
-		[self setCommandWrappers:[self lazyCommandWrappers]];
-		result = metaGETTER;
-	}
-    return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyCommandWrappers
-- (id)lazyCommandWrappers;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSArray * builtInCommandNames = [iTM2TeXPCommandManager builtInCommandNames];
-	NSEnumerator * E = [builtInCommandNames objectEnumerator];
-	NSString * name;
-	NSMutableArray * MRA = [NSMutableArray array];
-	while(name = [E nextObject])
-	{
-		iTM2TeXPCommandWrapper * CW = [[[iTM2TeXPCommandWrapper allocWithZone:[self zone]] init] autorelease];
-		[CW setName:name];
-		[CW setProject:self];
-		id model = [self modelForCommandName:name];
-		[CW setModel:model];
-		[MRA addObject:CW];
-	}
-    return MRA;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCommandWrappers:
-- (void)setCommandWrappers:(NSArray *) argument;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(argument);
-	NSAssert(!argument || [argument isEqual:metaGETTER], @"ARGHHHH!");
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelForCommandName:
-- (id)modelForCommandName:(NSString *) name;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [[IMPLEMENTATION iVarCommands] valueForKey:name];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModel:forCommandName:
-- (void)takeModel:(id) argument forCommandName:(NSString *) name;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	argument = [[argument copy] autorelease];
-	id commandModels = [IMPLEMENTATION iVarCommands];
-	[commandModels takeValue:argument forKey:name];
-	[self setCommandWrappers:nil];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentForCommandMode:
-- (NSDictionary *)environmentForCommandMode:(NSString *) key;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [[[[IMPLEMENTATION iVarCommandEnvironments] valueForKey:key] retain] autorelease]?:[NSDictionary dictionary];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeEnvironment:forCommandMode:
-- (void)takeEnvironment:(id) environment forCommandMode:(NSString *) key;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[[IMPLEMENTATION iVarCommandEnvironments] takeValue:[[environment copy] autorelease] forKey:key];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scriptDescriptorForCommandMode:
-- (NSDictionary *)scriptDescriptorForCommandMode:(NSString *) commandName;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [[IMPLEMENTATION iVarCommandScripts] valueForKey:commandName]?:[NSDictionary dictionary];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeScriptDescriptor:forCommandMode:
-- (void)takeScriptDescriptor:(id) descriptor forCommandMode:(NSString *) commandName;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [[IMPLEMENTATION iVarCommandScripts] takeValue:[[descriptor copy] autorelease] forKey:commandName];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandFrontendProjectFixImplementation
-- (void)commandFrontendProjectFixImplementation;
-/*"Description forthcoming. Automatically called.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"IMPLEMENTATION is:%@", IMPLEMENTATION);
-	id O;
-	#define CREATE(KEY)\
-	O = [IMPLEMENTATION modelValueForKey:KEY ofType:iTM2ProjectFrontendType];\
-	if([O isKindOfClass:[NSDictionary class]])\
-		[IMPLEMENTATION takeModelValue:[NSMutableDictionary dictionaryWithDictionary:O] forKey:KEY ofType:iTM2ProjectFrontendType];\
-	else\
-		[IMPLEMENTATION takeModelValue:[NSMutableDictionary dictionary] forKey:KEY ofType:iTM2ProjectFrontendType];
-	CREATE(iTM2TPFECommandsKey);
-//iTM2_LOG(@"[self engines] are:%@ and [IMPLEMENTATION modelValueForKey:iTM2TPFEEnginesKey ofType:iTM2ProjectFrontendType] are:%@", [self engines], [IMPLEMENTATION modelValueForKey:iTM2TPFEEnginesKey ofType:iTM2ProjectFrontendType]);
-	CREATE(iTM2TPFECommandEnvironmentsKey);
-//iTM2_LOG(@"[self engineEnvironments] are:%@ and [IMPLEMENTATION modelValueForKey:iTM2TPFEEngineEnvironmentsKey ofType:iTM2ProjectFrontendType] are:%@", [self engineEnvironments], [IMPLEMENTATION modelValueForKey:iTM2TPFEEngineEnvironmentsKey ofType:iTM2ProjectFrontendType]);
-	CREATE(iTM2TPFECommandScriptsKey);
-	#undef CREATE
-//iTM2_LOG(@"%@\n%@\n%@",[IMPLEMENTATION iVarCommands],[IMPLEMENTATION iVarCommandEnvironments],[IMPLEMENTATION iVarCommandScripts]);
-	[self setCommandWrappers:nil];
-//iTM2_LOG(@"[TPD commandScripts] is:%@", [self commandScripts]);
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commands
-- (NSDictionary *)commands;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [IMPLEMENTATION iVarCommands];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandScripts
-- (NSDictionary *)commandScripts;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [IMPLEMENTATION iVarCommandScripts];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  actionEnvironments
-- (NSDictionary *)commandEnvironments;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [IMPLEMENTATION iVarCommandEnvironments];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editCommands:
 - (void)editCommands:(id) sender;
@@ -433,48 +211,6 @@ To Do List:
     [self addWindowController:WC];
     [[WC window] makeKeyAndOrderFront:self];
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareFrontendMetaFixImplementation
-- (void)prepareFrontendMetaFixImplementation;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#warning:is it sufficently early?
-	[self setCommandWrappers:nil];
-    NSAssert([self commandWrappers], @"ERROR:malfunction, report bug 0213");
-	[self setCommandWrappers:nil];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareCommandFrontendCompleteWriteToURL:ofType:error:
-- (BOOL)prepareCommandFrontendCompleteWriteToURL:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	BOOL result = YES;
-	NSEnumerator * E = [[self commandWrappers] objectEnumerator];
-	iTM2CommandWrapper * CW;
-	while(CW = [E nextObject])
-	{
-		id model = [CW model];
-		NSString * name = [CW name];
-		[self takeModel:model forCommandName:name];
-		if(![[self modelForCommandName:name] isEqual:model])
-		{
-			result = NO;
-			iTM2_OUTERROR(1,(@"The command model is not stored, report bug."),nil);
-		}
-	}
-//iTM2_END;
-    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showSettings:
 - (void)showSettings:(id) sender;
@@ -583,21 +319,6 @@ To Do List:
     [self validateWindowsContents];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeWindowControllers
-- (void)makeWindowControllers;
-/*"Projects are no close documents!!!
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if([self isEqual:[[SPC implementation] metaValueForKey:iTM2ProjectNoneKey]])
-        return;
-    [super makeWindowControllers];// after the documents are open
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectName
 - (NSString *)projectName;
 /*"Description forthcoming.
@@ -610,7 +331,7 @@ To Do List:
 	NSString * projectName = [super projectName];
 	if([projectName length])
 		return projectName;
-	projectName = [[[self relativeFileNameForKey:[self masterFileKey]] lastPathComponent] stringByDeletingPathExtension];
+	projectName = [[[self nameForFileKey:[self masterFileKey]] lastPathComponent] stringByDeletingPathExtension];
 	return projectName;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keepBackupFile
@@ -703,61 +424,6 @@ To Do List:
 	if([scriptMode isEqualToString:iTM2TPFEBaseMode])
 		return [environmentMode isEqualToString:iTM2TPFEBaseMode] || [environmentMode isEqualToString:commandName];
 	return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= applyCommandConsistencyRules
-- (void)applyCommandConsistencyRules;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1:03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSEnumerator * E = [[iTM2TeXPCommandManager orderedBuiltInCommandNames] objectEnumerator];
-	NSEnumerator * e;
-	while(e = [[E nextObject] objectEnumerator])
-	{
-		NSString * commandName;
-		while(commandName = [e nextObject])
-		{
-			iTM2CommandWrapper * CW = [self commandWrapperForName:commandName];
-			NSString * scriptMode = [CW scriptMode];
-			NSString * environmentMode = [CW environmentMode];
-			if(![self isValidEnvironmentMode:environmentMode forScriptMode:scriptMode commandName:commandName])
-			{
-				// trying to fix what is around
-				environmentMode = scriptMode;
-				if([self isValidEnvironmentMode:environmentMode forScriptMode:scriptMode commandName:commandName])
-				{
-					[CW setEnvironmentMode:environmentMode];
-				}
-				else
-				{
-					environmentMode = [commandName capitalizedString];
-					if([self isValidEnvironmentMode:environmentMode forScriptMode:scriptMode commandName:commandName])
-					{
-						[CW setEnvironmentMode:environmentMode];
-					}
-					else
-					{
-						environmentMode = iTM2TPFEBaseMode;
-						if([self isValidEnvironmentMode:environmentMode forScriptMode:scriptMode commandName:commandName])
-						{
-							[CW setEnvironmentMode:environmentMode];
-						}
-						else
-						{
-							// things are really weird:no mode...
-							environmentMode = iTM2TPFEVoidMode;
-							[CW setEnvironmentMode:environmentMode];
-						}
-					}
-				}
-			}
-		}
-	}
-//iTM2_END;
-	return;
 }
 @end
 
@@ -1106,21 +772,11 @@ To Do List:
 			[[sender lastItem] setEnabled:YES];
 			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
 			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentProjectKey];
-		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentMasterKey, @"Commands", myBUNDLE, "Description forthcoming")];
-			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
-			[[sender lastItem] setEnabled:YES];
-			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
-			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentMasterKey];
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentFrontKey, @"Commands", myBUNDLE, "Description forthcoming")];
 			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
 			[[sender lastItem] setEnabled:YES];
 			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
 			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentFrontKey];
-		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(TWSShellEnvironmentWrapperKey, @"Commands", myBUNDLE, "Description forthcoming")];
-			[[sender lastItem] setAction:@selector(_insertSpecialEnvironmentVariable:)];
-			[[sender lastItem] setEnabled:YES];
-			[[sender lastItem] setTarget:self];// sender belongs to the receiver's window
-			[[sender lastItem] setRepresentedObject:TWSShellEnvironmentWrapperKey];
 	}
     return YES;
 }
@@ -1779,7 +1435,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [IMPLEMENTATION takeMetaValue:[SPC TeXProjectsProperties] forKey:@"_TPPs"];// TeX Projects Properties
+    [IMPLEMENTATION takeMetaValue:[SPC TeXBaseProjectsProperties] forKey:@"_TPPs"];// TeX Projects Properties
 	[self validateCreationMode];
 //iTM2_LOG(@"MD:%@", MD);
     return [super validateWindowContent];
@@ -2437,8 +2093,8 @@ To Do List:
 //iTM2_START;
     return NSStringFromClass(self);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
-- (void)initImplementation;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
++ (NSDictionary *)defaultShellEnvironment;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -2446,36 +2102,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [super initImplementation];
-    [self takeModel:nil];
-	[self takeShellEnvironment:[isa defaultShellEnvironment]];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDocument:
-- (void)setDocument:(NSDocument *) document;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [super setDocument:document];
-    [self validateWindowContent];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
-- (void)windowDidLoad;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [super windowDidLoad];
-    [self validateWindowContent];
-    return;
+    return [NSDictionary dictionary];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  model
 - (id)model;
@@ -2539,6 +2166,104 @@ To Do List:
 	}
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allShellEnvironmentVariables
++ (NSArray *)allShellEnvironmentVariables;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [[self defaultShellEnvironment] allKeys];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shellEnvironment
+- (NSDictionary *)shellEnvironment;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+    NSEnumerator * E = [[[self class] allShellEnvironmentVariables] objectEnumerator];
+    NSString * variable;
+    while(variable = [E nextObject])
+        [MD takeValue:[self modelValueForKey:variable] forKey:variable];
+	if(iTM2DebugEnabled>100)
+	{
+		iTM2_LOG(@"shellEnvironment is:%@", MD);
+	}
+//iTM2_END;
+    return MD;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeShellEnvironment:
+- (void)takeShellEnvironment:(NSDictionary *) environment;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"environment is:%@", environment);
+	}
+    NSEnumerator * E = [[isa allShellEnvironmentVariables] objectEnumerator];
+    NSString * variable;
+    while(variable = [E nextObject])
+	{
+        [self takeModelValue:[environment valueForKey:variable] forKey:variable];
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"environment variable name is:%@, contents:%@", variable, [self modelValueForKey:variable]);
+		}
+	}
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
+- (void)initImplementation;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super initImplementation];
+    [self takeModel:nil];
+	[self takeShellEnvironment:[[self class] defaultShellEnvironment]];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDocument:
+- (void)setDocument:(NSDocument *) document;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super setDocument:document];
+    [self validateWindowContent];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
+- (void)windowDidLoad;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [super windowDidLoad];
+    [self validateWindowContent];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleModelFlagForKey:
 - (void)toggleModelFlagForKey:(NSString *) key;
 /*"Description forthcoming.
@@ -2594,75 +2319,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultShellEnvironment
-+ (NSDictionary *)defaultShellEnvironment;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [NSDictionary dictionary];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allShellEnvironmentVariables
-+ (NSArray *)allShellEnvironmentVariables;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [[self defaultShellEnvironment] allKeys];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shellEnvironment
-- (NSDictionary *)shellEnvironment;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-    NSEnumerator * E = [[isa allShellEnvironmentVariables] objectEnumerator];
-    NSString * variable;
-    while(variable = [E nextObject])
-        [MD takeValue:[self modelValueForKey:variable] forKey:variable];
-	if(iTM2DebugEnabled>100)
-	{
-		iTM2_LOG(@"shellEnvironment is:%@", MD);
-	}
-//iTM2_END;
-    return MD;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeShellEnvironment:
-- (void)takeShellEnvironment:(NSDictionary *) environment;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Feb  3 09:56:38 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"environment is:%@", environment);
-	}
-    NSEnumerator * E = [[isa allShellEnvironmentVariables] objectEnumerator];
-    NSString * variable;
-    while(variable = [E nextObject])
-	{
-        [self takeModelValue:[environment valueForKey:variable] forKey:variable];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"environment variable name is:%@, contents:%@", variable, [self modelValueForKey:variable]);
-		}
-	}
-//iTM2_END;
-    return;
-}
 @end
 
 @interface NSString(iTM2TeXProjectFrontendKit)
@@ -2689,7 +2345,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [IMPLEMENTATION modelValueForKey:iTM2TPFEBaseProjectNameKey ofType:iTM2ProjectFrontendType];
+    return [self infoForKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBaseProjectName:
 - (void)setBaseProjectName:(NSString *) baseProjectName;
@@ -2700,7 +2356,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [IMPLEMENTATION takeModelValue:baseProjectName forKey:iTM2TPFEBaseProjectNameKey ofType:iTM2ProjectFrontendType];
+    [self takeInfo:baseProjectName forKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProject
@@ -2867,36 +2523,6 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXProjectsProperties
-- (NSDictionary *)TeXProjectsProperties;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-    NSEnumerator * E = [[self baseProjectNames] objectEnumerator];
-    NSString * name;
-    while(name = [E nextObject])
-    {//projectName
-//iTM2_LOG(@"project name:%@", name);
-        NSDictionary * D = [name TeXProjectProperties];
-		D = [NSDictionary dictionaryWithObjectsAndKeys:
-			D, iTM2TeXPCommandPropertiesKey,
-			name, iTM2TPFENameKey,
-				nil];
-		NSDictionary * key = [NSDictionary dictionaryWithObjectsAndKeys:
-			[[D iVarMode] lowercaseString], iTM2TPFEModeKey,
-			[[D iVarVariant] lowercaseString], iTM2TPFEVariantKey,
-			[[D iVarOutput] lowercaseString], iTM2TPFEOutputKey,
-				nil];
-        [MD setValue:D forKey:key];
-    }
-//iTM2_START;
-	return MD;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_newProjectPanelControllerClass
 - (Class)swizzled_newProjectPanelControllerClass;
 /*"Description forthcoming.
@@ -2980,6 +2606,36 @@ To Do List:
 	id result = [self currentProject];
     return [result isKindOfClass:[iTM2TeXProjectDocument class]]? result:nil;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXBaseProjectsProperties
+- (NSDictionary *)TeXBaseProjectsProperties;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+    NSEnumerator * E = [[self baseProjectNames] objectEnumerator];
+    NSString * name;
+    while(name = [E nextObject])
+    {//projectName
+//iTM2_LOG(@"project name:%@", name);
+        NSDictionary * D = [name TeXProjectProperties];
+		D = [NSDictionary dictionaryWithObjectsAndKeys:
+			D, iTM2TeXPCommandPropertiesKey,
+			name, iTM2TPFENameKey,
+				nil];
+		NSDictionary * key = [NSDictionary dictionaryWithObjectsAndKeys:
+			[[D iVarMode] lowercaseString], iTM2TPFEModeKey,
+			[[D iVarVariant] lowercaseString], iTM2TPFEVariantKey,
+			[[D iVarOutput] lowercaseString], iTM2TPFEOutputKey,
+				nil];
+        [MD setValue:D forKey:(id)key];
+    }
+//iTM2_START;
+	return MD;
+}
 @end
 
 #if 0
@@ -3041,11 +2697,10 @@ To Do List:
 	}
 	if([self hasProject])
 	{
-		NSString * name = [url path];
-		if(result = [SPC newProjectForFileNameRef:&name display:NO error:nil])
+		if(result = [SPC newProjectForURLRef:&url display:NO error:nil])
 		{
-			if(![name pathIsEqual:[self fileName]])
-				[self setFileURL:[NSURL fileURLWithPath:name]];// weird code, this is possobly due to a cocoa weird behaviour
+			if(![[url path] pathIsEqual:[[self fileURL] path]])
+				[self setFileURL:url];// weird code, this is possobly due to a cocoa weird behaviour
 		}
 		else
 		{
@@ -3180,7 +2835,7 @@ To Do List:
 	NSString * S;
 	while(S = [E nextObject])
 	{
-		NSString * FN = [PD relativeFileNameForKey:S];
+		NSString * FN = [PD nameForFileKey:S];
 		if([FN length])
 			[MD setObject:S forKey:FN];
 	}
@@ -3202,8 +2857,8 @@ To Do List:
 			[M addItem:MI];
 			[MI setTarget:nil];
 			NSString * key = [MD objectForKey:S];
-			NSString * path = [PD absoluteFileNameForKey:key];
-			NSImage * I = [SWS iconForFile:path];
+			NSURL * url = [PD URLForFileKey:key];
+			NSImage * I = [SWS iconForFile:[url path]];
 			[I iTM2_setSizeSmallIcon];
 			[MI setImage:I];
 			[MI setRepresentedObject:
@@ -3287,8 +2942,8 @@ To Do List:
 			NSString * key = [D objectForKey:@"key"];
 			if([key isKindOfClass:[NSString class]])
 			{
-				NSString * path = [PD absoluteFileNameForKey:key];
-                [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:YES error:nil];
+				NSURL * url = [PD URLForFileKey:key];
+                [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
 			}
 			return;
 		}
@@ -3315,7 +2970,7 @@ To Do List:
 			NSString * key = [D objectForKey:@"key"];
 			if([key isKindOfClass:[NSString class]])
 			{
-				NSString * path = [PD absoluteFileNameForKey:key];
+				NSString * path = [[PD URLForFileKey:key] path];
                 return [DFM fileExistsAtPath:path];
 			}
 		}

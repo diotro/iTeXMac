@@ -53,9 +53,7 @@
                 
 */
 
-extern NSString * const TWSShellEnvironmentWrapperKey;
-extern NSString * const TWSShellEnvironmentMasterKey;
-extern NSString * const TWSShellEnvironmentFrontKey;
+extern NSString * const TWSShellEnvironmentFrontKey;// only if the master key means "typeset the front document"
 extern NSString * const TWSShellEnvironmentProjectKey;
 
 #warning ! THESE should live somewhere else
@@ -230,7 +228,6 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 				Second, the customized shell scripts of the base projects are not meant to be overriden nor inherited.
 				The customized shell scripts end with names iTM2_Command_? (or iTM2_BaseCommand_? if they come from the base project)
 				where "?" is just the tag identifier of the shell script.
-				Concerning the environement, see the concreteEnvironmentDictionaryForProject: messsage.
 				Today is: Thu Oct 28 10:38:30 GMT 2004
 */
 @interface iTM2TeXPCommandPerformer: NSObject<NSCoding>
@@ -382,25 +379,6 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
 */
 + (void)taskWrapperDidPerformCommand:(iTM2TaskWrapper *)TW taskController:(iTM2TaskController *)TC userInfo:(id)userInfo;
 
-/*!
-    @method     concreteEnvironmentDictionaryForProject:
-    @abstract   Abstract forthcoming
-    @discussion The default implementation just defines the global entries:
-				TWSShellEnvironmentWrapperKey,
-				TWSShellEnvironmentMasterKey,
-				TWSShellEnvironmentFrontKey,
-				TWSShellEnvironmentProjectKey,
-				@"MPEDIT",
-				@"TEXEDIT",
-				@"TEXINPUTS",
-				@"TEXMFOUTPUT",
-				@"iTM2_Debug".
-				Subclassers should not need to override this message.
-				The project is not expected to be a base project.
-    @param      project is a TeX project
-    @result     An NSDictionary instance.
-*/
-+ (NSDictionary *)concreteEnvironmentDictionaryForProject:(iTM2TeXProjectDocument *)project;
 
 /*!
     @method     mustSaveProjectDocumentsBefore

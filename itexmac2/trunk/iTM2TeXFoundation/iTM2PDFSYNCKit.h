@@ -52,11 +52,11 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
     @discussion Description forthcoming.
     @param      the l is a 1 base line number
     @param      the c is a 0 based column index
-    @param      SRCE is a file name.
+    @param      sourceURL is a source URL
     @param      yorn is a flag.
     @result     NO if nothing special is done
 */
-- (BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 
 - (id)synchronizer;
 - (void)setSynchronizer:(id)argument;

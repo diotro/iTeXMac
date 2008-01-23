@@ -3,7 +3,7 @@
 //  @version Subversion:$Id:iTM2PDFSYNCKit.m 319 2006-12-09 22:02:14Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Jun 27 2001.
-//  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2001-2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -167,7 +167,7 @@ To Do List:
     _Semaphore = parsingState;
     [L unlock];
     
-    [pool release];
+    [pool drain];
     pool = [[NSAutoreleasePool allocWithZone:[self zone]] init];
 //iTM2_START;
 //NSLog(@"pdfsync ing");
@@ -356,7 +356,7 @@ To Do List:
     [L unlock];
     [L release];
 //NSLog(@"pdfsync complete");
-    [pool release];
+    [pool drain];
     return;
 }
 #else
@@ -1489,7 +1489,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// the filename is not really the final filename...
-	NSString * FN = [self fileName];
+	NSString * FN = [[self fileURL] path];
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 	pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
@@ -1504,9 +1504,9 @@ update:;
 	}
 	else
 	{
-		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
-		NSString * K = [PD keyForFileName:FN];
-		NSString * relativeName = [PD relativeFileNameForKey:K];
+		iTM2ProjectDocument * PD = [SPC projectForURL:[self fileURL]];
+		NSString * K = [PD fileKeyForSubdocument:self];
+		NSString * relativeName = [PD nameForFileKey:K];
 		pdfsyncPath = [relativeName stringByDeletingPathExtension];
 		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 		NSString * dirName = [PD buildDirectoryName];
@@ -1556,12 +1556,12 @@ laSuite:;
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 	pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 	id S = nil;
-	if(![DFM fileOrSymbolicLinkExistsAtPath:pdfsyncPath])
+	if(![DFM fileOrLinkExistsAtPath:pdfsyncPath])
 	{
-		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
+		iTM2ProjectDocument * PD = [SPC projectForURL:[self fileURL]];
 		NSString * dirName = [PD fileName];
-		NSString * K = [PD keyForFileName:FN];
-		NSString * relativeName = [PD relativeFileNameForKey:K];
+		NSString * K = [PD fileKeyForSubdocument:self];
+		NSString * relativeName = [PD nameForFileKey:K];
 		pdfsyncPath = [relativeName stringByDeletingPathExtension];
 		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 		dirName = [PD buildDirectoryName];
@@ -1641,7 +1641,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:
-- (BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1654,16 +1654,24 @@ To Do List:
 	id WC;
 	NSDictionary * destinations = nil;
 	while(W = [E nextObject])
+	{
 		if(([[W windowController] document] == self) && [W isVisible])
+		{
 			goto laSuite;
+		}
+	}
 	[self makeWindowControllers];
 	[self showWindows];
+	NSString * SRCE = nil;
 laSuite:
-	if([SRCE hasPrefix:iTM2PathComponentsSeparator])
+	if([sourceURL isFileURL])
 	{
-		NSString * dirName = [self fileName];
-		dirName = [dirName stringByDeletingLastPathComponent];
-		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+		NSString * dirName = [[[self fileURL] path] stringByDeletingLastPathComponent];
+		SRCE = [[sourceURL path] stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+	}
+	else
+	{
+		SRCE = [sourceURL absoluteString];
 	}
 	BOOL result = NO;
 //NSLog(@"line:%u column:%u source:%@", l, c, SRCE);
@@ -2356,7 +2364,7 @@ To Do List:
 	unsigned column = charIndex - start;
 	NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
-	BOOL result = [SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
+	BOOL result = [SDC displayPageForLine:line column:column source:[D fileURL] withHint:hint
 			orderFront:(([event modifierFlags] & NSAlternateKeyMask) != 0) force:YES];
 //iTM2_END;
     return result;
@@ -2425,7 +2433,7 @@ To Do List:
 				oldValue,@"old selected range",
 				newValue,@"new selected range",
 					nil];
-		if(![SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
+		if(![SDC displayPageForLine:line column:column source:[D fileURL] withHint:hint
 			orderFront:NO force:NO])// side effect:text document opens pdf document as when focus is on
 		{
 			// second chance to follow focus:from the visible start of the line
@@ -2444,7 +2452,7 @@ To Do List:
 						oldValue,@"old selected range",
 						newValue,@"new selected range",
 							nil];
-					[SDC displayPageForLine:line column:column source:[D fileName] withHint:hint
+					[SDC displayPageForLine:line column:column source:[D fileURL] withHint:hint
 						orderFront:NO force:NO];
 				}
 			}

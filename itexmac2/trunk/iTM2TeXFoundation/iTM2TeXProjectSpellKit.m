@@ -62,7 +62,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//    NSString * mode = [[self project] spellingModeForFileKey:[[self project] keyForFileName:[[[[text window] windowController] document] fileName]]];
+//    NSString * mode = [[self project] spellingModeForFileKey:[[self project] fileKeyForURL:[[[[text window] windowController] document] fileName]]];
 	NSString * mode = nil;
     if(![self spellContextForMode:mode])
     {
@@ -81,7 +81,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super setSpellContextMode:mode forText:text];
-//    [[self project] setSpellingMode:mode forFileKey:[[self project] keyForFileName:[[[[text window] windowController] document] fileName]]];
+//    [[self project] setSpellingMode:mode forFileKey:[[self project] fileKeyForURL:[[[[text window] windowController] document] fileName]]];
 //iTM2_END;
     return;
 }

@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Oct 16 2001.
-//  Copyright © 2004 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -938,6 +938,18 @@ To Do List:
     return;
 }
 NSString * _iTM2PRIVATE_NewSetName = nil;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  manageSet:
+- (IBAction)manageSet:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self performSelector:@selector(_addSet:) withObject:sender afterDelay:0];
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSet:
 - (IBAction)addSet:(id)sender;
 /*"Description Forthcoming.
@@ -1023,7 +1035,10 @@ To Do List:
 					_CurrentSetItem = MI;
 					// now we know what menu item should be selected.
 					[self validateWindowContent];
-					[[tableView window] makeFirstResponder:tableView];
+					if([tableView acceptsFirstResponder])
+					{
+						[[tableView window] makeFirstResponder:tableView];
+					}
 					break;
 				}
 		}
@@ -1310,7 +1325,7 @@ To Do List:
     }
 	[tv selectRow:row byExtendingSelection:NO];
     [self validateWindowContent];
-    if([[tv window] makeFirstResponder:tv])
+    if([tv acceptsFirstResponder] && [[tv window] makeFirstResponder:tv])
 	{
 #if 1
 		SEL selector = @selector(editColumn:row:withEvent:select:);
@@ -1871,7 +1886,7 @@ To Do List:
                 ([SV nextKeyView]?:
                 [SV previousKeyView]));
 //iTM2_LOG(@"NR is: %@", NR);
-        return NR? [W makeFirstResponder:SV]: NO;
+        return (NR != nil) && [SV acceptsFirstResponder] && [W makeFirstResponder:SV];
     }
     int column = [tableView editedColumn];
     if(column == [tableView numberOfColumns] - 1)

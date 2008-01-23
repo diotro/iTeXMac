@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri Sep 05 2003.
-//  Copyright © 2006 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2006 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -24,6 +24,7 @@
 extern NSString * const iTM2TeXDocumentType;
 extern NSString * const iTM2TeXInspectorMode;
 extern NSString * const iTM2TeXSmartSelectionKey;
+extern NSString * const iTM2TeX7bitsAccentsKey;
 
 @interface iTM2TeXDocument: iTM2TextDocument
 @end
