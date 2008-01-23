@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun June 01 2003.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -30,7 +30,7 @@
 /*! 
 	@method		createDeepDirectoryAtPath:attributes:error:
 	@abstract	creates a directory and the whole hierarchy if necessary. Returns YES if the file exists
-	@discussion The given path must be non void. If it does not start with a / character, it will be appended to the current directoy path.
+	@discussion The given path must be non void. If it does not start with a / character, it will be appended to the current directory path.
 				The answer is YES if either the directory was successfully created or the directory was already existing.
 				If the answer is NO and there was an error, an explanation is returned.
 				If no error is returned, the specified directory do exist.
@@ -121,7 +121,7 @@
 - (BOOL)popDirectory;
 
 /*!
-	@method			fileOrSymbolicLinkExistsAtPath
+	@method			fileOrLinkExistsAtPath
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			path
@@ -129,10 +129,10 @@
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)fileOrSymbolicLinkExistsAtPath:(NSString *)path;
+- (BOOL)fileOrLinkExistsAtPath:(NSString *)path;
 
 /*!
-	@method			symbolicLinkExistsAtPath
+	@method			linkExistsAtPath
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			path
@@ -140,7 +140,7 @@
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)symbolicLinkExistsAtPath:(NSString *)path;
+- (BOOL)linkExistsAtPath:(NSString *)path;
 
 /*!
 	@method			isVisibleFileAtPath:
@@ -309,6 +309,7 @@ enum
 - (NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)error;
 - (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
 + (NSData *)aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
+- (NSURL *)URLByResolvingDataAliasRelativeToURL:(NSURL *)baseURL error:(NSError **)outErrorPtr;
 
 @end
 

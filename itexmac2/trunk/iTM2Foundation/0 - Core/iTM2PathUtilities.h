@@ -91,10 +91,28 @@ extern NSString * const iTM2PathDotComponent;
 	@method		isEqualToFileURL:base:
 	@abstract	Abstract forthcoming.
 	@discussion Discussion forthcoming.
-	@param		url
+	@param		otherURL
 	@result		No if on of the urls is not a file url, otherwise compares the paths using pathIsEqual:. 
 */
 - (BOOL)isEqualToFileURL:(NSURL *)otherURL;
+
+/*!
+	@method		isRelativeToURL:base:
+	@abstract	Abstract forthcoming.
+	@discussion Discussion forthcoming.
+	@param		baseURL
+	@result		No if on of the urls is not a file url, otherwise uses -belongsToDirectory:. 
+*/
+- (BOOL)isRelativeToURL:(NSURL *)baseURL;
+
+/*!
+	@method		pathRelativeToURL:
+	@abstract	Abstract forthcoming.
+	@discussion The result if any has no percent escapes.
+	@param		baseURL
+	@result		A relative path. 
+*/
+- (NSString *)pathRelativeToURL:(NSURL *)otherURL;
 
 @end
 

@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Oct 6 11 2003.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -747,6 +747,7 @@ To Do List:
 	iTM2KeyStroke * KS = [iTM2KeyStroke keyStrokeWithEvent:theEvent];
 	if(!KS)
 	{
+		// this was a dead key
 		return NO;
 	}
     [self setCurrentClient:C];
@@ -1197,71 +1198,71 @@ To Do List:
                     case '|':	base = @"Pipe";				break;
                     case '}':	base = @"RightCurlyBracket";	break;
                     case '~':	base = @"Tilde";			break;
-                    case 0x00a1: //¡
+                    case 0x00a1: //¬°
 									base = @"Noitamalcxe";	break;
-                    case 0x00a2: //¢
+                    case 0x00a2: //¬¢
 									base = @"Cent";			break;
-                    case 0x00a3: //£
+                    case 0x00a3: //¬£
                                     base = @"Pound";		break;
-                    case 0x00a4: //¤
+                    case 0x00a4: //¬§
                                     base = @"Currency";		break;
-                    case 0x00a5: //¥
+                    case 0x00a5: //¬•
                                     base = @"Yen";			break;
-                    case 0x00a6: //¦
+                    case 0x00a6: //¬¶
                                     base = @"BrokenPipe";	break;
-                    case 0x00a7: //§
+                    case 0x00a7: //¬ß
                                     base = @"Section";		break;
-                    case 0x00a8: //¨
+                    case 0x00a8: //¬®
                                     base = @"Diaeresis";	break;
-                    case 0x00a9: //©
+                    case 0x00a9: //¬©
                                     base = @"Copyright";	break;
-                    case 0x00aa: //ª
+                    case 0x00aa: //¬™
                                     base = @"Feminine";		break;
-                    case 0x00ab: //«
+                    case 0x00ab: //¬´
                                     base = @"LeftQuote";	break;
-                    case 0x00ac: //¬
+                    case 0x00ac: //¬¨
                                     base = @"Not";			break;
-                    case 0x00ad: //­
+                    case 0x00ad: //¬≠
                                     base = @"Hyphen";		break;
-                    case 0x00ae: //®
+                    case 0x00ae: //¬Æ
                                     base = @"Registered";	break;
-                    case 0x00af: //¯
+                    case 0x00af: //¬Ø
                                     base = @"Macron";		break;
-                    case 0x00b0: //°
+                    case 0x00b0: //¬∞
                                     base = @"Degree";		break;
-                    case 0x00b1: //±
+                    case 0x00b1: //¬±
                                     base = @"PlusMinus";	break;
-                    case 0x00b2: //²
+                    case 0x00b2: //¬≤
                                     base = @"SuperScript2";	break;
-                    case 0x00b3: //³
+                    case 0x00b3: //¬≥
                                     base = @"SuperScript3";	break;
-                    case 0x00b4: //´
+                    case 0x00b4: //¬¥
                                     base = @"Acute";		break;
-                    case 0x00b5: //µ
+                    case 0x00b5: //¬µ
                                     base = @"Micro";		break;
-                    case 0x00b6: //¶
+                    case 0x00b6: //¬∂
                                     base = @"Pilcrow";		break;
-                    case 0x00b7: //·
+                    case 0x00b7: //¬∑
                                     base = @"MiddleDot";	break;
-                    case 0x00b8: //¸
+                    case 0x00b8: //¬∏
                                     base = @"Cedilla";		break;
-                    case 0x00b9: //¹
+                    case 0x00b9: //¬π
                                     base = @"SuperScript1";	break;
-                    case 0x00ba: //º
+                    case 0x00ba: //¬∫
                                     base = @"Masculine";	break;
-                    case 0x00bb: //»
+                    case 0x00bb: //¬ª
                                     base = @"RightQuote";	break;
-                    case 0x00bc: //¼
+                    case 0x00bc: //¬º
                                     base = @"OneQuarter";	break;
-                    case 0x00bd: //½
+                    case 0x00bd: //¬Ω
                                     base = @"OneHalf";		break;
-                    case 0x00be: //¾
+                    case 0x00be: //¬æ
                                     base = @"ThreeQuarters";	break;
-                    case 0x00bf: //¿
+                    case 0x00bf: //¬ø
                                     base = @"Noitseuq";		break;
-                    case 0x00d7: //×
+                    case 0x00d7: //√ó
                                     base = @"Times";		break;
-                    case 0x00f7: //÷
+                    case 0x00f7: //√∑
                                     base = @"Division";		break;
                     case NSUpArrowFunctionKey:		base = @"UpArrow";	break;
                     case NSDownArrowFunctionKey:	base = @"DownArrow";	break;

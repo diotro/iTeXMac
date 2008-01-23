@@ -352,7 +352,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSDate * oldMD = [self lastFileModificationDate];
+    NSDate * oldMD = [self fileModificationDate];
     NSDate * newMD = [[DFM fileAttributesAtPath:[self fileName] traverseLink:YES] fileModificationDate];
 	BOOL result = [newMD compare:oldMD] == NSOrderedDescending;
 	if(result && (iTM2DebugEnabled>999))
@@ -362,7 +362,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= recordFileModificationDateFromURL:
-- (void)recordFileModificationDateFromURL:(NSURL *) fileURL;
+- (void)recordFileModificationDateFromURL:(NSURL *)absoluteURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -370,18 +370,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lastFileModificationDate
-- (NSDate *)lastFileModificationDate;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Jan 18 22:21:11 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [NSDate distantFuture];
+	if(![absoluteURL isFileURL])
+	{
+		return;
+	}
+	NSString * path = [absoluteURL path];
+	NSDictionary * attributes = [DFM fileAttributesAtPath:path traverseLink:YES];
+	NSDate * date = [attributes fileModificationDate];
+//iTM2_LOG(@"path is:%@ date:%@",path,date);
+	if(date)
+	{
+		[self setFileModificationDate:date];
+		if([self needsToUpdate])
+		{
+			iTM2_LOG(@"****  ERROR:THERE IS AN INCONSISTENCY... please report light bug");
+		}
+	}
+//iTM2_LOG(@"%@ should be %@ should be %@", [self fileModificationDate], [[DFM fileAttributesAtPath:fileName traverseLink:YES] fileModificationDate], [[self implementation] metaValueForKey:@"LastFileModificationDate"]);
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
 - (void)updateIfNeeded;
@@ -433,8 +439,8 @@ To Do List:
 //iTM2_START;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextDictionaryAtPath:
-+ (id)contextDictionaryAtPath:(NSString *) fullDocumentPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextDictionaryFromURL:
++ (id)contextDictionaryFromURL:(NSURL *) fileURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -442,7 +448,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSDictionary * attributes = [DFM extendedFileAttributesInSpace:[NSNumber numberWithUnsignedInt:'iTM2'] atPath:fullDocumentPath error:nil];
+	if(![fileURL isFileURL])
+	{
+		return nil;
+	}
+	NSDictionary * attributes = [DFM extendedFileAttributesInSpace:[NSNumber numberWithUnsignedInt:'iTM2'] atPath:[fileURL path] error:nil];
 //	if(!D)
 //		D = [DFM extendedFileAttributesAtPath:fullDocumentPath forNameSpace:@"org_tug_mac_iTM20" error:nil];
 	NSEnumerator * E = [attributes keyEnumerator];
@@ -644,7 +654,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWindowsBelowFront
 - (void)showWindowsBelowFront:(id)sender;
 /*"Description Forthcoming.
-Version History: Originally created by RK, huge corrections by JL.
+Version History: Originally created by JL.
 To do list:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -656,13 +666,36 @@ To do list:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentForExternalHelper
 - (NSDictionary *)environmentForExternalHelper;
 /*"Description Forthcoming.
-Version History: Originally created by RK, huge corrections by JL.
+Version History: Originally created by JL.
 To do list:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
     return nil;
+}
+#pragma mark =-=-=-=-=-  URLs
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absoluteFileURL
+- (NSURL *)absoluteFileURL;
+/*"Description Forthcoming.
+Version History: Originally created by JL.
+To do list:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[self fileURL] absoluteURL];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  originalFileURL
+- (NSURL *)originalFileURL;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [self absoluteFileURL];
 }
 @end
 
@@ -685,7 +718,7 @@ static NSMutableArray * _iTM2GetExtendedAttributesSelectors = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
-Version History: Originally created by RK, huge corrections by JL.
+Version History: Originally created by JL.
 To do list:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -717,10 +750,8 @@ To Do List:
 //iTM2_START;
     if(self = [super init])
     {
-		id UM = [[[iTM2UndoManager alloc] init] autorelease];
-        [self setUndoManager:UM];
-		int level = [SUD integerForKey:iTM2UDLevelsOfUndoKey];
-        [UM setLevelsOfUndo:level];
+        [self setUndoManager:[[[iTM2UndoManager alloc] init] autorelease]];
+        [[self undoManager] setLevelsOfUndo:[SUD integerForKey:iTM2UDLevelsOfUndoKey]];
         [INC addObserver:self
             selector:@selector(userDefaultsDidChange:)
                 name:iTM2UserDefaultsDidChangeNotification
@@ -972,9 +1003,32 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSWindowController * currentWC = [[[[self frontWindow] windowController] retain] autorelease];
+	NSWindow * W = [self frontWindow];
+	NSWindowController * currentWC = [W windowController];
+	currentWC = [[currentWC retain] autorelease];
+	if(currentWC)
+	{
+		if([[[currentWC class] inspectorMode] isEqual:mode]
+				&& [[currentWC inspectorVariant] isEqual:variant])
+		{
+			if(iTM2DebugEnabled)
+			{
+				iTM2_LOG(@"The inspector mode and variant are already in place:%@, %@", mode, variant);
+			}
+			return;
+		}
+		if([currentWC isWindowLoaded])
+		{
+			[[currentWC window] orderOut:self];
+		}
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"Removing the window controller:%@", currentWC);
+		}
+		[self removeWindowController:currentWC];
+	}
     Class C = Nil;
-	NSString * type = [[self class] inspectorType];
+	NSString * type = [isa inspectorType];
 	if([mode isEqual:iTM2ExternalInspectorMode])
 	{
 		if([iTM2ExternalInspectorServer objectForType:type key:variant])
@@ -1030,6 +1084,12 @@ To Do List:
 	else
 	{
 		iTM2_LOG(@"No inspector class found for mode %@, and variant %@", mode, variant);
+	}
+	// just in case, things did not work properly
+	if(![[self windowControllers] count] && currentWC)
+	{
+		[self addWindowController:currentWC];
+		[[currentWC window] orderFront:self];
 	}
 //iTM2_END;
     return;
@@ -1282,6 +1342,32 @@ here:
 		}
         iTM2_REPORTERROR(1,@"NO DEFAULT INSPECTOR: I don't know what to do!!!\nPerhaps a missing plug-in?",nil);
     }
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWindowControllers
+- (BOOL)synchronizeWindowControllers;
+/*"This prevents the inherited methods to automatically load the data.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeWithDocument)];
+//iTM2_END;
+    return [[self windowControllers] count]>0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithWindowControllers
+- (void)synchronizeWithWindowControllers;
+/*"This prevents the inherited methods to automatically load the data.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeDocument)];
 //iTM2_END;
     return;
 }
@@ -1560,7 +1646,7 @@ To Do List:
     NSDictionary * fileAttributes = [DFM fileAttributesAtPath:fileName traverseLink:YES];
     [IMPLEMENTATION takeMetaValue:fileAttributes forKey:iTM2DFileAttributesKey];
     [IMPLEMENTATION updateChildren];
-    [[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeWithDocument)];
+	[self synchronizeWindowControllers];
     [IMPLEMENTATION didRead];
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
@@ -1821,7 +1907,7 @@ To Do List:
 	}
 	if(!result)
 	{
-		iTM2_LOG(@"FAILURE \absoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %@",
+		iTM2_LOG(@"FAILURE\nabsoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %@",
 			absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
 	}
 //iTM2_END;
@@ -2100,7 +2186,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeDocument)];
+    [self synchronizeWithWindowControllers];
     [IMPLEMENTATION willSave];
     return;
 }
@@ -2343,45 +2429,6 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-   UPDATE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= recordFileModificationDateFromURL:
-- (void)recordFileModificationDateFromURL:(NSURL *)absoluteURL;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Jan 18 22:21:11 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(![absoluteURL isFileURL])
-	{
-		return;
-	}
-	NSString * path = [absoluteURL path];
-	NSDictionary * attributes = [DFM fileAttributesAtPath:path traverseLink:YES];
-	NSDate * date = [attributes fileModificationDate];
-//iTM2_LOG(@"path is:%@ date:%@",path,date);
-	if(date)
-	{
-		[[self implementation] takeMetaValue:date forKey:@"LastFileModificationDate"];
-		if([self needsToUpdate])
-		{
-			iTM2_LOG(@"****  ERROR:THERE IS AN INCONSISTENCY... please report light bug");
-		}
-	}
-//iTM2_LOG(@"%@ should be %@ should be %@", [self lastFileModificationDate], [[DFM fileAttributesAtPath:fileName traverseLink:YES] fileModificationDate], [[self implementation] metaValueForKey:@"LastFileModificationDate"]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lastFileModificationDate
-- (NSDate *)lastFileModificationDate;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Jan 18 22:21:11 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return metaGETTER?:[super lastFileModificationDate];
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
 - (void)updateIfNeeded;
 /*"Description Forthcoming.
@@ -3020,7 +3067,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWindowBelowFront:
 - (void)showWindowBelowFront:(id)sender;
 /*"Description Forthcoming.
-Version History: Originally created by RK, huge corrections by JL.
+Version History: Originally created by JL.
 To do list:
 "*/
 {iTM2_DIAGNOSTIC;

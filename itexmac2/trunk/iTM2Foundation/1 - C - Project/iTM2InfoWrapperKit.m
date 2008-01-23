@@ -26,13 +26,18 @@
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
 
+NSString * const TWSProjectKey = @"project";
 NSString * const TWSSourceKey = @"source";
-NSString * const TWSKeyedPropertiesKey = @"properties";
+NSString * const TWSFactoryKey = @"factory";
+NSString * const TWSToolsKey = @"tools";
+NSString * const TWSTargetsKey = @"targets";
 NSString * const TWSKeyedFilesKey = @"files";
+NSString * const TWSKeyedPropertiesKey = @"properties";
 
 NSString * const iTM2InfoWrapperType = @"iTM2 Property list wrapper";
 
-static NSString * const iTM2ProjectLastKeyKey = @"_LastKey";
+NSString * const iTM2ProjectLastKeyKey = @"_LastKey";
+NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 
 @interface NSObject(iTM2InfoWrapper)
 - (id)iTM2_deepMutableCopy;
@@ -104,17 +109,8 @@ static NSString * const iTM2ProjectLastKeyKey = @"_LastKey";
 
 #import <iTM2Foundation/ICURegEx.h>
 @implementation iTM2InfoWrapper
-static ICURegEx * _iTM2InfoWrapperSetRE = nil;
-static ICURegEx * _iTM2InfoWrapperGetRE = nil;
-+ (void) initialize;
-{
-	[super initialize];
-	if(!_iTM2InfoWrapperSetRE)
-	{
-		_iTM2InfoWrapperSetRE = [[ICURegEx alloc] initWithSearchPattern:@"infoForPaths(:+)" options:0 error:nil];
-		_iTM2InfoWrapperGetRE = [[ICURegEx alloc] initWithSearchPattern:@"takeInfo:forPaths(:+)" options:0 error:nil];
-	}
-}
+#define _iTM2InfoWrapperSetRE [ICURegEx regExWithSearchPattern:@"infoForPaths(:+)"]
+#define _iTM2InfoWrapperGetRE [ICURegEx regExWithSearchPattern:@"takeInfo:forPaths(:+)"]
 - (id)init;
 {
 	if(self = [super init])
@@ -303,18 +299,20 @@ static ICURegEx * _iTM2InfoWrapperGetRE = nil;
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
 	NSString * name = NSStringFromSelector(aSelector);
-	[_iTM2InfoWrapperSetRE setInputString:name];
-	if([_iTM2InfoWrapperSetRE nextMatch])
+	ICURegEx * RE = _iTM2InfoWrapperSetRE;
+	[RE setInputString:name];
+	if([RE nextMatch])
 	{
-		NSMutableString * new = [[[_iTM2InfoWrapperSetRE substringOfCaptureGroupAtIndex:1] mutableCopy] autorelease];
+		NSMutableString * new = [[[RE substringOfCaptureGroupAtIndex:1] mutableCopy] autorelease];
 		[new replaceOccurrencesOfString:@":" withString:@"@" options:0 range:NSMakeRange(0,[new length])];
 		[new insertString:@"i@:" atIndex:0];
 		return [NSMethodSignature signatureWithObjCTypes:[new UTF8String]];
 	}
-	[_iTM2InfoWrapperGetRE setInputString:name];
-	if([_iTM2InfoWrapperGetRE nextMatch])
+	RE = _iTM2InfoWrapperGetRE;
+	[RE setInputString:name];
+	if([RE nextMatch])
 	{
-		NSMutableString * new = [[[_iTM2InfoWrapperGetRE substringOfCaptureGroupAtIndex:1] mutableCopy] autorelease];
+		NSMutableString * new = [[[RE substringOfCaptureGroupAtIndex:1] mutableCopy] autorelease];
 		[new replaceOccurrencesOfString:@":" withString:@"@" options:0 range:NSMakeRange(0,[new length])];
 		[new insertString:@"@@:" atIndex:0];
 		return [NSMethodSignature signatureWithObjCTypes:[new UTF8String]];
@@ -355,62 +353,145 @@ static ICURegEx * _iTM2InfoWrapperGetRE = nil;
 }
 @end
 
-@interface iTM2ProjectDocument(PRIVATE)
-/*!
-	@method			mainInfos
-	@abstract		The main Info wrapper.
-	@discussion		Discussion forthcoming.
-	@param			None
-	@result			an iTM2InfoWrapper instance
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)mainInfos;
-
-/*!
-	@method			metaInfos
-	@abstract		The meta Info wrapper.
-	@discussion		Discussion forthcoming.
-	@param			None
-	@result			an iTM2InfoWrapper instance
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)metaInfos;
-
-/*!
-	@method			otherInfos
-	@abstract		The editable local Info wrapper.
-	@discussion		Discussion forthcoming.
-	@param			None
-	@result			an iTM2InfoWrapper instance
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)otherInfos;
-
-/*!
-	@method			customInfos
-	@abstract		The custom Info wrapper.
-	@discussion		Discussion forthcoming.
-	@param			None
-	@result			an iTM2InfoWrapper instance
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)customInfos;
-
-/*!
-	@method			mutableInfos
-	@abstract		The mutable local Info wrapper.
-	@discussion		Discussion forthcoming.
-	@param			None
-	@result			an iTM2InfoWrapper instance
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)mutableInfos;
-
+@implementation iTM2MainInfoWrapper
+- (id)initWithProjectURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+{
+	if(self = [super init])
+	{
+		NSURL * url = [SPC mainInfoURLFromURL:projectURL create:NO error:outErrorPtr];
+		if(url)
+		{
+			id model = [NSDictionary dictionaryWithContentsOfURL:url];
+			if(model)
+			{
+				[self setModel:model];
+			}
+			else if([url isFileURL] && [DFM fileExistsAtPath:[url path]])
+			{
+				iTM2_OUTERROR(1,([NSString stringWithFormat:@"! ERROR while reading the property list at %@", url]),nil);
+			}
+		}
+	}
+	return self;
+}
+- (NSString *)sourceName;
+{
+	return [self infoForKeyPaths:TWSSourceKey,nil]?:@".";
+}
+- (void)setSourceName:(NSString *)newName;
+{
+	[self takeInfo:newName forKeyPaths:TWSSourceKey,nil];
+	return;
+}
+- (NSString *)factoryName;
+{
+	return [self infoForKeyPaths:TWSFactoryKey,nil]?:@"Factory";// where things are built
+}
+- (void)setFactoryName:(NSString *)newName;
+{
+	[self takeInfo:newName forKeyPaths:TWSFactoryKey,nil];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyedNames
+- (id)keyedNames;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    id result = [self infoForKeyPaths:TWSKeyedFilesKey,nil];
+    if(!result)
+    {
+        [self takeInfo:[NSMutableDictionary dictionary] forKeyPaths:TWSKeyedFilesKey,nil];
+        result = [self infoForKeyPaths:TWSKeyedFilesKey,nil];
+    }
+    return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameForFileKey:
+- (NSString *)nameForFileKey:(NSString *)key;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([key isEqual:iTM2ProjectLastKeyKey])
+	{
+		return nil;
+	}
+	else if([key length])
+	{
+		return [[self keyedNames] valueForKey:key];
+	}
+//iTM2_END;
+    return nil;
+}
+- (void)takeName:(NSString *)newName forFileKey:(NSString *)key;
+{
+	[self takeInfo:newName forKeyPaths:TWSKeyedFilesKey,key,nil];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  propertiesForFileKey
+- (id)propertiesForFileKey:(NSString *)key;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    NSParameterAssert(key!=nil);
+    return [self infoForKeyPaths:TWSKeyedPropertiesKey,key,nil];
+}
+- (BOOL)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [self takeInfo:property forKeyPaths:TWSKeyedPropertiesKey,fileKey,key,nil];
+}
+- (BOOL)takeProperties:(id)properties forFileKey:(NSString *)key;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [self takeInfo:[[properties mutableCopy] autorelease] forKeyPaths:TWSKeyedPropertiesKey,key,nil];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nextAvailableKey
+- (NSString *)nextAvailableKey;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableDictionary * keyedNames = [self keyedNames];
+	NSMutableIndexSet * set = [NSMutableIndexSet indexSet];
+	NSEnumerator * E = [keyedNames keyEnumerator];
+	NSString * key;
+	while(key = [E nextObject])
+	{
+		[set addIndex:[key intValue]];
+	}
+	int last = 0;
+	if(key = [keyedNames objectForKey:iTM2ProjectLastKeyKey])
+	{
+		[set addIndex:[key intValue]];
+		last = [set lastIndex];
+	}
+	else if([set count])
+	{
+		last = [set lastIndex];
+	}
+	NSString * result = [NSString stringWithFormat:@"%i",last];
+	NSString * afterKey = [NSString stringWithFormat:@"%i",last + 1];
+	[keyedNames setObject:afterKey forKey:iTM2ProjectLastKeyKey];
+//iTM2_LOG(@"afterKey: %@",afterKey);
+//iTM2_LOG(@"result: %@",result);
+    return result;
+}
 @end
 
 @interface iTM2InfosController(PRIVATE)
@@ -458,8 +539,8 @@ static ICURegEx * _iTM2InfoWrapperGetRE = nil;
 			}
 			va_end(list);
 		}
-		[[self implementation] takeMetaValue:MRA forKey:@"Prefix"];
-		[[self implementation] takeMetaValue:[NSNumber numberWithBool:yorn] forKey:@"Atomic"];
+		[IMPLEMENTATION takeMetaValue:MRA forKey:iTM2KeyFromSelector(@selector(Prefix))];
+		[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:yorn] forKey:iTM2KeyFromSelector(@selector(isAtomic))];
 	}
 	return self;
 }
@@ -471,8 +552,7 @@ static ICURegEx * _iTM2InfoWrapperGetRE = nil;
 - (id)inheritedInfoForKeys:(NSArray *)keys;
 {
 	NSString * name = [SPC isBaseProject:[self project]]?[[self project] fileName]:[[self project] baseProjectName];
-	NSArray * RA = [SPC baseNamesOfAncestorsForBaseProjectName:name];
-	NSEnumerator * E = [RA objectEnumerator];
+	NSEnumerator * E = [[SPC baseNamesOfAncestorsForBaseProjectName:name] objectEnumerator];
 	[E nextObject];// skip the first object: this is (quite) name
 	while(name = [E nextObject])
 	{
@@ -593,7 +673,7 @@ static ICURegEx * _iTM2InfoWrapperGetRE = nil;
 {
 	if(![self isAtomic])
 	{
-		return YES;// nothing to save because eveything was edited in place
+		return YES;// nothing to save because everything was edited in place
 	}
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:[self prefix]];
 	[Ks addObjectsFromArray:keys];
@@ -605,7 +685,7 @@ static ICURegEx * _iTM2InfoWrapperGetRE = nil;
 {
 	if(![self isAtomic])
 	{
-		return YES;// nothing to restore because eveything was edited in place
+		return YES;// nothing to restore because everything was edited in place
 	}
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:[self prefix]];
 	[Ks addObjectsFromArray:keys];
@@ -618,7 +698,6 @@ static ICURegEx * _iTM2InfoWrapperGetRE = nil;
 
 NSString * const iTM2ProjectOtherType = @"other";
 NSString * const iTM2ProjectCustomType = @"custom";
-NSString * const iTM2ProjectCustomInfoComponent = @"CustomInfo";
 NSString * const iTM2ProjectMetaInfoComponent = @"MetaInfo";
 NSString * const iTM2ProjectInfoComponent = @"Info";
 
@@ -634,7 +713,7 @@ NSString * const iTM2ProjectInfoComponent = @"Info";
 	{
 		[info takeInfo:iTM2ProjectInfoType forKeyPaths:@"isa",nil];
 		NSURL * url;
-		if(url = [SPC projectInfoURLFromFileURL:absoluteURL create:YES error:outErrorPtr])
+		if(url = [SPC mainInfoURLFromURL:absoluteURL create:YES error:outErrorPtr])
 		{
 			[info updateChangeCount:NSChangeCleared];
 			if([[info model] writeToURL:url atomically:YES])
@@ -646,7 +725,7 @@ other:
 				if([info changeCount])
 				{
 					[info takeInfo:iTM2ProjectOtherType forKeyPaths:@"isa",nil];
-					if(url = [SPC projectFrontendInfoURLFromFileURL:absoluteURL create:YES error:outErrorPtr])
+					if(url = [SPC frontendInfoURLFromURL:absoluteURL create:YES error:outErrorPtr])
 					{
 						if([[info model] writeToURL:url atomically:YES])
 						{
@@ -657,7 +736,7 @@ meta:
 							if([info changeCount])
 							{
 								[info takeInfo:iTM2ProjectMetaInfoComponent forKeyPaths:@"isa",nil];
-								if(url = [SPC projectMetaInfoURLFromFileURL:absoluteURL create:YES error:outErrorPtr])
+								if(url = [SPC metaInfoURLFromURL:absoluteURL create:YES error:outErrorPtr])
 								{
 									if([[info model] writeToURL:url atomically:YES])
 									{
@@ -667,7 +746,7 @@ custom:
 										if([info changeCount])
 										{
 											[info takeInfo:iTM2ProjectCustomType forKeyPaths:@"isa",nil];
-											if(url = [SPC projectCustomInfoURLFromFileURL:absoluteURL create:YES error:outErrorPtr])
+											if(url = [SPC customInfoURLFromURL:absoluteURL create:YES error:outErrorPtr])
 											{
 												if([[info model] writeToURL:url atomically:YES])
 												{
@@ -704,16 +783,28 @@ custom:
 	[[self implementation] takeMetaValue:nil forKey:@"CustomInfos"];
 	return YES;
 }
-#pragma mark =-=-=-=-=-  MAIN
+#pragma mark =-=-=-=-=-  INFOS
 - (id)mainInfos;
+{
+	id result = metaGETTER;
+	if(!result)
+	{
+		NSError * outError = nil;
+		result = [[[iTM2MainInfoWrapper allocWithZone:[self zone]] initWithProjectURL:[self fileURL] error:&outError] autorelease];
+		metaSETTER(result);
+	}
+	return result;
+}
+- (id)otherInfos;
 {
 	id result = metaGETTER;
 	if(!result)
 	{
 		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
 		metaSETTER(result);
+		[IMPLEMENTATION takeMetaValue:nil forKey:@"MutableInfos"];// next time mutableInfos is called, it will make a mutable copy of otherInfos
 		NSError * outError;
-		NSURL * url = [SPC projectInfoURLFromFileURL:[self fileURL] create:NO error:&outError];
+		NSURL * url = [SPC frontendInfoURLFromURL:[self fileURL] create:NO error:&outError];
 		if(url)
 		{
 			id model = [NSDictionary dictionaryWithContentsOfURL:url];
@@ -733,129 +824,45 @@ custom:
 	}
 	return result;
 }
-- (NSString *)sourceDirectory;
+- (id)customInfos;
 {
-	return [[self mainInfos] infoForKeyPaths:TWSSourceKey,nil]?:@".";
+	id result = metaGETTER;
+	if(!result)
+	{
+		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
+		metaSETTER(result);
+		NSError * outError;
+		NSURL * url = [SPC customInfoURLFromURL:[self fileURL] create:NO error:&outError];
+		if(url)
+		{
+			id model = [NSDictionary dictionaryWithContentsOfURL:url];
+			if(model)
+			{
+				[result setModel:model];
+			}
+			else if([url isFileURL] && [DFM fileExistsAtPath:[url path]])
+			{
+				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"! ERROR while reading the property list at %@", url]),nil);
+			}
+		}
+		else if([self fileURL] && outError)
+		{
+			iTM2_REPORTERROR(1,@"! ERROR",outError);
+		}
+	}
+	return result;
 }
-- (void)setSourceDirectory:(NSString *)path;
+- (id)mutableInfos;
 {
-	[[self mainInfos] takeInfo:path forKeyPaths:TWSSourceKey,nil];
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyedFileNames
-- (id)keyedFileNames;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    id result = [[self mainInfos] infoForKeyPaths:TWSKeyedFilesKey,nil];
-    if(!result)
-    {
-        [[self mainInfos] takeInfo:[NSMutableDictionary dictionary] forKeyPaths:TWSKeyedFilesKey,nil];
-        result = [[self mainInfos] infoForKeyPaths:TWSKeyedFilesKey,nil];
-    }
-    return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameForFileKey:
-- (NSString *)nameForFileKey:(NSString *)key;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([key isEqual:iTM2ProjectLastKeyKey])
+	id result = metaGETTER;
+	if(!result)
 	{
-		return @"";
+		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
+		[result setModel:[[[[self otherInfos] model] iTM2_deepMutableCopy] autorelease]];
+		metaSETTER(result);
 	}
-	else if([key length])
-	{
-		return [[self keyedFileNames] valueForKey:key];
-	}
-//iTM2_END;
-    return @"";
+	return result;
 }
-- (void)takeName:(NSString *)path forFileKey:(NSString *)key;
-{
-	[[self mainInfos] takeInfo:path forKeyPaths:TWSKeyedFilesKey,key,nil];
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allFileKeys
-- (NSArray *)allFileKeys;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableArray * MRA = [[[[self keyedFileNames] allKeys] mutableCopy] autorelease];
-    [MRA removeObject:iTM2ProjectLastKeyKey];
-    return MRA;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  propertiesForFileKey
-- (id)propertiesForFileKey:(NSString *)key;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSParameterAssert(key!=nil);
-    return [[self mainInfos] infoForKeyPaths:TWSKeyedPropertiesKey,key,nil];
-}
-- (BOOL)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey;
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [[self mainInfos] takeInfo:property forKeyPaths:TWSKeyedPropertiesKey,fileKey,key,nil];
-}
-- (BOOL)takeProperties:(id)properties forFileKey:(NSString *)key;
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [[self mainInfos] takeInfo:[[properties mutableCopy] autorelease] forKeyPaths:TWSKeyedPropertiesKey,key,nil];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nextAvailableKey
-- (NSString *)nextAvailableKey;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableDictionary * keyedFileNames = [self keyedFileNames];
-	NSMutableIndexSet * set = [NSMutableIndexSet indexSet];
-	NSEnumerator * E = [keyedFileNames keyEnumerator];
-	NSString * key;
-	while(key = [E nextObject])
-	{
-		[set addIndex:[key intValue]];
-	}
-	int last = 0;
-	if(key = [keyedFileNames objectForKey:iTM2ProjectLastKeyKey])
-	{
-		[set addIndex:[key intValue]];
-		last = [set lastIndex];
-	}
-	else if([set count])
-	{
-		last = [set lastIndex];
-	}
-	NSString * result = [NSString stringWithFormat:@"%i",last];
-	NSString * afterKey = [NSString stringWithFormat:@"%i",last + 1];
-	[keyedFileNames setObject:afterKey forKey:iTM2ProjectLastKeyKey];
-//iTM2_LOG(@"afterKey: %@",afterKey);
-//iTM2_LOG(@"result: %@",result);
-    return result;
-}
-#pragma mark =-=-=-=-=-  META
 - (id)metaInfos;
 {
 	id result = metaGETTER;
@@ -864,7 +871,7 @@ To Do List:
 		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
 		metaSETTER(result);
 		NSError * outError;
-		NSURL * url = [SPC projectMetaInfoURLFromFileURL:[self fileURL] create:NO error:&outError];
+		NSURL * url = [SPC metaInfoURLFromURL:[self fileURL] create:NO error:&outError];
 		if(url)
 		{
 			id model = [NSDictionary dictionaryWithContentsOfURL:url];
@@ -884,6 +891,43 @@ To Do List:
 	}
 	return result;
 }
+- (id)infosController;
+{
+	id result = metaGETTER;
+	if(!result)
+	{
+		result = [[[iTM2InfosController allocWithZone:[self zone]] initWithProject:self atomic:NO prefixWithKeyPaths:nil] autorelease];
+		metaSETTER(result);
+	}
+	return result;
+}
+#pragma mark =-=-=-=-=-  URL
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileURL:
+- (void)setFileURL:(NSURL*)url;
+/*"Projects are no close documents!!!
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Mar 30 15:52:06 GMT 2005
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSURL * old = [self fileURL];
+	if(![old isEqual:url])
+	{
+		// CLEAN the cached data
+		[SPC flushCaches];
+		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2KeyFromSelector(@selector(factoryURL))];
+		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2KeyFromSelector(@selector(sourceURL))];
+		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2KeyFromSelector(@selector(writableURL))];
+	}
+    [super setFileURL:url];
+    return;
+}
+
+
+
+
+
 #pragma mark =-=-=-=-=-  CONTEXT
 static NSString * const iTM2ProjectContextKeyedFilesKey = @"FileContexts";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext:
@@ -1003,7 +1047,7 @@ To Do List:
 	}
 	if(mask&iTM2ContextExtendedProjectMask)
 	{
-		NSString * fileName = [self relativeFileNameForKey:fileKey];
+		NSString * fileName = [self nameForFileKey:fileKey];
 		NSString * extensionKey = [fileName pathExtension];
 		if([extensionKey length])
 		{
@@ -1012,7 +1056,7 @@ To Do List:
 				return result;
 			}
 		}
-		NSDocument * document = [self subdocumentForKey:fileKey];
+		NSDocument * document = [self subdocumentForFileKey:fileKey];
 		NSString * type = [document fileType];
 		if([type length])
 		{
@@ -1057,7 +1101,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(aKey != nil);
-	NSString * fileName = [self relativeFileNameForKey:fileKey];// not the file name!
+	NSString * fileName = [self nameForFileKey:fileKey];// not the file name!
 	if(![fileName length] && ![fileKey isEqual:iTM2ProjectDefaultsKey] && ![fileKey isEqual:@"."])
 	{
 		return NO;
@@ -1099,89 +1143,6 @@ To Do List:
 	}
     return didChange;
 }
-#pragma mark =-=-=-=-=-  OTHER
-- (id)otherInfos;
-{
-	id result = metaGETTER;
-	if(!result)
-	{
-		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
-		metaSETTER(result);
-		[IMPLEMENTATION takeMetaValue:nil forKey:@"MutableInfos"];// next time mutableInfos is called, it will make a mutable copy of otherInfos
-		NSError * outError;
-		NSURL * url = [SPC projectFrontendInfoURLFromFileURL:[self fileURL] create:NO error:&outError];
-		if(url)
-		{
-			id model = [NSDictionary dictionaryWithContentsOfURL:url];
-			if(model)
-			{
-				[result setModel:model];
-			}
-			else if([url isFileURL] && [DFM fileExistsAtPath:[url path]])
-			{
-				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"! ERROR while reading the property list at %@", url]),nil);
-			}
-		}
-		else if([self fileURL] && outError)
-		{
-			iTM2_REPORTERROR(1,@"! ERROR",outError);
-		}
-	}
-	return result;
-}
-#pragma mark =-=-=-=-=-  CUSTOM
-- (id)customInfos;
-{
-	id result = metaGETTER;
-	if(!result)
-	{
-		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
-		metaSETTER(result);
-		NSError * outError;
-		NSURL * url = [SPC projectCustomInfoURLFromFileURL:[self fileURL] create:NO error:&outError];
-		if(url)
-		{
-			id model = [NSDictionary dictionaryWithContentsOfURL:url];
-			if(model)
-			{
-				[result setModel:model];
-			}
-			else if([url isFileURL] && [DFM fileExistsAtPath:[url path]])
-			{
-				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"! ERROR while reading the property list at %@", url]),nil);
-			}
-		}
-		else if([self fileURL] && outError)
-		{
-			iTM2_REPORTERROR(1,@"! ERROR",outError);
-		}
-	}
-	return result;
-}
-#pragma mark =-=-=-=-=-  MUTABLE
-- (id)mutableInfos;
-{
-	id result = metaGETTER;
-	if(!result)
-	{
-		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
-		[result setModel:[[[[self otherInfos] model] iTM2_deepMutableCopy] autorelease]];
-		metaSETTER(result);
-	}
-	return result;
-}
-#pragma mark =-=-=-=-=-  INFOS CONTROLLER
-- (id)infosController;
-{
-	id result = metaGETTER;
-	if(!result)
-	{
-		result = [[[iTM2InfosController allocWithZone:[self zone]] initWithProject:self atomic:NO prefixWithKeyPaths:nil] autorelease];
-		metaSETTER(result);
-	}
-	return result;
-}
-
 @end
 
 @implementation iTM2Inspector(Infos)
@@ -1295,130 +1256,5 @@ To Do List:
 {
 	iTM2_VA_LIST_OF_PATHS_TO_ARRAY(first,keys);
 	return [[self infosController] revertChangesForKeys:keys];
-}
-@end
-
-#import <iTM2Foundation/iTM2FileManagerKit.h>
-
-@implementation iTM2ProjectController(Infos)
-
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectInfoURLFromFileURL:create:error:
-- (NSURL *)projectInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([fileURL isFileURL])
-	{
-		NSString * path = [fileURL path];
-		if([DFM createDeepDirectoryAtPath:path attributes:nil error:outErrorPtr])
-		{
-			NSString * component = [iTM2ProjectInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-			path = [path stringByAppendingPathComponent:component];
-			fileURL = [NSURL fileURLWithPath:path];
-			return fileURL;
-		}
-	}
-	else
-	{
-		iTM2_OUTERROR(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-//iTM2_END;
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectFrontendInfoURLFromFileURL:create:error:
-- (NSURL *)projectFrontendInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([fileURL isFileURL])
-	{
-		NSString * fileName = [fileURL path];
-		NSString * path = [[NSBundle mainBundle] bundleIdentifier];
-		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
-		path = [fileName stringByAppendingPathComponent:path];
-		if([DFM createDeepDirectoryAtPath:path attributes:nil error:outErrorPtr])
-		{
-			NSString * component = [iTM2ProjectInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-			path = [path stringByAppendingPathComponent:component];
-			fileURL = [NSURL fileURLWithPath:path];
-			return fileURL;
-		}
-	}
-	else
-	{
-		iTM2_OUTERROR(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-//iTM2_END;
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectMetaInfoURLFromFileURL:create:error:
-- (NSURL *)projectMetaInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([fileURL isFileURL])
-	{
-		NSString * fileName = [fileURL path];
-		NSString * path = [[NSBundle mainBundle] bundleIdentifier];
-		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
-		path = [fileName stringByAppendingPathComponent:path];
-		if([DFM createDeepDirectoryAtPath:path attributes:nil error:outErrorPtr])
-		{
-			NSString * component = [iTM2ProjectMetaInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-			path = [path stringByAppendingPathComponent:component];
-			fileURL = [NSURL fileURLWithPath:path];
-			return fileURL;
-		}
-	}
-	else
-	{
-		iTM2_OUTERROR(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-
-//iTM2_END;
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCustomInfoURLFromFileURL:create:error:
-- (NSURL *)projectCustomInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([fileURL isFileURL])
-	{
-		NSString * fileName = [fileURL path];
-		NSString * path = [[NSBundle mainBundle] bundleIdentifier];
-		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
-		path = [fileName stringByAppendingPathComponent:path];
-		if([DFM createDeepDirectoryAtPath:path attributes:nil error:outErrorPtr])
-		{
-			NSString * component = [iTM2ProjectCustomInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-			path = [path stringByAppendingPathComponent:component];
-			fileURL = [NSURL fileURLWithPath:path];
-			return fileURL;
-		}
-	}
-	else
-	{
-		iTM2_OUTERROR(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-
-//iTM2_END;
-    return nil;
 }
 @end

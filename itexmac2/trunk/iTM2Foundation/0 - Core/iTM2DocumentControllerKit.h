@@ -102,12 +102,12 @@ extern NSString * const iTM2AutosavingDelayKey;
     @discussion	Discussion forthcoming.
     @param		line: 1 based line index.
     @param		column: 1 based column index.
-    @param		source: the full path of the source.
+    @param		sourceURL: the URL of the source.
     @param		hint: dictionary containing hints.
     @param		yorn...
     @result		yorn.
 */
-- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 
 /*!
     @method		forgetRecentDocumentURL:
@@ -141,12 +141,12 @@ extern NSString * const iTM2AutosavingDelayKey;
     @discussion	Discussion forthcoming.
     @param		line: 1 based line index.
     @param		column: 1 based column index.
-    @param		source: the full path of the source.
+    @param		sourceURL: the URL of the source.
     @param		hint: dictionary containing hints.
     @param		yorn...
     @result		A document.
 */
-- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 @end
 
 @interface NSDocument(iTM2DocumentController)

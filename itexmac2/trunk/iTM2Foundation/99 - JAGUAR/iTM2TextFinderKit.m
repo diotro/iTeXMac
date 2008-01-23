@@ -702,12 +702,12 @@ To Do List: rewrite this to replace all in range...
                 rangeInOriginalString.location = NSMaxRange(foundRange);
                 _NumberOfOps++;
 	  	if (_NumberOfOps % 100 == 0) {	// Refresh the pool... See warning above!
-		    [pool release];
+		    [pool drain];
 		    pool = [[NSAutoreleasePool alloc] init];
 		}
             }
 
-	    [pool release];
+	    [pool drain];
 
             [temp endEditing];
 
@@ -807,7 +807,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[notification object] makeFirstResponder:findTextField];
+	if([findTextField acceptsFirstResponder])
+	{
+		[[notification object] makeFirstResponder:findTextField];
+	}
 //iTM2_END;
     return;
 }

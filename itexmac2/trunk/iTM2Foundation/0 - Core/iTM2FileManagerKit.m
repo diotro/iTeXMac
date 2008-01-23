@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun June 01 2003.
-//  Copyright © 2003-2004 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003-2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -24,7 +24,7 @@
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <sys/stat.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
-#import <iTM2Foundation/MoreFilesX.h>
+//#import <iTM2Foundation/MoreFilesX.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
@@ -357,7 +357,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  popDirectory
-- (BOOL)fileOrSymbolicLinkExistsAtPath:(NSString *)path;
+- (BOOL)fileOrLinkExistsAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -366,10 +366,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self fileExistsAtPath:path] || [self symbolicLinkExistsAtPath:path];
+	return [self fileExistsAtPath:path] || [self linkExistsAtPath:path];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  symbolicLinkExistsAtPath:
-- (BOOL)symbolicLinkExistsAtPath:(NSString *)path;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  linkExistsAtPath:
+- (BOOL)linkExistsAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -1644,6 +1644,122 @@ else NSLog(@"No spec");
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSFileManager(iTeXMac2)
 
+#include <Carbon/Carbon.h>
+
+union FinderInfo
+{
+  FileInfo				file;
+  FolderInfo			folder;
+};
+typedef union FinderInfo FinderInfo;
+union ExtendedFinderInfo
+{
+  ExtendedFileInfo		file;
+  ExtendedFolderInfo	folder;
+};
+typedef union ExtendedFinderInfo ExtendedFinderInfo;
+OSErr
+FSGetFinderInfo(
+	const FSRef *ref,
+	FinderInfo *info,					/* can be NULL */
+	ExtendedFinderInfo *extendedInfo,	/* can be NULL */
+	Boolean *isDirectory);				/* can be NULL */
+OSErr
+FSSetFinderInfo(
+	const FSRef *ref,
+	const FinderInfo *info,						/* can be NULL */
+	const ExtendedFinderInfo *extendedInfo);	/* can be NULL */
+
+OSErr
+FSGetFinderInfo(
+	const FSRef *ref,
+	FinderInfo *info,					/* can be NULL */
+	ExtendedFinderInfo *extendedInfo,	/* can be NULL */
+	Boolean *isDirectory)				/* can be NULL */
+{
+	OSErr				result;
+	FSCatalogInfo		catalogInfo;
+	FSCatalogInfoBitmap whichInfo;
+	
+	/* determine what catalog information is really needed */
+	whichInfo = kFSCatInfoNone;
+	
+	if ( NULL != info )
+	{
+		/* get FinderInfo */
+		whichInfo |= kFSCatInfoFinderInfo;
+	}
+	
+	if ( NULL != extendedInfo )
+	{
+		/* get ExtendedFinderInfo */
+		whichInfo |= kFSCatInfoFinderXInfo;
+	}
+	
+	if ( NULL != isDirectory )
+	{
+		whichInfo |= kFSCatInfoNodeFlags;
+	}
+	
+	result = FSGetCatalogInfo(ref, whichInfo, &catalogInfo, NULL, NULL, NULL);
+	require_noerr(result, FSGetCatalogInfo);
+	
+	/* return FinderInfo if requested */
+	if ( NULL != info )
+	{
+		BlockMoveData(catalogInfo.finderInfo, info, sizeof(FinderInfo));
+	}
+	
+	/* return ExtendedFinderInfo if requested */
+	if ( NULL != extendedInfo)
+	{
+		BlockMoveData(catalogInfo.extFinderInfo, extendedInfo, sizeof(ExtendedFinderInfo));
+	}
+	
+	/* set isDirectory Boolean if requested */
+	if ( NULL != isDirectory)
+	{
+		*isDirectory = (0 != (kFSNodeIsDirectoryMask & catalogInfo.nodeFlags));
+	}
+	
+FSGetCatalogInfo:
+
+	return ( result );
+}
+
+OSErr
+FSSetFinderInfo(
+	const FSRef *ref,
+	const FinderInfo *info,
+	const ExtendedFinderInfo *extendedInfo)
+{
+	OSErr				result;
+	FSCatalogInfo		catalogInfo;
+	FSCatalogInfoBitmap whichInfo;
+	
+	/* determine what catalog information will be set */
+	whichInfo = kFSCatInfoNone; /* start with none */
+	if ( NULL != info )
+	{
+		/* set FinderInfo */
+		whichInfo |= kFSCatInfoFinderInfo;
+		BlockMoveData(info, catalogInfo.finderInfo, sizeof(FinderInfo));
+	}
+	if ( NULL != extendedInfo )
+	{
+		/* set ExtendedFinderInfo */
+		whichInfo |= kFSCatInfoFinderXInfo;
+		BlockMoveData(extendedInfo, catalogInfo.extFinderInfo, sizeof(ExtendedFinderInfo));
+	}
+	
+	result = FSSetCatalogInfo(ref, whichInfo, &catalogInfo);
+	require_noerr(result, FSGetCatalogInfo);
+	
+FSGetCatalogInfo:
+
+	return ( result );
+}
+
 @implementation NSData(iTM2Alias)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeAsFinderAliasToURL:options:error:
 - (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)outErrorPtr;
@@ -1923,6 +2039,18 @@ jail:
 		*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:theErr userInfo:nil];
 //iTM2_END;
 	return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  URLByResolvingDataAliasRelativeToURL:error:
+- (NSURL *)URLByResolvingDataAliasRelativeToURL:(NSURL *)baseURL error:(NSError **)outErrorPtr;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [NSURL fileURLWithPath:[self pathByResolvingDataAliasRelativeTo:[baseURL path] error:outErrorPtr]];
 }
 @end
 

@@ -22,10 +22,21 @@
 */
 
 #import <iTM2Foundation/iTM2ProjectDocumentKit.h>
+#import <iTM2Foundation/iTM2ProjectControllerKit.h>
 
+extern NSString * const TWSProjectKey;
 extern NSString * const TWSSourceKey;
-extern NSString * const TWSKeyedPropertiesKey;
+extern NSString * const TWSFactoryKey;
+extern NSString * const TWSToolsKey;
+extern NSString * const TWSTargetsKey;
 extern NSString * const TWSKeyedFilesKey;
+extern NSString * const TWSKeyedPropertiesKey;
+
+extern NSString * const iTM2ProjectLastKeyKey;
+extern NSString * const iTM2ProjectFrontDocumentKey;
+
+extern NSString * const iTM2ProjectInfoComponent;
+extern NSString * const iTM2ProjectMetaInfoComponent;
 
 // This macro turns a non void variable argument list of objects in an array.
 // FIRST is the argument name that appears in the function header before the ",..."
@@ -48,6 +59,14 @@ extern NSString * const TWSKeyedFilesKey;
 @interface NSMethodSignature(iTeXMac2)
 +(id)signatureWithObjCTypes:(const char *)types;// undocumented method
 @end
+
+/*!
+	@class			iTM2InfoWrapper
+	@abstract		This is a wrapper over a property list with convenient accessors.
+	@discussion		Discussion forthcoming.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
 
 @interface iTM2InfoWrapper: iTM2Object
 
@@ -88,7 +107,8 @@ extern NSString * const TWSKeyedFilesKey;
 /*!
 	@method			infoForKeys:
 	@abstract		The designated local model accessor unless a more specific one exists.
-	@discussion		Discussion forthcoming.
+	@discussion		Convenient accessor: usage <code>[self infoForKeyPaths:@"first",@"second",nil]</code>.
+					It converts the list of keys into an array, then returns <code>[self infoForKeys:arrayOfKeys]</code>
 	@param			a list of key paths
 	@result			an object from a property list.
 	@availability	iTM2.
@@ -144,189 +164,44 @@ extern NSString * const TWSKeyedFilesKey;
 
 @end
 
-@interface iTM2InfosController: iTM2Object
-
-/*!
-	@method			initWithProject:atomic:prefixWithKeyPaths:
-	@abstract		Designated initializer.
-	@discussion		The model is retrieved from the repository, with the given repository key paths.
-	@param			project is the owner of the receiver 
-	@param			yorn: YES to edit in the mutableInfo part and allow some global undo management, NO to edit directly in the info part.
-	@param			prefix is prepended to any key
-	@result			an iTM2InfoController instance.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)initWithProject:(id)project atomic:(BOOL)yorn prefixWithKeyPaths:(NSString *)prefix,...;
-
-/*!
-	@method			inheritedInfoForKeys:
-	@abstract		Inherited info for the given keys.
-	@discussion		Inherited infos are retrieved from the infos controller of the base project of the owning project.
-	@param			an array of keys.
-	@result			an object from a property list.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)inheritedInfoForKeys:(NSArray *)keys;
-
-/*!
-	@method			infoForKeys:
-	@abstract		The designated local model accessor unless a more specific one exists.
-	@discussion		If the info is not retrieved from the owning project, the inherited info will be returned.
-					If the receiver was created with a YES atomic flag, the info is first taken from the mutableInfos dictionary of the owner.
-					Otherwise it is taken from the otherInfos dictionary of the owner.
-	@param			an array of keys.
-	@result			an object from a property list.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)infoForKeys:(NSArray *)keys;
-
-/*!
-	@method			takeInfo:forKeys:
-	@abstract		The designated "immutable" model editor.
-	@discussion		If the receiver was created with a YES atomic flag, the mutableInfos dictionary of the owner will take the new info for the given keys.
-					Otherwise it is the otherInfos dictionary of the owner which will take the modification.
-	@param			a value
-	@param			an array of keys.
-	@result			YES if the replacement is different from the replaced object.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (BOOL)takeInfo:(id)info forKeys:(NSArray *)keys;
-
-- (BOOL)isInfoEditedForKeys:(NSArray *)keys;
-
-/*!
-	@method			localInfoForKeys:
-	@abstract		The designated "mutable" model editor.
-	@discussion		It returns the contents of the mutableInfos dictionary of the owning project,
-					if the receiver was created with a YES atomic flag.
-					It returns the contents of the otherInfos dictionary of the receiver otherwise.
-	@param			an array of keys.
-	@result			an object from a property list.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)infoForKeys:(NSArray *)keys;
-
-/*!
-	@method			localInfoForKeys:
-	@abstract		The designated "immutable" model getter.
-	@discussion		It always returns the contents of the otherInfos dictionary of the owning project,
-					whatever atomic flag was used to create the receiver.
-	@param			an array of keys.
-	@result			an object from a property list.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)localInfoForKeys:(NSArray *)keys;
-
-/*!
-	@method			customInfoForKeys:
-	@abstract		The designated "custom" model getter.
-	@discussion		Retrieves the information from the customInfos of the owning project, for the given keys.
-	@param			an array of keys.
-	@result			an object from a property list.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (id)customInfoForKeys:(NSArray *)keys;
-
-/*!
-	@method			saveChangesForKeys:
-	@abstract		Save the changes.
-	@discussion		Does nothing if the receiver is not "atomic",
-					otherwise all the edited values migrate from the mutableInfos to the otherInfos of the receiver's owning project.
-	@param			an array of keys.
-	@result			YES if the replacement is different from the replaced object.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (BOOL)saveChangesForKeys:(NSArray *)keys;
-
-/*!
-	@method			revertChangesForKeys:
-	@abstract		Cancel the changes.
-	@discussion		Does nothing if the receiver is not "atomic",
-					otherwise all the unedited values migrate from the otherInfos to the mutableInfos of the receiver's owning project.
-	@param			an array of keys.
-	@result			YES if the replacement is different from the replaced object.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (BOOL)revertChangesForKeys:(NSArray *)keys;
-
-/*!
-	@method			backupCustomForKeys:
-	@abstract		Make a copy of the edited values as custom.
-	@discussion		All the edited values migrate to the customInfos of the receiver's owning project.
-	@param			an array of keys.
-	@result			YES if the replacement is different from the replaced object.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (void)backupCustomForKeys:(NSArray *)keys;
-
-/*!
-	@method			restoreCustomForKeys:
-	@abstract		Make a copy of the custom values for the given keys, for editing.
-	@discussion		All the values migrate from the customInfos of the receiver's owning project to its edited model,
-					id est the otheInfos when non atomic and the mutableInfos otherwise.
-	@param			an array of keys.
-	@result			YES if the replacement is different from the replaced object.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (BOOL)restoreCustomForKeys:(NSArray *)keys;
-
-@end
-
-/*!
-	@class			iTM2ProjectInfos
-	@abstract		Each project has one infos manager from which it retrieves all the relevant information.
-	@discussion		Discussion forthcoming.
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-@interface iTM2ProjectDocument(Infos)
+@interface iTM2MainInfoWrapper:iTM2InfoWrapper
 
 /*! 
-    @method			sourceDirectory
-    @abstract		The source directory where the files are stored.
+    @method			initWithProjectURL:error:
+    @abstract		Designated initializer.
+    @discussion		Discussion forthcoming.
+    @param			projectURL
+   @param			outErrorPtr
+    @result			an info wrapper
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)initWithProjectURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+
+/*! 
+    @method			sourceName
+    @abstract		The name of the source directory where the files are stored.
     @discussion		The path will be used by a project, relative to its enclosing folder.
     @param			None
     @result			a relative path
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *)sourceDirectory;
+- (NSString *)sourceName;
 
 /*! 
-    @method			setSourceDirectory:
-    @abstract		Set the she source directory where the files are stored.
+    @method			setSourceName:
+    @abstract		Set the the name of the source directory where the files are stored.
     @discussion		The path will be used by a project, relative to its enclosing folder.
     @param			a relative path
     @result			None
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void)setSourceDirectory:(NSString *)path;
+- (void)setSourceName:(NSString *)path;
 
 /*! 
-    @method			allFileKeys
-    @abstract		All the keys actually in use.
-    @discussion		Description forthcoming.
-    @param			None
-    @result			an NSArray
-	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSArray *)allFileKeys;
-
-/*! 
-    @method			keyedFileNames
+    @method			keyedNames
     @abstract		The files dictionary.
     @discussion		Discussion forthcoming.
 					This is preferrably for private use.
@@ -337,12 +212,12 @@ extern NSString * const TWSKeyedFilesKey;
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)keyedFileNames;
+- (id)keyedNames;
 
 /*! 
     @method			nameForFileKey:
     @abstract		The file name for the given key.
-    @discussion		@"" is returned if the key is not covered by the allKeys list.
+    @discussion		nil is returned if the key is not covered by the allKeys list.
 					This file name can be either absolute or relative.
     @param			a key
     @result			an NSString
@@ -419,6 +294,17 @@ extern NSString * const TWSKeyedFilesKey;
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (NSString *)nextAvailableKey;
+
+@end
+
+/*!
+	@class			iTM2ProjectInfos
+	@abstract		Each project has one infos manager from which it retrieves all the relevant information.
+	@discussion		Discussion forthcoming.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+@interface iTM2ProjectDocument(Infos)
 
 /*! 
     @method			mainInfos
@@ -520,52 +406,206 @@ extern NSString * const TWSKeyedFilesKey;
 */
 - (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
 
+/*!
+	@method			mainInfos
+	@abstract		The main Info wrapper, containing the file keys and properties.
+	@discussion		The main infos contains something the project won't inherit from ancestors.
+	@param			None
+	@result			an iTM2MainInfoWrapper instance
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)mainInfos;
+
+/*!
+	@method			otherInfos
+	@abstract		The editable local Info wrapper.
+	@discussion		The other infos actually contains project commands and is specific to the frontend but it will change.
+	@param			None
+	@result			an iTM2InfoWrapper instance
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)otherInfos;
+
+/*!
+	@method			metaInfos
+	@abstract		The meta Info wrapper, containing the meta data used by iTM2, for example the location of the windows...
+	@discussion		The meta infos can be inherited. It is private to the frontend.
+	@param			None
+	@result			an iTM2InfoWrapper instance
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)metaInfos;
+
+/*!
+	@method			customInfos
+	@abstract		The custom Info wrapper.
+	@discussion		Discussion forthcoming.
+	@param			None
+	@result			an iTM2InfoWrapper instance
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)customInfos;
+
+/*!
+	@method			mutableInfos
+	@abstract		The mutable local Info wrapper.
+	@discussion		This is where all edited values of otherInfos are recorded. You must save your changes.
+	@param			None
+	@result			an iTM2InfoWrapper instance
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)mutableInfos;
+
 @end
 
-@interface iTM2ProjectController(Infos)
-/*! 
-    @method     projectInfoURLFromFileURL:create:error:
-    @abstract   The URL of the project info dictionary at  the given URL.
-    @discussion This iis just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
-    @param      url is the project url
-    @param      if yorn, the return value (if any) can safely be used to write
-    @param      outErrorPtr will point to an NSError if there was a problem
-    @result     nil if the given url is not a file url.
+/*!
+	@class			iTM2InfosController
+	@abstract		This is a controller of the iTM2InfosWrapper.
+	@discussion		Discussion forthcoming.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)projectInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
-/*! 
-    @method     projectFrontendInfoURLFromFileURL:create:error:
-    @abstract   The URL of the project frontend info dictionary strating at the given URL.
-    @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
-    @param      url is the project url
-    @param      if yorn, the return value (if any) can safely be used to write
-    @param      outErrorPtr will point to an NSError if there was a problem
-    @result     nil if the given url is not a file url.
-*/
-- (NSURL *)projectFrontendInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+@interface iTM2InfosController: iTM2Object
 
-/*! 
-    @method     projectMetaInfoURLFromFileURL:create:error:
-    @abstract   The URL of the project meta info dictionary strating at the given URL.
-    @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
-    @param      url is the project url
-    @param      if yorn, the return value (if any) can safely be used to write
-    @param      outErrorPtr will point to an NSError if there was a problem
-    @result     nil if the given url is not a file url.
+/*!
+	@method			initWithProject:atomic:prefixWithKeyPaths:
+	@abstract		Designated initializer.
+	@discussion		The model is retrieved from the repository, with the given repository key paths.
+	@param			project is the owner of the receiver 
+	@param			yorn: YES to edit in the mutableInfo part and allow some global undo management, NO to edit directly in the info part.
+	@param			prefix is prepended to any key
+	@result			an iTM2InfoController instance.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)projectMetaInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (id)initWithProject:(id)project atomic:(BOOL)yorn prefixWithKeyPaths:(NSString *)prefix,...;
 
-/*! 
-    @method     projectCustomInfoURLFromFileURL:create:error:
-    @abstract   The URL of the project meta info dictionary strating at the given URL.
-    @discussion This is just an algebraic construction. It is not guaranteed that this URL effectively points to a valid location.
-    @param      url is the project url
-    @param      if yorn, the return value (if any) can safely be used to write
-    @param      outErrorPtr will point to an NSError if there was a problem
-    @result     nil if the given url is not a file url.
+/*!
+	@method			inheritedInfoForKeys:
+	@abstract		Inherited info for the given keys.
+	@discussion		Inherited infos are retrieved from the infos controller of the base project of the owning project.
+	@param			an array of keys.
+	@result			an object from a property list.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)projectCustomInfoURLFromFileURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (id)inheritedInfoForKeys:(NSArray *)keys;
+
+/*!
+	@method			infoForKeys:
+	@abstract		The designated local model accessor unless a more specific one exists.
+	@discussion		If the info is not retrieved from the owning project, the inherited info will be returned.
+					If the receiver was created with a YES atomic flag, the info is first taken from the mutableInfos dictionary of the owner.
+					Otherwise it is taken from the otherInfos dictionary of the owner.
+	@param			an array of keys.
+	@result			an object from a property list.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)infoForKeys:(NSArray *)keys;
+
+/*!
+	@method			takeInfo:forKeys:
+	@abstract		The designated "immutable" model editor.
+	@discussion		If the receiver was created with a YES atomic flag, the mutableInfos dictionary of the owner will take the new info for the given keys.
+					Otherwise it is the otherInfos dictionary of the owner which will take the modification.
+	@param			a value
+	@param			an array of keys.
+	@result			YES if the replacement is different from the replaced object.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)takeInfo:(id)info forKeys:(NSArray *)keys;
+
+/*!
+	@method			isInfoEditedForKeys:
+	@abstract		Is info edited for the given key?
+	@discussion		If the receiver is not atomic, edition took place in the mutable info part, and the old value is available.
+					The 
+	@param			an array of keys.
+	@result			YES if the receiver is Atomic and the last replacement was different from the replaced object.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)isInfoEditedForKeys:(NSArray *)keys;
+
+/*!
+	@method			localInfoForKeys:
+	@abstract		The designated "mutable" model editor.
+	@discussion		It returns the contents of the mutableInfos dictionary of the owning project,
+					if the receiver was created with a YES atomic flag.
+					It returns the contents of the otherInfos dictionary of the receiver otherwise.
+	@param			an array of keys.
+	@result			an object from a property list.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)localInfoForKeys:(NSArray *)keys;
+
+/*!
+	@method			saveChangesForKeys:
+	@abstract		Save the changes.
+	@discussion		Does nothing if the receiver is not "atomic",
+					otherwise all the edited values migrate from the mutableInfos to the otherInfos of the receiver's owning project.
+	@param			an array of keys.
+	@result			YES if the replacement is different from the replaced object.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)saveChangesForKeys:(NSArray *)keys;
+
+/*!
+	@method			revertChangesForKeys:
+	@abstract		Cancel the changes.
+	@discussion		Does nothing if the receiver is not "atomic",
+					otherwise all the unedited values migrate from the otherInfos to the mutableInfos of the receiver's owning project.
+	@param			an array of keys.
+	@result			YES if the replacement is different from the replaced object.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)revertChangesForKeys:(NSArray *)keys;
+
+/*!
+	@method			customInfoForKeys:
+	@abstract		The designated "custom" model getter.
+	@discussion		Retrieves the information from the customInfos of the owning project, for the given keys.
+					The customInfos is the repository of changes not yet edited.
+	@param			an array of keys.
+	@result			an object from a property list.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)customInfoForKeys:(NSArray *)keys;
+
+/*!
+	@method			backupCustomForKeys:
+	@abstract		Make a copy of the edited values as custom.
+	@discussion		All the edited values migrate to the customInfos of the receiver's owning project.
+	@param			an array of keys.
+	@result			YES if the replacement is different from the replaced object.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (void)backupCustomForKeys:(NSArray *)keys;
+
+/*!
+	@method			restoreCustomForKeys:
+	@abstract		Make a copy of the custom values for the given keys, for editing.
+	@discussion		All the values migrate from the customInfos of the receiver's owning project to its edited model,
+					id est the otheInfos when non atomic and the mutableInfos otherwise.
+	@param			an array of keys.
+	@result			YES if the replacement is different from the replaced object.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (BOOL)restoreCustomForKeys:(NSArray *)keys;
 
 @end
 
@@ -574,7 +614,34 @@ extern NSString * const TWSKeyedFilesKey;
 - (id)infosController;
 @end
 
+/*!
+	@category		NSObject(Infos)
+	@abstract		This is a convenient API for the iTM2InfosController.
+	@discussion		Use this API, the infos controller should be considered private.
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
 @interface NSObject(Infos)
+
+/*! 
+    @method     infosController
+    @abstract   Abstract forthcoming.
+    @discussion Discussion forthcoming.
+    @param      None
+    @result     an infos controller
+*/
+- (id)infosController;
+
+/*! 
+    @method     setInfosController:
+    @abstract   Abstract forthcoming.
+    @discussion Discussion forthcoming.
+    @param      An infos controller
+    @result     None
+*/
+- (void)setInfosController:(id)infosController;
+
+
 /*! 
     @method			metaInfos
     @abstract		The meta infos.
@@ -587,15 +654,18 @@ extern NSString * const TWSKeyedFilesKey;
 - (id)metaInfos;
 - (id)metaInfoForKeyPaths:(NSString *)first,...;
 - (BOOL)takeMetaInfo:(id)info forKeyPaths:(NSString *)first,...;
-- (void)setInfosController:(id)controller;
+
 - (id)inheritedInfoForKeyPaths:(NSString *)first,...;
 - (id)infoForKeyPaths:(NSString *)first,...;
 - (BOOL)takeInfo:(id)info forKeyPaths:(NSString *)first,...;
 - (BOOL)isInfoEditedForKeyPaths:(NSString *)first,...;
+
 - (id)localInfoForKeyPaths:(NSString *)first,...;
-- (id)customInfoForKeyPaths:(NSString *)first,...;
 - (id)editInfoForKeyPaths:(NSString *)first,...;
+
 - (void)toggleInfoForKeyPaths:(NSString *)first,...;
+
+- (id)customInfoForKeyPaths:(NSString *)first,...;
 - (void)backupCustomForKeyPaths:(NSString *)first,...;
 - (BOOL)restoreCustomForKeyPaths:(NSString *)first,...;
 

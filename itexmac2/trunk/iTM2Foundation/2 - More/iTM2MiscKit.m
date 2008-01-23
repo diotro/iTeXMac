@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon May 17 13:54:52 GMT 2004.
-//  Copyright © 2005 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2005 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -213,6 +213,14 @@ To Do List:
 }
 @end
 
+@interface NSObject(iTM2FontManager)
+-(void)iTM2_italic:sender;
+-(void)iTM2_bold:sender;
+-(void)iTM2_unitalic:sender;
+-(void)iTM2_unbold:sender;
+-(void)iTM2_smallCaps:sender;
+@end
+
 NSString * const iTM2FontPanelWillOrderFrontNotification = @"iTM2FontPanelWillOrderFront";
 
 #import <iTM2Foundation/iTM2NotificationKit.h>
@@ -258,6 +266,46 @@ To Do List:
 	[super orderFrontFontPanel:sender];
 //iTM2_END;
     return;
+}
+- (void)addFontTrait:(id)sender;
+{
+	if([sender respondsToSelector:@selector(tag)])
+	{
+		int tag = [sender tag];
+		id FR = [[NSApp mainWindow] firstResponder];
+		BOOL done = NO;
+		if(((NSItalicFontMask & tag) > 0) && [FR respondsToSelector:@selector(iTM2_italic:)])
+		{
+			[FR iTM2_italic:sender];
+			done = YES;
+		}
+		if(((NSBoldFontMask & tag) > 0) && [FR respondsToSelector:@selector(iTM2_bold:)])
+		{
+			[FR iTM2_bold:sender];
+			done = YES;
+		}
+		if(((NSUnitalicFontMask & tag) > 0) && [FR respondsToSelector:@selector(iTM2_unitalic:)])
+		{
+			[FR iTM2_unitalic:sender];
+			done = YES;
+		}
+		if(((NSUnboldFontMask & tag) > 0) && [FR respondsToSelector:@selector(iTM2_unbold:)])
+		{
+			[FR iTM2_unbold:sender];
+			done = YES;
+		}
+		if(((NSSmallCapsFontMask & tag) > 0) && [FR respondsToSelector:@selector(iTM2_smallCaps:)])
+		{
+			[FR iTM2_smallCaps:sender];
+			done = YES;
+		}
+		if(done)
+		{
+			return;
+		}
+	}
+	[super addFontTrait:(id)sender];
+	return;
 }
 @end
 
@@ -433,7 +481,6 @@ NSString * const iTM2ToolbarSubscriptItemIdentifier = @"subscript";
 NSString * const iTM2ToolbarSuperscriptItemIdentifier = @"superscript";
 NSString * const iTM2ToolbarUnlockDocumentItemIdentifier = @"unlockDocument";
 
-are these images used?
 #if 0
 #define DEFINE_IMAGE(SELECTOR, IDENTIFIER)\
 + (NSImage *)SELECTOR;\
@@ -618,15 +665,12 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert([anIdentifier length]);
 	NSParameterAssert(bundle);
-<<<<<<< .working
-=======
 	NSImage * I = [NSImage iTM2_cachedImageNamed:anIdentifier];
 	if(![I iTM2_isNotNullImage])
 	{
 		NSString * component = [anIdentifier stringByAppendingString:@"ToolbarImage"];
 		I = [NSImage iTM2_cachedImageNamed:component];
 	}
->>>>>>> .merge-right.r690
 	NSToolbarItem * toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
 	[toolbarItem setImage:[NSImage findImageNamed:anIdentifier]];
 	[toolbarItem setLabel:
@@ -635,13 +679,6 @@ To Do List:
 		NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"PaletteLabel"], @"Toolbar", bundle, "")];
 	[toolbarItem setToolTip:
 		NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
-<<<<<<< .working
-=======
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", anIdentifier, [NSImage imageNamed:anIdentifier]);
-	}
->>>>>>> .merge-right.r690
 //iTM2_END;
     return toolbarItem;
 }
@@ -676,24 +713,23 @@ To Do List:
 	{
 		toolbarItem = objc_msgSend(self, selector);
 		[toolbarItems setObject:toolbarItem forKey:anIdentifier];
-		return [[toolbarItem copy] autorelease];		
+		// wtarting with leopard, this is a problem because the view is no longer archivable
+		return [[toolbarItem copy] autorelease];
 	}
-	
 	toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
-	NSString * imagePath = [[[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] objectEnumerator] nextObject];
 	NSImage * I = nil;
+	NSString * imagePath = [[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] lastObject];
 	if([imagePath length])
 	{
-<<<<<<< .working
-		NSString * imagePath = [[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] lastObject];
 		if(I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath])
 		{
-			[I setName:imageName];
+			[I setName:anIdentifier];
 			if(iTM2DebugEnabled)
 			{
-				iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", imageName, [NSImage imageNamed:imageName]);
+				iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", anIdentifier, [NSImage imageNamed:anIdentifier]);
 			}
 			[toolbarItem setImage:I];
+			I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath] autorelease];
 			NSBundle * bundle = [NSBundle bundleForResourceAtPath:imagePath];
 			[toolbarItem setLabel:
 				NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
@@ -702,16 +738,6 @@ To Do List:
 			[toolbarItem setToolTip:
 				NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
 		}
-=======
-		I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath] autorelease];
-		NSBundle * bundle = [NSBundle bundleForResourceAtPath:imagePath];
-		[toolbarItem setLabel:
-			NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
-		[toolbarItem setPaletteLabel:
-			NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"PaletteLabel"], @"Toolbar", bundle, "")];
-		[toolbarItem setToolTip:
-			NSLocalizedStringWithDefaultValue([anIdentifier stringByAppendingString:@"ToolTip"], @"Toolbar", bundle, @"", "")];
->>>>>>> .merge-right.r690
 	}
 	else
 	{

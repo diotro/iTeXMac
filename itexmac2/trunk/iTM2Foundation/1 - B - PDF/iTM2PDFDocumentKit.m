@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Jun 24 2001.
-//  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2001-2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -219,9 +219,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * original = [self originalFileName];
-    return [original isEqual:[self fileName]]? [super displayName]:
-        [NSString stringWithFormat:@"%@ (%@ %@)", [super displayName], [NSString stringWithUTF8String:"⇠"], [original lastPathComponent]];
+    NSURL * original = [self originalFileURL];
+    return [original isEqual:[self fileURL]]? [super displayName]:
+        [NSString stringWithFormat:@"%@ (\xE2\x87\xA0 %@)", [super displayName], [[original relativePath] lastPathComponent]];//UTF8 char: '⇠'
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
@@ -370,8 +370,8 @@ To Do List:
         return YES;
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  originalFileName
-- (NSString *)originalFileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  originalFileURL
+- (NSString *)originalFileURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -379,7 +379,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return metaGETTER?: [super originalFileName];
+    return metaGETTER?: [super originalFileURL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOriginalFileName:
 - (void)setOriginalFileName:(NSString *)argument;
@@ -1685,7 +1685,10 @@ To Do List:
         [self setParametersHaveChanged:YES];
         [self setNeedsDisplay:YES];
     }
-    [[self window] makeFirstResponder:self];// Critical:see the responder added after the contentView (a bit tricky!!!)
+	if([self acceptsFirstResponder])
+	{
+		[[self window] makeFirstResponder:self];// Critical:see the responder added after the contentView (a bit tricky!!!)
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnificationWithDisplayMode:stickMode:
@@ -2284,8 +2287,10 @@ To Do List:
                         visibleSize.width, visibleSize.height),
                                 -visibleSize.width/2, -visibleSize.height/2)];
             }
-            if(![self window] || ![[self window] makeFirstResponder:subview])
+            if(![self window] || ![subview acceptsFirstResponder] || ![[self window] makeFirstResponder:subview])
+			{
                 NSLog(@"[[self window] makeFirstResponder:subview]:Refused");
+			}
 //            else
 //NSLog(@"%@ = %@", [[self window] firstResponder], subview);
         }
@@ -3164,7 +3169,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self moveToBeginningOfLine:sender];// this is because the Preview menu already has ⌘← shortcut
+	[self moveToBeginningOfLine:sender];// this is because the Preview menu already has ‚åò‚Üê shortcut
 //iTM2_END;
     return;
 }
@@ -3188,7 +3193,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self moveToEndOfLine:sender];// this is because the Preview menu already has ⌘→ shortcut
+	[self moveToEndOfLine:sender];// this is because the Preview menu already has ‚åò‚Üí shortcut
 //iTM2_END;
     return;
 }

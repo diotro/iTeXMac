@@ -3,7 +3,7 @@
 //  @version Subversion: $Id: iTM2MacroKit.m 490 2007-05-04 09:05:15Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Feb 21 2002.
-//  Copyright © 2006 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2006 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -62,8 +62,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    static NSString * _Bullet = nil;
-    return _Bullet? _Bullet: (_Bullet = [[NSString stringWithUTF8String:"•"] copy]);
+	return @"\xE2\x80\xA2 ";//"•"
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfMacroTypeAtIndex:
 - (NSRange)rangeOfMacroTypeAtIndex:(unsigned int)index;

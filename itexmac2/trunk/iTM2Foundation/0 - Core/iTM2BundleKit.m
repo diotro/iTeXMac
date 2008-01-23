@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Apr 28 2002.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -228,11 +228,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSMutableArray * MRA = [NSMutableArray array];
-    NSString * suffix = [iTM2ApplicationSupport stringByAppendingPathComponent:appName];
     #define ADD_OBJECT(DOMAIN)\
     if(domainMask&DOMAIN)\
-        [MRA addObject:[[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, DOMAIN, YES) lastObject]\
-            stringByAppendingPathComponent: suffix] stringByResolvingSymlinksAndFinderAliasesInPath]];
+        [MRA addObject:[[[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, DOMAIN, YES) lastObject]\
+            stringByAppendingPathComponent:appName] stringByResolvingSymlinksAndFinderAliasesInPath]];
     ADD_OBJECT(NSUserDomainMask);
     ADD_OBJECT(NSLocalDomainMask);
     ADD_OBJECT(NSNetworkDomainMask);

@@ -68,10 +68,10 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
-		DC0D20990BFF2BD700440681 /* iTM2MacroKit_Tree.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D1F260BFEFF8800440681 /* iTM2MacroKit_Tree.h */; };
+		DC0D20990BFF2BD700440681 /* iTM2MacroKit_Tree.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D1F260BFEFF8800440681 /* iTM2MacroKit_Tree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0D209A0BFF2BD700440681 /* iTM2MacroKit_Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0D1F270BFEFF8800440681 /* iTM2MacroKit_Tree.m */; };
 		DC0D209C0BFF2C0D00440681 /* iTM2MacroKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCD403EF099498B0006B91DF /* iTM2MacroKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC0D211C0BFF50EA00440681 /* iTM2MacroKit_Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D211A0BFF50EA00440681 /* iTM2MacroKit_Controller.h */; };
+		DC0D211C0BFF50EA00440681 /* iTM2MacroKit_Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D211A0BFF50EA00440681 /* iTM2MacroKit_Controller.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0D211D0BFF50EA00440681 /* iTM2MacroKit_Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0D211B0BFF50EA00440681 /* iTM2MacroKit_Controller.m */; };
 		DC0F14B60BFB7D1E00108852 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
 		DC0F155B0BFC36F600108852 /* Lua.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
@@ -85,7 +85,7 @@
 		DC165B4F08CDAE8F004B14C7 /* iTM2ButtonForward.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */; };
 		DC165B5008CDAE8F004B14C7 /* iTM2ButtonHelp.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */; };
 		DC1CF8520C01BE7800D757D0 /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
-		DC1CF8F80C01CBA100D757D0 /* iTM2MacroKit_Prefs.h in Headers */ = {isa = PBXBuildFile; fileRef = DC1CF8F60C01CBA100D757D0 /* iTM2MacroKit_Prefs.h */; };
+		DC1CF8F80C01CBA100D757D0 /* iTM2MacroKit_Prefs.h in Headers */ = {isa = PBXBuildFile; fileRef = DC1CF8F60C01CBA100D757D0 /* iTM2MacroKit_Prefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC1CF8F90C01CBA100D757D0 /* iTM2MacroKit_Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1CF8F70C01CBA100D757D0 /* iTM2MacroKit_Prefs.m */; };
 		DC1E0F390C04E1680042609B /* Aqua2_Add_Child_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC1E0F360C04E1680042609B /* Aqua2_Add_Child_Inactive.tif */; };
 		DC1E0F3A0C04E1680042609B /* Aqua2_Add_Child_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC1E0F370C04E1680042609B /* Aqua2_Add_Child_Pressed.tif */; };
@@ -186,7 +186,7 @@
 		DC8303F2086EA056004799EB /* iTM2AppleScriptKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8303EF086EA056004799EB /* iTM2AppleScriptKit.m */; };
 		DC8397550C0251AD00511679 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
 		DC8399420C02D9A500511679 /* iTM2MacroKit_Action.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0D21010BFF509D00440681 /* iTM2MacroKit_Action.m */; };
-		DC8399430C02D9A900511679 /* iTM2MacroKit_Action.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D21000BFF509D00440681 /* iTM2MacroKit_Action.h */; };
+		DC8399430C02D9A900511679 /* iTM2MacroKit_Action.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0D21000BFF509D00440681 /* iTM2MacroKit_Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD53B0A3ABD37006C28A5 /* KeyBindings.resources.tgz */; };
 		DC8AD5400A3ABD38006C28A5 /* TextEditor.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC8AD53D0A3ABD38006C28A5 /* TextEditor.resources.tgz */; };
 		DC90CE9E09976BBD00C79525 /* iTM2MacrosMenu.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */; };
@@ -203,8 +203,6 @@
 		DCB0A10D09AF01C300D2A37C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		DCB0A10E09AF01C300D2A37C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DCB0A10F09AF01C300D2A37C /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */; };
-		DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */ = {isa = PBXBuildFile; fileRef = DCB49C8709C5A3D600CF628D /* MoreFilesX.c */; };
-		DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */ = {isa = PBXBuildFile; fileRef = DCB49C8809C5A3D600CF628D /* MoreFilesX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */; };
 		DCB7DEB40ADE4A0F0084DE9D /* textmate in Copy Command */ = {isa = PBXBuildFile; fileRef = DCB7DE860ADE47FB0084DE9D /* textmate */; };
 		DCBDA1E30AFE0D3D00522BD9 /* iTM2CompletionInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */; };
@@ -1725,7 +1723,6 @@
 				DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */,
 				DC6F02A9097A8E57009939A6 /* iTM2PerlKitServer.h in Headers */,
 				DC25E50F0991FA7600545F27 /* iTM2TaskKit.h in Headers */,
-				DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */,
 				DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */,
 				DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */,
 				DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */,
@@ -2564,7 +2561,6 @@
 				DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */,
 				DC6F02AA097A8E57009939A6 /* iTM2PerlKitServer.m in Sources */,
 				DC25E5100991FA7600545F27 /* iTM2TaskKit.m in Sources */,
-				DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */,
 				DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */,
 				DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */,
 				DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */,

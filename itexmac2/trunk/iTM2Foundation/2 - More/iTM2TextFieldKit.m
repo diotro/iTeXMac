@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Jul 03 2001.
-//  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2001-2002 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -102,7 +102,10 @@ To Do List:
 		unsigned int line = [sender intValue];
 		line = MAX(2,line)-1;
 		[TV highlightAndScrollToVisibleLine:line];
-		[W performSelector:@selector(makeFirstResponder:) withObject:TV afterDelay:0];
+		if([TV acceptsFirstResponder])
+		{
+			[W performSelector:@selector(makeFirstResponder:) withObject:TV afterDelay:0];
+		}
 	}
 	else
 	{
@@ -264,8 +267,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSControl * C = [[[NSApp keyWindow] contentView] controlWithAction:@selector(lineFieldAction:)];
-	if([C isValid])
+	if([C isValid] && [C acceptsFirstResponder])
+	{
 		[[C window] makeFirstResponder:C];
+	}
 //iTM2_END;
     return;
 }

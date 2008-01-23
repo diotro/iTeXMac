@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri Sep 05 2003.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -113,6 +113,17 @@ extern NSString * const iTM2InspectorTable;
 - (NSString *)originalFileName;
 
 /*!
+    @method		originalFileURL
+    @abstract	The original file URL.
+    @discussion	Just in case the document has been filtered. This is the case for dvi documents than become pdf ones.
+                The default implementation just returns the fileURL.
+                Not yet used.
+    @param		None.
+    @result		An URL.
+*/
+- (NSURL *)originalFileURL;
+
+/*!
     @method		smartClose
     @abstract	Close if it can close...
     @discussion	If the document is authorized to close, it will send a documentWillClose,
@@ -182,13 +193,13 @@ extern NSString * const iTM2InspectorTable;
 - (BOOL)cannotCloseWithNoFileImage;
 
 /*! 
-    @method     contextDictionaryAtPath:
-    @abstract   the context dictionary at the given path
+    @method     contextDictionaryFromURL:
+    @abstract   the context dictionary from the given file
     @discussion Load the context dictionary from the resources at that path.
-    @param      fullDocumentPath is a full document path.
+    @param      fileURL is a file URL.
     @result     A dictionary.
 */
-+ (id)contextDictionaryAtPath:(NSString *) fullDocumentPath;
++ (id)contextDictionaryFromURL:(NSURL *)fileURL;
 
 - (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
 - (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
@@ -225,16 +236,6 @@ extern NSString * const iTM2InspectorTable;
     @result		None.
 */
 - (void)recordFileModificationDateFromURL:(NSURL *)absoluteURL;
-
-/*!
-    @method		lastFileModificationDate
-    @abstract	The last file modification date recorded.
-    @discussion	The default implementation just returns the distant future date.
-                As a consequence, the -needsToUpdate message always return NO thus turning off auto updating.
-    @param		None.
-    @result		A date.
-*/
-- (NSDate *)lastFileModificationDate;
 
 /*!
     @method		showWindowsBelowFront
@@ -401,6 +402,26 @@ extern NSString * const iTM2InspectorTable;
     @result		yorn. The way the answer is handled is not that clear. It is left undefined.
 */
 - (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSString **)errorStringRef;
+
+/*!
+    @method		synchronizeWindowControllers
+    @abstract	Synchronize the window controllers with the receiver.
+    @discussion	Send a -synchronizeWithDocument message to all its window controllers.
+				Send this message whenever the data model has changed.
+	@param		None.
+    @result		NO is there are no window controllers.
+*/
+- (BOOL)synchronizeWindowControllers;
+
+/*!
+    @method		synchronizeWithWindowControllers;
+    @abstract	Synchronize the receive with its window controllers.
+    @discussion	Send a -synchronizeDocument message to all its window controllers.
+				Send this message whenever the data model has been edited and you need an up to date model.
+	@param		None.
+    @result		None.
+*/
+- (void)synchronizeWithWindowControllers;
 
 /*!
     @method		readFromDirectoryWrapper:error:
@@ -1006,7 +1027,7 @@ extern NSString * const iTM2UDLevelsOfUndoKey;
 
 /*!
     @class		iTM2UndoManager
-    @abstract	Extanded undo manager à la project builder.
+    @abstract	Extanded undo manager √† la project builder.
     @discussion	Displays an alert panel: save past the last save point...
 */
 @interface iTM2UndoManager: NSUndoManager

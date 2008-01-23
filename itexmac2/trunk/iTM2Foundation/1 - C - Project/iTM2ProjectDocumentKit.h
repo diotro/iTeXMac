@@ -28,16 +28,11 @@
 extern NSString * const iTM2ProjectContextDidChangeNotification;
 extern NSString * const iTM2ProjectCurrentDidChangeNotification;
 
-extern NSString * const iTM2ProjectBuildComponent;
-extern NSString * const iTM2ProjectContentsComponent;
-
 extern NSString * const iTM2ProjectDocumentType;
 extern NSString * const iTM2ProjectInspectorType;
 extern NSString * const iTM2ProjectInfoType;
 
 extern NSString * const iTM2SubdocumentsInspectorMode;
-
-extern NSString * const iTM2ProjectPlistPathExtension;
 
 extern NSString * const iTM2ProjectDefaultName;
 
@@ -268,29 +263,28 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (BOOL)ownsSubdocument:(id)document;
 
 /*! 
-    @method     keyForFileName:
-    @abstract   The key for the given file name.
-    @discussion Each file name is given a unique key identifier.
+    @method     fileKeyForURL:
+    @abstract   The key for the given URL.
+    @discussion Each file URL is given a unique key identifier.
 				Once given this identifier will not change as long as the file is living.
 				The unique possibility is to remove it.
 				A cached list is maintained.
 				Keys are just numbers as strings.
 				Different files with different names might have the same key if they represent the same document:
 				they can use links or finder aliases. The first time this method is sent,
-				it tries to use some information cached when one of the newKeyForFileName: or newKeyForFileName:context:
-				was previously used. If no such information is available, it tries to guess the key based on some simple rules
-				implemented in the private guessedKeyForFileName: method (this is for developpers only). This method manages the absolute/relative/link/alias/faraway problem.
-				When the project is faraway, things are more complicated.
+				it tries to use some information cached when one of the newFileKeyForURL: or newFileKeyForURL:context:
+				was previously used.
+				When the project is cached, things are more complicated.
 				The problem is to convert the absolute file name into a relative file name.
 				Both the given file name and the project file name can live in the same domain
 				with respect to the faraway projects directory. If not, one is converted to the other.
 				This method does not create a new key for the file name. It just use the information that once was created
 				either stored in the project or in a private cache.
-				Use the newKeyForFileName: or newKeyForFileName:context: for that purpose.
-    @param      fileName is a full path name, or relative to the project directory, posszibly converted if internal
+				Use the newFileKeyForURL: or newFileKeyForURL:context: for that purpose.
+    @param      fileURL is a full URL
     @result     An NSMutableDictionary
 */
-- (NSString *)keyForFileName:(NSString *)fileName;
+- (NSString *)fileKeyForURL:(NSURL *)fileURL;
 
 /*! 
     @method     showSubdocuments:
@@ -360,17 +354,17 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)subdocumentMightHaveClosed;
 
 /*! 
-    @method     newKeyForFileName:
+    @method     newFileKeyForURL:
     @abstract   The key for the given file name.
-    @discussion This method is obsolete, use the -newKeyForFileName:save: instead.
+    @discussion This method is obsolete, use the -(NSURL *)fileURL:save: instead.
 				It just forwards to the above mentionned method, not asking to save.
     @param      fileName is a full path name, or relative to the project directory
     @result     a unique key identifier
 */
-- (NSString *)newKeyForFileName:(NSString *)fileName;
+- (NSString *)newFileKeyForURL:(NSURL *)fileURL;
 
 /*! 
-    @method     newKeyForFileName:save:
+    @method     newFileKeyForURL:save:
     @abstract   The key for the given file name.
     @discussion If no key exists, a new one is created.
 				A key is given only once. If it is removed, it won't be attributed another time.
@@ -380,7 +374,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      yorn is a flag indicating whether the project should save if a new key is really created
     @result     a unique key identifier
 */
-- (NSString *)newKeyForFileName:(NSString *)fileName save:(BOOL)yorn;
+- (NSString *)newFileKeyForURL:(NSURL *)fileURL save:(BOOL)yorn;
 
 /*! 
     @method     saveAllSubdocumentsWithDelegate:didSaveAllSelector:contextInfo:
@@ -394,6 +388,17 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)saveAllSubdocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
 
 /*! 
+    @method			allFileKeys
+    @abstract		All the file keys actually in use.
+    @discussion		Description forthcoming.
+    @param			None
+    @result			an NSArray
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSArray *)allFileKeys;
+
+/*! 
     @method     keysDidChange
     @abstract   Abstract forthcoming.
     @discussion Discussion forthcoming.
@@ -403,7 +408,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)keysDidChange;
 
 /*! 
-    @method     removeKey:
+    @method     removeFileKey:
     @abstract   Definitely forgets the key.
     @discussion The key is removed and all the attributes, properties for that key should be removed too.
 				The receiver is not responsible for the attributes written in other files.
@@ -412,54 +417,70 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName is a full path name
     @result     a unique key identifier
 */
-- (void)removeKey:(NSString *)key;
+- (void)removeFileKey:(NSString *)key;
 
 /*! 
-    @method     relativeFileNameForKey:
+    @method     nameForFileKey:
     @abstract   The file name for the given key.
     @discussion @"" is returned if the key is not covered by the allKeys list.
 				This file name is relative to the directory containing the project file!
     @param      a key
     @result     an NSString
 */
-- (NSString *)relativeFileNameForKey:(NSString *)key;
+- (NSString *)nameForFileKey:(NSString *)key;
 - (NSArray *)relativeFileNamesForKeys:(NSArray *)keys;
 
 /*! 
-    @method     absoluteFileNameForKey:
-    @abstract   The file name for the given key.
-    @discussion @"" is returned if the key is not covered by the allKeys list.
-				This file name is absolute!
+    @method     URLForFileKey:
+    @abstract   The file URL for the given key.
+    @discussion This is a convenience shortcut to the SPC's -URLForFileKey:filter:inProjectWithURL: method.
     @param      a key
-    @result     an NSString
+    @param      filter
+    @result     an NSURL
 */
-- (NSString *)absoluteFileNameForKey:(NSString *)key;
-- (NSArray *)absoluteFileNamesForKeys:(NSArray *)keys;
+- (NSURL *)URLForFileKey:(NSString *)key;
+- (NSArray *)URLsForFileKeys:(NSArray *)keys;
 
 /*! 
-    @method     setFileName:forKey:makeRelative:
-    @abstract   Changes the file name for the given key.
+    @method     setURL:forFileKey:
+    @abstract   Changes the file URL for the given key.
     @discussion This is a basic setter with NO side effect (except cleaning some private caches).
 				If the key is not covered by the allKeys list of the receiver, nothing is done.
-				The file name will be considered a full path if makeRelative is NO and a relative one otherwise,
-				the project directory being the reference in that case.
-				A full path will not break if the project is moved around
-				whereas a relative path can break if the project and the pointed file don't move accorg-dingly.
     @param      fileName is the new file name, assumed to be a valid full path.
     @param      key is a key
     @param      flag is a flag
     @result     None.
 */
-- (void)setFileName:(NSString *)fileName forKey:(NSString *)key makeRelative:(BOOL)flag;
+- (void)setURL:(NSURL *)fileURL forFileKey:(NSString *)key;
 
 /*! 
-    @method     subdocumentForFileName:
-    @abstract   The project document for the given file name.
-    @discussion If the receiver does not declare a document with the given file name, nil is returned.
-    @param      file name is a full path
-    @result     a document.
+    @method     factoryURLForFileKey:
+    @abstract   The factory file URL for the given key.
+    @discussion This is a convenience shortcut to the SPC's -factoryURLForName:inProjectWithURL: method.
+    @param      a key
+    @param      filter
+    @result     an NSURL
 */
-- (id)subdocumentForFileName:(NSString *)fileName;
+- (NSURL *)factoryURLForFileKey:(NSString *)key;// different from URLForFileKey: for faraway projects
+
+/*! 
+    @method     nameForFileKey:
+    @abstract   The name for the given file key.
+    @discussion Discussion forthcoming.
+	@param      key is a file key
+    @result     The name.
+*/
+- (NSString *)nameForFileKey:(NSString *)key;
+
+/*! 
+    @method     setName:forFileKey:
+    @abstract   Changes the name for the given file key.
+    @discussion Discussion forthcoming.
+    @param      name is the new file name, assumed to be a valid relative name.
+    @param      key is a file key
+    @result     None.
+*/
+- (void)setName:(NSString *)name forFileKey:(NSString *)key;
 
 /*! 
     @method     subdocumentForURL:
@@ -471,24 +492,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)subdocumentForURL:(NSURL *)url;
 
 /*! 
-    @method     subdocumentURLForKey:
-    @abstract   The project document URL for the given key.
-    @discussion Discussion forthcoming.
-    @param      key
-    @result     an url.
-*/
-- (NSURL *)subdocumentURLForKey:(NSString *)key;
-
-/*! 
-    @method     farawaySubdocumentURLForKey:
-    @abstract   The project document faraway URL for the given key.
-    @discussion Discussion forthcoming.
-    @param      key
-    @result     an url.
-*/
-- (NSURL *)farawaySubdocumentURLForKey:(NSString *)key;
-
-/*! 
     @method     keyedSubdocuments
     @abstract   The key project documents mapping.
     @discussion Description forthcoming.
@@ -498,7 +501,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)keyedSubdocuments;
 
 /*! 
-    @method     keyForSubdocument:
+    @method     fileKeyForSubdocument:
     @abstract   The key for the given project document.
     @discussion If no key is returned, the given document is not part of the receiver as a project.
 				This message is a central node that links documents with their projects.
@@ -511,10 +514,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      \p subdocument is a document
     @result     a key identifier.
 */
-- (NSString *)keyForSubdocument:(id)subdocument;
+- (NSString *)fileKeyForSubdocument:(id)subdocument;
 
 /*! 
-    @method     subdocumentForKey:
+    @method     subdocumentForFileKey:
     @abstract   The project subdocument for the given key.
     @discussion It is not advisable to identify the project a document belongs to through its key
 				despite it would be technically possible whereas very expensive.
@@ -525,7 +528,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      a key identifier
     @result     a project document.
 */
-- (id)subdocumentForKey:(NSString *)key;
+- (id)subdocumentForFileKey:(NSString *)key;
 
 /*! 
     @method     propertyValueForKey:fileKey:contextDomain:
@@ -541,13 +544,13 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
 
 /*! 
-    @method     keyForRecordedFileName:
+    @method     fileKeyForRecordedURL:
     @abstract   Only use the links or finder aliases.
     @discussion Discussion forthcoming.
-    @param      fileName is a file name
+    @param      (NSURL *) is a file URL
     @result     a key.
 */
-- (NSString *)keyForRecordedFileName:(NSString *)fileName;// only use the links or finder aliases
+- (NSString *)fileKeyForRecordedURL:(NSURL *)fileURL;// only use the links or finder aliases
 
 /*! 
     @method     takePropertyValue:forKey:fileKey:contextDomain:
@@ -562,15 +565,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
 
 /*! 
-    @method     propertiesForFileName:
-    @abstract   The properties dictionary for the given file name.
-    @discussion Discussion forthcoming.
-    @param      The file name
-    @result     A dictionary
-*/
-- (id)propertiesForFileName:(NSString *)fileName;
-
-/*! 
     @method     addGhostWindowController:
     @abstract   Abstract forthcoming.
     @discussion The ghost window controller ensures the project will not close when all the visible windows are closed.
@@ -581,13 +575,13 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)addGhostWindowController;
 
 /*! 
-    @method     addFileName:
+    @method     addURL:
     @abstract   Abstract forthcoming.
     @discussion Description forthcoming.
     @param      fileName
     @result     None.
 */
-- (void)addFileName:(NSString *)fileName;
+- (void)addURL:(NSURL *)fileURL;
 
 /*! 
     @method     openSubdocumentWithContentsOfURL:context:display:error:
@@ -733,13 +727,20 @@ extern NSString * const iTM2ProjectOwnAliasKey;
 */
 extern NSString * const iTM2ProjectAliasKey;
 
+/*!
+    @const		iTM2ProjectURLKey
+    @abstract   Context key
+    @discussion value: @"iTM2ProjectURLKey"
+*/
+extern NSString * const iTM2ProjectURLKey;
+
 @interface NSDocument(iTM2ProjectKit)
 
 /*! 
     @method     project
     @abstract   Abstract forthcoming.
     @discussion Convenient method as shortcut. If the resceiver -hasProject, the default implementation
-				uses the shared project controller -projectForFileName: message to return a value.
+				uses the shared project controller -projectForURL: message to return a value.
     @param      None
     @result     A project
 */
@@ -870,39 +871,6 @@ extern NSString * const iTM2WrapperInspectorType;
 @interface iTM2ProjectGhostWindow: NSWindow
 @end
 
-@interface iTM2PDocumentController: iTM2DocumentController
-
-/*!
-    @method		openSubdocumentWithContentsOfURL:display:error:
-    @abstract	Entry point for the document creation.
-    @discussion	This implementation manages the complex wrapper/project/document architecture.
-				Roughly speaking, you have wrappers with projects and documents,
-				projects with documents but no wrapper, and document with no wrapper nor project.
-				As the wrapper is the most intrusive design it is not central in the code.
-				The project design is central, so everything is project centric.
-				Each project owns its documents, not the document controller!
-				And when there is a wrapper, the project is owned by the wrapper, not the document controller.
-				Finally the wrapper if any is owned by the document controller.
-				But when we have wrappers, we have to automatically open (or create) the associated project,
-				and also manage the save as and save to actions in a fancy way.
-				See the inherited method for details on the parameters and the result.
-    @param		URL.
-    @param		display.
-    @result		A document.
-*/
-- (id)openDocumentWithContentsOfURL:(NSURL *)URL display:(BOOL)display error:(NSError **)error;
-
-/*!
-    @method		prepareOpenDocumentWithContentsOfURL:
-    @abstract	Prepare the receiver to open the given document.
-    @discussion	This methods is used when a file is opened by the Finder. If there is no project for the given argument,
-				a faraway project is created without asking the user.
-    @param		URL.
-*/
-- (void)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL;
-
-@end
-
 @interface NSDocumentController(ProjectDocumentKit)
 
 /*!
@@ -977,77 +945,6 @@ extern NSString * const iTM2WrapperInspectorType;
     @result     None
 */
 - (BOOL)isWrapperPackageAtPath:(NSString *)fullPath;
-
-@end
-
-@interface NSString(iTM2ProjectDocumentKit)
-
-/*!
-    @method     farawayProjectsDirectory
-    @abstract   The directory where faraway projects are stored.
-    @discussion Returns
-					~/Library/Application\ Support/AppName/Projects.put_aside.
-				The extension is used to hide the contents of this directory to the end user by declaring the extension as a wrapper tag.
-    @param      None
-    @result     An NSString instance.
-*/
-+ (NSString *)farawayProjectsDirectory;
-
-/*!
-    @method		belongsToFarawayProjectsDirectory
-    @abstract	Abstract forthcoming
-    @discussion	Discussion forthcoming.
-    @param      None
-    @result     yorn
-*/
-- (BOOL)belongsToFarawayProjectsDirectory;
-
-- (NSString *)stringByStrippingFarawayProjectsDirectory;
-
-/*!
-    @method		enclosingWrapperFileName
-    @abstract	The enclosing wrapper name of the receiver.
-    @discussion	Return the first ancestor which path extension is a wrapper extension.
-    @param		None.
-    @result		A full wrapper path.
-*/
-- (NSString *)enclosingWrapperFileName;
-
-/*!
-    @method		enclosingProjectFileName
-    @abstract	The enclosing project name of the receiver.
-    @discussion	Return the first ancestor which path extension is a project extension.
-    @param		None.
-    @result		A full project path.
-*/
-- (NSString *)enclosingProjectFileName;
-
-/*!
-    @method		enclosedProjectFileNames
-    @abstract	The enclosed project names of the receiver.
-    @discussion	Return an array of project paths in the receiver as directory (relative paths!).
-				If the receiver is not a directory, or if it does not contain any project, nothing is returned.
-				The project are returned, how deep they can be.
-				But, links are not followed (a priori to avoid problems of recursivity)
-    @param		None.
-    @result		An array or project paths relative to the receiver.
-*/
-- (NSArray *)enclosedProjectFileNames;
-
-/*! 
-    @method     availableProjectFileNames
-    @abstract	The available project names of the receiver.
-    @discussion	Return an array of project paths in the receiver as directory.
-				If the receiver is not a directory, or if it does not contain any project, nothing is returned.
-				The project are returned, no deeper than contained in the receiver.
-				But, links are not followed (a priori to avoid problems of recursivity)
-    @param      None
-    @result     an array of projects
-*/
-- (id)availableProjectFileNames;
-
-- (NSString *)stringByAppendingBuildComponent;
-- (NSString *)stringByAppendingContentsComponent;
 
 @end
 

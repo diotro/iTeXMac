@@ -434,11 +434,49 @@ To Do List:
 //iTM2_END;
 	if([self isFileURL] && [otherURL isFileURL])
 	{
-		NSString * myPath = [self path];
-		NSString * otherPath = [otherURL path];
+		NSString * myPath = [[self path] stringByStandardizingPath];
+		NSString * otherPath = [[otherURL path] stringByStandardizingPath];
 		return [myPath pathIsEqual:otherPath];
 	}
 	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isRelativeToURL:
+- (BOOL)isRelativeToURL:(NSURL *)otherURL;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	if([self isFileURL] && [otherURL isFileURL])
+	{
+		NSString * myPath = [[self path] stringByStandardizingPath];
+		NSString * otherPath = [[otherURL path] stringByStandardizingPath];
+		return [myPath belongsToDirectory:otherPath];
+	}
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathRelativeToURL:
+- (NSString *)pathRelativeToURL:(NSURL *)otherURL;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 06/01/03
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	if([self isFileURL] && [otherURL isFileURL])
+	{
+		NSString * myPath = [[self path] stringByStandardizingPath];
+		NSString * otherPath = [[otherURL path] stringByStandardizingPath];
+		NSString * result = [myPath stringByAbbreviatingWithDotsRelativeToDirectory:otherPath];
+		NSAssert([[self absoluteURL] isEqual:[[NSURL URLWithString:[result stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:otherURL] absoluteURL]],@"**** HUGE ERROR: the operation is not revertible!");
+		return result;
+	}
+	return nil;
 }
 @end
 

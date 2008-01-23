@@ -38,6 +38,7 @@
 - (void)setActionName:(NSString *)newActionName;
 @end
 
+#import <iTM2Foundation/iTM2MacroKit_Tree.h>
 @interface iTM2MacroAbstractContextNode(Preferences)
 - (id)list;// used by the pref pane
 @end

@@ -124,16 +124,6 @@ extern NSString * const TWSEOLFileKey;
 - (BOOL)canConvertString:(NSString *)argument;
 
 /*!
-	@method		nextUnconvertibleCharacterIndexOfString:startingAt:
-	@abstract	The index of the next uncovertible characeter.
-	@discussion Returns the index of the next character that cannot be converted to a NSData object using the receiver's string encoding without any loss. If there is a problem in string encoding, clients will be able to notify the user and show exactly where the problem occurs. If no character is found, NSNotFound is returned.
-	@param argument is the NSString object to be converted.
-	@param index is the starting point of the testing (included).
-	@result		an index.
-*/
-- (unsigned int)nextUnconvertibleCharacterIndexOfString:(NSString *)argument startingAt:(unsigned int)index;
-
-/*!
 	@method		stringWithData:
 	@abstract	Returns the string representation of the data argument.
 	@discussion The given NSData argument is converted to a NSString object

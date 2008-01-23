@@ -45,7 +45,7 @@
 
 @implementation NSDocumentController(iTeXMac2Kit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:force:
-- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -201,8 +201,8 @@ To Do List: to be improved...
 //iTM2_START;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openDocumentWithContentsOfFile:displayPageForLine:column:source:withHint:orderFront:
-- (id)openDocumentWithContentsOfFile:(NSString *)fileName displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= openDocumentWithContentsOfURL:displayPageForLine:column:source:withHint:orderFront:
+- (id)openDocumentWithContentsOfURL:(NSURL *)fileURL displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"This is the answer to the notification sent by the "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 11/06/2003
@@ -210,25 +210,22 @@ To Do List: see the warning below
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id doc = [SDC documentForFileName:fileName];
+	id doc = [SDC documentForURL:fileURL];
 	if(doc)
 	{
 		[doc updateIfNeeded];
-		[doc displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:YES];
+		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:YES];
 		return doc;
 	}
-	NSURL * url = nil;
 	if(yorn)
 	{
-		url = [NSURL fileURLWithPath:fileName];
-		doc = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
-		[doc displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:YES];
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
+		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:YES];
 		return doc;
 	}
 	else
 	{
-		url = [NSURL fileURLWithPath:fileName];
-		doc = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:NO error:nil];
 		[doc makeWindowControllers];
 		NSEnumerator * E = [[doc windowControllers] objectEnumerator];
 		NSWindowController * WC;
@@ -238,7 +235,7 @@ To Do List: see the warning below
 			W = [WC window];
 			[W orderBelowFront:self];
 		}
-		[doc displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:NO];
+		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:NO];
 		return doc;
 	}
 }
@@ -851,7 +848,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:force:
-- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1189,7 +1186,7 @@ To Do List: retain?
 
 #pragma mark =-=-=-=-=-  GHOST DOCUMENT
 @implementation iTM2GhostDocument
-- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 {iTM2_DIAGNOSTIC;
     return NO;
 }

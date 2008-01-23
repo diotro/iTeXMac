@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri Sep 05 2003.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -49,7 +49,7 @@ extern NSString * const iTM2TextInspectorType;
 	@method		textStorage
 	@abstract	The text storage.
 	@discussion	Forwards the message to its inspector.
-	@result		For AppleScript™ support at least.
+	@result		For AppleScript‚Ñ¢ support at least.
 */
 - (id)textStorage;
 
@@ -120,6 +120,15 @@ extern NSString * const iTM2TextInspectorType;
 - (BOOL)isStringEncodingHardCoded;
 
 /*!
+	@method		setStringEncodingHardCoded:
+	@abstract	Forwards the message to its string formatter wrapping in for undo support.
+	@discussion Description forthcoming.
+	@param		yorn
+	@result		None
+*/
+- (void)setStringEncodingHardCoded:(BOOL)yorn;
+
+/*!
 	@method		setStringEncoding:
 	@abstract	Forwards the message to its string formatter adding the undo management.
 	@discussion Description forthcoming.
@@ -137,6 +146,17 @@ extern NSString * const iTM2TextInspectorType;
 	@result		yorn
 */
 - (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
+
+/*!
+	@method		stringRepresentationCompleteWriteToURL:ofType:error:
+	@abstract	Abstract forthcoming.
+	@discussion Description forthcoming.
+	@param		an URL
+	@param		a type
+	@param		outErrorPtr a pointer to an NSError instance.
+	@result		yorn
+*/
+- (BOOL)stringRepresentationCompleteWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
 
 /*!
 	@method			getLine:column:length:forHint:

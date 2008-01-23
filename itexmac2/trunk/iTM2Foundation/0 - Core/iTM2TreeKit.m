@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sat May 24 2003.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -968,7 +968,7 @@ To Do List:
 		iTM2_LOG(@"---------- %i",index);
 		[PC addString:@"HLiff"];
 		[PC removeString:@"HLiff"];
-		[P release];
+		[P drain];
 	}
 #endif
 #if 0
@@ -2930,7 +2930,7 @@ To Do List:
 		[PC stringListForPrefix:@"specifications"];
 		[PC stringListForPrefix:@"specifications "];
 #endif
-		[P release];
+		[P drain];
 	}
 #endif
 #if 0
@@ -2996,7 +2996,7 @@ To Do List:
 		iTM2_LOG(@"%@",[PC stringList]);
 	}
 #endif
-	[P release];
+	[P drain];
 
 	return;
 }

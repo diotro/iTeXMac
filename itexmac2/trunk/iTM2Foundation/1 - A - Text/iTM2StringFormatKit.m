@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sat Nov 10 2001.
-//  Copyright © 2001-2005 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2001-2005 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -205,6 +205,7 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"itexmac2", RETABLE, BUNDLE, "")];
+		[RE setInputString:self];
 //NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
@@ -225,7 +226,8 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"inputenc", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
@@ -244,9 +246,9 @@ To Do List: Nothing
     if(![headerStringEncodingString length])
     {
         NS_DURING
-        RE = [ICURegEx regExWithSearchPattern:
-                            NSLocalizedStringFromTableInBundle(@"regime", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+        RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"regime", RETABLE, BUNDLE, "")];
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
@@ -263,7 +265,8 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"emacs", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
@@ -280,7 +283,8 @@ To Do List: Nothing
     {
         NS_DURING
         RE = [ICURegEx regExWithSearchPattern:NSLocalizedStringFromTableInBundle(@"texshop", RETABLE, BUNDLE, "")];
-//NSLog(@"ARE: %@", ARE);
+		[RE setInputString:self];
+///NSLog(@"ARE: %@", ARE);
 		if([RE nextMatch] && ([RE numberOfCaptureGroups] > 0))
 		{
 			R = [RE rangeOfCaptureGroupAtIndex:1];
@@ -1341,35 +1345,6 @@ To Do List:
 //iTM2_START;
     return ![argument length] || [argument canBeConvertedToEncoding:[self stringEncoding]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nextUnconvertibleCharacterIndexOfString:startingAt:
-- (unsigned int)nextUnconvertibleCharacterIndexOfString:(NSString *)argument startingAt:(unsigned int)index;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(index<0)
-        return NSNotFound;
-    noumea:
-    if(index<[argument length])
-    {
-        unichar c = [argument characterAtIndex:index];
-        NSString * S = [[[NSString allocWithZone:[self zone]]
-                            initWithCharactersNoCopy: &c length: 1 freeWhenDone: NO] autorelease];
-        BOOL canBeConverted = [S canBeConvertedToEncoding:[self stringEncoding]];
-        if(canBeConverted)
-        {
-            ++index;
-            goto noumea;
-        }
-        else
-            return index;
-    }
-    else
-        return NSNotFound;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringWithData:
 - (NSString *)stringWithData:(NSData *)docData;
 /*"Description Forthcoming.
@@ -1437,10 +1412,6 @@ To Do List:
 		NSRange hardCodedRange;
 		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
         canStringEncoding = (hardCodedStringEncoding == 0 || hardCodedRange.length == 0);
-        if(hardCodedStringEncoding && ![[NSString localizedNameOfStringEncoding:hardCodedStringEncoding] length])
-		{
-			iTM2_REPORTERROR(1,(@"Unknown encoding, Did you make a typo?"),nil);
-		}
         if(hardCodedStringEncoding && [[NSString localizedNameOfStringEncoding:hardCodedStringEncoding] length] &&
             (hardCodedStringEncoding != preferredStringEncoding))
         {
@@ -1607,6 +1578,7 @@ try_another_encoding:
 						{
 							usedEncoding = preferredStringEncoding;
 							S = SS;
+							goto terminate;
 						}
 						preferredStringEncoding = [SUD integerForKey:iTM2StringEncodingPreferredKey];
 						if(preferredStringEncoding == usedEncoding)
@@ -2385,7 +2357,10 @@ To Do List:
         [actualTableView selectRow:row byExtendingSelection:NO];
     else
         [actualTableView selectRow:([actualTableView numberOfRows] - 1) byExtendingSelection:NO];
-    [[actualTableView window] makeFirstResponder:actualTableView];
+	if([actualTableView acceptsFirstResponder])
+	{
+		[[actualTableView window] makeFirstResponder:actualTableView];
+	}
     [self updateChangeCount:NSChangeDone];
     [self validateWindowsContents];
     return;
@@ -2446,7 +2421,10 @@ To Do List:
     [_ActualStringEncodings insertObject:[NSString string] atIndex:SR];
     [actualTableView reloadData];
     [actualTableView selectRow:SR byExtendingSelection:NO];
-    [[actualTableView window] makeFirstResponder:actualTableView];
+ 	if([actualTableView acceptsFirstResponder])
+	{
+		[[actualTableView window] makeFirstResponder:actualTableView];
+	}
     [self updateChangeCount:NSChangeDone];
     [self validateWindowsContents];
     return;
@@ -2595,8 +2573,15 @@ To Do List:
                 [tv selectRow:row byExtendingSelection:NO];
             while(--length>0)
                 [tv selectRow:++row byExtendingSelection:YES];
-            [[tv window] makeFirstResponder:tv];
-            [self updateChangeCount:NSChangeDone];
+			if([tv acceptsFirstResponder])
+			{
+				[[tv window] makeFirstResponder:tv];
+			}
+ 			if([tv acceptsFirstResponder])
+			{
+				[[tv window] makeFirstResponder:tv];
+			}
+			[self updateChangeCount:NSChangeDone];
             [self validateWindowsContents];
             return YES;
         }
@@ -2687,7 +2672,7 @@ To Do List:
     }
     if(![result length])
 	{
-        result = [NSString stringWithUTF8String:"―"];
+        result = @"\xE2\x80\x95 ";//[NSString stringWithUTF8String:"―"];
 	}
     return result;
 }
@@ -2735,6 +2720,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	BOOL old = [self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	[self takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 	if(!old)
 	{
 		NSTextStorage * TS = [self textStorage];
@@ -2747,9 +2733,6 @@ To Do List:
 			[self setStringEncoding:encoding];
 		}
 	}
-	[self takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
-iTM2_LOG(@"new:%@",([self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask]?@"Y":@"N"));
-iTM2_LOG(@"new:%@",[self contextValueForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask]);
 	[self validateWindowContent];
 	return;
 }
@@ -2885,7 +2868,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	BOOL old = [SUD contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
-	[SUD takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+	[SUD takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:

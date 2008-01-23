@@ -4,7 +4,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Mar 04 2002.
-//  Copyright © 2005 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2005 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -503,7 +503,10 @@ To Do List:
 		[container setAutoresizesSubviews:YES];
 		[V setAutoresizingMask:NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
 		[V centerInSuperview];
-		[W makeFirstResponder:[new initialKeyView]];
+		if([[new initialKeyView] acceptsFirstResponder])
+		{
+			[W makeFirstResponder:[new initialKeyView]];
+		}
 		[V validateWindowContent];
 	}
 	[old didUnselect];

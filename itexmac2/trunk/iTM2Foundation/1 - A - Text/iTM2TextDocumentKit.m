@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri Sep 05 2003.
-//  Copyright © 2003 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -705,6 +705,37 @@ To Do List:
 	[self makeWindowControllers];
     return [[[self windowControllers] lastObject] textStorage];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringRepresentationCompleteDidSave
+- (void)stringRepresentationCompleteDidSave;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self setStringRepresentation:nil];
+//iTM2_END;
+    return;
+}
+#pragma mark =-=-=-=-=-=-=-=  PRINTING
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWindowControllers
+- (BOOL)synchronizeWindowControllers;
+/*"This prevents the inherited methods to automatically load the data.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([super synchronizeWindowControllers])
+	{
+		[self setStringRepresentation:nil];
+		return YES;
+	}
+//iTM2_END;
+    return NO;
+}
 #pragma mark =-=-=-=-=-=-=-=  PRINTING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= printDocument:
 - (void)printDocument:(id)aSender;
@@ -862,6 +893,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+#warning FAILED: -setStringEncoding: IS NEVER CALLED
     unsigned int old = [self stringEncoding];
     if(argument != old)
     {
@@ -883,6 +915,18 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [[self stringFormatter] isStringEncodingHardCoded];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncodingHardCoded:
+- (void)setStringEncodingHardCoded:(BOOL)yorn;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[[self stringFormatter] setStringEncodingHardCoded:(BOOL)yorn];
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
 - (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
@@ -1068,7 +1112,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 		{
 			if(--firewall == 0)
 			{
-				[RP release];
+				[RP drain];
 				RP = [[NSAutoreleasePool alloc] init];
 				firewall = 256;
 			}
@@ -1099,13 +1143,15 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 			}
 			idx = NSMaxRange(R);
 		}
-		[RP release];
+		[RP drain];
 		RP = nil;
 		// clean the pending stuff
 		if(length)
 		{
 			if(idx>=length)
+			{
 				[MRA addObject:[NSValue valueWithRange:NSMakeRange(idx-length, length)]];
+			}
 			else
 			{
 				iTM2_LOG(@"WARNING: Character problem 4");
@@ -1814,7 +1860,7 @@ To Do List:
 	{
 		if(--firewall == 0)
 		{
-			[RP release];
+			[RP drain];
 			RP = [[NSAutoreleasePool alloc] init];
 			firewall = 256;
 		}
@@ -1845,7 +1891,7 @@ To Do List:
 		}
 		idx = NSMaxRange(R);
 	}
-	[RP release];
+	[RP drain];
 	RP = nil;
 	// clean the pending stuff
 	if(length)

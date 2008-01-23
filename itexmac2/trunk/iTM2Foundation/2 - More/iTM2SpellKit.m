@@ -4,7 +4,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Sep 15 21:07:40 GMT 2004.
-//  Copyright © 2004 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -1285,7 +1285,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self validateWindowContent];
-	[[self window] makeFirstResponder:[notification object]];
+	if([[notification object] acceptsFirstResponder])
+	{
+		[[self window] makeFirstResponder:[notification object]];
+	}
 //iTM2_END;
     return;
 }
@@ -2656,6 +2659,23 @@ To Do List:
 		[SCH setCurrentText:nil];
     [super dealloc];
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  becomeFirstResponder
+- (BOOL)becomeFirstResponder;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed Sep 15 21:07:40 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if([super becomeFirstResponder])
+    {
+        [SCH textDidBecomeFirstResponder:self];
+        return YES;
+    }
+    else
+        return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
 - (id)spellContextController;
