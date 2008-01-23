@@ -469,15 +469,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * path = [sender representedObject];
-	[SPC setProject:nil forFileName:path];
-	if([SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:YES error:nil])
+	NSURL * url = [NSURL fileURLWithPath:path];
+	[SPC setProject:nil forURL:url];
+	if([SDC openDocumentWithContentsOfURL:url display:YES error:nil])
 		return;
 	NSEnumerator * E = [[[NSBundle mainBundle] allPathsForResource:[[path lastPathComponent] stringByDeletingPathExtension]
 		ofType: [path pathExtension] inDirectory:@"Documentation/ConTeXt"] objectEnumerator];
 	while(path = [E nextObject])
 	{
-		[SPC setProject:nil forFileName:path];
-		if([SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:YES error:nil])
+		url = [NSURL fileURLWithPath:path];
+		[SPC setProject:nil forURL:url];
+		if([SDC openDocumentWithContentsOfURL:url display:YES error:nil])
 			return;
 	}
 	[NSApp showConTeXtManualsPrefs:self];

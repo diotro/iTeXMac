@@ -477,6 +477,8 @@ extern NSString * const iTM2ProjectMetaInfoComponent;
 	@method			initWithProject:atomic:prefixWithKeyPaths:
 	@abstract		Designated initializer.
 	@discussion		The model is retrieved from the repository, with the given repository key paths.
+					If the controller is atomic, its mutableInfos is used to edit infos.
+					If the controller is not atomic, each info edited is modified directly in the project's otheInfos.
 	@param			project is the owner of the receiver 
 	@param			yorn: YES to edit in the mutableInfo part and allow some global undo management, NO to edit directly in the info part.
 	@param			prefix is prepended to any key

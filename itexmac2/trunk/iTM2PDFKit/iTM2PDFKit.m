@@ -5,7 +5,7 @@
 //  @version Subversion:$Id:iTM2PDFKit.m 314 2006-12-06 13:28:32Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Jun 24 2001.
-//  Copyright © 2005 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2005 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -347,14 +347,13 @@ To Do List:
 	id matchDocument = nil;
 	while(key = [E nextObject])
 	{
-		NSString * source = [PD absoluteFileNameForKey:key];
-		document = [PD subdocumentForKey:key];
+		document = [PD subdocumentForFileKey:key];
 		if(!document)
 		{
-			if([source length] && [[SDC documentClassForType:[SDC typeFromFileExtension:[source pathExtension]]]
-				isSubclassOfClass:[iTM2TextDocument class]])
+			url = [PD URLForFileKey:key];
+			if(url && [[SDC documentClassForType:[SDC typeForContentsOfURL:url error:nil]] isSubclassOfClass:[iTM2TextDocument class]])
 			{
-				document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:source] display:NO error:nil];
+				document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 			}
 		}
 		if([document isKindOfClass:[iTM2TextDocument class]])
@@ -367,7 +366,7 @@ To Do List:
 				line = testLine;
 				column = testColumn;
 				length = testLength;
-				sourceBefore = source;
+				sourceBefore = [url path];
 				matchDocument = document;
 			}
 		}
@@ -376,9 +375,8 @@ To Do List:
 	{
 		return;
 	}
-	NSString * path = [self fileName];
-	path = [path stringByDeletingPathExtension];
-	path = [path stringByAppendingPathExtension:@"tex"];
+	NSString * path = [[self fileURL] path];
+	path = [[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"tex"];
 	matchDocument = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:NO error:nil];
 	if([matchDocument isKindOfClass:[iTM2TextDocument class]])
 	{
@@ -1731,8 +1729,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setScaleFactor:[[notification object] scaleFactor]];
+	PDFView * V = [notification object];
+	[self setScaleFactor:[V scaleFactor]];
+	[self setAutoScales:[V autoScales]];
 	[[[self window] toolbar] validateVisibleItems];
+	[self validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1943,7 +1944,7 @@ To Do List:
 //iTM2_LOG(@"[V shouldAntiAlias]:%@", ([V shouldAntiAlias]? @"Y":@"N"));
 	[V setGreekingThreshold:[self greekingThreshold]];
 	[V setScaleFactor:[self scaleFactor]];
-	[V setAutoScales:[self autoScales]];
+	[V setAutoScales:[self autoScales]];// after the scale factor is set
 //iTM2_LOG(@"[V autoScales]:%@", ([V autoScales]? @"Y":@"N"));
 	[V setNeedsDisplay:YES];
 	NSView * docView = [V documentView];
@@ -3048,6 +3049,34 @@ To Do List:
 //iTM2_START;
 	[self deallocImplementation];
 	[super dealloc];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomIn:
+- (void)zoomIn:(id)sender;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self setAutoScales:NO];
+	[super zoomIn:sender];
+//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomOut:
+- (void)zoomOut:(id)sender;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[self setAutoScales:NO];
+	[super zoomOut:sender];
 //iTM2_END;
     return;
 }

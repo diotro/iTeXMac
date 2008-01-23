@@ -5,7 +5,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Jun 24 2001.
-//  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
+//  Copyright ¬© 2001-2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -561,8 +561,8 @@ To Do List:
 //iTM2_END;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  bold:
-- (void)bold:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_bold:
+- (void)iTM2_bold:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 To Do List:
@@ -573,8 +573,8 @@ To Do List:
 	[self executeMacroWithID:@"\\textbf{}|text"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  italic:
-- (void)italic:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_italic:
+- (void)iTM2_italic:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 To Do List:
@@ -582,6 +582,17 @@ To Do List:
 {
 //iTM2_START;
 	[self executeMacroWithID:@"\\textit{}|text"];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_smallCaps:
+- (void)iTM2_smallCaps:(id)sender;
+/*"Description forthcoming.
+Version history: jlaurens AT users.sourceforge.net
+To Do List:
+"*/
+{
+//iTM2_START;
+	[self executeMacroWithID:@"\\textsc{}|text"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  underline:
@@ -2024,7 +2035,7 @@ To Do List:
 				{
 					[replacementString appendString:@"@@@([@@@("];
 					argument = [E nextObject];
-					if(![argument length])
+					if([argument length] == 0)
 					{
 						argument = selectedString;
 					}
@@ -2035,14 +2046,14 @@ To Do List:
 				{
 					[replacementString appendString:@"@@@((@@@("];
 					argument = [E nextObject];
-					if(![argument length])
+					if([argument length] == 0)
 					{
 						argument = selectedString;
 					}
 					[replacementString appendString:argument];			
 					[replacementString appendString:@")@@@,@@@("];
 					argument = [E nextObject];
-					if(![argument length])
+					if([argument length] == 0)
 					{
 						argument = selectedString;
 					}

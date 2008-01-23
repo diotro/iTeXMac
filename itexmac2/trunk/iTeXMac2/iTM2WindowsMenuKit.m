@@ -97,7 +97,7 @@ To Do List:
 	NSString * S;
 	while(S = [E nextObject])
 	{
-		NSString * FN = [self relativeFileNameForKey:S];
+		NSString * FN = [self nameForFileKey:S];
 		if([FN length])
 			[MD setObject:S forKey:FN];
 	}
@@ -122,7 +122,7 @@ To Do List:
 			[MI setTarget:nil];
 			S = [MD objectForKey:S];
 			[MI setRepresentedObject:S];
-			NSString * path = [self absoluteFileNameForKey:S];
+			NSString * path = [[self URLForFileKey:S] path];
 			NSImage * I = [SWS iconForFile:path];
 			[I iTM2_setSizeSmallIcon];
 			[MI setImage:I];
@@ -303,6 +303,7 @@ To Do List:
 	// collecting all the application ghost windows to have all the projects
 	id key = nil;
 	NSString * fileName = nil;
+	NSURL * url = nil;
 	NSMutableArray * MRA = nil;
 	id set = [NSMutableSet set];
 	// first we scan all the application windows
@@ -326,27 +327,26 @@ To Do List:
 				{
 					[projectRefsToProjectDocumentsMenuItems setObject:[NSMutableArray array] forKey:key];
 				}
-				fileName = [PD fileName];
-				if([set containsObject:fileName])
+				url = [PD fileURL];
+				if([set containsObject:url])
 				{
-					iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Report bug: Duplicate ghost window for\n%@",fileName]),nil);
+					iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Report bug: Duplicate ghost window for\n%@",[url path]]),nil);
 				}
-				else if([fileName belongsToFarawayProjectsDirectory])
+				else if([url belongsToCachedProjectsDirectory])
 				{
-					fileName = [fileName stringByStrippingFarawayProjectsDirectory];
-					fileName = [fileName stringByDeletingLastPathComponent];
-					if([set containsObject:fileName])
+					url = [SPC directoryURLOfProjectWithUR:url];
+					if([set containsObject:[url path]])
 					{
-						iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Report bug: Duplicate ghost window for (faraway)\n%@",fileName]),nil);
+						iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Report bug: Duplicate ghost window for (faraway)\n%@",[url path]]),nil);
 					}
 					else
 					{
-						[set addObject:fileName];
+						[set addObject:[url path]];
 					}
 				}
-				else if(fileName)
+				else if(url)
 				{
-					[set addObject:fileName];
+					[set addObject:[url path]];
 				}
 			}
 		}
@@ -497,18 +497,8 @@ To Do List:
 	while(key = [E nextObject])
 	{
 		PD = [key nonretainedObjectValue];
-		fileName = [PD fileName];
-//iTM2_LOG(@"a - project file name:%@",fileName);
-		if([fileName belongsToFarawayProjectsDirectory])
-		{
-			component = [fileName lastPathComponent];
-			fileName = [fileName stringByStrippingFarawayProjectsDirectory];
-			fileName = [fileName enclosingWrapperFileName];
-			fileName = [fileName stringByDeletingLastPathComponent];
-			fileName = [fileName stringByAppendingPathComponent:component];
-		}
-//iTM2_LOG(@"b - project file name:%@",fileName);
-		RA = [fileName pathComponents];
+		url = [PD fileURL];
+		RA = [[[PD fileURL] path] pathComponents];
 		MRA = [[RA mutableCopy] autorelease];
 		if(path = [MRA lastObject])
 		{

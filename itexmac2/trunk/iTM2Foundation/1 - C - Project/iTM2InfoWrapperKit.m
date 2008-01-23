@@ -585,7 +585,7 @@ To Do List:
 {
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:[self prefix]];
 	[Ks addObjectsFromArray:keys];
-	id result = [[self infos] infoForKeys:Ks];
+	id result = [[self infos] infoForKeys:Ks];// different behaviour depending on isAtomic.
 	if([result isKindOfClass:[NSDictionary class]])
 	{
 		id inherited = [self inheritedInfoForKeys:Ks];
