@@ -302,7 +302,6 @@ To Do List:
 	BOOL oldMenuChangedMessagesEnabled = [windowsMenu menuChangedMessagesEnabled];
 	// collecting all the application ghost windows to have all the projects
 	id key = nil;
-	NSString * fileName = nil;
 	NSURL * url = nil;
 	NSMutableArray * MRA = nil;
 	id set = [NSMutableSet set];
@@ -334,7 +333,7 @@ To Do List:
 				}
 				else if([url belongsToCachedProjectsDirectory])
 				{
-					url = [SPC directoryURLOfProjectWithUR:url];
+					url = [SPC directoryURLOfProjectWithURL:url];
 					if([set containsObject:[url path]])
 					{
 						iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Report bug: Duplicate ghost window for (faraway)\n%@",[url path]]),nil);

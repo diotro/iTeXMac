@@ -295,8 +295,8 @@ baumugnes:
 			{
 				NSError * error = nil;
 				if(project
-					|| (project = [SPC projectForFileName:path])
-						|| (project = [SPC newProjectForFileNameRef:&path display:YES error:&error]))
+					|| (project = [SPC projectForURL:fileURL])
+						|| (project = [SPC newProjectForURLRef:&fileURL display:YES error:&error]))
 				{
 					[performer performCommandForProject:project];
 					return [project objectSpecifier];
@@ -334,6 +334,7 @@ baumugnes:
 	}
 	else if((path = [evaluatedArguments objectForKey:@"Path"]) && [path isKindOfClass:[NSString class]])
 	{
+		fileURL = [NSURL fileURLWithPath:path];
 		goto baumugnes;
 	}
 	else if(path)
