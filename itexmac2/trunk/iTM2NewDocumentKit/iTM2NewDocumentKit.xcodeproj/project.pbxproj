@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		5169BBFC0D4A021200BA5D57 /* iTM2NewDocumentAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5169BBFA0D4A021200BA5D57 /* iTM2NewDocumentAssistant.xib */; };
 		DC1C6CD0090E1A7D000F4FDE /* iTM2NewDocumentPrefPane.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC5BC74D08EC843C006635C4 /* iTM2NewDocumentPrefPane.tiff */; };
 		DC1C6CD2090E1A85000F4FDE /* iTM2NewDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */; };
 		DC1C6CF4090E1A8F000F4FDE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -30,7 +31,6 @@
 		DC1C6D3E090E1CDF000F4FDE /* iTM2NewDocumentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC70F2E70BFC5CD6006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F2DE0BFC5CD6006C6A76 /* Lua.framework */; };
 		DCAF9A7909D8111E00AFD95F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A6F09D8111E00AFD95F /* InfoPlist.strings */; };
-		DCAF9A7A09D8111E00AFD95F /* iTM2NewDocumentAssistant.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7109D8111E00AFD95F /* iTM2NewDocumentAssistant.nib */; };
 		DCAF9A7B09D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7309D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib */; };
 		DCAF9A7C09D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7509D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings */; };
 		DCAF9A7D09D8111E00AFD95F /* NewDocuments.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7709D8111E00AFD95F /* NewDocuments.resources.tgz */; };
@@ -65,6 +65,8 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		5169BBFB0D4A021200BA5D57 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NewDocumentAssistant.xib; sourceTree = "<group>"; };
+		5169BBFD0D4A021B00BA5D57 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2NewDocumentAssistant.xib; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC1C6CC4090E1A64000F4FDE /* iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2NewDocumentKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2NewDocumentKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2NewDocumentKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -87,12 +89,10 @@
 		DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		DCAF9A7009D8111E00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCAF9A7209D8111E00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2NewDocumentAssistant.nib; sourceTree = "<group>"; };
 		DCAF9A7409D8111E00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2NewDocumentPrefPane.nib; sourceTree = "<group>"; };
 		DCAF9A7609D8111E00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2NewDocumentPrefPane.strings; sourceTree = "<group>"; };
 		DCAF9A7809D8111E00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DCAF9A7E09D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCAF9A7F09D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2NewDocumentAssistant.nib; sourceTree = "<group>"; };
 		DCAF9A8009D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2NewDocumentPrefPane.nib; sourceTree = "<group>"; };
 		DCAF9A8109D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2NewDocumentPrefPane.strings; sourceTree = "<group>"; };
 		DCAF9A8209D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
@@ -141,8 +141,8 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5169BBFA0D4A021200BA5D57 /* iTM2NewDocumentAssistant.xib */,
 				DCAF9A6F09D8111E00AFD95F /* InfoPlist.strings */,
-				DCAF9A7109D8111E00AFD95F /* iTM2NewDocumentAssistant.nib */,
 				DCAF9A7309D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib */,
 				DCAF9A7509D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings */,
 				DCAF9A7709D8111E00AFD95F /* NewDocuments.resources.tgz */,
@@ -312,10 +312,10 @@
 			files = (
 				DC1C6CD0090E1A7D000F4FDE /* iTM2NewDocumentPrefPane.tiff in Resources */,
 				DCAF9A7909D8111E00AFD95F /* InfoPlist.strings in Resources */,
-				DCAF9A7A09D8111E00AFD95F /* iTM2NewDocumentAssistant.nib in Resources */,
 				DCAF9A7B09D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib in Resources */,
 				DCAF9A7C09D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings in Resources */,
 				DCAF9A7D09D8111E00AFD95F /* NewDocuments.resources.tgz in Resources */,
+				5169BBFC0D4A021200BA5D57 /* iTM2NewDocumentAssistant.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +410,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		5169BBFA0D4A021200BA5D57 /* iTM2NewDocumentAssistant.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5169BBFB0D4A021200BA5D57 /* English */,
+				5169BBFD0D4A021B00BA5D57 /* French */,
+			);
+			name = iTM2NewDocumentAssistant.xib;
+			sourceTree = "<group>";
+		};
 		DCAF9A6F09D8111E00AFD95F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -417,15 +426,6 @@
 				DCAF9A7E09D8112700AFD95F /* French */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DCAF9A7109D8111E00AFD95F /* iTM2NewDocumentAssistant.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A7209D8111E00AFD95F /* English */,
-				DCAF9A7F09D8112700AFD95F /* French */,
-			);
-			name = iTM2NewDocumentAssistant.nib;
 			sourceTree = "<group>";
 		};
 		DCAF9A7309D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib */ = {
