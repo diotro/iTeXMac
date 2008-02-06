@@ -340,42 +340,6 @@ To Do List:
     [self display];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willPopUp
-- (BOOL)willPopUp;
-/*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{isValid} message. The menu of the receiver is also updated."*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    const char * selectorName = sel_getName([self action]);
-    int length = strlen(selectorName);
-    if(!length)
-        return NO;
-    char * name = malloc(strlen(selectorName)+9);
-    if(name)
-	{
-		strcpy(name, selectorName);
-		strcpy(name+strlen(selectorName)-1, "WillPopUp:");
-//iTM2_LOG(@"selector name: <%s>", name);
-		SEL willPopUpAction = sel_getUid(name);
-		free(name);
-		name = nil;
-		if(willPopUpAction)
-		{
-			id T = [self target]?:[NSApp targetForAction:[self action]];
-			if(T)
-			{
-				Method willPopUpMethod = ((id)T == (id)(T->isa)?
-					class_getClassMethod((id)(T->isa), willPopUpAction):
-						class_getInstanceMethod((id)(T->isa), willPopUpAction));
-				if(willPopUpMethod)
-					objc_msgSend(T, willPopUpAction, self) != nil;
-			}
-		}
-	}
-	[self setEnabled:([self isValid] || ![self isMixedEnabled] || ([[self menu] numberOfItems] > 0))];
-	[[self menu] update];
-//iTM2_END;
-    return YES;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc:
 - (void)dealloc;
 /*"Cleans the timer."*/
@@ -468,18 +432,54 @@ To Do List:
     [self setEnabled:YES];
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL)isValid;
-/*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the target of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the target responds to #{validateFooAction:} this message is sent to validate the receiver. If the target does not respond to #{validateFooAction}, then it is asked for #{validateUserInterfaceItem:} as usual.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isValid
+- (BOOL)iTM2_isValid;
+/*"Called by iTM2_validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the target of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the target responds to #{validateFooAction:} this message is sent to validate the receiver. If the target does not respond to #{validateFooAction}, then it is asked for #{validateUserInterfaceItem:} as usual.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	BOOL result = [super isValid];
+	BOOL result = [super iTM2_isValid];
 //iTM2_LOG(@"I AM %@VALID", (result? @"": @"NOT "));
 	return result;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willPopUp
+- (BOOL)willPopUp;
+/*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{iTM2_isValid} message. The menu of the receiver is also updated."*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    const char * selectorName = sel_getName([self action]);
+    int length = strlen(selectorName);
+    if(!length)
+        return NO;
+    char * name = malloc(strlen(selectorName)+9);
+    if(name)
+	{
+		strcpy(name, selectorName);
+		strcpy(name+strlen(selectorName)-1, "WillPopUp:");
+//iTM2_LOG(@"selector name: <%s>", name);
+		SEL willPopUpAction = sel_getUid(name);
+		free(name);
+		name = nil;
+		if(willPopUpAction)
+		{
+			id T = [self target]?:[NSApp targetForAction:[self action]];
+			if(T)
+			{
+				Method willPopUpMethod = ((id)T == (id)(T->isa)?
+					class_getClassMethod((id)(T->isa), willPopUpAction):
+						class_getInstanceMethod((id)(T->isa), willPopUpAction));
+				if(willPopUpMethod)
+					objc_msgSend(T, willPopUpAction, self) != nil;
+			}
+		}
+	}
+	[self setEnabled:([self iTM2_isValid] || ![self isMixedEnabled] || ([[self menu] numberOfItems] > 0))];
+	[[self menu] update];
+//iTM2_END;
+    return YES;
 }
 @end
 
@@ -1501,7 +1501,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willPopUp
 - (BOOL)willPopUp;
-/*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{isValid} message. The menu of the receiver is also updated."*/
+/*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{iTM2_isValid} message. The menu of the receiver is also updated."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     const char * selectorName = sel_getName([self action]);
@@ -1565,12 +1565,114 @@ To Do List:
 	[super dealloc];
 	return;
 }
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
+{
+	NSImage * I = [self image];
+	NSEnumerator * E = [[I representations] objectEnumerator];
+	NSImageRep * IR;
+	NSSize maxSize = NSZeroSize;
+	while(IR = [E nextObject])
+	{
+		NSSize size = [IR size];
+		if(size.width > maxSize.width)
+			maxSize = size;
+	}
+	if([self controlSize] == NSSmallControlSize)
+	{
+		maxSize.width *= 0.75;
+		maxSize.height *= 0.75;
+		NSImage * newI = [[I copy] autorelease];
+		[newI setSize:maxSize];
+		[self setImage:newI];
+		[super drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView];
+		[self setImage:I];
+	}
+	else
+	{
+		NSImage * newI = [[I copy] autorelease];
+		[newI setSize:maxSize];
+		[self setImage:newI];
+		[super drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView];
+		[self setImage:I];
+	}
+	if([popUpCell pullsDown])
+	{
+		cellFrame.origin.y = NSMinY(cellFrame) + 0.825 * cellFrame.size.height - 0.5 * [popUpCell cellSize].height;
+		cellFrame.size.height = [popUpCell cellSize].height;
+	}
+	cellFrame.origin.x = NSMaxX(cellFrame) - 20;
+	cellFrame.size.width = 20;
+	[popUpCell drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isValid
+- (BOOL)iTM2_isValid;
+/*"Called by iTM2_validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	BOOL result = [self iTM2_isDoubleValid];
+//iTM2_END;
+	return [super iTM2_isValid] || result;// both validators are called!
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isDoubleValid
+- (BOOL)iTM2_isDoubleValid;
+/*"Called by iTM2_validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_LOG(NSStringFromSelector([self action]));
+	BOOL result = YES;
+	SEL action = [self doubleAction];
+	static const char * iTM2ANSICapitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if(action)
+    {
+        id validatorTarget = [NSApp targetForAction:action to:[self target] from:[self controlView]]?:
+			[NSApp targetForAction:action to:[[[self controlView] window] firstResponder] from:[self controlView]];
+		if(validatorTarget)
+		{
+			const char * selectorName = sel_getName(action);
+			char * name = malloc(strlen(selectorName)+9);
+			if(name)
+			{
+				strcpy(name, "validate");
+				strcpy(name+8, selectorName);
+				if((name[8]>='a') && (name[8]<='z'))
+					name[8] = iTM2ANSICapitals[name[8]-'a'];
+			//iTM2_LOG(@"selector name: <%s>", name);
+				SEL validatorAction = sel_getUid(name);
+				free(name); name = nil;
+				if(validatorAction)
+				{
+					Method validatorMethod = ((id)validatorTarget == (id)([validatorTarget class])?
+						class_getClassMethod((id)(validatorTarget), validatorAction):
+						class_getInstanceMethod((id)(validatorTarget->isa), validatorAction));
+					if(validatorMethod)
+					{
+					//iTM2_END;
+						id sender = ([(id)[self controlView] action] == [self action]?(id)[self controlView]:self);
+						result = (int)(objc_msgSend(validatorTarget, validatorAction, sender)) & 0xFF;//BOOL
+						[self setEnabled:result];
+					}
+				}
+			}
+		}
+    }
+//iTM2_END;
+	return result;
+}
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)flag;
 {
 	if(!popUpCell)
 		return [super trackMouse:theEvent inRect:cellFrame ofView:controlView untilMouseUp:flag];
 	[self highlight:YES withFrame:cellFrame inView:controlView];
-	if([self isDoubleValid])
+	if([self iTM2_isDoubleValid])
 	{
 		NSDate * topDate = [NSDate dateWithTimeIntervalSinceNow:[SUD floatForKey:@"iTM2MixedButtonDelay"]];
 		NSDate * clickDate = [NSDate dateWithTimeIntervalSinceNow:[SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"]];
@@ -1619,108 +1721,6 @@ nextMouseUp:
 	}
 	[popUpCell setControlSize:oldPopUpSize];
 	[self highlight:NO withFrame:cellFrame inView:controlView];
-	return result;
-}
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
-{
-	NSImage * I = [self image];
-	NSEnumerator * E = [[I representations] objectEnumerator];
-	NSImageRep * IR;
-	NSSize maxSize = NSZeroSize;
-	while(IR = [E nextObject])
-	{
-		NSSize size = [IR size];
-		if(size.width > maxSize.width)
-			maxSize = size;
-	}
-	if([self controlSize] == NSSmallControlSize)
-	{
-		maxSize.width *= 0.75;
-		maxSize.height *= 0.75;
-		NSImage * newI = [[I copy] autorelease];
-		[newI setSize:maxSize];
-		[self setImage:newI];
-		[super drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView];
-		[self setImage:I];
-	}
-	else
-	{
-		NSImage * newI = [[I copy] autorelease];
-		[newI setSize:maxSize];
-		[self setImage:newI];
-		[super drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView];
-		[self setImage:I];
-	}
-	if([popUpCell pullsDown])
-	{
-		cellFrame.origin.y = NSMinY(cellFrame) + 0.825 * cellFrame.size.height - 0.5 * [popUpCell cellSize].height;
-		cellFrame.size.height = [popUpCell cellSize].height;
-	}
-	cellFrame.origin.x = NSMaxX(cellFrame) - 20;
-	cellFrame.size.width = 20;
-	[popUpCell drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView];
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValid
-- (BOOL)isValid;
-/*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	BOOL result = [self isDoubleValid];
-//iTM2_END;
-	return [super isValid] || result;// both validators are called!
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isDoubleValid
-- (BOOL)isDoubleValid;
-/*"Called by validateUserInterfaceItems (NSView). The validator is the object responding to the action, either the validatorTarget of the receiver of an object in the responder chain (or the window delegate). The standard validating process is extended. Assuming the action of the receiver is #{fooAction:}, and the validatorTarget responds to #{validateFooAction:} this message is sent to validate the receiver. If the validatorTarget does not respond to #{validateFooAction}, then it is asked for #{target:validateUserInterfaceItem:} as usual.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(NSStringFromSelector([self action]));
-	BOOL result = YES;
-	SEL action = [self doubleAction];
-	static const char * iTM2ANSICapitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    if(action)
-    {
-        id validatorTarget = [NSApp targetForAction:action to:[self target] from:[self controlView]]?:
-			[NSApp targetForAction:action to:[[[self controlView] window] firstResponder] from:[self controlView]];
-		if(validatorTarget)
-		{
-			const char * selectorName = sel_getName(action);
-			char * name = malloc(strlen(selectorName)+9);
-			if(name)
-			{
-				strcpy(name, "validate");
-				strcpy(name+8, selectorName);
-				if((name[8]>='a') && (name[8]<='z'))
-					name[8] = iTM2ANSICapitals[name[8]-'a'];
-			//iTM2_LOG(@"selector name: <%s>", name);
-				SEL validatorAction = sel_getUid(name);
-				free(name); name = nil;
-				if(validatorAction)
-				{
-					Method validatorMethod = ((id)validatorTarget == (id)([validatorTarget class])?
-						class_getClassMethod((id)(validatorTarget), validatorAction):
-						class_getInstanceMethod((id)(validatorTarget->isa), validatorAction));
-					if(validatorMethod)
-					{
-					//iTM2_END;
-						id sender = ([(id)[self controlView] action] == [self action]?(id)[self controlView]:self);
-						result = (int)(objc_msgSend(validatorTarget, validatorAction, sender)) & 0xFF;//BOOL
-						[self setEnabled:result];
-					}
-				}
-			}
-		}
-    }
-//iTM2_END;
 	return result;
 }
 @end

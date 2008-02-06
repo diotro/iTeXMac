@@ -47,6 +47,7 @@ To Do List:
 	if(!_iTM2TextWatcherDictionary)
 	{
 		_iTM2TextWatcherDictionary = [[NSMutableDictionary dictionary] retain];
+		[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(dealloc) replacement:@selector(SWZ_iTM2TextWatcher_dealloc) forClass:[NSTextView class]];
 	}
     return;
 }
@@ -199,24 +200,18 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 //iTM2_END;
     return YES;
 }
-@end
-
-@interface NSTextView_iTM2TextWatcher: NSTextView
-@end
-
-@implementation NSTextView_iTM2TextWatcher
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TextWatcher_dealloc
+- (void)SWZ_iTM2TextWatcher_dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
-To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
+To Do List: Nothing
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSValue * V = [NSValue valueWithNonretainedObject:self];
 	[_iTM2TextWatcherDictionary removeObjectForKey:V];
-	[super dealloc];
+	[self SWZ_iTM2TextWatcher_dealloc];
 //iTM2_END;
     return;
 }
@@ -249,7 +244,6 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSTextView_iTM2TextWatcher poseAsClass:[NSTextView class]];
 	[iTM2MileStone registerMileStone:@"!!!   No delimiter watching available, report BUG" forKey:@"iTM2TextWatcher"];
 //iTM2_END;
 	iTM2_RELEASE_POOL;

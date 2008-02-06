@@ -1373,7 +1373,7 @@ To Do List:
 		pageIndex = 0;
 	[inspector setCurrentOutputFigure:[[inspector outputFigureNumbers] objectAtIndex:pageIndex]];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1398,7 +1398,7 @@ To Do List:
 	else
 		pageIndex = 0;
 	[inspector setCurrentOutputFigure:[[inspector outputFigureNumbers] objectAtIndex:pageIndex]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1422,7 +1422,7 @@ To Do List:
 	pageIndex += n;
 	[inspector setCurrentOutputFigure:[[inspector outputFigureNumbers] objectAtIndex:MIN(pageIndex, [[inspector outputFigureNumbers] count] - 1)]];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1442,7 +1442,7 @@ To Do List:
 	int pageIndex = [[inspector outputFigureNumbers] indexOfObject:[inspector currentOutputFigure]];
 	pageIndex += n;
 	[inspector setCurrentOutputFigure:[[inspector outputFigureNumbers] objectAtIndex:MIN(pageIndex, [[inspector outputFigureNumbers] count] - 1)]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1849,29 +1849,33 @@ nextFigure:
 @end
 
 #if 0
-@interface NSLayoutManager_DEBUG: NSLayoutManager
-@end
-@implementation NSLayoutManager_DEBUG
-+ (void)load;{[self poseAsClass:[NSLayoutManager class]];}
-- (void)invalidateGlyphsForCharacterRange:(NSRange)charRange changeInLength:(int)delta actualCharacterRange:(NSRangePointer)actualCharRange;
+@implementation NSLayoutManager(iTM2DEBUG)
++ (void)load;
+{
+	[NSLayoutManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_invalidateGlyphsForCharacterRange:changeInLength:actualCharacterRange:)];
+	[NSLayoutManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_invalidateLayoutForCharacterRange:isSoft:actualCharacterRange:)];
+	[NSLayoutManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_invalidateDisplayForGlyphRange:)];
+	[NSLayoutManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_invalidateDisplayForCharacterRange:)];
+}
+- (void)SWZ_iTM2DEBUG_invalidateGlyphsForCharacterRange:(NSRange)charRange changeInLength:(int)delta actualCharacterRange:(NSRangePointer)actualCharRange;
     // This removes all glyphs for the old character range, adjusts the character indices of all the subsequent glyphs by the change in length, and invalidates the new character range.  If actualCharRange is non-NULL it will be set to the actual range invalidated after any necessary expansion.
 {
-	[super invalidateGlyphsForCharacterRange:(NSRange)charRange changeInLength:(int)delta actualCharacterRange:(NSRangePointer)actualCharRange];
+	[self SWZ_iTM2DEBUG_invalidateGlyphsForCharacterRange:(NSRange)charRange changeInLength:(int)delta actualCharacterRange:(NSRangePointer)actualCharRange];
 }
-- (void)invalidateLayoutForCharacterRange:(NSRange)charRange isSoft:(BOOL)flag actualCharacterRange:(NSRangePointer)actualCharRange;
+- (void)SWZ_iTM2DEBUG_invalidateLayoutForCharacterRange:(NSRange)charRange isSoft:(BOOL)flag actualCharacterRange:(NSRangePointer)actualCharRange;
     // This invalidates the layout information (glyph location and rotation) for the given range of characters.  If flag is YES then this range is marked as a hard layout invalidation.  If NO, then the invalidation is soft.  A hard invalid layout range indicates that layout information must be completely recalculated no matter what.  A soft invalid layout range means that there is already old layout info for the range in question, and if the NSLayoutManager is smart enough to figure out how to avoid doing the complete relayout, it may perform any optimization available.  If actualCharRange is non-NULL it will be set to the actual range invalidated after any necessary expansion.
 {
-	[super invalidateLayoutForCharacterRange:(NSRange)charRange isSoft:(BOOL)flag actualCharacterRange:(NSRangePointer)actualCharRange];
+	[self SWZ_iTM2DEBUG_invalidateLayoutForCharacterRange:(NSRange)charRange isSoft:(BOOL)flag actualCharacterRange:(NSRangePointer)actualCharRange];
 }
-- (void)invalidateDisplayForGlyphRange:(NSRange)glyphRange;
+- (void)SWZ_iTM2DEBUG_invalidateDisplayForGlyphRange:(NSRange)glyphRange;
 {
 //iTM2_LOG(@"XXXXX  glyphRange: %@", NSStringFromRange(glyphRange));
-	[super invalidateDisplayForGlyphRange:(NSRange)glyphRange];
+	[self SWZ_iTM2DEBUG_invalidateDisplayForGlyphRange:(NSRange)glyphRange];
 }
-- (void)invalidateDisplayForCharacterRange:(NSRange)charRange;
+- (void)SWZ_iTM2DEBUG_invalidateDisplayForCharacterRange:(NSRange)charRange;
 {
 //iTM2_LOG(@"XXXXX  charRange: %@", NSStringFromRange(charRange));
-	[super invalidateDisplayForCharacterRange:(NSRange)charRange];
+	[self SWZ_iTM2DEBUG_invalidateDisplayForCharacterRange:(NSRange)charRange];
 }
 @end
 #endif

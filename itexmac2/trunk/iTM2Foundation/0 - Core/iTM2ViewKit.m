@@ -1575,7 +1575,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(tile) replacement:@selector(swizzle_iTM2ViewKit_tile) forClass:self])
+	if(![self iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ViewKit_tile)])
 	{
 		iTM2_LOG(@"..........  ERROR: Bad configuration, no auto scroller toolbar...");
 	}
@@ -1583,8 +1583,8 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2ViewKit_tile
-- (void)swizzle_iTM2ViewKit_tile;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ViewKit_tile
+- (void)SWZ_iTM2ViewKit_tile;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Jun 29 14:36:07 GMT 2005
@@ -1592,7 +1592,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self swizzle_iTM2ViewKit_tile];
+	[self SWZ_iTM2ViewKit_tile];
 	NSEnumerator * E = [_subviews objectEnumerator];
 	iTM2ScrollerToolbar * subview;
 	while(subview = [E nextObject])

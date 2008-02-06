@@ -200,7 +200,7 @@ To Do List:
     NS_DURING
     [super windowDidLoad];
     findStringChangedSinceLastPasteboardUpdate = YES;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     [[self window] setDelegate: self];
     NS_HANDLER
     [NSApp reportException: localException];
@@ -552,7 +552,7 @@ To Do List:
     [self findNext: sender];
     if ([self isLastFindSuccessful])
         [[self window] orderOut: sender];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -593,7 +593,7 @@ To Do List:
     [self replace: sender];
     if ([self isLastFindSuccessful])
         [[self window] orderOut: sender];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -650,7 +650,7 @@ To Do List:
 		if([[D objectForKey: @"FindString"] isEqual: senderString])
 		{
 			[IMPLEMENTATION takeModel: D ofType: MAIN];
-			[self validateWindowContent];			
+			[self iTM2_validateWindowContent];			
 			return;
 		}
 	}
@@ -874,7 +874,7 @@ To Do List:
     [self synchronizeFromUserInterface];
 	[self recordFindContext];
     [self find: Forward];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -902,7 +902,7 @@ To Do List:
     [self synchronizeFromUserInterface];
 	[self recordFindContext];
     [self find: Backward];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -930,7 +930,7 @@ To Do List:
     [self synchronizeFromUserInterface];
 	[self recordFindContext];
     [[self textViewToSearchIn] insertText: [self replaceString]];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1218,7 +1218,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self isWrap];
 	[self setWrap: !old];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1246,7 +1246,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self isCaseSensitive];
 	[self setCaseSensitive: !old];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1273,7 +1273,7 @@ To Do List:
 {
 //iTM2_START;
 	[self setEntireFile: ([[sender selectedCell] tag] == 0)];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1348,7 +1348,7 @@ To Do List:
 {
 //iTM2_START;
     [self postNotificationWithStatus: @""];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     [[self window] makeKeyAndOrderFront: nil];
 //iTM2_END;
     return;

@@ -128,7 +128,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self contextBoolForKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContextBool: !old forKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }

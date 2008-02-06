@@ -507,7 +507,7 @@ To Do List:
 		{
 			[W makeFirstResponder:[new initialKeyView]];
 		}
-		[V validateWindowContent];
+		[V iTM2_validateWindowContent];
 	}
 	[old didUnselect];
 	[new didSelect];

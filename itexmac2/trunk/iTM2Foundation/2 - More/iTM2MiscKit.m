@@ -148,10 +148,7 @@ To Do List:
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
 
-@interface NSTextView_iTM2MiscKit: NSTextView
-@end
-
-@implementation NSTextView_iTM2MiscKit
+@implementation NSTextView(iTM2Misc)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Extracted from apple sample code (TextLinks).
@@ -163,13 +160,13 @@ To Do List:
     iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSTextView_iTM2MiscKit poseAsClass:[NSTextView class]];
+	[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_resetCursorRects)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resetCursorRects:
-- (void)resetCursorRects;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2Misc_resetCursorRects:
+- (void)SWZ_iTM2Misc_resetCursorRects;
 /*"Extracted from apple sample code (TextLinks).
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/19/2002
@@ -246,16 +243,17 @@ To Do List:
     }
     else
     {
-		[NSFontManager_iTeXMac2 poseAsClass:[NSFontManager class]];
+		[NSFontManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_orderFrontFontPanel:)];
+		[NSFontManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_addFontTrait:)];
 	}
 //iTM2_END;
     return;
 }
 @end
 
-@implementation NSFontManager_iTeXMac2
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  orderFrontFontPanel:
-- (void)orderFrontFontPanel:(id)sender;
+@implementation NSFontManager(iTM2Misc)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Misc_orderFrontFontPanel:
+- (void)SWZ_iTM2Misc_orderFrontFontPanel:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -263,11 +261,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[INC postNotificationName:iTM2FontPanelWillOrderFrontNotification object:nil];
-	[super orderFrontFontPanel:sender];
+	[self SWZ_iTM2Misc_orderFrontFontPanel:sender];
 //iTM2_END;
     return;
 }
-- (void)addFontTrait:(id)sender;
+- (void)SWZ_iTM2Misc_addFontTrait:(id)sender;
 {
 	if([sender respondsToSelector:@selector(tag)])
 	{
@@ -304,7 +302,7 @@ To Do List:
 			return;
 		}
 	}
-	[super addFontTrait:(id)sender];
+	[self SWZ_iTM2Misc_addFontTrait:(id)sender];
 	return;
 }
 @end
@@ -358,13 +356,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSPageLayout_iTeXMac2 poseAsClass:[NSPageLayout class]];
+	[NSPageLayout iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_writePrintInfo)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  writePrintInfo
-- (void)writePrintInfo;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Misc_writePrintInfo
+- (void)SWZ_iTM2Misc_writePrintInfo;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -372,7 +370,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * oldDictionary = [[[[self printInfo] dictionary] copy] autorelease];
-	[super writePrintInfo];
+	[self SWZ_iTM2Misc_writePrintInfo];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:[self printInfo] userInfo:oldDictionary];
 //iTM2_END;
     return;
@@ -391,81 +389,92 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSPrintInfo_iTeXMac2 poseAsClass:[NSPrintInfo class]];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setPaperName:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setPaperSize:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setOrientation:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setLeftMargin:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setRightMargin:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setTopMargin:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setBottomMargin:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setHorizontallyCentered:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setVerticallyCentered:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setHorizontalPagination:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setVerticalPagination:)];
+	[NSPrintInfo iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setJobDisposition:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-- (void)setPaperName:(NSString *)name;
+- (void)SWZ_iTM2Misc_setPaperName:(NSString *)name;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setPaperName:(NSString *)name];
+	[self SWZ_iTM2Misc_setPaperName:(NSString *)name];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setPaperSize:(NSSize)size;
+- (void)SWZ_iTM2Misc_setPaperSize:(NSSize)size;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setPaperSize:(NSSize)size];
+	[self SWZ_iTM2Misc_setPaperSize:(NSSize)size];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setOrientation:(NSPrintingOrientation)orientation;
+- (void) SWZ_iTM2Misc_setOrientation:(NSPrintingOrientation)orientation;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setOrientation:(NSPrintingOrientation)orientation];
+	[self SWZ_iTM2Misc_setOrientation:(NSPrintingOrientation)orientation];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setLeftMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setLeftMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setLeftMargin:(float)margin];
+	[self SWZ_iTM2Misc_setLeftMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setRightMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setRightMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setRightMargin:(float)margin];
+	[self SWZ_iTM2Misc_setRightMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setTopMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setTopMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setTopMargin:(float)margin];
+	[self SWZ_iTM2Misc_setTopMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setBottomMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setBottomMargin:(float)margin;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setBottomMargin:(float)margin];
+	[self SWZ_iTM2Misc_setBottomMargin:(float)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setHorizontallyCentered:(BOOL)flag;
+- (void)SWZ_iTM2Misc_setHorizontallyCentered:(BOOL)flag;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setHorizontallyCentered:(BOOL)flag];
+	[self SWZ_iTM2Misc_setHorizontallyCentered:(BOOL)flag];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setVerticallyCentered:(BOOL)flag;
+- (void)SWZ_iTM2Misc_setVerticallyCentered:(BOOL)flag;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setVerticallyCentered:(BOOL)flag];
+	[self SWZ_iTM2Misc_setVerticallyCentered:(BOOL)flag];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setHorizontalPagination:(NSPrintingPaginationMode)mode;
+- (void)SWZ_iTM2Misc_setHorizontalPagination:(NSPrintingPaginationMode)mode;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setHorizontalPagination:(NSPrintingPaginationMode)mode];
+	[self SWZ_iTM2Misc_setHorizontalPagination:(NSPrintingPaginationMode)mode];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setVerticalPagination:(NSPrintingPaginationMode)mode;
+- (void)SWZ_iTM2Misc_setVerticalPagination:(NSPrintingPaginationMode)mode;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setVerticalPagination:(NSPrintingPaginationMode)mode];
+	[self SWZ_iTM2Misc_setVerticalPagination:(NSPrintingPaginationMode)mode];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)setJobDisposition:(NSString *)disposition;
+- (void)SWZ_iTM2Misc_setJobDisposition:(NSString *)disposition;
 {
 	NSDictionary * oldDictionary = [[[self dictionary] copy] autorelease];
-	[super setJobDisposition:(NSString *)disposition];
+	[self SWZ_iTM2Misc_setJobDisposition:(NSString *)disposition];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
 @end
@@ -787,10 +796,7 @@ To Do List:
 }
 @end
 
-@interface NSToolbar_iTeXMac2: NSToolbar
-@end
-
-@implementation NSToolbar_iTeXMac2
+@implementation NSToolbar(iTM2Misc)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description Forthcoming.
@@ -802,13 +808,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSToolbar_iTeXMac2 poseAsClass:[NSToolbar class]];
+	[NSToolbar iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Misc_setSizeMode:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSizeMode
-- (void)setSizeMode:(NSToolbarSizeMode)sizeMode;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Misc_setSizeMode:
+- (void)SWZ_iTM2Misc_setSizeMode:(NSToolbarSizeMode)sizeMode;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -820,7 +826,7 @@ To Do List:
 	NSToolbarItem * TBI;
 	while(TBI = [E nextObject])
 		[TBI setToolbarSizeMode:sizeMode];
-	[super setSizeMode:sizeMode];
+	[self SWZ_iTM2Misc_setSizeMode:sizeMode];
 //iTM2_END;
     return;
 }

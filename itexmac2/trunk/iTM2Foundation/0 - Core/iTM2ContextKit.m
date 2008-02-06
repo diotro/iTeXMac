@@ -1019,29 +1019,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [DNC addObserver:[NSDocument_iTM2ContextKit class] selector:@selector(iTM2ContextKit_ApplicationWillTerminateNotified:) name:NSApplicationWillTerminateNotification object:nil];
+    [DNC addObserver:[NSDocument class] selector:@selector(iTM2ContextKit_ApplicationWillTerminateNotified:) name:NSApplicationWillTerminateNotification object:nil];
 //iTM2_END;
     return;
 }
 @end
 
-@implementation NSDocument_iTM2ContextKit
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSDocument_iTM2ContextKit poseAsClass:[NSDocument class]];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
+NSString * const iTM2ContextExtensionsKey = @"iTM2ContextExtensions";
+NSString * const iTM2ContextTypesKey = @"iTM2ContextTypes";
+
+@implementation NSDocument(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKitCompleteInstallation
 + (void)iTM2ContextKitCompleteInstallation;// never called
 /*"Description Forthcoming.
@@ -1051,6 +1038,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	[self iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:)];
     [DNC addObserver:self selector:@selector(iTM2ContextKit_ApplicationWillTerminateNotified:) name:NSApplicationWillTerminateNotification object:nil];
 //iTM2_END;
     return;
@@ -1068,8 +1056,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
-- (void)canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
+- (void)SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
 /*"Description forthcoming. To ensure the context is properly saved
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 1.4: Fri Apr 16 11:39:43 GMT 2004
@@ -1088,7 +1076,7 @@ To Do List:
 		[I setSelector:shouldCloseSelector];
 		if(contextInfo)
 			[I setArgument:&contextInfo atIndex:4];
-		[super canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(_Context_document:shouldClose:shouldCloseInvocation:) contextInfo:[I retain]];
+		[self SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(_Context_document:shouldClose:shouldCloseInvocation:) contextInfo:[I retain]];
 //iTM2_END;
 		return;
 	}
@@ -1116,12 +1104,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-@end
-
-NSString * const iTM2ContextExtensionsKey = @"iTM2ContextExtensions";
-NSString * const iTM2ContextTypesKey = @"iTM2ContextTypes";
-
-@implementation NSDocument(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
 - (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.

@@ -277,13 +277,15 @@ To Do List: retain?
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	[iTM2MileStone registerMileStone:@"Responders are missing" forKey:@"iTM2AutoInstallResponder"];
-	[DNC addObserver:self selector:@selector(applicationWillFinishLaunchingNotified:) name:NSApplicationWillFinishLaunchingNotification object:nil];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  applicationWillFinishLaunchingNotified:
-+ (void)applicationWillFinishLaunchingNotified:(NSNotification *)notification;
+@end
+
+@implementation NSApplication(iTM2AutoInstallResponder)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2AutoInstallResponderWillFinishLaunching
+- (void)iTM2AutoInstallResponderWillFinishLaunching;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -291,9 +293,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[DNC removeObserver:self name:[notification name] object:nil];
 	NSMutableArray * toInstall = [NSMutableArray array];
-	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:self] objectEnumerator];
+	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2AutoInstallResponder class]] objectEnumerator];
 	Class responderClass;
 	while(responderClass = [[E nextObject] nonretainedObjectValue])
 	{
@@ -313,12 +314,20 @@ To Do List:
 					iTM2_LOG(@"%@ available, to deactivate:", className);
 					NSLog(@"terminal%% defaults write %@ %@ 'YES'", [[NSBundle mainBundle] bundleIdentifier], K);
 				}
-				[responderClass installInResponderChainAfterNSApp];
+				id R = [[responderClass allocWithZone:[self zone]] init];
+				if([R insertInResponderChainAfter:self])
+			#warning SHOULD I FIX IMPLEMENTATION TOO
+				{
+					if(iTM2DebugEnabled)
+					{
+						iTM2_LOG(@"Responder %@ installed after NSApp", R);
+					}
+				}
 				[toInstall addObject:responderClass];
 			}
 		}
 	}
-	NSResponder * R = NSApp;
+	NSResponder * R = self;
 	while(R = [R nextResponder])
 	{
 //NSLog(@"R is: %@", R);
@@ -331,7 +340,7 @@ To Do List:
 	if(iTM2DebugEnabled)
 	{
 		iTM2_LOG(@"Here is the list of the next responders of NSApp");
-		NSResponder * R = NSApp;
+		NSResponder * R = self;
 		while(R = [R nextResponder])
 		{
 			NSLog(@"R is: %@", R);

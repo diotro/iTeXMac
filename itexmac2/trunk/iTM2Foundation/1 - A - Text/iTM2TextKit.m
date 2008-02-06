@@ -275,15 +275,15 @@ next:
 NSString * const iTM2TextIndentationStringKey= @"iTM2TextIndentationString";
 NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab";
 
-@interface NSTextView_iTM2TextKit_Highlight: NSTextView
-@end
-@implementation NSTextView_iTM2TextKit_Highlight
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
+@implementation NSTextView(iTM2TextKitHighlight)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 {
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-	[self poseAsClass:[NSTextView class]];
+	[self iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TextKitHighlight_didChangeText)];
     [SUD registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"	", iTM2TextIndentationStringKey,
@@ -292,10 +292,10 @@ NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab
 	iTM2_RELEASE_POOL;
 	return;
 }
-- (void)didChangeText;
+- (void)SWZ_iTM2TextKitHighlight_didChangeText;
 {
 	[self highlightRange:NSMakeRange(0, 0) cleanBefore:YES];
-	[super didChangeText];
+	[self SWZ_iTM2TextKitHighlight_didChangeText];
 	return;
 }
 @end
@@ -1137,9 +1137,7 @@ To Do List:
 }
 @end
 
-@interface iTM2AttributedString_0: NSAttributedString
-@end
-@implementation iTM2AttributedString_0
+@implementation NSAttributedString(iTM2TextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
@@ -1151,13 +1149,13 @@ To Do List: implement some kind of balance range for range
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2AttributedString_0 poseAsClass:[NSAttributedString class]];
+	[NSAttributedString iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Text_doubleClickAtIndex:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
-- (NSRange)doubleClickAtIndex:(unsigned)index;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2Text_doubleClickAtIndex:
+- (NSRange)SWZ_iTM2Text_doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: 02/15/2006
@@ -1166,7 +1164,7 @@ To Do List: implement some kind of balance range for range
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //	[[NSApp currentEvent] clickCount] is always 2
-	NSRange wordRange = [super doubleClickAtIndex:index];
+	NSRange wordRange = [self SWZ_iTM2Text_doubleClickAtIndex:index];
 	if([iTM2EventObserver isAlternateKeyDown])
 	{
 		return wordRange;

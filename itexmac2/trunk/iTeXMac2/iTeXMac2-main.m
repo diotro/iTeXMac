@@ -176,212 +176,41 @@ To Do List:
 @end
 
 #if 0
-@interface NSApplication_DEBUG: NSApplication
-@end
-@implementation NSApplication_DEBUG
+@implementation NSApplication(iTeXMac2_main)
 + (void)load;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-	[self poseAsClass:[NSApplication class]];
+	[NSApplication iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2MAIN_sendEvent:)];
 	iTM2_RELEASE_POOL;
 	return;
 }
-- (void)sendEvent:(NSEvent *)theEvent;
+- (void)SWZ_iTM2MAIN_sendEvent:(NSEvent *)theEvent;
 {iTM2_DIAGNOSTIC;
 //NSLog(@"theEvent is: %@", theEvent);
-	[super sendEvent:theEvent];
-}
-@end
-#endif
-
-#if 0
-#import <iTM2Foundation/iTM2Foundation.h>
-@implementation iTM2Application(IIUOP)
-+ (void)load;
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-	NSEnumerator * E = [[iTM2RuntimeBrowser realInstanceSelectorsOfClass:[NSAutoreleasePool class] withSuffix:@"" signature:nil inherited:NO] objectEnumerator];
-	SEL selector;
-	while(selector = (SEL)[[E nextObject] pointerValue])
-		NSLog(NSStringFromSelector(selector));
-	iTM2_RELEASE_POOL;
-}
-@end
-
-#endif
-
-#if 0
-@interface NSAutoreleasePool_DEBUG: NSAutoreleasePool
-- (void)swizzled_AddObject:(id)object;
-@end
-static NSMutableDictionary * NSAutoreleasePool_Recorder = nil;
-static BOOL NSAutoreleasePool_Swizzled = NO;
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
-@implementation iTM2MainInstaller(NSAutoreleasePool_DEBUG)
-+ (void)NSAutoreleasePool_CompleteInstallationX;
-{iTM2_DIAGNOSTIC;
-	[iTM2RuntimeBrowser swizzleClassMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[NSAutoreleasePool class]];
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(dealloc) replacement:@selector(swizzled_dealloc) forClass:[NSAutoreleasePool class]];
-	return;
-}
-+ (void)xload;
-{iTM2_DIAGNOSTIC;
-	NSAutoreleasePool * P = [[NSAutoreleasePool alloc] init];
-	iTM2RedirectNSLogOutput();
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(release) replacement:@selector(swizzled_release) forClass:[NSAutoreleasePool class]];
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(release) replacement:@selector(swizzled_NSObject_release) forClass:[NSObject class]];
-	[P release];
-	return;
-}
-@end
-#import <objc/objc.h>
-@implementation NSObject(iTeXMac2_DEBUG)
-- (void)swizzled_NSObject_release;
-{iTM2_DIAGNOSTIC;
-	printf("=-=-=-=-=-=-=-=-=-=-  object release: %#x %s %i START", self, object_getClassName(self), [self retainCount]);
-	[self swizzled_NSObject_release];
-	printf("=-=-=-=-=-=-=-=-=-=-  object release: %#x END\n", self);
-	return;
-}
-@end
-@implementation NSAutoreleasePool(iTeXMac2_DEBUG)
-- (void)swizzled_release;
-{iTM2_DIAGNOSTIC;
-//	[isa showPools];
-	printf("=-=-=-=-=-=-=-=-=-=-  AP release: %#x START", self);
-	[self swizzled_release];
-	printf("=-=-=-=-=-=-=-=-=-=-  AP release: %#x END\n", self);
-	return;
-}
-@end
-#elif 0
-#pragma mark =-=-=-=-=-  BUG HUNTING
-@interface NSAutoreleasePool_DEBUG: NSAutoreleasePool
-- (void)swizzled_AddObject:(id)object;
-@end
-static NSMutableDictionary * NSAutoreleasePool_Recorder = nil;
-static BOOL NSAutoreleasePool_Swizzled = NO;
-@implementation iTM2MainInstaller(NSAutoreleasePool_Recorder)
-+ (void)NSAutoreleasePool_Recorder_CompleteInstallation;
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	if([SUD boolForKey:@"NSAutoreleasePool_Recorder"])
-	{
-		NSAutoreleasePool_Recorder = [[NSMutableDictionary dictionary] retain];
-		[NSAutoreleasePool_DEBUG poseAsClass:[NSAutoreleasePool class]];
-//		[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[NSAutoreleasePool class]];
-	}
-	iTM2_RELEASE_POOL;
-	return;
-}
-@end
-@implementation NSAutoreleasePool_DEBUG
-- (void)swizzled_AddObject:(id)object;
-{iTM2_DIAGNOSTIC;
-	if(NSAutoreleasePool_Swizzled)
-	{
-		[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[self class]];
-		NSAutoreleasePool_Swizzled = NO;
-	}
-	NSValue * K = [NSValue valueWithNonretainedObject:self];
-	NSMutableDictionary * MD = [NSAutoreleasePool_Recorder objectForKey:K];
-	if(! MD)
-	{
-		MD = [NSMutableDictionary dictionary];
-		[NSAutoreleasePool_Recorder setObject:MD forKey:K];
-	}
-	[MD setObject:[object description] forKey:[NSValue valueWithNonretainedObject:object]];
-	if(!NSAutoreleasePool_Swizzled)
-	{
-		[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[self class]];
-		NSAutoreleasePool_Swizzled = YES;
-	}
-	[self swizzled_AddObject:object];
-	return;
-}
-- (id)initWithCapacity:(unsigned)numItems;
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[self class]];
-	return [self initWithCapacity:numItems];
-}
-- (void)dealloc:(id)object;
-{iTM2_DIAGNOSTIC;
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(addObject:) replacement:@selector(swizzled_addObject:) forClass:[self class]];
-	iTM2_INIT_POOL;
-//NSLog(@"Deallocating autorelease pool");
-	id K = [NSValue valueWithNonretainedObject:self];
-	NSDictionary * D = [NSAutoreleasePool_Recorder objectForKey:K];
-	NSEnumerator * E = [D keyEnumerator];
-	NSValue * key;
-	id O;
-	while(key = [E nextObject])
-	{
-		NS_DURING
-		if([[key nonretainedObjectValue] retainCount]<2)
-			NSLog(@"Bad retain count? %@", [D objectForKey:key]);
-		NS_HANDLER
-			NSLog(@"***  HUGE PROBLEM WITH OBJECT: %@", [D objectForKey:key]);
-			[localException raise];
-		NS_ENDHANDLER
-	}
-	iTM2_RELEASE_POOL;
-//NSLog(@"Done deallocating autorelease pool");
-	[super dealloc];
-	return;
-}
-@end
-#else
-@interface NSAutoreleasePool_DEBUG: NSAutoreleasePool
-@end
-#import <objc/objc.h>
-@implementation NSAutoreleasePool_DEBUG
-+ (void)load;{[self poseAsClass:[NSAutoreleasePool class]];}
-- (void)addObject:(id)object;
-{iTM2_DIAGNOSTIC;
-#if 0
-	const char * name = object_getClassName(object);
-	if(strncmp(name, "iTM2", 3))
-	{
-		printf("AP addObject: %s\n", name);
-//		printf("AP addObject: %s, %#x\n", name, object);
-	}
-#endif
-	[super addObject:object];
-	return;
-}
-- (void)dealloc;
-{iTM2_DIAGNOSTIC;
-	printf("=-=-=-=-=-=-=-=-=-=-  AP dealloc: %#x START", self);
-	[super dealloc];
-	printf("=-=-=-=-=-=-=-=-=-=-  AP dealloc: %#x END\n", self);
-	return;
+	[self SWZ_iTM2MAIN_sendEvent:theEvent];
 }
 @end
 #endif
 
 #import <Sparkle/Sparkle.h>
 
-@interface SUUnarchiver(iTeXMac2)
+@interface SUUnarchiver(iTeXMac2_PUBLIC)
 - (BOOL)_extractZIP:(NSString *)archivePath;
 - (BOOL)_extractDMG:(NSString *)archivePath;
 @end
 
-@interface SUUnarchiver_iTeXMac2:SUUnarchiver
-@end
-
-@implementation SUUnarchiver_iTeXMac2
+@implementation SUUnarchiver(iTeXMac2)
 + (void)load;
-{
-	[self poseAsClass:[SUUnarchiver class]];
-	return;
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+	[SUUnarchiver iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2__extractZIP:)];
+	iTM2_RELEASE_POOL;
 }
-- (BOOL)_extractZIP:(NSString *)archivePath
+- (BOOL)SWZ_iTM2__extractZIP:(NSString *)archivePath
 {
-	if([super _extractZIP:archivePath])
+	if([self SWZ_iTM2__extractZIP:archivePath])
 	{
 		archivePath = [archivePath stringByDeletingPathExtension];
 		archivePath = [archivePath stringByAppendingPathExtension:@"dmg"];

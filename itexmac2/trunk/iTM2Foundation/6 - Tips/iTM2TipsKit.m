@@ -494,7 +494,7 @@ To Do List:
 		[V centerInSuperview];
 		[V setAutoresizingMask: NSViewMinXMargin|NSViewMaxXMargin|NSViewMinYMargin|NSViewMaxYMargin];
 		[[V window] makeFirstResponder: [new initialKeyView]];
-		[V validateWindowContent];
+		[V iTM2_validateWindowContent];
 	}
 	[old didUnselect];
 	[new didSelect];

@@ -37,8 +37,8 @@ NSString * const iTM2TaskControllerIsBlindKey = @"iTM2TaskControllerIsBlind";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TaskInspector
 /*"This object manages the UI of the task controller."*/
 @implementation iTM2TaskInspector
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowFrameIdentifier
-- (NSString *)windowFrameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowFrameIdentifier
+- (NSString *)iTM2_windowFrameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -48,8 +48,8 @@ To Do List:
 //iTM2_START;
     return @"Task Window";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004

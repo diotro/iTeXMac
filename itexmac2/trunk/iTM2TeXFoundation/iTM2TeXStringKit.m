@@ -1257,10 +1257,8 @@ nextBeforeWord:
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2XAttributedString
 /*"Description forthcoming."*/
-@interface iTM2TeXAttributedString_0:NSAttributedString
-@end
 
-@implementation iTM2TeXAttributedString_0
+@implementation NSAttributedString(TeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
@@ -1272,25 +1270,13 @@ To Do List:implement some kind of balance range for range
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2TeXAttributedString_0 poseAsClass:[NSAttributedString class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(doubleClickAtIndex:) replacement:@selector(SWZ_TeX_doubleClickAtIndex:) forClass:[NSAttributedString class]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= originalDoubleClickAtIndex:
-- (NSRange)originalDoubleClickAtIndex:(unsigned)index;
-/*"Description forthcoming.
-Version history:jlaurens AT users.sourceforge.net
-- 2.0:02/15/2006
-To Do List:implement some kind of balance range for range
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [super doubleClickAtIndex:index];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
-- (NSRange)doubleClickAtIndex:(unsigned)index;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_TeX_doubleClickAtIndex:
+- (NSRange)SWZ_TeX_doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
 Version history:jlaurens AT users.sourceforge.net
 - 2.0:02/15/2006
@@ -1301,31 +1287,6 @@ To Do List:implement some kind of balance range for range
 	NSRange R = [iTM2TeXStringController TeXAwareWordRangeInAttributedString:self atIndex:index];
 //iTM2_END;
     return R;
-#if 0
-		NSString * pattern = @".\\{.\\}";
-		NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",pattern];
-		r = NSMakeRange(R.location-4,4);
-		s = [S substringWithRange:r];
-		if([predicate evaluateWithObject:s])
-		{
-			theChar = [S characterAtIndex:R.location-4];
-			if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))// hyphen and latex accents
-			{
-				R.location -= 2;
-				R.length += 2;
-				if(R.location)
-				{
-					theChar = [S characterAtIndex:R.location-1];
-					if([ANCS characterIsMember:theChar])
-					{
-						NSRange r = [super doubleClickAtIndex:R.location-1];
-						R = NSUnionRange(R,r);
-						goto expandToTheLeft;
-					}
-				}
-			}
-		}
-#endif
 }
 @end
 

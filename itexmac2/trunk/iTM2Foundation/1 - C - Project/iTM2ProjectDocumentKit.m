@@ -3744,7 +3744,7 @@ To Do List:
 	id DV = [self documentsView];
     [DV reloadData];
 	[DV setNeedsDisplay:YES];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedFileKeys
@@ -3786,8 +3786,8 @@ To Do List:
         [isa prettyInspectorMode],
             displayName];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
-- (NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_windowsMenuItemTitleForDocumentDisplayName:
+- (NSString *)iTM2_windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3958,7 +3958,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -4790,7 +4790,7 @@ To Do List:
 				iTM2_REPORTERROR(1,(NSLocalizedStringFromTableInBundle(@"A directory could not be created.",iTM2ProjectTable,myBUNDLE,"")),localError);
 				return;
 			}
-			[sender validateWindowContent];
+			[sender iTM2_validateWindowContent];
 		}
     }
     return;
@@ -4977,7 +4977,7 @@ To Do List:
 	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(windowTitleForDocumentDisplayName:)
 		replacement:@selector(iTM2_Swizzled_windowTitleForDocumentDisplayName:)
 			forClass:[NSWindowController class]]
-	|| ![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(windowsMenuItemTitleForDocumentDisplayName:)
+	|| ![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(iTM2_windowsMenuItemTitleForDocumentDisplayName:)
 		replacement:@selector(iTM2_Swizzled_windowsMenuItemTitleForDocumentDisplayName:)
 			forClass:[NSWindowController class]])
 	{
@@ -5035,12 +5035,9 @@ To Do List:
 }
 @end
 
-@interface NSWindowController_iTM2ProjectDocumentKit:NSWindowController
-@end
-
-@implementation NSWindowController_iTM2ProjectDocumentKit
+@implementation NSWindowController(iTM2ProjectDocument)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shouldCascadeWindows
-- (BOOL)shouldCascadeWindows;
+- (BOOL)SWZ_iTM2ProjectDocument_shouldCascadeWindows;
 /*"Gives a default value,useful for window observer?
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -5048,27 +5045,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [super shouldCascadeWindows] && (![SPC projectForSource:self]);
+    return [self SWZ_iTM2ProjectDocument_shouldCascadeWindows] && (![SPC projectForSource:self]);
 }
-#if 0
-- (void)synchronizeWindowTitleWithDocumentName;
-{iTM2_DIAGNOSTIC;
-	[super synchronizeWindowTitleWithDocumentName];
-	iTM2_LOG(@"[[self window] title] is:%@",[[self window] title]);
-	iTM2_LOG(@"[[self document] fileName] is:%@",[[self document] fileName]);
-	if(![[self document] fileName])
-		NSLog(@"RIEN");
-	
-}
-#endif
 @end
 
 NSString * const iTM2OtherProjectWindowsAlphaValue = @"iTM2OtherProjectWindowsAlphaValue";
 
-@interface NSWindow_iTM2ProjectDocumentKit:NSWindow
-@end
-
-@implementation NSWindow_iTM2ProjectDocumentKit
+@implementation NSWindow(iTM2ProjectDocument)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
@@ -5088,8 +5071,8 @@ To Do List:
     return;
 }
 #if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= display
-- (void)display;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2ProjectDocument_display
+- (void)SWZ_iTM2ProjectDocument_display;
 /*"Gives a default value,useful for window observer?
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -5119,19 +5102,19 @@ To Do List:
 			[self setOpaque:NO];
 			float oldAlpha = [self alphaValue];
 			[self setAlphaValue:oldAlpha * otherAlpha];
-			[super display];
+			[self SWZ_iTM2ProjectDocument_display];
 			[self setAlphaValue:oldAlpha];
 			[self setOpaque:wasOpaque];
 //iTM2_END;
 			return;
 		}
 	}
-	[super display];
+	[self SWZ_iTM2ProjectDocument_display];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIfNeeded
-- (void)displayIfNeeded;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2ProjectDocument_displayIfNeeded
+- (void)SWZ_iTM2ProjectDocument_displayIfNeeded;
 /*"Gives a default value,useful for window observer?
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -5161,64 +5144,19 @@ To Do List:
 			float oldAlpha = [self alphaValue];
 			[self setAlphaValue:oldAlpha * otherAlpha];
 //iTM2_LOG(@"YES");
-			[super displayIfNeeded];
+			[self SWZ_iTM2ProjectDocument_displayIfNeeded];
 			[self setAlphaValue:oldAlpha];
 			[self setOpaque:wasOpaque];
 //iTM2_END;
 			return;
 		}
 	}
-	[super displayIfNeeded];
+	[self SWZ_iTM2ProjectDocument_displayIfNeeded];
 //iTM2_END;
     return;
 }
 #endif
 @end
-
-#if 0
-@interface NSApplication_iTM2ProjectDocumentKit:NSApplication
-@end
-
-#import <objc/objc-runtime.h>
-#import <objc/objc-class.h>
-
-@implementation NSApplication_iTM2ProjectDocumentKit
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Jan 19 23:19:59 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSApplication_iTM2ProjectDocumentKit poseAsClass:[NSApplication class]];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  miniaturizeAll:
-- (void)miniaturizeAll:(id)sender;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Mar 30 15:52:06 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super miniaturizeAll:sender];// to be patched?
-//iTM2_END;
-    return;
-}
-- (void)arrangeInFront:(id)sender;
-{
-	return;// no arrange in front because it is not undoable...
-}
-@end
-#endif
-
 
 @interface NSDocument_iTM2ProjectDocumentKit:NSDocument
 @end
@@ -5226,7 +5164,7 @@ To Do List:
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
 
-@implementation NSDocument_iTM2ProjectDocumentKit
+@implementation NSDocument(iTM2ProjectDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
@@ -5238,15 +5176,16 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSDocument_iTM2ProjectDocumentKit poseAsClass:[NSDocument class]];
-	[NSWindowController_iTM2ProjectDocumentKit poseAsClass:[NSWindowController class]];
-	[NSWindow_iTM2ProjectDocumentKit poseAsClass:[NSWindow class]];
+	[NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setFileURL:)];
+	[NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:)];
+	[NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_newRecentDocument)];
+	[NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_shouldCascadeWindows)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileURL:
-- (void)setFileURL:(NSURL*)newURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_setFileURL:
+- (void)SWZ_iTM2ProjectDocument_setFileURL:(NSURL*)newURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Mar 30 15:52:06 GMT 2005
@@ -5257,20 +5196,20 @@ To Do List:
 	NSURL * oldURL = [self fileURL];
 	if(!oldURL || [oldURL isEqual:newURL])
 	{
-		[super setFileURL:newURL];
+		[self SWZ_iTM2ProjectDocument_setFileURL:newURL];
 		return;
 	}
 	// this is not the first time we are asked to set the file URL
 	iTM2ProjectDocument * oldPD = [self project];
 	if(!oldPD || (self == (id)oldPD))
 	{
-		[super setFileURL:newURL];
+		[self SWZ_iTM2ProjectDocument_setFileURL:newURL];
 		return;
 	}
 	iTM2WrapperDocument * WD = [self wrapper];
 	if(self == (id)WD)
 	{
-		[super setFileURL:newURL];
+		[self SWZ_iTM2ProjectDocument_setFileURL:newURL];
 		return;
 	}
 	// the receiver is not a project nor a wrapper,but belongs to project projectDocument
@@ -5285,7 +5224,7 @@ To Do List:
 		newPD = [SPC newProjectForURLRef:&url display:NO error:nil];
 		if(![[url absoluteURL] isEqual:[newURL absoluteURL]])
 		{
-			[super setFileURL:url];
+			[self SWZ_iTM2ProjectDocument_setFileURL:url];
 		#warning THERE MIGHT BE A PROBLEM HERE
 			iTM2_LOG(@"----  BE EXTREMELY CAREFUL: writeSafelyToURL will be used");
 			if(![self writeSafelyToURL:oldURL ofType:[self fileType] forSaveOperation:NSSaveOperation error:nil])
@@ -5305,13 +5244,13 @@ To Do List:
 		properties = [[oldPD mainInfos] propertiesForFileKey:oldKey];
 		properties = [[properties mutableCopy] autorelease];
 		[[newPD mainInfos] takeProperties:properties forFileKey:newKey];
-		[super setFileURL:url];
+		[self SWZ_iTM2ProjectDocument_setFileURL:url];
 		return;
 	}
 	else if([newPD ownsSubdocument:self])
 	{
 		// This is not expected:two different projects own the same document
-		[super setFileURL:newURL];
+		[self SWZ_iTM2ProjectDocument_setFileURL:newURL];
 		//NSAssert3(NO,@"INCONSISTENT CODE:projects %@ and %@ are not allowed to own the same document:%@",oldPD,newPD,self);
 		// bib files and others might be shared between projects
 		return;
@@ -5332,14 +5271,14 @@ To Do List:
 		NSString * newKey = [newPD fileKeyForSubdocument:self];
 		properties = [[[[oldPD mainInfos] propertiesForFileKey:oldKey] mutableCopy] autorelease];
 		[[newPD mainInfos] takeProperties:properties forFileKey:newKey];
-		[super setFileURL:newURL];
+		[self SWZ_iTM2ProjectDocument_setFileURL:newURL];
 		// what about the context?
 	}
 	else
 	{
 		[SDC addDocument:self];
 		[oldPD removeSubdocument:self];
-		[super setFileURL:newURL];
+		[self SWZ_iTM2ProjectDocument_setFileURL:newURL];
 	}
 //iTM2_END;
     return;
@@ -5358,51 +5297,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileNameSheetDidDismiss:returnCode:recycleName:
-+ (void)setFileNameSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode recycleName:(NSString *)fileName;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[fileName autorelease];// was retained above
-	if(returnCode == NSAlertAlternateReturn)// cancel!!
-		return;
-	BOOL recycle = returnCode == NSAlertOtherReturn;
-    iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
-    NSEnumerator * E = [recyclable objectEnumerator];
-	NSString * fileKey;
-	NSDictionary * contextInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:recycle] forKey:@"recycle"];
-    while(fileKey = [E nextObject])
-    {
-		NSString * fullPath = [projectDocument URLForFileKey:fileKey];
-		NSDocument * D = [SDC documentForFileName:fullPath];
-		if(D)
-			[D canCloseDocumentWithDelegate:self
-				shouldCloseSelector:@selector(projectDocument:shouldRemoveFromProject:contextInfo:)
-					contextInfo:[contextInfo retain]];// contextInfo will be released below
-		else if(recycle)
-		{
-			NSString * lastComponent = [fullPath lastPathComponent];
-			NSString * dirName = [fullPath stringByDeletingLastPathComponent];
-			int tag;
-			if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName
-							destination:@"" files:[NSArray arrayWithObject:lastComponent] tag:&tag])
-			{
-				iTM2_LOG(@"Could not recycle synchronously file at %@ (tag is %i)",fullPath,tag);
-			}
-			[projectDocument removeFileKey:fileKey];
-		}
-		else
-			[projectDocument removeFileKey:fileKey];
-	}
-//iTM2_END;
-	return;
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
 - (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
 /*"Description forthcoming.
@@ -5463,8 +5357,8 @@ To Do List:
 //iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
     return didChange;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument
-- (id)newRecentDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_newRecentDocument
+- (id)SWZ_iTM2_newRecentDocument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Mar 30 15:52:06 GMT 2005
@@ -5475,9 +5369,9 @@ To Do List:
 	iTM2ProjectDocument * projectDocument = [self project];
 	if([[projectDocument fileURL] belongsToCachedProjectsDirectory])
 	{
-		return [super newRecentDocument];
+		return [self SWZ_iTM2_newRecentDocument];
 	}
-    return projectDocument? [projectDocument newRecentDocument]:[super newRecentDocument];
+    return projectDocument? [projectDocument newRecentDocument]:[self SWZ_iTM2_newRecentDocument];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_catched_document:didSave:contextInfo:
 - (void)iTM2_catched_document:(NSDocument *)document didSave:(BOOL)didSaveSuccessfully contextInfo:(NSDictionary *)contextInfo;
@@ -5535,8 +5429,8 @@ To Do List:
 	return;
 //iTM2_END;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:
-- (void)saveToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:
+- (void)SWZ_iTM2ProjectDocument_saveToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
 /*"This is one of the 2 critical methods where the document and its project can be separated. (the other one is setFileURL:)
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -5546,13 +5440,13 @@ To Do List:
 //iTM2_START;
 	if(![absoluteURL isFileURL] || (saveOperation != NSSaveAsOperation))
 	{
-		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
+		[self SWZ_iTM2ProjectDocument_saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
 		return;
 	}
 	NSURL * oldURL = [self fileURL];
 	if(![oldURL isFileURL])
 	{
-		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
+		[self SWZ_iTM2ProjectDocument_saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
 		return;
 	}
 	NSMutableDictionary * info = [NSMutableDictionary dictionary];
@@ -5573,7 +5467,7 @@ To Do List:
 	iTM2ProjectDocument * newPD = [SPC projectForURL:absoluteURL];
 	if(newPD)
 	{
-		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:self didSaveSelector:@selector(iTM2_catched_document:didSave:contextInfo:) contextInfo:info];
+		[self SWZ_iTM2ProjectDocument_saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:self didSaveSelector:@selector(iTM2_catched_document:didSave:contextInfo:) contextInfo:info];
 		return;
 	}
 	NSURL * url = absoluteURL;
@@ -5585,7 +5479,7 @@ To Do List:
 			absoluteURL = url;
 			[info setObject:absoluteURL forKey:@"newURL"];
 		}
-		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:self didSaveSelector:@selector(iTM2_catched_document:didSave:contextInfo:) contextInfo:info];
+		[self SWZ_iTM2ProjectDocument_saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:self didSaveSelector:@selector(iTM2_catched_document:didSave:contextInfo:) contextInfo:info];
 		return;
 	}
 	if(error)
@@ -5594,7 +5488,7 @@ To Do List:
 	}
 	if([self isKindOfClass:[iTM2ProjectDocument class]])
 	{
-		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
+		[self SWZ_iTM2ProjectDocument_saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
 		return;
 	}
 	BOOL result = NO;
@@ -5630,8 +5524,8 @@ To Do List:
 	NSString * T = [super title];
 	return [T length]? T:@"...";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowsMenuItemTitle
-- (NSString *)windowsMenuItemTitle;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowsMenuItemTitle
+- (NSString *)iTM2_windowsMenuItemTitle;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (10/04/2001)
 - 2.0: Fri Apr 16 11:39:43 GMT 2004
@@ -6722,13 +6616,16 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2StringFormatController_iTM2ProjectDocumentKit poseAsClass:[iTM2StringFormatController class]];
+	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_EOL)];
+	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setEOL:)];
+	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_stringEncoding)];
+	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setStringEncoding:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOL
-- (unsigned int)EOL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_EOL
+- (unsigned int)SWZ_iTM2ProjectDocument_EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -6748,10 +6645,10 @@ To Do List:
 			return EOL == iTM2UnknownEOL? [iTM2StringFormatController EOLForName:EOLName]:EOL;
 		}
 	}
-    return [super EOL];
+    return [self SWZ_iTM2ProjectDocument_EOL];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
-- (void)setEOL:(unsigned int) argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_setEOL:
+- (void)SWZ_iTM2ProjectDocument_setEOL:(unsigned int) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -6759,7 +6656,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [super setEOL:argument];
+    [self SWZ_iTM2ProjectDocument_setEOL:argument];
 	id D = [self document];
 	id P = [D project];
 	NSString * fileKey = [P fileKeyForSubdocument:D];
@@ -6770,8 +6667,8 @@ To Do List:
 	}
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
-- (NSStringEncoding)stringEncoding;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_stringEncoding
+- (NSStringEncoding)SWZ_iTM2ProjectDocument_stringEncoding;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -6788,10 +6685,10 @@ To Do List:
 		CFStringEncoding encoding = [iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncodingName];
 		return CFStringConvertEncodingToNSStringEncoding(encoding);
 	}
-    return [super stringEncoding];
+    return [self SWZ_iTM2ProjectDocument_stringEncoding];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
-- (void)setStringEncoding:(NSStringEncoding) argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_setStringEncoding:
+- (void)SWZ_iTM2ProjectDocument_setStringEncoding:(NSStringEncoding) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -6799,7 +6696,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[super setStringEncoding:argument];
+	[self SWZ_iTM2ProjectDocument_setStringEncoding:argument];
 	id D = [self document];
 	id P = [D project];
 	NSString * fileKey = [P fileKeyForSubdocument:D];
@@ -6830,7 +6727,7 @@ To Do List:
 //iTM2_START;
 	NSNumber * N = [NSNumber numberWithInt:[sender tag]];
 	[[self document] takePropertyValue:N forKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
@@ -6846,7 +6743,7 @@ To Do List:
 	BOOL old = [N respondsToSelector:@selector(boolValue)]?[N boolValue]:NO;
 	N = [NSNumber numberWithBool:!old];
 	[[self document] takePropertyValue:N forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
@@ -6917,7 +6814,7 @@ To Do List:
 //iTM2_START;
 	NSNumber * N = [NSNumber numberWithInt:[sender tag]];
 	[[self document] takePropertyValue:N forKey:TWSEOLFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:

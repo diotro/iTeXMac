@@ -524,25 +524,6 @@ To Do List: retain?
 
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
 
-@interface NSMenuItem_iTM2:NSMenuItem
-@end
-@implementation NSMenuItem_iTM2
-+ (void)load;
-{
-	[self poseAsClass:[NSMenuItem class]];
-	return;
-}
-- (void)setTarget:(id)aTarget;
-{
-	if([aTarget isKindOfClass:[iTM2TextInspector class]])
-	{
-		iTM2_LOG(@"%@ is target of %@",aTarget,self);
-	}
-	[super setTarget:aTarget];
-	return;
-}
-@end
-
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSMenu(iTeXMac2)
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSMenuItem(iTeXMac2)

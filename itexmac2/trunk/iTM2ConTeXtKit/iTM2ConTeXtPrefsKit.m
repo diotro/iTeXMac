@@ -478,7 +478,7 @@ To Do List:
 	}
 	else
 		[[self downloadIndicator] setIndeterminate:YES];
-	[[self downloadPanel] validateContent];
+	[[self downloadPanel] iTM2_validateContent];
 //iTM2_END;
 	return;
 }

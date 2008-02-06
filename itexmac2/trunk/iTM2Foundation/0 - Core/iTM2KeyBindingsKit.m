@@ -51,15 +51,6 @@ NSString * const iTM2KeyStrokeIntervalKey = @"iTM2KeyStrokeInterval";
 - (void)cleanSelectionCache:(id)irrelevant;
 @end
 
-@interface NSText_iTM2KeyBindingsKit: NSText
-@end
-
-@interface NSWindow_iTM2KeyBindingsKit: NSWindow
-@end
-
-@interface NSResponder_iTM2KeyStrokeKit: NSResponder
-@end
-
 static NSCharacterSet * iTM2_KeyStroke_CharacterSet = nil;
 static NSMutableDictionary * iTM2_KeyStroke_Selectors = nil;
 static NSMutableArray * iTM2_KeyStroke_Unmapped = nil;
@@ -96,6 +87,8 @@ To Do List:
 - (id)objectInChildrenWithAltKey:(NSString *)key;
 @end
 
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2KeyBindingsManager
 /*"Description forthcoming. This input manager does not make use of #{doCommandBySelector:}"*/
 @implementation iTM2KeyBindingsManager
@@ -110,9 +103,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
     iTM2_INIT_POOL;
 //iTM2_START;
-	[NSText_iTM2KeyBindingsKit poseAsClass:[NSText class]];
-	[NSWindow_iTM2KeyBindingsKit poseAsClass:[NSWindow class]];
-	[NSResponder_iTM2KeyStrokeKit poseAsClass:[NSResponder class]];
+	[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_performKeyEquivalent:)];
+	[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_interpretKeyEvents:)];
+	[NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_performMnemonic:)];
+	[NSResponder iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_performKeyEquivalent:)];
+	[NSResponder iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_performMnemonic:)];
+	[NSResponder iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_dealloc:)];
 //iTM2_START;
     iTM2_RELEASE_POOL;
 	return;
@@ -1585,6 +1581,25 @@ To Do List:
     return NO;
 //iTM2_END;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2KeyBindings_performMnemonic:
+- (BOOL)SWZ_iTM2KeyBindings_performMnemonic:(NSString *)theString;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Thu May 13 21:02:03 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([self SWZ_iTM2KeyBindings_performMnemonic:theString])
+	{
+		return YES;
+	}
+	NSResponder * FR = [self firstResponder];
+	if([[FR keyBindingsManager] client:FR performMnemonic:theString])
+		return YES;
+	BOOL result = [[self keyBindingsManager] client:self performMnemonic:theString];
+    return result;
+}
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSApplication(iTM2KeyStrokeKit)
@@ -1650,29 +1665,9 @@ To Do List:
 }
 @end
 
-@implementation NSWindow_iTM2KeyBindingsKit
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performMnemonic:
-- (BOOL)performMnemonic:(NSString *)theString;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu May 13 21:02:03 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([super performMnemonic:theString])
-		return YES;
-	NSResponder * FR = [self firstResponder];
-	if([[FR keyBindingsManager] client:FR performMnemonic:theString])
-		return YES;
-	BOOL result = [[self keyBindingsManager] client:self performMnemonic:theString];
-    return result;
-}
-@end
-
-@implementation NSText_iTM2KeyBindingsKit
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performKeyEquivalent:
-- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
+@implementation NSText(iTM2KeyBindings)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2KeyBindings_performKeyEquivalent:
+- (BOOL)SWZ_iTM2KeyBindings_performKeyEquivalent:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list: problem when more than one key is pressed.
@@ -1681,10 +1676,10 @@ To do list: problem when more than one key is pressed.
 //iTM2_START;
 	iTM2KeyBindingsManager * KBM = [self keyBindingsManager];
     return ([self isEqual:[[self window] firstResponder]] && [KBM client:self performKeyEquivalent:theEvent])
-                || [super performKeyEquivalent:theEvent];
+                || [self SWZ_iTM2KeyBindings_performKeyEquivalent:theEvent];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  interpretKeyEvents:
-- (void)interpretKeyEvents:(NSArray *)eventArray;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2KeyBindings_interpretKeyEvents:
+- (void)SWZ_iTM2KeyBindings_interpretKeyEvents:(NSArray *)eventArray;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu May 13 21:02:03 GMT 2004
@@ -1703,34 +1698,18 @@ To Do List: Nothing at first glance.
 //            [self cleanSelectionCache:self];
 //NSLog(@"%@, %@", NSStringFromSelector(_cmd), ([self hasMarkedText]? @"Y":@"N"));
         if(![KBM client:self interpretKeyEvent:event])
-            [super interpretKeyEvents:[NSArray arrayWithObject:event]];
+            [self SWZ_iTM2KeyBindings_interpretKeyEvents:[NSArray arrayWithObject:event]];
     }
 //if([[self string] length]>0) NSLog(@"My last character code is:%i, %#x", [[self string] characterAtIndex:[[self string] length]-1], [[self string] characterAtIndex:[[self string] length]-1]);
     return;
 }
-#if 0
-#warning DEBUGGGG
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
-- (void)keyDown:(NSEvent *)theEvent;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super keyDown:(NSEvent *)theEvent];
-//iTM2_END;
-    return;
-}
-#endif
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSResponder(iTM2KeyStrokeKit)
 /*"Description forthcoming."*/
-@implementation NSResponder_iTM2KeyStrokeKit
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performKeyEquivalent:
-- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
+@implementation NSResponder(iTM2KeyBindings)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2KeyBindings_performKeyEquivalent:
+- (BOOL)SWZ_iTM2KeyBindings_performKeyEquivalent:(NSEvent *)theEvent;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1739,10 +1718,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [[self keyBindingsManager] client:self performKeyEquivalent:theEvent]
-        || [super performKeyEquivalent:theEvent];
+        || [self SWZ_iTM2KeyBindings_performKeyEquivalent:theEvent];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performMnemonic:
-- (BOOL)performMnemonic:(NSString *)theKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2KeyBindings_performMnemonic:
+- (BOOL)SWZ_iTM2KeyBindings_performMnemonic:(NSString *)theKey;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1751,10 +1730,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [[self keyBindingsManager] client:self performMnemonic:theKey]
-        || [super performMnemonic:theKey];
+        || [self SWZ_iTM2KeyBindings_performMnemonic:theKey];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2KeyBindings_dealloc
+- (void)SWZ_iTM2KeyBindings_dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 15 14:34:51 GMT 2004
@@ -1771,19 +1750,7 @@ To Do List:
     [iTM2_KeyStroke_Events removeObjectForKey:V];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
-    [super dealloc];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= interpretKeyEvents:
-- (void)interpretKeyEvents:(NSArray *)eventArray;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super interpretKeyEvents:eventArray];
+    [self SWZ_iTM2KeyBindings_dealloc];
     return;
 }
 @end
@@ -1876,59 +1843,3 @@ To Do List:
 }
 @end
 
-#if 0
-@interface MyWindow: NSWindow
-@end
-@implementation MyWindow: NSWindow
-+ (void)load;
-{iTM2_DIAGNOSTIC;
-	[MyWindow poseAsClass:[NSWindow class]];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= performKeyEquivalent:
-- (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	BOOL result = [super performKeyEquivalent:(NSEvent *) theEvent];
-//iTM2_LOG(@"[self title]; %@, performKeyEquivalent:%@", [self title], (result? @"Y":@"N"));
-    return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
-- (void)keyDown:(NSEvent *)theEvent;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"[self firstResponder]:%@", [self firstResponder]);
-//iTM2_LOG(@"[self title]:%@", [self title]);
-	[super keyDown:(NSEvent *) theEvent];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= makeFirstResponder:
-- (BOOL)makeFirstResponder:(NSResponder *)aResponder;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	iTM2_LOG(@"[self title]:%@", [self title]);
-	if([[self title] isEqualToString:@"Find"])
-	{
-		iTM2_LOG(@"aResponder: %@", aResponder);
-		BOOL result = [super makeFirstResponder:(NSResponder *)aResponder];
-		iTM2_LOG(@"[self firstResponder]:%@", [self firstResponder]);
-		return result;
-	}
-    return [super makeFirstResponder:(NSResponder *)aResponder];
-}
-@end
-#endif

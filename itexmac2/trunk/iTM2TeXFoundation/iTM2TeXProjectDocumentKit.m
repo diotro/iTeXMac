@@ -47,9 +47,7 @@ NSString * const iTM2TPDKVariantKey = @"variant";
 NSString * const iTM2TPDKOutputKey = @"output";
 NSString * const iTM2TPDKNameKey = @"name";
 
-@interface NSDocumentController_iTM2TeXProject:iTM2DocumentController
-@end
-@implementation NSDocumentController_iTM2TeXProject
+@implementation NSDocumentController(iTM2TeXProject)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -61,13 +59,16 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSDocumentController_iTM2TeXProject poseAsClass:[iTM2DocumentController class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(projectPathExtension) replacement:@selector(SWZ_TeXP_projectPathExtension) forClass:[iTM2DocumentController class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(wrapperPathExtension) replacement:@selector(SWZ_TeXP_wrapperPathExtension) forClass:[iTM2DocumentController class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(projectDocumentType) replacement:@selector(SWZ_TeXP_projectDocumentType) forClass:[iTM2DocumentController class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(wrapperDocumentType) replacement:@selector(SWZ_TeXP_wrapperDocumentType) forClass:[iTM2DocumentController class]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectPathExtension
-- (NSString *)projectPathExtension;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_projectPathExtension
+- (NSString *)SWZ_TeXP_projectPathExtension;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -78,8 +79,8 @@ To Do List:
 //iTM2_END;
 	return iTM2TeXProjectPathExtension;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wrapperPathExtension
-- (NSString *)wrapperPathExtension;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_wrapperPathExtension
+- (NSString *)SWZ_TeXP_wrapperPathExtension;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -90,8 +91,8 @@ To Do List:
 //iTM2_END;
 	return iTM2TeXWrapperPathExtension;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectDocumentType
-- (NSString *)projectDocumentType;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_projectDocumentType
+- (NSString *)SWZ_TeXP_projectDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -102,8 +103,8 @@ To Do List:
 //iTM2_END;
     return iTM2TeXProjectDocumentType;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wrapperDocumentType
-- (NSString *)wrapperDocumentType;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_wrapperDocumentType
+- (NSString *)SWZ_TeXP_wrapperDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -476,8 +477,8 @@ To Do List:
 //iTM2_START;
     return iTM2SubdocumentsInspectorMode;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowFrameIdentifier
-- (NSString *)windowFrameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_windowFrameIdentifier
+- (NSString *)iTM2_windowFrameIdentifier;
 /*"YESSSS.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -487,8 +488,8 @@ To Do List:
 //iTM2_START;
     return @"TeX Project Files";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -641,7 +642,7 @@ To Do List:
     {
         [project setMasterFileKey:newK];
         [project updateChangeCount:NSChangeDone];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
     return;
 }
@@ -761,7 +762,7 @@ To Do List:
 			}
 			return;
 		}
-		[sender validateWindowContent];
+		[sender iTM2_validateWindowContent];
     }
     return;
 }
@@ -1096,7 +1097,7 @@ To Do List:
 	{
 		[project updateChangeCount:NSChangeDone];		
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1148,7 +1149,7 @@ To Do List:
 	{
 		[project updateChangeCount:NSChangeDone];		
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1204,7 +1205,7 @@ To Do List:
 	{
 		[project updateChangeCount:NSChangeDone];		
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1636,7 +1637,7 @@ To Do List:
 	{
 		[project updateChangeCount:NSChangeDone];		
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
@@ -1663,7 +1664,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDrawer * drawer = [notification object];
-    [drawer validateContent];
+    [drawer iTM2_validateContent];
 	NSSize contentSize = [drawer contentSize];
 	NSString * string = [self contextStringForKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
 	if(string)

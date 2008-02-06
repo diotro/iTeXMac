@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Oct 16 2001.
-//  Copyright ¬© 2004 Laurens'Tribune. All rights reserved.
+//  Copyright © 2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -447,7 +447,7 @@ To Do List:
 	MD = [NSMutableDictionary dictionary];
 
 	[_AllSymbolsSets setObject:allSymbols forKey:@"K"];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return result;
 }
@@ -582,12 +582,12 @@ To Do List:
     [C setAllowsEditingTextAttributes:YES];
     [C setImportsGraphics:YES];
     [[self window] setDelegate:self];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
-- (BOOL)validateWindowContent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_validateWindowContent
+- (BOOL)iTM2_validateWindowContent;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -595,7 +595,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [super validateWindowContent];
+    [super iTM2_validateWindowContent];
     NSString * CSK = [self currentSetKey];
     if([CSK length] && ![_CustomKeysSets objectForKey:CSK])
     {
@@ -645,7 +645,7 @@ To Do List:
         }
     }
 //iTM2_END;
-    return [addSetPanel validateContent];
+    return [addSetPanel iTM2_validateContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
@@ -674,7 +674,7 @@ To Do List:
     if(_CurrentSetItem != newItem)
     {
         _CurrentSetItem = newItem;
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
     return;
 }
@@ -932,7 +932,7 @@ To Do List:
     if(_CurrentSetItem != sender)
     {
         _CurrentSetItem = sender;
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
 //iTM2_END;
     return;
@@ -985,7 +985,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     if(![[self window] attachedSheet])
     {
         [NSApp beginSheet:addSetPanel
@@ -1022,7 +1022,7 @@ To Do List:
 		// we would want to select the menu item of the newly created set, assuming that we are going to edit it.
 		// force the validation: the menu items will be created from scratch,
 		_CurrentSetItem = nil;
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 		// normally the "all symbols" menu item should be selected.
 		if(_CurrentSetItem)
 		{
@@ -1034,7 +1034,7 @@ To Do List:
 				{
 					_CurrentSetItem = MI;
 					// now we know what menu item should be selected.
-					[self validateWindowContent];
+					[self iTM2_validateWindowContent];
 					if([tableView acceptsFirstResponder])
 					{
 						[[tableView window] makeFirstResponder:tableView];
@@ -1111,7 +1111,7 @@ To Do List:
     [_iTM2PRIVATE_NewSetName autorelease];
     _iTM2PRIVATE_NewSetName = [[sender stringValue] copy];
     _CurrentSetItem = nil;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSet:
@@ -1156,7 +1156,7 @@ To Do List:
             [[self document] updateChangeCount:NSChangeDone];
 //iTM2_LOG(@"[_RecycleSymbolsSets allKeys]: %@", [_RecycleSymbolsSets allKeys]);
 //iTM2_LOG(@"[_CustomSymbolsSets allKeys]: %@", [_CustomSymbolsSets allKeys]);
-			[self validateWindowContent];
+			[self iTM2_validateWindowContent];
         }
     }
 //iTM2_END;
@@ -1248,7 +1248,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:shouldEditTableColumn:row:
@@ -1302,7 +1302,7 @@ To Do List:
 //iTM2_START;
     if([self currentSets] != _CustomSymbolsSets)
     {
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
         return;
     }
     NSString * CSK = [self currentSetKey];
@@ -1324,7 +1324,7 @@ To Do List:
         [tv reloadData];
     }
 	[tv selectRow:row byExtendingSelection:NO];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     if([tv acceptsFirstResponder] && [[tv window] makeFirstResponder:tv])
 	{
 #if 1
@@ -1368,7 +1368,7 @@ To Do List:
 //iTM2_START;
     if([self currentSets] != _CustomSymbolsSets)
     {
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
         return;
     }
     NSString * CSK = [self currentSetKey];
@@ -1390,7 +1390,7 @@ To Do List:
         }
     }
 //    [tv reloadData];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COLOR MANAGEMENT
@@ -1404,7 +1404,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [SCP setColor:[[NSColor whiteColor] colorWithAlphaComponent:0]];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1437,7 +1437,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     _Background = !_Background;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1491,7 +1491,7 @@ To Do List:
                 [_Ks addObject:object];
 				[_Ks sortUsingSelector:@selector(compare:)];
                 [[self document] updateChangeCount:NSChangeDone];
-				[self validateWindowContent];
+				[self iTM2_validateWindowContent];
             }
             [TV reloadData];
         }
@@ -1517,7 +1517,7 @@ To Do List:
                     if(rowHeight > [TV rowHeight])
                         [TV setRowHeight:rowHeight];
                     [[self document] updateChangeCount:NSChangeDone];
-					[self validateWindowContent];
+					[self iTM2_validateWindowContent];
 //iTM2_LOG(@"The character? %x", [[object string] characterAtIndex:0]);
 //iTM2_LOG(@"attributes? %@", [object attributesAtIndex:0 effectiveRange:nil]);
                 }
@@ -1571,7 +1571,7 @@ To Do List:
     if(isDocumentEdited)
     {
         [[self document] updateChangeCount:NSChangeDone];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
     [tableView setRowHeight:rowHeight];
     return;
@@ -1587,7 +1587,7 @@ To Do List:
 //iTM2_START;
     if([self currentSets] != _CustomSymbolsSets)
     {
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
         return;
     }
     NSColor * newC = [sender color];
@@ -1632,7 +1632,7 @@ To Do List:
     if(isDocumentEdited)
     {
         [[self document] updateChangeCount:NSChangeDone];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
 //iTM2_END;
     return;
@@ -1746,7 +1746,7 @@ To Do List:
         [tv setRowHeight:rowHeight];
         [tv reloadData];
         [[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
         return YES;
     }
     else if([type isEqualToString:NSStringPboardType])
@@ -1783,7 +1783,7 @@ To Do List:
         [tv setRowHeight:rowHeight];
         [tv reloadData];
         [[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
         return YES;
     }
     else

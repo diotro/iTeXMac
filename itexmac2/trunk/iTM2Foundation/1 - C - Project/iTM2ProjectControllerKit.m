@@ -140,47 +140,77 @@ To Do List:
 	// purpose: move the whole ~me/Library/Application\ Support/iTeXMac2/Projects.put_aside
 	// to ~me/Library/Application\ Support/iTeXMac2/Cached Projects.localized
 	// Do I need to migrate ?
-	NSString * old = [[NSBundle mainBundle] pathForSupportDirectory:@"Projects.put_aside" inDomain:NSUserDomainMask create:NO];
-	if(![DFM fileExistsAtPath:old])
+	NSString * oldSupport = [[NSBundle mainBundle] pathForSupportDirectory:@"Projects.put_aside" inDomain:NSUserDomainMask create:NO];
+	if(![DFM fileExistsAtPath:oldSupport])
 	{
 		return; // nothing to migrate
 	}
-	NSString * new = [[NSBundle mainBundle] pathForSupportDirectory:@"Cached Projects.localized" inDomain:NSUserDomainMask create:YES];
-	NSEnumerator * E = [[DFM subpathsAtPath:old] objectEnumerator];
+	NSString * newSupport = [[NSBundle mainBundle] pathForSupportDirectory:@"Cached Projects.localized" inDomain:NSUserDomainMask create:YES];
+	NSEnumerator * E = [[DFM subpathsAtPath:oldSupport] objectEnumerator];
 	NSString * path;
 	NSString * wrapperType = [SDC wrapperDocumentType];
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH[c] '.')"];
 	while(path = [E nextObject])
 	{
 		if([[SDC typeFromFileExtension:[path pathExtension]] isEqual:wrapperType])
 		{
-			// just create a symbolic link to keep track of the old design during the transition
-			NSString * wrapper = [old stringByAppendingPathComponent:path];
-			NSString * source = [[wrapper enclosedProjectFileNames] lastObject];
+			NSString * oldWrapper = [[oldSupport stringByAppendingPathComponent:path] stringByStandardizingPath];
+			NSString * oldProject = [[oldWrapper enclosedProjectFileNames] lastObject];
 			BOOL isDirectory = NO;
-			if([DFM fileExistsAtPath:source isDirectory:&isDirectory] && isDirectory)
+			if([DFM fileExistsAtPath:oldProject isDirectory:&isDirectory] && isDirectory)
 			{
-				NSString * destination = [new stringByAppendingPathComponent:[[path stringByDeletingLastPathComponent]
-											stringByAppendingPathComponent:[source lastPathComponent]]];
-				NSDate * oldDate = [[DFM fileAttributesAtPath:source traverseLink:NO] fileModificationDate];
-				NSDate * newDate = [[DFM fileAttributesAtPath:destination traverseLink:NO] fileModificationDate];
+				NSURL * oldProjectURL = [NSURL fileURLWithPath:oldProject];
+				NSEnumerator * EE = [[SPC allFileKeysWithFilter:iTM2PCFilterRegular inProjectWithURL:oldProjectURL] objectEnumerator];
+				NSString * fileKey = nil;
+				while(fileKey = [EE nextObject])
+				{
+					[SPC URLForFileKey:fileKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:oldProject]];// side effect: some kind of consistency test
+				}
+				NSString * newProject = [newSupport stringByAppendingPathComponent:[[path stringByDeletingLastPathComponent]
+											stringByAppendingPathComponent:[oldProject lastPathComponent]]];
+				NSDate * oldDate = [[DFM fileAttributesAtPath:oldProject traverseLink:NO] fileModificationDate];
+				NSDate * newDate = [[DFM fileAttributesAtPath:newProject traverseLink:NO] fileModificationDate];
 				if(nil == oldDate)
 				{
-					[DFM createSymbolicLinkAtPath:source pathContent:destination];
+					[DFM createSymbolicLinkAtPath:newProject pathContent:oldProject];
 				}
-				else if([newDate compare:oldDate] == NSOrderedDescending)
+				else if((nil == newDate) || ([newDate compare:oldDate] == NSOrderedDescending))
 				{
 					// first delete the old stuff
-					if([DFM removeFileAtPath:source handler:NULL])
+#warning **** ERROR and FAILED, this is a transitional design
+					if(YES && [DFM removeFileAtPath:newProject handler:NULL])
 					{
-						[DFM createSymbolicLinkAtPath:source pathContent:destination];
+						// just create a symbolic link to keep track of the old design during the transition
+						[DFM createSymbolicLinkAtPath:newProject pathContent:oldProject];
 					}
 					else
 					{
-						iTM2_REPORTERROR(125,([NSString stringWithFormat:@"Migrating projects: could not migrate %@",source]),nil);
+						iTM2_REPORTERROR(125,([NSString stringWithFormat:@"Migrating projects: could not migrate %@",oldProject]),nil);
 					}
 				}
 			}
-			[SDC skipDescendents];
+			else
+			{
+				// this is a document wrapper with no real project wrapper inside
+				// simply remove it to clean
+				oldWrapper = [oldWrapper stringByStandardizingPath];
+up_one_level:
+				if([DFM removeFileAtPath:oldWrapper handler:NULL])
+				{
+					oldWrapper = [oldWrapper stringByDeletingLastPathComponent];
+					if([oldWrapper length]>[oldSupport length])
+					{
+						if(0 == [[[DFM subpathsAtPath:oldWrapper] filteredArrayUsingPredicate:predicate] count])
+						{
+							goto up_one_level;
+						}
+					}
+				}
+				else
+				{
+					iTM2_REPORTERROR(127,([NSString stringWithFormat:@"Migrating projects: could not remove %@",oldWrapper]),nil);
+				}
+			}
 		}
 	}
 //iTM2_END;
@@ -3619,7 +3649,7 @@ To Do List:
 		else
 		{
 			[NSApp beginSheet:W modalForWindow:window modalDelegate:nil didEndSelector:NULL contextInfo:nil];
-			[WC validateWindowContent];
+			[WC iTM2_validateWindowContent];
 //iTM2_LOG(@"sheet is here and validated");
 			int returnCode = [NSApp runModalForWindow:W];
 			[NSApp endSheet:W];
@@ -3658,7 +3688,7 @@ To Do List:
 //iTM2_LOG(@"%@ is %@",[SUD objectForKey:iTM2DontShowNoProjectNote],([SUD boolForKey:iTM2DontShowNoProjectNote]? @"Y":@"N"));
 	BOOL oldFlag = [SUD boolForKey:iTM2DontShowNoProjectNote];
 	[SUD setObject:[NSNumber numberWithBool:!oldFlag] forKey:iTM2DontShowNoProjectNote];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDontShowAgain:
@@ -3835,7 +3865,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super windowDidLoad];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -3991,7 +4021,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	_ToggleProjectMode = iTM2ToggleNewProjectMode;
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -4018,7 +4048,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	_IsDirectoryWrapper = !_IsDirectoryWrapper;
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -4060,7 +4090,7 @@ To Do List:
 		{
 			[_NewProjectName autorelease];
 			_NewProjectName = [new copy];
-			[sender validateWindowContent];
+			[sender iTM2_validateWindowContent];
 		}
 	}
 //iTM2_END;
@@ -4119,7 +4149,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	_ToggleProjectMode = iTM2ToggleOldProjectMode;
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -4442,7 +4472,7 @@ To Do List:
 @interface iTM2PDocumentController: iTM2DocumentController
 
 /*!
-    @method		openSubdocumentWithContentsOfURL:display:error:
+    @method		openDocumentWithContentsOfURL:display:error:
     @abstract	Entry point for the document creation.
     @discussion	This implementation manages the complex wrapper/project/document architecture.
 				Roughly speaking, you have wrappers with projects and documents,
@@ -4473,21 +4503,6 @@ To Do List:
 @end
 
 @implementation iTM2PDocumentController
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2PDocumentController poseAsClass:[iTM2DocumentController class]];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= noteNewRecentDocumentURL:
 - (void)noteNewRecentDocumentURL:(NSURL *)absoluteURL;
 /*"Description Forthcoming.
@@ -4630,20 +4645,6 @@ To Do List:
 //iTM2_END;
 	return;
 }
-#if 0
-- (NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType;
-{
-//iTM2_LOG(@"fileNameExtensionOrHFSFileType:%@",fileNameExtensionOrHFSFileType);
-	NSString * result = [super typeFromFileExtension:fileNameExtensionOrHFSFileType];
-	return result;
-}
-- (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
-{
-//iTM2_LOG(@"inAbsoluteURL:%@",inAbsoluteURL);
-	NSString * result = [super typeForContentsOfURL:inAbsoluteURL error:outError];
-	return result;
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openDocumentWithContentsOfURL:display:error:
 - (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"This one is responsible of the management of the project,including the wrapper.

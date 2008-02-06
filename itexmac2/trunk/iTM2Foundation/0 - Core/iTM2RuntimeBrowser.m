@@ -24,26 +24,57 @@
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
+#import <iTM2Foundation/ICURegEx.h>
 #import <objc/objc.h>
 #import <objc/objc-class.h>
 #import <objc/objc-runtime.h>
 
 void _objc_flush_caches (Class cls);
 
-@interface NSObject_iTM2RuntimeBrowser: NSObject
-@end
-@implementation NSObject_iTM2RuntimeBrowser: NSObject
-+ (void)poseAsClass:(Class)aClass;
-{iTM2_DIAGNOSTIC;
-	[super poseAsClass:aClass];
-	[iTM2RuntimeBrowser cleanCache];
-	return;
-}
-@end
-@interface NSObject(iTM2RuntimeBrowser)
+@interface NSObject(iTM2RuntimeBrowser_Private)
 + (id)iTM2_instanceMethodSignatureForSelector:(SEL)aSelector;
 @end
 @implementation NSObject(iTM2RuntimeBrowser)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzleInstanceMethodSelector:
++ (BOOL)iTM2_swizzleInstanceMethodSelector:(SEL)selector;
+/*"swizzle instance selector.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Jan 29 10:15:13 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)"];
+	[RE setInputString:NSStringFromSelector(selector)];
+	if([RE nextMatch])
+	{
+		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
+//iTM2_END;
+		return [iTM2RuntimeBrowser swizzleInstanceMethodSelector:selector replacement:swizzled forClass:self];
+	}
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzleClassMethodSelector:
++ (BOOL)iTM2_swizzleClassMethodSelector:(SEL)selector;
+/*"swizzle instance selector.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Tue Jan 29 10:15:13 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)"];
+	[RE setInputString:NSStringFromSelector(selector)];
+	if([RE nextMatch])
+	{
+		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
+//iTM2_END;
+		return [iTM2RuntimeBrowser swizzleClassMethodSelector:selector replacement:swizzled forClass:self];
+	}
+//iTM2_END;
+	return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_noop
 + (void)iTM2_noop;
 /*"Designated Initializer.
@@ -97,7 +128,6 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-//	[NSObject_iTM2RuntimeBrowser poseAsClass:[NSObject class]];// methods are likely to change when posed as class...
     if(!iTM2RuntimeBrowserDictionary)
 	{
 		iTM2RuntimeBrowserDictionary = [[NSMutableDictionary dictionary] retain];
@@ -107,7 +137,6 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-static NSMutableArray * _DelayedSwizzleInvocations;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initialize
 + (void)initialize;
 /*"Description forthcoming.
@@ -117,7 +146,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-//	[NSObject_iTM2RuntimeBrowser poseAsClass:[NSObject class]];// methods are likely to change when posed as class...
     if(!iTM2RuntimeBrowserDictionary)
 	{
 		iTM2RuntimeBrowserDictionary = [[NSMutableDictionary dictionary] retain];
@@ -127,6 +155,7 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
+static NSMutableArray * _DelayedSwizzleInvocations = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  applicationWillFinishLaunchingNotified:
 + (void)applicationWillFinishLaunchingNotified:(NSNotification *)notification;
 /*"Description forthcoming.
@@ -394,7 +423,9 @@ To Do List:
     else
     {
         if(!_DelayedSwizzleInvocations)
+		{
             _DelayedSwizzleInvocations = [[NSMutableArray array] retain];
+		}
         [_DelayedSwizzleInvocations addObject:I];
         [DNC removeObserver:self];
         [DNC addObserver:self selector:@selector(applicationWillFinishLaunchingNotified:) name:NSApplicationWillFinishLaunchingNotification object:nil];
@@ -402,7 +433,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-static NSMutableArray * _DelayedSwizzleInvocations;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delaySwizzleInstanceMethodSelector:replacement:forClassName:
 + (void)delaySwizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClassName:(NSString *)aClassName;
 /*"Description forthcoming.
@@ -427,7 +457,9 @@ To Do List:
     else
     {
         if(!_DelayedSwizzleInvocations)
+		{
             _DelayedSwizzleInvocations = [[NSMutableArray array] retain];
+		}
         [_DelayedSwizzleInvocations addObject:I];
         [DNC removeObserver:self];
         [DNC addObserver:self selector:@selector(applicationWillFinishLaunchingNotified:)  name:NSApplicationWillFinishLaunchingNotification object:nil];

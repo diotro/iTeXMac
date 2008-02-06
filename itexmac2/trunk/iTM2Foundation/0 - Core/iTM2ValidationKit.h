@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Sep 09 2001.
-//  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
+//  Copyright © 2001-2008 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -24,48 +24,48 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ValidationKit
 
 @interface NSView(iTM2Validation)
-- (BOOL)validateUserInterfaceItems;
-- (BOOL)isValid;
-- (BOOL)validateWindowContent;
+- (BOOL)iTM2_validateUserInterfaceItems;
+- (BOOL)iTM2_isValid;
+- (BOOL)iTM2_validateWindowContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindow(iTeXMac2)
 @interface NSWindow(iTM2Validation)
-- (BOOL)validateContent;
+- (BOOL)iTM2_validateContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSDrawer(iTeXMac2)
 @interface NSDrawer(iTM2Validation)
-- (BOOL)validateContent;
+- (BOOL)iTM2_validateContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindowController(iTeXMac2)
 @interface NSWindowController(iTM2Validation)
-- (BOOL)validateWindowContent;
+- (BOOL)iTM2_validateWindowContent;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindowController(iTeXMac2)
 @interface NSDocument(iTM2Validation)
-- (BOOL)validateWindowsContents;
+- (BOOL)iTM2_validateWindowsContents;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSCell(iTeXMac2)
 
 @interface NSCell(iTM2Validation)
-- (BOOL)isValid;
+- (BOOL)iTM2_isValid;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSControl(iTeXMac2)
 
 @interface NSControl(iTM2Validation)
-- (BOOL)isValid;
+- (BOOL)iTM2_isValid;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSToolbar(iTM2Validation)
 
 @interface NSToolbar(iTM2Validation)
 - (NSWindow *)window;
-- (BOOL)validateContent;
+- (BOOL)iTM2_validateContent;
 @end
 
 
@@ -80,7 +80,7 @@ typedef enum _iTM2ValidationStatus
 
 @interface NSObject(iTM2Validation)
 - (BOOL)validateUserInterfaceItem:(id)sender;
-+ (iTM2ValidationStatus)target:(id)target validateUserInterfaceItem:(id)sender;
++ (iTM2ValidationStatus)iTM2_target:(id)target validateUserInterfaceItem:(id)sender;
 - (IBAction)noop:(id)sender;// do nothing: message catcher
 - (BOOL)validateNoop:(id)sender;// always return NO such that the sender is not enabled...
 @end

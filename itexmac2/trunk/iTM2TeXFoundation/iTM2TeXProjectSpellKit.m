@@ -34,9 +34,7 @@
 NSString * const TWSSpellingFileKey = @"spelling";
 NSString * const TWSSpellComponent = @"spell";
 
-@interface iTM2TeXSpellContextController:iTM2SpellContextController
-@end
-@implementation iTM2TeXSpellContextController
+@implementation iTM2SpellContextController(TeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
 + (void)load;
 /*"Description forthcoming.
@@ -48,13 +46,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[self poseAsClass:[iTM2SpellContextController class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(spellContextModeForText:) replacement:@selector(SWZ_TeX_spellContextModeForText:) forClass:[iTM2SpellContextController class]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextModeForText:
-- (NSString *)spellContextModeForText:(NSText *) text;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_TeX_spellContextModeForText:
+- (NSString *)SWZ_TeX_spellContextModeForText:(NSText *) text;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -66,11 +64,12 @@ To Do List:
 	NSString * mode = nil;
     if(![self spellContextForMode:mode])
     {
-        mode = [super spellContextModeForText:text];
+        mode = [self SWZ_TeX_spellContextModeForText:text];
     }
 //iTM2_END;
     return mode;
 }
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextMode:forText:
 - (void)setSpellContextMode:(NSString *) mode forText:(id) text;
 /*"Description forthcoming.
@@ -81,10 +80,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super setSpellContextMode:mode forText:text];
-//    [[self project] setSpellingMode:mode forFileKey:[[self project] fileKeyForURL:[[[[text window] windowController] document] fileName]]];
+//    [[self project] setSpellingMode:mode forFileKey:[[self project] fileKeyForSubdocument:[[[text window] windowController] document]]];
 //iTM2_END;
     return;
 }
+#endif
 @end
 
 @implementation iTM2SpellContextController(TeXProjectSpellKit)

@@ -370,12 +370,6 @@ To Do List:
 - (NSButton *)guessButton;
 @end
 
-@interface NSSpellChecker_iTeXMac2: NSSpellChecker
-@end
-
-@interface NSTextView_iTM2SpellKit: NSTextView
-@end
-
 @interface NSObject(iTM2SpellKit_PRIVATE)
 - (void)textDidBecomeFirstResponder:(id)sender;
 @end
@@ -383,7 +377,7 @@ To Do List:
 
 #import <iTM2Foundation/iTM2ContextKit.h>
 
-@implementation NSTextView_iTM2SpellKit: NSTextView
+@implementation NSTextView(iTM2Spell)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellCheckerDocumentTag
 - (int)spellCheckerDocumentTag;
 /*"Description forthcoming.
@@ -419,8 +413,8 @@ To Do List:
     return;
 }
 #endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContinuousSpellCheckingEnabled:
-- (void)setContinuousSpellCheckingEnabled:(BOOL)flag;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:
+- (void)SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:(BOOL)flag;
 /*"Default implementation does nothing.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -431,14 +425,14 @@ To Do List:
     BOOL old = [self isContinuousSpellCheckingEnabled];
     if(old != flag)
 	{
-        [super setContinuousSpellCheckingEnabled:flag];
+        [self SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:flag];
 		[self takeContextBool:[self isContinuousSpellCheckingEnabled] forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
 	}
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContinuousSpellChecking:
-- (IBAction)toggleContinuousSpellChecking:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Spell_toggleContinuousSpellChecking:
+- (IBAction)SWZ_iTM2Spell_toggleContinuousSpellChecking:(id)sender;
 /*"Default implementation does nothing.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -446,7 +440,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [super toggleContinuousSpellChecking:sender];
+    [self SWZ_iTM2Spell_toggleContinuousSpellChecking:sender];
 	BOOL yorn = [self isContinuousSpellCheckingEnabled];
 	[self takeContextBool:yorn forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
 //iTM2_END;
@@ -468,16 +462,16 @@ To Do List: ...
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  becomeFirstResponder
-- (BOOL)becomeFirstResponder;
-/*"Description forthcoming.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Spell_becomeFirstResponder
+- (BOOL)SWZ_iTM2Spell_becomeFirstResponder;
+/*"It is necessary to swizzle both NSText and NSTextView's becomeFirstResponder because the latter is not expected to use the former.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
+- 2.0: Tue Jan 29 13:21:16 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([super becomeFirstResponder])
+    if([self SWZ_iTM2Spell_becomeFirstResponder])
     {
         [SCH textDidBecomeFirstResponder:self];
         return YES;
@@ -888,8 +882,8 @@ To Do List:
 #import <iTM2Foundation/iTM2WindowKit.h>
 
 @implementation iTM2IgnoredWordsWindow 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameIdentifier
-- (NSString *)frameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_frameIdentifier
+- (NSString *)iTM2_frameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -974,7 +968,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super windowDidLoad];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1011,7 +1005,7 @@ To Do List:
 		[iVarIgnoredWords sortUsingSelector:@selector(compare:)];
 		[iVarTableView reloadData];
 		[iVarTableView display];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 	else
 	{
@@ -1273,7 +1267,7 @@ To Do List:
             [iVarIgnoredWords removeObjectAtIndex:idx];
     }
     [TV reloadData];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableViewSelectionDidChange:
 - (void)tableViewSelectionDidChange:(NSNotification *)notification;
@@ -1284,7 +1278,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 	if([[notification object] acceptsFirstResponder])
 	{
 		[[self window] makeFirstResponder:[notification object]];
@@ -1502,8 +1496,10 @@ To Do List:
 
 static id _iTM2SpellCheckerHelper = nil;
 
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
 @implementation iTM2MainInstaller(SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellKitCompleteInstallation
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
 + (void)load;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -1514,13 +1510,13 @@ To Do List:
     iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	// before Tiger, the following poseAsClass: were performed in the iTM2SpellKitCompleteInstallation
-	// this broke NSTextView bindings in Tiger
     if(![NSText instancesRespondToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
 	{
-		[NSText_iTM2SpellKit poseAsClass:[NSText class]];
-		[NSTextView_iTM2SpellKit poseAsClass:[NSTextView class]];
-		[NSSpellChecker_iTeXMac2 poseAsClass:[NSSpellChecker class]];
+		[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_dealloc)];
+		[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
+		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
+		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:)];
+		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_toggleContinuousSpellChecking:)];
 	}
 //iTM2_START;
 	iTM2_RELEASE_POOL;
@@ -1547,15 +1543,6 @@ To Do List:
             [NSNumber numberWithBool:NO], iTM2UDContinuousSpellCheckingKey,
                 nil]];
 //iTM2_LOG(@"[SUD objectForKey:iTM2DisableMoreSpell] is:%@", [SUD objectForKey:@"iTM2DisableMoreSpell"]);
-#if 0
-	This is too late here: it breaks binding
-    if(![NSText instancesRespondToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
-	{
-		[NSText_iTM2SpellKit poseAsClass:[NSText class]];
-		[NSTextView_iTM2SpellKit poseAsClass:[NSTextView class]];
-		[NSSpellChecker_iTeXMac2 poseAsClass:[NSSpellChecker class]];
-	}
-#endif
     _iTM2SpellCheckerHelper = [[iTM2SpellCheckerHelper alloc] initWithWindowNibName:@"iTM2SpellCheckerHelper"];
 	[[_iTM2SpellCheckerHelper window] setExcludedFromWindowsMenu:YES];// loads the nib as side effect...
     // installing the accessory view in the spell checker panel
@@ -1725,7 +1712,7 @@ To Do List:
 //iTM2_LOG(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", text, [[text window] title]);
 		}
 		[self setCurrentText:nil];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 	else
 	{
@@ -1767,7 +1754,7 @@ To Do List:
 //iTM2_LOG(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", text, [[text window] title]);
 		}
         [self setCurrentText:nil];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 	else
 	{
@@ -1839,7 +1826,7 @@ To Do List:
 	}
 //iTM2_LOG(@"[SSC language] is:%@", [SSC language]);
 	if([[self window] isVisible])
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1891,7 +1878,7 @@ To Do List:
 		}
 	}
 //iTM2_LOG(@"[SSC language] is:%@", [SSC language]);
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2015,7 +2002,7 @@ To Do List:
 		}
 	}
 //iTM2_LOG(@"[SSC language] is:%@", [SSC language]);
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _1stResponderMightHaveChanged:
@@ -2065,7 +2052,7 @@ To Do List:
 	}
 //iTM2_LOG(@"[SSC language] is:%@", [SSC language]);
 	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:NO] forKey:@"Synchronizing"];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2095,8 +2082,8 @@ To Do List:
 	}
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateWindowContent
-- (BOOL)validateWindowContent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_validateWindowContent
+- (BOOL)iTM2_validateWindowContent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2105,8 +2092,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	BOOL result = [super validateWindowContent];
-	result = [[self spellCheckerAccessoryView] validateWindowContent] && result;
+	BOOL result = [super iTM2_validateWindowContent];
+	result = [[self spellCheckerAccessoryView] iTM2_validateWindowContent] && result;
     return result;
 }
 #pragma mark =-=-=-=-=-  GUI Validation
@@ -2204,7 +2191,7 @@ To Do List:
         id FR = [W firstResponder];
         [W makeFirstResponder:[W contentView]];
         [W makeFirstResponder:FR];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
     return;
 }
@@ -2299,7 +2286,7 @@ To Do List:
     // Sheet is up here.
     [NSApp endSheet:[self window]];
     [[self window] orderOut:self];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     [self setEditing:NO];
 //iTM2_END;
     return;
@@ -2329,7 +2316,7 @@ To Do List:
         id FR = [W firstResponder];
         [W makeFirstResponder:[W contentView]];
         [W makeFirstResponder:FR];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
 #else
         NSString * oldLanguage = [SSC language];
         NSWindow * W = [[self currentText] window];
@@ -2339,7 +2326,7 @@ To Do List:
         [W makeFirstResponder:FR];
         if([oldLanguage length])
             [[currentController spellContextForMode:oldMode] setSpellLanguage:oldLanguage];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
 #endif
     }
     return;
@@ -2376,7 +2363,7 @@ To Do List:
 //iTM2_START;
     [[[self currentText] spellContextController] removeSpellMode:[sender representedObject]];
     [self setEditing:NO];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  editIgnoredWords:
@@ -2581,73 +2568,13 @@ To Do List:
 }
 @end
 
-@implementation NSSpellChecker_iTeXMac2
-#if 0
-#warning DEBUG
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setLanguage:
-- (BOOL)setLanguage:(NSString *)language;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"THE SPELL CHECKER IS CHANGING THE LANGUAGE TO: %@", language);
-	if([super setLanguage:language])
-	{
-		[SCH performSelector:@selector(delayedSetCurrentSpellLanguage:) withObject:[language retain] afterDelay:0];// language will be released below
-		return YES;
-	}
-	else
-		return NO;
-}
-#endif
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkSpellingOfString:startingAt:language:wrap:inSpellDocumentWithTag:wordCount:
-- (NSRange)checkSpellingOfString:(NSString *)stringToCheck startingAt:(int)startingOffset language:(NSString *)language wrap:(BOOL)wrapFlag inSpellDocumentWithTag:(int)tag wordCount:(int *)wordCount;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//NSLog(@"1- stringToCheck= %@, startingOffset: %i, language: %@, wrapFlag: %@", stringToCheck, startingOffset, language, (wrapFlag?@"YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY":@"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"));
-    NSRange R = [super checkSpellingOfString:stringToCheck
-                    startingAt: startingOffset
-                        language: language
-                            wrap: wrapFlag
-                                inSpellDocumentWithTag: tag
-                                    wordCount: wordCount];
-//NSLog(@"[stringToCheck substringWithRange:%@]:%@", NSStringFromRange(R), (R.length>0? [stringToCheck substringWithRange:R]:@"<rien/>"));
-    return R;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  checkSpellingOfString:startingAt:
-- (NSRange)checkSpellingOfString:(NSString *)stringToCheck startingAt:(int)startingOffset;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-1.0.3 improved for check spelling as you type.
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//NSLog(@"2- stringToCheck= %@", stringToCheck);
-    NSRange R = [super checkSpellingOfString:stringToCheck startingAt:startingOffset];
-//NSLog(@"[stringToCheck substringWithRange:%@]:%@", NSStringFromRange(R), (R.length>0? [stringToCheck substringWithRange:R]:@"<rien/>"));
-    return R;
-}
-#endif
-@end
-
 @interface NSText(iTM2SpellKit_PRIVATE)
-- (int)spellCheckerDocumentTag;
+- (int)iTM2_spellCheckerDocumentTag;
 @end
 
-@implementation NSText_iTM2SpellKit: NSText
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
+@implementation NSText(iTM2Spell)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Spell_dealloc
+- (void)SWZ_iTM2Spell_dealloc;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2657,11 +2584,11 @@ To Do List:
 //iTM2_START;
     if(self == [SCH currentText])
 		[SCH setCurrentText:nil];
-    [super dealloc];
+    [self SWZ_iTM2Spell_dealloc];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  becomeFirstResponder
-- (BOOL)becomeFirstResponder;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Spell_becomeFirstResponder
+- (BOOL)SWZ_iTM2Spell_becomeFirstResponder;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2669,7 +2596,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if([super becomeFirstResponder])
+    if([self SWZ_iTM2Spell_becomeFirstResponder])
     {
         [SCH textDidBecomeFirstResponder:self];
         return YES;
@@ -2688,18 +2615,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [[self window] spellContextController];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellKit_NSText_Catcher
-- (void)iTM2SpellKit_NSText_Catcher:(id)irrelevant;
-/*"Asks a delegate for a non empty #{spellContextController}.
-The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextMode
 - (NSString *)spellContextMode;

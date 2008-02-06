@@ -21,8 +21,6 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName);
-
 /*!
 	@class		iTM2Installer
 	@abstract	Automatic installer.

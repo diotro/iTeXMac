@@ -137,7 +137,8 @@ To Do List:
     [super windowDidLoad];
     findStringChangedSinceLastPasteboardUpdate = YES;
     [[self window] setFrameAutosaveName:[[self class] description]];
-    [self validateUserInterfaceItems];
+	error
+    [self iTM2_validateUserInterfaceItems];
     [[self window] setDelegate:self];
     NS_HANDLER
     [NSApp reportException:localException];
@@ -145,8 +146,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateUserInterfaceItems
-- (BOOL)validateUserInterfaceItems;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_validateUserInterfaceItems
+- (BOOL)iTM2_validateUserInterfaceItems;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -154,7 +155,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [findTextField validateWindowContent];
+    [findTextField iTM2_validateWindowContent];
     #warning VERY BAD DESIGN
     [replaceAllScopeMatrix setEnabled:([self textViewToSearchIn] != nil)];
     [ignoreCaseButton setEnabled:([self textViewToSearchIn] != nil)];
@@ -387,7 +388,7 @@ To Do List:
         [[self window] orderOut:sender];
     else
 	[findTextField selectText:nil];
-    [self validateUserInterfaceItems];
+    [self iTM2_validateUserInterfaceItems];
 //iTM2_END;
     return;
 }
@@ -419,7 +420,7 @@ To Do List:
         [[self window] orderOut:sender];
     else
 	[findTextField selectText:nil];
-    [self validateUserInterfaceItems];
+    [self iTM2_validateUserInterfaceItems];
 //iTM2_END;
     return;
 }
@@ -541,7 +542,7 @@ To Do List:
 //iTM2_START;
     [self synchronizeFromUserInterface];
     [self find:Forward];
-    [self validateUserInterfaceItems];
+    [self iTM2_validateUserInterfaceItems];
 //iTM2_END;
     return;
 }
@@ -568,7 +569,7 @@ To Do List:
 //iTM2_START;
     [self synchronizeFromUserInterface];
     [self find:Backward];
-    [self validateUserInterfaceItems];
+    [self iTM2_validateUserInterfaceItems];
 //iTM2_END;
     return;
 }
@@ -595,7 +596,7 @@ To Do List:
 //iTM2_START;
     [self synchronizeFromUserInterface];
     [[self textViewToSearchIn] insertText:[self replaceString]];
-    [self validateUserInterfaceItems];
+    [self iTM2_validateUserInterfaceItems];
 //iTM2_END;
     return;
 }
@@ -824,7 +825,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSWindow * W = [self window];// load the window
-    [self validateUserInterfaceItems];// validates the UI
+    [self iTM2_validateUserInterfaceItems];// validates the UI
     [self postNotificationWithStatus:@""];
     [W makeKeyAndOrderFront:nil];// show the window
 //iTM2_END;

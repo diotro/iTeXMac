@@ -2362,7 +2362,7 @@ To Do List:
 		[[actualTableView window] makeFirstResponder:actualTableView];
 	}
     [self updateChangeCount:NSChangeDone];
-    [self validateWindowsContents];
+    [self iTM2_validateWindowsContents];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDelete:
@@ -2400,7 +2400,7 @@ To Do List:
         [actualTableView selectRow:targetRow byExtendingSelection:NO];
         [self updateChangeCount:NSChangeDone];
         [actualTableView reloadData];
-        [self validateWindowsContents];
+        [self iTM2_validateWindowsContents];
     }
     return;
 }
@@ -2426,7 +2426,7 @@ To Do List:
 		[[actualTableView window] makeFirstResponder:actualTableView];
 	}
     [self updateChangeCount:NSChangeDone];
-    [self validateWindowsContents];
+    [self iTM2_validateWindowsContents];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerDidLoadNib:
@@ -2449,7 +2449,7 @@ To Do List:
     [actualTableView registerForDraggedTypes:[NSArray arrayWithObject:iTM2DraggingStringEncodingPboardType]];
     [availableTableView setDoubleAction:@selector(addSelection:)];
     [actualTableView reloadData];
-    [self validateWindowsContents];
+    [self iTM2_validateWindowsContents];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
@@ -2582,7 +2582,7 @@ To Do List:
 				[[tv window] makeFirstResponder:tv];
 			}
 			[self updateChangeCount:NSChangeDone];
-            [self validateWindowsContents];
+            [self iTM2_validateWindowsContents];
             return YES;
         }
         else
@@ -2608,7 +2608,7 @@ To Do List:
                 [tv selectRow:++row byExtendingSelection:YES];
             [[tv window] makeFirstResponder:tv];
             [self updateChangeCount:NSChangeDone];
-            [self validateWindowsContents];
+            [self iTM2_validateWindowsContents];
             return YES;
         }
     }
@@ -2623,7 +2623,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowsContents];
+    [self iTM2_validateWindowsContents];
     return;
 }
 #if 0
@@ -2691,7 +2691,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self setStringEncoding:[sender tag]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 #if 0
@@ -2733,7 +2733,7 @@ To Do List:
 			[self setStringEncoding:encoding];
 		}
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
@@ -2809,7 +2809,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[[self document] setEOL:[sender tag]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:

@@ -38,8 +38,8 @@ To Do List:
 //iTM2_END;
     return iTM2AsymptoteInspectorMode;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -152,7 +152,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self contextBoolForKey:@"iTM2AsymptoteToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContextBool: !old forKey:@"iTM2AsymptoteToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }

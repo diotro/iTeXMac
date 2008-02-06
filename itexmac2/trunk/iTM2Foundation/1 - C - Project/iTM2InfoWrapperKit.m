@@ -966,7 +966,7 @@ To Do List:
     }
 	[I release];
 	if(!needsToUpdate)
-		[self recordFileModificationDateFromURL:fileURL];
+		[self iTM2_recordFileModificationDateFromURL:fileURL];
 //iTM2_END;
     return;
 }

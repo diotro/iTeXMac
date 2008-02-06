@@ -374,7 +374,7 @@ To Do List:
 		}
 		else if(W = [MI target],[W isKindOfClass:[NSWindow class]])// SIGTRAP catched?
 		{
-			[MI setTitle:[W windowsMenuItemTitle]];
+			[MI setTitle:[W iTM2_windowsMenuItemTitle]];
 			WC = [W windowController];
 			if(document = [WC document])
 			{

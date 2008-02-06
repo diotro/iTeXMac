@@ -112,7 +112,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self contextBoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContextBool: !old forKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -463,7 +463,7 @@ To Do List:
 	rotation -= 90;
 	[currentPage setRotation:rotation];
 	[_pdfView setNeedsDisplay:YES];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -481,7 +481,7 @@ To Do List:
 	rotation += 90;
 	[currentPage setRotation:rotation];
 	[_pdfView setNeedsDisplay:YES];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -498,7 +498,7 @@ To Do List:
 	if(n--)
 	{
 		[self setCurrentOutputFigure:[[self outputFigureNumbers] objectAtIndex:n]];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -562,7 +562,7 @@ To Do List:
 	if(newScale <= 0)
 		newScale = 1;
     [([self scaleAndPageTarget]?:_pdfView) setScaleFactor:newScale];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -612,7 +612,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setToolMode:[[sender cell] tagForSegment:[sender selectedSegment]]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }

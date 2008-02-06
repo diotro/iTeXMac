@@ -102,8 +102,8 @@ To Do List:
     [TV insertText:([AS length]>0? (NSString *)AS:@"No news today, my heart has gone away...")];
     [TV scrollRangeToVisible:NSMakeRange(0, 0)];
     [TV setEditable:NO];
-    if([TV respondsToSelector:@selector(validateWindowContent)])
-        [TV performSelector:@selector(validateWindowContent)];
+    if([TV respondsToSelector:@selector(iTM2_validateWindowContent)])
+        [TV performSelector:@selector(iTM2_validateWindowContent)];
     [[self window] orderFront:self];
     return;
 }
@@ -131,8 +131,8 @@ To Do List:
     [TV insertText:([AS length]>0? (NSString *)AS:@"You are not welcome today, this is unexpected result...")];
     [TV scrollRangeToVisible:NSMakeRange(0, 0)];
     [TV setEditable:NO];
-    if([TV respondsToSelector:@selector(validateWindowContent)])
-        [TV performSelector:@selector(validateWindowContent)];
+    if([TV respondsToSelector:@selector(iTM2_validateWindowContent)])
+        [TV performSelector:@selector(iTM2_validateWindowContent)];
     [[self window] orderFront:self];
     return;
 }
@@ -159,8 +159,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [SUD setBool:([sender state] == NSOnState) forKey:iTM2DontShowTipsKey];
-    if([sender respondsToSelector:@selector(validateWindowContent)])
-        [sender performSelector:@selector(validateWindowContent)];
+    if([sender respondsToSelector:@selector(iTM2_validateWindowContent)])
+        [sender performSelector:@selector(iTM2_validateWindowContent)];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDontShowTips:

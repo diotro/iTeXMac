@@ -28,20 +28,6 @@
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
 
-Class iTM2NamedClassPoseAs(const char * imposterName, const char * originalName)
-{
-	struct objc_class * imposter;
-	imposter = (struct objc_class *)objc_getClass(imposterName);
-	struct objc_class * original;
-	original = (struct objc_class *)objc_getClass(originalName);
-	Class result = class_poseAs(imposter, original);
-	if(!result)
-	{
-		NSLog(@"*** ERROR: cannot pose %s as %s", imposterName, originalName);
-	}
-	return result;
-}
-
 @interface iTM2InstallerZombie: NSObject
 @end
 @implementation iTM2InstallerZombie
@@ -107,7 +93,43 @@ static NSMutableArray * _iTM2_CompleteInstallationQueue = nil;
 @interface NSApplication_iTM2InstallationKit: NSApplication
 @end
 
-@implementation NSApplication_iTM2InstallationKit
+@implementation NSApplication(iTM2Installation)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInstallation
++ (void)completeInstallation;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+//iTM2_START;
+	static BOOL already = NO;
+	if(already)
+		return;
+	already = YES;
+	NSMethodSignature * signature = [self methodSignatureForSelector:_cmd];
+	NSEnumerator * e = [[iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:signature inherited:YES] objectEnumerator];
+	SEL selector;
+	while(selector = (SEL)[[e nextObject] pointerValue])
+	{
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"Performing %@", NSStringFromSelector(selector));
+		}
+		NS_DURING
+		[self performSelector:selector withObject:nil];
+		NS_HANDLER
+		iTM2_LOG(@"***  ERROR: Exception catched while performing %@\n%@", NSStringFromSelector(selector), [localException reason]);
+		NS_ENDHANDLER
+	}
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"Auto installation END");
+	}
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -119,13 +141,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSApplication_iTM2InstallationKit poseAsClass:[NSApplication class]];
+	[NSApplication iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Install_finishLaunching)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  finishLaunching
-- (void)finishLaunching;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Install_finishLaunching
+- (void)SWZ_iTM2Install_finishLaunching;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Sep 26 2002
@@ -150,7 +172,7 @@ To Do List:
             iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
         }
     }
-	[super finishLaunching];
+	[self SWZ_iTM2Install_finishLaunching];// inherited
     selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"DidFinishLaunching" signature:sig0 inherited:YES];
     E = [selectors objectEnumerator];
     while(action = (SEL)[[E nextObject] pointerValue])
@@ -175,40 +197,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self  completeInstallation];
-	[iTM2Installer completeInstallation];
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"WillFinishLaunching" signature:sig0 inherited:YES];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
-	[super finishLaunching];
-    selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"DidFinishLaunching" signature:sig0 inherited:YES];
-    E = [selectors objectEnumerator];
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
-	[iTM2MileStone verifyRegisteredMileStones];
-	[DNC addObserver:self
-		selector:@selector(iTM2_applicationWillTerminateNotificatied:)
-			name:NSApplicationWillTerminateNotification
-				object:self];
 //iTM2_END;
     return;
 }
@@ -302,45 +290,6 @@ To Do List:
 		iTM2_LOG(@".......... INSTALLATION ERROR %@: %@", K, [__iTM2MileStone objectForKey:K]);
 	}
 //iTM2_END;
-    return;
-}
-@end
-
-@implementation NSApplication(_iTM2InstallationKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInstallation
-+ (void)completeInstallation;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-//iTM2_START;
-	static BOOL already = NO;
-	if(already)
-		return;
-	already = YES;
-	NSMethodSignature * signature = [self methodSignatureForSelector:_cmd];
-	NSEnumerator * e = [[iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:signature inherited:YES] objectEnumerator];
-	SEL selector;
-	while(selector = (SEL)[[e nextObject] pointerValue])
-	{
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Performing %@", NSStringFromSelector(selector));
-		}
-		NS_DURING
-		[self performSelector:selector withObject:nil];
-		NS_HANDLER
-		iTM2_LOG(@"***  ERROR: Exception catched while performing %@\n%@", NSStringFromSelector(selector), [localException reason]);
-		NS_ENDHANDLER
-	}
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"Auto installation END");
-	}
-//iTM2_END;
-	iTM2_RELEASE_POOL;
     return;
 }
 @end

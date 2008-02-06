@@ -136,8 +136,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -157,7 +157,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if([notification object] == [self window])
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
@@ -176,8 +176,8 @@ To Do List:
         [isa prettyInspectorMode],
             displayName];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
-- (NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_windowsMenuItemTitleForDocumentDisplayName:
+- (NSString *)iTM2_windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -226,7 +226,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 #endif
@@ -325,7 +325,7 @@ the_end:
 			[TPD setBaseProjectName:newBPN];
 			[TPD updateChangeCount:NSChangeDone];
 		}
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 		return;
 	}
 	// try to keep the variant
@@ -453,7 +453,7 @@ the_end:
 			[TPD setBaseProjectName:newBPN];
 			[TPD updateChangeCount:NSChangeDone];
 		}
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 		return;
 	}
 	// try to keep the ouput
@@ -574,7 +574,7 @@ To Do List:
 		[TPD setBaseProjectName:newBPN];
 		[TPD updateChangeCount:NSChangeDone];
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
@@ -683,7 +683,7 @@ To Do List:
 		[TPD setBaseProjectName:newBPN];
 		[TPD updateChangeCount:NSChangeDone];
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
@@ -799,7 +799,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self setEditedCommand:[[sender selectedItem] representedObject]];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseEditCommand:
@@ -896,7 +896,7 @@ To Do List:
 	{
 		[self takeInfo:newMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil];
 		[[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -1019,7 +1019,7 @@ To Do List:
 	[self takeInfo:scriptMode forKeyPaths:iTM2TPFECommandsKey,[self editedCommand],iTM2TPFEScriptModeKey,nil];
 	[self takeInfo:@"" forKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,iTM2TPFELabelKey,nil];
 	[[self document] updateChangeCount:NSChangeDone];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1046,7 +1046,7 @@ To Do List:
 			}
 		}
 		[[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
     return;
 }
@@ -1072,7 +1072,7 @@ To Do List:
 		if(W)
 		{
 			[TPD addWindowController:WC];
-			[WC validateWindowContent];
+			[WC iTM2_validateWindowContent];
 			[NSApp beginSheet: W
 					modalForWindow: [self window]
 					modalDelegate: self
@@ -1113,7 +1113,7 @@ To Do List:
     [sheet orderOut:self];
     id WC = [sheet windowController];
     [[WC document] removeWindowController:WC];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  OPTIONS MANAGEMENT
@@ -1163,7 +1163,7 @@ To Do List:
 			{
 				NSAssert([self isCustomEnvironmentMode],@"Custom environment mode expected");
 				[[self document] updateChangeCount:NSChangeDone];
-				[self validateWindowContent];
+				[self iTM2_validateWindowContent];
 			}
 		}
 	}
@@ -1176,13 +1176,13 @@ To Do List:
 			[self backupCustomForKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil];
 			[self takeInfo:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil];
 			[[self document] updateChangeCount:NSChangeDone];
-			[self validateWindowContent];
+			[self iTM2_validateWindowContent];
 		}
 	}
 	else if([self takeInfo:environmentMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil])
 	{
 		[[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_LOG(@"CW is NOW: %@", CW);
     return;
@@ -1274,8 +1274,8 @@ To Do List:
 				iTM2_LOG(@"Starting to edit environment mode: %@", environmentMode);
 			}
 			[W setExcludedFromWindowsMenu:YES];
-			[W validateContent];
-//iTM2_LOG(@"BEFORE validateWindowContent, [WC document] is: %@", [WC document]);
+			[W iTM2_validateContent];
+//iTM2_LOG(@"BEFORE iTM2_validateWindowContent, [WC document] is: %@", [WC document]);
             [NSApp beginSheet: W
                     modalForWindow: [self window]
                     modalDelegate: self
@@ -1336,7 +1336,7 @@ To Do List:
 	{
 		[[self document] updateChangeCount:NSChangeDone];
 	}
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDefaultCommand:

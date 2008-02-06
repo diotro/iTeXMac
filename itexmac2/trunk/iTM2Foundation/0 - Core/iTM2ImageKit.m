@@ -42,19 +42,21 @@
 	return self;
 }
 @end
-@interface NSImage_iTeXMac2: NSImage
-@end
-@implementation NSImage_iTeXMac2
-+ (void)load;
+
+#import <iTM2Foundation/iTM2InstallationKit.h>
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
+@implementation iTM2MainInstaller(iTM2ImageKit)
+- (void)iTM2ImageKitCompleteInstallation;
 {
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-	[self poseAsClass:[NSImage class]];
-	iTM2_RELEASE_POOL;
+	NSAssert([NSImage iTM2_swizzleClassMethodSelector:@selector(SWZ_iTM2_imageNamed:)],@"**** Huge bug, please report");
 }
-+ (id)imageNamed:(NSString *)name;
+@end
+
+@implementation NSImage(iTeXMac2)
++ (id)SWZ_iTM2_imageNamed:(NSString *)name;
 {
-	NSImage * result = [super imageNamed:name];
+	NSImage * result = [self SWZ_iTM2_imageNamed:name];
 	if(!result && [name length] && ![name hasPrefix:@"NS"])
 	{
 		NSString * path = [[[[NSBundle mainBundle] allPathsForImageResource:name] objectEnumerator] nextObject];
@@ -68,14 +70,13 @@
 }
 + (NSImage *)iTM2_cachedImageNamed:(NSString *)name;
 {
-	NSImage * result = [super imageNamed:name];
+	NSImage * result = [self SWZ_iTM2_imageNamed:name];// we assume that swizzling was successful
 	if(result)
 	{
 		return result;
 	}
 	else if(result = [self  imageNamed:name])
 	{
-		[result retain];// persistent
 		return result;
 	}
 	else
@@ -89,7 +90,7 @@
 +(NSImage *)iTM2_imageMissingImage;
 {
 	NSString * name = @"QuestionMark";
-	NSImage * result = [super imageNamed:name];
+	NSImage * result = [self SWZ_iTM2_imageNamed:name];// we assume that swizzling was successful
 	if(!result)
 	{
 		NSString * path = [[[[NSBundle mainBundle] allPathsForImageResource:name] objectEnumerator] nextObject];
@@ -105,15 +106,11 @@
 {
 	return ![self isKindOfClass:[iTM2NullImage class]];
 }
-@end
-
 #define DEFINE_IMAGE(SELECTOR, NAME)\
 + (NSImage *)SELECTOR;\
 {\
 	return [NSImage iTM2_cachedImageNamed:NAME];\
 }
-
-@implementation NSImage(iTM2ButtonKit_RWStatus)
 DEFINE_IMAGE(iTM2_imageReadOnlyPencil, @"iTM2ReadOnlyPencil");
 DEFINE_IMAGE(iTM2_imageLock, @"iTM2Lock");
 DEFINE_IMAGE(iTM2_imageUnlock, @"iTM2Unlock");

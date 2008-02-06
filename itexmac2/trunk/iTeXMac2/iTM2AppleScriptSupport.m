@@ -219,25 +219,26 @@ To Do List:
 }
 @end
 
-@interface NSGetCommand_iTM2 : NSGetCommand
-@end
-@implementation NSGetCommand_iTM2
+#if 0
+@implementation NSGetCommand(iTM2DEBUG)
 + (void)load;
 {
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-	[NSGetCommand_iTM2 poseAsClass:[NSGetCommand class]];
+	[NSGetCommand iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_performDefaultImplementation)];
+	[NSGetCommand iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_executeCommand)];
 	iTM2_RELEASE_POOL;
 }
-- (id)performDefaultImplementation;
+- (id)SWZ_iTM2DEBUG_performDefaultImplementation;
 {
-	return [super performDefaultImplementation];
+	return [self SWZ_iTM2DEBUG_performDefaultImplementation];
 }
-- (id)executeCommand;
+- (id)SWZ_iTM2DEBUG_executeCommand;
 {
-	return [super executeCommand];
+	return [self SWZ_iTM2DEBUG_executeCommand];
 }
 @end
+#endif
 //NSReceiverEvaluationScriptError
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTMTeXScriptCommands

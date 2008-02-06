@@ -136,11 +136,10 @@ To Do List:
 
 #import <objc/objc-class.h>
 #import <objc/objc-runtime.h>
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
 
-@interface NSWindow_iTeXMac2_FlagsChanged: NSWindow
-@end
 
-@implementation NSWindow_iTeXMac2_FlagsChanged
+@implementation NSWindow(iTM2FlagsChanged)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"The receiver posts a iTM2FlagsChangedNotification with no object nor user info."
@@ -152,13 +151,15 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSWindow_iTeXMac2_FlagsChanged poseAsClass:[NSWindow class]];
+	NSAssert([NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_flagsChanged:)]
+		&& [NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_flagsChanged:)],
+			@"****  HUGE ERROR: No swizzling for NSWindow(iTM2FlagsChanged)");
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-= flagsChanged:
-- (void)flagsChanged:(NSEvent *)theEvent
+//=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_flagsChanged:
+- (void)SWZ_iTM2_flagsChanged:(NSEvent *)theEvent
 /*"The receiver posts a iTM2FlagsChangedNotification with itself as object but no user info.
 Beware, some objects will probably receive twice such a notification.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -167,13 +168,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+    [self SWZ_iTM2_flagsChanged:theEvent];
     [INC postNotificationName:iTM2FlagsDidChangeNotification object:self userInfo:nil];
-    [super flagsChanged:theEvent];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_dealloc
+- (void)SWZ_iTM2_dealloc;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -182,7 +183,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [INC removeObserver:nil name:nil object:self];
-    [super dealloc];
+    [self SWZ_iTM2_dealloc];
 //iTM2_END;
     return;
 }

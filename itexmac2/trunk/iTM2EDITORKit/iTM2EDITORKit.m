@@ -51,8 +51,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users.sourceforge.net
 - 2.0: Fri May 21 07:52:07 GMT 2004

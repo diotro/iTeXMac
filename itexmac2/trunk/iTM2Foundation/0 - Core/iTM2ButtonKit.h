@@ -132,7 +132,7 @@ extern NSString * const iTM2ToggleEditableKey;
 - (void)setPopUpCell:(id)cell;
 - (SEL)doubleAction;
 - (void)setDoubleAction:(SEL)aSelector;
-- (BOOL)isDoubleValid;
+- (BOOL)iTM2_isDoubleValid;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ButtonKit

@@ -2842,7 +2842,7 @@ To Do List:
 		// return to the original state
 		[self toggleInfoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil];
 		[[self document] updateChangeCount:NSChangeUndone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -2860,7 +2860,7 @@ To Do List:
 	[[self document] updateChangeCount:NSChangeDone];
 	if(![[self infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil] boolValue])
 	{
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 		return;
 	}
 	NSBeginAlertSheet(
@@ -2903,7 +2903,7 @@ To Do List:
 		// return to the original state
 		[self toggleInfoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil];
 		[[self document] updateChangeCount:NSChangeUndone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -2922,7 +2922,7 @@ To Do List:
 	[[self document] updateChangeCount:NSChangeDone];
 	if(![[self infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,iTM2TeX_shell_escape,nil] boolValue])
 	{
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 		return;
 	}
 	NSBeginAlertSheet(

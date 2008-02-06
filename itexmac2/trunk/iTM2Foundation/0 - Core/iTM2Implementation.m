@@ -1658,13 +1658,14 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSObject_iTM2Implementation poseAsClass:[NSObject class]];
+	[NSObject iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Impl_valueForUndefinedKey:)];
+	[NSObject iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Impl_setValue:forUndefinedKey:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  valueForUndefinedKey:
-- (id)valueForUndefinedKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Impl_valueForUndefinedKey:
+- (id)SWZ_iTM2Impl_valueForUndefinedKey:(NSString *)key;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1689,10 +1690,10 @@ To Do List:
 	id model = [[self class] defaultModel];
 	return [model objectForKey:key]?
 		[[self implementation] modelValueForKey:key ofType:iTM2MainType]:
-		[super valueForUndefinedKey:key];
+		[self SWZ_iTM2Impl_valueForUndefinedKey:key];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setValue:forUndefinedKey:
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Impl_setValue:forUndefinedKey:
+- (void)SWZ_iTM2Impl_setValue:(id)value forUndefinedKey:(NSString *)key;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1725,7 +1726,7 @@ To Do List:
 		[self didChangeValueForKey:key];
 	}
 	else
-		[super setValue:(id) value forUndefinedKey:(NSString *) key];
+		[self SWZ_iTM2Impl_setValue:(id) value forUndefinedKey:(NSString *) key];
 //iTM2_END;
 	return;
 }

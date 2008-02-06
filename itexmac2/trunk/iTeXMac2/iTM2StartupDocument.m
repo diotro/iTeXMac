@@ -67,10 +67,7 @@
 @end
 
 #if 0
-@interface iTM2Application_FixMenuShortcut: iTM2Application
-@end
-
-@implementation iTM2Application_FixMenuShortcut
+@implementation iTM2Application(FixMenuShortcut)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -82,12 +79,13 @@ To Do List:
 //iTM2_START;
     iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-    [iTM2Application_FixMenuShortcut poseAsClass:[iTM2Application class]];
+    [iTM2Application iTM2_swizzleInstanceMethodSelector:@selector(SWZ_FixShortcutMenu_sendEvent:)];
+    [iTM2Application iTM2_swizzleInstanceMethodSelector:@selector(SWZ_FixShortcutMenu_orderFrontColorPanel:)];
     iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sendEvent:
-- (void)sendEvent:(NSEvent *)anEvent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_FixShortcutMenu_sendEvent:
+- (void)SWZ_FixShortcutMenu_sendEvent:(NSEvent *)anEvent;
 /*"I am ashamed. This might be done elsewhere, but i do not know where or how...
 This patch deals with command+arrow keystroke: different meanings while in text view or in pdf view.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -194,12 +192,12 @@ To Do List:
             break;
     }
 	#warning DEBUGGGGGGGGGGGGGGGGGGGGG
-    [super sendEvent:anEvent];
+    [self SWZ_FixShortcutMenu_sendEvent:anEvent];
     return;
 }
 #if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFrontColorPanel:
-- (IBAction)orderFrontColorPanel:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_FixShortcutMenu_orderFrontColorPanel:
+- (IBAction)SWZ_FixShortcutMenu_orderFrontColorPanel:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.2: 03/10/2002
@@ -215,7 +213,7 @@ To Do List:
         [[AV viewWithTag:1] setStringValue:@""];
         [[NSColorPanel sharedColorPanel] setAccessoryView:AV];
     }
-    [super orderFrontColorPanel:sender];
+    [self SWZ_FixShortcutMenu_orderFrontColorPanel:sender];
     return;
 }
 #endif

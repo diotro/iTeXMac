@@ -205,7 +205,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setEditedEngine:[(id)[sender selectedItem] representedString]];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -339,7 +339,7 @@ To Do List:
 	{
 		[self takeInfo:newMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 //		[[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -479,7 +479,7 @@ To Do List:
 	[self takeInfo:engineMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
 	[self takeInfo:@"" forKeyPaths:iTM2TPFEEngineScriptsKey,engineMode,iTM2TPFELabelKey,nil];
 //	[[self document] updateChangeCount:NSChangeDone];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -507,7 +507,7 @@ To Do List:
 			}
 		}
 //		[[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -535,7 +535,7 @@ To Do List:
 		if(W)
 		{
 			[TPD addWindowController:WC];
-			[WC validateWindowContent];
+			[WC iTM2_validateWindowContent];
 			[NSApp beginSheet: W
 					modalForWindow: [self window]
 					modalDelegate: self
@@ -578,7 +578,7 @@ To Do List:
     [sheet orderOut:self];
     id WC = [sheet windowController];
     [[WC document] removeWindowController:WC];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -627,7 +627,7 @@ To Do List:
 		{
 			NSAssert([self isCustomEnvironmentMode],@"Custom environment mode expected");
 //				[[self document] updateChangeCount:NSChangeDone];
-			[self validateWindowContent];
+			[self iTM2_validateWindowContent];
 		}
 	}
 	else if([environmentMode isEqual:iTM2TPFEBaseMode])
@@ -636,7 +636,7 @@ To Do List:
 		[self backupCustomForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 		[self takeInfo:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 //			[[self document] updateChangeCount:NSChangeDone];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -721,7 +721,7 @@ To Do List:
 				iTM2_LOG(@"Starting to edit environment mode: %@", environmentMode);
 			}
 			[W setExcludedFromWindowsMenu:YES];
-//iTM2_LOG(@"BEFORE validateWindowContent, [WC document] is: %@ and W is: %@", [WC document], W);
+//iTM2_LOG(@"BEFORE iTM2_validateWindowContent, [WC document] is: %@ and W is: %@", [WC document], W);
             [NSApp beginSheet: W
                     modalForWindow: [self window]
                     modalDelegate: self
@@ -811,7 +811,7 @@ To Do List:
 	[self takeInfo:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 	// the scripts are not removed because it is difficult to have them back
 	// removing scripts should be made by hand.
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -890,7 +890,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self takeContextValue:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
-//    [self validateWindowContent]; now in the validation kit
+//    [self iTM2_validateWindowContent]; now in the validation kit
 //iTM2_END;
     return;
 }
@@ -1473,7 +1473,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }

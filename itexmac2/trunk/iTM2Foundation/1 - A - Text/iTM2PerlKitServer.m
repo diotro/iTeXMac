@@ -304,25 +304,3 @@ To Do List:
 }
 @end
 
-#if 0
-@interface _iTM2PerlKitServer: NSObject
-@end
-@implementation _iTM2PerlKitServer
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 01/15/2006
-To Do List:
-"*/
-{//iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[self poseAsClass:[NSObject class]];
-	iTM2_LOG(@"poseAsClass");
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-}
-@end
-#endif

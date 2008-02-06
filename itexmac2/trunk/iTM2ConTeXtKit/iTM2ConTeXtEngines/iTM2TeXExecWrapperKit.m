@@ -27,19 +27,19 @@
 #import <iTM2ConTeXtKit/iTM2ConTeXtKit.h>
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];[self validateWindowContent];return;}\
+- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
 - (BOOL)VALIDATE:(id)sender;{[sender setState:([[self editInfoForKeyPaths:KEY,nil] boolValue]? NSOnState:NSOffState)];return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
-- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithFloat:[sender floatValue]] forKeyPaths:KEY,nil];[self validateWindowContent];return;}\
+- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithFloat:[sender floatValue]] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
 - (BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self editInfoForKeyPaths:KEY,nil] floatValue]];\
 return [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
 //return ![self editInfoForKeyPaths:USE_KEY,nil] || [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
 #define IEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
-- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:KEY,nil];[self validateWindowContent];return;}\
+- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
 - (BOOL)VALIDATE:(id)sender;{[sender setIntValue:[[self editInfoForKeyPaths:KEY,nil] intValue]];\
 return [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
 #define SEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
-- (void)ACTION:(id)sender;{[self takeInfo:[sender stringValue] forKeyPaths:KEY,nil];[self validateWindowContent];return;}\
+- (void)ACTION:(id)sender;{[self takeInfo:[sender stringValue] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
 - (BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self editInfoForKeyPaths:KEY,nil]];\
 return [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
 #define UNIT(ACTION, VALIDATE, KEY)\
@@ -47,10 +47,10 @@ return [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
 {\
 	switch([[sender selectedItem] tag])\
 	{\
-		case 0: [self takeInfo:@"bp" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
-		case 1: [self takeInfo:@"pt" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
-		case 2: [self takeInfo:@"in" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
-		default: [self takeInfo:@"cm" forKeyPaths:KEY,nil]; [self validateWindowContent]; return;\
+		case 0: [self takeInfo:@"bp" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
+		case 1: [self takeInfo:@"pt" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
+		case 2: [self takeInfo:@"in" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
+		default: [self takeInfo:@"cm" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
 	}\
     return;\
 }\
@@ -431,7 +431,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self takeInfo:[sender stringValue] forKeyPaths:iTM2TeXExecResult,nil];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -482,7 +482,7 @@ To Do List:
 	[MS replaceOccurrencesOfString:@",," withString:@"," options:0 range:NSMakeRange(0, [MS length])];
 	string = [[MS copy] autorelease];
 	[self takeInfo:string forKeyPaths:iTM2TeXExecMode,nil];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -499,8 +499,8 @@ To Do List:
 //iTM2_END;
 	return ![self editInfoForKeyPaths:iTM2TeXExecUseMode,nil] || [[self editInfoForKeyPaths:iTM2TeXExecUseMode,nil] boolValue];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent:
-- (BOOL)validateWindowContent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_validateWindowContent:
+- (BOOL)iTM2_validateWindowContent;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -522,7 +522,7 @@ To Do List:
 		}
 	}
 //iTM2_END;
-	return [super validateWindowContent];
+	return [super iTM2_validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  useXeTeX:
 - (void)useXeTeX:(id)sender;
@@ -534,7 +534,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self takeInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue]] forKeyPaths:iTM2TeXExecUseXeTeX,nil];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -653,7 +653,7 @@ To Do List:
 				break;
 		}
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }

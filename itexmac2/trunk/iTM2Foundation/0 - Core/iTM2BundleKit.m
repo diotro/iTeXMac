@@ -51,10 +51,11 @@ NSString * const iTM2BundleContentsComponent = @"Contents";
 
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
-@interface NSBundle_iTeXMac2: NSBundle
-@end
+#import <sys/sysctl.h>
+#import <mach/machine.h>
 
-@implementation NSBundle_iTeXMac2
+NSString * _iTM2_NSLogOutputPath = nil;
+@implementation NSBundle(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
 + (void)load;
 /*"Description Forthcoming.
@@ -66,13 +67,16 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSBundle_iTeXMac2 poseAsClass:[NSBundle class]];
+	NSAssert([NSBundle iTM2_swizzleClassMethodSelector:@selector(SWZ_iTM2Bndl_loadNibNamed:owner:)]
+		&& [NSBundle iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Bndl_load)]
+		&& [NSBundle iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Bndl_pathForAuxiliaryExecutable:)],
+			@"**** HUGE ERROR: no swizzling for NSBundle");
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-- (BOOL)load;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Bndl_load
+- (BOOL)SWZ_iTM2Bndl_load;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -82,7 +86,7 @@ To Do List:
 //iTM2_START;
 	if(![self isLoaded])
 	{
-		if([super load])
+		if([self SWZ_iTM2Bndl_load])
 		{
 			[iTM2RuntimeBrowser cleanCache];
 			[INC postNotificationName:iTM2BundleDidLoadNotification object:self];
@@ -94,8 +98,8 @@ To Do List:
 	else
 		return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loadNibNamed:owner:
-+ (BOOL)loadNibNamed:(NSString *)aNibName owner:(id)owner;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Bndl_loadNibNamed:owner:
++ (BOOL)SWZ_iTM2Bndl_loadNibNamed:(NSString *)aNibName owner:(id)owner;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -103,8 +107,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([super loadNibNamed:aNibName owner:owner])
+	if([self SWZ_iTM2Bndl_loadNibNamed:aNibName owner:owner])
+	{
 		return YES;
+	}
 	Class class = [owner class];
 	Class superclass;
 	while((superclass = [class superclass]) && (superclass != class))
@@ -122,23 +128,8 @@ To Do List:
 //iTM2_END;
 	return NO;
 }
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loadNibFile:externalNameTable:withZone:
-+ (BOOL)loadNibFile:(NSString *)fileName externalNameTable:(NSDictionary *)context withZone:(NSZone *)zone;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 22:54:06 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"context is: %@", context);
-//iTM2_END;
-	return [super loadNibFile:fileName externalNameTable:context withZone:zone];
-}
-#endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loadNibFile:externalNameTable:withZone:
-- (NSString *)pathForAuxiliaryExecutable:(NSString *)executableName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Bndl_pathForAuxiliaryExecutable:
+- (NSString *)SWZ_iTM2Bndl_pathForAuxiliaryExecutable:(NSString *)executableName;
 /*"Overriden pethod to add support of frameworks.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -146,7 +137,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * result = [super pathForAuxiliaryExecutable:executableName];
+	NSString * result = [self SWZ_iTM2Bndl_pathForAuxiliaryExecutable:executableName];
 	if([result length])
 		return result;
 	else if([[NSBundle allFrameworks] containsObject:self])
@@ -158,13 +149,6 @@ To Do List:
 //iTM2_END;
 	return result;
 }
-@end
-
-#import <sys/sysctl.h>
-#import <mach/machine.h>
-
-NSString * _iTM2_NSLogOutputPath = nil;
-@implementation NSBundle(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isI386
 + (BOOL)isI386;
 /*"Description Forthcoming.
@@ -1774,7 +1758,7 @@ To Do List:
 	if([DFM pushDirectory:logPath])
 	{
 		NSArray * availableLogs = [DFM directoryContentsAtPath:logPath];
-		NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF endswith[c] 'log'"];
+		NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF ENDSWITH[c] 'log'"];
 		availableLogs = [availableLogs filteredArrayUsingPredicate:predicate];
 		NSMutableArray * MRA = [NSMutableArray array];
 		NSEnumerator * E = [availableLogs objectEnumerator];

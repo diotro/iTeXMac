@@ -514,12 +514,12 @@ To Do List:
         [LM replaceTextStorage:TS];
 	}
     // now validating the user interface
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
-- (BOOL)validateWindowContent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_validateWindowContent
+- (BOOL)iTM2_validateWindowContent;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -527,7 +527,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL result = [super validateWindowContent];
+    BOOL result = [super iTM2_validateWindowContent];
     // and after we set the correct style and variant for the text storage
     // at this point thet [self currentStyle] and currentVGariant are consistent
     // as set by other validate methods.
@@ -551,7 +551,7 @@ To Do List:
     {
         [self setCurrentStyle:new];
         [self setCurrentVariant:nil];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
     return;
 }
@@ -601,7 +601,7 @@ To Do List:
     if(![new isEqual:[self currentVariant]])
     {
         [self setCurrentVariant:new];
-        [self validateWindowContent];
+        [self iTM2_validateWindowContent];
     }
     return;
 }
@@ -690,7 +690,7 @@ To Do List:
 	{
 		[[iTM2TextSyntaxParser syntaxParserClassForStyle:[self currentStyle]] removeSyntaxParserVariant:[self currentVariant]];
 		[self setCurrentVariant:nil];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 		[INC postNotificationName:iTM2TextStyleVariantShouldUpdate object:nil];
 	}
 //iTM2_END;
@@ -721,9 +721,9 @@ To Do List:
     NSString * newVariant = [[iTM2TextSyntaxParser syntaxParserClassForStyle:[self currentStyle]] createNewSyntaxParserVariant];
 	[INC postNotificationName:iTM2TextStyleVariantShouldUpdate object:nil];
     [self setCurrentVariant:nil];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     [self setCurrentVariant:newVariant];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 @end
@@ -1277,7 +1277,7 @@ To Do List:
 	NSWindowController * WC = [W windowController];
 	NSDocument * D = [WC document];
 	[D updateChangeCount:NSChangeDone];
-	[WC validateWindowContent];
+	[WC iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1336,7 +1336,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super setSelectedRange:charRange affinity:affinity stillSelecting:stillSelectingFlag];
-    [[[self window] windowController] validateWindowContent];
+    [[[self window] windowController] iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeAttributes:
@@ -1465,7 +1465,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [SCP setColor:[[NSColor whiteColor] colorWithAlphaComponent:0]];
-    [[[self window] windowController] validateWindowContent];
+    [[[self window] windowController] iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1696,7 +1696,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     _SameXHeight = !_SameXHeight;
-    [[[self window] windowController] validateWindowContent];
+    [[[self window] windowController] iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSameXHeight:
@@ -2146,7 +2146,7 @@ To Do List:
     [SP setUpAllTextViews];
     NSWindowController * WC = [[self window] windowController];
     [[WC document] updateChangeCount:NSChangeDone];
-    [WC validateWindowContent];
+    [WC iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2185,7 +2185,7 @@ To Do List:
     [SP setUpAllTextViews];
     NSWindowController * WC = [[self window] windowController];
     [[WC document] updateChangeCount:NSChangeDone];
-    [WC validateWindowContent];
+    [WC iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2436,7 +2436,7 @@ To Do List:
 						stringByAppendingPathExtension: iTM2TextVariantExtension];
 	[self setFileName:stylePath];
 	[super revertDocumentToSaved:sender];
-    [self validateWindowsContents];
+    [self iTM2_validateWindowsContents];
 //iTM2_END;
 	return;
 }
@@ -2680,7 +2680,7 @@ To Do List:
 //iTM2_START;
     [super windowDidLoad];
     [[self window] setDelegate:self];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     [[self window] makeKeyAndOrderFront:self];
 //iTM2_END;
     return;
@@ -2998,7 +2998,7 @@ To Do List:
         NSWindow * W = [controller window];
         if(W)
         {
-			[controller validateWindowContent];
+			[controller iTM2_validateWindowContent];
             [W makeKeyAndOrderFront:controller];
             if([NSApp runModalForWindow:W] == 1)
 			{
@@ -3065,8 +3065,7 @@ To Do List:
             [NSApp stopModalWithCode:1];
         }
     }
-	NSWindow * W = [sender window];
-    [W validateContent];
+    [[sender window] iTM2_validateContent];
 //iTM2_END;
     return;
 }
@@ -3098,7 +3097,7 @@ To Do List:
     if(![[self variant] length])
     {
         [self setVariant:[[[TV string] copy] autorelease]];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
     }
 //iTM2_END;
     return;

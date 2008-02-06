@@ -42,9 +42,31 @@ This is a class wide manager: you must subclass NSWindow each time you want a di
 
 #pragma mark <<<<  HUNTING
 #ifndef HUNTING
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+
 @implementation NSWindow(iTM2WindowKit) 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameIdentifier
-- (NSString *)frameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
++ (void)load;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri May 21 07:52:07 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+//iTM2_START;
+	[NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_setDocumentEdited:)];
+	[NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_saveFrameUsingName:)];
+	[NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_setFrameUsingName:force:)];
+	[NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_setFrameUsingName:)];
+	[NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_frameAutosaveName)];
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_frameIdentifier
+- (NSString *)iTM2_frameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -53,16 +75,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindowController * WC = [self windowController];
-	NSString * result = [WC windowFrameIdentifier];
+	NSString * result = [WC iTM2_windowFrameIdentifier];
 	if([result length])
 		return result;
 	id delegate = [self delegate];
-	if([delegate respondsToSelector:@selector(frameIdentifierForWindow:)])
-		return [delegate frameIdentifierForWindow:self];
+	if([delegate respondsToSelector:@selector(iTM2_frameIdentifierForWindow:)])
+		return [delegate iTM2_frameIdentifierForWindow:self];
     return @"";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameAutosaveIdentifierForMode:
-- (NSString *)frameAutosaveIdentifierForMode:(iTM2WindowFrameAutosaveMode)aMode;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_frameAutosaveIdentifierForMode:
+- (NSString *)iTM2_frameAutosaveIdentifierForMode:(iTM2WindowFrameAutosaveMode)aMode;
 /*"DF
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -70,7 +92,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * frameIdentifier = [self frameIdentifier];
+    NSString * frameIdentifier = [self iTM2_frameIdentifier];
     if ([frameIdentifier length]) 
     {
         switch(aMode) 
@@ -86,8 +108,8 @@ To Do List:
     }
     return @"";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameAutosaveModeKey
-- (NSString *)frameAutosaveModeKey;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_frameAutosaveModeKey
+- (NSString *)iTM2_frameAutosaveModeKey;
 /*"Subclasses must declare a default value for all the modes.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -95,10 +117,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [NSString stringWithFormat:@"%@ %@", [self frameIdentifier], iTM2AutosaveModeKeySuffix];
+    return [NSString stringWithFormat:@"%@ %@", [self iTM2_frameIdentifier], iTM2AutosaveModeKeySuffix];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionShouldBeObserved
-- (BOOL)positionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_positionShouldBeObserved
+- (BOOL)iTM2_positionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -109,12 +131,12 @@ To Do List:
 	id WC = [self windowController];
 	id delegate = [self delegate];
 //iTM2_END;
-    return ([delegate respondsToSelector:@selector(windowPositionShouldBeObserved:)]
-						&& [delegate windowPositionShouldBeObserved:self])
-				|| [WC windowPositionShouldBeObserved];
+    return ([delegate respondsToSelector:@selector(iTM2_windowPositionShouldBeObserved:)]
+						&& [delegate iTM2_windowPositionShouldBeObserved:self])
+				|| [WC iTM2_windowPositionShouldBeObserved];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  compareUsingLevel:
-- (NSComparisonResult)compareUsingLevel:(id)rhs;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_compareUsingLevel:
+- (NSComparisonResult)iTM2_compareUsingLevel:(id)rhs;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -131,8 +153,8 @@ To Do List:
 //iTM2_END;
     return NSOrderedSame;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderBelowFront:
-- (void)orderBelowFront:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_orderBelowFront:
+- (void)iTM2_orderBelowFront:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -190,8 +212,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowsMenuItemTitle
-- (NSString *)windowsMenuItemTitle;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowsMenuItemTitle
+- (NSString *)iTM2_windowsMenuItemTitle;
 /*"Gives a default value, useful for window observer?
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -201,42 +223,10 @@ To Do List:
 //iTM2_START;
     NSWindowController * WC = [self windowController];
     NSString * DN = [[WC document] displayName];
-    return DN? [WC windowsMenuItemTitleForDocumentDisplayName:DN]:[self title];
+    return DN? [WC iTM2_windowsMenuItemTitleForDocumentDisplayName:DN]:[self title];
 }
-@end
-#pragma mark >>>>  HUNTING
-#endif
-
-NSString * const iTM2DocumentEditedStatusNotification = @"iTM2DocumentEditedStatus";
-
-#pragma mark <<<<  HUNTING
-#ifndef HUNTING
-
-@interface NSWindow_iTM2WindowKit: NSWindow
-@end
-
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-
-@implementation NSWindow_iTM2WindowKit
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 07:52:07 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSWindow_iTM2WindowKit poseAsClass:[NSWindow class]];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setDocumentEdited:
-- (void)setDocumentEdited:(BOOL)flag;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_setDocumentEdited:
+- (void)SWZ_iTM2_setDocumentEdited:(BOOL)flag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -245,13 +235,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"THIS IS A PATCHED METHOD");
-	[super setDocumentEdited:flag];
+	[self SWZ_iTM2_setDocumentEdited:flag];
 	// got a EXC_BAD_ACCESS here when the pdf update call to context did change was not timed
 	[INC postNotificationName:iTM2DocumentEditedStatusNotification object:self];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveFrameUsingName:
-- (void)saveFrameUsingName:(NSString *)name;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_saveFrameUsingName:
+- (void)SWZ_iTM2_saveFrameUsingName:(NSString *)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -260,22 +250,22 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"name is: %@", name);
-    if([self positionShouldBeObserved])
+    if([self iTM2_positionShouldBeObserved])
     {
-		iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask];
-		NSString * identifier = [self frameAutosaveIdentifierForMode:mode];
+		iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self iTM2_frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask];
+		NSString * identifier = [self iTM2_frameAutosaveIdentifierForMode:mode];
 		if([identifier length])
 		{
 			[self takeContextValue:[self stringWithSavedFrame] forKey:[NSString stringWithFormat:@"Window Frame %@", identifier] domain:iTM2ContextAllDomainsMask];
 			[self takeContextBool:NO forKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask];
 		}
     }
-	[super saveFrameUsingName:name];
+	[self SWZ_iTM2_saveFrameUsingName:name];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setFrameUsingName:force:
-- (BOOL)setFrameUsingName:(NSString *)name force:(BOOL)force;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_setFrameUsingName:force:
+- (BOOL)SWZ_iTM2_setFrameUsingName:(NSString *)name force:(BOOL)force;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -284,7 +274,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"name is: %@", name);
-    if([self positionShouldBeObserved])
+    if([self iTM2_positionShouldBeObserved])
 	{
 		NSString * S;
 		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@", name] domain:iTM2ContextAllDomainsMask];
@@ -296,10 +286,10 @@ To Do List:
 		}
 	}
 //iTM2_END;
-	return [super setFrameUsingName:name force:force];
+	return [self SWZ_iTM2_setFrameUsingName:name force:force];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setFrameUsingName:
-- (BOOL)setFrameUsingName:(NSString *)name;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_setFrameUsingName:
+- (BOOL)SWZ_iTM2_setFrameUsingName:(NSString *)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -308,7 +298,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"name is: %@", name);
-    if([self positionShouldBeObserved])
+    if([self iTM2_positionShouldBeObserved])
 	{
 		NSString * S;
 		S = [self contextStringForKey:[NSString stringWithFormat:@"Window Frame %@:%@", name, NSStringFromSize([[NSScreen mainScreen] frame].size)] domain:iTM2ContextAllDomainsMask];
@@ -327,10 +317,10 @@ To Do List:
 		}
 	}
 //iTM2_END;
-	return [super setFrameUsingName:name];
+	return [self SWZ_iTM2_setFrameUsingName:name];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeFrameUsingName:
-- (void)removeFrameUsingName:(NSString *)name;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_removeFrameUsingName:
+- (void)iTM2_removeFrameUsingName:(NSString *)name;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -338,15 +328,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask];
-    NSString * identifier = [self frameAutosaveIdentifierForMode:mode];
+    iTM2WindowFrameAutosaveMode mode = [self contextIntegerForKey:[self iTM2_frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask];
+    NSString * identifier = [self iTM2_frameAutosaveIdentifierForMode:mode];
 	[self takeContextValue:nil forKey:[NSString stringWithFormat:@"Window Frame %@:%@", identifier, NSStringFromSize([[NSScreen mainScreen] frame].size)] domain:iTM2ContextAllDomainsMask];
 	[[self class] removeFrameUsingName:name];
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameAutosaveName
-- (NSString *)frameAutosaveName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_frameAutosaveName
+- (NSString *)SWZ_iTM2_frameAutosaveName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -354,22 +344,26 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * frameAutosaveName = [super frameAutosaveName];
+	NSString * frameAutosaveName = [self SWZ_iTM2_frameAutosaveName];
     return [frameAutosaveName length]? frameAutosaveName:
-		[self frameAutosaveIdentifierForMode:[self contextIntegerForKey:[self frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask]];
+		[self iTM2_frameAutosaveIdentifierForMode:[self contextIntegerForKey:[self iTM2_frameAutosaveModeKey] domain:iTM2ContextAllDomainsMask]];
 }
-#if __iTM2_DEVELOPMENT__
-- (void)makeKeyAndOrderFront:(id)sender;
-{iTM2_DIAGNOSTIC;
-	[super makeKeyAndOrderFront:sender];
-}
-#endif
 @end
+#pragma mark >>>>  HUNTING
+#endif
+
+NSString * const iTM2DocumentEditedStatusNotification = @"iTM2DocumentEditedStatus";
+
+#pragma mark <<<<  HUNTING
+#ifndef HUNTING
+
+#import <iTM2Foundation/iTM2InstallationKit.h>
+#import <iTM2Foundation/iTM2Implementation.h>
 
 @implementation NSWindowController(iTM2WindowKit_)
-// the default windowFrameIdentifier is implemented in iTM2DocumentKit
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+// the default iTM2_windowFrameIdentifier is implemented in iTM2DocumentKit
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -380,8 +374,8 @@ To Do List:
 //iTM2_END;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
-- (NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_windowsMenuItemTitleForDocumentDisplayName:
+- (NSString *)iTM2_windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -438,10 +432,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSWindow * W = [aNotification object];
-    if ([W positionShouldBeObserved] && [W isVisible]) 
+    if ([W iTM2_positionShouldBeObserved] && [W isVisible]) 
     {
-        [W saveFrameUsingName:[W frameAutosaveIdentifierForMode:iTM2WindowFrameSavedMode]];
-        [W saveFrameUsingName:[W frameAutosaveIdentifierForMode:iTM2WindowFrameCurrentMode]];
+        [W saveFrameUsingName:[W iTM2_frameAutosaveIdentifierForMode:iTM2WindowFrameSavedMode]];
+        [W saveFrameUsingName:[W iTM2_frameAutosaveIdentifierForMode:iTM2WindowFrameCurrentMode]];
         [SUD synchronize];
     }
 //iTM2_END;
@@ -457,7 +451,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [aNotification object];
-    NSString * frameIdentifier = [W frameIdentifier];
+    NSString * frameIdentifier = [W iTM2_frameIdentifier];
     if ([frameIdentifier length]>0) 
     {
         [[W class] removeFrameUsingName:frameIdentifier];
@@ -466,95 +460,6 @@ To Do List:
 }
 @end
 #pragma mark >>>>  HUNTING
-#endif
-
-#if 0
-#warning DEBUGGGGGGGGGGGGGGGGGGGG
-@interface NSMenu(PRIVATE1)
-- (void)showItemWithKeyEquivalentForEvent:(NSEvent *)anEvent;
-@end
-@interface NSMenu_MOI: NSMenu
-@end
-@implementation NSMenu_MOI
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri May 21 07:52:07 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSMenu_MOI poseAsClass:[NSMenu class]];
-//iTM2_END;
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"NSMenu_MOI is posed as NSMenu (NSApp is %@)", NSApp);
-	}
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performKeyEquivalent:
-- (BOOL)performKeyEquivalent:(NSEvent *)anEvent;
-/*"DF.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	BOOL result = NO;
-	NS_DURING
-	result = [super performKeyEquivalent:anEvent];
-//iTM2_LOG(@"MENU TITLE IS %@, anEvent is: %@, %@", [self title], anEvent, (result? @"YES":@"NO"));
-	[self showItemWithKeyEquivalentForEvent:anEvent];
-	NS_HANDLER
-	iTM2_LOG(@"***  Exception catched %@", [localException reason]);
-	NS_ENDHANDLER
-//iTM2_END;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showItemWithKeyEquivalentForEvent:
-- (void)showItemWithKeyEquivalentForEvent:(NSEvent *)anEvent;
-/*"DF.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSEnumerator * E = [[self itemArray] objectEnumerator];
-	id MI;
-	while(MI = [E nextObject])
-	{
-		if([MI hasSubmenu])
-		{
-			[[MI submenu] showItemWithKeyEquivalentForEvent:anEvent];
-		}
-		else if([[MI keyEquivalent] isEqual:[anEvent charactersIgnoringModifiers]])
-		{
-			iTM2_LOG(@"1 - Menu is: %@ and Menu item: %@, %#x, charactersIgnoringModifiers: %@", [self title], [MI title], [MI keyEquivalentModifierMask], [anEvent charactersIgnoringModifiers]);
-		}
-		else if([[MI keyEquivalent] isEqual:[anEvent characters]])
-		{
-			iTM2_LOG(@"2 - Menu is: %@ and Menu item: %@, %#x, characters: %@", [self title], [MI title], [MI keyEquivalentModifierMask], [anEvent characters]);
-		}
-		else if([[[MI keyEquivalent] lowercaseString] isEqual:[[anEvent charactersIgnoringModifiers] lowercaseString]])
-		{
-			iTM2_LOG(@"3 - Menu is: %@ and Menu item: %@, %#x, charactersIgnoringModifiers: %@", [self title], [MI title], [MI keyEquivalentModifierMask], [anEvent charactersIgnoringModifiers]);
-		}
-		else if([[[MI keyEquivalent] lowercaseString] isEqual:[[anEvent characters] lowercaseString]])
-		{
-			iTM2_LOG(@"4 - Menu is: %@ and Menu item: %@, %#x, characters: %@", [self title], [MI title], [MI keyEquivalentModifierMask], [anEvent characters]);
-		}
-	}
-//iTM2_END;
-	return;
-}
-@end
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2WindowsObserver
 #endif
 
 @implementation iTM2Window

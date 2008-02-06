@@ -21,6 +21,34 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
+@interface NSObject(iTM2RuntimeBrowser)
+
+/*!
+    @method		iTM2_swizzleInstanceMethodSelector:
+    @abstract	Abstract forthcoming.
+    @discussion	If the selector matches the pattern SWZ_.*?_foo, the selector and foo are swizzled.
+				Swizzling does not occur if the receiver's instances do not implement the methods.
+	@param		selector
+	@result		A flag indicating whether the change has been made
+	@copyright	jerome dot laurens at u minus bourgogne dot fr
+	@available	iTM2 build 710
+*/
++ (BOOL)iTM2_swizzleInstanceMethodSelector:(SEL)selector;
+
+/*!
+    @method		iTM2_swizzleClassMethodSelector:
+    @abstract	Abstract forthcoming.
+    @discussion	If the selector matches the pattern SWZ_.*?_foo, the selector and foo are swizzled.
+				Swizzling does not occur if the receiver does not implement the methods.
+	@param		selector
+	@result		A flag indicating whether the change has been made
+	@copyright	jerome dot laurens at u minus bourgogne dot fr
+	@available	iTM2 build 710
+*/
++ (BOOL)iTM2_swizzleClassMethodSelector:(SEL)selector;
+
+@end
+
 
 /*!
     @class		iTM2RuntimeBrowser

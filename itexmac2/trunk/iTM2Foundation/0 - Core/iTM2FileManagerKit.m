@@ -417,6 +417,8 @@ To Do List:
     }
 	return result;
 }
+
+
 #if 0
 #warning *** DEBUGGING PURPOSE ONLY, to be removed
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
@@ -431,7 +433,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_removeFileAtPath:handler:)replacement:@selector(removeFileAtPath:handler:)forClass:[NSFileManager class]])
+	if(![[NSFileManager class] swizzleInstanceMethodSelector:@selector(SWZ_iTM2_removeFileAtPath:handler:)])
 	{
 		iTM2_LOG(@"WARNING: No hook available to init NSFileManager...");
 	}
@@ -439,7 +441,7 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-- (BOOL)swizzled_removeFileAtPath:(NSString *)path handler:handler;
+- (BOOL)SWZ_iTM2_removeFileAtPath:(NSString *)path handler:handler;
 {
 //iTM2_LOG(@"path: %@", path);
 	if([[path lastPathComponent] pathIsEqual:@"CV.tex"])
@@ -455,9 +457,11 @@ To Do List:
 	{
 		iTM2_LOG(@"NOT STANDARDIZED: %@", path);
 	}
-	return [self swizzled_removeFileAtPath:path handler:handler];
+	return [self SWZ_iTM2_removeFileAtPath:path handler:handler];
 }
 #endif
+
+
 #define ENCODING CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF16BE)
 #define EXTENSION @"soft_link"
 - (void)convertSymbolicLinksToSoftLinksAtPath:(NSString *)path;

@@ -58,6 +58,7 @@ typedef enum
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
+All the initialize have been gathered here.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
 To Do List:
@@ -67,6 +68,12 @@ To Do List:
 	[super initialize];
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 			NSStringFromPoint(NSMakePoint(0, 0)), iTM2PDFSyncOffsetKey,
+			[NSNumber numberWithBool:YES], @"iTM2PDFSYNCOrderFrontOutput",
+			[NSNumber numberWithBool:YES], iTM2PDFSyncFollowFocusKey,
+			[NSNumber numberWithFloat:0.5], iTM2PDFSyncPriorityKey,
+			[NSNumber numberWithBool:NO], iTM2PDFSyncShowRecordNumberKey,
+			[NSNumber numberWithInt:7], iTM2PDFSYNCDisplayBulletsKey,
+			[NSNumber numberWithFloat:30], iTM2PDFSYNCTimeKey,
 				nil]];
     return;
 }
@@ -1143,25 +1150,6 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void)initialize;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- for 2.0:Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super initialize];
-	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithBool:YES], iTM2PDFSyncFollowFocusKey,
-			[NSNumber numberWithFloat:0.5], iTM2PDFSyncPriorityKey,
-			[NSNumber numberWithBool:NO], iTM2PDFSyncShowRecordNumberKey,
-			[NSNumber numberWithInt:7], iTM2PDFSYNCDisplayBulletsKey,
-			[NSNumber numberWithFloat:30], iTM2PDFSYNCTimeKey,
-				nil]];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncFollowFocus:
 - (IBAction)toggleSyncFollowFocus:(id)sender;
 /*"Description forthcoming.
@@ -1718,7 +1706,7 @@ laSuite:
 						}
 						else if(![WC isKindOfClass:[iTM2ExternalInspector class]])
 						{
-							[W orderBelowFront:self];
+							[W iTM2_orderBelowFront:self];
 						}
 					}
 					result = YES;
@@ -1750,7 +1738,7 @@ laSuite:
 					}
 					else
 					{
-						[W orderBelowFront:self];
+						[W iTM2_orderBelowFront:self];
 					}
 					result = YES;
 				}
@@ -2268,7 +2256,7 @@ To Do List:
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
 
-@implementation NSTextView_iTM2IOSynch
+@implementation NSTextView(iTM2IOSynch)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -2280,29 +2268,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSTextView_iTM2IOSynch poseAsClass:[NSTextView class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(mouseDown:) replacement:@selector(SWZ_IOSynch_mouseDown:) forClass:[NSTextView class]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void)initialize;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- for 2.0:Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super initialize];
-	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithBool:YES], @"iTM2PDFSYNCOrderFrontOutput",
-				nil]];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
-- (void)mouseDown:(NSEvent *)event
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_IOSynch_mouseDown:
+- (void)SWZ_IOSynch_mouseDown:(NSEvent *)event
 /*"Description Forthcoming
 Version history:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2320,7 +2292,7 @@ To Do List:
 	}
 	else
 	{
-		[super mouseDown:event];
+		[self SWZ_IOSynch_mouseDown:event];
 	}
 //iTM2_END;
     return;

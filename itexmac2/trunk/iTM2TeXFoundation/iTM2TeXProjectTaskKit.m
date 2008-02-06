@@ -287,12 +287,12 @@ To Do List:
     // definitely forgetting the split view
     [super windowDidLoad];
 iTM2_LOG(@"self is:%@",self);// if I remove this line EXC_BAD_ACCESS 07/03/2007
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     [[self window] setDelegate:self];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
-- (BOOL)validateWindowContent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_validateWindowContent
+- (BOOL)iTM2_validateWindowContent;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -314,7 +314,7 @@ To Do List:
                 (h3+h4>0? h3/(h3+h4): 0)]
             forKey: iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask];
 //iTM2_LOG(@"[self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey] is: %@", [self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]);
-    return [super validateWindowContent];
+    return [super iTM2_validateWindowContent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowShouldClose:
 - (BOOL)windowShouldClose:(id)sender;
@@ -344,8 +344,8 @@ To Do List:
         [isa prettyInspectorMode],
             displayName];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
-- (NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_windowsMenuItemTitleForDocumentDisplayName:
+- (NSString *)iTM2_windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -395,7 +395,7 @@ To Do List:
         R4.size.height = 0;
     }
     [[notification object] adjustSubviews];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 #pragma mark =-=-=-=-=-=-  CUSTOM VIEW
@@ -465,7 +465,7 @@ To Do List:
             [V setFrameSize:NSMakeSize([V frame].size.width, 0)];
             [SV adjustSubviews];
         }
-        [sender validateWindowContent];
+        [sender iTM2_validateWindowContent];
     }
     return;
 }
@@ -677,7 +677,7 @@ To Do List:
             [V setFrameSize:NSMakeSize([V frame].size.width, 0)];
         [SV adjustSubviews];
     }
-    [sender validateWindowContent];
+    [sender iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalOutput:
@@ -817,7 +817,7 @@ To Do List:
             [V setFrameSize:NSMakeSize([V frame].size.width, 0)];
         [SV adjustSubviews];
     }
-    [sender validateWindowContent];
+    [sender iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalErrors:
@@ -1011,7 +1011,7 @@ iTM2_LOG(@"DID SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length
 iTM2_LOG(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
 	}
 	[TV setEditable:NO];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStyleFromRepresentedObject:
@@ -1030,7 +1030,7 @@ To Do List:
 		[self takeContextValue:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 		[[self document] updateChangeCount:NSChangeDone];
 	}
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStyleFromRepresentedObject:
@@ -1091,7 +1091,7 @@ To Do List:
 	iTM2TaskController * TC = [self taskController];
 	[TC setMute: ![TC isMute]];
 	[[self document] updateChangeCount:NSChangeDone];
-    [sender validateWindowContent];
+    [sender iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalSilent:
@@ -1117,7 +1117,7 @@ To Do List:
 //iTM2_START;
 	[self setHidden: ![self isHidden]];
 	[[self document] updateChangeCount:NSChangeDone];
-    [sender validateWindowContent];
+    [sender iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalHidden:
@@ -1350,7 +1350,7 @@ To Do List:
         else
             [V setFrameSize:NSMakeSize([V frame].size.width, 0)];
         [SV adjustSubviews];
-        [sender validateWindowContent];
+        [sender iTM2_validateWindowContent];
     }
     return;
 }
@@ -1390,9 +1390,7 @@ To Do List:
 
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
 
-@interface iTM2TaskController_TeXProject: iTM2TaskController
-@end
-@implementation iTM2TaskController_TeXProject
+@implementation iTM2TaskController(TeXProject)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -1404,13 +1402,13 @@ To Do List:
     iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2TaskController_TeXProject poseAsClass:[iTM2TaskController class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(contextManager) replacement:@selector(SWZ_TeXProject_contextManager) forClass:[iTM2TaskController class]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id)contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXProject_contextManager
+- (id)SWZ_TeXProject_contextManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1421,7 +1419,7 @@ To Do List:
     id inspector, TPD;
     return (inspector = [[self inspectorsEnumerator] nextObject])
                 && (TPD = [SPC TeXProjectForSource:inspector])?
-                    [TPD contextManager]:[super contextManager];
+                    [TPD contextManager]:[self SWZ_TeXProject_contextManager];
 }
 @end
 

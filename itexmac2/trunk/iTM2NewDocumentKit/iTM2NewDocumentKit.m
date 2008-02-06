@@ -345,8 +345,8 @@ To Do List:
 //iTM2_LOG(@"Plug-ins loaded at path: %@", path);
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved:
-- (BOOL)windowPositionShouldBeObserved:(NSWindow *)window;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved:
+- (BOOL)iTM2_windowPositionShouldBeObserved:(NSWindow *)window;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -440,8 +440,8 @@ To Do List:
 	metaSETTER(argument);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= templateImageView
-- (id)templateImageView;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tabViewItemIdentifier
+- (id)tabViewItemIdentifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -452,8 +452,56 @@ To Do List:
 //iTM2_END;
 	return metaGETTER;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTemplateImageView:
-- (void)setTemplateImageView:(id)object;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTabViewItemIdentifier:
+- (void)setTabViewItemIdentifier:(NSString *)object;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	metaSETTER(object);
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= templateImage
+- (id)templateImage;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return metaGETTER;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTemplateImage:
+- (void)setTemplateImage:(id)object;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	metaSETTER(object);
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= templatePDFView
+- (id)templatePDFView;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return metaGETTER;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTemplatePDFView:
+- (void)setTemplatePDFView:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -660,7 +708,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1882,7 +1930,7 @@ To Do List:
 							}
 							[document stringRepresentationCompleteWriteToURL:[document fileURL] ofType:[document fileType] error:nil];
 							[document close];
-iTM2_LOG(@"[PD subdocumentForKey:%@]:%@",key,[PD subdocumentForFileKey:key]);
+iTM2_LOG(@"[PD subdocumentForFileKey:%@]:%@",key,[PD subdocumentForFileKey:key]);
 iTM2_LOG(@"Document saved and closed");
 						}
 					}
@@ -2137,30 +2185,44 @@ To Do List:
 		if(!B)
 		{
 			[sender setStringValue:noDescriptionAvailable];
-			[[self templateImageView] setImage:nil];
+			[self setTemplateImage:nil];
+			[[self templatePDFView] setDocument:nil];
 			return NO;
 		}
 	}
 //iTM2_LOG(@"fixing");
 	// fixing the template image
 	path = [B pathForImageResource:@"templateImage"];
-	NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
-	if(!I)
+	if([[SDC typeFromFileExtension:[path pathExtension]] isEqualToString:NSPDFPboardType])
 	{
-		// is there a unique pdf file at the top level?
-		path = [B bundlePath];
-		NSEnumerator * E = [[DFM directoryContentsAtPath:path] objectEnumerator];
-		NSString * component;
-		while(component = [E nextObject])
-			if([[SDC typeFromFileExtension:[component pathExtension]] isEqualToString:NSPDFPboardType])
-			{
-				I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:[path stringByAppendingPathComponent:component]] autorelease];
-				goto xonrupt;
-			}
-		I = [SWS iconForFile:[self standaloneFileName]];
+		PDFDocument * D = nil;
+longemer:
+		D = [[[PDFDocument allocWithZone:[self zone]]
+			initWithURL:[NSURL fileURLWithPath:path]] autorelease];
+		[(PDFView *)[self templatePDFView] setDocument:D];
+		[self setTabViewItemIdentifier:@"PDF"];
 	}
-xonrupt:
-	[[self templateImageView] setImage:I];
+	else
+	{
+		NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+		if(nil == I)
+		{
+			// is there a unique pdf file at the top level?
+			path = [B bundlePath];
+			NSEnumerator * E = [[DFM directoryContentsAtPath:path] objectEnumerator];
+			NSString * component;
+			while(component = [E nextObject])
+				if([[SDC typeFromFileExtension:[component pathExtension]] isEqualToString:NSPDFPboardType])
+				{
+					path = [path stringByAppendingPathComponent:component];
+					goto longemer;
+				}
+			I = [SWS iconForFile:[self standaloneFileName]];
+		}
+		[self setTemplateImage:I];
+		[self setTabViewItemIdentifier:@"Image"];
+	}
+	// select the tab view containing V, which is the view containing the appropriate information
 	// fixing the template image: looking for an rtf file and then a text file
 	path = [B pathForResource:@"templateDescription" ofType:@"rtf"];
 	if([path length])
@@ -2238,7 +2300,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setPanelDirectory:path];// will make some setups too
-	[sender validateContent];
+	[sender iTM2_validateContent];
 //iTM2_END;
     return;
 }
@@ -2707,7 +2769,7 @@ To Do List:
 	// Hum, the sender is the matrix despite each cell is connected separately in interface builder
 	[self setCreationMode:[[sender selectedCell] tag]];
 	[self validateCreationMode];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2732,7 +2794,8 @@ To Do List:
 	BOOL result = YES;
 	switch([sender tag])
 	{
-		case iTM2ToggleStandaloneMode: result = [self selectedTemplateCanBeStandalone];break;
+#warning DEBUGGGGGGGGGGG CLEAN the standalone
+//		case iTM2ToggleStandaloneMode: result = [self selectedTemplateCanBeStandalone];break;
 		case iTM2ToggleOldProjectMode: result = [self selectedTemplateCanInsertInOldProject];break;
 		default: result = [self selectedTemplateCanCreateNewProject];break;
 	}
@@ -2771,7 +2834,7 @@ To Do List:
 		[SP setDirectory:new];
 		[SP update];
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2903,7 +2966,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self preferWrapper];
 	[self setPreferWrapper:!old];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }

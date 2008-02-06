@@ -114,8 +114,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isValid
-- (BOOL)isValid;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_isValid
+- (BOOL)iTM2_isValid;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -267,7 +267,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSControl * C = [[[NSApp keyWindow] contentView] controlWithAction:@selector(lineFieldAction:)];
-	if([C isValid] && [C acceptsFirstResponder])
+	if([C iTM2_isValid] && [C acceptsFirstResponder])
 	{
 		[[C window] makeFirstResponder:C];
 	}
@@ -283,7 +283,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	return [[[[NSApp keyWindow] contentView] controlWithAction:@selector(lineFieldAction:)] isValid];
+	return [[[[NSApp keyWindow] contentView] controlWithAction:@selector(lineFieldAction:)] iTM2_isValid];
 }
 @end
 
@@ -794,10 +794,9 @@ To Do List:
 }
 @end
 
-@interface NSFormatter_iTeXMac2: NSFormatter
-@end
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
 
-@implementation NSFormatter_iTeXMac2
+@implementation NSFormatter(iTM2TextField)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description Forthcoming.
@@ -809,13 +808,13 @@ To Do List:
     iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-    [NSFormatter_iTeXMac2 poseAsClass:[NSFormatter class]];
+    [NSFormatter iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TextField_attributedStringForObjectValue:withDefaultAttributes:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedStringForObjectValue:withDefaultAttributes:
-- (NSAttributedString *)attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2TextField_attributedStringForObjectValue:withDefaultAttributes:
+- (NSAttributedString *)SWZ_iTM2TextField_attributedStringForObjectValue:(id)obj withDefaultAttributes:(NSDictionary *)attrs;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/26/2002
@@ -824,11 +823,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(obj)
-		return [super attributedStringForObjectValue:obj withDefaultAttributes:attrs];
+		return [self SWZ_iTM2TextField_attributedStringForObjectValue:obj withDefaultAttributes:attrs];
 	NSAttributedString * AS = [self attributedStringForNilObjectValueWithDefaultAttributes:attrs];
 	if([AS length])
 		return AS;
-	return [super attributedStringForObjectValue:obj withDefaultAttributes:attrs];
+	return [self SWZ_iTM2TextField_attributedStringForObjectValue:obj withDefaultAttributes:attrs];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributedStringForNilObjectValueWithDefaultAttributes:
 - (NSAttributedString *)attributedStringForNilObjectValueWithDefaultAttributes:(NSDictionary *)attrs;

@@ -393,8 +393,8 @@ To Do List:
 {
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  positionShouldBeObserved
-- (BOOL)positionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_positionShouldBeObserved
+- (BOOL)iTM2_positionShouldBeObserved;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -402,8 +402,8 @@ To Do List:
 {
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  frameIdentifier
-- (NSString *)frameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_frameIdentifier
+- (NSString *)iTM2_frameIdentifier;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:

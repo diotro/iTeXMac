@@ -92,7 +92,7 @@ To Do List:
 	if(line && (line <= [documentString numberOfLines]))
 	{
 		NSEnumerator * E = [[[NSApp windows]
-			sortedArrayUsingSelector: @selector(compareUsingLevel:)] objectEnumerator];
+			sortedArrayUsingSelector: @selector(iTM2_compareUsingLevel:)] objectEnumerator];
 		NSWindow * W;
 		iTM2TextInspector * WC;
 		while(W = [E nextObject])
@@ -1452,7 +1452,7 @@ To Do List:
 	}
     else
 	{
-        [W orderBelowFront:self];
+        [W iTM2_orderBelowFront:self];
 	}
     NS_HANDLER
     iTM2_LOG(@"*** Exception catched: %@", [localException reason]);
@@ -1462,8 +1462,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowFrameIdentifier
-- (NSString *)windowFrameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowFrameIdentifier
+- (NSString *)iTM2_windowFrameIdentifier;
 /*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -1473,8 +1473,8 @@ To Do List:
 //iTM2_START;
     return @"Text Window";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004

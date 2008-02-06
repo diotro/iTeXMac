@@ -260,7 +260,7 @@ To Do List:
 
 NSString * const iTM2TeX7bitsAccentsKey = @"iTM2TeX7bitsAccents";
 
-@interface iTM2TeXKeyBindingsManager:iTM2KeyBindingsManager
+@interface iTM2KeyBindingsManager(TeX)
 + (id)the7bitsAccentsList;
 + (id)the7bitsAccentsMapping;
 + (id)the7bitsAccentsGnippam;
@@ -896,7 +896,7 @@ To Do List:
 {
 	NSMutableArray * ranges = [NSMutableArray array];
 	NSMutableDictionary * map = [NSMutableDictionary dictionary];
-	NSEnumerator * E = [[iTM2TeXKeyBindingsManager the7bitsAccentsMapping] objectEnumerator];
+	NSEnumerator * E = [[iTM2KeyBindingsManager the7bitsAccentsMapping] objectEnumerator];
 	NSString * before;
 	NSString * after;
 	NSTextStorage * TS = [self textStorage];
@@ -944,7 +944,7 @@ To Do List:
 {
 	id ranges = [NSMutableArray array];
 	NSMutableDictionary * map = [NSMutableDictionary dictionary];
-	NSDictionary * gnippam = [iTM2TeXKeyBindingsManager the7bitsAccentsGnippam];
+	NSDictionary * gnippam = [iTM2KeyBindingsManager the7bitsAccentsGnippam];
 	NSEnumerator * E = [gnippam keyEnumerator];
 	NSString * before;
 	NSString * after;
@@ -1221,13 +1221,13 @@ To Do List:
 }
 @end
 
-@implementation iTM2TeXKeyBindingsManager
-static id iTM2TeXKeyBindingsManager_7bitsAccents = nil;
+@implementation iTM2KeyBindingsManager(TeX)
+static id iTM2KeyBindingsManager_7bitsAccents = nil;
 +(void)load;
 {
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-	[iTM2TeXKeyBindingsManager poseAsClass:[iTM2KeyBindingsManager class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(client:executeBindingForKeyStroke:) replacement:@selector(TeX_SWZ_client:executeBindingForKeyStroke:) forClass:[iTM2KeyBindingsManager class]];
 	iTM2_RELEASE_POOL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsMapping
@@ -1289,23 +1289,23 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-	if(!iTM2TeXKeyBindingsManager_7bitsAccents)
+	if(!iTM2KeyBindingsManager_7bitsAccents)
 	{
-		iTM2TeXKeyBindingsManager_7bitsAccents = [[iTM27BitsContextNode alloc] initWithParent:nil context:@""];
+		iTM2KeyBindingsManager_7bitsAccents = [[iTM27BitsContextNode alloc] initWithParent:nil context:@""];
 		NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"7bitsAccents" ofType:iTM2KeyBindingPathExtension];
 		NSEnumerator * E = [RA objectEnumerator];
 		NSString * repository = nil;
 		while(repository = [E nextObject])
 		{
 			NSURL * url = [NSURL fileURLWithPath:repository];
-			[iTM2TeXKeyBindingsManager_7bitsAccents addURLPromise:url];
+			[iTM2KeyBindingsManager_7bitsAccents addURLPromise:url];
 		}
-		iTM2TeXKeyBindingsManager_7bitsAccents = [iTM2TeXKeyBindingsManager_7bitsAccents keyBindings];
+		iTM2KeyBindingsManager_7bitsAccents = [iTM2KeyBindingsManager_7bitsAccents keyBindings];
 	}
-    return iTM2TeXKeyBindingsManager_7bitsAccents;
+    return iTM2KeyBindingsManager_7bitsAccents;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  client:executeBindingForKeyStroke:
-- (BOOL)client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeX_SWZ_client:executeBindingForKeyStroke:
+- (BOOL)TeX_SWZ_client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1328,7 +1328,7 @@ To Do List:
 		}
 	}
 //iTM2_STOP;
-	return [super client:C executeBindingForKeyStroke:keyStroke];
+	return [self TeX_SWZ_client:C executeBindingForKeyStroke:keyStroke];
 }
 @end
 

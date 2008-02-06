@@ -5,7 +5,7 @@
 //  @version Subversion:$Id:iTM2PDFKit.m 314 2006-12-06 13:28:32Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Jun 24 2001.
-//  Copyright ¬© 2005 Laurens'Tribune. All rights reserved.
+//  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -100,7 +100,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_iTM2PDFKit_init) replacement:@selector(init) forClass:[self class]])
+	if(![iTM2PDFDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2PDFKit_init)])
 	{
 		iTM2_LOG(@"WARNING:No hook available to init Tiger aware PDF documents...");
 	}
@@ -108,8 +108,8 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_iTM2PDFKit_init
-- (id)swizzled_iTM2PDFKit_init;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2PDFKit_init
+- (id)SWZ_iTM2PDFKit_init;
 /*"Description Forthcoming. Not sure this design is that strong. It need some firther investigation.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri Sep 05 2003
@@ -118,9 +118,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if([self isKindOfClass:[iTM2PDFKitDocument class]])
-		return [self swizzled_iTM2PDFKit_init];
+		return [self SWZ_iTM2PDFKit_init];
 	id garbage = self;
-	self = [[iTM2PDFKitDocument allocWithZone:[self zone]] swizzled_iTM2PDFKit_init];
+	self = [[iTM2PDFKitDocument allocWithZone:[self zone]] SWZ_iTM2PDFKit_init];
 	[garbage dealloc];
     return self;
 }
@@ -655,8 +655,8 @@ To Do List:
 //iTM2_END;
     return iTM2PDFKitInspectorMode;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"Subclasses will return YES.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri May 21 07:52:07 GMT 2004
@@ -801,7 +801,7 @@ To Do List:
 	{
 		[self takeContextFloat:scale forKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
 		[self setScaleFactor:scale];
-		[self performSelector:@selector(validateWindowContent) withObject:nil afterDelay:0];
+		[self performSelector:@selector(iTM2_validateWindowContent) withObject:nil afterDelay:0];
 	}
 //iTM2_END;
     return scale;
@@ -949,7 +949,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDrawer * drawer = [notification object];
-    [drawer validateContent];
+    [drawer iTM2_validateContent];
 	NSSize contentSize = [drawer contentSize];
 	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	NSString * string;
@@ -1733,7 +1733,7 @@ To Do List:
 	[self setScaleFactor:[V scaleFactor]];
 	[self setAutoScales:[V autoScales]];
 	[[[self window] toolbar] validateVisibleItems];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2139,7 +2139,7 @@ To Do List:
 	BOOL old = [self autoScales];
 	[self setAutoScales:!old];
 	[self contextDidChange];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2349,7 +2349,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContextBool:!old forKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -2689,7 +2689,7 @@ To Do List:
 	rotation -= 90;
 	[currentPage setRotation:rotation];
 	[[self pdfView] setNeedsDisplay:YES];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -2707,7 +2707,7 @@ To Do List:
 	rotation += 90;
 	[currentPage setRotation:rotation];
 	[[self pdfView] setNeedsDisplay:YES];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -2731,7 +2731,7 @@ To Do List:
 	if(n<pageCount)
 		[[self pdfView] goToPage:[document pageAtIndex:n]];
 //iTM2_END;
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePageFrom:
@@ -2790,7 +2790,7 @@ To Do List:
 	if(newScale <= 0)
 		newScale = 1;
     [[self pdfView] setScaleFactor:newScale];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -2849,7 +2849,7 @@ To Do List:
 	{
 		[[self pdfView] goBack:sender];
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -2894,7 +2894,7 @@ To Do List:
 	NSSegmentedCell * cell = [sender cell];
 	iTM2ToolMode toolMode = [cell tagForSegment:[sender selectedSegment]];
 	[self setToolMode:toolMode];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -5775,7 +5775,7 @@ To Do List:
 						newVisible.origin.x-=expectedHit.x-newHit.x;
 						newVisible.origin.y-=expectedHit.y-newHit.y;
 						[docView scrollRectToVisible:newVisible];
-						[self validateWindowContent];
+						[self iTM2_validateWindowContent];
 						id WC = [window windowController];
 						if([WC respondsToSelector:@selector(setDocumentViewVisibleRect:)])
 						{
@@ -7395,7 +7395,7 @@ mainLoop:
 @interface PDFPage_iTM2PDFKit:PDFPage
 @end
 
-@implementation PDFPage_iTM2PDFKit
+@implementation PDFPage(iTM2SyncKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -7408,13 +7408,15 @@ To Do List:
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
 	if(![SUD boolForKey:@"iTM2NOPDFPageCharacterIndexAtPointFix"])
-		[self poseAsClass:[PDFPage class]];
+	{
+		[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_characterIndexAtPoint:)];
+	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  characterIndexAtPoint:
-- (int)characterIndexAtPoint:(NSPoint)point;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_characterIndexAtPoint:
+- (int)SWZ_iTM2_characterIndexAtPoint:(NSPoint)point;
 /*"It fixes some bug but not all of them.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Mon May 30 13:39:08 GMT 2005
@@ -7422,7 +7424,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int result = [super characterIndexAtPoint:point];
+	int result = [self SWZ_iTM2_characterIndexAtPoint:point];
 	if(result < 0)
 		return result;
 	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)[self document];
@@ -7472,9 +7474,6 @@ To Do List:
 #endif
     return result;
 }
-@end
-
-@implementation PDFPage(iTM2SyncKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  globalToLocalCharacterIndex:
 - (int)globalToLocalCharacterIndex:(int)globalIndex;
 /*"Description forthcoming.
@@ -7540,7 +7539,7 @@ To Do List:
 @interface PDFView_iTM2PDFKit:PDFView
 @end
 
-@implementation PDFView_iTM2PDFKit
+@implementation PDFView(iTM2PDFKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -7552,25 +7551,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[self poseAsClass:[PDFView class]];
+	[PDFView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_keyDown:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
-- (BOOL)handlesKeyBindings;
-/*"YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= keyDown:
-- (void)keyDown:(NSEvent *)theEvent
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_keyDown:
+- (void)SWZ_iTM2_keyDown:(NSEvent *)theEvent
 /*"Bypass the inherited Preview behaviour.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - 2.0:
@@ -7583,10 +7570,22 @@ To Do List:
 		&&![KBM client:[self window] performKeyEquivalent:theEvent]
 			&&![KBM client:[[self window] windowController] performKeyEquivalent:theEvent])
 	{
-		[super keyDown:theEvent];
+		[self SWZ_iTM2_keyDown:theEvent];
 	}
 //iTM2_END;
 	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= handlesKeyBindings
+- (BOOL)handlesKeyBindings;
+/*"YES.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Dec 15 14:34:51 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return YES;
 }
 @end
 
@@ -7687,7 +7686,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[[self pdfView] setScaleFactor:1.0];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7718,7 +7717,7 @@ To Do List:
 	if(n>0)
 		[[self pdfView] setScaleFactor:n / 100.0 * [[self pdfView] scaleFactor]];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7737,7 +7736,7 @@ To Do List:
 	if(n>0)
 		[[self pdfView] setScaleFactor:100 * [[self pdfView] scaleFactor] / n];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7752,7 +7751,7 @@ To Do List:
 //iTM2_START;
 	// get the current page
 	[[self pdfView] zoomToFit:sender];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7766,7 +7765,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	#warning NOT YET IMPLEMENTED
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7792,7 +7791,7 @@ To Do List:
 		index -= n;
 	[[self pdfView] goToPage:[document pageAtIndex:index]];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7820,7 +7819,7 @@ To Do List:
 		index = pageCount - 1;
 	[[self pdfView] goToPage:[document pageAtIndex:index]];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7834,7 +7833,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self pdfView] goForward:sender];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7848,7 +7847,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self pdfView] goBack:sender];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7865,7 +7864,7 @@ To Do List:
     [[[self window] keyStrokes] getIntegerTrailer:&n];
     [[self pdfView] setScaleFactor:n/100.0];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7889,7 +7888,7 @@ To Do List:
 	if(--n<pageCount)
 		[[self pdfView] goToPage:[document pageAtIndex:n]];
     [[self window] flushKeyStrokeEvents:self];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -7910,7 +7909,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super initialize];
-	[_iTM2SegmentedCell_1 poseAsClass:[NSSegmentedCell class]];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithFloat:0.9] ,@"iTM2SmallControlScaleFactor",
+			[NSNumber numberWithFloat:0.8], @"iTM2MiniControlScaleFactor",
+				nil]];
+	[NSSegmentedCell iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2PDFKit_drawSegment:inFrame:withView:)];
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithCoder:
 - (id)initWithCoder:(NSCoder *)aDecoder;
@@ -7956,37 +7960,9 @@ To Do List:
 }
 @end
 
-@implementation _iTM2SegmentedCell_1
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-+ (void)initialize;
-/*"Public use. Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri May 21 11:07:09 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super initialize];
-	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithFloat:0.9] ,@"iTM2SmallControlScaleFactor",
-			[NSNumber numberWithFloat:0.8], @"iTM2MiniControlScaleFactor",
-				nil]];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
-- (id)init;
-/*"Public use. Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri May 21 11:07:09 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	return [super init];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawSegment:inFrame:withView:
-- (void)drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView;
+@implementation NSSegmentedCell(iTM2PDFKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2PDFKit_drawSegment:inFrame:withView:
+- (void)SWZ_iTM2PDFKit_drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView;
 /*"Public use. Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri May 21 11:07:09 GMT 2004
@@ -8002,7 +7978,7 @@ To Do List:
 			[[oldImage retain] autorelease];
 			NSImage * newImage = [[[NSImage allocWithZone:[self zone]] initWithSize:[oldImage size]] autorelease];
 			[self setImage:newImage forSegment:segment];
-			[super drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView];
+			[self SWZ_iTM2PDFKit_drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView];
 			float fraction = [self isEnabledForSegment:segment]? 1:0.5;
 			NSControlSize CS = [self controlSize];
 			float factor = (CS == NSRegularControlSize)? 1:
@@ -8021,7 +7997,7 @@ To Do List:
 			return;
 		}
 	}
-	[super drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView];
+	[self SWZ_iTM2PDFKit_drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView];
 	return;
 }
 @end
@@ -8196,7 +8172,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8249,7 +8225,7 @@ To Do List:
 		if(WC != self)
 			[WC contextDidChange];
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8288,7 +8264,7 @@ To Do List:
 //iTM2_START;
 	[self setModel:[self originalModel]];
 	[self setModelSync:[self originalModelSync]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8337,7 +8313,7 @@ To Do List:
 	if(![newColor isEqual:[self backgroundColor]])
 	{
 		[self setBackgroundColor:newColor];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -8379,7 +8355,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplayBox:[[sender selectedCell] tag]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8419,7 +8395,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplayMode:2*[[sender selectedCell] tag]+([self isContinuous]?1:0)];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8458,7 +8434,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setGreekingThreshold:[sender floatValue]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8497,7 +8473,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setShouldAntiAlias:![self shouldAntiAlias]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8536,7 +8512,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setAutoScales:![self autoScales]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8575,7 +8551,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplaysAsBook:![self displaysAsBook]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8614,7 +8590,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplaysPageBreaks:![self displaysPageBreaks]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8653,7 +8629,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setContinuous:![self isContinuous]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8697,7 +8673,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setEnableSynchronization:![self enableSynchronization]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8736,7 +8712,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setFollowFocus:![self followFocus]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8775,7 +8751,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplayBullets:[self displayBullets]^[sender tag]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -8879,7 +8855,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if([self targetForAction:@selector(setSinglePages:)])
+	{
 		[iTM2MileStone putMileStoneForKey:@"iTM2PDFKitResponder"];
+	}
 //iTM2_END;
 	return;
 }
@@ -9168,7 +9146,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self mainView] validateWindowContent];
+	[[self mainView] iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9213,7 +9191,7 @@ To Do List:
 	if(![newColor isEqual:[self backgroundColor]])
 	{
 		[self setBackgroundColor:newColor];
-		[sender validateWindowContent];
+		[sender iTM2_validateWindowContent];
 	}
 //iTM2_END;
     return;
@@ -9255,7 +9233,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplayBox:[[sender selectedCell] tag]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9295,7 +9273,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplayMode:2*[[sender selectedCell] tag]+([self isContinuous]?1:0)];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9334,7 +9312,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setGreekingThreshold:[sender floatValue]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9373,7 +9351,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setShouldAntiAlias:![self shouldAntiAlias]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9412,7 +9390,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setAutoScales:![self autoScales]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9451,7 +9429,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplaysAsBook:![self displaysAsBook]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9490,7 +9468,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplaysPageBreaks:![self displaysPageBreaks]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9529,7 +9507,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setContinuous:![self isContinuous]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9576,7 +9554,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setEnableSynchronization:![self enableSynchronization]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9615,7 +9593,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setFollowFocus:![self followFocus]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9654,7 +9632,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setDisplayBullets:[self displayBullets]^[sender tag]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -9766,27 +9744,23 @@ To Do List:
 @end
 
 #warning THIS IS DEBUG CODE
-@interface PDFPage_iTeXMac2:PDFPage
-@end
 static id PDFPage_iTeXMac2_Storage = nil;
-@implementation PDFPage_iTeXMac2
+@implementation PDFPage(iTM2DEBUG)
 + (void)load;
 {
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-	[self poseAsClass:[PDFPage class]];
+	PDFPage_iTeXMac2_Storage = [[NSMutableDictionary dictionary] retain];
+	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_init)];
+	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_retain)];
+	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_release)];
+	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_dealloc)];
 	iTM2_RELEASE_POOL;
 	return;
 }
-+ (void)initialize;
+- (id)SWZ_iTM2DEBUG_init;
 {
-	[super initialize];
-	PDFPage_iTeXMac2_Storage = [[NSMutableDictionary dictionary] retain];
-	return;
-}
-- (id)init;
-{
-	if(self = [super init])
+	if(self = [self SWZ_iTM2DEBUG_init])
 	{
 		NSValue * V = [NSValue valueWithNonretainedObject:self];
 		NSNumber * N = [NSNumber numberWithInt:1];
@@ -9794,7 +9768,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 	}
 	return self;
 }
-- (id)retain;
+- (id)SWZ_iTM2DEBUG_retain;
 {
 	NSValue * V = [NSValue valueWithNonretainedObject:self];
 	NSNumber * N = [PDFPage_iTeXMac2_Storage objectForKey:V];
@@ -9811,9 +9785,9 @@ static id PDFPage_iTeXMac2_Storage = nil;
 		N = [NSNumber numberWithInt:2];
 	}
 	[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
-	return [super retain];
+	return [self SWZ_iTM2DEBUG_retain];
 }
-- (void)release;
+- (void)SWZ_iTM2DEBUG_release;
 {
 	NSValue * V = [NSValue valueWithNonretainedObject:self];
 	NSNumber * N = [PDFPage_iTeXMac2_Storage objectForKey:V];
@@ -9831,10 +9805,10 @@ static id PDFPage_iTeXMac2_Storage = nil;
 		}
 		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
 	}
-	[super release];
+	[self SWZ_iTM2DEBUG_release];
 	return;
 }
-- (void)dealloc;
+- (void)SWZ_iTM2DEBUG_dealloc;
 {
 	iTM2_LOG(@"DEALLOC %#x", self);
 	NSValue * V = [NSValue valueWithNonretainedObject:self];
@@ -9846,7 +9820,7 @@ static id PDFPage_iTeXMac2_Storage = nil;
 	}
 	else
 	{
-		[super dealloc];
+		[self SWZ_iTM2DEBUG_dealloc];
 	}
 	return;
 }

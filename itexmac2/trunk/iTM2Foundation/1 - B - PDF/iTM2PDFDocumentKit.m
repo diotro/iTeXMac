@@ -459,8 +459,8 @@ To Do List:
     [super dealloc];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowFrameIdentifier
-- (NSString *)windowFrameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowFrameIdentifier
+- (NSString *)iTM2_windowFrameIdentifier;
 /*"Related to the observation of the window position, see the NSWindow category Position.
 Added by jlaurens AT users DOT sourceforge DOT net (07/12/2001)"*/
 {iTM2_DIAGNOSTIC;
@@ -478,8 +478,8 @@ To Do List:
 //iTM2_START;
     return ![self contextBoolForKey:iTM2PDFNoAutoUpdateKey domain:iTM2ContextAllDomainsMask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved
-- (BOOL)windowPositionShouldBeObserved;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
+- (BOOL)iTM2_windowPositionShouldBeObserved;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -847,7 +847,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setMagnification:[sender floatValue]];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -879,7 +879,7 @@ To Do List:
 		[self doZoomIn:nil];
 //NSLog(@"dfp");
     [sender setIntValue:0];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -906,7 +906,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setCurrentPhysicalPage:[sender intValue] - 1];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -936,7 +936,7 @@ To Do List:
 //iTM2_START;
 //NSLog(@"dfp");
     [self setCurrentPhysicalPage:0];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoToFirstPage:
@@ -960,7 +960,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self album] setCurrentPhysicalPage:INT_MAX];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoToLastPage:
@@ -984,7 +984,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self album] setCurrentPhysicalPage:[[self album] forwardPhysicalPage]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoForward:
@@ -1008,7 +1008,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self album] setCurrentPhysicalPage:[[self album] backPhysicalPage]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoBack:
@@ -1032,7 +1032,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setMagnification:1.0];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -2932,7 +2932,7 @@ To Do List:
 	rotation -= 90;
 	[currentPage setRotation:rotation];
 	[[self PDFView] setNeedsDisplay:YES];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -2950,7 +2950,7 @@ To Do List:
 	rotation += 90;
 	[currentPage setRotation:rotation];
 	[[self PDFView] setNeedsDisplay:YES];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -2974,7 +2974,7 @@ To Do List:
 	if(n<pageCount)
 		[[self PDFView] goToPage:[document pageAtIndex:n]];
 //iTM2_END;
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePageFrom:
@@ -3031,7 +3031,7 @@ To Do List:
 	if(newScale <= 0)
 		newScale = 1;
     [[self PDFView] setScaleFactor:newScale];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -3088,7 +3088,7 @@ To Do List:
 	{
 		[[self PDFView] goBack:sender];
 	}
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }  
@@ -3129,7 +3129,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setToolMode:[[sender cell] tagForSegment:[sender selectedSegment]]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }

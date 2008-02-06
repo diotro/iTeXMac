@@ -157,8 +157,7 @@ To Do List:
     else if(firstTime)
 	{
 		firstTime = NO;
-		if([iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(loadSuiteWithDictionary:fromBundle:)
-            replacement: @selector(swizzle_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:) forClass: [NSScriptSuiteRegistry class]])
+		if([NSScriptSuiteRegistry iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:)])
         {
 			if(iTM2DebugEnabled)
 			{
@@ -235,8 +234,8 @@ To Do List:
     [(NSMutableDictionary *)dictionary setObject:newClasses forKey:@"Classes"];
     return dictionary;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:
-- (void)swizzle_iTM2MiscKit_loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:
+- (void)SWZ_iTM2MiscKit_loadSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 11 11:42:37 GMT 2005
@@ -250,7 +249,7 @@ To Do List:
 	NSDictionary * D = [self dictionaryForLoadingSuiteWithDictionary:dictionary fromBundle:bundle];
 	if(D)
 	{
-		[self swizzle_iTM2MiscKit_loadSuiteWithDictionary:D fromBundle:bundle];
+		[self SWZ_iTM2MiscKit_loadSuiteWithDictionary:D fromBundle:bundle];
 		// a new dictionary has been loaded, may be it now possible to load another dictionary suite
 		NSEnumerator * E = [dictionarySuites keyEnumerator];
 		while(D = [E nextObject])
@@ -259,7 +258,7 @@ To Do List:
 			if(D = [self dictionaryForLoadingSuiteWithDictionary:D fromBundle:B])
 			{
 				[dictionarySuites removeObjectForKey:D];
-				[self swizzle_iTM2MiscKit_loadSuiteWithDictionary:D fromBundle:B];
+				[self SWZ_iTM2MiscKit_loadSuiteWithDictionary:D fromBundle:B];
 				if(iTM2DebugEnabled)
 				{
 					iTM2_LOG(@"INFO: Now registering script suite named: %@", [D objectForKey:@"Name"]);

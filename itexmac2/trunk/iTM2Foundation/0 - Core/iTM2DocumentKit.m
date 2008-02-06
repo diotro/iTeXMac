@@ -211,8 +211,8 @@ To Do List:
 //iTM2_END;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
-- (void)swizzled_canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
+- (void)SWZ_iTM2_canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
     // If the document is not dirty, this method will immediately call the callback with YES.  If the document is dirty, an alert will be presented giving the user a chance to save, not save or cancel.  If the user chooses to save, this method will save the document.  If the save completes successfully, this method will call the callback with YES.  If the save is cancelled or otherwise unsuccessful, this method will call the callback with NO.  This method is called by shouldCloseWindowController:sometimes.  It is also called by NSDocumentController's -closeAllDocuments.  You should call it before you call -close if you are closing the document and want to give the user a chance save any edits.
     // shouldCloseSelector should have the following signature:
     // - (void)document:(NSDocument *)doc shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo
@@ -235,10 +235,10 @@ To Do List:
 		[I setArgument:&contextInfo atIndex:4];
 //iTM2_LOG(@"....    invocation is:%@", I);
 //iTM2_LOG(@"....    [invocation target] is:%@", [I target]);
-		[self swizzled_canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(iTM2_document:forwardShouldClose:toInvocation:) contextInfo:(void *)[I retain]];
+		[self SWZ_iTM2_canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(iTM2_document:forwardShouldClose:toInvocation:) contextInfo:(void *)[I retain]];
 		return;
 	}
-	[self swizzled_canCloseDocumentWithDelegate:delegate shouldCloseSelector:shouldCloseSelector contextInfo:contextInfo];
+	[self SWZ_iTM2_canCloseDocumentWithDelegate:delegate shouldCloseSelector:shouldCloseSelector contextInfo:contextInfo];
 //iTM2_END;
     return;
 }
@@ -361,8 +361,8 @@ To Do List:
 	}
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= recordFileModificationDateFromURL:
-- (void)recordFileModificationDateFromURL:(NSURL *)absoluteURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_recordFileModificationDateFromURL:
+- (void)iTM2_recordFileModificationDateFromURL:(NSURL *)absoluteURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -535,7 +535,7 @@ To Do List:
 //iTM2_START;
     NSMutableArray * windows = [NSMutableArray arrayWithArray:[NSApp windows]];
     NSMutableArray * openInspectors = [NSMutableArray array];
-    [windows sortUsingSelector:@selector(compareUsingLevel:)];
+    [windows sortUsingSelector:@selector(iTM2_compareUsingLevel:)];
     NSEnumerator * E = [windows objectEnumerator];
     NSWindow * W;
     while(W = [E nextObject])
@@ -579,7 +579,7 @@ To Do List:
 		else
 		{
 			[self writeContextToURL:url ofType:type error:nil];
-			[self recordFileModificationDateFromURL:url];
+			[self iTM2_recordFileModificationDateFromURL:url];
 		}
 	}
 //iTM2_END;
@@ -814,7 +814,7 @@ To Do List:
     NSEnumerator * E = [[self windowControllers] objectEnumerator];
     NSWindowController * WC;
     while(WC = [E nextObject])
-        [[WC window] validateContent];
+        [[WC window] iTM2_validateContent];
     [IMPLEMENTATION takeMetaValue:nil forKey:iTM2DKDirectoryNameKey];
     return;
 }
@@ -2671,13 +2671,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(windowWillLoad)
-			replacement:@selector(iTM2_swizzled_windowWillLoad) forClass:[NSWindowController class]]
-				|| ![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(windowDidLoad)
-					replacement:@selector(iTM2_swizzled_windowDidLoad) forClass:[NSWindowController class]])
-	{
-		iTM2_LOG(@"***  Huge problem in method swizzling, things will not work as expected.");
-	}
+	NSAssert([NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_windowWillLoad)]
+				&& [NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_windowDidLoad)],
+					@"***  Huge problem in method swizzling NSWindowController, things will not work as expected.");
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 		[NSNumber numberWithBool:YES], @"iTM2ShouldCascadeWindows",
 			nil]];
@@ -2931,7 +2927,7 @@ To Do List:
 //iTM2_START;
 	[self loadContext:self];
     [self updateChangeCount:NSChangeCleared];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isInspectorEdited
@@ -2985,8 +2981,8 @@ To Do List:
     [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInt:old] forKey:@"changeCount"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzled_windowWillLoad
-- (void)iTM2_swizzled_windowWillLoad;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_windowWillLoad
+- (void)SWZ_iTM2_windowWillLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2994,7 +2990,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self iTM2_swizzled_windowWillLoad];
+	[self SWZ_iTM2_windowWillLoad];
 	[self setShouldCascadeWindows:[self contextBoolForKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask]];
 //iTM2_LOG(@"should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
@@ -3019,8 +3015,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzled_windowDidLoad
-- (void)iTM2_swizzled_windowDidLoad;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_windowDidLoad
+- (void)SWZ_iTM2_windowDidLoad;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3029,7 +3025,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"1 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
-	[self iTM2_swizzled_windowDidLoad];
+	[self SWZ_iTM2_windowDidLoad];
 //iTM2_LOG(@"2 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
@@ -3053,8 +3049,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowFrameIdentifier
-- (NSString *)windowFrameIdentifier;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_windowFrameIdentifier
+- (NSString *)iTM2_windowFrameIdentifier;
 /*"YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -3073,7 +3069,7 @@ To do list:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [self window];
-	[W orderBelowFront:self];
+	[W iTM2_orderBelowFront:self];
 //iTM2_END;
     return;
 }
@@ -3247,7 +3243,7 @@ To Do List:
     [self setDocumentEdited:NO];// validate the user interface as side effect
 	[self backupModel];
     [self loadContext:self];
-//	[self validateWindowContent]; too early?
+//	[self iTM2_validateWindowContent]; too early?
 //iTM2_LOG(@"should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
     return;
 }
@@ -3274,8 +3270,8 @@ To Do List:
 	metaSETTER([[argument copy] autorelease]);
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent:
-- (BOOL)validateWindowContent:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_validateWindowContent:
+- (BOOL)iTM2_validateWindowContent:(id) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -3284,7 +3280,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [self setDocumentEdited:([[IMPLEMENTATION metaValueForKey:@"changeCount"] intValue] != 0)];
-    return [super validateWindowContent];
+    return [super iTM2_validateWindowContent];
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CANCEL management
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backupModel

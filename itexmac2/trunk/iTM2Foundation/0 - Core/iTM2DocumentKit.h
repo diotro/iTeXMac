@@ -226,7 +226,7 @@ extern NSString * const iTM2InspectorTable;
 - (void)updateIfNeeded;
 
 /*!
-    @method		recordFileModificationDateFromURL:
+    @method		iTM2_recordFileModificationDateFromURL:
     @abstract	Record the file modification date at the given file name.
     @discussion	The default implementation does nothing.
                 Subclassers will implement their own method to record the file modification date,
@@ -235,7 +235,7 @@ extern NSString * const iTM2InspectorTable;
     @param		fileName is a file name.
     @result		None.
 */
-- (void)recordFileModificationDateFromURL:(NSURL *)absoluteURL;
+- (void)iTM2_recordFileModificationDateFromURL:(NSURL *)absoluteURL;
 
 /*!
     @method		showWindowsBelowFront

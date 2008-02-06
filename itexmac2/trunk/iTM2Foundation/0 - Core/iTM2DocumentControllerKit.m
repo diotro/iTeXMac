@@ -233,7 +233,7 @@ To Do List: see the warning below
 		while(WC = [E nextObject])
 		{
 			W = [WC window];
-			[W orderBelowFront:self];
+			[W iTM2_orderBelowFront:self];
 		}
 		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:NO];
 		return doc;

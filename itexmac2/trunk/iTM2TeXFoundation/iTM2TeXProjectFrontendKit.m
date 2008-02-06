@@ -53,9 +53,7 @@ NSString * const iTM2TeXPCommandPropertiesKey = @"Properties";
 #define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 #endif
 
-@interface NSDocumentController_iTM2TeXProjectFrontend:iTM2DocumentController
-@end
-@implementation NSDocumentController_iTM2TeXProjectFrontend
+@implementation NSDocumentController(iTM2TeXProjectFrontend)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -67,13 +65,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[NSDocumentController_iTM2TeXProjectFrontend poseAsClass:[iTM2DocumentController class]];
+	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(displayPageForLine:column:source:withHint:orderFront:force:) replacement:@selector(SWZ_iTM2TPFE_displayPageForLine:column:source:withHint:orderFront:force:) forClass:[iTM2DocumentController class]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:force:
-- (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TPFE_displayPageForLine:column:source:withHint:orderFront:force:
+- (BOOL)SWZ_iTM2TPFE_displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -141,7 +139,7 @@ To Do List:
 		}
 	}
 //iTM2_END;
-	return [super displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
+	return [self SWZ_iTM2TPFE_displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 }
 @end
 
@@ -310,13 +308,13 @@ To Do List:
 	if(mainWindow && ![window isEqual:mainWindow] 
 		&& ![self contextBoolForKey:iTM2TeXProjectNoTerminalBehindKey domain:iTM2ContextAllDomainsMask])
 	{
-		[window orderBelowFront:self];
+		[window iTM2_orderBelowFront:self];
 	}
 	else
 	{
 		[window orderFront:self];
 	}
-    [self validateWindowsContents];
+    [self iTM2_validateWindowsContents];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectName
@@ -685,7 +683,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super windowDidLoad];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editLabel:
@@ -819,8 +817,8 @@ To Do List:
 @end
 
 @implementation iTM2TeXSubdocumentsInspector(iTM2FrontendKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowsMenuItemTitleForDocumentDisplayName:
-- (NSString *)windowsMenuItemTitleForDocumentDisplayName:(NSString *) displayName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_windowsMenuItemTitleForDocumentDisplayName:
+- (NSString *)iTM2_windowsMenuItemTitleForDocumentDisplayName:(NSString *) displayName;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1422,12 +1420,12 @@ To Do List:
 //iTM2_START;
 	//Preparing the projects for the table view
 	[super windowDidLoad];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent
-- (BOOL)validateWindowContent;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_validateWindowContent
+- (BOOL)iTM2_validateWindowContent;
 /*"Before calling the inherited method, update the list of available projects.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1438,7 +1436,7 @@ To Do List:
     [IMPLEMENTATION takeMetaValue:[SPC TeXBaseProjectsProperties] forKey:@"_TPPs"];// TeX Projects Properties
 	[self validateCreationMode];
 //iTM2_LOG(@"MD:%@", MD);
-    return [super validateWindowContent];
+    return [super iTM2_validateWindowContent];
 }
 #pragma mark =-=-=-=-=-  UI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  OK:
@@ -1561,7 +1559,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self documentIsMaster];
 	[self setDocumentIsMaster:!old];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -1588,7 +1586,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setOldProjectName:[[sender selectedItem] representedObject]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1656,7 +1654,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self preferWrapper];
 	[self setPreferWrapper:!old];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -1689,7 +1687,7 @@ To Do List:
 //iTM2_START;
 	// Hum, the sender is the matrix despite each cell is connected separately in interface builder
 	[self setCreationMode:[[sender selectedCell] tag]];
-	[self validateWindowContent];
+	[self iTM2_validateWindowContent];
 //iTM2_END;
     return;
 }
@@ -1779,7 +1777,7 @@ To Do List:
     newBPN = shortestName;
 tahaa:
     [self setBaseProjectName:newBPN];
-    [sender validateWindowContent];
+    [sender iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseBaseMode:
@@ -1889,7 +1887,7 @@ To Do List:
     newBPN = shortestName;
 tahaa:
     [self setBaseProjectName:newBPN];
-    [sender validateWindowContent];
+    [sender iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
@@ -1986,7 +1984,7 @@ To Do List:
             break;
         }
     }
-    [sender validateWindowContent];
+    [sender iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
@@ -2062,7 +2060,7 @@ To Do List:
 //iTM2_START;
 	BOOL old = [self exportOutput];
 	[self setExportOutput:!old];
-	[sender validateWindowContent];
+	[sender iTM2_validateWindowContent];
 //iTM2_END;
 	return;
 }
@@ -2125,7 +2123,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [IMPLEMENTATION takeModel:(model? [NSMutableDictionary dictionaryWithDictionary:model]:[NSMutableDictionary dictionary]) ofType:iTM2MainType];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelValueForKey:
@@ -2158,7 +2156,7 @@ To Do List:
 	if(![old isEqual:value])
 	{
 		[IMPLEMENTATION takeModelValue:value forKey:key ofType:iTM2MainType];
-		[self validateWindowContent];
+		[self iTM2_validateWindowContent];
 	}
 	if(iTM2DebugEnabled>100000)
 	{
@@ -2248,7 +2246,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super setDocument:document];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
@@ -2261,7 +2259,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super windowDidLoad];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleModelFlagForKey:
@@ -2275,7 +2273,7 @@ To Do List:
 //iTM2_START;
     BOOL old = [[self modelValueForKey:key] boolValue];
     [self takeModelValue:[NSNumber numberWithBool:!old] forKey:key];
-    [self validateWindowContent];
+    [self iTM2_validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelFlagForKey:

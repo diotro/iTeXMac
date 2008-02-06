@@ -100,7 +100,7 @@ To Do List:
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithInt:0], iTM2CurrentVersionNumberKey,
                                 nil]];
-	Class C = NSClassFromString(@"iTM2DocumentController");// trick to avoid file dependency
+	Class C = NSClassFromString(@"iTM2TeXPDocumentController");// trick to avoid file dependency
 	id sdc = [[[C alloc] init] autorelease];
 	NSAssert(sdc==SDC,@"*** BUG: the document controller is not what is expected");// creates the document controller
 	const char * name = "sendApplicationDefinedEventOfSubtypeXX:";
@@ -314,30 +314,27 @@ static id _iTM2_DEBUG_LastTarget = nil;
 static id _iTM2_DEBUG_LastSender = nil;
 static SEL _iTM2_DEBUG_LastAction = NULL;
 
-@interface NSMenu_iTM2DEBUG: NSMenu
-@end
-@interface NSApplication_iTM2DEBUG: NSApplication
-@end
-@implementation NSMenu_iTM2DEBUG
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+@implementation NSMenu(iTM2DEBUG)
 + (void)load;
 {
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 	if([SUD boolForKey:@"iTM2PatchPerformActionForItemAtIndex"])
 	{
-		[self poseAsClass:[NSMenu class]];
-		[NSApplication_iTM2DEBUG poseAsClass:[NSApplication class]];
+		[NSMenu iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_performActionForItemAtIndex:)];
+		[NSApplication iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_sendAction:to:from:)];
 	}
 	iTM2_RELEASE_POOL;
 	return;
 }
-- (void)performActionForItemAtIndex:(int)index;
+- (void)SWZ_iTM2DEBUG_performActionForItemAtIndex:(int)index;
 {
 	_iTM2_DEBUG_LastAction = NULL;
 	_iTM2_DEBUG_LastTarget = nil;
 	_iTM2_DEBUG_LastSender = nil;
 	NSMenuItem * MI = [[[self itemAtIndex:index] retain] autorelease];
-	[super performActionForItemAtIndex:(int)index];
+	[self SWZ_iTM2DEBUG_performActionForItemAtIndex:(int)index];
 	if([MI action] == _iTM2_DEBUG_LastAction)
 		return;
 	iTM2_LOG(@"....  WARNING: This is fix of Tiger bug, the action would not be performed otherwise, but is it really safe?");
@@ -345,8 +342,8 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 	return;
 }
 @end
-@implementation NSApplication_iTM2DEBUG
-- (BOOL)sendAction:(SEL)theAction to:(id)theTarget from:(id)sender;
+@implementation NSApplication(iTM2DEBUG)
+- (BOOL)SWZ_iTM2DEBUG_sendAction:(SEL)theAction to:(id)theTarget from:(id)sender;
 {
 if(_iTM2_DEBUG_LastAction == nil)
 {
@@ -358,7 +355,7 @@ if(_iTM2_DEBUG_LastAction == nil)
 	{
 		iTM2_LOG(@"sender: %@, target: %@, action: %@", sender, theTarget, NSStringFromSelector(theAction));
 	}
-	if([super sendAction:(SEL)theAction to:(id)theTarget from:(id)sender])
+	if([self SWZ_iTM2DEBUG_sendAction:(SEL)theAction to:(id)theTarget from:(id)sender])
 		return YES;
 	else
 		return NO;

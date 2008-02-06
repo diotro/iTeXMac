@@ -55,13 +55,14 @@ To Do List:
     iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-    [NSDocument_iTM2AutoKit poseAsClass:[NSDocument class]];
+    [NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Auto_writeToURL:ofType:forSaveOperation:originalContentsURL:error:)];
+    [NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Auto_readFromURL:ofType:error:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canAutoUpdate
-- (BOOL)canAutoUpdate;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_canAutoUpdate
+- (BOOL)iTM2_canAutoUpdate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -72,12 +73,12 @@ To Do List:
     NSEnumerator * E = [[self windowControllers] objectEnumerator];
     NSWindowController * WC;
     while(WC = [E nextObject])
-        if([WC canAutoUpdate])
+        if([WC iTM2_canAutoUpdate])
             return YES;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canAutoSave
-- (BOOL)canAutoSave;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_canAutoSave
+- (BOOL)iTM2_canAutoSave;
 /*"Subclasses will return YES if they want to be auto saved at regular intervals.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1:05/04/2002
@@ -87,8 +88,8 @@ To Do List:
 //iTM2_START;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Auto_writeToURL:ofType:forSaveOperation:originalContentsURL:error:
+- (BOOL)SWZ_iTM2Auto_writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -96,7 +97,7 @@ To Do List:save the file, if it has disappeared from the HD.
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL result = [super writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+    BOOL result = [self SWZ_iTM2Auto_writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
     if(result)
         [self fileModificationDataCompleteDidWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
 	// if result is NO the file modification date is not recorded
@@ -114,12 +115,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     if(saveOperationType != NSSaveToOperation)
-        [self recordFileModificationDateFromURL:absoluteURL];
+	{
+        [self iTM2_recordFileModificationDateFromURL:absoluteURL];
+	}
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Auto_readFromURL:ofType:error:
+- (BOOL)SWZ_iTM2Auto_readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -127,9 +130,11 @@ To Do List:save the file, if it has disappeared from the HD.
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    BOOL result = [super readFromURL:absoluteURL ofType:type error:outErrorPtr];
+    BOOL result = [self SWZ_iTM2Auto_readFromURL:absoluteURL ofType:type error:outErrorPtr];
     if(result)
+	{
 		[self fileModificationDataCompleteDidReadFromURL:absoluteURL ofType:type error:outErrorPtr];
+	}
 //iTM2_END;
     return result;
 }
@@ -142,15 +147,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self recordFileModificationDateFromURL:absoluteURL];
+	[self iTM2_recordFileModificationDateFromURL:absoluteURL];
 //iTM2_END;
     return;
 }
 @end
 
 @implementation NSWindowController(iTM2AutoKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= canAutoUpdate
-- (BOOL)canAutoUpdate;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_canAutoUpdate
+- (BOOL)iTM2_canAutoUpdate;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -339,7 +344,7 @@ To Do List:
     [self postNotificationWithStatus:
 		NSLocalizedStringFromTableInBundle(@"Auto saving the documents.", TABLE, BUNDLE, "Status")];
     while(D = [E nextObject])
-        if([D canAutoSave])
+        if([D iTM2_canAutoSave])
             [D saveDocument:self];
     [self postNotificationWithStatus:
 		NSLocalizedStringFromTableInBundle(@"Documents saved.", TABLE, BUNDLE, "Status")];
@@ -347,7 +352,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2AutoUpdateWindowDidUpdateNotified:
 + (void)iTM2AutoUpdateWindowDidUpdateNotified:(NSNotification *) aNotification;
-/*"Subclasses should not need to override this method. Registers in the registration domain of the user defaults database the frame of aNotification object. The key used is the class frameIdentifier of this object.
+/*"Subclasses should not need to override this method.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
 To Do List:
@@ -356,7 +361,7 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [aNotification object];
     NSDocument * D = [[W windowController] document];
-    if ([D canAutoUpdate]
+    if ([D iTM2_canAutoUpdate]
             && [D contextBoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]
                 && [D needsToUpdate])
     {
@@ -417,7 +422,7 @@ To Do List:
             [D saveDocumentTo:self];//will try update once more
             break;
         case NSAlertOtherReturn://ignore the modification date
-            [D recordFileModificationDateFromURL:[D fileURL]];
+            [D iTM2_recordFileModificationDateFromURL:[D fileURL]];
             break;
         case NSAlertDefaultReturn:
         default:;

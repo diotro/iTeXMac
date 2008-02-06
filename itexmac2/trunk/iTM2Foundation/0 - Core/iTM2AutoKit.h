@@ -30,7 +30,7 @@ extern NSString * const iTM2SmartUpdateEnabledKey;
 @interface NSDocument(iTM2AutoKit)
 
 /*!
-    @method		canAutoUpdate
+    @method		iTM2_canAutoUpdate
     @abstract	Whether the receiver can auto update.
     @discussion	This is an intrisic flag.
                 If one of the window controllers does not allow auto update, the receiver will answer NO.
@@ -38,15 +38,15 @@ extern NSString * const iTM2SmartUpdateEnabledKey;
     @param		None.
     @result		A yorn flag.
 */
-- (BOOL)canAutoUpdate;
+- (BOOL)iTM2_canAutoUpdate;
 
 /*!
-    @method		canAutoSave
+    @method		iTM2_canAutoSave
     @abstract	Whether the receiver can auto save.
     @discussion Description forthcoming.
     @result		a flag indicating whether the receiver should be saved on periodical basis.
 */
-- (BOOL)canAutoSave;
+- (BOOL)iTM2_canAutoSave;
 
 @end
 
@@ -101,13 +101,13 @@ extern NSString * const iTM2UDAutoSaveIntervalKey;
 @interface NSWindowController(iTM2AutoKit)
 
 /*!
-    @method     canAutoUpdate
+    @method     iTM2_canAutoUpdate
     @abstract	Whether the receiver can auto update.
     @discussion	See the document eponym message.
                 The default implementation returns YES.
     @param      None.
     @result     A yorn flag.
 */
-- (BOOL)canAutoUpdate;
+- (BOOL)iTM2_canAutoUpdate;
 
 @end
