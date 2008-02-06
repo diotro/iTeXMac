@@ -31,7 +31,6 @@
 		DC1C6D3E090E1CDF000F4FDE /* iTM2NewDocumentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC70F2E70BFC5CD6006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F2DE0BFC5CD6006C6A76 /* Lua.framework */; };
 		DCAF9A7909D8111E00AFD95F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A6F09D8111E00AFD95F /* InfoPlist.strings */; };
-		DCAF9A7B09D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7309D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib */; };
 		DCAF9A7C09D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7509D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings */; };
 		DCAF9A7D09D8111E00AFD95F /* NewDocuments.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A7709D8111E00AFD95F /* NewDocuments.resources.tgz */; };
 		DCE52F540C0F3C8500F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F530C0F3C8500F2D5B9 /* libicucore.dylib */; };
@@ -89,11 +88,9 @@
 		DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		DCAF9A7009D8111E00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCAF9A7409D8111E00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2NewDocumentPrefPane.nib; sourceTree = "<group>"; };
 		DCAF9A7609D8111E00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2NewDocumentPrefPane.strings; sourceTree = "<group>"; };
 		DCAF9A7809D8111E00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DCAF9A7E09D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCAF9A8009D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2NewDocumentPrefPane.nib; sourceTree = "<group>"; };
 		DCAF9A8109D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2NewDocumentPrefPane.strings; sourceTree = "<group>"; };
 		DCAF9A8209D8112700AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DCE52F530C0F3C8500F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
@@ -143,7 +140,6 @@
 			children = (
 				5169BBFA0D4A021200BA5D57 /* iTM2NewDocumentAssistant.xib */,
 				DCAF9A6F09D8111E00AFD95F /* InfoPlist.strings */,
-				DCAF9A7309D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib */,
 				DCAF9A7509D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings */,
 				DCAF9A7709D8111E00AFD95F /* NewDocuments.resources.tgz */,
 				DC5BC74D08EC843C006635C4 /* iTM2NewDocumentPrefPane.tiff */,
@@ -312,7 +308,6 @@
 			files = (
 				DC1C6CD0090E1A7D000F4FDE /* iTM2NewDocumentPrefPane.tiff in Resources */,
 				DCAF9A7909D8111E00AFD95F /* InfoPlist.strings in Resources */,
-				DCAF9A7B09D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib in Resources */,
 				DCAF9A7C09D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings in Resources */,
 				DCAF9A7D09D8111E00AFD95F /* NewDocuments.resources.tgz in Resources */,
 				5169BBFC0D4A021200BA5D57 /* iTM2NewDocumentAssistant.xib in Resources */,
@@ -426,15 +421,6 @@
 				DCAF9A7E09D8112700AFD95F /* French */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DCAF9A7309D8111E00AFD95F /* iTM2NewDocumentPrefPane.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A7409D8111E00AFD95F /* English */,
-				DCAF9A8009D8112700AFD95F /* French */,
-			);
-			name = iTM2NewDocumentPrefPane.nib;
 			sourceTree = "<group>";
 		};
 		DCAF9A7509D8111E00AFD95F /* iTM2NewDocumentPrefPane.strings */ = {

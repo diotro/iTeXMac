@@ -21,9 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		512D9CEA0D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */; };
 		51E279820CEDDD7F003A0980 /* symbolPalette.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E279810CEDDD7F003A0980 /* symbolPalette.png */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
-		DC00B14209D210EA007D6AD9 /* iTM2LaTeXSymbolsPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC00B14009D210E9007D6AD9 /* iTM2LaTeXSymbolsPanel.nib */; };
 		DC21DF9B08610F3700CA362C /* iTM2DMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9808610F3700CA362C /* iTM2DMenuKit.m */; };
 		DC21DF9C08610F3700CA362C /* iTM2LaTeXSymbolsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */; };
 		DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */; };
@@ -194,10 +194,11 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		512D9CE90D59F8B900FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
+		512D9CEB0D59F8C300FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
 		51E279810CEDDD7F003A0980 /* symbolPalette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = symbolPalette.png; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2LaTeXSymbolsKit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		DC00B14109D210E9007D6AD9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = iTM2LaTeXSymbolsPanel.nib; sourceTree = "<group>"; };
 		DC21DF9708610F3700CA362C /* iTM2DMenuKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DMenuKit.h; sourceTree = "<group>"; };
 		DC21DF9808610F3700CA362C /* iTM2DMenuKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DMenuKit.m; sourceTree = "<group>"; };
 		DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LaTeXSymbolsKit.h; sourceTree = "<group>"; };
@@ -336,7 +337,6 @@
 		DC99E9B90A2608A400F50752 /* iTM2WSZodiacMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2WSZodiacMenu.dict; sourceTree = "<group>"; };
 		DC99E9BA0A2608A400F50752 /* iTM2WSZodiacMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSZodiacMenu.tiff; sourceTree = "<group>"; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
-		DCAF9AB509D811A300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = Resources/English.lproj/iTM2LaTeXSymbolsPanel.nib; sourceTree = SOURCE_ROOT; };
 		DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontArrowsIcon.tiff; sourceTree = "<group>"; };
 		DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontArrowsMenu.dict; sourceTree = "<group>"; };
 		DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontArrowsMenu.tiff; sourceTree = "<group>"; };
@@ -399,6 +399,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */,
 				51E279810CEDDD7F003A0980 /* symbolPalette.png */,
 				DC99E9410A2608A400F50752 /* AMS */,
 				DC99E9660A2608A400F50752 /* jknappen */,
@@ -406,7 +407,6 @@
 				DC99E99B0A2608A400F50752 /* MarVoSym */,
 				DCB1E6F70B50988600B0704A /* PiFont */,
 				DC99E9AB0A2608A400F50752 /* WasySym */,
-				DC00B14009D210E9007D6AD9 /* iTM2LaTeXSymbolsPanel.nib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -733,7 +733,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC00B14209D210EA007D6AD9 /* iTM2LaTeXSymbolsPanel.nib in Resources */,
 				DC99E9BB0A2608A400F50752 /* iTM2AMSArrowsIcon.tiff in Resources */,
 				DC99E9BC0A2608A400F50752 /* iTM2AMSArrowsMenu.dict in Resources */,
 				DC99E9BD0A2608A400F50752 /* iTM2AMSArrowsMenu.tiff in Resources */,
@@ -867,6 +866,7 @@
 				DCB1E7140B50988800B0704A /* iTM2PiFontStarsMenu.dict in Resources */,
 				DCB1E7150B50988800B0704A /* iTM2PiFontStarsMenu.tiff in Resources */,
 				51E279820CEDDD7F003A0980 /* symbolPalette.png in Resources */,
+				512D9CEA0D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -934,14 +934,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC00B14009D210E9007D6AD9 /* iTM2LaTeXSymbolsPanel.nib */ = {
+		512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC00B14109D210E9007D6AD9 /* French */,
-				DCAF9AB509D811A300AFD95F /* English */,
+				512D9CE90D59F8B900FF9F6F /* English */,
+				512D9CEB0D59F8C300FF9F6F /* French */,
 			);
-			name = iTM2LaTeXSymbolsPanel.nib;
-			path = French.lproj;
+			name = iTM2LaTeXSymbolsPanel.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

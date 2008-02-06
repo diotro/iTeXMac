@@ -21,6 +21,11 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		512D9CDC0D59F87C00FF9F6F /* iTM2EngineMetaPost.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CD20D59F87C00FF9F6F /* iTM2EngineMetaPost.xib */; };
+		512D9CDD0D59F87C00FF9F6F /* iTM2EngineMPS2PDF.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CD40D59F87C00FF9F6F /* iTM2EngineMPS2PDF.xib */; };
+		512D9CDE0D59F87C00FF9F6F /* iTM2EngineMPtoPDF.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CD60D59F87C00FF9F6F /* iTM2EngineMPtoPDF.xib */; };
+		512D9CDF0D59F87C00FF9F6F /* iTM2MetaPostFigureMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CD80D59F87C00FF9F6F /* iTM2MetaPostFigureMenu.xib */; };
+		512D9CE00D59F87C00FF9F6F /* iTM2MetaPostInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CDA0D59F87C00FF9F6F /* iTM2MetaPostInspector.xib */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC14CE8E091F2E36009D184E /* iTM2MetaPostToolbarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC14CE8C091F2E36009D184E /* iTM2MetaPostToolbarKit.h */; };
 		DC14CE8F091F2E36009D184E /* iTM2MetaPostToolbarKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC14CE8D091F2E36009D184E /* iTM2MetaPostToolbarKit.m */; };
@@ -33,11 +38,6 @@
 		DC89304B08FC29E5007A4673 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC8A42B209110CA500F47F63 /* iTM2_Compile_mp in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC8A42B109110C9700F47F63 /* iTM2_Compile_mp */; };
 		DCAF9A9A09D8114300AFD95F /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A8909D8114300AFD95F /* Engine.strings */; };
-		DCAF9A9B09D8114300AFD95F /* iTM2EngineMetaPost.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A8B09D8114300AFD95F /* iTM2EngineMetaPost.nib */; };
-		DCAF9A9C09D8114300AFD95F /* iTM2EngineMPS2PDF.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A8D09D8114300AFD95F /* iTM2EngineMPS2PDF.nib */; };
-		DCAF9A9D09D8114300AFD95F /* iTM2EngineMPtoPDF.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A8F09D8114300AFD95F /* iTM2EngineMPtoPDF.nib */; };
-		DCAF9A9E09D8114300AFD95F /* iTM2MetaPostFigureMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A9109D8114300AFD95F /* iTM2MetaPostFigureMenu.nib */; };
-		DCAF9A9F09D8114300AFD95F /* iTM2MetaPostInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A9309D8114300AFD95F /* iTM2MetaPostInspector.nib */; };
 		DCAF9AA009D8114300AFD95F /* Macros.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A9509D8114300AFD95F /* Macros.resources.tgz */; };
 		DCAF9AA109D8114300AFD95F /* NewDocuments.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A9709D8114300AFD95F /* NewDocuments.resources.tgz */; };
 		DCC3EEF108FE726B00A74157 /* iTM2PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC3EEF008FE726B00A74157 /* iTM2PDFKit.framework */; };
@@ -103,6 +103,16 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		512D9CD30D59F87C00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineMetaPost.xib; sourceTree = "<group>"; };
+		512D9CD50D59F87C00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineMPS2PDF.xib; sourceTree = "<group>"; };
+		512D9CD70D59F87C00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineMPtoPDF.xib; sourceTree = "<group>"; };
+		512D9CD90D59F87C00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2MetaPostFigureMenu.xib; sourceTree = "<group>"; };
+		512D9CDB0D59F87C00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2MetaPostInspector.xib; sourceTree = "<group>"; };
+		512D9CE10D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineMetaPost.xib; sourceTree = "<group>"; };
+		512D9CE20D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineMPS2PDF.xib; sourceTree = "<group>"; };
+		512D9CE30D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineMPtoPDF.xib; sourceTree = "<group>"; };
+		512D9CE40D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2MetaPostFigureMenu.xib; sourceTree = "<group>"; };
+		512D9CE50D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2MetaPostInspector.xib; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC14CE8C091F2E36009D184E /* iTM2MetaPostToolbarKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MetaPostToolbarKit.h; sourceTree = "<group>"; };
 		DC14CE8D091F2E36009D184E /* iTM2MetaPostToolbarKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MetaPostToolbarKit.m; sourceTree = "<group>"; };
@@ -128,19 +138,9 @@
 		DC8A42B109110C9700F47F63 /* iTM2_Compile_mp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Compile_mp; sourceTree = "<group>"; };
 		DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DCAF9A8A09D8114300AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCAF9A8C09D8114300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineMetaPost.nib; sourceTree = "<group>"; };
-		DCAF9A8E09D8114300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineMPS2PDF.nib; sourceTree = "<group>"; };
-		DCAF9A9009D8114300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineMPtoPDF.nib; sourceTree = "<group>"; };
-		DCAF9A9209D8114300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MetaPostFigureMenu.nib; sourceTree = "<group>"; };
-		DCAF9A9409D8114300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MetaPostInspector.nib; sourceTree = "<group>"; };
 		DCAF9A9609D8114300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
 		DCAF9A9809D8114300AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DCAF9AA209D8114C00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCAF9AA309D8114C00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineMetaPost.nib; sourceTree = "<group>"; };
-		DCAF9AA409D8114C00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineMPS2PDF.nib; sourceTree = "<group>"; };
-		DCAF9AA509D8114C00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineMPtoPDF.nib; sourceTree = "<group>"; };
-		DCAF9AA609D8114C00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2MetaPostFigureMenu.nib; sourceTree = "<group>"; };
-		DCAF9AA709D8114C00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2MetaPostInspector.nib; sourceTree = "<group>"; };
 		DCAF9AA809D8114C00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DCAF9AAA09D8116E00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
 		DCBD7E3809491B4500E2ACC7 /* iTM2PDFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2PDFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,14 +281,14 @@
 		DCD8A67E090FD8EF000831D9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				512D9CD20D59F87C00FF9F6F /* iTM2EngineMetaPost.xib */,
+				512D9CD40D59F87C00FF9F6F /* iTM2EngineMPS2PDF.xib */,
+				512D9CD60D59F87C00FF9F6F /* iTM2EngineMPtoPDF.xib */,
+				512D9CD80D59F87C00FF9F6F /* iTM2MetaPostFigureMenu.xib */,
+				512D9CDA0D59F87C00FF9F6F /* iTM2MetaPostInspector.xib */,
 				DCD3A67D0A38FB1D00B5EE0C /* EnvironmentVariables.plist */,
 				DCCD2E9909E142500003EEF9 /* Inspector.strings */,
 				DCAF9A8909D8114300AFD95F /* Engine.strings */,
-				DCAF9A8B09D8114300AFD95F /* iTM2EngineMetaPost.nib */,
-				DCAF9A8D09D8114300AFD95F /* iTM2EngineMPS2PDF.nib */,
-				DCAF9A8F09D8114300AFD95F /* iTM2EngineMPtoPDF.nib */,
-				DCAF9A9109D8114300AFD95F /* iTM2MetaPostFigureMenu.nib */,
-				DCAF9A9309D8114300AFD95F /* iTM2MetaPostInspector.nib */,
 				DCAF9A9509D8114300AFD95F /* Macros.resources.tgz */,
 				DCAF9A9709D8114300AFD95F /* NewDocuments.resources.tgz */,
 				DCD8A7DE090FD8F1000831D9 /* iTM2HiFit.tif */,
@@ -408,15 +408,15 @@
 				DCD8A896090FD8F1000831D9 /* iTM2LowLarger.tif in Resources */,
 				DCD8A897090FD8F1000831D9 /* iTM2LowSmaller.tif in Resources */,
 				DCAF9A9A09D8114300AFD95F /* Engine.strings in Resources */,
-				DCAF9A9B09D8114300AFD95F /* iTM2EngineMetaPost.nib in Resources */,
-				DCAF9A9C09D8114300AFD95F /* iTM2EngineMPS2PDF.nib in Resources */,
-				DCAF9A9D09D8114300AFD95F /* iTM2EngineMPtoPDF.nib in Resources */,
-				DCAF9A9E09D8114300AFD95F /* iTM2MetaPostFigureMenu.nib in Resources */,
-				DCAF9A9F09D8114300AFD95F /* iTM2MetaPostInspector.nib in Resources */,
 				DCAF9AA009D8114300AFD95F /* Macros.resources.tgz in Resources */,
 				DCAF9AA109D8114300AFD95F /* NewDocuments.resources.tgz in Resources */,
 				DCCD2E9B09E142500003EEF9 /* Inspector.strings in Resources */,
 				DCD3A67E0A38FB1D00B5EE0C /* EnvironmentVariables.plist in Resources */,
+				512D9CDC0D59F87C00FF9F6F /* iTM2EngineMetaPost.xib in Resources */,
+				512D9CDD0D59F87C00FF9F6F /* iTM2EngineMPS2PDF.xib in Resources */,
+				512D9CDE0D59F87C00FF9F6F /* iTM2EngineMPtoPDF.xib in Resources */,
+				512D9CDF0D59F87C00FF9F6F /* iTM2MetaPostFigureMenu.xib in Resources */,
+				512D9CE00D59F87C00FF9F6F /* iTM2MetaPostInspector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +555,51 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		512D9CD20D59F87C00FF9F6F /* iTM2EngineMetaPost.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CD30D59F87C00FF9F6F /* English */,
+				512D9CE10D59F88700FF9F6F /* French */,
+			);
+			name = iTM2EngineMetaPost.xib;
+			sourceTree = "<group>";
+		};
+		512D9CD40D59F87C00FF9F6F /* iTM2EngineMPS2PDF.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CD50D59F87C00FF9F6F /* English */,
+				512D9CE20D59F88700FF9F6F /* French */,
+			);
+			name = iTM2EngineMPS2PDF.xib;
+			sourceTree = "<group>";
+		};
+		512D9CD60D59F87C00FF9F6F /* iTM2EngineMPtoPDF.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CD70D59F87C00FF9F6F /* English */,
+				512D9CE30D59F88700FF9F6F /* French */,
+			);
+			name = iTM2EngineMPtoPDF.xib;
+			sourceTree = "<group>";
+		};
+		512D9CD80D59F87C00FF9F6F /* iTM2MetaPostFigureMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CD90D59F87C00FF9F6F /* English */,
+				512D9CE40D59F88700FF9F6F /* French */,
+			);
+			name = iTM2MetaPostFigureMenu.xib;
+			sourceTree = "<group>";
+		};
+		512D9CDA0D59F87C00FF9F6F /* iTM2MetaPostInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CDB0D59F87C00FF9F6F /* English */,
+				512D9CE50D59F88700FF9F6F /* French */,
+			);
+			name = iTM2MetaPostInspector.xib;
+			sourceTree = "<group>";
+		};
 		DCAF9A8909D8114300AFD95F /* Engine.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -562,51 +607,6 @@
 				DCAF9AA209D8114C00AFD95F /* French */,
 			);
 			name = Engine.strings;
-			sourceTree = "<group>";
-		};
-		DCAF9A8B09D8114300AFD95F /* iTM2EngineMetaPost.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A8C09D8114300AFD95F /* English */,
-				DCAF9AA309D8114C00AFD95F /* French */,
-			);
-			name = iTM2EngineMetaPost.nib;
-			sourceTree = "<group>";
-		};
-		DCAF9A8D09D8114300AFD95F /* iTM2EngineMPS2PDF.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A8E09D8114300AFD95F /* English */,
-				DCAF9AA409D8114C00AFD95F /* French */,
-			);
-			name = iTM2EngineMPS2PDF.nib;
-			sourceTree = "<group>";
-		};
-		DCAF9A8F09D8114300AFD95F /* iTM2EngineMPtoPDF.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A9009D8114300AFD95F /* English */,
-				DCAF9AA509D8114C00AFD95F /* French */,
-			);
-			name = iTM2EngineMPtoPDF.nib;
-			sourceTree = "<group>";
-		};
-		DCAF9A9109D8114300AFD95F /* iTM2MetaPostFigureMenu.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A9209D8114300AFD95F /* English */,
-				DCAF9AA609D8114C00AFD95F /* French */,
-			);
-			name = iTM2MetaPostFigureMenu.nib;
-			sourceTree = "<group>";
-		};
-		DCAF9A9309D8114300AFD95F /* iTM2MetaPostInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A9409D8114300AFD95F /* English */,
-				DCAF9AA709D8114C00AFD95F /* French */,
-			);
-			name = iTM2MetaPostInspector.nib;
 			sourceTree = "<group>";
 		};
 		DCAF9A9509D8114300AFD95F /* Macros.resources.tgz */ = {

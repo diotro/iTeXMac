@@ -46,6 +46,24 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		512D9C9C0D59F7C800FF9F6F /* iTM2DVIInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C780D59F7C800FF9F6F /* iTM2DVIInspector.xib */; };
+		512D9C9D0D59F7C800FF9F6F /* iTM2NewTeXProjectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C7A0D59F7C800FF9F6F /* iTM2NewTeXProjectController.xib */; };
+		512D9C9E0D59F7C800FF9F6F /* iTM2NoTeXProjectSheetController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C7C0D59F7C800FF9F6F /* iTM2NoTeXProjectSheetController.xib */; };
+		512D9C9F0D59F7C800FF9F6F /* iTM2TeTeXController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C7E0D59F7C800FF9F6F /* iTM2TeTeXController.xib */; };
+		512D9CA00D59F7C800FF9F6F /* iTM2TeXBookmarkMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C800D59F7C800FF9F6F /* iTM2TeXBookmarkMenu.xib */; };
+		512D9CA10D59F7C800FF9F6F /* iTM2TeXDistributionPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C820D59F7C800FF9F6F /* iTM2TeXDistributionPrefPane.xib */; };
+		512D9CA20D59F7C800FF9F6F /* iTM2TeXInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C840D59F7C800FF9F6F /* iTM2TeXInspector.xib */; };
+		512D9CA30D59F7C800FF9F6F /* iTM2TeXPBibliographyInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C860D59F7C800FF9F6F /* iTM2TeXPBibliographyInspector.xib */; };
+		512D9CA40D59F7C800FF9F6F /* iTM2TeXPCleanInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C880D59F7C800FF9F6F /* iTM2TeXPCleanInspector.xib */; };
+		512D9CA50D59F7C800FF9F6F /* iTM2TeXPCommandsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C8A0D59F7C800FF9F6F /* iTM2TeXPCommandsInspector.xib */; };
+		512D9CA60D59F7C800FF9F6F /* iTM2TeXPCompileInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C8C0D59F7C800FF9F6F /* iTM2TeXPCompileInspector.xib */; };
+		512D9CA70D59F7C800FF9F6F /* iTM2TeXPIndexInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C8E0D59F7C800FF9F6F /* iTM2TeXPIndexInspector.xib */; };
+		512D9CA80D59F7C800FF9F6F /* iTM2TeXPShellScriptInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C900D59F7C800FF9F6F /* iTM2TeXPShellScriptInspector.xib */; };
+		512D9CA90D59F7C800FF9F6F /* iTM2TeXPSpecialInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C920D59F7C800FF9F6F /* iTM2TeXPSpecialInspector.xib */; };
+		512D9CAA0D59F7C800FF9F6F /* iTM2TeXPTaskInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C940D59F7C800FF9F6F /* iTM2TeXPTaskInspector.xib */; };
+		512D9CAB0D59F7C800FF9F6F /* iTM2TeXPTypesetInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C960D59F7C800FF9F6F /* iTM2TeXPTypesetInspector.xib */; };
+		512D9CAC0D59F7C800FF9F6F /* iTM2TeXPXtdCommandsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C980D59F7C800FF9F6F /* iTM2TeXPXtdCommandsInspector.xib */; };
+		512D9CAD0D59F7C800FF9F6F /* iTM2TeXSubdocumentsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C9A0D59F7C800FF9F6F /* iTM2TeXSubdocumentsInspector.xib */; };
 		51314DEA0D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 51314DE90D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings */; };
 		51314DEB0D01C0D800862683 /* Aqua2_Remove_Inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8B8E1D08EAA58500B4C987 /* Aqua2_Remove_Inactive.png */; };
 		51314DED0D01C14B00862683 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51314DEC0D01C14B00862683 /* iTM2Gear.png */; };
@@ -92,7 +110,6 @@
 		DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */; };
 		DC7888830C46801A00E30CB0 /* iTM2DVIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7888810C46801900E30CB0 /* iTM2DVIKit.h */; };
 		DC7888840C46801A00E30CB0 /* iTM2DVIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7888820C46801900E30CB0 /* iTM2DVIKit.m */; };
-		DC7888A20C46866900E30CB0 /* iTM2DVIInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC7888A00C46866900E30CB0 /* iTM2DVIInspector.nib */; };
 		DC7E91B808903606007D0CB2 /* iTM2TeXStorageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7E91B908903606007D0CB2 /* iTM2TeXStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */; };
 		DC7E91BA08903606007D0CB2 /* iTM2TeXStyleEditionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -134,24 +151,7 @@
 		DCAF9A0609D8107600AFD95F /* BaseProjects.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99D609D8107600AFD95F /* BaseProjects.resources.tgz */; };
 		DCAF9A0709D8107600AFD95F /* Commands.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99D809D8107600AFD95F /* Commands.strings */; };
 		DCAF9A0809D8107600AFD95F /* Frontend.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99DA09D8107600AFD95F /* Frontend.strings */; };
-		DCAF9A0909D8107600AFD95F /* iTM2NewTeXProjectController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99DC09D8107600AFD95F /* iTM2NewTeXProjectController.nib */; };
-		DCAF9A0B09D8107600AFD95F /* iTM2NoTeXProjectSheetController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99E009D8107600AFD95F /* iTM2NoTeXProjectSheetController.nib */; };
-		DCAF9A0C09D8107600AFD95F /* iTM2TeTeXController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99E209D8107600AFD95F /* iTM2TeTeXController.nib */; };
-		DCAF9A0D09D8107600AFD95F /* iTM2TeXBookmarkMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99E409D8107600AFD95F /* iTM2TeXBookmarkMenu.nib */; };
-		DCAF9A0E09D8107600AFD95F /* iTM2TeXDistributionPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99E609D8107600AFD95F /* iTM2TeXDistributionPrefPane.nib */; };
 		DCAF9A0F09D8107600AFD95F /* iTM2TeXDistributionPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99E809D8107600AFD95F /* iTM2TeXDistributionPrefPane.strings */; };
-		DCAF9A1009D8107600AFD95F /* iTM2TeXInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99EA09D8107600AFD95F /* iTM2TeXInspector.nib */; };
-		DCAF9A1109D8107600AFD95F /* iTM2TeXPBibliographyInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99EC09D8107600AFD95F /* iTM2TeXPBibliographyInspector.nib */; };
-		DCAF9A1209D8107600AFD95F /* iTM2TeXPCleanInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99EE09D8107600AFD95F /* iTM2TeXPCleanInspector.nib */; };
-		DCAF9A1309D8107600AFD95F /* iTM2TeXPCommandsInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99F009D8107600AFD95F /* iTM2TeXPCommandsInspector.nib */; };
-		DCAF9A1409D8107600AFD95F /* iTM2TeXPCompileInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99F209D8107600AFD95F /* iTM2TeXPCompileInspector.nib */; };
-		DCAF9A1509D8107600AFD95F /* iTM2TeXPIndexInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99F409D8107600AFD95F /* iTM2TeXPIndexInspector.nib */; };
-		DCAF9A1609D8107600AFD95F /* iTM2TeXPShellScriptInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99F609D8107600AFD95F /* iTM2TeXPShellScriptInspector.nib */; };
-		DCAF9A1709D8107600AFD95F /* iTM2TeXPSpecialInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99F809D8107600AFD95F /* iTM2TeXPSpecialInspector.nib */; };
-		DCAF9A1809D8107600AFD95F /* iTM2TeXPTaskInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99FA09D8107600AFD95F /* iTM2TeXPTaskInspector.nib */; };
-		DCAF9A1909D8107600AFD95F /* iTM2TeXPTypesetInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99FC09D8107600AFD95F /* iTM2TeXPTypesetInspector.nib */; };
-		DCAF9A1A09D8107600AFD95F /* iTM2TeXPXtdCommandsInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF99FE09D8107600AFD95F /* iTM2TeXPXtdCommandsInspector.nib */; };
-		DCAF9A1B09D8107600AFD95F /* iTM2TeXSubdocumentsInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A0009D8107600AFD95F /* iTM2TeXSubdocumentsInspector.nib */; };
 		DCAF9A1C09D8107600AFD95F /* Macros.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A0209D8107600AFD95F /* Macros.resources.tgz */; };
 		DCAF9A1D09D8107600AFD95F /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A0409D8107600AFD95F /* Toolbar.strings */; };
 		DCAF9A3D09D810A400AFD95F /* iTM2TextStyle_TeX-Xtd.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3509D810A400AFD95F /* iTM2TextStyle_TeX-Xtd.strings */; };
@@ -297,6 +297,42 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		512D9C790D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2DVIInspector.xib; sourceTree = "<group>"; };
+		512D9C7B0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NewTeXProjectController.xib; sourceTree = "<group>"; };
+		512D9C7D0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NoTeXProjectSheetController.xib; sourceTree = "<group>"; };
+		512D9C7F0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeTeXController.xib; sourceTree = "<group>"; };
+		512D9C810D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXBookmarkMenu.xib; sourceTree = "<group>"; };
+		512D9C830D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXDistributionPrefPane.xib; sourceTree = "<group>"; };
+		512D9C850D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXInspector.xib; sourceTree = "<group>"; };
+		512D9C870D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPBibliographyInspector.xib; sourceTree = "<group>"; };
+		512D9C890D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPCleanInspector.xib; sourceTree = "<group>"; };
+		512D9C8B0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPCommandsInspector.xib; sourceTree = "<group>"; };
+		512D9C8D0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPCompileInspector.xib; sourceTree = "<group>"; };
+		512D9C8F0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPIndexInspector.xib; sourceTree = "<group>"; };
+		512D9C910D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPShellScriptInspector.xib; sourceTree = "<group>"; };
+		512D9C930D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPSpecialInspector.xib; sourceTree = "<group>"; };
+		512D9C950D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPTaskInspector.xib; sourceTree = "<group>"; };
+		512D9C970D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPTypesetInspector.xib; sourceTree = "<group>"; };
+		512D9C990D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXPXtdCommandsInspector.xib; sourceTree = "<group>"; };
+		512D9C9B0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TeXSubdocumentsInspector.xib; sourceTree = "<group>"; };
+		512D9CAE0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2DVIInspector.xib; sourceTree = "<group>"; };
+		512D9CAF0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2NewTeXProjectController.xib; sourceTree = "<group>"; };
+		512D9CB00D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2NoTeXProjectSheetController.xib; sourceTree = "<group>"; };
+		512D9CB10D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeTeXController.xib; sourceTree = "<group>"; };
+		512D9CB20D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXBookmarkMenu.xib; sourceTree = "<group>"; };
+		512D9CB30D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXDistributionPrefPane.xib; sourceTree = "<group>"; };
+		512D9CB40D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXInspector.xib; sourceTree = "<group>"; };
+		512D9CB50D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPBibliographyInspector.xib; sourceTree = "<group>"; };
+		512D9CB60D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPCleanInspector.xib; sourceTree = "<group>"; };
+		512D9CB70D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPCommandsInspector.xib; sourceTree = "<group>"; };
+		512D9CB80D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPCompileInspector.xib; sourceTree = "<group>"; };
+		512D9CB90D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPIndexInspector.xib; sourceTree = "<group>"; };
+		512D9CBA0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPShellScriptInspector.xib; sourceTree = "<group>"; };
+		512D9CBB0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPSpecialInspector.xib; sourceTree = "<group>"; };
+		512D9CBC0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPTaskInspector.xib; sourceTree = "<group>"; };
+		512D9CBD0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPTypesetInspector.xib; sourceTree = "<group>"; };
+		512D9CBE0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXPXtdCommandsInspector.xib; sourceTree = "<group>"; };
+		512D9CBF0D59F7E100FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TeXSubdocumentsInspector.xib; sourceTree = "<group>"; };
 		51314DE90D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "7bitsAccents.iTM2-key-bindings"; sourceTree = "<group>"; };
 		51314DEC0D01C14B00862683 /* iTM2Gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Gear.png; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -342,8 +378,6 @@
 		DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2TeXDistributionPrefPane.tif; sourceTree = "<group>"; };
 		DC7888810C46801900E30CB0 /* iTM2DVIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DVIKit.h; sourceTree = "<group>"; };
 		DC7888820C46801900E30CB0 /* iTM2DVIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DVIKit.m; sourceTree = "<group>"; };
-		DC7888A10C46866900E30CB0 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2DVIInspector.nib; sourceTree = "<group>"; };
-		DC7888BE0C468AA400E30CB0 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2DVIInspector.nib; sourceTree = "<group>"; };
 		DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStorageKit.h; sourceTree = "<group>"; };
 		DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStorageKit.m; sourceTree = "<group>"; };
 		DC7E91A408903606007D0CB2 /* iTM2TeXStyleEditionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStyleEditionKit.h; sourceTree = "<group>"; };
@@ -383,47 +417,13 @@
 		DCAF99D709D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
 		DCAF99D909D8107600AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Commands.strings; sourceTree = "<group>"; };
 		DCAF99DB09D8107600AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Frontend.strings; sourceTree = "<group>"; };
-		DCAF99DD09D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2NewTeXProjectController.nib; sourceTree = "<group>"; };
-		DCAF99E109D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2NoTeXProjectSheetController.nib; sourceTree = "<group>"; };
-		DCAF99E309D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeTeXController.nib; sourceTree = "<group>"; };
-		DCAF99E509D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXBookmarkMenu.nib; sourceTree = "<group>"; };
-		DCAF99E709D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXDistributionPrefPane.nib; sourceTree = "<group>"; };
 		DCAF99E909D8107600AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2TeXDistributionPrefPane.strings; sourceTree = "<group>"; };
-		DCAF99EB09D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXInspector.nib; sourceTree = "<group>"; };
-		DCAF99ED09D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPBibliographyInspector.nib; sourceTree = "<group>"; };
-		DCAF99EF09D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPCleanInspector.nib; sourceTree = "<group>"; };
-		DCAF99F109D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPCommandsInspector.nib; sourceTree = "<group>"; };
-		DCAF99F309D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPCompileInspector.nib; sourceTree = "<group>"; };
-		DCAF99F509D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPIndexInspector.nib; sourceTree = "<group>"; };
-		DCAF99F709D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPShellScriptInspector.nib; sourceTree = "<group>"; };
-		DCAF99F909D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPSpecialInspector.nib; sourceTree = "<group>"; };
-		DCAF99FB09D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPTaskInspector.nib; sourceTree = "<group>"; };
-		DCAF99FD09D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPTypesetInspector.nib; sourceTree = "<group>"; };
-		DCAF99FF09D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXPXtdCommandsInspector.nib; sourceTree = "<group>"; };
-		DCAF9A0109D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TeXSubdocumentsInspector.nib; sourceTree = "<group>"; };
 		DCAF9A0309D8107600AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
 		DCAF9A0509D8107600AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		DCAF9A1E09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
 		DCAF9A1F09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Commands.strings; sourceTree = "<group>"; };
 		DCAF9A2009D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Frontend.strings; sourceTree = "<group>"; };
-		DCAF9A2109D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2NewTeXProjectController.nib; sourceTree = "<group>"; };
-		DCAF9A2209D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2NoTeXProjectSheetController.nib; sourceTree = "<group>"; };
-		DCAF9A2309D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeTeXController.nib; sourceTree = "<group>"; };
-		DCAF9A2409D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXBookmarkMenu.nib; sourceTree = "<group>"; };
-		DCAF9A2509D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXDistributionPrefPane.nib; sourceTree = "<group>"; };
 		DCAF9A2609D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2TeXDistributionPrefPane.strings; sourceTree = "<group>"; };
-		DCAF9A2709D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2809D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPBibliographyInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2909D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPCleanInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2A09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPCommandsInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2B09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPCompileInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2C09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPIndexInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2D09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPShellScriptInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2E09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPSpecialInspector.nib; sourceTree = "<group>"; };
-		DCAF9A2F09D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPTaskInspector.nib; sourceTree = "<group>"; };
-		DCAF9A3009D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPTypesetInspector.nib; sourceTree = "<group>"; };
-		DCAF9A3109D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXPXtdCommandsInspector.nib; sourceTree = "<group>"; };
-		DCAF9A3209D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TeXSubdocumentsInspector.nib; sourceTree = "<group>"; };
 		DCAF9A3309D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
 		DCAF9A3409D8108100AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		DCAF9A3609D810A400AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = "English.lproj/iTM2TextStyle_TeX-Xtd.strings"; sourceTree = "<group>"; };
@@ -722,6 +722,24 @@
 		DCC7F3F10854AC9200F3EB8A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				512D9C780D59F7C800FF9F6F /* iTM2DVIInspector.xib */,
+				512D9C7A0D59F7C800FF9F6F /* iTM2NewTeXProjectController.xib */,
+				512D9C7C0D59F7C800FF9F6F /* iTM2NoTeXProjectSheetController.xib */,
+				512D9C7E0D59F7C800FF9F6F /* iTM2TeTeXController.xib */,
+				512D9C800D59F7C800FF9F6F /* iTM2TeXBookmarkMenu.xib */,
+				512D9C820D59F7C800FF9F6F /* iTM2TeXDistributionPrefPane.xib */,
+				512D9C840D59F7C800FF9F6F /* iTM2TeXInspector.xib */,
+				512D9C860D59F7C800FF9F6F /* iTM2TeXPBibliographyInspector.xib */,
+				512D9C880D59F7C800FF9F6F /* iTM2TeXPCleanInspector.xib */,
+				512D9C8A0D59F7C800FF9F6F /* iTM2TeXPCommandsInspector.xib */,
+				512D9C8C0D59F7C800FF9F6F /* iTM2TeXPCompileInspector.xib */,
+				512D9C8E0D59F7C800FF9F6F /* iTM2TeXPIndexInspector.xib */,
+				512D9C900D59F7C800FF9F6F /* iTM2TeXPShellScriptInspector.xib */,
+				512D9C920D59F7C800FF9F6F /* iTM2TeXPSpecialInspector.xib */,
+				512D9C940D59F7C800FF9F6F /* iTM2TeXPTaskInspector.xib */,
+				512D9C960D59F7C800FF9F6F /* iTM2TeXPTypesetInspector.xib */,
+				512D9C980D59F7C800FF9F6F /* iTM2TeXPXtdCommandsInspector.xib */,
+				512D9C9A0D59F7C800FF9F6F /* iTM2TeXSubdocumentsInspector.xib */,
 				51314DE90D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings */,
 				DCFBCB670CC045290093BF80 /* iTM2TeXProjectSmall.png */,
 				DCFBCB700CC0460A0093BF80 /* iTM2TeXDirectorySmall.png */,
@@ -729,25 +747,7 @@
 				DCAF99D609D8107600AFD95F /* BaseProjects.resources.tgz */,
 				DCAF99D809D8107600AFD95F /* Commands.strings */,
 				DCAF99DA09D8107600AFD95F /* Frontend.strings */,
-				DCAF99DC09D8107600AFD95F /* iTM2NewTeXProjectController.nib */,
-				DCAF99E009D8107600AFD95F /* iTM2NoTeXProjectSheetController.nib */,
-				DCAF99E209D8107600AFD95F /* iTM2TeTeXController.nib */,
-				DCAF99E409D8107600AFD95F /* iTM2TeXBookmarkMenu.nib */,
-				DCAF99E609D8107600AFD95F /* iTM2TeXDistributionPrefPane.nib */,
 				DCAF99E809D8107600AFD95F /* iTM2TeXDistributionPrefPane.strings */,
-				DCAF99EA09D8107600AFD95F /* iTM2TeXInspector.nib */,
-				DCAF99EC09D8107600AFD95F /* iTM2TeXPBibliographyInspector.nib */,
-				DCAF99EE09D8107600AFD95F /* iTM2TeXPCleanInspector.nib */,
-				DCAF99F009D8107600AFD95F /* iTM2TeXPCommandsInspector.nib */,
-				DCAF99F209D8107600AFD95F /* iTM2TeXPCompileInspector.nib */,
-				DCAF99F409D8107600AFD95F /* iTM2TeXPIndexInspector.nib */,
-				DCAF99F609D8107600AFD95F /* iTM2TeXPShellScriptInspector.nib */,
-				DCAF99F809D8107600AFD95F /* iTM2TeXPSpecialInspector.nib */,
-				DCAF99FA09D8107600AFD95F /* iTM2TeXPTaskInspector.nib */,
-				DCAF99FC09D8107600AFD95F /* iTM2TeXPTypesetInspector.nib */,
-				DCAF99FE09D8107600AFD95F /* iTM2TeXPXtdCommandsInspector.nib */,
-				DCAF9A0009D8107600AFD95F /* iTM2TeXSubdocumentsInspector.nib */,
-				DC7888A00C46866900E30CB0 /* iTM2DVIInspector.nib */,
 				DCAF9A0209D8107600AFD95F /* Macros.resources.tgz */,
 				DCAF9A0409D8107600AFD95F /* Toolbar.strings */,
 				DCC7F3F20854AC9200F3EB8A /* CompileFileExtensions.plist */,
@@ -992,24 +992,7 @@
 				DCAF9A0609D8107600AFD95F /* BaseProjects.resources.tgz in Resources */,
 				DCAF9A0709D8107600AFD95F /* Commands.strings in Resources */,
 				DCAF9A0809D8107600AFD95F /* Frontend.strings in Resources */,
-				DCAF9A0909D8107600AFD95F /* iTM2NewTeXProjectController.nib in Resources */,
-				DCAF9A0B09D8107600AFD95F /* iTM2NoTeXProjectSheetController.nib in Resources */,
-				DCAF9A0C09D8107600AFD95F /* iTM2TeTeXController.nib in Resources */,
-				DCAF9A0D09D8107600AFD95F /* iTM2TeXBookmarkMenu.nib in Resources */,
-				DCAF9A0E09D8107600AFD95F /* iTM2TeXDistributionPrefPane.nib in Resources */,
 				DCAF9A0F09D8107600AFD95F /* iTM2TeXDistributionPrefPane.strings in Resources */,
-				DCAF9A1009D8107600AFD95F /* iTM2TeXInspector.nib in Resources */,
-				DCAF9A1109D8107600AFD95F /* iTM2TeXPBibliographyInspector.nib in Resources */,
-				DCAF9A1209D8107600AFD95F /* iTM2TeXPCleanInspector.nib in Resources */,
-				DCAF9A1309D8107600AFD95F /* iTM2TeXPCommandsInspector.nib in Resources */,
-				DCAF9A1409D8107600AFD95F /* iTM2TeXPCompileInspector.nib in Resources */,
-				DCAF9A1509D8107600AFD95F /* iTM2TeXPIndexInspector.nib in Resources */,
-				DCAF9A1609D8107600AFD95F /* iTM2TeXPShellScriptInspector.nib in Resources */,
-				DCAF9A1709D8107600AFD95F /* iTM2TeXPSpecialInspector.nib in Resources */,
-				DCAF9A1809D8107600AFD95F /* iTM2TeXPTaskInspector.nib in Resources */,
-				DCAF9A1909D8107600AFD95F /* iTM2TeXPTypesetInspector.nib in Resources */,
-				DCAF9A1A09D8107600AFD95F /* iTM2TeXPXtdCommandsInspector.nib in Resources */,
-				DCAF9A1B09D8107600AFD95F /* iTM2TeXSubdocumentsInspector.nib in Resources */,
 				DCAF9A1C09D8107600AFD95F /* Macros.resources.tgz in Resources */,
 				DCAF9A1D09D8107600AFD95F /* Toolbar.strings in Resources */,
 				DCAF9A3D09D810A400AFD95F /* iTM2TextStyle_TeX-Xtd.strings in Resources */,
@@ -1019,7 +1002,6 @@
 				DCCD2FDA09E17ED40003EEF9 /* Inspector.strings in Resources */,
 				DCD3A6650A38FA0400B5EE0C /* EnvironmentVariables.plist in Resources */,
 				DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */,
-				DC7888A20C46866900E30CB0 /* iTM2DVIInspector.nib in Resources */,
 				DCFBCB680CC045290093BF80 /* iTM2TeXProjectSmall.png in Resources */,
 				DCFBCB710CC0460A0093BF80 /* iTM2TeXDirectorySmall.png in Resources */,
 				DC4E1A0E0CCDD63800F5CE3E /* bookmark.png in Resources */,
@@ -1032,6 +1014,24 @@
 				DC4E1A160CCDD63800F5CE3E /* typesetCurrentProject.png in Resources */,
 				51314DEA0D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings in Resources */,
 				51314DED0D01C14B00862683 /* iTM2Gear.png in Resources */,
+				512D9C9C0D59F7C800FF9F6F /* iTM2DVIInspector.xib in Resources */,
+				512D9C9D0D59F7C800FF9F6F /* iTM2NewTeXProjectController.xib in Resources */,
+				512D9C9E0D59F7C800FF9F6F /* iTM2NoTeXProjectSheetController.xib in Resources */,
+				512D9C9F0D59F7C800FF9F6F /* iTM2TeTeXController.xib in Resources */,
+				512D9CA00D59F7C800FF9F6F /* iTM2TeXBookmarkMenu.xib in Resources */,
+				512D9CA10D59F7C800FF9F6F /* iTM2TeXDistributionPrefPane.xib in Resources */,
+				512D9CA20D59F7C800FF9F6F /* iTM2TeXInspector.xib in Resources */,
+				512D9CA30D59F7C800FF9F6F /* iTM2TeXPBibliographyInspector.xib in Resources */,
+				512D9CA40D59F7C800FF9F6F /* iTM2TeXPCleanInspector.xib in Resources */,
+				512D9CA50D59F7C800FF9F6F /* iTM2TeXPCommandsInspector.xib in Resources */,
+				512D9CA60D59F7C800FF9F6F /* iTM2TeXPCompileInspector.xib in Resources */,
+				512D9CA70D59F7C800FF9F6F /* iTM2TeXPIndexInspector.xib in Resources */,
+				512D9CA80D59F7C800FF9F6F /* iTM2TeXPShellScriptInspector.xib in Resources */,
+				512D9CA90D59F7C800FF9F6F /* iTM2TeXPSpecialInspector.xib in Resources */,
+				512D9CAA0D59F7C800FF9F6F /* iTM2TeXPTaskInspector.xib in Resources */,
+				512D9CAB0D59F7C800FF9F6F /* iTM2TeXPTypesetInspector.xib in Resources */,
+				512D9CAC0D59F7C800FF9F6F /* iTM2TeXPXtdCommandsInspector.xib in Resources */,
+				512D9CAD0D59F7C800FF9F6F /* iTM2TeXSubdocumentsInspector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1309,6 +1309,168 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		512D9C780D59F7C800FF9F6F /* iTM2DVIInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C790D59F7C800FF9F6F /* English */,
+				512D9CAE0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2DVIInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C7A0D59F7C800FF9F6F /* iTM2NewTeXProjectController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C7B0D59F7C800FF9F6F /* English */,
+				512D9CAF0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2NewTeXProjectController.xib;
+			sourceTree = "<group>";
+		};
+		512D9C7C0D59F7C800FF9F6F /* iTM2NoTeXProjectSheetController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C7D0D59F7C800FF9F6F /* English */,
+				512D9CB00D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2NoTeXProjectSheetController.xib;
+			sourceTree = "<group>";
+		};
+		512D9C7E0D59F7C800FF9F6F /* iTM2TeTeXController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C7F0D59F7C800FF9F6F /* English */,
+				512D9CB10D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeTeXController.xib;
+			sourceTree = "<group>";
+		};
+		512D9C800D59F7C800FF9F6F /* iTM2TeXBookmarkMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C810D59F7C800FF9F6F /* English */,
+				512D9CB20D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXBookmarkMenu.xib;
+			sourceTree = "<group>";
+		};
+		512D9C820D59F7C800FF9F6F /* iTM2TeXDistributionPrefPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C830D59F7C800FF9F6F /* English */,
+				512D9CB30D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXDistributionPrefPane.xib;
+			sourceTree = "<group>";
+		};
+		512D9C840D59F7C800FF9F6F /* iTM2TeXInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C850D59F7C800FF9F6F /* English */,
+				512D9CB40D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C860D59F7C800FF9F6F /* iTM2TeXPBibliographyInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C870D59F7C800FF9F6F /* English */,
+				512D9CB50D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPBibliographyInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C880D59F7C800FF9F6F /* iTM2TeXPCleanInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C890D59F7C800FF9F6F /* English */,
+				512D9CB60D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPCleanInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C8A0D59F7C800FF9F6F /* iTM2TeXPCommandsInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C8B0D59F7C800FF9F6F /* English */,
+				512D9CB70D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPCommandsInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C8C0D59F7C800FF9F6F /* iTM2TeXPCompileInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C8D0D59F7C800FF9F6F /* English */,
+				512D9CB80D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPCompileInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C8E0D59F7C800FF9F6F /* iTM2TeXPIndexInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C8F0D59F7C800FF9F6F /* English */,
+				512D9CB90D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPIndexInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C900D59F7C800FF9F6F /* iTM2TeXPShellScriptInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C910D59F7C800FF9F6F /* English */,
+				512D9CBA0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPShellScriptInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C920D59F7C800FF9F6F /* iTM2TeXPSpecialInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C930D59F7C800FF9F6F /* English */,
+				512D9CBB0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPSpecialInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C940D59F7C800FF9F6F /* iTM2TeXPTaskInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C950D59F7C800FF9F6F /* English */,
+				512D9CBC0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPTaskInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C960D59F7C800FF9F6F /* iTM2TeXPTypesetInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C970D59F7C800FF9F6F /* English */,
+				512D9CBD0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPTypesetInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C980D59F7C800FF9F6F /* iTM2TeXPXtdCommandsInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C990D59F7C800FF9F6F /* English */,
+				512D9CBE0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXPXtdCommandsInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9C9A0D59F7C800FF9F6F /* iTM2TeXSubdocumentsInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9C9B0D59F7C800FF9F6F /* English */,
+				512D9CBF0D59F7E100FF9F6F /* French */,
+			);
+			name = iTM2TeXSubdocumentsInspector.xib;
+			sourceTree = "<group>";
+		};
 		DC225F630AE53C1A00186582 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1331,15 +1493,6 @@
 				DC225F680AE53C1A00186582 /* English */,
 			);
 			name = iTeXMac2.nib;
-			sourceTree = "<group>";
-		};
-		DC7888A00C46866900E30CB0 /* iTM2DVIInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC7888A10C46866900E30CB0 /* English */,
-				DC7888BE0C468AA400E30CB0 /* French */,
-			);
-			name = iTM2DVIInspector.nib;
 			sourceTree = "<group>";
 		};
 		DCAF99D609D8107600AFD95F /* BaseProjects.resources.tgz */ = {
@@ -1369,51 +1522,6 @@
 			name = Frontend.strings;
 			sourceTree = "<group>";
 		};
-		DCAF99DC09D8107600AFD95F /* iTM2NewTeXProjectController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99DD09D8107600AFD95F /* English */,
-				DCAF9A2109D8108100AFD95F /* French */,
-			);
-			name = iTM2NewTeXProjectController.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99E009D8107600AFD95F /* iTM2NoTeXProjectSheetController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99E109D8107600AFD95F /* English */,
-				DCAF9A2209D8108100AFD95F /* French */,
-			);
-			name = iTM2NoTeXProjectSheetController.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99E209D8107600AFD95F /* iTM2TeTeXController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99E309D8107600AFD95F /* English */,
-				DCAF9A2309D8108100AFD95F /* French */,
-			);
-			name = iTM2TeTeXController.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99E409D8107600AFD95F /* iTM2TeXBookmarkMenu.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99E509D8107600AFD95F /* English */,
-				DCAF9A2409D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXBookmarkMenu.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99E609D8107600AFD95F /* iTM2TeXDistributionPrefPane.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99E709D8107600AFD95F /* English */,
-				DCAF9A2509D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXDistributionPrefPane.nib;
-			sourceTree = "<group>";
-		};
 		DCAF99E809D8107600AFD95F /* iTM2TeXDistributionPrefPane.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1421,114 +1529,6 @@
 				DCAF9A2609D8108100AFD95F /* French */,
 			);
 			name = iTM2TeXDistributionPrefPane.strings;
-			sourceTree = "<group>";
-		};
-		DCAF99EA09D8107600AFD95F /* iTM2TeXInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99EB09D8107600AFD95F /* English */,
-				DCAF9A2709D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99EC09D8107600AFD95F /* iTM2TeXPBibliographyInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99ED09D8107600AFD95F /* English */,
-				DCAF9A2809D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPBibliographyInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99EE09D8107600AFD95F /* iTM2TeXPCleanInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99EF09D8107600AFD95F /* English */,
-				DCAF9A2909D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPCleanInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99F009D8107600AFD95F /* iTM2TeXPCommandsInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99F109D8107600AFD95F /* English */,
-				DCAF9A2A09D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPCommandsInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99F209D8107600AFD95F /* iTM2TeXPCompileInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99F309D8107600AFD95F /* English */,
-				DCAF9A2B09D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPCompileInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99F409D8107600AFD95F /* iTM2TeXPIndexInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99F509D8107600AFD95F /* English */,
-				DCAF9A2C09D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPIndexInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99F609D8107600AFD95F /* iTM2TeXPShellScriptInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99F709D8107600AFD95F /* English */,
-				DCAF9A2D09D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPShellScriptInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99F809D8107600AFD95F /* iTM2TeXPSpecialInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99F909D8107600AFD95F /* English */,
-				DCAF9A2E09D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPSpecialInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99FA09D8107600AFD95F /* iTM2TeXPTaskInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99FB09D8107600AFD95F /* English */,
-				DCAF9A2F09D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPTaskInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99FC09D8107600AFD95F /* iTM2TeXPTypesetInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99FD09D8107600AFD95F /* English */,
-				DCAF9A3009D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPTypesetInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF99FE09D8107600AFD95F /* iTM2TeXPXtdCommandsInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF99FF09D8107600AFD95F /* English */,
-				DCAF9A3109D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXPXtdCommandsInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCAF9A0009D8107600AFD95F /* iTM2TeXSubdocumentsInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCAF9A0109D8107600AFD95F /* English */,
-				DCAF9A3209D8108100AFD95F /* French */,
-			);
-			name = iTM2TeXSubdocumentsInspector.nib;
 			sourceTree = "<group>";
 		};
 		DCAF9A0209D8107600AFD95F /* Macros.resources.tgz */ = {

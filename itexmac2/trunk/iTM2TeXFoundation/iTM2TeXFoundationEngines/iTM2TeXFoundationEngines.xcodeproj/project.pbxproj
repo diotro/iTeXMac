@@ -37,6 +37,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		512D9DA50D5A1ACB00FF9F6F /* iTM2EngineXeTeX.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9D9C0D5A1ACB00FF9F6F /* iTM2EngineXeTeX.xib */; };
+		512D9DA60D5A1ACB00FF9F6F /* iTM2EngineTeX.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9D9E0D5A1ACB00FF9F6F /* iTM2EngineTeX.xib */; };
+		512D9DA70D5A1ACB00FF9F6F /* iTM2EnginePDFTeX.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9DA00D5A1ACB00FF9F6F /* iTM2EnginePDFTeX.xib */; };
+		512D9DB90D5A1AF200FF9F6F /* iTM2EngineXdvipdfmx.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9DB00D5A1AF200FF9F6F /* iTM2EngineXdvipdfmx.xib */; };
+		512D9DBA0D5A1AF200FF9F6F /* iTM2EngineDvipdfmx.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9DB20D5A1AF200FF9F6F /* iTM2EngineDvipdfmx.xib */; };
+		512D9DBB0D5A1AF200FF9F6F /* iTM2EngineDvipdfm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9DB40D5A1AF200FF9F6F /* iTM2EngineDvipdfm.xib */; };
+		512D9DC30D5A1B2300FF9F6F /* iTM2EnginePStoPDF.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9DC00D5A1B2300FF9F6F /* iTM2EnginePStoPDF.xib */; };
+		512D9DC40D5A1B7200FF9F6F /* iTM2EngineDvips.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9DBC0D5A1B0700FF9F6F /* iTM2EngineDvips.xib */; };
 		DC0EF84E094857010018276F /* iTM2DVIPDFMWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC48E094840CC0079E1B3 /* iTM2DVIPDFMWrapperKit.m */; };
 		DC0EF84F094857180018276F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4D0094841310079E1B3 /* Cocoa.framework */; };
 		DC0EF876094858030018276F /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9DC4CE094841310079E1B3 /* iTM2TeXFoundation.framework */; };
@@ -53,7 +61,6 @@
 		DC0EF92609485DCF0018276F /* iTM2PStoPDFWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9DC4B2094840CC0079E1B3 /* iTM2PStoPDFWrapperKit.m */; };
 		DC0EF92D09485DE80018276F /* iTM2_Engine_pstopdf.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4AE094840CC0079E1B3 /* iTM2_Engine_pstopdf.rb */; };
 		DC25BE3D0C9155C9003E8ECB /* iTM2_Engine_dvipdfm.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC25BE3C0C9155C9003E8ECB /* iTM2_Engine_dvipdfm.rb */; };
-		DC5F5CAE0CB7ED7500F52867 /* iTM2EngineXdvipdfmx.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC5F5CA80CB7ED7500F52867 /* iTM2EngineXdvipdfmx.nib */; };
 		DC643A8B0CD3D7A500CE716B /* BaseProjects.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC643A890CD3D7A500CE716B /* BaseProjects.resources.tgz */; };
 		DC643A8F0CD3D7D100CE716B /* BaseProjects.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC643A8D0CD3D7D100CE716B /* BaseProjects.resources.tgz */; };
 		DC643A930CD3D7F500CE716B /* BaseProjects.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC643A910CD3D7F500CE716B /* BaseProjects.resources.tgz */; };
@@ -62,7 +69,6 @@
 		DC70F0C60BFC5992006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
 		DC70F11C0BFC59AA006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
 		DC70F11D0BFC59B9006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F0C30BFC5948006C6A76 /* Lua.framework */; };
-		DC8B1C320CB4ED5200640249 /* iTM2EngineDvipdfmx.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC8B1C2C0CB4ED5200640249 /* iTM2EngineDvipdfmx.nib */; };
 		DC8B1C3C0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC8B1C3B0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb */; };
 		DC8B1C9F0CB522DA00640249 /* iTM2_Engine_xdvipdfmx.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC8B1C9E0CB522B200640249 /* iTM2_Engine_xdvipdfmx.rb */; };
 		DC8B1D1C0CB52D6500640249 /* iTM2_Engine_dvips.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC8B1D1B0CB52D4700640249 /* iTM2_Engine_dvips.rb */; };
@@ -75,15 +81,9 @@
 		DC9DC77E09484E840079E1B3 /* iTM2_Engine_XeTeX.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4C0094840CC0079E1B3 /* iTM2_Engine_XeTeX.rb */; };
 		DC9DC77F09484E840079E1B3 /* iTM2_Format_Observer in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC9DC4C1094840CC0079E1B3 /* iTM2_Format_Observer */; };
 		DCCD2DB909E06C450003EEF9 /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DB309E06C450003EEF9 /* Engine.strings */; };
-		DCCD2DBA09E06C450003EEF9 /* iTM2EngineDvips.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DB509E06C450003EEF9 /* iTM2EngineDvips.nib */; };
 		DCCD2DC209E06C590003EEF9 /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DBC09E06C590003EEF9 /* Engine.strings */; };
-		DCCD2DC309E06C590003EEF9 /* iTM2EngineDvipdfm.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DBE09E06C590003EEF9 /* iTM2EngineDvipdfm.nib */; };
 		DCCD2DD109E06C760003EEF9 /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DC509E06C760003EEF9 /* Engine.strings */; };
-		DCCD2DD209E06C760003EEF9 /* iTM2EnginePDFTeX.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DC709E06C760003EEF9 /* iTM2EnginePDFTeX.nib */; };
-		DCCD2DD309E06C760003EEF9 /* iTM2EngineTeX.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DC909E06C760003EEF9 /* iTM2EngineTeX.nib */; };
-		DCCD2DD409E06C760003EEF9 /* iTM2EngineXeTeX.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DCB09E06C760003EEF9 /* iTM2EngineXeTeX.nib */; };
 		DCCD2DDC09E06C950003EEF9 /* Engine.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DD609E06C950003EEF9 /* Engine.strings */; };
-		DCCD2DDD09E06C950003EEF9 /* iTM2EnginePStoPDF.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2DD809E06C950003EEF9 /* iTM2EnginePStoPDF.nib */; };
 		DCE52EF70C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */; };
 		DCE52EF80C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */; };
 		DCE52EF90C0F3B3000F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */; };
@@ -195,6 +195,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		512D9D9D0D5A1ACB00FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineXeTeX.xib; sourceTree = "<group>"; };
+		512D9D9F0D5A1ACB00FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineTeX.xib; sourceTree = "<group>"; };
+		512D9DA10D5A1ACB00FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EnginePDFTeX.xib; sourceTree = "<group>"; };
+		512D9DA20D5A1ACB00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineXeTeX.xib; sourceTree = "<group>"; };
+		512D9DA30D5A1ACB00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineTeX.xib; sourceTree = "<group>"; };
+		512D9DA40D5A1ACB00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EnginePDFTeX.xib; sourceTree = "<group>"; };
+		512D9DB10D5A1AF200FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineXdvipdfmx.xib; sourceTree = "<group>"; };
+		512D9DB30D5A1AF200FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineDvipdfmx.xib; sourceTree = "<group>"; };
+		512D9DB50D5A1AF200FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineDvipdfm.xib; sourceTree = "<group>"; };
+		512D9DB60D5A1AF200FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineXdvipdfmx.xib; sourceTree = "<group>"; };
+		512D9DB70D5A1AF200FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineDvipdfmx.xib; sourceTree = "<group>"; };
+		512D9DB80D5A1AF200FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineDvipdfm.xib; sourceTree = "<group>"; };
+		512D9DBD0D5A1B0700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineDvips.xib; sourceTree = "<group>"; };
+		512D9DBE0D5A1B0700FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EngineDvips.xib; sourceTree = "<group>"; };
+		512D9DC10D5A1B2300FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EnginePStoPDF.xib; sourceTree = "<group>"; };
+		512D9DC20D5A1B2300FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2EnginePStoPDF.xib; sourceTree = "<group>"; };
 		DC0EF843094856570018276F /* dvipdfm wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvipdfm wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0EF8A9094858D00018276F /* dvips wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dvips wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0EF91809485D730018276F /* pstopdf wrapper.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "pstopdf wrapper.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,8 +225,6 @@
 		DC5B69320A4B679400F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69330A4B679400F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D6D0F0949A97100EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC5F5CA90CB7ED7500F52867 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineXdvipdfmx.nib; sourceTree = "<group>"; };
-		DC5F5CAF0CB7ED8F00F52867 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineXdvipdfmx.nib; sourceTree = "<group>"; };
 		DC643A8A0CD3D7A500CE716B /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
 		DC643A8C0CD3D7B400CE716B /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
 		DC643A8E0CD3D7D100CE716B /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
@@ -220,8 +234,6 @@
 		DC643A960CD3D81200CE716B /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
 		DC643A980CD3D81B00CE716B /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
 		DC70F0C30BFC5948006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../../build/Lua.framework; sourceTree = SOURCE_ROOT; };
-		DC8B1C2D0CB4ED5200640249 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineDvipdfmx.nib; sourceTree = "<group>"; };
-		DC8B1C330CB4ED6400640249 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineDvipdfmx.nib; sourceTree = "<group>"; };
 		DC8B1C3B0CB4F64500640249 /* iTM2_Engine_dvipdfmx.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_dvipdfmx.rb; sourceTree = "<group>"; };
 		DC8B1C9E0CB522B200640249 /* iTM2_Engine_xdvipdfmx.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_xdvipdfmx.rb; sourceTree = "<group>"; };
 		DC8B1D1B0CB52D4700640249 /* iTM2_Engine_dvips.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_dvips.rb; sourceTree = "<group>"; };
@@ -259,25 +271,13 @@
 		DC9DC56F0948413E0079E1B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		DC9DC71B09484CB90079E1B3 /* TeX Engines.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TeX Engines.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCCD2DB409E06C450003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DB609E06C450003EEF9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineDvips.nib; sourceTree = "<group>"; };
 		DCCD2DB709E06C450003EEF9 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DB809E06C450003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineDvips.nib; sourceTree = "<group>"; };
 		DCCD2DBD09E06C590003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DBF09E06C590003EEF9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineDvipdfm.nib; sourceTree = "<group>"; };
 		DCCD2DC009E06C590003EEF9 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DC109E06C590003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineDvipdfm.nib; sourceTree = "<group>"; };
 		DCCD2DC609E06C760003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DC809E06C760003EEF9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EnginePDFTeX.nib; sourceTree = "<group>"; };
-		DCCD2DCA09E06C760003EEF9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineTeX.nib; sourceTree = "<group>"; };
-		DCCD2DCC09E06C760003EEF9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EngineXeTeX.nib; sourceTree = "<group>"; };
 		DCCD2DCD09E06C760003EEF9 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DCE09E06C760003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EnginePDFTeX.nib; sourceTree = "<group>"; };
-		DCCD2DCF09E06C760003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineTeX.nib; sourceTree = "<group>"; };
-		DCCD2DD009E06C760003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EngineXeTeX.nib; sourceTree = "<group>"; };
 		DCCD2DD709E06C950003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DD909E06C950003EEF9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2EnginePStoPDF.nib; sourceTree = "<group>"; };
 		DCCD2DDA09E06C950003EEF9 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/Engine.strings; sourceTree = "<group>"; };
-		DCCD2DDB09E06C950003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2EnginePStoPDF.nib; sourceTree = "<group>"; };
 		DCE52EF60C0F3B3000F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -472,8 +472,8 @@
 			isa = PBXGroup;
 			children = (
 				DC643A910CD3D7F500CE716B /* BaseProjects.resources.tgz */,
+				512D9DBC0D5A1B0700FF9F6F /* iTM2EngineDvips.xib */,
 				DCCD2DB309E06C450003EEF9 /* Engine.strings */,
-				DCCD2DB509E06C450003EEF9 /* iTM2EngineDvips.nib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -482,10 +482,10 @@
 			isa = PBXGroup;
 			children = (
 				DC643A8D0CD3D7D100CE716B /* BaseProjects.resources.tgz */,
+				512D9DB00D5A1AF200FF9F6F /* iTM2EngineXdvipdfmx.xib */,
+				512D9DB20D5A1AF200FF9F6F /* iTM2EngineDvipdfmx.xib */,
+				512D9DB40D5A1AF200FF9F6F /* iTM2EngineDvipdfm.xib */,
 				DCCD2DBC09E06C590003EEF9 /* Engine.strings */,
-				DCCD2DBE09E06C590003EEF9 /* iTM2EngineDvipdfm.nib */,
-				DC5F5CA80CB7ED7500F52867 /* iTM2EngineXdvipdfmx.nib */,
-				DC8B1C2C0CB4ED5200640249 /* iTM2EngineDvipdfmx.nib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -493,11 +493,11 @@
 		DCCD2DC409E06C760003EEF9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				512D9D9C0D5A1ACB00FF9F6F /* iTM2EngineXeTeX.xib */,
+				512D9D9E0D5A1ACB00FF9F6F /* iTM2EngineTeX.xib */,
+				512D9DA00D5A1ACB00FF9F6F /* iTM2EnginePDFTeX.xib */,
 				DC643A890CD3D7A500CE716B /* BaseProjects.resources.tgz */,
 				DCCD2DC509E06C760003EEF9 /* Engine.strings */,
-				DCCD2DC709E06C760003EEF9 /* iTM2EnginePDFTeX.nib */,
-				DCCD2DC909E06C760003EEF9 /* iTM2EngineTeX.nib */,
-				DCCD2DCB09E06C760003EEF9 /* iTM2EngineXeTeX.nib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -505,9 +505,9 @@
 		DCCD2DD509E06C950003EEF9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				512D9DC00D5A1B2300FF9F6F /* iTM2EnginePStoPDF.xib */,
 				DC643A950CD3D81200CE716B /* BaseProjects.resources.tgz */,
 				DCCD2DD609E06C950003EEF9 /* Engine.strings */,
-				DCCD2DD809E06C950003EEF9 /* iTM2EnginePStoPDF.nib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -652,10 +652,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCCD2DC209E06C590003EEF9 /* Engine.strings in Resources */,
-				DCCD2DC309E06C590003EEF9 /* iTM2EngineDvipdfm.nib in Resources */,
-				DC8B1C320CB4ED5200640249 /* iTM2EngineDvipdfmx.nib in Resources */,
-				DC5F5CAE0CB7ED7500F52867 /* iTM2EngineXdvipdfmx.nib in Resources */,
 				DC643A8F0CD3D7D100CE716B /* BaseProjects.resources.tgz in Resources */,
+				512D9DB90D5A1AF200FF9F6F /* iTM2EngineXdvipdfmx.xib in Resources */,
+				512D9DBA0D5A1AF200FF9F6F /* iTM2EngineDvipdfmx.xib in Resources */,
+				512D9DBB0D5A1AF200FF9F6F /* iTM2EngineDvipdfm.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,8 +665,8 @@
 			files = (
 				DC0EF8B10948593E0018276F /* stock-hchain-24.png in Resources */,
 				DC0EF8B20948593E0018276F /* stock-hchain-broken-24.png in Resources */,
+				512D9DC40D5A1B7200FF9F6F /* iTM2EngineDvips.xib in Resources */,
 				DCCD2DB909E06C450003EEF9 /* Engine.strings in Resources */,
-				DCCD2DBA09E06C450003EEF9 /* iTM2EngineDvips.nib in Resources */,
 				DC643A930CD3D7F500CE716B /* BaseProjects.resources.tgz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -676,8 +676,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCCD2DDC09E06C950003EEF9 /* Engine.strings in Resources */,
-				DCCD2DDD09E06C950003EEF9 /* iTM2EnginePStoPDF.nib in Resources */,
 				DC643A970CD3D81200CE716B /* BaseProjects.resources.tgz in Resources */,
+				512D9DC30D5A1B2300FF9F6F /* iTM2EnginePStoPDF.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,10 +686,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCCD2DD109E06C760003EEF9 /* Engine.strings in Resources */,
-				DCCD2DD209E06C760003EEF9 /* iTM2EnginePDFTeX.nib in Resources */,
-				DCCD2DD309E06C760003EEF9 /* iTM2EngineTeX.nib in Resources */,
-				DCCD2DD409E06C760003EEF9 /* iTM2EngineXeTeX.nib in Resources */,
 				DC643A8B0CD3D7A500CE716B /* BaseProjects.resources.tgz in Resources */,
+				512D9DA50D5A1ACB00FF9F6F /* iTM2EngineXeTeX.xib in Resources */,
+				512D9DA60D5A1ACB00FF9F6F /* iTM2EngineTeX.xib in Resources */,
+				512D9DA70D5A1ACB00FF9F6F /* iTM2EnginePDFTeX.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,13 +870,76 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC5F5CA80CB7ED7500F52867 /* iTM2EngineXdvipdfmx.nib */ = {
+		512D9D9C0D5A1ACB00FF9F6F /* iTM2EngineXeTeX.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC5F5CA90CB7ED7500F52867 /* English */,
-				DC5F5CAF0CB7ED8F00F52867 /* French */,
+				512D9D9D0D5A1ACB00FF9F6F /* French */,
+				512D9DA20D5A1ACB00FF9F6F /* English */,
 			);
-			name = iTM2EngineXdvipdfmx.nib;
+			name = iTM2EngineXeTeX.xib;
+			sourceTree = "<group>";
+		};
+		512D9D9E0D5A1ACB00FF9F6F /* iTM2EngineTeX.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9D9F0D5A1ACB00FF9F6F /* French */,
+				512D9DA30D5A1ACB00FF9F6F /* English */,
+			);
+			name = iTM2EngineTeX.xib;
+			sourceTree = "<group>";
+		};
+		512D9DA00D5A1ACB00FF9F6F /* iTM2EnginePDFTeX.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9DA10D5A1ACB00FF9F6F /* French */,
+				512D9DA40D5A1ACB00FF9F6F /* English */,
+			);
+			name = iTM2EnginePDFTeX.xib;
+			sourceTree = "<group>";
+		};
+		512D9DB00D5A1AF200FF9F6F /* iTM2EngineXdvipdfmx.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9DB10D5A1AF200FF9F6F /* French */,
+				512D9DB60D5A1AF200FF9F6F /* English */,
+			);
+			name = iTM2EngineXdvipdfmx.xib;
+			sourceTree = "<group>";
+		};
+		512D9DB20D5A1AF200FF9F6F /* iTM2EngineDvipdfmx.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9DB30D5A1AF200FF9F6F /* French */,
+				512D9DB70D5A1AF200FF9F6F /* English */,
+			);
+			name = iTM2EngineDvipdfmx.xib;
+			sourceTree = "<group>";
+		};
+		512D9DB40D5A1AF200FF9F6F /* iTM2EngineDvipdfm.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9DB50D5A1AF200FF9F6F /* French */,
+				512D9DB80D5A1AF200FF9F6F /* English */,
+			);
+			name = iTM2EngineDvipdfm.xib;
+			sourceTree = "<group>";
+		};
+		512D9DBC0D5A1B0700FF9F6F /* iTM2EngineDvips.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9DBD0D5A1B0700FF9F6F /* French */,
+				512D9DBE0D5A1B0700FF9F6F /* English */,
+			);
+			name = iTM2EngineDvips.xib;
+			sourceTree = "<group>";
+		};
+		512D9DC00D5A1B2300FF9F6F /* iTM2EnginePStoPDF.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9DC10D5A1B2300FF9F6F /* French */,
+				512D9DC20D5A1B2300FF9F6F /* English */,
+			);
+			name = iTM2EnginePStoPDF.xib;
 			sourceTree = "<group>";
 		};
 		DC643A890CD3D7A500CE716B /* BaseProjects.resources.tgz */ = {
@@ -915,15 +978,6 @@
 			name = BaseProjects.resources.tgz;
 			sourceTree = "<group>";
 		};
-		DC8B1C2C0CB4ED5200640249 /* iTM2EngineDvipdfmx.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC8B1C2D0CB4ED5200640249 /* English */,
-				DC8B1C330CB4ED6400640249 /* French */,
-			);
-			name = iTM2EngineDvipdfmx.nib;
-			sourceTree = "<group>";
-		};
 		DCCD2DB309E06C450003EEF9 /* Engine.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -931,15 +985,6 @@
 				DCCD2DB709E06C450003EEF9 /* French */,
 			);
 			name = Engine.strings;
-			sourceTree = "<group>";
-		};
-		DCCD2DB509E06C450003EEF9 /* iTM2EngineDvips.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCCD2DB609E06C450003EEF9 /* English */,
-				DCCD2DB809E06C450003EEF9 /* French */,
-			);
-			name = iTM2EngineDvips.nib;
 			sourceTree = "<group>";
 		};
 		DCCD2DBC09E06C590003EEF9 /* Engine.strings */ = {
@@ -951,15 +996,6 @@
 			name = Engine.strings;
 			sourceTree = "<group>";
 		};
-		DCCD2DBE09E06C590003EEF9 /* iTM2EngineDvipdfm.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCCD2DBF09E06C590003EEF9 /* English */,
-				DCCD2DC109E06C590003EEF9 /* French */,
-			);
-			name = iTM2EngineDvipdfm.nib;
-			sourceTree = "<group>";
-		};
 		DCCD2DC509E06C760003EEF9 /* Engine.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -969,33 +1005,6 @@
 			name = Engine.strings;
 			sourceTree = "<group>";
 		};
-		DCCD2DC709E06C760003EEF9 /* iTM2EnginePDFTeX.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCCD2DC809E06C760003EEF9 /* English */,
-				DCCD2DCE09E06C760003EEF9 /* French */,
-			);
-			name = iTM2EnginePDFTeX.nib;
-			sourceTree = "<group>";
-		};
-		DCCD2DC909E06C760003EEF9 /* iTM2EngineTeX.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCCD2DCA09E06C760003EEF9 /* English */,
-				DCCD2DCF09E06C760003EEF9 /* French */,
-			);
-			name = iTM2EngineTeX.nib;
-			sourceTree = "<group>";
-		};
-		DCCD2DCB09E06C760003EEF9 /* iTM2EngineXeTeX.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCCD2DCC09E06C760003EEF9 /* English */,
-				DCCD2DD009E06C760003EEF9 /* French */,
-			);
-			name = iTM2EngineXeTeX.nib;
-			sourceTree = "<group>";
-		};
 		DCCD2DD609E06C950003EEF9 /* Engine.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1003,15 +1012,6 @@
 				DCCD2DDA09E06C950003EEF9 /* French */,
 			);
 			name = Engine.strings;
-			sourceTree = "<group>";
-		};
-		DCCD2DD809E06C950003EEF9 /* iTM2EnginePStoPDF.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCCD2DD909E06C950003EEF9 /* English */,
-				DCCD2DDB09E06C950003EEF9 /* French */,
-			);
-			name = iTM2EnginePStoPDF.nib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

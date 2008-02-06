@@ -21,9 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		512D9D600D59FA5E00FF9F6F /* iTM2BibTeXInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9D5E0D59FA5E00FF9F6F /* iTM2BibTeXInspector.xib */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		DC2072E008F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */; };
-		DC2072F508F00CDD00EBF1B6 /* iTM2BibTeXInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC2072F308F00CDD00EBF1B6 /* iTM2BibTeXInspector.nib */; };
 		DC2CA6BF0855D0CE00128F14 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6AE0855D0CE00128F14 /* InfoPlist.strings */; };
 		DC70F1A90BFC5C11006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F1A80BFC5C11006C6A76 /* Lua.framework */; };
 		DC8A626D088D84A00016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */; };
@@ -62,11 +62,12 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		512D9D5F0D59FA5E00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2BibTeXInspector.xib; sourceTree = "<group>"; };
+		512D9D610D59FA6700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2BibTeXInspector.xib; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* iTM2BibTeXSupportKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2BibTeXSupportKit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC2072DE08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2BibTeXSupportKit.h; sourceTree = "<group>"; };
 		DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2BibTeXSupportKit.m; sourceTree = "<group>"; };
-		DC2072F408F00CDD00EBF1B6 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2BibTeXInspector.nib; sourceTree = "<group>"; };
 		DC2CA6AF0855D0CE00128F14 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2BibTeXSupportKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2BibTeXSupportKit-Prefix.pch"; sourceTree = "<group>"; };
 		DC2CA71A0855D19F00128F14 /* iTM2BibTeXSupportKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2BibTeXSupportKit-Info.plist"; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		DCAF9B1309D8135600AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = Resources/French.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
-		DCAF9B1409D8135600AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2BibTeXInspector.nib; sourceTree = "<group>"; };
 		DCCD2ED409E147FE0003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCD2EDB09E148340003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCD3A6760A38FAE900B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
@@ -136,8 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				DCD3A6760A38FAE900B5EE0C /* EnvironmentVariables.plist */,
+				512D9D5E0D59FA5E00FF9F6F /* iTM2BibTeXInspector.xib */,
 				DCCD2ED309E147FE0003EEF9 /* Inspector.strings */,
-				DC2072F308F00CDD00EBF1B6 /* iTM2BibTeXInspector.nib */,
 				DC2CA6AE0855D0CE00128F14 /* InfoPlist.strings */,
 			);
 			path = Resources;
@@ -290,9 +290,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC2CA6BF0855D0CE00128F14 /* InfoPlist.strings in Resources */,
-				DC2072F508F00CDD00EBF1B6 /* iTM2BibTeXInspector.nib in Resources */,
 				DCCD2ED509E147FE0003EEF9 /* Inspector.strings in Resources */,
 				DCD3A6770A38FAE900B5EE0C /* EnvironmentVariables.plist in Resources */,
+				512D9D600D59FA5E00FF9F6F /* iTM2BibTeXInspector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,13 +373,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC2072F308F00CDD00EBF1B6 /* iTM2BibTeXInspector.nib */ = {
+		512D9D5E0D59FA5E00FF9F6F /* iTM2BibTeXInspector.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC2072F408F00CDD00EBF1B6 /* English */,
-				DCAF9B1409D8135600AFD95F /* French */,
+				512D9D5F0D59FA5E00FF9F6F /* English */,
+				512D9D610D59FA6700FF9F6F /* French */,
 			);
-			name = iTM2BibTeXInspector.nib;
+			name = iTM2BibTeXInspector.xib;
 			sourceTree = "<group>";
 		};
 		DC2CA6AE0855D0CE00128F14 /* InfoPlist.strings */ = {
