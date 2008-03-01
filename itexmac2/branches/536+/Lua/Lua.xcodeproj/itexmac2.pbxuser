@@ -1,0 +1,147 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeArchitecture = i386;
+		activeBuildConfigurationName = Development;
+		activeTarget = 8DC2EF4F0486A6940098B216 /* Lua */;
+		addToTargets = (
+			8DC2EF4F0486A6940098B216 /* Lua */,
+		);
+		codeSenseManager = 512664530D7A0F4400238907 /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					614,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					574,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 226104085;
+			PBXWorkspaceStateSaveDate = 226104085;
+		};
+		perUserProjectItems = {
+			512664780D7A128B00238907 = 512664780D7A128B00238907 /* PBXTextBookmark */;
+			5126647A0D7A128B00238907 = 5126647A0D7A128B00238907 /* PBXTextBookmark */;
+			512664860D7A132D00238907 /* PBXTextBookmark */ = 512664860D7A132D00238907 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 512664520D7A0F4400238907 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	512664520D7A0F4400238907 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryName = sourceforge;
+		};
+	};
+	512664530D7A0F4400238907 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	512664590D7A0F5100238907 /* LuaObjCBridge.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1061, 1360}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 915}";
+			sepNavWindowFrame = "{{61, 4}, {1120, 827}}";
+		};
+	};
+	5126645A0D7A0F5100238907 /* LuaObjCBridge.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1358, 49932}}";
+			sepNavSelRange = "{32622, 30}";
+			sepNavVisRange = "{32535, 474}";
+		};
+	};
+	512664780D7A128B00238907 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 512664790D7A128B00238907 /* DownloadSparkle.command */;
+		rLen = 0;
+		rLoc = 215;
+		rType = 0;
+	};
+	512664790D7A128B00238907 /* DownloadSparkle.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = DownloadSparkle.command;
+		path = /leopard/itexmac2/Scripts/DownloadSparkle.command;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1061, 723}}";
+			sepNavSelRange = "{136, 0}";
+			sepNavVisRange = "{0, 215}";
+		};
+	};
+	5126647A0D7A128B00238907 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5126647B0D7A128B00238907 /* DownloadSparkle.command */;
+		name = "DownloadSparkle.command: 6";
+		rLen = 0;
+		rLoc = 136;
+		rType = 0;
+		vrLen = 215;
+		vrLoc = 0;
+	};
+	5126647B0D7A128B00238907 /* DownloadSparkle.command */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
+		name = DownloadSparkle.command;
+		path = /leopard/itexmac2/Scripts/DownloadSparkle.command;
+		sourceTree = "<absolute>";
+	};
+	512664860D7A132D00238907 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 512664790D7A128B00238907 /* DownloadSparkle.command */;
+		name = "DownloadSparkle.command: 6";
+		rLen = 0;
+		rLoc = 136;
+		rType = 0;
+		vrLen = 215;
+		vrLoc = 0;
+	};
+	8DC2EF4F0486A6940098B216 /* Lua */ = {
+		activeExec = 0;
+	};
+	DC0F13380BFB76A800108852 /* All */ = {
+		activeExec = 0;
+	};
+}
