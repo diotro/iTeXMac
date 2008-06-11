@@ -4219,7 +4219,7 @@
 		DC1464500B86654E00E86DA3 /* tz2icu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tz2icu.cpp; sourceTree = "<group>"; };
 		DC1464510B86654E00E86DA3 /* tz2icu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tz2icu.h; sourceTree = "<group>"; };
 		DC5302BA0B64B96A00BD0276 /* ICU-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ICU-main.m"; sourceTree = "<group>"; };
-		DC5302BE0B64B98A00BD0276 /* ICU */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = ICU; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC5302BE0B64B98A00BD0276 /* ICU */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ICU; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB26F230B852AE000868348 /* ICURegEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICURegEx.h; sourceTree = "<group>"; };
 		DCB26F240B852AE000868348 /* ICURegEx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ICURegEx.mm; sourceTree = "<group>"; };
 		DCC2E4470B86284E00591965 /* regex_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = regex_public.h; sourceTree = "<group>"; };
@@ -9560,9 +9560,11 @@
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DEB927808733DD40010E9CD /* Build configuration list for PBXProject "CocoaICU" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* CocoaICU */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				DC146B470B877D5F00E86DA3 /* configure/make icu */,
 				DC5302BD0B64B98A00BD0276 /* ICU */,

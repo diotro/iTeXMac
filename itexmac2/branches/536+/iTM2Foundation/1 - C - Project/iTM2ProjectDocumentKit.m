@@ -2488,7 +2488,7 @@ To Do List:
 	{
 		iTM2_LOG(@"AIE AIE INCONSITENT STATE %@ (key:%@, new:%@)",__iTM2_PRETTY_FUNCTION__,key,new);
 	}
-	NSAssert([new length],([NSString stringWithFormat:@"AIE AIE INCONSITENT STATE %@ (filename:%@, dirname:%@,relaive:%@,key:%@, new:%@)",__iTM2_PRETTY_FUNCTION__,fileName,dirName,(makeRelativeFlag?@"Y":@"N"),key,new]));
+	NSAssert([new length],([NSString stringWithFormat:@"AIE AIE INCONSITENT STATE %@ (filename:%@, dirname:%@,relative:%@,key:%@, new:%@)",__iTM2_PRETTY_FUNCTION__,fileName,dirName,(makeRelativeFlag?@"Y":@"N"),key,new]));
 //iTM2_LOG(@"old: %@",old);
 //iTM2_LOG(@"new: %@",new);
 	if(![old pathIsEqual:new])
@@ -3050,7 +3050,32 @@ To Do List:
 	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
 	if([key length])
 	{
+		NSEnumerator * E = nil;
+		id WC;
+the_end:
+		E = [[self windowControllers] objectEnumerator];
+		while(WC = [E nextObject])
+		{
+			if([WC respondsToSelector:@selector(updateOrderedFileKeys)])
+			{
+				[WC updateOrderedFileKeys];
+			}
+		}
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"the new key for %@ (fileName)",fileName);
+			iTM2_LOG(@"is %@ (key)",key);
+		}
+		fileURL = [NSURL fileURLWithPath:fileName];
 		[self recordHandleToFileURL:fileURL];// just in case...
+	// Are the corresponding link and alias up to date?
+	//iTM2_LOG(@"key: %@,fileName: %@",key,fileName);
+	//iTM2_LOG(@"AFTER  cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
+		if(shouldSave)
+		{
+			[self saveDocument:nil];
+		}
+		NSAssert1([key isEqual:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %@"),__iTM2_PRETTY_FUNCTION__);
 		return key;
 	}
 	NSString * dirName = [[self fileName] stringByStandardizingPath];
@@ -3068,7 +3093,6 @@ To Do List:
 //iTM2_LOG(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
 	if([key length])
 	{
-		[self recordHandleToFileURL:fileURL];// just in case...
 //		[[self keyedFileNames] takeValue:fileName forKey:key];
 //iTM2_LOG(@"fileName:%@",fileName);
 //iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
@@ -3080,11 +3104,7 @@ To Do List:
 		{
 			[self saveDocument:nil];
 		}
-//iTM2_LOG(@"fileName:%@",fileName);
-//iTM2_LOG(@"[self keyedFileNames]:%@",[self keyedFileNames]);
-//iTM2_LOG(@"[self keyForFileName:fileName]:%@",[self keyForFileName:fileName]);
-		NSAssert1([key isEqual:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %@"),__iTM2_PRETTY_FUNCTION__);
-		return key;
+		goto the_end;
 	}
 	// it is not an already registered file name,as far as I could guess...
 	// the given file seems to be a really new one
@@ -3095,30 +3115,7 @@ To Do List:
 		[self keyForFileName:fileName];
 	NSAssert2([key isEqualToString:[self keyForFileName:fileName]],@"***  ERROR:[self keyForFileName:...] is %@ instead of %@",[self keyForFileName:fileName],key);
 	[self updateChangeCount:NSChangeDone];
-	NSEnumerator * E = [[self windowControllers] objectEnumerator];
-	id WC;
-	while(WC = [E nextObject])
-	{
-		if([WC respondsToSelector:@selector(updateOrderedFileKeys)])
-		{
-			[WC updateOrderedFileKeys];
-		}
-	}
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"the new key for %@ (fileName)",fileName);
-		iTM2_LOG(@"is %@ (key)",key);
-	}
-	fileURL = [NSURL fileURLWithPath:fileName];
-	[self recordHandleToFileURL:fileURL];// just in case...
-// Are the corresponding link and alias up to date?
-//iTM2_LOG(@"key: %@,fileName: %@",key,fileName);
-//iTM2_LOG(@"AFTER  cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
-	if(shouldSave)
-	{
-		[self saveDocument:nil];
-	}
-    return key;
+	goto the_end;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordHandleToFileURL:
 - (void)recordHandleToFileURL:(NSURL *)fileURL;
@@ -5799,6 +5796,8 @@ To Do List:
 			@selector(removeSubdocumentSheetDidDismiss:returnCode:recyclable:),
 			[recyclable retain],// will be released below
 			NSLocalizedStringFromTableInBundle(@"Also recycle the selected project documents?",iTM2ProjectTable,myBUNDLE,""));
+	// Inform the shared project controller that something has changed
+	[SPC flushCaches];
 //iTM2_END;
 	return;
 }

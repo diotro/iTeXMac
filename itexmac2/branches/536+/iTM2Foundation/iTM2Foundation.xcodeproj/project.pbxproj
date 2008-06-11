@@ -68,6 +68,8 @@
 		5131527F0D0584F000862683 /* iTM2StringEncodingRegEx.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */; };
 		518E0C650CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */; };
 		51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */; };
+		51EFB39F0DFD23BD0090E7D0 /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B40854DC0F00F3EB8A /* README.rtf */; };
+		51EFB3B00DFD242D0090E7D0 /* skim in Copy Command */ = {isa = PBXBuildFile; fileRef = 51EFB3A70DFD23FA0090E7D0 /* skim */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
@@ -189,7 +191,6 @@
 		DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC98685909ED968200FF4BD3 /* iTM2TextCompletionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC98685A09ED968200FF4BD3 /* iTM2TextCompletionKit.m */; };
 		DCAD23910C144E83005549DC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCAD237C0C144E83005549DC /* SenTestingKit.framework */; };
-		DCAD23980C144EAF005549DC /* ICURE.m in Sources */ = {isa = PBXBuildFile; fileRef = DCAD23700C144E03005549DC /* ICURE.m */; };
 		DCAD24290C14511D005549DC /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC18E08E1A5890011D2B7 /* PreferencePanes.framework */; };
 		DCAD242A0C14511D005549DC /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
 		DCAD242B0C14511D005549DC /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
@@ -365,6 +366,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		51EFB39B0DFD23BD0090E7D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB200320858E250003659F3;
+			remoteInfo = "Install iTM2Foundation";
+		};
+		51EFB3C80DFD278C0090E7D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51EFB3990DFD23BD0090E7D0;
+			remoteInfo = Skim;
+		};
 		DC0F126E0BFB755F00108852 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -557,6 +572,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		51EFB39C0DFD23BD0090E7D0 /* Copy Command */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				51EFB3B00DFD242D0090E7D0 /* skim in Copy Command */,
+			);
+			name = "Copy Command";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51EFB39E0DFD23BD0090E7D0 /* Copy Readme.rtf */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 1;
+			files = (
+				51EFB39F0DFD23BD0090E7D0 /* README.rtf in Copy Readme.rtf */,
+			);
+			name = "Copy Readme.rtf";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC0F15590BFC36DB00108852 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,6 +759,9 @@
 		5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2StringEncodingRegEx.strings; sourceTree = "<group>"; };
 		518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SmallToolbarBackground.png; sourceTree = "<group>"; };
 		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
+		51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Skim.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		51EFB3A70DFD23FA0090E7D0 /* skim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skim; sourceTree = "<group>"; };
+		51EFB3A80DFD23FA0090E7D0 /* Skim-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Skim-Info.plist"; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
@@ -837,8 +877,6 @@
 		DCA45B93085DE62A00AF1C1F /* iTM2Foundation.hdoc */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = iTM2Foundation.hdoc; sourceTree = "<group>"; };
 		DCAD22760C144930005549DC /* ICU RegEx test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ICU RegEx test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCAD227F0C144931005549DC /* ICU RegEx test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "ICU RegEx test-Info.plist"; sourceTree = "<group>"; };
-		DCAD236F0C144E03005549DC /* ICURE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICURE.h; sourceTree = "<group>"; };
-		DCAD23700C144E03005549DC /* ICURE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICURE.m; sourceTree = "<group>"; };
 		DCAD237C0C144E83005549DC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /System/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
 		DCAF9AEB09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Basic.strings; sourceTree = "<group>"; };
 		DCAF9AEC09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1157,6 +1195,7 @@
 				DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */,
 				DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */,
 				DCAD22760C144930005549DC /* ICU RegEx test.octest */,
+				51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1253,8 +1292,6 @@
 				DCB0A01609AEF98E00D2A37C /* Alias.m */,
 				DC99ECC60A284EC600F50752 /* Projects.h */,
 				DC99ECC70A284EC600F50752 /* Projects.m */,
-				DCAD236F0C144E03005549DC /* ICURE.h */,
-				DCAD23700C144E03005549DC /* ICURE.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -1368,6 +1405,8 @@
 				DCC7F8B20854DC0F00F3EB8A /* command */,
 				DCC7F8B40854DC0F00F3EB8A /* README.rtf */,
 				DCC7F8B30854DC0F00F3EB8A /* External PDF Viewer-Info.plist */,
+				51EFB3A70DFD23FA0090E7D0 /* skim */,
+				51EFB3A80DFD23FA0090E7D0 /* Skim-Info.plist */,
 			);
 			path = PDF;
 			sourceTree = "<group>";
@@ -1736,6 +1775,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		51EFB3990DFD23BD0090E7D0 /* Skim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51EFB3A00DFD23BD0090E7D0 /* Build configuration list for PBXNativeTarget "Skim" */;
+			buildPhases = (
+				51EFB39C0DFD23BD0090E7D0 /* Copy Command */,
+				51EFB39E0DFD23BD0090E7D0 /* Copy Readme.rtf */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51EFB39A0DFD23BD0090E7D0 /* PBXTargetDependency */,
+			);
+			name = Skim;
+			productName = "External PDF Viewer";
+			productReference = 51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8DC2EF4F0486A6940098B216 /* iTM2Foundation */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC1E8A8D09462DC40037B13F /* Build configuration list for PBXNativeTarget "iTM2Foundation" */;
@@ -1992,6 +2048,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				51EFB3C90DFD278C0090E7D0 /* PBXTargetDependency */,
 				DCB2004E0858E2AF003659F3 /* PBXTargetDependency */,
 			);
 			name = "External PDF Viewer";
@@ -2105,17 +2162,18 @@
 				DCD7D6C90A4399990096B1A9 /* Emacs */,
 				DCB7DE9F0ADE49DE0084DE9D /* TextMate */,
 				DCE5C5720AC823940054C760 /* TextWrangler */,
+				51EFB3990DFD23BD0090E7D0 /* Skim */,
 				DCC7F8980854DB8C00F3EB8A /* External Text Editor */,
 				DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */,
 				DC2CA7A50855D53C00128F14 /* All */,
 				DC13E68A0855867D0063D5A5 /* Test Application */,
 				DC951796088DED4B0011E823 /* iTeXMac2 */,
+				DCAD22750C144930005549DC /* ICU RegEx test */,
 				DC8303B6086E9DA2004799EB /* Scripting Definition */,
 				DC6698AA08E1289F004FCA6D /* iTM2PreferencePane */,
 				DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */,
 				DCB0A00909AEF96E00D2A37C /* Alias Test */,
 				DC99ECBD0A284EA800F50752 /* Project */,
-				DCAD22750C144930005549DC /* ICU RegEx test */,
 			);
 		};
 /* End PBXProject section */
@@ -2637,7 +2695,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCAD23980C144EAF005549DC /* ICURE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2652,6 +2709,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		51EFB39A0DFD23BD0090E7D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
+			targetProxy = 51EFB39B0DFD23BD0090E7D0 /* PBXContainerItemProxy */;
+		};
+		51EFB3C90DFD278C0090E7D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51EFB3990DFD23BD0090E7D0 /* Skim */;
+			targetProxy = 51EFB3C80DFD278C0090E7D0 /* PBXContainerItemProxy */;
+		};
 		DC0F126F0BFB755F00108852 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DC0F125B0BFB74CA00108852 /* Prepare Lua */;
@@ -3134,6 +3201,24 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		51EFB3A10DFD23BD0090E7D0 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "/iTeXMac2/svn/branch-719/iTM2Foundation/External Inspectors/PDF/Skim-Info.plist";
+				PRODUCT_NAME = Skim;
+			};
+			name = Development;
+		};
+		51EFB3A20DFD23BD0090E7D0 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "/iTeXMac2/svn/branch-719/iTM2Foundation/External Inspectors/PDF/Skim-Info.plist";
+				PRODUCT_NAME = Skim;
+			};
+			name = Deployment;
+		};
 		DC0F12620BFB74CB00108852 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3938,6 +4023,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		51EFB3A00DFD23BD0090E7D0 /* Build configuration list for PBXNativeTarget "Skim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51EFB3A10DFD23BD0090E7D0 /* Development */,
+				51EFB3A20DFD23BD0090E7D0 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
 		DC0F12610BFB74CB00108852 /* Build configuration list for PBXNativeTarget "Prepare Lua" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

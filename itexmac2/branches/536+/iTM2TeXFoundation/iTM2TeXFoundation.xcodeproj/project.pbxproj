@@ -284,7 +284,6 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		518F7ECF0CFFBBA500CECB41 /* untitled */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = untitled; sourceTree = "<group>"; };
 		51B3E6330CDF8D360024D173 /* iTM2Gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Gear.png; sourceTree = "<group>"; };
 		51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "7bitsAccents.iTM2-key-bindings"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -628,7 +627,6 @@
 		DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				518F7ECF0CFFBBA500CECB41 /* untitled */,
 				DC7E918908903606007D0CB2 /* Style */,
 				DCC7F3DF0854AC9200F3EB8A /* iTM2TeXFoundation-Info.plist */,
 				DCA45CBB085EEA6B00AF1C1F /* iTM2TeXFoundation.hdoc */,

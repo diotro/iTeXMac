@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		512664620D7A0F5100238907 /* LuaObjCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 512664590D7A0F5100238907 /* LuaObjCBridge.h */; };
+		512664620D7A0F5100238907 /* LuaObjCBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 512664590D7A0F5100238907 /* LuaObjCBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		512664630D7A0F5100238907 /* LuaObjCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 5126645A0D7A0F5100238907 /* LuaObjCBridge.m */; };
 		512664660D7A0F5100238907 /* objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5126645D0D7A0F5100238907 /* objc.m */; };
 		DC0F02860BFA30E100108852 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = DC72FB150BFA2A2400C719E6 /* lapi.c */; };

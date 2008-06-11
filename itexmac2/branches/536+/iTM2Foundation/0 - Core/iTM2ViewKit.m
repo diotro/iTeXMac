@@ -1289,7 +1289,7 @@ To Do List:
 			[view removeFromSuperview];
 			[[_window contentView] setNeedsDisplay:YES];
 			[self didRemoveSplittingView:view];
-			if((_window == [_window firstResponder]) || (nil == [_window firstResponder])
+			if((_window == [_window firstResponder]) || (nil == [_window firstResponder]))
 			{
 				FR = [[ESV subviews] objectAtIndex:(idx>0? idx-1:idx)];
 				if([FR acceptsFirstResponder])
@@ -1308,9 +1308,9 @@ To Do List:
 			[view setFrame:[ESV frame]];
 			[[_window contentView] setNeedsDisplay:YES];
 			[self didRemoveSplittingView:ESV];
-			if((_window == [_window firstResponder]) || (nil == [_window firstResponder])
+			if((_window == [_window firstResponder]) || (nil == [_window firstResponder]))
 			{
-				FR = [[ESV subviews] objectAtIndex:(idx>0? idx-1:idx)];
+				FR = [[ESV subviews] lastObject];
 				if([FR acceptsFirstResponder])
 				{
 					[_window makeFirstResponder:FR];

@@ -39,7 +39,7 @@
 					574,
 					60,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 				);
@@ -53,13 +53,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 226104085;
-			PBXWorkspaceStateSaveDate = 226104085;
-		};
-		perUserProjectItems = {
-			512664780D7A128B00238907 = 512664780D7A128B00238907 /* PBXTextBookmark */;
-			5126647A0D7A128B00238907 = 5126647A0D7A128B00238907 /* PBXTextBookmark */;
-			512664860D7A132D00238907 /* PBXTextBookmark */ = 512664860D7A132D00238907 /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 234451773;
+			PBXWorkspaceStateSaveDate = 234451773;
 		};
 		sourceControlManager = 512664520D7A0F4400238907 /* Source Control */;
 		userBuildSettings = {
@@ -87,56 +82,11 @@
 	};
 	5126645A0D7A0F5100238907 /* LuaObjCBridge.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1358, 49932}}";
-			sepNavSelRange = "{32622, 30}";
-			sepNavVisRange = "{32535, 474}";
+			sepNavIntBoundsRect = "{{0, 0}, {1547, 49960}}";
+			sepNavSelRange = "{17845, 4}";
+			sepNavVisRange = "{17489, 616}";
+			sepNavWindowFrame = "{{428, 204}, {982, 417}}";
 		};
-	};
-	512664780D7A128B00238907 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 512664790D7A128B00238907 /* DownloadSparkle.command */;
-		rLen = 0;
-		rLoc = 215;
-		rType = 0;
-	};
-	512664790D7A128B00238907 /* DownloadSparkle.command */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = DownloadSparkle.command;
-		path = /leopard/itexmac2/Scripts/DownloadSparkle.command;
-		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1061, 723}}";
-			sepNavSelRange = "{136, 0}";
-			sepNavVisRange = "{0, 215}";
-		};
-	};
-	5126647A0D7A128B00238907 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 5126647B0D7A128B00238907 /* DownloadSparkle.command */;
-		name = "DownloadSparkle.command: 6";
-		rLen = 0;
-		rLoc = 136;
-		rType = 0;
-		vrLen = 215;
-		vrLoc = 0;
-	};
-	5126647B0D7A128B00238907 /* DownloadSparkle.command */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = text.script.sh;
-		name = DownloadSparkle.command;
-		path = /leopard/itexmac2/Scripts/DownloadSparkle.command;
-		sourceTree = "<absolute>";
-	};
-	512664860D7A132D00238907 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 512664790D7A128B00238907 /* DownloadSparkle.command */;
-		name = "DownloadSparkle.command: 6";
-		rLen = 0;
-		rLoc = 136;
-		rType = 0;
-		vrLen = 215;
-		vrLoc = 0;
 	};
 	8DC2EF4F0486A6940098B216 /* Lua */ = {
 		activeExec = 0;
