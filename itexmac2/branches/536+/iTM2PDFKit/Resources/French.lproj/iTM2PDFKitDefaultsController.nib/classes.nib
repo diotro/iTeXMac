@@ -1,33 +1,63 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {"" = id; }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {
-                apply = id; 
-                revert = id; 
-                takeBackgroundColorFrom = id; 
-                takeDisplayBoxFromSelectedTag = id; 
-                takeDisplayModeFromSelectedTag = id; 
-                takeGreekingThresholdFrom = id; 
-                toggleAutoScales = id; 
-                toggleContinuous = id; 
-                toggleDisplayBulletsFromTag = id; 
-                toggleDisplaysAsBook = id; 
-                toggleDisplaysPageBreaks = id; 
-                toggleEnableSynchronization = id; 
-                toggleFollowFocus = id; 
-                toggleShouldAntiAlias = id; 
-            }; 
-            CLASS = iTM2PDFKitDefaultsController; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindowController; 
-        }, 
-        {CLASS = iTM2Window; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key></key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>apply</key>
+				<string>id</string>
+				<key>revert</key>
+				<string>id</string>
+				<key>takeBackgroundColorFrom</key>
+				<string>id</string>
+				<key>takeDisplayBoxFromSelectedTag</key>
+				<string>id</string>
+				<key>takeDisplayModeFromSelectedTag</key>
+				<string>id</string>
+				<key>takeGreekingThresholdFrom</key>
+				<string>id</string>
+				<key>toggleAutoScales</key>
+				<string>id</string>
+				<key>toggleContinuous</key>
+				<string>id</string>
+				<key>toggleDisplayBulletsFromTag</key>
+				<string>id</string>
+				<key>toggleDisplaysAsBook</key>
+				<string>id</string>
+				<key>toggleDisplaysPageBreaks</key>
+				<string>id</string>
+				<key>toggleEnableSynchronization</key>
+				<string>id</string>
+				<key>toggleFollowFocus</key>
+				<string>id</string>
+				<key>toggleShouldAntiAlias</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2PDFKitDefaultsController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

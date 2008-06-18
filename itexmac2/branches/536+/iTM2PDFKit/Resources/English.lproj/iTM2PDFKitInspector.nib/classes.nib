@@ -1,121 +1,240 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {doSearchField = id; }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
-        {
-            ACTIONS = {
-                copy = id; 
-                goBack = id; 
-                goFirstPage = id; 
-                goForward = id; 
-                goLastPage = id; 
-                goNextPage = id; 
-                goPreviousPage = id; 
-                takeMatteColorFrom = id; 
-                takePasswordFrom = id; 
-                takeStringURLFrom = id; 
-                zoomIn = id; 
-                zoomOut = id; 
-            }; 
-            CLASS = PDFView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSView; 
-        }, 
-        {
-            ACTIONS = {
-                addBookMarkAdd = id; 
-                addBookMarkCancel = id; 
-                annotateTool = id; 
-                cropAllPages = id; 
-                cropCancel = id; 
-                cropCurrentPage = id; 
-                displayCropBox = id; 
-                displayMediaBox = id; 
-                doFind = id; 
-                doFindNext = id; 
-                doFindPrevious = id; 
-                doSearchField = id; 
-                goToPageNumberCanceled = id; 
-                goToPageNumberEntered = id; 
-                goToPageNumberPanel = id; 
-                passwordEntered = id; 
-                passwordPanelDone = id; 
-                printPreviewCancel = id; 
-                printPreviewPrint = id; 
-                refreshBackForwardState = id; 
-                refreshDisplayBoxState = id; 
-                scaleFactorCancel = id; 
-                scaleFactorEnter = id; 
-                scrollTool = id; 
-                selectTool = id; 
-                setCircleAnnotation = id; 
-                setFreeTextAnnotation = id; 
-                softProofToggle = id; 
-                textTool = id; 
-            }; 
-            CLASS = iTM2PDFKitInspector; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_bookmarkLabelField" = NSTextField; 
-                "_bookmarkPanel" = id; 
-                "_crop1PagePanel" = NSPanel; 
-                "_cropManyPagesPanel" = NSPanel; 
-                "_drawer" = NSDrawer; 
-                "_drawerView" = NSView; 
-                "_outlineView" = NSOutlineView; 
-                "_pageNumPanel" = id; 
-                "_pageNumPanelText" = NSTextField; 
-                "_pageNumView" = NSTextField; 
-                "_passwordCopyCheck" = id; 
-                "_passwordPrintCheck" = id; 
-                "_passwordTextField" = NSTextField; 
-                "_passwordViewCheck" = id; 
-                "_passwordWindow" = id; 
-                "_pdfTabView" = NSTabView; 
-                "_pdfView" = PVPDFView; 
-                "_printAppendView" = NSView; 
-                "_printButton" = NSButton; 
-                "_scalePanel" = id; 
-                "_scalePanelText" = NSTextField; 
-                "_scaleView" = NSTextField; 
-                "_searchCountText" = NSTextField; 
-                "_searchField" = NSSearchField; 
-                "_searchProgress" = NSProgressIndicator; 
-                "_searchTable" = NSTableView; 
-                "_softProofButton" = NSButton; 
-                "_tabViewControl" = NSSegmentedControl; 
-                "_thumbnailTable" = NSTableView; 
-                "_toolbarBackForwardView" = NSSegmentedControl; 
-                "_toolbarDisplayBoxView" = NSPopUpButton; 
-                "_toolbarToolModeView" = NSSegmentedControl; 
-                "_unCrop1PagePanel" = NSPanel; 
-                "_unCropManyPagesPanel" = NSPanel; 
-            }; 
-            SUPERCLASS = NSWindowController; 
-        }, 
-        {
-            ACTIONS = {
-                selectToolMode = id; 
-                setAnnotateToolMode = id; 
-                setMoveToolMode = id; 
-                setSelectToolMode = id; 
-                setTextToolMode = id; 
-            }; 
-            CLASS = iTM2PDFKitView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = PDFView; 
-        }, 
-        {CLASS = iTM2PDFKitWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
-        {
-            CLASS = iTM2SegmentedControl; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSSegmentedControl; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>selectToolMode</key>
+				<string>id</string>
+				<key>setAnnotateToolMode</key>
+				<string>id</string>
+				<key>setMoveToolMode</key>
+				<string>id</string>
+				<key>setSelectToolMode</key>
+				<string>id</string>
+				<key>setTextToolMode</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2PDFKitView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>PDFView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSSegmentedControl</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>doSearchField</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2PDFKitWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSWindow</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>addBookMarkAdd</key>
+				<string>id</string>
+				<key>addBookMarkCancel</key>
+				<string>id</string>
+				<key>annotateTool</key>
+				<string>id</string>
+				<key>cropAllPages</key>
+				<string>id</string>
+				<key>cropCancel</key>
+				<string>id</string>
+				<key>cropCurrentPage</key>
+				<string>id</string>
+				<key>displayCropBox</key>
+				<string>id</string>
+				<key>displayMediaBox</key>
+				<string>id</string>
+				<key>doFind</key>
+				<string>id</string>
+				<key>doFindNext</key>
+				<string>id</string>
+				<key>doFindPrevious</key>
+				<string>id</string>
+				<key>doSearchField</key>
+				<string>id</string>
+				<key>goToPageNumberCanceled</key>
+				<string>id</string>
+				<key>goToPageNumberEntered</key>
+				<string>id</string>
+				<key>goToPageNumberPanel</key>
+				<string>id</string>
+				<key>passwordEntered</key>
+				<string>id</string>
+				<key>passwordPanelDone</key>
+				<string>id</string>
+				<key>printPreviewCancel</key>
+				<string>id</string>
+				<key>printPreviewPrint</key>
+				<string>id</string>
+				<key>refreshBackForwardState</key>
+				<string>id</string>
+				<key>refreshDisplayBoxState</key>
+				<string>id</string>
+				<key>scaleFactorCancel</key>
+				<string>id</string>
+				<key>scaleFactorEnter</key>
+				<string>id</string>
+				<key>scrollTool</key>
+				<string>id</string>
+				<key>selectTool</key>
+				<string>id</string>
+				<key>setCircleAnnotation</key>
+				<string>id</string>
+				<key>setFreeTextAnnotation</key>
+				<string>id</string>
+				<key>softProofToggle</key>
+				<string>id</string>
+				<key>textTool</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2PDFKitInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_bookmarkLabelField</key>
+				<string>NSTextField</string>
+				<key>_bookmarkPanel</key>
+				<string>id</string>
+				<key>_crop1PagePanel</key>
+				<string>NSPanel</string>
+				<key>_cropManyPagesPanel</key>
+				<string>NSPanel</string>
+				<key>_drawer</key>
+				<string>NSDrawer</string>
+				<key>_drawerView</key>
+				<string>NSView</string>
+				<key>_outlineView</key>
+				<string>NSOutlineView</string>
+				<key>_outlinesView</key>
+				<string>NSOutlineView</string>
+				<key>_pageNumPanel</key>
+				<string>id</string>
+				<key>_pageNumPanelText</key>
+				<string>NSTextField</string>
+				<key>_pageNumView</key>
+				<string>NSTextField</string>
+				<key>_passwordCopyCheck</key>
+				<string>id</string>
+				<key>_passwordPrintCheck</key>
+				<string>id</string>
+				<key>_passwordTextField</key>
+				<string>NSTextField</string>
+				<key>_passwordViewCheck</key>
+				<string>id</string>
+				<key>_passwordWindow</key>
+				<string>id</string>
+				<key>_pdfTabView</key>
+				<string>NSTabView</string>
+				<key>_pdfView</key>
+				<string>PDFView</string>
+				<key>_printAppendView</key>
+				<string>NSView</string>
+				<key>_printButton</key>
+				<string>NSButton</string>
+				<key>_scalePanel</key>
+				<string>id</string>
+				<key>_scalePanelText</key>
+				<string>NSTextField</string>
+				<key>_scaleView</key>
+				<string>NSTextField</string>
+				<key>_searchCountText</key>
+				<string>NSTextField</string>
+				<key>_searchField</key>
+				<string>NSSearchField</string>
+				<key>_searchProgress</key>
+				<string>NSProgressIndicator</string>
+				<key>_searchTable</key>
+				<string>NSTableView</string>
+				<key>_softProofButton</key>
+				<string>NSButton</string>
+				<key>_tabViewControl</key>
+				<string>NSSegmentedControl</string>
+				<key>_thumbnailTable</key>
+				<string>NSTableView</string>
+				<key>_toolbarBackForwardView</key>
+				<string>NSSegmentedControl</string>
+				<key>_toolbarDisplayBoxView</key>
+				<string>NSPopUpButton</string>
+				<key>_toolbarToolModeView</key>
+				<string>NSSegmentedControl</string>
+				<key>_unCrop1PagePanel</key>
+				<string>NSPanel</string>
+				<key>_unCropManyPagesPanel</key>
+				<string>NSPanel</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>iTM2Inspector</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>copy</key>
+				<string>id</string>
+				<key>goBack</key>
+				<string>id</string>
+				<key>goFirstPage</key>
+				<string>id</string>
+				<key>goForward</key>
+				<string>id</string>
+				<key>goLastPage</key>
+				<string>id</string>
+				<key>goNextPage</key>
+				<string>id</string>
+				<key>goPreviousPage</key>
+				<string>id</string>
+				<key>takeMatteColorFrom</key>
+				<string>id</string>
+				<key>takePasswordFrom</key>
+				<string>id</string>
+				<key>takeStringURLFrom</key>
+				<string>id</string>
+				<key>zoomIn</key>
+				<string>id</string>
+				<key>zoomOut</key>
+				<string>id</string>
+				<key>zoomToFit</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>PDFView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

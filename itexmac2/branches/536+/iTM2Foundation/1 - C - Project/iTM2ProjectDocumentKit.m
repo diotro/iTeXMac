@@ -101,6 +101,7 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 
 @interface iTM2ProjectDocument(__PRIVATE)
 
+- (id)mutableSubdocuments;
 - (NSString *)farawayFileNameForKey:(NSString *)key;// different from absoluteFileNameForKey: for faraway projects
 - (void)_removeKey:(NSString *)key;
 - (void)closeIfNeeded;
@@ -464,7 +465,7 @@ To Do List:
 	{
 		return;
 	}
-	if([[self subdocuments] count])
+	if([[self mutableSubdocuments] count])
 	{
 		return;//do nothing
 	}
@@ -965,7 +966,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self subdocuments] count])
+	if([[self mutableSubdocuments] count])
 	{
 		return YES;// do nothing because things are already in use,don't want to break
 	}
@@ -1410,6 +1411,18 @@ To Do List:
 //iTM2_END;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allowsSubdocumentsInteraction
+- (BOOL)allowsSubdocumentsInteraction;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return nil == [[self implementation] metaValueForKey:@"is opening subdocuments"];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  showWindows
 - (void)showWindows;
 /*"Description forthcoming.
@@ -1435,6 +1448,7 @@ To Do List:
 			dirName = [dirName stringByStrippingFarawayProjectsDirectory];
 		}
 		dirName = [dirName stringByDeletingLastPathComponent];
+		[[self implementation] takeMetaValue:[NSNull null] forKey:@"is opening subdocuments"];
         NSEnumerator * E = [previouslyOpenDocuments objectEnumerator];
         NSString * K;
         while(K = [E nextObject])
@@ -1448,6 +1462,7 @@ To Do List:
         NS_HANDLER
         iTM2_LOG(@"***  CATCHED exception:%@",[localException reason]);
         NS_ENDHANDLER
+		[[self implementation] takeMetaValue:nil forKey:@"is opening subdocuments"];
     }
 	[self setShouldCloseWhenLastSubdocumentClosed:YES];
 //iTM2_END;
@@ -1533,7 +1548,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(![[self windowControllers] count] && ![[self subdocuments] count])
+    if(![[self windowControllers] count] && ![[self mutableSubdocuments] count])
     {
         [self makeSubdocumentsInspector];
         if(![[self windowControllers] count])
@@ -1708,8 +1723,8 @@ To Do List:
 //iTM2_START;
     return [self inspectorAddedWithMode:[iTM2SubdocumentsInspector inspectorMode]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  subdocuments
-- (id)subdocuments;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mutableSubdocuments
+- (id)mutableSubdocuments;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1719,8 +1734,8 @@ To Do List:
 //iTM2_START;
     return metaGETTER;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSubdocuments:
-- (void)setSubdocuments:(id)documents;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMutableSubdocuments:
+- (void)setMutableSubdocuments:(id)documents;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1731,6 +1746,17 @@ To Do List:
     metaSETTER(documents);
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  subdocuments
+- (id)subdocuments;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Tue Feb  3 09:56:38 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [[[self mutableSubdocuments] copy] autorelease];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareSubdocumentsFixImplementation
 - (void)prepareSubdocumentsFixImplementation;
 /*"Description forthcoming.
@@ -1740,7 +1766,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setSubdocuments:[NSMutableSet set]];
+    [self setMutableSubdocuments:[NSMutableSet set]];
 //iTM2_END;
     return;
 }
@@ -1763,7 +1789,7 @@ To Do List:
 	[self newKeyForFileName:[document fileName]];
 //iTM2_LOG(@"[self keyForFileName:[document fileName]]:<%@>",[self keyForFileName:[document fileName]]);
 	[SDC removeDocument:[[document retain] autorelease]];// remove first
-	[[self subdocuments] addObject:document];// added into a set,no effect if the object is already there...
+	[[self mutableSubdocuments] addObject:document];// added into a set,no effect if the object is already there...
 	NSString * key = [self keyForSubdocument:document];// create the appropriate binding as side effect
 	NSAssert([key length],@"Missing key for a document...");
 	[SPC setProject:self forDocument:document];
@@ -1806,10 +1832,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self subdocuments] containsObject:document])
+	if([[self mutableSubdocuments] containsObject:document])
     {
 		[[document retain] autorelease];
-        [[self subdocuments] removeObject:document];
+        [[self mutableSubdocuments] removeObject:document];
 		[SPC setProject:nil forDocument:document];
 		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
     }
@@ -1825,12 +1851,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self subdocuments] containsObject:document])
+	if([[self mutableSubdocuments] containsObject:document])
     {
 		[[document retain] autorelease];
 		[document saveContext:nil];
 		[SPC setProject:nil forDocument:document];
-        [[self subdocuments] removeObject:document];
+        [[self mutableSubdocuments] removeObject:document];
 		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
 		[self closeIfNeeded];
     }
@@ -1846,12 +1872,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if([[self subdocuments] containsObject:document])
+	if([[self mutableSubdocuments] containsObject:document])
     {
 		[[document retain] autorelease];
 		NSString * key = [self keyForSubdocument:document];
 		[self removeKey:key];
-        [[self subdocuments] removeObject:document];
+        [[self mutableSubdocuments] removeObject:document];
 		[SPC setProject:nil forDocument:document];
 		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
     }
@@ -1867,7 +1893,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self subdocuments] makeObjectsPerformSelector:@selector(saveDocument:) withObject:sender];
+	[[self mutableSubdocuments] makeObjectsPerformSelector:@selector(saveDocument:) withObject:sender];
 //iTM2_END;
 	return;
 }
@@ -1962,7 +1988,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"invocation is:%@",invocation);
-	if(shouldClose && ([[self subdocuments] count]))
+	if(shouldClose && ([[self mutableSubdocuments] count]))
 	{
 		[self canCloseAllSubdocumentsWithDelegate:self shouldCloseSelector:@selector(__project:shouldCloseAllSubdocuments:shouldCloseInvocation:)contextInfo:(void *)invocation];
     }
@@ -3882,7 +3908,8 @@ To Do List:
 //- (BOOL)writeToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName originalFile:(NSString *)fullOriginalDocumentPath saveOperation:(NSSaveOperationType)saveOperation;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeSafelyToURL:ofType:forSaveOperation:error:
 //- (BOOL)writeWithBackupToFile:(NSString *)fullProjectPath ofType:(NSString *)docType saveOperation:(NSSaveOperationType)saveOperation;
-- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outErrorPtr
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
+//- (BOOL)writeSafelyToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation error:(NSError **)outErrorPtr
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3895,48 +3922,18 @@ To Do List:
 		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Only file URLs are supported,no:\n%@",absoluteURL]),nil);
 		return NO;
 	}
-//iTM2_LOG(@"absoluteURL: %@",absoluteURL);
-//	NSString * oldFileName = [self fileName];
+	BOOL result = [super writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+	if(!result)
+	{
+		iTM2_LOG(@"WHAT CAN I DO,no save possible...%@",(outErrorPtr?*outErrorPtr:@"NOTHING"));
+	}
 	NSString * fullProjectPath = [absoluteURL path];
-//	BOOL result = [self writeToFile:fullProjectPath ofType:docType originalFile:[self fileName] saveOperation:saveOperation];No longer used
 #warning DEBUG
 	BOOL isDirectory = NO;
 	if([DFM fileExistsAtPath:fullProjectPath isDirectory:&isDirectory] && !isDirectory)
 	{
 		iTM2_LOG(@"*** TEST: what the hell,I want to change the current directory to %@",fullProjectPath);
 	}
-	BOOL result = [super writeSafelyToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation error:outErrorPtr];
-	if(!result)
-	{
-		iTM2_LOG(@"WHAT CAN I DO,no save possible...%@",(outErrorPtr?*outErrorPtr:@"NOTHING"));
-	}
-	NSDictionary * attributes = [self fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteURL error:outErrorPtr];
-	if(![DFM changeFileAttributes:attributes atPath:fullProjectPath])
-	{
-		iTM2_LOG(@"*** ERROR: could not change the file attributes at path:%@",fullProjectPath);
-	}
-	NSString * oldDirectoryPath = [DFM currentDirectoryPath];
-	if(![DFM changeCurrentDirectoryPath:fullProjectPath])
-	{
-		iTM2_LOG(@"*** ERROR: what the hell,I cannot change the current directory to %@",fullProjectPath);
-		BOOL isDirectory = NO;
-		NSLog(@"exists: %@",([DFM fileExistsAtPath:fullProjectPath isDirectory:&isDirectory]?@"Y":@"N"));
-		NSLog(@"is directory: %@",(isDirectory?@"Y":@"N"));
-		NSLog(@"The current directory is %@",oldDirectoryPath);
-		return NO;
-	}
-	#if 0
-	else
-	{
-		NSLog(@"----------  fullProjectPath: %@",fullProjectPath);
-		NSDirectoryEnumerator * e = [DFM enumeratorAtPath:fullProjectPath];
-		NSString * path = nil;
-		while(path = [e nextObject])
-		{
-			NSLog(@"path: %@",path);
-		}
-	}
-	#endif
 	if(saveOperation == NSSaveOperation)
 	{
 		// just save the subdocuments where they normally stand...
@@ -3946,7 +3943,10 @@ To Do List:
 		{
 			if([D isDocumentEdited])
 			{
-				if([D writeSafelyToURL:[D fileURL] ofType:[D fileType] forSaveOperation:saveOperation error:outErrorPtr])
+				NSURL * url = [[[D fileURL] retain] autorelease];
+				NSString * fileType = [D fileType];
+//				if([D writeSafelyToURL:url ofType:fileType forSaveOperation:saveOperation error:outErrorPtr])
+				if([D writeToURL:url ofType:fileType forSaveOperation:saveOperation originalContentsURL:url error:outErrorPtr])
 				{
 					[D updateChangeCount:NSChangeCleared];
 				}
@@ -4018,10 +4018,6 @@ To Do List:
 				iTM2_LOG(@"*** WARNING: No key for a project document");
 			}
 		}
-	}
-	if(![DFM changeCurrentDirectoryPath:oldDirectoryPath])
-	{
-		iTM2_LOG(@"*** ERROR: what the hell,I cannot retrieve the old current directory %@",oldDirectoryPath);
 	}
 //iTM2_END;
     return result;
@@ -4306,7 +4302,7 @@ To Do List:to be improved... to allow different signature
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[self subdocuments] makeObjectsPerformSelector:@selector(saveDocument:)withObject:self];
+    [[self mutableSubdocuments] makeObjectsPerformSelector:@selector(saveDocument:)withObject:self];
     BOOL resultFlag = YES;
     NSMethodSignature * myMS = [self methodSignatureForSelector:
                                     @selector(_fakeProject:didSaveAllSubdocuments:contextInfo:)];
@@ -4356,7 +4352,7 @@ To Do List:
 	NSUndoManager * UM = [self undoManager];
 	BOOL isUndoRegistrationEnabled = [UM isUndoRegistrationEnabled];
 	[UM disableUndoRegistration];
-	[[self subdocuments] makeObjectsPerformSelector:_cmd withObject:irrelevant];
+	[[self mutableSubdocuments] makeObjectsPerformSelector:_cmd withObject:irrelevant];
 	[super saveContext:irrelevant];
 	if(isUndoRegistrationEnabled)
 		[UM enableUndoRegistration];
@@ -5065,7 +5061,11 @@ To Do List:
 			return [SWS iconForFile:absoluteName];
 		}
         NSString * farawayName = [projectDocument farawayFileNameForKey:key];
-		return [SWS iconForFile:farawayName];
+		if([DFM fileExistsAtPath:farawayName])
+		{
+			return [SWS iconForFile:farawayName];
+		}
+		return nil;
     }
     else
         return nil;

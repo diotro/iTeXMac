@@ -67,6 +67,7 @@
 /* Begin PBXBuildFile section */
 		5131527F0D0584F000862683 /* iTM2StringEncodingRegEx.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */; };
 		518E0C650CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */; };
+		51B7732F0E06B98C00322495 /* NERedArrow-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B7732E0E06B98C00322495 /* NERedArrow-16.png */; };
 		51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */; };
 		51EFB39F0DFD23BD0090E7D0 /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B40854DC0F00F3EB8A /* README.rtf */; };
 		51EFB3B00DFD242D0090E7D0 /* skim in Copy Command */ = {isa = PBXBuildFile; fileRef = 51EFB3A70DFD23FA0090E7D0 /* skim */; };
@@ -758,6 +759,7 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2StringEncodingRegEx.strings; sourceTree = "<group>"; };
 		518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SmallToolbarBackground.png; sourceTree = "<group>"; };
+		51B7732E0E06B98C00322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Skim.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EFB3A70DFD23FA0090E7D0 /* skim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skim; sourceTree = "<group>"; };
@@ -1661,6 +1663,7 @@
 				DCF61C320854654B003F5F79 /* status-available.tiff */,
 				DCF61C330854654B003F5F79 /* status-away.tiff */,
 				DCF61C340854654B003F5F79 /* status-idle.tiff */,
+				51B7732E0E06B98C00322495 /* NERedArrow-16.png */,
 				DC2B4AB90AD405920039FCBA /* resizeBottomLeftCursor.png */,
 				DC2B4ABA0AD405920039FCBA /* resizeBottomRightCursor.png */,
 				DC2B4ABB0AD405920039FCBA /* resizeTopLeftCursor.png */,
@@ -2272,6 +2275,7 @@
 				518E0C650CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png in Resources */,
 				51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */,
 				5131527F0D0584F000862683 /* iTM2StringEncodingRegEx.strings in Resources */,
+				51B7732F0E06B98C00322495 /* NERedArrow-16.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

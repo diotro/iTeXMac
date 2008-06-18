@@ -133,6 +133,7 @@ DEFINE_IMAGE(iTM2_imageOrderFrontFontPanel, @"imageOrderFrontFontPanelToolbarIma
 DEFINE_IMAGE(iTM2_imageSubscript, @"imageSubscriptToolbarImage");
 DEFINE_IMAGE(iTM2_imageSuperscript, @"imageSuperscriptToolbarImage");
 DEFINE_IMAGE(iTM2_imageUnlockDocument, @"imageUnlockDocumentToolbarImage");
+DEFINE_IMAGE(iTM2_imageNERedArrow, @"NERedArrow-16");
 - (void)iTM2_setSizeSmallIcon;
 {
 	[self setScalesWhenResized:YES];

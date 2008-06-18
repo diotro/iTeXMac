@@ -850,6 +850,18 @@ To Do List:
 //iTM2_END;
 	return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:forHint:
+- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef length:(unsigned int *)lengthRef forHint:(NSDictionary *)hint;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:force:
 - (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.

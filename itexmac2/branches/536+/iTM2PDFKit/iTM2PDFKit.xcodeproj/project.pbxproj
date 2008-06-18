@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		51B7741C0E06FA4300322495 /* NERedArrow-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B7741B0E06FA4300322495 /* NERedArrow-16.png */; };
 		DC0C1B3408FF02E200C46507 /* template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1B3308FF02E200C46507 /* template.pdf */; };
 		DC0C1CCD08FFF95000C46507 /* ThumbnailViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */; };
 		DC0C1CCE08FFF95400C46507 /* TOCViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */; };
@@ -98,6 +99,7 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		51B7741B0E06FA4300322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0C1B3308FF02E200C46507 /* template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = template.pdf; sourceTree = "<group>"; };
 		DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ThumbnailViewAdorn.tif; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		089C167CFE841241C02AAC07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				51B7741B0E06FA4300322495 /* NERedArrow-16.png */,
 				DC70FBE40BFCAB86006C6A76 /* Macros.resources.tgz */,
 				DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */,
 				DCAF9A4909D810EE00AFD95F /* iTM2PDFKitDefaultsController.nib */,
@@ -460,6 +463,7 @@
 				DC4AEAF30ACC57CD000D27FC /* zoomToFit.tiff in Resources */,
 				DC4AEAF40ACC57CD000D27FC /* zoomToSelection.tiff in Resources */,
 				DC70FBE60BFCAB86006C6A76 /* Macros.resources.tgz in Resources */,
+				51B7741C0E06FA4300322495 /* NERedArrow-16.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

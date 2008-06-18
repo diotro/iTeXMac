@@ -147,16 +147,16 @@ To Do List:
                             nil]];
         // beware with old iTM2_LOG versions: the sequel forces +initialize...
         iTM2_LOG(@"I am pleased to announce you that key bindings are available...\nIf this causes you any harm, you can disable them by running from the terminal the following commands:\nterminal%% defaults write \'comp.text.tex.iTeXMac2\' \"%@\" \"YES\"", @"iTM2-Text:NoKeyBindings");
-    }
-    [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-        @"^~w", @"iTM2KeyBindingsDeepEscape", @"^w", @"iTM2KeyBindingsEscape", nil]];
-    NSString * path = [[NSBundle bundleForClass:self] pathForResource:@"iTM2KeyStrokeSelectors" ofType:@"plist"];
-    NSDictionary * D = [NSDictionary dictionaryWithContentsOfFile:path];
-    if(D)
-        [self addKeyStrokeSelectorsFromDictionary:D];
-    else
-    {
-        iTM2_LOG(@"WARNING: Missing or corrupted iTM2KeyStrokeSelectors.plist, please reinstall and if it persists, report bug");
+		[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+			@"^~w", @"iTM2KeyBindingsDeepEscape", @"^w", @"iTM2KeyBindingsEscape", nil]];
+		NSString * path = [[NSBundle bundleForClass:[iTM2KeyBindingsManager class]] pathForResource:@"iTM2KeyStrokeSelectors" ofType:@"plist"];
+		NSDictionary * D = [NSDictionary dictionaryWithContentsOfFile:path];
+		if(D)
+			[self addKeyStrokeSelectorsFromDictionary:D];
+		else
+		{
+			iTM2_LOG(@"WARNING: Missing or corrupted iTM2KeyStrokeSelectors.plist, please reinstall and if it persists, report bug");
+		}
     }
 //iTM2_END;
     return;

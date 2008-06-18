@@ -170,6 +170,238 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:forHint:
+- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef length:(unsigned int *)lengthRef forSyncTeXHint:(NSDictionary *)hint;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(!lineRef)
+	{
+		return UINT_MAX;
+	}
+	if(lengthRef)
+	{
+		*lengthRef = 1;
+	}
+	NSTextStorage * TS = [self textStorage];
+	NSString * S = [TS string];
+	if(!S)
+	{
+		S = [self stringRepresentation];
+	}
+	NSNumber * N = [hint objectForKey:@"character index"];
+	if(!N)
+	{
+		return UINT_MAX;
+	}
+	unsigned int characterIndex = [N unsignedIntValue];
+	NSString * pageString = [hint objectForKey:@"container"];
+	if(characterIndex>=[pageString length])
+	{
+		return UINT_MAX;
+	}
+	NSRange hereR;
+goThree:
+	hereR = [pageString rangeOfWordAtIndex:characterIndex];
+	if(!hereR.length)
+	{
+		if(++characterIndex < [pageString length])
+		{
+			goto goThree;
+		}
+		return UINT_MAX;
+	}
+	characterIndex -= hereR.location;// now characterIndex is an offset from the first character of the word!
+	NSString * hereW = [pageString substringWithRange:hereR];
+	// hereR is not yet free now, it is used later
+	// hereWord is the word we clicked on
+	// Can we find this word in the document string?
+	// We try to find this word around the given line
+	NSRange lineR = [TS getRangeForLine:* lineRef];
+	if(!lineR.length)
+	{
+		return UINT_MAX;
+	}
+	NSRange searchR = lineR;
+	// Augment the range because the synchronization information may not be accurate
+	NSMutableArray * hereRanges = [NSMutableArray array];
+	// We find all the occurrences of the here word in the given line.
+	// if we find such words, this is satisfying
+	// if we do not find such words, things will be more complicated
+	NSRange foundR = [S rangeOfString:hereW options:0L range:searchR];
+	if(foundR.length)
+	{
+		do
+		{
+			[hereRanges addObject:[NSValue valueWithRange:foundR]];
+			searchR.length = NSMaxRange(searchR);
+			searchR.location = NSMaxRange(foundR);
+			searchR.length -= searchR.location;
+			foundR = [S rangeOfString:hereW options:0L range:searchR];
+		}
+		while(foundR.length);
+		// searchR is free
+		if([hereRanges count] == 1)
+		{
+			// good, there is only one occurrence of the word
+			// the line is good, but we must set up the column and length, if relevant
+			foundR = [[hereRanges lastObject] rangeValue];
+we_found_it:
+			if(columnRef)
+			{
+				* columnRef = foundR.location - lineR.location + characterIndex;
+				if(lengthRef)
+				{
+					* lengthRef = 1;
+				}
+			}
+			return foundR.location;
+		}
+#warning ADD HERE A FILTER: only word ranges!
+		// there are many occurrences of the here word.
+		// we try to find the best one by finding out appropriate words before and after
+		// what is the word before hereW in the output page?
+		unsigned int index = hereR.location;
+		NSRange otherR;
+		NSString * otherW = nil;
+		NSEnumerator * E = nil;
+		NSValue * V = nil;
+		if(index>1)
+		{
+			index -= 2;// we will find at least a 2 chars length word
+before:
+			otherR = [pageString rangeOfWordAtIndex:index];
+			if(otherR.length)
+			{
+				otherW = [pageString substringWithRange:otherR];
+				// otherR is free now
+				foundR = [[hereRanges lastObject] rangeValue];
+				// start form the last occurence of hereW, try to find out otherW before
+				// the try to find the hereW closest to otherW
+				// set up a search range, with limited length 256
+				if(foundR.location<256)
+				{
+					searchR = NSMakeRange(0,foundR.location);
+				}
+				else
+				{
+					searchR = NSMakeRange(foundR.location-256,256);
+				}
+				otherR = [S rangeOfString:otherW options:NSBackwardsSearch range:searchR];
+				if(otherR.length)
+				{
+					// we found it!
+					// now we try the first hereW range after otherR
+					E = [hereRanges objectEnumerator];
+					while(V = [E nextObject])
+					{
+						foundR = [V rangeValue];
+						if(foundR.location>otherR.location)
+						{
+							goto we_found_it;
+						}
+					}
+				}
+			}
+			else if(index>1)
+			{
+				index -= 2;
+				goto before;
+			}
+		}
+		// When we get here, we had no chance with a previous word
+		// We do exactly the same at the right hand side
+		index = NSMaxRange(hereR);
+		if(index<[pageString length])
+		{
+after:
+			otherR = [pageString rangeOfWordAtIndex:index];
+			if(otherR.length)
+			{
+				otherW = [pageString substringWithRange:otherR];
+				// otherR is free now
+				foundR = [[hereRanges objectAtIndex:0] rangeValue];
+				// start form the last occurence of hereW, try to find out otherW before
+				// the try to find the hereW closest to otherW
+				// set up a search range, with limited length 256
+				if(NSMaxRange(foundR)+256>[S length])
+				{
+					searchR = NSMakeRange(NSMaxRange(foundR),[S length]-NSMaxRange(foundR));
+				}
+				else
+				{
+					searchR = NSMakeRange(NSMaxRange(foundR),256);
+				}
+				otherR = [S rangeOfString:otherW options:0L range:searchR];
+				if(otherR.length)
+				{
+					// we found it!
+					// now we try the first hereW range after otherR
+					E = [hereRanges reverseObjectEnumerator];
+					while(V = [E nextObject])
+					{
+						foundR = [V rangeValue];
+						if(NSMaxRange(foundR)<=otherR.location)
+						{
+							goto we_found_it;
+						}
+					}
+				}
+			}
+			else if(++index>[pageString length])
+			{
+				goto after;
+			}
+		}
+		// failed, abort
+		return UINT_MAX;
+	}
+	else
+	// there is no here word at the given line
+	{
+		// we try one line before and one line after
+		// the recursivity is managed by the hint
+		NSMutableDictionary * newHint;
+		newHint = [NSMutableDictionary dictionaryWithDictionary:hint];
+		int mode = [[hint objectForKey:@"mode"] intValue];
+		switch(mode)
+		{
+			case 0:
+			case -1:
+				if(*lineRef)
+				{
+					[newHint setObject:[NSNumber numberWithInt:*lineRef-1] forKey:@"mode"];
+					*lineRef -= 1;
+					return [self getLine:lineRef column:columnRef length:lengthRef forSyncTeXHint:newHint];
+				}
+				break;
+			case -2:
+				if(*lineRef)
+				{
+					[newHint setObject:[NSNumber numberWithInt:*lineRef-mode+1] forKey:@"mode"];
+					*lineRef -= mode-1;
+					return [self getLine:lineRef column:columnRef length:lengthRef forSyncTeXHint:newHint];
+				}
+				break;
+			case 1:
+				if(*lineRef)
+				{
+					[newHint setObject:[NSNumber numberWithInt:*lineRef+1] forKey:@"mode"];
+					*lineRef += 1;
+					return [self getLine:lineRef column:columnRef length:lengthRef forSyncTeXHint:newHint];
+				}
+				break;
+			default:
+				break;
+		}
+	}
+	return UINT_MAX;
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:forHint:
 - (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef length:(unsigned int *)lengthRef forHint:(NSDictionary *)hint;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -178,19 +410,26 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(lengthRef)
-	{
-		*lengthRef = 1;
-	}
-	NSTextStorage * TS = [self textStorage];
-	NSString * documentString = [TS string];
-	if(!documentString)
-	{
-		documentString = [self stringRepresentation];
-	}
 	if([hint isKindOfClass:[NSDictionary class]])
 	{
-		NSMutableDictionary * matches = [NSMutableDictionary dictionary];
+		if([[hint valueForKey:@"SyncTeX"] boolValue])
+		{
+			unsigned int result = [self getLine:lineRef column:columnRef length:lengthRef forSyncTeXHint:hint];
+			if(result < UINT_MAX)
+			{
+				return result;
+			}
+		}
+		if(lengthRef)
+		{
+			*lengthRef = 1;
+		}
+		NSTextStorage * TS = [self textStorage];
+		NSString * documentString = [TS string];
+		if(!documentString)
+		{
+			documentString = [self stringRepresentation];
+		}
 		NSNumber * N = [hint objectForKey:@"character index"];
 		if(N)
 		{
@@ -199,9 +438,10 @@ To Do List:
 			NSString * pageString = [hint objectForKey:@"container"];
 			if(characterIndex<[pageString length])
 			{
+				NSMutableDictionary * matches = [NSMutableDictionary dictionary];
 goThree:;// I will come here if the first attempt does not work
 				NSRange hereR = [pageString rangeOfWordAtIndex:characterIndex];
-				// hereR is the range of the word when the click occurred
+				// hereR is the range of the word where the click occurred
 				if(hereR.length)
 				{
 					characterIndex -= hereR.location;// now characterIndex is an offset from the first character of the word!

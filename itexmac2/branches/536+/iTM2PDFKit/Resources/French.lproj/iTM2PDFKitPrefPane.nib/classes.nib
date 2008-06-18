@@ -1,65 +1,64 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {"" = id; }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            CLASS = NSPreferencePane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_firstKeyView" = NSView; 
-                "_initialKeyView" = NSView; 
-                "_lastKeyView" = NSView; 
-                "_window" = NSWindow; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {
-                apply = id; 
-                revert = id; 
-                takeBackgroundColorFrom = id; 
-                takeDefaultsScopeFromSelectedTag = id; 
-                takeDisplayBoxFromSelectedTag = id; 
-                takeDisplayModeFromSelectedTag = id; 
-                takeGreekingThresholdFrom = id; 
-                toggleAutoScales = id; 
-                toggleContinuous = id; 
-                toggleDisplayBulletsFromTag = id; 
-                toggleDisplaysAsBook = id; 
-                toggleDisplaysPageBreaks = id; 
-                toggleEnableSynchronization = id; 
-                toggleFollowFocus = id; 
-                toggleShouldAntiAlias = id; 
-            }; 
-            CLASS = iTM2PDFKitDefaultsController; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindowController; 
-        }, 
-        {
-            ACTIONS = {
-                takeBackgroundColorFrom = id; 
-                takeDefaultsScopeFromSelectedTag = id; 
-                takeDisplayBoxFromSelectedTag = id; 
-                takeDisplayModeFromSelectedTag = id; 
-                takeGreekingThresholdFrom = id; 
-                toggleAutoScales = id; 
-                toggleContinuous = id; 
-                toggleDisplayBulletsFromTag = id; 
-                toggleDisplaysAsBook = id; 
-                toggleDisplaysPageBreaks = id; 
-                toggleEnableSynchronization = id; 
-                toggleFollowFocus = id; 
-                toggleShouldAntiAlias = id; 
-            }; 
-            CLASS = iTM2PDFKitPrefPane; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSPreferencePane; 
-        }, 
-        {CLASS = iTM2Window; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>toggleDisplayBulletsFromTag</key>
+				<string>id</string>
+				<key>toggleEnableSynchronization</key>
+				<string>id</string>
+				<key>toggleFollowFocus</key>
+				<string>id</string>
+				<key>toggleSyncTeXDisabled</key>
+				<string>id</string>
+				<key>toggleSyncTeXUncompressed</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2PDFKitPrefPane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSPreferencePane</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key></key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSPreferencePane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_firstKeyView</key>
+				<string>NSView</string>
+				<key>_initialKeyView</key>
+				<string>NSView</string>
+				<key>_lastKeyView</key>
+				<string>NSView</string>
+				<key>_window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

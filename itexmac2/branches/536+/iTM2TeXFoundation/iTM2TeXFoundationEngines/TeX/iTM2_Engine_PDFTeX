@@ -331,9 +331,9 @@ fi
 "${iTM2_CMD_Notify}" notify comment "Performing ${iTM2_Preparator} ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
 if [ ${#iTM2_Preparator} -gt 0 ]
 then
-	/bin/sh -c "\"${iTM2_Preparator}\" \"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
+	/bin/sh -c "\"${iTM2_Preparator}\" \"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} -synctex=1 \"${TWSMasterBase}\""
 else
-	/bin/sh -c "\"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
+	/bin/sh -c "\"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} -synctex=1 \"${TWSMasterBase}\""
 fi
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]

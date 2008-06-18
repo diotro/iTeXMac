@@ -124,20 +124,32 @@ extern NSString * const iTM2AutosavingDelayKey;
 
 /*!
     @method		displayLine:column:length:withHint:orderFront:
-    @abstract	Abstract forthcoming.
+    @abstract	Used in backwards synchronization.
     @discussion	Discussion forthcoming.
     @param		line: 1 based line index.
     @param		column: 1 based column index.
     @param		length: number of characters to be selected
     @param		hint: dictionary containing hints.
     @param		yorn...
-    @result		A document.
+    @result		yorn.
 */
 - (BOOL)displayLine:(unsigned int)line column:(unsigned int)column length:(unsigned int)length withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 
 /*!
+    @method		getLine:column:length:forHint:
+    @abstract	Used in backwards synchronization.
+    @discussion	Discussion forthcoming.
+    @param		lineRef: 1 based line index.
+    @param		columnRef: 1 based column index.
+    @param		lengthRef: number of characters to be selected
+    @param		hint: dictionary containing hints.
+    @result		yorn like value.
+*/
+- (unsigned int)getLine:(unsigned int *)lineRef column:(unsigned int *)columnRef length:(unsigned int *)lengthRef forHint:(NSDictionary *)hint;
+
+/*!
     @method		displayPageForLine:column:source:withHint:orderFront:
-    @abstract	Abstract forthcoming.
+    @abstract	Used in forwards synchronization.
     @discussion	Discussion forthcoming.
     @param		line: 1 based line index.
     @param		column: 1 based column index.
@@ -147,6 +159,7 @@ extern NSString * const iTM2AutosavingDelayKey;
     @result		A document.
 */
 - (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSString *)source withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+
 @end
 
 @interface NSDocument(iTM2DocumentController)

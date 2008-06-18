@@ -783,6 +783,19 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 */
 - (void)setShouldCloseWhenLastSubdocumentClosed:(BOOL)yorn;
 
+/*! 
+    @method     allowsSubdocumentsInteraction
+    @abstract   Whether the subdocuments interactions.
+    @discussion When the receiver is opening its subdocuments,
+				some bad user experience can happen.
+				In particular if 2 subdocuments must be synchronized,
+				something weird can happen.
+				This message returns YES in general, except when the
+				receiver opens all its subdocuments.
+    @param      None
+    @result     None
+*/
+- (BOOL)allowsSubdocumentsInteraction;
 
 @end
 

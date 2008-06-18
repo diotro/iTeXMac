@@ -46,7 +46,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		516E14940E01B4A5000EF690 /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 516E14920E01B4A5000EF690 /* synctex_parser.c */; };
+		516E14950E01B4A5000EF690 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 516E14930E01B4A5000EF690 /* synctex_parser.h */; };
 		51B3E6340CDF8D360024D173 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B3E6330CDF8D360024D173 /* iTM2Gear.png */; };
+		51E28D660E02E22F00F7EEF6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 51E28D650E02E22F00F7EEF6 /* libz.dylib */; };
 		51F1B9DD0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC05CBBA0919FAB00003E471 /* iTM2TeXDocumentToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -284,7 +287,10 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		516E14920E01B4A5000EF690 /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = synctex_parser.c; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_parser.c; sourceTree = "<absolute>"; };
+		516E14930E01B4A5000EF690 /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = synctex_parser.h; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_parser.h; sourceTree = "<absolute>"; };
 		51B3E6330CDF8D360024D173 /* iTM2Gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Gear.png; sourceTree = "<group>"; };
+		51E28D650E02E22F00F7EEF6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "7bitsAccents.iTM2-key-bindings"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Prepare iTM2Foundation-Info.plist"; sourceTree = "<group>"; };
@@ -464,6 +470,7 @@
 				DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */,
 				DC70EFB10BFC56BF006C6A76 /* Lua.framework in Frameworks */,
 				DCE52F720C0F3CC700F2D5B9 /* libicucore.dylib in Frameworks */,
+				51E28D660E02E22F00F7EEF6 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +543,7 @@
 				DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */,
 				DCBE56760BC3CF2000899B35 /* iTM2LaTeXKit.framework */,
 				DC70EFA80BFC56BF006C6A76 /* Lua.framework */,
+				51E28D650E02E22F00F7EEF6 /* libz.dylib */,
 				DCE52F710C0F3CC700F2D5B9 /* libicucore.dylib */,
 			);
 			name = "Linked Frameworks";
@@ -633,6 +641,8 @@
 				DCC7F3E00854AC9200F3EB8A /* iTM2TeXFoundation-Prefix.pch */,
 				DCC3EC6908FDC4B900A74157 /* iTM2TeXFoundationErrors.h */,
 				DCC3EC6A08FDC4B900A74157 /* iTM2TeXFoundationErrors.m */,
+				516E14930E01B4A5000EF690 /* synctex_parser.h */,
+				516E14920E01B4A5000EF690 /* synctex_parser.c */,
 				DCC7F3DB0854AC9200F3EB8A /* iTM2PDFSYNCKit.h */,
 				DCC7F3DC0854AC9200F3EB8A /* iTM2PDFSYNCKit.m */,
 				DCC7F3DD0854AC9200F3EB8A /* iTM2TeXDocumentKit.h */,
@@ -762,6 +772,7 @@
 				DC05CBBA0919FAB00003E471 /* iTM2TeXDocumentToolbar.h in Headers */,
 				DC05CBDA0919FDFD0003E471 /* iTM2TeXProjectCommandKit.h in Headers */,
 				DCC3D16C0926A425005471BD /* iTM2TextWatcher.h in Headers */,
+				516E14950E01B4A5000EF690 /* synctex_parser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1147,6 +1158,7 @@
 				DC05CBBB0919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */,
 				DC05CBDB0919FDFD0003E471 /* iTM2TeXProjectCommandKit.m in Sources */,
 				DCC3D16D0926A425005471BD /* iTM2TextWatcher.m in Sources */,
+				516E14940E01B4A5000EF690 /* synctex_parser.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1739,6 +1751,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41760A4ADC7300E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				USER_HEADER_SEARCH_PATHS = /Users/itexmac2/dev/texlive/source/texk/web2c/synctexdir;
 			};
 			name = Development;
 		};
@@ -1746,6 +1759,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				USER_HEADER_SEARCH_PATHS = /Users/itexmac2/dev/texlive/source/texk/web2c/synctexdir;
 			};
 			name = Deployment;
 		};

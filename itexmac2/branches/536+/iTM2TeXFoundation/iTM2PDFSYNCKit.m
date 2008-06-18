@@ -70,6 +70,17 @@ To Do List:
 				nil]];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isSyncTeX
+- (BOOL)isSyncTeX;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 - (void)dealloc:(id)sender;
 /*"Description Forthcoming.
@@ -1096,6 +1107,270 @@ To Do List:
     return (page >= 0) && (page < [_PageSyncLocations count])? [_PageSyncLocations objectAtIndex:page]:nil;
 }
 @end
+
+#import "synctex_parser.h"
+#import <string.h>
+
+@interface iTM2SyncTeXSynchronizer: iTM2PDFSynchronizer
+{
+@private
+	synctex_scanner_t scanner;
+}
+@end
+
+
+@implementation iTM2SyncTeXSynchronizer
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
++ (void)initialize;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	[super initialize];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+			NSStringFromPoint(NSMakePoint(0, 0)), iTM2PDFSyncOffsetKey,
+				nil]];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isSyncTeX
+- (BOOL)isSyncTeX;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
+- (void)dealloc:(id)sender;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOutputURL:
+- (id)initWithOutputURL:(NSURL *)outputURL;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![outputURL isFileURL])
+	{
+		[self dealloc];
+		self = nil;
+		return self;
+	}
+	if(self = [super init])
+	{
+		NSString * path = [outputURL path];
+		scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation]);
+		if(scanner == NULL)
+		{
+			// maybe there is a synctex file in the faraway directory
+			// this can occur if the engine moves the pdf but does not move the compagnion synctex file
+			// we have a problem here concerning the file modification date.
+			// In order to make code simple, we are going to do something rather inefficient
+			// when big files are involved.
+			// We try to create a synctex scanner, then we compare the file modification dates
+			// of the output file and the scanner related file
+			NSString * FPD = [NSString farawayProjectsDirectory];
+			NSString * otherPath = [FPD stringByAppendingPathComponent:path];
+			// if there is a file at otherPath, any synctex information will belong to these file
+			if([DFM fileExistsAtPath:otherPath])
+			{
+				// maybe the otherPath is the same as path
+				// in that case the faraway synctex information is appropriate
+				// otherwise we should ignore it
+				if(![[path stringByResolvingSymlinksAndFinderAliasesInPath] pathIsEqual:
+					[otherPath stringByResolvingSymlinksAndFinderAliasesInPath]])
+				{
+					[self release];
+					self = nil;
+				}
+			}
+			scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation]);
+			if(scanner == NULL)
+			{
+				[self release];
+				self = nil;
+				return self;
+			}
+			// if the scanner was created with a file older than the outputURL's one,
+			// then it is not up to date.
+			const char * synctex = synctex_scanner_get_synctex(scanner);
+			otherPath = [DFM stringWithFileSystemRepresentation:synctex length:strlen(synctex)];
+			NSDate * date = [[DFM fileAttributesAtPath:path traverseLink:YES] objectForKey:NSFileModificationDate];
+			NSDate * otherDate = [[DFM fileAttributesAtPath:otherPath traverseLink:YES] objectForKey:NSFileModificationDate];
+			if([otherDate timeIntervalSinceDate:date]<1)
+			{
+				// the path was modified 1 second after other path was
+				// I consider that otherPath is obsolete
+				synctex_scanner_free(scanner);
+				[self release];
+				self = nil;
+				return self;
+			}
+		}
+	}
+//iTM2_END;
+    return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:source:forLocation:withHint:inPageAtIndex:
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr length:(unsigned int *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSValue * V = [hint objectForKey:@"page bounds"];
+	if(!V)
+	{
+		return NO;
+	}
+	NSRect bounds = [V rectValue];
+	point.y = NSMaxY(bounds)-point.y;
+	if(synctex_edit_query(scanner,pageIndex+1,point.x,point.y)>0) {
+		synctex_node_t node;
+		if(node = synctex_next_result(scanner)) {
+			if(linePtr) *linePtr = synctex_node_line(node)-1;
+			if(columnPtr) *columnPtr = synctex_node_column(node);
+			if(lengthPtr) *lengthPtr = 0;
+			
+			if(sourcePtr) {
+				const char * rep = synctex_scanner_get_name(scanner,synctex_node_tag(node));				
+				*sourcePtr = [DFM stringWithFileSystemRepresentation:rep length:strlen(rep)];
+				if(![*sourcePtr isAbsolutePath])
+				{
+					rep = synctex_scanner_get_synctex(scanner);
+					NSString * dir = [DFM stringWithFileSystemRepresentation:rep length:strlen(rep)];
+					dir = [dir stringByDeletingLastPathComponent];
+					[DFM pushDirectory:dir];
+					NSURL * url = [NSURL fileURLWithPath:*sourcePtr];
+					[DFM popDirectory];
+					*sourcePtr = [url path];
+				}
+				
+			} 
+			return YES;
+		}
+	}
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:sourceBefore:sourceAfter:forLocation:withHint:inPageAtIndex:
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(sourceAfterRef) *sourceAfterRef = nil;
+//iTM2_END;
+	return [self getLine:linePtr column:columnPtr length:nil source:sourceBeforeRef forLocation:point withHint:hint inPageAtIndex:pageIndex];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getRecordIndexes:beforeIndexes:afterIndexes:column:inSource:
+- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLocation:page:forRecordIndex:
+- (BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  destinationsForLine:column:inSource:
+- (NSDictionary*)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(synctex_display_query(scanner,[source fileSystemRepresentation],line+1,column)>0) {
+		NSMutableDictionary * result = [NSMutableDictionary dictionary];
+		NSMutableDictionary * hereResult = [NSMutableDictionary dictionary];
+		synctex_node_t node;
+		while(node = synctex_next_result(scanner)) {
+			NSNumber * N = [NSNumber numberWithInt:synctex_node_page(node)-1];
+			NSPoint P = NSMakePoint(synctex_node_visible_h(node),synctex_node_visible_v(node));
+			NSValue * V = [NSValue valueWithPoint:P];
+			[hereResult setObject:[NSArray arrayWithObject:V] forKey:N];
+		}
+		[result setObject:hereResult forKey:@"here"];
+		[result setObject:[NSNumber numberWithBool:YES] forKey:@"SyncTeX"];
+		return result;
+	}
+	return nil;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordIndexForLocation:inPageAtIndex:
+- (int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return 0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forRecordIndex:
+- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sourcesForPageAtIndex:
+- (NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return nil;
+}
+@end
+
 #import <iTM2Foundation/iTM2ResponderKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
@@ -1198,8 +1473,8 @@ To Do List:
     BOOL old = [R contextBoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask];
     [R takeContextBool:!old forKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask];
 	id D = [[W windowController] document];
-	if([D respondsToSelector:@selector(updatePdfsync:)])
-		[D updatePdfsync:self];//update the views
+	if([D respondsToSelector:@selector(updateSynchronizer:)])
+		[D updateSynchronizer:self];//update the views
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSynchronizationMode:
@@ -1226,7 +1501,7 @@ To Do List:
     NSWindow * W = [NSApp mainWindow];
     id R = [W firstResponder];
     [R takeContextInteger:0 forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
-    [[[W windowController] document] updatePdfsync:self];//update the views
+    [[[W windowController] document] updateSynchronizer:self];//update the views
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncNoBullets:
@@ -1256,7 +1531,7 @@ To Do List:
     id R = [W firstResponder];
     [R takeContextInteger:kiTM2PDFSYNCDisplayBuiltInBullets|kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets
         forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
-    [[[W windowController] document] updatePdfsync:self];//update the views
+    [[[W windowController] document] updateSynchronizer:self];//update the views
 //iTM2_END;
     return;
 }
@@ -1288,7 +1563,7 @@ To Do List:
     id CM = [[W firstResponder] contextManager];
     [CM takeContextInteger:kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets
         forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
-    [[[W windowController] document] updatePdfsync:self];//update the views
+    [[[W windowController] document] updateSynchronizer:self];//update the views
 //iTM2_END;
     return;
 }
@@ -1319,7 +1594,7 @@ To Do List:
     NSWindow * W = [NSApp mainWindow];
     id CM = [[W firstResponder] contextManager];
     [CM takeContextInteger:kiTM2PDFSYNCDisplayFocusBullets forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
-    [[[W windowController] document] updatePdfsync:self];//update the views
+    [[[W windowController] document] updateSynchronizer:self];//update the views
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSyncFocusBullet:
@@ -1371,7 +1646,7 @@ NSString * const iTM2PDFSYNCExtension = @"pdfsync";
 #import <iTM2Foundation/iTM2StringKit.h>
 #import <iTM2Foundation/iTM2PDFViewKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
-
+#pragma mark 
 @implementation iTM2PDFDocument(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizer
 - (id)synchronizer;
@@ -1443,7 +1718,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self updatePdfsync:self];
+	[self updateSynchronizer:self];
 //iTM2_END;
 	return;
 }
@@ -1457,7 +1732,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// the filename is not really the final filename...
-	[self updatePdfSyncFileModificationDate];
+	[self updateSynchronizerFileModificationDate];
 //iTM2_END;
 	return;
 }
@@ -1471,12 +1746,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// the filename is not really the final filename...
-	[self updatePdfSyncFileModificationDate];
+	[self updateSynchronizerFileModificationDate];
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updatePdfSyncFileModificationDate
-- (void)updatePdfSyncFileModificationDate;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateSynchronizerFileModificationDate
+- (void)updateSynchronizerFileModificationDate;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri Sep 05 2003
@@ -1523,8 +1798,8 @@ To Do List:
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updatePdfsync:
-- (void)updatePdfsync:(id)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateSynchronizer:
+- (void)updateSynchronizer:(id)irrelevant;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1553,12 +1828,20 @@ To Do List:
 //iTM2_LOG(@"NO WINDOW TO SYNCHRONIZE");
 	[self replaceSynchronizer:nil];
 	return;
-    laSuite:;
+laSuite:;
+	// first we try the synctex option
+	// we just try to create a SyncTeX synchronizer
+	// if something is returned, it means that there is a synctex file available.
+	id S = nil;
+	if(S = [[[iTM2SyncTeXSynchronizer allocWithZone:[self zone]] initWithOutputURL:[self fileURL]] autorelease])
+	{
+		[self replaceSynchronizer:S];
+		return;
+	}	
 	NSString * FN = [self fileName];
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 	pdfsyncPath = [pdfsyncPath stringByResolvingSymlinksAndFinderAliasesInPath];
-	id S = nil;
 	if(![DFM fileOrLinkExistsAtPath:pdfsyncPath])
 	{
 		iTM2ProjectDocument * PD = [SPC projectForFileName:FN];
@@ -1659,6 +1942,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![[self project] allowsSubdocumentsInteraction])
+	{
+		return YES;
+	}
 	NSEnumerator * E = [[NSApp windows] objectEnumerator];
 	NSWindow * W;
 	id WC;
@@ -1694,7 +1981,7 @@ laSuite:
 	id syncer = [self synchronizer];
 	if(!syncer)
 	{
-		[self updatePdfsync:self];
+		[self updateSynchronizer:self];
 	}
 	else if(destinations = [syncer destinationsForLine:l column:c inSource:SRCE])
 	{
@@ -1796,7 +2083,17 @@ To Do List:
 	{
 		NSURL * absoluteURL = [NSURL fileURLWithPath:source];
 		id D = [SDC openDocumentWithContentsOfURL:absoluteURL display:NO error:nil];
-		[D displayLine:line column:column length:length withHint:hint orderFront:yorn];
+		if(D)
+		{
+			NSDictionary * d = [NSDictionary dictionaryWithObjectsAndKeys:
+				absoluteURL,@"current source URL",
+				[NSNumber numberWithInt:line],@"line",
+				[NSNumber numberWithInt:column],@"column",
+				[NSNumber numberWithInt:length],@"length",
+					nil];
+			[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
+			[D displayLine:line column:column length:length withHint:hint orderFront:yorn];
+		}
 		return;
 	}
 	if(iTM2DebugEnabled)
@@ -1804,6 +2101,28 @@ To Do List:
         iTM2_LOG(@"Could not synchronize with:<%@>", source);
     }
     return;
+}
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFrontCurrentSource
+- (void)orderFrontCurrentSource;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSDictionary * d = [[self implementation] metaValueForKey:@"current source synchronization location"];
+	id D = [SDC openDocumentWithContentsOfURL:[d objectForKey:@"current source URL"] display:NO error:nil];
+	if(D)
+	{
+		int line = [[d objectForKey:@"line"] intValue];
+		int column = [[d objectForKey:@"column"] intValue];
+		int length = [[d objectForKey:@"length"] intValue];
+		[D displayLine:line column:column length:length withHint:nil orderFront:YES];
+	}
+	[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
+//iTM2_END;
 }
 @end
 
@@ -2151,7 +2470,7 @@ To Do List:
 		iTM2PDFSynchronizer * syncer = [D synchronizer];
 		if(!syncer)
 		{
-			[D updatePdfsync:self];
+			[D updateSynchronizer:self];
 			return;
 		}
         NSDictionary * SLs = [syncer synchronizationLocationsForPageIndex:[self tag] - 1];

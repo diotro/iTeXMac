@@ -62,12 +62,12 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
 - (void)setSynchronizer:(id)argument;
 - (void)replaceSynchronizer:(id)argument;
 /*! 
-    @method     updatePdfsync:
+    @method     updateSynchronizer:
     @abstract   Update the receiver.
     @discussion This message should be sent each time the information linking the PDF with its source have changed.
-This implementation reads the .PDFSYNC file associated to the receiver. There should be a consistency test to ensure that the PDFSYNC file read is really in synchronization with the PDF file read. The the file is parsed in a new thread and some information is cached.
+This implementation reads the .PDFSYNC file associated to the receiver. There should be a consistency test to ensure that the PDFSYNC file read is really in synchronization with the PDF file read. The file is parsed in a new thread and some information is cached.
 */
-- (void)updatePdfsync:(id)sender;
+- (void)updateSynchronizer:(id)sender;
 
 /*! 
     @method     updatePdfSyncFileModificationDate
@@ -137,8 +137,8 @@ typedef struct
     @param      lengthPtr points to an integer location where the length number should be stored.
     @param      sourcePtr is a pointer where the source full path should be stored.
     @param      page is a page number.
-    @param      point is the point of the PDF.
-    @result     a flag, NO if no PDFSYNCH info where available, YES othewise. A NO return value does not mean that the receiver is using DVI.
+    @param      point is the point of the PDF, the origin is at the top left corner of teh page.
+    @result     a flag, NO if no PDFSYNC info where available, YES othewise. A NO return value does not mean that the receiver is using DVI.
 */
 - (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr length:(unsigned int *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
 - (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
@@ -181,6 +181,15 @@ typedef struct
 */
 - (void)lock;
 - (void)unlock;
+
+/*! 
+    @method     isSyncTeX
+    @abstract   Description forthcoming.
+    @discussion These are the methods for synchronization.
+    @param      None.
+    @result     None.
+*/
+- (BOOL)isSyncTeX;
 
 @end
 

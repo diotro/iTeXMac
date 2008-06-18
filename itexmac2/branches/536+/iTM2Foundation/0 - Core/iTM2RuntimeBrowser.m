@@ -747,7 +747,7 @@ To Do List:
 					while(index)
 					{
 						selector = (methodListRef -> method_list[--index]).method_name;
-						if(ISSELECTOR(selector))
+						if(ISSELECTOR(selector) && selector != @selector(heartBeat:))
 						{
 							MS = [aClass iTM2_instanceMethodSignatureForSelector:selector];
 							if([signature isEqual:MS])
@@ -761,7 +761,7 @@ To Do List:
 						}
 						else
 						{
-							iTM2_LOG(@"Unmapped selector...");
+							iTM2_LOG(@"Unmapped selector or heartBeat:...");
 						}
 					}
 				}

@@ -218,7 +218,7 @@ extern NSString * const iTM2TextInspectorType;
 - (id)textView;
 
 /*!
-	@method		highlightAndScrollToVisibleLine:column:length:
+	@method		highlightAndScrollToVisibleLine:column:length:withHint:
 	@abstract	Abstract forthcoming.
 	@discussion The default implementation forwards the message to the text view.
 	@param		line is a line number

@@ -1568,7 +1568,7 @@ NSString * const iTM2ContinuousCompileDelay = @"iTM2ContinuousCompileDelay";
 + (void)initialize;
 {iTM2_DIAGNOSTIC;
 	[super initialize];
-	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:1] forKey:iTM2ContinuousCompileDelay]];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:5] forKey:iTM2ContinuousCompileDelay]];
 	return;
 }
 - (int)commandGroup;
@@ -1934,8 +1934,15 @@ To Do List:
 		while(D = [E nextObject])
 			if([D isDocumentEdited])
 			{
-				[self performCommandForProject:TPD];
-				return;
+				[TPD setElementary:NO];
+				if([self mustSaveProjectDocumentsBefore])
+				{
+					[TPD saveDocument:nil];
+			//		[project writeSafelyToURL:[TPD fileURL] ofType:[TPD fileType] forSaveOperation:NSSaveOperation error:nil];
+				}
+				[self doPerformCommandForProject:TPD];
+//EQUIV
+//				[self performCommandForProject:TPD];
 			}
 		if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		{
