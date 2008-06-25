@@ -24,6 +24,7 @@
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
 #import <iTM2TeXFoundation/iTM2TeXPCompileWrapperKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
+#import <iTM2TeXFoundation/iTM2TeXDocumentKit.h>
 
 extern NSString * const iTM2TeXProjectFrontendTable;
 
@@ -173,7 +174,7 @@ To Do List:
 	{
 		if(![self editedEngine])
 		{
-			[self setEditedEngine:[[[iTM2TeXPCompilePerformer builtInEngineModes] objectEnumerator] nextObject]];
+			[self setEditedEngine:[[[[iTM2TeXPCompilePerformer performer] builtInEngineModes] objectEnumerator] nextObject]];
 		}
 	}
 //iTM2_END;
@@ -244,7 +245,7 @@ To Do List:
 			[myTPD takeEnvironment:[TPD environmentForEngineMode:name] forEngineMode:name];
 		}
 		[myTPD takeEnvironment:[TPD environmentForEngineMode:iTM2ProjectDefaultsKey] forEngineMode:iTM2ProjectDefaultsKey];
-		E = [[iTM2TeXPCompilePerformer builtInEngineModes] objectEnumerator];
+		E = [[[iTM2TeXPCompilePerformer performer] builtInEngineModes] objectEnumerator];
 		NSMutableArray * MRA = [NSMutableArray array];
 		while(name = [E nextObject])
 		{
@@ -1539,7 +1540,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:nil];
-	[TPD takeContextBool: ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextPrivateMask] forKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
+	[TPD takeContextBool:![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] forKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
 	[TPD updateChangeCount:NSChangeDone];
     return;
 //iTM2_END;
@@ -1804,8 +1805,6 @@ To Do List:
 //iTM2_LOG(@"222-iTM2_Compile_tex is: %@", [ED objectForKey:@"iTM2_Compile_tex"]);
 		}
 	}
-	if([project contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
-		[ED setObject:[NSNumber numberWithBool:YES] forKey:iTM2ContinuousCompile];
 //iTM2_END;
 	return ED;
 }
@@ -2024,7 +2023,7 @@ To do list:
 //iTM2_START;
 	id TPD = [SPC projectForSource:self];
 //iTM2_END;
-    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextPrivateMask] && [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] && [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canToggleSmartUndo
 - (BOOL)canToggleSmartUndo;
@@ -2036,7 +2035,7 @@ To do list:
 //iTM2_START;
 	id TPD = [SPC projectForSource:self];
 //iTM2_END;
-    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextPrivateMask];
+    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
 }
 @end
 
@@ -2187,6 +2186,27 @@ To Do List:
     return;
 }
 #endif
+@end
+
+@implementation iTM2TeXDocument(Continuous)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveDocument:
+- (void)saveDocument:(id)sender;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.1: Mon Jun 23 09:43:35 UTC 2008
+To Do List:
+"*/
+{
+	id TPD = [SPC TeXProjectForSource:self];
+	if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
+	{
+		// this awfull trick to solve the problem of "save where?" document
+		// in continuous mode
+		return;
+	}
+	[super saveDocument:sender];
+	return;
+}
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXPCompileWrapperKit

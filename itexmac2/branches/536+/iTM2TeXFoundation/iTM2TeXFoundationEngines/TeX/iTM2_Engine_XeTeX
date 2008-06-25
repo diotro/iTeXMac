@@ -5,12 +5,13 @@
 iTM2_XeTeX_Engine_Version=1.0
 iTM2TeXEngineUsage()
 {
-iTM2_USAGE="Welcome to $(basename "$0") version ${iTM2_XeTeX_Engine_Version}
+cat <<EOF
+Welcome to $(basename "$0") version ${iTM2_XeTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the XeTeX engine
 ($(which xetex))
 © 2006 jlaurens AT users DOT sourceforge DOT net
 Usage: $(basename "$0") with environment variables
-	TWSMaster: the main input file (actually \"${TWSMaster}\")
+	TWSMaster: the main input file (actually "${TWSMaster}")
 	TWSProject: the project file, if any, full path, unused
 	TWSWrapper: the wrapper file, if any, full path, unused
 	iTM2_USE_output_directory: 1 or void (common)
@@ -47,8 +48,10 @@ Usage: $(basename "$0") with environment variables
 	iTM2_XeTeX_halt_on_error: 1 or void,
 	iTM2_XeTeX_interaction: batchmode/nonstopmode/scrollmode/errorstopmode, set interaction mode
 	iTM2_XeTeX_kpathsea_debug:
-	iTM2_XeTeX_MoreArgument: more arguments"
-"${iTM2_CMD_Notify}" notify echo "$iTM2_USAGE"
+	iTM2_XeTeX_MoreArgument: more arguments
+	SyncTeXDisabled: 0 to use SyncTeX
+	SyncTeXUncompressed: 0 to use compressed synctex
+EOF
 }
 "${iTM2_CMD_Notify}" notify comment "Welcome to $(basename "$0") version ${iTM2_XeTeX_Engine_Version}
 This is iTeXMac2 built in script to wrap the XeTeX engine
@@ -168,6 +171,17 @@ fi
 if [ "${iTM2_XeTeX_USE_MoreArgument:-0}" != "0" ] && [ ${#iTM2_XeTeX_MoreArgument} -ne 0 ]
 then
 	iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} \"${iTM2_XeTeX_MoreArgument}\""
+fi
+if [ "${SyncTeXDisabled:-0}" != "0" ]
+then
+	iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -synctex=0"
+else
+	if [ "${SyncTeXUncompressed:-0}" != "0" ]
+	then
+		iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -synctex=-1"
+	else
+		iTM2_XeTeX_Arguments="${iTM2_XeTeX_Arguments} -synctex=1"
+	fi
 fi
 if [ "${iTM2_AllTeX_shell_escape:-0}" != "0" ]
 then

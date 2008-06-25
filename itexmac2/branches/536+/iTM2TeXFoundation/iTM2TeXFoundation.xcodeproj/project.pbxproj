@@ -47,7 +47,7 @@
 
 /* Begin PBXBuildFile section */
 		516E14940E01B4A5000EF690 /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 516E14920E01B4A5000EF690 /* synctex_parser.c */; };
-		516E14950E01B4A5000EF690 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 516E14930E01B4A5000EF690 /* synctex_parser.h */; };
+		516E14950E01B4A5000EF690 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 516E14930E01B4A5000EF690 /* synctex_parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		51B3E6340CDF8D360024D173 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B3E6330CDF8D360024D173 /* iTM2Gear.png */; };
 		51E28D660E02E22F00F7EEF6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 51E28D650E02E22F00F7EEF6 /* libz.dylib */; };
 		51F1B9DD0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */; };

@@ -52,6 +52,8 @@ Usage: $(basename "$0") with environment variables
 	iTM2_PDFTeX_interaction: batchmode/nonstopmode/scrollmode/errorstopmode, set interaction mode
 	iTM2_PDFTeX_kpathsea_debug: 1 or void
 	iTM2_PDFTeX_MoreArgument: more arguments
+	SyncTeXDisabled: 0 to use SyncTeX
+	SyncTeXUncompressed: 0 to use compressed synctex
 EOF
 }
 # the engine part
@@ -308,6 +310,17 @@ then
 else
 	OUTPUT="${TWSMasterBase%.*}"
 fi
+if [ "${SyncTeXDisabled:-0}" != "0" ]
+then
+	iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -synctex=0"
+else
+	if [ "${SyncTeXUncompressed:-0}" != "0" ]
+	then
+		iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -synctex=-1"
+	else
+		iTM2_PDFTeX_Arguments="${iTM2_PDFTeX_Arguments} -synctex=1"
+	fi
+fi
 pushd "${iTM2_PWD}"
 iTM2_DOT_PDFSYNC="${TWSMasterBase%.*}.pdfsync"
 if [ -f "${iTM2_DOT_PDFSYNC}" ]
@@ -331,9 +344,9 @@ fi
 "${iTM2_CMD_Notify}" notify comment "Performing ${iTM2_Preparator} ${iTM2_PDFTeX_EnginePath} ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
 if [ ${#iTM2_Preparator} -gt 0 ]
 then
-	/bin/sh -c "\"${iTM2_Preparator}\" \"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} -synctex=1 \"${TWSMasterBase}\""
+	/bin/sh -c "\"${iTM2_Preparator}\" \"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
 else
-	/bin/sh -c "\"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} -synctex=1 \"${TWSMasterBase}\""
+	/bin/sh -c "\"${iTM2_PDFTeX_EnginePath}\" ${iTM2_PDFTeX_Arguments} \"${TWSMasterBase}\""
 fi
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]

@@ -70,6 +70,17 @@ To Do List:
 				nil]];
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scanner
+- (synctex_scanner_t)scanner;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return NULL;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isSyncTeX
 - (BOOL)isSyncTeX;
 /*"Description Forthcoming.
@@ -1146,6 +1157,18 @@ To Do List:
 //iTM2_START;
     return YES;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scanner
+- (synctex_scanner_t)scanner;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- for 2.0:Mon Jun 02 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return scanner;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
 - (void)dealloc:(id)sender;
 /*"Description Forthcoming.
@@ -1321,7 +1344,7 @@ To Do List:
 		NSMutableDictionary * result = [NSMutableDictionary dictionary];
 		NSMutableDictionary * hereResult = [NSMutableDictionary dictionary];
 		synctex_node_t node;
-		while(node = synctex_next_result(scanner)) {
+		while((node = synctex_next_result(scanner))) {
 			NSNumber * N = [NSNumber numberWithInt:synctex_node_page(node)-1];
 			NSPoint P = NSMakePoint(synctex_node_visible_h(node),synctex_node_visible_v(node));
 			NSValue * V = [NSValue valueWithPoint:P];
@@ -1646,7 +1669,7 @@ NSString * const iTM2PDFSYNCExtension = @"pdfsync";
 #import <iTM2Foundation/iTM2StringKit.h>
 #import <iTM2Foundation/iTM2PDFViewKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
-#pragma mark 
+#pragma mark -
 @implementation iTM2PDFDocument(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizer
 - (id)synchronizer;
@@ -1722,34 +1745,6 @@ To Do List:
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteWriteToURL:ofType:error:
-- (void)synchronizationCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// the filename is not really the final filename...
-	[self updateSynchronizerFileModificationDate];
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteSaveContext:
-- (void)synchronizationCompleteSaveContext:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// the filename is not really the final filename...
-	[self updateSynchronizerFileModificationDate];
-//iTM2_END;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateSynchronizerFileModificationDate
 - (void)updateSynchronizerFileModificationDate;
 /*"Description Forthcoming.
@@ -1795,6 +1790,34 @@ To Do List:
 			}
 		}
 	}
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteWriteToURL:ofType:error:
+- (void)synchronizationCompleteWriteToURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// the filename is not really the final filename...
+	[self updateSynchronizerFileModificationDate];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteSaveContext:
+- (void)synchronizationCompleteSaveContext:(id)sender;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.0:Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// the filename is not really the final filename...
+	[self updateSynchronizerFileModificationDate];
 //iTM2_END;
 	return;
 }
@@ -1983,10 +2006,11 @@ laSuite:
 	{
 		[self updateSynchronizer:self];
 	}
-	else if(destinations = [syncer destinationsForLine:l column:c inSource:SRCE])
+	else
 	{
 		BOOL result = NO;
 		E = [[NSApp windows] objectEnumerator];
+		destinations = [syncer destinationsForLine:l column:c inSource:SRCE];
 		while(W = [E nextObject])
 		{
 			WC = [W windowController];
@@ -1995,7 +2019,8 @@ laSuite:
 				&& [WC respondsToSelector:@selector(canSynchronizeOutput)]
 					&& [WC canSynchronizeOutput])
 			{
-				if([WC synchronizeWithDestinations:destinations hint:hint])// after the window has been loaded
+				if([WC synchronizeWithLine:l column:c source:SRCE hint:hint]
+					|| (destinations && [WC synchronizeWithDestinations:destinations hint:hint]))// after the window has been loaded
 				{
 					if(yorn)
 					{
@@ -2019,6 +2044,10 @@ laSuite:
 	}
 	if(l != NSNotFound)
 	{
+		if([[self synchronizer] isSyncTeX])
+		{
+			hint = [[hint mutableCopy] autorelease];
+		}
 		result = NO;
 		E = [[NSApp windows] objectEnumerator];
 		while(W = [E nextObject])
@@ -2053,6 +2082,9 @@ laSuite:
 			[_Invocation setArgument:&l atIndex:2];
 			[_Invocation setArgument:&c atIndex:3];
 			[_Invocation setArgument:&SRCE atIndex:4];
+			[_Invocation setArgument:&hint atIndex:5];
+			[_Invocation setArgument:&yorn atIndex:6];
+			[_Invocation setArgument:&force atIndex:7];
 			[IMPLEMENTATION takeMetaValue:_Invocation forKey:@"_Invocation"];
 		}
 		if(result)
@@ -2183,8 +2215,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//NSLog
-//NSLog(@"dpn");
     if(page<0)
     {
         page = 0;
@@ -2192,6 +2222,19 @@ To Do List:
     }
     [[self album] takeCurrentPhysicalPage:page synchronizationPoint:P withHint:hint];
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithLine:column:source:hint:
+- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *)hint
+/*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[[self document] synchronizer] isSyncTeX]
+		&& [[self album] synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *) hint];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
 - (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
@@ -2212,6 +2255,18 @@ To Do List:
 
 @implementation iTM2PDFAlbumView(SYNCKit)
 /*"Description forthcoming."*/
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithLine:column:source:hint:
+- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *)hint
+/*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return NO;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
 - (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
@@ -2277,8 +2332,7 @@ To Do List:
 	}
 	iTM2_LOG(@"....  Unable to synchronize");
 //iTM2_END;
-    return NO
-	;
+    return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint:
 - (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
@@ -2631,11 +2685,20 @@ To Do List:
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
     unsigned modifierFlags = [event modifierFlags];
-    if(((modifierFlags & NSCommandKeyMask)==NSCommandKeyMask)
-		&& ([event clickCount]==1)
-			&& [self pdfSynchronizeMouseDown:event])
+    if((modifierFlags & NSCommandKeyMask)>0)
 	{
-		return;
+		if(([event clickCount]==1) && [self pdfSynchronizeMouseDown:event])
+		{
+			return;
+		}
+		else if([event clickCount]>1)
+		{
+			NSDocument * D = [[[self window] windowController] document];
+			if([D respondsToSelector:@selector(orderFrontCurrentSource)])
+			{
+				[D orderFrontCurrentSource];
+			}
+		}
 	}
 	else
 	{

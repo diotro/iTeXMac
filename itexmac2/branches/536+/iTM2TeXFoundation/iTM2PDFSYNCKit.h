@@ -19,6 +19,8 @@
 //  to the actual developper team.
 */
 
+#import <iTM2TeXFoundation/synctex_parser.h>
+
 extern NSString * const iTM2PDFSyncParsedNotificationName;
 extern NSString * const iTM2PDFNoSynchronizationKey;
 extern NSString * const iTM2PDFSyncFollowFocusKey;
@@ -181,6 +183,7 @@ typedef struct
 */
 - (void)lock;
 - (void)unlock;
+- (synctex_scanner_t)scanner;
 
 /*! 
     @method     isSyncTeX
@@ -271,6 +274,7 @@ typedef struct
 - (BOOL)validateScrollSynchronizationPointToVisible:(id)sender;
 - (void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 - (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
+- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *)hint;
 @end
 
 @interface NSTextView(iTM2PDFSYNCKit)
