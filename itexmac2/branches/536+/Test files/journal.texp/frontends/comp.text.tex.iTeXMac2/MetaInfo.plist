@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>FileContexts</key>
@@ -8,80 +8,140 @@
 		<dict>
 			<key>Inspector Variants</key>
 			<dict>
-				<key>Default</key>
+				<key>.DefaultsModel</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>Files</key>
+				<key>.iTM2XtdTeXParserSymbols</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>Settings</key>
+				<key>ConTeXt Mode</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
+				</array>
+				<key>Default Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>LaTeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Project Subdocuments Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Settings Mode</key>
+				<array>
+					<string>Default Variant</string>
 					<string>Extended</string>
 				</array>
-				<key>Terminal</key>
+				<key>Shell Script</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
+				<key>TeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Terminal Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Tiger</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>iTM2ExternalInspector</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>tex</key>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
 			</dict>
 			<key>Open Documents</key>
 			<array>
 				<string>0</string>
+				<string>1</string>
 			</array>
 			<key>Open Inspectors</key>
 			<array>
 				<dict>
 					<key>mode</key>
-					<string>Default</string>
+					<string>Default Mode</string>
 					<key>type</key>
 					<string></string>
 					<key>variant</key>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</dict>
 				<dict>
 					<key>mode</key>
-					<string>Files</string>
+					<string>Project Subdocuments Mode</string>
 					<key>type</key>
-					<string>TeX Project</string>
+					<string>TeX Project Type</string>
 					<key>variant</key>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</dict>
 			</array>
 			<key>Print Info Data</key>
 			<data>
-			BAt0eXBlZHN0cmVhbYED6IQBQISEhBNOU011dGFibGVEaWN0aW9u
+			BAtzdHJlYW10eXBlZIHoA4QBQISEhBNOU011dGFibGVEaWN0aW9u
 			YXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpG5KE
-			hIQITlNTdHJpbmcBlYQBKxBOU0pvYkRpc3Bvc2l0aW9uhpKEl5gP
-			TlNQcmludFNwb29sSm9ihpKEl5gLTlNQYXBlclNpemWGkoSEhAdO
-			U1ZhbHVlAJWEASqEhAx7X05TU2l6ZT1mZn2bgQJkgQMYhpKEl5gN
-			TlNNdXN0Q29sbGF0ZYaShISECE5TTnVtYmVyAJuahIQBY50BhpKE
-			l5gUTlNWZXJ0aWNhbFBhZ2luYXRpb26GkoSfmoSWlgCGkoSXmA1O
-			U1ByaW50ZXJOYW1lhpKEl5gPcHNjIDExMDAgc2VyaWVzhpKEl5gL
-			TlNQcmludFRpbWWGkoSEhAZOU0RhdGUAlYQBZIPCLWPA3AAAAIaS
-			hJeYDU5TUGFnZXNBY3Jvc3OGkoSfmqOWAYaShJeYFE5TVmVydGlj
-			YWxseUNlbnRlcmVkhpKekoSXmA9OU1ByaW50QWxsUGFnZXOGkp6S
-			hJeYC05TUGFwZXJOYW1lhpKEl5gJbmEtbGV0dGVyhpKEl5gPTlNT
-			Y2FsaW5nRmFjdG9yhpKEn5qEhAFmoAGGkoSXmAhOU0NvcGllc4aS
-			qpKEl5gJTlNQcmludGVyhpKEhIQJTlNQcmludGVyAJWSpYaShJeY
-			EE5TUHJpbnRQcm90ZWN0ZWSGkoSfmqCdAIaShJeYFU5TSG9yaXpv
-			bmFsUGFnaW5hdGlvboaShJ+ao5YChpKEl5gWTlNIb3Jpem9udGFs
-			bHlDZW50ZXJlZIaSnpKEl5gLTlNGYXhOdW1iZXKGkoSXmACGkoSX
-			mA5OU0JvdHRvbU1hcmdpboaShJ+asaBahpKEl5gLTlNUb3BNYXJn
-			aW6GkoSfmrGgWoaShJeYC05TRmlyc3RQYWdlhpKqkoSXmApOU0xh
-			c3RQYWdlhpKEn5qjloJ/////hpKEl5gMTlNMZWZ0TWFyZ2luhpKE
-			n5qxoEiGkoSXmBhOU0RldGFpbGVkRXJyb3JSZXBvcnRpbmeGkreS
-			hJeYDU5TUmlnaHRNYXJnaW6GkoSfmrGgSIaShJeYCk5TU2F2ZVBh
-			dGiGkryShJeYC05TUGFnZXNEb3duhpKqkoSXmA1OU09yaWVudGF0
-			aW9uhpKihg==
+			hIQITlNTdHJpbmcBlYQBKxROU1ZlcnRpY2FsUGFnaW5hdGlvboaS
+			hISECE5TTnVtYmVyAISEB05TVmFsdWUAlYQBKoSWlgCGkoSXmBBO
+			U1ByaW50UHJvdGVjdGVkhpKEmZuEhAFjnACGkoSXmAtOU1BhZ2Vz
+			RG93boaShJmbm5YBhpKEl5gITlNDb3BpZXOGkqCShJeYCk5TU2F2
+			ZVBhdGiGkoSXmACGkoSXmBBOU0pvYkRpc3Bvc2l0aW9uhpKEl5gP
+			TlNQcmludFNwb29sSm9ihpKEl5gKTlNMYXN0UGFnZYaShJmbm5aC
+			////f4aShJeYC05TRmF4TnVtYmVyhpKjkoSXmA1OU1BhZ2VzQWNy
+			b3NzhpKgkoSXmA1OU1JpZ2h0TWFyZ2luhpKEmZuEhAFmnUiGkoSX
+			mAxOU0xlZnRNYXJnaW6GkoSZm6ydSIaShJeYC05TUHJpbnRUaW1l
+			hpKEhIQGTlNEYXRlAJWEAWSDAAAAxchjLcKGkoSXmAtOU1BhcGVy
+			U2l6ZYaShJqbhIQMe19OU1NpemU9ZmZ9oIFTAoFKA4aShJeYDU5T
+			UHJpbnRlck5hbWWGkoSXmAhOZXVtYW5uMoaShJeYFk5TSG9yaXpv
+			bnRhbGx5Q2VudGVyZWSGkoSZm56cAYaShJeYFE5TVmVydGljYWxs
+			eUNlbnRlcmVkhpK4koSXmAtOU0ZpcnN0UGFnZYaSoJKEl5gPTlNT
+			Y2FsaW5nRmFjdG9yhpKEmZuEn58BhpKEl5gYTlNEZXRhaWxlZEVy
+			cm9yUmVwb3J0aW5nhpKdkoSXmAtOU1RvcE1hcmdpboaShJmbrJ1a
+			hpKEl5gNTlNNdXN0Q29sbGF0ZYaSuJKEl5gPTlNQcmludEFsbFBh
+			Z2VzhpK4koSXmA5OU0JvdHRvbU1hcmdpboaShJmbrJ1ahpKEl5gN
+			TlNPcmllbnRhdGlvboaSmJKEl5gJTlNQcmludGVyhpKEhIQJTlNQ
+			cmludGVyAJWStoaShJeYFU5TSG9yaXpvbmFsUGFnaW5hdGlvboaS
+			hJmbm5YChpKEl5gLTlNQYXBlck5hbWWGkoSXmAZpc28tYTSGhg==
 			</data>
 			<key>Window Frame Current TeX Project Files:{1280, 854}</key>
 			<string>873 28 336 369 0 0 1280 832 </string>
+			<key>Window Frame Current TeX Project Files:{1440, 900}</key>
+			<string>842 368 528 485 0 0 1440 878 </string>
+			<key>codeset</key>
+			<string>MACINTOSH</string>
 			<key>iTM2ProjectAbsolutePath</key>
-			<string>/Users/coder/iTeXMac/iTeXMac2/Developer/Test files/journal.texp</string>
-			<key>iTM2ProjectFileKey</key>
-			<string>.</string>
+			<string>/iTeXMac2/svn/branch-719/Test files/journal.texp</string>
+			<key>iTM2ProjectOwnAbsolutePathKey</key>
+			<string>/iTeXMac2/svn/branch-719/Test files/journal.texp</string>
+			<key>iTM2ProjectOwnAliasKey</key>
+			<data>
+			AAAAAAFwAAIAAQNIRDIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADD
+			TX30SCsAAABqoSwMam91cm5hbC50ZXhwAAAAAAAAAAAAAAAAAAAA
+			AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHIj
+			FMRu/SgAAAAAAAAAAP////8AAAkgAAAAAAAAAAAAAAAAAAAAClRl
+			c3QgZmlsZXMAEAAIAADDTW/kAAAAEQAIAADEbuEIAAAAAQAQAGqh
+			LABqc4gACqBPAAhQyAACADNIRDI6aVRlWE1hYzI6c3ZuOmJyYW5j
+			aC03MTk6VGVzdCBmaWxlczpqb3VybmFsLnRleHAAAA4AGgAMAGoA
+			bwB1AHIAbgBhAGwALgB0AGUAeABwAA8ACAADAEgARAAyABIAL2lU
+			ZVhNYWMyL3N2bi9icmFuY2gtNzE5L1Rlc3QgZmlsZXMvam91cm5h
+			bC50ZXhwAAATAAEvAP//AAA=
+			</data>
+			<key>iTM2ProjectOwnRelativePathKey</key>
+			<string></string>
+			<key>iTM2ProjectRelativePath</key>
+			<string>journal.texp</string>
 			<key>iTM2ProjectRelativePathKey</key>
 			<string>journal.texp</string>
 			<key>iTM2ShouldCascadeWindows</key>
@@ -91,29 +151,342 @@
 		<dict>
 			<key>Inspector Variants</key>
 			<dict>
-				<key>Default</key>
+				<key>.DefaultsModel</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>Files</key>
+				<key>.iTM2XtdTeXParserSymbols</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>LaTeX</key>
+				<key>ConTeXt Mode</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>TeX</key>
+				<key>Default Mode</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
+				<key>LaTeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Project Subdocuments Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Settings Mode</key>
+				<array>
+					<string>Default Variant</string>
+					<string>Extended</string>
+				</array>
+				<key>Shell Script</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>TeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Terminal Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Tiger</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>iTM2ExternalInspector</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>tex</key>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
 			</dict>
+			<key>Open Inspectors</key>
+			<array>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>type</key>
+					<string>text</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
+			</array>
 			<key>Window Frame Current Text Window:{1280, 854}</key>
 			<string>76 288 684 529 0 0 1280 832 </string>
+			<key>Window Frame Current Text Window:{1440, 900}</key>
+			<string>31 50 801 828 0 0 1440 878 </string>
+			<key>codeset</key>
+			<integer>30</integer>
+			<key>iTM2CheckSpellingAsYouType</key>
+			<true/>
+			<key>iTM2MacroCategory</key>
+			<string>TeX</string>
+			<key>iTM2MacroCategory.TeX Mode.text</key>
+			<string>TeX</string>
+			<key>iTM2MacroContext.TeX Mode.text</key>
+			<string></string>
+			<key>iTM2MacroDomain.TeX Mode.text</key>
+			<string>Text</string>
+			<key>iTM2ProjectAbsolutePath</key>
+			<string>/iTeXMac2/svn/branch-719/Test files/journal.texp</string>
+			<key>iTM2ProjectFileKey</key>
+			<string>0</string>
+			<key>iTM2ProjectOwnAbsolutePathKey</key>
+			<string>/iTeXMac2/svn/branch-719/Test files/journal.tex</string>
+			<key>iTM2ProjectOwnAliasKey</key>
+			<data>
+			AAAAAAFqAAIAAANIRDIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADD
+			TX30SCsAAABqoSwLam91cm5hbC50ZXgAAAAAAAAAAAAAAAAAAAAA
+			AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGqh
+			m8Ru/SgAAAAAAAAAAP////8AAAkgAAAAAAAAAAAAAAAAAAAAClRl
+			c3QgZmlsZXMAEAAIAADDTW/kAAAAEQAIAADEbuEIAAAAAQAQAGqh
+			LABqc4gACqBPAAhQyAACADJIRDI6aVRlWE1hYzI6c3ZuOmJyYW5j
+			aC03MTk6VGVzdCBmaWxlczpqb3VybmFsLnRleAAOABgACwBqAG8A
+			dQByAG4AYQBsAC4AdABlAHgADwAIAAMASABEADIAEgAuaVRlWE1h
+			YzIvc3ZuL2JyYW5jaC03MTkvVGVzdCBmaWxlcy9qb3VybmFsLnRl
+			eAATAAEvAP//AAA=
+			</data>
+			<key>iTM2ProjectOwnRelativePathKey</key>
+			<string>journal.tex</string>
+			<key>iTM2ProjectRelativePath</key>
+			<string>journal.texp</string>
 			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2StringEncodingIsAuto</key>
+			<false/>
+			<key>iTM2TextKeyWindow</key>
 			<false/>
 			<key>iTM2TextMagnification</key>
 			<real>1</real>
+			<key>iTM2TextScaleFactor</key>
+			<real>2.0000002384185791</real>
+			<key>iTM2TextSelectedRange</key>
+			<string>{0, 0}</string>
+			<key>iTM2TextStyle</key>
+			<string>LaTeX-Xtd</string>
+			<key>iTM2TextSyntaxParserVariant</key>
+			<string>symbolic</string>
+			<key>iTM2TextVisibleRange</key>
+			<string>{0, 637}</string>
+		</dict>
+		<key>1</key>
+		<dict>
+			<key>Inspector Variants</key>
+			<dict>
+				<key>.DefaultsModel</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>.iTM2XtdTeXParserSymbols</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>ConTeXt Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Default Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>LaTeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Project Subdocuments Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Settings Mode</key>
+				<array>
+					<string>Default Variant</string>
+					<string>Extended</string>
+				</array>
+				<key>Shell Script</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>TeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Terminal Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Tiger</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>iTM2ExternalInspector</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>tex</key>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
+			</dict>
+			<key>Open Inspectors</key>
+			<array>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>type</key>
+					<string>text</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
+			</array>
+			<key>Window Frame Current Text Window:{1440, 900}</key>
+			<string>31 50 801 828 0 0 1440 878 </string>
+			<key>codeset</key>
+			<integer>30</integer>
+			<key>iTM2CheckSpellingAsYouType</key>
+			<true/>
+			<key>iTM2MacroCategory</key>
+			<string>TeX</string>
+			<key>iTM2MacroCategory.TeX Mode.text</key>
+			<string>TeX</string>
+			<key>iTM2MacroContext.TeX Mode.text</key>
+			<string></string>
+			<key>iTM2MacroDomain.TeX Mode.text</key>
+			<string>Text</string>
+			<key>iTM2ProjectAbsolutePath</key>
+			<string>/iTeXMac2/svn/branch-719/Test files/journal.texp</string>
+			<key>iTM2ProjectFileKey</key>
+			<string>1</string>
+			<key>iTM2ProjectOwnAbsolutePathKey</key>
+			<string>/iTeXMac2/svn/branch-719/Test files/test2.tex</string>
+			<key>iTM2ProjectOwnAliasKey</key>
+			<data>
+			AAAAAAFiAAIAAANIRDIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADD
+			TX30SCsAAABqoSwJdGVzdDIudGV4AAAAAAAAAAAAAAAAAAAAAAAA
+			AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGqh
+			mcRu/SgAAAAAAAAAAP////8AAAkgAAAAAAAAAAAAAAAAAAAAClRl
+			c3QgZmlsZXMAEAAIAADDTW/kAAAAEQAIAADEbuEIAAAAAQAQAGqh
+			LABqc4gACqBPAAhQyAACADBIRDI6aVRlWE1hYzI6c3ZuOmJyYW5j
+			aC03MTk6VGVzdCBmaWxlczp0ZXN0Mi50ZXgADgAUAAkAdABlAHMA
+			dAAyAC4AdABlAHgADwAIAAMASABEADIAEgAsaVRlWE1hYzIvc3Zu
+			L2JyYW5jaC03MTkvVGVzdCBmaWxlcy90ZXN0Mi50ZXgAEwABLwD/
+			/wAA
+			</data>
+			<key>iTM2ProjectOwnRelativePathKey</key>
+			<string>test2.tex</string>
+			<key>iTM2ProjectRelativePath</key>
+			<string>journal.texp</string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2StringEncodingIsAuto</key>
+			<false/>
+			<key>iTM2TextKeyWindow</key>
+			<false/>
+			<key>iTM2TextScaleFactor</key>
+			<real>2.0000002384185791</real>
+			<key>iTM2TextSelectedRange</key>
+			<string>{0, 0}</string>
+			<key>iTM2TextStyle</key>
+			<string>LaTeX-Xtd</string>
+			<key>iTM2TextSyntaxParserVariant</key>
+			<string>symbolic</string>
+			<key>iTM2TextVisibleRange</key>
+			<string>{0, 544}</string>
+		</dict>
+		<key>_</key>
+		<dict>
+			<key>Open Documents</key>
+			<array>
+				<string>0</string>
+				<string>1</string>
+			</array>
+			<key>Print Info Data</key>
+			<data>
+			BAtzdHJlYW10eXBlZIHoA4QBQISEhBNOU011dGFibGVEaWN0aW9u
+			YXJ5AISEDE5TRGljdGlvbmFyeQCEhAhOU09iamVjdACFhAFpG5KE
+			hIQITlNTdHJpbmcBlYQBKxROU1ZlcnRpY2FsUGFnaW5hdGlvboaS
+			hISECE5TTnVtYmVyAISEB05TVmFsdWUAlYQBKoSWlgCGkoSXmBBO
+			U1ByaW50UHJvdGVjdGVkhpKEmZuEhAFjnACGkoSXmAtOU1BhZ2Vz
+			RG93boaShJmbm5YBhpKEl5gITlNDb3BpZXOGkqCShJeYCk5TU2F2
+			ZVBhdGiGkoSXmACGkoSXmBBOU0pvYkRpc3Bvc2l0aW9uhpKEl5gP
+			TlNQcmludFNwb29sSm9ihpKEl5gKTlNMYXN0UGFnZYaShJmbm5aC
+			////f4aShJeYC05TRmF4TnVtYmVyhpKjkoSXmA1OU1BhZ2VzQWNy
+			b3NzhpKgkoSXmA1OU1JpZ2h0TWFyZ2luhpKEmZuEhAFmnUiGkoSX
+			mAxOU0xlZnRNYXJnaW6GkoSZm6ydSIaShJeYC05TUHJpbnRUaW1l
+			hpKEhIQGTlNEYXRlAJWEAWSDAAAAxchjLcKGkoSXmAtOU1BhcGVy
+			U2l6ZYaShJqbhIQMe19OU1NpemU9ZmZ9oIFTAoFKA4aShJeYDU5T
+			UHJpbnRlck5hbWWGkoSXmAhOZXVtYW5uMoaShJeYFk5TSG9yaXpv
+			bnRhbGx5Q2VudGVyZWSGkoSZm56cAYaShJeYFE5TVmVydGljYWxs
+			eUNlbnRlcmVkhpK4koSXmAtOU0ZpcnN0UGFnZYaSoJKEl5gPTlNT
+			Y2FsaW5nRmFjdG9yhpKEmZuEn58BhpKEl5gYTlNEZXRhaWxlZEVy
+			cm9yUmVwb3J0aW5nhpKdkoSXmAtOU1RvcE1hcmdpboaShJmbrJ1a
+			hpKEl5gNTlNNdXN0Q29sbGF0ZYaSuJKEl5gPTlNQcmludEFsbFBh
+			Z2VzhpK4koSXmA5OU0JvdHRvbU1hcmdpboaShJmbrJ1ahpKEl5gN
+			TlNPcmllbnRhdGlvboaSmJKEl5gJTlNQcmludGVyhpKEhIQJTlNQ
+			cmludGVyAJWStoaShJeYFU5TSG9yaXpvbmFsUGFnaW5hdGlvboaS
+			hJmbm5YChpKEl5gLTlNQYXBlck5hbWWGkoSXmAZpc28tYTSGhg==
+			</data>
+			<key>Window Frame Current TeX Project Files:{1440, 900}</key>
+			<string>842 368 528 485 0 0 1440 878 </string>
+			<key>Window Frame Current Text Window:{1440, 900}</key>
+			<string>31 50 801 828 0 0 1440 878 </string>
+			<key>iTM2CheckSpellingAsYouType</key>
+			<true/>
+			<key>iTM2MacroCategory</key>
+			<string>TeX</string>
+			<key>iTM2MacroCategory.TeX Mode.text</key>
+			<string>TeX</string>
+			<key>iTM2MacroContext.TeX Mode.text</key>
+			<string></string>
+			<key>iTM2MacroDomain.TeX Mode.text</key>
+			<string>Text</string>
+			<key>iTM2ProjectAbsolutePath</key>
+			<string>/iTeXMac2/svn/branch-719/Test files/journal.texp</string>
+			<key>iTM2ProjectFileKey</key>
+			<string>1</string>
+			<key>iTM2ProjectOwnAbsolutePathKey</key>
+			<string>/iTeXMac2/svn/branch-719/Test files/test2.tex</string>
+			<key>iTM2ProjectOwnAliasKey</key>
+			<data>
+			AAAAAAFiAAIAAANIRDIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADD
+			TX30SCsAAABqoSwJdGVzdDIudGV4AAAAAAAAAAAAAAAAAAAAAAAA
+			AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGqh
+			mcRu/SgAAAAAAAAAAP////8AAAkgAAAAAAAAAAAAAAAAAAAAClRl
+			c3QgZmlsZXMAEAAIAADDTW/kAAAAEQAIAADEbuEIAAAAAQAQAGqh
+			LABqc4gACqBPAAhQyAACADBIRDI6aVRlWE1hYzI6c3ZuOmJyYW5j
+			aC03MTk6VGVzdCBmaWxlczp0ZXN0Mi50ZXgADgAUAAkAdABlAHMA
+			dAAyAC4AdABlAHgADwAIAAMASABEADIAEgAsaVRlWE1hYzIvc3Zu
+			L2JyYW5jaC03MTkvVGVzdCBmaWxlcy90ZXN0Mi50ZXgAEwABLwD/
+			/wAA
+			</data>
+			<key>iTM2ProjectOwnRelativePathKey</key>
+			<string>test2.tex</string>
+			<key>iTM2ProjectRelativePath</key>
+			<string>journal.texp</string>
+			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2TextKeyWindow</key>
+			<false/>
+			<key>iTM2TextScaleFactor</key>
+			<real>2.0000002384185791</real>
+			<key>iTM2TextSelectedRange</key>
+			<string>{0, 0}</string>
+			<key>iTM2TextStyle</key>
+			<string>LaTeX-Xtd</string>
+			<key>iTM2TextSyntaxParserVariant</key>
+			<string>symbolic</string>
+			<key>iTM2TextVisibleRange</key>
+			<string>{0, 544}</string>
 		</dict>
 	</dict>
 	<key>SpellContextModes</key>
@@ -139,29 +512,104 @@
 		<dict>
 			<key>Inspector Variants</key>
 			<dict>
-				<key>Default</key>
+				<key>.DefaultsModel</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>Files</key>
+				<key>.iTM2XtdTeXParserSymbols</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>LaTeX</key>
+				<key>ConTeXt Mode</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>TeX</key>
+				<key>Default Mode</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
+				<key>LaTeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Project Subdocuments Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Settings Mode</key>
+				<array>
+					<string>Default Variant</string>
+					<string>Extended</string>
+				</array>
+				<key>Shell Script</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>TeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Terminal Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Tiger</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>iTM2ExternalInspector</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>tex</key>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
 			</dict>
+			<key>Open Inspectors</key>
+			<array>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>type</key>
+					<string>text</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
+			</array>
 			<key>Window Frame Current Text Window:{1280, 854}</key>
 			<string>76 288 684 529 0 0 1280 832 </string>
+			<key>Window Frame Current Text Window:{1440, 900}</key>
+			<string>31 50 801 828 0 0 1440 878 </string>
+			<key>iTM2CheckSpellingAsYouType</key>
+			<true/>
+			<key>iTM2MacroCategory</key>
+			<string>TeX</string>
+			<key>iTM2MacroCategory.TeX Mode.text</key>
+			<string>TeX</string>
+			<key>iTM2MacroContext.TeX Mode.text</key>
+			<string></string>
+			<key>iTM2MacroDomain.TeX Mode.text</key>
+			<string>Text</string>
 			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2TextKeyWindow</key>
 			<false/>
 			<key>iTM2TextMagnification</key>
 			<real>1</real>
+			<key>iTM2TextScaleFactor</key>
+			<real>2.0000002384185791</real>
+			<key>iTM2TextSelectedRange</key>
+			<string>{0, 0}</string>
+			<key>iTM2TextStyle</key>
+			<string>LaTeX-Xtd</string>
+			<key>iTM2TextSyntaxParserVariant</key>
+			<string>symbolic</string>
+			<key>iTM2TextVisibleRange</key>
+			<string>{0, 544}</string>
 		</dict>
 		<key>texp</key>
 		<dict>
@@ -253,29 +701,104 @@
 		<dict>
 			<key>Inspector Variants</key>
 			<dict>
-				<key>Default</key>
+				<key>.DefaultsModel</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>Files</key>
+				<key>.iTM2XtdTeXParserSymbols</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>LaTeX</key>
+				<key>ConTeXt Mode</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
-				<key>TeX</key>
+				<key>Default Mode</key>
 				<array>
-					<string>Default</string>
+					<string>Default Variant</string>
 				</array>
+				<key>LaTeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Project Subdocuments Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Settings Mode</key>
+				<array>
+					<string>Default Variant</string>
+					<string>Extended</string>
+				</array>
+				<key>Shell Script</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>TeX Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Terminal Mode</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>Tiger</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>iTM2ExternalInspector</key>
+				<array>
+					<string>Default Variant</string>
+				</array>
+				<key>tex</key>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
 			</dict>
+			<key>Open Inspectors</key>
+			<array>
+				<dict>
+					<key>mode</key>
+					<string>TeX Mode</string>
+					<key>type</key>
+					<string>text</string>
+					<key>variant</key>
+					<string>Default Variant</string>
+				</dict>
+			</array>
 			<key>Window Frame Current Text Window:{1280, 854}</key>
 			<string>76 288 684 529 0 0 1280 832 </string>
+			<key>Window Frame Current Text Window:{1440, 900}</key>
+			<string>31 50 801 828 0 0 1440 878 </string>
+			<key>iTM2CheckSpellingAsYouType</key>
+			<true/>
+			<key>iTM2MacroCategory</key>
+			<string>TeX</string>
+			<key>iTM2MacroCategory.TeX Mode.text</key>
+			<string>TeX</string>
+			<key>iTM2MacroContext.TeX Mode.text</key>
+			<string></string>
+			<key>iTM2MacroDomain.TeX Mode.text</key>
+			<string>Text</string>
 			<key>iTM2ShouldCascadeWindows</key>
+			<false/>
+			<key>iTM2TextKeyWindow</key>
 			<false/>
 			<key>iTM2TextMagnification</key>
 			<real>1</real>
+			<key>iTM2TextScaleFactor</key>
+			<real>2.0000002384185791</real>
+			<key>iTM2TextSelectedRange</key>
+			<string>{0, 0}</string>
+			<key>iTM2TextStyle</key>
+			<string>LaTeX-Xtd</string>
+			<key>iTM2TextSyntaxParserVariant</key>
+			<string>symbolic</string>
+			<key>iTM2TextVisibleRange</key>
+			<string>{0, 544}</string>
 		</dict>
 		<key>TeX Project Document</key>
 		<dict>
