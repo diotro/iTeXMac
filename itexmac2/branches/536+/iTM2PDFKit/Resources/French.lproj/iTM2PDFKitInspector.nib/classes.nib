@@ -69,10 +69,6 @@
 				<string>id</string>
 				<key>cropCurrentPage</key>
 				<string>id</string>
-				<key>displayCropBox</key>
-				<string>id</string>
-				<key>displayMediaBox</key>
-				<string>id</string>
 				<key>doFind</key>
 				<string>id</string>
 				<key>doFindNext</key>
@@ -194,7 +190,7 @@
 				<string>NSPanel</string>
 			</dict>
 			<key>SUPERCLASS</key>
-			<string>NSWindowController</string>
+			<string>iTM2Inspector</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>

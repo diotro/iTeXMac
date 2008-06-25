@@ -52,7 +52,7 @@
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
-			<string>NSWindow</string>
+			<string>iTM2Window</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>
@@ -68,10 +68,6 @@
 				<key>cropCancel</key>
 				<string>id</string>
 				<key>cropCurrentPage</key>
-				<string>id</string>
-				<key>displayCropBox</key>
-				<string>id</string>
-				<key>displayMediaBox</key>
 				<string>id</string>
 				<key>doFind</key>
 				<string>id</string>
