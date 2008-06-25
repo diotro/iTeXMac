@@ -5165,7 +5165,7 @@ To Do List:
 				domains: NSNetworkDomainMask|NSLocalDomainMask|NSUserDomainMask] objectEnumerator];
         while(stylePath = [EE nextObject])
 		{
-iTM2_LOG(@"stylePath:%@",stylePath);
+//iTM2_LOG(@"stylePath:%@",stylePath);
 			NSArray * directoryContent = [DFM directoryContentsAtPath:stylePath];
 			E = [directoryContent objectEnumerator];
 			while(variantComponent = [E nextObject])
@@ -5376,7 +5376,7 @@ To Do List:
 	NSBundle * MB = [NSBundle mainBundle];
 	NSString * style = [[self syntaxParserClass] syntaxParserStyle];
 	NSArray * paths = [MB pathsForBuiltInResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent];
-iTM2_LOG(@"builtIn:%@",paths);
+//iTM2_LOG(@"builtIn:%@",paths);
 	NSEnumerator * E = [paths objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
@@ -5410,7 +5410,7 @@ iTM2_LOG(@"builtIn:%@",paths);
 		}
 	}
 	paths = [MB pathsForSupportResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent];
-iTM2_LOG(@"support:%@",paths);
+//iTM2_LOG(@"support:%@",paths);
 	E = [paths objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
@@ -5492,7 +5492,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"fileName:%@",fileName);
+//iTM2_LOG(@"fileName:%@",fileName);
     NSData * D = [NSData dataWithContentsOfFile:fileName options:0 error:outErrorPtr];
 	NSMutableDictionary * MD = nil;
 	if(!D)// either a missing file or a real error
@@ -5695,7 +5695,7 @@ To Do List:
 	}
 	NSRange range = NSMakeRange(0,[MAS length]);
 	NSData * D = [MAS RTFFromRange:range documentAttributes:nil];
-iTM2_LOG(@"fileName:%@",fileName);
+//iTM2_LOG(@"fileName:%@",fileName);
 //iTM2_END;
     return [D writeToFile:fileName options:NSAtomicWrite error:outErrorPtr];
 }

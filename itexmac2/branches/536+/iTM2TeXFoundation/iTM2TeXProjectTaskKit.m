@@ -988,7 +988,7 @@ To Do List:
     NSTextView * TV = [self outputView];
 	NSRange visibleRange = [TV visibleRange];
     NSTextStorage * TS = [TV textStorage];
-iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
+//iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
     [TS beginEditing];
     unsigned int begin = 0;
     [[TS mutableString] getLineStart: &begin end:nil contentsEnd:nil forRange:NSMakeRange([TS length], 0)];
@@ -1018,11 +1018,11 @@ iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
 	{
 		[TV scrollRangeToVisible:NSMakeRange([TS length], 0)];
 		visibleRange = [TV visibleRange];
-iTM2_LOG(@"DID SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
+//iTM2_LOG(@"DID SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
 	}
 	else
 	{
-iTM2_LOG(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
+//iTM2_LOG(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
 	}
 	[TV setEditable:NO];
     [self validateWindowContent];

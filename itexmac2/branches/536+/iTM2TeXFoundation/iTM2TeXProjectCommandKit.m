@@ -2669,14 +2669,14 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 //iTM2_LOG(@"I HAVE RECEIVED THE ORDER TO START");
 #if 1
 	[project setElementary:NO];
 	if([self mustSaveProjectDocumentsBefore])
 	{
 		[project saveDocument:nil];
-iTM2_LOG(@"Documents are saved for the project command.");
+//iTM2_LOG(@"Documents are saved for the project command.");
 //		[project writeSafelyToURL:[project fileURL] ofType:[project fileType] forSaveOperation:NSSaveOperation error:nil];
 	}
 	[self doPerformCommandForProject:project];

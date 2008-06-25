@@ -2038,7 +2038,7 @@ To Do List:
 	// from the SUD
 	D = [self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
 	value = [D objectForKey:@"SyncTeXDisabled"];
-    return value;
+    return [value boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisabledSyncTeX:
 - (void)setDisabledSyncTeX:(BOOL)yorn;
@@ -2082,7 +2082,7 @@ To Do List:
 	// from the SUD
 	D = [self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
 	value = [D objectForKey:@"SyncTeXUncompressed"];
-    return value;
+    return [value boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUncompressedSyncTeX:
 - (void)setUncompressedSyncTeX:(BOOL)yorn;

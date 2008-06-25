@@ -694,7 +694,7 @@ To Do List:
 	name = [self previousFileNameForKey:@"project"];
 	if(![name pathIsEqual:projectFileName])
 	{
-iTM2_LOG(@"The project has most certainly move:\nProject file name:%@\nOld  project name:%@",projectFileName,name);
+//iTM2_LOG(@"The project has most certainly move:\nProject file name:%@\nOld  project name:%@",projectFileName,name);
 		// the project has most certainly moved
 		return [self _fixFarawayProjectConsistency];
 	}
@@ -930,7 +930,7 @@ changeName:
 		}
 		else
 		{
-iTM2_LOG(@"Problem moving file\nsrc:%@\ndest:%@",src,dest);
+//iTM2_LOG(@"Problem moving file\nsrc:%@\ndest:%@",src,dest);
 			iTM2_REPORTERROR(5,([NSString stringWithFormat:@"Problem %@ could not be moved to %@",src,dest]),nil);
 		}
 		return YES;
@@ -3928,7 +3928,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	if(![absoluteURL isFileURL])
 	{
 		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Only file URLs are supported,no:\n%@",absoluteURL]),nil);
@@ -9281,10 +9281,10 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	if(![absoluteURL isFileURL] || (saveOperation != NSSaveAsOperation))
 	{
-iTM2_LOG(@"delegate:%@,SEL:%@",delegate,NSStringFromSelector(didSaveSelector));
+//iTM2_LOG(@"delegate:%@,SEL:%@",delegate,NSStringFromSelector(didSaveSelector));
 		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
 #if 0
 		// COMMENT: if we put this trick here, then the document has lost its own name...and gets tagged as untitled

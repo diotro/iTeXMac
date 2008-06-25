@@ -819,7 +819,7 @@ To Do List:
 		NSFileHandle * FH;
 		if(FH = [[_CurrentTask standardOutput] fileHandleForReading])
 		{
-iTM2_LOG(@"OBSERVING OUTPUT:%@",FH);
+//iTM2_LOG(@"OBSERVING OUTPUT:%@",FH);
 			[DNC addObserver:self
 				selector: @selector(_outputDataAvailableNotified:)
 					name: NSFileHandleDataAvailableNotification
@@ -828,7 +828,7 @@ iTM2_LOG(@"OBSERVING OUTPUT:%@",FH);
 		}
 		if(FH = [[_CurrentTask standardError] fileHandleForReading])
 		{
-iTM2_LOG(@"OBSERVING ERROR:%@",FH);
+//iTM2_LOG(@"OBSERVING ERROR:%@",FH);
 			[DNC addObserver:self
 				selector: @selector(_errorDataAvailableNotified:)
 					name: NSFileHandleDataAvailableNotification
@@ -1097,9 +1097,9 @@ To Do List:
 		return;
 	}
     NSFileHandle * FH = [aNotification object];
-iTM2_LOG(@"OBSERVED OUTPUT:%@",FH);
-iTM2_LOG(@"OBSERVED OUTPUT:%@",[[self currentTask] standardOutput]);
-iTM2_LOG(@"OBSERVED OUTPUT:%@",[[[self currentTask] standardOutput] fileHandleForReading]);
+//iTM2_LOG(@"OBSERVED OUTPUT:%@",FH);
+//iTM2_LOG(@"OBSERVED OUTPUT:%@",[[self currentTask] standardOutput]);
+//iTM2_LOG(@"OBSERVED OUTPUT:%@",[[[self currentTask] standardOutput] fileHandleForReading]);
 	// this can cause a spin lock too
 	if(![FH isEqual:[[[self currentTask] standardOutput] fileHandleForReading]])
 	{
@@ -1318,19 +1318,19 @@ Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	if(![[self currentTask] isRunning])
 	{
 		return;
 	}
     NSFileHandle * FH = [aNotification object];
 	/* Be carefull in next line, the next line hangs */
-iTM2_LOG(@"OBSERVED ERROR:%@",FH);
-iTM2_LOG(@"OBSERVED ERROR:%@",[[self currentTask] standardError]);
-iTM2_LOG(@"OBSERVED ERROR:%@",[[[self currentTask] standardError] fileHandleForReading]);
+//iTM2_LOG(@"OBSERVED ERROR:%@",FH);
+//iTM2_LOG(@"OBSERVED ERROR:%@",[[self currentTask] standardError]);
+//iTM2_LOG(@"OBSERVED ERROR:%@",[[[self currentTask] standardError] fileHandleForReading]);
 	if(![FH isEqual:[[[self currentTask] standardError] fileHandleForReading]])
 	{
-iTM2_LOG(@"SAVED ERROR!");
+//iTM2_LOG(@"SAVED ERROR!");
 NSBeep();
 NSBeep();
 NSBeep();
@@ -1354,7 +1354,7 @@ NSBeep();
 		[DNC removeObserver:self name:[aNotification name] object:FH];
         [[self allInspectors] makeObjectsPerformSelector:@selector(errorDidTerminate) withObject:nil];
 	}
-iTM2_END;
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logError:
@@ -2249,7 +2249,7 @@ To Do List:
 	[TC setDeaf:YES];// no input pipe
     [TC start];
 	[TC waitUntilExit];
-iTM2_LOG(@"[TC output]:%@",[TC output]);
+//iTM2_LOG(@"[TC output]:%@",[TC output]);
 	iTM2_OUTERROR(1,([TC errorStatus]),nil);
     if(outputPtr)
         *outputPtr = [TC output];

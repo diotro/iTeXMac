@@ -2638,6 +2638,10 @@ To Do List:
 @interface NSTextView_iTM2IOSynch:NSTextView
 @end
 
+@interface NSObject(iTM2PDFSyncKit)
+- (void)orderFrontCurrentSource;
+@end
+
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
 

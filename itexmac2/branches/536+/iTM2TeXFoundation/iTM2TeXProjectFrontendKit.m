@@ -93,7 +93,7 @@ To Do List:
 		BOOL displayed = NO;
 		while(D = [E nextObject])
 		{
-iTM2_LOG([D fileName]);
+//iTM2_LOG([D fileName]);
 			if([D displayPageForLine:line column:column source:source withHint:hint orderFront:yorn force:force])
 			{
 				displayed = YES;

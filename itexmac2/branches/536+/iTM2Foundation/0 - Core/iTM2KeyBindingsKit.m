@@ -1481,7 +1481,7 @@ To Do List: Nothing at first glance.
 //        if(![self hasMarkedText])
 //            [self cleanSelectionCache:self];
 //NSLog(@"%@, %@", NSStringFromSelector(_cmd), ([self hasMarkedText]? @"Y":@"N"));
-iTM2_LOG(@"event:%@",event);
+//iTM2_LOG(@"event:%@",event);
         if(![KBM client:self interpretKeyEvent:event])
             [super interpretKeyEvents:[NSArray arrayWithObject:event]];
     }

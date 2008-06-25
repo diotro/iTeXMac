@@ -1846,7 +1846,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-iTM2_START;
+//iTM2_START;
 	NSNumber * myLSTypeIsPackage = [IMPLEMENTATION metaValueForKey:@"LSTypeIsPackage"];
 	if(!myLSTypeIsPackage)
 	{

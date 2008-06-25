@@ -2897,7 +2897,7 @@ To Do List:
 		if(clickCount > 2)
 		{
 			clickCount -= 2;
-iTM2_LOG(@"0 itsProposedSelRange:%@",NSStringFromRange(itsProposedSelRange));
+//iTM2_LOG(@"0 itsProposedSelRange:%@",NSStringFromRange(itsProposedSelRange));
 			if(granularity>NSSelectByWord)
 			{
 				NSTextStorage * TS = [self textStorage];
@@ -2927,7 +2927,7 @@ iTM2_LOG(@"0 itsProposedSelRange:%@",NSStringFromRange(itsProposedSelRange));
 	if((itsProposedSelRange.location <= myProposedSelRange.location)
 		&& (NSMaxRange(myProposedSelRange)<=NSMaxRange(itsProposedSelRange)))
 	{
-iTM2_LOG(@"0 myProposedSelRange:%@",NSStringFromRange(myProposedSelRange));
+//iTM2_LOG(@"0 myProposedSelRange:%@",NSStringFromRange(myProposedSelRange));
 		return myProposedSelRange;
 	}
 //iTM2_END;

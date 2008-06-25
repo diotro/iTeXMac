@@ -105,7 +105,7 @@ To Do List:
 	if(textFinder)// beware of the bug
 	{
 		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"iTM2UseOgreKitFindPanel"]];
-iTM2_LOG(@"setShouldHackFindMenu: %@",([SUD boolForKey:@"iTM2UseOgreKitFindPanel"]?@"yes":@"no"));
+//iTM2_LOG(@"setShouldHackFindMenu: %@",([SUD boolForKey:@"iTM2UseOgreKitFindPanel"]?@"yes":@"no"));
 		[textFinder setShouldHackFindMenu:[SUD boolForKey:@"iTM2UseOgreKitFindPanel"]];
 		iTM2_LOG(@"OgreKit Properly installed");
 	}

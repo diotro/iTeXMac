@@ -1316,10 +1316,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"word:%@",word);
-iTM2_LOG(@"charRange:%@",NSStringFromRange(charRange));
-iTM2_LOG(@"movement:%@",[NSNumber numberWithInt:movement]);
-iTM2_LOG(@"flag:%@",(flag?@"Y":@"N"));
+//iTM2_LOG(@"word:%@",word);
+//iTM2_LOG(@"charRange:%@",NSStringFromRange(charRange));
+//iTM2_LOG(@"movement:%@",[NSNumber numberWithInt:movement]);
+//iTM2_LOG(@"flag:%@",(flag?@"Y":@"N"));
 	[super insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(int)movement isFinal:(BOOL)flag];
 //iTM2_END;
     return;
