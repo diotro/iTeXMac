@@ -110,7 +110,8 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
 typedef int iTM2PDFAreaOfInterest;
 enum
 {
-    kiTM2PDFZoomInArea = 1<<26, 
+    kiTM2PDFZoomInArea = 1<<25, 
+    kiTM2PDFZoomOutArea = 1<<26, 
     kiTM2PDFSelectArea = 1<<27, 
     kiTM2PDFSelectLeftArea = 1<<28, 
     kiTM2PDFSelectRightArea = 1<<29, 
