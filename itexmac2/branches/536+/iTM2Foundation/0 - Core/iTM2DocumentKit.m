@@ -1630,12 +1630,14 @@ To Do List:
 	{
 		fullOriginalDocumentPath = [absoluteOriginalContentsURL path];
 	}
+	NSString * dirName;
+	NSString * baseName;
 	// is there something at the target URL?
 	// The problem is that I don't know what to do in such a situation because I don't know for sure whether the cocoa framework
 	// tries to override an existing file with the user permission
-	// In order to be safe, recycle the target url to the trash
-	NSString * dirName;
-	NSString * baseName;
+	// In order to be safe, recycle the target url to the trash, but this can break things!
+#if 0
+	Be confident in cocoa otherwise things are broken with continuous typesetting
 	NSArray * files;
 	int tag = 0;
 	if([DFM fileExistsAtPath:fullDocumentPath] || [DFM pathContentOfSymbolicLinkAtPath:fullDocumentPath])
@@ -1655,6 +1657,7 @@ To Do List:
 			return NO;
 		}
 	}
+#endif
 //iTM2_LOG(@"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 	if(iTM2DebugEnabled>99)
 	{
@@ -1843,7 +1846,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+iTM2_START;
 	NSNumber * myLSTypeIsPackage = [IMPLEMENTATION metaValueForKey:@"LSTypeIsPackage"];
 	if(!myLSTypeIsPackage)
 	{

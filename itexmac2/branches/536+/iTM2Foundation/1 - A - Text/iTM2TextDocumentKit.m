@@ -178,6 +178,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSNumber * N = [hint objectForKey:@"StrongerSynchronization"];
+	if([N boolValue])
+	{
+		return UINT_MAX;
+	}
 	if(!lineRef)
 	{
 		return UINT_MAX;
@@ -192,7 +197,7 @@ To Do List:
 	{
 		S = [self stringRepresentation];
 	}
-	NSNumber * N = [hint objectForKey:@"character index"];
+	N = [hint objectForKey:@"character index"];
 	if(!N)
 	{
 		return UINT_MAX;
@@ -204,15 +209,14 @@ To Do List:
 		return UINT_MAX;
 	}
 	NSRange hereR;
-goThree:
 	hereR = [pageString rangeOfWordAtIndex:characterIndex];
 	if(!hereR.length)
 	{
-		if(++characterIndex < [pageString length])
+		hereR = [pageString rangeOfComposedCharacterSequenceAtIndex:characterIndex];
+		if(!hereR.length)
 		{
-			goto goThree;
+			return UINT_MAX;
 		}
-		return UINT_MAX;
 	}
 	characterIndex -= hereR.location;// now characterIndex is an offset from the first character of the word!
 	NSString * hereW = [pageString substringWithRange:hereR];
@@ -226,7 +230,6 @@ goThree:
 		return UINT_MAX;
 	}
 	NSRange searchR = lineR;
-	// Augment the range because the synchronization information may not be accurate
 	NSMutableArray * hereRanges = [NSMutableArray array];
 	// We find all the occurrences of the here word in the given line.
 	// if we find such words, this is satisfying
@@ -269,10 +272,10 @@ we_found_it:
 		NSString * otherW = nil;
 		NSEnumerator * E = nil;
 		NSValue * V = nil;
+before:
 		if(index>1)
 		{
 			index -= 2;// we will find at least a 2 chars length word
-before:
 			otherR = [pageString rangeOfWordAtIndex:index];
 			if(otherR.length)
 			{
@@ -306,18 +309,17 @@ before:
 					}
 				}
 			}
-			else if(index>1)
+			else
 			{
-				index -= 2;
 				goto before;
 			}
 		}
 		// When we get here, we had no chance with a previous word
 		// We do exactly the same at the right hand side
 		index = NSMaxRange(hereR);
+after:
 		if(index<[pageString length])
 		{
-after:
 			otherR = [pageString rangeOfWordAtIndex:index];
 			if(otherR.length)
 			{
@@ -325,7 +327,7 @@ after:
 				// otherR is free now
 				foundR = [[hereRanges objectAtIndex:0] rangeValue];
 				// start form the last occurence of hereW, try to find out otherW before
-				// the try to find the hereW closest to otherW
+				// then try to find the hereW closest to otherW
 				// set up a search range, with limited length 256
 				if(NSMaxRange(foundR)+256>[S length])
 				{
@@ -351,8 +353,9 @@ after:
 					}
 				}
 			}
-			else if(++index>[pageString length])
+			else
 			{
+				++index;
 				goto after;
 			}
 		}
@@ -414,10 +417,17 @@ To Do List:
 	{
 		if([[hint valueForKey:@"SyncTeX"] boolValue])
 		{
-			unsigned int result = [self getLine:lineRef column:columnRef length:lengthRef forSyncTeXHint:hint];
-			if(result < UINT_MAX)
+			if(![[hint valueForKey:@"StrongerSynchronization"] boolValue])
 			{
-				return result;
+				unsigned int result = [self getLine:lineRef column:columnRef length:lengthRef forSyncTeXHint:hint];
+				if(result < UINT_MAX)
+				{
+					return result;
+				}
+			}
+			else
+			{
+				return UINT_MAX;
 			}
 		}
 		if(lengthRef)

@@ -1786,10 +1786,10 @@ To Do List:
 #warning PROBLEM
 	// problem: save a tex file as, open this saved as file, add this newly opened file to the original project: PROBLEM
 	NSAssert3(!projectDocument || (projectDocument == self),@"The document <%@> cannot be assigned to project <%@> because it already belongs to another project <%@>",[document fileName],[self fileName],[projectDocument fileName]);
-	[self newKeyForFileName:[document fileName]];
 //iTM2_LOG(@"[self keyForFileName:[document fileName]]:<%@>",[self keyForFileName:[document fileName]]);
-	[SDC removeDocument:[[document retain] autorelease]];// remove first
+	NSAssert1(![[SDC documents] containsObject:document],@"The document <%@> must not belong to the project controller.",[document fileName]);
 	[[self mutableSubdocuments] addObject:document];// added into a set,no effect if the object is already there...
+	[self newKeyForFileName:[document fileName]];// only now
 	NSString * key = [self keyForSubdocument:document];// create the appropriate binding as side effect
 	NSAssert([key length],@"Missing key for a document...");
 	[SPC setProject:self forDocument:document];
@@ -1853,11 +1853,8 @@ To Do List:
 //iTM2_START;
 	if([[self mutableSubdocuments] containsObject:document])
     {
-		[[document retain] autorelease];
 		[document saveContext:nil];
-		[SPC setProject:nil forDocument:document];
-        [[self mutableSubdocuments] removeObject:document];
-		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
+		[self forgetSubdocument:document];
 		[self closeIfNeeded];
     }
 //iTM2_END;
@@ -3070,6 +3067,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSAssert(fileName != nil,@"Unexpected void file name,please report bug");
+	if([[fileName pathComponents] containsObject:@".Trash"])
+	{
+		return nil;
+	}
 	fileName = [fileName stringByStandardizingPath];
 	// is it an already registered file name?
     NSString * key = [self keyForFileName:fileName];
@@ -3590,26 +3591,35 @@ tahiti:
 	if([key length])
 	{
 		// Is it a document managed by iTeXMac2? Some document might need an external helper
+		// we take care of creating the document before adding it to the project
+		// but we cannot init with the contents of URL because many actions are performed
+		// automagically, that can break things away
 		NSString * extension = [fileName pathExtension];
 		NSString * typeName = [SDC typeFromFileExtension:extension];
-		[SPC setProject:self forFileName:fileName];// this is the weaker link project<->file name, the sooner, the better
-		if(doc = [SDC makeDocumentWithContentsOfURL:fileURL ofType:typeName error:outErrorPtr])
+		if(doc = [SDC makeUntitledDocumentOfType:typeName error:outErrorPtr])
 		{
+			[doc setFileURL:fileURL];
+			[self addSubdocument:doc];
 			if([typeName isEqualToString:iTM2WildcardDocumentType])
 			{
 				// this kind of documents can be managed by external helpers
 				if(display)
 				{
 					NSString * bundleIdentifier = [self propertyValueForKey:@"Bundle Identifier" fileKey:key contextDomain:iTM2ContextAllDomainsMask];
-									!bundleIdentifier
-						|| ![SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:bundleIdentifier options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil]
-						|| ![SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:nil options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
+					if(bundleIdentifier && (
+						[SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:bundleIdentifier options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil]
+						|| [SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:nil options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil]))
+					{
+						[SDC noteNewRecentDocument:doc];
+						return doc;
+					}
 				}
 			}
-//iTM2_LOG(@"[self keyForFileName:fileName]:<%@>",[self keyForFileName:fileName]);
-			[self addSubdocument:doc];
-	//iTM2_LOG(@"self:%@,has documents:%@",self,[self subdocuments]);
-			goto tahiti;
+			if([doc readFromURL:fileURL ofType:typeName error:outErrorPtr])
+			{
+				goto tahiti;
+			}
+			[self removeSubdocument:doc];
 		}
 		[SPC setProject:nil forFileName:fileName];// no more linkage
 //iTM2_LOG(@"INFO:Could open document %@",fileName);
@@ -3877,6 +3887,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSParameterAssert(key);
+	NSParameterAssert(fileKey);
 	id result = nil;
 	id Ps = [self propertiesForFileKey:fileKey];
 	if(result = [Ps valueForKey:key])
@@ -3916,7 +3928,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+iTM2_START;
 	if(![absoluteURL isFileURL])
 	{
 		iTM2_OUTERROR(1,([NSString stringWithFormat:@"Only file URLs are supported,no:\n%@",absoluteURL]),nil);
@@ -3943,19 +3955,32 @@ To Do List:
 		{
 			if([D isDocumentEdited])
 			{
+				NSLock * L = [[[NSLock allocWithZone:[self zone]] init] autorelease];
+				[L lock];
 				NSURL * url = [[[D fileURL] retain] autorelease];
 				NSString * fileType = [D fileType];
-//				if([D writeSafelyToURL:url ofType:fileType forSaveOperation:saveOperation error:outErrorPtr])
-				if([D writeToURL:url ofType:fileType forSaveOperation:saveOperation originalContentsURL:url error:outErrorPtr])
+				if([D writeSafelyToURL:url ofType:fileType forSaveOperation:saveOperation error:outErrorPtr])
+//				if([D writeToURL:url ofType:fileType forSaveOperation:saveOperation originalContentsURL:url error:outErrorPtr])
 				{
 					[D updateChangeCount:NSChangeCleared];
+#if 1
+		// COMMENT: if we put this trick here, then the document has lost its own name...and gets tagged as untitled
+		// this trick is for the "document lost its FSRef" problem
+		// when in continuous typesetting mode,
+		// we cannot save transparently
+		// the document has the expected file name and url but some internals are broken
+		// such that the internals no longer make the URL point to the proper file node
+		NSURL * url = [self fileURL];
+		[self setFileURL:nil];
+		[self setFileURL:url];
+#endif
 				}
 				else
 				{
 					iTM2_LOG(@"*** FAILURE: document could not be saved at:\n%@",[D fileURL]);
-					[D updateChangeCount:NSChangeCleared];
 					result = NO;
 				}
+				[L unlock];
 			}
 		}
 	}
@@ -4302,7 +4327,7 @@ To Do List:to be improved... to allow different signature
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[self mutableSubdocuments] makeObjectsPerformSelector:@selector(saveDocument:)withObject:self];
+     [[self mutableSubdocuments] makeObjectsPerformSelector:@selector(saveDocument:)withObject:self];
     BOOL resultFlag = YES;
     NSMethodSignature * myMS = [self methodSignatureForSelector:
                                     @selector(_fakeProject:didSaveAllSubdocuments:contextInfo:)];
@@ -7287,6 +7312,11 @@ To Do List:
 		}
 	}
 	path = [url path];
+	// Very important: ignored trashed projects
+	if([[path pathComponents] containsObject:@".Trash"])
+	{
+		return nil;
+	}
 	if([DFM fileOrLinkExistsAtPath:path])
 	{
 		NSString * typeName = [SDC typeForContentsOfURL:url error:outErrorPtr];
@@ -9118,7 +9148,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id result = nil;
-	if(result = [super getContextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
+	if((result = [super getContextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask]))
 	{
 		return result;
 	}
@@ -9251,10 +9281,22 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+iTM2_START;
 	if(![absoluteURL isFileURL] || (saveOperation != NSSaveAsOperation))
 	{
+iTM2_LOG(@"delegate:%@,SEL:%@",delegate,NSStringFromSelector(didSaveSelector));
 		[super saveToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation delegate:delegate didSaveSelector:didSaveSelector contextInfo:contextInfo];
+#if 0
+		// COMMENT: if we put this trick here, then the document has lost its own name...and gets tagged as untitled
+		// this trick is for the "document lost its FSRef" problem
+		// when in continuous typesetting mode,
+		// we cannot save transparently
+		// the document has the expected file name and url but some internals are broken
+		// such that the internals no longer make the URL point to the proper file node
+		NSURL * url = [self fileURL];
+		[self setFileURL:nil];
+		[self setFileURL:url];
+#endif
 		return;
 	}
 	NSURL * oldURL = [self fileURL];
@@ -9472,7 +9514,7 @@ To Do List:
 - (void)removeDocument:(NSDocument *)document;
 /*"Returns the contextInfo of its document.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3:07/26/2003
+- 2.1: Fri Jun 20 15:38:27 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
