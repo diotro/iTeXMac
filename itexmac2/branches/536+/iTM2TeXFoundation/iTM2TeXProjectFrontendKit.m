@@ -2550,7 +2550,6 @@ To Do List:
 //iTM2_START;
     BOOL old = [[self modelValueForKey:key] boolValue];
     [self takeModelValue:[NSNumber numberWithBool:!old] forKey:key];
-    [self validateWindowContent];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelFlagForKey:

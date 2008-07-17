@@ -1421,8 +1421,16 @@ To Do List:
 	[[sender cellWithTag:4] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_par]? NSOnState:NSOffState)];
 	[[sender cellWithTag:5] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_math]? NSOnState:NSOffState)];
 	[[sender cellWithTag:6] setState: ([self modelFlagForKey:iTM2PDFTeX_src_specials_where_no_vbox]? NSOnState:NSOffState)];
-    return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
+	BOOL flag = [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]
 		&& [self modelFlagForKey:iTM2PDFTeX_src_specials] && ![self modelFlagForKey:iTM2PDFTeX_ini];
+	[[sender cellWithTag:0] setEnabled:flag];
+	[[sender cellWithTag:1] setEnabled:flag];
+	[[sender cellWithTag:2] setEnabled:flag];
+	[[sender cellWithTag:3] setEnabled:flag];
+	[[sender cellWithTag:4] setEnabled:flag];
+	[[sender cellWithTag:5] setEnabled:flag];
+	[[sender cellWithTag:6] setEnabled:flag];
+	return flag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputComment:
 - (IBAction)toggleOutputComment:(id)sender;
@@ -2347,7 +2355,15 @@ To Do List:
 	[[sender cellWithTag:4] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_par]? NSOnState:NSOffState)];
 	[[sender cellWithTag:5] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_math]? NSOnState:NSOffState)];
 	[[sender cellWithTag:6] setState: ([self modelFlagForKey:iTM2XeTeX_src_specials_where_no_vbox]? NSOnState:NSOffState)];
-    return [self modelFlagForKey:iTM2XeTeX_src_specials] && ![self modelFlagForKey:iTM2XeTeX_ini];
+	BOOL flag = [self modelFlagForKey:iTM2XeTeX_src_specials] && ![self modelFlagForKey:iTM2XeTeX_ini];
+	[[sender cellWithTag:0] setEnabled:flag];
+	[[sender cellWithTag:1] setEnabled:flag];
+	[[sender cellWithTag:2] setEnabled:flag];
+	[[sender cellWithTag:3] setEnabled:flag];
+	[[sender cellWithTag:4] setEnabled:flag];
+	[[sender cellWithTag:5] setEnabled:flag];
+	[[sender cellWithTag:6] setEnabled:flag];
+    return flag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOutputComment:
 - (IBAction)toggleOutputComment:(id)sender;
