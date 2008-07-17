@@ -2145,13 +2145,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * d = [[self implementation] metaValueForKey:@"current source synchronization location"];
-	id D = [SDC openDocumentWithContentsOfURL:[d objectForKey:@"current source URL"] display:NO error:nil];
-	if(D)
+	NSURL * url = [d objectForKey:@"current source URL"];
+	if([url isFileURL])
 	{
-		int line = [[d objectForKey:@"line"] intValue];
-		int column = [[d objectForKey:@"column"] intValue];
-		int length = [[d objectForKey:@"length"] intValue];
-		[D displayLine:line column:column length:length withHint:nil orderFront:YES];
+		id D = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
+		if(D)
+		{
+			int line = [[d objectForKey:@"line"] intValue];
+			int column = [[d objectForKey:@"column"] intValue];
+			int length = [[d objectForKey:@"length"] intValue];
+			[D displayLine:line column:column length:length withHint:nil orderFront:YES];
+		}
 	}
 	[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
 //iTM2_END;
