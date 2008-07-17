@@ -1,41 +1,85 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {
-                OK = id; 
-                cancel = id; 
-                chooseFormat = id; 
-                chooseProgName = id; 
-                editFormat = id; 
-                editJobName = id; 
-                editOutputComment = id; 
-                editOutputDirectory = id; 
-                editProgName = id; 
-                editTable = id; 
-                switchFormat = id; 
-                switchInteraction = id; 
-                toggleEnc = id; 
-                toggleFileLineError = id; 
-                toggleHaltOnError = id; 
-                toggleIni = id; 
-                toggleJobName = id; 
-                toggleMLTeX = id; 
-                toggleOutputComment = id; 
-                toggleOutputDirectory = id; 
-                toggleOutputFormat = id; 
-                toggleParseTable = id; 
-                togglePdfSync = id; 
-                toggleProgName = id; 
-                toggleRecorder = id; 
-                toggleShellEscape = id; 
-                toggleSrcSpecials = id; 
-                toggleSrcSpecialsWhere = id; 
-                toggleTable = id; 
-            }; 
-            CLASS = iTM2EnginePDFTeX; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindowController; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>OK</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+				<key>chooseFormat</key>
+				<string>id</string>
+				<key>chooseProgName</key>
+				<string>id</string>
+				<key>editFormat</key>
+				<string>id</string>
+				<key>editJobName</key>
+				<string>id</string>
+				<key>editOutputComment</key>
+				<string>id</string>
+				<key>editOutputDirectory</key>
+				<string>id</string>
+				<key>editProgName</key>
+				<string>id</string>
+				<key>editTable</key>
+				<string>id</string>
+				<key>switchFormat</key>
+				<string>id</string>
+				<key>switchInteraction</key>
+				<string>id</string>
+				<key>toggleEnc</key>
+				<string>id</string>
+				<key>toggleFileLineError</key>
+				<string>id</string>
+				<key>toggleHaltOnError</key>
+				<string>id</string>
+				<key>toggleIni</key>
+				<string>id</string>
+				<key>toggleJobName</key>
+				<string>id</string>
+				<key>toggleMLTeX</key>
+				<string>id</string>
+				<key>toggleOutputComment</key>
+				<string>id</string>
+				<key>toggleOutputDirectory</key>
+				<string>id</string>
+				<key>toggleOutputFormat</key>
+				<string>id</string>
+				<key>toggleParseTable</key>
+				<string>id</string>
+				<key>toggleProgName</key>
+				<string>id</string>
+				<key>toggleRecorder</key>
+				<string>id</string>
+				<key>toggleShellEscape</key>
+				<string>id</string>
+				<key>toggleSrcSpecials</key>
+				<string>id</string>
+				<key>toggleSrcSpecialsWhere</key>
+				<string>id</string>
+				<key>toggleSynchronization</key>
+				<string>id</string>
+				<key>toggleTable</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2EnginePDFTeX</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>iTM2TeXPEngineInspector</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

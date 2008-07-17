@@ -1,13 +1,52 @@
-{
-    IBClasses = (
-        {CLASS = iTM2MixedButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {
-            ACTIONS = {showHTMLHelp = id; }; 
-            CLASS = iTM2TeXMFController; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {FAQsButton = id; docButton = id; }; 
-            SUPERCLASS = NSWindowController; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2MixedButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSButton</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showHTMLHelp</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXMFController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>FAQsButton</key>
+				<string>id</string>
+				<key>docButton</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

@@ -1,27 +1,93 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {
-                OK = id; 
-                cancel = id; 
-                chooseStyle = id; 
-                outputEdited = id; 
-                startingAtChosen = id; 
-                startingAtEdited = id; 
-                styleEdited = id; 
-                toggleCompressBlanks = id; 
-                toggleGermanOrdering = id; 
-                toggleLetterOrdering = id; 
-                toggleNoImplicitPageRange = id; 
-                toggleRunSilently = id; 
-                toggleSeparateIndex = id; 
-                toggleUseOutput = id; 
-                toggleUseStyle = id; 
-            }; 
-            CLASS = iTM2TeXPIndexInspector; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindowController; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>OK</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXProjectInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>iTM2Inspector</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>OK</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+				<key>chooseStyle</key>
+				<string>id</string>
+				<key>outputEdited</key>
+				<string>id</string>
+				<key>startingAtChosen</key>
+				<string>id</string>
+				<key>startingAtEdited</key>
+				<string>id</string>
+				<key>styleEdited</key>
+				<string>id</string>
+				<key>toggleCompressBlanks</key>
+				<string>id</string>
+				<key>toggleGermanOrdering</key>
+				<string>id</string>
+				<key>toggleLetterOrdering</key>
+				<string>id</string>
+				<key>toggleNoImplicitPageRange</key>
+				<string>id</string>
+				<key>toggleRunSilently</key>
+				<string>id</string>
+				<key>toggleSeparateIndex</key>
+				<string>id</string>
+				<key>toggleUseOutput</key>
+				<string>id</string>
+				<key>toggleUseStyle</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPIndexInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>window</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>iTM2TeXPCommandInspector</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPCommandInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>iTM2TeXProjectInspector</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

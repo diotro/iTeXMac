@@ -53,9 +53,9 @@ NSString * const iTM2TPFEEngineScriptsKey = @"EngineScripts";
 @end
 
 @interface iTM2TeXPCompilePerformer(PRIVATE)
-+ (NSArray *)allBuiltInEngineModes;
-+ (NSArray *)builtInEngineModes;
-+ (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
+- (NSArray *)allBuiltInEngineModes;
+- (NSArray *)builtInEngineModes;
+- (NSDictionary *)environmentWithDictionary:(NSDictionary *)environment forProject:(iTM2TeXProjectDocument *)project;
 @end
 
 @implementation iTM2TeXPCommandsInspector(Compile)
@@ -208,10 +208,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	// [self document] must be set,
+	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
+	if(!TPD)
+	{
+		// do nothing, the window controller is not yet connected to a document
+		return;
+	}
 	// you can't use initImplementation, only a late implementation
 	if(![self editedProject])
 	{
-		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 //iTM2_LOG(@"AFTER, [self document] is: %@", [self document]);
 		iTM2TeXProjectDocument * myTPD = [[[[TPD class] allocWithZone:[TPD zone]] init] autorelease];
 		// what I need for that editable copy myTPD is:
@@ -481,7 +486,7 @@ To Do List:
         if([sender numberOfItems] < 2)
         {
             [sender removeAllItems];
-			NSEnumerator * E = [[iTM2TeXPCompilePerformer allBuiltInEngineModes] objectEnumerator];
+			NSEnumerator * E = [[[iTM2TeXPCompilePerformer performer] allBuiltInEngineModes] objectEnumerator];
 			id O;
 			while(O = [E nextObject])
 			{
@@ -2210,5 +2215,3 @@ To Do List:
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXPCompileWrapperKit
-
-

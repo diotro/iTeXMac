@@ -1,40 +1,110 @@
-{
-    IBClasses = (
-        {CLASS = iTM2TeXPCommandsWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
-        {
-            ACTIONS = {
-                OK = id; 
-                cancel = id; 
-                chooseBaseMode = id; 
-                chooseEditCommand = id; 
-                chooseEngine = id; 
-                chooseExtension = id; 
-                chooseOptions = id; 
-                chooseOutput = id; 
-                chooseScript = id; 
-                chooseVariant = id; 
-                commentEdited = id; 
-                defaultCommand = id; 
-                defaultEngine = id; 
-                defaultOptions = id; 
-                editEngine = id; 
-                editOptions = id; 
-                editScript = id; 
-                noop = id; 
-                switchToSimpleSettings = id; 
-                takeOtherProgramsDistributionFromPopUp = id; 
-                takeOtherProgramsPathFromStringValue = id; 
-                takeTeXMFDistributionFromPopUp = id; 
-                takeTeXMFPathFromStringValue = id; 
-                takeTeXMFProgramsDistributionFromPopUp = id; 
-                takeTeXMFProgramsPathFromStringValue = id; 
-                togglePATHLoginShell = id; 
-                toggleShellEscape = id; 
-            }; 
-            CLASS = iTM2TeXPXtdCommandsInspector; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindowController; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPCommandsInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>iTM2Inspector</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>OK</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+				<key>chooseBaseMode</key>
+				<string>id</string>
+				<key>chooseEditCommand</key>
+				<string>id</string>
+				<key>chooseEngine</key>
+				<string>id</string>
+				<key>chooseExtension</key>
+				<string>id</string>
+				<key>chooseOptions</key>
+				<string>id</string>
+				<key>chooseOutput</key>
+				<string>id</string>
+				<key>chooseScript</key>
+				<string>id</string>
+				<key>chooseVariant</key>
+				<string>id</string>
+				<key>commentEdited</key>
+				<string>id</string>
+				<key>defaultCommand</key>
+				<string>id</string>
+				<key>defaultEngine</key>
+				<string>id</string>
+				<key>defaultOptions</key>
+				<string>id</string>
+				<key>editEngine</key>
+				<string>id</string>
+				<key>editOptions</key>
+				<string>id</string>
+				<key>editScript</key>
+				<string>id</string>
+				<key>noop</key>
+				<string>id</string>
+				<key>switchToSimpleSettings</key>
+				<string>id</string>
+				<key>takeOtherProgramsDistributionFromPopUp</key>
+				<string>id</string>
+				<key>takeOtherProgramsPathFromStringValue</key>
+				<string>id</string>
+				<key>takeTeXMFDistributionFromPopUp</key>
+				<string>id</string>
+				<key>takeTeXMFPathFromStringValue</key>
+				<string>id</string>
+				<key>takeTeXMFProgramsDistributionFromPopUp</key>
+				<string>id</string>
+				<key>takeTeXMFProgramsPathFromStringValue</key>
+				<string>id</string>
+				<key>togglePATHLoginShell</key>
+				<string>id</string>
+				<key>toggleShellEscape</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPXtdCommandsInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>window</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>iTM2TeXPCommandsInspector</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPCommandsWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>iTM2Window</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

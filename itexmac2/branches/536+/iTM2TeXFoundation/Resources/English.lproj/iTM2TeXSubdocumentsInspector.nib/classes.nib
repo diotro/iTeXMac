@@ -1,26 +1,78 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {CLASS = iTM2TeXPFilesWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
-        {
-            ACTIONS = {
-                chooseEOL = id; 
-                chooseMainFile = id; 
-                chooseStringEncoding = id; 
-                fileNameEdited = id; 
-                help = id; 
-                importDocument = id; 
-                newDocument = id; 
-                projectPathEdited = id; 
-                relativeToEdited = id; 
-                removeDocument = id; 
-                stringEncodingToggleAuto = id; 
-            }; 
-            CLASS = iTM2TeXPSubdocumentsInspector; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {documentsView = id; }; 
-            SUPERCLASS = NSWindowController; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPFilesWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSWindow</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>chooseEOL</key>
+				<string>id</string>
+				<key>chooseMainFile</key>
+				<string>id</string>
+				<key>chooseStringEncoding</key>
+				<string>id</string>
+				<key>fileNameEdited</key>
+				<string>id</string>
+				<key>help</key>
+				<string>id</string>
+				<key>importDocument</key>
+				<string>id</string>
+				<key>newDocument</key>
+				<string>id</string>
+				<key>projectPathEdited</key>
+				<string>id</string>
+				<key>relativeToEdited</key>
+				<string>id</string>
+				<key>removeDocument</key>
+				<string>id</string>
+				<key>stringEncodingToggleAuto</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPSubdocumentsInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>documentsView</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

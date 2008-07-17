@@ -277,7 +277,7 @@ To Do List:
 			{
 				[MD setObject:pane forKey:identifier];
 			}
-			else
+			else if(iTM2DebugEnabled)
 			{
 				iTM2_LOG(@"No identifier available for pane: %@", pane);
 			}

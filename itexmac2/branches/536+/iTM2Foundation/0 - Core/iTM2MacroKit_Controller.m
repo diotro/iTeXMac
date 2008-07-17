@@ -65,6 +65,10 @@ NSString * const iTM2MacrosDirectoryName = @"Macros";
 	NSString * subpath = nil;
 	while(repository = [E nextObject])
 	{
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"Scanning directory:%@",repository);
+		}
 		if([DFM pushDirectory:repository])
 		{
 			DE = [DFM enumeratorAtPath:repository];

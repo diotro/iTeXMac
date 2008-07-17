@@ -213,7 +213,7 @@ To Do List:
         while(index < [components count])
             self = [self stringByAppendingPathComponent:[components objectAtIndex:index++]];
     }
-    return self;
+    return [self length]?self:@".";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shortestStringByAbbreviatingWithTildeInPath
 - (NSString *)shortestStringByAbbreviatingWithTildeInPath;

@@ -579,7 +579,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_USE_output_comment];
+    [self takeModelValue:[sender stringValue] forKey:iTM2TeX_output_comment];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -899,6 +899,7 @@ NSString * const iTM2PDFTeX_jobname = @"iTM2_PDFTeX_jobname";
 NSString * const iTM2PDFTeX_USE_French_Pro = @"iTM2_PDFTeX_USE_French_Pro";
 //NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
 NSString * const iTM2PDFTeX_pdfsync = @"iTM2_PDFTeX_PDFSYNC";
+NSString * const iTM2PDFTeX_No_SyncTeX = @"iTM2_PDFTeX_No_SyncTeX";
 NSString * const iTM2PDFTeX_src_specials = @"iTM2_PDFTeX_src_specials";
 NSString * const iTM2PDFTeX_src_specials_where_no_cr = @"iTM2_PDFTeX_src_specials_where_no_cr";
 NSString * const iTM2PDFTeX_src_specials_where_no_display = @"iTM2_PDFTeX_src_specials_where_no_display";
@@ -1457,7 +1458,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_USE_output_comment];
+    [self takeModelValue:[sender stringValue] forKey:iTM2PDFTeX_output_comment];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -1500,6 +1501,47 @@ To Do List:
     [sender setState: ([self modelFlagForKey:iTM2PDFTeX_pdfsync]? NSOnState:NSOffState)];
     return [[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"pdf"];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSynchronization:
+- (IBAction)toggleSynchronization:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:22 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	switch([[sender selectedCell] tag])
+	{
+		case 0:
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2PDFTeX_src_specials];
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2PDFTeX_No_SyncTeX];
+		break;
+		case 1:
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2PDFTeX_src_specials];
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2PDFTeX_No_SyncTeX];
+		break;
+		case 2:
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2PDFTeX_src_specials];
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2PDFTeX_No_SyncTeX];
+		break;
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSynchronization:
+- (BOOL)validateToggleSynchronization:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:27 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	int tag = [self modelFlagForKey:iTM2PDFTeX_No_SyncTeX]?([self modelFlagForKey:iTM2PDFTeX_src_specials]?2:0):1;
+	[sender selectCellWithTag:tag];
+	[[sender cellWithTag:2] setEnabled:[[self modelValueForKey:iTM2PDFTeX_output_format] isEqualToString:@"dvi"]];
+	return YES;
+}
 #pragma mark =-=-=-=-=-  INI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:
 - (IBAction)toggleIni:(id)sender;
@@ -1517,7 +1559,7 @@ To Do List:
 - (BOOL)validateToggleIni:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Thu Nov 18 07:53:25 GMT 2004
+- 2.0: Wed Jul 16 18:45:35 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1802,6 +1844,9 @@ NSString * const iTM2XeTeX_USE_jobname = @"iTM2_XeTeX_USE_jobname";
 NSString * const iTM2XeTeX_jobname = @"iTM2_XeTeX_jobname";
 NSString * const iTM2XeTeX_USE_French_Pro = @"iTM2_XeTeX_USE_French_Pro";
 //NSString * const iTM2TeX_shell_escape = @"iTM2_TeX_shell_escape";
+NSString * const iTM2XeTeX_USE_Driver = @"iTM2_XeTeX_use_driver";
+NSString * const iTM2XeTeX_Driver = @"iTM2_XeTeX_driver";
+NSString * const iTM2XeTeX_No_SyncTeX = @"iTM2_XeTeX_no_SyncTeX";
 NSString * const iTM2XeTeX_src_specials = @"iTM2_XeTeX_src_specials";
 NSString * const iTM2XeTeX_src_specials_where_no_cr = @"iTM2_XeTeX_src_specials_where_no_cr";
 NSString * const iTM2XeTeX_src_specials_where_no_display = @"iTM2_XeTeX_src_specials_where_no_display";
@@ -2337,7 +2382,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_USE_output_comment];
+    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_output_comment];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -2351,6 +2396,94 @@ To Do List:
 //iTM2_START;
     [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_output_comment]?:@"")];
     return [self modelFlagForKey:iTM2XeTeX_USE_output_comment] && ![self modelFlagForKey:iTM2XeTeX_ini];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSynchronization:
+- (IBAction)toggleSynchronization:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:41 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	switch([[sender selectedItem] tag])
+	{
+		case 0:
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2XeTeX_src_specials];
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2XeTeX_No_SyncTeX];
+		break;
+		case 1:
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2XeTeX_src_specials];
+			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2XeTeX_No_SyncTeX];
+		break;
+		case 2:
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2XeTeX_src_specials];
+			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2XeTeX_No_SyncTeX];
+		break;
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSynchronization:
+- (BOOL)validateToggleSynchronization:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:45 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	int tag = ![self modelFlagForKey:iTM2XeTeX_No_SyncTeX]?1:([self modelFlagForKey:iTM2XeTeX_src_specials]?2:0);
+	[sender selectCellWithTag:tag];
+	return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleUseDriver:
+- (IBAction)toggleUseDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:48 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self toggleModelFlagForKey:iTM2XeTeX_USE_Driver];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleUseDriver:
+- (BOOL)validateToggleUseDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:51 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setState: ([self modelFlagForKey:iTM2XeTeX_USE_Driver]? NSOnState:NSOffState)];
+    return YES;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editDriver:
+- (IBAction)editDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:55 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [self takeModelValue:[sender stringValue] forKey:iTM2XeTeX_Driver];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditDriver:
+- (BOOL)validateEditDriver:(id)sender;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Wed Jul 16 18:47:58 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    [sender setStringValue: ([self modelValueForKey:iTM2XeTeX_Driver]?:@"")];
+    return [self modelFlagForKey:iTM2XeTeX_USE_Driver] && ![self modelFlagForKey:iTM2XeTeX_ini];
 }
 #pragma mark =-=-=-=-=-  INI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:

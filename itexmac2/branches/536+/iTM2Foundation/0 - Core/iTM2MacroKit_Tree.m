@@ -683,12 +683,12 @@ DEFINE(tooltip,setTooltip)
 {
 	if(status.started)
 	{
-		NSLog(@"*** parser error:%@",parseError);
+		iTM2_LOG(@"*** parser error:%@",parseError);
 	}
 }
 - (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError;
 {
-	NSLog(@"*** validation error:%@",validationError);
+	iTM2_LOG(@"*** validation error:%@",validationError);
 }
 @end
 
@@ -865,6 +865,10 @@ NSString * const iTM2MacroPersonalComponent = @"Personal";
 		URLsPromise = [self valueForKeyPath:@"value.URLsPromise"];
 	}
 	[URLsPromise addObject:url];
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"URL promise:%@",url);
+	}
 	return;
 }
 - (NSURL *)personalURL;
@@ -938,10 +942,18 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 		NSError * localError =  nil;
 		NSData * data = nil;
 		NSDictionary * D = nil;
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"Reading Macros");
+		}
 		while(url = [E nextObject])
 		{
 			if(![url isEqual:personalUrl])
 			{
+				if(iTM2DebugEnabled)
+				{
+					iTM2_LOG(@"Reading Macros at URL:%@",url);
+				}
 				data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
 				if(localError)
 				{
@@ -951,6 +963,10 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 				if(D = [iTM2MacroNode macrosWithData:data owner:self])
 				{
 					[MD addEntriesFromDictionary:D];
+				}
+				else
+				{
+					iTM2_LOG(@"Failure in reading Macros at URL:%@",url);
 				}
 			}
 		}

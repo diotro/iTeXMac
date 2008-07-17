@@ -1,19 +1,83 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {
-            ACTIONS = {
-                OK = id; 
-                cancel = id; 
-                extensionsEdited = id; 
-                foldersEdited = id; 
-                levelEdited = id; 
-                switchMode = id; 
-            }; 
-            CLASS = iTM2TeXPCleanInspector; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindowController; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>OK</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXProjectInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>iTM2Inspector</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPCommandInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>iTM2TeXProjectInspector</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>OK</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+				<key>extensionsEdited</key>
+				<string>id</string>
+				<key>foldersEdited</key>
+				<string>id</string>
+				<key>levelEdited</key>
+				<string>id</string>
+				<key>switchMode</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPCleanInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>window</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>iTM2TeXPCommandInspector</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

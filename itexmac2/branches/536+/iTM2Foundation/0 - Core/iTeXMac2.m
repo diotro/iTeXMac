@@ -132,6 +132,10 @@ To Do List:
 	NSDictionary * userInfo = [exception userInfo];
 	NSArray * stackTrace = [userInfo objectForKey:NSStackTraceKey];
 	iTM2_LOG(@"\nStack Trace:%@",stackTrace);
+	[[NSApplication sharedApplication]
+		presentError:
+			[NSError errorWithDomain:@"iTM2Exception" code:-1 userInfo:
+				[NSDictionary dictionaryWithObject:[exception description] forKey:NSLocalizedDescriptionKey]]];
 #if 0
 // smorr AT indev DOT ca (Debugging an ignored exception on cocoa-dev)
 NSLog(@"Error: %@",exception);

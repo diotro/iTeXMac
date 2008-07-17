@@ -1,40 +1,108 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {
-            ACTIONS = {
-                OK = id; 
-                cancel = id; 
-                chooseBaseMode = id; 
-                chooseEditCommand = id; 
-                chooseEngine = id; 
-                chooseExtension = id; 
-                chooseOptions = id; 
-                chooseOutput = id; 
-                chooseScript = id; 
-                chooseVariant = id; 
-                commentEdited = id; 
-                defaultCommand = id; 
-                defaultEngine = id; 
-                defaultOptions = id; 
-                editEngine = id; 
-                editOptions = id; 
-                editOutputDirectory = id; 
-                editScript = id; 
-                noop = id; 
-                switchToAdvancedSettings = id; 
-                takePATHPrefixFromSender = id; 
-                takePATHSuffixFromSender = id; 
-                toggleOutputDirectory = id; 
-                togglePATHPrefix = id; 
-                togglePATHSuffix = id; 
-                toggleShellEscape = id; 
-            }; 
-            CLASS = iTM2TeXPCommandsInspector; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindowController; 
-        }, 
-        {CLASS = iTM2TeXPCommandsWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>OK</key>
+				<string>id</string>
+				<key>cancel</key>
+				<string>id</string>
+				<key>chooseBaseMode</key>
+				<string>id</string>
+				<key>chooseEditCommand</key>
+				<string>id</string>
+				<key>chooseEngine</key>
+				<string>id</string>
+				<key>chooseExtension</key>
+				<string>id</string>
+				<key>chooseOptions</key>
+				<string>id</string>
+				<key>chooseOutput</key>
+				<string>id</string>
+				<key>chooseScript</key>
+				<string>id</string>
+				<key>chooseVariant</key>
+				<string>id</string>
+				<key>commentEdited</key>
+				<string>id</string>
+				<key>defaultCommand</key>
+				<string>id</string>
+				<key>defaultEngine</key>
+				<string>id</string>
+				<key>defaultOptions</key>
+				<string>id</string>
+				<key>editEngine</key>
+				<string>id</string>
+				<key>editOptions</key>
+				<string>id</string>
+				<key>editOutputDirectory</key>
+				<string>id</string>
+				<key>editScript</key>
+				<string>id</string>
+				<key>noop</key>
+				<string>id</string>
+				<key>switchToAdvancedSettings</key>
+				<string>id</string>
+				<key>takePATHPrefixFromSender</key>
+				<string>id</string>
+				<key>takePATHSuffixFromSender</key>
+				<string>id</string>
+				<key>toggleOutputDirectory</key>
+				<string>id</string>
+				<key>togglePATHPrefix</key>
+				<string>id</string>
+				<key>togglePATHSuffix</key>
+				<string>id</string>
+				<key>toggleShellEscape</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPCommandsInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>window</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>iTM2Inspector</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPCommandsWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>iTM2Window</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

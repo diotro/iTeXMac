@@ -1,34 +1,111 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {CLASS = iTM2TaskWindow; LANGUAGE = ObjC; SUPERCLASS = NSWindow; }, 
-        {
-            ACTIONS = {
-                projectExecute = id; 
-                projectTerminalEdit = id; 
-                projectTerminalExit = id; 
-                projectTerminalIgnore = id; 
-                projectTerminalQuiet = id; 
-                projectTerminalStop = id; 
-                takeStyleFromRepresentedObject = id; 
-                toggleSmartErrors = id; 
-                toggleTerminalCustom = id; 
-                toggleTerminalErrors = id; 
-                toggleTerminalHidden = id; 
-                toggleTerminalOutput = id; 
-                toggleTerminalSilent = id; 
-            }; 
-            CLASS = iTM2TeXPTaskInspector; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                customView = NSTextView; 
-                errorView = NSTextView; 
-                outputView = NSTextView; 
-                smartView = id; 
-            }; 
-            SUPERCLASS = NSWindowController; 
-        }, 
-        {CLASS = iTM2TextEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>projectExecute</key>
+				<string>id</string>
+				<key>projectTerminalEdit</key>
+				<string>id</string>
+				<key>projectTerminalExit</key>
+				<string>id</string>
+				<key>projectTerminalIgnore</key>
+				<string>id</string>
+				<key>projectTerminalQuiet</key>
+				<string>id</string>
+				<key>projectTerminalStop</key>
+				<string>id</string>
+				<key>takeStyleFromRepresentedObject</key>
+				<string>id</string>
+				<key>toggleSmartErrors</key>
+				<string>id</string>
+				<key>toggleTerminalCustom</key>
+				<string>id</string>
+				<key>toggleTerminalErrors</key>
+				<string>id</string>
+				<key>toggleTerminalHidden</key>
+				<string>id</string>
+				<key>toggleTerminalOutput</key>
+				<string>id</string>
+				<key>toggleTerminalSilent</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>iTM2TeXPTaskInspector</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>customView</key>
+				<string>NSTextView</string>
+				<key>errorView</key>
+				<string>NSTextView</string>
+				<key>outputView</key>
+				<string>NSTextView</string>
+				<key>smartView</key>
+				<string>id</string>
+				<key>window</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>iTM2TaskInspector</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showTeXDistributionPreferences</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TaskWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSWindow</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>iTM2TextEditor</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTextView</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>toggleWatchDelimiter</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSTextView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSText</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

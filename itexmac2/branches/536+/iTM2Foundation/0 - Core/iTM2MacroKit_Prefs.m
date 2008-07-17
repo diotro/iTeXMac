@@ -2151,6 +2151,30 @@ To Do List:
 //iTM2_END;
     return;
 }
+#pragma mark =-=-=-=-=-  Completion
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexRef;
+{
+	if([control tag] == 0)
+	{
+		return nil;
+	}
+	NSString * prefix = [[textView string] substringWithRange:charRange];
+	id editor = [self macroEditor];
+	id MD = [NSMutableDictionary dictionaryWithDictionary:[editor macros]];
+	[MD addEntriesFromDictionary:[editor personalMacros]];
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH \".\")"];
+	id RA = [[MD allKeys] filteredArrayUsingPredicate:predicate];
+	RA = [MD objectsForKeys:RA notFoundMarker:[NSNull null]];
+	RA = [RA valueForKey:@"macroID"];
+	predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@",prefix];
+	RA = [RA filteredArrayUsingPredicate:predicate];
+//iTM2_END;
+	if(indexRef)
+	{
+		*indexRef = 0;
+	}
+	return RA;
+}
 @end
 
 /*"Description forthcoming."*/
@@ -2439,8 +2463,11 @@ To Do List:
 	}
 	if(!macro)
 	{
-		macro = [[[iTM2PrefsMacroNode alloc] init] autorelease];
+		macro = [[[iTM2MutableMacroNode alloc] init] autorelease];
 		[macro setMacroID:ID];
+		[list willChangeValueForKey:@"availableMacros"];
+		[[list personalMacros] setObject:macro forKey:ID];
+		[list didChangeValueForKey:@"availableMacros"];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"No macro with ID: %@ forContext:%@ ofCategory:%@ inDomain:%@",ID,context,category,domain);
@@ -2492,6 +2519,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
 - (NSString *)macroDomain;
 {
+	// the delegate of the receiver is an iTM2MacroPrefPane
     return [[self delegate] selectedDomain];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
@@ -2529,6 +2557,27 @@ To Do List:
 	key = @"";//[self macroContext];
 	result = [result objectInChildrenWithContext:key];
 	return [result list];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= completionsForPartialWordRange:indexOfSelectedItem:
+- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexRef;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * prefix = [[self string] substringWithRange:charRange];
+	id editor = [[self delegate] macroEditor];
+	id MD = [NSMutableDictionary dictionaryWithDictionary:[editor macros]];
+	[MD addEntriesFromDictionary:[editor personalMacros]];
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH \".\")"];
+	id RA = [[MD allKeys] filteredArrayUsingPredicate:predicate];
+	RA = [MD objectsForKeys:RA notFoundMarker:[NSNull null]];
+	RA = [RA valueForKey:@"macroID"];
+	predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@",prefix];
+	RA = [RA filteredArrayUsingPredicate:predicate];
+//iTM2_END;
+	if(indexRef)
+	{
+		*indexRef = 0;
+	}
+	return [RA count]?RA:[super completionsForPartialWordRange:charRange indexOfSelectedItem:indexRef];
 }
 @end
 
@@ -2667,3 +2716,8 @@ static id iTM2HumanReadableActionNames = nil;
 	}
 }
 @end
+
+#if 0
+textView:completions:forPartialWordRange:indexOfSelectedItem:. Subclasses may control the list by overriding completionsForPartialWordRange:indexOfSelectedItem:.
+completionsForPartialWordRange:indexOfSelectedItem:
+#endif

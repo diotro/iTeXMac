@@ -1720,7 +1720,7 @@ To Do List:
 //iTM2_LOG(@"**** **** ****  ALL THE CHARACTERS ARE REPLACED");
 	[TS replaceCharactersInRange:NSMakeRange(0, [TS length]) withString:argument];
 	[TS endEditing];
-	[self loadContext:nil];
+	[super synchronizeWithDocument];
     return;
 }
 #pragma mark =-=-=-=-=-=-=-= SETTERS/GETTERS
