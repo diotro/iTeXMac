@@ -5065,7 +5065,7 @@ quelquepart:
 			{
 				[_SyncDestinations autorelease];
 				PDFDestination * hitDestination = [_SyncDestinations objectAtIndex:0];
-				_SyncDestinations = [[NSArray arrayWithObject:hitDestination] retain];
+				_SyncDestinations = [[NSMutableArray arrayWithObject:hitDestination] retain];
 				//[self scrollDestinationToVisible:hitDestination];// no go to, it does not work well...
 				if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
 				{
@@ -5472,7 +5472,7 @@ quelquepart:
 			{
 				[_SyncDestinations autorelease];
 				PDFDestination * hitDestination = [_SyncDestinations objectAtIndex:0];
-				_SyncDestinations = [[NSArray arrayWithObject:hitDestination] retain];
+				_SyncDestinations = [[NSMutableArray arrayWithObject:hitDestination] retain];
 			}
 		}
 	}
@@ -5532,61 +5532,556 @@ To Do List:
 	synctex_scanner_t scanner = [synchronizer scanner];
 	if(synctex_display_query(scanner,[source fileSystemRepresentation],l+1,c)>0)
 	{
-		synctex_node_t node;
-		if((node = synctex_next_result(scanner)))
+		synctex_node_t first_node = NULL;
+		synctex_node_t node = NULL;
+		unsigned int pageIndex = UINT_MAX;
+		PDFPage * page = nil;
+		PDFDocument * document = [self document];
+		// get the hint ?
+		NSString * container = [hint objectForKey:@"container"];
+		NSNumber * N = [hint objectForKey:@"character index"];
+		if(!N)
 		{
-			PDFDocument * document = [self document];
-			unsigned int pageIndex = synctex_node_page(node)-1;
-			if(pageIndex>=[document pageCount])
-			{
-				return NO;
-			}
-			PDFPage * page = [document pageAtIndex:pageIndex];
-			// get the hint ?
-			NSString * S = [hint objectForKey:@"container"];
-			unsigned int hereIndex = [[hint objectForKey:@"character index"] unsignedIntValue];// The mousedown occurred here.
-			if(hereIndex >= [S length])
-			{
-				return NO;
-			}
-			NSRange hereR;
+			return NO;
+		}
+		unsigned int hereIndex = [N unsignedIntValue];// The mousedown occurred here.
+		if(hereIndex >= [container length])
+		{
+			return NO;
+		}
+		NSRange hereR;
 nextHereRight:
-			hereR = [S doubleClickAtIndex:hereIndex];
-			if(!hereR.length)
+		hereR = [container doubleClickAtIndex:hereIndex];
+		if(!hereR.length)
+		{
+			if(hereIndex<[container length])
 			{
-				if(hereIndex<[S length])
+				++hereIndex;
+				goto nextHereRight;
+			}
+			else
+			{
+				hereIndex = [N unsignedIntValue];
+nextHereLeft:
+				if(hereIndex--)
 				{
-					++hereIndex;
-					goto nextHereRight;
+					hereR = [container doubleClickAtIndex:hereIndex];
+					if(!hereR.length)
+					{
+						goto nextHereLeft;
+					}
 				}
 				else
 				{
-					hereIndex = [[hint objectForKey:@"character index"] unsignedIntValue];
-nextHereLeft:
-					if(hereIndex--)
+					return NO;
+				}
+			}
+		}
+		// the 3 words in the source around the hit index
+		NSString * before = nil;
+		NSString * here = [container substringWithRange:hereR];
+		NSString * after = nil;
+		unsigned int hereOffset = [container getWordBefore:&before here:&here after:&after atIndex:[N unsignedIntValue] mode:YES];
+		if(!_SyncDestinations)
+		{
+			_SyncDestinations = [[NSMutableArray array] retain];
+		}
+#if 0
+		first_node = synctex_next_result(scanner);
+#elif 1
+		//  first we collect all the nodes by page,
+		NSMutableDictionary * nodesPerPages = [NSMutableDictionary dictionary];
+		//  do something only if there is a match
+		if((first_node = synctex_next_result(scanner)))
+		{
+			node = first_node;
+			NSNumber * pageIndexKey = nil;
+			NSMutableArray * nodesMRA = nil;
+			NSValue * V = nil;
+			do
+			{
+				int pageIndex = synctex_node_page(node)-1;
+				if(pageIndex<0 || pageIndex>=[document pageCount])
+				{
+					continue;
+				}
+				pageIndexKey = [NSNumber numberWithInt:pageIndex];
+				nodesMRA = [nodesPerPages objectForKey:pageIndexKey];
+				if(!nodesMRA)
+				{
+					nodesMRA = [NSMutableArray array];
+					[nodesPerPages setObject:nodesMRA forKey:pageIndexKey];
+				}
+				V = [NSValue valueWithPointer:node];
+				[nodesMRA addObject:V];
+				// get the synchronized line range and string
+				
+			} while((node = synctex_next_result(scanner)));
+			// then for each page, work with the synchronized stuff
+			NSEnumerator * pageIndexE = [nodesPerPages keyEnumerator];
+			NSEnumerator * nodesE = nil;
+			NSRange lineRange;
+			NSString * pageString = nil;
+			while(pageIndexKey = [pageIndexE nextObject])
+			{
+				PDFPage * page = [document pageAtIndex:[pageIndexKey intValue]];
+				pageString = [page string];
+				nodesMRA = [nodesPerPages objectForKey:pageIndexKey];
+				nodesE = [[[nodesMRA mutableCopy] autorelease] objectEnumerator];
+				[nodesMRA removeAllObjects];
+				while(V = [nodesE nextObject])
+				{
+					node = [V pointerValue];
+					// get the full line text of the click
+					float tmp = synctex_node_box_visible_width(node);
+					float top;
+					NSPoint PP;
+next_attempt:
+					tmp = synctex_node_box_visible_width(node);
+					if(tmp<0)
 					{
-						hereR = [S doubleClickAtIndex:hereIndex];
-						if(!hereR.length)
-						{
-							goto nextHereLeft;
-						}
+						top = synctex_node_box_visible_h(node);
+						PP.x = top+tmp;
 					}
 					else
 					{
-						return NO;
+						PP.x = synctex_node_box_visible_h(node);
+						top = PP.x+tmp;
+					}
+					PP.y = synctex_node_box_visible_v(node)+(synctex_node_box_visible_depth(node)-synctex_node_box_visible_height(node))/2;
+					PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
+					NSPoint Q = PP;
+					Q.y+=1;
+					PDFSelection * destination = nil;
+					while(nil == (destination = [page selectionForWordAtPoint:Q]))
+					{
+						if((Q.x+=5)>top)
+						{
+							// second attempt
+							Q = PP;
+							while(nil == (destination = [page selectionForLineAtPoint:Q]))
+							{
+								if((Q.x+=5)>top)
+								{
+									if((node = synctex_node_parent(node)))
+									{
+										goto next_attempt;
+									}
+									goto next_chance;
+								}
+							}
+						}
+					}
+					//  there was a selection for that point
+					NSRect bounds = [destination boundsForPage:page];
+					bounds.origin.y += 1;
+					lineRange.location = [page characterIndexAtPoint:bounds.origin];
+					lineRange.length = 0;
+					[pageString getLineStart:(unsigned *)&(lineRange.location) end:nil contentsEnd:(unsigned *)&(lineRange.length) forRange:lineRange];
+					lineRange.length -= lineRange.location;
+					V = [NSValue valueWithRange:lineRange];
+					if(![nodesMRA containsObject:V])
+					{
+						[nodesMRA addObject:V];
+					}
+next_chance:;					
+				}
+				if([nodesMRA count])
+				{
+					[nodesMRA insertObject:page atIndex:0];
+					[nodesMRA insertObject:pageString atIndex:1];
+				}
+				else
+				{
+					[nodesPerPages removeObjectForKey:pageIndexKey];
+				}
+			}
+			//  now nodesPerPages keys are page index numbers
+			//  the values are mutable arrays containing
+			//  the page object
+			//  its string content
+			//  the list of all the line ranges concerned by synchronization
+			//  Now we are going to change the line ranges to character ranges
+			//  there are 2 ways of doing things, depending on a word was clicked or not
+			//  if the users clicked on a word, we try to find this word out in the output
+			//  if the users clicked on a character that does not fit inside a full word,
+			//  then we do nothing.
+			//  The switch between thsoe two situations should be made earlier,
+			//  because there is no definite rule to decide what should me made by the user interface,
+			//  after the current method returns
+			pageIndexE = [nodesPerPages keyEnumerator];
+			while((pageIndexKey = [pageIndexE nextObject]))
+			{
+				nodesMRA = [nodesPerPages objectForKey:pageIndexKey];
+				nodesE = [nodesMRA objectEnumerator];
+				if((page = [nodesE nextObject]) && (pageString = [nodesE nextObject]))
+				{
+					//  turn all the line ranges into a common list of word ranges
+					//  with at least 2 characters
+					//  this is available within the whole loop
+					NSMutableArray * wordRanges = [NSMutableArray array];
+					//  now find the words that fits best with the "here" word under the hit point
+					//  create a dictionary for which keys are the edit distance and the values are mutable arrays of word ranges
+					//  for that edit distance
+					NSMutableDictionary * keyedEditDistances = [NSMutableDictionary dictionary];
+					unsigned int wordRangeIndex = 0;
+					while((V = [nodesE nextObject]))
+					{
+						lineRange = [V rangeValue];//  V is unused now
+						NSRange wordRange;
+						unsigned int charIndex;
+						charIndex = lineRange.location;
+next_word_in_line:
+						wordRange = [pageString doubleClickAtIndex:charIndex];
+						if(wordRange.length>0)
+						{
+							if(wordRange.length>1)
+							{
+								V = [NSValue valueWithRange:wordRange];
+								if(![wordRanges containsObject:V])
+								{
+									[wordRanges addObject:V];
+									NSString * word = [pageString substringWithRange:wordRange];
+									//  compare this word with the "here" word at the hit point
+									unsigned editDistance = [word iTM2_editDistanceToString:here];
+									NSNumber * editDistanceN = [NSNumber numberWithUnsignedInt:editDistance];
+									NSMutableArray * mra = [keyedEditDistances objectForKey:editDistanceN];
+									if(!mra)
+									{
+										mra = [NSMutableArray array];
+										[keyedEditDistances setObject:mra forKey:editDistanceN];
+									}
+									V = [NSNumber numberWithUnsignedInt:wordRangeIndex];
+									++ wordRangeIndex; // increment the index
+									[mra addObject:V];
+								}
+							}
+							charIndex = NSMaxRange(wordRange);
+							if(charIndex < NSMaxRange(lineRange))
+							{
+								goto next_word_in_line;
+							}
+						}
+					}
+					//  what is the smaller distance?
+					if([keyedEditDistances count])
+					{
+						NSNumber * bestEditDistanceN = [[[keyedEditDistances allKeys]
+							sortedArrayUsingSelector:@selector(compare:)]
+								objectAtIndex:0];
+						// if the smallest distance is small enough, it will be retained for synchronization
+						if([bestEditDistanceN unsignedIntValue] <= [here length]/3)
+						{
+							[_SyncDestinations removeAllObjects];
+							NSMutableArray * mra = [keyedEditDistances objectForKey:bestEditDistanceN];
+							if([mra count]>1)
+							{
+								//  can't we filter out some of the candidates?
+								//  we can do that by comparing the words before and after the candidate with what is expected
+								//  
+								if([before length])
+								{
+									//  In a first stage, we just compare the word before the synchronization candidate
+									//  and the expected one, we have to store the distances
+									//  This makes sense only if there is a word before for each 
+									NSMutableDictionary * md = [NSMutableDictionary dictionary];
+									//  the keys are the edit distances
+									//  the values are mutable arrays containing the candidates for that edit distance
+									NSEnumerator * E = [[[mra copy] autorelease] objectEnumerator];
+									unsigned int rangeIndex;
+									while((V = [E nextObject]))
+									{
+										rangeIndex = [(NSNumber *)V unsignedIntValue];
+										if(rangeIndex>0)
+										{
+											V = [wordRanges objectAtIndex:rangeIndex-1];
+											NSRange R = [V rangeValue];
+											NSString * beforeCandidate = [pageString substringWithRange:R];
+											unsigned int editDistance = [before iTM2_editDistanceToString:beforeCandidate];
+											NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
+											NSMutableArray * mra1 = [md objectForKey:N];
+											if(!mra1)
+											{
+												mra1 = [NSMutableArray array];
+												[md setObject:mra1 forKey:N];
+											}
+											[mra1 addObject:V];
+
+										}
+										else
+										{
+											[md setDictionary:[NSDictionary dictionary]];// nil?
+											break;
+										}
+									}
+									NSNumber * smallestDistanceN = [[[md allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+									if(smallestDistanceN)
+									{
+										[mra setArray:[md objectForKey:smallestDistanceN]];
+									}
+								}
+							}
+							if([mra count]>1)
+							{
+								//  can't we filter out some of the candidates?
+								//  we can do that by comparing the words before and after the candidate with what is expected
+								//  
+								if([after length])
+								{
+									//  In a first stage, we just compare the word before the synchronization candidate
+									//  and the expected one, we have to store the distances
+									//  This makes sense only if there is a word before for each 
+									NSMutableDictionary * md = [NSMutableDictionary dictionary];
+									//  the keys are the edit distances
+									//  the values are mutable arrays containing the candidates for that edit distance
+									NSEnumerator * E = [[[mra copy] autorelease] objectEnumerator];
+									unsigned int rangeIndex;
+									while((V = [E nextObject]))
+									{
+										rangeIndex = [(NSNumber *)V unsignedIntValue];
+										if(rangeIndex+1<[wordRanges count])
+										{
+											V = [wordRanges objectAtIndex:rangeIndex+1];
+											NSRange R = [V rangeValue];
+											NSString * beforeCandidate = [pageString substringWithRange:R];
+											unsigned int editDistance = [before iTM2_editDistanceToString:beforeCandidate];
+											NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
+											NSMutableArray * mra1 = [md objectForKey:N];
+											if(!mra1)
+											{
+												mra1 = [NSMutableArray array];
+												[md setObject:mra1 forKey:N];
+											}
+											[mra1 addObject:V];
+
+										}
+										else
+										{
+											[md setDictionary:[NSDictionary dictionary]];// nil?
+											break;
+										}
+									}
+									NSNumber * smallestDistanceN = [[[md allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+									if(smallestDistanceN)
+									{
+										[mra setArray:[md objectForKey:smallestDistanceN]];
+									}
+								}
+							}
+							NSEnumerator * E = [mra objectEnumerator];
+							while((V = [E nextObject]))
+							{
+								unsigned int rangeIndex = [(NSNumber *)V unsignedIntValue];
+								// retrive the range value now
+								V = [wordRanges objectAtIndex:rangeIndex];
+								NSRange R = [V rangeValue];
+								NSRect bounds = [page characterBoundsAtIndex:R.location];
+								PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+								[_SyncDestinations addObject:destination];
+							}
+							[self setNeedsDisplay:YES];
+							[self scrollSynchronizationPointToVisible:self];
+							return YES;
+						}
 					}
 				}
 			}
-			// the 3 words in the source around the hit index
-			NSString * before;
-			NSString * here;
-			NSString * after;
-			NSNumber * N = [hint objectForKey:@"character index"];
-			if(!N)
+		}
+#elif 1
+		//  the idea is to find all the matches of the character hitted in the text view
+		//  then filter out the most probable occurrences until only one is left if possible
+		//  The filter is done by some kind of penalty
+		//  We test each character that is next to the hit character and see if we can find it
+		//  in the output near the match.
+		//  If we can find one, we add a small penalty, bigger if the character is not at the correct position
+		//  We first try to filter out only characters to the right of the hit point
+		//  then to the left
+		NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+		//  In this dictionary, keys are the PDF page indexes
+		NSNumber * K = nil;
+		//  values are arrays
+		NSMutableArray * MRA = nil;
+		//  the first object is the page object
+		//  the other object are wrappers over nodes for that page
+		
+		//  values are mutable dictionaries with the pdf page object and the penalties
+		//  First fill out everything
+		if((first_node = synctex_next_result(scanner)))
+		{
+			NSValue * V;
+			node = first_node;
+			do
 			{
-				return NO;
+				pageIndex = synctex_node_page(node)-1;
+				if(pageIndex>=[document pageCount])
+				{
+					continue;
+				}
+				page = [document pageAtIndex:pageIndex];
+				V = [NSValue valueWithNonretainedObject:page];
+				MRA = [MD objectForKey:V];
+				if(!MRA)
+				{
+					MRA = [NSMutableArray array];
+					[MRA addObject:page];
+					[MD setObject:MRA forKey:V];
+				}
+				[MRA addObject:[NSValue valueWithPointer:node]];
+			} while((node = synctex_next_result(scanner)));
+			NSEnumerator * pE = [MD keyEnumerator];
+			NSMutableDictionary * matchRanges = [NSMutableDictionary dictionary];
+			NSEnumerator * E = nil;
+			NSRange lineRange;
+			while(K = [pE nextObject])
+			{
+				MRA = [MD objectForKey:K];
+				E = [[[MRA copy] autorelease] objectEnumerator];
+				[MRA removeAllObjects];
+				page = [E nextObject];
+				NSString * pageString = [page string];
+				while((node = [[E nextObject] pointerValue]))
+				{
+					// get the full line text of the click
+					float tmp = synctex_node_box_visible_width(node);
+					float top;
+					NSPoint PP;
+next_attempt:
+					tmp = synctex_node_box_visible_width(node);
+					if(tmp<0)
+					{
+						top = synctex_node_box_visible_h(node);
+						PP.x = top+tmp;
+					}
+					else
+					{
+						PP.x = synctex_node_box_visible_h(node);
+						top = PP.x+tmp;
+					}
+					PP.y = synctex_node_box_visible_v(node)+(synctex_node_box_visible_depth(node)-synctex_node_box_visible_height(node))/2;
+					PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
+					NSPoint Q = PP;
+					Q.y+=1;
+					PDFSelection * destination = nil;
+					while(nil == (destination = [page selectionForWordAtPoint:Q]))
+					{
+						if((Q.x+=5)>top)
+						{
+							// second attempt
+							Q = PP;
+							while(nil == (destination = [page selectionForLineAtPoint:Q]))
+							{
+								if((Q.x+=5)>top)
+								{
+									if((node = synctex_node_parent(node)))
+									{
+										goto next_attempt;
+									}
+									goto next_chance;
+								}
+							}
+						}
+					}
+					NSRect bounds = [destination boundsForPage:page];
+					bounds.origin.y += 1;
+					lineRange.location = [page characterIndexAtPoint:bounds.origin];
+					lineRange.length = 0;
+					[pageString getLineStart:(unsigned *)&(lineRange.location) end:nil contentsEnd:(unsigned *)&(lineRange.length) forRange:lineRange];
+					lineRange.length -= lineRange.location;
+					V = [NSValue valueWithRange:lineRange];
+					if(![MRA containsObject:V])
+					{
+						[MRA addObject:V];
+					}
+next_chance:;
+				}
+				E = [[[MRA copy] autorelease] objectEnumerator];
+				[MRA removeAllObjects];
+				while((V = [E nextObject]))
+				{
+					lineRange = [V rangeValue];
+					NSString * lineString = [pageString substringWithRange:lineRange];
+					// Is the hit character in this line?
+					unsigned charIndex = 0;
+					while(charIndex<[lineString length])
+					{
+						if([lineString characterAtIndex:charIndex]==[container characterAtIndex:hereIndex])
+						{
+							[MRA addObject:[NSValue valueWithRange:NSMakeRange(charIndex+lineRange.location,1)]];
+						}
+						++charIndex;
+					}
+				}
+				if([MRA count]==1)
+				{
+					[matchRanges setObject:MRA forKey:K];
+				}
+				else
+				{
+					if([MRA count]>1)
+					{
+						NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+						E = [[[MRA copy] autorelease] objectEnumerator];
+						while((V = [E nextObject]))
+						{
+							lineRange = [V rangeValue];
+							lineRange = [pageString doubleClickAtIndex:lineRange.location];
+							NSString * w = [pageString substringWithRange:lineRange];
+							NSNumber * N = [NSNumber numberWithUnsignedInt:[here iTM2_editDistanceToString:w]];
+							NSMutableArray * mra = [MD objectForKey:N];
+							if(!mra)
+							{
+								mra = [NSMutableArray array];
+								[MD setObject:mra forKey:N];
+							}
+							[mra addObject:V];
+						}
+						E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
+						if((V = [E nextObject]))
+						{
+							[matchRanges setObject:[MD objectForKey:V] forKey:K];
+						}
+						else
+						{
+							goto last_chance;
+						}
+					}
+				}
 			}
-			unsigned int hereOffset = [S getWordBefore:&before here:&here after:&after atIndex:[N unsignedIntValue] mode:YES];
+			[_SyncDestinations removeAllObjects];
+			E = [matchRanges keyEnumerator];
+			if(V = [E nextObject])
+			{
+				do
+				{
+					page = [V nonretainedObjectValue];
+					NSEnumerator * e = [[matchRanges objectForKey:V] objectEnumerator];
+					while(V = [e nextObject])
+					{
+						lineRange = [V rangeValue];
+						NSRect bounds = [page characterBoundsAtIndex:lineRange.location];
+						PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+						[_SyncDestinations addObject:destination];
+					}
+				}
+				while(V = [E nextObject]);
+				[self setNeedsDisplay:YES];
+				[self scrollSynchronizationPointToVisible:self];
+				return YES;
+			}
+		}
+#else
+		while((node = synctex_next_result(scanner)))
+		{
+			if(!first_node)
+			{
+				first_node = node;
+			}
+			pageIndex = synctex_node_page(node)-1;
+			if(pageIndex>=[document pageCount])
+			{
+				continue;
+			}
+			page = [document pageAtIndex:pageIndex];
 			// get the full line text of the click
 			float tmp = synctex_node_box_visible_width(node);
 			float top;
@@ -5604,10 +6099,6 @@ nextHereLeft:
 			PP.y = synctex_node_box_visible_v(node)+(synctex_node_box_visible_depth(node)-synctex_node_box_visible_height(node))/2;
 			PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
 			NSPoint Q = PP;
-			if(!_SyncDestinations)
-			{
-				_SyncDestinations = [[NSMutableArray array] retain];
-			}
 			PDFSelection * destination = nil;
 			while(nil == (destination = [page selectionForLineAtPoint:Q]))
 			{
@@ -5662,7 +6153,28 @@ nextMatch:
 				return YES;
 			}
 		}
-		return NO;
+#endif
+last_chance:
+		if(first_node)
+		{
+			pageIndex = synctex_node_page(first_node)-1;
+			if(pageIndex>=[document pageCount])
+			{
+				return NO;
+			}
+			page = [document pageAtIndex:pageIndex];
+			[_SyncDestinations removeAllObjects];
+			NSPoint P = NSMakePoint(synctex_node_box_visible_h(first_node),synctex_node_box_visible_v(first_node));
+			P.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - P.y;
+			if(!_SyncDestinations)
+			{
+				_SyncDestinations = [[NSMutableArray array] retain];
+			}
+			[_SyncDestinations addObject:[[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:P] autorelease]];
+			[self setNeedsDisplay:YES];
+			[self scrollSynchronizationPointToVisible:self];
+			return YES;
+		}
 	}
 //iTM2_END;
     return NO;
@@ -6035,47 +6547,47 @@ mainLoop:
 	visibleRect.size.width -= [[scrollView verticalScroller] frame].size.width;
 	visibleRect.size.height -= [[scrollView horizontalScroller] frame].size.height;
 	visibleRect = [documentView convertRect:visibleRect fromView:scrollView];
-	NSRect noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	NSRect  dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	NSPoint scrollOffset = NSZeroPoint;
 	NSPoint location = [documentView convertPoint:newHit fromView:nil];
 	NSPoint point = NSZeroPoint;
 	float f,g;
-	if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+	if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 	{
 		point = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.x -= NSMaxX(noScrollRect);
+		point.x -= NSMaxX(dontScrollRect);
 		g/=point.x;
 		scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.x>oldHit.x || (scroll && newHit.x==oldHit.x);
 	}
-	else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+	else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 	{
 		point = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.x -= NSMinX(noScrollRect);
+		point.x -= NSMinX(dontScrollRect);
 		g/=-point.x;
 		scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.x<oldHit.x || (scroll && newHit.x==oldHit.x);
 	}
-	if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+	if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 	{
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.y -= NSMaxY(noScrollRect);
+		point.y -= NSMaxY(dontScrollRect);
 		g/=point.y;
 		scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.y>oldHit.y || (scroll && newHit.y==oldHit.y);
 	}
-	else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+	else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 	{
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.y -= NSMinY(noScrollRect);
+		point.y -= NSMinY(dontScrollRect);
 		g/=-point.y;
 		scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.y<oldHit.y || (scroll && newHit.y==oldHit.y);
@@ -7128,7 +7640,7 @@ theEnd:
 		return;
 	}
 	NSWindow * window = [self window];
-	NSRect visibleRect, noScrollRect;
+	NSRect visibleRect, dontScrollRect;
 	NSPoint scrollOffset = NSMakePoint(10,10);
 	NSPoint anchor = [theEvent locationInWindow];/* immutable */
 	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
@@ -7142,27 +7654,27 @@ mainLoop:
 	location = [window mouseLocationOutsideOfEventStream];
 	location = [self convertPoint:location fromView:nil];
 	// if the location is near the boundary of the visible rect, scroll
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
 	if(selectionRect.size.width>0)
 	{
-		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMaxX(noScrollRect);
+			newPoint.x -= NSMaxX(dontScrollRect);
 			g/=newPoint.x;
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMinX(noScrollRect);
+			newPoint.x -= NSMinX(dontScrollRect);
 			g/=-newPoint.x;
 			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7170,22 +7682,22 @@ mainLoop:
 	}
 	if(selectionRect.size.height>0)
 	{
-		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMaxY(noScrollRect);
+			newPoint.y -= NSMaxY(dontScrollRect);
 			g/=newPoint.y;
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMinY(noScrollRect);
+			newPoint.y -= NSMinY(dontScrollRect);
 			g/=-newPoint.y;
 			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7277,7 +7789,7 @@ mainLoop:
 	}
 	NSRect selectionRect = [self selectionRect];
 	NSWindow * window = [self window];
-	NSRect visibleRect, noScrollRect;
+	NSRect visibleRect, dontScrollRect;
 	NSPoint scrollOffset = NSMakePoint(10,10);
 	NSPoint anchor = [theEvent locationInWindow];/* immutable */
 	NSRect locationAnchorRect = NSZeroRect;
@@ -7293,27 +7805,27 @@ mainLoop:
 	location = [window mouseLocationOutsideOfEventStream];
 	location = [self convertPoint:location fromView:nil];
 	// if the location is near the boundary of the visible rect, scroll
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
 	if(selectionRect.size.width>0)
 	{
-		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMaxX(noScrollRect);
+			newPoint.x -= NSMaxX(dontScrollRect);
 			g/=newPoint.x;
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMinX(noScrollRect);
+			newPoint.x -= NSMinX(dontScrollRect);
 			g/=-newPoint.x;
 			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7321,22 +7833,22 @@ mainLoop:
 	}
 	if(selectionRect.size.height>0)
 	{
-		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMaxY(noScrollRect);
+			newPoint.y -= NSMaxY(dontScrollRect);
 			g/=newPoint.y;
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMinY(noScrollRect);
+			newPoint.y -= NSMinY(dontScrollRect);
 			g/=-newPoint.y;
 			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7413,7 +7925,7 @@ mainLoop:
 	pointBounds.size.width = MAX(0,NSWidth(bounds) - NSWidth(selectionRect));
 	pointBounds.size.height = MAX(0,NSHeight(bounds) - NSHeight(selectionRect));
 	NSWindow * window = [self window];
-	NSRect visibleRect, noScrollRect;
+	NSRect visibleRect, dontScrollRect;
 	NSPoint scrollOffset = NSMakePoint(10,10);
 	NSPoint anchor = [theEvent locationInWindow];/* immutable */
 	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
@@ -7427,27 +7939,27 @@ mainLoop:
 	location = [window mouseLocationOutsideOfEventStream];
 	location = [self convertPoint:location fromView:nil];
 	// if the location is near the boundary of the visible rect, scroll
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
 	if(selectionRect.size.width>0)
 	{
-		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMaxX(noScrollRect);
+			newPoint.x -= NSMaxX(dontScrollRect);
 			g/=newPoint.x;
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMinX(noScrollRect);
+			newPoint.x -= NSMinX(dontScrollRect);
 			g/=-newPoint.x;
 			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7455,22 +7967,22 @@ mainLoop:
 	}
 	if(selectionRect.size.height>0)
 	{
-		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMaxY(noScrollRect);
+			newPoint.y -= NSMaxY(dontScrollRect);
 			g/=newPoint.y;
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMinY(noScrollRect);
+			newPoint.y -= NSMinY(dontScrollRect);
 			g/=-newPoint.y;
 			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;

@@ -1415,7 +1415,7 @@ To Do List:
 		id IO = [_CurrentTask standardOutput];
 		if([IO respondsToSelector:@selector(fileHandleForReading)])
 		{
-			FH = [IO fileHandleForReading];
+			FH = [IO fileHandleForReading];// there is a problem here if the process was killed externally, no pipe and infinite loop
 			D = [FH readDataToEndOfFile];
 			string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
 			if([D length] && ![string length])

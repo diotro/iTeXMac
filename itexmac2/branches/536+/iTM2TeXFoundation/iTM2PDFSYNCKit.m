@@ -1274,19 +1274,26 @@ To Do List:
 			if(lengthPtr) *lengthPtr = 0;
 			
 			if(sourcePtr) {
-				const char * rep = synctex_scanner_get_name(scanner,synctex_node_tag(node));				
-				*sourcePtr = [DFM stringWithFileSystemRepresentation:rep length:strlen(rep)];
-				if(![*sourcePtr isAbsolutePath])
+				const char * rep = synctex_scanner_get_name(scanner,synctex_node_tag(node));
+				if(rep)
 				{
-					rep = synctex_scanner_get_synctex(scanner);
-					NSString * dir = [DFM stringWithFileSystemRepresentation:rep length:strlen(rep)];
-					dir = [dir stringByDeletingLastPathComponent];
-					[DFM pushDirectory:dir];
-					NSURL * url = [NSURL fileURLWithPath:*sourcePtr];
-					[DFM popDirectory];
-					*sourcePtr = [url path];
+					*sourcePtr = [DFM stringWithFileSystemRepresentation:rep length:strlen(rep)];
+					if(![*sourcePtr isAbsolutePath])
+					{
+						rep = synctex_scanner_get_synctex(scanner);
+						NSString * dir = [DFM stringWithFileSystemRepresentation:rep length:strlen(rep)];
+						dir = [dir stringByDeletingLastPathComponent];
+						[DFM pushDirectory:dir];
+						NSURL * url = [NSURL fileURLWithPath:*sourcePtr];
+						[DFM popDirectory];
+						*sourcePtr = [url path];
+					}
 				}
-				
+				else
+				{
+					// weird
+					iTM2_LOG(@"STOP HERE!");
+				}
 			} 
 			return YES;
 		}
@@ -1978,12 +1985,14 @@ To Do List:
 			goto laSuite;
 	[self makeWindowControllers];
 	[self showWindows];
+	BOOL result = NO;
 laSuite:
+#if 0
 	if([SRCE hasPrefix:@"/"])
 	{
 		SRCE = [SRCE stringByAbbreviatingWithDotsRelativeToDirectory:[[self fileName] stringByDeletingLastPathComponent]];
 	}
-	BOOL result = NO;
+#endif
 //NSLog(@"line:%u column:%u source:%@", l, c, SRCE);
     [IMPLEMENTATION takeMetaValue:nil forKey:@"_Invocation"];
 	// external viewers are prominent
@@ -2011,6 +2020,10 @@ laSuite:
 		BOOL result = NO;
 		E = [[NSApp windows] objectEnumerator];
 		destinations = [syncer destinationsForLine:l column:c inSource:SRCE];
+		if(destinations) {
+			hint = [[hint mutableCopy] autorelease];
+			[(id)hint setObject:destinations forKey:@"destinations"];
+		}
 		while(W = [E nextObject])
 		{
 			WC = [W windowController];

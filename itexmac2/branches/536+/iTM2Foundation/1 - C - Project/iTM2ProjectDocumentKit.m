@@ -2389,7 +2389,10 @@ To Do List:
 	if(![DFM fileExistsAtPath:result])
 	{
 		NSString * recorded = [self fileNameForRecordedKey:key];
-		if([DFM fileExistsAtPath:recorded])
+		// we must manage possible conflicts
+		// if recorded is already registered, we do nothing smart
+		NSString * recordedKey = [self keyForFileName:recorded];
+		if(![recordedKey length] && [DFM fileExistsAtPath:recorded])
 		{
 			[self setFileName:recorded forKey:key makeRelative:YES];
 			return recorded;
@@ -2518,6 +2521,15 @@ To Do List:
 	{
 		[[self keyedFileNames] takeValue:new forKey:key];
 		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
+		// consistency test before throwing an exception
+		if(![key isEqualToString:[self keyForFileName:fileName]])
+		{
+			NSLog(@"key is\n%@",key);
+			NSLog(@"fileName is\n%@",fileName);
+			NSLog(@"[self keyForFileName:fileName] is\n%@",[self keyForFileName:fileName]);
+			NSLog(@"[self absoluteFileNameForKey:key] is\n%@",[self absoluteFileNameForKey:key]);
+			NSLog(@"[self absoluteFileNameForKey:[self keyForFileName:fileName]] is\n%@",[self absoluteFileNameForKey:[self keyForFileName:fileName]]);
+		}
 		NSAssert3([key isEqualToString:[self keyForFileName:fileName]],(@"AIE AIE INCONSITENT STATE %@,%@ != %@"),__iTM2_PRETTY_FUNCTION__,key,[self keyForFileName:fileName]);
 		[self keysDidChange];
 	}
@@ -6968,8 +6980,6 @@ To Do List:
 
 	NSString * fileName = [document fileName];
 	[self setProject:projectDocument forFileName:fileName];
-	NSAssert3((!projectDocument || [[projectDocument keyForFileName:fileName] length]),
-		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %@,\nproject:\n%@\nfileName:\n%@",__iTM2_PRETTY_FUNCTION__,projectDocument,fileName);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:forFileName:
@@ -6988,6 +6998,12 @@ To Do List:
 		iTM2_LOG(@"fileName:%@",fileName);
 	}
 	NSParameterAssert((!projectDocument || [SPC isProject:projectDocument]));
+	if(projectDocument)
+	{
+		// consistency test
+		NSAssert3((!projectDocument || [[projectDocument keyForFileName:fileName] length]),
+			@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %@,\nproject:\n%@\nfileName:\n%@",__iTM2_PRETTY_FUNCTION__,projectDocument,fileName);
+	}
 	NSValue * projectValue = [NSValue valueWithNonretainedObject:projectDocument];
 	fileName = [fileName stringByStandardizingPath];
 	fileName = [fileName lowercaseString];

@@ -212,7 +212,7 @@ To Do List:
 	if(!TPD)
 	{
 		// do nothing, the window controller is not yet connected to a document
-		return;
+		return NO;
 	}
 	// you can't use initImplementation, only a late implementation
 	if(![self editedProject])
@@ -231,12 +231,12 @@ To Do List:
 		NSData * D = [projectImplementation dataRepresentationOfModelOfType:iTM2TeXProjectInfoType];
 		if(D && ![myProjectImplementation loadModelValueOfDataRepresentation:D ofType:iTM2TeXProjectInfoType])
 		{
-			iTM2_LOG(@"***: There is a problem, minor at first glance");
+			iTM2_LOG(@"***: There is a problem, minor at first glance, could not load the project info");
 		}
 		D = [projectImplementation dataRepresentationOfModelOfType:iTM2ProjectFrontendType];
 		if(D && ![myProjectImplementation loadModelValueOfDataRepresentation:D ofType:iTM2ProjectFrontendType])
 		{
-			iTM2_LOG(@"***: There is a problem, minor at first glance");
+			iTM2_LOG(@"***: There is a problem, minor at first glance, could not load the project frontend info");
 		}
 		NSString * name;
 		NSEnumerator * E = [[TPD engineScripts] keyEnumerator];
@@ -275,7 +275,7 @@ To Do List:
 	}
 	// fixing the project consistency:
 	// this is something to be done when the project opens, perhaps.
-	iTM2TeXProjectDocument * TPD = [self editedProject];
+	TPD = [self editedProject];
 //iTM2_LOG(@"0-- [self editedProject] is: %@ with engines: %@", TPD, [TPD engines]);
 	NSString * editedEngine = [self editedEngine];
 	iTM2TeXPEngineWrapper * CW = [TPD engineWrapperForName:editedEngine];

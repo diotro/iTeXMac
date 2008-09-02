@@ -385,6 +385,10 @@ To Do List:
 	path = [path lastPathComponent];
 	return ![path hasPrefix:@"."];
 }
+- (BOOL)trashedIsPrivateFileAtPath:(NSString *)path;
+{
+	return [[path pathComponents] containsObject:@".Trash"];
+}
 - (BOOL)isPrivateFileAtPath:(NSString *)path;
 {
 //iTM2_LOG(@"path: %@", path);

@@ -76,6 +76,9 @@
 
 - (NSArray *)componentsSeparatedByStrings:(NSString *)separator, ...;// nil or non NSString terminated list or arguments
 /*"Overriden methods"*/
+
+/*  Levenshtein distance between the receiver and the given word */
+- (unsigned int)iTM2_editDistanceToString:(NSString *)aString;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)

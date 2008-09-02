@@ -1702,6 +1702,47 @@ To Do List:
 				if(isOriginalDirectory)
 				{
 					// the receiver must be a package and not a flat file
+#warning
+#if 0
+            1240 NSApplicationMain
+              1240 -[NSApplication(iTM2BundleKit) swizzle_iTM2BundleKit_run]
+                1240 -[NSApplication run]
+                  1240 -[iTM2Application sendEvent:]
+                    1240 -[NSApplication sendEvent:]
+                      1240 -[NSApplication _handleKeyEquivalent:]
+                        1240 -[NSMenu performKeyEquivalent:]
+                          1240 -[NSCarbonMenuImpl performActionWithHighlightingForItemAtIndex:]
+                            1240 -[NSMenu performActionForItemAtIndex:]
+                              1240 -[NSApplication sendAction:to:from:]
+                                1240 -[iTM2TeXPCommandPerformer performCommand:]
+                                  1240 -[iTM2TeXPCommandPerformer performCommandForProject:]
+                                    1240 -[NSDocument saveDocument:]
+                                      1240 -[NSDocument saveDocumentWithDelegate:didSaveSelector:contextInfo:]
+                                        1240 -[NSDocument _saveDocumentWithDelegate:didSaveSelector:contextInfo:]
+                                          1240 -[NSDocument_iTM2ProjectDocumentKit saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                            1240 -[NSDocument saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                              1240 -[NSDocument _saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                                1240 -[NSDocument saveToURL:ofType:forSaveOperation:error:]
+                                                  1240 -[NSDocument writeSafelyToURL:ofType:forSaveOperation:error:]
+                                                    1240 -[NSDocument _writeSafelyToURL:ofType:forSaveOperation:error:]
+                                                      1240 -[iTM2ProjectDocument writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
+                                                        1240 -[iTM2Document writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
+                                                          1240 -[NSFileManager copyPath:toPath:handler:]
+                                                            1240 -[NSFileManager _replicatePath:atPath:operation:fileMap:handler:]
+                                                              1240 -[NSFileManager _newReplicatePath:ref:atPath:ref:operation:fileMap:handler:]
+                                                                1240 -[iTM2Document fileManager:shouldProceedAfterError:]
+                                                                  1240 NSRunCriticalAlertPanel
+On 2008-08-11, bug
+Don't know what are the exact circonstances
+The project content is lost
+No info.plist file is written
+Trying to replace the old texp file by a backup copy
+itexmac2 is broken,
+the project exact location is broken
+if I try to save the project as...
+the save as panel cannot list the directory contents
+#endif
+
 					if([DFM copyPath:fullOriginalDocumentPath toPath:fullDocumentPath handler:self])
 					{
 						//iTM2_LOG(@"Copied from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);

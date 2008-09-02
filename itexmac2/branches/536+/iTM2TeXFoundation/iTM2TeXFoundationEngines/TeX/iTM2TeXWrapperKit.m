@@ -1520,7 +1520,7 @@ To Do List:
 //iTM2_START;
 	switch([[sender selectedCell] tag])
 	{
-		case 0:
+		default:
 			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2PDFTeX_src_specials];
 			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2PDFTeX_No_SyncTeX];
 		break;
@@ -2422,9 +2422,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	switch([[sender selectedItem] tag])
+	switch([[sender selectedCell] tag])
 	{
-		case 0:
+		default:
 			[self takeModelValue:[NSNumber numberWithBool:NO] forKey:iTM2XeTeX_src_specials];
 			[self takeModelValue:[NSNumber numberWithBool:YES] forKey:iTM2XeTeX_No_SyncTeX];
 		break;
