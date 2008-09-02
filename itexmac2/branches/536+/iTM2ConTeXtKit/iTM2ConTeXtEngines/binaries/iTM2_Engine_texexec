@@ -230,8 +230,19 @@ else
 	iTM2_PWD_Real="$(dirname "${TWSMaster}")"
 	iTM2_PWD="${iTM2_PWD_Real}"
 fi
+if [ "${SyncTeXDisabled:-0}" != "0" ]
+then
+	iTM2_TeXExec_Arguments="${iTM2_TeXExec_Arguments} --passon=\"-synctex=0\""
+else
+	if [ "${SyncTeXUncompressed:-0}" != "0" ]
+	then
+		iTM2_TeXExec_Arguments="${iTM2_TeXExec_Arguments} --passon=\"-synctex=-1\""
+	else
+		iTM2_TeXExec_Arguments="${iTM2_TeXExec_Arguments} --passon=\"-synctex=1\""
+	fi
+fi
 pushd "${iTM2_PWD}" > /dev/null
-"$iTM2_CMD_Notify" comment "Performing  ${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} \"${TWSMasterBase%}\""
+"${iTM2_CMD_Notify}" notify comment "Performing  ${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} \"${TWSMasterBase%}\""
 ${iTM2_TeXExec_EnginePath} ${iTM2_TeXExec_Arguments} "${TWSMasterBase%}"
 iTM2_Status="$?"
 if [ "${iTM2_Status}" != "0" ]
@@ -239,11 +250,6 @@ then
 	popd > /dev/null
 	"$iTM2_CMD_Notify" error -reason "$(basename "$0") FAILED, see log (${iTM2_Status})."
 	exit ${iTM2_Status}
-fi
-OUTPUT="${OUTPUT%.*}.log"
-if [ -s "${OUTPUT}" ]
-then	
-	"${iTM2_TemporaryDirectory}/bin/iTeXMac2" update -file "${iTM2_PWD}/${OUTPUT}" -project "${TWSProject}"
 fi
 OUTPUT="${OUTPUT%.*}.pdf"
 if [ -s "${OUTPUT}" ]

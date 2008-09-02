@@ -220,6 +220,10 @@ To Do List:
 	NSString * repository = nil;
 	NSDirectoryEnumerator * DE = nil;
 	NSString * subpath = nil;
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"Start reading macros files...");
+	}
 	while(repository = [E nextObject])
 	{
 		if([DFM pushDirectory:repository])
@@ -280,7 +284,7 @@ To Do List:
 					NSURL * url = [NSURL fileURLWithPath:subpath];
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"url:%@",url);
+						iTM2_LOG(@"macros registered at url:%@",url);
 					}
 					[contextNode addURLPromise:url];
 				}
