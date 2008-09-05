@@ -5581,7 +5581,8 @@ nextHereLeft:
 		NSString * before = nil;
 		NSString * here = [container substringWithRange:hereR];
 		NSString * after = nil;
-		unsigned int hereOffset = [container getWordBefore:&before here:&here after:&after atIndex:[N unsignedIntValue] mode:YES];
+		// unsigned int hereOffset = 
+		[container iTM2_getWordBefore:&before here:&here after:&after atIndex:[N unsignedIntValue] mode:YES];
 		if(!_SyncDestinations)
 		{
 			_SyncDestinations = [[NSMutableArray array] retain];
@@ -5633,7 +5634,7 @@ nextHereLeft:
 				{
 					node = [V pointerValue];
 					// get the full line text of the click
-					float tmp = synctex_node_box_visible_width(node);
+					float tmp;
 					float top;
 					NSPoint PP;
 next_attempt:
@@ -5735,7 +5736,7 @@ next_word_in_line:
 						wordRange = [pageString doubleClickAtIndex:charIndex];
 						if(wordRange.length>0)
 						{
-							if(wordRange.length>1)
+							if(wordRange.length>1 || [[NSCharacterSet letterCharacterSet] characterIsMember:[pageString characterAtIndex:charIndex]])
 							{
 								V = [NSValue valueWithRange:wordRange];
 								if(![wordRanges containsObject:V])
@@ -5777,7 +5778,7 @@ next_word_in_line:
 							if([mra count]>1)
 							{
 								//  can't we filter out some of the candidates?
-								//  we can do that by comparing the words before and after the candidate with what is expected
+								//  we can do that by comparing the word before the candidate with what is expected
 								//  
 								if([before length])
 								{
@@ -5792,21 +5793,28 @@ next_word_in_line:
 									while((V = [E nextObject]))
 									{
 										rangeIndex = [(NSNumber *)V unsignedIntValue];
+previousRangeIndex:
 										if(rangeIndex>0)
 										{
-											V = [wordRanges objectAtIndex:rangeIndex-1];
-											NSRange R = [V rangeValue];
-											NSString * beforeCandidate = [pageString substringWithRange:R];
-											unsigned int editDistance = [before iTM2_editDistanceToString:beforeCandidate];
-											NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
-											NSMutableArray * mra1 = [md objectForKey:N];
-											if(!mra1)
+											NSRange R = [[wordRanges objectAtIndex:rangeIndex-1] rangeValue];
+											if(R.length>2)
 											{
-												mra1 = [NSMutableArray array];
-												[md setObject:mra1 forKey:N];
+												NSString * beforeCandidate = [pageString substringWithRange:R];
+												unsigned int editDistance = [before iTM2_editDistanceToString:beforeCandidate];
+												NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
+												NSMutableArray * mra1 = [md objectForKey:N];
+												if(!mra1)
+												{
+													mra1 = [NSMutableArray array];
+													[md setObject:mra1 forKey:N];
+												}
+												[mra1 addObject:V];
 											}
-											[mra1 addObject:V];
-
+											else
+											{
+												--rangeIndex;
+												goto previousRangeIndex;
+											}
 										}
 										else
 										{
@@ -5814,9 +5822,11 @@ next_word_in_line:
 											break;
 										}
 									}
-									NSNumber * smallestDistanceN = [[[md allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-									if(smallestDistanceN)
+									NSArray * RA = [md allKeys];
+									RA = [RA sortedArrayUsingSelector:@selector(compare:)];
+									if([RA count])
 									{
+										NSNumber * smallestDistanceN = [RA objectAtIndex:0];
 										[mra setArray:[md objectForKey:smallestDistanceN]];
 									}
 								}
@@ -5824,8 +5834,7 @@ next_word_in_line:
 							if([mra count]>1)
 							{
 								//  can't we filter out some of the candidates?
-								//  we can do that by comparing the words before and after the candidate with what is expected
-								//  
+								//  we can do that by comparing the word after the candidate with what is expected
 								if([after length])
 								{
 									//  In a first stage, we just compare the word before the synchronization candidate
@@ -5839,21 +5848,28 @@ next_word_in_line:
 									while((V = [E nextObject]))
 									{
 										rangeIndex = [(NSNumber *)V unsignedIntValue];
+nextRangeIndex:
 										if(rangeIndex+1<[wordRanges count])
 										{
-											V = [wordRanges objectAtIndex:rangeIndex+1];
-											NSRange R = [V rangeValue];
-											NSString * beforeCandidate = [pageString substringWithRange:R];
-											unsigned int editDistance = [before iTM2_editDistanceToString:beforeCandidate];
-											NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
-											NSMutableArray * mra1 = [md objectForKey:N];
-											if(!mra1)
+											NSRange R = [[wordRanges objectAtIndex:rangeIndex+1] rangeValue];
+											if(R.length>2)
 											{
-												mra1 = [NSMutableArray array];
-												[md setObject:mra1 forKey:N];
+												NSString * afterCandidate = [pageString substringWithRange:R];
+												unsigned int editDistance = [after iTM2_editDistanceToString:afterCandidate];
+												NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
+												NSMutableArray * mra1 = [md objectForKey:N];
+												if(!mra1)
+												{
+													mra1 = [NSMutableArray array];
+													[md setObject:mra1 forKey:N];
+												}
+												[mra1 addObject:V];
 											}
-											[mra1 addObject:V];
-
+											else
+											{
+												++rangeIndex;
+												goto nextRangeIndex;
+											}
 										}
 										else
 										{
@@ -5861,9 +5877,10 @@ next_word_in_line:
 											break;
 										}
 									}
-									NSNumber * smallestDistanceN = [[[md allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-									if(smallestDistanceN)
+									NSArray * RA = [[md allKeys] sortedArrayUsingSelector:@selector(compare:)];
+									if([RA count])
 									{
+										NSNumber * smallestDistanceN = [RA objectAtIndex:0];
 										[mra setArray:[md objectForKey:smallestDistanceN]];
 									}
 								}
@@ -5879,10 +5896,28 @@ next_word_in_line:
 								PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
 								[_SyncDestinations addObject:destination];
 							}
+							if(![_SyncDestinations count])
+							{
+								// just add something for the line, and that is all
+								float tmp = synctex_node_box_visible_width(first_node);
+								NSPoint PP;
+								if(tmp<0)
+								{
+									PP.x = synctex_node_box_visible_h(first_node)+tmp;
+								}
+								else
+								{
+									PP.x = synctex_node_box_visible_h(first_node);
+								}
+								PP.y = synctex_node_box_visible_v(first_node)+(synctex_node_box_visible_depth(first_node)-synctex_node_box_visible_height(first_node))/2;
+								PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
+								PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:PP] autorelease];
+								[_SyncDestinations addObject:destination];
+							}
 							[self setNeedsDisplay:YES];
 							[self scrollSynchronizationPointToVisible:self];
 							return YES;
-						}
+						}// the best edit distance is really bad
 					}
 				}
 			}
@@ -6237,7 +6272,7 @@ startAgain:;
 				NSString * beforeWord;
 				NSString * hereWord;
 				NSString * afterWord;
-				unsigned int localHitIndex = [S getWordBefore:&beforeWord here:&hereWord after:&afterWord atIndex:hereIndex
+				unsigned int localHitIndex = [S iTM2_getWordBefore:&beforeWord here:&hereWord after:&afterWord atIndex:hereIndex
 					mode:[[[[[self window] windowController] document] synchronizer] isSyncTeX]];
 				if(iTM2DebugEnabled)
 				{
@@ -9623,6 +9658,18 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 - (void)setUncompressedSyncTeX:(BOOL)uncompressedSyncTeX;
 {
 	SETTER([NSNumber numberWithBool:uncompressedSyncTeX]);
+	return;
+}
+#pragma mark =-=-=-=-=-  STRONGER SYNCTEX
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  strongerSynchronization
+- (BOOL)strongerSynchronization;
+{
+	return [GETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStrongerSynchronization:
+- (void)setStrongerSynchronization:(BOOL)argument;
+{
+	SETTER([NSNumber numberWithBool:argument]);
 	return;
 }
 #pragma mark =-=-=-=-=-  FOLLOW FOCUS
