@@ -132,7 +132,9 @@ To Do List:
 	NSDictionary * userInfo = [exception userInfo];
 	NSArray * stackTrace = [userInfo objectForKey:NSStackTraceKey];
 	iTM2_LOG(@"\nStack Trace:%@",stackTrace);
-	if(iTM2DebugEnabled)
+	if(iTM2DebugEnabled
+	/*The next awful patch ignores some execptions sent by the instanceMethodForSelector */
+	&& ![[exception description] hasPrefix:@"NSGetSizeAndAlignment"])
 	{
 		[[NSApplication sharedApplication]
 			presentError:
