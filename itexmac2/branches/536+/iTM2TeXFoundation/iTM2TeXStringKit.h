@@ -45,7 +45,7 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 + (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
 
 /*!
-    @method     getWordBefore:here:after:atIndex:mode:
+    @method     iTM2_getWordBefore:here:after:atIndex:mode:
     @abstract   (brief description)
     @discussion All the string returned are autoreleased strings owned by no one.
     @param		beforePtr will hold on return the word before
@@ -55,7 +55,7 @@ extern NSString * const iTM2UDTabAnchorStringKey;
     @param		isSyncTeX is yes or no, depending on SyncTeX use
 	@result		The character index in the word here of the very character indexed by index in the receiver.
 */
-- (unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)index mode:(BOOL)isSyncTeX;
+- (unsigned int)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)index mode:(BOOL)isSyncTeX;
 
 @end
 

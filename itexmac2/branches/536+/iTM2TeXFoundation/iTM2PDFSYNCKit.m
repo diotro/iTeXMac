@@ -1269,7 +1269,7 @@ To Do List:
 	if(synctex_edit_query(scanner,pageIndex+1,point.x,point.y)>0) {
 		synctex_node_t node;
 		if(node = synctex_next_result(scanner)) {
-			if(linePtr) *linePtr = synctex_node_line(node)-1;
+			if(linePtr) *linePtr = synctex_node_line(node);
 			if(columnPtr) *columnPtr = synctex_node_column(node);
 			if(lengthPtr) *lengthPtr = 0;
 			
@@ -2019,8 +2019,7 @@ laSuite:
 	{
 		BOOL result = NO;
 		E = [[NSApp windows] objectEnumerator];
-		destinations = [syncer destinationsForLine:l column:c inSource:SRCE];
-		if(destinations) {
+		if(![syncer isSyncTeX] &&(destinations = [syncer destinationsForLine:l column:c inSource:SRCE])) {
 			hint = [[hint mutableCopy] autorelease];
 			[(id)hint setObject:destinations forKey:@"destinations"];
 		}

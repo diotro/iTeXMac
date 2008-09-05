@@ -1027,8 +1027,8 @@ To Do List:
 //iTM2_LOG(@"********  the cleaned result is:%@ (from %@)", [MRA componentsJoinedByString:@"%"], MRA);
 	return [MRA componentsJoinedByString:@"%"];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _getWordBefore:here:after:atIndex:
-- (unsigned int)_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _iTM2_getWordBefore:here:after:atIndex:
+- (unsigned int)_iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:02/03/2003
@@ -1240,8 +1240,8 @@ nextBeforeWord:
 //iTM2_END;
 	return inControl?NSNotFound:hitIndex-hereRange.location;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getWordBefore:here:after:atIndex:mode:
-- (unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex mode:(BOOL)isSyncTeX;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_getWordBefore:here:after:atIndex:mode:
+- (unsigned int)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex mode:(BOOL)isSyncTeX;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:02/03/2003
@@ -1250,7 +1250,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	if(isSyncTeX)
 	{
-		;//return [self _getWordBefore:beforePtr here:herePtr after:afterPtr atIndex:hitIndex];
+		;//return [self _iTM2_getWordBefore:beforePtr here:herePtr after:afterPtr atIndex:hitIndex];
 	}
 //iTM2_START;
 	// we work on a portion of text surrounding the char index where the hit occurred
@@ -1311,7 +1311,7 @@ point1:;
 			if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:hitIndex]]
 					&& (hitIndex>0))
 			{
-				return [self getWordBefore:beforePtr here:herePtr after:afterPtr atIndex:hitIndex-1 mode:isSyncTeX];
+				return [self iTM2_getWordBefore:beforePtr here:herePtr after:afterPtr atIndex:hitIndex-1 mode:isSyncTeX];
 			}
 		}
 		if(!hereRange.length)
