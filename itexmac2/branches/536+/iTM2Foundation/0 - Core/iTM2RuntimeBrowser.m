@@ -76,7 +76,7 @@ To Do List:
 {
 	id result = nil;
 NS_DURING
-	result = [self instanceMethodSignatureForSelector:(SEL)aSelector];
+	result = [self instancesRespondToSelector:(SEL)aSelector]?[self instanceMethodSignatureForSelector:(SEL)aSelector]:nil;
 NS_HANDLER
 	result = nil;
 	iTM2_LOG(@"Exception catched");
@@ -799,6 +799,7 @@ To Do List:
 	SELs = [NSMutableArray arrayWithArray:[SELs allObjects]];
 	if(iTM2DebugEnabled)
 	{
+		iTM2_LOG(@"Introspection:\nclass: %@\nselector suffix:%@\nsignature:%@\ninherited:%@", NSStringFromClass(theClass), suffix, signature, (yorn?@"Y":@"N"));
 		iTM2_LOG(@"prepareSELs: %@", prepareSELs);
 		iTM2_LOG(@"SELs: %@", SELs);
 	}
