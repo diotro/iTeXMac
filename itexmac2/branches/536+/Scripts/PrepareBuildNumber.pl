@@ -18,7 +18,7 @@ printf "Getting the svn revision number (CONFIGURATION is Deployment)...";
 			$revision="$1";
 			if($revision > $REVISION)
 			{
-				printf "\n$FILE";
+				printf "\n$revision:$FILE";
 				$REVISION = $revision;
 			}
 		}
