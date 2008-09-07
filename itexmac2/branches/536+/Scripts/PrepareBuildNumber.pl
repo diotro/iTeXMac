@@ -8,8 +8,7 @@ $REVISION=0;
 if($CONFIGURATION =~ m/Deployment/)
 {
 printf "Getting the svn revision number (CONFIGURATION is Deployment)...";
-	`cd "$TARGET_BUILD_DIR/../.."`;
-	@CANDIDATES=split('\0', `find . -regex ".*iTM2.*" -not -regex ".*\.svn.*" -not -regex ".*/build.*" -not -regex ".*~.*" -print0`);
+	@CANDIDATES=split('\0', `find .. -regex ".*iTM2.*" -not -regex ".*\.svn.*" -not -regex ".*/build.*" -not -regex ".*~.*" -print0`);
 	while(my $FILE = shift(@CANDIDATES))
 	{
 		$revision=`/usr/bin/svn info "$FILE"`;
