@@ -8,8 +8,8 @@ $REVISION=0;
 if($CONFIGURATION =~ m/Deployment/)
 {
 printf "Getting the svn revision number (CONFIGURATION is Deployment)...";
-	$REVISION=`/usr/bin/svn log -r HEAD`;
-	printf "\nResult:<$REVISION\n>";
+	$REVISION=`/usr/bin/svn log -r HEAD ..`;
+	printf "\n/usr/bin/svn log -r HEAD:<$REVISION\n>";
 	if( $REVISION =~ m/.*r(\d+) /s )
 	{
 		$REVISION="$1";
