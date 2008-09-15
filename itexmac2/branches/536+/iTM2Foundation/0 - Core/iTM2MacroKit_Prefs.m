@@ -1626,51 +1626,6 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-if(iTM2DebugEnabled)
-{
-	iTM2_START;
-	NSString * domain = [self selectedDomain];
-	iTM2_LOG(@"domain:%@",domain);
-	iTM2MacroRootNode * root = [SMC macroTree];
-	iTM2_LOG(@"root:%@",root);
-	id macroNode = [root objectInChildrenWithDomain:domain];
-	iTM2_LOG(@"macroNode:%@",macroNode);
-	root = [SMC keyBindingTree];
-	iTM2_LOG(@"root:%@",root);
-	id keyNode = [root objectInChildrenWithDomain:domain];
-	iTM2_LOG(@"keyNode:%@",keyNode);
-	id macroAvailableModes = [macroNode availableCategories];
-	iTM2_LOG(@"macroAvailableModes:%@",macroAvailableModes);
-	NSMutableSet * macroSet = [NSMutableSet setWithArray:macroAvailableModes];
-	iTM2_LOG(@"macroSet:%@",macroSet);
-	id keyAvailableModes = [keyNode availableCategories];
-	iTM2_LOG(@"keyAvailableModes:%@",keyAvailableModes);
-	NSMutableSet * keySet = [NSMutableSet setWithArray:keyAvailableModes];
-	iTM2_LOG(@"keySet:%@",keySet);
-	NSSet * temp = [NSSet setWithSet:macroSet];
-	iTM2_LOG(@"temp:%@",temp);
-	[macroSet minusSet:keySet];
-	iTM2_LOG(@"macroSet:%@",macroSet);
-	[keySet minusSet:temp];
-	iTM2_LOG(@"keySet:%@",keySet);
-	NSString * category;
-	NSEnumerator * E = [[keySet allObjects] objectEnumerator];
-	while(category = [E nextObject])
-	{
-		[[[iTM2MacroCategoryNode alloc] initWithParent:macroNode category:category] autorelease];
-	}
-	iTM2_LOG(@"macroSet:%@",macroSet);
-	E = [[macroSet allObjects] objectEnumerator];
-	while(category = [E nextObject])
-	{
-		[[[iTM2MacroCategoryNode alloc] initWithParent:keyNode category:category] autorelease];
-	}
-	iTM2_LOG(@"macroNode:%@",macroNode);
-//iTM2_END;
-    return [macroNode availableCategories];
-}
-else
-{
 	NSString * domain = [self selectedDomain];
 	iTM2MacroRootNode * root = [SMC macroTree];
 	id macroNode = [root objectInChildrenWithDomain:domain];
@@ -1696,7 +1651,6 @@ else
 	}
 //iTM2_END;
     return [macroNode availableCategories];
-}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedMode
 - (NSString *)selectedMode;
