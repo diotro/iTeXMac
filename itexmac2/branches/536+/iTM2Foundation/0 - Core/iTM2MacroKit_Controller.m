@@ -392,7 +392,7 @@ To Do List:
 					NSString * dirname = [path stringByDeletingLastPathComponent];
 					if([dirname length] && ![DFM createDeepDirectoryAtPath:dirname attributes:nil error:&localError])
 					{
-						iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could create directory at %@",dirname]),localError);
+						iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not create directory at %@",dirname]),localError);
 					}
 					else if(![D writeToURL:url options:NSAtomicWrite error:&localError])
 					{

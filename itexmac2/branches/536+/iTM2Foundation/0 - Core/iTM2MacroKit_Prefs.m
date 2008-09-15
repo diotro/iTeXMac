@@ -111,6 +111,8 @@
 }
 - (NSString *)actionName;// bound to the pref pane
 {
+	/*  The design is not really good,
+	    the macroID should not be used as message for cocoa because it is not portable */
 	if(![self isVisible])	return nil;
 	if([self selector])		return [self selector];
 	if([self isMessage])	return [self macroID];
@@ -1599,6 +1601,7 @@ To Do List:
 	}
     return [[SMC macroTree] availableDomains];
 }
+NSString * const iTM2MacroEditorSelectionKey = @"iTM2MacroEditorSelection";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedDomain
 - (NSString *)selectedDomain;
 /*"Desription Forthcoming.
@@ -1608,7 +1611,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	NSString * key = @".";
 	id result = [MD objectForKey:key];
 //iTM2_END;
@@ -1623,6 +1626,51 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+if(iTM2DebugEnabled)
+{
+	iTM2_START;
+	NSString * domain = [self selectedDomain];
+	iTM2_LOG(@"domain:%@",domain);
+	iTM2MacroRootNode * root = [SMC macroTree];
+	iTM2_LOG(@"root:%@",root);
+	id macroNode = [root objectInChildrenWithDomain:domain];
+	iTM2_LOG(@"macroNode:%@",macroNode);
+	root = [SMC keyBindingTree];
+	iTM2_LOG(@"root:%@",root);
+	id keyNode = [root objectInChildrenWithDomain:domain];
+	iTM2_LOG(@"keyNode:%@",keyNode);
+	id macroAvailableModes = [macroNode availableCategories];
+	iTM2_LOG(@"macroAvailableModes:%@",macroAvailableModes);
+	NSMutableSet * macroSet = [NSMutableSet setWithArray:macroAvailableModes];
+	iTM2_LOG(@"macroSet:%@",macroSet);
+	id keyAvailableModes = [keyNode availableCategories];
+	iTM2_LOG(@"keyAvailableModes:%@",keyAvailableModes);
+	NSMutableSet * keySet = [NSMutableSet setWithArray:keyAvailableModes];
+	iTM2_LOG(@"keySet:%@",keySet);
+	NSSet * temp = [NSSet setWithSet:macroSet];
+	iTM2_LOG(@"temp:%@",temp);
+	[macroSet minusSet:keySet];
+	iTM2_LOG(@"macroSet:%@",macroSet);
+	[keySet minusSet:temp];
+	iTM2_LOG(@"keySet:%@",keySet);
+	NSString * category;
+	NSEnumerator * E = [[keySet allObjects] objectEnumerator];
+	while(category = [E nextObject])
+	{
+		[[[iTM2MacroCategoryNode alloc] initWithParent:macroNode category:category] autorelease];
+	}
+	iTM2_LOG(@"macroSet:%@",macroSet);
+	E = [[macroSet allObjects] objectEnumerator];
+	while(category = [E nextObject])
+	{
+		[[[iTM2MacroCategoryNode alloc] initWithParent:keyNode category:category] autorelease];
+	}
+	iTM2_LOG(@"macroNode:%@",macroNode);
+//iTM2_END;
+    return [macroNode availableCategories];
+}
+else
+{
 	NSString * domain = [self selectedDomain];
 	iTM2MacroRootNode * root = [SMC macroTree];
 	id macroNode = [root objectInChildrenWithDomain:domain];
@@ -1649,6 +1697,7 @@ To Do List:
 //iTM2_END;
     return [macroNode availableCategories];
 }
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedMode
 - (NSString *)selectedMode;
 /*"Desription Forthcoming.
@@ -1659,11 +1708,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self selectedDomain];// side effect: the selected domain should be safe before anything else is used
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	NSString * key = [self selectedDomain];
 	id result = [MD objectForKey:key];
 //iTM2_END;
-    return result;
+    return result?:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroEditor
 - (id)macroEditor;
@@ -1743,12 +1792,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * oldMode = [self selectedMode];
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
-	MD = [[MD mutableCopy] autorelease];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	NSString * domain = [self selectedDomain];
 	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
 	[MD setValue:newMode forKey:domain];
-	[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	// change the editors
 	if(newMode)
 	{
@@ -1789,10 +1838,10 @@ To Do List:
 	[self setSelectedMode:nil];
 	[self willChangeValueForKey:@"availableModes"];
 	NSString * key = @".";
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
-	MD = [[MD mutableCopy] autorelease];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newDomain forKey:key];
-	[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	[self didChangeValueForKey:@"availableModes"];
 	NSString * newMode = [MD objectForKey:newDomain];
 	NSArray * availableModes = [self availableModes];
@@ -2041,10 +2090,11 @@ To Do List:
 		[NSValueTransformer setValueTransformer:transformer forName:@"iTM2TabViewItemIdentifierForAction"];
 	}
 	// initialize the domains and modes
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	if(!MD)
 	{
 		MD = [NSMutableDictionary dictionary];
+		[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	}
 	NSString * selectedDomain = [self selectedDomain];
 	NSArray * availableDomains = [self availableDomains];
