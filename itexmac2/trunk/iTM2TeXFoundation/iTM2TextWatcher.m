@@ -32,6 +32,22 @@ NSString * const iTM2UDMatchDelimiterKey = @"iTM2-Text: Match Delimiter";
 static id _iTM2TextWatcherDictionary = nil;
 @implementation iTM2TextWatcher
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
++ (void)load;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- < 1.1: 03/10/2002
+To Do List: 
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+//iTM2_START;
+	[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TextWatcher_dealloc)];
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -47,7 +63,6 @@ To Do List:
 	if(!_iTM2TextWatcherDictionary)
 	{
 		_iTM2TextWatcherDictionary = [[NSMutableDictionary dictionary] retain];
-		[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(dealloc) replacement:@selector(SWZ_iTM2TextWatcher_dealloc) forClass:[NSTextView class]];
 	}
     return;
 }

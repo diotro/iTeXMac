@@ -111,6 +111,8 @@
 }
 - (NSString *)actionName;// bound to the pref pane
 {
+	/*  The design is not really good,
+	    the macroID should not be used as message for cocoa because it is not portable */
 	if(![self isVisible])	return nil;
 	if([self selector])		return [self selector];
 	if([self isMessage])	return [self macroID];
@@ -1599,6 +1601,7 @@ To Do List:
 	}
     return [[SMC macroTree] availableDomains];
 }
+NSString * const iTM2MacroEditorSelectionKey = @"iTM2MacroEditorSelection";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedDomain
 - (NSString *)selectedDomain;
 /*"Desription Forthcoming.
@@ -1608,7 +1611,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	NSString * key = @".";
 	id result = [MD objectForKey:key];
 //iTM2_END;
@@ -1659,11 +1662,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self selectedDomain];// side effect: the selected domain should be safe before anything else is used
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	NSString * key = [self selectedDomain];
 	id result = [MD objectForKey:key];
 //iTM2_END;
-    return result;
+    return result?:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroEditor
 - (id)macroEditor;
@@ -1743,12 +1746,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * oldMode = [self selectedMode];
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
-	MD = [[MD mutableCopy] autorelease];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	NSString * domain = [self selectedDomain];
 	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
 	[MD setValue:newMode forKey:domain];
-	[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	// change the editors
 	if(newMode)
 	{
@@ -1789,10 +1792,10 @@ To Do List:
 	[self setSelectedMode:nil];
 	[self willChangeValueForKey:@"availableModes"];
 	NSString * key = @".";
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
-	MD = [[MD mutableCopy] autorelease];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newDomain forKey:key];
-	[self setContextValue:MD forKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	[self didChangeValueForKey:@"availableModes"];
 	NSString * newMode = [MD objectForKey:newDomain];
 	NSArray * availableModes = [self availableModes];
@@ -2041,10 +2044,11 @@ To Do List:
 		[NSValueTransformer setValueTransformer:transformer forName:@"iTM2TabViewItemIdentifierForAction"];
 	}
 	// initialize the domains and modes
-	id MD = [self contextDictionaryForKey:@"iTM2MacroEditorSelection" domain:iTM2ContextAllDomainsMask];
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	if(!MD)
 	{
 		MD = [NSMutableDictionary dictionary];
+		[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	}
 	NSString * selectedDomain = [self selectedDomain];
 	NSArray * availableDomains = [self availableDomains];
@@ -2150,6 +2154,30 @@ To Do List:
 //	[self removeObserver:self forKeyPath:@"masterTabViewItemIndex_meta"];
 //iTM2_END;
     return;
+}
+#pragma mark =-=-=-=-=-  Completion
+- (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexRef;
+{
+	if([control tag] == 0)
+	{
+		return nil;
+	}
+	NSString * prefix = [[textView string] substringWithRange:charRange];
+	id editor = [self macroEditor];
+	id MD = [NSMutableDictionary dictionaryWithDictionary:[editor macros]];
+	[MD addEntriesFromDictionary:[editor personalMacros]];
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH \".\")"];
+	id RA = [[MD allKeys] filteredArrayUsingPredicate:predicate];
+	RA = [MD objectsForKeys:RA notFoundMarker:[NSNull null]];
+	RA = [RA valueForKey:@"macroID"];
+	predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@",prefix];
+	RA = [RA filteredArrayUsingPredicate:predicate];
+//iTM2_END;
+	if(indexRef)
+	{
+		*indexRef = 0;
+	}
+	return RA;
 }
 @end
 
@@ -2439,8 +2467,11 @@ To Do List:
 	}
 	if(!macro)
 	{
-		macro = [[[iTM2PrefsMacroNode alloc] init] autorelease];
+		macro = [[[iTM2MutableMacroNode alloc] init] autorelease];
 		[macro setMacroID:ID];
+		[list willChangeValueForKey:@"availableMacros"];
+		[[list personalMacros] setObject:macro forKey:ID];
+		[list didChangeValueForKey:@"availableMacros"];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"No macro with ID: %@ forContext:%@ ofCategory:%@ inDomain:%@",ID,context,category,domain);
@@ -2492,6 +2523,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroDomain
 - (NSString *)macroDomain;
 {
+	// the delegate of the receiver is an iTM2MacroPrefPane
     return [[self delegate] selectedDomain];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroCategory
@@ -2529,6 +2561,27 @@ To Do List:
 	key = @"";//[self macroContext];
 	result = [result objectInChildrenWithContext:key];
 	return [result list];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= completionsForPartialWordRange:indexOfSelectedItem:
+- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)indexRef;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * prefix = [[self string] substringWithRange:charRange];
+	id editor = [[self delegate] macroEditor];
+	id MD = [NSMutableDictionary dictionaryWithDictionary:[editor macros]];
+	[MD addEntriesFromDictionary:[editor personalMacros]];
+	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH \".\")"];
+	id RA = [[MD allKeys] filteredArrayUsingPredicate:predicate];
+	RA = [MD objectsForKeys:RA notFoundMarker:[NSNull null]];
+	RA = [RA valueForKey:@"macroID"];
+	predicate = [NSPredicate predicateWithFormat:@"SELF BEGINSWITH %@",prefix];
+	RA = [RA filteredArrayUsingPredicate:predicate];
+//iTM2_END;
+	if(indexRef)
+	{
+		*indexRef = 0;
+	}
+	return [RA count]?RA:[super completionsForPartialWordRange:charRange indexOfSelectedItem:indexRef];
 }
 @end
 
@@ -2667,3 +2720,8 @@ static id iTM2HumanReadableActionNames = nil;
 	}
 }
 @end
+
+#if 0
+textView:completions:forPartialWordRange:indexOfSelectedItem:. Subclasses may control the list by overriding completionsForPartialWordRange:indexOfSelectedItem:.
+completionsForPartialWordRange:indexOfSelectedItem:
+#endif

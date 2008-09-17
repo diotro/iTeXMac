@@ -1227,7 +1227,7 @@ static id iTM2KeyBindingsManager_7bitsAccents = nil;
 {
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(client:executeBindingForKeyStroke:) replacement:@selector(TeX_SWZ_client:executeBindingForKeyStroke:) forClass:[iTM2KeyBindingsManager class]];
+	[iTM2KeyBindingsManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_client:executeBindingForKeyStroke:)];
 	iTM2_RELEASE_POOL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsMapping
@@ -1304,8 +1304,8 @@ To Do List:
 	}
     return iTM2KeyBindingsManager_7bitsAccents;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeX_SWZ_client:executeBindingForKeyStroke:
-- (BOOL)TeX_SWZ_client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2_client:executeBindingForKeyStroke:
+- (BOOL)SWZ_iTM2_client:(id)C executeBindingForKeyStroke:(iTM2KeyStroke *)keyStroke;
 /*"Description forthcoming.
 If the event is a 1 char key down, it will ask the current key binding for instruction.
 The key and its modifiers are 
@@ -1328,7 +1328,7 @@ To Do List:
 		}
 	}
 //iTM2_STOP;
-	return [self TeX_SWZ_client:C executeBindingForKeyStroke:keyStroke];
+	return [self SWZ_iTM2_client:C executeBindingForKeyStroke:keyStroke];
 }
 @end
 

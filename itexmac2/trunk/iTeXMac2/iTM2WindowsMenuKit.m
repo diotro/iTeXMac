@@ -92,12 +92,12 @@ To Do List:
 	}
 #if 1
 	// preparing the list of documents
-	E = [[self allFileKeys] objectEnumerator];
+	E = [[self fileKeys] objectEnumerator];
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	NSString * S;
 	while(S = [E nextObject])
 	{
-		NSString * FN = [self nameForFileKey:S];
+		NSString * FN = [[[self URLForFileKey:S] path] lastPathComponent];
 		if([FN length])
 			[MD setObject:S forKey:FN];
 	}
@@ -331,9 +331,9 @@ To Do List:
 				{
 					iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Report bug: Duplicate ghost window for\n%@",[url path]]),nil);
 				}
-				else if([url belongsToCachedProjectsDirectory])
+				else if([url iTM2_belongsToFactory])
 				{
-					url = [SPC directoryURLOfProjectWithURL:url];
+					url = [[url iTM2_URLByRemovingFactoryBaseURL] iTM2_parentDirectoryURL];
 					if([set containsObject:[url path]])
 					{
 						iTM2_REPORTERROR(2,([NSString stringWithFormat:@"Report bug: Duplicate ghost window for (faraway)\n%@",[url path]]),nil);
@@ -441,32 +441,12 @@ To Do List:
 			insertIndex = idx;
 		}
 	}
-	// some simplification, if an elementary project only contains 1 document, it is displayed as a single doc
-	E = [projectRefsToProjectDocumentsMenuItems keyEnumerator];
-	while(key = [E nextObject])
-	{
-		PD = [key nonretainedObjectValue];
-		if([PD isElementary])
-		{
-			MRA = [projectRefsToProjectDocumentsMenuItems objectForKey:key];
-			if([MRA count] == 1)
-			{
-				RA = [projectRefsToProjectWindowsMenuItems objectForKey:key];
-				if([RA count] == 0)
-				{
-					MI = [MRA lastObject];
-					[otherMenuItems addObject:MI];// no document for this window
-					[projectRefsToProjectDocumentsMenuItems removeObjectForKey:key];
-				}
-			}
-		}
-	}
 //iTM2_LOG(@"0 - windowsMenu:%@",windowsMenu);
 //iTM2_LOG(@"otherMenuItems:%@:",otherMenuItems);
 //iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@:",projectRefsToProjectDocumentsMenuItems);
 //iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@:",projectRefsToProjectWindowsMenuItems);
 	// updating with 
-//iTM2_LOG(@"=-=-=-=-=-  INSERTING CTHERS %i", [windowsMenu numberOfItems]);
+//iTM2_LOG(@"=-=-=-=-=-  INSERTING OTHERS %i", [windowsMenu numberOfItems]);
 	if(insertIndex < 0)
 	    insertIndex = 0;// just in case no item was previously added...
 	if(insertIndex > [windowsMenu numberOfItems])

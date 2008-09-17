@@ -148,7 +148,7 @@ To Do List:
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
 
-@implementation NSTextView(iTM2Misc)
+@implementation NSTextView(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Extracted from apple sample code (TextLinks).
@@ -251,7 +251,7 @@ To Do List:
 }
 @end
 
-@implementation NSFontManager(iTM2Misc)
+@implementation NSFontManager(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Misc_orderFrontFontPanel:
 - (void)SWZ_iTM2Misc_orderFrontFontPanel:(id)sender;
 /*"Description forthcoming.
@@ -343,9 +343,7 @@ To Do List:
 
 NSString * const iTM2PrintInfoDidChangeNotification = @"iTM2PrintInfoDidChange";
 
-@interface NSPageLayout_iTeXMac2: NSPageLayout
-@end
-@implementation NSPageLayout_iTeXMac2
+@implementation NSPageLayout(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
 + (void)load;
 /*"Description forthcoming.
@@ -376,9 +374,7 @@ To Do List:
     return;
 }
 @end
-@interface NSPrintInfo_iTeXMac2: NSPrintInfo
-@end
-@implementation NSPrintInfo_iTeXMac2
+@implementation NSPrintInfo(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
 + (void)load;
 /*"Description forthcoming.
@@ -490,7 +486,6 @@ NSString * const iTM2ToolbarSubscriptItemIdentifier = @"subscript";
 NSString * const iTM2ToolbarSuperscriptItemIdentifier = @"superscript";
 NSString * const iTM2ToolbarUnlockDocumentItemIdentifier = @"unlockDocument";
 
-#if 0
 #define DEFINE_IMAGE(SELECTOR, IDENTIFIER)\
 + (NSImage *)SELECTOR;\
 {\
@@ -498,7 +493,7 @@ NSString * const iTM2ToolbarUnlockDocumentItemIdentifier = @"unlockDocument";
 	if(!I)\
 	{\
 		NSString * component = [IDENTIFIER stringByAppendingString:@"ToolbarImage"];\
-		NSString * path = [[NSPrintInfo_iTeXMac2 classBundle] pathForImageResource:component];\
+		NSString * path = [[iTM2SharedResponder classBundle] pathForImageResource:component];\
 		I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path];\
 		component = [NSString stringWithFormat:@"iTM2:%@", IDENTIFIER];\
 		[I setName:component];\
@@ -513,7 +508,7 @@ DEFINE_IMAGE(imageOrderFrontFontPanel, @"imageOrderFrontFontPanel");
 DEFINE_IMAGE(imageSubscript, @"imageSubscript");
 DEFINE_IMAGE(imageSuperscript, @"imageSuperscript");
 DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
-+ (NSImage *)findImageNamed:(NSString *)name;
++ (NSImage *)iTM2_findImageNamed:(NSString *)name;
 {
 	NSString * imageName = [name hasPrefix:@"iTM2:"]?name:[NSString stringWithFormat:@"iTM2:%@",name];
 	NSImage * I;
@@ -530,7 +525,7 @@ DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
 	if([name hasSuffix:@"(small)"])
 	{
 		imageName = [name substringWithRange:NSMakeRange(0,[name length]-7)];
-		if(I = [self findImageNamed:imageName])
+		if(I = [self iTM2_findImageNamed:imageName])
 		{
 			I = [[I copy] autorelease];
 			imageName = [name hasPrefix:@"iTM2:"]?name:[NSString stringWithFormat:@"iTM2:%@",name];
@@ -542,12 +537,11 @@ DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
 	}
 	if(iTM2DebugEnabled)
 	{
-		iTM2_LOG(@"! ERROR: [NSImage findImageNamed:%@] is not found!", name);
+		iTM2_LOG(@"! ERROR: [NSImage iTM2_findImageNamed:%@] is not found!", name);
 	}
 	return nil;
 }
 @end
-#endif
 
 @implementation NSToolbarItem(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDrawerToolbarItem:
@@ -681,7 +675,7 @@ To Do List:
 		I = [NSImage iTM2_cachedImageNamed:component];
 	}
 	NSToolbarItem * toolbarItem = [[[NSToolbarItem alloc] initWithItemIdentifier:anIdentifier] autorelease];
-	[toolbarItem setImage:[NSImage findImageNamed:anIdentifier]];
+	[toolbarItem setImage:[NSImage iTM2_findImageNamed:anIdentifier]];
 	[toolbarItem setLabel:
 		NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
 	[toolbarItem setPaletteLabel:
@@ -796,7 +790,7 @@ To Do List:
 }
 @end
 
-@implementation NSToolbar(iTM2Misc)
+@implementation NSToolbar(iTM2MiscKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description Forthcoming.

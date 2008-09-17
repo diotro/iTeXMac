@@ -27,14 +27,10 @@
 extern NSString * const iTM2ProjectContextDidChangeNotification;
 extern NSString * const iTM2ProjectCurrentDidChangeNotification;
 
-extern NSString * const iTM2ProjectFactoryComponent;
-extern NSString * const TWSFactoryPrefix;
-
-extern NSString * const iTM2ProjectContentsComponent;
+extern NSString * const TWSFactoryExtension;
 
 extern NSString * const iTM2ProjectDocumentType;
 extern NSString * const iTM2ProjectInspectorType;
-extern NSString * const iTM2ProjectInfoType;
 
 extern NSString * const iTM2SubdocumentsInspectorMode;
 
@@ -149,8 +145,8 @@ typedef enum
 - (NSURL *)mainInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*!
-    @method			frontendInfoURLFromURL:create:error:
-    @abstract		The URL of the frontend Info property list storage.
+    @method			otherInfoURLFromURL:create:error:
+    @abstract		The URL of the other Infos property list storage.
     @discussion		Discussion forthcoming.
     @param			fileURL is an URL.
 	@param			yorn is a flag.
@@ -159,7 +155,7 @@ typedef enum
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)frontendInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)otherInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*!
     @method			metaInfoURLFromURL:create:error:
@@ -188,82 +184,51 @@ typedef enum
 - (NSURL *)customInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*!
-    @method			isReservedFileKey:
-    @abstract		Whether the receiver is a reserved file key.
-    @discussion		The reserved file keys are ".", "project","source","factory","tool","target".
-    @param			ke is the ke to test.
+    @method			normalizedURLWithURL:inProjectWithURL:
+    @abstract		A normalized URL.
+    @discussion		An URL if it can be properly decomposed with respect to the various project directories.
+					
+					If the given URL belongs to the factory of the project with projectURL,
+					the returned NSURL instance is built based on the factory URL of this project.
+					
+					If the given URL belongs to the contents of the project with projectURL,
+					the returned NSURL instance is built based on the contents URL of this project.
+
+					If the given URL is not known by the project, then nil is returned.
+					
+					If the returned url is not nil, either it is absolute or it is relative to one of the various project directories.
+					Whether an url must be absolute or relative is driven by the URL obtained with a regular filter.
+					
+					In all cases, url is returned if it already normalized with respect to the project.
+    @param			url is the NSURL to test.
+    @param			projectURL is the project URL.
+    @result			An NSURL instance.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+-(NSURL *)normalizedURLWithURL:(NSURL *)url inProjectWithURL:(NSURL *)projectURL;
+
+/*!
+    @method			reservedFileKeys
+    @abstract		The list of reserved file keys.
+    @discussion		The reserved file keys are ".", "project","source","factory","tool","target",...
+    @param			key is the key to test.
     @result			An NSString instance.
 	@availability	iTM2.
-	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSArray *)reservedFileKeys;
+
+/*!
+    @method			isReservedFileKey:
+    @abstract		Whether the given key is a reserved file key.
+    @discussion		Discussion forthcoming.
+    @param			key is the key to test.
+    @result			yorn.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (BOOL)isReservedFileKey:(NSString *)key;
-
-/*!
-    @method			directoryURLOfProjectWithURL:
-    @abstract		The directory URL of the given URL.
-    @discussion		This is @".." relative to the project with the given URL.
-					If the given URL belongs to the cached projects folder,
-					it is fixed to remove the extraneous info concerning the cached projects location.
-					No test is made to see if projectURL is consistent, nor projectURL really points to a directory.
-    @param			projectURL is an URL.
-    @result			An URL.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSURL *)directoryURLOfProjectWithURL:(NSURL *)projectURL;
-
-/*!
-    @method			sourceOfProjectWithURL:
-    @abstract		The name of the source folder of the project with the given URL.
-    @discussion		This name is retrieved from the main info property list, value for key "source", at the top level (under the root of course).
-    @param			projectURL is an URL.
-    @result			An URL.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSString *)sourceOfProjectWithURL:(NSURL *)projectURL;
-
-/*!
-    @method			nameForFileKey:inProjectWithURL:
-    @abstract		The name for the given file key of the project with the given URL.
-    @discussion		This is retrieved from the main info property list.
-    @param			key is a key.
-    @param			projectURL is an URL.
-    @result			A name.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSString *)nameForFileKey:(NSString *)key inProjectWithURL:(NSURL *)projectURL;
-
-/*!
-    @method			URLForName:inProjectWithURL:
-    @abstract		The URL for the given name in the project with the given URL.
-    @discussion		If the name is the string representation of an absolute URL,
-					return the URL created from that string.
-					In general, name is the relative path of the URL,
-					based of the source directory of the project with the given URL.
-    @param			Name is a name...
-    @param			projectURL is an URL.
-    @result			A name.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSURL *)URLForName:(NSString *)relativeName inProjectWithURL:(NSURL *)projectURL;
-
-/*!
-    @method			factoryURLForName:inProjectWithURL:
-    @abstract		The factory URL for the given name in the project with the given URL.
-    @discussion		If the name is the string representation of an absolute URL,
-					return the URL created from that string.
-					In general, name is the relative path of the URL,
-					based of the factory directory of the project with the given URL.
-    @param			Name is a name...
-    @param			projectURL is an URL.
-    @result			A name.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSURL *)factoryURLForName:(NSString *)relativeName inProjectWithURL:(NSURL *)projectURL;
 
 /*!
     @method			URLForFileKey:filter:inProjectWithURL:
@@ -281,22 +246,25 @@ typedef enum
 - (NSURL *)URLForFileKey:(NSString *)key filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL;
 
 /*!
-    @method			allFileKeysWithFilter:inProjectWithURL:
+    @method			fileKeysWithFilter:inProjectWithURL:
     @abstract		All the file keys of the project with the given URL.
-    @discussion		Only file keys available in the main info property list are returned.
-    @param			filter is a filter that applies to the file, not the project.
+    @discussion		For the regular filter, only file keys available in the main info property list are returned.
+					The special keys for the project, factory and contents are not returned.
+    @param			filter is a filter that applies to the file, not to projectURL.
     @param			projectURL is an URL.
     @result			An array of file keys.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSArray *)allFileKeysWithFilter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL;
+- (NSArray *)fileKeysWithFilter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL;
 
 /*!
     @method			fileKeyForURL:filter:inProjectWithURL:
     @abstract		The file key for the given URL of the project with the given URL.
-    @discussion		For all the -allFileKeysOfProjectWithURL:,
+    @discussion		For all the -fileKeysOfProjectWithURL:,
 					test whether the given fileURL is -URLForFileKey:inProjectWithURL:.
+					If fileURL is one of the special URL's, namely the project, factory or contents one,
+					the appropriate key is returned.
     @param			fileURL is an URL.
     @param			filter is a filter that applies to the file, not the project.
     @param			projectURL is an URL.
@@ -411,9 +379,9 @@ typedef enum
 				The key can be based on the file name of the original source file and a unique key identifier.
 				What is the entropy put in this key? For the moment, nothing relevant.
 				Here is the common location
-				<code>~/Library/Application\ Support/Cached Projects.localized/...</code>
+				<code>~/Library/Application\ Support/Writable Projects.localized/...</code>
 				to which we append the full path to the source base name with the correct path extension.
-				This common location is referred to <code>[NSURL cachedProjectsDirectoryURL]</code>, because the projects are not stored near the file they are bound to.
+				This common location is referred to <code>[NSURL iTM2_factoryURL]</code>, because the projects are not stored near the file they are bound to.
 
 				This is the mapping file name -> project.
 				
@@ -544,7 +512,7 @@ typedef enum
 - (void)willGetNewProjectForURL:(NSURL *)fileURL;
 - (void)didGetNewProjectForURL:(NSURL *)fileURL;
 - (BOOL)canGetNewProjectForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
-- (id)newCachedProjectForURL:(NSURL *)fileURL display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)newWritableProjectForURL:(NSURL *)fileURL display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
     @method     getProjectFromPanelForURLRef:display:error:
@@ -567,14 +535,14 @@ typedef enum
 - (id)getProjectFromPanelForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
-    @method		getProjectURLInWrapperForURLRef:error:
+    @method		getProjectURLInWrapperForURL:error:
     @abstract   Abstract Forthcoming.
     @discussion Discussion Forthcoming.
     @param		fileName
     @param		outErrorPtr
     @result		An array of project file names
 */
-- (NSURL *)getProjectURLInWrapperForURLRef:(NSURL **)fileURLRef error:(NSError **)outErrorPtr;
+- (NSURL *)getProjectURLInWrapperForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 
 /*! 
     @method		getProjectURLsInHierarchyForURL:error:
@@ -642,15 +610,6 @@ typedef enum
 - (NSArray *)lazyBaseNamesOfAncestorsForBaseProjectName:(NSString *)name;
 
 /*! 
-    @method     isElementaryProject:
-    @abstract   Whether the receiver is an elementary project.
-    @discussion An elementary project responds YES to the isElementary message...
-    @param      argument is the object to be tested
-    @result     yorn.
-*/
-- (BOOL)isElementaryProject:(id)argument;
-
-/*! 
     @method     isBaseProject:
     @abstract   Whether the receiver is a base project.
     @discussion A project is not a base project.
@@ -671,122 +630,51 @@ typedef enum
 - (BOOL)isProject:(id)argument;
 
 /*! 
-    @method     availableProjectsForPath:
+    @method     availableProjectsForURL:
     @abstract   Abstract forthcoming.
     @discussion Discussion forthcoming.
-    @param      path...
+    @param      url...
     @result     an array of projects
 */
-- (id)availableProjectsForPath:(NSString *)dirName;
+- (id)availableProjectsForURL:(NSURL *)url;
 
 @end
 
-enum {iTM2ToggleOldProjectMode = 0, iTM2ToggleNewProjectMode, iTM2ToggleStandaloneMode, iTM2ToggleNoProjectMode, iTM2ToggleUnknownProjectMode, iTM2ToggleForbiddenProjectMode=-1};
+enum {
+	iTM2ToggleOldProjectMode = 0,		/* file belongs to an old project */
+	iTM2ToggleNewProjectMode,			/* create a new project for the file */
+	iTM2ToggleStandaloneMode,			/* No longer supported */
+	iTM2ToggleNoProjectMode,			/* Useful? */
+	iTM2ToggleUnknownProjectMode,		/* Useful? */
+	iTM2ToggleForbiddenProjectMode=-1	/* Useful? */
+};
 
 @interface NSWorkspace(iTM2ProjectControllerKit)
 
 /*!
-    @method		isProjectPackageAtPath:
+    @method		iTM2_isProjectPackageAtURL:
     @abstract	Abstract forthcoming
-    @discussion	Whether the given full path points to a project.
-				If the receiver returns YES to a method named fooProjectPackageAtPath:
+    @discussion	Whether the given url points to a project.
+				If the receiver returns YES to a method named fooProjectPackageAtURL:
 				except this one of course, the answer is YES.
-				For example, a TeX project manager can implement in a category a method named isTeXProjectPackageAtPath:
+				For example, a TeX project manager can implement in a category a method named iTM2_isTeXProjectPackageAtURL:
 				Otherwise it's NO
     @param      None
     @result     None
 */
-- (BOOL)isProjectPackageAtPath:(NSString *)fullPath;
+- (BOOL)iTM2_isProjectPackageAtURL:(NSURL *)url;
 
 /*!
-    @method		isWrapperPackageAtPath:
+    @method		iTM2_isWrapperPackageAtURL:
     @abstract	Abstract forthcoming
-    @discussion	Whether the given full path points to a wrapper.
-				If the receiver returns YES to a method named fooProjectPackageAtPath:
+    @discussion	Whether the given url points to a wrapper.
+				If the receiver returns YES to a method named fooWrapperPackageAtURL:
 				except this one of course, the answer is YES.
 				Otherwise it's NO
     @param      None
     @result     None
 */
-- (BOOL)isWrapperPackageAtPath:(NSString *)fullPath;
-
-@end
-
-@interface NSString(iTM2ProjectControllerKit)
-
-/*!
-    @method     cachedProjectsDirectory
-    @abstract   The directory where faraway projects are stored.
-    @discussion Returns
-					~/Library/Application\ Support/AppName/Cached Projects.localized.
-				The extension is used to hide the contents of this directory to the end user by declaring the extension as a wrapper tag.
-    @param      None
-    @result     An NSString instance.
-*/
-+ (NSString *)cachedProjectsDirectory;
-
-- (NSString *)stringByStrippingCachedProjectsInfo;
-
-/*!
-    @method		enclosingWrapperFileName
-    @abstract	The enclosing wrapper name of the receiver.
-    @discussion	Return the first ancestor which path extension is a wrapper extension.
-    @param		None.
-    @result		A full wrapper path.
-*/
-- (NSString *)enclosingWrapperFileName;
-
-/*!
-    @method		enclosingProjectFileName
-    @abstract	The enclosing project name of the receiver.
-    @discussion	Return the first ancestor which path extension is a project extension.
-    @param		None.
-    @result		A full project path.
-*/
-- (NSString *)enclosingProjectFileName;
-
-/*!
-    @method		enclosedProjectFileNames
-    @abstract	The enclosed project names of the receiver.
-    @discussion	Return an array of project paths in the receiver as directory (relative paths!).
-				If the receiver is not a directory, or if it does not contain any project, nothing is returned.
-				The project are returned, how deep they can be.
-				But, links are not followed (a priori to avoid problems of recursivity)
-    @param		None.
-    @result		An array or project paths relative to the receiver.
-*/
-- (NSArray *)enclosedProjectFileNames;
-
-/*! 
-    @method     availableProjectFileNames
-    @abstract	The available project names of the receiver.
-    @discussion	Return an array of project paths in the receiver as directory.
-				If the receiver is not a directory, or if it does not contain any project, nothing is returned.
-				The project are returned, no deeper than contained in the receiver.
-				But, links are not followed (a priori to avoid problems of recursivity)
-    @param      None
-    @result     an array of projects
-*/
-- (id)availableProjectFileNames;
-
-- (NSString *)stringByAppendingBuildComponent;
-- (NSString *)stringByAppendingContentsComponent;
-
-@end
-
-@interface NSURL(iTM2ProjectControllerKit)
-
-+ (NSURL *)cachedProjectsDirectoryURL;
-
-- (NSURL *)URLByRemovingCachedProjectComponent;
-
-- (BOOL)belongsToCachedProjectsDirectory;
-
-- (NSURL *)enclosingWrapperURL;
-
-- (NSURL *)enclosingProjectURL;
-
-- (NSArray *)enclosedProjectURLs;
+- (BOOL)iTM2_isWrapperPackageAtURL:(NSURL *)url;
 
 @end
 
@@ -808,7 +696,7 @@ extern NSString * const iTM2ProjectBaseComponent;
 @interface NSBundle(iTM2Project)
 
 /*!
-    @method		temporaryBaseProjectsDirectory
+    @method		iTM2_temporaryBaseProjectsDirectory
     @abstract	The base projects directory
     @discussion	This is the unique location where all the base projects are gathered by iTeXMac2.
 				In fact it only contains symlinks to real base projects that are stored somewhere else.
@@ -825,7 +713,7 @@ extern NSString * const iTM2ProjectBaseComponent;
     @param		None.
     @result		The path.
 */
-+ (NSString *)temporaryBaseProjectsDirectory;
++ (NSString *)iTM2_temporaryBaseProjectsDirectory;
 
 @end
 

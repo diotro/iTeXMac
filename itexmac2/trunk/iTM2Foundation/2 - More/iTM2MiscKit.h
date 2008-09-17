@@ -41,7 +41,7 @@ extern NSString * const iTM2PrintInfoDidChangeNotification;
 
 @interface NSImage(iTM2MiscKit)
 
-+ (NSImage *)findImageNamed:(NSString *)name;
++ (NSImage *)iTM2_findImageNamed:(NSString *)name;
 
 @end
 

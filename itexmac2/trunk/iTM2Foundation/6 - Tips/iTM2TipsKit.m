@@ -145,15 +145,15 @@ To Do List:
 	NSBundle * mainBundle = [NSBundle mainBundle];
 	NSMutableArray * paths = [NSMutableArray array];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath:
-		[[mainBundle class] pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSUserDomainMask
+		[[mainBundle class] iTM2_pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSUserDomainMask
 			withName: [mainBundle bundleName] create: YES]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath:
-		[[mainBundle class] pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSLocalDomainMask
+		[[mainBundle class] iTM2_pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSLocalDomainMask
 			withName: [mainBundle bundleName] create: YES]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath:
-		[[mainBundle class] pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSNetworkDomainMask
+		[[mainBundle class] iTM2_pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSNetworkDomainMask
 			withName: [mainBundle bundleName] create: YES]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath: [mainBundle builtInPlugInsPath] ofType: @"prefPane"]];
@@ -542,7 +542,7 @@ To Do List:
 	if(already)
 		return;
 	already = YES;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector: @selector(loadMainView) replacement: @selector(swizzle_iTM2PreferenceKit_loadMainView) forClass: [NSPreferencePane class]])
+	if(![NSPreferencePane iTM2_swizzleInstanceMethodSelector: @selector(SWZ_iTM2PreferenceKit_loadMainView)])
 	{
 		iTM2_LOG(@"..........  ERROR: Bad configuration, things won't work as expected...");
 	}
@@ -695,8 +695,8 @@ To Do List:
 		return result;
 	return NSLocalizedStringFromTableInBundle(@"NSPrefPaneIconLabel", NSStringFromClass([self class]), [self classBundle], "Comment forthcoming");
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= swizzle_iTM2PreferenceKit_loadMainView
-- (NSView *) swizzle_iTM2PreferenceKit_loadMainView;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2PreferenceKit_loadMainView
+- (NSView *) SWZ_iTM2PreferenceKit_loadMainView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -705,7 +705,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if([self bundle])
-		return [self swizzle_iTM2PreferenceKit_loadMainView];
+		return [self SWZ_iTM2PreferenceKit_loadMainView];
 	if([NSBundle loadNibNamed: NSStringFromClass([self class]) owner: self])
 	{
 //iTM2_END;

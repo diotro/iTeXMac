@@ -23,20 +23,20 @@
 	if([DFM removeFileAtPath:target handler:nil])
 		NSLog(@"No more: %@", target);
 	NSAssert([DFM createFileAtPath:target contents:[NSData data] attributes:nil], @"Could not create test file.");
-	NSData * DD = [target dataAliasRelativeTo:nil error:nil];
+	NSData * DD = [target iTM2_dataAliasRelativeTo:nil error:nil];
 	component = @"MOVED-TARGET";
 	NSString * movedTarget = [temp stringByAppendingPathComponent:component];
 	[DFM removeFileAtPath:movedTarget handler:nil];
 	NSAssert([DFM movePath:target toPath:movedTarget handler:nil], @"Could not move test file");
 	target = movedTarget;
-	NSAssert([target isEqual:[DD pathByResolvingDataAliasRelativeTo:nil error:nil]], @"FAILURE");
-	DD = [target dataAliasRelativeTo:temp error:nil];
+	NSAssert([target isEqual:[DD iTM2_pathByResolvingDataAliasRelativeTo:nil error:nil]], @"FAILURE");
+	DD = [target iTM2_dataAliasRelativeTo:temp error:nil];
 	component = @"MORE_MOVED-TARGET";
 	movedTarget = [temp stringByAppendingPathComponent:component];
 	[DFM removeFileAtPath:movedTarget handler:nil];
 	NSAssert([DFM movePath:target toPath:movedTarget handler:nil], @"Could not move test file");
 	target = movedTarget;
-	NSAssert([target isEqual:[DD pathByResolvingDataAliasRelativeTo:temp error:nil]], @"FAILURE");
+	NSAssert([target isEqual:[DD iTM2_pathByResolvingDataAliasRelativeTo:temp error:nil]], @"FAILURE");
 	return;
 }
 @end

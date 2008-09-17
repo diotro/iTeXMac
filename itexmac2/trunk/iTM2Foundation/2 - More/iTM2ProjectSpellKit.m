@@ -144,7 +144,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"SPELL KIT MODEL TO BE SAVED:%@", [[self spellContextController] propertyListRepresentation]);
-	[self takeMetaInfo:[[self spellContextController] propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
+	[self setMetaInfo:[[self spellContextController] propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
     return YES;
 }
 #endif

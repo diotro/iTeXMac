@@ -64,7 +64,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(swizzled_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) replacement:@selector(canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) forClass:[self class]])
+	if(![NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:)])
 	{
 		iTM2_LOG(@"WARNING:No hook available before closing documents...");
 	}
@@ -416,7 +416,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childDocumentForURL:
 - (id)childDocumentForURL:(NSURL *)url;
 /*"Subclasses will most certainly override this method.
-Default implementation returns the NSUserDefaults shared instance.
+Default implementation returns nil.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
 To Do List:
@@ -1731,12 +1731,14 @@ To Do List:
 	{
 		fullOriginalDocumentPath = [absoluteOriginalContentsURL path];
 	}
+	NSString * dirName;
+	NSString * baseName;
 	// is there something at the target URL?
 	// The problem is that I don't know what to do in such a situation because I don't know for sure whether the cocoa framework
 	// tries to override an existing file with the user permission
-	// In order to be safe, recycle the target url to the trash
-	NSString * dirName;
-	NSString * baseName;
+	// In order to be safe, recycle the target url to the trash, but this can break things!
+#if 0
+	Be confident in cocoa otherwise things are broken with continuous typesetting
 	NSArray * files;
 	int tag = 0;
 	if([DFM fileExistsAtPath:fullDocumentPath] || [DFM pathContentOfSymbolicLinkAtPath:fullDocumentPath])
@@ -1756,6 +1758,7 @@ To Do List:
 			return NO;
 		}
 	}
+#endif
 //iTM2_LOG(@"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 	if(iTM2DebugEnabled>99)
 	{
@@ -1770,7 +1773,7 @@ To Do List:
     // just duplicate the orginal content if it is not a file: respect the third parties that will certainly write things inside the folder.
     // question are the resource forks respected?
     BOOL result = YES;
-    if(![fullDocumentPath pathIsEqual:fullOriginalDocumentPath])
+    if(![fullDocumentPath iTM2_pathIsEqual:fullOriginalDocumentPath])
     {
 		// only copy original contents if this is a directory and the expected destination is a wrapper package
 		NSNumber * myLSTypeIsPackage = [IMPLEMENTATION metaValueForKey:@"LSTypeIsPackage"];
@@ -1800,6 +1803,47 @@ To Do List:
 				if(isOriginalDirectory)
 				{
 					// the receiver must be a package and not a flat file
+#warning
+#if 0
+            1240 NSApplicationMain
+              1240 -[NSApplication(iTM2BundleKit) swizzle_iTM2BundleKit_run]
+                1240 -[NSApplication run]
+                  1240 -[iTM2Application sendEvent:]
+                    1240 -[NSApplication sendEvent:]
+                      1240 -[NSApplication _handleKeyEquivalent:]
+                        1240 -[NSMenu performKeyEquivalent:]
+                          1240 -[NSCarbonMenuImpl performActionWithHighlightingForItemAtIndex:]
+                            1240 -[NSMenu performActionForItemAtIndex:]
+                              1240 -[NSApplication sendAction:to:from:]
+                                1240 -[iTM2TeXPCommandPerformer performCommand:]
+                                  1240 -[iTM2TeXPCommandPerformer performCommandForProject:]
+                                    1240 -[NSDocument saveDocument:]
+                                      1240 -[NSDocument saveDocumentWithDelegate:didSaveSelector:contextInfo:]
+                                        1240 -[NSDocument _saveDocumentWithDelegate:didSaveSelector:contextInfo:]
+                                          1240 -[NSDocument_iTM2ProjectDocumentKit saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                            1240 -[NSDocument saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                              1240 -[NSDocument _saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                                1240 -[NSDocument saveToURL:ofType:forSaveOperation:error:]
+                                                  1240 -[NSDocument writeSafelyToURL:ofType:forSaveOperation:error:]
+                                                    1240 -[NSDocument _writeSafelyToURL:ofType:forSaveOperation:error:]
+                                                      1240 -[iTM2ProjectDocument writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
+                                                        1240 -[iTM2Document writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
+                                                          1240 -[NSFileManager copyPath:toPath:handler:]
+                                                            1240 -[NSFileManager _replicatePath:atPath:operation:fileMap:handler:]
+                                                              1240 -[NSFileManager _newReplicatePath:ref:atPath:ref:operation:fileMap:handler:]
+                                                                1240 -[iTM2Document fileManager:shouldProceedAfterError:]
+                                                                  1240 NSRunCriticalAlertPanel
+On 2008-08-11, bug
+Don't know what are the exact circonstances
+The project content is lost
+No info.plist file is written
+Trying to replace the old texp file by a backup copy
+itexmac2 is broken,
+the project exact location is broken
+if I try to save the project as...
+the save as panel cannot list the directory contents
+#endif
+
 					if([DFM copyPath:fullOriginalDocumentPath toPath:fullDocumentPath handler:self])
 					{
 						//iTM2_LOG(@"Copied from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
@@ -2568,7 +2612,7 @@ To Do List:
 		}
 	}
 	NSString * mainBundlename = [MB bundleName];
-    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask withName:mainBundlename create:NO];
+    basePath = [NSBundle iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask withName:mainBundlename create:NO];
     DE = [DFM enumeratorAtPath:basePath];
 	while(plugInPath = [DE nextObject])
 	{
@@ -2578,7 +2622,7 @@ To Do List:
             [DE skipDescendents];
 		}
 	}
-    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask withName:mainBundlename create:NO ];
+    basePath = [NSBundle iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask withName:mainBundlename create:NO ];
     DE = [DFM enumeratorAtPath:basePath];
 	while(plugInPath = [DE nextObject])
 	{
@@ -2588,7 +2632,7 @@ To Do List:
             [DE skipDescendents];
 		}
 	}
-    basePath = [NSBundle pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask withName:mainBundlename create:YES];
+    basePath = [NSBundle iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask withName:mainBundlename create:YES];
     DE = [DFM enumeratorAtPath:basePath];
 	while(plugInPath = [DE nextObject])
 	{
@@ -2616,7 +2660,7 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"path is:%@", path);
 	// is it an expected path?
-	if(![[path pathExtension] pathIsEqual:[NSBundle plugInPathExtension]])
+	if(![[path pathExtension] iTM2_pathIsEqual:[NSBundle plugInPathExtension]])
 		return NO;
 	NSBundle * B = [NSBundle bundleWithPath:path];
 	NSString * externalDocumentClassName = [[B infoDictionary] objectForKey:@"iTM2ExternalDocumentClass"];

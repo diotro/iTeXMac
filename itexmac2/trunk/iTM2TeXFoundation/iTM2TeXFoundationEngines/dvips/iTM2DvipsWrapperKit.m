@@ -204,16 +204,16 @@ To Do List:
 #pragma mark =-=-=-=-=-  COPIES
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
 - (BOOL)GETTER;{return [[self infoForKeyPaths:KEY,nil] boolValue];}\
-- (void)SETTER:(BOOL)yorn;{[self takeInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(BOOL)yorn;{[self setInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
 - (id)GETTER;{return [self infoForKeyPaths:KEY,nil];}\
-- (void)SETTER:(id)argument;{[self takeInfo:argument forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(id)argument;{[self setInfo:argument forKeyPaths:KEY,nil];return;}
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
 - (float)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
-- (void)SETTER:(float)argument;{[self takeInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(float)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 #define MODEL_INT(GETTER, SETTER, KEY)\
 - (int)GETTER;{return [[self infoForKeyPaths:KEY,nil] intValue];}\
-- (void)SETTER:(int)argument;{[self takeInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(int)argument;{[self setInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
 MODEL_BOOL(duplicatePageBody, setDuplicatePageBody, iTM2Dvips_duplicate_page_body);
 MODEL_BOOL(collatedCopies, setCollatedCopies, iTM2Dvips_collated_copies);
 MODEL_BOOL(multipleCopies, setMultipleCopies, iTM2Dvips_multiple_copies);
@@ -368,9 +368,9 @@ MODEL_BOOL(landscape, setLandscape, iTM2Dvips_landscape);
 MODEL_BOOL(useMagnification, setUseMagnification, iTM2Dvips_USE_magnification);
 MODEL_BOOL(bothMagnifications, setBothMagnifications, iTM2Dvips_both_magnifications);
 - (float)xMagnification;{return [[self infoForKeyPaths:iTM2Dvips_x_magnification,nil] floatValue]/10.0;}
-- (void)setXMagnification:(float)argument;{[self takeInfo:[NSNumber numberWithFloat:argument*10] forKeyPaths:iTM2Dvips_x_magnification,nil];return;}
+- (void)setXMagnification:(float)argument;{[self setInfo:[NSNumber numberWithFloat:argument*10] forKeyPaths:iTM2Dvips_x_magnification,nil];return;}
 - (float)yMagnification;{return [[self infoForKeyPaths:iTM2Dvips_y_magnification,nil] floatValue]/10.0;}\
-- (void)setYMagnification:(float)argument;{[self takeInfo:[NSNumber numberWithFloat:argument*10] forKeyPaths:iTM2Dvips_y_magnification,nil];return;}
+- (void)setYMagnification:(float)argument;{[self setInfo:[NSNumber numberWithFloat:argument*10] forKeyPaths:iTM2Dvips_y_magnification,nil];return;}
 MODEL_BOOL(usePaper, setUsePaper, iTM2Dvips_USE_paper);
 MODEL_OBJECT(paper, setPaper, iTM2Dvips_paper);
 MODEL_BOOL(customPaper, setCustomPaper, iTM2Dvips_custom_paper);

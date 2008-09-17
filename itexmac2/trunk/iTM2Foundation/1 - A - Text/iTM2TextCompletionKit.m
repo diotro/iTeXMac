@@ -82,7 +82,7 @@ NSString * const iTM2CompletionComponent = @"Completion.localized";
 
 @interface NSTextView(iTM2TextCompletionKit)
 - (NSRange)proposedRangeForUserCompletion:(NSRange)range;
-- (NSRange)swizzle_rangeForUserCompletion;
+- (NSRange)SWZ_iTM2_rangeForUserCompletion;
 @end
 
 @interface NSObject(PRIVATE)
@@ -478,7 +478,6 @@ grosbois:
 //iTM2_LOG(@"%@:_ReplacementLines",_ReplacementLines);
 
 	_EditedRangeForUserCompletion = _RangeForUserCompletion;
-	[DNC addObserver:self selector:@selector(windowWillCloseNotified:) name:NSWindowWillCloseNotification object:[_TextView window]];
 	NSUndoManager * undoManager = [_TextView undoManager];
 	if(_ShouldEnableUndoRegistration = [undoManager isUndoRegistrationEnabled])
 	{
@@ -546,6 +545,7 @@ grosbois:
 - (void)showCompletionWindow;
 {
 	//where should I draw the window
+	[DNC addObserver:self selector:@selector(windowWillCloseNotified:) name:NSWindowWillCloseNotification object:[_TextView window]];
 	NSLayoutManager * layoutManager = [_TextView layoutManager];
 	NSRange glyphRange = [layoutManager glyphRangeForCharacterRange:_RangeForUserCompletion actualCharacterRange:nil];
 	NSTextContainer * container = [layoutManager textContainerForGlyphAtIndex:glyphRange.location effectiveRange:nil];
@@ -858,6 +858,7 @@ grosbois:
 	NSWindow * W = [self window];
 	[[W parentWindow] removeChildWindow:W];
 	[W orderOut:self];
+	[DNC removeObserver:self name:NSWindowWillCloseNotification object:nil];
 //	W = [_TextView window];
 //	[W makeFirstResponder:_TextView];
 	return;
@@ -1073,7 +1074,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(rangeForUserCompletion)replacement:@selector(swizzle_rangeForUserCompletion)forClass:[NSTextView class]])
+	if(![NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_rangeForUserCompletion)])
 	{
 		iTM2_LOG(@"WARNING: No hook available to init text view completion module...");
 	}
@@ -1093,8 +1094,8 @@ To Do List:
 //iTM2_END;
 	return range;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_rangeForUserCompletion
-- (NSRange)swizzle_rangeForUserCompletion;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_rangeForUserCompletion
+- (NSRange)SWZ_iTM2_rangeForUserCompletion;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 02/03/2003
@@ -1102,7 +1103,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSRange result = [self swizzle_rangeForUserCompletion];
+	NSRange result = [self SWZ_iTM2_rangeForUserCompletion];
 	NSString * category = [self macroCategory];
 	NSString * action = [NSString stringWithFormat:@"proposedRangeFor%@UserCompletion:",category];
 	SEL selector = NSSelectorFromString(action);
@@ -1316,10 +1317,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-iTM2_LOG(@"word:%@",word);
-iTM2_LOG(@"charRange:%@",NSStringFromRange(charRange));
-iTM2_LOG(@"movement:%@",[NSNumber numberWithInt:movement]);
-iTM2_LOG(@"flag:%@",(flag?@"Y":@"N"));
+//iTM2_LOG(@"word:%@",word);
+//iTM2_LOG(@"charRange:%@",NSStringFromRange(charRange));
+//iTM2_LOG(@"movement:%@",[NSNumber numberWithInt:movement]);
+//iTM2_LOG(@"flag:%@",(flag?@"Y":@"N"));
 	[super insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(int)movement isFinal:(BOOL)flag];
 //iTM2_END;
     return;
@@ -1472,4 +1473,3 @@ iTM2_LOG(@"flag:%@",(flag?@"Y":@"N"));
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit
-

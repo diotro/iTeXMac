@@ -77,4 +77,12 @@ SOME NOTES FOR DEVELOPERS:
 2 Use the diff (filemerge) to validate the contents of a newly created app. FileMerge used with the show added/deleted option will focus on the file that may have disappeared from one release to the other.
 
 Note:
--seg1Addr 0X4E000000 iTM2Foundation.framework-seg1Addr 0X4C000000 iTM2TeXFoundation.framework-seg1Addr 0X4B000000 iTM2PDFKit.framework-seg1Addr 0X4A000000 iTM2LaTeXKit.framework-seg1Addr 0X49000000 iTM2MetaPostKit.framework-seg1Addr 0X48000000 iTM2ConTeXtKit.framework-seg1Addr 0X47000000 iTM2NewDocumentKit.framework
+-seg1Addr 0X4E000000 iTM2Foundation.framework
+-seg1Addr 0X4C000000 iTM2TeXFoundation.framework
+-seg1Addr 0X4B000000 iTM2PDFKit.framework
+-seg1Addr 0X4A000000 iTM2LaTeXKit.framework
+-seg1Addr 0X49000000 iTM2MetaPostKit.framework
+-seg1Addr 0X48000000 iTM2ConTeXtKit.framework
+-seg1Addr 0X47000000 iTM2NewDocumentKit.framework
+
+There is a trick to automatically manage the build number using SVN_BUILD_NUMBER

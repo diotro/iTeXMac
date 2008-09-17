@@ -298,7 +298,7 @@ To Do List:
 	Class responderClass;
 	while(responderClass = [[E nextObject] nonretainedObjectValue])
 	{
-		if(responderClass != self)
+		if(responderClass != [self class])
 		{
 			NSString * className = NSStringFromClass(responderClass);
 			NSMutableString * K = [[className mutableCopy] autorelease];

@@ -32,12 +32,12 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
 @interface NSFileManager(PRIVATE)
-- (BOOL)_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
+- (BOOL)_iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
 @end
 
 @implementation NSFileManager(iTeXMac2)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepDirectoryAtPath:attributes:error:
-- (BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_createDeepDirectoryAtPath:attributes:error:
+- (BOOL)iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)outErrorPtr;
 /*"Description forthcoming. mkdir -p
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -65,8 +65,8 @@ To Do List:
 			NSString * fullPath = [self currentDirectoryPath];
 			fullPath = [fullPath stringByAppendingPathComponent:component];
 			NSURL * url = [NSURL fileURLWithPath:fullPath];
-			NSData * aliasData = [NSData aliasDataWithContentsOfURL:url error:nil];
-			NSString * resolvedPath = [aliasData pathByResolvingDataAliasRelativeTo:nil error:nil];
+			NSData * aliasData = [NSData iTM2_aliasDataWithContentsOfURL:url error:nil];
+			NSString * resolvedPath = [aliasData iTM2_pathByResolvingDataAliasRelativeTo:nil error:nil];
 			if([self changeCurrentDirectoryPath:resolvedPath])
 			{
 				//that's ok, next slide please
@@ -121,8 +121,8 @@ To Do List:
 	[self changeCurrentDirectoryPath:currentDirectoryPath];
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepFileAtPath:contents:attributes:
-- (BOOL)createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_createDeepFileAtPath:contents:attributes:
+- (BOOL)iTM2_createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -143,12 +143,12 @@ To Do List:
         [son setPreferredFilename:[path lastPathComponent]];
         if(attributes)
             [son setFileAttributes:attributes];
-        return [self _createDeepDirectoryAtPath:[path stringByDeletingLastPathComponent]
+        return [self _iTM2_createDeepDirectoryAtPath:[path stringByDeletingLastPathComponent]
                             attributes: attributes seed: son];
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createDeepSymbolicLinkAtPath:pathContent:
-- (BOOL)createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_createDeepSymbolicLinkAtPath:pathContent:
+- (BOOL)iTM2_createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -165,12 +165,12 @@ To Do List:
     {
         NSFileWrapper * son = [[[NSFileWrapper alloc] initSymbolicLinkWithDestination:path] autorelease];
         [son setPreferredFilename:[path lastPathComponent]];
-        return [self _createDeepDirectoryAtPath:[path stringByDeletingLastPathComponent]
+        return [self _iTM2_createDeepDirectoryAtPath:[path stringByDeletingLastPathComponent]
                             attributes: nil seed: son];
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _createDeepDirectoryAtPath:attributes:seed:
-- (BOOL)_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _iTM2_createDeepDirectoryAtPath:attributes:seed:
+- (BOOL)_iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -212,8 +212,8 @@ oneMoreTime:
             return NO;
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeFileWritableAtPath:recursive:
-- (void)makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)recursive;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_makeFileWritableAtPath:recursive:
+- (void)iTM2_makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)recursive;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -245,14 +245,14 @@ To Do List:
 			NSEnumerator * E = [[self directoryContentsAtPath:fileName] objectEnumerator];
 			NSString * component;
 			while(component = [E nextObject])
-				[self makeFileWritableAtPath:[fileName stringByAppendingPathComponent:component] recursive:recursive];
+				[self iTM2_makeFileWritableAtPath:[fileName stringByAppendingPathComponent:component] recursive:recursive];
 		}
 	}
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setExtensionHidden:atPath:
-- (BOOL)setExtensionHidden:(BOOL)yorn atPath:(NSString *)path;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_setExtensionHidden:atPath:
+- (BOOL)iTM2_setExtensionHidden:(BOOL)yorn atPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -265,8 +265,8 @@ To Do List:
 //iTM2_END;
 	return [self changeFileAttributes:attributes atPath:path];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyNameAtPath:
-- (NSString *)prettyNameAtPath:(NSString *)path;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_prettyNameAtPath:
+- (NSString *)iTM2_prettyNameAtPath:(NSString *)path;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -386,6 +386,10 @@ To Do List:
 	path = [path lastPathComponent];
 	return ![path hasPrefix:@"."];
 }
+- (BOOL)trashedIsPrivateFileAtPath:(NSString *)path;
+{
+	return [[path pathComponents] containsObject:@".Trash"];
+}
 - (BOOL)isPrivateFileAtPath:(NSString *)path;
 {
 //iTM2_LOG(@"path: %@", path);
@@ -433,7 +437,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![[NSFileManager class] swizzleInstanceMethodSelector:@selector(SWZ_iTM2_removeFileAtPath:handler:)])
+	if(![NSFileManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_removeFileAtPath:handler:)])
 	{
 		iTM2_LOG(@"WARNING: No hook available to init NSFileManager...");
 	}
@@ -444,7 +448,7 @@ To Do List:
 - (BOOL)SWZ_iTM2_removeFileAtPath:(NSString *)path handler:handler;
 {
 //iTM2_LOG(@"path: %@", path);
-	if([[path lastPathComponent] pathIsEqual:@"CV.tex"])
+	if([[path lastPathComponent] iTM2_pathIsEqual:@"CV.tex"])
 	{
 		BOOL isAlias = NO;
 		NSError * localError = nil;
@@ -463,7 +467,7 @@ To Do List:
 
 
 #define ENCODING CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF16BE)
-#define EXTENSION @"soft_link"
+NSString * const iTM2SoftLinkExtension = @"soft_link";
 - (void)convertSymbolicLinksToSoftLinksAtPath:(NSString *)path;
 {
 	NSEnumerator * E = [[self directoryContentsAtPath:path] objectEnumerator];
@@ -474,25 +478,24 @@ To Do List:
 		NSString * content = [self pathContentOfSymbolicLinkAtPath:component];
 		if([content length])
 		{
-			component = [component stringByAppendingPathExtension:EXTENSION];
+			component = [component stringByAppendingPathExtension:iTM2SoftLinkExtension];
 			[content writeToFile:component atomically:NO encoding:ENCODING error:nil];
 		}
 	}
 }
-- (NSString *)pathContentOfSoftLinkAtPath:(NSString *)path;
+- (NSString *)iTM2_pathContentOfSoftLinkAtPath:(NSString *)path;
 {
 	[self convertSymbolicLinksToSoftLinksAtPath:[path stringByDeletingLastPathComponent]];
-	path = [path stringByAppendingPathExtension:EXTENSION];
+	path = [path stringByAppendingPathExtension:iTM2SoftLinkExtension];
 	return [NSString stringWithContentsOfFile:path encoding:ENCODING error:nil];
 }
-- (BOOL)createSoftLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+- (BOOL)iTM2_createSoftLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
 {
 	[self convertSymbolicLinksToSoftLinksAtPath:[path stringByDeletingLastPathComponent]];
-	path = [path stringByAppendingPathExtension:EXTENSION];
+	path = [path stringByAppendingPathExtension:iTM2SoftLinkExtension];
 	return [otherpath writeToFile:path atomically:NO encoding:ENCODING error:nil];
 }
 #undef ENCODING
-#undef EXTENSION
 @end
 
 @implementation NSObject (iTM2CopyLinkMoveHandler)
@@ -1765,8 +1768,8 @@ FSGetCatalogInfo:
 }
 
 @implementation NSData(iTM2Alias)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeAsFinderAliasToURL:options:error:
-- (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_writeAsFinderAliasToURL:options:error:
+- (BOOL)iTM2_writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1842,10 +1845,10 @@ To Do List:
 			if(iTM2DebugEnabled)
 			{
 				NSError * error = nil;
-				NSData * d = [NSData aliasDataWithContentsOfURL:url error:&error];
+				NSData * d = [NSData iTM2_aliasDataWithContentsOfURL:url error:&error];
 				if(![self isEqualToData:d])
 				{
-					d = [NSData aliasDataWithContentsOfURL:url error:&error];
+					d = [NSData iTM2_aliasDataWithContentsOfURL:url error:&error];
 				}
 				NSAssert([self isEqualToData:d],@"**** There is a big problem: the alias is not persistent");
  			}
@@ -1976,8 +1979,8 @@ Second, set the file type of the alias (FileInfo?.fileType or FInfo?.fdType). If
 http://www.cocoadev.com/index.pl?CreatingFinderTypeAliases
 
 #endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  aliasDataWithContentsOfURL:error:
-+ (NSData *)aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_aliasDataWithContentsOfURL:error:
++ (NSData *)iTM2_aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -1992,7 +1995,7 @@ To Do List:
 		: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathByResolvingDataAlias:relativeTo:error:
-- (NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)outErrorPtr;
+- (NSString*)iTM2_pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -2044,8 +2047,8 @@ jail:
 //iTM2_END;
 	return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  URLByResolvingDataAliasRelativeToURL:error:
-- (NSURL *)URLByResolvingDataAliasRelativeToURL:(NSURL *)baseURL error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_URLByResolvingDataAliasRelativeToURL:error:
+- (NSURL *)iTM2_URLByResolvingDataAliasRelativeToURL:(NSURL *)baseURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -2054,13 +2057,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [NSURL fileURLWithPath:[self pathByResolvingDataAliasRelativeTo:[baseURL path] error:outErrorPtr]];
+	return [NSURL fileURLWithPath:[self iTM2_pathByResolvingDataAliasRelativeTo:[baseURL path] error:outErrorPtr]];
 }
 @end
 
 @implementation NSString(iTM2FileManagerKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataAliasRelativeTo:error:
-- (NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_dataAliasRelativeTo:error:
+- (NSData*)iTM2_dataAliasRelativeTo:(NSString *)base error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03

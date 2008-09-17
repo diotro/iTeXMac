@@ -24,7 +24,7 @@
 #define ANCS [NSCharacterSet alphanumericCharacterSet]
 
 @interface NSAttributedString(PRIVATE)
-- (NSRange)originalDoubleClickAtIndex:(unsigned)index;
+- (NSRange)SWZ_iTM2_doubleClickAtIndex:(unsigned)index;
 @end
 
 @implementation iTM2TeXStringController
@@ -136,14 +136,14 @@ To Do List:implement some kind of balance range for range
 	BOOL escaped;
 	if([ANCS characterIsMember:theChar])
 	{
-		R = [theAttributedString originalDoubleClickAtIndex:index];
+		R = [theAttributedString SWZ_iTM2_doubleClickAtIndex:index];
 expandToTheLeftAsLetters:
 		if(R.location)
 		{
 			theChar = [itsString characterAtIndex:R.location-1];
 			if([ANCS characterIsMember:theChar])
 			{
-				r = [theAttributedString originalDoubleClickAtIndex:R.location-1];
+				r = [theAttributedString SWZ_iTM2_doubleClickAtIndex:R.location-1];
 				if(r.location
 					&& [itsString isControlAtIndex:r.location-1 escaped:&escaped]
 						&& !escaped)
@@ -262,7 +262,7 @@ expandToTheRightAsLetters:
 		theChar = [itsString characterAtIndex:loc];
 		if([ANCS characterIsMember:theChar])
 		{
-			r = [theAttributedString originalDoubleClickAtIndex:loc];
+			r = [theAttributedString SWZ_iTM2_doubleClickAtIndex:loc];
 			R = NSUnionRange(R,r);
 			goto expandToTheRightAsLetters;
 		}
@@ -289,7 +289,7 @@ expandToTheRightAsLetters:
 						theChar = [itsString characterAtIndex:index+2];
 						if([ANCS characterIsMember:theChar])
 						{
-							r = [theAttributedString originalDoubleClickAtIndex:index+2];
+							r = [theAttributedString SWZ_iTM2_doubleClickAtIndex:index+2];
 							R = NSUnionRange(R,r);
 						}
 						else
@@ -380,7 +380,7 @@ expandToTheRightAsLetters:
 				}
 				return R;
 			}
-			R = [theAttributedString originalDoubleClickAtIndex:index+1];
+			R = [theAttributedString SWZ_iTM2_doubleClickAtIndex:index+1];
 			--R.location;
 			++R.length;
 			return R;// maybe
@@ -408,7 +408,7 @@ expandToTheRightAsLetters:
 					theChar = [itsString characterAtIndex:index+1];
 					if([ANCS characterIsMember:theChar])
 					{
-						R = [theAttributedString originalDoubleClickAtIndex:index+1];
+						R = [theAttributedString SWZ_iTM2_doubleClickAtIndex:index+1];
 						R.location -= 2;
 						R.length += 2;
 						goto expandToTheLeftAsLetters;
@@ -1043,8 +1043,8 @@ To Do List:
 //iTM2_LOG(@"********  the cleaned result is:%@ (from %@)", [MRA componentsJoinedByString:@"%"], MRA);
 	return [MRA componentsJoinedByString:@"%"];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getWordBefore:here:after:atIndex:
-- (unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _iTM2_getWordBefore:here:after:atIndex:
+- (unsigned int)_iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:02/03/2003
@@ -1203,6 +1203,249 @@ nextAfterWord:
 			if(index < [after length])
 				goto nextAfterWord;
 		}
+		if([afterWord0 length] > 2)
+			afterWord = afterWord0;
+		else if([afterWord1 length] > 2)
+			afterWord = afterWord1;
+		else if([afterWord2 length] > 2)
+			afterWord = afterWord2;
+		else
+			afterWord = afterWord0;
+	}
+	NSString * beforeWord = nil;
+	if([before length] > 1)
+	{
+		R = NSMakeRange([before length], 0);
+		NSString * beforeWord0 = nil;
+		NSString * beforeWord1 = nil;
+		NSString * beforeWord2 = nil;
+nextBeforeWord:
+		R = [before rangeOfWordAtIndex:R.location-1];
+		if(R.length>1)
+		{
+			if(beforeWord1)
+			{
+				beforeWord2 = [before substringWithRange:R];
+			}
+			else
+			{
+				beforeWord1 = [before substringWithRange:R];
+				if(R.location>0)
+					goto nextBeforeWord;
+			}
+		}
+		else
+		{
+			if(!beforeWord0 && R.length)
+				beforeWord0 = [before substringWithRange:R];
+			if(R.location>0)
+				goto nextBeforeWord;
+		}
+		if([beforeWord0 length] > 2)
+			beforeWord = beforeWord0;
+		else if([beforeWord1 length] > 2)
+			beforeWord = beforeWord1;
+		else if([beforeWord2 length] > 2)
+			beforeWord = beforeWord2;
+		else
+			beforeWord = beforeWord0;
+	}
+	if(beforePtr) * beforePtr = beforeWord;
+	if(herePtr)	  * herePtr   = [self substringWithRange:hereRange];
+	if(afterPtr)  * afterPtr  = afterWord;
+//iTM2_END;
+	return inControl?NSNotFound:hitIndex-hereRange.location;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_getWordBefore:here:after:atIndex:mode:
+- (unsigned int)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex mode:(BOOL)isSyncTeX;
+/*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:02/03/2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	if(isSyncTeX)
+	{
+		;//return [self _iTM2_getWordBefore:beforePtr here:herePtr after:afterPtr atIndex:hitIndex];
+	}
+//iTM2_START;
+	// we work on a portion of text surrounding the char index where the hit occurred
+	// first we make a hit correction because the character might be part of a TeX comment
+	// then we make another hit correction because the character might be part of a control sequence
+	// all the control sequences are considered to be "transparent" and silently removed
+	// of course this is not true because for example \begin end \end should gobble the following argument
+	// and \arrow is a real character...
+	if(beforePtr) * beforePtr = nil;
+	if(herePtr) * herePtr = nil;
+	if(afterPtr) * afterPtr = nil;
+	unsigned int TeXCommentIndex, start, end, contentsEnd;
+	unsigned afterAnchor = 0;// the after word is expected after this anchor
+	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
+startAgain:
+	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
+	if(TeXCommentIndex != NSNotFound)
+	{
+		// there is a % comment in this line
+		if(hitIndex>=TeXCommentIndex)
+		{
+			if(!alreadyComment)
+			{
+				alreadyComment = YES;
+				alreadyControl = YES;
+			}
+			if(!afterAnchor)
+				afterAnchor = end;
+			// we hit a % commented character:no hope to find it in the output
+			if(TeXCommentIndex > start)
+			{
+				// There exists uncommented characters
+				hitIndex = TeXCommentIndex-1;
+			}
+			else if(hitIndex >= [self length])
+			{
+				// No chance to do anything:the source is just one TeX comment or command!!!
+				return 0;
+			}
+			else//if(TeXCommentIndex <= start) &&...
+			{
+				hitIndex = start;// the first character of the line
+				if(hitIndex--)
+					goto startAgain;
+				else
+					// no chance to find a word
+					return 0;
+			}
+		}
+	}
+point1:;
+	NSRange hereRange = [self rangeOfWordAtIndex:hitIndex];
+	if(!hereRange.length)
+	{
+		hereRange = [self rangeOfComposedCharacterSequenceAtIndex:hitIndex];
+		if(hereRange.length == 1)
+		{
+			if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:hitIndex]]
+					&& (hitIndex>0))
+			{
+				return [self iTM2_getWordBefore:beforePtr here:herePtr after:afterPtr atIndex:hitIndex-1 mode:isSyncTeX];
+			}
+		}
+		if(!hereRange.length)
+		{
+			if(hitIndex)
+			{
+				--hitIndex;
+				goto point1;
+			}
+			return NSNotFound;
+		}
+	}
+	if(hereRange.location)
+	{
+		BOOL escaped = NO;
+		if([self isControlAtIndex:hereRange.location-1 escaped:&escaped] && !escaped)
+		{
+			// this is a control sequence
+			if(!alreadyControl)
+			{
+				inControl = YES;
+				alreadyControl = YES;
+			}
+			if(hereRange.location>start+2)
+			{
+				hitIndex = hereRange.location-2;
+				goto point1;
+			}
+			else if(start)
+			{
+				hitIndex = --start;
+				goto startAgain;
+			}
+			else
+				return 0;
+		}
+	}
+	// now hitIndex does not point to any part of a control sequence nor a % comment
+	// after is correctly set to the words after here 
+	// what is before? (also as a list of words with no tex tags)
+	// start no longer means the beginning of a line...
+	NSRange R;
+	[self getLineStart:&R.location end:nil contentsEnd:nil forRange:hereRange];
+	NSString * before = [NSString stringByStrippingTeXTagsInString:
+				[self substringWithRange:NSMakeRange(R.location, hereRange.location-R.location)]];
+	unsigned int limit = 50;
+	while([before length] < limit && R.location)
+	{
+		--R.location;
+		R.length = 0;
+		[self getLineStart:&R.location end:nil contentsEnd:&contentsEnd forRange:R];
+		if(R.length = contentsEnd-R.location)
+			before = [[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]
+				stringByAppendingFormat:@" %@", before];
+	}
+	if(!afterAnchor)
+		afterAnchor = NSMaxRange(hereRange);
+	R.location = afterAnchor;
+	R.length = 0;
+	[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+	NSString * after = [NSString stringByStrippingTeXTagsInString:
+				[self substringWithRange:NSMakeRange(afterAnchor, contentsEnd-afterAnchor)]];
+mamita:
+	if([after length] < limit && (end < [self length]))
+	{
+		R.location = end;
+		R.length = 0;
+		[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+		if(R.length = contentsEnd-R.location)
+			after = [after stringByAppendingFormat:@" %@",
+				[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]];
+		if(contentsEnd < end)
+			goto mamita;
+	}
+	NSString * afterWord = nil;
+	if([after length] > 1)
+	{
+		unsigned int index = 1;
+		NSString * afterWord0 = nil;// default value
+		NSString * afterWord1 = nil;// first candidate
+		NSString * afterWord2 = nil;// second candidate, the chosen one was the longest
+nextAfterWord:
+		R = [after rangeOfWordAtIndex:index];
+		if(!R.length)
+		{
+			R = [self rangeOfComposedCharacterSequenceAtIndex:index];
+			if(R.length == 1)
+			{
+				index = NSMaxRange(R) + 1;
+				if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
+						&& (index < [after length]))
+				{
+					goto nextAfterWord;
+				}
+			}
+		}
+		if(R.length>1)
+		{
+			if(afterWord1)
+			{
+				afterWord2 = [after substringWithRange:R];
+			}
+			else
+			{
+				afterWord1 = [after substringWithRange:R];
+				index = NSMaxRange(R) + 1;
+				if(index < [after length])
+					goto nextAfterWord;
+			}
+		}
+		else
+		{
+			if(!afterWord0 && R.length)
+				afterWord0 = [after substringWithRange:R];
+			index = NSMaxRange(R) + 1;
+			if(index < [after length])
+				goto nextAfterWord;
+		}
 		if([afterWord2 length] > [afterWord1 length])
 			afterWord = afterWord2;
 		else if([afterWord1 length] > [afterWord0 length])
@@ -1219,6 +1462,18 @@ nextAfterWord:
 		NSString * beforeWord2 = nil;
 nextBeforeWord:
 		R = [before rangeOfWordAtIndex:R.location-1];
+		if(!R.length)
+		{
+			R = [self rangeOfComposedCharacterSequenceAtIndex:R.location-1];
+			if(R.length == 1)
+			{
+				if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
+						&& (R.location>0))
+				{
+					goto nextBeforeWord;
+				}
+			}
+		}
 		if(R.length>1)
 		{
 			if(beforeWord1)
@@ -1258,7 +1513,7 @@ nextBeforeWord:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2XAttributedString
 /*"Description forthcoming."*/
 
-@implementation NSAttributedString(TeX)
+@implementation NSAttributedString(iTM2_TeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
@@ -1270,13 +1525,13 @@ To Do List:implement some kind of balance range for range
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(doubleClickAtIndex:) replacement:@selector(SWZ_TeX_doubleClickAtIndex:) forClass:[NSAttributedString class]];
+	[NSAttributedString iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_doubleClickAtIndex:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_TeX_doubleClickAtIndex:
-- (NSRange)SWZ_TeX_doubleClickAtIndex:(unsigned)index;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_doubleClickAtIndex:
+- (NSRange)SWZ_iTM2_doubleClickAtIndex:(unsigned)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
 Version history:jlaurens AT users.sourceforge.net
 - 2.0:02/15/2006

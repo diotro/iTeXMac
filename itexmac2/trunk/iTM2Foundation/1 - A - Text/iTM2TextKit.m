@@ -283,7 +283,7 @@ NSString * const iTM2TextNumberOfSpacesPerTabKey= @"iTM2TextNumberOfSpacesPerTab
 {
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
-	[self iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TextKitHighlight_didChangeText)];
+	[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TextKitHighlight_didChangeText)];
     [SUD registerDefaults:
         [NSDictionary dictionaryWithObjectsAndKeys:
             @"	", iTM2TextIndentationStringKey,

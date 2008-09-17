@@ -74,12 +74,12 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (id)createProgressIndicator;
 - (NSString *)convertedString:(NSString *) fileName withDictionary:(NSDictionary *) filter;
 - (IBAction)next:(id)sender;
-- (NSString *)panelDirectory;
-- (void)setPanelDirectory:(id)object;
+- (NSURL *)panelDirectoryURL;
+- (void)setPanelDirectoryURL:(id)object;
 - (id)mandatoryProject;
 - (void)setMandatoryProject:(id)object;
-- (NSString *)oldProjectName;
-- (void)setOldProjectName:(id)argument;
+- (NSURL *)oldProjectURL;
+- (void)setOldProjectURL:(id)argument;
 - (IBAction)orderFrontPanelIfRelevant:(id)object;
 - (id)savePanelAccessoryView;
 - (void)validateCreationMode;
@@ -89,7 +89,7 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (BOOL)selectedTemplateCanBeStandalone;
 - (BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
 - (BOOL)selectedTemplateCanCreateNewProject;
-- (BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
+- (BOOL)item:(id)item canCreateNewProjectForDirectoryURL:(NSURL *)directoryURL;
 - (BOOL)selectedTemplateCanInsertInOldProject;
 - (BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
 - (NSString *)standaloneFileName;
@@ -97,11 +97,11 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (void)setAvailableProjects:(id) argument;
 - (BOOL)preferWrapper;
 - (void)setPreferWrapper:(BOOL) yorn;
-- (BOOL)createNewWrapperWithName:(NSString *) fileName;
-- (BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
-- (BOOL)createInNewProjectNewDocumentWithName:(NSString *) fileName;
-- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
-- (BOOL)createInOldProjectNewDocumentWithName:(NSString *)targetName;
+- (BOOL)createNewWrapperWithURL:(NSURL *) fileURL;
+- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL;
+- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL;
+- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL;
+- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL;
 @end
 
 @interface iTM2SharedResponder(NewDocumentKit)
@@ -143,6 +143,8 @@ To Do List:
     return;
 }
 @end
+
+#include <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 
 @implementation iTM2NewDocumentAssistant
 static id _iTM2NewDocumentsTree = nil;
@@ -274,9 +276,9 @@ To Do List:
 //iTM2_LOG(@"+=+=+=+=+=+=+=+=+=+=  component: %@", component);
 		if([component hasPrefix:@"."])
 			continue;
-		if([[component pathExtension] pathIsEqual:@"templateDescription"])
+		if([[component pathExtension] iTM2_pathIsEqual:@"templateDescription"])
 			continue;
-		if([[component pathExtension] pathIsEqual:@"templateImage"])
+		if([[component pathExtension] iTM2_pathIsEqual:@"templateImage"])
 			continue;
 		if([component hasPrefix:@"."])
 			continue;
@@ -304,7 +306,7 @@ To Do List:
 		if(![DFM fileExistsAtPath:resolvedPath isDirectory:&isDirectory])
 			continue;
 		NSString * contentsPath = [fullPath stringByAppendingPathComponent:iTM2BundleContentsComponent];
-		NSString * prettyName = [DFM prettyNameAtPath:fullPath];
+		NSString * prettyName = [DFM iTM2_prettyNameAtPath:fullPath];
 		iTM2NewDocumentTreeNode * child = nil;
 		if(isDirectory
 			&& (![SWS isFilePackageAtPath:resolvedPath]
@@ -385,8 +387,8 @@ To Do List:
 	metaSETTER(([SPC isProject:object]? [NSValue valueWithNonretainedObject:object]:nil));
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= panelDirectory
-- (NSString *)panelDirectory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= panelDirectoryURL
+- (NSURL *)panelDirectoryURL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -397,8 +399,8 @@ To Do List:
 //iTM2_END;
 	return metaGETTER;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setPanelDirectory:
-- (void)setPanelDirectory:(id)object;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setPanelDirectoryURL:
+- (void)setPanelDirectoryURL:(id)object;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -411,8 +413,8 @@ To Do List:
 	[self validateCreationMode];
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= oldProjectName
-- (NSString *)oldProjectName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= oldProjectURL
+- (NSURL *)oldProjectURL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -420,16 +422,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * result = metaGETTER;
-	if([result length]>0)
+	NSURL * result = metaGETTER;
+	if(result)
 	{
 		return result;
 	}
 //iTM2_END;
-	return [[self mandatoryProject] fileName];
+	return [[self mandatoryProject] fileURL];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setOldProjectName:
-- (void)setOldProjectName:(id)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setOldProjectURL:
+- (void)setOldProjectURL:(id)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -956,7 +958,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * dirname = item? [item pathValue]:
-		[NSBundle pathForSupportDirectory:iTM2NewDPathComponent inDomain:NSUserDomainMask withName:[[NSBundle mainBundle] bundleName] create:YES];
+		[NSBundle iTM2_pathForSupportDirectory:iTM2NewDPathComponent inDomain:NSUserDomainMask withName:[[NSBundle mainBundle] bundleName] create:YES];
 	NSPasteboard * pboard = [info draggingPasteboard];
 	NSArray * Ts = [pboard types];
 //iTM2_LOG(@"Ts are: %@", Ts);
@@ -1041,7 +1043,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * dirname = item? [item pathValue]:
-		[NSBundle pathForSupportDirectory:iTM2NewDPathComponent inDomain:NSUserDomainMask withName:[[NSBundle mainBundle] bundleName] create:YES];
+		[NSBundle iTM2_pathForSupportDirectory:iTM2NewDPathComponent inDomain:NSUserDomainMask withName:[[NSBundle mainBundle] bundleName] create:YES];
 	NSPasteboard * pboard = [info draggingPasteboard];
 	NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 	NSString * filename;
@@ -1049,7 +1051,7 @@ To Do List:
 		if([DFM fileOrLinkExistsAtPath:filename])
 		{
 			NSString * target = [dirname stringByAppendingPathComponent:[filename lastPathComponent]];
-			if([target pathIsEqual:filename])
+			if([target iTM2_pathIsEqual:filename])
 				continue;
 			else if([DFM fileOrLinkExistsAtPath:target])
 			{
@@ -1252,15 +1254,20 @@ To Do List:
 	[panel close];
 	if(returnCode == NSOKButton)
 	{
+		NSURL * URL = [panel URL];
 		NSString * fileName = [panel filename];
 		if(![DFM fileOrLinkExistsAtPath:fileName]
-			|| [SWS performFileOperation:NSWorkspaceRecycleOperation source:[fileName stringByDeletingLastPathComponent] destination:nil files:[NSArray arrayWithObject:[fileName lastPathComponent]] tag:nil])
+			|| [SWS performFileOperation:NSWorkspaceRecycleOperation
+				source:[fileName stringByDeletingLastPathComponent]
+					destination:nil
+						files:[NSArray arrayWithObject:[fileName lastPathComponent]]
+							tag:nil])
 		{
-			[self createInMandatoryProjectNewDocumentWithName:fileName]
-			|| [self createNewWrapperAndProjectWithName:fileName]// create a new wrapper and the new included project, if relevant
-			|| [self createNewWrapperWithName:fileName]// create a new wrapper assuming that the included project will come for free
-			|| [self createInNewProjectNewDocumentWithName:fileName]// create a new project if relevant, but no wrapper
-			|| [self createInOldProjectNewDocumentWithName:fileName];// just insert the main file in the project if relevant
+			[self createInMandatoryProjectNewDocumentWithURL:URL]
+			|| [self createNewWrapperAndProjectWithURL:URL]// create a new wrapper and the new included project, if relevant
+			|| [self createNewWrapperWithURL:URL]// create a new wrapper assuming that the included project will come for free
+			|| [self createInNewProjectNewDocumentWithURL:URL]// create a new project if relevant, but no wrapper
+			|| [self createInOldProjectNewDocumentWithURL:URL];// just insert the main file in the project if relevant
 		}
 		else
 		{
@@ -1275,8 +1282,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithName:
-- (BOOL)createInMandatoryProjectNewDocumentWithName:(NSString *)fileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithURL:
+- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1295,6 +1302,7 @@ To Do List:
 	NSString * mandatoryName = [mandatoryProject fileName];
 	NSString * targetDirectory = [mandatoryName stringByDeletingLastPathComponent];
 	[self takeContextValue:targetDirectory forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	NSString * fileName = [fileURL path];
 	NSString * newCore = fileName;
 	NSArray * newCoreComponents = [newCore pathComponents];
 	NSArray * mandatoryNameComponents = [mandatoryName pathComponents];
@@ -1328,7 +1336,7 @@ To Do List:
 	[self startProgressIndicationForName:targetName];
 	if([DFM copyPath:sourceName toPath:targetName handler:nil])
 	{
-		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
+		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 		{
@@ -1380,8 +1388,8 @@ To Do List:
 //iTM2_END;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithName:
-- (BOOL)createNewWrapperAndProjectWithName:(NSString *)fileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithURL:
+- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1399,15 +1407,15 @@ To Do List:
 	}
 	id item = [self selectedTemplate];
 	NSString * sourceName = [item pathValue];
-	NSArray * enclosedProjects = [sourceName enclosedProjectFileNames];
+	NSArray * enclosedProjects = [[NSURL fileURLWithPath:sourceName] iTM2_enclosedProjectURLs];
 	if([enclosedProjects count]!=0)
 	{
 		return NO;
 	}
-	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	[self takeContextValue:[[fileURL path] stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	// No extension for fileName, the extension will be borrowed from the project
-	fileName = [fileName stringByDeletingPathExtension];
-	NSString * targetName = [fileName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+	NSString * fileName = [[fileURL path] stringByDeletingPathExtension];
+	NSString * targetName = [fileName stringByAppendingPathExtension:[SDC iTM2_wrapperPathExtension]];
 	NSString * projectName = [fileName lastPathComponent];
 	
 	NSDictionary * filter = [self filterForProjectName:projectName];
@@ -1424,7 +1432,7 @@ To Do List:
 	BOOL isDirectory;
 	if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 	{
-		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
+		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		if(isDirectory)
 		{
 			// remove any "Contents" directory;
@@ -1449,7 +1457,7 @@ To Do List:
 			while(path = [DE nextObject])
 			{
 				convertedPath = [self convertedString:path withDictionary:filter];
-				if(![convertedPath pathIsEqual:path])
+				if(![convertedPath iTM2_pathIsEqual:path])
 				{
 					path = [targetName stringByAppendingPathComponent:path];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
@@ -1528,7 +1536,7 @@ To Do List:
 	}
 	id item = [self selectedTemplate];
 	NSString * sourceName = [item pathValue];
-	NSArray * enclosedProjects = [sourceName enclosedProjectFileNames];
+	NSArray * enclosedProjects = [[NSURL fileURLWithPath:sourceName] iTM2_enclosedProjectURLs];
 	if([enclosedProjects count]==0)
 	{
 		return NO;
@@ -1536,7 +1544,7 @@ To Do List:
 	[self takeContextValue:[fileName stringByDeletingLastPathComponent] forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	// No extension for fileName, the extension will be borrowed from the project
 	fileName = [fileName stringByDeletingPathExtension];
-	NSString * targetName = [fileName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+	NSString * targetName = [fileName stringByAppendingPathExtension:[SDC iTM2_wrapperPathExtension]];
 	NSString * projectName = [fileName lastPathComponent];
 	
 	NSDictionary * filter = [self filterForProjectName:projectName];
@@ -1553,7 +1561,7 @@ To Do List:
 	BOOL isDirectory;
 	if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 	{
-		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
+		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		if(isDirectory)
 		{
 			// remove any "Contents" directory;
@@ -1578,7 +1586,7 @@ To Do List:
 			while(originalPath = [DE nextObject])
 			{
 				convertedPath = [self convertedString:originalPath withDictionary:filter];
-				if(![convertedPath pathIsEqual:originalPath])
+				if(![convertedPath iTM2_pathIsEqual:originalPath])
 				{
 					originalPath = [targetName stringByAppendingPathComponent:originalPath];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
@@ -1590,7 +1598,7 @@ To Do List:
 				}
 			}
 			// Modify the project file, to sync with the possibly modified file names
-			NSArray * enclosedProjects = [targetName enclosedProjectFileNames];
+			NSArray * enclosedProjects = [[NSURL fileURLWithPath:targetName] iTM2_enclosedProjectURLs];
 			iTM2TeXProjectDocument * PD = nil;
 			NSEnumerator * E = [enclosedProjects objectEnumerator];
 			while(originalPath = [E nextObject])
@@ -1603,7 +1611,7 @@ To Do List:
 				PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];// first registerProject
 //iTM2_LOG(@"[SDC documents]:%@",[SDC documents]);
 				// filter out the declared files
-				NSEnumerator * e = [[[PD mainInfos] keyedNames] keyEnumerator];
+				NSEnumerator * e = [[[PD mainInfos] fileKeys] objectEnumerator];
 				NSString * key = nil;
 				id document;
 				while(key = [e nextObject])
@@ -1616,7 +1624,7 @@ To Do List:
 						originalPath = [document fileName];
 						convertedPath = [self convertedString:originalPath withDictionary:filter];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
-						if(![convertedPath pathIsEqual:originalPath])
+						if(![convertedPath iTM2_pathIsEqual:originalPath])
 						{
 							url = [NSURL fileURLWithPath:convertedPath];
 							[PD setURL:url forFileKey:key];
@@ -1639,7 +1647,7 @@ To Do List:
 					{
 						convertedPath = [self convertedString:originalPath withDictionary:filter];
 						NSURL * url = [NSURL fileURLWithPath:convertedPath];
-						if(![convertedPath pathIsEqual:originalPath])
+						if(![convertedPath iTM2_pathIsEqual:originalPath])
 						{
 							[PD setURL:url forFileKey:key];// do this before...
 						}
@@ -1674,7 +1682,7 @@ To Do List:
 			while(originalPath = [DE nextObject])
 			{
 				convertedPath = [self convertedString:originalPath withDictionary:filter];
-				if(![convertedPath pathIsEqual:originalPath])
+				if(![convertedPath iTM2_pathIsEqual:originalPath])
 				{
 					originalPath = [targetName stringByAppendingPathComponent:originalPath];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
@@ -1686,7 +1694,7 @@ To Do List:
 				}
 			}
 			// changing the file permissions: it is relevant if the document was built in...
-			[DFM makeFileWritableAtPath:targetName recursive:YES];
+			[DFM iTM2_makeFileWritableAtPath:targetName recursive:YES];
 			if(![SWS isFilePackageAtPath:targetName])
 			{
 				NSImage * I = [SWS iconForFile:sourceName];
@@ -1744,7 +1752,7 @@ To Do List:
 	// setting the path extension
 	if([self preferWrapper])
 	{
-		targetName = [targetName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+		targetName = [targetName stringByAppendingPathExtension:[SDC iTM2_wrapperPathExtension]];
 	}
 	NSString * projectName = fileName;
 	projectName = [projectName lastPathComponent];
@@ -1757,7 +1765,7 @@ To Do List:
 	NSDictionary * filter = [self filterForProjectName:projectName];
 	if([DFM copyPath:sourceName toPath:fileName handler:nil])
 	{
-		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
+		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 		{
@@ -1781,7 +1789,7 @@ To Do List:
 				}
 				// Modify the project files,
 				// finding the contained projects
-				NSArray * enclosedProjects = [targetName enclosedProjectFileNames];
+				NSArray * enclosedProjects = [[NSURL fileURLWithPath:targetName] iTM2_enclosedProjectURLs];
 				NSString * originalPath = nil;
 				NSString * convertedPath = nil;
 				NSEnumerator * E = [enclosedProjects objectEnumerator];
@@ -1789,7 +1797,7 @@ To Do List:
 				{
 					originalPath = [originalPath stringByStandardizingPath];
 					convertedPath = [self convertedString:originalPath withDictionary:filter];
-					if(![convertedPath pathIsEqual:originalPath])
+					if(![convertedPath iTM2_pathIsEqual:originalPath])
 					{
 						if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
 						{
@@ -1803,7 +1811,7 @@ To Do List:
 					NSURL * url = [NSURL fileURLWithPath:convertedPath];
 					iTM2ProjectDocument * PD = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 					// filter out the declared files
-					NSEnumerator * e = [[PD allFileKeys] objectEnumerator];
+					NSEnumerator * e = [[PD fileKeys] objectEnumerator];
 					NSString * key = nil;
 					while(key = [e nextObject])
 					{
@@ -1828,7 +1836,7 @@ To Do List:
 									withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]];
 //iTM2_LOG(@"convertedPath is: %@", convertedPath);
 							}
-							if(![convertedPath pathIsEqual:originalPath])
+							if(![convertedPath iTM2_pathIsEqual:originalPath])
 							{
 								if([DFM movePath:originalPath toPath:convertedPath handler:NULL])
 								{
@@ -1876,13 +1884,7 @@ To Do List:
 										[filteredFilter setObject:translation forKey:key];
 									}
 									NSString * new = [self convertedString:old withDictionary:filteredFilter];
-									NSData * D = [stringFormatter dataWithString:new allowLossyConversion:YES];
-									#warning **** ERROR: is it compatible with the leopard string encoding extended attributes
-									if(D)
-									{
-										[document loadDataRepresentation:D ofType:[document modelType]]
-											|| [document loadDataRepresentation:D ofType:[document fileType]];
-									}
+									[document setStringRepresentation:new];
 									if([document isKindOfClass:[iTM2TeXDocument class]])
 									{
 										convertedPath = [[convertedPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:
@@ -1891,7 +1893,7 @@ To Do List:
 									}
 								}
 							}
-							if(![convertedPath pathIsEqual:originalPath])
+							if(![convertedPath iTM2_pathIsEqual:originalPath])
 							{
 								if(document)
 								{
@@ -1944,7 +1946,7 @@ iTM2_LOG(@"Document saved and closed");
 				while(originalPath = [DE nextObject])
 				{
 					convertedPath = [self convertedString:originalPath withDictionary:filter];
-					if(![convertedPath pathIsEqual:originalPath])
+					if(![convertedPath iTM2_pathIsEqual:originalPath])
 					{
 						originalPath = [targetName stringByAppendingPathComponent:originalPath];
 						convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
@@ -1956,7 +1958,7 @@ iTM2_LOG(@"Document saved and closed");
 					}
 				}
 				// changing the file permissions: it is relevant if the document was built in...
-				[DFM makeFileWritableAtPath:targetName recursive:YES];
+				[DFM iTM2_makeFileWritableAtPath:targetName recursive:YES];
 				if(![SWS isFilePackageAtPath:targetName])
 				{
 					NSImage * I = [SWS iconForFile:sourceName];
@@ -2000,31 +2002,30 @@ To Do List:
 	{
 		return NO;
 	}
-	NSString * oldProjectName = [self oldProjectName];
-	if(![oldProjectName length])
+	NSURL * oldProjectURL = [self oldProjectURL];
+	if(!oldProjectURL)
 	{
 		iTM2_LOG(@"*** ERROR: I have been asked to create a document in an old project, but Ii was not given an old project...");
 		return NO;//<< this is a bug
 	}
 	NSString * sourceName = [self standaloneFileName];
-	if([SWS isWrapperPackageAtPath:oldProjectName])// Crash Log Report
+	if([SWS iTM2_isWrapperPackageAtURL:oldProjectURL])// Crash Log Report
 	{
-		NSArray * enclosed = [oldProjectName enclosedProjectFileNames];
-		if(![enclosed count] && ![SWS isProjectPackageAtPath:oldProjectName])
+		NSArray * enclosed = [oldProjectURL iTM2_enclosedProjectURLs];
+		if(![enclosed count] && ![SWS iTM2_isTeXProjectPackageAtURL:oldProjectURL])
 		{
 			return NO;
 		}
 	}
-	NSURL * url = [NSURL fileURLWithPath:oldProjectName];
 	NSError * localError = nil;
-	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:url display:NO error:&localError];
+	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:oldProjectURL display:NO error:&localError];
 	if(localError)
 	{
 		[SDC presentError:localError];
 		return YES;
 	}
 #warning **** ERROR: this MUST be revisited, together with the other similar methods above
-	NSString * targetDirName = [[SPC directoryURLOfProjectWithURL:url] path];
+	NSString * targetDirName = [[oldProject parentURL] path];
 	// this is the location where the new document should be stored
 	[self takeContextValue:targetDirName
 		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
@@ -2036,18 +2037,18 @@ To Do List:
 	[self startProgressIndicationForName:targetName];
 	if([DFM copyPath:sourceName toPath:targetName handler:nil])
 	{
-		[DFM setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
+		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		BOOL isDirectory;
 		if([DFM fileExistsAtPath:targetName isDirectory:&isDirectory])
 		{
-			NSString * oldProjectName = [oldProject fileName];
-			NSDictionary * filter = [self filterForProjectName:oldProjectName];
+			NSString * oldProjectURL = [oldProject fileName];
+			NSDictionary * filter = [self filterForProjectName:oldProjectURL];
 			NSString * old = nil;
 			NSString * new = nil;
 			if(isDirectory)
 			{
 				// changing the file permissions: it is relevant if the document was built in...
-				[DFM makeFileWritableAtPath:targetName recursive:YES];
+				[DFM iTM2_makeFileWritableAtPath:targetName recursive:YES];
 				// If necessary, the project will be created as expected side effect
 				NSURL * url = [NSURL fileURLWithPath:targetName];
 				id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
@@ -2057,7 +2058,7 @@ To Do List:
 					old = [targetName stringByAppendingPathComponent:old];
 					old = [old stringByStandardizingPath];
 					new = [self convertedString:old withDictionary:filter];
-					if(![old pathIsEqual:new])
+					if(![old iTM2_pathIsEqual:new])
 					{
 						if(![DFM movePath:old toPath:new handler:NULL])
 						{
@@ -2085,7 +2086,7 @@ To Do List:
 				NSURL * url = [NSURL fileURLWithPath:targetName];
 				[oldProject newFileKeyForURL:url];
 				// changing the file permissions: it is relevant if the document was built in...
-				[DFM makeFileWritableAtPath:targetName recursive:YES];
+				[DFM iTM2_makeFileWritableAtPath:targetName recursive:YES];
 				// If necessary, the project will be created as expected side effect
 				id document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
 				if([document isKindOfClass:[iTM2TextDocument class]])
@@ -2272,7 +2273,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 // just a message catcher
-	NSString * path = [NSBundle pathForSupportDirectory:iTM2NewDPathComponent inDomain:NSUserDomainMask withName:[[NSBundle mainBundle] bundleName] create:YES];
+	NSString * path = [NSBundle iTM2_pathForSupportDirectory:iTM2NewDPathComponent inDomain:NSUserDomainMask withName:[[NSBundle mainBundle] bundleName] create:YES];
 	[sender setStringValue:([path length]? path:@"")];
 //iTM2_END;
     return NO;
@@ -2287,8 +2288,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSURL * url = [NSURL fileURLWithPath:filename];
 //iTM2_END;
-    return [filename length] && ![SWS isTeXProjectPackageAtPath:filename] && ![SWS isProjectPackageAtPath:filename];
+    return [filename length] && ![SWS iTM2_isTeXProjectPackageAtURL:url] && ![SWS iTM2_isTeXProjectPackageAtURL:url];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  panel:directoryDidChange:
 - (void)panel:(id)sender directoryDidChange:(NSString *)path;
@@ -2299,7 +2301,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setPanelDirectory:path];// will make some setups too
+	[self setPanelDirectoryURL:[NSURL fileURLWithPath:path]];// will make some setups too
 	[sender iTM2_validateContent];
 //iTM2_END;
     return;
@@ -2359,15 +2361,15 @@ To Do List:
 //iTM2_START;
 	int creationMode = [self creationMode];
 	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
-	NSString * mandatoryDirectory = nil;
+	NSURL * mandatoryURL = nil;
 	if(creationMode == iTM2ToggleForbiddenProjectMode)
 	{
 		if(mandatoryProject)
 		{
-			mandatoryDirectory = [mandatoryProject fileName];
-			mandatoryDirectory = [mandatoryDirectory stringByDeletingLastPathComponent];
-			mandatoryDirectory = [mandatoryDirectory stringByStandardizingPath];
-			[sender setDirectory:mandatoryDirectory];
+			mandatoryURL = [mandatoryProject fileURL];
+			mandatoryURL = [mandatoryURL iTM2_parentDirectoryURL];
+			mandatoryURL = [mandatoryURL absoluteURL];
+			[sender setDirectory:[mandatoryURL path]];
 		}
 		return NO;
 	}
@@ -2378,16 +2380,16 @@ To Do List:
 	BOOL result = NO;
 	if(mandatoryProject)
 	{
-		mandatoryDirectory = [mandatoryProject fileName];
-		mandatoryDirectory = [mandatoryDirectory stringByDeletingLastPathComponent];
-		mandatoryDirectory = [mandatoryDirectory stringByStandardizingPath];
-		if([filename belongsToDirectory:mandatoryDirectory])
+		mandatoryURL = [mandatoryProject fileURL];
+		mandatoryURL = [mandatoryURL iTM2_parentDirectoryURL];
+		mandatoryURL = [mandatoryURL absoluteURL];
+		if([filename belongsToDirectory:[mandatoryURL path]])
 		{
 			return YES;
 		}
 		else
 		{
-			[sender setDirectory:mandatoryDirectory];
+			[sender setDirectory:[mandatoryURL path]];
 			return NO;
 		}
 	}
@@ -2400,7 +2402,7 @@ To Do List:
 			default:
 			{
 				NSString * targetName = [filename stringByDeletingPathExtension];
-				targetName = [targetName stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+				targetName = [targetName stringByAppendingPathExtension:[SDC iTM2_wrapperPathExtension]];
 				result = [self selectedTemplateCanCreateNewProject] && ![DFM fileExistsAtPath:targetName];
 				break;
 			}
@@ -2410,22 +2412,19 @@ To Do List:
 	{
 		return YES;
 	}
-	NSString * enclosing = [filename enclosingWrapperFileName];
-	if([enclosing length]>1)
+	NSURL * fileURL = [NSURL fileURLWithPath:filename];
+	NSURL * enclosing = [fileURL iTM2_enclosingWrapperURL];
+	if(enclosing)
 	{
-		mandatoryDirectory = [enclosing stringByDeletingLastPathComponent];
+		mandatoryURL = [enclosing iTM2_parentDirectoryURL];
 	}
-	else
+	else if(enclosing = [fileURL iTM2_enclosingProjectURL])
 	{
-		enclosing = [filename enclosingProjectFileName];
-		if([enclosing length]>1)
-		{
-			mandatoryDirectory = [enclosing stringByDeletingLastPathComponent];
-		}
+		mandatoryURL = [enclosing iTM2_parentDirectoryURL];
 	}
-	if(mandatoryDirectory)
+	if(mandatoryURL)
 	{
-		[sender setDirectory:mandatoryDirectory];
+		[sender setDirectory:[mandatoryURL path]];
 	}
 //iTM2_END;
     return NO;
@@ -2468,8 +2467,8 @@ To Do List:
 //iTM2_END;
     return [[self standaloneFileName] length]? [self mandatoryProject]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:(id)item inOldProjectForDirectory
-- (BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:(id)item inOldProjectForDirectoryURL
+- (BOOL)canInsertItem:(id)item inOldProjectForDirectoryURL:(NSURL *)directoryURL;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2477,17 +2476,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSString * directory = [directoryURL path];
 	if(![DFM isWritableFileAtPath:directory])
 	{
 //iTM2_END;
 		return NO;
 	}
-	if([[NSURL fileURLWithPath:directory] belongsToCachedProjectsDirectory])
+	if([directoryURL iTM2_belongsToFactory])
 	{
 		return NO;// nothing can be added in the faraway projects directory
 	}
-	NSString * enclosing = [directory enclosingProjectFileName];
-	if([enclosing length])
+	NSURL * enclosing = [directoryURL iTM2_enclosingProjectURL];
+	if(enclosing)
 	{
 		return NO;// nothing can be inserted inside a .texp project directory
 	}
@@ -2496,41 +2496,42 @@ To Do List:
 	{
 		return NO;
 	}
-	if([SWS isWrapperPackageAtPath:standalone])
+	NSURL * url = [NSURL fileURLWithPath:standalone];
+	if([SWS iTM2_isWrapperPackageAtURL:url])
 	{
 		return NO;
 	}
-	NSString * mandatory = [[self mandatoryProject] fileName];
-	if([mandatory length])
+	NSURL * mandatory = [[self mandatoryProject] fileURL];
+	if(mandatory)
 	{
-		if([SWS isProjectPackageAtPath:standalone])
+		if([SWS iTM2_isProjectPackageAtURL:mandatory])
 		{
 			return NO;
 		}
-		mandatory = [mandatory stringByDeletingLastPathComponent];
-		NSString * relative = [directory stringByAbbreviatingWithDotsRelativeToDirectory:mandatory];
+		mandatory = [mandatory iTM2_parentDirectoryURL];
+		NSString * relative = [directory stringByAbbreviatingWithDotsRelativeToDirectory:[mandatory path]];
 		if([relative hasPrefix:@".."])
 		{
 			return NO;
 		}
 		return YES;
 	}
-	if([SWS isProjectPackageAtPath:standalone])
+	if([SWS iTM2_isTeXProjectPackageAtURL:url])
 	{
-		NSString * enclosing = [directory enclosingWrapperFileName];
+		enclosing = [directoryURL iTM2_enclosingWrapperURL];
 		NSArray * enclosed = nil;
-		if([enclosing length])
+		if(enclosing)
 		{
-			enclosed = [enclosing enclosedProjectFileNames];
+			enclosed = [enclosing iTM2_enclosedProjectURLs];
 			return [enclosed count] == 0;
 		}
-		NSDictionary * available = [SPC availableProjectsForPath:directory];
+		NSDictionary * available = [SPC availableProjectsForURL:url];
 		NSEnumerator * E = [available keyEnumerator];
 		while(enclosing = [E nextObject])
 		{
-			if([SWS isWrapperPackageAtPath:enclosing])
+			if([SWS iTM2_isWrapperPackageAtURL:enclosing])
 			{
-				enclosed = [enclosing enclosedProjectFileNames];
+				enclosed = [enclosing iTM2_enclosedProjectURLs];
 				if([enclosed count] == 0)
 				{
 					return YES;
@@ -2540,7 +2541,7 @@ To Do List:
 		return NO;
 	}
 //iTM2_END;
-	return [[SPC availableProjectsForPath:directory] count]>0;
+	return [[SPC availableProjectsForURL:directoryURL] count]>0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanInsertInOldProject
 - (BOOL)selectedTemplateCanInsertInOldProject;
@@ -2552,10 +2553,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self canInsertItem:[self selectedTemplate] inOldProjectForDirectory:[self panelDirectory]];
+	return [self canInsertItem:[self selectedTemplate] inOldProjectForDirectoryURL:[self panelDirectoryURL]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canCreateNewProjectForDirectory:
-- (BOOL)item:(id)item canCreateNewProjectForDirectory:(NSString *)directory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canCreateNewProjectForDirectoryURL:
+- (BOOL)item:(id)item canCreateNewProjectForDirectoryURL:(NSURL *)directoryURL;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2563,6 +2564,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSString * directory = [directoryURL path];
 	if(![DFM isWritableFileAtPath:directory])
 	{
 //iTM2_END;
@@ -2573,22 +2575,22 @@ To Do List:
 //iTM2_END;
 		return NO;
 	}
-	if([[NSURL fileURLWithPath:directory] belongsToCachedProjectsDirectory])
+	if([directoryURL iTM2_belongsToFactory])
 	{
 //iTM2_END;
 		return NO;// nothing can be added in the faraway projects directory
 	}
-	NSString * enclosing = [directory enclosingProjectFileName];
-	if([enclosing length])
+	NSURL * enclosing = [directoryURL iTM2_enclosingProjectURL];
+	if(enclosing)
 	{
 //iTM2_END;
 		return NO;// nothing can be inserted inside a .texp project directory
 	}
 	// and if the directory is not in a wrapper
-	enclosing = [directory enclosingWrapperFileName];
-	if([enclosing length])
+	enclosing = [directoryURL iTM2_enclosingWrapperURL];
+	if(enclosing)
 	{
-		NSArray * enclosed = [enclosing enclosedProjectFileNames];
+		NSArray * enclosed = [enclosing iTM2_enclosedProjectURLs];
 		if([enclosed count])
 		{
 //iTM2_END;
@@ -2608,10 +2610,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self item:[self selectedTemplate] canCreateNewProjectForDirectory:[self panelDirectory]];
+	return [self item:[self selectedTemplate] canCreateNewProjectForDirectoryURL:[self panelDirectoryURL]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canBeStandaloneForDirectory:
-- (BOOL)item:(id)item canBeStandaloneForDirectory:(NSString *)directory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  item:canBeStandaloneForDirectoryURL:
+- (BOOL)item:(id)item canBeStandaloneForDirectoryURL:(NSURL *)directoryURL;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -2619,6 +2621,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSString * directory = [directoryURL path];
 	if(![DFM isWritableFileAtPath:directory])
 	{
 //iTM2_END;
@@ -2629,17 +2632,17 @@ To Do List:
 //iTM2_END;
 		return NO;
 	}
-	if([[NSURL fileURLWithPath:directory] belongsToCachedProjectsDirectory])
+	if([directoryURL iTM2_belongsToFactory])
 	{
 		return NO;// nothing can be added in the faraway projects directory
 	}
-	NSString * enclosing = [directory enclosingProjectFileName];
-	if([enclosing length])
+	NSURL * enclosing = [directoryURL iTM2_enclosingProjectURL];
+	if(enclosing)
 	{
 		return NO;// nothing can be inserted inside a .texp project directory
 	}
-	enclosing = [directory enclosingWrapperFileName];
-	if([enclosing length])
+	enclosing = [directoryURL iTM2_enclosingWrapperURL];
+	if(enclosing)
 	{
 		return NO;// no standalone projects inside a wrapper
 	}
@@ -2648,11 +2651,12 @@ To Do List:
 	// 2 the current panel directory is not included in a wrapper
 	// except when the wrapper no longer has a project
 	NSString * standalone = [item standaloneFileNameValue];
-	if([SWS isProjectPackageAtPath:standalone])
+	NSURL * url = [NSURL fileURLWithPath:standalone];
+	if([SWS iTM2_isProjectPackageAtURL:url])
 	{
 		return NO;
 	}
-	if([SWS isWrapperPackageAtPath:standalone])
+	if([SWS iTM2_isWrapperPackageAtURL:url])
 	{
 		return NO;
 	}
@@ -2669,7 +2673,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self item:[self selectedTemplate] canBeStandaloneForDirectory:[self panelDirectory]];
+	return [self item:[self selectedTemplate] canBeStandaloneForDirectoryURL:[self panelDirectoryURL]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  standaloneFileName
 - (NSString *)standaloneFileName;
@@ -2693,7 +2697,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(![[self panelDirectory] length])
+	if(![self panelDirectoryURL])
 	{
 		return;
 	}
@@ -2820,18 +2824,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * new = [[sender selectedItem] representedObject];
-	NSString * old = [self oldProjectName];
-	if([old isEqualToString:new])
+	NSURL * new = [[sender selectedItem] representedObject];
+	NSURL * old = [self oldProjectURL];
+	if([old iTM2_isEquivalentToURL:new])
 	{
 		return;
 	}
-	[self setOldProjectName:new];
-	if(![[NSURL fileURLWithPath:new] belongsToCachedProjectsDirectory]
-		&& [SWS isWrapperPackageAtPath:new])
+	[self setOldProjectURL:new];
+	if(![new iTM2_belongsToFactory] && [SWS iTM2_isWrapperPackageAtURL:new])
 	{
 		NSSavePanel * SP = [NSSavePanel savePanel];
-		[SP setDirectory:new];
+		[SP setDirectory:[new path]];
 		[SP update];
 	}
 	[self iTM2_validateWindowContent];
@@ -2847,7 +2850,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * oldProjectName = [self oldProjectName];
+	NSString * oldProjectURL = [self oldProjectURL];
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSDictionary * availableProjects = [self availableProjects];
@@ -2860,7 +2863,7 @@ To Do List:
 			displayName = [displayName stringByDeletingPathExtension];
 			[sender addItemWithTitle:displayName];
 			id item = [sender lastItem];
-			[item setRepresentedObject:path];
+			[item setRepresentedObject:[NSURL fileURLWithPath:path]];
 			NSImage * icon = [SWS iconForFile:path];
 			NSSize iconSize = [icon size];
 			if(iconSize.height > 0)
@@ -2877,20 +2880,20 @@ To Do List:
 		if([sender numberOfItems]>0)
 		{
 			int index = 0;
-			if(![oldProjectName length])
+			if(!oldProjectURL)
 			{
-				oldProjectName = [[sender itemAtIndex:index] representedObject];
-				[self setOldProjectName:oldProjectName];
+				oldProjectURL = [[sender itemAtIndex:index] representedObject];
+				[self setOldProjectURL:oldProjectURL];
 			}
 			else
 			{
-				index = [sender indexOfItemWithRepresentedObject:oldProjectName];
+				index = [sender indexOfItemWithRepresentedObject:oldProjectURL];
 				if(index<0)
 				{
-					// the old project oldProjectName, if any, is not listed in the available projects
+					// the old project oldProjectURL, if any, is not listed in the available projects
 					index = 0;// a better choice?
-					oldProjectName = [[sender itemAtIndex:index] representedObject];
-					[self setOldProjectName:oldProjectName];
+					oldProjectURL = [[sender itemAtIndex:index] representedObject];
+					[self setOldProjectURL:oldProjectURL];
 				}
 			}
 			[sender selectItemAtIndex:index];
@@ -2907,16 +2910,17 @@ To Do List:
 		{
 			return NO;
 		}
-		if([SWS isWrapperPackageAtPath:standalone])
+		NSURL * url = [NSURL fileURLWithPath:standalone];
+		if([SWS iTM2_isWrapperPackageAtURL:url])
 		{
 			return NO;
 		}
-		if([SWS isProjectPackageAtPath:standalone])
+		if([SWS iTM2_isTeXProjectPackageAtURL:url])
 		{
-			NSString * project = [sender representedObject];
-			if([SWS isWrapperPackageAtPath:project])
+			url = [sender representedObject];
+			if([SWS iTM2_isWrapperPackageAtURL:url])
 			{
-				NSArray * enclosed = [project enclosedProjectFileNames];
+				NSArray * enclosed = [url iTM2_enclosedProjectURLs];
 				if(![enclosed count])
 				{
 					return YES;
@@ -2998,17 +3002,17 @@ To Do List:
 	{
 		return availableProjects;
 	}
-	NSString * path = [self panelDirectory];
-	NSString * enclosing = [path enclosingWrapperFileName];
-	if([enclosing length])
+	NSURL * url = [self panelDirectoryURL];
+	NSURL * enclosing = [url iTM2_enclosingWrapperURL];
+	if(enclosing)
 	{
-		NSString * displayName = [enclosing lastPathComponent];
+		NSString * displayName = [[enclosing path] lastPathComponent];
 		displayName = [displayName stringByDeletingPathExtension];
 		availableProjects = [NSDictionary dictionaryWithObject:displayName forKey:enclosing];
 	}
 	else
 	{
-		availableProjects = [SPC availableProjectsForPath:path];
+		availableProjects = [SPC availableProjectsForURL:url];
 	}
 	[self setAvailableProjects:availableProjects];
 //iTM2_END;
@@ -3049,7 +3053,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [[self availableProjects] objectAtIndex:index];
+    return [[[self availableProjects] objectAtIndex:index] path];
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:indexOfItemWithStringValue:
@@ -3268,7 +3272,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self value] takeValue:prettyName forKey:@"prettyName"];
+	[[self value] setValue:prettyName forKey:@"prettyName"];
 	[[self parent] sortChildrenAccordingToPrettyNameValue];
 //iTM2_END;
 	return;
@@ -3294,7 +3298,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self value] takeValue:name forKey:@"name"];
+	[[self value] setValue:name forKey:@"name"];
 //iTM2_END;
 	return;
 }
@@ -3319,7 +3323,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self value] takeValue:path forKey:@"path"];
+	[[self value] setValue:path forKey:@"path"];
 //iTM2_END;
 	return;
 }
@@ -3362,7 +3366,7 @@ To Do List:
 					NSLog(@"There is no file at: %@", path);
 				}
 			}
-			if([SWS isProjectPackageAtPath:sourceName])
+			if([SWS iTM2_isTeXProjectPackageAtURL:[NSURL fileURLWithPath:sourceName]])
 			{
 				[self setStandaloneFileNameValue:@""];
 				return sourceName;
@@ -3387,7 +3391,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self value] takeValue:path forKey:@"standaloneFileName"];
+	[[self value] setValue:path forKey:@"standaloneFileName"];
 //iTM2_END;
 	return;
 }
@@ -3412,7 +3416,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self value] takeValue:value forKey:@"containsAProject"];
+	[[self value] setValue:value forKey:@"containsAProject"];
 //iTM2_END;
 	return;
 }

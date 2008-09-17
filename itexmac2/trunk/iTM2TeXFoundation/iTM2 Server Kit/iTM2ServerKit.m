@@ -261,7 +261,7 @@ To Do List: see the warning below
 		if([temporaryDirectory isKindOfClass:[NSString class]])
 		{
 //iTM2_END;
-			return [temporaryDirectory pathIsEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
+			return [temporaryDirectory iTM2_pathIsEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
 		}
 //iTM2_END;
 		return !temporaryDirectory;
@@ -389,7 +389,7 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * projectName  = [self getProjectNameFromContext:context];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0
@@ -417,7 +417,7 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * projectName  = [self getProjectNameFromContext:context];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
 	NSMutableArray * RA = [NSMutableArray array];
 	NSString * argument = [self getFileNameFromContext:context];
 	if([argument length])
@@ -461,7 +461,7 @@ To Do List: see the warning below
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * projectName  = [self getProjectNameFromContext:context];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = [arguments objectEnumerator];
     NSString * argument = [E nextObject];// ignore $0

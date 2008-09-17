@@ -45,14 +45,17 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 + (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
 
 /*!
-    @method     getWordBefore:here:after:atIndex:
+    @method     iTM2_getWordBefore:here:after:atIndex:mode:
     @abstract   (brief description)
     @discussion All the string returned are autoreleased strings owned by no one.
-    @param		string is the target
+    @param		beforePtr will hold on return the word before
+    @param		herePtr will hold on return the word at the hit index
+    @param		afterPtr will hold on return the word after
     @param		index is the character index where the click occurred
+    @param		isSyncTeX is yes or no, depending on SyncTeX use
 	@result		The character index in the word here of the very character indexed by index in the receiver.
 */
-- (unsigned int)getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)index;
+- (unsigned int)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)index mode:(BOOL)isSyncTeX;
 
 @end
 

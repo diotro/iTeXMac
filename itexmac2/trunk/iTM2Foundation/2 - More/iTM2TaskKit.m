@@ -740,7 +740,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= start
 - (void)start;
-/*"Launching the firts available task in the task stack. Connets the I/O, registers the receiver to the default notification center.
+/*"Launching the first available task in the task stack. Connets the I/O, registers the receiver to the default notification center.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
 To Do List:
@@ -785,14 +785,10 @@ To Do List:
 	{
         [_CurrentTask terminate];
 	}
-    NSFileHandle * FH;
-    if(FH = [[_CurrentTask standardOutput] fileHandleForReading])
-        [DNC removeObserver:self name:NSFileHandleDataAvailableNotification object:FH];
-    if(FH = [[_CurrentTask standardError] fileHandleForReading])
-        [DNC removeObserver:self name:NSFileHandleDataAvailableNotification object:FH];
-    _CustomReadFileHandle = nil;// not retained, only garbage collected
-    if(_CurrentTask)
-        [DNC removeObserver:self name:NSTaskDidTerminateNotification object:_CurrentTask];
+	// stop observing
+    [DNC removeObserver:self name:NSFileHandleDataAvailableNotification object:nil];
+    [DNC removeObserver:self name:NSTaskDidTerminateNotification object:nil];
+    _CustomReadFileHandle = nil;// not retained, only garbage collected, in some sense
     [_CurrentTask release];
     _CurrentTask = nil;
     [_CurrentWrapper release];
@@ -820,8 +816,10 @@ To Do List:
 	{
         [_CurrentTask setStandardOutput:[NSPipe pipe]];
 		[_CurrentTask setStandardError:[NSPipe pipe]];
+		NSFileHandle * FH;
 		if(FH = [[_CurrentTask standardOutput] fileHandleForReading])
 		{
+//iTM2_LOG(@"OBSERVING OUTPUT:%@",FH);
 			[DNC addObserver:self
 				selector: @selector(_outputDataAvailableNotified:)
 					name: NSFileHandleDataAvailableNotification
@@ -830,6 +828,7 @@ To Do List:
 		}
 		if(FH = [[_CurrentTask standardError] fileHandleForReading])
 		{
+//iTM2_LOG(@"OBSERVING ERROR:%@",FH);
 			[DNC addObserver:self
 				selector: @selector(_errorDataAvailableNotified:)
 					name: NSFileHandleDataAvailableNotification
@@ -1032,7 +1031,7 @@ To Do List:
     while([_Wrappers count])
         [self removeTaskWrapper:[_Wrappers lastObject]];
     [self clean];
-    _CustomReadFileHandle = nil;// not retained, only garbage collected
+    _CustomReadFileHandle = nil;// not retained, only garbage collected, in some private sense
 //#warning THE FIFO SHOULD BE CHANGED HERE
     return;
 }
@@ -1093,7 +1092,19 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![[self currentTask] isRunning])
+	{
+		return;
+	}
     NSFileHandle * FH = [aNotification object];
+//iTM2_LOG(@"OBSERVED OUTPUT:%@",FH);
+//iTM2_LOG(@"OBSERVED OUTPUT:%@",[[self currentTask] standardOutput]);
+//iTM2_LOG(@"OBSERVED OUTPUT:%@",[[[self currentTask] standardOutput] fileHandleForReading]);
+	// this can cause a spin lock too
+	if(![FH isEqual:[[[self currentTask] standardOutput] fileHandleForReading]])
+	{
+		return;
+	}
     NSData * D = [FH availableData];
 	if([D length])
 	{
@@ -1308,7 +1319,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(![[self currentTask] isRunning])
+	{
+		return;
+	}
     NSFileHandle * FH = [aNotification object];
+	/* Be carefull in next line, the next line hangs */
+//iTM2_LOG(@"OBSERVED ERROR:%@",FH);
+//iTM2_LOG(@"OBSERVED ERROR:%@",[[self currentTask] standardError]);
+//iTM2_LOG(@"OBSERVED ERROR:%@",[[[self currentTask] standardError] fileHandleForReading]);
+	if(![FH isEqual:[[[self currentTask] standardError] fileHandleForReading]])
+	{
+//iTM2_LOG(@"SAVED ERROR!");
+NSBeep();
+NSBeep();
+NSBeep();
+NSBeep();
+		return;
+	}
     NSData * D = [FH availableData];
 	if([D length])
 	{
@@ -1387,7 +1415,7 @@ To Do List:
 		id IO = [_CurrentTask standardOutput];
 		if([IO respondsToSelector:@selector(fileHandleForReading)])
 		{
-			FH = [IO fileHandleForReading];
+			FH = [IO fileHandleForReading];// there is a problem here if the process was killed externally, no pipe and infinite loop
 			D = [FH readDataToEndOfFile];
 			string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
 			if([D length] && ![string length])
@@ -1833,7 +1861,7 @@ To Do List:
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
             __iTM2_PRETTY_FUNCTION__, argument];
-    else if(![argument pathIsEqual:iVarLaunchPath])
+    else if(![argument iTM2_pathIsEqual:iVarLaunchPath])
         [IMPLEMENTATION takeMetaValue:[[argument copy] autorelease] forKey:iTM2TaskLaunchPathKey];
     return;
 }
@@ -2084,7 +2112,7 @@ To Do List:
     if(argument && ![argument isKindOfClass:[NSString class]])
         [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
             __iTM2_PRETTY_FUNCTION__, argument];
-    else if(![argument pathIsEqual:iVarCurrentDirectoryPath])
+    else if(![argument iTM2_pathIsEqual:iVarCurrentDirectoryPath])
         [IMPLEMENTATION takeMetaValue:[[argument copy] autorelease] forKey:iTM2TaskCurrentDirectoryPathKey];
     return;
 }
@@ -2221,7 +2249,7 @@ To Do List:
 	[TC setDeaf:YES];// no input pipe
     [TC start];
 	[TC waitUntilExit];
-iTM2_LOG(@"[TC output]:%@",[TC output]);
+//iTM2_LOG(@"[TC output]:%@",[TC output]);
 	iTM2_OUTERROR(1,([TC errorStatus]),nil);
     if(outputPtr)
         *outputPtr = [TC output];

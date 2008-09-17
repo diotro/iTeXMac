@@ -59,16 +59,16 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(projectPathExtension) replacement:@selector(SWZ_TeXP_projectPathExtension) forClass:[iTM2DocumentController class]];
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(wrapperPathExtension) replacement:@selector(SWZ_TeXP_wrapperPathExtension) forClass:[iTM2DocumentController class]];
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(projectDocumentType) replacement:@selector(SWZ_TeXP_projectDocumentType) forClass:[iTM2DocumentController class]];
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(wrapperDocumentType) replacement:@selector(SWZ_TeXP_wrapperDocumentType) forClass:[iTM2DocumentController class]];
+	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_projectPathExtension)];
+	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_wrapperPathExtension)];
+	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_projectDocumentType)];
+	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_wrapperDocumentType)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_projectPathExtension
-- (NSString *)SWZ_TeXP_projectPathExtension;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXP_iTM2_projectPathExtension
+- (NSString *)SWZ_iTM2TeXP_iTM2_projectPathExtension;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -79,8 +79,8 @@ To Do List:
 //iTM2_END;
 	return iTM2TeXProjectPathExtension;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_wrapperPathExtension
-- (NSString *)SWZ_TeXP_wrapperPathExtension;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXP_iTM2_wrapperPathExtension
+- (NSString *)SWZ_iTM2TeXP_iTM2_wrapperPathExtension;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -91,8 +91,8 @@ To Do List:
 //iTM2_END;
 	return iTM2TeXWrapperPathExtension;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_projectDocumentType
-- (NSString *)SWZ_TeXP_projectDocumentType;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXP_iTM2_projectDocumentType
+- (NSString *)SWZ_iTM2TeXP_iTM2_projectDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -103,8 +103,8 @@ To Do List:
 //iTM2_END;
     return iTM2TeXProjectDocumentType;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXP_wrapperDocumentType
-- (NSString *)SWZ_TeXP_wrapperDocumentType;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXP_iTM2_wrapperDocumentType
+- (NSString *)SWZ_iTM2TeXP_iTM2_wrapperDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -534,7 +534,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSURL * projectURL = [[self document] fileURL];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
     [sender setStringValue:(sourceURL?[sourceURL path]:([[self document] displayName]?:@""))];
     return YES;
 }
@@ -666,19 +666,22 @@ To Do List:
     {
 		NSString * key = [orderedFileKeys objectAtIndex:row];
 		iTM2ProjectDocument * PD = [self document];
-        NSString * oldRelative = [PD nameForFileKey:key];
-        if(![oldRelative length])
+        NSURL * oldURL = [PD URLForFileKey:key];
+        if(!oldURL)
+		{
+			return;
+		}
+		if(![DFM fileExistsAtPath:[oldURL path]])
+		{
+			// nothing to copy
+			return;
+		}
+		NSDocument * subDocument = [PD subdocumentForURL:oldURL];
+		if([subDocument isDocumentEdited])
 		{
 			return;
 		}
 		NSString * newRelative = [sender stringValue];
-		if([newRelative pathIsEqual:oldRelative])
-		{
-			return;
-		}
-		NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[PD fileURL]];
-		NSURL * newURL = [NSURL URLWithString:[newRelative stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:sourceURL];
-		newRelative = [newURL pathRelativeToURL:sourceURL];
 		NSBundle * B = [iTM2ProjectDocument classBundle];
 		if([newRelative hasPrefix:@".."])
 		{
@@ -692,18 +695,8 @@ To Do List:
 				newRelative);
 			return;
 		}
-		NSURL * oldURL = [PD URLForFileKey:key];
-		if(![DFM fileExistsAtPath:[[oldURL path] stringByStandardizingPath]])
-		{
-			// nothing to copy
-			return;
-		}
-		NSDocument * subDocument = [PD subdocumentForURL:oldURL];
-		if([subDocument isDocumentEdited])
-		{
-			return;
-		}
-		if([[oldURL path] pathIsEqual:[newURL path]])
+		NSURL * newURL = [NSURL iTM2_URLWithPath:newRelative relativeToURL:[PD contentsURL]];
+		if([newURL iTM2_isEquivalentToURL:oldURL])
 		{
 			return;
 		}
@@ -734,7 +727,7 @@ To Do List:
 			return;
 		}
 		NSError * localError = nil;
-		if([DFM createDeepDirectoryAtPath:[[newURL path] stringByDeletingLastPathComponent] attributes:nil error:&localError])
+		if([DFM iTM2_createDeepDirectoryAtPath:[[newURL iTM2_parentDirectoryURL] path] attributes:nil error:&localError])
 		{
 			if(![DFM movePath:[oldURL path] toPath:[newURL path] handler:nil])
 			{
@@ -748,7 +741,7 @@ To Do List:
 				return;
 			}
 			[subDocument setFileURL:newURL];// before the project is aware of a file change
-			[PD setName:newRelative forFileKey:key];// after the document name has changed
+			[PD setURL:newURL forFileKey:key];// after the document name has changed
 			if(iTM2DebugEnabled)
 			{
 				iTM2_LOG(@"Name successfully changed from %@ to %@", [oldURL path], [newURL path]);
@@ -1086,7 +1079,7 @@ To Do List:
 				}
 				else
 				{
-					[project takePropertyValue:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+					[project setPropertyValue:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 				}
 			}
 			changed = YES;
@@ -1138,7 +1131,7 @@ To Do List:
 			}
 			else
 			{
-				[project takePropertyValue:nil forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+				[project setPropertyValue:nil forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 				[project takeContextValue:nil forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 			}
 			changed = YES;
@@ -1627,7 +1620,7 @@ To Do List:
 			}
 			else
 			{
-				[project takePropertyValue:new forKey:TWSEOLFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
+				[project setPropertyValue:new forKey:TWSEOLFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 			}
 			changed = YES;
 		}
@@ -1868,7 +1861,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * baseProjectsRepository = [NSBundle temporaryBaseProjectsDirectory];
+	NSString * baseProjectsRepository = [NSBundle iTM2_temporaryBaseProjectsDirectory];
 	NSEnumerator * E = [[DFM directoryContentsAtPath:baseProjectsRepository] objectEnumerator];
 	NSString * path = nil;
 	NSMutableSet * MS = [NSMutableSet set];
@@ -1876,11 +1869,11 @@ To Do List:
 	{
 		path = [baseProjectsRepository stringByAppendingPathComponent:path];
 		NSEnumerator * e = [[DFM directoryContentsAtPath:path] objectEnumerator];
-		NSString * requiredExtension = [SDC projectPathExtension];
+		NSString * requiredExtension = [SDC iTM2_projectPathExtension];
 		NSString * component = nil;
 		while(component = [e nextObject])
 		{
-			if(![component hasPrefix:@"."] && [[component pathExtension] pathIsEqual:requiredExtension])
+			if(![component hasPrefix:@"."] && [[component pathExtension] iTM2_pathIsEqual:requiredExtension])
 			{
 				NSString * core = [component stringByDeletingPathExtension];
 				if(![core hasSuffix:@"~"])// this is not a backup
@@ -1890,7 +1883,7 @@ To Do List:
 			}
 		}
 	}
-	[IMPLEMENTATION takeMetaValue:nil forKey:@"cached project name -> base name mapping"];
+	[IMPLEMENTATION takeMetaValue:nil forKey:@"writable project name -> base name mapping"];
 	if(![MS count])
 	{
 		iTM2_LOG(@"ERROR: no base projects are available, please reinstall");
@@ -2061,8 +2054,8 @@ To Do List:
 
 
 @implementation NSWorkspace(iTM2TeXProjectDocumentKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isTeXProjectPackageAtPath:
-- (BOOL)isTeXProjectPackageAtPath:(NSString *) fullPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isTeXProjectPackageAtURL:
+- (BOOL)iTM2_isTeXProjectPackageAtURL:(NSURL *) url;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2071,10 +2064,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [fullPath length] && [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] pathIsEqual:iTM2TeXProjectPathExtension];
+    return [[SDC typeForContentsOfURL:url error:nil] isEqual:iTM2TeXProjectDocumentType];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isTeXWrapperPackageAtPath:
-- (BOOL)isTeXWrapperPackageAtPath:(NSString *) fullPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isTeXWrapperPackageAtURL:
+- (BOOL)iTM2_isTeXWrapperPackageAtURL:(NSURL *) url;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2083,7 +2076,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [self isFilePackageAtPath:fullPath] && [[fullPath pathExtension] pathIsEqual:iTM2TeXWrapperPathExtension];
+    return [[SDC typeForContentsOfURL:url error:nil] isEqual:iTM2TeXWrapperDocumentType];
 }
 @end
 

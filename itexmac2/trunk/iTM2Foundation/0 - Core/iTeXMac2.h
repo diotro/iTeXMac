@@ -54,22 +54,12 @@ enum{
 	#define iTM2_STOP_TRACKING
 #endif
 
-
-#if 1
 #define iTM2_START NSLog(@"%s %#x START(%@)", __PRETTY_FUNCTION__, self, [[NSDate date] description])
 #define iTM2_END   NSLog(@"%s %#x END", __PRETTY_FUNCTION__, self)
 #define iTM2_LOG\
 	NSLog(@"file:%s line:%i", __FILE__, __LINE__);\
 	NSLog(@"%s %#x", __PRETTY_FUNCTION__, self);\
 	NSLog
-#else
-#define iTM2_START NSLog(@"%s %@ START(%@)", __PRETTY_FUNCTION__, self, [[NSDate date] description])
-#define iTM2_END   NSLog(@"%s %@ END", __PRETTY_FUNCTION__, self)
-#define iTM2_LOG\
-	NSLog(@"file:%s line:%i", __FILE__, __LINE__);\
-	NSLog(@"%s %#x", __PRETTY_FUNCTION__, self);\
-	NSLog
-#endif
 
 #define iTM2_STRONG_GETSET(source, className, getter, setter)\
 - (void)getter;\

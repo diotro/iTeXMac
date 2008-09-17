@@ -598,7 +598,7 @@ To Do List:
 	if(![path hasPrefix:iTM2PathComponentsSeparator])
 	{
 		iTM2TeXProjectDocument * TPD = (id)[self document];
-		NSURL * sourceURL = [SPC URLForFileKey:TWSSourceKey filter:iTM2PCFilterRegular inProjectWithURL:[TPD fileURL]];
+		NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[TPD fileURL]];
 		NSString * clickedPath = [[NSURL URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:sourceURL] path];
 		if(![DFM fileExistsAtPath:clickedPath])
 		{
@@ -611,13 +611,13 @@ To Do List:
 				if(![DFM fileExistsAtPath:clickedPath])
 				{
 					// list all the subdocuments of the project and open the one with the same last path component
-					NSArray * allKeys = [TPD allFileKeys];
+					NSArray * allKeys = [TPD fileKeys];
 					NSEnumerator * E = [allKeys objectEnumerator];
 					NSString * key = nil;
 					while(key = [E nextObject])
 					{
 						clickedPath = [[TPD URLForFileKey:key] path];
-						if([[clickedPath lastPathComponent] pathIsEqual:path])
+						if([[clickedPath lastPathComponent] iTM2_pathIsEqual:path])
 						{
 							goto resolved;
 						}
@@ -974,7 +974,7 @@ To Do List:
     NSTextView * TV = [self outputView];
 	NSRange visibleRange = [TV visibleRange];
     NSTextStorage * TS = [TV textStorage];
-iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
+//iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
     [TS beginEditing];
     unsigned int begin = 0;
     [[TS mutableString] getLineStart: &begin end:nil contentsEnd:nil forRange:NSMakeRange([TS length], 0)];
@@ -1004,11 +1004,11 @@ iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
 	{
 		[TV scrollRangeToVisible:NSMakeRange([TS length], 0)];
 		visibleRange = [TV visibleRange];
-iTM2_LOG(@"DID SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
+//iTM2_LOG(@"DID SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
 	}
 	else
 	{
-iTM2_LOG(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
+//iTM2_LOG(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,[TS length]);
 	}
 	[TV setEditable:NO];
     [self iTM2_validateWindowContent];
@@ -1402,13 +1402,13 @@ To Do List:
     iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(contextManager) replacement:@selector(SWZ_TeXProject_contextManager) forClass:[iTM2TaskController class]];
+	[iTM2TaskController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXProject_contextManager)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_TeXProject_contextManager
-- (id)SWZ_TeXProject_contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXProject_contextManager
+- (id)SWZ_iTM2TeXProject_contextManager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1419,7 +1419,7 @@ To Do List:
     id inspector, TPD;
     return (inspector = [[self inspectorsEnumerator] nextObject])
                 && (TPD = [SPC TeXProjectForSource:inspector])?
-                    [TPD contextManager]:[self SWZ_TeXProject_contextManager];
+                    [TPD contextManager]:[self SWZ_iTM2TeXProject_contextManager];
 }
 @end
 

@@ -22,6 +22,7 @@
 #import <Carbon/Carbon.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2RuntimeBrowser.h>
 
 NSString * const iTM2PathComponentsSeparator = @"/";
 NSString * const iTM2PathDotComponent = @".";
@@ -195,7 +196,7 @@ To Do List:
         result = [result stringByStandardizingPath];
         result = [result stringByResolvingFinderAliasesInPath];
     }
-    while((--firewall>0) && ![result pathIsEqual:temp]);
+    while((--firewall>0) && ![result iTM2_pathIsEqual:temp]);
 	[lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache setObject:result forKey:self];
     return result;
 }
@@ -217,7 +218,7 @@ To Do List:
         int commonIdx = 0, index = 0;
         int bound = MIN([components count], [pathComponents count]);
         while((commonIdx < bound) &&
-            [[components objectAtIndex:commonIdx] pathIsEqual:[pathComponents objectAtIndex:commonIdx]])
+            [[components objectAtIndex:commonIdx] iTM2_pathIsEqual:[pathComponents objectAtIndex:commonIdx]])
                 ++commonIdx;
         index = commonIdx;
         self = [NSString string];
@@ -227,7 +228,7 @@ To Do List:
         while(index < [components count])
             self = [self stringByAppendingPathComponent:[components objectAtIndex:index++]];
     }
-    return self;
+    return [self length]?self:@".";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shortestStringByAbbreviatingWithTildeInPath
 - (NSString *)shortestStringByAbbreviatingWithTildeInPath;
@@ -348,10 +349,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self pathIsEqual:otherFileName];
+	return [self iTM2_pathIsEqual:otherFileName];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathIsEqual:
-- (BOOL)pathIsEqual:(NSString *)otherPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_pathIsEqual:
+- (BOOL)iTM2_pathIsEqual:(NSString *)otherPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -389,7 +390,7 @@ To Do List:
 	{
 		do
 		{
-			if(![component pathIsEqual:[myE nextObject]])
+			if(![component iTM2_pathIsEqual:[myE nextObject]])
 			{
 				return NO;
 			}
@@ -421,9 +422,142 @@ To Do List:
 }
 @end
 
+/*!
+    @class		iTM2URLSingleton
+    @abstract	For URL singletons.
+    @discussion	To return unique instances.
+    @param		None.
+    @result		An URL.
+*/
+@interface iTM2URLSingleton:NSURL
+@end
+
+static NSMutableDictionary * iTM2URLSingletons = nil;
+@implementation iTM2URLSingleton
++ (void)initialize;
+{
+	[super initialize];
+	if(!iTM2URLSingletons){
+		iTM2URLSingletons = [[NSMutableDictionary dictionary] retain];
+	}
+	return;
+}
+- (id)copyWithZone:(NSZone *)zone;
+{
+	return [self retain];
+}
+- initWithScheme:(NSString *)scheme host:(NSString *)host path:(NSString *)path;
+{
+	NSParameterAssert([path length]);
+	if(self = [super initWithScheme:scheme host:host path:path])
+	{
+		NSString * key = [self absoluteString];
+		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
+		if(singleton)
+		{
+			[self autorelease];// maybe self == singleton
+			return [singleton retain];
+		}
+		[iTM2URLSingletons setObject:self forKey:key];
+	}
+	return self;
+}
+- initWithString:(NSString *)URLString;
+{
+	NSParameterAssert([URLString length]);
+	if(self = [super initWithString:URLString])
+	{
+		NSString * key = [self absoluteString];
+		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
+		if(singleton)
+		{
+			[self autorelease];// maybe self == singleton
+			return [singleton retain];
+		}
+		[iTM2URLSingletons setObject:self forKey:key];
+	}
+	return self;
+}
+- initWithString:(NSString *)URLString relativeToURL:(NSURL *)baseURL;
+{
+	NSParameterAssert([URLString length]);
+	if(self = [super initWithString:URLString relativeToURL:baseURL])
+	{
+		NSString * key = [self absoluteString];
+		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
+		if(singleton)
+		{
+			[self autorelease];// maybe self == singleton
+			return [singleton retain];
+		}
+		[iTM2URLSingletons setObject:self forKey:key];
+	}
+	return self;
+}
+- initFileURLWithPath:(NSString *)path;
+{
+	NSParameterAssert([path length]);
+	if(self = [super initFileURLWithPath:path])
+	{
+		NSString * key = [self absoluteString];
+		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
+		if(singleton)
+		{
+			[self autorelease];// maybe self == singleton
+			return [singleton retain];
+		}
+		[iTM2URLSingletons setObject:self forKey:key];
+	}
+	return self;
+}
+@end
+
+#import <iTM2Foundation/iTM2BundleKit.h>
+
+NSString * const iTM2PathFactoryComponent = @"Factory.localized";
+
 @implementation NSURL(iTM2PathUtilities)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileURL:
-- (BOOL)isEqualToFileURL:(NSURL *)otherURL;
++ (id)iTM2_URLWithPath:(NSString *)path relativeToURL:(NSURL *)baseURL;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [path length]?
+		[self URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:baseURL]:
+		baseURL;
+}
+- (BOOL)iTM2_isEquivalentToURL:(NSURL *)otherURL;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSURL * lhURL = [self absoluteURL];
+	NSURL * rhURL = [otherURL absoluteURL];
+//iTM2_END;
+	return [lhURL isEqual:rhURL];
+}
+- (NSURL *)iTM2_parentDirectoryURL;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSURL * result = [[NSURL URLWithString:@".." relativeToURL:self] standardizedURL];
+//iTM2_END;
+	return [[result resourceSpecifier] hasSuffix:@".."]?nil:result;
+}
+- (NSURL *)iTM2_URLByDeletingPathExtension;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSURL * baseURL = [self baseURL];
+	NSString * relativePath = nil;
+	if(baseURL)
+	{
+		relativePath = [self relativePath];
+		relativePath = [relativePath stringByDeletingPathExtension];
+		return [NSURL iTM2_URLWithPath:relativePath relativeToURL:baseURL];
+	}
+	relativePath = [self relativePath];
+	relativePath = [relativePath stringByDeletingPathExtension];
+	return [NSURL iTM2_URLWithPath:relativePath relativeToURL:self];
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isEqualToFileURL:
+- (BOOL)iTM2_isEqualToFileURL:(NSURL *)otherURL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -436,12 +570,12 @@ To Do List:
 	{
 		NSString * myPath = [[self path] stringByStandardizingPath];
 		NSString * otherPath = [[otherURL path] stringByStandardizingPath];
-		return [myPath pathIsEqual:otherPath];
+		return [myPath iTM2_pathIsEqual:otherPath];
 	}
 	return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isRelativeToURL:
-- (BOOL)isRelativeToURL:(NSURL *)otherURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isRelativeToURL:
+- (BOOL)iTM2_isRelativeToURL:(NSURL *)otherURL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -450,16 +584,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	if([self isFileURL] && [otherURL isFileURL])
-	{
-		NSString * myPath = [[self path] stringByStandardizingPath];
-		NSString * otherPath = [[otherURL path] stringByStandardizingPath];
-		return [myPath belongsToDirectory:otherPath];
-	}
-	return NO;
+	NSString * myPath = [[self path] stringByStandardizingPath];
+	NSString * otherPath = [[otherURL path] stringByStandardizingPath];
+	return [myPath belongsToDirectory:otherPath];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pathRelativeToURL:
-- (NSString *)pathRelativeToURL:(NSURL *)otherURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_pathRelativeToURL:
+- (NSString *)iTM2_pathRelativeToURL:(NSURL *)otherURL;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -468,15 +598,284 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	if([self isFileURL] && [otherURL isFileURL])
+	NSParameterAssert(otherURL);
+	NSString * myPath = [self path];
+	myPath = [myPath stringByStandardizingPath];
+	NSString * otherPath = [otherURL path];
+	otherPath = [otherPath stringByStandardizingPath];
+	NSString * result = [myPath stringByAbbreviatingWithDotsRelativeToDirectory:otherPath];
+	if(![self iTM2_isEquivalentToURL:[NSURL iTM2_URLWithPath:result relativeToURL:otherURL]])
 	{
-		NSString * myPath = [[self path] stringByStandardizingPath];
-		NSString * otherPath = [[otherURL path] stringByStandardizingPath];
-		NSString * result = [myPath stringByAbbreviatingWithDotsRelativeToDirectory:otherPath];
-		NSAssert([[self absoluteURL] isEqual:[[NSURL URLWithString:[result stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:otherURL] absoluteURL]],@"**** HUGE ERROR: the operation is not revertible!");
-		return result;
+		iTM2_LOG(@"HERE");
 	}
-	return nil;
+	NSAssert([self iTM2_isEquivalentToURL:[NSURL iTM2_URLWithPath:result relativeToURL:otherURL]],@"**** HUGE ERROR: the operation is not revertible!");
+	return result;
+}
++ (void)load;
+{
+	iTM2_INIT_POOL;
+	NSAssert([self iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocumentKit_initWithCoder:)],@"Program inconsistancy");
+	//[NSURL iTM2_factoryURL];// cache the result, just in case initWithCoder: would need it
+	iTM2_RELEASE_POOL;
+	return;
+}
+- (id)SWZ_iTM2ProjectDocumentKit_initWithCoder:(NSCoder *)aDecoder;
+{
+	NSURL * url = [self SWZ_iTM2ProjectDocumentKit_initWithCoder:aDecoder];
+	// if a singleton URL has already been created with that same absolute URL, then use it.
+	NSURL * singleton = [iTM2URLSingletons objectForKey:[url absoluteString]];
+	return singleton?[singleton retain]:url;
+}
++ (NSURL *)iTM2_rootURL;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * K = NSStringFromSelector(_cmd);
+	iTM2URLSingleton * url = [iTM2URLSingletons objectForKey:K];
+	if(!url)
+	{
+		NSString * path = @"/";
+		url = [iTM2URLSingleton fileURLWithPath:path];
+		[iTM2URLSingletons setObject:url forKey:K];
+	}
+	return url;
+}
++ (NSURL *)iTM2_volumesURL;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * K = NSStringFromSelector(_cmd);
+	iTM2URLSingleton * url = [iTM2URLSingletons objectForKey:K];
+	if(!url)
+	{
+		NSString * volumes = @"Volumes";
+		url = [NSURL iTM2_URLWithPath:volumes relativeToURL:[self iTM2_rootURL]];
+		[iTM2URLSingletons setObject:url forKey:K];
+	}
+	return url;
+}
++ (NSArray *)iTM2_volumeURLs;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSMutableArray * urls = [NSMutableArray array];
+	NSURL * volumesURL = [self iTM2_volumesURL];
+	NSEnumerator * E = [[DFM directoryContentsAtPath:[volumesURL path]] objectEnumerator];
+	NSString * component;
+	while(component = [E nextObject])
+	{
+		[urls addObject:[NSURL iTM2_URLWithPath:component relativeToURL:volumesURL]];
+	}
+	return urls;
+}
++ (NSURL *)iTM2_userURL;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * K = NSStringFromSelector(_cmd);
+	iTM2URLSingleton * url = [iTM2URLSingletons objectForKey:K];
+	if(!url)
+	{
+		url = [iTM2URLSingleton fileURLWithPath:NSHomeDirectory()];
+		NSEnumerator * E = [[NSURL iTM2_volumeURLs] objectEnumerator];
+		NSURL * baseURL = nil;
+		NSString * relative = nil;
+		while(baseURL = [E nextObject])
+		{
+			if([url iTM2_isRelativeToURL:baseURL])
+			{
+				relative = [url iTM2_pathRelativeToURL:baseURL];
+				url = [NSURL iTM2_URLWithPath:relative relativeToURL:baseURL];
+				goto url_is_normalized;
+			}
+		}
+		baseURL = [self iTM2_rootURL];
+		if([url iTM2_isRelativeToURL:baseURL])
+		{
+			relative = [url iTM2_pathRelativeToURL:baseURL];
+			url = [NSURL iTM2_URLWithPath:relative relativeToURL:baseURL];
+		}
+url_is_normalized:
+		[iTM2URLSingletons setObject:url forKey:K];
+	}
+	return url;
+}
++ (NSURL *)iTM2_factoryURL;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * K = NSStringFromSelector(_cmd);
+	iTM2URLSingleton * url = [iTM2URLSingletons objectForKey:K];
+	if([url isEqual:[NSNull null]])
+	{
+		return nil;
+	}
+	if(!url)
+	{
+		[iTM2URLSingletons setObject:[NSNull null] forKey:K];
+		NSString * path = [[NSBundle mainBundle] iTM2_pathForSupportDirectory:iTM2PathFactoryComponent inDomain:NSUserDomainMask create:YES];
+		NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithDictionary:[DFM fileAttributesAtPath:path traverseLink:NO]];
+		[attributes setObject:[NSNumber numberWithBool:YES] forKey:NSFileExtensionHidden];
+		[DFM changeFileAttributes:attributes atPath:path];
+		url = [iTM2URLSingleton fileURLWithPath:path];// this should be a writable directory
+		[iTM2URLSingletons setObject:[url iTM2_normalizedURL] forKey:K];
+	}
+	return url;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_normalizedURL
+- (NSURL *)iTM2_normalizedURL;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.1: Sun May  4 14:43:54 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSURL * url = [self baseURL];
+	NSString * relative = nil;
+	if(url)
+	{
+		url = [url iTM2_normalizedURL];
+		relative = [self relativePath];
+normalize_and_return:
+		url = [relative length]?[NSURL iTM2_URLWithPath:relative relativeToURL:url]:url;
+		return [self isEqual:url]?self:url;
+	}
+	url = [NSURL iTM2_factoryURL];
+	if([self iTM2_isRelativeToURL:url])
+	{
+set_relative:
+		relative = [self iTM2_pathRelativeToURL:url];
+//iTM2_END;
+		goto normalize_and_return;
+	}
+	url = [NSURL iTM2_userURL];
+	if([self iTM2_isRelativeToURL:url])
+	{
+		goto set_relative;
+	}
+	// separate the /Volume/name
+	NSEnumerator * E = [[NSURL iTM2_volumeURLs] objectEnumerator];
+	while(url = [E nextObject])
+	{
+		if([self iTM2_isRelativeToURL:url])
+		{
+			goto set_relative;
+		}
+	}
+	url = [NSURL iTM2_rootURL];
+	if([self iTM2_isRelativeToURL:url])
+	{
+		goto set_relative;
+	}
+//iTM2_END;
+	return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_URLByRemovingFactoryBaseURL
+- (NSURL *)iTM2_URLByRemovingFactoryBaseURL;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+NOT YET VERIFIED
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// this message makes sense for file URLs only
+	if(![self isFileURL])
+	{
+		return self;
+	}
+	if([self isEqual:[NSURL iTM2_factoryURL]])
+	{
+		return [NSURL iTM2_rootURL];
+	}
+	NSURL * baseURL = [self baseURL];
+	if(baseURL)
+	{
+		NSURL * newBaseURL = [baseURL iTM2_URLByRemovingFactoryBaseURL];
+		if([baseURL isEqual:newBaseURL])
+		{
+	//iTM2_END;
+			return self;
+		}
+		return [NSURL URLWithString:[self relativeString] relativeToURL:newBaseURL];
+	}
+	else if([self iTM2_isRelativeToURL:[NSURL iTM2_factoryURL]])
+	{
+		// OK, there is no base URL, but it does not mean that the receiver does not belong
+		// to the Writable Projects directory.
+		// This can be the case if 3rd parties have created this URL without conforming to
+		// the rules (namely cocoa)
+		NSString * relative2 = [self iTM2_pathRelativeToURL:[NSURL iTM2_factoryURL]];
+		return [[NSURL iTM2_URLWithPath:relative2 relativeToURL:[NSURL iTM2_rootURL]] iTM2_normalizedURL];
+	}
+	return self;
+//iTM2_END;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_URLByPrependingFactoryBaseURL
+- (NSURL *)iTM2_URLByPrependingFactoryBaseURL;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 2.1: Tue May  6 13:58:26 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	// this message makes sense for file URLs only
+	if(![self isFileURL])
+	{
+//iTM2_END;
+		return self;
+	}
+	NSURL * baseURL = [self baseURL];
+	if(!baseURL)
+	{
+		// OK, there is no base URL, but it does not mean that the receiver does not belong
+		// to the Factory directory.
+		// This can be the case if 3rd parties have created this URL without conforming to
+		// the rules (namely cocoa)
+		if([self iTM2_belongsToFactory])
+		{
+			return [self iTM2_normalizedURL];
+		}
+		NSString * relative = [self relativePath];
+		relative = [[@"." stringByAppendingPathComponent:relative] stringByStandardizingPath];
+		NSURL * url = [NSURL iTM2_URLWithPath:relative relativeToURL:[NSURL iTM2_factoryURL]];
+		return [self isEqual:url]?url:self;
+	}
+	NSURL * newBaseURL = [baseURL iTM2_URLByPrependingFactoryBaseURL];
+	if([baseURL isEqual:newBaseURL])
+	{
+//iTM2_END;
+		return self;
+	}
+//iTM2_END;
+	return [NSURL URLWithString:[self relativeString] relativeToURL:newBaseURL];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_belongsToFactory
+- (BOOL)iTM2_belongsToFactory;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+NOT YET VERIFIED
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if(![self isFileURL])
+	{
+		return NO;
+	}
+	NSURL * url= [self baseURL];
+	if(url)
+	{
+		return [url iTM2_belongsToFactory];
+	}
+	url = [self iTM2_URLByRemovingFactoryBaseURL];
+//iTM2_END;
+	return ![self iTM2_isEquivalentToURL:url];
+}
+@end
+
+@implementation NSArray(iTM2PathUtilities)
+- (BOOL)iTM2_containsURL:(NSURL *)url;
+{
+	return [url isKindOfClass:[NSURL class]]
+		&& [[self valueForKey:@"absoluteURL"] containsObject:[url absoluteURL]];
 }
 @end
 

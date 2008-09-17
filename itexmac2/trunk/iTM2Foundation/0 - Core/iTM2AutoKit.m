@@ -43,7 +43,7 @@ int iTM2AutoUpdateWindowNumberComparator(id, id, void *);
 - (void)fileModificationDataCompleteDidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) originalAbsoluteContentsURL error:(NSError**)error;
 - (void)fileModificationDataCompleteDidReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
 @end
-@implementation NSDocument_iTM2AutoKit
+@implementation NSDocument(iTM2AutoKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
 + (void)load;
 /*"Description forthcoming.
@@ -88,6 +88,22 @@ To Do List:
 //iTM2_START;
     return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileModificationDataCompleteDidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
+- (void)fileModificationDataCompleteDidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) absoluteOriginalContentsURL error:(NSError**)error;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Fri Feb 20 13:19:00 GMT 2004
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    if(saveOperationType != NSSaveToOperation)
+	{
+        [self iTM2_recordFileModificationDateFromURL:absoluteURL];
+	}
+//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Auto_writeToURL:ofType:forSaveOperation:originalContentsURL:error:
 - (BOOL)SWZ_iTM2Auto_writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
@@ -105,19 +121,16 @@ To Do List:save the file, if it has disappeared from the HD.
 //iTM2_END;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileModificationDataCompleteDidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (void)fileModificationDataCompleteDidWriteToURL:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) absoluteOriginalContentsURL error:(NSError**)error;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fileModificationDateCompleteDidReadFromURL:ofType:error:
+- (void)fileModificationDateCompleteDidReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
+/*"Description Forthcoming. Record the file modification date
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(saveOperationType != NSSaveToOperation)
-	{
-        [self iTM2_recordFileModificationDateFromURL:absoluteURL];
-	}
+	[self iTM2_recordFileModificationDateFromURL:absoluteURL];
 //iTM2_END;
     return;
 }
@@ -133,23 +146,10 @@ To Do List:save the file, if it has disappeared from the HD.
     BOOL result = [self SWZ_iTM2Auto_readFromURL:absoluteURL ofType:type error:outErrorPtr];
     if(result)
 	{
-		[self fileModificationDataCompleteDidReadFromURL:absoluteURL ofType:type error:outErrorPtr];
+		[self fileModificationDateCompleteDidReadFromURL:absoluteURL ofType:type error:outErrorPtr];
 	}
 //iTM2_END;
     return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= fileModificationDataCompleteDidReadFromURL:ofType:error:
-- (void)fileModificationDataCompleteDidReadFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)error;
-/*"Description Forthcoming. Record the file modification date
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self iTM2_recordFileModificationDateFromURL:absoluteURL];
-//iTM2_END;
-    return;
 }
 @end
 

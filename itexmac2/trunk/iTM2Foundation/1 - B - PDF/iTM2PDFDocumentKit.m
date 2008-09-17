@@ -146,7 +146,7 @@ To Do List:
 			NSString * path = [absoluteURL path];
 			NSString * pdfPath = [path stringByDeletingPathExtension];
 			pdfPath = [pdfPath stringByAppendingPathExtension:@"pdf"];
-			NSAssert(![pdfPath pathIsEqual:path],@"Bad type name for a postscript file.");
+			NSAssert(![pdfPath iTM2_pathIsEqual:path],@"Bad type name for a postscript file.");
 #warning REVISITED?
 			if([DFM fileExistsAtPath:pdfPath])
 			{
@@ -2454,7 +2454,7 @@ NSString * const iTM2PDFToolbarIdentifier = @"iTM2 PDF Toolbar: Default";
 
 @implementation iTM2MainInstaller(PDFDocumentKitInspectorToolbar)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFKitInspectorToolbarCompleteInstallation
-- (void)PDFDocumentKitInspectorToolbarCompleteInstallation;
++ (void)PDFDocumentKitInspectorToolbarCompleteInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue May  3 16:20:26 GMT 2005

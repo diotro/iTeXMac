@@ -57,7 +57,7 @@ NSString * const iTM2MacrosDirectoryName = @"Macros";
 	// list all the *."requiredPathExtension" files
 	// Create a Macros.localized in the Application\ Support folder as side effect
 	NSBundle * MB = [NSBundle mainBundle];
-	[MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
+	[MB iTM2_pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
@@ -65,6 +65,10 @@ NSString * const iTM2MacrosDirectoryName = @"Macros";
 	NSString * subpath = nil;
 	while(repository = [E nextObject])
 	{
+		if(iTM2DebugEnabled)
+		{
+			iTM2_LOG(@"Scanning directory:%@",repository);
+		}
 		if([DFM pushDirectory:repository])
 		{
 			DE = [DFM enumeratorAtPath:repository];
@@ -210,12 +214,16 @@ To Do List:
 	// list all the *.iTM2-macros files
 	// Create a Macros.localized in the Application\ Support folder as side effect
 	NSBundle * MB = [NSBundle mainBundle];
-	[MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
+	[MB iTM2_pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
 	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSDirectoryEnumerator * DE = nil;
 	NSString * subpath = nil;
+	if(iTM2DebugEnabled)
+	{
+		iTM2_LOG(@"Start reading macros files...");
+	}
 	while(repository = [E nextObject])
 	{
 		if([DFM pushDirectory:repository])
@@ -276,7 +284,7 @@ To Do List:
 					NSURL * url = [NSURL fileURLWithPath:subpath];
 					if(iTM2DebugEnabled)
 					{
-						iTM2_LOG(@"url:%@",url);
+						iTM2_LOG(@"macros registered at url:%@",url);
 					}
 					[contextNode addURLPromise:url];
 				}
@@ -382,9 +390,9 @@ To Do List:
 					NSError * localError = nil;
 					NSString * path = [url isFileURL]?[url path]:@"";
 					NSString * dirname = [path stringByDeletingLastPathComponent];
-					if([dirname length] && ![DFM createDeepDirectoryAtPath:dirname attributes:nil error:&localError])
+					if([dirname length] && ![DFM iTM2_createDeepDirectoryAtPath:dirname attributes:nil error:&localError])
 					{
-						iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could create directory at %@",dirname]),localError);
+						iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not create directory at %@",dirname]),localError);
 					}
 					else if(![D writeToURL:url options:NSAtomicWrite error:&localError])
 					{
@@ -444,7 +452,7 @@ To Do List:
 	}
 	// Create a Macros.localized in the Application\ Support folder as side effect
 	NSBundle * MB = [NSBundle mainBundle];
-	[MB pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
+	[MB iTM2_pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 	iTM2MacroRootNode * rootNode = [[[iTM2MacroRootNode alloc] init] autorelease];// this will be retained
 	// list all the *.iTM2-macros files
 	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
@@ -549,7 +557,7 @@ To Do List:
 		NSString * ID = [[element attributeForName:@"ID"] stringValue];
 		iTM2MacroNode * leafNode = [SMC macroRunningNodeForID:ID context:context ofCategory:category inDomain:domain];
 		name = [leafNode name];
-		if(!leafNode)
+		if(!name)
 		{
 			name = ID;
 		}

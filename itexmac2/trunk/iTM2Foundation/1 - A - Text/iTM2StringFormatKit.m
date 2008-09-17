@@ -2573,10 +2573,6 @@ To Do List:
                 [tv selectRow:row byExtendingSelection:NO];
             while(--length>0)
                 [tv selectRow:++row byExtendingSelection:YES];
-			if([tv acceptsFirstResponder])
-			{
-				[[tv window] makeFirstResponder:tv];
-			}
  			if([tv acceptsFirstResponder])
 			{
 				[[tv window] makeFirstResponder:tv];
@@ -2694,22 +2690,6 @@ To Do List:
 	[self iTM2_validateWindowContent];
     return;
 }
-#if 0
-The job is done by the validateStringEncodingToggleAuto: below
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStringEncodingFromTag:
-- (BOOL)validateTakeStringEncodingFromTag:(id)sender;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	int expectedTag = [self stringEncoding];
-    [sender setState:(expectedTag == [sender tag]? NSOnState:NSOffState)];
-    return;
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
 - (IBAction)stringEncodingToggleAuto:(id)sender;
 /*"Description Forthcoming.
@@ -2936,7 +2916,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * subpath = [[NSBundle mainBundle] pathForSupportDirectory:iTM2SupportTextComponent inDomain:NSUserDomainMask create:YES];
+	NSString * subpath = [[NSBundle mainBundle] iTM2_pathForSupportDirectory:iTM2SupportTextComponent inDomain:NSUserDomainMask create:YES];
 	NSString * path = [[subpath stringByAppendingPathComponent:iTM2StringEncodingsPListName] stringByAppendingPathExtension:@"plist"];
 //iTM2_LOG(@"path is: %@", path);
 	NSURL * URL = [NSURL fileURLWithPath:path];

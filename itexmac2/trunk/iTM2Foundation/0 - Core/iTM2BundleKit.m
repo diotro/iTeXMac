@@ -222,8 +222,8 @@ To Do List:
 //    ADD_OBJECT(NSSystemDomainMask);
     return [[MRA copy] autorelease];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pathForSupportDirectory:inDomain:withName:create:
-+ (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName create:(BOOL)create;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_pathForSupportDirectory:inDomain:withName:create:
++ (NSString *)iTM2_pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName create:(BOOL)create;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -253,7 +253,7 @@ To Do List:
 								nil]];
 		[NSApp presentError:localError];
 	}
-	if(create && [DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
+	if(create && [DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:&localError])
 	{
 		return path;
 	}
@@ -263,8 +263,8 @@ To Do List:
 	}
     return [NSString string];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pathForSupportDirectory:inDomain:create:
-- (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_pathForSupportDirectory:inDomain:create:
+- (NSString *)iTM2_pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -272,7 +272,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [isa pathForSupportDirectory:subpath inDomain:domainMask withName:[self bundleName] create:create];
+    return [isa iTM2_pathForSupportDirectory:subpath inDomain:domainMask withName:[self bundleName] create:create];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  allPathsForSupportExecutables
 - (NSArray *)allPathsForSupportExecutables;
@@ -299,7 +299,7 @@ To Do List:
 	NSArray * subpaths;
 	NSEnumerator * E;
 	NSString * component;
-	NSString * path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSNetworkDomainMask create:NO];
+	NSString * path = [self iTM2_pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSNetworkDomainMask create:NO];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
@@ -317,7 +317,7 @@ To Do List:
 			return result;
 		}
 	}
-	path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSLocalDomainMask create:NO];
+	path = [self iTM2_pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSLocalDomainMask create:NO];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
@@ -335,7 +335,7 @@ To Do List:
 			return result;
 		}
 	}
-	path = [self pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSUserDomainMask create:YES];
+	path = [self iTM2_pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSUserDomainMask create:YES];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
@@ -385,7 +385,7 @@ To Do List:
 	NSArray * subpaths;
 	NSEnumerator * E;
 	NSString * component;
-	NSString * path = [self pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSNetworkDomainMask create:NO];
+	NSString * path = [self iTM2_pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSNetworkDomainMask create:NO];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
@@ -403,7 +403,7 @@ To Do List:
 			return result;
 		}
 	}
-	path = [self pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSLocalDomainMask create:NO];
+	path = [self iTM2_pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSLocalDomainMask create:NO];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
@@ -421,7 +421,7 @@ To Do List:
 			return result;
 		}
 	}
-	path = [self pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSUserDomainMask create:YES];
+	path = [self iTM2_pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSUserDomainMask create:YES];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
@@ -466,7 +466,7 @@ To Do List:
 	{
 		path = [NSTemporaryDirectory() stringByAppendingPathComponent:[self uniqueApplicationIdentifier]];
 		NSError * localError = nil;
-		if([DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
+		if([DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:&localError])
 			[path retain];
 		else
 		{
@@ -490,7 +490,7 @@ To Do List:
 	{
 		path = [[self temporaryDirectory] stringByAppendingPathComponent:@"bin"];
 		NSError * localError = nil;
-		if([DFM createDeepDirectoryAtPath:path attributes:nil error:&localError])
+		if([DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:&localError])
 			[path retain];
 		else
 		{
@@ -565,7 +565,7 @@ To Do List:
 	}
 	while([DFM fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path]);
 	
-	if([DFM createDeepDirectoryAtPath:path attributes:nil error:nil])
+	if([DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:nil])
 	{
 		return path;
 	}
@@ -744,13 +744,13 @@ To Do List:
 	// all the plug ins
 	NSBundle * B = [NSBundle mainBundle];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
-		[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO]
+		[B iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO]
 				ofType:aType]];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
-		[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
+		[B iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
 				ofType:aType]];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
-		[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
+		[B iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
 				ofType:aType]];
 	[paths addObjectsFromArray:[self availablePlugInPathsAtPath:[B builtInPlugInsPath] ofType:aType]];
 	// the frameworks
@@ -760,13 +760,13 @@ To Do List:
 		if(![B isEqual:[NSBundle mainBundle]])
 		{
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
-				[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO]
+				[B iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO]
 						ofType:aType]];
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
-				[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
+				[B iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
 						ofType:aType]];
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:
-				[B pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
+				[B iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
 						ofType:aType]];
 //iTM2_LOG(@"[B builtInPlugInsPath]:%@, B:%@", [B builtInPlugInsPath], B);
 			[paths addObjectsFromArray:[self availablePlugInPathsAtPath:[B builtInPlugInsPath] ofType:aType]];
@@ -786,13 +786,13 @@ To Do List:
 //iTM2_START;
 	NSMutableArray * paths = [NSMutableArray array];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
-		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:YES]
+		[self iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:YES]
 				ofType:aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
-		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
+		[self iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO]
 				ofType:aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:
-		[self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
+		[self iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO]
 				ofType:aType]];
 	[paths addObjectsFromArray:[[self class] availablePlugInPathsAtPath:[self builtInPlugInsPath] ofType:aType]];
 //iTM2_END;
@@ -817,7 +817,7 @@ To Do List:
 	NSString * component;
 	while(component = [DE nextObject])
 	{
-		if([[component pathExtension] pathIsEqual:aType])
+		if([[component pathExtension] iTM2_pathIsEqual:aType])
 		{
 			component = [[path stringByAppendingPathComponent:component] stringByResolvingSymlinksAndFinderAliasesInPath];
 			[result addObject:component];
@@ -842,7 +842,7 @@ To Do List:
 		if([aPath isEqual:[[NSBundle mainBundle] bundlePath]])
 			return [NSBundle mainBundle];
 		NSString * extension = [aPath pathExtension];
-		if([extension pathIsEqual:[self plugInPathExtension]] || [extension isEqualToString:@"framework"])
+		if([extension iTM2_pathIsEqual:[self plugInPathExtension]] || [extension isEqualToString:@"framework"])
 			return [NSBundle bundleWithPath:aPath];
 		NSBundle * B = [NSBundle bundleWithPath:aPath];
 		if([[B infoDictionary] count])
@@ -870,7 +870,7 @@ To Do List:
 
 	if(domainMask & NSNetworkDomainMask)
 	{
-		plugInsDirectoryPath = [self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO];
+		plugInsDirectoryPath = [self iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSNetworkDomainMask create:NO];
 		E = [[NSBundle availablePlugInPathsAtPath:plugInsDirectoryPath ofType:[[self class] plugInPathExtension]] objectEnumerator];
 		while(bundlePath = [E nextObject])
 		{
@@ -882,7 +882,7 @@ To Do List:
 
 	if(domainMask & NSLocalDomainMask)
 	{
-		plugInsDirectoryPath = [self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO];
+		plugInsDirectoryPath = [self iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSLocalDomainMask create:NO];
 		E = [[NSBundle availablePlugInPathsAtPath:plugInsDirectoryPath ofType:[[self class] plugInPathExtension]] objectEnumerator];
 		while(bundlePath = [E nextObject])
 		{
@@ -894,7 +894,7 @@ To Do List:
 
 	if(domainMask & NSUserDomainMask)
 	{
-		plugInsDirectoryPath = [self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO];
+		plugInsDirectoryPath = [self iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:NO];
 		E = [[NSBundle availablePlugInPathsAtPath:plugInsDirectoryPath ofType:[[self class] plugInPathExtension]] objectEnumerator];
 		while(bundlePath = [E nextObject])
 		{
@@ -1069,7 +1069,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	NSString * path = [self pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:domainMask create:NO];// do not put anything recursive in the plugins folder
+	NSString * path = [self iTM2_pathForSupportDirectory:iTM2SupportPluginsComponent inDomain:domainMask create:NO];// do not put anything recursive in the plugins folder
     return [NSBundle allBundlesAtPath:path];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= embeddedBundles
@@ -1245,7 +1245,7 @@ To Do List:
 			type = [type lowercaseString];
 			if(mask = domainMask & NSNetworkDomainMask)
 			{
-				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
@@ -1256,7 +1256,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
+						if([lastName iTM2_pathIsEqual:name] && [pathExtension iTM2_pathIsEqual:type])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
 							[result addObject:lastName];
@@ -1266,7 +1266,7 @@ To Do List:
 			}// if(mask = domainMask & ...)
 			if(mask = domainMask & NSLocalDomainMask)
 			{
-				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
@@ -1277,7 +1277,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
+						if([lastName iTM2_pathIsEqual:name] && [pathExtension iTM2_pathIsEqual:type])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
 							[result addObject:lastName];
@@ -1287,7 +1287,7 @@ To Do List:
 			}// if(mask = domainMask & ...)
 			if(mask = domainMask & NSUserDomainMask)
 			{
-				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
@@ -1298,7 +1298,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName pathIsEqual:name] && [pathExtension pathIsEqual:type])
+						if([lastName iTM2_pathIsEqual:name] && [pathExtension iTM2_pathIsEqual:type])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
 							[result addObject:lastName];
@@ -1311,7 +1311,7 @@ To Do List:
 		{
 			if(mask = domainMask & NSNetworkDomainMask)
 			{
-				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
@@ -1322,7 +1322,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName pathIsEqual:name])
+						if([lastName iTM2_pathIsEqual:name])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
 							[result addObject:lastName];
@@ -1332,7 +1332,7 @@ To Do List:
 			}// if(mask = domainMask & ...)
 			if(mask = domainMask & NSLocalDomainMask)
 			{
-				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
@@ -1343,7 +1343,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName pathIsEqual:name])
+						if([lastName iTM2_pathIsEqual:name])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
 							[result addObject:lastName];
@@ -1353,7 +1353,7 @@ To Do List:
 			}// if(mask = domainMask & ...)
 			if(mask = domainMask & NSUserDomainMask)
 			{
-				path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
@@ -1364,7 +1364,7 @@ To Do List:
 						pathExtension = [pathExtension lowercaseString];
 						lastName = [lastComponent stringByDeletingPathExtension];
 						lastName = [lastName lowercaseString];
-						if([lastName pathIsEqual:name])
+						if([lastName iTM2_pathIsEqual:name])
 						{
 							lastName = [path stringByAppendingPathComponent:lastComponent];
 							[result addObject:lastName];
@@ -1380,7 +1380,7 @@ To Do List:
 		name = type;
 		if(mask = domainMask & NSNetworkDomainMask)
 		{
-			path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+			path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
 				RA = [DFM directoryContentsAtPath:path];
@@ -1389,7 +1389,7 @@ To Do List:
 				{
 					lastName = [lastComponent lowercaseString];
 					lastName = [lastName pathExtension];
-					if([lastName pathIsEqual:name])
+					if([lastName iTM2_pathIsEqual:name])
 					{
 						lastName = [path stringByAppendingPathComponent:lastComponent];
 						[result addObject:lastName];
@@ -1399,7 +1399,7 @@ To Do List:
 		}// if(mask = domainMask & ...)
 		if(mask = domainMask & NSLocalDomainMask)
 		{
-			path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+			path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
 				RA = [DFM directoryContentsAtPath:path];
@@ -1408,7 +1408,7 @@ To Do List:
 				{
 					lastName = [lastComponent lowercaseString];
 					lastName = [lastName pathExtension];
-					if([lastName pathIsEqual:name])
+					if([lastName iTM2_pathIsEqual:name])
 					{
 						lastName = [path stringByAppendingPathComponent:lastComponent];
 						[result addObject:lastName];
@@ -1418,7 +1418,7 @@ To Do List:
 		}// if(mask = domainMask & ...)
 		if(mask = domainMask & NSUserDomainMask)
 		{
-			path = [self pathForSupportDirectory:subpath inDomain:mask create:NO];
+			path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
 				RA = [DFM directoryContentsAtPath:path];
@@ -1427,7 +1427,7 @@ To Do List:
 				{
 					lastName = [lastComponent lowercaseString];
 					lastName = [lastName pathExtension];
-					if([lastName pathIsEqual:name])
+					if([lastName iTM2_pathIsEqual:name])
 					{
 						lastName = [path stringByAppendingPathComponent:lastComponent];
 						[result addObject:lastName];
@@ -1543,11 +1543,11 @@ To Do List:
 	[plugins removeObject:mainBundle];// plugins are bundles, except the main one
 	// sorting the frameworks and plugins
 	// separating them according to their domain
-	NSString * networkPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSNetworkDomainMask create:NO];
+	NSString * networkPrefix = [mainBundle iTM2_pathForSupportDirectory:@"" inDomain:NSNetworkDomainMask create:NO];
 	networkPrefix = [networkPrefix stringByAppendingString:iTM2PathComponentsSeparator];
-	NSString * localPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSLocalDomainMask create:NO];
+	NSString * localPrefix = [mainBundle iTM2_pathForSupportDirectory:@"" inDomain:NSLocalDomainMask create:NO];
 	localPrefix = [localPrefix stringByAppendingString:iTM2PathComponentsSeparator];
-	NSString * userPrefix = [mainBundle pathForSupportDirectory:@"" inDomain:NSUserDomainMask create:NO];
+	NSString * userPrefix = [mainBundle iTM2_pathForSupportDirectory:@"" inDomain:NSUserDomainMask create:NO];
 	userPrefix = [userPrefix stringByAppendingString:iTM2PathComponentsSeparator];
 	
 	NSMutableArray * networkFrameworks = [NSMutableArray array];
@@ -1600,15 +1600,15 @@ To Do List:
 	[anObject performSelector:aSelector withObject:P];
 	RELOAD(networkFrameworks);
 	RELOAD(networkPlugIns);
-	P = [mainBundle pathForSupportDirectory:component inDomain:NSNetworkDomainMask create:NO];
+	P = [mainBundle iTM2_pathForSupportDirectory:component inDomain:NSNetworkDomainMask create:NO];
 	[anObject performSelector:aSelector withObject:P];
 	RELOAD(localFrameworks);
 	RELOAD(localPlugIns);
-	P = [mainBundle pathForSupportDirectory:component inDomain:NSLocalDomainMask create:NO];
+	P = [mainBundle iTM2_pathForSupportDirectory:component inDomain:NSLocalDomainMask create:NO];
 	[anObject performSelector:aSelector withObject:P];
 	RELOAD(userFrameworks);
 	RELOAD(userPlugIns);
-	P = [mainBundle pathForSupportDirectory:component inDomain:NSUserDomainMask create:YES];
+	P = [mainBundle iTM2_pathForSupportDirectory:component inDomain:NSUserDomainMask create:YES];
 	[anObject performSelector:aSelector withObject:P];
 	#undef RELOAD
 //iTM2_END;
@@ -1657,7 +1657,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(run) replacement:@selector(swizzle_iTM2BundleKit_run) forClass:[NSApplication class]])
+	if(![NSApplication iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2BundleKit_run)])
 	{
 		iTM2_LOG(@"..........  ERROR: Bad configuration, things won't work as expected...");
 	}
@@ -1665,8 +1665,8 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzle_iTM2BundleKit_run
-- (void)swizzle_iTM2BundleKit_run;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2BundleKit_run
+- (void)SWZ_iTM2BundleKit_run;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon May 10 22:45:25 GMT 2004
@@ -1685,7 +1685,7 @@ To Do List:
 			[NSNumber numberWithBool:YES], @"NSShowNonLocalizedStrings", nil]];
 	}
 	iTM2_RELEASE_POOL;
-	[self swizzle_iTM2BundleKit_run];
+	[self SWZ_iTM2BundleKit_run];
 	// Don't add code below, it won't ever be reached...
 //iTM2_END;
     return;
@@ -1754,7 +1754,7 @@ To Do List:
 	NSString * logPath = [libraries lastObject];
 	logPath = [logPath stringByAppendingPathComponent:@"Logs"];
 	logPath = [logPath stringByAppendingPathComponent:executable];
-	[DFM createDeepDirectoryAtPath:logPath attributes:nil error:nil];
+	[DFM iTM2_createDeepDirectoryAtPath:logPath attributes:nil error:nil];
 	if([DFM pushDirectory:logPath])
 	{
 		NSArray * availableLogs = [DFM directoryContentsAtPath:logPath];

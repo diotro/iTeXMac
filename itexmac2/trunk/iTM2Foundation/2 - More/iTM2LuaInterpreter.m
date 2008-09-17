@@ -18,8 +18,7 @@
 typedef struct
 {
 	lua_State * luaState;
-}
-iTM2LuaInterpreter_Implementation;
+} iTM2LuaInterpreter_Implementation;
 
 @implementation iTM2LuaInterpreter: NSObject
 

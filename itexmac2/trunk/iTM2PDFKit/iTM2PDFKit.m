@@ -22,6 +22,7 @@
 
 //RAISE  *** Selector 'document' sent to dealloced instance 0x170e06c0 of class PDFPage.
 #import <iTM2PDFKit/iTM2PDFKit.h>
+#import <iTM2Foundation/iTM2Foundation.h>
 #import <objc/objc-class.h>
 
 NSString * const iTM2PDFKitInspectorMode = @"Tiger";
@@ -317,8 +318,14 @@ To Do List:
     unsigned int column = -1;
 	unsigned int length = 1;
 	NSURL * url = nil;
+	NSDictionary * d = nil;
 	id document = nil;
 	id synchronizer = [self synchronizer];
+	if([synchronizer isSyncTeX])
+	{
+		hint = [[hint mutableCopy] autorelease];
+		[(id)hint setObject:[NSNumber numberWithBool:YES] forKey:@"SyncTeX"];
+	}
     if([synchronizer getLine:&line column:&column sourceBefore:&sourceBefore sourceAfter:&sourceAfter forLocation:thePoint withHint:hint inPageAtIndex:thePage])
 	{
 		if([sourceBefore length]
@@ -327,21 +334,37 @@ To Do List:
 			url = [NSURL fileURLWithPath:sourceBefore];
 			document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 			[document getLine:&line column:&column length:&length forHint:hint];
+			d = [NSDictionary dictionaryWithObjectsAndKeys:
+				url,@"current source URL",
+				[NSNumber numberWithInt:line],@"line",
+				[NSNumber numberWithInt:column],@"column",
+				[NSNumber numberWithInt:length],@"length",
+					nil];
+			[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
+			[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
 		}
 		if([sourceAfter length]
 			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceAfter pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
 			document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:sourceAfter] display:NO error:nil];
 			[document getLine:&line column:&column length:&length forHint:hint];
+			d = [NSDictionary dictionaryWithObjectsAndKeys:
+				url,@"current source URL",
+				[NSNumber numberWithInt:line],@"line",
+				[NSNumber numberWithInt:column],@"column",
+				[NSNumber numberWithInt:length],@"length",
+					nil];
+			[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
 				return;
+			[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
 		}
 	}
 	// all the sources?
 	iTM2ProjectDocument * PD = [SPC projectForSource:self];
-	NSEnumerator * E = [[PD allFileKeys] objectEnumerator];
+	NSEnumerator * E = [[PD fileKeys] objectEnumerator];
 	NSString * key;
 	unsigned int matchLevel = UINT_MAX;
 	id matchDocument = nil;
@@ -377,15 +400,22 @@ To Do List:
 	}
 	NSString * path = [[self fileURL] path];
 	path = [[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"tex"];
-	matchDocument = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:NO error:nil];
+	url = [NSURL fileURLWithPath:path];
+	matchDocument = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 	if([matchDocument isKindOfClass:[iTM2TextDocument class]])
 	{
 		unsigned int testLine = 0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
 		[matchDocument getLine:&testLine column:&testColumn length:&testLength forHint:hint];
-		if([matchDocument displayLine:testLine column:testColumn length:testLength withHint:hint orderFront:yorn])
-		{
+		d = [NSDictionary dictionaryWithObjectsAndKeys:
+			url,@"current source URL",
+			[NSNumber numberWithInt:line],@"line",
+			[NSNumber numberWithInt:column],@"column",
+			[NSNumber numberWithInt:length],@"length",
+				nil];
+		[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
+		if([matchDocument displayLine:line column:column length:length withHint:hint orderFront:yorn])
 			return;
-		}
+		[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
 	}
 	if(iTM2DebugEnabled)
 	{
@@ -609,14 +639,25 @@ To Do List:
 @implementation iTM2PDFKitWindow
 - (void)flagsChanged:(NSEvent *)theEvent;
 {
+	[self resetCursorRects];
+	[super flagsChanged:theEvent];
+	return;
+}
+- (void)resetCursorRects;
+{
+	[super resetCursorRects];
 	NSArray * subviews = [[self contentView] subviewsWhichClassInheritsFromClass:[PDFView class]];
 	NSEnumerator * E = [subviews objectEnumerator];
-	NSView * subview;
+	PDFView * subview;
+	id FR = [self firstResponder];
+	FR = [FR isKindOfClass:[NSView class]]?FR:nil;
 	while(subview = [E nextObject])
 	{
-		[self invalidateCursorRectsForView:subview];
+		if([FR isDescendantOf:subview])
+		{
+			[subview resetCursorRects];
+		}
 	}
-	[super flagsChanged:theEvent];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= defaultMacroDomain
@@ -786,25 +827,6 @@ To Do List:
 //iTM2_LOG(@"Setting up the pdf inspector:DONE");
 //iTM2_END;
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewWillChangeScaleFactor:toScale:
-- (float)PDFViewWillChangeScaleFactor:(PDFView *)sender toScale:(float)scale;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	float old = [self contextFloatForKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
-	if( old != scale )// reentrant management problem
-	{
-		[self takeContextFloat:scale forKey:iTM2PDFKitScaleFactorKey domain:iTM2ContextAllDomainsMask];
-		[self setScaleFactor:scale];
-		[self performSelector:@selector(iTM2_validateWindowContent) withObject:nil afterDelay:0];
-	}
-//iTM2_END;
-    return scale;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentStatus
 - (iTM2PDFDocumentStatus)PDFDocumentStatus;
@@ -1730,7 +1752,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	PDFView * V = [notification object];
-	[self setScaleFactor:[V scaleFactor]];
+	float scale = [V scaleFactor];
+	[self setScaleFactor:scale];
 	[self setAutoScales:[V autoScales]];
 	[[[self window] toolbar] validateVisibleItems];
 	[self iTM2_validateWindowContent];
@@ -1915,6 +1938,7 @@ To Do List:
 	NSRect visibleRect = [documentView visibleRect];
 	visibleRect = [documentView absoluteRectWithRect:visibleRect];
 	[self setDocumentViewVisibleRect:visibleRect];
+	[self setBackgroundColor:[[self pdfView] backgroundColor]];
 //iTM2_START;
 	return;
 }
@@ -1932,6 +1956,7 @@ To Do List:
 	[super contextDidChange];
 	PDFView * V = [self pdfView];
 	[V setBackgroundColor:[self backgroundColor]];
+#if 0
 //iTM2_LOG(@"[V backgroundColor]:%@", [V backgroundColor]);
 	[V setDisplayMode:[self displayMode]];
 //iTM2_LOG(@"[V backgroundColor]:%@", [V backgroundColor]);
@@ -1943,9 +1968,13 @@ To Do List:
 	[V setShouldAntiAlias:[self shouldAntiAlias]];
 //iTM2_LOG(@"[V shouldAntiAlias]:%@", ([V shouldAntiAlias]? @"Y":@"N"));
 	[V setGreekingThreshold:[self greekingThreshold]];
-	[V setScaleFactor:[self scaleFactor]];
+	float scale = [self scaleFactor];
+iTM2_LOG(@"inspector scale:%f",scale);
+iTM2_LOG(@"view      scale:%f",[V scaleFactor]);
+	[V setScaleFactor:scale];
 	[V setAutoScales:[self autoScales]];// after the scale factor is set
 //iTM2_LOG(@"[V autoScales]:%@", ([V autoScales]? @"Y":@"N"));
+#endif
 	[V setNeedsDisplay:YES];
 	NSView * docView = [V documentView];
 	if(docView)
@@ -1992,11 +2021,82 @@ To Do List:
 //iTM2_END;
 	return;
 }
+#pragma mark =-=-=-=-=-  DISABLED SYNCTEX
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  disabledSyncTeX
+- (BOOL)disabledSyncTeX;
+/*" Description forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.1: Wed Jun 18 19:54:25 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
+	id value = [TPD infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
+	if(value)
+	{
+		return [value boolValue];
+	}
+	// from the SUD
+	NSDictionary * D = [self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
+	value = [D objectForKey:@"SyncTeXDisabled"];
+    return [value boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisabledSyncTeX:
+- (void)setDisabledSyncTeX:(BOOL)yorn;
+/*" Description forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- 2.1: Wed Jun 18 19:54:25 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
+	[TPD setInfo:(yorn?[NSNumber numberWithBool:yorn]:nil) forKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
+//iTM2_END;
+	return;
+}
+#pragma mark =-=-=-=-=-  UNCOMPRESSED SYNCTEX
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uncompressedSyncTeX
+- (BOOL)uncompressedSyncTeX;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
+	id value = [TPD infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
+	if(value)
+	{
+		return [value boolValue];
+	}
+	// from the SUD
+	NSDictionary * D = [self contextDictionaryForKey:@"SyncTeXUncompressed" domain:iTM2ContextAllDomainsMask];
+	value = [D objectForKey:@"SyncTeXUncompressed"];
+    return [value boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUncompressedSyncTeX:
+- (void)setUncompressedSyncTeX:(BOOL)yorn;
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+ 	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
+	[TPD setInfo:(yorn?[NSNumber numberWithBool:yorn]:nil) forKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXUncompressed",nil];
+//iTM2_END;
+	return;
+}
 #define GETTER [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
 #define SETTER(argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
 [self takeContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  strongerSynchronization
+- (BOOL)strongerSynchronization;
+{
+	return [GETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStrongerSynchronization:
+- (void)setStrongerSynchronization:(BOOL)argument;
+{
+	SETTER([NSNumber numberWithBool:argument]);
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentViewVisibleRect
 - (NSRect)documentViewVisibleRect;
 {
@@ -2036,8 +2136,10 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 - (void)setBackgroundColor:(NSColor *)argument;
 {
 	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]:nil));
+	[[self pdfView] setNeedsDisplay:YES];
 	return;
 }
+#pragma mark =-=-=-=-=-  PDFView  BINDINGS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBox
 - (int)displayBox;
 {
@@ -2155,6 +2257,106 @@ To Do List:
 	[sender setState:([self autoScales]? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
+}
+#undef GETTER
+#undef SETTER
+#define GETTER [[self contextValueForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define SETTER(argument) id __D = [[[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
+if(!__D) __D = [NSMutableDictionary dictionary];\
+[__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
+[self takeContextValue:__D forKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enableSynchronization
+- (BOOL)enableSynchronization;
+{
+	return [GETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEnableSynchronization:
+- (void)setEnableSynchronization:(BOOL)enableSynchronization;
+{
+	SETTER([NSNumber numberWithBool:enableSynchronization]);
+	return;
+}
+#pragma mark =-=-=-=-=-  FOLLOW FOCUS
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  followFocus
+- (BOOL)followFocus;
+{
+	return [GETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFollowFocus:
+- (void)setFollowFocus:(BOOL)followFocus;
+{
+	SETTER([NSNumber numberWithBool:followFocus]);
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBullets
+- (unsigned int)displayBullets;
+{
+	return [GETTER unsignedIntValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayBullets:
+- (void)setDisplayBullets:(unsigned int)displayBullets;
+{
+	SETTER([NSNumber numberWithUnsignedInt:displayBullets]);
+	[[self pdfView] setNeedsDisplay:YES];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayFocus
+- (BOOL)displayFocus;
+{
+	return ([self displayBullets]&kiTM2PDFSYNCDisplayFocusBullets)>0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayFocus:
+- (void)setDisplayFocus:(BOOL)yorn;
+{	
+	[self willChangeValueForKey:@"displayBullets"];
+	[self setDisplayBullets:
+		(yorn?([self displayBullets]|kiTM2PDFSYNCDisplayFocusBullets):
+			([self displayBullets]&~kiTM2PDFSYNCDisplayFocusBullets))];
+	[self didChangeValueForKey:@"displayBullets"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayUserBullets
+- (BOOL)displayUserBullets;
+{
+	return ([self displayBullets]&kiTM2PDFSYNCDisplayUserBullets)>0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayUserBullets:
+- (void)setDisplayUserBullets:(BOOL)yorn;
+{
+	[self willChangeValueForKey:@"displayBullets"];
+	[self setDisplayBullets:
+		(yorn?([self displayBullets]|kiTM2PDFSYNCDisplayUserBullets):
+			([self displayBullets]&~kiTM2PDFSYNCDisplayUserBullets))];
+	[self didChangeValueForKey:@"displayBullets"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBuiltInBullets
+- (BOOL)displayBuiltInBullets;
+{
+	return ([self displayBullets]&kiTM2PDFSYNCDisplayBuiltInBullets)>0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayBuiltInBullets:
+- (void)setDisplayBuiltInBullets:(BOOL)yorn;
+{
+	[self willChangeValueForKey:@"displayBullets"];
+	[self setDisplayBullets:
+		(yorn?([self displayBullets]|kiTM2PDFSYNCDisplayBuiltInBullets):
+			([self displayBullets]&~kiTM2PDFSYNCDisplayBuiltInBullets))];
+	[self didChangeValueForKey:@"displayBullets"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithLine:column:source:hint:
+- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *)hint
+/*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [[[self document] synchronizer] isSyncTeX]
+		&& [[self album] synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *) hint];
 }
 @end
 
@@ -2785,13 +2987,13 @@ Version history:jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+iTM2_START;
 	float newScale = [sender floatValue];
 	if(newScale <= 0)
 		newScale = 1;
     [[self pdfView] setScaleFactor:newScale];
 	[self iTM2_validateWindowContent];
-//iTM2_END;
+iTM2_END;
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeScaleFrom:
@@ -2945,8 +3147,78 @@ To Do List:
 - (void)trackSelectionCreate:(NSEvent *)theEvent inRect:(NSRect)bounds;
 - (void)trackSelectionDrag:(NSEvent *)theEvent inRect:(NSRect)bounds;
 - (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *) theEvent;
-- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest) area;
 - (void)scrollSelectionToVisible:(id)sender;
+- (BOOL)changeCursorForAreaOfInterest:(PDFAreaOfInterest)area;
+@end
+
+@interface __iTM2PDFKitSynchronizationView:NSView
+@end
+
+@implementation __iTM2PDFKitSynchronizationView
+- (id)initWithFrame:(NSRect)bounds;
+{
+	if(self = [super initWithFrame:bounds])
+	{
+		[self setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
+	}
+	return self;
+}
+- (NSView *)hitTest:(NSPoint)aPoint;
+{
+	return nil;
+}
+- (BOOL)acceptsFirstResponder;
+{
+	return NO;
+}
+- (void)drawRect:(NSRect)aRect;
+{
+	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
+	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
+	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
+	if(![N respondsToSelector:@selector(boolValue)] || ![N boolValue])
+	{
+		return;
+	}
+	N = [cd objectForKey:@"DisplayBullets"];
+	unsigned int displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]:0;
+	if((displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets))
+	{
+		NSRect inRect = NSZeroRect;
+		NSImage * syncDimple = [NSImage iTM2_imageNERedArrow];
+		inRect.size = [syncDimple size];
+//				fromRect = [self convertRect:fromRect fromView:nil];
+		inRect = [self convertRect:inRect fromView:nil];
+		if(inRect.size.width>[syncDimple size].width)
+		{
+			inRect.size = [syncDimple size];
+		}
+		NSPoint origin;
+		origin.x = - inRect.size.width;
+		origin.y = - inRect.size.height;
+		id superview = [self superview];
+		while(![superview isKindOfClass:[PDFView class]])
+		{
+			if(!(superview = [superview superview]))
+			{
+				return;
+			}
+		}
+		id _SyncDestinations = [superview valueForKey:@"_SyncDestinations"];
+		NSEnumerator * E = [_SyncDestinations objectEnumerator];
+		PDFDestination * destination;
+		while(destination = [E nextObject])
+		{
+			NSPoint syncPoint = [destination point]; // point is in page space
+			syncPoint = [superview convertPoint:syncPoint fromPage:[destination page]]; // now in superview coordinates
+			syncPoint = [self convertPoint:syncPoint fromView:superview]; // now in the receiver's coordinates.
+			inRect.origin.x = syncPoint.x + origin.x;
+			inRect.origin.y = syncPoint.y + origin.y;
+			[syncDimple drawInRect:inRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+		}
+	}
+	return;
+}
 @end
 
 @interface __iTM2PDFPrintView:NSView
@@ -2993,13 +3265,15 @@ To Do List:
 - (void)setupView;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
+- 2.1: Thu Jun 19 06:28:52 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self initImplementation];
-	__iTM2PDFKitSelectView * V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
+	id V = [[[__iTM2PDFKitSynchronizationView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
+	[[self documentView] addSubview:V];
+	V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[[self documentView] bounds]] autorelease];
 	[[self documentView] addSubview:V];
 	[V setHidden:[self toolMode]==kiTM2SelectToolMode];
 	[self setAllowsDragging:NO];
@@ -3208,7 +3482,7 @@ To Do List:
 		iTM2PDFSynchronizer * syncer = [D synchronizer];
 		if(!syncer)
 		{
-			[D updatePdfsync:self];
+			[D updateSynchronizer:self];
 			return;
 		}
 		NSImage * starDimple = [NSImage iTM2_imageGreenDimple];
@@ -3301,206 +3575,11 @@ To Do List:
 					inRect.origin.y = P.y + origin.y;
 					[(locationRecord.plus?plusDimple:builtInDimple) drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.75];
 				}
-				nextWhile:;
+nextWhile:;
 			}
-            if((displayBulletsMode & kiTM2PDFSYNCDisplayBuiltInBullets) && [[_SyncDestination page] isEqual:page])
-            {
-				NSImage * syncDimple = [NSImage iTM2_imageRedDimple];
-				NSImage * matchDimple = [NSImage iTM2_imageOrangeDimple];
-//				[starDimple setScalesWhenResized:YES];
-				NSRect fromRect = NSZeroRect;
-				fromRect.size = [syncDimple size];
-//				fromRect = [self convertRect:fromRect fromView:nil];
-				NSRect inRect = [self convertRect:fromRect toPage:page];
-				if(inRect.size.width>[syncDimple size].width)
-				{
-					inRect.size = [syncDimple size];
-				}
-				inRect.size.width  *= 0.25;
-				inRect.size.height *= 0.25;
-				inRect = NSIntegralRect(inRect);
-				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
-				inRect.size.height = inRect.size.width;
-				NSPoint origin;
-				origin.x = - inRect.size.width/2;
-				origin.y = - inRect.size.height/2;
-				NSPoint syncPoint;
-				if([_SyncPointValues count] == 1)
-				{
-					id temp = syncDimple;
-					syncDimple = matchDimple;
-					matchDimple = temp;
-				}
-				NSEnumerator * E = [_SyncPointValues objectEnumerator];
-				while(V = [E nextObject])
-				{
-					syncPoint = [V pointValue];
-					inRect.origin.x = syncPoint.x + origin.x;
-					inRect.origin.y = syncPoint.y + origin.y;
-					[matchDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:0.4];
-				}
-				inRect = [self convertRect:fromRect fromView:nil];
-				inRect = [self convertRect:inRect toPage:page];
-				if(inRect.size.width>[syncDimple size].width)
-				{
-					inRect.size = [syncDimple size];
-				}
-				#if 0
-				inRect = NSIntegralRect(inRect);
-				inRect.size.width = MAX(inRect.size.width,inRect.size.height);
-				inRect.size.height = inRect.size.width;
-				origin.x = - inRect.size.width/2;
-				origin.y = - inRect.size.height/2;
-				syncPoint = [_SyncDestination point];
-				inRect.origin.x = syncPoint.x + origin.x;
-				inRect.origin.y = syncPoint.y + origin.y;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				NSRect bounds = [page boundsForBox:kPDFDisplayBoxCropBox];
-				inRect.origin.x = NSMinX(bounds)+inRect.size.width/2;
-				inRect.origin.y = syncPoint.y - inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				inRect.origin.x = NSMaxX(bounds)-3*inRect.size.width/2;
-				inRect.origin.y = syncPoint.y - inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				inRect.origin.x = syncPoint.x - inRect.size.width/2;
-				inRect.origin.y = NSMinY(bounds)+inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				inRect.origin.x = syncPoint.x - inRect.size.width/2;
-				inRect.origin.y = NSMaxY(bounds)-3*inRect.size.height/2;
-				[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				#endif
-            }
 			[NSGraphicsContext restoreGraphicsState];
 		}
     }
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusCompleteDrawPage:
-- (void)focusCompleteDrawPage:(PDFPage *)page;
-/*"Description forthcoming.
-Version History:jlaurens AT users DOT sourceforge DOT net
-- 1.3:03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(!_SyncDestination)
-	{
-		if([_SyncDestinations count])
-		{
-			_SyncDestination = [[_SyncDestinations lastObject] retain];
-		}
-		else
-		{
-			return;
-		}
-	}
-	unsigned int displayBulletsMode;
-	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
-	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
-	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
-    if([N respondsToSelector:@selector(boolValue)]? [N boolValue]:NO)
-    {
-		N = [cd objectForKey:@"DisplayBullets"];
-		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]:0;
-		if(!(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets))
-		{
-			return;
-		}
-		if(![[_SyncDestination page] isEqual:page])
-		{
-			return;
-		}
-		NSShadow * theShadow = [[[NSShadow alloc] init] autorelease]; 
-		NSRect fromRect = NSZeroRect;
-		NSImage * syncDimple = [NSImage iTM2_imageRedDimple];
-		fromRect.size = [syncDimple size];
-//				fromRect = [self convertRect:fromRect fromView:nil];
-		NSRect inRect = [self convertRect:fromRect toPage:page];
-		if(inRect.size.width>[syncDimple size].width)
-		{
-			inRect.size = [syncDimple size];
-			// Use a partially transparent color for shapes that overlap.
-			[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.4]];
-		}
-		else
-		{
-			// Use a partially transparent color for shapes that overlap.
-			[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:0.5*inRect.size.width/[syncDimple size].width]];
-		}
-		inRect.size.width  /= 3;
-		inRect.size.height /= 3;
-		inRect = NSIntegralRect(inRect);
-		inRect.size.width = MAX(inRect.size.width,inRect.size.height);
-		inRect.size.height = inRect.size.width;
-		[theShadow setShadowOffset:NSMakeSize(0,-inRect.size.height*0.25)]; 
-		[theShadow setShadowBlurRadius:inRect.size.height*0.15]; 
-		[NSGraphicsContext saveGraphicsState]; 
-		[theShadow set];
-		N = [cd objectForKey:@"DisplayBullets"];
-		displayBulletsMode = [N respondsToSelector:@selector(unsignedIntValue)]? [N unsignedIntValue]:0;
-		if(displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
-		{
-//				[syncDimple setScalesWhenResized:YES];
-			NSRect fromRect = NSZeroRect;
-			fromRect.size = [syncDimple size];
-//				fromRect = [self convertRect:fromRect fromView:nil];
-			NSRect inRect = [self convertRect:fromRect toPage:page];
-			if(inRect.size.width>[syncDimple size].width)
-			{
-				inRect.size = [syncDimple size];
-			}
-			inRect.size.width  *= 0.25;
-			inRect.size.height *= 0.25;
-			inRect = NSIntegralRect(inRect);
-			inRect.size.width = MAX(inRect.size.width,inRect.size.height);
-			inRect.size.height = inRect.size.width;
-			NSPoint origin;
-			origin.x = - inRect.size.width/2;
-			origin.y = - inRect.size.height/2;
-			NSEnumerator * E = [_SyncDestinations objectEnumerator];
-			PDFDestination * destination;
-			while(destination = [E nextObject])
-			{
-				if([[destination page] isEqual:page])
-				{
-//iTM2_LOG(@"----     destination on that page:%@", destination);
-					NSPoint syncPoint = [destination point];
-					inRect.origin.x = syncPoint.x + origin.x;
-					inRect.origin.y = syncPoint.y + origin.y;
-//					[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-					[[[NSColor redColor] colorWithAlphaComponent:0.2] set];
-					NSRect bounds = [page boundsForBox:kPDFDisplayBoxCropBox];
-					NSBezierPath * path = [NSBezierPath bezierPath];
-					NSPoint point1 = NSMakePoint(NSMidX(inRect),NSMidY(inRect));
-					NSPoint point2 = point1;
-					point2.x = NSMinX(bounds);
-					[path moveToPoint:point1];
-					[path lineToPoint:point2];
-					point2.x = NSMaxX(bounds);
-					[path moveToPoint:point1];
-					[path lineToPoint:point2];
-					point2 = point1;
-					point2.y = NSMinY(bounds);
-					[path moveToPoint:point1];
-					[path lineToPoint:point2];
-					point2.y = NSMaxY(bounds);
-					[path moveToPoint:point1];
-					[path lineToPoint:point2];
-					float array[2] = {1.5,9.25};
-					[path setLineDash:array count:2 phase:0.0];
-					[path stroke];
-					[syncDimple drawInRect:inRect fromRect:fromRect operation:NSCompositeSourceOver fraction:1];
-				}
-				else
-				{
-//iTM2_LOG(@"----     destination NOT on that page:%@", destination);
-				}
-			}
-		}
-		[NSGraphicsContext restoreGraphicsState];
-	}
 //iTM2_END;
 	return;
 }
@@ -3528,46 +3607,120 @@ To Do List:
 //iTM2_END;
     return self;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  resetCursorRects
+- (void)resetCursorRects
+/*"Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.1: Sat Jun 21 20:44:27 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSTrackingRectTag tag = [[IMPLEMENTATION metaValueForKey:@"NSTrackingCursorRectTag"] intValue];
+	if(tag)
+	{
+		[self removeTrackingRect:tag];
+	}
+	tag = [self addTrackingRect:[self visibleRect] owner:self userData:nil assumeInside:YES];
+	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithInt:tag] forKey:@"NSTrackingCursorRectTag"];
+//iTM2_END;
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseEntered:
+- (void)mouseEntered:(NSEvent *)theEvent;
+/*"Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.1: Sat Jun 21 20:44:27 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([theEvent trackingNumber] == [[IMPLEMENTATION metaValueForKey:@"NSTrackingCursorRectTag"] intValue])
+	{
+		[self setCursorForAreaOfInterest:[self areaOfInterestForMouse:theEvent]];
+		return;
+	}
+//iTM2_END;
+	[super mouseEntered:(NSEvent *)theEvent];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseExited:
+- (void)mouseExited:(NSEvent *)theEvent;
+/*"Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.1: Sat Jun 21 20:44:27 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([theEvent trackingNumber] == [[IMPLEMENTATION metaValueForKey:@"NSTrackingCursorRectTag"] intValue])
+	{
+		[self setCursorForAreaOfInterest:[self areaOfInterestForMouse:theEvent]];
+		return;
+	}
+//iTM2_END;
+	[super mouseExited:(NSEvent *)theEvent];
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCursorForAreaOfInterest:
 - (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area
-/*"Description forthcoming.
+/*"This is where the cursor is set.
+We first ask the __iTM2PDFKitSelectView subview,
+if this subview does not change the cirsor, then we manage it here.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSArray * subviews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
+	if([subviews count])
+	{
+		__iTM2PDFKitSelectView * subview = [subviews lastObject];
+		if(![subview isHiddenOrHasHiddenAncestor] && [subview changeCursorForAreaOfInterest:area])
+		{
+//iTM2_END;
+			return;
+		}
+	}
 	if(area&kiTM2PDFZoomInArea)
 	{
 		[[NSCursor zoomInCursor] set];
 //iTM2_END;
 		return;
 	}
-	NSArray * subviews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
-	if([subviews count])
+	if(area&kiTM2PDFZoomOutArea)
 	{
-		__iTM2PDFKitSelectView * subview = [subviews lastObject];
-		if(![subview isHiddenOrHasHiddenAncestor])
-		{
-			[subview setCursorForAreaOfInterest:area];
+		[[NSCursor zoomOutCursor] set];
 //iTM2_END;
-			return;
+		return;
+	}
+	if(area&kiTM2PDFSelectArea)
+	{
+		[[NSCursor openHandCursor] set];
+//iTM2_END;
+		return;
+	}
+	if(area&kPDFPageArea)
+	{
+		switch([self toolMode])
+		{
+			case kiTM2ScrollToolMode:
+				[[NSCursor openHandCursor] set];
+				return;
+			case kiTM2TextToolMode:
+				[[NSCursor IBeamCursor] set];
+				return;
+			case kiTM2SelectToolMode:
+				[[NSCursor crosshairCursor] set];
+				return;
+			case kiTM2AnnotateToolMode:
+				[[NSCursor arrowCursor] set];
+				return;
 		}
 	}
-	switch([self toolMode])
-	{
-		case kiTM2ScrollToolMode:
-			[[NSCursor openHandCursor] set];
-			return;
-		case kiTM2SelectToolMode:
-			[[NSCursor crosshairCursor] set];
-			return;
-		default:
-			[super setCursorForAreaOfInterest:area];
-			return;
-	}
 //iTM2_END;
-	return;
+	return [super setCursorForAreaOfInterest:area];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  areaOfInterestForMouse:
 - (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *)theEvent;
@@ -3581,25 +3734,35 @@ To Do List:
 	unsigned int modifierFlags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
 	if(modifierFlags&NSCommandKeyMask)
 	{
-		if(modifierFlags&(NSShiftKeyMask|NSAlternateKeyMask))
+		if(modifierFlags&NSAlternateKeyMask)
 		{
-//iTM2_END;
+			if(modifierFlags&NSShiftKeyMask)
+			{
+				return [super areaOfInterestForMouse:theEvent] | kiTM2PDFZoomOutArea;
+			}
 			return [super areaOfInterestForMouse:theEvent] | kiTM2PDFZoomInArea;
 		}
-		return kPDFNoArea;
 	}
-	NSArray * subviews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
-	if([subviews count])
+	NSPoint mouseLocation = [self convertPoint:[[self window] mouseLocationOutsideOfEventStream] fromView:nil];
+	if(NSPointInRect(mouseLocation,[self visibleRect])&&[self pageForPoint:mouseLocation nearest:NO])
 	{
-		__iTM2PDFKitSelectView * subview = [subviews lastObject];
-		if(![subview isHiddenOrHasHiddenAncestor])
+		NSArray * subviews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
+		if([subviews count])
 		{
-//iTM2_END;
-			return [super areaOfInterestForMouse:theEvent] | [subview areaOfInterestForMouse:theEvent];
+			__iTM2PDFKitSelectView * subview = [subviews lastObject];
+			if(![subview isHiddenOrHasHiddenAncestor])
+			{
+				PDFAreaOfInterest AOI = [subview areaOfInterestForMouse:theEvent];
+				if(AOI != kPDFNoArea)
+				{
+					return kPDFPageArea | AOI;
+				}
+			}
 		}
+		return kPDFPageArea;
 	}
 //iTM2_END;
-	return [super areaOfInterestForMouse:theEvent];
+	return kPDFNoArea;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  trackZoom:
 - (BOOL)trackZoom:(NSEvent *)theEvent;
@@ -3730,9 +3893,9 @@ next:
 	{
 		[NSEvent stopPeriodicEvents];/* No longer need to refresh */
 		[[rootView superview] replaceSubview:rootView with:self];
-		[window makeFirstResponder:self];
+		[window makeFirstResponder:nil];
 		[[self superview] setNeedsDisplay:YES];
-		[window discardCursorRects];
+		[window resetCursorRects];
 		id WC = [window windowController];
 		if([WC respondsToSelector:@selector(setDocumentViewVisibleRect:)])
 		{
@@ -3817,6 +3980,12 @@ next:
 	page = [self currentPage];
 //iTM2_LOG(@"AFTER %i",[doc indexForPage:page]);
 	return;
+}
+- (void)setScaleFactor:(float)aMagnification;
+{iTM2_DIAGNOSTIC;
+iTM2_START;
+	[super setScaleFactor:(float)aMagnification];
+iTM2_END;
 }
 @end
 
@@ -4217,6 +4386,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	// WARNING the given words might not be found due to the spaces added by TeX
+	// If a word is too big, it might be cut by TeX.
 	NSParameterAssert([before length]);
 	NSParameterAssert([hit length]);
 	NSParameterAssert([after length]);
@@ -4875,18 +5046,35 @@ quelquepart:
 			{
 				[_SyncDestinations autorelease];
 				PDFDestination * hitDestination = [_SyncDestinations objectAtIndex:0];
-				_SyncDestinations = [[NSArray arrayWithObject:hitDestination] retain];
+				_SyncDestinations = [[NSMutableArray arrayWithObject:hitDestination] retain];
 				//[self scrollDestinationToVisible:hitDestination];// no go to, it does not work well...
 				if([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO])
 				{
 					return YES;
 				}
-				[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
-				return YES;
 			}
 		}
 	}
+	else
+	{
+		// for one reason or another, we could not find the positions.
+		// then rely on SyncTeX if available
+		if([[destinations objectForKey:@"SyncTeX"] boolValue])
+		{
+			E = [hereRecords keyEnumerator];
+			N = [E nextObject];
+			pageIndex = [N unsignedIntValue];
+			PDFPage * page = [[self document] pageAtIndex:pageIndex];
+			NSPoint P = [[[hereRecords objectForKey:N] lastObject] pointValue];
+			NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
+			P.y = NSMaxY(bounds)-P.y;
+			PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:P] autorelease];
+			[_SyncDestinations removeAllObjects];
+			[_SyncDestinations addObject:destination];
+		}
+	}
 //iTM2_END;
+	[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
 	return [_SyncDestinations count]!=0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:after:index:
@@ -5265,14 +5453,30 @@ quelquepart:
 			{
 				[_SyncDestinations autorelease];
 				PDFDestination * hitDestination = [_SyncDestinations objectAtIndex:0];
-				_SyncDestinations = [[NSArray arrayWithObject:hitDestination] retain];
-				//[self scrollDestinationToVisible:hitDestination];// no go to, it does not work well...
-				[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
-				return YES;
+				_SyncDestinations = [[NSMutableArray arrayWithObject:hitDestination] retain];
 			}
 		}
 	}
+	else
+	{
+		// for one reason or another, we could not find the positions.
+		// then rely on SyncTeX if available
+		if([[destinations objectForKey:@"SyncTeX"] boolValue])
+		{
+			E = [hereRecords keyEnumerator];
+			N = [E nextObject];
+			pageIndex = [N unsignedIntValue];
+			PDFPage * page = [[self document] pageAtIndex:pageIndex];
+			NSPoint P = [[[hereRecords objectForKey:N] lastObject] pointValue];
+			NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
+			P.y = NSMaxY(bounds)-P.y;
+			PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:P] autorelease];
+			[_SyncDestinations removeAllObjects];
+			[_SyncDestinations addObject:destination];
+		}
+	}
 //iTM2_END;
+	[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
 	return [_SyncDestinations count]!=0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __threadedSynchronizeWithStoredDestinationsAndHints:
@@ -5290,6 +5494,706 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	[NSThread exit];
 	return;
+}
+#import <iTM2TeXFoundation/synctex_parser.h>
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithLine:column:source:hint:
+- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)source hint:(NSDictionary *)hint
+/*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
+Version History:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	id synchronizer = [[[[self window] windowController] document] synchronizer];
+	if(![synchronizer isSyncTeX])
+	{
+		return NO;
+	}
+	synctex_scanner_t scanner = [synchronizer scanner];
+	if(synctex_display_query(scanner,[source fileSystemRepresentation],l+1,c)>0)
+	{
+		synctex_node_t first_node = NULL;
+		synctex_node_t node = NULL;
+		unsigned int pageIndex = UINT_MAX;
+		PDFPage * page = nil;
+		PDFDocument * document = [self document];
+		// get the hint ?
+		NSString * container = [hint objectForKey:@"container"];
+		NSNumber * N = [hint objectForKey:@"character index"];
+		if(!N)
+		{
+			return NO;
+		}
+		unsigned int hereIndex = [N unsignedIntValue];// The mousedown occurred here.
+		if(hereIndex >= [container length])
+		{
+			return NO;
+		}
+		NSRange hereR;
+nextHereRight:
+		hereR = [container doubleClickAtIndex:hereIndex];
+		if(!hereR.length)
+		{
+			if(hereIndex<[container length])
+			{
+				++hereIndex;
+				goto nextHereRight;
+			}
+			else
+			{
+				hereIndex = [N unsignedIntValue];
+nextHereLeft:
+				if(hereIndex--)
+				{
+					hereR = [container doubleClickAtIndex:hereIndex];
+					if(!hereR.length)
+					{
+						goto nextHereLeft;
+					}
+				}
+				else
+				{
+					return NO;
+				}
+			}
+		}
+		// the 3 words in the source around the hit index
+		NSString * before = nil;
+		NSString * here = [container substringWithRange:hereR];
+		NSString * after = nil;
+		// unsigned int hereOffset = 
+		[container iTM2_getWordBefore:&before here:&here after:&after atIndex:[N unsignedIntValue] mode:YES];
+		if(!_SyncDestinations)
+		{
+			_SyncDestinations = [[NSMutableArray array] retain];
+		}
+#if 0
+		first_node = synctex_next_result(scanner);
+#elif 1
+		//  first we collect all the nodes by page,
+		NSMutableDictionary * nodesPerPages = [NSMutableDictionary dictionary];
+		//  do something only if there is a match
+		if((first_node = synctex_next_result(scanner)))
+		{
+			node = first_node;
+			NSNumber * pageIndexKey = nil;
+			NSMutableArray * nodesMRA = nil;
+			NSValue * V = nil;
+			do
+			{
+				int pageIndex = synctex_node_page(node)-1;
+				if(pageIndex<0 || pageIndex>=[document pageCount])
+				{
+					continue;
+				}
+				pageIndexKey = [NSNumber numberWithInt:pageIndex];
+				nodesMRA = [nodesPerPages objectForKey:pageIndexKey];
+				if(!nodesMRA)
+				{
+					nodesMRA = [NSMutableArray array];
+					[nodesPerPages setObject:nodesMRA forKey:pageIndexKey];
+				}
+				V = [NSValue valueWithPointer:node];
+				[nodesMRA addObject:V];
+				// get the synchronized line range and string
+				
+			} while((node = synctex_next_result(scanner)));
+			// then for each page, work with the synchronized stuff
+			NSEnumerator * pageIndexE = [nodesPerPages keyEnumerator];
+			NSEnumerator * nodesE = nil;
+			NSRange lineRange;
+			NSString * pageString = nil;
+			while(pageIndexKey = [pageIndexE nextObject])
+			{
+				PDFPage * page = [document pageAtIndex:[pageIndexKey intValue]];
+				pageString = [page string];
+				nodesMRA = [nodesPerPages objectForKey:pageIndexKey];
+				nodesE = [[[nodesMRA mutableCopy] autorelease] objectEnumerator];
+				[nodesMRA removeAllObjects];
+				while(V = [nodesE nextObject])
+				{
+					node = [V pointerValue];
+					// get the full line text of the click
+					float tmp;
+					float top;
+					NSPoint PP;
+next_attempt:
+					tmp = synctex_node_box_visible_width(node);
+					if(tmp<0)
+					{
+						top = synctex_node_box_visible_h(node);
+						PP.x = top+tmp;
+					}
+					else
+					{
+						PP.x = synctex_node_box_visible_h(node);
+						top = PP.x+tmp;
+					}
+					PP.y = synctex_node_box_visible_v(node)+(synctex_node_box_visible_depth(node)-synctex_node_box_visible_height(node))/2;
+					PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
+					NSPoint Q = PP;
+					Q.y+=1;
+					PDFSelection * destination = nil;
+					while(nil == (destination = [page selectionForWordAtPoint:Q]))
+					{
+						if((Q.x+=5)>top)
+						{
+							// second attempt
+							Q = PP;
+							while(nil == (destination = [page selectionForLineAtPoint:Q]))
+							{
+								if((Q.x+=5)>top)
+								{
+									if((node = synctex_node_parent(node)))
+									{
+										goto next_attempt;
+									}
+									goto next_chance;
+								}
+							}
+						}
+					}
+					//  there was a selection for that point
+					NSRect bounds = [destination boundsForPage:page];
+					bounds.origin.y += 1;
+					lineRange.location = [page characterIndexAtPoint:bounds.origin];
+					lineRange.length = 0;
+					[pageString getLineStart:(unsigned *)&(lineRange.location) end:nil contentsEnd:(unsigned *)&(lineRange.length) forRange:lineRange];
+					lineRange.length -= lineRange.location;
+					V = [NSValue valueWithRange:lineRange];
+					if(![nodesMRA containsObject:V])
+					{
+						[nodesMRA addObject:V];
+					}
+next_chance:;					
+				}
+				if([nodesMRA count])
+				{
+					[nodesMRA insertObject:page atIndex:0];
+					[nodesMRA insertObject:pageString atIndex:1];
+				}
+				else
+				{
+					[nodesPerPages removeObjectForKey:pageIndexKey];
+				}
+			}
+			//  now nodesPerPages keys are page index numbers
+			//  the values are mutable arrays containing
+			//  the page object
+			//  its string content
+			//  the list of all the line ranges concerned by synchronization
+			//  Now we are going to change the line ranges to character ranges
+			//  there are 2 ways of doing things, depending on a word was clicked or not
+			//  if the users clicked on a word, we try to find this word out in the output
+			//  if the users clicked on a character that does not fit inside a full word,
+			//  then we do nothing.
+			//  The switch between thsoe two situations should be made earlier,
+			//  because there is no definite rule to decide what should me made by the user interface,
+			//  after the current method returns
+			pageIndexE = [nodesPerPages keyEnumerator];
+			while((pageIndexKey = [pageIndexE nextObject]))
+			{
+				nodesMRA = [nodesPerPages objectForKey:pageIndexKey];
+				nodesE = [nodesMRA objectEnumerator];
+				if((page = [nodesE nextObject]) && (pageString = [nodesE nextObject]))
+				{
+					//  turn all the line ranges into a common list of word ranges
+					//  with at least 2 characters
+					//  this is available within the whole loop
+					NSMutableArray * wordRanges = [NSMutableArray array];
+					//  now find the words that fits best with the "here" word under the hit point
+					//  create a dictionary for which keys are the edit distance and the values are mutable arrays of word ranges
+					//  for that edit distance
+					NSMutableDictionary * keyedEditDistances = [NSMutableDictionary dictionary];
+					unsigned int wordRangeIndex = 0;
+					while((V = [nodesE nextObject]))
+					{
+						lineRange = [V rangeValue];//  V is unused now
+						NSRange wordRange;
+						unsigned int charIndex;
+						charIndex = lineRange.location;
+next_word_in_line:
+						wordRange = [pageString doubleClickAtIndex:charIndex];
+						if(wordRange.length>0)
+						{
+							if(wordRange.length>1 || [[NSCharacterSet letterCharacterSet] characterIsMember:[pageString characterAtIndex:charIndex]])
+							{
+								V = [NSValue valueWithRange:wordRange];
+								if(![wordRanges containsObject:V])
+								{
+									[wordRanges addObject:V];
+									NSString * word = [pageString substringWithRange:wordRange];
+									//  compare this word with the "here" word at the hit point
+									unsigned editDistance = [word iTM2_editDistanceToString:here];
+									NSNumber * editDistanceN = [NSNumber numberWithUnsignedInt:editDistance];
+									NSMutableArray * mra = [keyedEditDistances objectForKey:editDistanceN];
+									if(!mra)
+									{
+										mra = [NSMutableArray array];
+										[keyedEditDistances setObject:mra forKey:editDistanceN];
+									}
+									V = [NSNumber numberWithUnsignedInt:wordRangeIndex];
+									++ wordRangeIndex; // increment the index
+									[mra addObject:V];
+								}
+							}
+							charIndex = NSMaxRange(wordRange);
+							if(charIndex < NSMaxRange(lineRange))
+							{
+								goto next_word_in_line;
+							}
+						}
+					}
+					//  what is the smaller distance?
+					if([keyedEditDistances count])
+					{
+						NSNumber * bestEditDistanceN = [[[keyedEditDistances allKeys]
+							sortedArrayUsingSelector:@selector(compare:)]
+								objectAtIndex:0];
+						// if the smallest distance is small enough, it will be retained for synchronization
+						if([bestEditDistanceN unsignedIntValue] <= [here length]/3)
+						{
+							[_SyncDestinations removeAllObjects];
+							NSMutableArray * mra = [keyedEditDistances objectForKey:bestEditDistanceN];
+							if([mra count]>1)
+							{
+								//  can't we filter out some of the candidates?
+								//  we can do that by comparing the word before the candidate with what is expected
+								//  
+								if([before length])
+								{
+									//  In a first stage, we just compare the word before the synchronization candidate
+									//  and the expected one, we have to store the distances
+									//  This makes sense only if there is a word before for each 
+									NSMutableDictionary * md = [NSMutableDictionary dictionary];
+									//  the keys are the edit distances
+									//  the values are mutable arrays containing the candidates for that edit distance
+									NSEnumerator * E = [[[mra copy] autorelease] objectEnumerator];
+									unsigned int rangeIndex;
+									while((V = [E nextObject]))
+									{
+										rangeIndex = [(NSNumber *)V unsignedIntValue];
+previousRangeIndex:
+										if(rangeIndex>0)
+										{
+											NSRange R = [[wordRanges objectAtIndex:rangeIndex-1] rangeValue];
+											if(R.length>2)
+											{
+												NSString * beforeCandidate = [pageString substringWithRange:R];
+												unsigned int editDistance = [before iTM2_editDistanceToString:beforeCandidate];
+												NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
+												NSMutableArray * mra1 = [md objectForKey:N];
+												if(!mra1)
+												{
+													mra1 = [NSMutableArray array];
+													[md setObject:mra1 forKey:N];
+												}
+												[mra1 addObject:V];
+											}
+											else
+											{
+												--rangeIndex;
+												goto previousRangeIndex;
+											}
+										}
+										else
+										{
+											[md setDictionary:[NSDictionary dictionary]];// nil?
+											break;
+										}
+									}
+									NSArray * RA = [md allKeys];
+									RA = [RA sortedArrayUsingSelector:@selector(compare:)];
+									if([RA count])
+									{
+										NSNumber * smallestDistanceN = [RA objectAtIndex:0];
+										[mra setArray:[md objectForKey:smallestDistanceN]];
+									}
+								}
+							}
+							if([mra count]>1)
+							{
+								//  can't we filter out some of the candidates?
+								//  we can do that by comparing the word after the candidate with what is expected
+								if([after length])
+								{
+									//  In a first stage, we just compare the word before the synchronization candidate
+									//  and the expected one, we have to store the distances
+									//  This makes sense only if there is a word before for each 
+									NSMutableDictionary * md = [NSMutableDictionary dictionary];
+									//  the keys are the edit distances
+									//  the values are mutable arrays containing the candidates for that edit distance
+									NSEnumerator * E = [[[mra copy] autorelease] objectEnumerator];
+									unsigned int rangeIndex;
+									while((V = [E nextObject]))
+									{
+										rangeIndex = [(NSNumber *)V unsignedIntValue];
+nextRangeIndex:
+										if(rangeIndex+1<[wordRanges count])
+										{
+											NSRange R = [[wordRanges objectAtIndex:rangeIndex+1] rangeValue];
+											if(R.length>2)
+											{
+												NSString * afterCandidate = [pageString substringWithRange:R];
+												unsigned int editDistance = [after iTM2_editDistanceToString:afterCandidate];
+												NSNumber * N = [NSNumber numberWithUnsignedInt:editDistance];
+												NSMutableArray * mra1 = [md objectForKey:N];
+												if(!mra1)
+												{
+													mra1 = [NSMutableArray array];
+													[md setObject:mra1 forKey:N];
+												}
+												[mra1 addObject:V];
+											}
+											else
+											{
+												++rangeIndex;
+												goto nextRangeIndex;
+											}
+										}
+										else
+										{
+											[md setDictionary:[NSDictionary dictionary]];// nil?
+											break;
+										}
+									}
+									NSArray * RA = [[md allKeys] sortedArrayUsingSelector:@selector(compare:)];
+									if([RA count])
+									{
+										NSNumber * smallestDistanceN = [RA objectAtIndex:0];
+										[mra setArray:[md objectForKey:smallestDistanceN]];
+									}
+								}
+							}
+							NSEnumerator * E = [mra objectEnumerator];
+							while((V = [E nextObject]))
+							{
+								unsigned int rangeIndex = [(NSNumber *)V unsignedIntValue];
+								// retrive the range value now
+								V = [wordRanges objectAtIndex:rangeIndex];
+								NSRange R = [V rangeValue];
+								NSRect bounds = [page characterBoundsAtIndex:R.location];
+								PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+								[_SyncDestinations addObject:destination];
+							}
+							if(![_SyncDestinations count])
+							{
+								// just add something for the line, and that is all
+								float tmp = synctex_node_box_visible_width(first_node);
+								NSPoint PP;
+								if(tmp<0)
+								{
+									PP.x = synctex_node_box_visible_h(first_node)+tmp;
+								}
+								else
+								{
+									PP.x = synctex_node_box_visible_h(first_node);
+								}
+								PP.y = synctex_node_box_visible_v(first_node)+(synctex_node_box_visible_depth(first_node)-synctex_node_box_visible_height(first_node))/2;
+								PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
+								PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:PP] autorelease];
+								[_SyncDestinations addObject:destination];
+							}
+							[self setNeedsDisplay:YES];
+							[self scrollSynchronizationPointToVisible:self];
+							return YES;
+						}// the best edit distance is really bad
+					}
+				}
+			}
+		}
+#elif 1
+		//  the idea is to find all the matches of the character hitted in the text view
+		//  then filter out the most probable occurrences until only one is left if possible
+		//  The filter is done by some kind of penalty
+		//  We test each character that is next to the hit character and see if we can find it
+		//  in the output near the match.
+		//  If we can find one, we add a small penalty, bigger if the character is not at the correct position
+		//  We first try to filter out only characters to the right of the hit point
+		//  then to the left
+		NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+		//  In this dictionary, keys are the PDF page indexes
+		NSNumber * K = nil;
+		//  values are arrays
+		NSMutableArray * MRA = nil;
+		//  the first object is the page object
+		//  the other object are wrappers over nodes for that page
+		
+		//  values are mutable dictionaries with the pdf page object and the penalties
+		//  First fill out everything
+		if((first_node = synctex_next_result(scanner)))
+		{
+			NSValue * V;
+			node = first_node;
+			do
+			{
+				pageIndex = synctex_node_page(node)-1;
+				if(pageIndex>=[document pageCount])
+				{
+					continue;
+				}
+				page = [document pageAtIndex:pageIndex];
+				V = [NSValue valueWithNonretainedObject:page];
+				MRA = [MD objectForKey:V];
+				if(!MRA)
+				{
+					MRA = [NSMutableArray array];
+					[MRA addObject:page];
+					[MD setObject:MRA forKey:V];
+				}
+				[MRA addObject:[NSValue valueWithPointer:node]];
+			} while((node = synctex_next_result(scanner)));
+			NSEnumerator * pE = [MD keyEnumerator];
+			NSMutableDictionary * matchRanges = [NSMutableDictionary dictionary];
+			NSEnumerator * E = nil;
+			NSRange lineRange;
+			while(K = [pE nextObject])
+			{
+				MRA = [MD objectForKey:K];
+				E = [[[MRA copy] autorelease] objectEnumerator];
+				[MRA removeAllObjects];
+				page = [E nextObject];
+				NSString * pageString = [page string];
+				while((node = [[E nextObject] pointerValue]))
+				{
+					// get the full line text of the click
+					float tmp = synctex_node_box_visible_width(node);
+					float top;
+					NSPoint PP;
+next_attempt:
+					tmp = synctex_node_box_visible_width(node);
+					if(tmp<0)
+					{
+						top = synctex_node_box_visible_h(node);
+						PP.x = top+tmp;
+					}
+					else
+					{
+						PP.x = synctex_node_box_visible_h(node);
+						top = PP.x+tmp;
+					}
+					PP.y = synctex_node_box_visible_v(node)+(synctex_node_box_visible_depth(node)-synctex_node_box_visible_height(node))/2;
+					PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
+					NSPoint Q = PP;
+					Q.y+=1;
+					PDFSelection * destination = nil;
+					while(nil == (destination = [page selectionForWordAtPoint:Q]))
+					{
+						if((Q.x+=5)>top)
+						{
+							// second attempt
+							Q = PP;
+							while(nil == (destination = [page selectionForLineAtPoint:Q]))
+							{
+								if((Q.x+=5)>top)
+								{
+									if((node = synctex_node_parent(node)))
+									{
+										goto next_attempt;
+									}
+									goto next_chance;
+								}
+							}
+						}
+					}
+					NSRect bounds = [destination boundsForPage:page];
+					bounds.origin.y += 1;
+					lineRange.location = [page characterIndexAtPoint:bounds.origin];
+					lineRange.length = 0;
+					[pageString getLineStart:(unsigned *)&(lineRange.location) end:nil contentsEnd:(unsigned *)&(lineRange.length) forRange:lineRange];
+					lineRange.length -= lineRange.location;
+					V = [NSValue valueWithRange:lineRange];
+					if(![MRA containsObject:V])
+					{
+						[MRA addObject:V];
+					}
+next_chance:;
+				}
+				E = [[[MRA copy] autorelease] objectEnumerator];
+				[MRA removeAllObjects];
+				while((V = [E nextObject]))
+				{
+					lineRange = [V rangeValue];
+					NSString * lineString = [pageString substringWithRange:lineRange];
+					// Is the hit character in this line?
+					unsigned charIndex = 0;
+					while(charIndex<[lineString length])
+					{
+						if([lineString characterAtIndex:charIndex]==[container characterAtIndex:hereIndex])
+						{
+							[MRA addObject:[NSValue valueWithRange:NSMakeRange(charIndex+lineRange.location,1)]];
+						}
+						++charIndex;
+					}
+				}
+				if([MRA count]==1)
+				{
+					[matchRanges setObject:MRA forKey:K];
+				}
+				else
+				{
+					if([MRA count]>1)
+					{
+						NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+						E = [[[MRA copy] autorelease] objectEnumerator];
+						while((V = [E nextObject]))
+						{
+							lineRange = [V rangeValue];
+							lineRange = [pageString doubleClickAtIndex:lineRange.location];
+							NSString * w = [pageString substringWithRange:lineRange];
+							NSNumber * N = [NSNumber numberWithUnsignedInt:[here iTM2_editDistanceToString:w]];
+							NSMutableArray * mra = [MD objectForKey:N];
+							if(!mra)
+							{
+								mra = [NSMutableArray array];
+								[MD setObject:mra forKey:N];
+							}
+							[mra addObject:V];
+						}
+						E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
+						if((V = [E nextObject]))
+						{
+							[matchRanges setObject:[MD objectForKey:V] forKey:K];
+						}
+						else
+						{
+							goto last_chance;
+						}
+					}
+				}
+			}
+			[_SyncDestinations removeAllObjects];
+			E = [matchRanges keyEnumerator];
+			if(V = [E nextObject])
+			{
+				do
+				{
+					page = [V nonretainedObjectValue];
+					NSEnumerator * e = [[matchRanges objectForKey:V] objectEnumerator];
+					while(V = [e nextObject])
+					{
+						lineRange = [V rangeValue];
+						NSRect bounds = [page characterBoundsAtIndex:lineRange.location];
+						PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+						[_SyncDestinations addObject:destination];
+					}
+				}
+				while(V = [E nextObject]);
+				[self setNeedsDisplay:YES];
+				[self scrollSynchronizationPointToVisible:self];
+				return YES;
+			}
+		}
+#else
+		while((node = synctex_next_result(scanner)))
+		{
+			if(!first_node)
+			{
+				first_node = node;
+			}
+			pageIndex = synctex_node_page(node)-1;
+			if(pageIndex>=[document pageCount])
+			{
+				continue;
+			}
+			page = [document pageAtIndex:pageIndex];
+			// get the full line text of the click
+			float tmp = synctex_node_box_visible_width(node);
+			float top;
+			NSPoint PP;
+			if(tmp<0)
+			{
+				top = synctex_node_box_visible_h(node);
+				PP.x = top+tmp;
+			}
+			else
+			{
+				PP.x = synctex_node_box_visible_h(node);
+				top = PP.x+tmp;
+			}
+			PP.y = synctex_node_box_visible_v(node)+(synctex_node_box_visible_depth(node)-synctex_node_box_visible_height(node))/2;
+			PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
+			NSPoint Q = PP;
+			PDFSelection * destination = nil;
+			while(nil == (destination = [page selectionForLineAtPoint:Q]))
+			{
+				if((Q.x+=5)>top)
+				{
+					destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:PP] autorelease];
+					[_SyncDestinations removeAllObjects];
+					[_SyncDestinations addObject:destination];
+					[self setNeedsDisplay:YES];
+					[self scrollSynchronizationPointToVisible:self];
+					return YES;
+				}
+			}
+			NSRect bounds = [destination boundsForPage:page];
+			bounds.origin.y += 1;
+			NSRange lineRange;
+			lineRange.location = [page characterIndexAtPoint:bounds.origin];
+			lineRange.length = 0;
+			NSString * SS = [page string];
+			[SS getLineStart:(unsigned *)&(lineRange.location) end:nil contentsEnd:(unsigned *)&(lineRange.length) forRange:lineRange];
+			lineRange.length -= lineRange.location;
+			NSString * lineString = [SS substringWithRange:lineRange];
+			// Is the here word in this line?
+			NSMutableArray * matchRanges = [NSMutableArray array];
+			NSRange searchRange,findRange;
+			findRange = NSMakeRange(0,0);
+nextMatch:
+			searchRange.location = NSMaxRange(findRange);
+			searchRange.length = [lineString length] - searchRange.location;
+			findRange = [lineString rangeOfString:here options:0L range:searchRange];
+			if(findRange.length)
+			{
+				[matchRanges addObject:[NSValue valueWithRange:findRange]];
+				goto nextMatch;
+			}
+			NSEnumerator * E = [matchRanges objectEnumerator];
+			NSValue * V;
+			if(V = [E nextObject])
+			{
+				hereOffset += lineRange.location;
+				[_SyncDestinations removeAllObjects];
+				do
+				{
+					findRange = [V rangeValue];
+					NSRect bounds = [page characterBoundsAtIndex:hereOffset+findRange.location];
+					destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+					[_SyncDestinations addObject:destination];
+				}
+				while(V = [E nextObject]);
+				[self setNeedsDisplay:YES];
+				[self scrollSynchronizationPointToVisible:self];
+				return YES;
+			}
+		}
+#endif
+last_chance:
+		if(first_node)
+		{
+			pageIndex = synctex_node_page(first_node)-1;
+			if(pageIndex>=[document pageCount])
+			{
+				return NO;
+			}
+			page = [document pageAtIndex:pageIndex];
+			[_SyncDestinations removeAllObjects];
+			NSPoint P = NSMakePoint(synctex_node_box_visible_h(first_node),synctex_node_box_visible_v(first_node));
+			P.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - P.y;
+			if(!_SyncDestinations)
+			{
+				_SyncDestinations = [[NSMutableArray array] retain];
+			}
+			[_SyncDestinations addObject:[[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:P] autorelease]];
+			[self setNeedsDisplay:YES];
+			[self scrollSynchronizationPointToVisible:self];
+			return YES;
+		}
+	}
+//iTM2_END;
+    return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __synchronizeWithStoredDestinationsAndHints:
 - (BOOL)__synchronizeWithStoredDestinationsAndHints:(id)irrelevant;
@@ -5325,6 +6229,8 @@ startAgain:;
 		if(S)
 		{
 			// okay guyes, let's go to the party.
+			// if we are working on SyncTeX, things are a bit more comfortable,
+			// the switch occurred some time ago
 			// use the selected ranges to narrow the search
 			NSValue * V = [hint objectForKey:@"old selected range"];
 			if(V)
@@ -5347,7 +6253,8 @@ startAgain:;
 				NSString * beforeWord;
 				NSString * hereWord;
 				NSString * afterWord;
-				unsigned int localHitIndex = [S getWordBefore:&beforeWord here:&hereWord after:&afterWord atIndex:hereIndex];
+				unsigned int localHitIndex = [S iTM2_getWordBefore:&beforeWord here:&hereWord after:&afterWord atIndex:hereIndex
+					mode:[[[[[self window] windowController] document] synchronizer] isSyncTeX]];
 				if(iTM2DebugEnabled)
 				{
 					iTM2_LOG(@"####  hit sequence:%@ + %@ + %@, (index:%i)", beforeWord, hereWord, afterWord, hereIndex);
@@ -5631,17 +6538,11 @@ To Do List:
 	NSClipView * clipView = [scrollView contentView];
 	NSPoint oldHit = [window mouseLocationOutsideOfEventStream];
 	BOOL scroll = NO;
-	float timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
-	if([window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:NO])
-	{
-		return NO;
-	}
-mainLoop:
 	[[NSCursor closedHandCursor] set];
+mainLoop:
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
 	if([theEvent type] == NSLeftMouseUp)
 	{
-		[self discardCursorRects];
 #if 1
 		id WC = [window windowController];
 		if([WC respondsToSelector:@selector(setDocumentViewVisibleRect:)])
@@ -5651,6 +6552,7 @@ mainLoop:
 			[WC setDocumentViewVisibleRect:visibleRect];
 		}
 #endif
+		[self setCursorForAreaOfInterest:[self areaOfInterestForMouse:theEvent]];
 		return YES;
 	}
 	[window discardEventsMatchingMask:NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask beforeEvent:nil];
@@ -5661,47 +6563,47 @@ mainLoop:
 	visibleRect.size.width -= [[scrollView verticalScroller] frame].size.width;
 	visibleRect.size.height -= [[scrollView horizontalScroller] frame].size.height;
 	visibleRect = [documentView convertRect:visibleRect fromView:scrollView];
-	NSRect noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	NSRect  dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	NSPoint scrollOffset = NSZeroPoint;
 	NSPoint location = [documentView convertPoint:newHit fromView:nil];
 	NSPoint point = NSZeroPoint;
 	float f,g;
-	if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+	if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 	{
 		point = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.x -= NSMaxX(noScrollRect);
+		point.x -= NSMaxX(dontScrollRect);
 		g/=point.x;
 		scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.x>oldHit.x || (scroll && newHit.x==oldHit.x);
 	}
-	else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+	else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 	{
 		point = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.x -= NSMinX(noScrollRect);
+		point.x -= NSMinX(dontScrollRect);
 		g/=-point.x;
 		scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.x<oldHit.x || (scroll && newHit.x==oldHit.x);
 	}
-	if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+	if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 	{
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.y -= NSMaxY(noScrollRect);
+		point.y -= NSMaxY(dontScrollRect);
 		g/=point.y;
 		scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.y>oldHit.y || (scroll && newHit.y==oldHit.y);
 	}
-	else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+	else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 	{
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
-		point.y -= NSMinY(noScrollRect);
+		point.y -= NSMinY(dontScrollRect);
 		g/=-point.y;
 		scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.y<oldHit.y || (scroll && newHit.y==oldHit.y);
@@ -5736,6 +6638,19 @@ mainLoop:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown:
 - (void)mouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
+The time line, the when...
+It is important to known when event occurs and when tasks should be performed.
+The time line is extremely important for that.
+Here is a model:
+event time line
+event1---event2---event3...
+tasks time line
+task1---task2---task3...
+If we don't know exactly when tasks should be performed, we have at least informations
+about a partial order.
+We must think of a tree/graph more seriously.
+If a node is splitted into more branches, the ones with slope>=0 are ordered from slope 0 to slope +∞
+and the ones with slope < 0 are not ordered.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:Thu Jul 17 2003
 To Do List:
@@ -5749,10 +6664,10 @@ To Do List:
 		{
 			if(modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask))
 			{
+				NSWindow * window = [self window];
 				float timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
 				NSEvent * otherEvent;
-				NSWindow * window = [self window];
-				if(otherEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES])
+				if((otherEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES]))
 				{
 					int n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
 					if(n>0)
@@ -5823,6 +6738,10 @@ To Do List:
 //iTM2_END;
     return;
 }
+@end
+
+@interface NSDocument(iTM2Private)
+- (void)orderFrontCurrentSource;
 @end
 
 @implementation PDFView(iTM2SynchronizationKit)
@@ -5999,6 +6918,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if([theEvent clickCount] > 1)
+	{
+		// just switch to current source
+		NSDocument * D = [[[self window] windowController] document];
+		if([D respondsToSelector:@selector(orderFrontCurrentSource)])
+		{
+			[D orderFrontCurrentSource];
+			return;
+		}
+	}
 	NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)[self document];
 	PDFPage * page = [self pageForPoint:point nearest:NO];
@@ -6010,14 +6939,17 @@ To Do List:
 //				PDFSelection * SELECTION = [page selectionForRange:NSMakeRange(charIndex, 1)];
 //iTM2_LOG(@"................ character:%@, point:%@, bounds:%@", [[page string] substringWithRange:NSMakeRange(charIndex, 1)], NSStringFromPoint(point), (SELECTION? NSStringFromRect([SELECTION boundsForPage:page]):@"No rect"));
 		NSString * container = [document stringForPage:page];
-		NSMutableDictionary * hint = charIndex >= 0?
-			[NSMutableDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithInt:charIndex], @"character index",
+		NSMutableDictionary * hint = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				[NSValue valueWithPoint:point], @"hit point",
 				container, @"container",
-					nil]:
-			[NSMutableDictionary dictionaryWithObjectsAndKeys:
-				container, @"container",
+				page, @"page",
+				[NSValue valueWithRect:[page boundsForBox:kPDFDisplayBoxMediaBox]],@"page bounds",
+				[NSNumber numberWithBool:[[[self window] windowController] strongerSynchronization]],@"StrongerSynchronization",
 					nil];
+		if(charIndex >= 0)
+		{
+			[hint setObject:[NSNumber numberWithInt:charIndex] forKey:@"character index"];
+		}
 		unsigned int pageIndex = [[page document] indexForPage:page];
 		PDFSelection * selection;
 		NSRect bounds;
@@ -6052,7 +6984,7 @@ To Do List:
 			[hint setObject:V forKey:@"line bounds"];
 		}
 		[[[[self window] windowController] document]
-			synchronizeWithLocation:point inPageAtIndex:pageIndex withHint:hint orderFront:([theEvent clickCount] > 1)];
+			synchronizeWithLocation:point inPageAtIndex:pageIndex withHint:hint orderFront:NO];
 	}
 //iTM2_LOG(@"[theEvent clickCount] is:%i", [theEvent clickCount]);
 //iTM2_END;
@@ -6063,7 +6995,7 @@ To Do List:
 @implementation __iTM2PDFZoominView
 - (void)drawRect:(NSRect)aRect;
 {
-	[[NSGraphicsContext currentContext] saveGraphicsState];
+	[NSGraphicsContext saveGraphicsState];
 	NSRect rect = [self bounds];
 	rect = NSIntersectionRect(rect,aRect);
 	rect = NSInsetRect(rect,10.005,10.005);
@@ -6079,7 +7011,7 @@ To Do List:
 	[theShadow set];
 	path = [NSBezierPath bezierPathWithRect:rect];
 	[path fill];
-	[[NSGraphicsContext currentContext] restoreGraphicsState];
+	[NSGraphicsContext restoreGraphicsState];
 	return;
 }
 @end
@@ -6165,7 +7097,7 @@ To Do List:
 }
 - (void)drawRect:(NSRect)aRect;
 {
-	[[NSGraphicsContext currentContext] saveGraphicsState];
+	[NSGraphicsContext saveGraphicsState];
 	if(_active)
 	{
 		//[[NSGraphicsContext currentContext] setCompositingOperation:(NSCompositingOperation)operation;
@@ -6242,7 +7174,7 @@ To Do List:
 			}
 		}
 	}
-	[[NSGraphicsContext currentContext] restoreGraphicsState];
+	[NSGraphicsContext restoreGraphicsState];
 	return;
 }
 - (NSView *)hitTest:(NSPoint)aPoint
@@ -6419,7 +7351,7 @@ To Do List:
 				}
 			}
 		}
-		[[self window] discardCursorRects];
+		[[self window] resetCursorRects];
 		_tracking = NO;// while tracking the drawRect:does not behave the same
 	}
 	else
@@ -6724,7 +7656,7 @@ theEnd:
 		return;
 	}
 	NSWindow * window = [self window];
-	NSRect visibleRect, noScrollRect;
+	NSRect visibleRect, dontScrollRect;
 	NSPoint scrollOffset = NSMakePoint(10,10);
 	NSPoint anchor = [theEvent locationInWindow];/* immutable */
 	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
@@ -6732,33 +7664,33 @@ theEnd:
 	BOOL scroll = NO;
 	float f,g;
 	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+	[[NSCursor closedHandCursor] push];
 mainLoop:
-	[[NSCursor closedHandCursor] set];
 	visibleRect = [self visibleRect];
 	location = [window mouseLocationOutsideOfEventStream];
 	location = [self convertPoint:location fromView:nil];
 	// if the location is near the boundary of the visible rect, scroll
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
 	if(selectionRect.size.width>0)
 	{
-		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMaxX(noScrollRect);
+			newPoint.x -= NSMaxX(dontScrollRect);
 			g/=newPoint.x;
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMinX(noScrollRect);
+			newPoint.x -= NSMinX(dontScrollRect);
 			g/=-newPoint.x;
 			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -6766,22 +7698,22 @@ mainLoop:
 	}
 	if(selectionRect.size.height>0)
 	{
-		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMaxY(noScrollRect);
+			newPoint.y -= NSMaxY(dontScrollRect);
 			g/=newPoint.y;
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMinY(noScrollRect);
+			newPoint.y -= NSMinY(dontScrollRect);
 			g/=-newPoint.y;
 			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -6860,6 +7792,7 @@ mainLoop:
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
 	if([theEvent type] == NSLeftMouseUp)
 	{
+		[NSCursor pop];
 		return;
 	}
 	goto mainLoop;
@@ -6872,7 +7805,7 @@ mainLoop:
 	}
 	NSRect selectionRect = [self selectionRect];
 	NSWindow * window = [self window];
-	NSRect visibleRect, noScrollRect;
+	NSRect visibleRect, dontScrollRect;
 	NSPoint scrollOffset = NSMakePoint(10,10);
 	NSPoint anchor = [theEvent locationInWindow];/* immutable */
 	NSRect locationAnchorRect = NSZeroRect;
@@ -6888,27 +7821,27 @@ mainLoop:
 	location = [window mouseLocationOutsideOfEventStream];
 	location = [self convertPoint:location fromView:nil];
 	// if the location is near the boundary of the visible rect, scroll
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
 	if(selectionRect.size.width>0)
 	{
-		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMaxX(noScrollRect);
+			newPoint.x -= NSMaxX(dontScrollRect);
 			g/=newPoint.x;
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMinX(noScrollRect);
+			newPoint.x -= NSMinX(dontScrollRect);
 			g/=-newPoint.x;
 			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -6916,22 +7849,22 @@ mainLoop:
 	}
 	if(selectionRect.size.height>0)
 	{
-		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMaxY(noScrollRect);
+			newPoint.y -= NSMaxY(dontScrollRect);
 			g/=newPoint.y;
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMinY(noScrollRect);
+			newPoint.y -= NSMinY(dontScrollRect);
 			g/=-newPoint.y;
 			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7008,7 +7941,7 @@ mainLoop:
 	pointBounds.size.width = MAX(0,NSWidth(bounds) - NSWidth(selectionRect));
 	pointBounds.size.height = MAX(0,NSHeight(bounds) - NSHeight(selectionRect));
 	NSWindow * window = [self window];
-	NSRect visibleRect, noScrollRect;
+	NSRect visibleRect, dontScrollRect;
 	NSPoint scrollOffset = NSMakePoint(10,10);
 	NSPoint anchor = [theEvent locationInWindow];/* immutable */
 	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
@@ -7016,33 +7949,33 @@ mainLoop:
 	BOOL scroll = NO;
 	float f,g;
 	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
+	[[NSCursor closedHandCursor] push];
 mainLoop:
-	[[NSCursor closedHandCursor] set];
 	visibleRect = [self visibleRect];
 	location = [window mouseLocationOutsideOfEventStream];
 	location = [self convertPoint:location fromView:nil];
 	// if the location is near the boundary of the visible rect, scroll
-	noScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
+	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
 	if(selectionRect.size.width>0)
 	{
-		if((0<(g=location.x-NSMaxX(noScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMaxX(noScrollRect);
+			newPoint.x -= NSMaxX(dontScrollRect);
 			g/=newPoint.x;
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(noScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.x -= NSMinX(noScrollRect);
+			newPoint.x -= NSMinX(dontScrollRect);
 			g/=-newPoint.x;
 			scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7050,22 +7983,22 @@ mainLoop:
 	}
 	if(selectionRect.size.height>0)
 	{
-		if((0<(g=location.y-NSMaxY(noScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMaxY(noScrollRect);
+			newPoint.y -= NSMaxY(dontScrollRect);
 			g/=newPoint.y;
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(noScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
 			newPoint = [self convertPoint:newPoint fromView:nil];
-			newPoint.y -= NSMinY(noScrollRect);
+			newPoint.y -= NSMinY(dontScrollRect);
 			g/=-newPoint.y;
 			scrollOffset.y=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
@@ -7127,15 +8060,20 @@ mainLoop:
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
 	if([theEvent type] == NSLeftMouseUp)
 	{
+		[NSCursor pop];
 		return;
 	}
 	goto mainLoop;
 }
-- (void)setCursorForAreaOfInterest:(PDFAreaOfInterest)area
+- (BOOL)changeCursorForAreaOfInterest:(PDFAreaOfInterest)area
 {
+	if(!_active)
+	{
+		return NO;
+	}
 	if([self isHiddenOrHasHiddenAncestor])
 	{
-		return;
+		return NO;
 	}
 	if(area&kPDFPageArea)
 	{
@@ -7186,7 +8124,7 @@ mainLoop:
 	{
 		[[NSCursor arrowCursor] set];
 	}
-	return;
+	return YES;
 }
 - (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *) theEvent;
 {
@@ -7194,8 +8132,8 @@ mainLoop:
 	{
 		return kPDFNoArea;
 	}
-	NSPoint viewMouse = [[NSApp currentEvent] locationInWindow];
-	viewMouse = [self convertPoint:viewMouse fromView:NULL];
+	NSPoint viewMouse = [[self window] mouseLocationOutsideOfEventStream];
+	viewMouse = [self convertPoint:viewMouse fromView:nil];
 	NSRect selectionRect = [self selectionRect];
 	NSRect rect = selectionRect;
 	if([self mouse:viewMouse inRect:rect])
@@ -7534,9 +8472,6 @@ To Do List:
 //iTM2_END;
 	return [self characterIndexAtPoint:point];
 }
-@end
-
-@interface PDFView_iTM2PDFKit:PDFView
 @end
 
 @implementation PDFView(iTM2PDFKit)
@@ -8003,40 +8938,6 @@ To Do List:
 @end
 
 @interface iTM2PDFKitDefaultsController:iTM2Inspector
-- (NSMutableDictionary *)model;
-- (void)setModel:(NSDictionary *)argument;
-- (NSMutableDictionary *)originalModel;
-- (void)setOriginalModel:(NSDictionary *)argument;
-- (NSMutableDictionary *)modelSync;
-- (void)setModelSync:(NSDictionary *)argument;
-- (NSMutableDictionary *)originalModelSync;
-- (void)setOriginalModelSync:(NSDictionary *)argument;
-- (NSMutableDictionary *)projectModel;
-- (void)setProjectModel:(NSDictionary *)argument;
-- (NSMutableDictionary *)projectModelSync;
-- (void)setProjectModelSync:(NSDictionary *)argument;
-- (NSColor *)backgroundColor;
-- (void)setBackgroundColor:(NSColor *)argument;
-- (int)displayBox;
-- (void)setDisplayBox:(int)argument;
-- (PDFDisplayMode)displayMode;
-- (void)setDisplayMode:(PDFDisplayMode)argument;
-- (float)greekingThreshold;
-- (void)setGreekingThreshold:(float)argument;
-- (BOOL)shouldAntiAlias;
-- (void)setShouldAntiAlias:(BOOL)argument;
-- (BOOL)autoScales;
-- (void)setAutoScales:(BOOL)argument;
-- (BOOL)displaysAsBook;
-- (void)setDisplaysAsBook:(BOOL)argument;
-- (BOOL)isContinuous;
-- (void)setContinuous:(BOOL)argument;
-- (BOOL)followFocus;
-- (void)setFollowFocus:(BOOL)followFocus;
-- (BOOL)enableSynchronization;
-- (void)setEnableSynchronization:(BOOL)enableSynchronization;
-- (unsigned int)displayBullets;
-- (void)setDisplayBullets:(unsigned int)displayBullets;
 @end
 
 #undef GETTER
@@ -8046,30 +8947,116 @@ To Do List:
 
 NSString * const iTM2PDFKitViewerDefaultsDidChangeNotification = @"iTM2PDFKitViewerDefaultsDidChangeNotification";
 
+@interface iTM2PDFKitPrefPane:iTM2PreferencePane
+@end
+
+static id iTM2PDFKitDefaultsController_sharedInstance = nil;
 @implementation iTM2PDFKitDefaultsController
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
-+ (NSString *)inspectorType;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedInstance
++ (id)sharedInstance;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return iTM2PDFGraphicsInspectorType;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorMode
-+ (NSString *)inspectorMode;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
+- 2.1: Tue Jun 17 11:12:01 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return @".DefaultsModel";// dot prefixed inspector modes do not appear in the inspector menu nor in the makeWindowControllers
+    return iTM2PDFKitDefaultsController_sharedInstance?
+		iTM2PDFKitDefaultsController_sharedInstance:
+			(iTM2PDFKitDefaultsController_sharedInstance =
+				[[iTM2PDFKitDefaultsController alloc] initWithWindowNibName:@"iTM2PDFKitPrefPane"]);
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithWindow:
+- (id)initWithWindow:(NSWindow *)window;
+{
+	if((self = [super initWithWindow:window]))
+	{
+		[DNC addObserver:self
+			selector:@selector(windowDidBecomeMainNotified:)
+				name:NSWindowDidBecomeMainNotification
+					object:nil];
+		[DNC addObserver:self
+			selector:@selector(windowDidResignMainNotified:)
+				name:NSWindowDidResignMainNotification
+					object:nil];
+		[window retain];// extra retain because of a crash otherwise
+		[window setDelegate:self];// extra retain because of a crash otherwise
+	}
+	return self;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultsController
+- (id)defaultsController;
+/*"It is used in bindings. This is the pdfView of the window controller of the main window.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.1: Tue Jun 17 11:12:01 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return metaGETTER;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDefaultsController:
+- (void)setDefaultsController:(id)controller;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 2.1: Tue Jun 17 11:12:01 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	metaSETTER(controller);
+//iTM2_END;
+    return;
+}
+- (void)windowWillClose:(id)sender;
+{
+	[self setDefaultsController:nil];
+	[self autorelease];
+	iTM2PDFKitDefaultsController_sharedInstance = nil;
+	return;
+}
+- (void)dealloc;
+{
+	[self setDefaultsController:nil];
+	[DNC removeObserver:self];
+	[super dealloc];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidBecomeMainNotified:
+- (void)windowDidBecomeMainNotified:(NSNotification *)notification;
+{
+	id WC = [[notification object] windowController];
+	if([WC isKindOfClass:[iTM2PDFKitInspector class]])
+	{
+		[self setValue:WC forKey:@"defaultsController"];
+	}
+	else
+	{
+		[self setValue:nil forKey:@"defaultsController"];
+	}
+	return;
+}
+- (void)windowDidResignMainNotified:(NSNotification *)notification;
+{
+	[self setValue:nil forKey:@"defaultsController"];
+	return;
+}
+- (void)windowDidLoad;
+{
+	[super windowDidLoad];
+	id WC = [[[NSApplication sharedApplication] mainWindow] windowController];
+	if([WC isKindOfClass:[iTM2PDFKitInspector class]])
+	{
+		[self setValue:WC forKey:@"defaultsController"];
+	}
+	else
+	{
+		[self setValue:nil forKey:@"defaultsController"];
+	}
+	return;
+}	
 #pragma mark =-=-=-=-=-  PRINT INFO
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerPrintInfoNotificationWindowDidLoad
 - (void)registerPrintInfoNotificationWindowDidLoad;
@@ -8101,673 +9088,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-#pragma mark =-=-=-=-=-  MODELS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fixDefaultsModelWindowDidLoad
-- (void)fixDefaultsModelWindowDidLoad;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setModel:[NSMutableDictionary dictionary]];
-	PDFView * V = [[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
-	[self setDisplayMode:[V displayMode]];
-	[self setBackgroundColor:[V backgroundColor]];
-	[self setDisplayBox:[V displayBox]];
-	[self setGreekingThreshold:[V greekingThreshold]];
-	[self setShouldAntiAlias:[V shouldAntiAlias]];
-	[self setAutoScales:[V autoScales]];
-	[self setDisplaysAsBook:[V displaysAsBook]];
-	// the factory model is the above defined hard coded model
-	// there is only one factory model for both projects and application
-	NSDictionary * D = [SUD dictionaryForKey:iTM2PDFKitKey];
-	if(D)
-		[[self model] addEntriesFromDictionary:D];
-	// the defaults model comes from the SUD, it concerns the application
-	// it is overriden by the project model
-	D = [self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
-	if(D)
-		[[self model] addEntriesFromDictionary:D];
-	[self setProjectModel:[self model]];
-	// the project model is specific to the project
-	// It is meant to override both factory and defaults models
-	[self setOriginalModel:[self model]];
-	// when editing, the original model is the one we edit
-	// the edited model is in model
-	// revert to save is just placing into model a mutable copy of the original model
-	
-	// The same design for sync
-	[self setModelSync:[NSMutableDictionary dictionary]];
-	D = [SUD dictionaryForKey:@"iTM2PDFKitSync"];
-	if(D)
-		[[self modelSync] addEntriesFromDictionary:D];
-//iTM2_END;
-	D = [self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
-	if(D)
-		[[self modelSync] addEntriesFromDictionary:D];
-	[self setProjectModelSync:[self modelSync]];
-	[self setOriginalModelSync:[self modelSync]];
-    return;
-}
-#pragma mark =-=-=-=-=-  MODEL HOLDERS
-#define defineMODELHOLDER(getSelector, setSelector)\
-- (NSMutableDictionary *)getSelector;{return metaGETTER;}\
-- (void)setSelector:(NSDictionary *)argument;{metaSETTER([[argument mutableCopy] autorelease]);return;}
-defineMODELHOLDER(model, setModel)
-defineMODELHOLDER(projectModel, setProjectModel)
-defineMODELHOLDER(originalModel, setOriginalModel)
-defineMODELHOLDER(modelSync, setModelSync)
-defineMODELHOLDER(projectModelSync, setProjectModelSync)
-defineMODELHOLDER(originalModelSync, setOriginalModelSync)
-#pragma mark =-=-=-=-=-  UI
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
-- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-#endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void)contextDidChange;
-/*"This message is sent each time the contextManager have changed.
-The receiver will take appropriate actions to synchronize its state with its contextManager.
-Subclasses will most certainly override this method because the default implementation does nothing.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 1.1.a6:03/26/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super contextDidChange];
-	NSEnumerator * E = [[[self document] windowControllers] objectEnumerator];
-	NSWindowController * WC;
-	while(WC = [E nextObject])
-		if(WC != self)
-			[WC contextDidChange];
-	[self contextDidChangeComplete];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  apply
-- (IBAction)apply:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSMutableDictionary * MD = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];
-	[MD addEntriesFromDictionary:[self model]];
-	[self takeContextValue:MD forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
-	[self setModel:MD];
-	[self setProjectModel:[self model]];
-	[self setOriginalModel:[self projectModel]];
-	MD = [[[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];
-	[MD addEntriesFromDictionary:[self modelSync]];
-	[self takeContextValue:MD forKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
-	[self setProjectModelSync:[self modelSync]];
-	[self setOriginalModelSync:[self projectModelSync]];
-	NSEnumerator * E = [[[self document] windowControllers] objectEnumerator];
-	id WC;
-	while(WC = [E nextObject])
-	{
-		if(WC != self)
-			[WC contextDidChange];
-	}
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canApply
-- (BOOL)canApply;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return ![[self model] isEqual:[self originalModel]] || ![[self modelSync] isEqual:[self originalModelSync]];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateApply
-- (BOOL)validateApply:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [self canApply];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revert:
-- (IBAction)revert:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setModel:[self originalModel]];
-	[self setModelSync:[self originalModelSync]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateRevert:
-- (BOOL)validateRevert:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [self canApply];
-}
-#pragma mark =-=-=-=-=-  BACKGROUND COLOR
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backgroundColor
-- (NSColor *)backgroundColor;
-{
-	
-	NSData * data = GETTER;
-	if(data)
-	{
-		id result = [NSUnarchiver unarchiveObjectWithData:data];
-		if([result isKindOfClass:[NSColor class]])
-			return result;
-	}
-	return [[[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease] backgroundColor];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBackgroundColor:
-- (void)setBackgroundColor:(NSColor *)argument;
-{
-	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]:nil));
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeBackgroundColorFrom:
-- (IBAction)takeBackgroundColorFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSColor * newColor = [sender color];
-	if(![newColor isEqual:[self backgroundColor]])
-	{
-		[self setBackgroundColor:newColor];
-		[self iTM2_validateWindowContent];
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeBackgroundColorFrom:
-- (BOOL)validateTakeBackgroundColorFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSColor * newColor = [self backgroundColor];
-	if(![newColor isEqual:[sender color]])
-		[sender setColor:newColor];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  DISPLAY BOX
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBox
-- (int)displayBox;
-{
-	return [GETTER intValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayBox:
-- (void)setDisplayBox:(int)argument;
-{
-	SETTER([NSNumber numberWithInt:argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayBoxFromSelectedTag:
-- (IBAction)takeDisplayBoxFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplayBox:[[sender selectedCell] tag]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayBoxFromSelectedTag:
-- (BOOL)validateTakeDisplayBoxFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender deselectAllCells];
-	[sender selectCellWithTag:[self displayBox]];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  DISPLAY MODE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayMode
-- (PDFDisplayMode)displayMode;
-{
-	return [GETTER intValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayMode:
-- (void)setDisplayMode:(PDFDisplayMode)argument;
-{
-	SETTER([NSNumber numberWithInt:(int)argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayModeFromSelectedTag:
-- (IBAction)takeDisplayModeFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplayMode:2*[[sender selectedCell] tag]+([self isContinuous]?1:0)];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayModeFromSelectedTag:
-- (BOOL)validateTakeDisplayModeFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender selectCellWithTag:[self displayMode]/2];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  GREEKING THRESHOLD
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  greekingThreshold
-- (float)greekingThreshold;
-{
-	return [GETTER floatValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGreekingThreshold:
-- (void)setGreekingThreshold:(float)argument;
-{
-	SETTER([NSNumber numberWithFloat:(float)argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGreekingThresholdFrom:
-- (IBAction)takeGreekingThresholdFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setGreekingThreshold:[sender floatValue]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGreekingThresholdFrom:
-- (BOOL)validateTakeGreekingThresholdFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setFloatValue:[self greekingThreshold]];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  ANTI ALIAS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shouldAntiAlias
-- (BOOL)shouldAntiAlias;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setShouldAntiAlias:
-- (void)setShouldAntiAlias:(BOOL)argument;
-{
-	SETTER([NSNumber numberWithBool:(int)argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShouldAntiAlias:
-- (IBAction)toggleShouldAntiAlias:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setShouldAntiAlias:![self shouldAntiAlias]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShouldAntiAlias:
-- (BOOL)validateToggleShouldAntiAlias:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self shouldAntiAlias]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  AUTO SCALE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autoScales
-- (BOOL)autoScales;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAutoScales:
-- (void)setAutoScales:(BOOL)argument;
-{
-	SETTER([NSNumber numberWithBool:(int)argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleAutoScales:
-- (IBAction)toggleAutoScales:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setAutoScales:![self autoScales]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleAutoScales:
-- (BOOL)validateToggleAutoScales:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self autoScales]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  BOOK MODE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displaysAsBook
-- (BOOL)displaysAsBook;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplaysAsBook:
-- (void)setDisplaysAsBook:(BOOL)argument;
-{
-	SETTER([NSNumber numberWithBool:argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysAsBook:
-- (IBAction)toggleDisplaysAsBook:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplaysAsBook:![self displaysAsBook]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysAsBook:
-- (BOOL)validateToggleDisplaysAsBook:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self displaysAsBook]? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self displayMode]>1;
-}
-#pragma mark =-=-=-=-=-  PAGE BREAKS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displaysPageBreaks
-- (BOOL)displaysPageBreaks;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplaysPageBreaks:
-- (void)setDisplaysPageBreaks:(BOOL)argument;
-{
-	SETTER([NSNumber numberWithBool:(int)argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysPageBreaks:
-- (IBAction)toggleDisplaysPageBreaks:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplaysPageBreaks:![self displaysPageBreaks]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysPageBreaks:
-- (BOOL)validateToggleDisplaysPageBreaks:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self displaysPageBreaks]? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self isContinuous];
-}
-#pragma mark =-=-=-=-=-  CONTINUOUS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContinuous
-- (BOOL)isContinuous;
-{
-	return [self displayMode] % 2;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContinuous:
-- (void)setContinuous:(BOOL)argument;
-{
-	[self setDisplayMode:2*([self displayMode]/2) + (argument? 1:0)];
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContinuous:
-- (IBAction)toggleContinuous:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setContinuous:![self isContinuous]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleContinuous:
-- (BOOL)validateToggleContinuous:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self isContinuous]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  MODEL
-#undef GETTER
-#define GETTER [[self modelSync] valueForKey:iTM2KeyFromSelector(_cmd)]
-#undef SETTER
-#define SETTER(argument) [[self modelSync] setValue:argument forKey:iTM2KeyFromSelector(_cmd)]
-#pragma mark =-=-=-=-=-  ENABLE SYNCHRONIZATION
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enableSynchronization
-- (BOOL)enableSynchronization;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEnableSynchronization:
-- (void)setEnableSynchronization:(BOOL)enableSynchronization;
-{
-	SETTER([NSNumber numberWithBool:enableSynchronization]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnableSynchronization:
-- (IBAction)toggleEnableSynchronization:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setEnableSynchronization:![self enableSynchronization]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnableSynchronization:
-- (BOOL)validateToggleEnableSynchronization:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self enableSynchronization]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  FOLLOW FOCUS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  followFocus
-- (BOOL)followFocus;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFollowFocus:
-- (void)setFollowFocus:(BOOL)followFocus;
-{
-	SETTER([NSNumber numberWithBool:followFocus]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFollowFocus:
-- (IBAction)toggleFollowFocus:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setFollowFocus:![self followFocus]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFollowFocus:
-- (BOOL)validateToggleFollowFocus:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self followFocus]? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self enableSynchronization];
-}
-#pragma mark =-=-=-=-=-  DISPLAY BULLETS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBullets
-- (unsigned int)displayBullets;
-{
-	return [GETTER unsignedIntValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayBullets:
-- (void)setDisplayBullets:(unsigned int)displayBullets;
-{
-	SETTER([NSNumber numberWithUnsignedInt:displayBullets]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplayBulletsFromTag:
-- (IBAction)toggleDisplayBulletsFromTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplayBullets:[self displayBullets]^[sender tag]];
-	[self iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplayBulletsFromTag:
-- (BOOL)validateToggleDisplayBulletsFromTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:(([self displayBullets]&[sender tag])? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self enableSynchronization];
-}
 @end
 
 @implementation iTM2PDFKitInspector(DEFAULTS)
@@ -8780,23 +9100,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSWindowController * WC = [[self document] inspectorAddedWithMode:[iTM2PDFKitDefaultsController inspectorMode]];
-	NSWindow * W = [WC window];
-	[W makeKeyAndOrderFront:self];
+	[[[iTM2PDFKitDefaultsController sharedInstance] window] makeKeyAndOrderFront:self];
 //iTM2_END;
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateShowViewerPreferences:
-- (BOOL)validateShowViewerPreferences:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return YES;
 }
 @end
 
@@ -9093,13 +9399,9 @@ To Do List:
 }
 @end
 
-@interface iTM2PDFKitPrefPane:iTM2PreferencePane
-- (BOOL)isContinuous;
-@end
-
 @implementation iTM2PDFKitPrefPane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
++ (void)initialize;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri Sep 05 2003
@@ -9108,18 +9410,17 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-	id controller = [[[iTM2PDFKitDefaultsController alloc] init] autorelease];
-	[controller setModel:[NSMutableDictionary dictionary]];
+	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	PDFView * V = [[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
-	[controller setDisplayMode:[V displayMode]];
-	[controller setBackgroundColor:[V backgroundColor]];
-	[controller setDisplayBox:[V displayBox]];
-	[controller setGreekingThreshold:[V greekingThreshold]];
-	[controller setShouldAntiAlias:YES];
-	[controller setAutoScales:NO];
-	[controller setDisplaysAsBook:[V displaysAsBook]];
-	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[controller model] forKey:iTM2PDFKitKey]];
+	[MD setObject:[NSNumber numberWithInt:[V displayMode]] forKey:@"DisplayMode"];
+	[MD setObject:[NSNumber numberWithInt:[V displayBox]] forKey:@"DisplayBox"];
+//	[MD setObject:[V backgroundColor] forKey:@"BackgroundColor"];
+	[MD setObject:[NSNumber numberWithBool:[V displaysAsBook]] forKey:@"DisplaysAsBook"];
+	[MD setObject:[NSNumber numberWithBool:[V displaysPageBreaks]] forKey:@"DisplaysPageBreaks"];
+	[MD setObject:[NSNumber numberWithFloat:[V greekingThreshold]] forKey:@"GreekingThreshold"];
+	[MD setObject:[NSNumber numberWithBool:YES] forKey:@"ShouldAntiAlias"];
+	[MD setObject:[NSNumber numberWithBool:YES] forKey:@"AutoScales"];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObject:MD forKey:iTM2PDFKitKey]];
 	iTM2_RELEASE_POOL;
 //iTM2_END;
     return;
@@ -9136,33 +9437,29 @@ To Do List:
 //iTM2_END;
 	return @"3.PDF.Tiger";
 }
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
-- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
-/*"Description Forthcoming.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultsController
+- (id)defaultsController;
+/*"It is used in bindings. This is the pdfView of the window controller of the main window.
 Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
+- 2.1: Tue Jun 17 11:12:01 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self mainView] iTM2_validateWindowContent];
 //iTM2_END;
-    return;
+    return self;
 }
-#endif
 #undef GETTER
 #undef SETTER
-#define GETTER [[SUD dictionaryForKey:iTM2PDFKitKey] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define GETTER [[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
 #define SETTER(argument) id __D = [[[SUD dictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
-[SUD setObject:__D forKey:iTM2PDFKitKey];
+[self setContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 #pragma mark =-=-=-=-=-  BACKGROUND COLOR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backgroundColor
 - (NSColor *)backgroundColor;
 {
-	
 	NSData * data = GETTER;
 	if(data)
 	{
@@ -9178,39 +9475,6 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 	SETTER(([argument isKindOfClass:[NSColor class]]?[NSArchiver archivedDataWithRootObject:argument]:nil));
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeBackgroundColorFrom:
-- (IBAction)takeBackgroundColorFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSColor * newColor = [sender color];
-	if(![newColor isEqual:[self backgroundColor]])
-	{
-		[self setBackgroundColor:newColor];
-		[sender iTM2_validateWindowContent];
-	}
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeBackgroundColorFrom:
-- (BOOL)validateTakeBackgroundColorFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSColor * newColor = [self backgroundColor];
-	if(![newColor isEqual:[sender color]])
-		[sender setColor:newColor];
-//iTM2_END;
-    return YES;
-}
 #pragma mark =-=-=-=-=-  DISPLAY BOX
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBox
 - (int)displayBox;
@@ -9222,34 +9486,6 @@ To Do List:
 {
 	SETTER([NSNumber numberWithInt:argument]);
 	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayBoxFromSelectedTag:
-- (IBAction)takeDisplayBoxFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplayBox:[[sender selectedCell] tag]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayBoxFromSelectedTag:
-- (BOOL)validateTakeDisplayBoxFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender deselectAllCells];
-	[sender selectCellWithTag:[self displayBox]];
-//iTM2_END;
-    return YES;
 }
 #pragma mark =-=-=-=-=-  DISPLAY MODE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayMode
@@ -9263,150 +9499,6 @@ To Do List:
 	SETTER([NSNumber numberWithInt:(int)argument]);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeDisplayModeFromSelectedTag:
-- (IBAction)takeDisplayModeFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplayMode:2*[[sender selectedCell] tag]+([self isContinuous]?1:0)];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeDisplayModeFromSelectedTag:
-- (BOOL)validateTakeDisplayModeFromSelectedTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender selectCellWithTag:[self displayMode]/2];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  GREEKING THRESHOLD
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  greekingThreshold
-- (float)greekingThreshold;
-{
-	return [GETTER floatValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGreekingThreshold:
-- (void)setGreekingThreshold:(float)argument;
-{
-	SETTER([NSNumber numberWithFloat:argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeGreekingThresholdFrom:
-- (IBAction)takeGreekingThresholdFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setGreekingThreshold:[sender floatValue]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeGreekingThresholdFrom:
-- (BOOL)validateTakeGreekingThresholdFrom:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setFloatValue:[self greekingThreshold]];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  ANTI ALIAS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shouldAntiAlias
-- (BOOL)shouldAntiAlias;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setShouldAntiAlias:
-- (void)setShouldAntiAlias:(BOOL)argument;
-{
-	SETTER([NSNumber numberWithBool:(int)argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleShouldAntiAlias:
-- (IBAction)toggleShouldAntiAlias:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setShouldAntiAlias:![self shouldAntiAlias]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleShouldAntiAlias:
-- (BOOL)validateToggleShouldAntiAlias:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self shouldAntiAlias]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
-#pragma mark =-=-=-=-=-  AUTO SCALE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autoScales
-- (BOOL)autoScales;
-{
-	return [GETTER boolValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAutoScales:
-- (void)setAutoScales:(BOOL)argument;
-{
-	SETTER([NSNumber numberWithBool:(int)argument]);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleAutoScales:
-- (IBAction)toggleAutoScales:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setAutoScales:![self autoScales]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleAutoScales:
-- (BOOL)validateToggleAutoScales:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self autoScales]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
-}
 #pragma mark =-=-=-=-=-  BOOK MODE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displaysAsBook
 - (BOOL)displaysAsBook;
@@ -9418,33 +9510,6 @@ To Do List:
 {
 	SETTER([NSNumber numberWithBool:argument]);
 	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysAsBook:
-- (IBAction)toggleDisplaysAsBook:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplaysAsBook:![self displaysAsBook]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysAsBook:
-- (BOOL)validateToggleDisplaysAsBook:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self displaysAsBook]? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self displayMode]>1;
 }
 #pragma mark =-=-=-=-=-  PAGE BREAKS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displaysPageBreaks
@@ -9458,71 +9523,41 @@ To Do List:
 	SETTER([NSNumber numberWithBool:argument]);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplaysPageBreaks:
-- (IBAction)toggleDisplaysPageBreaks:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplaysPageBreaks:![self displaysPageBreaks]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplaysPageBreaks:
-- (BOOL)validateToggleDisplaysPageBreaks:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self displaysPageBreaks]? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self isContinuous];
-}
-#pragma mark =-=-=-=-=-  CONTINUOUS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContinuous
-- (BOOL)isContinuous;
+#pragma mark =-=-=-=-=-  GREEKING THRESHOLD
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  greekingThreshold
+- (float)greekingThreshold;
 {
-	return [self displayMode] % 2;
+	return [GETTER floatValue];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContinuous:
-- (void)setContinuous:(BOOL)argument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGreekingThreshold:
+- (void)setGreekingThreshold:(float)argument;
 {
-	[self setDisplayMode:2*([self displayMode]/2) + (argument? 1:0)];
+	SETTER([NSNumber numberWithFloat:argument]);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContinuous:
-- (IBAction)toggleContinuous:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setContinuous:![self isContinuous]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
+#pragma mark =-=-=-=-=-  ANTI ALIAS
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  shouldAntiAlias
+- (BOOL)shouldAntiAlias;
+{
+	return [GETTER boolValue];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleContinuous:
-- (BOOL)validateToggleContinuous:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self isContinuous]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setShouldAntiAlias:
+- (void)setShouldAntiAlias:(BOOL)argument;
+{
+	SETTER([NSNumber numberWithBool:(int)argument]);
+	return;
+}
+#pragma mark =-=-=-=-=-  AUTO SCALE
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  autoScales
+- (BOOL)autoScales;
+{
+	return [GETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAutoScales:
+- (void)setAutoScales:(BOOL)argument;
+{
+	SETTER([NSNumber numberWithBool:(int)argument]);
+	return;
 }
 #pragma mark =-=-=-=-=-  MODEL
 #undef GETTER
@@ -9544,32 +9579,41 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 	SETTER([NSNumber numberWithBool:enableSynchronization]);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEnableSynchronization:
-- (IBAction)toggleEnableSynchronization:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setEnableSynchronization:![self enableSynchronization]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
+#pragma mark =-=-=-=-=-  DISABLED SYNCTEX
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  disabledSyncTeX
+- (BOOL)disabledSyncTeX;
+{
+	return [GETTER boolValue];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleEnableSynchronization:
-- (BOOL)validateToggleEnableSynchronization:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self enableSynchronization]? NSOnState:NSOffState)];
-//iTM2_END;
-    return YES;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisabledSyncTeX:
+- (void)setDisabledSyncTeX:(BOOL)disableSyncTeX;
+{
+	SETTER([NSNumber numberWithBool:disableSyncTeX]);
+	return;
+}
+#pragma mark =-=-=-=-=-  UNCOMPRESSED SYNCTEX
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  uncompressedSyncTeX
+- (BOOL)uncompressedSyncTeX;
+{
+	return [GETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUncompressedSyncTeX:
+- (void)setUncompressedSyncTeX:(BOOL)uncompressedSyncTeX;
+{
+	SETTER([NSNumber numberWithBool:uncompressedSyncTeX]);
+	return;
+}
+#pragma mark =-=-=-=-=-  STRONGER SYNCTEX
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  strongerSynchronization
+- (BOOL)strongerSynchronization;
+{
+	return [GETTER boolValue];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStrongerSynchronization:
+- (void)setStrongerSynchronization:(BOOL)argument;
+{
+	SETTER([NSNumber numberWithBool:argument]);
+	return;
 }
 #pragma mark =-=-=-=-=-  FOLLOW FOCUS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  followFocus
@@ -9583,33 +9627,6 @@ To Do List:
 	SETTER([NSNumber numberWithBool:followFocus]);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleFollowFocus:
-- (IBAction)toggleFollowFocus:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setFollowFocus:![self followFocus]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFollowFocus:
-- (BOOL)validateToggleFollowFocus:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:([self followFocus]? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self enableSynchronization];
-}
 #pragma mark =-=-=-=-=-  DISPLAY BULLETS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBullets
 - (unsigned int)displayBullets;
@@ -9622,32 +9639,50 @@ To Do List:
 	SETTER([NSNumber numberWithUnsignedInt:displayBullets]);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDisplayBulletsFromTag:
-- (IBAction)toggleDisplayBulletsFromTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setDisplayBullets:[self displayBullets]^[sender tag]];
-	[sender iTM2_validateWindowContent];
-//iTM2_END;
-    return;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayFocus
+- (BOOL)displayFocus;
+{
+	return ([self displayBullets]&kiTM2PDFSYNCDisplayFocusBullets)>0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDisplayBulletsFromTag:
-- (BOOL)validateToggleDisplayBulletsFromTag:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[sender setState:(([self displayBullets]&[sender tag])? NSOnState:NSOffState)];
-//iTM2_END;
-    return [self enableSynchronization];
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayFocus:
+- (void)setDisplayFocus:(BOOL)yorn;
+{	
+	[self willChangeValueForKey:@"displayBullets"];
+	[self setDisplayBullets:
+		(yorn?([self displayBullets]|kiTM2PDFSYNCDisplayFocusBullets):
+			([self displayBullets]&~kiTM2PDFSYNCDisplayFocusBullets))];
+	[self didChangeValueForKey:@"displayBullets"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayUserBullets
+- (BOOL)displayUserBullets;
+{
+	return ([self displayBullets]&kiTM2PDFSYNCDisplayUserBullets)>0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayUserBullets:
+- (void)setDisplayUserBullets:(BOOL)yorn;
+{
+	[self willChangeValueForKey:@"displayBullets"];
+	[self setDisplayBullets:
+		(yorn?([self displayBullets]|kiTM2PDFSYNCDisplayUserBullets):
+			([self displayBullets]&~kiTM2PDFSYNCDisplayUserBullets))];
+	[self didChangeValueForKey:@"displayBullets"];
+	return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBuiltInBullets
+- (BOOL)displayBuiltInBullets;
+{
+	return ([self displayBullets]&kiTM2PDFSYNCDisplayBuiltInBullets)>0;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayBuiltInBullets:
+- (void)setDisplayBuiltInBullets:(BOOL)yorn;
+{
+	[self willChangeValueForKey:@"displayBullets"];
+	[self setDisplayBullets:
+		(yorn?([self displayBullets]|kiTM2PDFSYNCDisplayBuiltInBullets):
+			([self displayBullets]&~kiTM2PDFSYNCDisplayBuiltInBullets))];
+	[self didChangeValueForKey:@"displayBullets"];
+	return;
 }
 @end
 
@@ -9740,88 +9775,5 @@ To Do List:
   	[super drawWithFrame:cellFrame inView:controlView];
 //iTM2_END;
     return;
-}
-@end
-
-#warning THIS IS DEBUG CODE
-static id PDFPage_iTeXMac2_Storage = nil;
-@implementation PDFPage(iTM2DEBUG)
-+ (void)load;
-{
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-	PDFPage_iTeXMac2_Storage = [[NSMutableDictionary dictionary] retain];
-	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_init)];
-	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_retain)];
-	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_release)];
-	[PDFPage iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2DEBUG_dealloc)];
-	iTM2_RELEASE_POOL;
-	return;
-}
-- (id)SWZ_iTM2DEBUG_init;
-{
-	if(self = [self SWZ_iTM2DEBUG_init])
-	{
-		NSValue * V = [NSValue valueWithNonretainedObject:self];
-		NSNumber * N = [NSNumber numberWithInt:1];
-		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
-	}
-	return self;
-}
-- (id)SWZ_iTM2DEBUG_retain;
-{
-	NSValue * V = [NSValue valueWithNonretainedObject:self];
-	NSNumber * N = [PDFPage_iTeXMac2_Storage objectForKey:V];
-	if(N)
-	{
-		int retainCount = [N intValue];
-		if(retainCount)
-		{
-			N = [NSNumber numberWithInt:++retainCount];
-		}
-	}
-	else
-	{
-		N = [NSNumber numberWithInt:2];
-	}
-	[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
-	return [self SWZ_iTM2DEBUG_retain];
-}
-- (void)SWZ_iTM2DEBUG_release;
-{
-	NSValue * V = [NSValue valueWithNonretainedObject:self];
-	NSNumber * N = [PDFPage_iTeXMac2_Storage objectForKey:V];
-	if(N)
-	{
-		int retainCount = [N intValue];
-		if(retainCount>1)
-		{
-			N = [NSNumber numberWithInt:--retainCount];
-		}
-		else if(retainCount)
-		{
-			iTM2_LOG(@"WILL DEALLOC %@ (%#x)",self, self);
-			N = [NSNumber numberWithInt:--retainCount];// 0 is reached dealloc soon
-		}
-		[PDFPage_iTeXMac2_Storage setObject:N forKey:V];
-	}
-	[self SWZ_iTM2DEBUG_release];
-	return;
-}
-- (void)SWZ_iTM2DEBUG_dealloc;
-{
-	iTM2_LOG(@"DEALLOC %#x", self);
-	NSValue * V = [NSValue valueWithNonretainedObject:self];
-	[PDFPage_iTeXMac2_Storage removeObjectForKey:V];
-	if(iTM2DebugEnabled)
-	{
-		Class zombie = NSClassFromString(@"NSZombie")?:[NSObject class];
-		self->isa = zombie;
-	}
-	else
-	{
-		[self SWZ_iTM2DEBUG_dealloc];
-	}
-	return;
 }
 @end

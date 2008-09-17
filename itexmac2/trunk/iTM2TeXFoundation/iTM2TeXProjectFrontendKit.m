@@ -65,7 +65,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(displayPageForLine:column:source:withHint:orderFront:force:) replacement:@selector(SWZ_iTM2TPFE_displayPageForLine:column:source:withHint:orderFront:force:) forClass:[iTM2DocumentController class]];
+	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TPFE_displayPageForLine:column:source:withHint:orderFront:force:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
@@ -87,16 +87,13 @@ To Do List:
 	{
 		NSArray * subdocuments = [TPD subdocuments];
 		NSEnumerator * E = [subdocuments objectEnumerator];
-		BOOL displayed = NO;
 		while(D = [E nextObject])
 		{
 			if([D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force])
 			{
-				displayed = YES;
+				return YES;
 			}
 		}
-		if(displayed)
-			return YES;
 		if(!force)
 			return NO;
 		NSString * masterKey = [TPD masterFileKey];
@@ -110,21 +107,11 @@ To Do List:
 			{
 				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 			}
-			url = [url URLByRemovingCachedProjectComponent];
+			url = [url iTM2_URLByRemovingFactoryBaseURL];
 			if(![TPD subdocumentForURL:url] &&
 				(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
 			{
 				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
-			}
-#warning THIS SHOULD BE REVISITED
-			if([[TPD fileURL] belongsToCachedProjectsDirectory])
-			{
-				url = [TPD factoryURLForFileKey:masterKey];
-				if(![TPD subdocumentForURL:url] &&
-					(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]))
-				{
-					return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
-				}
 			}
 		}
 	}
@@ -185,7 +172,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takeInfo:extension forKeyPaths:iTM2TPFEOutputFileExtensionKey,nil];
+	[self setInfo:extension forKeyPaths:iTM2TPFEOutputFileExtensionKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editCommands:
@@ -830,10 +817,6 @@ To Do List:
 }
 @end
 
-NSString * const iTM2TPFEModeKey = @"iTM2_project_mode";
-NSString * const iTM2TPFEVariantKey = @"iTM2_project_variant";
-NSString * const iTM2TPFEOutputKey = @"iTM2_project_output";
-NSString * const iTM2TPFENameKey = @"name";
 NSString * const iTM2TPFEPDFOutput = @"PDF";
 
 //#import <iTM2Foundation/iTM2InstallationKit.h>
@@ -908,7 +891,7 @@ To Do List:
 		mode = @"LaTeX";
 	}
 //iTM2_LOG(@"For name:%@, mode:%@, output:%@, variant:%@", name, mode, output, variant);
-    return [NSDictionary dictionaryWithObjectsAndKeys:mode, iTM2TPFEModeKey, output, iTM2TPFEOutputKey, variant, iTM2TPFEVariantKey, nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:mode, iTM2TPDKModeKey, output, iTM2TPDKOutputKey, variant, iTM2TPDKVariantKey, nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isValidTeXProjectPath
 - (BOOL)isValidTeXProjectPath;
@@ -960,8 +943,8 @@ To Do List:
 	return;
 }
 #pragma mark =-=-=-=-=-  ACCESSORS
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileName
-- (NSString *)fileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileURL
+- (NSURL *)fileURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (08/29/2001):
 - 1.3:03/10/2002
@@ -972,8 +955,8 @@ To Do List:
 //iTM2_END;
 	return metaGETTER;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileName:
-- (void)setFileName:(NSString *)fileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileURL:
+- (void)setFileURL:(NSURL *)fileURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net (08/29/2001):
 - 1.3:03/10/2002
@@ -981,19 +964,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	metaSETTER(fileName);
-	NSString * enclosingWrapper = [fileName enclosingWrapperFileName];
-	if([enclosingWrapper length])
+	metaSETTER(fileURL);
+	NSString * fileName = [fileURL path];
+	NSURL * enclosing = [fileURL iTM2_enclosingWrapperURL];
+	if(enclosing)
 	{
 		// the file already belongs to a wrapper
 		[self setPreferWrapper:YES];
 		[self setCreationMode:iTM2ToggleNewProjectMode];
-		NSArray * enclosedProjects = [enclosingWrapper availableProjectFileNames];
-		NSEnumerator * E = [enclosedProjects objectEnumerator];
-		NSString * project = nil;
+		NSArray * enclosed = [enclosing iTM2_availableProjectURLs];
+		NSEnumerator * E = [enclosed objectEnumerator];
+		NSURL * project = nil;
 		while(project = [E nextObject])
 		{
-			if([fileName belongsToDirectory:[project stringByDeletingLastPathComponent]])
+			if([fileName belongsToDirectory:[[project iTM2_parentDirectoryURL] path]])
 			{
 				[self setCreationMode:iTM2ToggleOldProjectMode];
 				break;
@@ -1020,7 +1004,7 @@ To Do List:
 	{
 		return result;
 	}
-	result = [self fileName];
+	result = [[self fileURL] path];
 	result = [result lastPathComponent];
 	result = [result stringByDeletingPathExtension];
 //iTM2_END;
@@ -1230,9 +1214,10 @@ To Do List:
 	if(count == 1)
 	{
 		NSString * path = [[availableProjects allKeys] lastObject];
-		if([SWS isWrapperPackageAtPath:path])
+		NSURL * url = [NSURL fileURLWithPath:path];
+		if([SWS iTM2_isWrapperPackageAtURL:url])
 		{
-			NSArray * enclosed = [path enclosedProjectFileNames];
+			NSArray * enclosed = [url iTM2_enclosedProjectURLs];
 			return [enclosed count] > 0;
 		}
 	}
@@ -1248,21 +1233,21 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * fileName = [self fileName];
+	NSURL * fileURL = [self fileURL];
+	NSString * fileName = [fileURL path];
 	NSString * dir = [fileName stringByDeletingLastPathComponent];
 	if(![DFM isWritableFileAtPath:dir])
 	{
 		return NO;
 	}
-	NSString * enclosing = [fileName enclosingProjectFileName];
-	if([enclosing length])
+	NSURL * enclosing = [fileURL iTM2_enclosingProjectURL];
+	if(enclosing)
 	{
 		return NO;
 	}
-	enclosing = [fileName enclosingWrapperFileName];
-	if([enclosing length])
+	if(enclosing = [fileURL iTM2_enclosingWrapperURL])
 	{
-		NSArray * enclosed = [enclosing enclosedProjectFileNames];
+		NSArray * enclosed = [enclosing iTM2_enclosedProjectURLs];
 		if([enclosed count])
 		{
 			return NO;
@@ -1280,14 +1265,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * fileName = [self fileName];
-	NSString * enclosing = [fileName enclosingProjectFileName];
-	if([enclosing length])
+	NSURL * fileURL = [self fileURL];
+	NSURL * enclosing = [fileURL iTM2_enclosingProjectURL];
+	if(enclosing)
 	{
 		return NO;
 	}
-	enclosing = [fileName enclosingWrapperFileName];
-	if([enclosing length])
+	if(enclosing = [fileURL iTM2_enclosingWrapperURL])
 	{
 		return NO;
 	}
@@ -1354,9 +1338,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSAssert([[self fileName] length],@"You must sepcify a file name before");
 //iTM2_END;
-    return [[[self fileName] enclosingWrapperFileName] length]>0;
+    return [[self fileURL] iTM2_enclosingWrapperURL] != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectName
 - (NSString *)projectName;
@@ -1369,16 +1352,16 @@ To Do List:
 //iTM2_START;
 	if([self creationMode] == iTM2ToggleNewProjectMode)
 	{
-		NSString * result = [self fileName];
+		NSString * result = [[self fileURL] path];
 		result = [result stringByDeletingLastPathComponent];
 		NSString * newProjectName = [self newProjectName];
 		result = [result stringByAppendingPathComponent:newProjectName];
 		if([self preferWrapper])
 		{
-			result = [result stringByAppendingPathExtension:[SDC wrapperPathExtension]];
+			result = [result stringByAppendingPathExtension:[SDC iTM2_wrapperPathExtension]];
 			result = [result stringByAppendingPathComponent:newProjectName];
 		}
-		result = [result stringByAppendingPathExtension:[SDC projectPathExtension]];
+		result = [result stringByAppendingPathExtension:[SDC iTM2_projectPathExtension]];
         return result;
 	}
 //iTM2_END;
@@ -1395,13 +1378,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	//Preparing the projects for the table view
-	NSAssert([[self fileName] length],@"You must specify a file name...");
+	NSAssert([[[self fileURL] path] length],@"You must specify a file name...");
 	[super windowWillLoad];
 	[self setBaseProjectName:[SUD stringForKey:iTM2TeXProjectDefaultBaseNameKey]];
 	[self setDocumentIsMaster:[SUD boolForKey:iTM2TeXProjectDocumentIsMasterFileKey]];
 	[self setPreferWrapper:[SUD boolForKey:iTM2NewDocumentEnclosedInWrapperKey]];
-	NSString * fileName = [self fileName];
-	NSDictionary * availableProjects = [SPC availableProjectsForPath:fileName];
+	NSDictionary * availableProjects = [SPC availableProjectsForURL:[self fileURL]];
 	[self setAvailableProjects:availableProjects];
 	int creationMode = [SUD integerForKey:iTM2NewProjectCreationModeKey];
 	[self setCreationMode:creationMode];
@@ -1481,7 +1463,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * fileName = [self fileName];
+	NSString * fileName = [[self fileURL] path];
 	[sender setStringValue:([fileName length]? [fileName lastPathComponent]:@"None")];
 //iTM2_END;
 	return NO;
@@ -1520,7 +1502,7 @@ To Do List:
 	}
 	if(![newProjectName length])
 	{
-		newProjectName = [self fileName];
+		newProjectName = [[self fileURL] path];
 		newProjectName = [newProjectName lastPathComponent];
 		newProjectName = [newProjectName stringByDeletingPathExtension];
 		if([newProjectName length])
@@ -1535,7 +1517,7 @@ To Do List:
 	[sender setStringValue:newProjectName];
 	if([self creationMode] == iTM2ToggleNewProjectMode)
 	{
-		if(![[[sender window] firstResponder] isEqual:sender])
+		if(![[[sender window] firstResponder] isEqual:sender] && [sender acceptsFirstResponder])
 		{
 			[[sender window] makeFirstResponder:sender];
 			[sender selectText:self];
@@ -1802,6 +1784,8 @@ To Do List:
         NSDictionary * D;
         while(D = [E nextObject])
         {
+iTM2_LOG(@"D:%@",D);
+iTM2_LOG(@"[D iVarMode]:%@",[D iVarMode]);
             [MD takeValue:[[[TPPs objectForKey:D] valueForKey:iTM2TeXPCommandPropertiesKey] iVarMode]
                 forKey:[D iVarMode]];
         }
@@ -2354,7 +2338,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:baseProjectName forKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
+    [self setInfo:baseProjectName forKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProject
@@ -2399,7 +2383,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return [NSString stringWithFormat:@"<%@, fileName:%@, baseProjectName:%@>",
-		[super description], [self fileName], [self baseProjectName]];
+		[super description], [[self fileURL] path], [self baseProjectName]];
 }
 @end
 
@@ -2409,14 +2393,14 @@ To Do List:
     NSMutableDictionary * BPs = [NSMutableDictionary dictionary];
     NSMutableDictionary * TPs = [NSMutableDictionary dictionary];
     NSBundle * B = [NSBundle mainBundle];
-    Class TeXPDocumentClass = [SDC documentClassForType:[SDC projectDocumentType]];
+    Class TeXPDocumentClass = [SDC documentClassForType:[SDC iTM2_projectDocumentType]];
     NSString * P = [B pathForResource:iTM2TeXPBaseProjectsComponent ofType:nil];
 //iTM2_LOG(@"Reading base projects at path:%@", P);
     NSEnumerator * E = [[DFM directoryContentsAtPath:P] objectEnumerator];
     NSString * p;
     while(p = [E nextObject])
     {
-        if([[p pathExtension] isEqualToString:[SDC projectPathExtension]])
+        if([[p pathExtension] isEqualToString:[SDC iTM2_projectPathExtension]])
         {
             NSString * k = [[p stringByDeletingPathExtension] lowercaseString];
             id v = [[[TeXPDocumentClass alloc]
@@ -2434,7 +2418,7 @@ To Do List:
         NSString * p;
         while(p = [e nextObject])
         {
-            if([[p pathExtension] isEqualToString:[SDC projectPathExtension]])
+            if([[p pathExtension] isEqualToString:[SDC iTM2_projectPathExtension]])
             {
                 NSString * k = [[p stringByDeletingPathExtension] lowercaseString];
                 id v = [[[TeXPDocumentClass alloc]
@@ -2513,7 +2497,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(newProjectPanelControllerClass) replacement:@selector(swizzled_newProjectPanelControllerClass) forClass:[iTM2ProjectController class]])
+	if(![iTM2ProjectController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_newProjectPanelControllerClass)])
 	{
 		iTM2_LOG(@"WARNING: No swizzled newProjectPanelControllerClass...");
 	}
@@ -2521,8 +2505,8 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_newProjectPanelControllerClass
-- (Class)swizzled_newProjectPanelControllerClass;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_newProjectPanelControllerClass
+- (Class)SWZ_iTM2_newProjectPanelControllerClass;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2620,14 +2604,14 @@ To Do List:
     {//projectName
 //iTM2_LOG(@"project name:%@", name);
         NSDictionary * D = [name TeXProjectProperties];
+		NSDictionary * key = [NSDictionary dictionaryWithObjectsAndKeys:
+			[[D iVarMode] lowercaseString], iTM2TPDKModeKey,
+			[[D iVarVariant] lowercaseString], iTM2TPDKVariantKey,
+			[[D iVarOutput] lowercaseString], iTM2TPDKOutputKey,
+				nil];
 		D = [NSDictionary dictionaryWithObjectsAndKeys:
 			D, iTM2TeXPCommandPropertiesKey,
-			name, iTM2TPFENameKey,
-				nil];
-		NSDictionary * key = [NSDictionary dictionaryWithObjectsAndKeys:
-			[[D iVarMode] lowercaseString], iTM2TPFEModeKey,
-			[[D iVarVariant] lowercaseString], iTM2TPFEVariantKey,
-			[[D iVarOutput] lowercaseString], iTM2TPFEOutputKey,
+			name, iTM2TPDKNameKey,
 				nil];
         [MD setValue:D forKey:(id)key];
     }
@@ -2649,7 +2633,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(project) replacement:@selector(swizzled_project) forClass:[NSDocument class]])
+	if(![NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_project)])
 	{
 		iTM2_LOG(@"WARNING: No hook available for project...");
 	}
@@ -2657,8 +2641,8 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzled_project
-- (id)swizzled_project;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_project
+- (id)SWZ_iTM2_project;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Mar 30 15:52:06 GMT 2005
@@ -2666,7 +2650,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id result = [self swizzled_project];
+	id result = [self SWZ_iTM2_project];
 #else
 @implementation iTM2Document(iTM2TeXProject)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project
@@ -2697,7 +2681,7 @@ To Do List:
 	{
 		if(result = [SPC newProjectForURLRef:&url display:NO error:nil])
 		{
-			if(![[url path] pathIsEqual:[[self fileURL] path]])
+			if(![[url path] iTM2_pathIsEqual:[[self fileURL] path]])
 				[self setFileURL:url];// weird code, this is possobly due to a cocoa weird behaviour
 		}
 		else

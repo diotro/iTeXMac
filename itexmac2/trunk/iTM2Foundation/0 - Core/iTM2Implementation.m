@@ -54,6 +54,89 @@ NSString * const iTM2MainType = @"main";
 
 @implementation NSObject(iTM2Implementation)
 #pragma mark =-=-=-=-=-  IMPLEMENTATION
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++ (void)load;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+	iTM2_INIT_POOL;
+	iTM2RedirectNSLogOutput();
+//iTM2_START;
+	[NSObject iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Impl_valueForUndefinedKey:)];
+	[NSObject iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Impl_setValue:forUndefinedKey:)];
+//iTM2_END;
+	iTM2_RELEASE_POOL;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Impl_valueForUndefinedKey:
+- (id)SWZ_iTM2Impl_valueForUndefinedKey:(NSString *)key;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([key hasSuffix:@"_meta"])
+	{
+		NSRange range = NSMakeRange(0,[key length]-5);
+		if(range.length)
+		{
+			NSString * path = [key substringWithRange:range];
+			path = [@"implementation.metaValues" stringByAppendingPathExtension:path];
+			return [self valueForKeyPath:path];
+		}
+	}
+	else if([key isEqual:@"metaValues"])
+	{
+		return [self valueForKeyPath:@"implementation.metaValues"];
+	}
+	id model = [[self class] defaultModel];
+	return [model objectForKey:key]?
+		[[self implementation] modelValueForKey:key ofType:iTM2MainType]:
+		[self SWZ_iTM2Impl_valueForUndefinedKey:key];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Impl_setValue:forUndefinedKey:
+- (void)SWZ_iTM2Impl_setValue:(id)value forUndefinedKey:(NSString *)key;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	if([key hasSuffix:@"_meta"])
+	{
+		NSRange range = NSMakeRange(0,[key length]-5);
+		if(range.length)
+		{
+			NSString * path = [key substringWithRange:range];
+			path = [@"implementation.metaValues" stringByAppendingPathExtension:path];
+			[self willChangeValueForKey:key];
+			[self setValue:value forKeyPath:path];
+			[self didChangeValueForKey:key];
+			return;
+		}
+	}
+	else if([key isEqual:@"metaValues"])
+	{
+		[self setValue:value forKeyPath:@"implementation.metaValues"];
+		return;
+	}
+	if([[[self class] defaultModel] objectForKey:key])
+	{
+		[self willChangeValueForKey:key];
+		[[self implementation] takeModelValue:value forKey:key ofType:iTM2MainType];
+		[self didChangeValueForKey:key];
+	}
+	else
+		[self SWZ_iTM2Impl_setValue:(id) value forUndefinedKey:(NSString *) key];
+//iTM2_END;
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
 - (void)initImplementation;
 /*"Description Forthcoming.
@@ -1640,94 +1723,5 @@ To Do List:
     }
 //iTM2_END;
     return;
-}
-@end
-
-@interface NSObject_iTM2Implementation: NSObject
-@end
-
-@implementation NSObject_iTM2Implementation
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSObject iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Impl_valueForUndefinedKey:)];
-	[NSObject iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Impl_setValue:forUndefinedKey:)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Impl_valueForUndefinedKey:
-- (id)SWZ_iTM2Impl_valueForUndefinedKey:(NSString *)key;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([key hasSuffix:@"_meta"])
-	{
-		NSRange range = NSMakeRange(0,[key length]-5);
-		if(range.length)
-		{
-			NSString * path = [key substringWithRange:range];
-			path = [@"implementation.metaValues" stringByAppendingPathExtension:path];
-			return [self valueForKeyPath:path];
-		}
-	}
-	else if([key isEqual:@"metaValues"])
-	{
-		return [self valueForKeyPath:@"implementation.metaValues"];
-	}
-	id model = [[self class] defaultModel];
-	return [model objectForKey:key]?
-		[[self implementation] modelValueForKey:key ofType:iTM2MainType]:
-		[self SWZ_iTM2Impl_valueForUndefinedKey:key];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Impl_setValue:forUndefinedKey:
-- (void)SWZ_iTM2Impl_setValue:(id)value forUndefinedKey:(NSString *)key;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if([key hasSuffix:@"_meta"])
-	{
-		NSRange range = NSMakeRange(0,[key length]-5);
-		if(range.length)
-		{
-			NSString * path = [key substringWithRange:range];
-			path = [@"implementation.metaValues" stringByAppendingPathExtension:path];
-			[self willChangeValueForKey:key];
-			[self setValue:value forKeyPath:path];
-			[self didChangeValueForKey:key];
-			return;
-		}
-	}
-	else if([key isEqual:@"metaValues"])
-	{
-		[self setValue:value forKeyPath:@"implementation.metaValues"];
-		return;
-	}
-	if([[[self class] defaultModel] objectForKey:key])
-	{
-		[self willChangeValueForKey:key];
-		[[self implementation] takeModelValue:value forKey:key ofType:iTM2MainType];
-		[self didChangeValueForKey:key];
-	}
-	else
-		[self SWZ_iTM2Impl_setValue:(id) value forUndefinedKey:(NSString *) key];
-//iTM2_END;
-	return;
 }
 @end

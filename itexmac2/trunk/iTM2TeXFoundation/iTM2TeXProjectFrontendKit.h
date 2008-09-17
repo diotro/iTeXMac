@@ -338,8 +338,8 @@ extern NSString * const iTM2ToolbarProjectTerminalItemIdentifier;
 @private
 	unsigned int flags;
 }
-- (NSString *)fileName;
-- (void)setFileName:(NSString *)fileName;
+- (NSURL *)fileURL;
+- (void)setFileURL:(NSURL *)fileURL;
 - (NSString *)newProjectName;
 - (void)setNewProjectName:(NSString *)argument;
 - (NSString *)oldProjectName;

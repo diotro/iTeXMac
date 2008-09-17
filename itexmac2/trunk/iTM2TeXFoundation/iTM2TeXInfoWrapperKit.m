@@ -73,7 +73,7 @@ To Do List:
 	{
 		return key;
 	}
-	NSMutableArray * Ks = [NSMutableArray arrayWithArray:[self allFileKeys]];
+	NSMutableArray * Ks = [NSMutableArray arrayWithArray:[self fileKeys]];
 	[Ks removeObject:[self fileKeyForURL:[self fileURL]]];
 	if([Ks count] == 1)
 	{
@@ -94,10 +94,10 @@ To Do List:
 //iTM2_START;
 	if([fileKey isEqualToString:iTM2ProjectFrontDocumentKey] || [self nameForFileKey:fileKey])
 	{
-		[[self mainInfos] takeInfo:fileKey forKeyPaths:TWSMasterFileKey,nil];
+		[[self mainInfos] setInfo:fileKey forKeyPaths:TWSMasterFileKey,nil];
 		return;
 	}
-	iTM2_LOG(@"Only file name keys are authorized here, got %@ not in %@", fileKey, [self allFileKeys]);
+	iTM2_LOG(@"Only file name keys are authorized here, got %@ not in %@", fileKey, [self fileKeys]);
     return;
 }
 #pragma mark =-=-=-=-=-  INFO

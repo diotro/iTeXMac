@@ -47,7 +47,7 @@
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 
 @implementation iTM2MainInstaller(iTM2ImageKit)
-- (void)iTM2ImageKitCompleteInstallation;
++ (void)iTM2ImageKitCompleteInstallation;
 {
 	NSAssert([NSImage iTM2_swizzleClassMethodSelector:@selector(SWZ_iTM2_imageNamed:)],@"**** Huge bug, please report");
 }
@@ -130,6 +130,7 @@ DEFINE_IMAGE(iTM2_imageOrderFrontFontPanel, @"imageOrderFrontFontPanelToolbarIma
 DEFINE_IMAGE(iTM2_imageSubscript, @"imageSubscriptToolbarImage");
 DEFINE_IMAGE(iTM2_imageSuperscript, @"imageSuperscriptToolbarImage");
 DEFINE_IMAGE(iTM2_imageUnlockDocument, @"imageUnlockDocumentToolbarImage");
+DEFINE_IMAGE(iTM2_imageNERedArrow, @"NERedArrow-16");
 - (void)iTM2_setSizeSmallIcon;
 {
 	[self setScalesWhenResized:YES];

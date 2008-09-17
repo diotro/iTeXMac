@@ -8,20 +8,16 @@ $REVISION=0;
 if($CONFIGURATION =~ m/Deployment/)
 {
 printf "Getting the svn revision number (CONFIGURATION is Deployment)...";
-	`cd "$TARGET_BUILD_DIR/.."`;
-	@CANDIDATES=split('\0', `find . -regex ".*iTM2.*" -not -regex ".*\.svn.*" -not -regex ".*/build.*" -not -regex ".*~.*" -print0`);
-	while(my $FILE = shift(@CANDIDATES))
+	$REVISION=`/usr/bin/svn log -r HEAD ..`;
+	printf "\n/usr/bin/svn log -r HEAD:<$REVISION\n>";
+	if( $REVISION =~ m/.*r(\d+) /s )
 	{
-		$revision=`/usr/local/bin/svn info "$FILE"`;
-		if( $revision =~ m/.*Revision: (\d*).*/s )
-		{
-			$revision="$1";
-			if($revision > $REVISION)
-			{
-				printf "\n$FILE";
-				$REVISION = $revision;
-			}
-		}
+		$REVISION="$1";
+	}
+	else
+	{
+		$REVISION = "ERROR";
+		exit -1;
 	}
 }
 else

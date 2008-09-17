@@ -463,6 +463,99 @@ To Do List:
 //iTM2_END;
 	return [NSArray arrayWithArray:result];
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_editDistanceToString:
+- (unsigned int)iTM2_editDistanceToString:(NSString *)aString;
+/*"Levenshtein distance.
+from http://en.wikibooks.org/wiki/Algorithm_implementation/Strings/Levenshtein_distance#C.2B.2B
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: 03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	const unsigned int cost_del = 1;
+	const unsigned int cost_ins = 1;
+	const unsigned int cost_sub = 1;
+
+	unsigned int smallP[30];
+	unsigned int smallQ[30];
+	
+	unsigned int n1 = [self length];
+	unsigned int n2 = [aString length];
+	if(!n1)
+	{
+		return n2;
+	}
+	if(!n2)
+	{
+		return n1;
+	}
+	NSString * S1;
+	NSString * S2;
+	unsigned int j;
+	if(n1<n2)
+	{
+		j = n2;
+		n2 = n1;
+		n1 = j;
+		S1 = aString;
+		S2 = self;
+	}
+	else
+	{
+		S1 = self;
+		S2 = aString;
+	}
+	unsigned int* p;
+	unsigned int* q;
+	
+	if(n2+1>30)
+	{
+		p = (unsigned int*)malloc((n2+1)*sizeof(unsigned int));
+		q = (unsigned int*)malloc((n2+1)*sizeof(unsigned int));
+	}
+	else
+	{
+		p = smallP;
+		q = smallQ;
+	}
+	if(!p || !q)
+	{
+		return UINT_MAX;
+	}
+
+	p[0] = 0;
+	
+	for( j = 1; j <= n2; ++j )
+		p[j] = p[j-1] + cost_ins;
+
+	unsigned int i;
+	for( i = 1; i <= n1; ++i )
+	{
+		unichar uchar1 = [S1 characterAtIndex:i-1];
+		q[0] = p[0] + cost_del;
+		for( j = 1; j <= n2; ++j )
+		{
+			unichar uchar2 = [S2 characterAtIndex:j-1];
+			unsigned int d_del = p[j] + cost_del;
+			unsigned int d_ins = q[j-1] + cost_ins;
+			unsigned int d_sub = p[j-1] + ( uchar1 == uchar2 ? 0 : cost_sub );
+			q[j] = MIN(MIN( d_del, d_ins ), d_sub );
+		}
+		unsigned int* r = p;
+		p = q;
+		q = r;
+	}
+
+	unsigned int result = p[n2];
+	if(p!=smallP && p!=smallQ)
+	{
+		free(p);
+		free(q);
+	}
+//iTM2_END;
+	return result;
+}
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)
 

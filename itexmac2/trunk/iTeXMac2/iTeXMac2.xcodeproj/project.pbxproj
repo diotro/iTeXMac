@@ -472,7 +472,7 @@
 		DCB530200B59B98D00CD713D /* GetSourceVersion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetSourceVersion-Prefix.pch"; sourceTree = "<group>"; };
 		DCB7543708EDA67300A6819D /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DCB93A4607D6FFAA005E5B38 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTeXMac2-Info.plist"; sourceTree = "<group>"; };
+		DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTeXMac2-Info.plist"; sourceTree = "<group>"; };
 		DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iTeXMac2-main.m"; sourceTree = "<group>"; };
 		DCB93A8407D702A5005E5B38 /* iTM2StartupDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StartupDocument.m; sourceTree = "<group>"; };
 		DCB93D2F07D70F95005E5B38 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -487,7 +487,7 @@
 		DCEF623E0B62ED7700A19262 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2SoftwareUpdatePrefPane.strings; sourceTree = "<group>"; };
 		DCEF62CE0B62FE2500A19262 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2SoftwareUpdatePrefPane.strings; sourceTree = "<group>"; };
 		DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2LaTeXSymbolsKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCFD96E60858F5980034D83E /* TeX CM PlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "TeX CM PlugIn-Info.plist"; sourceTree = "<group>"; };
+		DCFD96E60858F5980034D83E /* TeX CM PlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TeX CM PlugIn-Info.plist"; sourceTree = "<group>"; };
 		DCFFA6C80855B7C900607AAA /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCFFA6CC0855B7C900607AAA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Localized.strings; sourceTree = "<group>"; };
 		DCFFA6CD0855B7C900607AAA /* iTeXMac2CMPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTeXMac2CMPlugIn.m; sourceTree = "<group>"; };

@@ -136,7 +136,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_fmt,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -160,7 +160,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_fmt,nil];
+    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -247,7 +247,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2TeX_PARSE_first_line,nil];
+    [self setInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2TeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -295,7 +295,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_progname,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -313,7 +313,7 @@ To Do List:
         if(![v length])
         {
             v = [self infoForKeyPaths:iTM2TeX_fmt,nil];
-            [self takeInfo:v forKeyPaths:iTM2TeX_progname,nil];
+            [self setInfo:v forKeyPaths:iTM2TeX_progname,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
@@ -333,7 +333,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_progname,nil];
+    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -418,7 +418,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_translate_file,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeX_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -579,7 +579,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_USE_output_comment,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -677,7 +677,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_jobname,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeX_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -725,7 +725,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeX_output_directory,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeX_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOuputDirectory:
@@ -783,7 +783,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self takeInfo:v forKeyPaths:iTM2TeX_interaction,nil];
+    [self setInfo:v forKeyPaths:iTM2TeX_interaction,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -993,7 +993,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_fmt,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -1017,7 +1017,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_fmt,nil];
+    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2TeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -1099,7 +1099,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2PDFTeX_PARSE_first_line,nil];
+    [self setInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2PDFTeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -1147,7 +1147,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_progname,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -1165,7 +1165,7 @@ To Do List:
         if(![v length])
         {
             v = [self infoForKeyPaths:iTM2PDFTeX_fmt,nil];
-            [self takeInfo:v forKeyPaths:iTM2PDFTeX_progname,nil];
+            [self setInfo:v forKeyPaths:iTM2PDFTeX_progname,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
@@ -1185,7 +1185,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2PDFTeX_progname,nil];
+    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2PDFTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -1270,7 +1270,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_translate_file,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -1343,7 +1343,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo: ([[sender selectedCell] tag]? @"dvi":@"pdf") forKeyPaths:iTM2PDFTeX_output_format,nil];
+    [self setInfo: ([[sender selectedCell] tag]? @"dvi":@"pdf") forKeyPaths:iTM2PDFTeX_output_format,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOutputFormat:
@@ -1458,7 +1458,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_USE_output_comment,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -1584,7 +1584,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_jobname,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -1632,7 +1632,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_output_directory,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2PDFTeX_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputDirectory:
@@ -1690,7 +1690,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self takeInfo:v forKeyPaths:iTM2PDFTeX_interaction,nil];
+    [self setInfo:v forKeyPaths:iTM2PDFTeX_interaction,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -1932,7 +1932,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_fmt,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -1956,7 +1956,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2XeTeX_fmt,nil];
+    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2XeTeX_fmt,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -2043,7 +2043,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2XeTeX_PARSE_first_line,nil];
+    [self setInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2XeTeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -2091,7 +2091,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_progname,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -2109,7 +2109,7 @@ To Do List:
         if(![v length])
         {
             v = [self infoForKeyPaths:iTM2XeTeX_fmt,nil];
-            [self takeInfo:v forKeyPaths:iTM2XeTeX_progname,nil];
+            [self setInfo:v forKeyPaths:iTM2XeTeX_progname,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
@@ -2129,7 +2129,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2XeTeX_progname,nil];
+    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2XeTeX_progname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -2214,7 +2214,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_translate_file,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_translate_file,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -2375,7 +2375,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_USE_output_comment,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_USE_output_comment,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputComment:
@@ -2473,7 +2473,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_jobname,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_jobname,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -2521,7 +2521,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_output_directory,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_output_directory,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOuputDirectory:
@@ -2603,7 +2603,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self takeInfo:v forKeyPaths:iTM2XeTeX_interaction,nil];
+    [self setInfo:v forKeyPaths:iTM2XeTeX_interaction,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -2635,7 +2635,7 @@ To Do List:
         case 0: v = @"pdf"; break;
         default: v = @"xdv"; break;
     }
-    [self takeInfo:v forKeyPaths:iTM2XeTeX_output_format,nil];
+    [self setInfo:v forKeyPaths:iTM2XeTeX_output_format,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchOutputFormat:
@@ -2668,7 +2668,7 @@ To Do List:
         case 1: v = @"iTeXMac2"; break;
         default: v = @"custom"; break;
     }
-    [self takeInfo:v forKeyPaths:iTM2XeTeX_output_driver,nil];
+    [self setInfo:v forKeyPaths:iTM2XeTeX_output_driver,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchOutputDriver:
@@ -2694,7 +2694,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_custom_output_driver,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_custom_output_driver,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputDriver:

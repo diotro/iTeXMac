@@ -46,13 +46,13 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(spellContextModeForText:) replacement:@selector(SWZ_TeX_spellContextModeForText:) forClass:[iTM2SpellContextController class]];
+	[iTM2SpellContextController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeX_spellContextModeForText:)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_TeX_spellContextModeForText:
-- (NSString *)SWZ_TeX_spellContextModeForText:(NSText *) text;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2TeX_spellContextModeForText:
+- (NSString *)SWZ_iTM2TeX_spellContextModeForText:(NSText *) text;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -64,7 +64,7 @@ To Do List:
 	NSString * mode = nil;
     if(![self spellContextForMode:mode])
     {
-        mode = [self SWZ_TeX_spellContextModeForText:text];
+        mode = [self SWZ_iTM2TeX_spellContextModeForText:text];
     }
 //iTM2_END;
     return mode;
@@ -170,7 +170,7 @@ To Do List:
     // then removes the spelling context files that are not in the actual list
     E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
     while (mode = [E nextObject])
-        if([[mode pathExtension] pathIsEqual:TWSSpellExtension]
+        if([[mode pathExtension] iTM2_pathIsEqual:TWSSpellExtension]
             && ![[[self spellContexts] allKeys] containsObject:[mode stringByDeletingPathExtension]])
 		[DFM removeFileAtPath:[directoryName stringByAppendingPathComponent:mode] handler:nil];
 //iTM2_END;
@@ -193,7 +193,7 @@ To Do List:
     while (file = [E nextObject])
     {
 		NSString * extension = [file pathExtension];
-        if([extension pathIsEqual:TWSSpellExtension])
+        if([extension iTM2_pathIsEqual:TWSSpellExtension])
         {
             iTM2SpellContext * SC = [[[iTM2SpellContext allocWithZone:[self zone]] init] autorelease];
 			NSString * path = [directoryName stringByAppendingPathComponent:file];
@@ -261,7 +261,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self takePropertyValue:spellingMode forKey:TWSSpellingFileKey fileKey:fileKey contextDomain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
+	[self setPropertyValue:spellingMode forKey:TWSSpellingFileKey fileKey:fileKey contextDomain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromFile:ofType:

@@ -24,23 +24,23 @@
 */
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
+- (void)ACTION:(id)sender;{[self setInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
 - (BOOL)VALIDATE:(id)sender;{[sender setState:([[self editInfoForKeyPaths:KEY,nil] boolValue]? NSOnState:NSOffState)];return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(id)sender;{[self takeInfo:[NSNumber numberWithFloat:[sender floatValue]] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
+- (void)ACTION:(id)sender;{[self setInfo:[NSNumber numberWithFloat:[sender floatValue]] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
 - (BOOL)VALIDATE:(id)sender;{[sender setFloatValue:[[self editInfoForKeyPaths:KEY,nil] floatValue]];return YES;}
 #define SEDIT(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(id)sender;{[self takeInfo:[sender stringValue] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
+- (void)ACTION:(id)sender;{[self setInfo:[sender stringValue] forKeyPaths:KEY,nil];[self iTM2_validateWindowContent];return;}\
 - (BOOL)VALIDATE:(id)sender;{[sender setStringValue:[self editInfoForKeyPaths:KEY,nil]];return YES;}
 #define UNIT(ACTION, VALIDATE, KEY)\
 - (void)ACTION:(id)sender;\
 {\
 	switch([[sender selectedItem] tag])\
 	{\
-		case 0: [self takeInfo:@"bp" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
-		case 1: [self takeInfo:@"pt" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
-		case 2: [self takeInfo:@"in" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
-		default: [self takeInfo:@"cm" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
+		case 0: [self setInfo:@"bp" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
+		case 1: [self setInfo:@"pt" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
+		case 2: [self setInfo:@"in" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
+		default: [self setInfo:@"cm" forKeyPaths:KEY,nil]; [self iTM2_validateWindowContent]; return;\
 	}\
     return;\
 }\

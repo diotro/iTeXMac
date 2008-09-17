@@ -2150,7 +2150,8 @@ To Do List:
     else
     {
         NSAttributedString * AS = [sender attributedStringValue];
-        if([AS length])
+		NSString * S = [[[self currentText] window] title];
+        if([S length] && [AS length])
         {
             NSMutableDictionary * attributes = [[[AS attributesAtIndex:0 effectiveRange:nil] mutableCopy] autorelease];
             NSFont * F = [attributes objectForKey:NSFontAttributeName];
@@ -2159,7 +2160,7 @@ To Do List:
             [attributes setObject:[[NSFontManager sharedFontManager] convertFont:F toHaveTrait:NSItalicFontMask] forKey:NSFontAttributeName];
             [attributes setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
             [sender setAttributedStringValue:[[[NSAttributedString allocWithZone:[self zone]]
-                            initWithString: [[[self currentText] window] title] attributes:attributes] autorelease]];
+                            initWithString: S attributes:attributes] autorelease]];
         }
         else
             [sender setStringValue:NSLocalizedStringFromTableInBundle(@"None", TABLE,
@@ -2189,7 +2190,7 @@ To Do List:
         [[self currentText] setSpellContextMode:TWSSpellDefaultContextMode];
         NSWindow * W = [[self currentText] window];
         id FR = [W firstResponder];
-        [W makeFirstResponder:[W contentView]];
+        [W makeFirstResponder:nil];
         [W makeFirstResponder:FR];
         [self iTM2_validateWindowContent];
     }

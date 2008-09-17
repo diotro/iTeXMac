@@ -2351,7 +2351,7 @@ To Do List:
 		[self setSyntaxParserVariant:variant];
         [self setFileType:@"iTeXMac2 private document"];
 		[self setFileName:
-			[[[[[[NSBundle mainBundle] pathForSupportDirectory:iTM2TextStyleComponent inDomain:NSUserDomainMask create:YES]
+			[[[[[[NSBundle mainBundle] iTM2_pathForSupportDirectory:iTM2TextStyleComponent inDomain:NSUserDomainMask create:YES]
 				stringByAppendingPathComponent: [[isa syntaxParserClass] syntaxParserStyle]] 
 					stringByAppendingPathExtension: iTM2TextStyleExtension]
 						stringByAppendingPathComponent: [self syntaxParserVariant]]
@@ -2429,7 +2429,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * stylePath =
-		[[[[[[NSBundle mainBundle] pathForSupportDirectory:iTM2TextStyleComponent inDomain:NSUserDomainMask create:YES]
+		[[[[[[NSBundle mainBundle] iTM2_pathForSupportDirectory:iTM2TextStyleComponent inDomain:NSUserDomainMask create:YES]
 			stringByAppendingPathComponent: [[isa syntaxParserClass] syntaxParserStyle]] 
 				stringByAppendingPathExtension: iTM2TextStyleExtension]
 					stringByAppendingPathComponent: [self syntaxParserVariant]]
@@ -2452,7 +2452,7 @@ To Do List:
 	NSString * style = [[isa syntaxParserClass] syntaxParserStyle];
 	NSString * variant = [self syntaxParserVariant];
     NSString * stylePath =
-		[[[[[[NSBundle mainBundle] pathForSupportDirectory:iTM2TextStyleComponent inDomain:NSUserDomainMask create:YES]
+		[[[[[[NSBundle mainBundle] iTM2_pathForSupportDirectory:iTM2TextStyleComponent inDomain:NSUserDomainMask create:YES]
 			stringByAppendingPathComponent: style] 
 				stringByAppendingPathExtension: iTM2TextStyleExtension]
 					stringByAppendingPathComponent: variant]
@@ -2489,7 +2489,7 @@ To Do List:
             goto save;
         }
     }
-    else if([DFM createDeepDirectoryAtPath:stylePath attributes:nil error:&localError])
+    else if([DFM iTM2_createDeepDirectoryAtPath:stylePath attributes:nil error:&localError])
 	{
 		goto save;
 	}
@@ -3052,7 +3052,7 @@ To Do List:
 //iTM2_START;
     NSString * name = [sender stringValue];
 	NSString * variant = [self variant];
-    if(![variant pathIsEqual:name])
+    if(![variant iTM2_pathIsEqual:name])
     {
 		NSString * style = [self style];
 		NSDictionary * variants = [iTM2TextSyntaxParser syntaxParserVariantsForStyle:style];

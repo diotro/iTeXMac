@@ -105,7 +105,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[self document] takeInfo:[sender stringValue] forKeyPaths:iTM2TeXPIndexOutputKey, nil];
+    [[self document] setInfo:[sender stringValue] forKeyPaths:iTM2TeXPIndexOutputKey, nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOutputEdited:
@@ -122,7 +122,7 @@ To Do List:
     if(![output length])
     {
 		NSString * path = [[myTPD nameForFileKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
-		[self takeInfo:([path length]? [path stringByAppendingPathExtension:iTM2TeXPIndexExtension]:@"") forKeyPaths:iTM2TeXPIndexOutputKey, nil];
+		[self setInfo:([path length]? [path stringByAppendingPathExtension:iTM2TeXPIndexExtension]:@"") forKeyPaths:iTM2TeXPIndexOutputKey, nil];
         output = [self infoForKeyPaths:iTM2TeXPIndexOutputKey, nil]?: @"";
     }
     [sender setStringValue:output];
@@ -185,7 +185,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeXPIndexStyleKey,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeXPIndexStyleKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditStyle:
@@ -347,7 +347,7 @@ To Do List:
             option = [NSString stringWithFormat:@"%d", MAX([([self infoForKeyPaths:iTM2TeXPIndexSeparateStartKey,nil]) intValue], 1)];
             break;
     }
-    [self takeInfo:option forKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
+    [self setInfo:option forKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
 	[self iTM2_validateWindowContent];
     return;
 }
@@ -384,7 +384,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
+    [self setInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateStartingAtEdited:
@@ -531,7 +531,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeXPGlossaryOutputKey,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeXPGlossaryOutputKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOutputEdited:
@@ -548,7 +548,7 @@ To Do List:
     {
         iTM2TeXProjectDocument * myTPD = (iTM2TeXProjectDocument *)[self document];
 		output = [[[myTPD nameForFileKey:[myTPD masterFileKey]] stringByDeletingPathExtension] stringByAppendingPathExtension:iTM2TeXPGlossaryExtension];
-        [self takeInfo:output forKeyPaths:iTM2TeXPGlossaryOutputKey,nil];
+        [self setInfo:output forKeyPaths:iTM2TeXPGlossaryOutputKey,nil];
         output = [self infoForKeyPaths:iTM2TeXPGlossaryOutputKey,nil]?: @"";
     }
     [sender setStringValue:output];
@@ -610,7 +610,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeXPGlossaryStyleKey,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeXPGlossaryStyleKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditStyle:
@@ -772,7 +772,7 @@ To Do List:
             option = [NSString stringWithFormat:@"%d", MAX([([self infoForKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil]) intValue], 1)];
             break;
     }
-    [self takeInfo:option forKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
+    [self setInfo:option forKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
 	[self iTM2_validateWindowContent];
     return;
 }
@@ -809,7 +809,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
+    [self setInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateStartingAtEdited:
@@ -932,7 +932,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[sender stringValue] forKeyPaths:iTM2TeXPBibliographyAuxNameKey,nil];
+    [self setInfo:[sender stringValue] forKeyPaths:iTM2TeXPBibliographyAuxNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateAuxNameEdited:
@@ -949,7 +949,7 @@ To Do List:
     {
         iTM2TeXProjectDocument * myTPD = (iTM2TeXProjectDocument *)[self document];
 		output = [[myTPD nameForFileKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
-        [self takeInfo:output forKeyPaths:iTM2TeXPBibliographyAuxNameKey,nil];
+        [self setInfo:output forKeyPaths:iTM2TeXPBibliographyAuxNameKey,nil];
         output = ([self infoForKeyPaths:iTM2TeXPBibliographyAuxNameKey,nil]?: @"");
     }
     [sender setStringValue:output];
@@ -965,7 +965,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
+    [self setInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMinXReferencesEdited:
@@ -980,7 +980,7 @@ To Do List:
     NSNumber * N = [self infoForKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
     if(!N)
     {
-        [self takeInfo:[NSNumber numberWithInt:2] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];// 2 is a default value
+        [self setInfo:[NSNumber numberWithInt:2] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];// 2 is a default value
         N = [self infoForKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
     }
     [sender setIntValue:[N intValue]];
@@ -1067,7 +1067,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int tag = [[sender selectedCell] tag];
-    [self takeInfo:[_iTM2TeXProjectTypesetModes objectAtIndex: (tag>3? 0:tag)] forKeyPaths:iTM2TeXPTypesetModeKey,nil];
+    [self setInfo:[_iTM2TeXProjectTypesetModes objectAtIndex: (tag>3? 0:tag)] forKeyPaths:iTM2TeXPTypesetModeKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchMode:
@@ -1138,7 +1138,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     int tag = [[sender selectedCell] tag];
-    [self takeInfo:[_iTM2TeXProjectCleanModes objectAtIndex: (tag>1? 0:tag)] forKeyPaths:iTM2TeXPCleanModeKey,nil];
+    [self setInfo:[_iTM2TeXProjectCleanModes objectAtIndex: (tag>1? 0:tag)] forKeyPaths:iTM2TeXPCleanModeKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchMode:
@@ -1167,7 +1167,7 @@ To Do List:
     NSString * S;
     while(S = [E nextObject])
         [MRA addObject:[S stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    [self takeInfo:[[MRA copy] autorelease] forKeyPaths:iTM2TeXPCleanExtensionsKey,nil];
+    [self setInfo:[[MRA copy] autorelease] forKeyPaths:iTM2TeXPCleanExtensionsKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateExtensionsEdited:
@@ -1196,7 +1196,7 @@ To Do List:
     NSString * S;
     while(S = [E nextObject])
         [MRA addObject:[S stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    [self takeInfo:[[MRA copy] autorelease] forKeyPaths:iTM2TeXPCleanFoldersKey,nil];
+    [self setInfo:[[MRA copy] autorelease] forKeyPaths:iTM2TeXPCleanFoldersKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateFoldersEdited:
@@ -1220,7 +1220,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self takeInfo:[NSNumber numberWithInt:MAX(0, MIN([sender intValue], 5))] forKeyPaths:iTM2TeXPCleanLevelKey,nil];
+    [self setInfo:[NSNumber numberWithInt:MAX(0, MIN([sender intValue], 5))] forKeyPaths:iTM2TeXPCleanLevelKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateLevelEdited:

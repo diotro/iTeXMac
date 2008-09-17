@@ -112,17 +112,17 @@ To Do List:
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
 - (BOOL)GETTER;{return [[self infoForKeyPaths:KEY,nil] boolValue];}\
-- (void)SETTER:(BOOL)yorn;{[self takeInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(BOOL)yorn;{[self setInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
 MODEL_BOOL(landscape, setLandscape, iTM2Dvipdfm_landscape);
 MODEL_BOOL(usePaper, setUsePaper, iTM2Dvipdfm_USE_paper);
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
 - (id)GETTER;{return [self infoForKeyPaths:KEY,nil];}\
-- (void)SETTER:(id)argument;{[self takeInfo:argument forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(id)argument;{[self setInfo:argument forKeyPaths:KEY,nil];return;}
 MODEL_OBJECT(paper, setPaper, iTM2Dvipdfm_paper);
 MODEL_BOOL(useOffset, setUseOffset, iTM2Dvipdfm_USE_offset);
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
 - (float)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
-- (void)SETTER:(float)argument;{[self takeInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(float)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 MODEL_FLOAT(xOffset, setXOffset, iTM2Dvipdfm_x_offset);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvipdfm_y_offset);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  xOffsetUnit
@@ -156,10 +156,10 @@ To Do List:
 //iTM2_START;
 	switch(argument)
 	{
-		case 0: [self takeInfo:@"bp" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
-		case 1: [self takeInfo:@"pt" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
-		case 3: [self takeInfo:@"cm" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
-		default: [self takeInfo:@"in" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 0: [self setInfo:@"bp" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 1: [self setInfo:@"pt" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 3: [self setInfo:@"cm" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		default: [self setInfo:@"in" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
 	}
 //iTM2_END;
     return;
@@ -195,10 +195,10 @@ To Do List:
 //iTM2_START;
 	switch(argument)
 	{
-		case 0: [self takeInfo:@"bp" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
-		case 1: [self takeInfo:@"pt" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
-		case 3: [self takeInfo:@"cm" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
-		default: [self takeInfo:@"in" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 0: [self setInfo:@"bp" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 1: [self setInfo:@"pt" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 3: [self setInfo:@"cm" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		default: [self setInfo:@"in" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
 	}
 //iTM2_END;
     return;
@@ -219,7 +219,7 @@ MODEL_BOOL(useOutputName, setUseOutputName, iTM2Dvipdfm_USE_output_name);
 MODEL_OBJECT(outputName, setOutputName, iTM2Dvipdfm_output_name);
 #define MODEL_INT(GETTER, SETTER, KEY)\
 - (int)GETTER;{return [[self infoForKeyPaths:KEY,nil] intValue];}\
-- (void)SETTER:(int)argument;{[self takeInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(int)argument;{[self setInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
 MODEL_INT(compressionLevel, setCompressionLevel, iTM2Dvipdfm_compression_level);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verbosityLevel
 - (int)verbosityLevel;
@@ -249,9 +249,9 @@ To Do List:
 //iTM2_END;
 	switch(argument)
 	{
-		case 0: [self takeInfo:@"" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
-		case 1: [self takeInfo:@"v" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
-		default: [self takeInfo:@"vv" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		case 0: [self setInfo:@"" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		case 1: [self setInfo:@"v" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		default: [self setInfo:@"vv" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
 	}
     return;
 }

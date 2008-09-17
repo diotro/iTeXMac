@@ -44,16 +44,68 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)"];
-	[RE setInputString:NSStringFromSelector(selector)];
-	if([RE nextMatch])
-	{
-		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
-//iTM2_END;
-		return [iTM2RuntimeBrowser swizzleInstanceMethodSelector:selector replacement:swizzled forClass:self];
+    if(!ISSELECTOR(selector))
+    {
+        iTM2_LOG(@"%#x is not a selector, no swizzling.", selector);
+        return NO;
+    }
+	const char * selector_name = SELNAME(selector);
+	const char * prefix = "SWZ_";
+	if(strncmp(selector_name,prefix,strlen(prefix))) {
+        iTM2_LOG(@"%s is not a valid selector for short swizzling.", selector_name);
+		return NO;
 	}
+	Method method = class_getInstanceMethod(self,selector);
+    if(!method)
+    {
+        iTM2_LOG(@"*** new selector %s not implemented by %s instances, no swizzling.", sel_getName(selector), object_getClassName(self));
+        return NO;
+    }
+	char * new_selector_name = strstr(selector_name+strlen(prefix),"_");
+	if(!new_selector_name) {
+        iTM2_LOG(@"%s is not a valid selector for short swizzling.", selector_name);
+		return NO;
+	}
+	SEL new_selector = sel_registerName(++new_selector_name);
+	// is it an inherited method?
+	Method new_method = NULL;
+	void *iterator = NULL;
+	struct objc_method_list *method_list = NULL;
+	while (method_list = class_nextMethodList(self, &iterator)) {
+		int i = method_list->method_count;
+		while (i--) {
+			if (method_list->method_list[i].method_name == new_selector) {
+				/* No it is not an inherited method */
+				new_method = method_list->method_list+i;
+swizzle:
+				{
+					char * temp1 = new_method->method_types;
+					new_method->method_types = method->method_types;
+					method->method_types = temp1;
+					IMP temp2 = new_method->method_imp;
+					new_method->method_imp = method->method_imp;
+					method->method_imp = temp2;
 //iTM2_END;
-	return NO;
+					return YES;
+				}
+			}
+		}
+	}
+	/* Yes it is an inherited method
+	 * We must duplicate this method in self
+	 * because we do not want superclasses to see their methods unexpectedly swizzled */
+	Method inherited_method = class_getInstanceMethod(self, new_selector);
+    if(!inherited_method)
+    {
+        iTM2_LOG(@"*** original selector %s not implemented by %s instances, no swizzling.", sel_getName(selector), object_getClassName(self));
+        return NO;
+    }
+	method_list = malloc(sizeof(*method_list));
+	method_list->method_count = 1;
+	new_method = method_list->method_list;
+    bcopy(inherited_method, new_method, sizeof(*inherited_method));
+	class_addMethods(self, method_list);
+	goto swizzle;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzleClassMethodSelector:
 + (BOOL)iTM2_swizzleClassMethodSelector:(SEL)selector;
@@ -107,7 +159,7 @@ To Do List:
 {
 	id result = nil;
 NS_DURING
-	result = [self instanceMethodSignatureForSelector:(SEL)aSelector];
+	result = [self instancesRespondToSelector:(SEL)aSelector]?[self instanceMethodSignatureForSelector:(SEL)aSelector]:nil;
 NS_HANDLER
 	result = nil;
 	iTM2_LOG(@"Exception catched");
@@ -779,7 +831,7 @@ To Do List:
 					while(index)
 					{
 						selector = (methodListRef -> method_list[--index]).method_name;
-						if(ISSELECTOR(selector))
+						if(ISSELECTOR(selector) && selector != @selector(heartBeat:))
 						{
 							MS = [aClass iTM2_instanceMethodSignatureForSelector:selector];
 							if([signature isEqual:MS])
@@ -793,7 +845,7 @@ To Do List:
 						}
 						else
 						{
-							iTM2_LOG(@"Unmapped selector...");
+							iTM2_LOG(@"Unmapped selector or heartBeat:...");
 						}
 					}
 				}
@@ -831,6 +883,7 @@ To Do List:
 	SELs = [NSMutableArray arrayWithArray:[SELs allObjects]];
 	if(iTM2DebugEnabled)
 	{
+		iTM2_LOG(@"Introspection:\nclass: %@\nselector suffix:%@\nsignature:%@\ninherited:%@", NSStringFromClass(theClass), suffix, signature, (yorn?@"Y":@"N"));
 		iTM2_LOG(@"prepareSELs: %@", prepareSELs);
 		iTM2_LOG(@"SELs: %@", SELs);
 	}
@@ -1124,3 +1177,183 @@ To Do List:
 	return messages;
 }
 @end
+
+#if 0
+Other swizzlers
+// if the origSel isn't present in the class, pull it up from where it exists
+// then do the swizzle
+BOOL _MyPluginTemplate_PerformSwizzle(Class klass, SEL origSel, SEL altSel, BOOL forInstance) {
+    // First, make sure the class isn't nil
+	if (klass != nil) {
+		Method origMethod = NULL, altMethod = NULL;
+		
+		// Next, look for the methods
+		Class iterKlass = (forInstance ? klass : klass->isa);
+		unsigned int methodCount = 0;
+		Method *mlist = class_copyMethodList(iterKlass, &methodCount);
+		if (mlist != NULL) {
+			int i;
+			for (i = 0; i < methodCount; ++i) {
+				
+				if (method_getName(mlist[i]) == origSel) {
+					origMethod = mlist[i];
+					break;
+				}
+				if (method_getName(mlist[i]) == altSel) {
+					altMethod = mlist[i];
+					break;
+				}
+			}
+		}
+		
+		if (origMethod == NULL || altMethod == NULL) {
+			// one or both methods are not in the immediate class
+			// try searching the entire hierarchy
+			// remember, iterKlass is the class we care about - klass || klass->isa
+			// class_getInstanceMethod on a metaclass is the same as class_getClassMethod on the real class
+			BOOL pullOrig = NO, pullAlt = NO;
+			if (origMethod == NULL) {
+				origMethod = class_getInstanceMethod(iterKlass, origSel);
+				pullOrig = YES;
+			}
+			if (altMethod == NULL) {
+				altMethod = class_getInstanceMethod(iterKlass, altSel);
+				pullAlt = YES;
+			}
+			
+			// die now if one of the methods doesn't exist anywhere in the hierarchy
+			// this way we won't make any changes to the class if we can't finish
+			if (origMethod == NULL || altMethod == NULL) {
+				return NO;
+			}
+			
+			// we can safely assume one of the two methods, at least, will be pulled
+			// pull them up
+			size_t listSize = sizeof(Method);
+			if (pullOrig && pullAlt) listSize += sizeof(Method); // need 2 methods
+			if (pullOrig) {
+				class_addMethod(iterKlass, method_getName(origMethod), method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+			}
+			if (pullAlt) {
+				class_addMethod(iterKlass, method_getName(altMethod), method_getImplementation(altMethod), method_getTypeEncoding(altMethod));
+			}
+		}
+		
+		// now swizzle
+		method_exchangeImplementations(origMethod, altMethod);
+		
+		return YES;
+	}
+	return NO;
+}
+
+
+#import "JRSwizzle.h"
+#import <objc/objc-class.h>
+
+#define SetNSError(ERROR_VAR, FORMAT,...)       \
+		if (ERROR_VAR) {        \
+				NSString *errStr = [@"+[NSObject(JRSwizzle) jr_swizzleMethod:withMethod:error:]: " stringByAppendingFormat:FORMAT,##__VA_ARGS__];       \
+				*ERROR_VAR = [NSError errorWithDomain:@"NSCocoaErrorDomain" \
+																				 code:-1        \
+																		 userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescriptionKey]]; \
+		}
+
+@implementation NSObject (JRSwizzle)
+
++ (BOOL)jr_swizzleMethod:(SEL)origSel_ withMethod:(SEL)altSel_ error:(NSError**)error_ {
+#if OBJC_API_VERSION >= 2
+		Method origMethod = class_getInstanceMethod(self, origSel_);
+		if (!origMethod) {
+				SetNSError(error_, @"original method %@ not found for class %@", NSStringFromSelector(origSel_), [self className]);
+				return NO;
+		}
+	   
+		Method altMethod = class_getInstanceMethod(self, altSel_);
+		if (!altMethod) {
+				SetNSError(error_, @"alternate method %@ not found for class %@", NSStringFromSelector(altSel_), [self className]);
+				return NO;
+		}
+	   
+		class_addMethod(self,
+										origSel_,
+										class_getMethodImplementation(self, origSel_),
+										method_getTypeEncoding(origMethod));
+		class_addMethod(self,
+										altSel_,
+										class_getMethodImplementation(self, altSel_),
+										method_getTypeEncoding(altMethod));
+	   
+		method_exchangeImplementations(class_getInstanceMethod(self, origSel_), class_getInstanceMethod(self, altSel_));
+		return YES;
+#else
+		//      Scan for non-inherited methods.
+		Method directOriginalMethod = NULL, directAlternateMethod = NULL;
+	   
+		void *iterator = NULL;
+		struct objc_method_list *mlist = class_nextMethodList(self, &iterator);
+		while (mlist) {
+				int method_index = 0;
+				for (; method_index < mlist->method_count; method_index++) {
+						if (mlist->method_list[method_index].method_name == origSel_) {
+								assert(!directOriginalMethod);
+								directOriginalMethod = &mlist->method_list[method_index];
+						}
+						if (mlist->method_list[method_index].method_name == altSel_) {
+								assert(!directAlternateMethod);
+								directAlternateMethod = &mlist->method_list[method_index];
+						}
+				}
+				mlist = class_nextMethodList(self, &iterator);
+		}
+	   
+		//      If either method is inherited, copy it up to the target class to make it non-inherited.
+		if (!directOriginalMethod || !directAlternateMethod) {
+				Method inheritedOriginalMethod = NULL, inheritedAlternateMethod = NULL;
+				if (!directOriginalMethod) {
+						inheritedOriginalMethod = class_getInstanceMethod(self, origSel_);
+						if (!inheritedOriginalMethod) {
+								SetNSError(error_, @"original method %@ not found for class %@", NSStringFromSelector(origSel_), [self className]);
+								return NO;
+						}
+				}
+				if (!directAlternateMethod) {
+						inheritedAlternateMethod = class_getInstanceMethod(self, altSel_);
+						if (!inheritedAlternateMethod) {
+								SetNSError(error_, @"alternate method %@ not found for class %@", NSStringFromSelector(altSel_), [self className]);
+								return NO;
+						}
+				}
+			   
+				int hoisted_method_count = !directOriginalMethod && !directAlternateMethod ? 2 : 1;
+				struct objc_method_list *hoisted_method_list = malloc(sizeof(struct objc_method_list) + (sizeof(struct objc_method)*(hoisted_method_count-1)));
+				hoisted_method_list->method_count = hoisted_method_count;
+				Method hoisted_method = hoisted_method_list->method_list;
+			   
+				if (!directOriginalMethod) {
+						bcopy(inheritedOriginalMethod, hoisted_method, sizeof(struct objc_method));
+						directOriginalMethod = hoisted_method++;
+				}
+				if (!directAlternateMethod) {
+						bcopy(inheritedAlternateMethod, hoisted_method, sizeof(struct objc_method));
+						directAlternateMethod = hoisted_method;
+				}
+				class_addMethods(self, hoisted_method_list);
+		}
+	   
+		//      Swizzle.
+		IMP temp = directOriginalMethod->method_imp;
+		directOriginalMethod->method_imp = directAlternateMethod->method_imp;
+		directAlternateMethod->method_imp = temp;
+	   
+		return YES;
+#endif
+}
+
++ (BOOL)jr_swizzleClassMethod:(SEL)origSel_ withClassMethod:(SEL)altSel_ error:(NSError**)error_ {
+		assert(0);
+		return NO;
+}
+
+@end
+#endif

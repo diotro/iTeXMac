@@ -181,22 +181,22 @@ extern NSString * const iTM2TPDKNameKey;
 @interface NSWorkspace(iTM2TeXProjectDocumentKit)
 
 /*!
-    @method		isTeXProjectPackageAtPath:
+    @method		iTM2_isTeXProjectPackageAtURL:
     @abstract	Abstract forthcoming
     @discussion	Whether the given full path points to a TeX project.
     @param      None
     @result     None
 */
-- (BOOL)isTeXProjectPackageAtPath:(NSString *)fullPath;
+- (BOOL)iTM2_isTeXProjectPackageAtURL:(NSURL *)url;
 
 /*!
-    @method		isTeXWrapperPackageAtPath:
+    @method		iTM2_isTeXWrapperPackageAtURL:
     @abstract	Abstract forthcoming
     @discussion	Whether the given full path points to a TeX wrapper.
     @param      None
     @result     None
 */
-- (BOOL)isTeXWrapperPackageAtPath:(NSString *)fullPath;
+- (BOOL)iTM2_isTeXWrapperPackageAtURL:(NSURL *)url;
 
 @end
 

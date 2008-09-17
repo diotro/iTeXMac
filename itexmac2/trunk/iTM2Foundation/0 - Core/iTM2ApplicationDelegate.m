@@ -37,6 +37,7 @@ NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 "*/
 
 #include <iTM2Foundation/iTM2RuntimeBrowser.h>
+#include <iTM2Foundation/iTM2PathUtilities.h>
 
 @interface NSDocumentController(iTM2ApplicationDelegate)
 - (id)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL;
@@ -131,9 +132,9 @@ To Do: problem when there is no UI.
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSURL * absoluteURL = [NSURL fileURLWithPath:filename];
 	if([SDC respondsToSelector:@selector(prepareOpenDocumentWithContentsOfURL:)])
 	{
+		NSURL * absoluteURL = [[NSURL fileURLWithPath:filename] iTM2_normalizedURL];
 		[SDC prepareOpenDocumentWithContentsOfURL:absoluteURL];
 	}
 //iTM2_END;

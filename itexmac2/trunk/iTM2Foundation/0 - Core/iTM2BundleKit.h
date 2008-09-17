@@ -121,7 +121,7 @@ extern NSString * const iTM2BundleContentsComponent;
 + (NSArray *)searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
 
 /*!
-    @method 	pathForSupportDirectory:inDomain:withName:create:
+    @method 	iTM2_pathForSupportDirectory:inDomain:withName:create:
     @abstract	The application support subdirectory.
     @discussion	Returns objects of
                 1- ~/Library/Application\ Support/APP_NAME/subpath
@@ -135,23 +135,30 @@ extern NSString * const iTM2BundleContentsComponent;
     @param		create is a flag, if set to YES, the directory will be created.
     @result		a full path, possibly empty if it does not exist or could not be created while create is YES.
 */
-+ (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName create:(BOOL)create;
++ (NSString *)iTM2_pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName create:(BOOL)create;
 
 /*!
-    @method 	pathForSupportDirectory:inDomain:withName:create:
+    @method 	iTM2_pathForSupportDirectory:inDomain:withName:create:
     @abstract	The application support subdirectory.
     @discussion	Returns objects of
-                1- ~/Library/Application\ Support/APP_NAME/subpath
-                2- /Library/Application\ Support/APP_NAME/subpath
-                3- /Network/Library/Application\ Support/APP_NAME/subpath
-                The system domain is ignored, not the others (fortunately, no other domain is defined)
+                
+				1- ~/Library/Application\ Support/APP_NAME/subpath
+                
+				2- /Library/Application\ Support/APP_NAME/subpath
+                
+				3- /Network/Library/Application\ Support/APP_NAME/subpath
+                
+				The system domain is ignored, not the others (fortunately, no other domain is defined)
+				If the path does not point to an existing file or folder, then either
+				we create the directory if the create flag is yes, or
+				we return a void string.
     @param		subpath is a subpath.
     @param		domainMask is concerning one of the user, local or network domains, but NOT the system nor the built in one...
                 If more than one domain is given, the first one are ignored and only the last one is taken into consideration.
     @param		create is a flag.
     @result		a full path or @"" if the requested path does not exist or could not be created while create is YES.
 */
-- (NSString *)pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
+- (NSString *)iTM2_pathForSupportDirectory:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
 
 /*!
     @method 	allPathsForSupportExecutables

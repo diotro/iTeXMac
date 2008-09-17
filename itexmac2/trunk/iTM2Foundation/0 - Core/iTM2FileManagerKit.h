@@ -25,10 +25,12 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 
+extern NSString * const iTM2SoftLinkExtension;
+
 @interface NSFileManager(iTeXMac2)
 
 /*! 
-	@method		createDeepDirectoryAtPath:attributes:error:
+	@method		iTM2_createDeepDirectoryAtPath:attributes:error:
 	@abstract	creates a directory and the whole hierarchy if necessary. Returns YES if the file exists
 	@discussion The given path must be non void. If it does not start with a / character, it will be appended to the current directory path.
 				The answer is YES if either the directory was successfully created or the directory was already existing.
@@ -40,10 +42,10 @@
 	@param		errorPtr points to an NSError place holder.
 	@result		yorn.
 */
-- (BOOL)createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)errorPtr;
+- (BOOL)iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)errorPtr;
 
 /*! 
-	@method		createDeepFileAtPath:contents:attributes:
+	@method		iTM2_createDeepFileAtPath:contents:attributes:
 	@abstract	creates a file and the whole hierarchy if necessary. Returns YES if the file is created, No if the file can't be created or is already existing.
 	@discussion	Description Forthcoming.
 	@param		path is the path where the directory should be created, if the path is not absolute (ie if it does not start with a /, it is appended to the current directory.
@@ -51,20 +53,20 @@
 	@param		attributes are the attributes of all the created directories.
 	@result		yorn.
 */
-- (BOOL)createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
+- (BOOL)iTM2_createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
 
 /*!
-	@method		createDeepSymbolicLinkAtPath:pathContent:
+	@method		iTM2_createDeepSymbolicLinkAtPath:pathContent:
 	@abstract	creates a link and the whole hierarchy if necessary. Returns YES if the link is created, no otherwise. If there exists something at path, No is returned.
 	@discussion Description Forthcoming.
 	@param		path is the path where the directory should be created, if the path is not absolute (ie if it does not start with a /, it is appended to the current directory.
 	@param		otherpath is the target.
 	@result		yorn.
 */
-- (BOOL)createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+- (BOOL)iTM2_createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
 
 /*!
-	@method			makeFileWritableAtPath:recursive:
+	@method			iTM2_makeFileWritableAtPath:recursive:
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			fileName
@@ -73,10 +75,10 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void)makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)yorn;
+- (void)iTM2_makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)yorn;
 
 /*!
-	@method			prettyNameAtPath:
+	@method			iTM2_prettyNameAtPath:
 	@abstract		Abstract forthcoming.
 	@discussion		The display name at path traverses links. This one does not.
 	@param			fileName
@@ -84,10 +86,10 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *)prettyNameAtPath:(NSString *)path;
+- (NSString *)iTM2_prettyNameAtPath:(NSString *)path;
 
 /*!
-	@method			setExtensionHidden:atPath:
+	@method			iTM2_setExtensionHidden:atPath:
 	@abstract		Abstract forthcoming.
 	@discussion		The display name at path traverses links. This one does not.
 	@param			yorn.
@@ -96,7 +98,7 @@
 	@availability	iTM2.
 	@copyright		2006 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)setExtensionHidden:(BOOL)yorn atPath:(NSString *)path;
+- (BOOL)iTM2_setExtensionHidden:(BOOL)yorn atPath:(NSString *)path;
 
 /*!
 	@method			pushDirectory:
@@ -154,7 +156,7 @@
 - (BOOL)isVisibleFileAtPath:(NSString *)path;
 
 /*!
-	@method			pathContentOfSoftLinkAtPath:
+	@method			iTM2_pathContentOfSoftLinkAtPath:
 	@abstract		The path contents of the soft link at the given path.
 	@discussion		Due to the fact that soft links are not properly handled by some USB drivers
 					(they hang out while copying broken symbolic links)
@@ -167,19 +169,19 @@
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *)pathContentOfSoftLinkAtPath:(NSString *)path;
+- (NSString *)iTM2_pathContentOfSoftLinkAtPath:(NSString *)path;
 
 /*!
-	@method			createSoftLinkAtPath:pathContent:
+	@method			iTM2_createSoftLinkAtPath:pathContent:
 	@abstract		Abstract forthcoming.
-	@discussion		See <code>-pathContentOfSoftLinkAtPath:</code>.
+	@discussion		See <code>-iTM2_pathContentOfSoftLinkAtPath:</code>.
 	@param			path is the source path
 	@param			otherpath is the target path
 	@result			yorn.
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)createSoftLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+- (BOOL)iTM2_createSoftLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
 
 /*!
 	@method			isPrivateFileAtPath:
@@ -299,30 +301,30 @@ enum
 @interface NSData(iTM2Alias)
 
 /*!
-	@method		pathByResolvingDataAliasRelativeTo:error:
+	@method		iTM2_pathByResolvingDataAliasRelativeTo:error:
 	@abstract	Resolved path from the receiver as data alias.
 	@discussion Discussion forthcoming.
 	@param		base is the base path, can be nil.
 	@param		error is an NSError pointer, can be nil.
 	@result		a path or nil in case of error. 
 */
-- (NSString*)pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)error;
-- (BOOL)writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
-+ (NSData *)aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
-- (NSURL *)URLByResolvingDataAliasRelativeToURL:(NSURL *)baseURL error:(NSError **)outErrorPtr;
+- (NSString*)iTM2_pathByResolvingDataAliasRelativeTo:(NSString *)base error:(NSError **)error;
+- (BOOL)iTM2_writeAsFinderAliasToURL:(NSURL *)url options:(unsigned)writeOptionsMask error:(NSError **)errorPtr;
++ (NSData *)iTM2_aliasDataWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)error;
+- (NSURL *)iTM2_URLByResolvingDataAliasRelativeToURL:(NSURL *)baseURL error:(NSError **)outErrorPtr;
 
 @end
 
 @interface NSString(iTM2AliasKit)
 
 /*!
-	@method		dataAliasRelativeTo:error:
+	@method		iTM2_dataAliasRelativeTo:error:
 	@abstract	Wraps the receiver in a data alias object.
 	@discussion Discussion forthcoming.
 	@param		base is the base path, can be nil.
 	@param		error is an NSError pointer, can be nil.
 	@result		a data object containing a dereferenced AliasHandle. 
 */
-- (NSData*)dataAliasRelativeTo:(NSString *)base error:(NSError **)error;
+- (NSData*)iTM2_dataAliasRelativeTo:(NSString *)base error:(NSError **)error;
 
 @end

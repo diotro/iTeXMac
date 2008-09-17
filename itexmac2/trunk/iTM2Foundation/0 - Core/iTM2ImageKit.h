@@ -36,6 +36,7 @@
 + (NSImage *)iTM2_imageSplitHorizontal;
 + (NSImage *)iTM2_imageSplitVertical;
 + (NSImage *)iTM2_imageMissingImage;
++ (NSImage *)iTM2_imageNERedArrow;
 + (NSImage *)iTM2_cachedImageNamed:(NSString *)name;
 - (void)iTM2_setSizeSmallIcon;
 - (void)iTM2_setSizeIcon;

@@ -1476,7 +1476,11 @@ To Do List:
 {
 	if(self = [super initWithCoder:(NSCoder *)aDecoder])
 	{
-		[self setPopUpCell:[aDecoder decodeObjectForKey:@"popUpCell"]];
+		NS_DURING
+		id cell = [aDecoder decodeObjectForKey:@"popUpCell"];// *** Exception catched: *** -[NSKeyedUnarchiver decodeObjectForKey:]: missing class name for class
+		[self setPopUpCell:cell];
+		NS_HANDLER
+		NS_ENDHANDLER
 		[self setDoubleAction:NSSelectorFromString([aDecoder decodeObjectForKey:@"doubleActionName"])];
 	}
 	return self;

@@ -70,16 +70,16 @@ To Do List:
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
 - (BOOL)GETTER;{return [[self infoForKeyPaths:KEY,nil] boolValue];}\
-- (void)SETTER:(BOOL)yorn;{[self takeInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(BOOL)yorn;{[self setInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
 - (id)GETTER;{return [self infoForKeyPaths:KEY,nil];}\
-- (void)SETTER:(id)argument;{[self takeInfo:argument forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(id)argument;{[self setInfo:argument forKeyPaths:KEY,nil];return;}
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
 - (float)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
-- (void)SETTER:(float)argument;{[self takeInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(float)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 #define MODEL_INT(GETTER, SETTER, KEY)\
 - (int)GETTER;{return [[self infoForKeyPaths:KEY,nil] intValue];}\
-- (void)SETTER:(int)argument;{[self takeInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
+- (void)SETTER:(int)argument;{[self setInfo:[NSNumber numberWithInt:argument] forKeyPaths:KEY,nil];return;}
 MODEL_BOOL(useOutput, setUseOutput, iTM2PStoPDF_USE_output);
 MODEL_OBJECT(output, setOutput, iTM2PStoPDF_output);
 MODEL_BOOL(writeToLog, setWriteToLog, iTM2PStoPDF_write_to_log);

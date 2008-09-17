@@ -101,7 +101,7 @@ To Do List:
 "*/
 {
 // THIS IS NOT EVENT BETA
-iTM2_LOG(@"target: %@, invocation: %@", name, invocation);
+//iTM2_LOG(@"target: %@, invocation: %@", name, invocation);
 	// this uses NSInvocation
     // Define a Perl context
 	Class target = NSClassFromString(name);

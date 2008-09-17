@@ -9,7 +9,7 @@
 //  of the GNU General public License as published by the Free Software Foundation; either
 //  version 2 of the License, or any later version, modified by the addendum below.
 //  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-//  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A pARTICULAR pURPOSE.
+//  without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 //  See the GNU General public License for more details. You should have received a copy
 //  of the GNU General public License along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple place - Suite 330, Boston, MA 02111-1307, USA.
@@ -30,7 +30,6 @@ extern NSString * const iTM2ProjectCurrentDidChangeNotification;
 
 extern NSString * const iTM2ProjectDocumentType;
 extern NSString * const iTM2ProjectInspectorType;
-extern NSString * const iTM2ProjectInfoType;
 
 extern NSString * const iTM2SubdocumentsInspectorMode;
 
@@ -93,43 +92,100 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 /*! 
     @class iTM2ProjectDocument
     @abstract   Semi abstract class to implement project design.
-    @discussion Discussion forthcoming.
+    @discussion Complete discussion forthcoming.
+				
+				Now we discuss about subdocuments of the project.
+				The subdocuments are or different types.
+				Either they are refering to documents relative to the project, or they are absolute documents.
+				Documents relative to the project are owned by the project and are not meant to be shared by different projects.
+				On the contrary, absolute documents can be shared by different projects, the typical example concerns packages
+				of a TeX distribution. For them, there is a versioning problem.
+				Either we want a file relative to a specific distribution, or we want a file relative to the most recent distribution.
+				Here we use the TeXDist structure which gives a path for the current distribution.
+				That means that we must not always resolve symlinks.
+				To manage all these situations, we use URL manipulation facilities.
+				
+				URL's must be properly formed.
+				The shared project controller allows to normalize any URL with respect to a project see [SPC normalizedURLinProjectWithURL:].
 */
 
 @interface iTM2ProjectDocument: iTM2Document
 
 /*! 
-    @method     contentsDirectoryName
-    @abstract   The contents directory name.
-    @discussion All the sources are expected to be collected inside one folder.
-				There are different possible situations.
-				For standard TeX wrappers with write access, this is a true folder foo.texd/Contents.
-				For a faraway tex wrapper, this is foo.texd/Contents,
-				a symbolic link to the directory containing the main source file.
+    @method     setFileURL:
+    @abstract   Set the receiver file URL.
+    @discussion The inherited method is overriden in order to have a normalized URL.
+				We try to avoid absolute URL's to have more entropy.
 				
+				If the given URL is non void, we try to decompose it relative to the user's home directory or to the file system root.
     @param      None
     @result     None
 */
-- (NSString *)contentsDirectoryName;
+- (void)setFileURL:(NSURL*)url;
 
 /*! 
-    @method     buildDirectoryName
-    @abstract   The build directory name.
+    @method     factoryFileURL
+    @abstract   The factory file URL.
+    @discussion The factory serves two purposes.
+				First, this is where the intermediate files are built.
+				Second, this is where the project is stored if we have no write permission where it should be stored.
+				
+				The Factory domain is the directory
+				~/Library/Application\ Support/iTeXMac2/Factory.localized
+				
+				Each project either belongs to the Factory domain or not. In the latter case, we say that the project is regular.
+				
+				If the project is regular, the factoryFileURL: is exactly the URL created with the relative path of the receiver and
+				based on the main bundle's factoryURL.
+				If the receiver belongs to the Factory domain, the fileURL and the factoryFileURL are the same.
+    @param      None
+    @result     an NSURL instance
+*/
+- (NSURL *)contentsURL;
+
+/*! 
+    @method     parentURL
+    @abstract   The parent directory URL.
+    @discussion If the receiver is not in the factory, the returned URL is the one of the parent directory.
+				If the receiver is not in the factory, the returned URL is the regular counterpart of parent URL.
+    @param      None
+    @result     an NSURL instance
+*/
+- (NSURL *)parentURL;
+
+/*! 
+    @method     factoryURL
+    @abstract   The factory directory URL.
     @discussion This is where intermediate files are stored while building.
+				If the receivers belongs to a writable location,
+				this is the "Factory" subdirectory of the receiver.
+				If the receiver does not belong to a writable location,
+				this is the cached counterpart.
+
+				The result does have a base URL. The base URL is either
+				<ul>
+				<li>a real project URL if the receiver is writable and does not belong to the Writable Projects folder</li>
+				<li>a fake project URL otherwise, which means the real project URL where the base URL is stripped down</li>
+				</ul>
+				
+				Absolute path.
+				
+				This URL is cached by the project, as it is subject to change each time the file URL of the receiver changes
+				it is not a good idea for a client to cache this value.
     @param      None
-    @result     None
+    @result     An  URL
 */
-- (NSString *)buildDirectoryName;
+- (NSURL *)factoryURL;
 
 /*! 
-    @method     removeBuildDirectory
-    @abstract   Remove the build directory name.
+    @method     removeFactory
+    @abstract   Remove the Factory directory.
     @discussion Next build will have to create the whole build directory such that no cached information is available.
 				This should be used whenever project options changed in such a way that cached information might be obsolete.
     @param      None
     @result     yes if something was deleted
 */
-- (BOOL)removeBuildDirectory;
+- (BOOL)removeFactory;
 
 /*! 
     @method     projectName
@@ -388,7 +444,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)saveAllSubdocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
 
 /*! 
-    @method			allFileKeys
+    @method			fileKeys
     @abstract		All the file keys actually in use.
     @discussion		Description forthcoming.
     @param			None
@@ -396,7 +452,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSArray *)allFileKeys;
+- (NSArray *)fileKeys;
 
 /*! 
     @method     keysDidChange
@@ -420,14 +476,12 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)removeFileKey:(NSString *)key;
 
 /*! 
-    @method     nameForFileKey:
-    @abstract   The file name for the given key.
-    @discussion @"" is returned if the key is not covered by the allKeys list.
-				This file name is relative to the directory containing the project file!
-    @param      a key
+    @method     relativeFileNamesForKeys:
+    @abstract   The relative file names for the given keys.
+    @discussion Discussion forthcoming
+    @param      an array of keys
     @result     an NSString
 */
-- (NSString *)nameForFileKey:(NSString *)key;
 - (NSArray *)relativeFileNamesForKeys:(NSArray *)keys;
 
 /*! 
@@ -449,19 +503,18 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      fileName is the new file name, assumed to be a valid full path.
     @param      key is a key
     @param      flag is a flag
-    @result     None.
+    @result     A normalized URL.
 */
-- (void)setURL:(NSURL *)fileURL forFileKey:(NSString *)key;
+- (NSURL *)setURL:(NSURL *)fileURL forFileKey:(NSString *)key;
 
 /*! 
     @method     factoryURLForFileKey:
     @abstract   The factory file URL for the given key.
-    @discussion This is a convenience shortcut to the SPC's -factoryURLForName:inProjectWithURL: method.
+    @discussion Discussion forthcoming.
     @param      a key
-    @param      filter
     @result     an NSURL
 */
-- (NSURL *)factoryURLForFileKey:(NSString *)key;// different from URLForFileKey: for faraway projects
+- (NSURL *)factoryURLForFileKey:(NSString *)key;// different from URLForFileKey: for factory projects ATTENTION
 
 /*! 
     @method     nameForFileKey:
@@ -553,7 +606,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (NSString *)fileKeyForRecordedURL:(NSURL *)fileURL;// only use the links or finder aliases
 
 /*! 
-    @method     takePropertyValue:forKey:fileKey:contextDomain:
+    @method     setPropertyValue:forKey:fileKey:contextDomain:
     @abstract   Set the given property for the given key and file key.
     @discussion Also sets default properties in the project context and in the user defaults data base.
     @param      property is a standard  property list object
@@ -562,7 +615,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      mask is a context domain mask
     @result     a value.
 */
-- (void)takePropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
+- (void)setPropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
 
 /*! 
     @method     addGhostWindowController:
@@ -632,9 +685,86 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 */
 - (BOOL)fixProjectConsistency;
 
-- (BOOL)isElementary;
 - (void)dissimulateWindows;
 - (void)exposeWindows;
+
+/*! 
+    @method     saveContext:
+    @abstract   Abstract forthcoming.
+    @discussion Overriding the inherited message.
+				First of all, the documents of the receiver are sent a -saveContext: message.
+				Then the inherited method is performed.
+				Finally, the receiver sends itself all the messages -...MetaWriteToFile:ofType:
+				with the receiver's file name and file type as arguments.
+				This gives third parties an opportunity to automatically save their own context stuff at appropriate time.
+    @param      irrelevant sender
+    @result     None
+*/
+- (void)saveContext:(id)irrelevant;
+
+/*! 
+    @method     contextValueForKey:fileKey:domain:
+    @abstract   Abstract forthcoming.
+    @discussion The project is expected to manage the contexts of the files it owns.
+				The standard user defaults database is used in the end of the chain.
+    @param      \p aKey is the context key
+    @param      \p fileKey is the file key
+	@param		\p mask is a context domain mask
+    @result     An object.
+*/
+- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+
+/*! 
+    @method     getContextValueForKey:fileKey:domain:
+    @abstract   Abstract forthcoming.
+    @discussion The project is expected to manage the contexts of the files it owns.
+				The standard user defaults database is used in the end of the chain.
+				This is used only by subclassers when overriding.
+    @param      \p aKey is the context key
+    @param      \p fileKey is the file key
+	@param		\p mask is a context domain mask
+    @result     An object.
+*/
+- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+
+/*! 
+    @method     takeContextValue:forKey:fileKey:domain:
+    @abstract   Abstract forthcoming.
+    @discussion See the \p -contextValueForKey:fileKey: comment.
+    @param      the value, possibly nil.
+    @param      \p aKey is the context key
+    @param      \p fileKey is the file key
+	@param		\p mask is a context domain mask
+    @result     yorn whether something has changed.
+*/
+- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+
+/*! 
+    @method     setContextValue:forKey:fileKey:domain:
+    @abstract   Abstract forthcoming.
+    @discussion See the \p -contextValueForKey:fileKey: comment.
+				This should only be used by subclassers.
+    @param      the value, possibly nil.
+    @param      \p aKey is the context key
+    @param      \p fileKey is the file key
+	@param		\p mask is a context domain mask
+    @result     yorn whether something has changed.
+*/
+- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+
+/*! 
+    @method     allowsSubdocumentsInteraction
+    @abstract   Whether the subdocuments interactions.
+    @discussion When the receiver is opening its subdocuments,
+				some bad user experience can happen.
+				In particular if 2 subdocuments must be synchronized,
+				something weird can happen.
+				This message returns YES in general, except when the
+				receiver opens all its subdocuments.
+    @param      None
+    @result     None
+*/
+- (BOOL)allowsSubdocumentsInteraction;
 
 @end
 
@@ -874,46 +1004,46 @@ extern NSString * const iTM2WrapperInspectorType;
 @interface NSDocumentController(ProjectDocumentKit)
 
 /*!
-    @method		projectDocumentType
+    @method		iTM2_projectDocumentType
     @abstract	The project document type.
     @discussion	The default implementation just returns "Project Document".
     @param		None.
     @result		A project document type.
 */
-- (NSString *)projectDocumentType;
+- (NSString *)iTM2_projectDocumentType;
 
 /*!
-    @method		projectPathExtension
+    @method		iTM2_projectPathExtension
     @abstract	The project path extension.
     @discussion	The default implementation just returns @"project".
     @param		None.
     @result		A project path extension.
 */
-- (NSString *)projectPathExtension;
+- (NSString *)iTM2_projectPathExtension;
 
 /*!
-    @method		wrapperDocumentType
+    @method		iTM2_wrapperDocumentType
     @abstract	The project wrapper document type.
     @discussion	The default implementation just returns "Wrapper Document".
     @param		None.
     @result		A project document type.
 */
-- (NSString *)wrapperDocumentType;
+- (NSString *)iTM2_wrapperDocumentType;
 
 /*!
-    @method		wrapperPathExtension
+    @method		iTM2_wrapperPathExtension
     @abstract	The wrapper path extension.
     @discussion	The default implementation just returns @"wrapper".
     @param		None.
     @result		A wrapper path extension.
 */
-- (NSString *)wrapperPathExtension;
+- (NSString *)iTM2_wrapperPathExtension;
 
 @end
 
 /*!
     @class		iTM2ProjectDocumentResponder
-    @abstract	Abstract frothcoming
+    @abstract	Abstract forthcoming
     @discussion	Description forthcoming. No public API yet.
 */
 @interface iTM2ProjectDocumentResponder: iTM2AutoInstallResponder
@@ -922,29 +1052,85 @@ extern NSString * const iTM2WrapperInspectorType;
 @interface NSWorkspace(iTM2ProjectDocumentKit)
 
 /*!
-    @method		isProjectPackageAtPath:
+    @method		iTM2_isFilePackageAtURL:
     @abstract	Abstract forthcoming
-    @discussion	Whether the given full path points to a project.
-				If the receiver returns YES to a method named fooProjectPackageAtPath:
-				except this one of course, the answer is YES.
-				For example, a TeX project manager can implement in a category a method named isTeXProjectPackageAtPath:
-				Otherwise it's NO
-    @param      None
-    @result     None
+    @discussion	Whether the given url points to a file package.
+    @param      The url
+    @result     yorn
 */
-- (BOOL)isProjectPackageAtPath:(NSString *)fullPath;
+- (BOOL)iTM2_isFilePackageAtURL:(NSURL *)url;
 
 /*!
-    @method		isWrapperPackageAtPath:
+    @method		iTM2_isProjectPackageAtURL:
     @abstract	Abstract forthcoming
-    @discussion	Whether the given full path points to a wrapper.
-				If the receiver returns YES to a method named fooProjectPackageAtPath:
+    @discussion	Whether the given url points to a project.
+				If the receiver returns YES to a method named fooProjectPackageAtURL:
+				except this one of course, the answer is YES.
+				For example, a TeX project manager can implement in a category a method named isTeXProjectPackageAtURL:
+				Otherwise it's NO
+    @param      The url
+    @result     yorn
+*/
+- (BOOL)iTM2_isProjectPackageAtURL:(NSURL *)url;
+
+/*!
+    @method		iTM2_isWrapperPackageAtURL:
+    @abstract	Abstract forthcoming
+    @discussion	Whether the given url points to a wrapper.
+				If the receiver returns YES to a method named fooWrapperPackageAtURL:
 				except this one of course, the answer is YES.
 				Otherwise it's NO
-    @param      None
-    @result     None
+    @param      The url
+    @result     yorn
 */
-- (BOOL)isWrapperPackageAtPath:(NSString *)fullPath;
+- (BOOL)iTM2_isWrapperPackageAtURL:(NSURL *)url;
+
+@end
+
+/*!
+    @category	NSURL(iTM2ProjectDocumentKit)
+    @abstract	NSURL facts related to project management
+    @discussion	This implementation and its facts are very important.
+				We do rely on NSURL form.
+				This means that we do not expect cocoa or anyone else to change the NSURL behind
+				our back. More precisely, when an url is given with and absolute and a relative part,
+				we expect that this split remains unchanged through the execution of the program.
+				The base URL is something we do use actively.
+				More precisely, a project URL can have 2 forms:
+				<ul>
+				<li>in the Application Support's Writable Projects folder, the baseURL is the URL of the
+				Writable Projects folder, the relative URL starts from here.
+				We call it a "Writable Project URL".</li>
+				<li>in a standard location: an absolute URL.
+				We call it a "Normal Projects URL".</li>
+				</ul>
+				
+				As a consequence, the base URL of any project URL is either the Writable Projects folder URL or
+				void.
+				
+				For document URLs, there are 2 possibilities:
+				<ul>
+				<li>The document does not belong to any project.</li>
+				<li>The document belongs to one or many project.
+				The base URL of the document URL must be either the source folder URL or the factory URL of one of its owning projects.</li>
+				</ul>
+				As a consequence, if the base URL is either a source URL or a factory URL, we have a document.
+				
+				Source and factory URLs must also contain information about their owning project URL in their base URL.
+				The base URL of the source URL is a normal project URL
+				whereas the factory project URL is either a normal project URL when we have write access or
+				a writable project URL otherwise.
+				
+*/
+@interface NSURL(iTM2ProjectDocumentKit)
+
+- (NSURL *)iTM2_enclosingWrapperURL;
+
+- (NSURL *)iTM2_enclosingProjectURL;
+
+- (NSArray *)iTM2_enclosedProjectURLs;
+
+- (id)iTM2_availableProjectURLs;
 
 @end
 

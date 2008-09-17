@@ -539,7 +539,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * dir = [[NSBundle mainBundle] pathForSupportDirectory:@"Documentation/ConTeXt" inDomain:NSUserDomainMask create:YES];
+	NSString * dir = [[NSBundle mainBundle] iTM2_pathForSupportDirectory:@"Documentation/ConTeXt" inDomain:NSUserDomainMask create:YES];
 	[download setDestination:[dir stringByAppendingPathComponent:[filename lastPathComponent]] allowOverwrite:YES];
 //iTM2_END;
 	return;
