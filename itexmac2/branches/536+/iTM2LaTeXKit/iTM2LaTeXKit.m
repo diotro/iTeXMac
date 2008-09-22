@@ -1938,14 +1938,18 @@ static id _iTM2LaTeXModeForModeArray = nil;
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 	[iTM2RuntimeBrowser swizzleInstanceMethodSelector:@selector(postNotificationName:object:userInfo:) replacement:@selector(swizzled_postNotificationName:object:userInfo:) forClass:self];
+ 	[NSNotificationCenter iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_postNotificationName:object:userInfo:)];
+ 	iTM2_RELEASE_POOL;
+ 	return;
+ }
+- (void)SWZ_iTM2_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
+ {
+ 	if([aName isEqualToString:NSPopUpButtonWillPopUpNotification])
+ 		NSLog(@"COUCOU");
+	[self SWZ_iTM2_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo];
+ }
 	iTM2_RELEASE_POOL;
 	return;
-}
-- (void)swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
-{
-	if([aName isEqualToString:NSPopUpButtonWillPopUpNotification])
-		NSLog(@"COUCOU");
-	[self swizzled_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo];
 }
 @end
 #endif

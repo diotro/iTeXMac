@@ -290,6 +290,7 @@
 		5109C01A0E2F6DAD004BF7BF /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser.c; sourceTree = "<group>"; };
 		5109C01B0E2F6DAD004BF7BF /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser.h; sourceTree = "<group>"; };
 		51B3E6330CDF8D360024D173 /* iTM2Gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Gear.png; sourceTree = "<group>"; };
+		51BD336A0E7ECE5600AC6DD8 /* untitled */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = untitled; sourceTree = "<group>"; };
 		51E28D650E02E22F00F7EEF6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		51F1B9DC0CE28A1700A47D89 /* 7bitsAccents.iTM2-key-bindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "7bitsAccents.iTM2-key-bindings"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -513,6 +514,7 @@
 		0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				51BD336A0E7ECE5600AC6DD8 /* untitled */,
 				DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */,
 				DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
