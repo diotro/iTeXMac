@@ -9491,25 +9491,10 @@ To Do List:
 //iTM2_END;
     return self;
 }
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tabView:didSelectTabViewItem:
-- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[[self mainView] validateWindowContent];
-//iTM2_END;
-    return;
-}
-#endif
 #undef GETTER
 #undef SETTER
 #define GETTER [[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
-#define SETTER(argument) id __D = [[[SUD dictionaryForKey:iTM2PDFKitKey] mutableCopy] autorelease];\
+#define SETTER(argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
 [self setContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
