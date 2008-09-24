@@ -5,7 +5,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Jun 24 2001.
-//  Copyright ¬© 2001-2004 Laurens'Tribune. All rights reserved.
+//  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -1949,13 +1949,14 @@ static id _iTM2LaTeXModeForModeArray = nil;
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 	[NSNotificationCenter iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_postNotificationName:object:userInfo:)];
-	iTM2_RELEASE_POOL;
-	return;
+ 	[NSNotificationCenter iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_postNotificationName:object:userInfo:)];
+ 	iTM2_RELEASE_POOL;
+ 	return;
 }
 - (void)SWZ_iTM2_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
 {
-	if([aName isEqualToString:NSPopUpButtonWillPopUpNotification])
-		NSLog(@"COUCOU");
+ 	if([aName isEqualToString:NSPopUpButtonWillPopUpNotification])
+ 		NSLog(@"COUCOU");
 	[self SWZ_iTM2_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo];
 }
 @end

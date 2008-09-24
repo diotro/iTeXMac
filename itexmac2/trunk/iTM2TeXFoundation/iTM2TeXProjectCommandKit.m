@@ -2041,8 +2041,8 @@ To Do List:
 	else
 		[self doPerformCommandForProject:project];
 #endif
-    return;
 //iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project:didSaveAllProjectDocuments:contextInfo:
 + (void)project:(id)project didSaveAllProjectDocuments:(BOOL)flag contextInfo:(void *)contextInfo;
@@ -2055,8 +2055,8 @@ To Do List: to be improved...
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self doPerformCommandForProject:project];
-    return;
 //iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  doPerformCommandForProject:
 + (void)doPerformCommandForProject:(iTM2TeXProjectDocument *)project;
