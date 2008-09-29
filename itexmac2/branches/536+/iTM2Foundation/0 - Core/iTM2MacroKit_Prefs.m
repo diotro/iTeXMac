@@ -1478,6 +1478,18 @@ To Do List:
 //iTM2_END;
     return nil;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  hasSubKeys
+- (BOOL)hasSubKeys;
+/*"Whether the receiver has subkeys...
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Mon Sep 29 10:24:16 UTC 2008
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+    return [self countOfAvailableKeyBindings]>0;
+}
 @end
 
 @interface iTM2KeyBindingTreeController: NSTreeController

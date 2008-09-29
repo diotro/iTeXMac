@@ -758,6 +758,7 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2StringEncodingRegEx.strings; sourceTree = "<group>"; };
+		5134AC560E90E0BA00D7D961 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2MacroPrefPane.nib; sourceTree = "<group>"; };
 		518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SmallToolbarBackground.png; sourceTree = "<group>"; };
 		51B7732E0E06B98C00322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
@@ -3019,6 +3020,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DCD7B6800AA8DDA50042AA60 /* English */,
+				5134AC560E90E0BA00D7D961 /* French */,
 			);
 			name = iTM2MacroPrefPane.nib;
 			sourceTree = "<group>";
