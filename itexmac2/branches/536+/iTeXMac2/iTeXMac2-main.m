@@ -363,6 +363,8 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 @end
 #endif
 
+#if 0
+
 #import <Sparkle/Sparkle.h>
 
 @interface SUUnarchiver(iTeXMac2)
@@ -398,11 +400,15 @@ static BOOL NSAutoreleasePool_Swizzled = NO;
 }
 @end
 
+#endif
+
+NSString *iTM2_SUScheduledCheckIntervalKey = @"SUScheduledCheckInterval";
+
 @implementation iTM2MainInstaller(iTM2SoftwareUpdatePrefPane)
 + (void)iTM2SoftwareUpdatePrefPane_CompleteInstallation;
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
-	NSDictionary * D = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:86400],SUScheduledCheckIntervalKey,nil];
+	NSDictionary * D = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:86400],iTM2_SUScheduledCheckIntervalKey,nil];
 	[SUD registerDefaults:D];
 	iTM2_RELEASE_POOL;
 	return;
@@ -434,28 +440,28 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int frequency = [SUD integerForKey:SUScheduledCheckIntervalKey];
+	int frequency = [SUD integerForKey:iTM2_SUScheduledCheckIntervalKey];
 	if(frequency<2)
 	{
-		[SUD setInteger:1 forKey:SUScheduledCheckIntervalKey];
+		[SUD setInteger:1 forKey:iTM2_SUScheduledCheckIntervalKey];
 		return 0;
 	}
 	if(frequency<86401)
 	{
-		[SUD setInteger:86400 forKey:SUScheduledCheckIntervalKey];
+		[SUD setInteger:86400 forKey:iTM2_SUScheduledCheckIntervalKey];
 		return 1;
 	}
 	if(frequency<592201)
 	{
-		[SUD setInteger:592200 forKey:SUScheduledCheckIntervalKey];
+		[SUD setInteger:592200 forKey:iTM2_SUScheduledCheckIntervalKey];
 		return 2;
 	}
 	if(frequency<17766001)
 	{
-		[SUD setInteger:17766000 forKey:SUScheduledCheckIntervalKey];
+		[SUD setInteger:17766000 forKey:iTM2_SUScheduledCheckIntervalKey];
 		return 3;
 	}
-	[SUD setInteger:UINT_MAX forKey:SUScheduledCheckIntervalKey];
+	[SUD setInteger:UINT_MAX forKey:iTM2_SUScheduledCheckIntervalKey];
 //iTM2_END;
     return 4;
 }
@@ -472,19 +478,19 @@ To Do List:
 	switch(value)
 	{
 		case 0:
-			[SUD setInteger:1 forKey:SUScheduledCheckIntervalKey];
+			[SUD setInteger:1 forKey:iTM2_SUScheduledCheckIntervalKey];
 		break;
 		case 1:
-			[SUD setInteger:84600 forKey:SUScheduledCheckIntervalKey];
+			[SUD setInteger:84600 forKey:iTM2_SUScheduledCheckIntervalKey];
 		break;
 		case 2:
-			[SUD setInteger:592200 forKey:SUScheduledCheckIntervalKey];
+			[SUD setInteger:592200 forKey:iTM2_SUScheduledCheckIntervalKey];
 		break;
 		case 3:
-			[SUD setInteger:17766000 forKey:SUScheduledCheckIntervalKey];
+			[SUD setInteger:17766000 forKey:iTM2_SUScheduledCheckIntervalKey];
 		break;
 		default:
-			[SUD setInteger:INT_MAX forKey:SUScheduledCheckIntervalKey];
+			[SUD setInteger:INT_MAX forKey:iTM2_SUScheduledCheckIntervalKey];
 		break;
 	}
 	[self didChangeValueForKey:@"frequency"];

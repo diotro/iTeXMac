@@ -57,6 +57,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		51FBF6420E893F31003117D8 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 51FBF6410E893F31003117D8 /* dsa_pub.pem */; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		DC01A94208FE776600BFF6EF /* iTM2PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */; };
 		DC01A94D08FE777A00BFF6EF /* iTM2PDFKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */; };
@@ -321,6 +322,7 @@
 		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		51FBF6410E893F31003117D8 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2PDFKit.framework; path = ../build/iTM2PDFKit.framework; sourceTree = SOURCE_ROOT; };
 		DC1C6D0F090E1C96000F4FDE /* iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2NewDocumentKit.framework; path = ../build/iTM2NewDocumentKit.framework; sourceTree = SOURCE_ROOT; };
 		DC27432C090CF64400C2D1D2 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
@@ -628,6 +630,7 @@
 		DCA37E780AE3AD7800874F9E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				51FBF6410E893F31003117D8 /* dsa_pub.pem */,
 				DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */,
 				DCA37E7A0AE3AD7800874F9E /* Credits.rtf */,
 				DCA37E7C0AE3AD7800874F9E /* InfoPlist.strings */,
@@ -1135,6 +1138,7 @@
 				DCEF62380B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif in Resources */,
 				DCEF62430B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib in Resources */,
 				DCEF62440B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings in Resources */,
+				51FBF6420E893F31003117D8 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

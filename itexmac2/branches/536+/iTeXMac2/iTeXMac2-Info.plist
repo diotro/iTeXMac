@@ -1785,6 +1785,8 @@
 	<string>iTeXMac2.sdef</string>
 	<key>SUFeedURL</key>
 	<string>http://itexmac.sourceforge.net/products.rss</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -1989,7 +1991,7 @@
 	<key>iTM2CompanyEmail</key>
 	<string>jlaurens@users.sourceforge.net</string>
 	<key>iTM2CompanyName</key>
-	<string>Laurens'Tribune</string>
+	<string>Laurens&apos;Tribune</string>
 	<key>iTM2SourceVersion</key>
 	<string>SVN_BUILD_NUMBER</string>
 </dict>
