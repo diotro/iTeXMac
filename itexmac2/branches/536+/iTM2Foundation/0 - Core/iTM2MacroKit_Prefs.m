@@ -67,7 +67,7 @@
 }
 - (void)setOwner:(id)anOwner;
 {
-	owner = anOwner;
+	owner = anOwner;// just a handle on the owner
 	return;
 }
 - (BOOL)isMutable;// bound
@@ -687,6 +687,8 @@ To Do List:
 	NSAssert1(NO,@"****  ERROR: You must override %@",NSStringFromSelector(_cmd));
 	return Nil;
 }
+/*" This is the editor used by the prefs
+"*/
 - (id)list;
 {
 	id result = [self valueForKeyPath:@"value.list"];
@@ -948,8 +950,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSArray * KBs = [self _X_availableKeyBindings];
 //iTM2_END;
-    return [[self _X_availableKeyBindings] objectAtIndex:index];
+    return index<[KBs count]?[KBs objectAtIndex:index]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  objectInAvailableKeyBindingsAtIndexPath:
 - (id)objectInAvailableKeyBindingsAtIndexPath:(NSIndexPath *) indexPath;
@@ -993,13 +996,19 @@ To Do List:
 	{
 		[super setMacroID:newID];
 		[self setMacro:[SMC mutableMacroRunningNodeForID:newID context:[self macroContext] ofCategory:[self macroCategory] inDomain:[self macroDomain]]];
-		[self setPrettyMacroID:([self countOfAvailableKeyBindings]?@"":newID)];
+		[self setPrettyMacroID:nil];
 	}
 	return;
 }
 - (NSString *)prettyMacroID;// bound to UI
 {
-	return [self valueForKeyPath:@"value.prettyMacroID"];
+	NSString * result = [self valueForKeyPath:@"value.prettyMacroID"];
+	if(!result)
+	{
+		result = ([self countOfAvailableKeyBindings]?@"":[self macroID]);
+		[self setValue:result forKeyPath:@"value.prettyMacroID"];
+	}
+	return result;
 }
 - (void)setPrettyMacroID:(NSString *)newID;// bound to UI
 {
@@ -1278,7 +1287,7 @@ To Do List:
 }
 - (NSString *)description;
 {
-    return [NSString stringWithFormat:@"<%@(%#x):%@>",NSStringFromClass([self class]),self,[self macroID]];
+    return [NSString stringWithFormat:@"<%@(%#x):%@(%i)>",NSStringFromClass([self class]),self,[self macroID],[[self children] count]];
 }
 - (BOOL)isMutable;
 {
@@ -1306,20 +1315,9 @@ To Do List:
         attributeName, attributeValue];
 	result = [[[candidates allObjects] filteredArrayUsingPredicate:predicate] mutableCopy];
 	[self setValue:result forKeyPath:@"value.availableKeyBindings"];
+	[result autorelease];// balancing the mutableCopy above
 //iTM2_END;
     return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexInAvailableKeyBindingsOfObject:
-- (unsigned int)indexInAvailableKeyBindingsOfObject:(id)object;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-    return [[self _X_availableKeyBindings] indexOfObject:object];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inAvailableKeyBindingsAtIndex:
 - (void)insertObject:(id)object inAvailableKeyBindingsAtIndex:(int)index;
@@ -1419,6 +1417,7 @@ To Do List:
 {
 	if(self = [super initWithParent:parent])
 	{
+		/*  Only the personal URL can be customized */
 		NSURL * personalUrl = [parent personalURL];
 		NSError * localError =  nil;
 		NSData * data;
@@ -1501,6 +1500,16 @@ To Do List:
 #pragma mark -
 #pragma mark =-=-=-=-=-  THE USER INTERFACE
 
+/*!
+	@class			The macros and key bindings preference pane.
+	@abstract		Managing the macro preferences.
+	@discussion		The preferences are more difficult to manage because we must read and write data.
+					
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2MacroPrefPane: iTM2PreferencePane
 - (void)setSelectedMode:(NSString *)mode;
 @end
@@ -1515,9 +1524,9 @@ To Do List:
 @implementation iTM2MacroPrefPane
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= prefPaneIdentifier
 - (NSString *)prefPaneIdentifier;
-/*"Description Forthcoming.
+/*"Overriden value.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 09/21/2005
+- 2.0: Fri Sep 26 19:11:40 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
@@ -1525,33 +1534,15 @@ To Do List:
 //iTM2_END;
     return @"3.Macro";
 }
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willSelect
-- (void)willSelect;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super willSelect];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willUnselect
-- (void)willUnselect;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[super willUnselect];
-    return;
-}
-#endif
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
 - (void)tableViewSelectionDidChange:(NSNotification *)notification;
+/*"The receiver is the delegate of the iTM2MacroTableView where all the macros are displayed.
+This method ensures that the selected row is visible.
+This is necessary when the row was selected programatically.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 26 19:11:40 UTC 2008
+To Do List:
+"*/
 {
 	NSTableView * TV = [notification object];
 	if([TV numberOfSelectedRows] == 1)
@@ -1571,7 +1562,8 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  availableDomains
 - (NSArray *)availableDomains;
-/*"Desription Forthcoming.
+/*"Ask the shared macro controller for the macro tree and key binding tree.
+
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Nov  5 16:57:31 GMT 2006
 To Do List:
@@ -1661,23 +1653,23 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self selectedDomain];// side effect: the selected domain should be safe before anything else is used
+	NSString * key = [self selectedDomain];// side effect: the selected domain should be safe before anything else is used
 	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
-	NSString * key = [self selectedDomain];
 	id result = [MD objectForKey:key];
 //iTM2_END;
     return result?:@"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroEditor
 - (id)macroEditor;
-/*"Desription Forthcoming.
+/*"The macro editor is used by the prefs management.
+It is set as the list of a context node in the macro tree.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Nov  5 16:57:31 GMT 2006
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self selectedMode];
+	[self selectedMode];// side effect: the selected domain and selected mode should be safe before anything else is used
 	id node = [self valueForKey:@"macroEditor_meta"];
 //iTM2_END;
     return node;
@@ -1704,7 +1696,8 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyBindingEditor
 - (id)keyBindingEditor;
-/*"Desription Forthcoming.
+/*"The key binding editor is used by the prefs management.
+It is set as the list of a context node in the key binding tree.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Nov  5 16:57:31 GMT 2006
 To Do List:
@@ -1745,11 +1738,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSString * domain = [self selectedDomain];
 	NSString * oldMode = [self selectedMode];
+	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
 	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
-	NSString * domain = [self selectedDomain];
-	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
 	[MD setValue:newMode forKey:domain];
 	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	// change the editors
