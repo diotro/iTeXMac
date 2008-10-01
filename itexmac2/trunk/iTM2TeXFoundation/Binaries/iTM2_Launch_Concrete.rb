@@ -194,7 +194,7 @@ class Named_document
 	def last_modification_time
 		name.mtime
 	end
-
+THIS MODEL DESIGN IS BAD
 	def model
 		return @model if @model
 		bail("Missing file at #{name.to_s}") if !name.exist?
@@ -229,13 +229,12 @@ class Info < Named_document
 	end
 
 	def main_key
-		n = model.elements['key[text()="main"]/following-sibling::string[1]/text()']
+		n = model.elements['key[text()="main"]'].next_element().get_text()
 		return n.to_s if n
 		""
 	end
-
 	def filename_for_key(key)
-		n = model.elements['key[text()="files"]/following-sibling::dict[1]/child::key[text()="'+key+'"]/following-sibling::string[1]/text()']
+		n = model.elements['key[text()="files"]/following-sibling::dict[1]/child::key[text()="'+key+'"]'].next_element().get_text()
 		return n.to_s if n
 		nil
 	end
@@ -248,7 +247,7 @@ class Info < Named_document
 	end
 
 	def source_folder
-		(p = model.elements['key[text()="files folder"]/following-sibling::string[1]/text()'])?(p.to_s):(nil)
+		(p = model.elements['key[text()="files folder"]'].next_element().get_text())?(p.to_s):(nil)
 	end
 
 end
@@ -266,12 +265,12 @@ class CommandInfo < Named_document
 	end
 
 	def command_mode_for_action(action)
-		(n=model.elements['key[text()="Commands"]/following-sibling::dict[1]/child::key[text()="'+action+'"]/following-sibling::dict[1]/child::key[text()="ScriptMode"]/following-sibling::string[1]/text()'])?(n.to_s):("Base")
+		(n=model.elements['key[text()="Commands"]/following-sibling::dict[1]/child::key[text()="'+action+'"]/following-sibling::dict[1]/child::key[text()="ScriptMode"]'].next_element().get_text())?(n.to_s):("Base")
 	end
 
 	def command_script_for_mode(mode)
 		return nil unless mode
-		(n = model.elements['key[text()="CommandScripts"]/following-sibling::dict[1]/child::key[text()="'+mode+'"]/following-sibling::dict[1]/child::key[text()="content"]/following-sibling::string[1]/text()'])?(n.to_s):(nil)
+		(n = model.elements['key[text()="CommandScripts"]/following-sibling::dict[1]/child::key[text()="'+mode+'"]/following-sibling::dict[1]/child::key[text()="content"]'].next_element().get_text())?(n.to_s):(nil)
 	end
 
 	def engine_for_name(name)	
@@ -313,19 +312,19 @@ class CommandInfo < Named_document
 
 	def engine_mode_for_name(name)
 		if x = engine_for_name(name)
-			return x.elements['child::key[text()="ScriptMode"]/following-sibling::string[1]/text()'].to_s
+			return x.elements['child::key[text()="ScriptMode"]'].next_element().get_text().to_s
 		end
 		nil
 	end
 
 	def engine_script_for_mode(mode)
 		return nil unless mode.length?
-		(n = self.model.elements['key[text()="EngineScripts"]/following-sibling::dict[1]/child::key[text()="'+mode+'"]/following-sibling::dict[1]/child::key[text()="content"]/following-sibling::string[1]/text()'])?(n.to_s):(n)
+		(n = self.model.elements['key[text()="EngineScripts"]/following-sibling::dict[1]/child::key[text()="'+mode+'"]/following-sibling::dict[1]/child::key[text()="content"]'].next_element().get_text())?(n.to_s):(n)
 	end
 
 	def engine_environment_mode_for_name(name)
 		if x = engine_for_name(name)
-			return x.elements['child::key[text()="EnvironmentMode"]/following-sibling::string[1]/text()'].to_s
+			return x.elements['child::key[text()="EnvironmentMode"]'].next_element().get_text().to_s
 		end
 		nil
 	end
@@ -370,7 +369,7 @@ class Project < Named_document
 	end
 
 	def base_name
-		n = command_info.model.elements['key[text()="BaseProjectName"]/following-sibling::string[1]/text()']
+		n = command_info.model.elements['key[text()="BaseProjectName"]'].next_element().get_text()
 		n = 'LaTeX' if ! n
 		bail("Unknown base project named: #{n}\n you should change your project settings in\n#{p}.") if ! $launcher.base_project_names.include?(n.to_s)
 		n.to_s
@@ -420,7 +419,7 @@ class Project < Named_document
 			if dict = infos.model.elements["key[text()='Commands']/following-sibling::dict"]
 				key = dict.elements["key"]
 				while key
-					@all_commands.push key.elements["text()"].to_s
+					@all_commands.push key.text
 					key = key.elements["following-sibling::key"]
 				end
 			end
@@ -436,7 +435,7 @@ class Project < Named_document
 			if dict = infos.model.elements["key[text()='Engines']/following-sibling::dict"]
 				key = dict.elements["key"]
 				while key
-					@all_engines.push key.elements["text()"].to_s
+					@all_engines.push key.text
 					key = key.elements["following-sibling::key"]
 				end
 			end

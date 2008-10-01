@@ -1868,6 +1868,7 @@ To Do List:
 			}
 		}
 	}
+//iTM2_END;
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedNameForName:
@@ -1879,6 +1880,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
     return NSLocalizedStringFromTableInBundle(name, iTM2TeXPCommandTableName, myBUNDLE, "");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuItemTitleForProject:
@@ -1890,6 +1892,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
     return [self localizedNameForName:[self commandName]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandLevel
@@ -1901,6 +1904,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandLevel
@@ -1914,6 +1918,7 @@ To Do List:
 //iTM2_START;
 	NSString * S = NSLocalizedStringWithDefaultValue([[self commandName] stringByAppendingPathExtension:@"level"],
 				iTM2TeXPCommandTableName, myBUNDLE, ([NSString stringWithFormat:@"%i", [self commandLevel]]), "");
+//iTM2_END;
     return [S intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandGroup
@@ -1925,6 +1930,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_END;
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandGroup
@@ -1938,6 +1944,7 @@ To Do List:
 //iTM2_START;
 	NSString * S = NSLocalizedStringWithDefaultValue([[self commandName] stringByAppendingPathExtension:@"group"],
 				iTM2TeXPCommandTableName, myBUNDLE, ([NSString stringWithFormat:@"%i", [self commandGroup]]), "");
+//iTM2_END;
     return [S intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentForName:
@@ -1987,8 +1994,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	iTM2_LOG(@"FAILED: MISSING IMPLEMENTATION");
-    return;
 //iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommand:
 + (IBAction)performCommand:(id)sender;
@@ -2000,8 +2007,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self performCommandForProject:[SPC requiredTeXProjectForSource:nil]];
-    return;
 //iTM2_END;
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canPerformCommandForProject:
 + (BOOL)canPerformCommandForProject:(iTM2TeXProjectDocument *)project;
@@ -2012,8 +2019,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[SDC currentDocument] isKindOfClass:[iTM2Document class]];//project != nil;
 //iTM2_END;
+    return [[SDC currentDocument] isKindOfClass:[iTM2Document class]];//project != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCommandForProject:
 + (void)performCommandForProject:(iTM2TeXProjectDocument *)project;

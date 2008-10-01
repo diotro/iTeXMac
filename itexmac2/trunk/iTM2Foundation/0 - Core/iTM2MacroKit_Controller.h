@@ -90,6 +90,10 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
     @superclass  iTM2Object
     @abstract    The macros manager
     @discussion  (comprehensive description)
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
 */
 @interface iTM2MacroController(CONTENT)
 

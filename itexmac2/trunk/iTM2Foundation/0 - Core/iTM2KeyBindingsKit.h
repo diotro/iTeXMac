@@ -28,7 +28,8 @@
 /*!
     @const		iTM2TextKeyBindingsIdentifier
     @abstract	Text Key bindings name key.
-    @discussion	The key for an identifier for the text.
+    @discussion	The key for an identifier for the text.	
+				It is not used in the code, but it is used in the Finder.
 */
 
 extern NSString * const iTM2TextKeyBindingsIdentifier;
@@ -36,7 +37,8 @@ extern NSString * const iTM2TextKeyBindingsIdentifier;
 /*!
     @const		iTM2PDFKeyBindingsIdentifier
     @abstract	PDF Key bindings name key.
-    @discussion	The key for an identifier for the PDF viewer.
+    @discussion	The key for an identifier for the PDF viewer.	
+				It is not used in the code, but it is used in the Finder.
 */
 
 extern NSString * const iTM2PDFKeyBindingsIdentifier;
@@ -62,7 +64,7 @@ extern NSString * const iTM2NoKeyBindingsIdentifier;
     @discussion	A float value in the user defaults data base that drives the time interval
                 to wait before automatically flush the key stroke stack.
                 Remember that key strokes are stacked a la Reverse Polish Notation (to allow treatment of mutiple keys),
-                except that the stack is flushed every key stroke interval seconds.
+                except that the stack is flushed every "key stroke interval" seconds.
 */
 
 extern NSString * const iTM2KeyStrokeIntervalKey;
@@ -70,7 +72,10 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 /*!
     @class		iTM2KeyStroke
     @abstract	key stroke wrapper.
-    @discussion	Discussion forthcoming.
+    @discussion	This object is wrapping a single key stroke, including the modifier keys.
+				There is a problem because all the keyboards are not identical.
+				In general, laptops have less keys than desktop macs.
+				The alternate name may correspond to another keyboard configuration.
 */
 @interface iTM2KeyStroke:NSObject
 {
@@ -96,9 +101,9 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 /*!
     @class		iTM2KeyBindingsManager
     @abstract	Key binding manager.
-    @discussion	A key binding manager stores a hierarchy of dictionaries which keys are keystroke.
+    @discussion	A key binding manager stores a hierarchy of dictionaries which keys are keystroke and values are macro identifiers.
                 A combination of keyStrokes corresponds to a string or a macro to be inserted in some text.
-                Key binding dictionaries are stored at different locations, built in or not.
+                Key binding dictionaries are stored in different locations, built in or not.
                 They are cached such that different client will possibly share the same dictionary.
 				There is a notion of conversation here.
 */
@@ -130,6 +135,10 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @discussion	This is an entry point to let 3rd party add support for more key strokes.
                 There is a list of built in hard coded key strokes,
                 but this can be used to override and extend the supported key strokes.
+				<p/>
+				When initialized, the key bindings manager read any iTM2KeyStrokeSelectors.plist file
+				add registers its contents with the addKeyStrokeSelectorsFromDictionary: message.
+				
     @param		D is a key stroke selectors dictionary.
     @result		None.
 */
@@ -159,7 +168,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		identifier.
-    @result		A dictionary.
+    @result		A selector map wrapper into a dictionary.
 */
 + (id)selectorMapForIdentifier:(NSString *)identifier;
 
@@ -176,18 +185,23 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 
 /*!
     @method		initWithIdentifier:handleKeyBindings:handleKeyStrokes:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		None.
+    @abstract	Init an instance of a key binding manager.
+    @discussion	Designated method to intialize a new key binding manager.
+				There is a subtle difference between key bindings and key strokes.
+				For example, the text view will handle key bindings but not key strokes
+				whereas the pdf view will handle key strokes but not key bindings.
+    @param		identifier.
+    @param		yorn.
+    @param		yorn.
     @result		A dictionary.
 */
 - (id)initWithIdentifier:(NSString *)identifier handleKeyBindings:(BOOL)handlesKeyBindings handleKeyStrokes:(BOOL)handlesKeyStrokes;
 
 /*!
-    @method		currentKeyBindings
-    @abstract	The current key binding.
-    @discussion	Some keyStrokes can imply loading another key bindings tree.
-                The next keystroke will be understood within the context of this tree.
+    @method		currentKeyBindingsOfClient:
+    @abstract	The current key binding of the given client.
+    @discussion	Some keyStrokes can imply loading another key bindings tree or go deeper in the tre  hierarchy.
+                The next keystroke will be understood within the context of this newly loeaded tree.
 				If the receiver has not yet been initialized with a key bindings tree,
 				the client's rootKeyBindings tree is used.
 				In general, the client will use the receiver's default,
@@ -213,7 +227,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @abstract	The given client wants the receiver to perform a mnemonic...
     @discussion	If the receiver is not in escape or deep escape mode,
                 it tries to interpret the given mnemonic.
-                This is sent from the NSWindow preforMnemonic: method, if key bindings are available.
+                This is sent from the NSWindow preformMnemonic: method, if key bindings are available.
     @param		C is the client.
     @param		theString is the string.
     @result		NO iff this string could not be interpreted as a mnemonic.
@@ -241,7 +255,9 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 /*!
     @method		client:executeBindingForKeyStroke:
     @abstract	Execute the macro for the given parameters.
-    @discussion	Subclassers will do their own job here to bypass the client:interpretKeyEvent: method.
+    @discussion	The default implementation does nothing and returns NO.
+				Subclassers will do their own job here to bypass the client:interpretKeyEvent: method
+				and return YES.
 	@param		C is the client.
     @param		keyStroke.
     @result		yorn.
@@ -270,7 +286,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 /*!
     @method		flushKeyBindings:
     @abstract	Flush the cached key bindings.
-    @discussion	Useful when the key binings have been edited externally.
+    @discussion	Useful when the key bindings have been edited externally.
     @param		irrelevant sender.
     @result		None.
 */
@@ -284,32 +300,6 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
     @result		None.
 */
 - (void)escapeCurrentKeyBindingsIfAllowed;
-
-@end
-
-@interface NSResponder(iTM2KeyBindingsKit)
-
-/*!
-    @method		keyBindingsManager
-    @abstract	This is the key binding manager.
-    @discussion	The default implementation just returns next responder's key bindings manager.
-                NSWindow's implementation returns its window controller's key binding manager.
-                NSView's implementation returns the first one found amongst
-                - its next responder's key bindings manager,
-                - its superview's key bindings manager,
-                - its window's key binding manager.
-                This is a default implementation because each object is expected to have its own key bindings manager.
-                In general, you subclass NSWindowController to return a valid key bindings manager.
-                You can also create a responder dedicated to key binding management
-                and insert it in the responder chain of a window controller or window.
-                This latter design is closer to a delegation design and makes code more reusable
-                (but possibly more expensive)
-    @param		None
-    @result		a key binding manager.
-*/
-- (id)keyBindingsManager;
-
-- (void)resetKeyBindingsManager;
 
 @end
 
@@ -498,15 +488,21 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 */
 - (BOOL)handlesKeyBindings;
 
-/*
+/*!
     @method		keyBindingsManager
-    @abstract	The key bindings manager
-    @discussion	This is the required method to support key bindings and key stroke.
-                The default implementation returns nil and should not to support key bindings.
-                The window key binding manager is just the one of its window controller.
-                It is not expected for a document to have a key binding manager.
-                The window controller is expected to have a real key binding manager
-                if it handles key strokes or uses a key binding manager.
+    @abstract	This is the key binding manager.
+    @discussion	The default implementation just returns next responder's key bindings manager.
+                NSWindow's implementation returns its window controller's key binding manager.
+                NSView's implementation returns the first one found amongst
+                - its next responder's key bindings manager,
+                - its superview's key bindings manager,
+                - its window's key binding manager.
+                This is a default implementation because each object is expected to have its own key bindings manager.
+                In general, you subclass NSWindowController to return a valid key bindings manager.
+                You can also create a responder dedicated to key binding management
+                and insert it in the responder chain of a window controller or window.
+                This latter design is closer to a delegation design and makes code more reusable
+                (but possibly more expensive)
     @param		None
     @result		a key binding manager.
 */
@@ -521,9 +517,8 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 */
 - (IBAction)flushKeyBindings:(id)irrelevant;
 
-- (void)resetKeyBindingsManager;
-
 @end
+
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindow(iTM2KeyStrokeKit)
 

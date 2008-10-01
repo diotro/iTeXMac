@@ -1,6 +1,6 @@
 /*
 //
-//  @version Subversion: $Id: iTM2MacroKit.h 494 2007-05-11 06:22:21Z jlaurens $ 
+//  @version Subversion: $Id: iTM2MacroKit_Prefs.h 494 2007-05-11 06:22:21Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Thu Feb 21 2002.
 //  Copyright © 2001-2007 Laurens'Tribune. All rights reserved.
@@ -19,6 +19,17 @@
 //
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
+*/
+
+/*!
+	@header			iTM2MacroKit_Prefs
+	@abstract		Managing the macro preferences.
+	@discussion		The preferences are more difficult to manage because we must read and write data.
+	
+	@availability	iTM2.
+	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
 */
 
 @interface iTM2PrefsMacroNode:iTM2MacroNode
@@ -46,7 +57,7 @@
 // the iTM2MacroList maintains 2 list of macros (as dictionaries), the first one comes from the Personal.iTM2-macros file
 // the other one comes from all the other macros files that have been merged
 @interface iTM2MacroList:iTM2TreeNode
-- (id)initWithParent:(id)parent;// reads all the macro files
+- (id)initWithParent:(id)parent;
 - (NSMutableDictionary *)macros;
 - (void)setMacros:(NSMutableDictionary *)newMacros;
 - (NSMutableDictionary *)personalMacros;

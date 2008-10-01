@@ -1952,11 +1952,11 @@ static id _iTM2LaTeXModeForModeArray = nil;
  	[NSNotificationCenter iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_postNotificationName:object:userInfo:)];
  	iTM2_RELEASE_POOL;
  	return;
-}
+ }
 - (void)SWZ_iTM2_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
 {
- 	if([aName isEqualToString:NSPopUpButtonWillPopUpNotification])
- 		NSLog(@"COUCOU");
+	if([aName isEqualToString:NSPopUpButtonWillPopUpNotification])
+		NSLog(@"COUCOU");
 	[self SWZ_iTM2_postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo];
 }
 @end

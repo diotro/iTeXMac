@@ -174,6 +174,8 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= macroWithID:
+/* This is a central method.
+*/
 - (id)macroWithID:(NSString *)ID;
 {
 	// this will be overriden by the text view used for testing macros and key bindings in the prefs pane

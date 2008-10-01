@@ -680,9 +680,8 @@
 				511E8C5E0E801ABC00A8125C /* synctex_parser_readme.txt */,
 				511E8C5F0E801ABC00A8125C /* synctex_parser_version.txt */,
 			);
-			name = synctexdir;
-			path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir;
-			sourceTree = "<absolute>";
+			path = synctexdir;
+			sourceTree = "<group>";
 		};
 		511E8C3C0E801ABC00A8125C /* man1 */ = {
 			isa = PBXGroup;

@@ -161,14 +161,14 @@ DEFINE(codeName,setCodeName)
 			where:3,
 			reserved:28;
 	} status;
-	ICURegEx * RE;
+	ICURegEx * keyValidationRE;
 	BOOL uniqueKey;
 }
 - (iTM2KeyBindingNode *)bindings;
 - (void)setBindings:(iTM2KeyBindingNode *)new;
 - (iTM2KeyBindingNode *)current;
 - (void)setCurrent:(iTM2KeyBindingNode *)new;
-- (ICURegEx *)RE;
+- (ICURegEx *)keyValidationRE;
 @end
 
 @implementation iTM2KeyBindingParser
@@ -207,9 +207,9 @@ DEFINE(codeName,setCodeName)
 	self.current = nil;
 	[super dealloc];
 }
-- (ICURegEx *)RE;
+- (ICURegEx *)keyValidationRE;
 {
-	return RE?:(RE = [ICURegEx regExWithSearchPattern:@"(?:(.*?)\\+)?(.+)"]);
+	return keyValidationRE?:(keyValidationRE = [ICURegEx regExWithSearchPattern:@"(?:(.*?)\\+)?(.+)"]);
 }
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
 {
@@ -220,10 +220,10 @@ DEFINE(codeName,setCodeName)
 			// create a new key binding, or use an old one if available
 			// get the KEY:
 			NSString * key = [attributeDict objectForKey:@"KEY"];
-			if([self.RE matchString:key])
+			if([self.keyValidationRE matchString:key])
 			{
-				unsigned int modifierFlags = [iTM2KeyStroke getModifierFlags:[RE substringOfCaptureGroupAtIndex:1]];
-				NSString * codeName = [RE substringOfCaptureGroupAtIndex:2];
+				unsigned int modifierFlags = [iTM2KeyStroke getModifierFlags:[keyValidationRE substringOfCaptureGroupAtIndex:1]];
+				NSString * codeName = [keyValidationRE substringOfCaptureGroupAtIndex:2];
 				unichar c;
 				if([codeName length] == 1)
 				{
@@ -285,7 +285,7 @@ DEFINE(codeName,setCodeName)
 {
 	if([elementName isEqual:@"BIND"])
 	{
-		[self setCurrent:[current parent]];
+		[self setCurrent:[[self current] parent]];
 	}
 }
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError;
@@ -700,7 +700,7 @@ DEFINE(tooltip,setTooltip)
 	{
 		contextNode = [contextNode parent];
 	}
-	return contextNode;
+	return contextNode;// the result can be nil, in particular for category and domain nodes
 }
 @end
 

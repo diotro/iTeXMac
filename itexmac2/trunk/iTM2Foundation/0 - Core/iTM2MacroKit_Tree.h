@@ -28,27 +28,83 @@
 
 // all the nodes used in macro management are descendants of this class
 // this will allow to change the ancestor only once
+/*!
+    @class			iTM2MacroTreeNode
+    @superclass		iTM2TreeNode
+    @abstract		The macro tree node
+    @discussion		This is an abstract node class, the ancestor of all the macro tree nodes below.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2MacroTreeNode:iTM2TreeNode
 - (id)contextNode;
 @end
 
+/*!
+    @class			iTM2MacroRootNode
+    @superclass		iTM2MacroTreeNode
+    @abstract		The macros root node
+    @discussion		There is only one such root node.
+					The children represent the various domains, they are instances of iTM2MacroDomainNode.
+					This will also be used for key bindings because they are organized in a similar hierarchy.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2MacroRootNode: iTM2MacroTreeNode
 - (id)objectInChildrenWithDomain:(NSString *)domain;
 - (NSArray *)availableDomains;
 @end
 
+/*!
+    @class			iTM2MacroDomainNode
+    @superclass		iTM2MacroTreeNode
+    @abstract		The macros domain node
+    @discussion		There is one such node for each domain.
+					The children represent the various categories, they are instances of iTM2MacroCategoryNode.
+					This will also be used for key bindings because they are organized in a similar hierarchy.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2MacroDomainNode: iTM2MacroTreeNode
 - (id)initWithParent:(iTM2MacroTreeNode *)parent domain:(NSString *)domain;
 - (id)objectInChildrenWithCategory:(NSString *)category;
 - (NSArray *)availableCategories;
 @end
 
+/*!
+    @class			iTM2MacroCategoryNode
+    @superclass		iTM2MacroTreeNode
+    @abstract		The macros domain node
+    @discussion		There is one such node for each category.
+					The children represent the various contexts, they are instances of iTM2MacroContextNode.
+					This will also be used for key bindings because they are organized in a similar hierarchy.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2MacroCategoryNode: iTM2MacroTreeNode
 - (id)initWithParent:(iTM2MacroTreeNode *)parent category:(NSString *)category;
 - (id)objectInChildrenWithContext:(NSString *)context;
 - (NSArray *)availableContexts;
 @end
 
+/*!
+    @class			iTM2MacroAbstractContextNode
+    @superclass		iTM2MacroTreeNode
+    @abstract		The macro abstract class
+    @discussion		Each concrete subclass' instance represents a set of macro or key bindings.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2MacroAbstractContextNode:iTM2MacroTreeNode
 - (id)initWithParent:(iTM2MacroTreeNode *)parent context:(NSString *)context;
 - (void)addURLPromise:(NSURL *)url;
@@ -58,11 +114,31 @@
 - (void)update;
 @end
 
+/*!
+    @class			iTM2MacroContextNode
+    @superclass		iTM2MacroAbstractContextNode
+    @abstract		The macro node for some macro context
+    @discussion		The macros are gathered in the dictionary for which keys are macro identifiers and values are macros.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2MacroContextNode:iTM2MacroAbstractContextNode
 - (NSMutableDictionary *)macros;
 - (void)setMacros:(NSMutableDictionary *)macros;
 @end
 
+/*!
+    @class			iTM2KeyBindingContextNode
+    @superclass		iTM2MacroAbstractContextNode
+    @abstract		The key bindings node for some key bindings context
+    @discussion		The key bindings are gathered in a tree of iTM2KeyBindingNode instances.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+	@updated		today
+	@version		1
+*/
 @interface iTM2KeyBindingContextNode:iTM2MacroAbstractContextNode
 - (iTM2KeyBindingNode *)keyBindings;
 - (void)setKeyBindings:(iTM2KeyBindingNode *)keyBindings;

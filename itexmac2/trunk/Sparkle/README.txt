@@ -1,3 +1,8 @@
+This directory is meant to contain the Sparkle.framework
+In the iTM2 svn repository, there is a zip archive of the latest Sparkle distribution.
+The preparation is now to expand this zip archive if there is no Sparkle framework.
+There might be some problems concerning the localization.
+
 This directory is meant to receive the source of the Sparkle framework
 
 http://andymatuschak.org/pages/sparkle

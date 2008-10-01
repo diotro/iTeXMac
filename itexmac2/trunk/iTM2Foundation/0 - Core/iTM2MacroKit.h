@@ -246,6 +246,12 @@ extern NSString * const iTM2MacroControllerComponent;
 @interface iTM2GenericScriptButton: NSPopUpButton
 @end
 
+/*!
+    @class		iTM2KeyBindingNode
+    @abstract	This is the central object for key bindings.
+    @discussion	It is a tree node object that contains key stroke information and a macro identifier.
+				The parent and children are expected to be of the same kind.
+*/
 @interface iTM2KeyBindingNode:iTM2KeyStroke
 {
 @private
@@ -270,14 +276,27 @@ extern NSString * const iTM2MacroControllerComponent;
 - (id)objectInKeyBindingsWithKeyStroke:(iTM2KeyStroke *)keyStroke;
 @end
 
+/*!
+    @class		iTM2MacroNode
+    @abstract	This is the central object for storing macros.
+    @discussion	Macros are recorded as a flat list of objects.
+				Each macro node is uniquely identified by a macroID within its own context.
+				Each object belongs to a macro domain, a macro category within that domain, and a macro context within that category.
+				All 3 are the context of the macro.
+				Some macros might be defined for all the macro contexts of a given macro category.
+				Some other macros might be defined for all the macro categories (and macro contexts) of a given macro domain.
+				Substitutions is a dictionary of key value pairs,
+				the keys belong to a known list of keywords,
+				the values are the expected substitutions for these keys.
+*/
 @interface iTM2MacroNode:NSObject
 {
 @private
 	NSString * macroID;// the ID selector
 	NSString * selector;// the attribute selector
-	NSString * insertion;// child
-	NSString * name;// child
-	NSString * macroDescription;// child
+	NSString * insertion;//
+	NSString * name;//
+	NSString * macroDescription;//
 	NSString * tooltip;// child
 	NSDictionary * substitutions;
 }
