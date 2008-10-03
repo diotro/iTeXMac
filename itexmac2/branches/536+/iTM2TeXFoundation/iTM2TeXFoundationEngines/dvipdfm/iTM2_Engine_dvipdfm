@@ -3,7 +3,7 @@
 # © 2005-2007 jlaurens AT users DOT sourceforge DOT net
 iTM2_dvipdfm_Engine_Version=1.1
 iTM2_dvipdfm_Engine="dvipdfm"
-iTM2_dvipdfm_EnginePath="$(zsh -c "which \"${iTM2_dvipdfm_Engine}\"$)"#"
+iTM2_dvipdfm_EnginePath="$(zsh -c "which \"${iTM2_dvipdfm_Engine}\"")"
 iTM2DVIPDFMEngineUsage()
 {
 cat <<EOF
