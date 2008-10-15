@@ -8,15 +8,14 @@ if [ -f "${header}" ]
 then
 		rm -Rf "${header}"
 fi
-targets="`ls -1 -R *.h`$IFS"
 echo "// ${PRODUCT_NAME} merged headers" > "${header}"
 echo "// Automatically created when building project ${PROJECT_NAME}" >> "${header}"
 echo "// Created on `date "+Created on %m/%d/%y at %H:%M:%S"`" >> "${header}"
-for var in ${targets}
-do
-	echo "#import <${PRODUCT_NAME}/$var>" >> "${header}"
-done
+find . -name "iTeXMac2.h" -exec echo "#import <${PRODUCT_NAME}/{}>" >> "${header}" \;
+find . -name "*.h" -not -name "iTeXMac2.h" -exec echo "#import <${PRODUCT_NAME}/{}>" >> "${header}" \;
 find . -name "*.h" -exec chmod a-w {} \;
+perl -p -i -e 's/\/\.//g' "${header}"
 ls -l *.h
+cat "${header}"
 echo "warning: iTeXMac2 INFO, merging the ${PRODUCT_NAME} headers... DONE"
 exit 0
