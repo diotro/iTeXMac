@@ -1198,7 +1198,7 @@ To Do List:
 	if(self = [super init])
 	{
 		NSString * path = [outputURL path];
-		scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation]);
+		scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation],nil,1);
 		if(scanner == NULL)
 		{
 			// maybe there is a synctex file in the faraway directory
@@ -1221,9 +1221,10 @@ To Do List:
 				{
 					[self release];
 					self = nil;
+					return self;
 				}
 			}
-			scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation]);
+			scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation],nil,1);
 			if(scanner == NULL)
 			{
 				[self release];
