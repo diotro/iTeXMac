@@ -116,9 +116,9 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= document
 - (id)document;
-/*"Given a line range number, it returns the range including the ending characters.
+/*"The document of the receiver.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+- 2.0: Sat Oct  4 13:42:31 UTC 2008
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
