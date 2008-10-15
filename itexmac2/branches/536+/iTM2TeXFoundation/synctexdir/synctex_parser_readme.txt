@@ -13,6 +13,8 @@ synctex_parser_version.txt
 synctex_parser_local.h
 synctex_parser.h
 synctex_parser.c
+synctex_parser_utils.h
+synctex_parser_utils.c
 
 This file contains more informations about the SyncTeX parser history.
 
@@ -47,6 +49,12 @@ History:
 - For an unknown reason, the previous version was not the real 1.3 (as used in iTeXMac2 build 747).
   As a consequence, a crash was observed.
 - Some typos are fixed.
+1.5: Mon Oct 13 11:13:01 UTC 2008
+- There is now a workaround for the bug on pdftex (1.40.9) with space characters in file names.
+- In synctex_parser_utils.c are gathered tasks that are implemented differently depending on the OS.
+- The main entry point to create a synctex scanner has changed to support suggestions by William Blum.
+  - you can now defer the parsing
+  - there is some support of a "build" directory where all the auxiliary files are created.
 
 Acknowledgments:
 ----------------
