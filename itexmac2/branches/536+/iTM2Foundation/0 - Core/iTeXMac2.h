@@ -27,6 +27,8 @@
 #import <Carbon/Carbon.h>
 #import <iTM2Foundation/iTM2Implementation.h>
 
+#define iTM2_STATIC_INLINE static inline
+
 extern NSString * const iTM2FoundationErrorDomain;
 
 BOOL iTM2IsClassObject(id O);
