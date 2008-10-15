@@ -1105,9 +1105,16 @@ To Do List:
 	{
 		return;
 	}
-    NSData * D = [FH availableData];
+	[DNC removeObserver:self name:[aNotification name] object:FH];
+	NSLock * L = [[NSLock allocWithZone:[self zone]] init];
+	[L lock];
+	NSData * D = [FH availableData];
+	[L unlock];
+	[L release];
 	if([D length])
 	{
+		[DNC addObserver:self selector:_cmd name:[aNotification name] object:FH];
+		[FH waitForDataInBackgroundAndNotify];
 		NSString * string = [[[NSString alloc] initWithData:D encoding:NSUTF8StringEncoding] autorelease];
 		if(![string length])
 		{
@@ -1115,11 +1122,9 @@ To Do List:
 			iTM2_LOG(@"Output encoding problem.");
 		}
 		[self logOutput:string];
-		[FH waitForDataInBackgroundAndNotify];
 	}
     else
 	{
-		[DNC removeObserver:self name:[aNotification name] object:FH];
         [[self allInspectors] makeObjectsPerformSelector:@selector(outputDidTerminate) withObject:nil];
 	}
 //iTM2_END;
