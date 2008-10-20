@@ -5678,12 +5678,15 @@ next_attempt:
 					bounds.origin.y += 1;
 					lineRange.location = [page characterIndexAtPoint:bounds.origin];
 					lineRange.length = 0;
-					[pageString getLineStart:(unsigned *)&(lineRange.location) end:nil contentsEnd:(unsigned *)&(lineRange.length) forRange:lineRange];
-					lineRange.length -= lineRange.location;
-					V = [NSValue valueWithRange:lineRange];
-					if(![nodesMRA containsObject:V])
+					if(lineRange.location<[pageString length])
 					{
-						[nodesMRA addObject:V];
+						[pageString getLineStart:(unsigned *)&(lineRange.location) end:nil contentsEnd:(unsigned *)&(lineRange.length) forRange:lineRange];
+						lineRange.length -= lineRange.location;
+						V = [NSValue valueWithRange:lineRange];
+						if(![nodesMRA containsObject:V])
+						{
+							[nodesMRA addObject:V];
+						}
 					}
 next_chance:;					
 				}
