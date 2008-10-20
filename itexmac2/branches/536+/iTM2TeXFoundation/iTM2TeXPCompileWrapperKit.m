@@ -1906,15 +1906,29 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//iTM2_LOG(@"I HAVE BEEN NOTIFIED OF THE TASK TERMINATION");
-	[userInfo autorelease];
+//iTM2_LOG(@"TASK TERMINATION at %@, [userInfo retainCount] is %i",[NSDate date], [userInfo retainCount]);
+	[userInfo autorelease];// Where is it retained?
 	iTM2TeXProjectDocument * TPD = [[userInfo objectForKey:@"ProjectRef"] nonretainedObjectValue];
 	if([SPC isProject:TPD])
 	{
 		if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		{
-			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
-				selector: @selector(_delayedPerformCommand:) userInfo: userInfo repeats: NO];
+			NSTimer * T = [NSTimer
+				scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask]
+					target: self
+						selector: @selector(_delayedPerformCommand:)
+							userInfo:userInfo
+								repeats: YES];
+			[[[TPD implementation] metaValueForKey:@"iTM2ContinuousTimer"] invalidate];
+			[[TPD implementation] takeMetaValue:T forKey:@"iTM2ContinuousTimer"];
+			if(iTM2DebugEnabled)
+			{
+				iTM2_LOG(@"<Timer>%@ launched</Timer>", T);
+			}
+		}
+		else
+		{
+			[[TPD implementation] takeMetaValue:nil forKey:@"iTM2ContinuousTimer"];
 		}
 	}
     return;
@@ -1930,12 +1944,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+//iTM2_LOG(@"The timer %@ fired at %@",timer, [NSDate date]);
 	iTM2TeXProjectDocument * TPD = [[[timer userInfo] objectForKey:@"ProjectRef"] nonretainedObjectValue];
 	if([SPC isProject:TPD])
 	{
 		NSEnumerator * E = [[TPD subdocuments] objectEnumerator];
 		NSDocument * D;
 		while(D = [E nextObject])
+		{
 			if([D isDocumentEdited])
 			{
 				[TPD setElementary:NO];
@@ -1945,15 +1961,17 @@ To Do List:
 			//		[project writeSafelyToURL:[TPD fileURL] ofType:[TPD fileType] forSaveOperation:NSSaveOperation error:nil];
 				}
 				[self doPerformCommandForProject:TPD];
-//EQUIV
-//				[self performCommandForProject:TPD];
+//iTM2_END;
+				return;
 			}
-		if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
+		}
+		if(![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		{
-			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
-				selector: @selector(_delayedPerformCommand:) userInfo: [timer userInfo] repeats:NO];
+			[timer invalidate];
+			[[TPD implementation] takeMetaValue:nil forKey:@"iTM2ContinuousTimer"];
 		}
 	}
+//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  menuItemTitleForProject:

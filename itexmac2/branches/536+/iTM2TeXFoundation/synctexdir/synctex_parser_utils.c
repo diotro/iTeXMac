@@ -44,6 +44,11 @@ authorization from the copyright holder.
 #include <stdarg.h>
 #include <stdio.h>
 
+#ifdef _WIN32
+#include <ctype.h>
+#include <windows.h>
+#endif
+
 void *_synctex_malloc(size_t size) {
 	void * ptr = malloc(size);
 	if(ptr) {
@@ -181,7 +186,8 @@ int _synctex_copy_with_quoting_last_path_component(const char * src, char ** des
 	if(src && dest_ref) {
 #		define dest (*dest_ref)
 		dest = NULL;	/*	Default behavior: no change and sucess. */
-		char * lpc = _synctex_last_path_component(src);
+		char * lpc;
+		lpc = _synctex_last_path_component(src);
 		if(strlen(lpc)) {
 			if(strchr(lpc,' ') && lpc[0]!='"' && lpc[strlen(lpc)-1]!='"') {
 				/*	We are in the situation where adding the quotes is allowed.	*/

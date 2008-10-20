@@ -53,7 +53,7 @@ NSLog(@"START now:%@",[NSDate date]);
 	{
 		iTM2_LOG(@"OgreKit not installed");
 	}
-iTM2_LOG(@"now:%@",[NSDate date]);
+//iTM2_LOG(@"now:%@",[NSDate date]);
 	return;
 }
 @end
