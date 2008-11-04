@@ -55,6 +55,8 @@ History:
 - The main entry point to create a synctex scanner has changed to support suggestions by William Blum.
   - you can now defer the parsing
   - there is some support of a "build" directory where all the auxiliary files are created.
+1.6: Mon Nov  3 20:20:02 UTC 2008
+- The bug that prevented synchronization with compressed files on windows has been fixed.
 
 Acknowledgments:
 ----------------

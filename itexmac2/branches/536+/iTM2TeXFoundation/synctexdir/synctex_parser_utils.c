@@ -3,7 +3,7 @@ Copyright (c) 2008 jerome DOT laurens AT u-bourgogne DOT fr
 
 This file is part of the SyncTeX package.
 
-Version: 1.5
+Version: 1.6
 See synctex_parser_readme.txt for more details
 
 License:
@@ -43,9 +43,9 @@ authorization from the copyright holder.
 #include <string.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <ctype.h>
 
 #ifdef _WIN32
-#include <ctype.h>
 #include <windows.h>
 #endif
 
@@ -183,10 +183,8 @@ char * _synctex_last_path_component(const char * name) {
 }
 
 int _synctex_copy_with_quoting_last_path_component(const char * src, char ** dest_ref, size_t size) {
-	if(src && dest_ref) {
-#		define dest (*dest_ref)
-		dest = NULL;	/*	Default behavior: no change and sucess. */
-		char * lpc;
+  if(src && dest_ref) {
+		char * lpc = NULL;
 		lpc = _synctex_last_path_component(src);
 		if(strlen(lpc)) {
 			if(strchr(lpc,' ') && lpc[0]!='"' && lpc[strlen(lpc)-1]!='"') {
@@ -195,6 +193,8 @@ int _synctex_copy_with_quoting_last_path_component(const char * src, char ** des
 				/*  Consistency test: we must have dest+size>dest+strlen(dest)+2
 				 *	or equivalently: strlen(dest)+2<size (see below) */
 				if(strlen(src)<size) {
+#					define dest (*dest_ref)
+					dest = NULL;	/*	Default behavior: no change and sucess. */
 					if((dest = (char *)malloc(size+2))) {
 						if(dest != strncpy(dest,src,size)) {
 							_synctex_error("!  _synctex_copy_with_quoting_last_path_component: Copy problem");

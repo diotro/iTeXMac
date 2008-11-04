@@ -3,7 +3,7 @@ Copyright (c) 2008 jerome DOT laurens AT u-bourgogne DOT fr
 
 This file is part of the SyncTeX package.
 
-Version: 1.5
+Version: 1.6
 See synctex_parser_readme.txt for more details
 
 License:
@@ -2521,6 +2521,7 @@ int __synctex_scanner_open_with_output_file(const char *  output, char ** syncte
 	if(synctex_name_ref && file_ref) {
 		char * quoteless = NULL;
 		size_t size = 0;
+		const char * mode = "r";
 		/*  now create the synctex file name */
 		size = strlen(output)+strlen(synctex_suffix)+strlen(synctex_suffix_gz)+1;
 		synctex_name = (char *)malloc(size);
@@ -2564,7 +2565,7 @@ return_on_error:
 			free(quoteless);
 			quoteless = NULL;
 		}
-		if(NULL == (the_file = gzopen(synctex_name,"r"))) {
+		if(NULL == (the_file = gzopen(synctex_name,mode))) {
 			/*  Could not open this file */
 			if(errno != ENOENT) {
 				/*  The file does exist, this is a lower lever error, I can't do anything. */
@@ -2576,6 +2577,7 @@ return_on_error:
 				_synctex_error("!  __synctex_scanner_open_with_output_file: Concatenation problem (can't add suffix '%s')\n",synctex_suffix_gz);
 				goto return_on_error;
 			}
+			mode = "rb"; /* the file is a compressed and is a binary file, this caused errors on Windows */
 			/*	To quoteless as well. */
 			if(quoteless && (quoteless != strcat(quoteless,synctex_suffix_gz))){
 				free(quoteless);
