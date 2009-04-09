@@ -1,5 +1,5 @@
 #!/bin/sh
-# iTM2BuildOgreKit
+# iTM2BuildSparkleKit
 # XCode 2.2 compliant, version 1
 PRODUCT_NAME="Sparkle"
 echo "warning: iTeXMac2 INFO, Building ${PRODUCT_NAME}..."

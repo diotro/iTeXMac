@@ -8,12 +8,6 @@ if [ $? -ne 0 ]
 then
     exit 1
 fi
-echo "Building OgreKit"
-"$DIR"/BuildOgreKit.command
-if [ $? -ne 0 ]
-then
-    exit 2
-fi
 echo "Building iTeXMac2"
 "$DIR"/BuildiTeXMac2.command
 if [ $? -ne 0 ]
