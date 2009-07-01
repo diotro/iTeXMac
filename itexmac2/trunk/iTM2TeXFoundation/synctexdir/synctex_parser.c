@@ -1046,11 +1046,11 @@ void _synctex_log_input(synctex_node_t node);
 synctex_status_t _synctex_buffer_get_available_size(synctex_scanner_t scanner, size_t * size_ptr);
 synctex_status_t _synctex_next_line(synctex_scanner_t scanner);
 synctex_status_t _synctex_match_string(synctex_scanner_t scanner, const char * the_string);
-synctex_status_t _synctex_decode_int(synctex_scanner_t scanner, int*  value_ref);
-synctex_status_t _synctex_decode_string(synctex_scanner_t scanner, char **  value_ref);
+synctex_status_t _synctex_decode_int(synctex_scanner_t scanner, int* value_ref);
+synctex_status_t _synctex_decode_string(synctex_scanner_t scanner, char ** value_ref);
 synctex_status_t _synctex_scan_input(synctex_scanner_t scanner);
 synctex_status_t _synctex_scan_preamble(synctex_scanner_t scanner);
-synctex_status_t _synctex_scan_float_and_dimension(synctex_scanner_t scanner, float *  value_ref);
+synctex_status_t _synctex_scan_float_and_dimension(synctex_scanner_t scanner, float * value_ref);
 synctex_status_t _synctex_scan_post_scriptum(synctex_scanner_t scanner);
 int _synctex_scan_postamble(synctex_scanner_t scanner);
 synctex_status_t _synctex_setup_visible_box(synctex_node_t box);
@@ -1304,7 +1304,7 @@ return_NOT_OK:
  *  It is SYNCTEX_STATUS_OK if an int has been successfully parsed.
  *  The given scanner argument must not be NULL, on the contrary, value_ref may be NULL.
  */
-synctex_status_t _synctex_decode_int(synctex_scanner_t scanner, int*  value_ref) {
+synctex_status_t _synctex_decode_int(synctex_scanner_t scanner, int* value_ref) {
 	unsigned char * ptr = NULL;
 	unsigned char * end = NULL;
 	int result = 0;
@@ -1333,7 +1333,7 @@ synctex_status_t _synctex_decode_int(synctex_scanner_t scanner, int*  value_ref)
 	if(end>ptr) {
 		SYNCTEX_CUR = end;
 		if(value_ref) {
-			*  value_ref = result;
+			* value_ref = result;
 		}
 		return SYNCTEX_STATUS_OK;/*  Successfully scanned an int */
 	}	
@@ -1347,7 +1347,7 @@ synctex_status_t _synctex_decode_int(synctex_scanner_t scanner, int*  value_ref)
  *  the cursor points to the new line marker.
  *  The returned string was alloced on the heap, the caller is the owner and
  *  is responsible to free it in due time.
- *  If no string is parsed, *  value_ref is undefined.
+ *  If no string is parsed, * value_ref is undefined.
  *  The maximum length of a string that a scanner can decode is platform dependent, namely UINT_MAX.
  *  If you just want to blindly parse the file up to the end of the current line,
  *  use _synctex_next_line instead.
@@ -1357,7 +1357,7 @@ synctex_status_t _synctex_decode_int(synctex_scanner_t scanner, int*  value_ref)
  *  If either scanner or value_ref is NULL, it is considered as an error and
  *  SYNCTEX_STATUS_BAD_ARGUMENT is returned.
  */
-synctex_status_t _synctex_decode_string(synctex_scanner_t scanner, char **  value_ref) {
+synctex_status_t _synctex_decode_string(synctex_scanner_t scanner, char ** value_ref) {
 	unsigned char * end = NULL;
 	size_t current_size = 0;
 	size_t new_size = 0;
@@ -1382,7 +1382,7 @@ synctex_status_t _synctex_decode_string(synctex_scanner_t scanner, char **  valu
 	 *  SYNCTEX_CUR was already < SYNCTEX_END, or because the buffer has been properly filled. */
 	/*  end will point to the next unparsed '\n' character in the file, when mapped to the buffer. */
 	end = SYNCTEX_CUR;
-	*  value_ref = NULL;/*  Initialize, it will be realloc'ed */
+	* value_ref = NULL;/*  Initialize, it will be realloc'ed */
 	/*  We scan all the characters up to the next '\n' */
 next_character:
 	if(end<SYNCTEX_END) {
@@ -1399,14 +1399,14 @@ next_character:
 			/*  We have current_size+len+1<=UINT_MAX
 			 *  or equivalently new_size<UINT_MAX,
 			 *  where we have assumed that len<UINT_MAX */
-			if((*  value_ref = realloc(*  value_ref,new_size+1)) != NULL) {
+			if((* value_ref = realloc(* value_ref,new_size+1)) != NULL) {
 				if(memcpy((*value_ref)+current_size,SYNCTEX_CUR,len)) {
-					(*  value_ref)[new_size]='\0'; /*  Terminate the string */
+					(* value_ref)[new_size]='\0'; /*  Terminate the string */
 					SYNCTEX_CUR += len;/*  Advance to the terminating '\n' */
 					return SYNCTEX_STATUS_OK;
 				}
-				free(*  value_ref);
-				*  value_ref = NULL;
+				free(* value_ref);
+				* value_ref = NULL;
 				_synctex_error("could not copy memory (1).");
 				return SYNCTEX_STATUS_ERROR;
 			}
@@ -1425,14 +1425,14 @@ next_character:
 			return SYNCTEX_STATUS_ERROR;
 		}
 		new_size = current_size+len;
-		if((*  value_ref = realloc(*  value_ref,new_size+1)) != NULL) {
+		if((* value_ref = realloc(* value_ref,new_size+1)) != NULL) {
 			if(memcpy((*value_ref)+current_size,SYNCTEX_CUR,len)) {
-				(*  value_ref)[new_size]='\0'; /*  Terminate the string */
+				(* value_ref)[new_size]='\0'; /*  Terminate the string */
 				SYNCTEX_CUR = SYNCTEX_END;/*  Advance the cursor to the end of the bufer */
 				return SYNCTEX_STATUS_OK;
 			}
-			free(*  value_ref);
-			*  value_ref = NULL;
+			free(* value_ref);
+			* value_ref = NULL;
 			_synctex_error("could not copy memory (2).");
 			return SYNCTEX_STATUS_ERROR;
 		}
@@ -1496,7 +1496,7 @@ synctex_status_t _synctex_scan_input(synctex_scanner_t scanner) {
 
 typedef synctex_status_t (*synctex_decoder_t)(synctex_scanner_t,void *);
 
-synctex_status_t _synctex_scan_named(synctex_scanner_t scanner,char * name,void *  value_ref,synctex_decoder_t decoder);
+synctex_status_t _synctex_scan_named(synctex_scanner_t scanner,char * name,void * value_ref,synctex_decoder_t decoder);
 
 /*  Used when parsing the synctex file.
  *  Read one of the settings.
@@ -1506,7 +1506,7 @@ synctex_status_t _synctex_scan_named(synctex_scanner_t scanner,char * name,void 
  *  On return, the scanner points to the next character after the decoded object whatever it is.
  *  It is the responsibility of the caller to prepare the scanner for the next line.
  */
-synctex_status_t _synctex_scan_named(synctex_scanner_t scanner,char * name,void *  value_ref,synctex_decoder_t decoder) {
+synctex_status_t _synctex_scan_named(synctex_scanner_t scanner,char * name,void * value_ref,synctex_decoder_t decoder) {
 	synctex_status_t status = 0;
 	if(NULL == scanner || NULL == name || NULL == value_ref || NULL == decoder) {
 		return SYNCTEX_STATUS_BAD_ARGUMENT;
@@ -1591,7 +1591,7 @@ synctex_status_t _synctex_scan_preamble(synctex_scanner_t scanner) {
 }
 
 /*  parse a float with a dimension */
-synctex_status_t _synctex_scan_float_and_dimension(synctex_scanner_t scanner, float *  value_ref) {
+synctex_status_t _synctex_scan_float_and_dimension(synctex_scanner_t scanner, float * value_ref) {
 	synctex_status_t status = 0;
 	unsigned char * endptr = NULL;
 	float f = 0;
