@@ -104,7 +104,7 @@ typedef union _synctex_info_t {
 
 struct _synctex_node {
 	synctex_class_t class;
-	synctex_info_t *  implementation;
+	synctex_info_t * implementation;
 };
 
 /*  Each node of the tree, except the scanner itself belongs to a class.
@@ -534,7 +534,7 @@ synctex_node_t _synctex_new_void_hbox(synctex_scanner_t scanner) {
 	return node;
 }
 
-/*  The medium nodes correspond to kern and math nodes.  */
+/*  The medium nodes correspond to kern, glue, penalty and math nodes.  */
 typedef struct {
 	synctex_class_t class;
 	synctex_info_t implementation[3+SYNCTEX_WIDTH_IDX+1]; /*  parent,sibling,friend,
@@ -1078,7 +1078,7 @@ synctex_status_t _synctex_buffer_get_available_size(synctex_scanner_t scanner, s
 	if(NULL == scanner || NULL == size_ptr) {
 		return SYNCTEX_STATUS_BAD_ARGUMENT;
 	}
-#   define size (*  size_ptr)
+#   define size (* size_ptr)
 	if(size>SYNCTEX_BUFFER_SIZE){
 		size = SYNCTEX_BUFFER_SIZE;
 	}
@@ -1105,7 +1105,7 @@ synctex_status_t _synctex_buffer_get_available_size(synctex_scanner_t scanner, s
 			/*  If the end of the file was reached, all the required SYNCTEX_BUFFER_SIZE - available
 			 *  may not be filled with values from the file.
 			 *  In that case, the buffer should stop properly after already_read characters. */
-			*  SYNCTEX_END = '\0';
+			* SYNCTEX_END = '\0';
 			SYNCTEX_CUR = SYNCTEX_START;
 			size = SYNCTEX_END - SYNCTEX_CUR; /* == old available + already_read*/
 			return SYNCTEX_STATUS_OK; /*  May be available is less than size, the caller will have to test. */
@@ -1126,7 +1126,7 @@ synctex_status_t _synctex_buffer_get_available_size(synctex_scanner_t scanner, s
 			SYNCTEX_FILE = NULL;
  			SYNCTEX_END = SYNCTEX_CUR;
  			SYNCTEX_CUR = SYNCTEX_START;
-			*  SYNCTEX_END = '\0';/*  Terminate the string properly.*/
+			* SYNCTEX_END = '\0';/*  Terminate the string properly.*/
 			size = SYNCTEX_END - SYNCTEX_CUR;
  			return SYNCTEX_STATUS_EOF; /*  there might be a bit of text left */
 		}
@@ -1857,7 +1857,7 @@ synctex_status_t _synctex_scan_sheet(synctex_scanner_t scanner, synctex_node_t s
 	synctex_node_t sibling = NULL;
 	synctex_node_t box = sheet;
 	int friend_index = 0;
-	synctex_info_t *  info = NULL;
+	synctex_info_t * info = NULL;
 	synctex_status_t status = 0;
 	size_t available = 0;
 	if((NULL == scanner) || (NULL == sheet)) {
