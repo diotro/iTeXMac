@@ -473,8 +473,8 @@ To Do List: retain?
         NSString * key;
         NSMutableArray * hiddenFiles = [NSMutableArray array];
         {
-            NSString * dotHidden = [NSString stringWithContentsOfFile:
-                [[aFullPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@".hidden"]];
+            NSString * dotHidden = [NSString tringWithContentsOfFile:
+                [[aFullPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@".hidden"] usedEncoding:nil error:nil];
             NSEnumerator * E = [[dotHidden componentsSeparatedByString:@"\n"] objectEnumerator];
             id object;
             while(object = [E nextObject])
