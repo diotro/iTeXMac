@@ -1771,6 +1771,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B3DA30A4ADA1300E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 			};
 			name = Development;
 		};
@@ -1778,6 +1779,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B3DA90A4ADA8700E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 			};
 			name = Deployment;
 		};

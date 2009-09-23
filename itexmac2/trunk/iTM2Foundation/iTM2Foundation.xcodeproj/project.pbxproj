@@ -71,6 +71,29 @@
 		51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */; };
 		51EFB39F0DFD23BD0090E7D0 /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B40854DC0F00F3EB8A /* README.rtf */; };
 		51EFB3B00DFD242D0090E7D0 /* skim in Copy Command */ = {isa = PBXBuildFile; fileRef = 51EFB3A70DFD23FA0090E7D0 /* skim */; };
+		53C23FE410693C4A0000990A /* iTM2CompletionInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCA10693C4A0000990A /* iTM2CompletionInspector.xib */; };
+		53C23FE510693C4A0000990A /* iTM2CompletionServer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCC10693C4A0000990A /* iTM2CompletionServer.xib */; };
+		53C23FE610693C4A0000990A /* iTM2ExternalInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCE10693C4A0000990A /* iTM2ExternalInspector.xib */; };
+		53C23FE710693C4A0000990A /* iTM2IgnoredWordsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FD010693C4A0000990A /* iTM2IgnoredWordsEditor.xib */; };
+		53C23FE810693C4A0000990A /* iTM2NewProjectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FD210693C4A0000990A /* iTM2NewProjectController.xib */; };
+		53C23FE910693C4A0000990A /* iTM2NoProjectSheetController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FD410693C4A0000990A /* iTM2NoProjectSheetController.xib */; };
+		53C23FEA10693C4A0000990A /* iTM2PDFInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FD610693C4A0000990A /* iTM2PDFInspector.xib */; };
+		53C23FEB10693C4A0000990A /* iTM2SpellCheckerHelper.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FD810693C4A0000990A /* iTM2SpellCheckerHelper.xib */; };
+		53C23FEC10693C4A0000990A /* iTM2StringEncodingDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FDA10693C4A0000990A /* iTM2StringEncodingDocument.xib */; };
+		53C23FED10693C4A0000990A /* iTM2SubdocumentsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FDC10693C4A0000990A /* iTM2SubdocumentsInspector.xib */; };
+		53C23FEE10693C4A0000990A /* iTM2TaskInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FDE10693C4A0000990A /* iTM2TaskInspector.xib */; };
+		53C23FEF10693C4A0000990A /* iTM2TextInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FE010693C4A0000990A /* iTM2TextInspector.xib */; };
+		53C23FF010693C4A0000990A /* iTM2VoidInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FE210693C4A0000990A /* iTM2VoidInspector.xib */; };
+		53C24026106940030000990A /* iTM2DocumentPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C24020106940030000990A /* iTM2DocumentPrefPane.xib */; };
+		53C24027106940030000990A /* iTM2MacroPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C24022106940030000990A /* iTM2MacroPrefPane.xib */; };
+		53C24028106940030000990A /* iTM2PrefsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C24024106940030000990A /* iTM2PrefsController.xib */; };
+		53C240421069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C240391069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib */; };
+		53C240431069407D0000990A /* iTM2TextStyleInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C2403B1069407D0000990A /* iTM2TextStyleInspector.xib */; };
+		53C240441069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C2403D1069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib */; };
+		53C240D2106A3F9C0000990A /* iTM2InfoWrapperKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C240CE106A3F9C0000990A /* iTM2InfoWrapperKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53C240D3106A3F9C0000990A /* iTM2InfoWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C240CF106A3F9C0000990A /* iTM2InfoWrapperKit.m */; };
+		53C240D4106A3F9C0000990A /* iTM2ProjectControllerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C240D0106A3F9C0000990A /* iTM2ProjectControllerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53C240D5106A3F9C0000990A /* iTM2ProjectControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
@@ -145,7 +168,6 @@
 		DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = DC2B47360AD2D2930039FCBA /* iTM2DocumentPrefPane.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */; };
 		DC2B47810AD2EED70039FCBA /* iTM2DocumentPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2B477A0AD2EED70039FCBA /* iTM2DocumentPrefPane.strings */; };
-		DC2B47900AD2F0000039FCBA /* iTM2DocumentPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC2B478A0AD2F0000039FCBA /* iTM2DocumentPrefPane.nib */; };
 		DC2B48450AD3054E0039FCBA /* iTM2DocumentPrefPane.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2B48440AD3054E0039FCBA /* iTM2DocumentPrefPane.png */; };
 		DC2B4ABD0AD405920039FCBA /* resizeBottomLeftCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4AB90AD405920039FCBA /* resizeBottomLeftCursor.png */; };
 		DC2B4ABE0AD405930039FCBA /* resizeBottomRightCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4ABA0AD405920039FCBA /* resizeBottomRightCursor.png */; };
@@ -153,7 +175,6 @@
 		DC2B4AC00AD405930039FCBA /* resizeTopRightCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2B4ABC0AD405920039FCBA /* resizeTopRightCursor.png */; };
 		DC2D65520A985F31006BED13 /* iTM2KeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DC2D65510A985F30006BED13 /* iTM2KeyCodes.xml */; };
 		DC2D65550A985FA6006BED13 /* iTM2KeyCodes.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2D65530A985FA6006BED13 /* iTM2KeyCodes.strings */; };
-		DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */; };
 		DC40694D0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */; };
 		DC4B41080BAC98F500288F8D /* iTM2HumanReadableActionNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */; };
 		DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC4EEDDF0A3DF9B400E264F0 /* iTM2DistributedObjectKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -205,8 +226,6 @@
 		DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */ = {isa = PBXBuildFile; fileRef = DCB49C8809C5A3D600CF628D /* MoreFilesX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */; };
 		DCB7DEB40ADE4A0F0084DE9D /* textmate in Copy Command */ = {isa = PBXBuildFile; fileRef = DCB7DE860ADE47FB0084DE9D /* textmate */; };
-		DCBDA1E30AFE0D3D00522BD9 /* iTM2CompletionInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */; };
-		DCBDA1F10AFE0DDB00522BD9 /* iTM2CompletionServer.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCBDA1EB0AFE0DDB00522BD9 /* iTM2CompletionServer.nib */; };
 		DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
 		DCC62E610A9A70B300073E93 /* iTM2MacroKeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */; };
 		DCC7F34D0854A96000F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
@@ -216,7 +235,6 @@
 		DCC7F8E50854DE8D00F3EB8A /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B40854DC0F00F3EB8A /* README.rtf */; };
 		DCC7FA2B0854E41B00F3EB8A /* iTM2TextFinderKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F6070854B11C00F3EB8A /* iTM2TextFinderKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCC7FA2C0854E41B00F3EB8A /* iTM2JAGUARSupportKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F6050854B11C00F3EB8A /* iTM2JAGUARSupportKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCC9FB70087354CD003279C2 /* iTM2ExternalInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FB6E087354CD003279C2 /* iTM2ExternalInspector.nib */; };
 		DCC9FC2908742B59003279C2 /* iTM2SplitHorizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FC2608742B59003279C2 /* iTM2SplitHorizontal.png */; };
 		DCC9FC2A08742B5A003279C2 /* iTM2SplitClose.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FC2708742B59003279C2 /* iTM2SplitClose.png */; };
 		DCC9FC2B08742B5A003279C2 /* iTM2SplitVertical.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FC2808742B59003279C2 /* iTM2SplitVertical.png */; };
@@ -232,9 +250,7 @@
 		DCCF02F90A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F30A5DC5C200B4B720 /* Aqua2_Remove_Pressed.tif */; };
 		DCCF02FA0A5DC5C200B4B720 /* Aqua2_Remove.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */; };
 		DCD403F1099498B0006B91DF /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD403F0099498B0006B91DF /* iTM2MacroKit.m */; };
-		DCD7929E0AA446620042AA60 /* iTM2PrefsController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCD792980AA446620042AA60 /* iTM2PrefsController.nib */; };
 		DCD7B6790AA8DD260042AA60 /* iTM2MacroPrefPane.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B6780AA8DD260042AA60 /* iTM2MacroPrefPane.png */; };
-		DCD7B6870AA8DDA50042AA60 /* iTM2MacroPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B67F0AA8DDA50042AA60 /* iTM2MacroPrefPane.nib */; };
 		DCD7B6880AA8DDA50042AA60 /* iTM2MacroPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B6810AA8DDA50042AA60 /* iTM2MacroPrefPane.strings */; };
 		DCD7D6D70A4399C20096B1A9 /* alphax in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D68B0A4398DD0096B1A9 /* alphax */; };
 		DCD7D6D80A4399CB0096B1A9 /* bbedit in Copy Command */ = {isa = PBXBuildFile; fileRef = DCD7D68D0A4398DD0096B1A9 /* bbedit */; };
@@ -243,11 +259,8 @@
 		DCDA12840908CDF9005E9B57 /* missing_image.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12830908CDF9005E9B57 /* missing_image.tiff */; };
 		DCDA12F30908E57E005E9B57 /* toggleDrawer.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F20908E57E005E9B57 /* toggleDrawer.tif */; };
 		DCDA12F60908E59B005E9B57 /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDA12F40908E59B005E9B57 /* Toolbar.strings */; };
-		DCDC063F09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC062D09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib */; };
 		DCDC064009E690310038845F /* iTM2TextStyle.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDC062F09E690310038845F /* iTM2TextStyle.strings */; };
 		DCDC064109E690310038845F /* iTM2TextStyle_default.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063109E690310038845F /* iTM2TextStyle_default.strings */; };
-		DCDC064209E690310038845F /* iTM2TextStyleInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063309E690310038845F /* iTM2TextStyleInspector.nib */; };
-		DCDC064309E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063509E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib */; };
 		DCDC068009E696450038845F /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCDC067E09E696440038845F /* Styles.resources.tgz */; };
 		DCE52B3B0C0F2F2D00F2D5B9 /* ICURegEx.h in Headers */ = {isa = PBXBuildFile; fileRef = DCE52B390C0F2F2C00F2D5B9 /* ICURegEx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCE52B3C0C0F2F2D00F2D5B9 /* ICURegEx.mm in Sources */ = {isa = PBXBuildFile; fileRef = DCE52B3A0C0F2F2D00F2D5B9 /* ICURegEx.mm */; };
@@ -338,16 +351,6 @@
 		DCF61CC70854654B003F5F79 /* dimple_nib_grey_aqua.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C030854654B003F5F79 /* dimple_nib_grey_aqua.tiff */; };
 		DCF61CC80854654B003F5F79 /* Basic.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C040854654B003F5F79 /* Basic.strings */; };
 		DCF61CC90854654B003F5F79 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C060854654B003F5F79 /* InfoPlist.strings */; };
-		DCF61CCB0854654B003F5F79 /* iTM2StringEncodingDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C0A0854654B003F5F79 /* iTM2StringEncodingDocument.nib */; };
-		DCF61CCC0854654B003F5F79 /* iTM2IgnoredWordsEditor.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C0C0854654B003F5F79 /* iTM2IgnoredWordsEditor.nib */; };
-		DCF61CCD0854654B003F5F79 /* iTM2NewProjectController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C0E0854654B003F5F79 /* iTM2NewProjectController.nib */; };
-		DCF61CCE0854654B003F5F79 /* iTM2NoProjectSheetController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C100854654B003F5F79 /* iTM2NoProjectSheetController.nib */; };
-		DCF61CCF0854654B003F5F79 /* iTM2PDFInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C120854654B003F5F79 /* iTM2PDFInspector.nib */; };
-		DCF61CD00854654B003F5F79 /* iTM2SubdocumentsInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C140854654B003F5F79 /* iTM2SubdocumentsInspector.nib */; };
-		DCF61CD20854654B003F5F79 /* iTM2SpellCheckerHelper.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C180854654B003F5F79 /* iTM2SpellCheckerHelper.nib */; };
-		DCF61CD50854654B003F5F79 /* iTM2TextInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C1E0854654B003F5F79 /* iTM2TextInspector.nib */; };
-		DCF61CD60854654B003F5F79 /* iTM2VoidInspector.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C200854654B003F5F79 /* iTM2VoidInspector.nib */; };
-		DCF61CD80854654B003F5F79 /* NSFindPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C240854654B003F5F79 /* NSFindPanel.nib */; };
 		DCF61CDD0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C2A0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap */; };
 		DCF61CDE0854654B003F5F79 /* iTM2Lock.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C2B0854654B003F5F79 /* iTM2Lock.tiff */; };
 		DCF61CDF0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C2C0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff */; };
@@ -358,7 +361,6 @@
 		DCF61CE50854654B003F5F79 /* status-available.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C320854654B003F5F79 /* status-available.tiff */; };
 		DCF61CE60854654B003F5F79 /* status-away.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C330854654B003F5F79 /* status-away.tiff */; };
 		DCF61CE70854654B003F5F79 /* status-idle.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C340854654B003F5F79 /* status-idle.tiff */; };
-		DCF61CE80854654B003F5F79 /* iTM2Foundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C350854654B003F5F79 /* iTM2Foundation-Info.plist */; };
 		DCF61D19085469AF003F5F79 /* iTM2DocumentControllerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCF61D17085469AF003F5F79 /* iTM2DocumentControllerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCF61D1A085469AF003F5F79 /* iTM2DocumentControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61D18085469AF003F5F79 /* iTM2DocumentControllerKit.m */; };
 		DCFFC18F08E1A5890011D2B7 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC18E08E1A5890011D2B7 /* PreferencePanes.framework */; };
@@ -394,13 +396,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = iTM2Foundation;
-		};
-		DC6BC652094903B2008F8188 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC6BC63C09490315008F8188;
-			remoteInfo = "Prepare OgreKit";
 		};
 		DC83042D086EADFF004799EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -548,13 +543,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = DCD7D69C0A43992D0096B1A9;
 			remoteInfo = "Alpha X";
-		};
-		DCE52B9E0C0F307500F2D5B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCE52B980C0F302F00F2D5B9;
-			remoteInfo = ICU;
 		};
 		DCE5C5740AC823940054C760 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -758,13 +746,52 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2StringEncodingRegEx.strings; sourceTree = "<group>"; };
-		5134AC560E90E0BA00D7D961 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2MacroPrefPane.nib; sourceTree = "<group>"; };
 		518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SmallToolbarBackground.png; sourceTree = "<group>"; };
 		51B7732E0E06B98C00322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Skim.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EFB3A70DFD23FA0090E7D0 /* skim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skim; sourceTree = "<group>"; };
 		51EFB3A80DFD23FA0090E7D0 /* Skim-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Skim-Info.plist"; sourceTree = "<group>"; };
+		53C23FCB10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2CompletionInspector.xib; sourceTree = "<group>"; };
+		53C23FCD10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2CompletionServer.xib; sourceTree = "<group>"; };
+		53C23FCF10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2ExternalInspector.xib; sourceTree = "<group>"; };
+		53C23FD110693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2IgnoredWordsEditor.xib; sourceTree = "<group>"; };
+		53C23FD310693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NewProjectController.xib; sourceTree = "<group>"; };
+		53C23FD510693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NoProjectSheetController.xib; sourceTree = "<group>"; };
+		53C23FD710693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2PDFInspector.xib; sourceTree = "<group>"; };
+		53C23FD910693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2SpellCheckerHelper.xib; sourceTree = "<group>"; };
+		53C23FDB10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2StringEncodingDocument.xib; sourceTree = "<group>"; };
+		53C23FDD10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2SubdocumentsInspector.xib; sourceTree = "<group>"; };
+		53C23FDF10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TaskInspector.xib; sourceTree = "<group>"; };
+		53C23FE110693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TextInspector.xib; sourceTree = "<group>"; };
+		53C23FE310693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2VoidInspector.xib; sourceTree = "<group>"; };
+		53C23FF110693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2CompletionInspector.xib; sourceTree = "<group>"; };
+		53C23FF210693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2ExternalInspector.xib; sourceTree = "<group>"; };
+		53C23FF310693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2IgnoredWordsEditor.xib; sourceTree = "<group>"; };
+		53C23FF410693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2NewProjectController.xib; sourceTree = "<group>"; };
+		53C23FF510693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2NoProjectSheetController.xib; sourceTree = "<group>"; };
+		53C23FF610693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2PDFInspector.xib; sourceTree = "<group>"; };
+		53C23FF710693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2SpellCheckerHelper.xib; sourceTree = "<group>"; };
+		53C23FF810693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2StringEncodingDocument.xib; sourceTree = "<group>"; };
+		53C23FF910693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2SubdocumentsInspector.xib; sourceTree = "<group>"; };
+		53C23FFA10693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TaskInspector.xib; sourceTree = "<group>"; };
+		53C23FFB10693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TextInspector.xib; sourceTree = "<group>"; };
+		53C23FFC10693CA70000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2VoidInspector.xib; sourceTree = "<group>"; };
+		53C24021106940030000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2DocumentPrefPane.xib; sourceTree = "<group>"; };
+		53C24023106940030000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2MacroPrefPane.xib; sourceTree = "<group>"; };
+		53C24025106940030000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2PrefsController.xib; sourceTree = "<group>"; };
+		53C24029106940100000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2DocumentPrefPane.xib; sourceTree = "<group>"; };
+		53C2402A106940100000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2PrefsController.xib; sourceTree = "<group>"; };
+		53C2403A1069407D0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TextNewSyntaxParserVariantController.xib; sourceTree = "<group>"; };
+		53C2403C1069407D0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TextStyleInspector.xib; sourceTree = "<group>"; };
+		53C2403E1069407D0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2TextSyntaxParserAttributesInspector.xib; sourceTree = "<group>"; };
+		53C2403F1069407D0000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TextNewSyntaxParserVariantController.xib; sourceTree = "<group>"; };
+		53C240401069407D0000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TextStyleInspector.xib; sourceTree = "<group>"; };
+		53C240411069407D0000990A /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2TextSyntaxParserAttributesInspector.xib; sourceTree = "<group>"; };
+		53C240CE106A3F9C0000990A /* iTM2InfoWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2InfoWrapperKit.h; sourceTree = "<group>"; };
+		53C240CF106A3F9C0000990A /* iTM2InfoWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2InfoWrapperKit.m; sourceTree = "<group>"; };
+		53C240D0106A3F9C0000990A /* iTM2ProjectControllerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ProjectControllerKit.h; sourceTree = "<group>"; };
+		53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ProjectControllerKit.m; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
@@ -811,9 +838,7 @@
 		DC2B47360AD2D2930039FCBA /* iTM2DocumentPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2DocumentPrefPane.h; sourceTree = "<group>"; };
 		DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2DocumentPrefPane.m; sourceTree = "<group>"; };
 		DC2B477B0AD2EED70039FCBA /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2DocumentPrefPane.strings; sourceTree = "<group>"; };
-		DC2B478B0AD2F0000039FCBA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2DocumentPrefPane.nib; sourceTree = "<group>"; };
 		DC2B48440AD3054E0039FCBA /* iTM2DocumentPrefPane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2DocumentPrefPane.png; sourceTree = "<group>"; };
-		DC2B48530AD308CC0039FCBA /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2DocumentPrefPane.nib; sourceTree = "<group>"; };
 		DC2B4AB90AD405920039FCBA /* resizeBottomLeftCursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resizeBottomLeftCursor.png; sourceTree = "<group>"; };
 		DC2B4ABA0AD405920039FCBA /* resizeBottomRightCursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resizeBottomRightCursor.png; sourceTree = "<group>"; };
 		DC2B4ABB0AD405920039FCBA /* resizeTopLeftCursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resizeTopLeftCursor.png; sourceTree = "<group>"; };
@@ -823,7 +848,6 @@
 		DC2D65660A9862EF006BED13 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2KeyCodes.strings; sourceTree = "<group>"; };
 		DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		DC3C79970940EFA500EBF811 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TaskInspector.nib; sourceTree = "<group>"; };
 		DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2CancelCursor.tiff; sourceTree = "<group>"; };
 		DC4B41070BAC98F500288F8D /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
 		DC4B41090BAC990600288F8D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = French; path = French.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
@@ -844,7 +868,6 @@
 		DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2KeyStrokeSelectors.plist; sourceTree = "<group>"; };
 		DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupKit.h; sourceTree = "<group>"; };
 		DC69184F088C6E9A00F00114 /* iTM2StartupKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StartupKit.m; sourceTree = "<group>"; };
-		DC6A89E90B04894A0072FC1A /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2CompletionInspector.nib; sourceTree = "<group>"; };
 		DC6BC63D09490315008F8188 /* Prepare OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare OgreKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PerlKitServer.h; sourceTree = "<group>"; };
 		DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PerlKitServer.m; sourceTree = "<group>"; };
@@ -883,18 +906,6 @@
 		DCAD237C0C144E83005549DC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = /System/Library/Frameworks/SenTestingKit.framework; sourceTree = "<absolute>"; };
 		DCAF9AEB09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Basic.strings; sourceTree = "<group>"; };
 		DCAF9AEC09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCAF9AEE09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2ExternalInspector.nib; sourceTree = "<group>"; };
-		DCAF9AEF09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2IgnoredWordsEditor.nib; sourceTree = "<group>"; };
-		DCAF9AF009D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2NewProjectController.nib; sourceTree = "<group>"; };
-		DCAF9AF109D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2NoProjectSheetController.nib; sourceTree = "<group>"; };
-		DCAF9AF209D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2PDFInspector.nib; sourceTree = "<group>"; };
-		DCAF9AF309D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2SpellCheckerHelper.nib; sourceTree = "<group>"; };
-		DCAF9AF409D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2StringEncodingDocument.nib; sourceTree = "<group>"; };
-		DCAF9AF509D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2SubdocumentsInspector.nib; sourceTree = "<group>"; };
-		DCAF9AF609D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TaskInspector.nib; sourceTree = "<group>"; };
-		DCAF9AF709D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TextInspector.nib; sourceTree = "<group>"; };
-		DCAF9AF809D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2VoidInspector.nib; sourceTree = "<group>"; };
-		DCAF9AFA09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/NSFindPanel.nib; sourceTree = "<group>"; };
 		DCAF9AFC09D8131800AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Alias Test.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB0A00B09AEF96E00D2A37C /* Alias Test-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Alias Test-Info.plist"; sourceTree = "<group>"; };
@@ -906,8 +917,6 @@
 		DCB7DE860ADE47FB0084DE9D /* textmate */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; path = textmate; sourceTree = "<group>"; };
 		DCB7DE870ADE47FB0084DE9D /* TextMate-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TextMate-Info.plist"; sourceTree = "<group>"; };
 		DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextMate.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCBDA1DE0AFE0D3D00522BD9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CompletionInspector.nib; sourceTree = "<group>"; };
-		DCBDA1EC0AFE0DDB00522BD9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CompletionServer.nib; sourceTree = "<group>"; };
 		DCBEF0BF0A5B2DDC000EB417 /* Test Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test Application-Prefix.pch"; sourceTree = "<group>"; };
 		DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextStorageKit.m; sourceTree = "<group>"; };
 		DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacroKeyCodes.xml; sourceTree = "<group>"; };
@@ -930,7 +939,6 @@
 		DCC7F8B70854DC0F00F3EB8A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		DCC7F8B80854DC0F00F3EB8A /* External Text Editor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "External Text Editor-Info.plist"; sourceTree = "<group>"; };
 		DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "External PDF Viewer.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DCC9FB6F087354CD003279C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2ExternalInspector.nib; sourceTree = "<group>"; };
 		DCC9FC2608742B59003279C2 /* iTM2SplitHorizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SplitHorizontal.png; sourceTree = "<group>"; };
 		DCC9FC2708742B59003279C2 /* iTM2SplitClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SplitClose.png; sourceTree = "<group>"; };
 		DCC9FC2808742B59003279C2 /* iTM2SplitVertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SplitVertical.png; sourceTree = "<group>"; };
@@ -948,9 +956,7 @@
 		DCCF02F40A5DC5C200B4B720 /* Aqua2_Remove.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Aqua2_Remove.tif; sourceTree = "<group>"; };
 		DCD403EF099498B0006B91DF /* iTM2MacroKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit.h; sourceTree = "<group>"; };
 		DCD403F0099498B0006B91DF /* iTM2MacroKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit.m; sourceTree = "<group>"; };
-		DCD792990AA446620042AA60 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PrefsController.nib; sourceTree = "<group>"; };
 		DCD7B6780AA8DD260042AA60 /* iTM2MacroPrefPane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2MacroPrefPane.png; sourceTree = "<group>"; };
-		DCD7B6800AA8DDA50042AA60 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MacroPrefPane.nib; sourceTree = "<group>"; };
 		DCD7B6820AA8DDA50042AA60 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2MacroPrefPane.strings; sourceTree = "<group>"; };
 		DCD7D68B0A4398DD0096B1A9 /* alphax */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = alphax; sourceTree = "<group>"; };
 		DCD7D68C0A4398DD0096B1A9 /* AlphaX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AlphaX-Info.plist"; sourceTree = "<group>"; };
@@ -967,16 +973,10 @@
 		DCDA12830908CDF9005E9B57 /* missing_image.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = missing_image.tiff; sourceTree = "<group>"; };
 		DCDA12F20908E57E005E9B57 /* toggleDrawer.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = toggleDrawer.tif; sourceTree = "<group>"; };
 		DCDA12F50908E59B005E9B57 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
-		DCDC062E09E690310038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextNewSyntaxParserVariantController.nib; sourceTree = "<group>"; };
 		DCDC063009E690310038845F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2TextStyle.strings; sourceTree = "<group>"; };
 		DCDC063209E690310038845F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2TextStyle_default.strings; sourceTree = "<group>"; };
-		DCDC063409E690310038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextStyleInspector.nib; sourceTree = "<group>"; };
-		DCDC063609E690310038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextSyntaxParserAttributesInspector.nib; sourceTree = "<group>"; };
-		DCDC063909E690310038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TextNewSyntaxParserVariantController.nib; sourceTree = "<group>"; };
 		DCDC063A09E690310038845F /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2TextStyle.strings; sourceTree = "<group>"; };
 		DCDC063B09E690310038845F /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2TextStyle_default.strings; sourceTree = "<group>"; };
-		DCDC063C09E690310038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TextStyleInspector.nib; sourceTree = "<group>"; };
-		DCDC063D09E690310038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2TextSyntaxParserAttributesInspector.nib; sourceTree = "<group>"; };
 		DCDC067F09E696440038845F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
 		DCDC068109E696520038845F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
 		DCE52B390C0F2F2C00F2D5B9 /* ICURegEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ICURegEx.h; path = ../ICU/ICURegEx.h; sourceTree = SOURCE_ROOT; };
@@ -1074,16 +1074,6 @@
 		DCF61C030854654B003F5F79 /* dimple_nib_grey_aqua.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = dimple_nib_grey_aqua.tiff; sourceTree = "<group>"; };
 		DCF61C050854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Basic.strings; sourceTree = "<group>"; };
 		DCF61C070854654B003F5F79 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DCF61C0B0854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2StringEncodingDocument.nib; sourceTree = "<group>"; };
-		DCF61C0D0854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2IgnoredWordsEditor.nib; sourceTree = "<group>"; };
-		DCF61C0F0854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2NewProjectController.nib; sourceTree = "<group>"; };
-		DCF61C110854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2NoProjectSheetController.nib; sourceTree = "<group>"; };
-		DCF61C130854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2PDFInspector.nib; sourceTree = "<group>"; };
-		DCF61C150854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2SubdocumentsInspector.nib; sourceTree = "<group>"; };
-		DCF61C190854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2SpellCheckerHelper.nib; sourceTree = "<group>"; };
-		DCF61C1F0854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2TextInspector.nib; sourceTree = "<group>"; };
-		DCF61C210854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2VoidInspector.nib; sourceTree = "<group>"; };
-		DCF61C250854654B003F5F79 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/NSFindPanel.nib; sourceTree = "<group>"; };
 		DCF61C2A0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2KeyStrokeSelectors.selectorMap; sourceTree = "<group>"; };
 		DCF61C2B0854654B003F5F79 /* iTM2Lock.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2Lock.tiff; sourceTree = "<group>"; };
 		DCF61C2C0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ReadOnlyPencil.tiff; sourceTree = "<group>"; };
@@ -1339,14 +1329,14 @@
 		DC98663809EA733B00FF4BD3 /* Preferences Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DC2B478A0AD2F0000039FCBA /* iTM2DocumentPrefPane.nib */,
 				DC2B477A0AD2EED70039FCBA /* iTM2DocumentPrefPane.strings */,
-				DCD7B67F0AA8DDA50042AA60 /* iTM2MacroPrefPane.nib */,
 				DCD7B6810AA8DDA50042AA60 /* iTM2MacroPrefPane.strings */,
-				DCD792980AA446620042AA60 /* iTM2PrefsController.nib */,
 				DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */,
 				DCD7B6780AA8DD260042AA60 /* iTM2MacroPrefPane.png */,
 				DC2B48440AD3054E0039FCBA /* iTM2DocumentPrefPane.png */,
+				53C24020106940030000990A /* iTM2DocumentPrefPane.xib */,
+				53C24022106940030000990A /* iTM2MacroPrefPane.xib */,
+				53C24024106940030000990A /* iTM2PrefsController.xib */,
 			);
 			path = "Preferences Resources";
 			sourceTree = "<group>";
@@ -1441,11 +1431,11 @@
 			children = (
 				DC7051C00B6061E9009FD188 /* iTM2FontsAndColors.tiff */,
 				DCDC067E09E696440038845F /* Styles.resources.tgz */,
-				DCDC062D09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib */,
 				DCDC062F09E690310038845F /* iTM2TextStyle.strings */,
 				DCDC063109E690310038845F /* iTM2TextStyle_default.strings */,
-				DCDC063309E690310038845F /* iTM2TextStyleInspector.nib */,
-				DCDC063509E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib */,
+				53C240391069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib */,
+				53C2403B1069407D0000990A /* iTM2TextStyleInspector.xib */,
+				53C2403D1069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1568,6 +1558,10 @@
 		DCF61BAA0854654B003F5F79 /* 1 - C - Project */ = {
 			isa = PBXGroup;
 			children = (
+				53C240CE106A3F9C0000990A /* iTM2InfoWrapperKit.h */,
+				53C240CF106A3F9C0000990A /* iTM2InfoWrapperKit.m */,
+				53C240D0106A3F9C0000990A /* iTM2ProjectControllerKit.h */,
+				53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */,
 				DCF61BAB0854654B003F5F79 /* iTM2ProjectDocumentKit.h */,
 				DCF61BAC0854654B003F5F79 /* iTM2ProjectDocumentKit.m */,
 			);
@@ -1633,20 +1627,19 @@
 				DCCD2E0A09E071760003EEF9 /* Project.strings */,
 				DCCD2E3F09E13E970003EEF9 /* Inspector.strings */,
 				DCF61C060854654B003F5F79 /* InfoPlist.strings */,
-				DCF61C0A0854654B003F5F79 /* iTM2StringEncodingDocument.nib */,
-				DCF61C0C0854654B003F5F79 /* iTM2IgnoredWordsEditor.nib */,
-				DCF61C0E0854654B003F5F79 /* iTM2NewProjectController.nib */,
-				DCF61C100854654B003F5F79 /* iTM2NoProjectSheetController.nib */,
-				DCF61C120854654B003F5F79 /* iTM2PDFInspector.nib */,
-				DCF61C140854654B003F5F79 /* iTM2SubdocumentsInspector.nib */,
-				DCF61C180854654B003F5F79 /* iTM2SpellCheckerHelper.nib */,
-				DCF61C1E0854654B003F5F79 /* iTM2TextInspector.nib */,
-				DCF61C200854654B003F5F79 /* iTM2VoidInspector.nib */,
-				DCC9FB6E087354CD003279C2 /* iTM2ExternalInspector.nib */,
-				DCF61C240854654B003F5F79 /* NSFindPanel.nib */,
-				DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */,
-				DCBDA1EB0AFE0DDB00522BD9 /* iTM2CompletionServer.nib */,
-				DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */,
+				53C23FCA10693C4A0000990A /* iTM2CompletionInspector.xib */,
+				53C23FCC10693C4A0000990A /* iTM2CompletionServer.xib */,
+				53C23FCE10693C4A0000990A /* iTM2ExternalInspector.xib */,
+				53C23FD010693C4A0000990A /* iTM2IgnoredWordsEditor.xib */,
+				53C23FD210693C4A0000990A /* iTM2NewProjectController.xib */,
+				53C23FD410693C4A0000990A /* iTM2NoProjectSheetController.xib */,
+				53C23FD610693C4A0000990A /* iTM2PDFInspector.xib */,
+				53C23FD810693C4A0000990A /* iTM2SpellCheckerHelper.xib */,
+				53C23FDA10693C4A0000990A /* iTM2StringEncodingDocument.xib */,
+				53C23FDC10693C4A0000990A /* iTM2SubdocumentsInspector.xib */,
+				53C23FDE10693C4A0000990A /* iTM2TaskInspector.xib */,
+				53C23FE010693C4A0000990A /* iTM2TextInspector.xib */,
+				53C23FE210693C4A0000990A /* iTM2VoidInspector.xib */,
 				DCDA12F40908E59B005E9B57 /* Toolbar.strings */,
 				DC25E2E809917C6600545F27 /* iTM2CreateMacroIndex.pl */,
 				DC1E0F360C04E1680042609B /* Aqua2_Add_Child_Inactive.tif */,
@@ -1773,6 +1766,8 @@
 				DC1CF8F80C01CBA100D757D0 /* iTM2MacroKit_Prefs.h in Headers */,
 				DC8399430C02D9A900511679 /* iTM2MacroKit_Action.h in Headers */,
 				DCE52B3B0C0F2F2D00F2D5B9 /* ICURegEx.h in Headers */,
+				53C240D2106A3F9C0000990A /* iTM2InfoWrapperKit.h in Headers */,
+				53C240D4106A3F9C0000990A /* iTM2ProjectControllerKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1817,8 +1812,6 @@
 			);
 			dependencies = (
 				DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */,
-				DCE52B9F0C0F307500F2D5B9 /* PBXTargetDependency */,
-				DC6BC653094903B2008F8188 /* PBXTargetDependency */,
 				DC0F126F0BFB755F00108852 /* PBXTargetDependency */,
 			);
 			name = iTM2Foundation;
@@ -2191,16 +2184,6 @@
 				DCF61CC70854654B003F5F79 /* dimple_nib_grey_aqua.tiff in Resources */,
 				DCF61CC80854654B003F5F79 /* Basic.strings in Resources */,
 				DCF61CC90854654B003F5F79 /* InfoPlist.strings in Resources */,
-				DCF61CCB0854654B003F5F79 /* iTM2StringEncodingDocument.nib in Resources */,
-				DCF61CCC0854654B003F5F79 /* iTM2IgnoredWordsEditor.nib in Resources */,
-				DCF61CCD0854654B003F5F79 /* iTM2NewProjectController.nib in Resources */,
-				DCF61CCE0854654B003F5F79 /* iTM2NoProjectSheetController.nib in Resources */,
-				DCF61CCF0854654B003F5F79 /* iTM2PDFInspector.nib in Resources */,
-				DCF61CD00854654B003F5F79 /* iTM2SubdocumentsInspector.nib in Resources */,
-				DCF61CD20854654B003F5F79 /* iTM2SpellCheckerHelper.nib in Resources */,
-				DCF61CD50854654B003F5F79 /* iTM2TextInspector.nib in Resources */,
-				DCF61CD60854654B003F5F79 /* iTM2VoidInspector.nib in Resources */,
-				DCF61CD80854654B003F5F79 /* NSFindPanel.nib in Resources */,
 				DCF61CDD0854654B003F5F79 /* iTM2KeyStrokeSelectors.selectorMap in Resources */,
 				DCF61CDE0854654B003F5F79 /* iTM2Lock.tiff in Resources */,
 				DCF61CDF0854654B003F5F79 /* iTM2ReadOnlyPencil.tiff in Resources */,
@@ -2211,8 +2194,6 @@
 				DCF61CE50854654B003F5F79 /* status-available.tiff in Resources */,
 				DCF61CE60854654B003F5F79 /* status-away.tiff in Resources */,
 				DCF61CE70854654B003F5F79 /* status-idle.tiff in Resources */,
-				DCF61CE80854654B003F5F79 /* iTM2Foundation-Info.plist in Resources */,
-				DCC9FB70087354CD003279C2 /* iTM2ExternalInspector.nib in Resources */,
 				DCC9FC2908742B59003279C2 /* iTM2SplitHorizontal.png in Resources */,
 				DCC9FC2A08742B5A003279C2 /* iTM2SplitClose.png in Resources */,
 				DCC9FC2B08742B5A003279C2 /* iTM2SplitVertical.png in Resources */,
@@ -2223,7 +2204,6 @@
 				DCDA12840908CDF9005E9B57 /* missing_image.tiff in Resources */,
 				DCDA12F30908E57E005E9B57 /* toggleDrawer.tif in Resources */,
 				DCDA12F60908E59B005E9B57 /* Toolbar.strings in Resources */,
-				DC3C79980940EFA500EBF811 /* iTM2TaskInspector.nib in Resources */,
 				DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */,
 				DC1B1F5009CA299600A55699 /* lockDocument.tiff in Resources */,
 				DC1B1F5109CA299600A55699 /* orderFrontColorPanel.tiff in Resources */,
@@ -2233,11 +2213,8 @@
 				DC1B1F5509CA299600A55699 /* unlockDocument.tiff in Resources */,
 				DCCD2E0C09E071760003EEF9 /* Project.strings in Resources */,
 				DCCD2E4109E13E970003EEF9 /* Inspector.strings in Resources */,
-				DCDC063F09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib in Resources */,
 				DCDC064009E690310038845F /* iTM2TextStyle.strings in Resources */,
 				DCDC064109E690310038845F /* iTM2TextStyle_default.strings in Resources */,
-				DCDC064209E690310038845F /* iTM2TextStyleInspector.nib in Resources */,
-				DCDC064309E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib in Resources */,
 				DCDC068009E696450038845F /* Styles.resources.tgz in Resources */,
 				DC8AD53F0A3ABD38006C28A5 /* KeyBindings.resources.tgz in Resources */,
 				DC8AD5400A3ABD38006C28A5 /* TextEditor.resources.tgz in Resources */,
@@ -2250,19 +2227,14 @@
 				DC2D65520A985F31006BED13 /* iTM2KeyCodes.xml in Resources */,
 				DC2D65550A985FA6006BED13 /* iTM2KeyCodes.strings in Resources */,
 				DCC62E610A9A70B300073E93 /* iTM2MacroKeyCodes.xml in Resources */,
-				DCD7929E0AA446620042AA60 /* iTM2PrefsController.nib in Resources */,
 				DCD7B6790AA8DD260042AA60 /* iTM2MacroPrefPane.png in Resources */,
-				DCD7B6870AA8DDA50042AA60 /* iTM2MacroPrefPane.nib in Resources */,
 				DCD7B6880AA8DDA50042AA60 /* iTM2MacroPrefPane.strings in Resources */,
 				DC2B47810AD2EED70039FCBA /* iTM2DocumentPrefPane.strings in Resources */,
-				DC2B47900AD2F0000039FCBA /* iTM2DocumentPrefPane.nib in Resources */,
 				DC2B48450AD3054E0039FCBA /* iTM2DocumentPrefPane.png in Resources */,
 				DC2B4ABD0AD405920039FCBA /* resizeBottomLeftCursor.png in Resources */,
 				DC2B4ABE0AD405930039FCBA /* resizeBottomRightCursor.png in Resources */,
 				DC2B4ABF0AD405930039FCBA /* resizeTopLeftCursor.png in Resources */,
 				DC2B4AC00AD405930039FCBA /* resizeTopRightCursor.png in Resources */,
-				DCBDA1E30AFE0D3D00522BD9 /* iTM2CompletionInspector.nib in Resources */,
-				DCBDA1F10AFE0DDB00522BD9 /* iTM2CompletionServer.nib in Resources */,
 				DC7051C10B6061E9009FD188 /* iTM2FontsAndColors.tiff in Resources */,
 				DC1E48B80B8BB77700B8F0A8 /* Folder-24x24.png in Resources */,
 				DC1E48BA0B8BC0D100B8F0A8 /* iTM2EditDocument.png in Resources */,
@@ -2277,6 +2249,25 @@
 				51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */,
 				5131527F0D0584F000862683 /* iTM2StringEncodingRegEx.strings in Resources */,
 				51B7732F0E06B98C00322495 /* NERedArrow-16.png in Resources */,
+				53C23FE410693C4A0000990A /* iTM2CompletionInspector.xib in Resources */,
+				53C23FE510693C4A0000990A /* iTM2CompletionServer.xib in Resources */,
+				53C23FE610693C4A0000990A /* iTM2ExternalInspector.xib in Resources */,
+				53C23FE710693C4A0000990A /* iTM2IgnoredWordsEditor.xib in Resources */,
+				53C23FE810693C4A0000990A /* iTM2NewProjectController.xib in Resources */,
+				53C23FE910693C4A0000990A /* iTM2NoProjectSheetController.xib in Resources */,
+				53C23FEA10693C4A0000990A /* iTM2PDFInspector.xib in Resources */,
+				53C23FEB10693C4A0000990A /* iTM2SpellCheckerHelper.xib in Resources */,
+				53C23FEC10693C4A0000990A /* iTM2StringEncodingDocument.xib in Resources */,
+				53C23FED10693C4A0000990A /* iTM2SubdocumentsInspector.xib in Resources */,
+				53C23FEE10693C4A0000990A /* iTM2TaskInspector.xib in Resources */,
+				53C23FEF10693C4A0000990A /* iTM2TextInspector.xib in Resources */,
+				53C23FF010693C4A0000990A /* iTM2VoidInspector.xib in Resources */,
+				53C24026106940030000990A /* iTM2DocumentPrefPane.xib in Resources */,
+				53C24027106940030000990A /* iTM2MacroPrefPane.xib in Resources */,
+				53C24028106940030000990A /* iTM2PrefsController.xib in Resources */,
+				53C240421069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib in Resources */,
+				53C240431069407D0000990A /* iTM2TextStyleInspector.xib in Resources */,
+				53C240441069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2631,6 +2622,8 @@
 				DC1CF8F90C01CBA100D757D0 /* iTM2MacroKit_Prefs.m in Sources */,
 				DC8399420C02D9A500511679 /* iTM2MacroKit_Action.m in Sources */,
 				DCE52B3C0C0F2F2D00F2D5B9 /* ICURegEx.mm in Sources */,
+				53C240D3106A3F9C0000990A /* iTM2InfoWrapperKit.m in Sources */,
+				53C240D5106A3F9C0000990A /* iTM2ProjectControllerKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2733,11 +2726,6 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
 			targetProxy = DC5D6E9D0949CEF900EBA96C /* PBXContainerItemProxy */;
-		};
-		DC6BC653094903B2008F8188 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC6BC63C09490315008F8188 /* Prepare OgreKit */;
-			targetProxy = DC6BC652094903B2008F8188 /* PBXContainerItemProxy */;
 		};
 		DC83042E086EADFF004799EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2844,11 +2832,6 @@
 			target = DCD7D69C0A43992D0096B1A9 /* AlphaX */;
 			targetProxy = DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */;
 		};
-		DCE52B9F0C0F307500F2D5B9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCE52B980C0F302F00F2D5B9 /* ICU */;
-			targetProxy = DCE52B9E0C0F307500F2D5B9 /* PBXContainerItemProxy */;
-		};
 		DCE5C5730AC823940054C760 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
@@ -2862,6 +2845,175 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		53C23FCA10693C4A0000990A /* iTM2CompletionInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FCB10693C4A0000990A /* English */,
+				53C23FF110693CA70000990A /* French */,
+			);
+			name = iTM2CompletionInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C23FCC10693C4A0000990A /* iTM2CompletionServer.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FCD10693C4A0000990A /* English */,
+			);
+			name = iTM2CompletionServer.xib;
+			sourceTree = "<group>";
+		};
+		53C23FCE10693C4A0000990A /* iTM2ExternalInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FCF10693C4A0000990A /* English */,
+				53C23FF210693CA70000990A /* French */,
+			);
+			name = iTM2ExternalInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C23FD010693C4A0000990A /* iTM2IgnoredWordsEditor.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FD110693C4A0000990A /* English */,
+				53C23FF310693CA70000990A /* French */,
+			);
+			name = iTM2IgnoredWordsEditor.xib;
+			sourceTree = "<group>";
+		};
+		53C23FD210693C4A0000990A /* iTM2NewProjectController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FD310693C4A0000990A /* English */,
+				53C23FF410693CA70000990A /* French */,
+			);
+			name = iTM2NewProjectController.xib;
+			sourceTree = "<group>";
+		};
+		53C23FD410693C4A0000990A /* iTM2NoProjectSheetController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FD510693C4A0000990A /* English */,
+				53C23FF510693CA70000990A /* French */,
+			);
+			name = iTM2NoProjectSheetController.xib;
+			sourceTree = "<group>";
+		};
+		53C23FD610693C4A0000990A /* iTM2PDFInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FD710693C4A0000990A /* English */,
+				53C23FF610693CA70000990A /* French */,
+			);
+			name = iTM2PDFInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C23FD810693C4A0000990A /* iTM2SpellCheckerHelper.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FD910693C4A0000990A /* English */,
+				53C23FF710693CA70000990A /* French */,
+			);
+			name = iTM2SpellCheckerHelper.xib;
+			sourceTree = "<group>";
+		};
+		53C23FDA10693C4A0000990A /* iTM2StringEncodingDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FDB10693C4A0000990A /* English */,
+				53C23FF810693CA70000990A /* French */,
+			);
+			name = iTM2StringEncodingDocument.xib;
+			sourceTree = "<group>";
+		};
+		53C23FDC10693C4A0000990A /* iTM2SubdocumentsInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FDD10693C4A0000990A /* English */,
+				53C23FF910693CA70000990A /* French */,
+			);
+			name = iTM2SubdocumentsInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C23FDE10693C4A0000990A /* iTM2TaskInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FDF10693C4A0000990A /* English */,
+				53C23FFA10693CA70000990A /* French */,
+			);
+			name = iTM2TaskInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C23FE010693C4A0000990A /* iTM2TextInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FE110693C4A0000990A /* English */,
+				53C23FFB10693CA70000990A /* French */,
+			);
+			name = iTM2TextInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C23FE210693C4A0000990A /* iTM2VoidInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C23FE310693C4A0000990A /* English */,
+				53C23FFC10693CA70000990A /* French */,
+			);
+			name = iTM2VoidInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C24020106940030000990A /* iTM2DocumentPrefPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C24021106940030000990A /* English */,
+				53C24029106940100000990A /* French */,
+			);
+			name = iTM2DocumentPrefPane.xib;
+			sourceTree = "<group>";
+		};
+		53C24022106940030000990A /* iTM2MacroPrefPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C24023106940030000990A /* English */,
+			);
+			name = iTM2MacroPrefPane.xib;
+			sourceTree = "<group>";
+		};
+		53C24024106940030000990A /* iTM2PrefsController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C24025106940030000990A /* English */,
+				53C2402A106940100000990A /* French */,
+			);
+			name = iTM2PrefsController.xib;
+			sourceTree = "<group>";
+		};
+		53C240391069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C2403A1069407D0000990A /* English */,
+				53C2403F1069407D0000990A /* French */,
+			);
+			name = iTM2TextNewSyntaxParserVariantController.xib;
+			sourceTree = "<group>";
+		};
+		53C2403B1069407D0000990A /* iTM2TextStyleInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C2403C1069407D0000990A /* English */,
+				53C240401069407D0000990A /* French */,
+			);
+			name = iTM2TextStyleInspector.xib;
+			sourceTree = "<group>";
+		};
+		53C2403D1069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53C2403E1069407D0000990A /* English */,
+				53C240411069407D0000990A /* French */,
+			);
+			name = iTM2TextSyntaxParserAttributesInspector.xib;
+			sourceTree = "<group>";
+		};
 		DC13E677085586540063D5A5 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2894,15 +3046,6 @@
 			name = iTM2DocumentPrefPane.strings;
 			sourceTree = "<group>";
 		};
-		DC2B478A0AD2F0000039FCBA /* iTM2DocumentPrefPane.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC2B478B0AD2F0000039FCBA /* English */,
-				DC2B48530AD308CC0039FCBA /* French */,
-			);
-			name = iTM2DocumentPrefPane.nib;
-			sourceTree = "<group>";
-		};
 		DC2D65530A985FA6006BED13 /* iTM2KeyCodes.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2910,15 +3053,6 @@
 				DC2D65660A9862EF006BED13 /* French */,
 			);
 			name = iTM2KeyCodes.strings;
-			sourceTree = "<group>";
-		};
-		DC3C79960940EFA500EBF811 /* iTM2TaskInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC3C79970940EFA500EBF811 /* English */,
-				DCAF9AF609D8131800AFD95F /* French */,
-			);
-			name = iTM2TaskInspector.nib;
 			sourceTree = "<group>";
 		};
 		DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */ = {
@@ -2948,23 +3082,6 @@
 			name = TextEditor.resources.tgz;
 			sourceTree = "<group>";
 		};
-		DCBDA1DD0AFE0D3D00522BD9 /* iTM2CompletionInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCBDA1DE0AFE0D3D00522BD9 /* English */,
-				DC6A89E90B04894A0072FC1A /* French */,
-			);
-			name = iTM2CompletionInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCBDA1EB0AFE0DDB00522BD9 /* iTM2CompletionServer.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCBDA1EC0AFE0DDB00522BD9 /* English */,
-			);
-			name = iTM2CompletionServer.nib;
-			sourceTree = "<group>";
-		};
 		DCC7F60C0854B11C00F3EB8A /* iTM2TextFinder.nib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2979,15 +3096,6 @@
 				DCC7F60F0854B11C00F3EB8A /* English */,
 			);
 			name = iTM2TextFinder.strings;
-			sourceTree = "<group>";
-		};
-		DCC9FB6E087354CD003279C2 /* iTM2ExternalInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCC9FB6F087354CD003279C2 /* English */,
-				DCAF9AEE09D8131800AFD95F /* French */,
-			);
-			name = iTM2ExternalInspector.nib;
 			sourceTree = "<group>";
 		};
 		DCCD2E0A09E071760003EEF9 /* Project.strings */ = {
@@ -3008,23 +3116,6 @@
 			name = Inspector.strings;
 			sourceTree = "<group>";
 		};
-		DCD792980AA446620042AA60 /* iTM2PrefsController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCD792990AA446620042AA60 /* English */,
-			);
-			name = iTM2PrefsController.nib;
-			sourceTree = "<group>";
-		};
-		DCD7B67F0AA8DDA50042AA60 /* iTM2MacroPrefPane.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCD7B6800AA8DDA50042AA60 /* English */,
-				5134AC560E90E0BA00D7D961 /* French */,
-			);
-			name = iTM2MacroPrefPane.nib;
-			sourceTree = "<group>";
-		};
 		DCD7B6810AA8DDA50042AA60 /* iTM2MacroPrefPane.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3040,15 +3131,6 @@
 				DCAF9AFC09D8131800AFD95F /* French */,
 			);
 			name = Toolbar.strings;
-			sourceTree = "<group>";
-		};
-		DCDC062D09E690310038845F /* iTM2TextNewSyntaxParserVariantController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCDC062E09E690310038845F /* English */,
-				DCDC063909E690310038845F /* French */,
-			);
-			name = iTM2TextNewSyntaxParserVariantController.nib;
 			sourceTree = "<group>";
 		};
 		DCDC062F09E690310038845F /* iTM2TextStyle.strings */ = {
@@ -3067,24 +3149,6 @@
 				DCDC063B09E690310038845F /* French */,
 			);
 			name = iTM2TextStyle_default.strings;
-			sourceTree = "<group>";
-		};
-		DCDC063309E690310038845F /* iTM2TextStyleInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCDC063409E690310038845F /* English */,
-				DCDC063C09E690310038845F /* French */,
-			);
-			name = iTM2TextStyleInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCDC063509E690310038845F /* iTM2TextSyntaxParserAttributesInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCDC063609E690310038845F /* English */,
-				DCDC063D09E690310038845F /* French */,
-			);
-			name = iTM2TextSyntaxParserAttributesInspector.nib;
 			sourceTree = "<group>";
 		};
 		DCDC067E09E696440038845F /* Styles.resources.tgz */ = {
@@ -3114,96 +3178,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		DCF61C0A0854654B003F5F79 /* iTM2StringEncodingDocument.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C0B0854654B003F5F79 /* English */,
-				DCAF9AF409D8131800AFD95F /* French */,
-			);
-			name = iTM2StringEncodingDocument.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C0C0854654B003F5F79 /* iTM2IgnoredWordsEditor.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C0D0854654B003F5F79 /* English */,
-				DCAF9AEF09D8131800AFD95F /* French */,
-			);
-			name = iTM2IgnoredWordsEditor.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C0E0854654B003F5F79 /* iTM2NewProjectController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C0F0854654B003F5F79 /* English */,
-				DCAF9AF009D8131800AFD95F /* French */,
-			);
-			name = iTM2NewProjectController.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C100854654B003F5F79 /* iTM2NoProjectSheetController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C110854654B003F5F79 /* English */,
-				DCAF9AF109D8131800AFD95F /* French */,
-			);
-			name = iTM2NoProjectSheetController.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C120854654B003F5F79 /* iTM2PDFInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C130854654B003F5F79 /* English */,
-				DCAF9AF209D8131800AFD95F /* French */,
-			);
-			name = iTM2PDFInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C140854654B003F5F79 /* iTM2SubdocumentsInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C150854654B003F5F79 /* English */,
-				DCAF9AF509D8131800AFD95F /* French */,
-			);
-			name = iTM2SubdocumentsInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C180854654B003F5F79 /* iTM2SpellCheckerHelper.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C190854654B003F5F79 /* English */,
-				DCAF9AF309D8131800AFD95F /* French */,
-			);
-			name = iTM2SpellCheckerHelper.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C1E0854654B003F5F79 /* iTM2TextInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C1F0854654B003F5F79 /* English */,
-				DCAF9AF709D8131800AFD95F /* French */,
-			);
-			name = iTM2TextInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C200854654B003F5F79 /* iTM2VoidInspector.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C210854654B003F5F79 /* English */,
-				DCAF9AF809D8131800AFD95F /* French */,
-			);
-			name = iTM2VoidInspector.nib;
-			sourceTree = "<group>";
-		};
-		DCF61C240854654B003F5F79 /* NSFindPanel.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCF61C250854654B003F5F79 /* English */,
-				DCAF9AFA09D8131800AFD95F /* French */,
-			);
-			name = NSFindPanel.nib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -3211,7 +3185,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "/iTeXMac2/svn/branch-719/iTM2Foundation/External Inspectors/PDF/Skim-Info.plist";
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
+				INFOPLIST_FILE = "";
+				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_NAME = Skim;
 			};
 			name = Development;
@@ -3220,7 +3196,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "/iTeXMac2/svn/branch-719/iTM2Foundation/External Inspectors/PDF/Skim-Info.plist";
+				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
+				INFOPLIST_FILE = "";
+				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_NAME = Skim;
 			};
 			name = Deployment;
@@ -3580,6 +3558,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 			};
 			name = Development;
 		};
@@ -3587,6 +3566,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 			};
 			name = Deployment;
 		};

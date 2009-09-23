@@ -17,23 +17,27 @@ then
 	exit 1
 fi
 cd "${PRODUCT_NAME}"
-xcodebuild -target "${PRODUCT_NAME}" -configuration "$CONFIGURATION" clean build
-STATUS=$?
-if [ ${STATUS} -ne 0 ]
-then
-    echo "warning: iTeXMac2 INFO, Building ${PRODUCT_NAME} complete... FAILED (${STATUS})"
-	exit ${STATUS}
-fi
 IFS='
 '
 FRAMEWORKS=$(find . -name "*.framework" -print)
+if test -z "$FRAMEWORKS"
+then
+	xcodebuild -target "${PRODUCT_NAME}" -configuration "$CONFIGURATION" clean build
+	STATUS=$?
+	if [ ${STATUS} -ne 0 ]
+	then
+		echo "warning: iTeXMac2 INFO, Building ${PRODUCT_NAME} complete... FAILED (${STATUS})"
+		exit ${STATUS}
+	fi
+	FRAMEWORKS=$(find . -name "*.framework" -print)
+fi
 for BUILD in $FRAMEWORKS
 do
 	break
 done
 FRAMEWORK="${PRODUCT_NAME}.framework"
 rm -Rf ../*.framework
-mv "$BUILD" "../$FRAMEWORK"
+cp -R "$BUILD" "../$FRAMEWORK"
 cd ..
 if [ -L "${FRAMEWORK}/${PRODUCT_NAME}" ]
 then

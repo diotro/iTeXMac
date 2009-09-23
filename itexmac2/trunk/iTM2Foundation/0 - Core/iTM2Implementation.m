@@ -1427,7 +1427,7 @@ To Do List:
     static const char * capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if((_selname[0]>='a') && (_selname[0]<='z'))
         _selname[0] = capitals[_selname[0]-'a'];
-	NSString * K = [NSString stringWithCString:_selname length:n];
+	NSString * K = [NSString stringWithCString:_selname encoding:NSASCIIStringEncoding];
 	free(selname);
 	return K;	
 }
