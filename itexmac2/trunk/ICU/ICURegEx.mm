@@ -5,7 +5,7 @@
 
 #define __TEST_UNICODE_STRING__ 0
 
-#import "regex_public.h"
+#import <unicode/regex_public.h>
 #import <unicode/uchar.h>
 #import <unicode/uregex.h>
 #import <unicode/ustring.h>
