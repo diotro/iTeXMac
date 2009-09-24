@@ -46,8 +46,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		511E8C600E801AD900A8125C /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 511E8C5B0E801ABC00A8125C /* synctex_parser.c */; };
-		511E8C680E801AF400A8125C /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 511E8C5C0E801ABC00A8125C /* synctex_parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		512D9C9C0D59F7C800FF9F6F /* iTM2DVIInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C780D59F7C800FF9F6F /* iTM2DVIInspector.xib */; };
 		512D9C9D0D59F7C800FF9F6F /* iTM2NewTeXProjectController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C7A0D59F7C800FF9F6F /* iTM2NewTeXProjectController.xib */; };
 		512D9C9E0D59F7C800FF9F6F /* iTM2NoTeXProjectSheetController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9C7C0D59F7C800FF9F6F /* iTM2NoTeXProjectSheetController.xib */; };
@@ -71,6 +69,9 @@
 		51314DED0D01C14B00862683 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51314DEC0D01C14B00862683 /* iTM2Gear.png */; };
 		5150EC8B0E8139C300578A0A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5150EC8A0E8139C300578A0A /* libz.dylib */; };
 		51999E360D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51999E340D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib */; };
+		53E563E5106B9A020077B6FD /* synctex_parser_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */; };
+		53F77DD8106B8538005D94C0 /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCB106B84FB005D94C0 /* synctex_parser.c */; };
+		53F77DD9106B8538005D94C0 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 53F77DCC106B84FB005D94C0 /* synctex_parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC05CBBA0919FAB00003E471 /* iTM2TeXDocumentToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC05CBBB0919FAB00003E471 /* iTM2TeXDocumentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = DC05CBB70919FAB00003E471 /* iTM2TeXDocumentToolbar.m */; };
@@ -112,7 +113,7 @@
 		DC6941D90CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6941D70CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.m */; };
 		DC70EFB10BFC56BF006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70EFA80BFC56BF006C6A76 /* Lua.framework */; };
 		DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */; };
-		DC7888830C46801A00E30CB0 /* iTM2DVIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7888810C46801900E30CB0 /* iTM2DVIKit.h */; };
+		DC7888830C46801A00E30CB0 /* iTM2DVIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7888810C46801900E30CB0 /* iTM2DVIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7888840C46801A00E30CB0 /* iTM2DVIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7888820C46801900E30CB0 /* iTM2DVIKit.m */; };
 		DC7E91B808903606007D0CB2 /* iTM2TeXStorageKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7E91A208903606007D0CB2 /* iTM2TeXStorageKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7E91B908903606007D0CB2 /* iTM2TeXStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7E91A308903606007D0CB2 /* iTM2TeXStorageKit.m */; };
@@ -300,43 +301,6 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		511E8C390E801ABC00A8125C /* INSTALL */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = INSTALL; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/INSTALL; sourceTree = "<absolute>"; };
-		511E8C3A0E801ABC00A8125C /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/Makefile; sourceTree = "<absolute>"; };
-		511E8C3B0E801ABC00A8125C /* Makefile.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makefile.in; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/Makefile.in; sourceTree = "<absolute>"; };
-		511E8C3D0E801ABC00A8125C /* synctex.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = synctex.1; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/man1/synctex.1; sourceTree = "<absolute>"; };
-		511E8C3F0E801ABC00A8125C /* synctex.5 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synctex.5; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/man5/synctex.5; sourceTree = "<absolute>"; };
-		511E8C400E801ABC00A8125C /* patch.9124.diff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = patch.9124.diff; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/patch.9124.diff; sourceTree = "<absolute>"; };
-		511E8C410E801ABC00A8125C /* patch.9628.diff */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = patch.9628.diff; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/patch.9628.diff; sourceTree = "<absolute>"; };
-		511E8C420E801ABC00A8125C /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.txt; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/README.txt; sourceTree = "<absolute>"; };
-		511E8C430E801ABC00A8125C /* synctex-common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "synctex-common.h"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-common.h"; sourceTree = "<absolute>"; };
-		511E8C440E801ABC00A8125C /* synctex-e-mem.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-e-mem.ch0"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-e-mem.ch0"; sourceTree = "<absolute>"; };
-		511E8C450E801ABC00A8125C /* synctex-e-mem.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-e-mem.ch1"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-e-mem.ch1"; sourceTree = "<absolute>"; };
-		511E8C460E801ABC00A8125C /* synctex-e-rec.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-e-rec.ch0"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-e-rec.ch0"; sourceTree = "<absolute>"; };
-		511E8C470E801ABC00A8125C /* synctex-e-rec.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-e-rec.ch1"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-e-rec.ch1"; sourceTree = "<absolute>"; };
-		511E8C480E801ABC00A8125C /* synctex-etex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "synctex-etex.h"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-etex.h"; sourceTree = "<absolute>"; };
-		511E8C490E801ABC00A8125C /* synctex-mem.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-mem.ch0"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-mem.ch0"; sourceTree = "<absolute>"; };
-		511E8C4A0E801ABC00A8125C /* synctex-mem.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-mem.ch1"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-mem.ch1"; sourceTree = "<absolute>"; };
-		511E8C4B0E801ABC00A8125C /* synctex-mem.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-mem.ch2"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-mem.ch2"; sourceTree = "<absolute>"; };
-		511E8C4C0E801ABC00A8125C /* synctex-pdf-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-pdf-rec.ch2"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-pdf-rec.ch2"; sourceTree = "<absolute>"; };
-		511E8C4D0E801ABC00A8125C /* synctex-pdftex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "synctex-pdftex.h"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-pdftex.h"; sourceTree = "<absolute>"; };
-		511E8C4E0E801ABC00A8125C /* synctex-rec.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-rec.ch0"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-rec.ch0"; sourceTree = "<absolute>"; };
-		511E8C4F0E801ABC00A8125C /* synctex-rec.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-rec.ch1"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-rec.ch1"; sourceTree = "<absolute>"; };
-		511E8C500E801ABC00A8125C /* synctex-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-rec.ch2"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-rec.ch2"; sourceTree = "<absolute>"; };
-		511E8C510E801ABC00A8125C /* synctex-tex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "synctex-tex.h"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-tex.h"; sourceTree = "<absolute>"; };
-		511E8C520E801ABC00A8125C /* synctex-xe-mem.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-xe-mem.ch2"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-xe-mem.ch2"; sourceTree = "<absolute>"; };
-		511E8C530E801ABC00A8125C /* synctex-xe-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-xe-rec.ch2"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-xe-rec.ch2"; sourceTree = "<absolute>"; };
-		511E8C540E801ABC00A8125C /* synctex-xe-rec.ch3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "synctex-xe-rec.ch3"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-xe-rec.ch3"; sourceTree = "<absolute>"; };
-		511E8C550E801ABC00A8125C /* synctex-xetex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "synctex-xetex.h"; path = "/Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex-xetex.h"; sourceTree = "<absolute>"; };
-		511E8C560E801ABC00A8125C /* synctex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = synctex.c; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex.c; sourceTree = "<absolute>"; };
-		511E8C570E801ABC00A8125C /* synctex.defines */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synctex.defines; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex.defines; sourceTree = "<absolute>"; };
-		511E8C580E801ABC00A8125C /* synctex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = synctex.h; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex.h; sourceTree = "<absolute>"; };
-		511E8C590E801ABC00A8125C /* synctex.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synctex.mk; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex.mk; sourceTree = "<absolute>"; };
-		511E8C5A0E801ABC00A8125C /* synctex_main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = synctex_main.c; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_main.c; sourceTree = "<absolute>"; };
-		511E8C5B0E801ABC00A8125C /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = synctex_parser.c; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_parser.c; sourceTree = "<absolute>"; };
-		511E8C5C0E801ABC00A8125C /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = synctex_parser.h; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_parser.h; sourceTree = "<absolute>"; };
-		511E8C5D0E801ABC00A8125C /* synctex_parser_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = synctex_parser_local.h; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_parser_local.h; sourceTree = "<absolute>"; };
-		511E8C5E0E801ABC00A8125C /* synctex_parser_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synctex_parser_readme.txt; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_parser_readme.txt; sourceTree = "<absolute>"; };
-		511E8C5F0E801ABC00A8125C /* synctex_parser_version.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = synctex_parser_version.txt; path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/synctex_parser_version.txt; sourceTree = "<absolute>"; };
 		512D9C790D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2DVIInspector.xib; sourceTree = "<group>"; };
 		512D9C7B0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NewTeXProjectController.xib; sourceTree = "<group>"; };
 		512D9C7D0D59F7C800FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NoTeXProjectSheetController.xib; sourceTree = "<group>"; };
@@ -378,6 +342,47 @@
 		5150EC8A0E8139C300578A0A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		51999E350D92D744004F0D09 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
 		51999E370D92D752004F0D09 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
+		53F77DAC106B84FB005D94C0 /* synctex.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex.am; sourceTree = "<group>"; };
+		53F77DAD106B84FB005D94C0 /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		53F77DAF106B84FB005D94C0 /* synctex.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = synctex.1; sourceTree = "<group>"; };
+		53F77DB1106B84FB005D94C0 /* synctex.5 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex.5; sourceTree = "<group>"; };
+		53F77DB2106B84FB005D94C0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		53F77DB3106B84FB005D94C0 /* synctex-common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-common.h"; sourceTree = "<group>"; };
+		53F77DB4106B84FB005D94C0 /* synctex-convert.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "synctex-convert.sh"; sourceTree = "<group>"; };
+		53F77DB5106B84FB005D94C0 /* synctex-e-mem.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-mem.ch0"; sourceTree = "<group>"; };
+		53F77DB6106B84FB005D94C0 /* synctex-e-mem.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-mem.ch1"; sourceTree = "<group>"; };
+		53F77DB7106B84FB005D94C0 /* synctex-e-rec.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-rec.ch0"; sourceTree = "<group>"; };
+		53F77DB8106B84FB005D94C0 /* synctex-e-rec.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-rec.ch1"; sourceTree = "<group>"; };
+		53F77DB9106B84FB005D94C0 /* synctex-etex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-etex.h"; sourceTree = "<group>"; };
+		53F77DBA106B84FB005D94C0 /* synctex-mem.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-mem.ch0"; sourceTree = "<group>"; };
+		53F77DBB106B84FB005D94C0 /* synctex-mem.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-mem.ch1"; sourceTree = "<group>"; };
+		53F77DBC106B84FB005D94C0 /* synctex-mem.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-mem.ch2"; sourceTree = "<group>"; };
+		53F77DBD106B84FB005D94C0 /* synctex-pdf-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-pdf-rec.ch2"; sourceTree = "<group>"; };
+		53F77DBE106B84FB005D94C0 /* synctex-pdftex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-pdftex.h"; sourceTree = "<group>"; };
+		53F77DBF106B84FB005D94C0 /* synctex-rec.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-rec.ch0"; sourceTree = "<group>"; };
+		53F77DC0106B84FB005D94C0 /* synctex-rec.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-rec.ch1"; sourceTree = "<group>"; };
+		53F77DC1106B84FB005D94C0 /* synctex-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-rec.ch2"; sourceTree = "<group>"; };
+		53F77DC2106B84FB005D94C0 /* synctex-tex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-tex.h"; sourceTree = "<group>"; };
+		53F77DC3106B84FB005D94C0 /* synctex-xe-mem.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-xe-mem.ch2"; sourceTree = "<group>"; };
+		53F77DC4106B84FB005D94C0 /* synctex-xe-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-xe-rec.ch2"; sourceTree = "<group>"; };
+		53F77DC5106B84FB005D94C0 /* synctex-xe-rec.ch3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-xe-rec.ch3"; sourceTree = "<group>"; };
+		53F77DC6106B84FB005D94C0 /* synctex-xetex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-xetex.h"; sourceTree = "<group>"; };
+		53F77DC7106B84FB005D94C0 /* synctex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex.c; sourceTree = "<group>"; };
+		53F77DC8106B84FB005D94C0 /* synctex.defines */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex.defines; sourceTree = "<group>"; };
+		53F77DC9106B84FB005D94C0 /* synctex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex.h; sourceTree = "<group>"; };
+		53F77DCA106B84FB005D94C0 /* synctex_main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_main.c; sourceTree = "<group>"; };
+		53F77DCB106B84FB005D94C0 /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser.c; sourceTree = "<group>"; };
+		53F77DCC106B84FB005D94C0 /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser.h; sourceTree = "<group>"; };
+		53F77DCD106B84FB005D94C0 /* synctex_parser_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser_local.h; sourceTree = "<group>"; };
+		53F77DCE106B84FB005D94C0 /* synctex_parser_readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex_parser_readme.txt; sourceTree = "<group>"; };
+		53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser_utils.c; sourceTree = "<group>"; };
+		53F77DD0106B84FB005D94C0 /* synctex_parser_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser_utils.h; sourceTree = "<group>"; };
+		53F77DD1106B84FB005D94C0 /* synctex_parser_version.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex_parser_version.txt; sourceTree = "<group>"; };
+		53F77DD3106B84FB005D94C0 /* bartest.synctex.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = bartest.synctex.gz; sourceTree = "<group>"; };
+		53F77DD4106B84FB005D94C0 /* footest.synctex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = footest.synctex; sourceTree = "<group>"; };
+		53F77DD5106B84FB005D94C0 /* LM-Volume-manuscript.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LM-Volume-manuscript.tex"; sourceTree = "<group>"; };
+		53F77DD6106B84FB005D94C0 /* story-zapfino.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "story-zapfino.tex"; sourceTree = "<group>"; };
+		53F77DD7106B84FB005D94C0 /* test file.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "test file.sh"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Prepare iTM2Foundation-Info.plist"; sourceTree = "<group>"; };
 		DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXDocumentToolbar.h; sourceTree = "<group>"; };
@@ -639,67 +644,86 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		511E8C380E801ABC00A8125C /* synctexdir */ = {
+		53F77DAA106B84FB005D94C0 /* synctexdir */ = {
 			isa = PBXGroup;
 			children = (
-				511E8C390E801ABC00A8125C /* INSTALL */,
-				511E8C3A0E801ABC00A8125C /* Makefile */,
-				511E8C3B0E801ABC00A8125C /* Makefile.in */,
-				511E8C3C0E801ABC00A8125C /* man1 */,
-				511E8C3E0E801ABC00A8125C /* man5 */,
-				511E8C400E801ABC00A8125C /* patch.9124.diff */,
-				511E8C410E801ABC00A8125C /* patch.9628.diff */,
-				511E8C420E801ABC00A8125C /* README.txt */,
-				511E8C430E801ABC00A8125C /* synctex-common.h */,
-				511E8C440E801ABC00A8125C /* synctex-e-mem.ch0 */,
-				511E8C450E801ABC00A8125C /* synctex-e-mem.ch1 */,
-				511E8C460E801ABC00A8125C /* synctex-e-rec.ch0 */,
-				511E8C470E801ABC00A8125C /* synctex-e-rec.ch1 */,
-				511E8C480E801ABC00A8125C /* synctex-etex.h */,
-				511E8C490E801ABC00A8125C /* synctex-mem.ch0 */,
-				511E8C4A0E801ABC00A8125C /* synctex-mem.ch1 */,
-				511E8C4B0E801ABC00A8125C /* synctex-mem.ch2 */,
-				511E8C4C0E801ABC00A8125C /* synctex-pdf-rec.ch2 */,
-				511E8C4D0E801ABC00A8125C /* synctex-pdftex.h */,
-				511E8C4E0E801ABC00A8125C /* synctex-rec.ch0 */,
-				511E8C4F0E801ABC00A8125C /* synctex-rec.ch1 */,
-				511E8C500E801ABC00A8125C /* synctex-rec.ch2 */,
-				511E8C510E801ABC00A8125C /* synctex-tex.h */,
-				511E8C520E801ABC00A8125C /* synctex-xe-mem.ch2 */,
-				511E8C530E801ABC00A8125C /* synctex-xe-rec.ch2 */,
-				511E8C540E801ABC00A8125C /* synctex-xe-rec.ch3 */,
-				511E8C550E801ABC00A8125C /* synctex-xetex.h */,
-				511E8C560E801ABC00A8125C /* synctex.c */,
-				511E8C570E801ABC00A8125C /* synctex.defines */,
-				511E8C580E801ABC00A8125C /* synctex.h */,
-				511E8C590E801ABC00A8125C /* synctex.mk */,
-				511E8C5A0E801ABC00A8125C /* synctex_main.c */,
-				511E8C5B0E801ABC00A8125C /* synctex_parser.c */,
-				511E8C5C0E801ABC00A8125C /* synctex_parser.h */,
-				511E8C5D0E801ABC00A8125C /* synctex_parser_local.h */,
-				511E8C5E0E801ABC00A8125C /* synctex_parser_readme.txt */,
-				511E8C5F0E801ABC00A8125C /* synctex_parser_version.txt */,
+				53F77DAB106B84FB005D94C0 /* am */,
+				53F77DAD106B84FB005D94C0 /* ChangeLog */,
+				53F77DAE106B84FB005D94C0 /* man1 */,
+				53F77DB0106B84FB005D94C0 /* man5 */,
+				53F77DB2106B84FB005D94C0 /* README.txt */,
+				53F77DB3106B84FB005D94C0 /* synctex-common.h */,
+				53F77DB4106B84FB005D94C0 /* synctex-convert.sh */,
+				53F77DB5106B84FB005D94C0 /* synctex-e-mem.ch0 */,
+				53F77DB6106B84FB005D94C0 /* synctex-e-mem.ch1 */,
+				53F77DB7106B84FB005D94C0 /* synctex-e-rec.ch0 */,
+				53F77DB8106B84FB005D94C0 /* synctex-e-rec.ch1 */,
+				53F77DB9106B84FB005D94C0 /* synctex-etex.h */,
+				53F77DBA106B84FB005D94C0 /* synctex-mem.ch0 */,
+				53F77DBB106B84FB005D94C0 /* synctex-mem.ch1 */,
+				53F77DBC106B84FB005D94C0 /* synctex-mem.ch2 */,
+				53F77DBD106B84FB005D94C0 /* synctex-pdf-rec.ch2 */,
+				53F77DBE106B84FB005D94C0 /* synctex-pdftex.h */,
+				53F77DBF106B84FB005D94C0 /* synctex-rec.ch0 */,
+				53F77DC0106B84FB005D94C0 /* synctex-rec.ch1 */,
+				53F77DC1106B84FB005D94C0 /* synctex-rec.ch2 */,
+				53F77DC2106B84FB005D94C0 /* synctex-tex.h */,
+				53F77DC3106B84FB005D94C0 /* synctex-xe-mem.ch2 */,
+				53F77DC4106B84FB005D94C0 /* synctex-xe-rec.ch2 */,
+				53F77DC5106B84FB005D94C0 /* synctex-xe-rec.ch3 */,
+				53F77DC6106B84FB005D94C0 /* synctex-xetex.h */,
+				53F77DC7106B84FB005D94C0 /* synctex.c */,
+				53F77DC8106B84FB005D94C0 /* synctex.defines */,
+				53F77DC9106B84FB005D94C0 /* synctex.h */,
+				53F77DCA106B84FB005D94C0 /* synctex_main.c */,
+				53F77DCB106B84FB005D94C0 /* synctex_parser.c */,
+				53F77DCC106B84FB005D94C0 /* synctex_parser.h */,
+				53F77DCD106B84FB005D94C0 /* synctex_parser_local.h */,
+				53F77DCE106B84FB005D94C0 /* synctex_parser_readme.txt */,
+				53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */,
+				53F77DD0106B84FB005D94C0 /* synctex_parser_utils.h */,
+				53F77DD1106B84FB005D94C0 /* synctex_parser_version.txt */,
+				53F77DD2106B84FB005D94C0 /* tests */,
 			);
-			path = synctexdir;
+			name = synctexdir;
+			path = ../synctexdir;
+			sourceTree = SOURCE_ROOT;
+		};
+		53F77DAB106B84FB005D94C0 /* am */ = {
+			isa = PBXGroup;
+			children = (
+				53F77DAC106B84FB005D94C0 /* synctex.am */,
+			);
+			path = am;
 			sourceTree = "<group>";
 		};
-		511E8C3C0E801ABC00A8125C /* man1 */ = {
+		53F77DAE106B84FB005D94C0 /* man1 */ = {
 			isa = PBXGroup;
 			children = (
-				511E8C3D0E801ABC00A8125C /* synctex.1 */,
+				53F77DAF106B84FB005D94C0 /* synctex.1 */,
 			);
-			name = man1;
-			path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/man1;
-			sourceTree = "<absolute>";
+			path = man1;
+			sourceTree = "<group>";
 		};
-		511E8C3E0E801ABC00A8125C /* man5 */ = {
+		53F77DB0106B84FB005D94C0 /* man5 */ = {
 			isa = PBXGroup;
 			children = (
-				511E8C3F0E801ABC00A8125C /* synctex.5 */,
+				53F77DB1106B84FB005D94C0 /* synctex.5 */,
 			);
-			name = man5;
-			path = /Volumes/HD1/Users/coder/dev/texlive/source/texk/web2c/synctexdir/man5;
-			sourceTree = "<absolute>";
+			path = man5;
+			sourceTree = "<group>";
+		};
+		53F77DD2106B84FB005D94C0 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				53F77DD3106B84FB005D94C0 /* bartest.synctex.gz */,
+				53F77DD4106B84FB005D94C0 /* footest.synctex */,
+				53F77DD5106B84FB005D94C0 /* LM-Volume-manuscript.tex */,
+				53F77DD6106B84FB005D94C0 /* story-zapfino.tex */,
+				53F77DD7106B84FB005D94C0 /* test file.sh */,
+			);
+			path = tests;
+			sourceTree = "<group>";
 		};
 		DC225F620AE53C1A00186582 /* Test TeX Application */ = {
 			isa = PBXGroup;
@@ -779,7 +803,7 @@
 		DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				511E8C380E801ABC00A8125C /* synctexdir */,
+				53F77DAA106B84FB005D94C0 /* synctexdir */,
 				DC7E918908903606007D0CB2 /* Style */,
 				DCC7F3DF0854AC9200F3EB8A /* iTM2TeXFoundation-Info.plist */,
 				DCA45CBB085EEA6B00AF1C1F /* iTM2TeXFoundation.hdoc */,
@@ -906,6 +930,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53F77DD9106B8538005D94C0 /* synctex_parser.h in Headers */,
 				DCC7F46F0854AC9200F3EB8A /* iTM2PDFSYNCKit.h in Headers */,
 				DCC7F4710854AC9200F3EB8A /* iTM2TeXDocumentKit.h in Headers */,
 				DCC7F4750854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.h in Headers */,
@@ -926,7 +951,6 @@
 				DCC3D16C0926A425005471BD /* iTM2TextWatcher.h in Headers */,
 				DC7888830C46801A00E30CB0 /* iTM2DVIKit.h in Headers */,
 				DC6941D80CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.h in Headers */,
-				511E8C680E801AF400A8125C /* synctex_parser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1328,7 +1352,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				511E8C600E801AD900A8125C /* synctex_parser.c in Sources */,
+				53F77DD8106B8538005D94C0 /* synctex_parser.c in Sources */,
+				53E563E5106B9A020077B6FD /* synctex_parser_utils.c in Sources */,
 				DCC7F4700854AC9200F3EB8A /* iTM2PDFSYNCKit.m in Sources */,
 				DCC7F4720854AC9200F3EB8A /* iTM2TeXDocumentKit.m in Sources */,
 				DCC7F4760854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.m in Sources */,

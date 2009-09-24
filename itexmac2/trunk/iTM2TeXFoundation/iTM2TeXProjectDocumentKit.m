@@ -319,7 +319,7 @@ To Do List:
     NSString * output = @"";
     NSString * variant = @"";
     NSString * extension = @"";
-	ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"(?:\\((.*?)\\))?([^\\+-]*)(?:\\+([^-]*))?(?:-(.*))?" options:nil error:nil] autorelease];
+	ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"(?:\\((.*?)\\))?([^\\+-]*)(?:\\+([^-]*))?(?:-(.*))?" options:0L error:nil] autorelease];
     NSString * name = [[self lastPathComponent] stringByDeletingPathExtension];
 	[RE setInputString:name];
 	if([RE nextMatch] && ([RE numberOfCaptureGroups]>3))
@@ -1686,7 +1686,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-- (BOOL)validateMenuItem:(id <NSMenuItem>) sender;
+- (BOOL)validateMenuItem:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

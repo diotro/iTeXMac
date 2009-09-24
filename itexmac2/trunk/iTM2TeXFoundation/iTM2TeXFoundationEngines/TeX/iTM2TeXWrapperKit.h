@@ -22,12 +22,94 @@
 */
 
 @interface iTM2EnginePDFTeX: iTM2TeXPEngineInspector
+- (IBAction)editFormat:(id)sender;
+- (IBAction)chooseFormat:(id)sender;
+- (IBAction)switchFormat:(id)sender;
+- (IBAction)toggleProgName:(id)sender;
+- (IBAction)editJobName:(id)sender;
+- (IBAction)toggleTable:(id)sender;
+- (IBAction)editProgName:(id)sender;
+- (IBAction)chooseProgName:(id)sender;
+- (IBAction)toggleFrenchPro:(id)sender;
+- (IBAction)editTable:(id)sender;
+- (IBAction)toggleParseTable:(id)sender;
+- (IBAction)toggleSrcSpecials:(id)sender;
+- (IBAction)toggleOutputComment:(id)sender;
+- (IBAction)editOutputComment:(id)sender;
+- (IBAction)toggleIni:(id)sender;
+- (IBAction)toggleEnc:(id)sender;
+- (IBAction)toggleMLTeX:(id)sender;
+- (IBAction)editJobName:(id)sender;
+- (IBAction)toggleJobName:(id)sender;
+- (IBAction)editOutputDirectory:(id)sender;
+- (IBAction)toggleOutputDirectory:(id)sender;
+- (IBAction)toggleEnableETeX:(id)sender;
+- (IBAction)switchInteraction:(id)sender;
+- (IBAction)toggleHaltOnError:(id)sender;
+- (IBAction)toggleRecorder:(id)sender;
+- (IBAction)toggleEightBit:(id)sender;
+- (IBAction)toggleFileLineError:(id)sender;
 @end
 
 @interface iTM2EngineTeX: iTM2TeXPEngineInspector
+- (IBAction)editFormat:(id)sender;
+- (IBAction)chooseFormat:(id)sender;
+- (IBAction)switchFormat:(id)sender;
+- (IBAction)toggleProgName:(id)sender;
+- (IBAction)editJobName:(id)sender;
+- (IBAction)toggleTable:(id)sender;
+- (IBAction)editProgName:(id)sender;
+- (IBAction)chooseProgName:(id)sender;
+- (IBAction)toggleFrenchPro:(id)sender;
+- (IBAction)editTable:(id)sender;
+- (IBAction)toggleParseTable:(id)sender;
+- (IBAction)toggleSrcSpecials:(id)sender;
+- (IBAction)toggleOutputComment:(id)sender;
+- (IBAction)editOutputComment:(id)sender;
+- (IBAction)toggleIni:(id)sender;
+- (IBAction)toggleEnc:(id)sender;
+- (IBAction)toggleMLTeX:(id)sender;
+- (IBAction)editJobName:(id)sender;
+- (IBAction)toggleJobName:(id)sender;
+- (IBAction)editOutputDirectory:(id)sender;
+- (IBAction)toggleOutputDirectory:(id)sender;
+- (IBAction)switchInteraction:(id)sender;
+- (IBAction)toggleHaltOnError:(id)sender;
+- (IBAction)toggleRecorder:(id)sender;
+- (IBAction)toggleFileLineError:(id)sender;
 @end
 
 @interface iTM2EngineXeTeX: iTM2TeXPEngineInspector
+- (IBAction)editFormat:(id)sender;
+- (IBAction)chooseFormat:(id)sender;
+- (IBAction)switchFormat:(id)sender;
+- (IBAction)toggleProgName:(id)sender;
+- (IBAction)editJobName:(id)sender;
+- (IBAction)toggleTable:(id)sender;
+- (IBAction)editProgName:(id)sender;
+- (IBAction)chooseProgName:(id)sender;
+- (IBAction)toggleFrenchPro:(id)sender;
+- (IBAction)editTable:(id)sender;
+- (IBAction)toggleParseTable:(id)sender;
+- (IBAction)toggleSrcSpecials:(id)sender;
+- (IBAction)toggleOutputComment:(id)sender;
+- (IBAction)editOutputComment:(id)sender;
+- (IBAction)toggleIni:(id)sender;
+- (IBAction)toggleEnc:(id)sender;
+- (IBAction)toggleMLTeX:(id)sender;
+- (IBAction)editJobName:(id)sender;
+- (IBAction)toggleJobName:(id)sender;
+- (IBAction)editOutputDirectory:(id)sender;
+- (IBAction)toggleOutputDirectory:(id)sender;
+- (IBAction)toggleEnableETeX:(id)sender;
+- (IBAction)switchInteraction:(id)sender;
+- (IBAction)switchOutputFormat:(id)sender;
+- (IBAction)switchOutputDriver:(id)sender;
+- (IBAction)editOutputDriver:(id)sender;
+- (IBAction)toggleHaltOnError:(id)sender;
+- (IBAction)toggleRecorder:(id)sender;
+- (IBAction)toggleEightBit:(id)sender;
+- (IBAction)toggleFileLineError:(id)sender;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXEWrapperKit

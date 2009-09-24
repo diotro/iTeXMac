@@ -27,16 +27,6 @@
 		DCB26F250B852AE000868348 /* ICURegEx.mm in Sources */ = {isa = PBXBuildFile; fileRef = DCB26F240B852AE000868348 /* ICURegEx.mm */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		DC146B480B877D7400E86DA3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC146B470B877D5F00E86DA3;
-			remoteInfo = "configure/make icu";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32A70AAB03705E1F00C91783 /* CocoaICU_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaICU_Prefix.pch; sourceTree = "<group>"; };
@@ -9547,7 +9537,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				DC146B490B877D7400E86DA3 /* PBXTargetDependency */,
 			);
 			name = ICU;
 			productName = ICU;
@@ -9600,14 +9589,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		DC146B490B877D7400E86DA3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC146B470B877D5F00E86DA3 /* configure/make icu */;
-			targetProxy = DC146B480B877D7400E86DA3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
 		1DEB927908733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -9616,7 +9597,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 			};
 			name = Debug;
 		};
@@ -9627,7 +9608,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 			};
 			name = Release;
 		};

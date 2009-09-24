@@ -371,7 +371,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  originalFileURL
-- (NSString *)originalFileURL;
+- (NSURL *)originalFileURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

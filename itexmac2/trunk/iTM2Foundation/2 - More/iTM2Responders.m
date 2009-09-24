@@ -325,7 +325,7 @@ To Do List:
 	return([[[sender formatter] maximum] intValue] > 1);//?
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takePDFNewPageModeFromTag:
-- (IBAction)takePDFNewPageModeFromTag:(id <NSMenuItem>)sender;
+- (IBAction)takePDFNewPageModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -337,7 +337,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakePDFNewPageModeFromTag:
-- (BOOL)validateTakePDFNewPageModeFromTag:(id <NSMenuItem>)sender;
+- (BOOL)validateTakePDFNewPageModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -349,7 +349,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takePDFPageLayoutModeFromTag:
-- (IBAction)takePDFPageLayoutModeFromTag:(id <NSMenuItem>)sender;
+- (IBAction)takePDFPageLayoutModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -362,7 +362,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateTakePDFPageLayoutModeFromTag:
-- (BOOL)validateTakePDFPageLayoutModeFromTag:(id <NSMenuItem>)sender;
+- (BOOL)validateTakePDFPageLayoutModeFromTag:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -488,7 +488,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTogglePDFSlidesLandscapeMode:
-- (BOOL)validateTogglePDFSlidesLandscapeMode:(id <NSMenuItem>)sender;
+- (BOOL)validateTogglePDFSlidesLandscapeMode:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005

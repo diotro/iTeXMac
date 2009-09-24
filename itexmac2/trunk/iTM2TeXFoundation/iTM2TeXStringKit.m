@@ -44,7 +44,7 @@ To Do List:implement some kind of balance range for range
 	{
 		NSError * localError = nil;
 //		iTM2TeXStringController_RE = [[ICURegEx alloc] initWithSearchPattern:@"(?!\\(?:\\{2})*)\\[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
-		iTM2TeXStringController_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
+		iTM2TeXStringController_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:0L error:&localError];
 		if(!iTM2TeXStringController_RE)
 		{
 			iTM2_LOG(@"RE unavailable");

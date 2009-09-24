@@ -24,6 +24,7 @@
 //OPEN_MAX limits.h
 
 #import "iTM2HelpSupport.h"
+#import "Mail.h"
 
 @interface iTM2MailController:iTM2Inspector
 + (id)sharedMailController;
@@ -89,7 +90,7 @@ static iTM2MailController * iTM2_sharedMailController;
 }
 - (BOOL)canSend;
 {
-	return [NSMailDelivery hasDeliveryClassBeenConfigured] && [metaGETTER boolValue];
+	return [metaGETTER boolValue];
 }
 - (void)setCanSend:(BOOL)yorn;
 {
@@ -98,6 +99,36 @@ static iTM2MailController * iTM2_sharedMailController;
 }
 - (IBAction)send:(id)sender;
 {
+#if 1
+	/* FROM apple sample code SBSendEmail */
+	/* create a Scripting Bridge object for talking to the Mail application */
+    MailApplication *mail = [SBApplication applicationWithBundleIdentifier:@"com.apple.Mail"];
+    
+	/* create a new outgoing message object */
+    MailOutgoingMessage *emailMessage =	[[[mail classForScriptingClass:@"outgoing message"] alloc] initWithProperties:
+										 [NSDictionary dictionaryWithObjectsAndKeys:
+										  @"iTeXMac2 Help Request", @"subject",
+										  [[[self textView] textStorage] string], @"content",
+										  nil]];
+	
+	/* add the object to the mail app  */
+    [[mail outgoingMessages] addObject: emailMessage];
+	
+	/* set the sender, show the message */
+    emailMessage.sender = ([self mailSender]?:@"iTeXMac2_User");
+    emailMessage.visible = YES;
+	
+	/* create a new recipient and add it to the recipients list */
+    MailToRecipient *theRecipient =	[[[mail classForScriptingClass:@"to recipient"] alloc]
+									 initWithProperties: [NSDictionary dictionaryWithObjectsAndKeys:
+														  @"jlaurens@users.sourceforge.net", @"address",
+														  nil]];
+    [emailMessage.toRecipients addObject: theRecipient];
+    
+	
+	/* send the message */
+    [emailMessage send];
+#else
 	if(![NSMailDelivery hasDeliveryClassBeenConfigured])
 	{
 		NSBeep();
@@ -113,7 +144,7 @@ static iTM2MailController * iTM2_sharedMailController;
 		[headers setObject: @"Apple Message" forKey:@"X-Mailer"];
 		[headers setObject: @"multipart/mixed" forKey:@"Content-Type"];
 		[headers setObject: @"1.0" forKey:@"Mime-Version"];
-		if(![NSMailDelivery deliverMessage: [[self textView] textStorage]
+		if(![NSMailDelivery deliverMessage: [self.textView textStorage]
 										headers: headers
 										 format: NSMIMEMailFormat
 									   protocol: NSSMTPDeliveryProtocol])
@@ -122,6 +153,7 @@ static iTM2MailController * iTM2_sharedMailController;
 			[self setCanSend:NO];
 		}
 	}
+#endif
 	[self close];
 	return;
 }

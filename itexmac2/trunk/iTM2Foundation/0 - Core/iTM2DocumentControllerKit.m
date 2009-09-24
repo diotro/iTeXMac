@@ -1034,7 +1034,7 @@ To Do List: retain?
     if(limit == 0) return 0;
     NSFileManager * dfm = DFM;
     NSMutableArray * hiddenFiles = [NSMutableArray array];
-    NSEnumerator * E = [[[NSString stringWithContentsOfFile:@".hidden"] componentsSeparatedByString:@"\n"] objectEnumerator];
+    NSEnumerator * E = [[[NSString stringWithContentsOfFile:@".hidden" usedEncoding:nil error:nil] componentsSeparatedByString:@"\n"] objectEnumerator];
     NSString * O;
     while(O = [E nextObject])
         [hiddenFiles addObjectsFromArray:[O componentsSeparatedByString:@"\r"]];

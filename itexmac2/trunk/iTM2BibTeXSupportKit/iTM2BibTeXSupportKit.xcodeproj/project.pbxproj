@@ -70,7 +70,7 @@
 		DC2072DF08F00B4700EBF1B6 /* iTM2BibTeXSupportKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2BibTeXSupportKit.m; sourceTree = "<group>"; };
 		DC2CA6AF0855D0CE00128F14 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = InfoPlist.strings; sourceTree = "<group>"; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2BibTeXSupportKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2BibTeXSupportKit-Prefix.pch"; sourceTree = "<group>"; };
-		DC2CA71A0855D19F00128F14 /* iTM2BibTeXSupportKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2BibTeXSupportKit-Info.plist"; sourceTree = "<group>"; };
+		DC2CA71A0855D19F00128F14 /* iTM2BibTeXSupportKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2BibTeXSupportKit-Info.plist"; sourceTree = "<group>"; };
 		DC3B41EA0A4ADFC800E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41EB0A4ADFC800E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC5B69E10A4B6E9E00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		DCAF9B1309D8135600AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = Resources/French.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		DCCD2ED409E147FE0003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCD2EDB09E148340003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
-		DCD3A6760A38FAE900B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
+		DCD3A6760A38FAE900B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
 		DCE52F1A0C0F3BC500F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 

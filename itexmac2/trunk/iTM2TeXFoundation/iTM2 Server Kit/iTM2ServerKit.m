@@ -209,7 +209,7 @@ To Do List: see the warning below
 		}
 		while((D = [FH availableData]), [D length]);
 	}
-	NSLog(MS);
+	NSLog(@"%@",MS);
 //iTM2_END;
 	return;
 }
@@ -841,7 +841,7 @@ To Do List:
                 [MS appendFormat:@"! Brief reason: %@\n", message];
             if(message = [errorInfo objectForKey:NSAppleScriptErrorRange])
                 [MS appendFormat:@"! Error range: %@\n", message];
-            iTM2_LOG(MS);
+            iTM2_LOG(@"%@",MS);
         }
     }
 //iTM2_END;

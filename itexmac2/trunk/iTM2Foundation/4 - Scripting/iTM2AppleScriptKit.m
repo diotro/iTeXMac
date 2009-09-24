@@ -198,7 +198,7 @@ To Do List:
             NSString * classCodeObj = [d objectForKey:@"AppleEventCode"];
             if([classCodeObj length] > 3)
             {
-                unsigned long * classCode = (unsigned long *) [classCodeObj cString];
+                unsigned long * classCode = (unsigned long *) [classCodeObj UTF8String];
                 NSScriptClassDescription * SCD = [self classDescriptionWithAppleEventCode:* classCode];
                 if(SCD)
                 {

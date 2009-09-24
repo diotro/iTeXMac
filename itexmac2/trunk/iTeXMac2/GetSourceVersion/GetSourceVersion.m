@@ -1,4 +1,8 @@
 // jlaurens AT users DOT sourceforge DOT net
+#if 0
+This should change to something like
+defaults read "FULL PATH/iTeXMac2.app/Contents/Info" iTM2SourceVersion
+#endif
 #import <Foundation/Foundation.h>
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];

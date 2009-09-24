@@ -3037,7 +3037,7 @@ To Do List:
 	BOOL result = [super writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
 	if(!result)
 	{
-		iTM2_LOG(@"WHAT CAN I DO,no save possible...%@",(outErrorPtr?*outErrorPtr:@"NOTHING"));
+		iTM2_LOG(@"WHAT CAN I DO,no save possible...%@",(outErrorPtr?(id)(*outErrorPtr):@"NOTHING"));
 	}
 	NSString * fullProjectPath = [absoluteURL path];
 #warning DEBUG
@@ -3397,7 +3397,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * pattern = [NSString stringWithFormat:@"(^.*\\.%@)(?=/)",[[SDC iTM2_wrapperPathExtension] stringByEscapingICUREControlCharacters]];
-	ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:pattern options:nil error:nil] autorelease];
+	ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:pattern options:0L error:nil] autorelease];
 	[RE setInputString:[self fileName]];
 	if([RE nextMatch] && [RE numberOfCaptureGroups])
 	{
@@ -5815,7 +5815,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateProjectCurrent:
-- (BOOL)validateProjectCurrent:(id <NSMenuItem>)sender;
+- (BOOL)validateProjectCurrent:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -6806,7 +6806,7 @@ up:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSURL * baseURL = [self baseURL];
-	NSURL * url = [url iTM2_enclosingProjectURL];
+	NSURL * url = [baseURL iTM2_enclosingProjectURL];
 	if(url)
 	{
 		return url;

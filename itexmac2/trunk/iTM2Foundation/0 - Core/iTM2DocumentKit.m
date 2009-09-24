@@ -956,7 +956,7 @@ To Do List:
             }
 			else
 			{
-				iTM2_LOG([NSString stringWithFormat:@"Unknown inspector type:\n%@\nfor mode:\n%@\nfor variants:\n%@", type, mode,variants]);
+				iTM2_LOG(@"%@",[NSString stringWithFormat:@"Unknown inspector type:\n%@\nfor mode:\n%@\nfor variants:\n%@", type, mode,variants]);
 			}
         }
     }
@@ -1510,7 +1510,7 @@ To Do List:
 			NSEnumerator * E = [selectors objectEnumerator];
 			SEL action;
 			while(action = (SEL)[[E nextObject] pointerValue])
-				NSLog(NSStringFromSelector(action));
+				NSLog(@"%@",NSStringFromSelector(action));
 		}
     }
     if([selectors count])

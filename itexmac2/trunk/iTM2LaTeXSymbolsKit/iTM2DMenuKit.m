@@ -377,7 +377,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  itemAtIndex:
-- (id <NSMenuItem>)itemAtIndex:(int)index;
+- (NSMenuItem *)itemAtIndex:(int)index;
 /*"Returns nil to fill the (eventually) missing items to terminate the grid rectangle.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -389,7 +389,7 @@ To Do List: Raise an exception.
     return ((index>=0) && (index<[self numberOfItems]))? [super itemAtIndex:index]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  itemAtRow:column:
-- (id <NSMenuItem>)itemAtRow:(int)row column:(int)column;
+- (NSMenuItem *)itemAtRow:(int)row column:(int)column;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

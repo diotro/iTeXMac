@@ -51,17 +51,6 @@
 			name = "Install iTM2Foundation";
 			productName = "Install iTM2Foundation";
 		};
-		DCE52B980C0F302F00F2D5B9 /* ICU */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DCE52B990C0F304D00F2D5B9 /* Build configuration list for PBXAggregateTarget "ICU" */;
-			buildPhases = (
-				DCE52B970C0F302F00F2D5B9 /* Download and prepare */,
-			);
-			dependencies = (
-			);
-			name = ICU;
-			productName = ICU;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -94,6 +83,8 @@
 		53C240D3106A3F9C0000990A /* iTM2InfoWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C240CF106A3F9C0000990A /* iTM2InfoWrapperKit.m */; };
 		53C240D4106A3F9C0000990A /* iTM2ProjectControllerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C240D0106A3F9C0000990A /* iTM2ProjectControllerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53C240D5106A3F9C0000990A /* iTM2ProjectControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */; };
+		53C2425F106A725E0000990A /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C2425D106A725E0000990A /* RegexKitLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53C24260106A725E0000990A /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C2425E106A725E0000990A /* RegexKitLite.m */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
@@ -222,8 +213,6 @@
 		DCB0A10D09AF01C300D2A37C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		DCB0A10E09AF01C300D2A37C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DCB0A10F09AF01C300D2A37C /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */; };
-		DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */ = {isa = PBXBuildFile; fileRef = DCB49C8709C5A3D600CF628D /* MoreFilesX.c */; };
-		DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */ = {isa = PBXBuildFile; fileRef = DCB49C8809C5A3D600CF628D /* MoreFilesX.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCB49C8C09C5A3D600CF628D /* MoreFilesXReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCB49C8909C5A3D600CF628D /* MoreFilesXReadMe.txt */; };
 		DCB7DEB40ADE4A0F0084DE9D /* textmate in Copy Command */ = {isa = PBXBuildFile; fileRef = DCB7DE860ADE47FB0084DE9D /* textmate */; };
 		DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
@@ -792,6 +781,8 @@
 		53C240CF106A3F9C0000990A /* iTM2InfoWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2InfoWrapperKit.m; sourceTree = "<group>"; };
 		53C240D0106A3F9C0000990A /* iTM2ProjectControllerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2ProjectControllerKit.h; sourceTree = "<group>"; };
 		53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ProjectControllerKit.m; sourceTree = "<group>"; };
+		53C2425D106A725E0000990A /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = ../RegexKitLite/RegexKitLite.h; sourceTree = SOURCE_ROOT; };
+		53C2425E106A725E0000990A /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = ../RegexKitLite/RegexKitLite.m; sourceTree = SOURCE_ROOT; };
 		8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
@@ -802,7 +793,7 @@
 		DC0D21010BFF509D00440681 /* iTM2MacroKit_Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Action.m; sourceTree = "<group>"; };
 		DC0D211A0BFF50EA00440681 /* iTM2MacroKit_Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MacroKit_Controller.h; sourceTree = "<group>"; };
 		DC0D211B0BFF50EA00440681 /* iTM2MacroKit_Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2MacroKit_Controller.m; sourceTree = "<group>"; };
-		DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare Lua.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC0F125C0BFB74CA00108852 /* Lua.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Lua.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC0F14AD0BFB7D1E00108852 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		DC13E67A085586540063D5A5 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
@@ -868,7 +859,6 @@
 		DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2KeyStrokeSelectors.plist; sourceTree = "<group>"; };
 		DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupKit.h; sourceTree = "<group>"; };
 		DC69184F088C6E9A00F00114 /* iTM2StartupKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StartupKit.m; sourceTree = "<group>"; };
-		DC6BC63D09490315008F8188 /* Prepare OgreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare OgreKit.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6F02A7097A8E57009939A6 /* iTM2PerlKitServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PerlKitServer.h; sourceTree = "<group>"; };
 		DC6F02A8097A8E57009939A6 /* iTM2PerlKitServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2PerlKitServer.m; sourceTree = "<group>"; };
 		DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
@@ -1175,7 +1165,6 @@
 				DC13E68B0855867D0063D5A5 /* Test Application.app */,
 				DC951797088DED4B0011E823 /* iTeXMac2.app */,
 				DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */,
-				DC6BC63D09490315008F8188 /* Prepare OgreKit.framework */,
 				DC25E42E0991F5F000545F27 /* iTM2TaskKit Test.octest */,
 				DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */,
 				DC99ECBE0A284EA800F50752 /* Project.octest */,
@@ -1186,7 +1175,7 @@
 				DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */,
 				DC815F360ADC4DBE00AFCED2 /* Prepare CamelBones.framework */,
 				DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */,
-				DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */,
+				DC0F125C0BFB74CA00108852 /* Lua.framework */,
 				DCAD22760C144930005549DC /* ICU RegEx test.octest */,
 				51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */,
 			);
@@ -1449,6 +1438,8 @@
 				DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */,
 				DCE52B390C0F2F2C00F2D5B9 /* ICURegEx.h */,
 				DCE52B3A0C0F2F2D00F2D5B9 /* ICURegEx.mm */,
+				53C2425D106A725E0000990A /* RegexKitLite.h */,
+				53C2425E106A725E0000990A /* RegexKitLite.m */,
 				DCF61B790854654B003F5F79 /* iTM2RuntimeBrowser.h */,
 				DCF61B7A0854654B003F5F79 /* iTM2RuntimeBrowser.m */,
 				DCF61B640854654B003F5F79 /* iTM2FileManagerKit.h */,
@@ -1752,7 +1743,6 @@
 				DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */,
 				DC6F02A9097A8E57009939A6 /* iTM2PerlKitServer.h in Headers */,
 				DC25E50F0991FA7600545F27 /* iTM2TaskKit.h in Headers */,
-				DCB49C8B09C5A3D600CF628D /* MoreFilesX.h in Headers */,
 				DC98685B09ED968200FF4BD3 /* iTM2TextCompletionKit.h in Headers */,
 				DC4EEDE10A3DF9B400E264F0 /* iTM2DistributedObjectKit.h in Headers */,
 				DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */,
@@ -1768,6 +1758,7 @@
 				DCE52B3B0C0F2F2D00F2D5B9 /* ICURegEx.h in Headers */,
 				53C240D2106A3F9C0000990A /* iTM2InfoWrapperKit.h in Headers */,
 				53C240D4106A3F9C0000990A /* iTM2ProjectControllerKit.h in Headers */,
+				53C2425F106A725E0000990A /* RegexKitLite.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1832,7 +1823,7 @@
 			);
 			name = "Prepare Lua";
 			productName = "Prepare Lua";
-			productReference = DC0F125C0BFB74CA00108852 /* Prepare Lua.framework */;
+			productReference = DC0F125C0BFB74CA00108852 /* Lua.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DC13E68A0855867D0063D5A5 /* Test Application */ = {
@@ -1909,21 +1900,6 @@
 			productName = iTM2PreferenceTemplate;
 			productReference = DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */;
 			productType = "com.apple.product-type.bundle";
-		};
-		DC6BC63C09490315008F8188 /* Prepare OgreKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC6BC63F09490316008F8188 /* Build configuration list for PBXNativeTarget "Prepare OgreKit" */;
-			buildPhases = (
-				DC6BC64509490360008F8188 /* Synchronize */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Prepare OgreKit";
-			productName = "Prepare OgreKit";
-			productReference = DC6BC63D09490315008F8188 /* Prepare OgreKit.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 		DC951796088DED4B0011E823 /* iTeXMac2 */ = {
 			isa = PBXNativeTarget;
@@ -2147,8 +2123,6 @@
 			projectRoot = "";
 			targets = (
 				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
-				DCE52B980C0F302F00F2D5B9 /* ICU */,
-				DC6BC63C09490315008F8188 /* Prepare OgreKit */,
 				DC0F125B0BFB74CA00108852 /* Prepare Lua */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
 				8DC2EF4F0486A6940098B216 /* iTM2Foundation */,
@@ -2386,20 +2360,6 @@
 			shellPath = /bin/sh;
 			shellScript = "echo $TARGET_BUILD_DIR\nDIRECTORY=\".\"\ncd \"$DIRECTORY\"\nIFS='\n'\nTARGETS=\"`find . -name *.m -print`\"\necho COUCOU\nfor CURRENT in $TARGETS; do\n\tgrep -E \"NSString.*const\" \"$CURRENT\"\ndone\necho COUCOUCOUCOU\n";
 		};
-		DC6BC64509490360008F8188 /* Synchronize */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Synchronize;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2SynchronizeOgreKit.sh\n";
-		};
 		DC81B1790887F28800943C99 /* Make the header documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2522,20 +2482,6 @@
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/PrepareBuildNumber.pl;
 		};
-		DCE52B970C0F302F00F2D5B9 /* Download and prepare */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Download and prepare";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\necho \"#warning: Looking for directory ${SRCROOT}/../ICU/icu\"\nif ! [ -d \"${SRCROOT}/../ICU/icu\" ]\nthen\n\"${SRCROOT}/../Scripts/downloadICU.command\"\nfi\nif ! [ -f \"${SRCROOT}/../ICU/regex_public.h\" ]\nthen\n\"${SRCROOT}/../Scripts/prepareICU.command\"\nfi\nexit 0\n";
-		};
 		DCF61CF00854662D003F5F79 /* Merge the headers */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2608,7 +2554,6 @@
 				DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */,
 				DC6F02AA097A8E57009939A6 /* iTM2PerlKitServer.m in Sources */,
 				DC25E5100991FA7600545F27 /* iTM2TaskKit.m in Sources */,
-				DCB49C8A09C5A3D600CF628D /* MoreFilesX.c in Sources */,
 				DC98685C09ED968200FF4BD3 /* iTM2TextCompletionKit.m in Sources */,
 				DC4EEDE20A3DF9B400E264F0 /* iTM2DistributedObjectKit.m in Sources */,
 				DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */,
@@ -2624,6 +2569,7 @@
 				DCE52B3C0C0F2F2D00F2D5B9 /* ICURegEx.mm in Sources */,
 				53C240D3106A3F9C0000990A /* iTM2InfoWrapperKit.m in Sources */,
 				53C240D5106A3F9C0000990A /* iTM2ProjectControllerKit.m in Sources */,
+				53C24260106A725E0000990A /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3206,7 +3152,7 @@
 		DC0F12620BFB74CB00108852 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "Prepare Lua";
+				PRODUCT_NAME = Lua;
 				iTM2_INFOPLIST_FILE = "";
 			};
 			name = Development;
@@ -3214,7 +3160,7 @@
 		DC0F12630BFB74CB00108852 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = "Prepare Lua";
+				PRODUCT_NAME = Lua;
 				iTM2_INFOPLIST_FILE = "";
 			};
 			name = Deployment;
@@ -3646,24 +3592,6 @@
 			};
 			name = Deployment;
 		};
-		DC6BC64009490316008F8188 /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = "Prepare OgreKit";
-				iTM2_INFOPLIST_FILE = "";
-			};
-			name = Development;
-		};
-		DC6BC64109490316008F8188 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = "Prepare OgreKit";
-				iTM2_INFOPLIST_FILE = "";
-			};
-			name = Deployment;
-		};
 		DC99ECC10A284EA900F50752 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3966,28 +3894,6 @@
 			};
 			name = Deployment;
 		};
-		DCE52B9A0C0F304D00F2D5B9 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = ICU;
-			};
-			name = Development;
-		};
-		DCE52B9B0C0F304D00F2D5B9 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				PRODUCT_NAME = ICU;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
 		DCE5C5780AC823940054C760 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
@@ -4135,15 +4041,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		DC6BC63F09490316008F8188 /* Build configuration list for PBXNativeTarget "Prepare OgreKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC6BC64009490316008F8188 /* Development */,
-				DC6BC64109490316008F8188 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
 		DC99ECC00A284EA900F50752 /* Build configuration list for PBXNativeTarget "Project" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -4221,15 +4118,6 @@
 			buildConfigurations = (
 				DCD7D6D00A4399990096B1A9 /* Development */,
 				DCD7D6D10A4399990096B1A9 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DCE52B990C0F304D00F2D5B9 /* Build configuration list for PBXAggregateTarget "ICU" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DCE52B9A0C0F304D00F2D5B9 /* Development */,
-				DCE52B9B0C0F304D00F2D5B9 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

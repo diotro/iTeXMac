@@ -1856,7 +1856,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	const char * _classname = [NSStringFromClass(self) lossyCString];
+	const char * _classname = [NSStringFromClass(self) cStringUsingEncoding:NSASCIIStringEncoding];
 	if(!strncmp(_classname, "iTM2TeXP", strlen("iTM2TeXP")))
 	{
 		int n = strlen(_classname);
@@ -1864,7 +1864,7 @@ To Do List:
 		{
 			if(!strncmp(_classname + n - strlen("Performer"), "Performer", strlen("Performer")))
 			{
-				return [NSString stringWithCString:_classname+strlen("iTM2TeXP") length:n - strlen("iTM2TeXPPerformer")];
+				return [NSString stringWithCString:_classname+strlen("iTM2TeXP") encoding:NSASCIIStringEncoding];
 			}
 		}
 	}
@@ -2187,7 +2187,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validatePerformCommand:
-+ (BOOL)validatePerformCommand:(id <NSMenuItem>)sender;
++ (BOOL)validatePerformCommand:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

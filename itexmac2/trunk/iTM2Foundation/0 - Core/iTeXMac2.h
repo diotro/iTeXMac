@@ -39,7 +39,7 @@ enum{
 
 #define __iTM2_PRETTY_FUNCTION__ [NSString stringWithUTF8String:__PRETTY_FUNCTION__]
 #if __iTM2_DEVELOPMENT__
-	#define iTM2_DIAGNOSTIC if(iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#x\n", __PRETTY_FUNCTION__, (int)self)
+	#define iTM2_DIAGNOSTIC if(iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#x\n", __PRETTY_FUNCTION__, (NSUInteger)self)
 // enclose some protion of code with
 // iTM2DebugEnabled_FLAGS |= iTM2DebugEnabled_traceAllFunctionsMask;
 // and

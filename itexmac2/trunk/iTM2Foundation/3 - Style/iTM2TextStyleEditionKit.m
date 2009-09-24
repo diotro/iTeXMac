@@ -252,7 +252,7 @@ To Do List:
 	stylePath = [stylePath stringByAppendingPathExtension: iTM2TextStyleExtension];
 	stylePath = [stylePath stringByAppendingPathComponent: @"sample"];
 	stylePath = [stylePath stringByAppendingPathExtension: @"txt"];
-    NSString * result = [NSString stringWithContentsOfFile:stylePath];
+    NSString * result = [NSString stringWithContentsOfFile:stylePath usedEncoding:nil error:nil];
 //iTM2_END;
     return result? result: @"Enter some text";
 }
@@ -2399,7 +2399,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
-- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+- (BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004

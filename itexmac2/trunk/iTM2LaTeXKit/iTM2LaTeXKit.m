@@ -1196,7 +1196,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollLaTeXLabelToVisible:
-- (void)scrollLaTeXLabelToVisible:(id <NSMenuItem>)sender;
+- (void)scrollLaTeXLabelToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1209,7 +1209,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollLaTeXReferenceToVisible:
-- (void)scrollLaTeXReferenceToVisible:(id <NSMenuItem>)sender;
+- (void)scrollLaTeXReferenceToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1222,7 +1222,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollIncludeToVisible:
-- (void)scrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)scrollIncludeToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1242,7 +1242,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollIncludeToVisible:
-- (void)delayedScrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollIncludeToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1272,7 +1272,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollInputToVisible:
-- (void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollInputToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1303,7 +1303,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollInputToVisible:
-- (void)scrollInputToVisible:(id <NSMenuItem>)sender;
+- (void)scrollInputToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2114,7 +2114,7 @@ To Do List:
 		{
 			NSString * new = [substitutions objectForKey:old];
 			NSRange searchRange = NSMakeRange(0,[argument length]);
-			[argument replaceOccurrencesOfString:old withString:new options:nil range:searchRange];
+			[argument replaceOccurrencesOfString:old withString:new options:0L range:searchRange];
 		}
 		macro = [NSString stringWithString:argument];
 	}
@@ -2150,7 +2150,7 @@ To Do List:
 		NSRange searchRange = NSMakeRange(0,[S length]);
 		NSRange R;
 mordor:
-		R = [S rangeOfString:@"usepackage" options:nil range:searchRange];
+		R = [S rangeOfString:@"usepackage" options:0L range:searchRange];
 		if(R.length)
 		{
 			if((R.location>0) && [S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
@@ -2158,7 +2158,7 @@ mordor:
 next_usepackage:
 				searchRange.location = NSMaxRange(R);
 				searchRange.length = [S length] - searchRange.location;
-				NSRange nextR = [S rangeOfString:@"usepackage" options:nil range:searchRange];
+				NSRange nextR = [S rangeOfString:@"usepackage" options:0L range:searchRange];
 				if(nextR.length)
 				{
 					R = nextR;

@@ -716,8 +716,8 @@ To Do List:
     [sender setState: ([[self infoForKeyPaths:iTM2TeX_USE_jobname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOuputDirectory:
-- (IBAction)editOuputDirectory:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputDirectory:
+- (IBAction)editOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -728,8 +728,8 @@ To Do List:
     [self setInfo:[sender stringValue] forKeyPaths:iTM2TeX_output_directory,nil];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOuputDirectory:
-- (BOOL)validateEditOuputDirectory:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputDirectory:
+- (BOOL)validateEditOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -2512,8 +2512,8 @@ To Do List:
     [sender setState: ([[self infoForKeyPaths:iTM2XeTeX_USE_jobname,nil] boolValue]? NSOnState:NSOffState)];
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOuputDirectory:
-- (IBAction)editOuputDirectory:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOutputDirectory:
+- (IBAction)editOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004
@@ -2524,8 +2524,8 @@ To Do List:
     [self setInfo:[sender stringValue] forKeyPaths:iTM2XeTeX_output_directory,nil];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOuputDirectory:
-- (BOOL)validateEditOuputDirectory:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditOutputDirectory:
+- (BOOL)validateEditOutputDirectory:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Thu Nov 18 07:53:25 GMT 2004

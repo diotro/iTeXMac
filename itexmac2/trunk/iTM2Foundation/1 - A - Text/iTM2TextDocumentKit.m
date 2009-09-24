@@ -2769,7 +2769,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollTaggedToVisible:
-- (void)scrollTaggedToVisible:(id <NSMenuItem>)sender;
+- (void)scrollTaggedToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002
@@ -2789,7 +2789,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollTaggedAndRepresentedStringToVisible:
-- (void)scrollTaggedAndRepresentedStringToVisible:(id <NSMenuItem>)sender;
+- (void)scrollTaggedAndRepresentedStringToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002

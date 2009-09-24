@@ -70,6 +70,7 @@ To Do List:
     return 62;// iTM2 preview 16
 }
 @end
+#if 0
 #import <OgreKit/OgreKit.h>
 @interface NSObject(OgreKit)
 - (void)setShouldHackFindMenu:(BOOL)yorn;
@@ -123,6 +124,7 @@ To Do List:
 	return findMenu;
 }
 @end
+#endif
 
 #import "iTM2CrashReportKit.h"
 

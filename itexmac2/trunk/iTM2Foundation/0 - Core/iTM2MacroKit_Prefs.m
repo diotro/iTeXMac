@@ -895,7 +895,7 @@ To Do List:
 	return [[prettyKey componentsSeparatedByString:@"  "] componentsJoinedByString:@" "];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _X_availableKeyBindings
-- (NSArray *)_X_availableKeyBindings;
+- (NSMutableArray *)_X_availableKeyBindings;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Nov  5 16:57:31 GMT 2006
@@ -903,7 +903,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSArray * result = [self valueForKeyPath:@"value.availableKeyBindings"];
+	NSMutableArray * result = [self valueForKeyPath:@"value.availableKeyBindings"];
 	if(result)
 	{
 		return result;
@@ -912,7 +912,7 @@ To Do List:
 	NSString *attributeValue = @"noop:";
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"!(%K LIKE '%@')",
         attributeName, attributeValue];
-	result = [[self children] filteredArrayUsingPredicate:predicate];
+	result = [[[[self children] filteredArrayUsingPredicate:predicate] mutableCopy] autorelease];
 	[self setValue:result forKeyPath:@"value.availableKeyBindings"];
 //iTM2_END;
     return result;

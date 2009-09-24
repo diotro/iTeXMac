@@ -457,7 +457,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-printf("%s %#x\n", __PRETTY_FUNCTION__, self);
+printf("%s %#x\n", __PRETTY_FUNCTION__, (NSUInteger)self);
     [DNC removeObserver:self];
     [[self allInspectors] makeObjectsPerformSelector:@selector(setTaskController:) withObject:nil];
     [_Inspectors release];

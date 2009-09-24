@@ -248,20 +248,30 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)setWrapper:(id)argument;
 
 /*! 
-    @method     subdocuments
-    @abstract   The documents managed by the project
-    @discussion A project is expected to manage a set of open documents.
-				All open documents are to be owned by the project and not the shared document controller.
-				If a project closes, it will record the list of open documents and open them the next time it opens.
-				When project document are closed, they should be removed from the prohject document list.
-				But you can do as you want...
-    @param      Irrelevant.
-    @result     None.
-*/
+ @method     mutableSubdocuments
+ @abstract   The documents managed by the project
+ @discussion Forthcoming...
+ @param      Irrelevant.
+ @result     None.
+ */
+- (id)mutableSubdocuments;
+
+/*! 
+ /*! 
+ @method     subdocuments
+ @abstract   The documents managed by the project
+ @discussion A project is expected to manage a set of open documents.
+ All open documents are to be owned by the project and not the shared document controller.
+ If a project closes, it will record the list of open documents and open them the next time it opens.
+ When project document are closed, they should be removed from the prohject document list.
+ But you can do as you want...
+ @param      Irrelevant.
+ @result     None.
+ */
 - (id)subdocuments;
 
 /*! 
-    @method     saveSubdocuments:
+ @method     saveSubdocuments:
     @abstract   Saves all the open documents related to the projects
     @discussion Discussion forthcoming.
     @param      Irrelevant.

@@ -460,7 +460,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #warning Missing class, and [ initialize] if things do not work
-	Class aClass = objc_getClass([aClassName cString]);
+	Class aClass = objc_getClass([aClassName cStringUsingEncoding:NSASCIIStringEncoding]);
 	NSParameterAssert(aClass);
     NSParameterAssert(orig_sel != alt_sel);
     SEL selector = @selector(swizzleInstanceMethodSelector:replacement:forClassName:);
@@ -494,7 +494,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	Class aClass = objc_getClass([aClassName cString]);
+	Class aClass = objc_getClass([aClassName cStringUsingEncoding:NSASCIIStringEncoding]);
 	NSParameterAssert(aClass);
     NSParameterAssert(orig_sel != alt_sel);
     SEL selector = @selector(swizzleClassMethodSelector:replacement:forClassName:);
@@ -617,7 +617,7 @@ To Do List:
 				(void)objc_getClassList(classes, numClasses);
 				NSMutableArray * MRA = [NSMutableArray arrayWithCapacity:numClasses];
 				Class * ptr = classes;
-				const char * cName = [name lossyCString];
+				const char * cName = [name UTF8String];
 				while(numClasses--)
 				{
 //if([NSStringFromClass(* ptr) hasPrefix:@"iTM2TeXP"])
@@ -661,7 +661,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [self isClass:lhsClass subclassOfClassNamed:[NSStringFromClass(rhsClass) lossyCString]];
+	return [self isClass:lhsClass subclassOfClassNamed:[NSStringFromClass(rhsClass) UTF8String]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isClass:subclassOfClassNamed:
 + (BOOL)isClass:(Class)target subclassOfClassNamed:(const char *)className;
@@ -1122,8 +1122,9 @@ To Do List:
     // to share this copy of the name, but this is not a requirement
     // imposed by the runtime.
     //
-    newClass->name = malloc ([name cStringLength] + 1);
-    strcpy ((char*)newClass->name, [name lossyCString]);
+	NSUInteger maxBufferCount = [name lengthOfBytesUsingEncoding:NSUTF8StringEncoding] + 1;
+	newClass->name = malloc (maxBufferCount);
+	[name getCString:(char*)(newClass->name) maxLength:maxBufferCount encoding:NSUTF8StringEncoding];
     metaClass->name = newClass->name;
     //
     // Allocate empty method lists.

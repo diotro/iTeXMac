@@ -50,14 +50,14 @@
 - (int)numberOfRows;
 - (int)numberOfColumns;
 - (void)setNumberOfColumns:(int)NOC;
-- (id <NSMenuItem>)itemAtRow:(int)row column:(int)column;
+- (NSMenuItem *)itemAtRow:(int)row column:(int)column;
 - (int)rowForItemIndex:(int)index;
 - (int)columnForItemIndex:(int)index;
 - (int)itemIndexForRow:(int)row column:(int)column;
 /*"Main methods"*/
 /*"Overriden methods"*/
 - (id)initWithTitle:(NSString *)aTitle;
-- (id <NSMenuItem>)itemAtIndex:(int)index;
+- (NSMenuItem *)itemAtIndex:(int)index;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DMenuKit

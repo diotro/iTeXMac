@@ -58,6 +58,15 @@
 
 /* Begin PBXBuildFile section */
 		51FBF6420E893F31003117D8 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 51FBF6410E893F31003117D8 /* dsa_pub.pem */; };
+		53E5647E106BA9140077B6FD /* iTeXMac2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E56472106BA9140077B6FD /* iTeXMac2.xib */; };
+		53E5647F106BA9140077B6FD /* iTM2CrashReportController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E56474106BA9140077B6FD /* iTM2CrashReportController.xib */; };
+		53E56480106BA9140077B6FD /* iTM2FirstPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E56476106BA9140077B6FD /* iTM2FirstPanel.xib */; };
+		53E56481106BA9140077B6FD /* iTM2MailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E56478106BA9140077B6FD /* iTM2MailController.xib */; };
+		53E56482106BA9140077B6FD /* iTM2SoftwareUpdatePrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E5647A106BA9140077B6FD /* iTM2SoftwareUpdatePrefPane.xib */; };
+		53E56483106BA9140077B6FD /* iTM2StartupDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E5647C106BA9140077B6FD /* iTM2StartupDocument.xib */; };
+		53E56525106BD64B0077B6FD /* Mail.app in Resources */ = {isa = PBXBuildFile; fileRef = 53E56524106BD64B0077B6FD /* Mail.app */; };
+		53E56526106BD6550077B6FD /* Mail.app in Sources */ = {isa = PBXBuildFile; fileRef = 53E56524106BD64B0077B6FD /* Mail.app */; };
+		53E5653D106BD9590077B6FD /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53E5653C106BD9590077B6FD /* ScriptingBridge.framework */; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		DC01A94208FE776600BFF6EF /* iTM2PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */; };
 		DC01A94D08FE777A00BFF6EF /* iTM2PDFKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */; };
@@ -69,7 +78,6 @@
 		DC43E3C909344DCA003C3C86 /* iTM2ConTeXtKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */; };
 		DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */; };
 		DC7051520B605799009FD188 /* iTM2CrashReportKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7051500B605799009FD188 /* iTM2CrashReportKit.m */; };
-		DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */; };
 		DC70F18F0BFC5BCC006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F18E0BFC5BCC006C6A76 /* Lua.framework */; };
 		DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC781BAD07F9B8DA00FCD972 /* iTM2WindowsMenuKit.m */; };
 		DC89306C08FC2DDA007A4673 /* iTM2MetaPostKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */; };
@@ -80,14 +88,9 @@
 		DC8A635F088D917D0016FAA2 /* iTM2TeXFoundation.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */; };
 		DCA37D7E0AE391AD00874F9E /* iTM2HelpSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */; };
 		DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA60AE3939100874F9E /* AddressBook.framework */; };
-		DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA37DA70AE3939100874F9E /* Message.framework */; };
 		DCA37F0C0AE3AD7800874F9E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E7A0AE3AD7800874F9E /* Credits.rtf */; };
 		DCA37F0D0AE3AD7800874F9E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E7C0AE3AD7800874F9E /* InfoPlist.strings */; };
 		DCA37F0E0AE3AD7800874F9E /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E7F0AE3AD7800874F9E /* index.html */; };
-		DCA37F0F0AE3AD7800874F9E /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E800AE3AD7800874F9E /* iTeXMac2.nib */; };
-		DCA37F100AE3AD7900874F9E /* iTM2FirstPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E820AE3AD7800874F9E /* iTM2FirstPanel.nib */; };
-		DCA37F110AE3AD7900874F9E /* iTM2MailController.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E840AE3AD7800874F9E /* iTM2MailController.nib */; };
-		DCA37F120AE3AD7900874F9E /* iTM2StartupDocument.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E860AE3AD7800874F9E /* iTM2StartupDocument.nib */; };
 		DCA37F130AE3AD7900874F9E /* NewDocuments.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E880AE3AD7800874F9E /* NewDocuments.resources.tgz */; };
 		DCA37F140AE3AD7900874F9E /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E8D0AE3AD7800874F9E /* index.html */; };
 		DCA37F150AE3AD7900874F9E /* 4CT.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCA37E930AE3AD7800874F9E /* 4CT.icns */; };
@@ -183,7 +186,6 @@
 		DCB530210B59B99700CD713D /* GetSourceVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB530120B59B8A700CD713D /* GetSourceVersion.m */; };
 		DCB530220B59B9B400CD713D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		DCB530560B59BAEF00CD713D /* GetSourceVersion in Copy Binary */ = {isa = PBXBuildFile; fileRef = DCB530180B59B8C800CD713D /* GetSourceVersion */; };
-		DCB7543808EDA67300A6819D /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCB93A7907D701AF005E5B38 /* iTeXMac2-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */; };
 		DCB93A8607D702A5005E5B38 /* iTM2StartupDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB93A8407D702A5005E5B38 /* iTM2StartupDocument.m */; };
 		DCBA43250B011B45006AF52A /* ASY.icns in Resources */ = {isa = PBXBuildFile; fileRef = DCBA43230B011B45006AF52A /* ASY.icns */; };
@@ -191,11 +193,9 @@
 		DCBEB55E0C0ABB7F00BD6006 /* Lua.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DC70F18E0BFC5BCC006C6A76 /* Lua.framework */; };
 		DCCE70A7091B58D200960441 /* iTM2AppleScriptSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCE70A5091B58D200960441 /* iTM2AppleScriptSupport.m */; };
 		DCE52F0D0C0F3B8D00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F0C0C0F3B8D00F2D5B9 /* libicucore.dylib */; };
-		DCE7E7CA08F2712A00DBB513 /* OgreKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCB7543708EDA67300A6819D /* OgreKit.framework */; };
 		DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCEF60CB0B6216E100A19262 /* Sparkle.framework */; };
 		DCEF60E00B6216E800A19262 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = DCEF60CB0B6216E100A19262 /* Sparkle.framework */; };
 		DCEF62380B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCEF62370B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif */; };
-		DCEF62430B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = DCEF623B0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib */; };
 		DCEF62440B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCEF623D0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings */; };
 		DCFD96D40858F4FB0034D83E /* iTeXMac2CMPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFFA6CD0855B7C900607AAA /* iTeXMac2CMPlugIn.m */; };
 		DCFD96DD0858F5700034D83E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCFFA6C70855B7C900607AAA /* InfoPlist.strings */; };
@@ -203,6 +203,20 @@
 		DCFD96DF0858F57B0034D83E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCB93D2F07D70F95005E5B38 /* Carbon.framework */; };
 		DCFD96E00858F57C0034D83E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		53E56518106BD5710077B6FD /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.app";
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/$(INPUT_FILE_BASE).h",
+			);
+			script = "sdef \"$INPUT_FILE_PATH\" | sdp -fh -o \"$DERIVED_FILES_DIR\" --basename \"$INPUT_FILE_BASE\" --bundleid `defaults read \"$INPUT_FILE_PATH/Contents/Info\" CFBundleIdentifier`";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		DC6BC5D50948FCCD008F8188 /* PBXContainerItemProxy */ = {
@@ -302,7 +316,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DCE7E7CA08F2712A00DBB513 /* OgreKit.framework in Copy Frameworks */,
 				DC8A635E088D917D0016FAA2 /* iTM2Foundation.framework in Copy Frameworks */,
 				DC8A635F088D917D0016FAA2 /* iTM2TeXFoundation.framework in Copy Frameworks */,
 				DC274355090CFED900C2D1D2 /* iTM2LaTeXKit.framework in Copy Frameworks */,
@@ -323,6 +336,19 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		51FBF6410E893F31003117D8 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		53E56473106BA9140077B6FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTeXMac2.xib; sourceTree = "<group>"; };
+		53E56475106BA9140077B6FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2CrashReportController.xib; sourceTree = "<group>"; };
+		53E56477106BA9140077B6FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2FirstPanel.xib; sourceTree = "<group>"; };
+		53E56479106BA9140077B6FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2MailController.xib; sourceTree = "<group>"; };
+		53E5647B106BA9140077B6FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2SoftwareUpdatePrefPane.xib; sourceTree = "<group>"; };
+		53E5647D106BA9140077B6FD /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2StartupDocument.xib; sourceTree = "<group>"; };
+		53E56484106BA9210077B6FD /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTeXMac2.xib; sourceTree = "<group>"; };
+		53E56485106BA9210077B6FD /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2CrashReportController.xib; sourceTree = "<group>"; };
+		53E56486106BA9210077B6FD /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2MailController.xib; sourceTree = "<group>"; };
+		53E56487106BA9210077B6FD /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2SoftwareUpdatePrefPane.xib; sourceTree = "<group>"; };
+		53E56488106BA9210077B6FD /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2StartupDocument.xib; sourceTree = "<group>"; };
+		53E56524106BD64B0077B6FD /* Mail.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = Mail.app; path = /Applications/Mail.app; sourceTree = "<absolute>"; };
+		53E5653C106BD9590077B6FD /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = /System/Library/Frameworks/ScriptingBridge.framework; sourceTree = "<absolute>"; };
 		DC01A94108FE776600BFF6EF /* iTM2PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2PDFKit.framework; path = ../build/iTM2PDFKit.framework; sourceTree = SOURCE_ROOT; };
 		DC1C6D0F090E1C96000F4FDE /* iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2NewDocumentKit.framework; path = ../build/iTM2NewDocumentKit.framework; sourceTree = SOURCE_ROOT; };
 		DC27432C090CF64400C2D1D2 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
@@ -346,8 +372,6 @@
 		DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppleScriptKit.framework; path = /System/Library/Frameworks/AppleScriptKit.framework; sourceTree = "<absolute>"; };
 		DC70514F0B605799009FD188 /* iTM2CrashReportKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2CrashReportKit.h; sourceTree = "<group>"; };
 		DC7051500B605799009FD188 /* iTM2CrashReportKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2CrashReportKit.m; sourceTree = "<group>"; };
-		DC70516A0B60590A009FD188 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2CrashReportController.nib; sourceTree = "<group>"; };
-		DC7051700B605916009FD188 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2CrashReportController.nib; sourceTree = "<group>"; };
 		DC70F18E0BFC5BCC006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC74C82007D8532800E10C57 /* iTeXMac2-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTeXMac2-Prefix.pch"; sourceTree = "<group>"; };
 		DC74C82107D8532800E10C57 /* iTM2StartupDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupDocument.h; sourceTree = "<group>"; };
@@ -359,21 +383,13 @@
 		DCA37D7C0AE391AD00874F9E /* iTM2HelpSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2HelpSupport.m; sourceTree = "<group>"; };
 		DCA37D7D0AE391AD00874F9E /* iTM2HelpSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2HelpSupport.h; sourceTree = "<group>"; };
 		DCA37DA60AE3939100874F9E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
-		DCA37DA70AE3939100874F9E /* Message.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Message.framework; path = /System/Library/Frameworks/Message.framework; sourceTree = "<absolute>"; };
 		DCA37E7B0AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DCA37E7D0AE3AD7800874F9E /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCA37E7F0AE3AD7800874F9E /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		DCA37E810AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
-		DCA37E830AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2FirstPanel.nib; sourceTree = "<group>"; };
-		DCA37E850AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2MailController.nib; sourceTree = "<group>"; };
-		DCA37E870AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2StartupDocument.nib; sourceTree = "<group>"; };
 		DCA37E890AE3AD7800874F9E /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DCA37E8A0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = French.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DCA37E8B0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCA37E8D0AE3AD7800874F9E /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		DCA37E8E0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
-		DCA37E8F0AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2MailController.nib; sourceTree = "<group>"; };
-		DCA37E900AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2StartupDocument.nib; sourceTree = "<group>"; };
 		DCA37E910AE3AD7800874F9E /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DCA37E930AE3AD7800874F9E /* 4CT.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 4CT.icns; sourceTree = "<group>"; };
 		DCA37E940AE3AD7800874F9E /* 4HF.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = 4HF.icns; sourceTree = "<group>"; };
@@ -470,7 +486,6 @@
 		DCB530140B59B8A700CD713D /* test.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = test.command; sourceTree = "<group>"; };
 		DCB530180B59B8C800CD713D /* GetSourceVersion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GetSourceVersion; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCB530200B59B98D00CD713D /* GetSourceVersion-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GetSourceVersion-Prefix.pch"; sourceTree = "<group>"; };
-		DCB7543708EDA67300A6819D /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DCB93A4607D6FFAA005E5B38 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		DCB93A6C07D701AF005E5B38 /* iTeXMac2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTeXMac2-Info.plist"; sourceTree = "<group>"; };
 		DCB93A6D07D701AF005E5B38 /* iTeXMac2-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iTeXMac2-main.m"; sourceTree = "<group>"; };
@@ -484,9 +499,7 @@
 		DCEF60870B62148A00A19262 /* Prepare Sparkle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Prepare Sparkle.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCEF60CB0B6216E100A19262 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ../build/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		DCEF62370B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2SoftwareUpdatePrefPane.tif; sourceTree = "<group>"; };
-		DCEF623C0B62ED7700A19262 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTM2SoftwareUpdatePrefPane.nib; sourceTree = "<group>"; };
 		DCEF623E0B62ED7700A19262 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2SoftwareUpdatePrefPane.strings; sourceTree = "<group>"; };
-		DCEF62CC0B62FDCC00A19262 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/iTM2SoftwareUpdatePrefPane.nib; sourceTree = "<group>"; };
 		DCEF62CE0B62FE2500A19262 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2SoftwareUpdatePrefPane.strings; sourceTree = "<group>"; };
 		DCF929740948EC0E00EE2F46 /* Prepare iTM2LaTeXSymbolsKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Prepare iTM2LaTeXSymbolsKit.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCFD96E60858F5980034D83E /* TeX CM PlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TeX CM PlugIn-Info.plist"; sourceTree = "<group>"; };
@@ -503,7 +516,6 @@
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				DC8A6186088D7C580016FAA2 /* iTM2Foundation.framework in Frameworks */,
 				DC8A6187088D7C580016FAA2 /* iTM2TeXFoundation.framework in Frameworks */,
-				DCB7543808EDA67300A6819D /* OgreKit.framework in Frameworks */,
 				DC89306C08FC2DDA007A4673 /* iTM2MetaPostKit.framework in Frameworks */,
 				DC01A94208FE776600BFF6EF /* iTM2PDFKit.framework in Frameworks */,
 				DC27432D090CF64400C2D1D2 /* iTM2LaTeXKit.framework in Frameworks */,
@@ -511,10 +523,10 @@
 				DC6D48FB091C1B7600539664 /* AppleScriptKit.framework in Frameworks */,
 				DC43E3C809344DBA003C3C86 /* iTM2ConTeXtKit.framework in Frameworks */,
 				DCA37DC10AE3939100874F9E /* AddressBook.framework in Frameworks */,
-				DCA37DC20AE3939100874F9E /* Message.framework in Frameworks */,
 				DCEF60DF0B6216E100A19262 /* Sparkle.framework in Frameworks */,
 				DC70F18F0BFC5BCC006C6A76 /* Lua.framework in Frameworks */,
 				DCE52F0D0C0F3B8D00F2D5B9 /* libicucore.dylib in Frameworks */,
+				53E5653D106BD9590077B6FD /* ScriptingBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,9 +558,7 @@
 				DCB93D2F07D70F95005E5B38 /* Carbon.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				DCA37DA60AE3939100874F9E /* AddressBook.framework */,
-				DCA37DA70AE3939100874F9E /* Message.framework */,
 				DC6D48FA091C1B7600539664 /* AppleScriptKit.framework */,
-				DCB7543708EDA67300A6819D /* OgreKit.framework */,
 				DC8A6184088D7C580016FAA2 /* iTM2Foundation.framework */,
 				DC8A6185088D7C580016FAA2 /* iTM2TeXFoundation.framework */,
 				DC27432C090CF64400C2D1D2 /* iTM2LaTeXKit.framework */,
@@ -557,6 +567,7 @@
 				DC89306B08FC2DD9007A4673 /* iTM2MetaPostKit.framework */,
 				DC43E3C709344DBA003C3C86 /* iTM2ConTeXtKit.framework */,
 				DCEF60CB0B6216E100A19262 /* Sparkle.framework */,
+				53E5653C106BD9590077B6FD /* ScriptingBridge.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -598,6 +609,7 @@
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				DC3B3DB00A4ADADF00E83ABA /* Settings */,
+				53E56524106BD64B0077B6FD /* Mail.app */,
 			);
 			name = iTeXMac2;
 			sourceTree = "<group>";
@@ -630,20 +642,20 @@
 		DCA37E780AE3AD7800874F9E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				53E56472106BA9140077B6FD /* iTeXMac2.xib */,
+				53E56474106BA9140077B6FD /* iTM2CrashReportController.xib */,
+				53E56476106BA9140077B6FD /* iTM2FirstPanel.xib */,
+				53E56478106BA9140077B6FD /* iTM2MailController.xib */,
+				53E5647A106BA9140077B6FD /* iTM2SoftwareUpdatePrefPane.xib */,
+				53E5647C106BA9140077B6FD /* iTM2StartupDocument.xib */,
 				51FBF6410E893F31003117D8 /* dsa_pub.pem */,
-				DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */,
 				DCA37E7A0AE3AD7800874F9E /* Credits.rtf */,
 				DCA37E7C0AE3AD7800874F9E /* InfoPlist.strings */,
 				DCA37E7E0AE3AD7800874F9E /* iTeXMac2 Help */,
-				DCA37E800AE3AD7800874F9E /* iTeXMac2.nib */,
-				DCA37E820AE3AD7800874F9E /* iTM2FirstPanel.nib */,
-				DCA37E840AE3AD7800874F9E /* iTM2MailController.nib */,
-				DCA37E860AE3AD7800874F9E /* iTM2StartupDocument.nib */,
 				DCA37E880AE3AD7800874F9E /* NewDocuments.resources.tgz */,
 				DCA37E8C0AE3AD7800874F9E /* iTeXMac2 Help */,
 				DCA37E920AE3AD7800874F9E /* Icons */,
 				DCA37EEC0AE3AD7800874F9E /* iTeXMac2.sdef */,
-				DCEF623B0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib */,
 				DCEF623D0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings */,
 				DCEF62370B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif */,
 			);
@@ -827,6 +839,7 @@
 				DCD24FC1094ED0DD00346075 /* Test for 'x' flag */,
 			);
 			buildRules = (
+				53E56518106BD5710077B6FD /* PBXBuildRule */,
 			);
 			dependencies = (
 				DCB5305E0B59BBB500CD713D /* PBXTargetDependency */,
@@ -1036,10 +1049,6 @@
 				DCA37F0C0AE3AD7800874F9E /* Credits.rtf in Resources */,
 				DCA37F0D0AE3AD7800874F9E /* InfoPlist.strings in Resources */,
 				DCA37F0E0AE3AD7800874F9E /* index.html in Resources */,
-				DCA37F0F0AE3AD7800874F9E /* iTeXMac2.nib in Resources */,
-				DCA37F100AE3AD7900874F9E /* iTM2FirstPanel.nib in Resources */,
-				DCA37F110AE3AD7900874F9E /* iTM2MailController.nib in Resources */,
-				DCA37F120AE3AD7900874F9E /* iTM2StartupDocument.nib in Resources */,
 				DCA37F130AE3AD7900874F9E /* NewDocuments.resources.tgz in Resources */,
 				DCA37F140AE3AD7900874F9E /* index.html in Resources */,
 				DCA37F150AE3AD7900874F9E /* 4CT.icns in Resources */,
@@ -1134,11 +1143,16 @@
 				DCA37F6E0AE3AD7B00874F9E /* iTeXMac2.sdef in Resources */,
 				DCBA43250B011B45006AF52A /* ASY.icns in Resources */,
 				DCBA43260B011B45006AF52A /* OUT.icns in Resources */,
-				DC70516F0B60590A009FD188 /* iTM2CrashReportController.nib in Resources */,
 				DCEF62380B62ED5200A19262 /* iTM2SoftwareUpdatePrefPane.tif in Resources */,
-				DCEF62430B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib in Resources */,
 				DCEF62440B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings in Resources */,
 				51FBF6420E893F31003117D8 /* dsa_pub.pem in Resources */,
+				53E5647E106BA9140077B6FD /* iTeXMac2.xib in Resources */,
+				53E5647F106BA9140077B6FD /* iTM2CrashReportController.xib in Resources */,
+				53E56480106BA9140077B6FD /* iTM2FirstPanel.xib in Resources */,
+				53E56481106BA9140077B6FD /* iTM2MailController.xib in Resources */,
+				53E56482106BA9140077B6FD /* iTM2SoftwareUpdatePrefPane.xib in Resources */,
+				53E56483106BA9140077B6FD /* iTM2StartupDocument.xib in Resources */,
+				53E56525106BD64B0077B6FD /* Mail.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1383,6 +1397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E56526106BD6550077B6FD /* Mail.app in Sources */,
 				DCB93A7907D701AF005E5B38 /* iTeXMac2-main.m in Sources */,
 				DCB93A8607D702A5005E5B38 /* iTM2StartupDocument.m in Sources */,
 				DC781BAF07F9B8DB00FCD972 /* iTM2WindowsMenuKit.m in Sources */,
@@ -1469,13 +1484,57 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DC7051690B60590A009FD188 /* iTM2CrashReportController.nib */ = {
+		53E56472106BA9140077B6FD /* iTeXMac2.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DC70516A0B60590A009FD188 /* English */,
-				DC7051700B605916009FD188 /* French */,
+				53E56473106BA9140077B6FD /* English */,
+				53E56484106BA9210077B6FD /* French */,
 			);
-			name = iTM2CrashReportController.nib;
+			name = iTeXMac2.xib;
+			sourceTree = "<group>";
+		};
+		53E56474106BA9140077B6FD /* iTM2CrashReportController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53E56475106BA9140077B6FD /* English */,
+				53E56485106BA9210077B6FD /* French */,
+			);
+			name = iTM2CrashReportController.xib;
+			sourceTree = "<group>";
+		};
+		53E56476106BA9140077B6FD /* iTM2FirstPanel.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53E56477106BA9140077B6FD /* English */,
+			);
+			name = iTM2FirstPanel.xib;
+			sourceTree = "<group>";
+		};
+		53E56478106BA9140077B6FD /* iTM2MailController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53E56479106BA9140077B6FD /* English */,
+				53E56486106BA9210077B6FD /* French */,
+			);
+			name = iTM2MailController.xib;
+			sourceTree = "<group>";
+		};
+		53E5647A106BA9140077B6FD /* iTM2SoftwareUpdatePrefPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53E5647B106BA9140077B6FD /* English */,
+				53E56487106BA9210077B6FD /* French */,
+			);
+			name = iTM2SoftwareUpdatePrefPane.xib;
+			sourceTree = "<group>";
+		};
+		53E5647C106BA9140077B6FD /* iTM2StartupDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53E5647D106BA9140077B6FD /* English */,
+				53E56488106BA9210077B6FD /* French */,
+			);
+			name = iTM2StartupDocument.xib;
 			sourceTree = "<group>";
 		};
 		DCA37E7A0AE3AD7800874F9E /* Credits.rtf */ = {
@@ -1496,41 +1555,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		DCA37E800AE3AD7800874F9E /* iTeXMac2.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCA37E810AE3AD7800874F9E /* English */,
-				DCA37E8E0AE3AD7800874F9E /* French */,
-			);
-			name = iTeXMac2.nib;
-			sourceTree = "<group>";
-		};
-		DCA37E820AE3AD7800874F9E /* iTM2FirstPanel.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCA37E830AE3AD7800874F9E /* English */,
-			);
-			name = iTM2FirstPanel.nib;
-			sourceTree = "<group>";
-		};
-		DCA37E840AE3AD7800874F9E /* iTM2MailController.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCA37E850AE3AD7800874F9E /* English */,
-				DCA37E8F0AE3AD7800874F9E /* French */,
-			);
-			name = iTM2MailController.nib;
-			sourceTree = "<group>";
-		};
-		DCA37E860AE3AD7800874F9E /* iTM2StartupDocument.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCA37E870AE3AD7800874F9E /* English */,
-				DCA37E900AE3AD7800874F9E /* French */,
-			);
-			name = iTM2StartupDocument.nib;
-			sourceTree = "<group>";
-		};
 		DCA37E880AE3AD7800874F9E /* NewDocuments.resources.tgz */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1538,15 +1562,6 @@
 				DCA37E910AE3AD7800874F9E /* French */,
 			);
 			name = NewDocuments.resources.tgz;
-			sourceTree = "<group>";
-		};
-		DCEF623B0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DCEF623C0B62ED7700A19262 /* English */,
-				DCEF62CC0B62FDCC00A19262 /* French */,
-			);
-			name = iTM2SoftwareUpdatePrefPane.nib;
 			sourceTree = "<group>";
 		};
 		DCEF623D0B62ED7700A19262 /* iTM2SoftwareUpdatePrefPane.strings */ = {

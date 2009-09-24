@@ -2413,14 +2413,14 @@ To Do List:
 		return YES;
 	}
 	NSURL * fileURL = [NSURL fileURLWithPath:filename];
-	NSURL * enclosing = [fileURL iTM2_enclosingWrapperURL];
-	if(enclosing)
+	NSURL * enclosingURL = [fileURL iTM2_enclosingWrapperURL];
+	if(enclosingURL)
 	{
-		mandatoryURL = [enclosing iTM2_parentDirectoryURL];
+		mandatoryURL = [enclosingURL iTM2_parentDirectoryURL];
 	}
-	else if(enclosing = [fileURL iTM2_enclosingProjectURL])
+	else if(enclosingURL = [fileURL iTM2_enclosingProjectURL])
 	{
-		mandatoryURL = [enclosing iTM2_parentDirectoryURL];
+		mandatoryURL = [enclosingURL iTM2_parentDirectoryURL];
 	}
 	if(mandatoryURL)
 	{

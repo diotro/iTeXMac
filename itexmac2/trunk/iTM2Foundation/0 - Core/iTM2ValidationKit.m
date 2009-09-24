@@ -614,7 +614,7 @@ To Do List:
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
-- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+- (BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -626,7 +626,7 @@ To Do List:
     return [sender action] && ([[self class] iTM2_target:self validateUserInterfaceItem:sender] == iTM2ValidationStatusNO)?NO:YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
-+ (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
++ (BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -640,7 +640,7 @@ To Do List:
 
 @implementation iTM2Application(ValidationKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateMenuItem:
-- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+- (BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005

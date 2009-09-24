@@ -3100,7 +3100,7 @@ To Do List:
 		else
 		{
 			iTM2_LOG(@"Weird _ProjectDirURL");
-			return @"";
+			return nil;
 		}
 	}
 //iTM2_LOG(@"projectDirName is:%@",result);

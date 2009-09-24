@@ -426,7 +426,7 @@ To Do List:
 		{
 			string2 = [theSubstitutions objectForKey:string1];
 			range = NSMakeRange(0,[result length]);
-			[result replaceOccurrencesOfString:string1 withString:string2 options:nil range:range];
+			[result replaceOccurrencesOfString:string1 withString:string2 options:0L range:range];
 		}
 	}
 	return result;

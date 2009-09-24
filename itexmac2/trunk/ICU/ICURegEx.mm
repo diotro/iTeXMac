@@ -1,15 +1,19 @@
-#import <iTM2Foundation/ICURegEx.h>
+#ifdef __iTeXMac2__
+#	import <iTM2Foundation/ICURegEx.h>
+#else
+#	import "ICURegEx.h"
+#endif
 
 #undef U_DISABLE_RENAMING 1
 #define U_DISABLE_RENAMING 1
 
 #define __TEST_UNICODE_STRING__ 0
 
-#import <unicode/regex_public.h>
-#import <unicode/uchar.h>
-#import <unicode/uregex.h>
-#import <unicode/ustring.h>
-#import <unicode/utypes.h>
+#import "unicode/regex_public.h"
+#import "unicode/uchar.h"
+#import "unicode/uregex.h"
+#import "unicode/ustring.h"
+#import "unicode/utypes.h"
 
 @interface NSString(PRIVATE)
 

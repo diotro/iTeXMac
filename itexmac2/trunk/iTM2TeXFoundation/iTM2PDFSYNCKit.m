@@ -414,7 +414,7 @@ To Do List:
     iTM2_INIT_POOL;
 //iTM2_START;
 //NSLog(@"pdfsync ing");
-    s = [NSString stringWithContentsOfFile:_FileName];
+    s = [NSString stringWithContentsOfFile:_FileName encoding:NSUTF8StringEncoding error:NULL];
     if(![s length])
         goto kauehi;    
     NSPoint offset = NSPointFromString([SUD stringForKey:iTM2PDFSyncOffsetKey]);
@@ -1209,7 +1209,7 @@ To Do List:
 	if(self = [super init])
 	{
 		NSString * path = [outputURL path];
-		scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation]);
+		scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation],nil,1);
 		if(scanner == NULL)
 		{
 			// maybe there is a synctex file in the faraway directory
@@ -1235,7 +1235,7 @@ To Do List:
 					self = nil;
 				}
 			}
-			scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation]);
+			scanner = synctex_scanner_new_with_output_file([path fileSystemRepresentation],nil,1);
 			if(scanner == NULL)
 			{
 				[self release];

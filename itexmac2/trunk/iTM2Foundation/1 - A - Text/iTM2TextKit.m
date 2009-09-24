@@ -521,7 +521,7 @@ To Do List: Nothing at first glance.
 		[S getLineStart:&start end:&end contentsEnd:&contentsEnd forRange:searchRange];
 nextLine:
 		searchRange = NSMakeRange(start,contentsEnd-start);
-		foundRange = [S rangeOfCharacterFromSet:blackCharacterSet options:nil range:searchRange];
+		foundRange = [S rangeOfCharacterFromSet:blackCharacterSet options:0L range:searchRange];
 		if(foundRange.length)
 		{
 			searchRange.length = foundRange.location - searchRange.location;
@@ -809,7 +809,7 @@ To Do List: Nothing at first glance.
 		[S getLineStart:&start end:&end contentsEnd:&contentsEnd forRange:searchRange];
 nextLine:
 		searchRange = NSMakeRange(start,contentsEnd-start);
-		foundRange = [S rangeOfCharacterFromSet:blackCharacterSet options:nil range:searchRange];
+		foundRange = [S rangeOfCharacterFromSet:blackCharacterSet options:0L range:searchRange];
 		if(foundRange.length)
 		{
 			searchRange.length = foundRange.location - searchRange.location;

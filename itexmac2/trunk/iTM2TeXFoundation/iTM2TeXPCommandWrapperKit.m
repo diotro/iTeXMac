@@ -1344,7 +1344,7 @@ DEFINECLASS(iTM2TeXPRenderPerformer, 30, 0)
 	return 20;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-+ (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
++ (BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004

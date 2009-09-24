@@ -353,7 +353,7 @@ To Do List:
 //iTM2_START;
 	if(![commandName length])
 		return NO;
-	const char * command = [commandName cString];
+	const char * command = [commandName cStringUsingEncoding:NSUTF8StringEncoding];
 	size_t size = (37+strlen(command));
 	char * selName = malloc(size);
 	if(!selName)
@@ -377,7 +377,7 @@ To Do List:
 	strncpy(dest, source, size);
 	dest += size;
 	dest[0] = '\0';// terminate the string
-	NSString * selectorName = [NSString stringWithCString:selName];
+	NSString * selectorName = [NSString stringWithCString:selName encoding:NSUTF8StringEncoding];
 	SEL selector = NSSelectorFromString(selectorName);
 	free(selName);
 	NSMethodSignature * myMS = [self methodSignatureForSelector:@selector(template_isValidCommandEnvironmentMode:forScriptMode:)];

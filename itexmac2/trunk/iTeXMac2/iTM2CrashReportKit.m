@@ -25,7 +25,7 @@
 
 #import "iTM2CrashReportKit.h"
 #import <AddressBook/AddressBook.h>
-#import <Message/NSMailDelivery.h>
+#import "Mail.h"
 
 @interface iTM2CrashReportController:NSWindowController
 {
@@ -120,12 +120,12 @@ To Do List:
 				if(self = [super initWithWindow:aWindow])
 				{
 					// the crash log
-					NSString * crashLog = [NSString stringWithContentsOfFile:crashPath];
+					NSString * crashLog = [NSString stringWithContentsOfFile:crashPath encoding:NSUTF8StringEncoding error:NULL];
 					NSArray * crashLogs = [crashLog componentsSeparatedByString: @"**********"];
 					[_crashLog autorelease];
 					_crashLog = [[crashLogs lastObject] copy];
 					[_consoleLog autorelease];
-					_consoleLog = [[NSString stringWithContentsOfFile:consolePath] copy];
+					_consoleLog = [[NSString stringWithContentsOfFile:consolePath encoding:NSUTF8StringEncoding error:NULL] copy];
 				}
 				return [self retain];// will be released by itself when closing
 			}
@@ -180,6 +180,39 @@ To Do List:
 	}
 	
 	NSString * subject = @"iTeXMac2 crash report";
+#	if 1
+	ABPerson * me = [[ABAddressBook sharedAddressBook] me];
+	id Email = [me valueForProperty: kABEmailProperty];
+	id primaryIdentifier = [Email primaryIdentifier];
+	/* FROM apple sample code SBSendEmail */
+	/* create a Scripting Bridge object for talking to the Mail application */
+    MailApplication *mail = [SBApplication applicationWithBundleIdentifier:@"com.apple.Mail"];
+    
+	/* create a new outgoing message object */
+    MailOutgoingMessage *emailMessage =	[[[mail classForScriptingClass:@"outgoing message"] alloc] initWithProperties:
+										 [NSDictionary dictionaryWithObjectsAndKeys:
+										  subject, @"subject",
+										  body, @"content",
+										  nil]];
+	
+	/* add the object to the mail app  */
+    [[mail outgoingMessages] addObject: emailMessage];
+	
+	/* set the sender, show the message */
+    emailMessage.sender = (primaryIdentifier?:@"iTeXMac2_User");
+    emailMessage.visible = YES;
+	
+	/* create a new recipient and add it to the recipients list */
+    MailToRecipient *theRecipient =	[[[mail classForScriptingClass:@"to recipient"] alloc]
+									 initWithProperties: [NSDictionary dictionaryWithObjectsAndKeys:
+										email, @"address",
+														  nil]];
+    [emailMessage.toRecipients addObject: theRecipient];
+    
+	
+	/* send the message */
+    [emailMessage send];
+#	else
 	BOOL result = NO;
 	if ([NSMailDelivery hasDeliveryClassBeenConfigured])
 	{  
@@ -217,6 +250,7 @@ To Do List:
 	{
 		 ;
 	}
+#	endif
 	[self close];
 	[self autorelease];
 //iTM2_END;

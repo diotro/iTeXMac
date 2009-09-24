@@ -42,15 +42,15 @@
  * </p>
  */
 
-#include "unicode/utypes.h"
+#include "utypes.h"
 
 #if !UCONFIG_NO_REGULAR_EXPRESSIONS
 
-#include "unicode/uobject.h"
-#include "unicode/unistr.h"
-#include "unicode/parseerr.h"
+#include "uobject.h"
+#include "unistr.h"
+#include "parseerr.h"
 
-#include "unicode/uregex.h"
+#include "uregex.h"
 
 U_NAMESPACE_BEGIN
 

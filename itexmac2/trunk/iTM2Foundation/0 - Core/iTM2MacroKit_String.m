@@ -174,7 +174,7 @@ To Do List:
 	NSRange searchRange,markRange,wordRange;
 	searchRange.location = index;
 	searchRange.length = length - searchRange.location;
-	markRange = [self rangeOfString:@"@@@" options:nil range:searchRange];
+	markRange = [self rangeOfString:@"@@@" options:0L range:searchRange];
 	if(!markRange.length)
 	{
 		return NSMakeRange(NSNotFound,0);
@@ -199,7 +199,7 @@ To Do List:
 						searchRange.location = markRange.location+1;
 nextMark:
 						searchRange.length = length - searchRange.location;
-						markRange = [self rangeOfString:@"@@@" options:nil range:searchRange];
+						markRange = [self rangeOfString:@"@@@" options:0L range:searchRange];
 						if(!markRange.length)
 						{
 							return NSMakeRange(NSNotFound,0);
@@ -695,7 +695,7 @@ nextRange2:
 	{
 		unsigned length = [self length];
 		NSRange searchRange = NSMakeRange(index, length - index);
-		range = [self rangeOfString:tabAnchor options:nil range:searchRange];
+		range = [self rangeOfString:tabAnchor options:0L range:searchRange];
 		if(range.length)
 		{
 			return range;
@@ -703,7 +703,7 @@ nextRange2:
 		if(cycle)
 		{
 			searchRange = NSMakeRange(0,MIN(length,index+[tabAnchor length]-1));
-			range = [self rangeOfString:tabAnchor options:nil range:searchRange];
+			range = [self rangeOfString:tabAnchor options:0L range:searchRange];
 			if(range.length)
 			{
 				return range;

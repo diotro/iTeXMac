@@ -320,7 +320,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollInputToVisible:
-- (void)delayedScrollInputToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollInputToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.: 03/10/2002

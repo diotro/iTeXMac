@@ -897,7 +897,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 			NSString * linkTarget = [DFM pathContentOfSymbolicLinkAtPath:fullPath];
 			NSString * coreName = [(linkTarget? linkTarget:fullPath) stringByDeletingPathExtension];
 			NSString * logPath = [coreName stringByAppendingPathExtension:@"log"];
-			NSString * S = [NSString stringWithContentsOfFile:logPath];
+			NSString * S = [NSString stringWithContentsOfFile:logPath encoding:NSUTF8StringEncoding error:NULL];
 			if([S hasPrefix:TeXLogHeader])
 				[TeXs addObject:[P stringByDeletingPathExtension]];
 			else if([S hasPrefix:PDFTeXLogHeader])
