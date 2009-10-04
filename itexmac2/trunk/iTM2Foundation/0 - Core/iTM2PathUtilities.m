@@ -274,7 +274,7 @@ To Do List:
 		}
 	}
 //iTM2_END;
-    return [NSString pathWithComponents:components];
+    return [NSString iTM2_pathWithComponents:components];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByDeletingAllPathExtensions
 - (NSString *)stringByDeletingAllPathExtensions;
@@ -305,9 +305,8 @@ To Do List:
 //iTM2_START;
 	NSMutableDictionary * tree = [NSMutableDictionary dictionary];// this will contain the partial file hierarchy of the project files
 	// Getting the directory where all the files are stored
-	NSEnumerator * E = [fileNames objectEnumerator];
 	NSString * path = nil;
-	while(path = [E nextObject])
+	for(path in fileNames)
 	{
 		NSMutableDictionary * subtree = tree;
 		path = [path stringByDeletingLastPathComponent];
@@ -337,7 +336,7 @@ To Do List:
 		tree = [tree objectForKey:key];
 	}
 //iTM2_END;
-	return [NSString pathWithComponents:commonComponents];
+	return [NSString iTM2_pathWithComponents:commonComponents];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileName:
 - (BOOL)isEqualToFileName:(NSString *)otherFileName;
@@ -404,12 +403,12 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absolutePathWithPath:base:
 + (NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 06/01/03
-To Do List:
-"*/
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 2.0: 06/01/03
+ To Do List:
+ "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+	//iTM2_START;
 	if([path hasPrefix:iTM2PathComponentsSeparator])
 	{
 		return path;
@@ -417,8 +416,26 @@ To Do List:
 	NSURL * baseURL = [NSURL fileURLWithPath:base];
 	path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSURL * fileURL = [NSURL URLWithString:path relativeToURL:baseURL];
-//iTM2_END;
+	//iTM2_END;
 	return [fileURL path];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_pathWithComponents:
++ (NSString *)iTM2_pathWithComponents:(NSArray *)components;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 2.0: 06/01/03
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	NSString * result = [self pathWithComponents:components];
+	if(([[components lastObject] isEqual:@""] || [[components lastObject] isEqual:iTM2PathComponentsSeparator])
+	   && ![result hasSuffix:iTM2PathComponentsSeparator])
+	{
+		result = [result stringByAppendingString:iTM2PathComponentsSeparator];
+	}
+	//iTM2_END;
+	return result;
 }
 @end
 
@@ -521,7 +538,11 @@ NSString * const iTM2PathFactoryComponent = @"Factory.localized";
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [path length]?
+	if(!baseURL)
+	{
+		baseURL = [NSURL fileURLWithPath:NSOpenStepRootDirectory()];
+	}
+	return path.length?
 		[self URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:baseURL]:
 		baseURL;
 }
@@ -599,10 +620,15 @@ To Do List:
 //iTM2_START;
 //iTM2_END;
 	NSParameterAssert(otherURL);
-	NSString * myPath = [self path];
-	myPath = [myPath stringByStandardizingPath];
 	NSString * otherPath = [otherURL path];
 	otherPath = [otherPath stringByStandardizingPath];
+	NSString * myPath = [self path];
+	myPath = [myPath stringByStandardizingPath];
+	BOOL isDirectory;
+	if([DFM fileExistsAtPath:myPath isDirectory:&isDirectory] && isDirectory && ![myPath hasSuffix:@"/"])
+	{
+		myPath = [myPath stringByAppendingString:@"/"];
+	}
 	NSString * result = [myPath stringByAbbreviatingWithDotsRelativeToDirectory:otherPath];
 	if(![self iTM2_isEquivalentToURL:[NSURL iTM2_URLWithPath:result relativeToURL:otherURL]])
 	{

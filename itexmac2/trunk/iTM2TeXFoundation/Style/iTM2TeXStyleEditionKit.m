@@ -1651,9 +1651,8 @@ To Do List:
     NSMutableArray * MA = [NSMutableArray array];
     NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:@"" attributes:nil] autorelease];
 	[MAS beginEditing];
-    NSEnumerator * E = [rows objectEnumerator];
     NSNumber * N;
-    while(N = [E nextObject])
+    for(N in rows)
     {
         int row = [N intValue];
         if((row>=0) && (row<[_Ks count]))
@@ -1972,6 +1971,19 @@ To Do List:
 //iTM2_END;
     return NO;
 }
+@synthesize tableView;
+@synthesize addSetPanel;
+@synthesize _BuiltInSymbolsSets;
+@synthesize _NetworkSymbolsSets;
+@synthesize _LocalSymbolsSets;
+@synthesize _CustomSymbolsSets;
+@synthesize _CustomObjectsSets;
+@synthesize _CustomKeysSets;
+@synthesize _EditedObjectsSets;
+@synthesize _RecycleSymbolsSets;
+@synthesize _AllSymbolsSets;
+@synthesize _CurrentSetItem;
+@synthesize _Background;
 @end
 
 @interface iTM2TextStyleTableView: NSTableView

@@ -1343,7 +1343,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollConTeXtLabelToVisible:
-- (void)scrollConTeXtLabelToVisible:(id <NSMenuItem>)sender;
+- (void)scrollConTeXtLabelToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1356,7 +1356,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollConTeXtReferenceToVisible:
-- (void)scrollConTeXtReferenceToVisible:(id <NSMenuItem>)sender;
+- (void)scrollConTeXtReferenceToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1369,7 +1369,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollIncludeToVisible:
-- (void)scrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)scrollIncludeToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1389,7 +1389,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delayedScrollIncludeToVisible:
-- (void)delayedScrollIncludeToVisible:(id <NSMenuItem>)sender;
+- (void)delayedScrollIncludeToVisible:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -2427,9 +2427,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMenu * result = [[[NSMenu alloc] initWithTitle:@""] autorelease];
-	NSEnumerator * E = [elements objectEnumerator];
 	NSXMLElement * element;
-	while(element = [E nextObject])
+	for(element in elements)
 	{
 		NSString * title = [[[element elementsForName:@"title"] lastObject] stringValue];
 		if([title length])

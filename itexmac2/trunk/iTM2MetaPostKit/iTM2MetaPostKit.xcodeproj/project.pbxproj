@@ -126,7 +126,7 @@
 		DC5B698E0A4B6B9100F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC70F2AF0BFC5CB7006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC81AE6E08871B4600943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC892FBF08FC1CD6007A4673 /* iTM2MetaPostKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2MetaPostKit-Info.plist"; sourceTree = "<group>"; };
+		DC892FBF08FC1CD6007A4673 /* iTM2MetaPostKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2MetaPostKit-Info.plist"; sourceTree = "<group>"; };
 		DC892FC008FC1CD6007A4673 /* iTM2MetaPostKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2MetaPostKit-Prefix.pch"; sourceTree = "<group>"; };
 		DC892FC108FC1CD6007A4673 /* iTM2MetaPostKit.hdoc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iTM2MetaPostKit.hdoc; sourceTree = "<group>"; };
 		DC892FC908FC1CD6007A4673 /* iTM2_Engine_mptopdf.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_mptopdf.rb; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		DCCD2E9A09E142500003EEF9 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCD2E9C09E1425A0003EEF9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Inspector.strings; sourceTree = "<group>"; };
 		DCCDE0C80907D408006565C3 /* iTM2_Engine_mpost.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = iTM2_Engine_mpost.rb; sourceTree = "<group>"; };
-		DCD3A67D0A38FB1D00B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
+		DCD3A67D0A38FB1D00B5EE0C /* EnvironmentVariables.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EnvironmentVariables.plist; sourceTree = "<group>"; };
 		DCD8A7DE090FD8F1000831D9 /* iTM2HiFit.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2HiFit.tif; sourceTree = "<group>"; };
 		DCD8A7DF090FD8F1000831D9 /* iTM2HiLarger.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2HiLarger.tif; sourceTree = "<group>"; };
 		DCD8A7E0090FD8F1000831D9 /* iTM2HiSmaller.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2HiSmaller.tif; sourceTree = "<group>"; };

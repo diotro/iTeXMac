@@ -273,9 +273,8 @@ To Do List:
             nil];
 	[MRA addObject:attributes];
 
-	NSEnumerator * E = [MRA objectEnumerator];
     NSMutableDictionary * MD = [[[super defaultModesAttributes] mutableCopy] autorelease];
-	while(attributes = [E nextObject])
+	for(attributes in MRA)
 	{
 		NSString * key = [attributes objectForKey:iTM2TextModeAttributeName];
 		[MD setObject:attributes forKey:key];
@@ -796,6 +795,9 @@ To Do List:
 //iTM2_END;
 	return [data writeToFile:fileName options:NSAtomicWrite error:nil];
 }
+@synthesize _SymbolsAttributes;
+@synthesize _RegExAttributes;
+@synthesize _CachedSymbolsAttributes;
 @end
 
 

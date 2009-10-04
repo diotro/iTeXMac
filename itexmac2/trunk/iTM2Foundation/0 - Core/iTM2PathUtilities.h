@@ -75,14 +75,27 @@ extern NSString * const iTM2PathFactoryComponent;
 - (BOOL)belongsToDirectory:(NSString *)fileName;
 
 /*!
-	@method		absolutePathWithPath:base:
-	@abstract	Abstract forthcoming.
-	@discussion If the given path is already absolute, it is returned as is.
-	@param		path
-	@param		base
-	@result		absolute path. 
-*/
+ @method		absolutePathWithPath:base:
+ @abstract	Abstract forthcoming.
+ @discussion If the given path is already absolute, it is returned as is.
+ @param		path
+ @param		base
+ @result		absolute path. 
+ */
 + (NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
+
+/*!
+ @method	iTM2_pathWithComponents:
+ @abstract	Custom method.
+ @discussion The original <code>-pathComponents</code> and <code>-pathWithComponents:</code> methods are not reversed operations.
+			If the receiver ends with a path separator and is not the root directory, the last component of the original <code>-pathComponents</code>
+			is simply that separator. Unfortunately, the original <code>-pathWithComponents:</code> method ignores such ending path components.
+			Moreover, <code>-pathWithComponents:</code> as of 10.6.1 does not conform to the documentation, see JL bug report 7274160
+ @param		an array of path components
+ @param		base
+ @result	absolute path. 
+ */
++ (NSString *)iTM2_pathWithComponents:(NSArray *)components;
 
 @end
 

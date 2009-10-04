@@ -86,6 +86,7 @@
 */
 - (void)setImplementation:(id)argument;
 
+@property (retain) id _Implementation;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2CenteringView
@@ -108,6 +109,8 @@
 - (float)verticalMargin;
 /*"Main methods"*/
 /*"Overriden methods"*/
+@property (retain) id _Subview;
+@property (retain) id _Implementation;
 @end
 
 @interface iTM2FlagsChangedView: NSView
@@ -124,6 +127,8 @@
 - (int)tagFromMask:(int)aMask;
 - (void)moveAwaySubviewAtIndex:(int)index;
 - (void)moveCloserSubviewAtIndex:(int)index;
+@property (retain) id _SubFrames;
+@property int _VisibleSubviewIndex;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2CenteringView
 
@@ -266,6 +271,7 @@ unsigned int _Position;
 */
 - (iTM2ScrollerToolbarPosition)position;
 
+@property unsigned int _Position;
 @end
 
 @interface iTM2SmallToolbarBackgroundView: NSView
@@ -290,4 +296,5 @@ unsigned int _Position;
 	id _implementation;
 }
 - (void)stackAndFit;
+@property (retain) id _implementation;
 @end

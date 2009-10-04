@@ -365,9 +365,8 @@ To Do List:
 	subpath = [subpath stringByAppendingPathComponent:iTM2MacroScriptsComponent];
 	NSBundle * MB = [NSBundle mainBundle];
 	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
-	NSEnumerator * E = [RA objectEnumerator];
 	NSString * path;
-	while(path = [E nextObject])
+	for(path in RA)
 	{
 		if([DFM pushDirectory:path])
 		{
@@ -1490,6 +1489,7 @@ To Do List:
 //iTM2_END;
     return [self countOfAvailableKeyBindings]>0;
 }
+@synthesize selectionIndexPaths;
 @end
 
 @interface iTM2KeyBindingTreeController: NSTreeController
@@ -2603,9 +2603,8 @@ static id iTM2HumanReadableActionNames = nil;
 		iTM2HumanReadableActionNames = [[NSMutableDictionary dictionary] retain];
 		NSBundle * MB = [NSBundle mainBundle];
 		NSArray * RA = [MB allPathsForResource:@"iTM2HumanReadableActionNames" ofType:@"plist"];
-		NSEnumerator * E = [RA objectEnumerator];
 		NSString * path;
-		while(path = [E nextObject])
+		for(path in RA)
 		{
 			NSDictionary * D = [NSDictionary dictionaryWithContentsOfFile:path];
 			if(D)

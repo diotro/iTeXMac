@@ -795,12 +795,11 @@ To Do List:
 	selectedString = [selectedString stringByNormalizingIndentationWithNumberOfSpacesPerTab:numberOfSpacesPerTab];
 	NSArray * components = [selectedString lineComponents];
 	NSMutableArray * MRA = [NSMutableArray array];
-	NSEnumerator * E = [components objectEnumerator];
 	unsigned lineIndentation = 0;
 	// selected range used!
 	unsigned indentation = [S indentationLevelAtIndex:selectedRange.location withNumberOfSpacesPerTab:numberOfSpacesPerTab];
 	NSString * line;
-	while(line = [E nextObject])
+	for(line in components)
 	{
 		lineIndentation = [line indentationLevelAtIndex:0 withNumberOfSpacesPerTab:numberOfSpacesPerTab];
 		if(lineIndentation>indentation)

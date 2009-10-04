@@ -288,9 +288,8 @@ To Do List:
     else if(argument != ivarIgnoredWords)
     {
         NSMutableArray * MRA = [NSMutableArray array];
-        NSEnumerator * E = [argument objectEnumerator];
         id O;
-        while(O = [E nextObject])
+        for(O in argument)
             if([O isKindOfClass:[NSString class]])
                 [MRA addObject:O];
         [ivarIgnoredWords autorelease];
@@ -314,6 +313,9 @@ To Do List:
 //iTM2_END;
     return;
 }
+@synthesize ivarIgnoredWords;
+@synthesize ivarLanguage;
+@synthesize ivarTag;
 @end
 
 @implementation NSWindow(iTM2SpellKit)
@@ -578,8 +580,7 @@ To Do List:
     while(mode = [E nextObject])
         if(![newModes containsObject:mode])
             [MD removeObjectForKey:mode];
-    E = [newModes objectEnumerator];
-    while(mode = [E nextObject])
+    for(mode in newModes)
         [MD setObject:[[controller spellContextForMode:mode] propertyListRepresentation] forKey:mode];
     [SUD setObject:MD forKey:iTM2SpellContextsKey];
 //iTM2_END;
@@ -912,6 +913,12 @@ To Do List:
 - (NSMutableArray *)ignoredWords;
 - (void)setIgnoredWords:(NSArray *)argument;
 - (void)setCurrentText:(NSText *)currentText;
+@property (retain) NSValue *		iVarCurrentTextRef;
+@property (retain) NSTableView *	iVarTableView;
+@property (retain) NSTextField *	iVarModeField;
+@property (retain) NSTextField *	iVarProjectField;
+@property (retain) NSMutableArray *	iVarIgnoredWords;
+@property int			iVarSpellDocumentTag;
 @end
 
 #import <iTM2Foundation/iTM2ValidationKit.h>
@@ -1480,6 +1487,12 @@ To Do List:
 	id source = [self currentText];
     return [[source window] windowController] != self? [source contextManager]:nil;
 }
+@synthesize iVarCurrentTextRef;
+@synthesize iVarTableView;
+@synthesize iVarModeField;
+@synthesize iVarProjectField;
+@synthesize iVarIgnoredWords;
+@synthesize iVarSpellDocumentTag;
 @end
 
 @interface iTM2SpellCheckerHelper(PRIVATE)
@@ -2459,6 +2472,7 @@ To Do List:
     [NSApp stopModal];
     return;
 }
+@synthesize _iVarPrivateImplementation;
 @end
 
 @interface NSObject(iTM2SpellKit_PRIVATE_2)

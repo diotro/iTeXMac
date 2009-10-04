@@ -342,35 +342,7 @@
 		5150EC8A0E8139C300578A0A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		51999E350D92D744004F0D09 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
 		51999E370D92D752004F0D09 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
-		53F77DAC106B84FB005D94C0 /* synctex.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex.am; sourceTree = "<group>"; };
-		53F77DAD106B84FB005D94C0 /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
-		53F77DAF106B84FB005D94C0 /* synctex.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = synctex.1; sourceTree = "<group>"; };
-		53F77DB1106B84FB005D94C0 /* synctex.5 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex.5; sourceTree = "<group>"; };
 		53F77DB2106B84FB005D94C0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		53F77DB3106B84FB005D94C0 /* synctex-common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-common.h"; sourceTree = "<group>"; };
-		53F77DB4106B84FB005D94C0 /* synctex-convert.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "synctex-convert.sh"; sourceTree = "<group>"; };
-		53F77DB5106B84FB005D94C0 /* synctex-e-mem.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-mem.ch0"; sourceTree = "<group>"; };
-		53F77DB6106B84FB005D94C0 /* synctex-e-mem.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-mem.ch1"; sourceTree = "<group>"; };
-		53F77DB7106B84FB005D94C0 /* synctex-e-rec.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-rec.ch0"; sourceTree = "<group>"; };
-		53F77DB8106B84FB005D94C0 /* synctex-e-rec.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-e-rec.ch1"; sourceTree = "<group>"; };
-		53F77DB9106B84FB005D94C0 /* synctex-etex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-etex.h"; sourceTree = "<group>"; };
-		53F77DBA106B84FB005D94C0 /* synctex-mem.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-mem.ch0"; sourceTree = "<group>"; };
-		53F77DBB106B84FB005D94C0 /* synctex-mem.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-mem.ch1"; sourceTree = "<group>"; };
-		53F77DBC106B84FB005D94C0 /* synctex-mem.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-mem.ch2"; sourceTree = "<group>"; };
-		53F77DBD106B84FB005D94C0 /* synctex-pdf-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-pdf-rec.ch2"; sourceTree = "<group>"; };
-		53F77DBE106B84FB005D94C0 /* synctex-pdftex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-pdftex.h"; sourceTree = "<group>"; };
-		53F77DBF106B84FB005D94C0 /* synctex-rec.ch0 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-rec.ch0"; sourceTree = "<group>"; };
-		53F77DC0106B84FB005D94C0 /* synctex-rec.ch1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-rec.ch1"; sourceTree = "<group>"; };
-		53F77DC1106B84FB005D94C0 /* synctex-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-rec.ch2"; sourceTree = "<group>"; };
-		53F77DC2106B84FB005D94C0 /* synctex-tex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-tex.h"; sourceTree = "<group>"; };
-		53F77DC3106B84FB005D94C0 /* synctex-xe-mem.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-xe-mem.ch2"; sourceTree = "<group>"; };
-		53F77DC4106B84FB005D94C0 /* synctex-xe-rec.ch2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-xe-rec.ch2"; sourceTree = "<group>"; };
-		53F77DC5106B84FB005D94C0 /* synctex-xe-rec.ch3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "synctex-xe-rec.ch3"; sourceTree = "<group>"; };
-		53F77DC6106B84FB005D94C0 /* synctex-xetex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "synctex-xetex.h"; sourceTree = "<group>"; };
-		53F77DC7106B84FB005D94C0 /* synctex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex.c; sourceTree = "<group>"; };
-		53F77DC8106B84FB005D94C0 /* synctex.defines */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex.defines; sourceTree = "<group>"; };
-		53F77DC9106B84FB005D94C0 /* synctex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex.h; sourceTree = "<group>"; };
-		53F77DCA106B84FB005D94C0 /* synctex_main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_main.c; sourceTree = "<group>"; };
 		53F77DCB106B84FB005D94C0 /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser.c; sourceTree = "<group>"; };
 		53F77DCC106B84FB005D94C0 /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser.h; sourceTree = "<group>"; };
 		53F77DCD106B84FB005D94C0 /* synctex_parser_local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser_local.h; sourceTree = "<group>"; };
@@ -378,11 +350,6 @@
 		53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser_utils.c; sourceTree = "<group>"; };
 		53F77DD0106B84FB005D94C0 /* synctex_parser_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser_utils.h; sourceTree = "<group>"; };
 		53F77DD1106B84FB005D94C0 /* synctex_parser_version.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synctex_parser_version.txt; sourceTree = "<group>"; };
-		53F77DD3106B84FB005D94C0 /* bartest.synctex.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = bartest.synctex.gz; sourceTree = "<group>"; };
-		53F77DD4106B84FB005D94C0 /* footest.synctex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = footest.synctex; sourceTree = "<group>"; };
-		53F77DD5106B84FB005D94C0 /* LM-Volume-manuscript.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LM-Volume-manuscript.tex"; sourceTree = "<group>"; };
-		53F77DD6106B84FB005D94C0 /* story-zapfino.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "story-zapfino.tex"; sourceTree = "<group>"; };
-		53F77DD7106B84FB005D94C0 /* test file.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "test file.sh"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Prepare iTM2Foundation-Info.plist"; sourceTree = "<group>"; };
 		DC05CBB60919FAB00003E471 /* iTM2TeXDocumentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXDocumentToolbar.h; sourceTree = "<group>"; };
@@ -647,35 +614,7 @@
 		53F77DAA106B84FB005D94C0 /* synctexdir */ = {
 			isa = PBXGroup;
 			children = (
-				53F77DAB106B84FB005D94C0 /* am */,
-				53F77DAD106B84FB005D94C0 /* ChangeLog */,
-				53F77DAE106B84FB005D94C0 /* man1 */,
-				53F77DB0106B84FB005D94C0 /* man5 */,
 				53F77DB2106B84FB005D94C0 /* README.txt */,
-				53F77DB3106B84FB005D94C0 /* synctex-common.h */,
-				53F77DB4106B84FB005D94C0 /* synctex-convert.sh */,
-				53F77DB5106B84FB005D94C0 /* synctex-e-mem.ch0 */,
-				53F77DB6106B84FB005D94C0 /* synctex-e-mem.ch1 */,
-				53F77DB7106B84FB005D94C0 /* synctex-e-rec.ch0 */,
-				53F77DB8106B84FB005D94C0 /* synctex-e-rec.ch1 */,
-				53F77DB9106B84FB005D94C0 /* synctex-etex.h */,
-				53F77DBA106B84FB005D94C0 /* synctex-mem.ch0 */,
-				53F77DBB106B84FB005D94C0 /* synctex-mem.ch1 */,
-				53F77DBC106B84FB005D94C0 /* synctex-mem.ch2 */,
-				53F77DBD106B84FB005D94C0 /* synctex-pdf-rec.ch2 */,
-				53F77DBE106B84FB005D94C0 /* synctex-pdftex.h */,
-				53F77DBF106B84FB005D94C0 /* synctex-rec.ch0 */,
-				53F77DC0106B84FB005D94C0 /* synctex-rec.ch1 */,
-				53F77DC1106B84FB005D94C0 /* synctex-rec.ch2 */,
-				53F77DC2106B84FB005D94C0 /* synctex-tex.h */,
-				53F77DC3106B84FB005D94C0 /* synctex-xe-mem.ch2 */,
-				53F77DC4106B84FB005D94C0 /* synctex-xe-rec.ch2 */,
-				53F77DC5106B84FB005D94C0 /* synctex-xe-rec.ch3 */,
-				53F77DC6106B84FB005D94C0 /* synctex-xetex.h */,
-				53F77DC7106B84FB005D94C0 /* synctex.c */,
-				53F77DC8106B84FB005D94C0 /* synctex.defines */,
-				53F77DC9106B84FB005D94C0 /* synctex.h */,
-				53F77DCA106B84FB005D94C0 /* synctex_main.c */,
 				53F77DCB106B84FB005D94C0 /* synctex_parser.c */,
 				53F77DCC106B84FB005D94C0 /* synctex_parser.h */,
 				53F77DCD106B84FB005D94C0 /* synctex_parser_local.h */,
@@ -683,47 +622,10 @@
 				53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */,
 				53F77DD0106B84FB005D94C0 /* synctex_parser_utils.h */,
 				53F77DD1106B84FB005D94C0 /* synctex_parser_version.txt */,
-				53F77DD2106B84FB005D94C0 /* tests */,
 			);
 			name = synctexdir;
 			path = ../synctexdir;
 			sourceTree = SOURCE_ROOT;
-		};
-		53F77DAB106B84FB005D94C0 /* am */ = {
-			isa = PBXGroup;
-			children = (
-				53F77DAC106B84FB005D94C0 /* synctex.am */,
-			);
-			path = am;
-			sourceTree = "<group>";
-		};
-		53F77DAE106B84FB005D94C0 /* man1 */ = {
-			isa = PBXGroup;
-			children = (
-				53F77DAF106B84FB005D94C0 /* synctex.1 */,
-			);
-			path = man1;
-			sourceTree = "<group>";
-		};
-		53F77DB0106B84FB005D94C0 /* man5 */ = {
-			isa = PBXGroup;
-			children = (
-				53F77DB1106B84FB005D94C0 /* synctex.5 */,
-			);
-			path = man5;
-			sourceTree = "<group>";
-		};
-		53F77DD2106B84FB005D94C0 /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				53F77DD3106B84FB005D94C0 /* bartest.synctex.gz */,
-				53F77DD4106B84FB005D94C0 /* footest.synctex */,
-				53F77DD5106B84FB005D94C0 /* LM-Volume-manuscript.tex */,
-				53F77DD6106B84FB005D94C0 /* story-zapfino.tex */,
-				53F77DD7106B84FB005D94C0 /* test file.sh */,
-			);
-			path = tests;
-			sourceTree = "<group>";
 		};
 		DC225F620AE53C1A00186582 /* Test TeX Application */ = {
 			isa = PBXGroup;

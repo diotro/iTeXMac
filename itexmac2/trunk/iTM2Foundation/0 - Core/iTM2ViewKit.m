@@ -342,9 +342,8 @@ To Do List:
 {
 	NSMutableArray * result = [NSMutableArray array];
 	NSArray * subviews = [self subviews];
-	NSEnumerator * E = [subviews objectEnumerator];
 	NSView * subview = nil;
-	while(subview = [E nextObject])
+	for(subview in subviews)
 	{
 		if([subview isKindOfClass:aClass])
 		{
@@ -634,6 +633,7 @@ To Do List:
     }
     return;
 }
+@synthesize _Implementation;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2CenteringView
@@ -869,6 +869,8 @@ To Do List:
 //iTM2_START;
     return [self horizontalMargin];
 }
+@synthesize _Subview;
+@synthesize _Implementation;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2CenteringView
@@ -1123,6 +1125,8 @@ To Do List:
         [[_subviews objectAtIndex:index] setFrameOrigin:NSZeroPoint];
     return;
 }
+@synthesize _SubFrames;
+@synthesize _VisibleSubviewIndex;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2FlagsChangedView  =-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -1561,6 +1565,7 @@ To Do List:
 //iTM2_END;
 	return;
 }
+@synthesize _Position;
 @end
 
 @implementation NSScrollView(iTM2ViewKit)
@@ -1874,4 +1879,5 @@ To Do List:
 	NSFrameRect(R);
 }
 #endif
+@synthesize _implementation;
 @end

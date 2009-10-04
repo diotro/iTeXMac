@@ -481,6 +481,10 @@ To Do List:
 //iTM2_END;
     return YES;
 }
+@synthesize _Timer;
+@synthesize _MixedAction;
+@synthesize _CenteredArrow;
+@synthesize _MixedEnabled;
 @end
 
 @implementation iTM2ButtonForward
@@ -681,6 +685,7 @@ To Do List:
 + (void)timedCoffeeBreak:(NSTimer *)timer;
 + (void)coffeeBreakNotified:(NSNotification *)notification;
 - (void)coffeeBreakNotified:(NSNotification *)notification;
+@property (retain) NSView * _VCB;
 @end
 
 NSString * const _iTM2CoffeeBreakNotification = @"_iTM2CoffeeBreakNotification";
@@ -819,6 +824,7 @@ To Do List:
     }
     return;
 }
+@synthesize _VCB;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ButtonKit

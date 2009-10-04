@@ -37,6 +37,12 @@
 	BOOL _dontSendReport;
 	BOOL _isSending;
 }
+@property (retain) NSString * _crashDescription;
+@property (retain) NSString * _crashLog;
+@property (retain) NSString * _consoleLog;
+@property BOOL _dontSendConsole;
+@property BOOL _dontSendReport;
+@property BOOL _isSending;
 @end
 
 
@@ -94,10 +100,9 @@ To Do List:
 			NSString * consoleDir = [logsPath stringByAppendingPathComponent:name];
 			
 			NSArray * availableLogs = [DFM directoryContentsAtPath:consoleDir];
-			NSEnumerator * E = [availableLogs objectEnumerator];
 			NSString * component;
 			NSMutableArray * files = [NSMutableArray array];
-			while(component = [E nextObject])
+			for(component in availableLogs)
 			{
 				NSString * fullPath = [consoleDir stringByAppendingPathComponent:component];
 				attributes = [DFM fileAttributesAtPath:fullPath traverseLink: YES];
@@ -347,5 +352,11 @@ To Do List:
 //iTM2_END;
     return;
 }
+@synthesize _crashDescription;
+@synthesize _crashLog;
+@synthesize _consoleLog;
+@synthesize _dontSendConsole;
+@synthesize _dontSendReport;
+@synthesize _isSending;
 @end
 

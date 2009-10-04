@@ -34,6 +34,7 @@
     @result		None
 */
 - (IBAction)lineFieldAction:(id)sender;
+@property (retain) NSView * rightView;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TextFieldKit
 
@@ -48,6 +49,7 @@
 - (NSString *)navigationFormat;
 - (NSString *)lazyNavigationFormat;
 - (void)setNavigationFormat:(NSString *)aFormat;
+@property (retain) NSString * _NavigationFormat;
 @end
 
 @interface iTM2NavigationFormatter : iTM2LineFormatter
@@ -67,6 +69,7 @@
 @private
 	id _Implementation;
 }
+@property (retain) id _Implementation;
 @end
 
 @interface iTM2LineResponder: iTM2AutoInstallResponder

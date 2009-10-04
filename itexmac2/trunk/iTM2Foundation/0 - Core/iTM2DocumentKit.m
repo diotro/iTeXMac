@@ -536,9 +536,8 @@ To Do List:
     NSMutableArray * windows = [NSMutableArray arrayWithArray:[NSApp windows]];
     NSMutableArray * openInspectors = [NSMutableArray array];
     [windows sortUsingSelector:@selector(iTM2_compareUsingLevel:)];
-    NSEnumerator * E = [windows objectEnumerator];
     NSWindow * W;
-    while(W = [E nextObject])
+    for(W in windows)
         if([W isVisible])
         {
             NSWindowController * WC = [W windowController];
@@ -1211,12 +1210,11 @@ To Do List:
     NSArray * modes = [self contextValueForKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
     if([modes isKindOfClass:[NSArray class]])
     {
-        E = [modes objectEnumerator];
         NSDictionary * d;
 		NSMutableArray * alreadyOpenModes = [NSMutableArray array];
 		NSString * inspectorType = [[self class] inspectorType];
 		NSString * fileName = [self fileName];
-        while(d = [E nextObject])
+        for(d in modes)
         {
 //iTM2_LOG(@"d is:%@", d);
 			if(![alreadyOpenModes containsObject:d])

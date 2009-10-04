@@ -69,6 +69,9 @@ NSString * const iTM2SNStatusKey = @"status";
 - (void)postNotificationWithToolTip:(NSString *)aToolTip;
 - (void)cleanStatusNotified:(NSNotification *)aNotification;
 - (void)cleanToolTipNotified:(NSNotification *)aNotification;
+@property (retain) NSString * _CurrentStatus;
+@property (retain) NSString * _CurrentToolTip;
+@property (retain) NSTimer * _Timer;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2StatusNotificationCenter
 /*"Description forthcoming."*/
@@ -345,6 +348,9 @@ To Do List:
     [self postNotificationWithStatus:[self currentStatus]];
     return;
 }
+@synthesize _CurrentStatus;
+@synthesize _CurrentToolTip;
+@synthesize _Timer;
 @end
 
 @implementation iTM2StatusField

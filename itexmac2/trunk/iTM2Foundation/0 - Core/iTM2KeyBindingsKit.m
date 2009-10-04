@@ -930,6 +930,10 @@ To Do List:
 //iTM2_END;
     return;
 }
+@synthesize _SM;
+@synthesize _KBS;
+@synthesize _CK;
+@synthesize _CC;
 @end
 
 @implementation NSResponder(iTM2KeyBindingsKit)
@@ -1689,10 +1693,9 @@ To Do List: Nothing at first glance.
 //iTM2_START;
 	iTM2KeyBindingsManager * KBM = [self keyBindingsManager];
 //iTM2_LOG(@"KBM is: %@", KBM);
-    NSEnumerator * E = [eventArray objectEnumerator];
     NSEvent * event;
 //NSLog(NSStringFromSelector(_cmd));
-    while(event = [E nextObject])
+    for(event in eventArray)
     {
         if(![KBM client:self interpretKeyEvent:event])
             [self SWZ_iTM2KeyBindings_interpretKeyEvents:[NSArray arrayWithObject:event]];

@@ -59,8 +59,6 @@ To Do List:
 			}
 			NSMethodSignature * signature = [iTM2Installer methodSignatureForSelector:_cmd];
 			NSEnumerator * e = [[iTM2RuntimeBrowser realClassSelectorsOfClass:C withSuffix:@"CompleteInstallation" signature:signature inherited:NO] objectEnumerator];
-			// Transforming to a zombie...
-			((struct objc_class *)C) -> super_class = [iTM2InstallerZombie class];
 			SEL selector;
 			while(selector = (SEL)[[e nextObject] pointerValue])
 			{
@@ -78,6 +76,8 @@ To Do List:
 			{
 				iTM2_LOG(@"Auto installation of class %@ END", NSStringFromClass(C));
 			}
+			// Transforming to a zombie...
+			C->isa=[iTM2InstallerZombie class];
 		}
 //iTM2_END;
     return;
@@ -310,7 +310,8 @@ To Do List:
 //iTM2_START;
 	if([iTM2RuntimeBrowser swizzleClassMethodSelector:_cmd
 		replacement: @selector(otherFixInstallationOf:)
-			forClass: [NSObject class]])
+			forClass: [NSObject class]
+												error:nil])
 	{
 		iTM2_LOG(@"INFO: Delayed fix installation available.");
 		if(!_iTM2_FixInstallationQueue)
@@ -460,7 +461,8 @@ To Do List:
 //iTM2_START;
 	if([iTM2RuntimeBrowser swizzleClassMethodSelector:_cmd
 		replacement: @selector(otherCompleteInstallationOf:)
-			forClass: [NSObject class]])
+			forClass: [NSObject class]
+				error:nil])
 	{
 		iTM2_LOG(@"INFO: Delayed complete installation available.");
 		if(!_iTM2_CompleteInstallationQueue)

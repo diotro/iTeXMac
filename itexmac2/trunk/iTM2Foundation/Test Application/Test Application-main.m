@@ -63,7 +63,6 @@ NSLog(@"returning MyCustomElementClass");
 #endif
 
 #import <iTM2Foundation/iTeXMac2.h>
-#import <OgreKit/OgreKit.h>
 #import <iTM2Foundation/ICURegEx.h>
 
 @interface NSObject(OgreKit)
@@ -73,38 +72,6 @@ NSLog(@"returning MyCustomElementClass");
 - (id)deepItemWithAction:(SEL)action;
 @end
 @implementation NSApplication(OgreKit)
-- (void)ogreKitWillHackFindMenu:(id)textFinder
-{
-	NSMenuItem * mi = [[self mainMenu] deepItemWithAction:@selector(OgreFindMenuItemAction:)];
-	if(mi)
-	{
-		NSMenu * menu = [[[textFinder findMenu] copy] autorelease];
-		[mi setAction:NULL];
-		[[mi menu] setSubmenu:menu forItem:mi];
-	}
-	else
-	{
-		iTM2_LOG(@"No OgreKit panel installed because there is no menu item with action OgreFindMenuItemAction: in %@", [self mainMenu]);
-	}
-	[textFinder setShouldHackFindMenu:NO];
-	return;
-}
-- (void)ogreKitShouldUseStylesInFindPanel:(id)textFinder
-{
-	[textFinder setUseStylesInFindPanel:NO];
-}
-- (void)OgreKit_DidFinishLaunching;
-{
-	if([[OgreTextFinder alloc] init])// beware of the bug
-	{
-		iTM2_LOG(@"OgreKit Properly installed");
-	}
-	else
-	{
-		iTM2_LOG(@"OgreKit not installed");
-	}
-	return;
-}
 - (void)testRegularExpression_DidFinishLaunching;
 {
 	NSRange R = [@"@@@@(@" rangeOfICUREPattern:@"@@@\\(" error:nil];
@@ -119,13 +86,6 @@ NSLog(@"returning MyCustomElementClass");
 	}
 
 	return;
-}
-@end
-
-@implementation OgreTextFinder(OgreKit)
-- (NSMenu *)findMenu;
-{
-	return findMenu;
 }
 @end
 
@@ -179,6 +139,7 @@ To Do List:
 @end
 
 #import <iTM2Foundation/iTM2PreferencesKit.h>
+#import <iTM2Foundation/iTM2DocumentControllerKit.h>
 
 static id text = nil;
 @implementation iTM2Application(Test)

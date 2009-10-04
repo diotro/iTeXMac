@@ -122,4 +122,5 @@ typedef struct
 	return ((iTM2LuaInterpreter_Implementation *)_implementation)->luaState;
 }
 
+@synthesize _implementation;
 @end

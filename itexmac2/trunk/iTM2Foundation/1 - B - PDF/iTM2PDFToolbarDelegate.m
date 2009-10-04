@@ -556,6 +556,10 @@ To Do List:
 }
 MENUGETTERSETTER(_BackMenu, backMenu, setBackMenu);
 MENUGETTERSETTER(_ForwardMenu, forwardMenu, setForwardMenu);
+@synthesize __LastNavigationITII;
+@synthesize _NavigationField;
+@synthesize _BackMenu;
+@synthesize _ForwardMenu;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFToolbarDelegate

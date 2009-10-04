@@ -685,7 +685,7 @@ To Do List:
 		else
 		{
 			[self setInfo:output forKeyPaths:iTM2TeXExecUnknownOutput,nil];
-			id <NSMenuItem> MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]];
+			id MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]];
 			if(!MI)
 			{
 				[sender addItemWithTitle:output];
@@ -699,7 +699,7 @@ To Do List:
 		NSString * unknownOutput = [self editInfoForKeyPaths:iTM2TeXExecUnknownOutput,nil];
 		if([unknownOutput length])
 		{
-			id <NSMenuItem> MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]];
+			id MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]];
 			if(!MI)
 			{
 				[sender addItemWithTitle:unknownOutput];

@@ -144,6 +144,7 @@
 @private
     id _Implementation;
 }
+@property (retain) id _Implementation;
 @end
 
 @interface iTM2PrefsWindow: iTM2Window

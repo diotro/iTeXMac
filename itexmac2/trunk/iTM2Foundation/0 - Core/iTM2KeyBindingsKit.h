@@ -95,6 +95,7 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 - (void)setModifierFlags:(unsigned int)newModifiers;
 - (NSString *)key;
 - (NSString *)altKey;
+@property (getter=modifierFlags,setter=setModifierFlags:) unsigned int modifierFlags;
 @end
 
 
@@ -301,6 +302,10 @@ extern NSString * const iTM2KeyStrokeIntervalKey;
 */
 - (void)escapeCurrentKeyBindingsIfAllowed;
 
+@property (retain) id _SM;
+@property (retain) NSMutableArray * _KBS;
+@property (retain) NSString * _CK;
+@property (retain) id _CC;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2KeyBindingsManager

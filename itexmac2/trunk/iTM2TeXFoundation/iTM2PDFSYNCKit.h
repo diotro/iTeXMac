@@ -44,9 +44,9 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
     @param      thePage is a 0 based page index
     @param      hint is a dictionary containing hints to help synchronizing
     @param      yorn is a flag
-    @result     None
+    @result     y or n
 */
-- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 
 /*! 
     @method     displayPageForLine:column:source:withHint:orderFront:
@@ -194,6 +194,13 @@ typedef struct
 */
 - (BOOL)isSyncTeX;
 
+@property (retain) id _FileName;
+@property (retain) id _Files;
+@property (retain) id _PageSyncLocations;
+@property (retain) id _Lines;
+@property int _Version;
+@property int _Semaphore;
+@property BOOL _IsLocked;
 @end
 
 @interface iTM2PDFSYNCResponder: iTM2AutoInstallResponder
@@ -265,7 +272,7 @@ typedef struct
 
 @interface iTM2PDFImageRepView(iTM2PDFSYNCKit)
 - (void)scrollSynchronizationPointToVisible:(id)sender;
-- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 @end
 
 @interface iTM2PDFInspector(iTM2PDFSYNCKit)

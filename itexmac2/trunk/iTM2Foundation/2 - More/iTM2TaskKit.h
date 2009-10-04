@@ -761,6 +761,16 @@ Not strongly tested. Be coutious when using it.
 */
 - (void)executeAppleScript:(NSString *)source;
 
+@property (retain) NSMutableArray * _Inspectors;
+@property (retain) id <iTM2TaskWrapper> _CurrentWrapper;
+@property (retain) NSTask * _CurrentTask;
+@property (retain) NSFileHandle * _CustomReadFileHandle;
+@property (retain) NSMutableString * _Output;
+@property (retain) NSMutableString * _Custom;
+@property (retain) NSMutableString * _Error;
+@property (retain) NSMutableArray * _FHGC;
+@property (retain) NSMutableArray * _NGC;
+@property BOOL _Standalone;
 @end
 
 @interface iTM2TaskControllerResponder: iTM2AutoInstallResponder

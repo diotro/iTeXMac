@@ -45,10 +45,9 @@ To Do List:
         [[NSBundle bundleForClass:[self class]]
             pathForResource: NSStringFromClass([self class]) ofType:@"dict"]];
     NSArray * RA = [D objectForKey:@"items"];
-    NSEnumerator * E = [RA objectEnumerator];
     id O;
     unsigned idx = 0;
-    while (O = [E nextObject])
+    for (O in RA)
     {
         NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle: @""
                 action: @selector(executeSymbolsInstruction:) keyEquivalent: @""] autorelease];
@@ -111,7 +110,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateMenuItem:
-- (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
+- (BOOL)validateMenuItem:(id)sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -121,6 +120,7 @@ To Do List:
     id O = [sender representedObject];
     return (O != nil) && (![O isKindOfClass:[NSString class]] || ![O isEqualToString:@"noop:"]);
 }
+@synthesize _Image;
 @end
 
 #define IMPL(arg) @implementation arg @end
@@ -197,12 +197,12 @@ To Do List:
 //NSLog(@"+[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
     [[NSUserDefaults standardUserDefaults] setBool: ![[NSUserDefaults standardUserDefaults] boolForKey:iTM2SymbolMenuBugKey]
         forKey: iTM2SymbolMenuBugKey];        
-    NSLog(@"Trying to fix the symbol drawer bug, you might have to restart iteXMac...(%@)",
+    NSLog(@"Trying to fix the symbol drawer bug, you might have to restart iTeXMac...(%@)",
         ([[NSUserDefaults standardUserDefaults] boolForKey:iTM2SymbolMenuBugKey]? @"YES": @"NO"));
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMenuItem:
-+ (BOOL)validateMenuItem:(id <NSMenuItem>)sender;
++ (BOOL)validateMenuItem:(id)sender;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -304,6 +304,7 @@ To Do List:
         R.origin.y += (cellFrame.size.height - R.size.height)/2;
     return R;
 }
+@synthesize _Bug;
 @end
 
 /*"Description forthcoming."*/

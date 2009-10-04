@@ -48,6 +48,10 @@ extern NSString * const iTM2UDMixedButtonDelayKey;
 - (void)popUpContextMenuWithEvent:(NSEvent *)theEvent;
 - (BOOL)willPopUp;
 /*"Overriden methods."*/
+@property (retain) NSTimer * _Timer;
+@property SEL _MixedAction;
+@property BOOL _CenteredArrow;
+@property BOOL _MixedEnabled;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ButtonMixed
@@ -133,6 +137,7 @@ extern NSString * const iTM2ToggleEditableKey;
 - (SEL)doubleAction;
 - (void)setDoubleAction:(SEL)aSelector;
 - (BOOL)iTM2_isDoubleValid;
+@property (getter=doubleAction,setter=setDoubleAction:) SEL doubleAction;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ButtonKit

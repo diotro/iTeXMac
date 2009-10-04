@@ -2900,10 +2900,9 @@ To Do List:
 			}
 		}
 	}
-	NSEnumerator * E = [ranges objectEnumerator];
 	NSMutableArray * modifiedRanges = [NSMutableArray array];
 	NSValue * V;
-	while(V = [E nextObject])
+	for(V in ranges)
 	{
 		NSRange R = [V rangeValue];
 		if(R.length)
@@ -3002,5 +3001,6 @@ To Do List:
 //iTM2_END;
     return;
 }
+@synthesize _Implementation;
 @end
 

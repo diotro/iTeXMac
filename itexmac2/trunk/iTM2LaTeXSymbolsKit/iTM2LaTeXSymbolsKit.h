@@ -38,6 +38,7 @@
 - (NSImage *)image;
 /*"Main methods"*/
 /*"Overriden methods"*/
+@property (retain) id _Image;
 @end
 
 #define INTF(arg) @interface arg: iTM2SymbolMenu @end
@@ -96,6 +97,7 @@ INTF(iTM2PiFontStarsMenu)
 /*"Setters and Getters"*/
 /*"Main methods"*/
 /*"Overriden methods"*/
+@property BOOL _Bug;
 @end
 
 @interface NSTextView(iTM2SymbolMenu)

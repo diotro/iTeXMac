@@ -61,6 +61,12 @@ extern NSString * const iTM2MetaPostInspectorMode;
 - (void)setOutputFigureNumbers:(id)argument;
 - (void)setCurrentOutputFigure:(id)argument;
 - (id)currentPDFKitDocument;
+@property (retain) PDFView *_pdfView;
+@property (retain) NSDrawer *_drawer;
+@property (retain) NSView *_drawerView;
+@property (retain) NSTableView *_thumbnailTable;
+@property (retain) NSSegmentedControl *_toolbarToolModeView;
+@property (retain) NSSegmentedControl *_toolbarBackForwardView;
 @end
 
 @interface iTM2MetaPostWindow: iTM2TextWindow

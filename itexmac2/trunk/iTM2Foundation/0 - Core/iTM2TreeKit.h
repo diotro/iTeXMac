@@ -307,6 +307,11 @@
 */
 - (NSIndexPath *)indexPath;
 
+@property (retain,getter=parent) id _Parent;
+@property (retain,getter=value) id _Value;
+@property (retain) id _NonretainedValue;
+@property (retain) id _Children;
+@property unsigned int _Flags;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
 
@@ -336,6 +341,7 @@
 
 - (BOOL)writeToURL:(NSURL *)url error:(NSError **)outErrorPtr;
 
+@property (retain) id _implementation;
 @end
 
 /*! 
@@ -517,6 +523,13 @@
 
 - (id)initWithValue:(id)value;
 
+@property (retain,getter=parent) id _Parent;
+@property (retain,getter=firstChild) id _FirstChild;
+@property (retain,getter=lastChild) id _LastChild;
+@property (retain,getter=nextSibling) id _NextSibling;
+@property (retain,getter=previousSibling) id _PreviousSibling;
+@property (getter=countOfObjectsInChildNodes) unsigned int _CountOfObjectsInChildNodes;
+@property (retain) NSString * _Value;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode

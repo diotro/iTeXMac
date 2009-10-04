@@ -986,7 +986,9 @@ selectOneItem:
 		NSString * fileName = [project nameForFileKey:fileKey];
 		if([fileName length])
 		{
-			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
+			NSURL * fileURL = [project URLForFileKey:fileKey];
+			NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+			Class C = [SDC documentClassForType:type];
 			if([C isSubclassOfClass:[iTM2TextDocument class]])
 			{
 				N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
@@ -1166,14 +1168,16 @@ To Do List:
 	while(row < top)
 	{
 		NSString * fileKey = [fileKeys objectAtIndex:row];
-		NSString * fileName = [project nameForFileKey:fileKey];
 		id isAuto = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 		BOOL old = [isAuto boolValue];
 		// this is a 3 states switch: YES, NO, inherited
+		NSString * fileName = [project nameForFileKey:fileKey];
 		if([fileName length])
 		{
 			isAuto = isAuto?(old?[NSNumber numberWithBool:NO]:nil):[NSNumber numberWithBool:YES];
-			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
+			NSURL * fileURL = [project URLForFileKey:fileKey];
+			NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+			Class C = [SDC documentClassForType:type];
 			if([C isSubclassOfClass:[iTM2TextDocument class]])
 			{
 				if(D = [project subdocumentForFileKey:fileKey])
@@ -1262,7 +1266,9 @@ To Do List:
 		fileName = [project nameForFileKey:fileKey];
 		if([fileName length])
 		{
-			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
+			NSURL * fileURL = [project URLForFileKey:fileKey];
+			NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+			Class C = [SDC documentClassForType:type];
 			if([C isSubclassOfClass:[iTM2TextDocument class]])
 			{
 				if(N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask])
@@ -1466,7 +1472,9 @@ To Do List:
 			fileName = [project nameForFileKey:fileKey];
 			if([fileName length])
 			{
-				Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fileName pathExtension]]];
+				NSURL * fileURL = [project URLForFileKey:fileKey];
+				NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+				Class C = [SDC documentClassForType:type];
 				if([C isSubclassOfClass:[iTM2TextDocument class]])
 				{
 					if(EOLName = [project propertyValueForKey:TWSEOLFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask])

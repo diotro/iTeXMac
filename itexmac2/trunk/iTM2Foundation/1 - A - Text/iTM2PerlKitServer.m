@@ -236,6 +236,7 @@ To Do List:
 }
 + (id)proxyForClass:(Class)aClass;
 - (id)initWithTarget:(id)target;
+@property (retain) id _target;
 @end
 
 @implementation iTM2SimpleProxy
@@ -286,6 +287,7 @@ To Do List:
     [anInvocation invoke];
     return;
 }
+@synthesize _target;
 @end
 
 @implementation NSObject(iTM2PerlKitServer)

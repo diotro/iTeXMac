@@ -416,6 +416,7 @@ To Do List:
 	id keyCodesForNames;
 	id orderedCodeNames;
 }
+@property (retain) id keyCodesForNames;
 @end
 
 @interface iTM2HumanReadableCodeNameValueTransformer: NSValueTransformer
@@ -488,9 +489,8 @@ To Do List:
 				}
 				else
 				{
-					NSEnumerator * E = [nodes objectEnumerator];
 					id node = nil;
-					while(node = [E nextObject])
+					for(node in nodes)
 					{
 						NSString * KEY = [node stringValue];//case sensitive
 						if([KEY length])
@@ -533,8 +533,7 @@ To Do List:
 	NSArray * keyCodes = [[keyCodesForNames allValues] sortedArrayUsingSelector:@selector(compare:)];
 	orderedCodeNames = [NSMutableArray array];
 	id code;
-	NSEnumerator * E = [keyCodes objectEnumerator];
-	while(code = [E nextObject])
+	for(code in keyCodes)
 	{
 		[orderedCodeNames addObject:[[keyCodesForNames allKeysForObject:code] lastObject]];
 	}
@@ -567,6 +566,7 @@ To Do List:
 	}
 	return localizedName;
 }
+@synthesize keyCodesForNames;
 @end
 
 @implementation iTM2HumanReadableCodeNameValueTransformer

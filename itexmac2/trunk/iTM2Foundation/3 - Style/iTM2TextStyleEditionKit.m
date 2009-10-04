@@ -92,21 +92,15 @@ To Do List:
     {
         if([document class] == C)
         {
-			if([SDC shouldCreateUI])
-			{
-				[document makeWindowControllers];
-				[document showWindows];
-			}
+			[document makeWindowControllers];
+			[document showWindows];
             return;
         }
     }
     document = [[[C alloc] init] autorelease];
     [SDC addDocument:document];
-	if([SDC shouldCreateUI])
-	{
-		[document makeWindowControllers];
-		[document showWindows];
-	}
+	[document makeWindowControllers];
+	[document showWindows];
 //iTM2_END;
     return;
 }
@@ -127,11 +121,8 @@ To Do List:
     {
         if(([document class] == C) && ([[document syntaxParserVariant] isEqualToString:variant]))
         {
-			if([SDC shouldCreateUI])
-			{
-				[document makeWindowControllers];
-				[document showWindows];
-			}
+			[document makeWindowControllers];
+			[document showWindows];
             return;
         }
     }
@@ -139,11 +130,8 @@ To Do List:
 	if(document = [[[C alloc] initWithSyntaxParserVariant:variant error:&localError] autorelease])
 	{
 		[SDC addDocument:document];
-		if([SDC shouldCreateUI])
-		{
-			[document makeWindowControllers];
-			[document showWindows];
-		}
+		[document makeWindowControllers];
+		[document showWindows];
 	}
 	else
 	{
@@ -1197,6 +1185,7 @@ To Do List: Nothing
 }
 - (void)setFont:(NSFont *)newF atIndex:(unsigned)location;
 - (void)syntaxParserAttributesDidChange;
+@property BOOL _SameXHeight;
 @end
 
 enum {
@@ -1264,10 +1253,9 @@ To Do List:
 		[SP setUpAllTextViews];
 	}
 	NSArray * LMs = [TS layoutManagers];
-	NSEnumerator * E = [LMs objectEnumerator];
 	NSLayoutManager * LM;
 	NSRange range = NSMakeRange(0, [TS length]);
-	while(LM = [E nextObject])
+	for(LM in LMs)
 	{
 		range.length = [LM firstUnlaidCharacterIndex];
 		[LM invalidateGlyphsForCharacterRange:range changeInLength:0 actualCharacterRange:nil];
@@ -2212,6 +2200,7 @@ To Do List:
     }
     return YES;
 }
+@synthesize _SameXHeight;
 @end
 #if 0
 APPKIT_EXTERN NSString *NSFontAttributeName;             // NSFont, default Helvetica 12

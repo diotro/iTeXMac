@@ -237,6 +237,9 @@ enum
 */
 - (void)setAttributesChangeDelegate:(id)delegate;
 
+@property (retain) id _Model;
+@property (retain) id _SP;
+@property (retain) id _ACD;
 @end
 
 @interface NSObject(iTM2AttributesChangeProtocol)
@@ -808,6 +811,13 @@ This default implementation does nothing.
 */
 - (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
 
+@property (retain) id			_ModeLines;
+@property unsigned	_BadOffsetIndex;
+@property unsigned	_BadModeIndex;
+@property unsigned	_PreviousLineIndex;
+@property unsigned	_PreviousLocation;
+@property (retain) id _TS;
+@property (retain) id _AS;
 @end
 
 //#import <iTM2Foundation/iTM2ObjectsKit.h>
@@ -1139,6 +1149,24 @@ extern NSString * const iTM2TextDefaultStyle;
 #ifdef __ELEPHANT_MODELINE__
 - (NSString *)originalString;
 #endif
+@property unsigned int _StartOff7;
+@property unsigned int _CommentOff7;
+@property unsigned int _ContentsEndOff7;
+@property unsigned int _EndOff7;
+@property unsigned int _UncommentedLength;
+@property unsigned int _ContentsLength;
+@property unsigned int _Length;
+@property unsigned int _EOLLength;
+@property unsigned int _PreviousMode;
+@property unsigned int _EOLMode;
+@property unsigned int _NumberOfSyntaxWords;
+@property unsigned int _MaxNumberOfSyntaxWords;
+@property unsigned int * __SyntaxWordOff7s;
+@property unsigned int * __SyntaxWordLengths;
+@property unsigned int * __SyntaxWordEnds;
+@property unsigned int * __SyntaxWordModes;
+@property unsigned int _Status;
+@property unsigned int _Depth;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextStorageKit
@@ -1397,5 +1425,8 @@ extern NSString * const iTM2TextDefaultVariant;
 */
 - (BOOL)character:(unichar)theChar isMemberOfCoveredCharacterSetForMode:(NSString *)mode;
 
+@property (retain) NSString * _Variant;
+@property BOOL _UpToDate;
+@property (retain) id _ModesAttributes;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextSyntaxAttributesKit

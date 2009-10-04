@@ -69,7 +69,7 @@
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC1C6CC4090E1A64000F4FDE /* iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2NewDocumentKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2NewDocumentKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2NewDocumentKit-Prefix.pch"; sourceTree = "<group>"; };
-		DC2CA71A0855D19F00128F14 /* iTM2NewDocumentKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2NewDocumentKit-Info.plist"; sourceTree = "<group>"; };
+		DC2CA71A0855D19F00128F14 /* iTM2NewDocumentKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2NewDocumentKit-Info.plist"; sourceTree = "<group>"; };
 		DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2NewDocumentKit.h; sourceTree = "<group>"; };
 		DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2NewDocumentKit.m; sourceTree = "<group>"; };
 		DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 				DC1C6CC1090E1A64000F4FDE /* Sources */,
 				DC1C6CC2090E1A64000F4FDE /* Frameworks */,
 				DC1C6CFA090E1B0E000F4FDE /* Expand resources */,
-				DCD7DB390A45F1E90096B1A9 /* Make the jeader documentation */,
+				DCD7DB390A45F1E90096B1A9 /* Make the header documentation */,
 			);
 			buildRules = (
 			);
@@ -359,14 +359,14 @@
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
 		};
-		DCD7DB390A45F1E90096B1A9 /* Make the jeader documentation */ = {
+		DCD7DB390A45F1E90096B1A9 /* Make the header documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Make the jeader documentation";
+			name = "Make the header documentation";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

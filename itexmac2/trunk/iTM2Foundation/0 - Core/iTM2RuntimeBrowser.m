@@ -44,68 +44,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(!ISSELECTOR(selector))
-    {
-        iTM2_LOG(@"%#x is not a selector, no swizzling.", selector);
+	if(![self instancesRespondToSelector:selector])
+	{
+        iTM2_LOG(@"%#x is not a known selector, no swizzling.", selector);
         return NO;
-    }
-	const char * selector_name = SELNAME(selector);
+	}
+	const char * selector_name = sel_getName(selector);
 	const char * prefix = "SWZ_";
 	if(strncmp(selector_name,prefix,strlen(prefix))) {
         iTM2_LOG(@"%s is not a valid selector for short swizzling.", selector_name);
 		return NO;
 	}
-	Method method = class_getInstanceMethod(self,selector);
-    if(!method)
-    {
-        iTM2_LOG(@"*** new selector %s not implemented by %s instances, no swizzling.", sel_getName(selector), object_getClassName(self));
-        return NO;
-    }
-	char * new_selector_name = strstr(selector_name+strlen(prefix),"_");
-	if(!new_selector_name) {
+	char * orig_selector_name = strstr(selector_name+strlen(prefix),"_");
+	if(!orig_selector_name) {
         iTM2_LOG(@"%s is not a valid selector for short swizzling.", selector_name);
 		return NO;
 	}
-	SEL new_selector = sel_registerName(++new_selector_name);
-	// is it an inherited method?
-	Method new_method = NULL;
-	void *iterator = NULL;
-	struct objc_method_list *method_list = NULL;
-	while (method_list = class_nextMethodList(self, &iterator)) {
-		int i = method_list->method_count;
-		while (i--) {
-			if (method_list->method_list[i].method_name == new_selector) {
-				/* No it is not an inherited method */
-				new_method = method_list->method_list+i;
-swizzle:
-				{
-					char * temp1 = new_method->method_types;
-					new_method->method_types = method->method_types;
-					method->method_types = temp1;
-					IMP temp2 = new_method->method_imp;
-					new_method->method_imp = method->method_imp;
-					method->method_imp = temp2;
-//iTM2_END;
-					return YES;
-				}
-			}
-		}
-	}
-	/* Yes it is an inherited method
-	 * We must duplicate this method in self
-	 * because we do not want superclasses to see their methods unexpectedly swizzled */
-	Method inherited_method = class_getInstanceMethod(self, new_selector);
-    if(!inherited_method)
-    {
-        iTM2_LOG(@"*** original selector %s not implemented by %s instances, no swizzling.", sel_getName(selector), object_getClassName(self));
-        return NO;
-    }
-	method_list = malloc(sizeof(*method_list));
-	method_list->method_count = 1;
-	new_method = method_list->method_list;
-    bcopy(inherited_method, new_method, sizeof(*inherited_method));
-	class_addMethods(self, method_list);
-	goto swizzle;
+	SEL orig_selector = sel_registerName(++orig_selector_name);
+	return [iTM2RuntimeBrowser swizzleInstanceMethodSelector:orig_selector replacement:selector forClass:self error:nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_swizzleClassMethodSelector:
 + (BOOL)iTM2_swizzleClassMethodSelector:(SEL)selector;
@@ -122,13 +78,13 @@ To Do List:
 	{
 		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
 //iTM2_END;
-		return [iTM2RuntimeBrowser swizzleClassMethodSelector:selector replacement:swizzled forClass:self];
+		return [iTM2RuntimeBrowser swizzleClassMethodSelector:selector replacement:swizzled forClass:self error:nil];
 	}
 //iTM2_END;
 	return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_noop
-+ (void)iTM2_noop;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2Runtime_noop
++ (void)iTM2Runtime_noop;
 /*"Designated Initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -141,8 +97,8 @@ To Do List:
 	}
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_noop
-- (void)iTM2_noop;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2Runtime_noop
+- (void)iTM2Runtime_noop;
 /*"Designated Initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Oct 10 2002
@@ -224,8 +180,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleInstanceMethodSelector:replacement:forClass:
-+ (BOOL)swizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleInstanceMethodSelector:replacement:forClass:error:
++ (BOOL)swizzleInstanceMethodSelector:(SEL)origSel_ replacement:(SEL)altSel_ forClass:(Class)aClass error:(NSError **)errorRef;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -233,57 +189,53 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(errorRef)
+	{
+		*errorRef = nil;
+	}
     if(!aClass)
     {
         iTM2_LOG(@"WARNING: Missing a  class, no swizzling.");
         return NO;
     }
-    if(orig_sel == alt_sel)
+    if(origSel_ == altSel_)
     {
         iTM2_LOG(@"Same selectors, no swizzling.");
         return NO;
     }
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
-    if(!sel_isMapped(orig_sel))
-    {
-        iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(orig_sel));
-        return NO;
-    }
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
-    Method orig_method = class_getInstanceMethod(aClass, orig_sel);
-    if(!orig_method)
-    {
-        iTM2_LOG(@"Original selector %s not implemented by %s instances, no swizzling.", sel_getName(orig_sel), object_getClassName(aClass));
-        return NO;
-    }
-    if(!sel_isMapped(alt_sel))
-    {
-        iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(alt_sel));
-        return NO;
-    }
-    Method alt_method = class_getInstanceMethod(aClass, alt_sel);
-    if(!alt_method)
-    {
-        iTM2_LOG(@"*** Alternate selector %s not implemented by %s instances, no swizzling.", sel_getName(alt_sel), object_getClassName(aClass));
-        return NO;
-    }
-    char * temp1 = orig_method->method_types;
-    orig_method->method_types = alt_method->method_types;
-    alt_method->method_types = temp1;
-
-    IMP temp2 = orig_method->method_imp;
-    orig_method->method_imp = alt_method->method_imp;
-    alt_method->method_imp = temp2;
-    if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"Instance method swizzling in %s\ninstance method %s replaced by %s", object_getClassName(aClass), sel_getName(orig_sel), sel_getName(alt_sel));
+	Method origMethod = class_getInstanceMethod(aClass, origSel_);
+	if (!origMethod) {
+#define SetNSError(ERROR_VAR, FORMAT,...)       \
+if (ERROR_VAR) {        \
+NSString *errStr = [@"+[NSObject(JRSwizzle) jr_swizzleMethod:withMethod:error:]: " stringByAppendingFormat:FORMAT,##__VA_ARGS__];       \
+*ERROR_VAR = [NSError errorWithDomain:@"NSCocoaErrorDomain" \
+code:-1        \
+userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescriptionKey]]; \
+}
+		SetNSError(errorRef, @"original method %@ not found for class %@", NSStringFromSelector(origSel_), [aClass className]);
+		return NO;
 	}
-//iTM2_END;
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
+	
+	Method altMethod = class_getInstanceMethod(aClass, altSel_);
+	if (!altMethod) {
+		SetNSError(errorRef, @"alternate method %@ not found for class %@", NSStringFromSelector(altSel_), [aClass className]);
+		return NO;
+	}
+	
+	class_addMethod(aClass,
+					origSel_,
+					class_getMethodImplementation(aClass, origSel_),
+					method_getTypeEncoding(origMethod));
+	class_addMethod(aClass,
+					altSel_,
+					class_getMethodImplementation(aClass, altSel_),
+					method_getTypeEncoding(altMethod));
+	
+	method_exchangeImplementations(class_getInstanceMethod(aClass, origSel_), class_getInstanceMethod(aClass, altSel_));
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleClassMethodSelector:replacement:forClass:
-+ (BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleClassMethodSelector:replacement:forClass:error:
++ (BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass error:(NSError **) errorRef;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -291,54 +243,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if(errorRef)
+	{
+		*errorRef = nil;
+	}
 	if(!aClass)
     {
         iTM2_LOG(@"WARNING: Missing a  class, no swizzling.");
         return NO;
     }
-    if(orig_sel == alt_sel)
-    {
-        iTM2_LOG(@"Same selectors, no swizzling.");
-        return NO;
-    }
-    if(!sel_isMapped(orig_sel))
-    {
-        iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(orig_sel));
-        return NO;
-    }
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
-    Method orig_method = class_getClassMethod(aClass, orig_sel);
-    if(!orig_method)
-    {
-        iTM2_LOG(@"Original selector %s not implemented by %s, no swizzling.", sel_getName(orig_sel), object_getClassName(aClass));
-        return NO;
-    }
-    if(!sel_isMapped(alt_sel))
-    {
-        iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(alt_sel));
-        return NO;
-    }
-    Method alt_method = class_getClassMethod(aClass, alt_sel);
-    if(!alt_method)
-    {
-        iTM2_LOG(@"*** Alternate selector %s not implemented by %s, no swizzling.", sel_getName(alt_sel), object_getClassName(aClass));
-        return NO;
-    }
-    char * temp1 = orig_method->method_types;
-    orig_method->method_types = alt_method->method_types;
-    alt_method->method_types = temp1;
-
-    IMP temp2 = orig_method->method_imp;
-    orig_method->method_imp = alt_method->method_imp;
-    alt_method->method_imp = temp2;
-    
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"Class method swizzling in %s\nclass method %s replaced by %s", object_getClassName(aClass), sel_getName(orig_sel), sel_getName(alt_sel));
-	}
 //iTM2_END;
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
-	return YES;
+	return [self swizzleInstanceMethodSelector:orig_sel replacement:alt_sel forClass:aClass->isa error:errorRef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  disableInstanceMethodSelector:forClass:
 + (BOOL)disableInstanceMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
@@ -349,50 +264,32 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	SEL alt_sel = @selector(iTM2_noop);
     if(!aClass)
     {
         iTM2_LOG(@"WARNING: Missing a  class, no swizzling.");
         return NO;
     }
+	SEL alt_sel = @selector(iTM2Runtime_noop);
     if(orig_sel == alt_sel)
     {
         iTM2_LOG(@"Same selectors, no swizzling.");
         return NO;
     }
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
-    if(!sel_isMapped(orig_sel))
+	if(!class_respondsToSelector(aClass, orig_sel))
     {
         iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(orig_sel));
         return NO;
     }
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
     Method orig_method = class_getInstanceMethod(aClass, orig_sel);
-    if(!orig_method)
-    {
-        iTM2_LOG(@"Original selector %s not implemented by %s instances, no swizzling.", sel_getName(orig_sel), object_getClassName(aClass));
-        return NO;
-    }
-    if(!sel_isMapped(alt_sel))
-    {
-        iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(alt_sel));
-        return NO;
-    }
     Method alt_method = class_getInstanceMethod(aClass, alt_sel);
-    if(!alt_method)
-    {
-        iTM2_LOG(@"*** Alternate selector %s not implemented by %s instances, no swizzling.", sel_getName(alt_sel), object_getClassName(aClass));
-        return NO;
-    }
-    orig_method->method_types = alt_method->method_types;
-    orig_method->method_imp = alt_method->method_imp;
-    
+	Method clone_method;
+	bcopy(&alt_method, &clone_method, sizeof(clone_method));
+	method_exchangeImplementations(orig_method, clone_method);
 	if(iTM2DebugEnabled)
 	{
 		iTM2_LOG(@"Instance method swizzling in %s\ninstance method %s disabled", object_getClassName(aClass), sel_getName(orig_sel));
 	}
 //iTM2_END;
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  disableClassMethodSelector:forClass:
@@ -404,120 +301,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	SEL alt_sel = @selector(iTM2_noop);
     if(!aClass)
     {
         iTM2_LOG(@"WARNING: Missing a  class, no swizzling.");
         return NO;
     }
-    if(orig_sel == alt_sel)
-    {
-        iTM2_LOG(@"Same selectors, no swizzling.");
-        return NO;
-    }
-    if(!sel_isMapped(orig_sel))
-    {
-        iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(orig_sel));
-        return NO;
-    }
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
-    Method orig_method = class_getClassMethod(aClass, orig_sel);
-    if(!orig_method)
-    {
-        iTM2_LOG(@"Original selector %s not implemented by %s, no swizzling.", sel_getName(orig_sel), object_getClassName(aClass));
-        return NO;
-    }
-    if(!sel_isMapped(alt_sel))
-    {
-        iTM2_LOG(@"%s not mapped, no swizzling.", sel_getName(alt_sel));
-        return NO;
-    }
-    Method alt_method = class_getClassMethod(aClass, alt_sel);
-    if(!alt_method)
-    {
-        iTM2_LOG(@"*** Alternate selector %s not implemented by %s, no swizzling.", sel_getName(alt_sel), object_getClassName(aClass));
-        return NO;
-    }
-
-    orig_method->method_types = alt_method->method_types;
-    orig_method->method_imp = alt_method->method_imp;
-    
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"Class method swizzling in %s\nclass method %s disabled", object_getClassName(aClass), sel_getName(orig_sel));
-	}
-//iTM2_END;
-    _objc_flush_caches(aClass);// THIS IS NECESSARY!!!
-	return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delaySwizzleInstanceMethodSelector:replacement:forClassName:
-+ (void)delaySwizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClassName:(NSString *)aClassName;
-/*"Description forthcoming.
-Code from cocoadev MethodSwizzle
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#warning Missing class, and [ initialize] if things do not work
-	Class aClass = objc_getClass([aClassName cStringUsingEncoding:NSASCIIStringEncoding]);
-	NSParameterAssert(aClass);
-    NSParameterAssert(orig_sel != alt_sel);
-    SEL selector = @selector(swizzleInstanceMethodSelector:replacement:forClassName:);
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
-    [I setTarget:self];
-    [I setSelector:selector];
-    [I setArgument:&orig_sel atIndex:2];
-    [I setArgument:&alt_sel atIndex:3];
-    [I setArgument:&aClass atIndex:4];
-    if(NSApp)
-        [I invoke];
-    else
-    {
-        if(!_DelayedSwizzleInvocations)
-		{
-            _DelayedSwizzleInvocations = [[NSMutableArray array] retain];
-		}
-        [_DelayedSwizzleInvocations addObject:I];
-        [DNC removeObserver:self];
-        [DNC addObserver:self selector:@selector(applicationWillFinishLaunchingNotified:) name:NSApplicationWillFinishLaunchingNotification object:nil];
-    }
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  delaySwizzleInstanceMethodSelector:replacement:forClassName:
-+ (void)delaySwizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClassName:(NSString *)aClassName;
-/*"Description forthcoming.
-Code from cocoadev MethodSwizzle
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	Class aClass = objc_getClass([aClassName cStringUsingEncoding:NSASCIIStringEncoding]);
-	NSParameterAssert(aClass);
-    NSParameterAssert(orig_sel != alt_sel);
-    SEL selector = @selector(swizzleClassMethodSelector:replacement:forClassName:);
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:selector]];
-    [I setTarget:self];
-    [I setSelector:selector];
-    [I setArgument:&orig_sel atIndex:2];
-    [I setArgument:&alt_sel atIndex:3];
-    [I setArgument:&aClass atIndex:4];
-    if(NSApp)
-        [I invoke];
-    else
-    {
-        if(!_DelayedSwizzleInvocations)
-		{
-            _DelayedSwizzleInvocations = [[NSMutableArray array] retain];
-		}
-        [_DelayedSwizzleInvocations addObject:I];
-        [DNC removeObserver:self];
-        [DNC addObserver:self selector:@selector(applicationWillFinishLaunchingNotified:)  name:NSApplicationWillFinishLaunchingNotification object:nil];
-    }
-//iTM2_END;
-    return;
+	return [self disableInstanceMethodSelector:orig_sel forClass:aClass->isa];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bundleDidLoadNotified:
 + (void)bundleDidLoadNotified:(NSNotification *)notification;
@@ -671,14 +460,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	if(!target->super_class)
+	Class super_class = class_getSuperclass(target);
+	if(!super_class)
 		return NO;
-	else if(!strncmp(target->name,"NSKVO",5))
+	else if(!strncmp(class_getName(target),"NSKVO",5))
 		return NO;
-	else if(!strcmp(target->super_class->name, className))
+	else if(!strcmp(class_getName(super_class), className))
 		return YES;
 	else
-		return [self isClass:target->super_class subclassOfClassNamed:className];
+		return [self isClass:super_class subclassOfClassNamed:className];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  numberOfClasses
 + (int)numberOfClasses;
@@ -736,59 +526,42 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  realInstanceSelectorsOfClass:withSuffix:signature:inherited:
-+ (NSArray *)realInstanceSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSArray *)realInstanceSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[theClass class];// initialize if needed:this is absolutely necessary
+	//iTM2_START;
+	[aClass class];// initialize if needed:this is absolutely necessary
 	id SELs = [NSMutableSet set];
 	id prepareSELs = [NSMutableSet set];
-	void * iterator = nil;
-	struct objc_method_list * methodListRef = nil;
 	SEL selector;
 	NSString * name;
-    Class aClass = theClass;
 	Class originalClass = Nil;
-	NSMethodSignature * MS = nil;
 	if([suffix length])
 	{
 		if(signature)
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([name hasSuffix:suffix]
+					   && [signature isEqual:[aClass iTM2_instanceMethodSignatureForSelector:selector]])
 					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						if(ISSELECTOR(selector))
-						{
-							name = NSStringFromSelector(selector);
-							if([name hasSuffix:suffix])
-							{
-								MS = [aClass iTM2_instanceMethodSignatureForSelector:selector];
-								if([signature isEqual:MS])
-								{
-									if([name hasPrefix:@"prepare"])
-										[prepareSELs addObject:name];
-									else
-										[SELs addObject:name];
-								}
-							}
-						}
+						if([name hasPrefix:@"prepare"])
+							[prepareSELs addObject:name];
 						else
-						{
-							iTM2_LOG(@"Unmapped selector...");
-						}
+							[SELs addObject:name];
 					}
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
@@ -796,25 +569,22 @@ To Do List:
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([name hasSuffix:suffix])
 					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						name = NSStringFromSelector(selector);
-						if([name hasSuffix:suffix])
-						{
-							if([name hasPrefix:@"prepare"])
-								[prepareSELs addObject:name];
-							else
-								[SELs addObject:name];
-						}
+						if([name hasPrefix:@"prepare"])
+							[prepareSELs addObject:name];
+						else
+							[SELs addObject:name];
 					}
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
@@ -825,33 +595,22 @@ To Do List:
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([signature isEqual:[aClass iTM2_instanceMethodSignatureForSelector:selector]])
 					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						if(ISSELECTOR(selector) && selector != @selector(heartBeat:))
-						{
-							MS = [aClass iTM2_instanceMethodSignatureForSelector:selector];
-							if([signature isEqual:MS])
-							{
-								name = NSStringFromSelector(selector);
-								if([name hasPrefix:@"prepare"])
-									[prepareSELs addObject:name];
-								else
-									[SELs addObject:name];
-							}
-						}
+						if([name hasPrefix:@"prepare"])
+							[prepareSELs addObject:name];
 						else
-						{
-							iTM2_LOG(@"Unmapped selector or heartBeat:...");
-						}
+							[SELs addObject:name];
 					}
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
@@ -859,41 +618,35 @@ To Do List:
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
-					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						name = NSStringFromSelector(selector);
-						if([name hasPrefix:@"prepare"])
-							[prepareSELs addObject:name];
-						else
-							[SELs addObject:name];
-					}
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([name hasPrefix:@"prepare"])
+						[prepareSELs addObject:name];
+					else
+						[SELs addObject:name];
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
 	}
 	prepareSELs = [NSMutableArray arrayWithArray:[prepareSELs allObjects]];
 	SELs = [NSMutableArray arrayWithArray:[SELs allObjects]];
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"Introspection:\nclass: %@\nselector suffix:%@\nsignature:%@\ninherited:%@", NSStringFromClass(theClass), suffix, signature, (yorn?@"Y":@"N"));
-		iTM2_LOG(@"prepareSELs: %@", prepareSELs);
-		iTM2_LOG(@"SELs: %@", SELs);
-	}
 	[prepareSELs sortUsingSelector:@selector(compare:)];
 	[prepareSELs addObjectsFromArray:[SELs sortedArrayUsingSelector:@selector(compare:)]];
-	NSEnumerator * E = [prepareSELs objectEnumerator];
+	//iTM2_LOG(@"Class: %@ suffix: %@, sels: %@", theClass,suffix, prepareSELs);
 	SELs = [NSMutableArray array];
-	while(name = [E nextObject])
+	for(name in prepareSELs)
 		[SELs addObject:[NSValue valueWithPointer:NSSelectorFromString(name)]];
-//iTM2_END;
+	if(iTM2DebugEnabled>999)
+	{
+		iTM2_LOG(@"SELs are: %@", prepareSELs);
+	}
 	return [NSArray arrayWithArray:SELs];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classSelectorsOfClass:withSuffix:signature:inherited:
@@ -944,16 +697,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  realClassSelectorsOfClass:withSuffix:signature:inherited:
 + (NSArray *)realClassSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+	//iTM2_START;
 	[aClass class];// initialize if needed:this is absolutely necessary
 	id SELs = [NSMutableSet set];
 	id prepareSELs = [NSMutableSet set];
-	void * iterator = nil;
-	struct objc_method_list * methodListRef = nil;
 	SEL selector;
 	NSString * name;
 	Class originalClass = Nil;
@@ -963,33 +714,23 @@ To Do List:
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass->isa, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass->isa, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([name hasSuffix:suffix]
+					   && [signature isEqual:[aClass->isa iTM2_instanceMethodSignatureForSelector:selector]])
 					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						if(ISSELECTOR(selector))
-						{
-							name = NSStringFromSelector(selector);
-							if([name hasSuffix:suffix]
-								&& [signature isEqual:[aClass->isa iTM2_instanceMethodSignatureForSelector:selector]])
-							{
-								if([name hasPrefix:@"prepare"])
-									[prepareSELs addObject:name];
-								else
-									[SELs addObject:name];
-							}
-						}
+						if([name hasPrefix:@"prepare"])
+							[prepareSELs addObject:name];
 						else
-						{
-							iTM2_LOG(@"Unmapped selector...");
-						}
+							[SELs addObject:name];
 					}
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
@@ -997,25 +738,22 @@ To Do List:
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass->isa, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass->isa, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([name hasSuffix:suffix])
 					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						name = NSStringFromSelector(selector);
-						if([name hasSuffix:suffix])
-						{
-							if([name hasPrefix:@"prepare"])
-								[prepareSELs addObject:name];
-							else
-								[SELs addObject:name];
-						}
+						if([name hasPrefix:@"prepare"])
+							[prepareSELs addObject:name];
+						else
+							[SELs addObject:name];
 					}
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
@@ -1026,25 +764,22 @@ To Do List:
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass->isa, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass->isa, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([signature isEqual:[aClass->isa iTM2_instanceMethodSignatureForSelector:selector]])
 					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						name = NSStringFromSelector(selector);
-						if([signature isEqual:[aClass->isa iTM2_instanceMethodSignatureForSelector:selector]])
-						{
-							if([name hasPrefix:@"prepare"])
-								[prepareSELs addObject:name];
-							else
-								[SELs addObject:name];
-						}
+						if([name hasPrefix:@"prepare"])
+							[prepareSELs addObject:name];
+						else
+							[SELs addObject:name];
 					}
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
@@ -1052,22 +787,19 @@ To Do List:
 		{
 			do
 			{
-				while(methodListRef = class_nextMethodList(aClass->isa, &iterator))
-				{
-					int index = methodListRef->method_count;
-					while(index)
-					{
-						selector = (methodListRef -> method_list[--index]).method_name;
-						name = NSStringFromSelector(selector);
-						if([name hasPrefix:@"prepare"])
-							[prepareSELs addObject:name];
-						else
-							[SELs addObject:name];
-					}
+				unsigned int outCount;
+				Method * methods = class_copyMethodList(aClass->isa, &outCount);
+				while(outCount--) {
+					selector = method_getName(methods[outCount]);
+					name = NSStringFromSelector(selector);
+					if([name hasPrefix:@"prepare"])
+						[prepareSELs addObject:name];
+					else
+						[SELs addObject:name];
 				}
-				iterator = nil;
+				free(methods);
 				originalClass = aClass;
-				aClass = [originalClass superclass];
+				aClass = class_getSuperclass(originalClass);
 			}
 			while(yorn && aClass && (aClass != originalClass));
 		}
@@ -1076,10 +808,9 @@ To Do List:
 	SELs = [NSMutableArray arrayWithArray:[SELs allObjects]];
 	[prepareSELs sortUsingSelector:@selector(compare:)];
 	[prepareSELs addObjectsFromArray:[SELs sortedArrayUsingSelector:@selector(compare:)]];
-//iTM2_LOG(@"Class: %@ suffix: %@, sels: %@", theClass,suffix, prepareSELs);
-	NSEnumerator * E = [prepareSELs objectEnumerator];
+	//iTM2_LOG(@"Class: %@ suffix: %@, sels: %@", theClass,suffix, prepareSELs);
 	SELs = [NSMutableArray array];
-	while(name = [E nextObject])
+	for(name in prepareSELs)
 		[SELs addObject:[NSValue valueWithPointer:NSSelectorFromString(name)]];
 	if(iTM2DebugEnabled>999)
 	{
@@ -1087,6 +818,7 @@ To Do List:
 	}
 	return [NSArray arrayWithArray:SELs];
 }
+#if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  newSubclassOfClass:withName:
 + (Class)newSubclassOfClass:(Class)superClass withName:(NSString *)name;
 /*"Sample code from apple documentation (Tiger).
@@ -1103,9 +835,10 @@ To Do List:
 
     // Find the root class
     Class rootClass = superClass;
-    while( rootClass->super_class != nil )
+	Class candidate;
+    while( candidate = class_getSuperclass(rootClass) )
     {
-        rootClass = rootClass->super_class;
+        rootClass = candidate;
     }
 
     // Allocate space for the class and its metaclass
@@ -1147,6 +880,7 @@ To Do List:
     objc_addClass( newClass ); 
     return newClass;
 }
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  responderMessages:
 + (NSArray *)responderMessages;
 /*"Sample code from apple documentation (Tiger).
@@ -1249,112 +983,4 @@ BOOL _MyPluginTemplate_PerformSwizzle(Class klass, SEL origSel, SEL altSel, BOOL
 }
 
 
-#import "JRSwizzle.h"
-#import <objc/objc-class.h>
-
-#define SetNSError(ERROR_VAR, FORMAT,...)       \
-		if (ERROR_VAR) {        \
-				NSString *errStr = [@"+[NSObject(JRSwizzle) jr_swizzleMethod:withMethod:error:]: " stringByAppendingFormat:FORMAT,##__VA_ARGS__];       \
-				*ERROR_VAR = [NSError errorWithDomain:@"NSCocoaErrorDomain" \
-																				 code:-1        \
-																		 userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescriptionKey]]; \
-		}
-
-@implementation NSObject (JRSwizzle)
-
-+ (BOOL)jr_swizzleMethod:(SEL)origSel_ withMethod:(SEL)altSel_ error:(NSError**)error_ {
-#if OBJC_API_VERSION >= 2
-		Method origMethod = class_getInstanceMethod(self, origSel_);
-		if (!origMethod) {
-				SetNSError(error_, @"original method %@ not found for class %@", NSStringFromSelector(origSel_), [self className]);
-				return NO;
-		}
-	   
-		Method altMethod = class_getInstanceMethod(self, altSel_);
-		if (!altMethod) {
-				SetNSError(error_, @"alternate method %@ not found for class %@", NSStringFromSelector(altSel_), [self className]);
-				return NO;
-		}
-	   
-		class_addMethod(self,
-										origSel_,
-										class_getMethodImplementation(self, origSel_),
-										method_getTypeEncoding(origMethod));
-		class_addMethod(self,
-										altSel_,
-										class_getMethodImplementation(self, altSel_),
-										method_getTypeEncoding(altMethod));
-	   
-		method_exchangeImplementations(class_getInstanceMethod(self, origSel_), class_getInstanceMethod(self, altSel_));
-		return YES;
-#else
-		//      Scan for non-inherited methods.
-		Method directOriginalMethod = NULL, directAlternateMethod = NULL;
-	   
-		void *iterator = NULL;
-		struct objc_method_list *mlist = class_nextMethodList(self, &iterator);
-		while (mlist) {
-				int method_index = 0;
-				for (; method_index < mlist->method_count; method_index++) {
-						if (mlist->method_list[method_index].method_name == origSel_) {
-								assert(!directOriginalMethod);
-								directOriginalMethod = &mlist->method_list[method_index];
-						}
-						if (mlist->method_list[method_index].method_name == altSel_) {
-								assert(!directAlternateMethod);
-								directAlternateMethod = &mlist->method_list[method_index];
-						}
-				}
-				mlist = class_nextMethodList(self, &iterator);
-		}
-	   
-		//      If either method is inherited, copy it up to the target class to make it non-inherited.
-		if (!directOriginalMethod || !directAlternateMethod) {
-				Method inheritedOriginalMethod = NULL, inheritedAlternateMethod = NULL;
-				if (!directOriginalMethod) {
-						inheritedOriginalMethod = class_getInstanceMethod(self, origSel_);
-						if (!inheritedOriginalMethod) {
-								SetNSError(error_, @"original method %@ not found for class %@", NSStringFromSelector(origSel_), [self className]);
-								return NO;
-						}
-				}
-				if (!directAlternateMethod) {
-						inheritedAlternateMethod = class_getInstanceMethod(self, altSel_);
-						if (!inheritedAlternateMethod) {
-								SetNSError(error_, @"alternate method %@ not found for class %@", NSStringFromSelector(altSel_), [self className]);
-								return NO;
-						}
-				}
-			   
-				int hoisted_method_count = !directOriginalMethod && !directAlternateMethod ? 2 : 1;
-				struct objc_method_list *hoisted_method_list = malloc(sizeof(struct objc_method_list) + (sizeof(struct objc_method)*(hoisted_method_count-1)));
-				hoisted_method_list->method_count = hoisted_method_count;
-				Method hoisted_method = hoisted_method_list->method_list;
-			   
-				if (!directOriginalMethod) {
-						bcopy(inheritedOriginalMethod, hoisted_method, sizeof(struct objc_method));
-						directOriginalMethod = hoisted_method++;
-				}
-				if (!directAlternateMethod) {
-						bcopy(inheritedAlternateMethod, hoisted_method, sizeof(struct objc_method));
-						directAlternateMethod = hoisted_method;
-				}
-				class_addMethods(self, hoisted_method_list);
-		}
-	   
-		//      Swizzle.
-		IMP temp = directOriginalMethod->method_imp;
-		directOriginalMethod->method_imp = directAlternateMethod->method_imp;
-		directAlternateMethod->method_imp = temp;
-	   
-		return YES;
-#endif
-}
-
-+ (BOOL)jr_swizzleClassMethod:(SEL)origSel_ withClassMethod:(SEL)altSel_ error:(NSError**)error_ {
-		assert(0);
-		return NO;
-}
-
-@end
 #endif

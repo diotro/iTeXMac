@@ -587,7 +587,7 @@ To Do List:
 	[RE setReplacementPattern:replacementPattern];
 	NSEnumerator * E = [ranges objectEnumerator];
 	NSValue * V;
-	while(V = [E nextObject])
+	for(V in ranges)
 	{
 		R = [V rangeValue];// V is free now
 		R = NSIntersectionRange(R,myRange);
@@ -601,9 +601,8 @@ To Do List:
 		}
 	}
 	NSArray * affectedRanges = [[map allKeys] sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
-	E = [affectedRanges objectEnumerator];
 	NSMutableArray * replacementStrings = [NSMutableArray array];
-	while(V = [E nextObject])
+	for(V in affectedRanges)
 	{
 		[replacementStrings addObject:[map objectForKey:V]];
 	}
@@ -1059,6 +1058,9 @@ To Do List:
 //iTM2_START;
 	return [_SP didClickOnLink:link atIndex:charIndex];
 }
+@synthesize _Model;
+@synthesize _SP;
+@synthesize _ACD;
 @end
 
 NSString * const iTM2TextSyntaxParserType = @"_SPC";
@@ -3595,6 +3597,13 @@ To Do List:
 //iTM2_START;
 	return NO;
 }
+@synthesize _ModeLines;
+@synthesize _BadOffsetIndex;
+@synthesize _BadModeIndex;
+@synthesize _PreviousLineIndex;
+@synthesize _PreviousLocation;
+@synthesize _TS;
+@synthesize _AS;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2ModeLine
@@ -4961,6 +4970,24 @@ propriano:
 //	[self description];
     return YES;
 }
+@synthesize _StartOff7;
+@synthesize _CommentOff7;
+@synthesize _ContentsEndOff7;
+@synthesize _EndOff7;
+@synthesize _UncommentedLength;
+@synthesize _ContentsLength;
+@synthesize _Length;
+@synthesize _EOLLength;
+@synthesize _PreviousMode;
+@synthesize _EOLMode;
+@synthesize _NumberOfSyntaxWords;
+@synthesize _MaxNumberOfSyntaxWords;
+@synthesize __SyntaxWordOff7s;
+@synthesize __SyntaxWordLengths;
+@synthesize __SyntaxWordEnds;
+@synthesize __SyntaxWordModes;
+@synthesize _Status;
+@synthesize _Depth;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextStorageKit
 
@@ -5143,12 +5170,10 @@ To Do List:
 		
         NSString * stylePath = [[[C classBundle] pathForResource:iTM2TextStyleComponent ofType:nil]
             stringByAppendingPathComponent:styleComponent];
-        NSEnumerator * E;
         NSString * variantComponent;
 		DFM;
 		NSArray * directoryContents = [DFM directoryContentsAtPath:stylePath];
-        E = [directoryContents objectEnumerator];
-        while(variantComponent = [E nextObject])
+        for(variantComponent in directoryContents)
             if(![variantComponent hasPrefix:@"."]
                 && [[variantComponent pathExtension] isEqual:iTM2TextVariantExtension])
             {
@@ -5160,15 +5185,13 @@ To Do List:
                     [MD setObject:variant forKey:[variant lowercaseString]];
 				}
             }
-		NSEnumerator * EE = [[[NSBundle mainBundle] pathsForSupportResource:style
-			ofType: iTM2TextStyleExtension inDirectory: iTM2TextStyleComponent
-				domains: NSNetworkDomainMask|NSLocalDomainMask|NSUserDomainMask] objectEnumerator];
-        while(stylePath = [EE nextObject])
+		for(stylePath in [[NSBundle mainBundle] pathsForSupportResource:style
+								ofType: iTM2TextStyleExtension inDirectory: iTM2TextStyleComponent
+										domains: NSNetworkDomainMask|NSLocalDomainMask|NSUserDomainMask])
 		{
 //iTM2_LOG(@"stylePath:%@",stylePath);
 			NSArray * directoryContent = [DFM directoryContentsAtPath:stylePath];
-			E = [directoryContent objectEnumerator];
-			while(variantComponent = [E nextObject])
+			for(variantComponent in directoryContent)
 			{
 				if(![variantComponent hasPrefix:@"."])
 				{
@@ -5199,6 +5222,14 @@ To Do List:
     id _NoBackground;
     id _TextMode;
 }
+@property unsigned _Count;
+@property (retain) id _Keys;
+@property (retain) id _Font;
+@property (retain) id _ForegroundColor;
+@property (retain) id _BackgroundColor;
+@property (retain) id _CursorIsWhite;
+@property (retain) id _NoBackground;
+@property (retain) id _TextMode;
 @end
 
 #import <iTM2Foundation/iTM2PathUtilities.h>
@@ -5378,7 +5409,7 @@ To Do List:
 	NSArray * paths = [MB pathsForBuiltInResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent];
 //iTM2_LOG(@"builtIn:%@",paths);
 	NSEnumerator * E = [paths objectEnumerator];
-	while(stylePath = [E nextObject])
+	for(stylePath in paths)
 	{
 		stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
 		stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
@@ -5411,8 +5442,7 @@ To Do List:
 	}
 	paths = [MB pathsForSupportResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent];
 //iTM2_LOG(@"support:%@",paths);
-	E = [paths objectEnumerator];
-	while(stylePath = [E nextObject])
+	for(stylePath in paths)
 	{
 		stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
 		stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
@@ -5444,9 +5474,8 @@ To Do List:
 	[bundles insertObject:[C classBundle] atIndex:0];
 	[bundles addObject:[NSBundle mainBundle]];
 	NSString * style = [[self syntaxParserClass] syntaxParserStyle];
-	NSEnumerator * E = [bundles objectEnumerator];
 	NSBundle * B;
-	while(B = [E nextObject])
+	for(B in bundles)
 	{
 		NSString * stylePath = [B pathForResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent];
 		BOOL isDir = NO;
@@ -5581,11 +5610,10 @@ To Do List:
 	// scan the modes
 	MD = [NSMutableDictionary dictionary];
 	NSString * mode = nil;
-	E = [linesRA objectEnumerator];
 	EE = [attributesRA objectEnumerator];
 	BOOL noBackgroundColor = NO;
 	BOOL cursorIsWhite = NO;
-	while(line = [E nextObject])
+	for(line in linesRA)
 	{
 		attributes = [EE nextObject];
 		scanner = [NSScanner scannerWithString:line];
@@ -5710,6 +5738,9 @@ To Do List:
 //iTM2_START;
     return [[[[self attributesForMode:mode] objectForKey:NSFontAttributeName] coveredCharacterSet] characterIsMember:theChar];
 }
+@synthesize _Variant;
+@synthesize _UpToDate;
+@synthesize _ModesAttributes;
 @end
 
 @implementation iTM2TextModeAttributesDictionary
@@ -6001,6 +6032,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
     return self == object;
 }
+@synthesize _Count;
+@synthesize _Keys;
+@synthesize _Font;
+@synthesize _ForegroundColor;
+@synthesize _BackgroundColor;
+@synthesize _CursorIsWhite;
+@synthesize _NoBackground;
+@synthesize _TextMode;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextAttributesKit

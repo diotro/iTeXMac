@@ -74,4 +74,5 @@ extern NSString * const iTM2DocumentEditedStatusNotification;
 @private
     id _Implementation;
 }
+@property (retain) id _Implementation;
 @end

@@ -55,6 +55,7 @@ extern NSString * const iTM2AutosavingDelayKey;
 */
 - (NSDictionary *)documentClassNameForTypeDictionary;
 
+#if 0
 /*!
     @method		typeFromFileExtensionDictionary
     @abstract	A type to file extensions (or HSF file types) map.
@@ -66,8 +67,10 @@ extern NSString * const iTM2AutosavingDelayKey;
 				so the inherited method is first used to populate the base dictionary.
     @param		None.
     @result		A dictionary of file extension for document types.
+	@status		Strongly deprecated in 2.1
 */
 - (NSDictionary *)typeFromFileExtensionDictionary;
+#endif
 
 /*!
     @method		localizedTypeForContentsOfURL:error:
@@ -91,6 +94,7 @@ extern NSString * const iTM2AutosavingDelayKey;
 */
 - (NSDictionary *)localizedDocumentTypesDictionary;
 
+@property (retain) id _Implementation;
 @end
 
 @interface NSDocumentController(iTeXMac2)
@@ -110,12 +114,21 @@ extern NSString * const iTM2AutosavingDelayKey;
 - (BOOL)displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 
 /*!
-    @method		forgetRecentDocumentURL:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		absoluteURL: the url the receiver should forget...
-    @result		None.
-*/
+ @method		forgetRecentDocumentURL:
+ @abstract	Abstract forthcoming.
+ @discussion	Discussion forthcoming.
+ @param		absoluteURL: the url the receiver should forget...
+ @result		None.
+ */
+- (void)forgetRecentDocumentURL:(NSURL *)absoluteURL;
+
+/*!
+ @method		forgetRecentDocumentURL:
+ @abstract	Abstract forthcoming.
+ @discussion	Discussion forthcoming.
+ @param		absoluteURL: the url the receiver should forget...
+ @result		None.
+ */
 - (void)forgetRecentDocumentURL:(NSURL *)absoluteURL;
 
 @end

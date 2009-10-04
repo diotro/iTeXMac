@@ -85,6 +85,7 @@
 		53C240D5106A3F9C0000990A /* iTM2ProjectControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */; };
 		53C2425F106A725E0000990A /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C2425D106A725E0000990A /* RegexKitLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53C24260106A725E0000990A /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C2425E106A725E0000990A /* RegexKitLite.m */; };
+		53E56D881071D6600077B6FD /* untitled in Resources */ = {isa = PBXBuildFile; fileRef = 53E56D871071D6600077B6FD /* untitled */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC0C1D8309005FFE00C46507 /* iTM2TreeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC0C1D8409005FFE00C46507 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */; };
@@ -229,8 +230,6 @@
 		DCC9FC2B08742B5A003279C2 /* iTM2SplitVertical.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FC2808742B59003279C2 /* iTM2SplitVertical.png */; };
 		DCCD2E0C09E071760003EEF9 /* Project.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2E0A09E071760003EEF9 /* Project.strings */; };
 		DCCD2E4109E13E970003EEF9 /* Inspector.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2E3F09E13E970003EEF9 /* Inspector.strings */; };
-		DCCDD0A208F46F0200DAF639 /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD0A108F46F0200DAF639 /* OgreKit.framework */; };
-		DCCDD0E008F46F1100DAF639 /* OgreKit.framework in Copy framework */ = {isa = PBXBuildFile; fileRef = DCCDD0A108F46F0200DAF639 /* OgreKit.framework */; };
 		DCCDD15A08F4723700DAF639 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */; };
 		DCCF02F50A5DC5C200B4B720 /* Aqua2_Add_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02EF0A5DC5C100B4B720 /* Aqua2_Add_Inactive.tif */; };
 		DCCF02F60A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F00A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif */; };
@@ -589,7 +588,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DCCDD0E008F46F1100DAF639 /* OgreKit.framework in Copy framework */,
 				DC13E6C2085588F20063D5A5 /* iTM2Foundation.framework in Copy framework */,
 			);
 			name = "Copy framework";
@@ -783,6 +781,7 @@
 		53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2ProjectControllerKit.m; sourceTree = "<group>"; };
 		53C2425D106A725E0000990A /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = ../RegexKitLite/RegexKitLite.h; sourceTree = SOURCE_ROOT; };
 		53C2425E106A725E0000990A /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = ../RegexKitLite/RegexKitLite.m; sourceTree = SOURCE_ROOT; };
+		53E56D871071D6600077B6FD /* untitled */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = untitled; path = ../untitled; sourceTree = SOURCE_ROOT; };
 		8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TreeKit.h; sourceTree = "<group>"; };
@@ -1102,7 +1101,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC13E6A2085587160063D5A5 /* Cocoa.framework in Frameworks */,
-				DCCDD0A208F46F0200DAF639 /* OgreKit.framework in Frameworks */,
 				DCCDD15A08F4723700DAF639 /* iTM2Foundation.framework in Frameworks */,
 				DC8397550C0251AD00511679 /* Lua.framework in Frameworks */,
 			);
@@ -1432,6 +1430,7 @@
 		DCF61B510854654B003F5F79 /* 0 - Core */ = {
 			isa = PBXGroup;
 			children = (
+				53E56D871071D6600077B6FD /* untitled */,
 				DCF61B520854654B003F5F79 /* iTeXMac2.h */,
 				DCF61B530854654B003F5F79 /* iTeXMac2.m */,
 				DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */,
@@ -2242,6 +2241,7 @@
 				53C240421069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib in Resources */,
 				53C240431069407D0000990A /* iTM2TextStyleInspector.xib in Resources */,
 				53C240441069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib in Resources */,
+				53E56D881071D6600077B6FD /* untitled in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

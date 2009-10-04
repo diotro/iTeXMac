@@ -464,9 +464,8 @@ printf("%s %#x\n", __PRETTY_FUNCTION__, (NSUInteger)self);
     _Inspectors = nil;
     [_FHGC release];
     _FHGC = nil;
-    NSEnumerator * E = [_NGC objectEnumerator];
     NSString * path;
-    while(path = [E nextObject])
+    for(path in _NGC)
         if([DFM removeFileAtPath:path handler:NULL])
             [DFM removeFileAtPath:[path stringByDeletingLastPathComponent] handler:NULL];
     [_NGC release];
@@ -1638,6 +1637,16 @@ To Do List:
     }
     return;
 }
+@synthesize _Inspectors;
+@synthesize _CurrentWrapper;
+@synthesize _CurrentTask;
+@synthesize _CustomReadFileHandle;
+@synthesize _Output;
+@synthesize _Custom;
+@synthesize _Error;
+@synthesize _FHGC;
+@synthesize _NGC;
+@synthesize _Standalone;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TaskController

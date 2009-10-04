@@ -38,8 +38,7 @@ BOOL iTM2IsClassObject(id O)
 #warning *** BUG TRACKING
 //NSLog(@"iTM2IsClassObject");
 #endif
-	struct objc_class * C;
-	C = (struct objc_class *)O;
+	Class C = (Class)O;
     return strcmp(object_getClassName(C), object_getClassName(C->isa)) != 0;
 }
 

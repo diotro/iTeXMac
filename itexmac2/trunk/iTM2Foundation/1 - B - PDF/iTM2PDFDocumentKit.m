@@ -2328,6 +2328,9 @@ To Do List:
 //iTM2_RETURN;
     return;
 }
+@synthesize _CanStick;
+@synthesize _ParametersHaveChanged;
+@synthesize _CurrentPhysicalPage;
 @end
 #if 0
 @implementation iTM2PDFDocument(MOO)

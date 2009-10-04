@@ -59,11 +59,10 @@ NSString * const iTM2MacrosDirectoryName = @"Macros";
 	NSBundle * MB = [NSBundle mainBundle];
 	[MB iTM2_pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
-	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSDirectoryEnumerator * DE = nil;
 	NSString * subpath = nil;
-	while(repository = [E nextObject])
+	for(repository in RA)
 	{
 		if(iTM2DebugEnabled)
 		{
@@ -216,7 +215,6 @@ To Do List:
 	NSBundle * MB = [NSBundle mainBundle];
 	[MB iTM2_pathForSupportDirectory:iTM2MacroControllerComponent inDomain:NSUserDomainMask create:YES];
 	NSArray * RA = [MB allPathsForResource:iTM2MacrosDirectoryName ofType:iTM2LocalizedExtension];
-	NSEnumerator * E = [RA objectEnumerator];
 	NSString * repository = nil;
 	NSDirectoryEnumerator * DE = nil;
 	NSString * subpath = nil;
@@ -224,7 +222,7 @@ To Do List:
 	{
 		iTM2_LOG(@"Start reading macros files...");
 	}
-	while(repository = [E nextObject])
+	for(repository in RA)
 	{
 		if([DFM pushDirectory:repository])
 		{
@@ -676,12 +674,11 @@ To Do List:
 //iTM2_START;
 	// availableModes:
 	NSArray * itemArray = [menu itemArray];
-	NSEnumerator * E = [itemArray objectEnumerator];
 	NSMenuItem * MI = nil;
 	SEL action = @selector(takeMacroModeFromRepresentedObject:);
 	NSMutableArray * availableModes = [NSMutableArray array];
 	NSString * mode;
-	while(MI = [E nextObject])
+	for(MI in itemArray)
 	{
 		if([MI action] == action)
 		{
@@ -705,8 +702,7 @@ To Do List:
 		return;
 	}
 	// remove items with takeMacroModeFromRepresentedObject:
-	E = [itemArray objectEnumerator];
-	while(MI = [E nextObject])
+	for(MI in itemArray)
 	{
 		if([MI action] == action)
 		{
@@ -717,8 +713,7 @@ To Do List:
 	int index = [menu indexOfItemWithRepresentedObject:@"iTM2_PRIVATE_MacroModeMenuItem"];
 	++index;
 
-	E = [expectedModes objectEnumerator];
-	while(mode = [E nextObject])
+	for(mode in expectedModes)
 	{
 		MI = [[[NSMenuItem allocWithZone:[menu zone]] initWithTitle:[mode description] action:action keyEquivalent:@""] autorelease];
 		[MI setRepresentedObject:mode];

@@ -56,4 +56,5 @@
 */
 - (void *) luaState;
 
+@property void * _implementation;
 @end

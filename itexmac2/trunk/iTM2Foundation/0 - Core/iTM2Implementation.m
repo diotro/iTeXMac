@@ -882,11 +882,10 @@ To Do List:
             fw = [[[NSFileWrapper alloc] initWithPath:[fw symbolicLinkDestination]] autorelease];
         if([fw isRegularFile])
         {
+			NSString * type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:[fw preferredFilename]] error:NULL];
             result = result && ([_Owner respondsToSelector:@selector(loadDataRepresentation:)]?
-                [_Owner loadDataRepresentation:[fw regularFileContents]
-                    ofType:[SDC typeFromFileExtension:[[fw preferredFilename] pathExtension]]]:
-                [self loadDataRepresentation:[fw regularFileContents]
-                    ofType:[SDC typeFromFileExtension:[[fw preferredFilename] pathExtension]]]);
+                [_Owner loadDataRepresentation:[fw regularFileContents] ofType:type]:
+                [self loadDataRepresentation:[fw regularFileContents] ofType:type]);
         }
     }
     [self updateChildren];
@@ -1362,6 +1361,9 @@ To Do List:
         userInfo: (previous? [NSDictionary dictionaryWithObjectsAndKeys:type, @"type", previous, @"previous", nil]:[NSDictionary dictionaryWithObjectsAndKeys:type, @"type", nil])];
     return;
 }
+@synthesize _Owner;
+@synthesize _Parent;
+@synthesize _MetaValueDictionary;
 @end
 
 NSString * iTM2KeyFromSelector(SEL selector)
@@ -1587,6 +1589,7 @@ To Do List:
     }
     return;
 }
+@synthesize _Implementation;
 @end
 
 @implementation iTM2Proxy
@@ -1724,4 +1727,5 @@ To Do List:
 //iTM2_END;
     return;
 }
+@synthesize _Implementation;
 @end

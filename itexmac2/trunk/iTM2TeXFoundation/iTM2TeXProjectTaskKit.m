@@ -612,9 +612,8 @@ To Do List:
 				{
 					// list all the subdocuments of the project and open the one with the same last path component
 					NSArray * allKeys = [TPD fileKeys];
-					NSEnumerator * E = [allKeys objectEnumerator];
 					NSString * key = nil;
-					while(key = [E nextObject])
+					for(key in allKeys)
 					{
 						clickedPath = [[TPD URLForFileKey:key] path];
 						if([[clickedPath lastPathComponent] iTM2_pathIsEqual:path])

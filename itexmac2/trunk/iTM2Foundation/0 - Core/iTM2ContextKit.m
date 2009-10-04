@@ -1122,18 +1122,8 @@ To Do List:
 
 	if(mask & iTM2ContextExtendedDefaultsMask)
 	{
-		NSString * extensionKey = [[self fileName] pathExtension];
 		NSString * contextKey = nil;
 		NSDictionary * D = nil;
-		if([extensionKey length])
-		{
-			contextKey = [iTM2ContextExtensionsKey stringByAppendingPathExtension:extensionKey];
-			D = [SUD dictionaryForKey:contextKey];
-			if(result = [D objectForKey:aKey])
-			{
-				return result;
-			}
-		}
 		NSString * type = [self fileType];
 		if([type length])
 		{
@@ -1144,10 +1134,10 @@ To Do List:
 				return result;
 			}
 		}
-		NSString * typeFromFileExtension = [SDC typeFromFileExtension:extensionKey];
-		if([typeFromFileExtension length] && ![typeFromFileExtension isEqual:type])
+		NSString * type4URL = [SDC typeForContentsOfURL:[self fileURL] error:NULL];
+		if([type4URL length] && ![type4URL isEqual:type])
 		{
-			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:typeFromFileExtension];
+			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [SUD dictionaryForKey:contextKey];
 			if(result = [D objectForKey:aKey])
 			{
@@ -1173,21 +1163,8 @@ To Do List:
 	{
 		NSString * contextKey = nil;
 		NSMutableDictionary * D = nil;
-		NSString * fileName = [self fileName];
-		NSString * extensionKey = [fileName pathExtension];
-		id old = nil;
-		if([extensionKey length])
-		{
-			contextKey = [iTM2ContextExtensionsKey stringByAppendingPathExtension:extensionKey];
-			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];
-			old = [D objectForKey:aKey];
-			if(![old isEqual:object] && (old != object))
-			{
-				[D takeValue:object forKey:aKey];
-				[SUD setObject:D forKey:contextKey];
-			}
-		}
 		NSString * type = [self fileType];
+		id old = nil;
 		if([type length])
 		{
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type];
@@ -1198,10 +1175,10 @@ To Do List:
 				[SUD setObject:D forKey:contextKey];
 			}
 		}
-		NSString * typeFromFileExtension = [SDC typeFromFileExtension:extensionKey];
-		if([typeFromFileExtension length] && ![typeFromFileExtension isEqual:type])
+		NSString * type4URL = [SDC typeForContentsOfURL:[self fileURL] error:NULL];
+		if([type4URL length] && ![type4URL isEqual:type])
 		{
-			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:typeFromFileExtension];
+			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];
 			if(![old isEqual:object] && (old != object))
 			{

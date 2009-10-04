@@ -42,6 +42,7 @@ extern NSString * const iTM2MakeEmptyDocumentKey;
 + (void)initialize;
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication;
 - (void)setApplicationDockMenu:(NSMenu *)argument;
+@property (retain) NSMenu * _ADM;
 @end
 
 @interface NSObject(iTM2ApplicationDelegate)

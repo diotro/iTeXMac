@@ -533,6 +533,12 @@ To Do List:
 	[self takeContextValue:NSStringFromRect([self visibleRect]) forKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask];
     return;
 }
+@synthesize _Tag;
+@synthesize _State;
+@synthesize _DrawsBoundary;
+@synthesize _BackgroundColor;
+@synthesize _Representation;
+@synthesize _ContextManager;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFImageRepView
@@ -1401,6 +1407,14 @@ To Do List:
 	[[self focusView] saveContext:irrelevant];
     return;
 }
+@synthesize _ImageRepresentation;
+@synthesize _CachedImageRepresentation;
+@synthesize _Magnification;
+@synthesize _PageLayout;
+@synthesize _CurrentLogicalPage;
+@synthesize _OrientationMode;
+@synthesize _NewPage;
+@synthesize _NeedsUpdateGeometry;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFView
 

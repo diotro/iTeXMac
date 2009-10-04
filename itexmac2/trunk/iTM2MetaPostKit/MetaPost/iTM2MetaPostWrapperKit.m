@@ -161,9 +161,8 @@ To Do List:
 			if([RA count])
 			{
 				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"MetaPost formats(Project)", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:isa], "")];
-				NSEnumerator * E = [RA objectEnumerator];
 				NSString * fmt;
-				while(fmt = [E nextObject])
+				for(fmt in RA)
 				{
 					[sender addItemWithTitle:fmt];
 					[[[sender itemArray] lastObject] setRepresentedObject:fmt];
@@ -176,9 +175,8 @@ To Do List:
 			if([RA count])
 			{
 				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"MetaPost formats", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:isa], "")];
-				NSEnumerator * E = [RA objectEnumerator];
 				NSString * fmt;
-				while(fmt = [E nextObject])
+				for(fmt in RA)
 				{
 					[sender addItemWithTitle:fmt];
 					[[[sender itemArray] lastObject] setRepresentedObject:fmt];
@@ -315,9 +313,8 @@ To Do List:
 			if([RA count])
 			{
 				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"MetaPost formats", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:isa], "")];
-				NSEnumerator * E = [RA objectEnumerator];
 				NSString * fmt;
-				while(fmt = [E nextObject])
+				for(fmt in RA)
 				{
 					[sender addItemWithTitle:fmt];
 					[[[sender itemArray] lastObject] setRepresentedObject:fmt];
@@ -387,9 +384,8 @@ To Do List:
 			if([RA count])
 			{
 				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"MetaPost TeX formats(Project)", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:isa], "")];
-				NSEnumerator * E = [RA objectEnumerator];
 				NSString * fmt;
-				while(fmt = [E nextObject])
+				for(fmt in RA)
 				{
 					[sender addItemWithTitle:fmt];
 					[[[sender itemArray] lastObject] setRepresentedObject:fmt];
@@ -402,9 +398,8 @@ To Do List:
 			if([RA count])
 			{
 				[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"MetaPost TeX formats", iTM2TeXProjectEngineTable, [NSBundle bundleForClass:isa], "")];
-				NSEnumerator * E = [RA objectEnumerator];
 				NSString * fmt;
-				while(fmt = [E nextObject])
+				for(fmt in RA)
 				{
 					[sender addItemWithTitle:fmt];
 					[[[sender itemArray] lastObject] setRepresentedObject:fmt];

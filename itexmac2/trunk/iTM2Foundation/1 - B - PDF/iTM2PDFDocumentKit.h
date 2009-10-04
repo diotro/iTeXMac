@@ -138,6 +138,9 @@ extern NSString * const iTM2PDFToolbarIdentifier;
 - (int)forwardPhysicalPage;
 - (int)backPhysicalPage;
 - (int)logicalToPhysicalPage:(int)logicalPage;
+@property BOOL _CanStick;
+@property BOOL _ParametersHaveChanged;
+@property int _CurrentPhysicalPage;
 @end
 
 extern NSString * const iTM2PDFSSetUpPageWhenBadPaperSizeKey;

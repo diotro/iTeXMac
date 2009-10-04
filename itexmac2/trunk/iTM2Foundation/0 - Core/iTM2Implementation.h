@@ -501,6 +501,9 @@ NSString * iTM2KeyFromSelector(SEL selector);
 */
 - (void)takeModelValue:(id)PL forKey:(NSString *)key ofType:(NSString *)type;
 
+@property (retain) id _Owner;
+@property (retain) id _Parent;
+@property (retain) id _MetaValueDictionary;
 @end
 
 @interface iTM2Implementation(Selector)
@@ -791,6 +794,7 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 */
 - (void)setImplementation:(id)argument;
 
+@property (retain) id _Implementation;
 @end
 
 /*!
@@ -861,4 +865,5 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 */
 - (void)observeImplementation;
 
+@property (retain) id _Implementation;
 @end

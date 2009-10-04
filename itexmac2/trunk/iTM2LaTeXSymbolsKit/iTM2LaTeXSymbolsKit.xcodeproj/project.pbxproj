@@ -204,7 +204,7 @@
 		DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LaTeXSymbolsKit.h; sourceTree = "<group>"; };
 		DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXSymbolsKit.m; sourceTree = "<group>"; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2LaTeXSymbolsKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2LaTeXSymbolsKit-Prefix.pch"; sourceTree = "<group>"; };
-		DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2LaTeXSymbolsKit-Info.plist"; sourceTree = "<group>"; };
+		DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2LaTeXSymbolsKit-Info.plist"; sourceTree = "<group>"; };
 		DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };

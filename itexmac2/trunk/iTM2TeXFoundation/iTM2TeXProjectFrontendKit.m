@@ -86,8 +86,7 @@ To Do List:
 	if(TPD)
 	{
 		NSArray * subdocuments = [TPD subdocuments];
-		NSEnumerator * E = [subdocuments objectEnumerator];
-		while(D = [E nextObject])
+		for(D in subdocuments)
 		{
 			if([D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force])
 			{
@@ -429,6 +428,7 @@ NSString * const iTM2TPFELabelKey = @"label";
 	NSString * iVarEmptyFormat;
 }
 - (void)setEmptyFormat:(NSString *) format;
+@property (retain) NSString * iVarEmptyFormat;
 @end
 @implementation iTM2TeXPShellScriptLabelFormatter
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorType
@@ -516,6 +516,7 @@ To Do List:
 //iTM2_LOG(@"result is:%@", result);
 	return result;
 }
+@synthesize iVarEmptyFormat;
 @end
 
 @implementation iTM2TeXPShellScriptInspector
@@ -973,9 +974,8 @@ To Do List:
 		[self setPreferWrapper:YES];
 		[self setCreationMode:iTM2ToggleNewProjectMode];
 		NSArray * enclosed = [enclosing iTM2_availableProjectURLs];
-		NSEnumerator * E = [enclosed objectEnumerator];
 		NSURL * project = nil;
-		while(project = [E nextObject])
+		for(project in enclosed)
 		{
 			if([fileName belongsToDirectory:[[project iTM2_parentDirectoryURL] path]])
 			{
@@ -2061,6 +2061,7 @@ To Do List:
 //iTM2_END;
 	return [self creationMode] == iTM2ToggleStandaloneMode;
 }
+@synthesize flags;
 @end
 
 @implementation iTM2TeXProjectInspector
@@ -2831,8 +2832,7 @@ To Do List:
 	// populating the menu with project documents
 	if([sortedKeys count])
 	{
-		E = [sortedKeys objectEnumerator];
-		while(S = [E nextObject])
+		for(S in sortedKeys)
 		{
 			NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:S
 							action:@selector(projectEditDocumentUsingRepresentedObject1:) keyEquivalent:@""] autorelease];

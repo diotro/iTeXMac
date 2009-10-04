@@ -512,7 +512,7 @@ To Do List: Nothing at first glance.
 	blackCharacterSet = [blackCharacterSet invertedSet];
 	NSString * whitePrefix;
 	NSString * normalizedPrefix;
-	while(V = [E nextObject])
+	for(V in selectedRanges)
 	{
 		range = [V rangeValue];
 		top = NSMaxRange(range);
@@ -800,7 +800,7 @@ To Do List: Nothing at first glance.
 	NSString * whitePrefix;
 	NSString * newPrefix;
 	unsigned indentationLevel;
-	while(V = [E nextObject])
+	for(V in selectedRanges)
 	{
 		range = [V rangeValue];
 		top = NSMaxRange(range);

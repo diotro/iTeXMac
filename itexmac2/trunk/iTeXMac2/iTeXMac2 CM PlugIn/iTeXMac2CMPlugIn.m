@@ -624,10 +624,9 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 			case gConvertToWrappersCommandID:
 			{
 				NSFileManager * DFM = [NSFileManager defaultManager];
-				NSEnumerator * E = [folders objectEnumerator];
 				NSString * src;
 				BOOL notAll = NO;
-				while(src = [E nextObject])
+				for(src in folders)
 				{
 					NSString * dest = [src stringByAppendingPathExtension:@"texd"];
 					if([DFM fileExistsAtPath:dest])
@@ -660,10 +659,9 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 			{
 //NSLog(@"gConvertToFolderCommandID");
 				NSFileManager * DFM = [NSFileManager defaultManager];
-				NSEnumerator * E = [wrappers objectEnumerator];
 				NSString * src;
 				BOOL notAll = NO;
-				while(src = [E nextObject])
+				for(src in wrappers)
 				{
 					NSString * dest = [src stringByDeletingPathExtension];
 					if([DFM fileExistsAtPath:dest])

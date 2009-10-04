@@ -102,6 +102,19 @@ extern NSString * const iTM2StyleSymbolsPboardType;
 - (void)addSymbolInTableView:(NSTableView *)tv;
 - (NSMutableDictionary *)currentSets;
 - (NSString *)currentSetKey;
+@property (retain) NSTableView * tableView;
+@property (retain) NSPanel * addSetPanel;
+@property (retain) NSMutableDictionary * _BuiltInSymbolsSets;
+@property (retain) NSMutableDictionary * _NetworkSymbolsSets;
+@property (retain) NSMutableDictionary * _LocalSymbolsSets;
+@property (retain) NSMutableDictionary * _CustomSymbolsSets;
+@property (retain) NSMutableDictionary * _CustomObjectsSets;
+@property (retain) NSMutableDictionary * _CustomKeysSets;
+@property (retain) NSMutableDictionary * _EditedObjectsSets;
+@property (retain) NSMutableDictionary * _RecycleSymbolsSets;
+@property (retain) NSMutableDictionary * _AllSymbolsSets;
+@property (retain) id _CurrentSetItem;
+@property BOOL _Background;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXStyleEditionKit

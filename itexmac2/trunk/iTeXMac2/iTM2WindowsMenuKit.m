@@ -85,9 +85,8 @@ To Do List:
 		NSSortDescriptor * SD = [[[NSSortDescriptor allocWithZone:[self zone]] initWithKey:@"title" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
 		NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
 		[MRA sortUsingDescriptors:sortDescriptors];
-		E = [MRA objectEnumerator];
 		NSMenuItem * MI = nil;
-		while(MI = [E nextObject])
+		for(MI in MRA)
 			[M addItem:MI];
 	}
 #if 1
@@ -113,8 +112,7 @@ To Do List:
 	// populating the menu with project documents
 	if([sortedKeys count])
 	{
-		E = [sortedKeys objectEnumerator];
-		while(S = [E nextObject])
+		for(S in sortedKeys)
 		{
 			NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle: S
 							action: @selector(projectEditDocumentUsingRepresentedObject:) keyEquivalent: @""] autorelease];
@@ -212,9 +210,8 @@ To Do List:
 	NSWindow * W = [notification object];
 	NSMenu * M = [NSApp windowsMenu];
 	NSArray * RA = [M itemArray];
-	NSEnumerator * E = [RA objectEnumerator];
 	NSMenuItem * MI;
-	while(MI = [E nextObject])
+	for(MI in RA)
 	{
 		if([MI target] == W)
 		{
@@ -309,7 +306,7 @@ To Do List:
 	// for each project, we prepare the 2 dictionaries above
 	NSArray * RA = [NSApp windows];
 	NSEnumerator * E = [RA objectEnumerator];
-	while(W = [E nextObject])
+	for(W in RA)
 	{
 		if([W isKindOfClass:[iTM2ProjectGhostWindow class]])// a ghost window is an awfull trick to have the projects listed in the windows menu, and other side effects
 		{
@@ -352,8 +349,7 @@ To Do List:
 	}
 	// remove all the menu items that where tagged 
 	RA = [windowsMenu itemArray];
-	E = [RA objectEnumerator];
-	while(MI = [E nextObject])
+	for(MI in RA)
 	{
 		if([MI action] == @selector(__REMOVE_ME_ACTION:))
 		{
@@ -362,10 +358,9 @@ To Do List:
 	}
 	// then we scan the windows menu 
 	RA = [windowsMenu itemArray];
-	E = [RA objectEnumerator];
 	int insertIndex = [RA count];// the index where all the doc menu items will live
 	int idx = insertIndex;// will hold the new candidate for insertIndex
-	while(MI = [E nextObject])
+	for(MI in RA)
 	{
 		if([MI hasSubmenu] && [[MI submenu] isKindOfClass:[iTM2ProjectWindowSubmenu class]])
 		{
@@ -515,8 +510,7 @@ To Do List:
 	}
 	unsigned index = 0;
 	unsigned count = 0;
-	E = [roots objectEnumerator];
-	while(root = [E nextObject])
+	for(root in roots)
 	{
 		node = root;
 		child = node;
@@ -565,8 +559,7 @@ otherUp:
 	// now all the leaf nodes correspond to a different name
 	// record these names
 	NSMutableDictionary * shortProjectNames = [NSMutableDictionary dictionary];
-	E = [roots objectEnumerator];
-	while(root = [E nextObject])
+	for(root in roots)
 	{
 		node = root;
 		child = node;

@@ -587,10 +587,9 @@ grosbois:
 	// only the documentRect's size will be used
 	documentRect.size.width = 0;
 	NSArray * tableColumns = [_TableView tableColumns];
-	NSEnumerator * E = [tableColumns objectEnumerator];
 	NSTableColumn * tableColumn;
 	unsigned numberOfRows = [_LongCandidates count];
-	while(tableColumn = [E nextObject])
+	for(tableColumn in tableColumns)
 	{
 		unsigned row = 0;
 		NSSize size = NSZeroSize;
@@ -696,10 +695,9 @@ grosbois:
 	// only the documentRect's size will be used
 	documentRect.size.width = 0;
 	NSArray * tableColumns = [_TableView tableColumns];
-	NSEnumerator * E = [tableColumns objectEnumerator];
 	NSTableColumn * tableColumn;
 	unsigned numberOfRows = [_LongCandidates count];
-	while(tableColumn = [E nextObject])
+	for(tableColumn in tableColumns)
 	{
 		unsigned row = 0;
 		NSSize size = NSZeroSize;
@@ -955,9 +953,8 @@ To Do List:
 		allCompletions = [NSMutableDictionary dictionary];
 		[MD setObject:allCompletions forKey:@"Completions"];
 	}
-	NSEnumerator * E = [completions objectEnumerator];
 	NSString * completion = nil;
-	while(completion = [E nextObject])
+	for(completion in completions)
 	{
 		if([completion length] > 2)
 		{
@@ -1038,10 +1035,9 @@ To Do List:
 	unsigned partialWordLength = [partialWord length];
 	R.location = 2;
 	R.length = partialWordLength - 2;
-	NSEnumerator * E = [ra objectEnumerator];
 	NSString * candidate = nil;
 	NSMutableArray * result = [NSMutableArray array];
-	while(candidate = [E nextObject])
+	for(candidate in ra)
 	{
 		if([candidate  length] >= partialWordLength)
 		{
@@ -1055,6 +1051,19 @@ To Do List:
 //iTM2_END;
     return result;
 }
+@synthesize _TableView;
+@synthesize _LongCandidates;
+@synthesize _TextView;
+@synthesize _Tab;
+@synthesize _OriginalString;
+@synthesize _EditedString;
+@synthesize _ShortCompletionString;
+@synthesize _LongCompletionString;
+@synthesize _ReplacementLines;
+@synthesize _OriginalSelectedString;
+@synthesize _ShouldEnableUndoRegistration;
+@synthesize _PatriciaControllers;
+@synthesize _IndentationLevel;
 @end
 
 #import <iTM2Foundation/iTM2TextDocumentKit.h>

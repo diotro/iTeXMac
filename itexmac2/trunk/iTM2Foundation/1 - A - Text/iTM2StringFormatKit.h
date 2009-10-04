@@ -290,6 +290,9 @@ extern NSString * const TWSEOLFileKey;
     NSTableView * availableTableView;
     NSTableView * actualTableView;
 }
+@property (retain) NSMutableArray * _ActualStringEncodings;
+@property (retain) NSTableView * availableTableView;
+@property (retain) NSTableView * actualTableView;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2StringFormatKit

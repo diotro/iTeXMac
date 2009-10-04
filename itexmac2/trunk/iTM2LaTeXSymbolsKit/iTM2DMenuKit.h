@@ -38,6 +38,9 @@
 - (NSCellImagePosition)imagePosition;
 /*"Main methods"*/
 /*"Overriden methods"*/
+@property float _CachedWidth;
+@property (retain) NSMutableArray * _CachedHeights;
+@property NSCellImagePosition _ImagePosition;
 @end
 
 @interface iTM2GridMenu : NSMenu
@@ -58,6 +61,7 @@
 /*"Overriden methods"*/
 - (id)initWithTitle:(NSString *)aTitle;
 - (NSMenuItem *)itemAtIndex:(int)index;
+@property int _NOC;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DMenuKit

@@ -677,6 +677,11 @@ To Do List:
 	}
 	return IP;
 }
+@synthesize _Parent;
+@synthesize _Value;
+@synthesize _NonretainedValue;
+@synthesize _Children;
+@synthesize _Flags;
 @end
 
 /*!
@@ -699,6 +704,11 @@ To Do List:
 }
 - (NSXMLElement *)XMLElement;
 - (id)initWithXMLElement:(NSXMLElement *)element;
+@property unsigned int countOfCharacters;
+@property unichar * characters;
+@property unsigned int countOfChildren;
+@property id * children;
+@property (retain) id representedObject;
 @end
 
 /*!
@@ -809,6 +819,11 @@ To Do List:
 	}
 	return element;
 }
+@synthesize countOfCharacters;
+@synthesize characters;
+@synthesize countOfChildren;
+@synthesize children;
+@synthesize representedObject;
 @end
 
 @implementation iTM2PatriciaLeafNode
@@ -4240,6 +4255,7 @@ nextChild:
 	return NO;
 }
 
+@synthesize _implementation;
 @end
 typedef struct
 {
@@ -4576,5 +4592,12 @@ tijuana:
 	return [NSString stringWithFormat:@"%@%@(%i)%@",(_Parent?[_Parent indentation]:@""),_Value,_CountOfObjectsInChildNodes,status];
 }
 
+@synthesize _Parent;
+@synthesize _FirstChild;
+@synthesize _LastChild;
+@synthesize _NextSibling;
+@synthesize _PreviousSibling;
+@synthesize _CountOfObjectsInChildNodes;
+@synthesize _Value;
 @end
 

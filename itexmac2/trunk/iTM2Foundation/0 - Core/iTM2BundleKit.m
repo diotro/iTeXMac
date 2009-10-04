@@ -297,14 +297,12 @@ To Do List:
 	result = [NSMutableArray array];
 	[cache setObject:result forKey:key];
 	NSArray * subpaths;
-	NSEnumerator * E;
 	NSString * component;
 	NSString * path = [self iTM2_pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSNetworkDomainMask create:NO];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
-		E = [subpaths objectEnumerator];
-		while(component = [E nextObject])
+		for(component in subpaths)
 		{
 			if([DFM isExecutableFileAtPath:path])
 			{
@@ -321,8 +319,7 @@ To Do List:
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
-		E = [subpaths objectEnumerator];
-		while(component = [E nextObject])
+		for(component in subpaths)
 		{
 			if([DFM isExecutableFileAtPath:path])
 			{
@@ -339,8 +336,7 @@ To Do List:
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
-		E = [subpaths objectEnumerator];
-		while(component = [E nextObject])
+		for(component in subpaths)
 		{
 			if([DFM isExecutableFileAtPath:path])
 			{
@@ -383,14 +379,12 @@ To Do List:
 	NSMutableArray * result = [NSMutableArray array];
 #endif
 	NSArray * subpaths;
-	NSEnumerator * E;
 	NSString * component;
 	NSString * path = [self iTM2_pathForSupportDirectory:iTM2SupportScriptsComponent inDomain:NSNetworkDomainMask create:NO];
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
-		E = [subpaths objectEnumerator];
-		while(component = [E nextObject])
+		for(component in subpaths)
 		{
 			if([DFM isVisibleFileAtPath:path])
 			{
@@ -407,8 +401,7 @@ To Do List:
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
-		E = [subpaths objectEnumerator];
-		while(component = [E nextObject])
+		for(component in subpaths)
 		{
 			if([DFM isVisibleFileAtPath:path])
 			{
@@ -425,8 +418,7 @@ To Do List:
 	if([DFM pushDirectory:path])
 	{
 		subpaths = [DFM subpathsAtPath:path];
-		E = [subpaths objectEnumerator];
-		while(component = [E nextObject])
+		for(component in subpaths)
 		{
 			if([DFM isVisibleFileAtPath:path])
 			{
@@ -979,8 +971,7 @@ To Do List:
 		}
 	}
 	directoryContents = [DFM directoryContentsAtPath:path];
-	E = [directoryContents objectEnumerator];
-	while(component = [E nextObject])
+	for(component in directoryContents)
 	{
 		component = [path stringByAppendingPathComponent:component];
 		[self addBundlesAtPath:component inMutableArray:mutableArray];
@@ -1184,8 +1175,7 @@ To Do List:
 			RA = [B pathsForSupportResource:name ofType:@"" inDirectory:subpath domains:NSUserDomainMask];
 			[paths addObjectsFromArray:RA];
 		}
-		E = [paths objectEnumerator];
-		while(path = [E nextObject])
+		for(path in paths)
 		{
 			NSString * newPath = [path stringByAppendingPathExtension:iTM2LocalizedExtension];
 			if([DFM fileExistsAtPath:newPath] || [DFM pathContentOfSymbolicLinkAtPath:path])
@@ -1234,7 +1224,6 @@ To Do List:
 	NSString * lastComponent = nil;
 	NSString * lastName = nil;
 	NSString * pathExtension = nil;
-	NSEnumerator * DE = nil;
 	NSMutableArray * result = [NSMutableArray array];
 	NSArray * RA = nil;
 	if(name)
@@ -1249,8 +1238,7 @@ To Do List:
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
-					DE = [RA objectEnumerator];
-					while(lastComponent = [DE nextObject])
+					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
 						pathExtension = [pathExtension lowercaseString];
@@ -1270,8 +1258,7 @@ To Do List:
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
-					DE = [RA objectEnumerator];
-					while(lastComponent = [DE nextObject])
+					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
 						pathExtension = [pathExtension lowercaseString];
@@ -1291,8 +1278,7 @@ To Do List:
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
-					DE = [RA objectEnumerator];
-					while(lastComponent = [DE nextObject])
+					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
 						pathExtension = [pathExtension lowercaseString];
@@ -1315,8 +1301,7 @@ To Do List:
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
-					DE = [RA objectEnumerator];
-					while(lastComponent = [DE nextObject])
+					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
 						pathExtension = [pathExtension lowercaseString];
@@ -1336,8 +1321,7 @@ To Do List:
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
-					DE = [RA objectEnumerator];
-					while(lastComponent = [DE nextObject])
+					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
 						pathExtension = [pathExtension lowercaseString];
@@ -1357,8 +1341,7 @@ To Do List:
 				if([path length])
 				{
 					RA = [DFM directoryContentsAtPath:path];
-					DE = [RA objectEnumerator];
-					while(lastComponent = [DE nextObject])
+					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
 						pathExtension = [pathExtension lowercaseString];
@@ -1384,8 +1367,7 @@ To Do List:
 			if([path length])
 			{
 				RA = [DFM directoryContentsAtPath:path];
-				DE = [RA objectEnumerator];
-				while(lastComponent = [DE nextObject])
+				for(lastComponent in RA)
 				{
 					lastName = [lastComponent lowercaseString];
 					lastName = [lastName pathExtension];
@@ -1403,8 +1385,7 @@ To Do List:
 			if([path length])
 			{
 				RA = [DFM directoryContentsAtPath:path];
-				DE = [RA objectEnumerator];
-				while(lastComponent = [DE nextObject])
+				for(lastComponent in RA)
 				{
 					lastName = [lastComponent lowercaseString];
 					lastName = [lastName pathExtension];
@@ -1422,8 +1403,7 @@ To Do List:
 			if([path length])
 			{
 				RA = [DFM directoryContentsAtPath:path];
-				DE = [RA objectEnumerator];
-				while(lastComponent = [DE nextObject])
+				for(lastComponent in RA)
 				{
 					lastName = [lastComponent lowercaseString];
 					lastName = [lastName pathExtension];
@@ -1557,7 +1537,7 @@ To Do List:
 	NSString * P = nil;
 	NSEnumerator * E = [frameworks objectEnumerator];
 	NSBundle * B = nil;
-	while(B = [E nextObject])
+	for(B in frameworks)
 	{
 		P = [B bundlePath];
 		if([P hasPrefix:userPrefix])
@@ -1573,8 +1553,7 @@ To Do List:
 	NSMutableArray * localPlugIns = [NSMutableArray array];
 	NSMutableArray * userPlugIns = [NSMutableArray array];
 	NSMutableArray * otherPlugIns = [NSMutableArray array];
-	E = [frameworks objectEnumerator];
-	while(B = [E nextObject])
+	for(B in frameworks)
 	{
 		P = [B bundlePath];
 		if([P hasPrefix:userPrefix])
@@ -1731,7 +1710,8 @@ To Do List:
 		[components removeLastObject];
 	}
 	[components removeLastObject];
-	bundlePath = [NSString pathWithComponents:components];
+	[components addObject:@""];
+	bundlePath = [NSString iTM2_pathWithComponents:components];
 	NSBundle * mainBundle = [NSBundle bundleWithPath:bundlePath];
 	NSString * version = [mainBundle objectForInfoDictionaryKey:@"iTM2SourceVersion"];
 	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
@@ -1761,10 +1741,9 @@ To Do List:
 		NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF ENDSWITH[c] 'log'"];
 		availableLogs = [availableLogs filteredArrayUsingPredicate:predicate];
 		NSMutableArray * MRA = [NSMutableArray array];
-		NSEnumerator * E = [availableLogs objectEnumerator];
 		NSString * component;
 		NSMutableDictionary * attributes = nil;
-		while(component = [E nextObject])
+		for(component in availableLogs)
 		{
 			attributes = [[[DFM fileAttributesAtPath:component traverseLink:NO] mutableCopy] autorelease];
 			[attributes setObject:component forKey:@"file name"];
@@ -1780,8 +1759,7 @@ To Do List:
 			[recycles addObject:attributes];
 			[MRA removeLastObject];
 		}
-		E = [recycles objectEnumerator];
-		while(attributes = [E nextObject])
+		for(attributes in recycles)
 		{
 			NSNumber * N = [attributes objectForKey:NSFileBusy];
 			if(![N boolValue])
@@ -1832,7 +1810,7 @@ end:
         NSLog(@"terminal%% defaults write %@ iTM2DebugEnabled '10000'",identifier);
 	}
 #endif
-	NSLog(logOutput);
+	NSLog(@"%@",logOutput);
 	iTM2_RELEASE_POOL;
 //iTM2_START;
     return;

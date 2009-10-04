@@ -244,6 +244,8 @@ static EventLoopIdleTimerUPP iTM2EventLoopIdleTimerUPP = NULL;
 {
 	return info;
 }
+@synthesize timer;
+@synthesize info;
 @end
 
 @interface iTM2IdleTimer(PRIVATE)

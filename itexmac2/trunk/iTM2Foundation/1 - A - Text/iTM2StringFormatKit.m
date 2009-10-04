@@ -1838,10 +1838,9 @@ To do list:
     NSMenu * menu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:
         NSLocalizedStringFromTableInBundle(@"Text Encoding", TABLE, BUNDLE, "Title of string encodings menu")] autorelease];
     NSArray * stringEncodings = [self supportedStringEncodings];
-    NSEnumerator * enumerator = [stringEncodings objectEnumerator];
     NSNumber * number;
     BOOL canInsertSeparatorItem = NO;
-    while(number = [enumerator nextObject])
+    for(number in stringEncodings)
     {
         if([number respondsToSelector:@selector(unsignedIntValue)])
         {
@@ -1895,10 +1894,9 @@ To do list: External stringEncodings are not supported now.
 abacab:;
 //iTM2_LOG(@"encodingStringsFromFile is: %@", encodingStringsFromFile);
  	NSMutableArray * result = [NSMutableArray array];
-	NSEnumerator * enumerator = [encodingStringsFromFile objectEnumerator];
 	id O;
 	BOOL canInsertNull = NO;
-	while(O = [enumerator nextObject])
+	for(O in encodingStringsFromFile)
 		if([O isKindOfClass:[NSString class]])
 		{
 			if([(NSString *)O length])
@@ -2644,6 +2642,9 @@ registerForDragged
 - (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
     // This method is called when the mouse is released over an outline view that previously decided to allow a drop via the validateDrop method.  The data source should incorporate the data from the dragging pasteboard at this time.
 #endif
+@synthesize _ActualStringEncodings;
+@synthesize availableTableView;
+@synthesize actualTableView;
 @end
 
 @implementation iTM2StringEncodingFormatter
@@ -2923,11 +2924,8 @@ To Do List:
 	id D = [SDC documentForURL:URL];
 	if(D)
 	{
-		if([SDC shouldCreateUI])
-		{
-			[D makeWindowControllers];
-			[D showWindows];
-		}
+		[D makeWindowControllers];
+		[D showWindows];
 		return;
 	}
 	if([DFM fileExistsAtPath:path])
@@ -2935,22 +2933,16 @@ To Do List:
 		D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]]
 				initWithContentsOfURL:URL ofType:iTM2StringEncodingsTypeName error:nil] autorelease];
 		[SDC addDocument:D];
-		if([SDC shouldCreateUI])
-		{
-			[D makeWindowControllers];
-			[D showWindows];
-		}
+		[D makeWindowControllers];
+		[D showWindows];
 		return;
 	}
 	D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]] init] autorelease];
 	[D setFileURL:URL];
 	[D setFileType:iTM2StringEncodingsTypeName];
 	[SDC addDocument:D];
-	if([SDC shouldCreateUI])
-	{
-		[D makeWindowControllers];
-		[D showWindows];
-	}
+	[D makeWindowControllers];
+	[D showWindows];
 //iTM2_END;
 	return;
 }

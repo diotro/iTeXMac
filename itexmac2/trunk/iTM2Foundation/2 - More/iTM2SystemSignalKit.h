@@ -41,4 +41,5 @@ extern NSString * const iTM2SystemSignalSIGUSR2Notification;
 */
 + (NSNotificationCenter *)defaultCenter;
 
+@property (retain) id _Implementation;
 @end

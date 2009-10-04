@@ -169,6 +169,7 @@ DEFINE(codeName,setCodeName)
 - (iTM2KeyBindingNode *)current;
 - (void)setCurrent:(iTM2KeyBindingNode *)new;
 - (ICURegEx *)keyValidationRE;
+@property (getter=uniqueKey,setter=setUniqueKey:) BOOL uniqueKey;
 @end
 
 @implementation iTM2KeyBindingParser
@@ -386,9 +387,8 @@ To Do List:
 }
 - (id)objectInChildrenWithCodeName:(NSString *)theCodeName modifierFlags:(unsigned int)modifierFlags;
 {
-	NSEnumerator * E = [children objectEnumerator];
 	iTM2KeyBindingNode * child;
-	while(child = [E nextObject])
+	for(child in children)
 	{
 		if([[child codeName] isEqual:theCodeName] && [child modifierFlags] == modifierFlags)
 		{
@@ -400,8 +400,7 @@ To Do List:
 - (id)objectInChildrenWithKeyStroke:(iTM2KeyStroke *)keyStroke;
 {
 	iTM2KeyBindingNode * child;
-	NSEnumerator * E = [children objectEnumerator];
-	while(child = [E nextObject])
+	for(child in children)
 	{
 		if([child isEqualToKeyStroke:keyStroke])
 		{
@@ -415,8 +414,7 @@ To Do List:
 		KS= [[[iTM2KeyStroke alloc] init] autorelease];
 		[KS setCodeName:[keyStroke altCodeName]];
 		[KS setModifierFlags:[keyStroke modifierFlags]&~NSAlternateKeyMask];
-		E = [children objectEnumerator];
-		while(child = [E nextObject])
+		for(child in children)
 		{
 			if([child isEqualToKeyStroke:KS])
 			{
@@ -432,8 +430,7 @@ To Do List:
 		KS = [[[iTM2KeyStroke alloc] init] autorelease];
 		[KS setCodeName:[keyStroke codeName]];
 		[KS setModifierFlags:[keyStroke modifierFlags]&~NSShiftKeyMask];
-		E = [children objectEnumerator];
-		while(child = [E nextObject])
+		for(child in children)
 		{
 			if([child isEqualToKeyStroke:KS])
 			{
@@ -445,9 +442,8 @@ To Do List:
 }
 - (id)objectInKeyBindingsWithKeyStroke:(iTM2KeyStroke *)keyStroke;
 {
-	NSEnumerator * E = [children objectEnumerator];
 	iTM2KeyBindingNode * child;
-	while(child = [E nextObject])
+	for(child in children)
 	{
 		if([child isEqualToKeyStroke:keyStroke])
 		{
@@ -508,6 +504,8 @@ To Do List:
 - (void)setMacros:(NSMutableDictionary *)new;
 - (iTM2MacroNode *)current;
 - (void)setCurrent:(iTM2MacroNode *)new;
+@property Class macroClass;
+@property (retain) id owner;
 @end
 
 @implementation iTM2MacroNode
@@ -690,6 +688,8 @@ DEFINE(tooltip,setTooltip)
 {
 	iTM2_LOG(@"*** validation error:%@",validationError);
 }
+@synthesize macroClass;
+@synthesize owner;
 @end
 
 @implementation iTM2MacroTreeNode
@@ -718,10 +718,9 @@ NSString * const iTM2MacroControllerComponent = @"Macros.localized";
 {
 	NSMutableArray * result = [NSMutableArray array];
 	NSArray * children = [self children];
-	NSEnumerator * E = [children objectEnumerator];
 	id child;
 	id domain;
-	while(child = [E nextObject])
+	for(child in children)
 	{
 		domain = [child valueForKeyPath:@"value.domain"];
 		if(domain && ![result containsObject:domain])
@@ -758,10 +757,9 @@ NSString * const iTM2MacroControllerComponent = @"Macros.localized";
 {
 	NSMutableArray * result = [NSMutableArray array];
 	NSArray * children = [self children];
-	NSEnumerator * E = [children objectEnumerator];
 	id child;
 	id category;
-	while(child = [E nextObject])
+	for(child in children)
 	{
 		category = [child valueForKeyPath:@"value.category"];
 		if(category && ![result containsObject:category])
@@ -809,10 +807,9 @@ NSString * const iTM2MacroControllerComponent = @"Macros.localized";
 {
 	NSMutableArray * result = [NSMutableArray array];
 	NSArray * children = [self children];
-	NSEnumerator * E = [children objectEnumerator];
 	id child;
 	id context;
-	while(child = [E nextObject])
+	for(child in children)
 	{
 		context = [child valueForKeyPath:@"value.context"];
 		if(context && ![result containsObject:context])

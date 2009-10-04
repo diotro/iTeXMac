@@ -174,6 +174,9 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 - (int)tag;
 
+@property (retain) NSArray *	ivarIgnoredWords;
+@property (retain) NSString *	ivarLanguage;
+@property int			ivarTag;
 @end
 
 /*!
@@ -534,6 +537,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 - (void)removeSpellingModeFromRepresentedObject:(id)sender;
 
+@property (retain) id			_iVarPrivateImplementation;
 @end
 
 @interface NSObject(CUDUORT)

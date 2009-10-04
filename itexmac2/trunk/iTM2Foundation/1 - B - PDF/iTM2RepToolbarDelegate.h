@@ -55,5 +55,8 @@ extern NSString * const iTM2ToolbarMagnificationSetItemIdentifier;
 /*"Overriden methods"*/
 - (id)init;
 - (void)dealloc;
+@property (retain) NSString * __LastMagnificationITII;
+@property (retain) NSStepper * _MagStepper;
+@property (retain) NSTextField * _MagnificationField;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2RepToolbarDelegate

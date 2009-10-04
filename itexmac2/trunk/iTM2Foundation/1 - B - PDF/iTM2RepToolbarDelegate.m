@@ -421,6 +421,9 @@ To Do List:
     }
     return;
 }
+@synthesize __LastMagnificationITII;
+@synthesize _MagStepper;
+@synthesize _MagnificationField;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2RepToolbarDelegate

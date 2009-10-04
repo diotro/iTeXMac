@@ -937,9 +937,8 @@ To Do List:
 	// first stripe out the % comments
 	NSString * S = [NSString commentString];
 	NSArray * components = [string componentsSeparatedByString:S];
-	NSEnumerator * E = [components objectEnumerator];
 	NSMutableArray * MRA = [NSMutableArray array];
-	while(string = [E nextObject])
+	for(string in components)
 	{
 		unsigned length = [string length];
 		if(length>0)
@@ -961,17 +960,16 @@ To Do List:
 		}
 	}
 //iTM2_LOG(@"********  Commented out:%@", MRA);
-	E = [MRA objectEnumerator];
+	NSEnumerator * E = [MRA objectEnumerator];
 	MRA = [NSMutableArray array];
 	while(string = [E nextObject])
 	{
 		NSMutableArray * mra = [NSMutableArray array];
 		S = [NSString backslashString];
 		components = [string componentsSeparatedByString:S];
-		NSEnumerator * e = [components objectEnumerator];
 		NSString * component;
 		BOOL escaped = NO;// To deal with the \\ newline command
-		while(component = [e nextObject])
+		for(component in components)
 		{
 			if([component length])
 			{
@@ -1031,10 +1029,9 @@ To Do List:
 			}
 		}
 		// then we replace multiple space chars by only one
-		e = [[[[[mra componentsJoinedByString:@" "] componentsSeparatedByString:@"~"]
-			componentsJoinedByString:@" "] componentsSeparatedByString:@" "] objectEnumerator];
 		mra = [NSMutableArray array];
-		while(component = [e nextObject])
+		for(component in [[[[mra componentsJoinedByString:@" "] componentsSeparatedByString:@"~"]
+			componentsJoinedByString:@" "] componentsSeparatedByString:@" "])
 			if([component length])
 				[mra addObject:component];
 		[MRA addObject:[mra componentsJoinedByString:@" "]];

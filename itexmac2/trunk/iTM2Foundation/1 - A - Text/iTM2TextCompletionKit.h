@@ -61,6 +61,19 @@ extern NSString * const iTM2CompletionComponent;
 }
 + (id)completionServer;
 - (NSArray *)completionsForTextView:(NSTextView *)aTextView partialWordRange:(NSRange)charRange indexOfSelectedItem:(int *)index;
+@property (retain) NSTableView * _TableView;
+@property (retain) id _LongCandidates;
+@property (retain) id _TextView;
+@property (retain) NSString * _Tab;
+@property (retain) NSString * _OriginalString;
+@property (retain) NSString * _EditedString;
+@property (retain) NSString * _ShortCompletionString;
+@property (retain) NSString * _LongCompletionString;
+@property (retain) NSArray * _ReplacementLines;
+@property (retain) NSString * _OriginalSelectedString;
+@property BOOL _ShouldEnableUndoRegistration;
+@property (retain) NSMutableDictionary * _PatriciaControllers;
+@property unsigned _IndentationLevel;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextCompletionKit

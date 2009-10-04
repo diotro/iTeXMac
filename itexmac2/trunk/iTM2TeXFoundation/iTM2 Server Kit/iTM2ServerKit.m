@@ -1404,9 +1404,8 @@ To Do List:
 	NSArray * components = [query componentsSeparatedByString:@"&"];
 	NSMutableArray * arguments = [NSMutableArray array];
 	NSMutableDictionary * attributes = [NSMutableDictionary dictionary];
-	NSEnumerator * E = [components objectEnumerator];
 	NSString * S;
-	while(S = [E nextObject])
+	for(S in components)
 	{
 		NSArray * RA = [S componentsSeparatedByString:@"="];
 		if([RA count]>1)

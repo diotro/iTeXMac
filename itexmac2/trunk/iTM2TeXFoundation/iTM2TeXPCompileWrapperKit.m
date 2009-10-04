@@ -1123,8 +1123,7 @@ To Do List:
             [MS addObjectsFromArray:[C inputFileExtensions]];
 		}
 		NSMutableSet * ms = [NSMutableSet setWithArray:allBuiltInEngineModes];
-		E = [allBuiltInEngineModes objectEnumerator];
-		while(C = [E nextObject])
+		for(C in allBuiltInEngineModes)
 		{
 			if([C isKindOfClass:[NSArray class]])
 			{

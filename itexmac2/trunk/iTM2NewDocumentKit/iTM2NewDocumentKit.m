@@ -147,6 +147,19 @@ To Do List:
 #include <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 
 @implementation iTM2NewDocumentAssistant
+
+@synthesize templateImage;
+@synthesize tabViewItemIdentifier;
+@synthesize templatePDFView;
+
+- (void)dealloc;
+{
+	self.templateImage=nil;
+	self.tabViewItemIdentifier=nil;
+	self.templatePDFView=nil;
+	[super dealloc];
+	return;
+}
 static id _iTM2NewDocumentsTree = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataSourceWindowDidLoad
 - (void)dataSourceWindowDidLoad;
@@ -252,7 +265,7 @@ To Do List:
 	}
 	// path is now expected to point to a folder
 	iTM2_INIT_POOL;
-	NSMutableString * hidden = [NSMutableString stringWithContentsOfFile:[path stringByAppendingPathComponent:@".hidden"]];
+	NSMutableString * hidden = [NSMutableString stringWithContentsOfFile:[path stringByAppendingPathComponent:@".hidden"] encoding:NSUTF8StringEncoding error:nil];
 	if([hidden length])
 	{
 		NSString * replacement= @"\n";
@@ -269,9 +282,8 @@ To Do List:
 	NSArray * hiddenFiles = [hidden componentsSeparatedByString:@"\n"];
 //- (id) _MutableDictionaryFromArray: (id) array;
 //- (id) _ArrayFromDictionary: (id) dictionary;
-	NSEnumerator * DE = [[DFM directoryContentsAtPath:path] objectEnumerator];
 	NSString * component;
-	while(component = [DE nextObject])
+	for(component in [DFM directoryContentsAtPath:path])
 	{
 //iTM2_LOG(@"+=+=+=+=+=+=+=+=+=+=  component: %@", component);
 		if([component hasPrefix:@"."])
@@ -440,78 +452,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	metaSETTER(argument);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= tabViewItemIdentifier
-- (id)tabViewItemIdentifier;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTabViewItemIdentifier:
-- (void)setTabViewItemIdentifier:(NSString *)object;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(object);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= templateImage
-- (id)templateImage;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTemplateImage:
-- (void)setTemplateImage:(id)object;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(object);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= templatePDFView
-- (id)templatePDFView;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setTemplatePDFView:
-- (void)setTemplatePDFView:(id)object;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(object);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createSheet
@@ -710,6 +650,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	self.templateImage=nil;
+	self.tabViewItemIdentifier=@"Image";
+	[self.templatePDFView setDocument:nil];
     [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
@@ -1020,7 +963,7 @@ To Do List:
 		NSString * target = [panel filename];
 		if([[contents dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES] writeToFile:target atomically:YES])
 		{
-			[isa loadTemplates];
+			[[self class] loadTemplates];
 			[[self outlineView] reloadData];
 		}
 		else
@@ -1312,7 +1255,7 @@ To Do List:
 	{
 		R.length -= R.location;
 		newCoreComponents = [newCoreComponents subarrayWithRange:R];
-		newCore = [NSString pathWithComponents:newCoreComponents];
+		newCore = [NSString iTM2_pathWithComponents:newCoreComponents];
 	}
 	else
 	{
@@ -1324,7 +1267,7 @@ To Do List:
 		newCore = [newCore stringByDeletingPathExtension];
 		newCore = [newCore stringByAppendingPathExtension:originalExtension];
 	}
-	if([[SDC typeFromFileExtension:[targetName pathExtension]] isEqualToString:iTM2TeXDocumentType])
+	if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:targetName] error:NULL] isEqualToString:iTM2TeXDocumentType])
 	{
 		NSDictionary * filter = [NSDictionary dictionaryWithObject:	@"-" forKey:@" "];
 		newCore = [self convertedString:newCore withDictionary:filter];
@@ -1354,8 +1297,7 @@ To Do List:
 			{
 				[names addObject:targetName];
 			}
-			NSEnumerator * E = [names objectEnumerator];
-			while(component = [E nextObject])
+			for(component in names)
 			{
 				mandatoryName = [mandatoryName lastPathComponent];
 				mandatoryName = [mandatoryName stringByDeletingPathExtension];
@@ -1600,8 +1542,7 @@ To Do List:
 			// Modify the project file, to sync with the possibly modified file names
 			NSArray * enclosedProjects = [[NSURL fileURLWithPath:targetName] iTM2_enclosedProjectURLs];
 			iTM2TeXProjectDocument * PD = nil;
-			NSEnumerator * E = [enclosedProjects objectEnumerator];
-			while(originalPath = [E nextObject])
+			for(originalPath in enclosedProjects)
 			{
 				originalPath = [originalPath stringByStandardizingPath];
 //iTM2_LOG(@"originalPath is: %@", originalPath);
@@ -1792,8 +1733,7 @@ To Do List:
 				NSArray * enclosedProjects = [[NSURL fileURLWithPath:targetName] iTM2_enclosedProjectURLs];
 				NSString * originalPath = nil;
 				NSString * convertedPath = nil;
-				NSEnumerator * E = [enclosedProjects objectEnumerator];
-				while(originalPath = [E nextObject])
+				for(originalPath in enclosedProjects)
 				{
 					originalPath = [originalPath stringByStandardizingPath];
 					convertedPath = [self convertedString:originalPath withDictionary:filter];
@@ -2186,42 +2126,48 @@ To Do List:
 		if(!B)
 		{
 			[sender setStringValue:noDescriptionAvailable];
-			[self setTemplateImage:nil];
-			[[self templatePDFView] setDocument:nil];
+			self.templateImage=nil;
+			[self.templatePDFView setDocument:nil];
 			return NO;
 		}
 	}
 //iTM2_LOG(@"fixing");
 	// fixing the template image
 	path = [B pathForImageResource:@"templateImage"];
-	if([[SDC typeFromFileExtension:[path pathExtension]] isEqualToString:NSPDFPboardType])
-	{
-		PDFDocument * D = nil;
-longemer:
-		D = [[[PDFDocument allocWithZone:[self zone]]
-			initWithURL:[NSURL fileURLWithPath:path]] autorelease];
-		[(PDFView *)[self templatePDFView] setDocument:D];
-		[self setTabViewItemIdentifier:@"PDF"];
-	}
-	else
-	{
-		NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
-		if(nil == I)
+	if([path length]) {
+		NSString * type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
+		if(UTTypeEqual((CFStringRef)type,kUTTypePDF))
 		{
-			// is there a unique pdf file at the top level?
-			path = [B bundlePath];
-			NSEnumerator * E = [[DFM directoryContentsAtPath:path] objectEnumerator];
-			NSString * component;
-			while(component = [E nextObject])
-				if([[SDC typeFromFileExtension:[component pathExtension]] isEqualToString:NSPDFPboardType])
-				{
-					path = [path stringByAppendingPathComponent:component];
-					goto longemer;
-				}
-			I = [SWS iconForFile:[self standaloneFileName]];
+			PDFDocument * D = nil;
+longemer:
+			D = [[[PDFDocument allocWithZone:[self zone]]
+				  initWithURL:[NSURL fileURLWithPath:path]] autorelease];
+			[self.templatePDFView setDocument:D];
+			self.tabViewItemIdentifier = @"PDF";
 		}
-		[self setTemplateImage:I];
-		[self setTabViewItemIdentifier:@"Image"];
+		else
+		{
+			NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			if(nil == I)
+			{
+				// is there a unique pdf file at the top level?
+				path = [B bundlePath];
+				NSString * component;
+				for(component in [DFM directoryContentsAtPath:path]) {
+					type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL];
+					if(UTTypeEqual((CFStringRef)type,kUTTypePDF))
+					{
+						path = [path stringByAppendingPathComponent:component];
+						goto longemer;
+					}
+				}
+				I = [SWS iconForFile:[self standaloneFileName]];
+			}
+			self.templateImage = I;
+			self.tabViewItemIdentifier = @"Image";
+		}
+	} else {
+		self.templateImage = nil;
 	}
 	// select the tab view containing V, which is the view containing the appropriate information
 	// fixing the template image: looking for an rtf file and then a text file
@@ -2239,7 +2185,7 @@ longemer:
 	path = [B pathForResource:@"templateDescription" ofType:@"txt"];
 	if([path length])
 	{
-		id description = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path]];// encoding?
+		id description = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:path] encoding:NSUTF8StringEncoding error:nil];// encoding?
 		if([description length])
 		{
 			[sender setStringValue:description];
@@ -2342,7 +2288,7 @@ To Do List:
 			filename = [filename stringByAppendingPathExtension:requiredPathExtension];
 		}
 	}
-	if([[SDC typeFromFileExtension:[filename pathExtension]] isEqualToString:iTM2TeXDocumentType])
+	if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:filename] error:NULL] isEqualToString:iTM2TeXDocumentType])
 	{
 		NSDictionary *filter = [NSDictionary dictionaryWithObject:@"-" forKey:@" "];
 		filename = [self convertedString:filename withDictionary:filter];
@@ -2850,7 +2796,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSString * oldProjectURL = [self oldProjectURL];
+	NSURL * oldProjectURL = [self oldProjectURL];
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSDictionary * availableProjects = [self availableProjects];

@@ -353,4 +353,5 @@ extern NSString * const iTM2TextInspectorType;
 }
 - (void)scrollTaggedToVisible:(id <NSMenuItem>)sender;
 - (void)scrollTaggedAndRepresentedStringToVisible:(id <NSMenuItem>)sender;
+@property (retain) id _Implementation;
 @end

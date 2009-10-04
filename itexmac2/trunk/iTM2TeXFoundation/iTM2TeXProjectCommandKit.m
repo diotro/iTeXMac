@@ -374,9 +374,8 @@ To Do List:
 		// sort the modes
 		modes = [modes sortedArrayUsingSelector:@selector(compare:)];
 		// feed the sender
-		NSEnumerator * E = [modes objectEnumerator];
         NSString * mode;
-        while(mode = [E nextObject])
+        for(mode in modes)
         {
 			if(![mode isEqual:iTM2ProjectDefaultName])// the default mode is not added
 			{
@@ -497,9 +496,8 @@ To Do List:
 		// sort the extensions
 		extensions = [extensions sortedArrayUsingSelector:@selector(compare:)];
 		// feed the sender
-		NSEnumerator * E = [extensions objectEnumerator];
         NSString * extension;
-        while(extension = [E nextObject])
+        for(extension in extensions)
         {
 			if([extension length])
 			{
@@ -611,9 +609,8 @@ To Do List:
 		// sort the extensions
 		variants = [variants sortedArrayUsingSelector:@selector(compare:)];
 		// feed the sender
-		NSEnumerator * E = [variants objectEnumerator];
         NSString * variant;
-        while(variant = [E nextObject])
+        for(variant in variants)
         {
 			if([variant length])
 			{
@@ -721,9 +718,8 @@ To Do List:
 		// sort the extensions
 		outputs = [outputs sortedArrayUsingSelector:@selector(compare:)];
 		// feed the sender
-		NSEnumerator * E = [outputs objectEnumerator];
         NSString * output;
-        while(output = [E nextObject])
+        for(output in outputs)
         {
 			if([output length])
 			{
@@ -1864,7 +1860,7 @@ To Do List:
 		{
 			if(!strncmp(_classname + n - strlen("Performer"), "Performer", strlen("Performer")))
 			{
-				return [NSString stringWithCString:_classname+strlen("iTM2TeXP") encoding:NSASCIIStringEncoding];
+				return [[[NSString alloc] initWithBytes:_classname+strlen("iTM2TeXP") length:n-strlen("iTM2TeXPPerformer") encoding:NSASCIIStringEncoding] autorelease];
 			}
 		}
 	}

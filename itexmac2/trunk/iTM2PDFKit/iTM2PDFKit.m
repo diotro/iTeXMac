@@ -304,7 +304,7 @@ To Do List:
     return [[self PDFDocument] writeToURL:fileURL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:orderFront:
-- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -329,7 +329,7 @@ To Do List:
     if([synchronizer getLine:&line column:&column sourceBefore:&sourceBefore sourceAfter:&sourceAfter forLocation:thePoint withHint:hint inPageAtIndex:thePage])
 	{
 		if([sourceBefore length]
-			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceBefore pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
+		   && [[SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:sourceBefore] error:NULL]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
 			url = [NSURL fileURLWithPath:sourceBefore];
 			document = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
@@ -342,11 +342,11 @@ To Do List:
 					nil];
 			[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
-				return;
+				return YES;
 			[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
 		}
 		if([sourceAfter length]
-			&& [[SDC documentClassForType:[SDC typeFromFileExtension:[sourceAfter pathExtension]]] isSubclassOfClass:[iTM2TextDocument class]])
+			&& [[SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:sourceAfter] error:NULL]] isSubclassOfClass:[iTM2TextDocument class]])
 		{
 			document = [SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:sourceAfter] display:NO error:nil];
 			[document getLine:&line column:&column length:&length forHint:hint];
@@ -358,7 +358,7 @@ To Do List:
 					nil];
 			[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
 			if([document displayLine:line column:column length:length withHint:hint orderFront:yorn])
-				return;
+				return YES;
 			[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
 		}
 	}
@@ -396,7 +396,7 @@ To Do List:
 	}
 	if([matchDocument displayLine:line column:column length:length withHint:hint orderFront:yorn])
 	{
-		return;
+		return YES;
 	}
 	NSString * path = [[self fileURL] path];
 	path = [[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"tex"];
@@ -414,14 +414,14 @@ To Do List:
 				nil];
 		[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
 		if([matchDocument displayLine:line column:column length:length withHint:hint orderFront:yorn])
-			return;
+			return YES;
 		[[self implementation] takeMetaValue:nil forKey:@"current source synchronization location"];
 	}
 	if(iTM2DebugEnabled)
 	{
 		iTM2_LOG(@"Could not synchronize (weakly) with hint:\n%@", hint);
 	}
-	return;
+	return NO;
 }
 - (BOOL)validateSaveDocument:(id)sender;
 {
@@ -518,7 +518,7 @@ To Do List:
 		while(component = [E nextObject])
 		{
 			NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
-			Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fullPath pathExtension]]];
+			Class C = [SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]];
 			if([C isSubclassOfClass:[iTM2PDFDocument class]] && [component hasPrefix:baseName])
 			{
 				[__OrderedFileNames addObject:component];
@@ -540,7 +540,7 @@ To Do List:
 			while(component = [E nextObject])
 			{
 				NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
-				Class C = [SDC documentClassForType:[SDC typeFromFileExtension:[fullPath pathExtension]]];
+				Class C = [SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]];
 				if([C isSubclassOfClass:[iTM2PDFDocument class]] && [component hasPrefix:baseName])
 				{
 					[__OrderedFileNames addObject:component];
@@ -594,6 +594,9 @@ To Do List:
 //iTM2_END;
 	return self;
 }
+@synthesize __PDFKitDocuments;
+@synthesize __OrderedFileNames;
+@synthesize __IndexForPageCache;
 @end
 
 @implementation NSString(__OrderedFileNames)
@@ -647,11 +650,10 @@ To Do List:
 {
 	[super resetCursorRects];
 	NSArray * subviews = [[self contentView] subviewsWhichClassInheritsFromClass:[PDFView class]];
-	NSEnumerator * E = [subviews objectEnumerator];
 	PDFView * subview;
 	id FR = [self firstResponder];
 	FR = [FR isKindOfClass:[NSView class]]?FR:nil;
-	while(subview = [E nextObject])
+	for(subview in subviews)
 	{
 		if([FR isDescendantOf:subview])
 		{
@@ -2358,6 +2360,25 @@ To Do List:
     return [[[self document] synchronizer] isSyncTeX]
 		&& [[self album] synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *) hint];
 }
+@synthesize _pdfView;
+@synthesize _drawer;
+@synthesize _drawerView;
+@synthesize _pdfTabView;
+@synthesize _tabViewControl;
+@synthesize _thumbnailTable;
+@synthesize _outlinesView;
+@synthesize _searchCountText;
+@synthesize _searchField;
+@synthesize _searchProgress;
+@synthesize _searchTable;
+@synthesize _scaleView;
+@synthesize _pageNumView;
+@synthesize _printAppendView;
+@synthesize _printButton;
+@synthesize _softProofButton;
+@synthesize _toolbarToolModeView;
+@synthesize _toolbarBackForwardView;
+@synthesize _toolbarDisplayBoxView;
 @end
 
 @implementation iTM2PDFKitInspector(PDFSYNC)
@@ -3149,6 +3170,10 @@ To Do List:
 - (PDFAreaOfInterest)areaOfInterestForMouse:(NSEvent *) theEvent;
 - (void)scrollSelectionToVisible:(id)sender;
 - (BOOL)changeCursorForAreaOfInterest:(PDFAreaOfInterest)area;
+@property BOOL _active;
+@property BOOL _tracking;
+@property (retain) NSView * _subview;
+@property (retain) NSImage * _cachedShadow;
 @end
 
 @interface __iTM2PDFKitSynchronizationView:NSView
@@ -3226,6 +3251,7 @@ To Do List:
 @public
 	NSPDFImageRep * representation;
 }
+@property (retain) NSPDFImageRep * representation;
 @end
 
 @interface _PDFFilePromiseController:NSObject
@@ -3236,6 +3262,9 @@ To Do List:
 	NSString * _label;
 }
 - (id)initWithName:(NSString *)name data:(NSData *)data label:(NSString *)label;
+@property (retain) NSString * _name;
+@property (retain) NSData * _data;
+@property (retain) NSString * _label;
 @end
 
 @implementation iTM2PDFKitView
@@ -3987,6 +4016,10 @@ iTM2_START;
 	[super setScaleFactor:(float)aMagnification];
 iTM2_END;
 }
+@synthesize _Implementation;
+@synthesize _SyncDestination;
+@synthesize _SyncPointValues;
+@synthesize _SyncDestinations;
 @end
 
 @implementation iTM2XtdPDFDocument
@@ -4526,6 +4559,8 @@ previousHere:
 //iTM2_END;
 	return nil;
 }
+@synthesize __PageStringOffsets;
+@synthesize __CachedPageStrings;
 @end
 
 #define SCROLL_LAYER 20
@@ -4560,9 +4595,8 @@ To Do List:
 	NSMutableSet * pageSet = [NSMutableSet set];
 	PDFDocument * document = [self document];
 	NSArray * keys = [NSArray arrayWithObjects:@"here",@"after",@"before",nil];
-	NSEnumerator * EE = [keys objectEnumerator];
 	NSString * key = nil;
-	while(key = [EE nextObject])
+	for(key in keys)
 	{
 		NSDictionary * D = [destinations objectForKey:key];
 		NSEnumerator * E = [D keyEnumerator];
@@ -4898,8 +4932,7 @@ quelquepart:
 #pragma mark 2 - b ) Find best match
 			unsigned int minWeight = UINT_MAX;
 			NSMutableArray * syncDestinations = [NSMutableArray array];
-			E = [globalIndexes objectEnumerator];
-			while(N = [E nextObject])
+			for(N in globalIndexes)
 			{
 				int globalIndex = [N intValue];
 				NSEnumerator * EE = [_SyncDestinations objectEnumerator];// _SyncDestinations contains the positions
@@ -5313,12 +5346,10 @@ quelquepart:
 #pragma mark 2 - b ) Find best match
 			unsigned int minWeight = UINT_MAX;
 			NSMutableArray * syncDestinations = [NSMutableArray array];
-			E = [globalIndexes objectEnumerator];
-			while(N = [E nextObject])
+			for(N in globalIndexes)
 			{
 				int globalIndex = [N intValue];
-				NSEnumerator * EE = [_SyncDestinations objectEnumerator];// _SyncDestinations contains the positions
-				while(destination = [EE nextObject])
+				for(destination in _SyncDestinations)
 				{
 					PDFPage * page = [destination page];
 					int globalIdx = [page localToGlobalCharacterIndex:
@@ -5360,9 +5391,8 @@ quelquepart:
 					if(pageIndex < pageCount)
 					{
 						PDFPage * page = [[self document] pageAtIndex:pageIndex];
-						NSEnumerator * EE = [[beforeRecords objectForKey:N] objectEnumerator];
 						NSValue *  V;
-						while(V = [EE nextObject])
+						for(V in [beforeRecords objectForKey:N])
 						{
 							int localIndex = [page characterIndexNearPoint:[V pointValue]];
 							if(localIndex>=0)
@@ -5383,9 +5413,8 @@ quelquepart:
 					if(pageIndex < pageCount)
 					{
 						PDFPage * page = [[self document] pageAtIndex:pageIndex];
-						NSEnumerator * EE = [[afterRecords objectForKey:N] objectEnumerator];
 						NSValue *  V;
-						while(V = [EE nextObject])
+						for(V in [afterRecords objectForKey:N])
 						{
 							int localIndex = [page characterIndexNearPoint:[V pointValue]];
 							if(localIndex>=0)
@@ -6085,6 +6114,7 @@ next_chance:;
 				return YES;
 			}
 		}
+last_chance:
 #else
 		while((node = synctex_next_result(scanner)))
 		{
@@ -6170,7 +6200,6 @@ nextMatch:
 			}
 		}
 #endif
-last_chance:
 		if(first_node)
 		{
 			pageIndex = synctex_node_page(first_node)-1;
@@ -6910,7 +6939,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
-- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:Thu Jul 17 2003
@@ -6925,7 +6954,7 @@ To Do List:
 		if([D respondsToSelector:@selector(orderFrontCurrentSource)])
 		{
 			[D orderFrontCurrentSource];
-			return;
+			return YES;
 		}
 	}
 	NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
@@ -6985,10 +7014,11 @@ To Do List:
 		}
 		[[[[self window] windowController] document]
 			synchronizeWithLocation:point inPageAtIndex:pageIndex withHint:hint orderFront:NO];
+		return YES;
 	}
 //iTM2_LOG(@"[theEvent clickCount] is:%i", [theEvent clickCount]);
 //iTM2_END;
-	return;
+	return NO;
 }
 @end
 
@@ -8270,6 +8300,10 @@ mainLoop:
 	[self scrollRectToVisible:[self selectionRect]];
 	return;
 }
+@synthesize _active;
+@synthesize _tracking;
+@synthesize _subview;
+@synthesize _cachedShadow;
 @end
 
 @implementation __iTM2PDFPrintView
@@ -8278,6 +8312,7 @@ mainLoop:
 	[representation drawAtPoint:NSZeroPoint];
 	return;
 }
+@synthesize representation;
 @end
 
 @implementation _PDFFilePromiseController
@@ -8328,6 +8363,9 @@ mainLoop:
 		}
 	}
 }
+@synthesize _name;
+@synthesize _data;
+@synthesize _label;
 @end
 
 @interface PDFPage_iTM2PDFKit:PDFPage

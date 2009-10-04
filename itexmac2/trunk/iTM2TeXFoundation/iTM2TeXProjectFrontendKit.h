@@ -383,4 +383,5 @@ extern NSString * const iTM2ToolbarProjectTerminalItemIdentifier;
 - (BOOL)canInsertInOldProject;
 - (BOOL)canCreateNewProject;
 - (BOOL)canBeStandalone;
+@property unsigned int flags;
 @end

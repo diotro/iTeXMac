@@ -287,6 +287,9 @@ To Do List:
     return;
 }
 #endif
+@synthesize _CachedWidth;
+@synthesize _CachedHeights;
+@synthesize _ImagePosition;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2GridMenu
@@ -438,6 +441,7 @@ To Do List:
 //iTM2_END;
     return index % [self numberOfColumns];
 }
+@synthesize _NOC;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DMenuKit

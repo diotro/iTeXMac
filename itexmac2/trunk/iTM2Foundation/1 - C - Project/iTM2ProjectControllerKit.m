@@ -90,6 +90,14 @@ static NSString * const iTM2ProjectsReentrantKey = @"_PCPRE";
 - (NSURL *)projectDirURL;
 - (void)setUpProject:(id)projectDocument;
 
+@property (retain) id _FileURL;
+@property (retain) id _NewProjectName;
+@property (retain) id _ProjectDirURL;
+@property (retain) id _Projects;
+@property int _SelectedRow;
+@property int _ToggleProjectMode;
+@property BOOL _IsAlreadyDirectoryWrapper;
+@property BOOL _IsDirectoryWrapper;
 @end
 
 @implementation iTM2MainInstaller(ProjectController)
@@ -137,7 +145,7 @@ To Do List:
 	NSString * wrapperType = [SDC iTM2_wrapperDocumentType];
 	while(path = [E nextObject])
 	{
-		if([[SDC typeFromFileExtension:[path pathExtension]] isEqual:wrapperType])
+		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:path] error:NULL] isEqual:wrapperType])
 		{
 			NSString * oldWrapper = [[oldSupport stringByAppendingPathComponent:path] stringByStandardizingPath];
 			NSString * oldProject = [[[[NSURL fileURLWithPath:oldWrapper] iTM2_enclosedProjectURLs] lastObject] path];
@@ -806,8 +814,7 @@ To Do List:
 		[URLs sortedArrayUsingSelector:@selector(compare:)];
 		NSMutableDictionary * first = [NSMutableDictionary dictionary];
 		NSMutableDictionary * last  = [NSMutableDictionary dictionary];
-		E = [URLs objectEnumerator];
-		while(url = [E nextObject])
+		for(url in URLs)
 		{
 			[first setObject:[[url path] lastPathComponent] forKey:url];
 			[last  setObject:[[url path] stringByDeletingLastPathComponent] forKey:url];
@@ -819,8 +826,7 @@ more:
 		set = [NSSet setWithArray:allValues];
 		if([allValues count] != [set count])
 		{
-			E = [set objectEnumerator];
-			while(displayName = [E nextObject])
+			for(displayName in set)
 			{
 				NSArray * ra = [first allKeysForObject:displayName];
 				if([ra count]>1)
@@ -1568,7 +1574,7 @@ scanDirectoryContent:
 	BOOL finished = NO;
 	while(component = [E nextObject])
 	{
-		if([[SDC typeFromFileExtension:[component pathExtension]] iTM2_pathIsEqual:iTM2_projectDocumentType])
+		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL] iTM2_pathIsEqual:iTM2_projectDocumentType])
 		{
 			finished = YES;
 			url = [NSURL iTM2_URLWithPath:component relativeToURL:theURL];
@@ -1593,7 +1599,7 @@ scanDirectoryContent:
 	E = [[DFM directoryContentsAtPath:[theURL path]] objectEnumerator];
 	while(component = [E nextObject])
 	{
-		if([[SDC typeFromFileExtension:[component pathExtension]] iTM2_pathIsEqual:iTM2_projectDocumentType])
+		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL] iTM2_pathIsEqual:iTM2_projectDocumentType])
 		{
 			finished = YES;
 			url = [NSURL iTM2_URLWithPath:component relativeToURL:theURL];
@@ -2529,7 +2535,7 @@ To Do List:
 	NSString * projectName = [[projectFileName lastPathComponent] stringByDeletingPathExtension];
 	NSArray * possibleFileNames = [BASE_URLs objectForKey:projectName];
 	NSAssert([possibleFileNames containsObject:projectFileName],@"! CODE ERROR: baseProjectForFileName parameter must be a base project name.");
-	NSString * type = [SDC typeFromFileExtension:[projectFileName pathExtension]];
+	NSString * type = [SDC typeForContentsOfURL:projectURL error:NULL];
 	if(P = [SDC makeUntitledDocumentOfType:type error:nil])
 	{
 		[P setFileURL:projectURL];
@@ -3556,6 +3562,14 @@ To Do List:
 //iTM2_END;
 	return [_Projects count]>0;
 }
+@synthesize _FileURL;
+@synthesize _NewProjectName;
+@synthesize _ProjectDirURL;
+@synthesize _Projects;
+@synthesize _SelectedRow;
+@synthesize _ToggleProjectMode;
+@synthesize _IsAlreadyDirectoryWrapper;
+@synthesize _IsDirectoryWrapper;
 @end
 
 @implementation NSWorkspace(iTM2ProjectControllerKit)
@@ -4023,9 +4037,8 @@ To Do List:
 		return nil;
 	}
 	// if the file is in an invisible folder, recover it
-	NSEnumerator * E = [components objectEnumerator];
 	NSString * component;
-	while(component = [E nextObject])
+	for(component in components)
 	{
 		if([component hasPrefix:@"."])
 		{

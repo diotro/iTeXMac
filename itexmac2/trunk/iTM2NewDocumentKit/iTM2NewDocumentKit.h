@@ -81,6 +81,16 @@ enum
 @end
 
 @interface iTM2NewDocumentAssistant: iTM2Inspector
+{
+@private
+	NSImage * templateImage;// necessary on 32 bits machines
+	NSString * tabViewItemIdentifier;
+	PDFView * templatePDFView;
+	
+}
+@property (readwrite, copy) IBOutlet NSString *tabViewItemIdentifier;
+@property (readwrite, retain) IBOutlet NSImage *templateImage;
+@property (readwrite, retain) IBOutlet PDFView *templatePDFView;
 
 /*!
     @method     loadTemplates

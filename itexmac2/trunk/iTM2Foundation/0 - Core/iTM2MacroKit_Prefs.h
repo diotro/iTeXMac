@@ -43,6 +43,8 @@
 - (BOOL)isMessage;
 - (id)owner;
 - (void)setOwner:(id)anOwner;
+@property (getter=shouldShowArgument,setter=setShouldShowArgument:) BOOL shouldShowArgument;
+@property (assign,getter=owner,setter=setOwner:) id owner;
 @end
 
 @interface iTM2MutableMacroNode:iTM2PrefsMacroNode
@@ -93,4 +95,5 @@
 - (id)initWithParent:(id)parent;// reads all the macro files
 - (NSArray *)keyBindingSelectionIndexPaths;
 - (void)setKeyBindingSelectionIndexPaths:(NSArray *)indexPaths;
+@property (retain,getter=keyBindingSelectionIndexPaths) NSArray * selectionIndexPaths;
 @end

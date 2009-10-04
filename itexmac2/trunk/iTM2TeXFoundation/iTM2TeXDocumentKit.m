@@ -631,10 +631,9 @@ To Do List: Nothing at first glance.
 	NSMutableArray * replacementStrings = [NSMutableArray array];
 	NSString * S = [self string];
 	NSArray * selectedRanges = [self selectedRanges];
-	NSEnumerator * E = [selectedRanges objectEnumerator];
 	NSValue * V;
 	NSRange R;
-	while(V = [E nextObject])
+	for(V in selectedRanges)
 	{
 		NSRange R = [V rangeValue];
 		unsigned int nextStart,top;
@@ -701,11 +700,10 @@ To Do List: Nothing at first glance.
 	NSString * S = [self string];
 	NSRange selectedRange;
 	NSArray * selectedRanges = [self selectedRanges];
-	NSEnumerator * E = [selectedRanges objectEnumerator];
 	NSValue * V;
 	unsigned comment;
 	affectedRange.length = 1;// all the affected ranges have a 1 length
-	while(V = [E nextObject])
+	for(V in selectedRanges)
 	{
 		selectedRange = [V rangeValue];
 		unsigned int top = NSMaxRange(selectedRange);
@@ -751,7 +749,7 @@ To Do List: Nothing at first glance.
 	// 3 - now we prepare the modified selected ranges
 	// it is a bit heavy, but it is extremely strong
 	NSMutableArray * newSelectedRanges = [NSMutableArray arrayWithArray:selectedRanges];
-	E = [affectedRanges reverseObjectEnumerator];
+	NSEnumerator * E = [affectedRanges reverseObjectEnumerator];
 	while(V = [E nextObject])
 	{
 		affectedRange = [V rangeValue];
@@ -924,8 +922,7 @@ To Do List:
 	}
 	ranges = (id)[ranges sortedArrayUsingSelector:@selector(iTM2_compareRangeLocation:)];
 	NSMutableArray * replacements = [NSMutableArray array];
-	E = [ranges objectEnumerator];
-	while(V = [E nextObject])
+	for(V in ranges)
 	{
 		[replacements addObject:[map objectForKey:V]];
 	}
@@ -1293,9 +1290,8 @@ To Do List:
 	{
 		iTM2KeyBindingsManager_7bitsAccents = [[iTM27BitsContextNode alloc] initWithParent:nil context:@""];
 		NSArray * RA = [[NSBundle mainBundle] allPathsForResource:@"7bitsAccents" ofType:iTM2KeyBindingPathExtension];
-		NSEnumerator * E = [RA objectEnumerator];
 		NSString * repository = nil;
-		while(repository = [E nextObject])
+		for(repository in RA)
 		{
 			NSURL * url = [NSURL fileURLWithPath:repository];
 			[iTM2KeyBindingsManager_7bitsAccents addURLPromise:url];

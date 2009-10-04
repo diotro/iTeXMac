@@ -38,6 +38,7 @@
 #define TABLE @"iTM2DocumentKit"
 #define BUNDLE [iTM2Document classBundle]
 
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSDocumentController(iTeXMac2)
 /*"Description forthcoming."*/
 
@@ -252,10 +253,7 @@ To Do List:
     [super addDocument:document];
     if(iTM2DebugEnabled>100)
     {
-        iTM2_LOG(@"document added: %@, with name: %@", document, [document fileName]);
-		iTM2_LOG(@"[self typeFromFileExtension:\"PDF \"]:%@", [self typeFromFileExtension:@"PDF "]);
-		iTM2_LOG(@"[self typeFromFileExtension:\"pdf\"]:%@", [self typeFromFileExtension:@"pdf"]);
-		iTM2_LOG(@"class: %@", [self documentClassForType:[self typeFromFileExtension:@"pdf"]]);
+        iTM2_LOG(@"document added: %@, with URL: %@", document, [document fileURL]);
     }
     if([document isKindOfClass:[iTM2GhostDocument class]])
         [self removeDocument:document];
@@ -479,7 +477,7 @@ To Do List:
 		metaSETTER(fromFrameworks);
 		D = metaGETTER;
 		[iTM2RuntimeBrowser swizzleClassMethodSelector:@selector(readableTypes)
-			replacement:@selector(iTM2_swizzle_readableTypes) forClass: [NSDocument class]];
+										   replacement:@selector(iTM2_swizzle_readableTypes) forClass: [NSDocument class] error:nil];
 		if(iTM2DebugEnabled)
 		{
 			E = [D keyEnumerator];
@@ -494,7 +492,8 @@ To Do List:
 //iTM2_END;
     return D;
 }
-#if 1
+#if 0
+#warning THIS WAS A BUG CATCHER!!! What bug man? Sometimes the document is not opened with the expected class...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentClassForType:
 - (Class)documentClassForType:(NSString *)documentTypeName;
 /*"On n'est jamais si bien servi qua par soi-meme
@@ -511,7 +510,6 @@ To Do List:
 //iTM2_END;
 	return result;
 }
-#warning THIS IS A BUG CATCHER!!! What bug man? Sometimes the document is not opened with the expected class...
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  typeFromFileExtensionDictionary
 - (NSDictionary *)typeFromFileExtensionDictionary;
 /*"On n'est jamais si bien servi que par soi-meme
@@ -544,8 +542,7 @@ To Do List:
 				while(FE = [e nextObject]);
 			}
 		}
-		E = [DCNs objectEnumerator];
-		while(documentType = [E nextObject])
+		for(documentType in DCNs)
 		{
 			NSString * className = [DCNFTD objectForKey:documentType];
 			Class C = NSClassFromString(className);
@@ -820,6 +817,7 @@ nextApplication:
 	iTM2_OUTERROR(1,(@"Only file url's are supported."),nil);
 	return nil;
 }
+@synthesize _Implementation;
 @end
 
 @implementation NSDocument(iTM2DocumentControllerKit)
@@ -1176,8 +1174,7 @@ To Do List: retain?
 			}
 		}
 	}
-    E = [directories objectEnumerator];
-    while(O = [E nextObject])
+    for(O in directories)
     {
 		NSMenuItem * MI = [self addItemWithTitle:O action:NULL keyEquivalent:@""];
 		NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
@@ -1214,3 +1211,77 @@ To Do List:
     return nil;
 }
 @end
+
+#if 0
+
+/*! UTI's and pasteboard types... */
+
+
+NSString *SKGetDVIDocumentType(void) {
+	- return floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_5 ? 
+	SKDVIDocumentType : SKDVIDocumentUTI;
+	
+	
+	NSColorPboardType
+	NSPasteboardTypeColor
+	com.apple.cocoa.pasteboard.color
+	NSSoundPboardType
+	NSPasteboardTypeSound
+	com.apple.cocoa.pasteboard.sound
+	NSFontPboardType
+	NSPasteboardTypeFont
+	com.apple.cocoa.pasteboard.character-formatting
+	NSRulerPboardType
+	NSPasteboardTypeRuler
+	com.apple.cocoa.pasteboard.paragraph-formatting
+	NSTabularTextPboardType
+	NSPasteboardTypeTabularText
+	com.apple.cocoa.pasteboard.tabular-text
+	NSMultipleTextSelectionPboardType
+	NSPasteboardTypeMultipleTextSelection
+	com.apple.cocoa.pasteboard.multiple-text-selection
+	NSFindPanelSearchOptionsPboardType
+	NSPasteboardTypeFindPanelSearchOptions
+	com.apple.cocoa.pasteboard.find-panel-search-options
+	Constants for Common Pasteboard Types with Existing UTIs
+		The following table shows pasteboard types for which there are existing UTIs. The table shows the Mac OS X v10.5 and earlier constant (where there is one), the Mac OS X v10.6 constant, and the UTI string.
+			
+			Old Constant
+			New Constant
+			UTI String
+			NSStringPboardType
+			NSPasteboardTypeString
+			public.utf8-plain-text
+			NSPDFPboardType
+			NSPasteboardTypePDF
+			com.adobe.pdf
+			NSRTFPboardType
+			NSPasteboardTypeRTF
+			public.rtf
+			NSRTFDPboardType
+			NSPasteboardTypeRTFD
+			com.apple.flat-rtfd
+			NSTIFFPboardType
+			NSPasteboardTypeTIFF
+			public.tiff
+			NSPasteboardTypePNG
+			public.png
+			NSHTMLPboardType
+			NSPasteboardTypeHTML
+			public.html
+			Pasteboard Types Without Direct Replacement
+			Some Mac OS X v10.5 constants do not have corresponding constant definitions on Mac OS X v10.6. The following table shows either their deprecation status or what you should use instead.
+				
+				Constant
+				Replacement/Comments
+				NSPICTPboardType
+				Deprecated in Mac OS X v10.6
+				NSFilesPromisePboardType
+				Use (NSString *)kPasteboardTypeFileURLPromise instead.
+				NSVCardPboardType
+				Use (NSString *)kUTTypeVCard instead.
+				NSPostScriptPboardType
+				Use @"com.adobe.encapsulated-postscript" instead.
+				NSInkTextPboardType
+				Use (NSString *)kUTTypeInkText instead.
+#endif

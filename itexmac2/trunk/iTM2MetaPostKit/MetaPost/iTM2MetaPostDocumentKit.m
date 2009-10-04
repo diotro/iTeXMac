@@ -150,7 +150,7 @@ To Do List:
 	id result = [[self PDFDocuments] objectForKey:argument];
 	if(!result)
 	{
-		NSString * typeName = [SDC typeFromFileExtension:@"pdf"];
+		NSString * typeName = (NSString *)kUTTypePDF;
 		Class C = [SDC documentClassForType:typeName];
 		result = [[[C allocWithZone:[self zone]] initWithContentsOfURL:[NSURL fileURLWithPath:argument] ofType:typeName error:nil] autorelease];
 		if(result)
@@ -181,7 +181,7 @@ To Do List:
 		NSString * fullPath = nil;
 		if([component hasPrefix:baseName]
 				&& (fullPath = [directoryName stringByAppendingPathComponent:component],
-					[[SDC documentClassForType:[SDC typeFromFileExtension:[fullPath pathExtension]]] isSubclassOfClass:[iTM2PDFDocument class]]))
+					[[SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]] isSubclassOfClass:[iTM2PDFDocument class]]))
 		{
 			[__OrderedFileNames addObject:fullPath];
 		}
@@ -201,7 +201,7 @@ To Do List:
 			NSString * fullPath = nil;
 			if([component hasPrefix:baseName]
 				&& (fullPath = [directoryName stringByAppendingPathComponent:component],
-					[[SDC documentClassForType:[SDC typeFromFileExtension:[fullPath pathExtension]]] isSubclassOfClass:[iTM2PDFDocument class]]))
+					[[SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]] isSubclassOfClass:[iTM2PDFDocument class]]))
 			{
 				[__OrderedFileNames addObject:fullPath];
 			}
@@ -217,13 +217,11 @@ To Do List:
 	// alreadyFileNames now contains obsolete file names to be removed
 	[__OrderedFileNames removeObjectsInArray:[self orderedPDFDocumentFileNames]];
 	// alreadyFileNames now contains only the documents to be added file names to be removed
-	E = [alreadyFileNames objectEnumerator];
-	while(component = [E nextObject])
+	for(component in alreadyFileNames)
 	{
 		[self removePDFDocumentFileName:component];
 	}
-	E = [__OrderedFileNames objectEnumerator];
-	while(component = [E nextObject])
+	for(component in __OrderedFileNames)
 	{
 		[self addPDFDocumentFileName:component];
 	}
@@ -496,9 +494,8 @@ To Do List:
 	if(![result count])
 	{
 		NSArray * orderedPDFDocumentFileNames = [[self document] orderedPDFDocumentFileNames];
-		NSEnumerator * E = [orderedPDFDocumentFileNames objectEnumerator];
 		NSString * fileName;
-		while(fileName = [E nextObject])
+		for(fileName in orderedPDFDocumentFileNames)
 		{
 			fileName = [[fileName lastPathComponent] stringByDeletingPathExtension];
 			NSRange R = [fileName rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]
@@ -1096,6 +1093,12 @@ To Do List:
 //iTM2_END;
     return nil;
 }
+@synthesize _pdfView;
+@synthesize _drawer;
+@synthesize _drawerView;
+@synthesize _thumbnailTable;
+@synthesize _toolbarToolModeView;
+@synthesize _toolbarBackForwardView;
 @end
 
 @implementation iTM2MetaPostWindow
@@ -1484,7 +1487,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
-- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Thu Jul 17 2003
@@ -1496,7 +1499,7 @@ To Do List:
 	NSTextView * TV = [inspector textView];
 	[TV highlightAndScrollMetaPostFigureToVisible:[[inspector currentOutputFigure] intValue]];
 //iTM2_END;
-    return;
+    return YES;
 }
 @end
 
@@ -1555,7 +1558,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
-- (void)pdfSynchronizeMouseDown:(NSEvent *)anEvent;
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)anEvent;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 16:05:20 GMT 2005
@@ -1583,11 +1586,11 @@ To Do List:
 		{
 			S = [NSString stringWithFormat:@"%i",figureNumber];
 			[[[self window] windowController] setCurrentOutputFigure:S];
-			return;
+			return YES;
 		}
 	}
 //iTM2_END;
-    return;
+    return NO;
 }
 @end
 

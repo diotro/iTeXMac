@@ -1302,8 +1302,7 @@ To Do List:
 				}
 				--resourceIndex;
 			}
-			NSEnumerator * E = [attributeKeys objectEnumerator];
-			while(key = [E nextObject])
+			for(key in attributeKeys)
 			{
 				NSData * D = [attributes objectForKey:key];
 				const char * src = [key UTF8String];

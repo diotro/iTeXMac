@@ -3,7 +3,7 @@
 //  @version Subversion:$Id:iTM2PDFSYNCKit.m 319 2006-12-09 22:02:14Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Jun 27 2001.
-//  Copyright ¬© 2001-2004 Laurens'Tribune. All rights reserved.
+//  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -557,7 +557,7 @@ To Do List:
         NSEnumerator * E = [pages objectEnumerator];
         id O;
         NSMutableArray * allRecordIndices = [NSMutableArray array];
-        while(O = [E nextObject])
+        for(O in pages)
             [allRecordIndices addObjectsFromArray:[O allKeys]];// EXC_BAD_ACCESS Here?
         E = [lines objectEnumerator];
         unsigned saved = 0;
@@ -941,7 +941,6 @@ To Do List:
 	NSMutableDictionary * hereResult = [NSMutableDictionary dictionary];
 	NSMutableDictionary * beforeResult = [NSMutableDictionary dictionary];
 	NSMutableDictionary * afterResult = [NSMutableDictionary dictionary];
-	NSEnumerator * E = nil;
 	NSPoint point;
 	unsigned int pageIndex;
 	NSNumber * N = nil;
@@ -953,8 +952,7 @@ To Do List:
 	{
 		// I got the exact line index!
 		// hereIndexes is an array record indexes, each one corresponding to the same line
-		E = [hereIndexes objectEnumerator];
-		while(N = [E nextObject])
+		for(N in hereIndexes)
 		{
 			recordIndex = [N unsignedIntValue];
 			[self getLocation:&point page:&pageIndex forRecordIndex:recordIndex];
@@ -976,8 +974,7 @@ To Do List:
 	{
 		// I got the lines before index!
 		// beforeIndexes is an array before indexes, each one corresponding to the same line in the source
-		E = [beforeIndexes objectEnumerator];
-		while(N = [E nextObject])
+		for(N in beforeIndexes)
 		{
 			recordIndex = [N unsignedIntValue];
 			[self getLocation:&point page:&pageIndex forRecordIndex:recordIndex];
@@ -996,8 +993,7 @@ To Do List:
 	{
 		// I got lines after index!
 		// beforeIndexes is an array before indexes, each one corresponding to the same line
-		E = [afterIndexes objectEnumerator];
-		while(N = [E nextObject])
+		for(N in afterIndexes)
 		{
 			recordIndex = [N unsignedIntValue];
 			[self getLocation:&point page:&pageIndex forRecordIndex:recordIndex];
@@ -1128,6 +1124,13 @@ To Do List:
 //iTM2_START;
     return (page >= 0) && (page < [_PageSyncLocations count])? [_PageSyncLocations objectAtIndex:page]:nil;
 }
+@synthesize _FileName;
+@synthesize _Files;
+@synthesize _PageSyncLocations;
+@synthesize _Lines;
+@synthesize _Version;
+@synthesize _Semaphore;
+@synthesize _IsLocked;
 @end
 
 #import "synctex_parser.h"
@@ -2094,7 +2097,7 @@ laSuite:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:orderFront:
-- (void)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -2123,14 +2126,14 @@ To Do List:
 					nil];
 			[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
 			[D displayLine:line column:column length:length withHint:hint orderFront:yorn];
+			return YES;
 		}
-		return;
 	}
 	if(iTM2DebugEnabled)
     {
         iTM2_LOG(@"Could not synchronize with:<%@>", source);
     }
-    return;
+    return NO;
 }
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderFrontCurrentSource
@@ -2497,7 +2500,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfSynchronizeMouseDown:
-- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 /*"Description forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:Thu Jul 17 2003
@@ -2505,9 +2508,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[[[self window] windowController] document] synchronizeWithLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil] inPageAtIndex:[self tag]-1 withHint:nil orderFront:(([theEvent modifierFlags] & NSAlternateKeyMask) == 0)];
 //iTM2_END;
-    return;
+    return [[[[self window] windowController] document]
+				synchronizeWithLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil]
+					inPageAtIndex:[self tag]-1
+						withHint:nil
+							orderFront:(([theEvent modifierFlags] & NSAlternateKeyMask) == 0)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationCompleteDrawRect:
 - (void)synchronizationCompleteDrawRect:(NSRect)rect;

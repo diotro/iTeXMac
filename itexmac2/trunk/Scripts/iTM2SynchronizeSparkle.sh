@@ -8,25 +8,17 @@ DESTINATION="build/${PRODUCT_NAME}.framework"
 echo DESTINATION is ${DESTINATION}
 if ! [ -L "${DESTINATION}/${PRODUCT_NAME}" ]
 then
-	CANDIDATEs="$(find . -regex "./${PRODUCT_NAME}/${PRODUCT_NAME}/${PRODUCT_NAME}\.framework" -print)"
-	for CANDIDATE in ${CANDIDATEs}
-	do
-		break
-	done
-	echo CANDIDATE is ${CANDIDATE}
+	CANDIDATE="$(find . -regex "./${PRODUCT_NAME}/${PRODUCT_NAME}/.*Garbage.*/${PRODUCT_NAME}\.framework" -print)"
+	echo CANDIDATE is "${CANDIDATE}"
 	if ! [ -L "${CANDIDATE}/${PRODUCT_NAME}" ]
 	then
 		echo expanding the zip
 		pushd "$PRODUCT_NAME"
 		unzip "$PRODUCT_NAME.zip"
 		popd
-		CANDIDATEs="$(find . -regex "./${PRODUCT_NAME}/${PRODUCT_NAME}/${PRODUCT_NAME}\.framework" -print)"
-		for CANDIDATE in ${CANDIDATEs}
-		do
-			break
-		done
+		CANDIDATE="$(find . -regex "./${PRODUCT_NAME}/${PRODUCT_NAME}/.*Garbage.*/${PRODUCT_NAME}\.framework" -print)"
 	fi
-	echo CANDIDATE is ${CANDIDATE}
+	echo CANDIDATE is "${CANDIDATE}"
 	echo "warning: iTeXMac2 INFO, Importing ${PRODUCT_NAME}.framework"
 	if [ -e "${DESTINATION}" ]
 	then

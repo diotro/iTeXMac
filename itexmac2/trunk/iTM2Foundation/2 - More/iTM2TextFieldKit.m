@@ -254,6 +254,7 @@ To Do List:
 //iTM2_END;
     return;
 }
+@synthesize rightView;
 @end
 
 @implementation iTM2LineResponder
@@ -466,6 +467,7 @@ To Do List:
 	return result;
 }
 #endif
+@synthesize _NavigationFormat;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2NavigationFormatter
@@ -732,6 +734,7 @@ To Do List:
 		*objectPtr = [[string copy] autorelease];
     return YES;
 }
+@synthesize _Implementation;
 @end
 
 @implementation iTM2FileNameFormatter

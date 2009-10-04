@@ -191,6 +191,9 @@ typedef enum _iTM2TeXInputMode
 */
 - (NSDictionary *)attributesForSymbol:(NSString *)symbol mode:(NSString *)modeName;
 
+@property (retain) id _SymbolsAttributes;
+@property (retain) id _RegExAttributes;
+@property (retain) id _CachedSymbolsAttributes;
 @end
 
 /*!

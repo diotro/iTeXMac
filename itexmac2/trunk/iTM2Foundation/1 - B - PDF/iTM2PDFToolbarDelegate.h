@@ -82,6 +82,10 @@ extern NSString * const iTM2ToolbarHistorySetItemIdentifier;
 /*"Overriden methods"*/
 - (id)init;
 - (void)dealloc;
+@property (retain) NSString * __LastNavigationITII;
+@property (retain) NSTextField * _NavigationField;
+@property (retain) NSMenu * _BackMenu;
+@property (retain) NSMenu * _ForwardMenu;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFToolbarDelegate

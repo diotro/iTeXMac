@@ -235,10 +235,9 @@ To Do List:
 	}
 	// don't close if there is any visible window, except _GWC
 	NSArray * WCs = [self windowControllers];
-	NSEnumerator * E = [WCs objectEnumerator];
 	NSWindowController * WC;
 	id GWC = [IMPLEMENTATION metaValueForKey:@"_GWC"];
-	while(WC = [E nextObject])
+	for(WC in WCs)
 	{
 		if([WC isEqual:GWC])
 		{
@@ -432,7 +431,7 @@ To Do List:
 	NSMutableDictionary * oldMovedURLs = [NSMutableDictionary dictionary];
 	NSMutableDictionary * oldFactoryURLs  = [NSMutableDictionary dictionary];
 	NSMutableSet * oldMissingURLs  = [NSMutableSet set];
-	while(key = [E nextObject])
+	for(key in allKeys)
 	{
 		if([SPC isReservedFileKey:key])
 		{
@@ -544,7 +543,7 @@ changeName:
 			// all the files have been trashed?
 			return YES;
 		}
-		expectedDirName = [NSString pathWithComponents:commonComponents];
+		expectedDirName = [NSString iTM2_pathWithComponents:commonComponents];
 		if([[NSURL fileURLWithPath:expectedDirName] iTM2_belongsToFactory])
 		{
 			iTM2_REPORTERROR(2,(@"Unexpected common components in the Writable Projects directory. Report a bug please."),nil);
@@ -583,8 +582,7 @@ changeName:
 			name = [dest stringByAppendingPathComponent:name];
 			[self setFileURL:[NSURL fileURLWithPath:name]];
 			allKeys = [self fileKeys];
-			E = [allKeys objectEnumerator];
-			while(key = [E nextObject])
+			for(key in allKeys)
 			{
 				url = [self URLForFileKey:key];
 				if([DFM fileExistsAtPath:[url path]])
@@ -669,10 +667,9 @@ To Do List:
 	// which means that there is a file at the URL for all the file keys.
 	// Testing for the keys, shallow consistency.
 	NSArray * allKeys = [self fileKeys];
-	NSEnumerator * E = [allKeys objectEnumerator];
 	NSString * key = nil;
 	NSURL * URL = nil;
-	while(key = [E nextObject])// this is too early?
+	for(key in allKeys)// this is too early?
 	{
 		if(![SPC isReservedFileKey:key])
 		{
@@ -698,8 +695,7 @@ To Do List:
 	}
 	// the project has not moved, test for the file names
 	allKeys = [self fileKeys];
-	E = [allKeys objectEnumerator];
-	while(key = [E nextObject])
+	for(key in allKeys)
 	{
 		if(![SPC isReservedFileKey:key])
 		{
@@ -757,8 +753,7 @@ To Do List:
 		if([actualProjectDirectory iTM2_pathIsEqual:previousProjectDirectory])
 		{
 			// simply list the registered files and see if things were inadvertantly broken...
-			E = [allKeys objectEnumerator];
-			while(key = [E nextObject])
+			for(key in allKeys)
 			{
 				if(![SPC isReservedFileKey:key])
 				{
@@ -845,8 +840,7 @@ To Do List:
 	if([actualProjectDirectory iTM2_pathIsEqual:previousProjectDirectory])
 	{
 		// simply list the registered files and see if things were inadvertantly broken...
-		E = [allKeys objectEnumerator];
-		while(key = [E nextObject])
+		for(key in allKeys)
 		{
 			if(![SPC isReservedFileKey:key])
 			{
@@ -877,8 +871,7 @@ To Do List:
 	else
 	{// the project has been moved,things are delicate
 		allKeys = [self fileKeys];
-		E = [allKeys objectEnumerator];
-		while(key = [E nextObject])
+		for(key in allKeys)
 		{
 			if(![SPC isReservedFileKey:key])
 			{
@@ -903,8 +896,7 @@ To Do List:
 	}
 //iTM2_END;
 cleanKeys:
-	E = [inconsistentKeys objectEnumerator];
-	while(key = [E nextObject])
+	for(key in inconsistentKeys)
 	{
 		[self removeFileKey:key];
 	}
@@ -976,9 +968,8 @@ To Do List:
             iTM2_LOG(@"The documents to be opened are:%@",previouslyOpenDocuments);
         }
 		[[self implementation] takeMetaValue:[NSNull null] forKey:@"is opening subdocuments"];
-        NSEnumerator * E = [previouslyOpenDocuments objectEnumerator];
         NSString * K;
-        while(K = [E nextObject])
+        for(K in previouslyOpenDocuments)
 		{
 			NSError * localError = nil;
             if(![self openSubdocumentForKey:K display:YES error:&localError] && localError)
@@ -1540,9 +1531,8 @@ To Do List:
 		{
 			iTM2_LOG(@"ERROR:The delegate is expected to implement %@",NSStringFromSelector(shouldCloseSelector));
 		}
-		NSEnumerator * E = [subdocuments objectEnumerator];
 		id subdocument;
-		while(subdocument = [E nextObject])
+		for(subdocument in subdocuments)
 		{
 			[subdocument canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(__subdocument:shouldClose:contextDictionary:)contextInfo:[contextDictionary retain]];
 		}
@@ -1765,9 +1755,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * result = [NSMutableArray array];
-	NSEnumerator * E = [keys objectEnumerator];
 	NSString * key = nil;
-	while(key = [E nextObject])
+	for(key in keys)
 	{
 		NSString * name = [self nameForFileKey:key];
 		if([name length])
@@ -1854,9 +1843,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * result = [NSMutableArray array];
-	NSEnumerator * E = [keys objectEnumerator];
 	NSString * key = nil;
-	while(key = [E nextObject])
+	for(key in keys)
 	{
 		NSURL * URL = [self URLForFileKey:key];
 		if(URL)
@@ -2036,9 +2024,7 @@ To Do List:
 //iTM2_LOG(@"[self keyedNames]:%@",[self keyedNames]);
 //iTM2_LOG(@"path: %@",path);
 //iTM2_LOG(@"fileName: %@",fileName);
-	NSEnumerator * E = nil;
-	E = [Ks objectEnumerator];
-	while(result = [E nextObject])
+	for(result in Ks)
 	{
 		if([fileURL iTM2_isEquivalentToURL:[self URLForFileKey:result]])
 		{
@@ -2050,8 +2036,7 @@ To Do List:
 	// this one should not be in use now
 	if([fileURL iTM2_belongsToFactory])
 	{
-		E = [Ks objectEnumerator];
-		while(result = [E nextObject])
+		for(result in Ks)
 		{
 			if([fileURL iTM2_isEquivalentToURL:[self factoryURLForFileKey:result]])
 			{
@@ -3355,14 +3340,13 @@ To Do List:
 	else if(!lazyWrapper)
 	{
 		metaSETTER([NSNull null]);// reentrant management,BIG problem here
-		NSString * wrapperName = [self wrapperName];
-		if([wrapperName length])
+		NSURL * wrapperURL = [self wrapperURL];
+		if(wrapperURL)
 		{
-			NSString * typeName = [SDC typeFromFileExtension:[wrapperName pathExtension]];
-			if(lazyWrapper = [SDC makeDocumentWithContentsOfFile:wrapperName ofType:typeName])
+			NSString * typeName = [SDC typeForContentsOfURL:wrapperURL error:NULL];
+			if(lazyWrapper = [SDC makeDocumentWithContentsOfURL:wrapperURL ofType:typeName])
 			{
 				metaSETTER(lazyWrapper);// the wrapper is automatically dealloc'd when the owner is dealloc'd.
-				[SDC removeDocument:lazyWrapper];//useless?
 //iTM2_LOG(@"[SDC documents] are:%@",[SDC documents]);
 			}
 			return lazyWrapper;
@@ -3616,10 +3600,11 @@ To Do List:
 		}
 		if([extensionKey length])
 		{
-			NSString * typeFromFileExtension = [SDC typeFromFileExtension:extensionKey];
-			if([typeFromFileExtension length] && ![typeFromFileExtension isEqual:type])
+			NSURL * fileURL = [self URLForFileKey:fileKey];
+			NSString * type4URL = [SDC typeForContentsOfURL:fileURL error:NULL];
+			if([type4URL length] && ![type4URL isEqual:type])
 			{
-				if(result = [self metaInfoForKeyPaths:iTM2ContextTypesKey,typeFromFileExtension,aKey,nil])
+				if(result = [self metaInfoForKeyPaths:iTM2ContextTypesKey,type4URL,aKey,nil])
 				{
 					return result;
 				}
@@ -3680,10 +3665,11 @@ To Do List:
 			{
 				didChange |= iTM2ContextExtendedProjectMask;
 			}
-			NSString * typeFromFileExtension = [SDC typeFromFileExtension:extension];
-			if([typeFromFileExtension length])
+			NSURL * fileURL = [self URLForFileKey:fileKey];
+			NSString * type4URL = [SDC typeForContentsOfURL:fileURL error:NULL];
+			if([type4URL length])
 			{
-				if([self setMetaInfo:object forKeyPaths:iTM2ContextTypesKey,typeFromFileExtension,aKey,nil])
+				if([self setMetaInfo:object forKeyPaths:iTM2ContextTypesKey,type4URL,aKey,nil])
 				{
 					didChange |= iTM2ContextExtendedProjectMask;
 				}
@@ -4179,9 +4165,8 @@ To Do List:
 		NSArray * fileNames = [draggingPasteboard propertyListForType:NSFilenamesPboardType];
 		if(![fileNames isKindOfClass:[NSArray class]])
 		{
-			NSEnumerator * E = [fileNames objectEnumerator];
 			NSString * path;
-			while(path = [E nextObject])
+			for(path in fileNames)
 			{
 				if(![projectDocument fileKeyForURL:[NSURL fileURLWithPath:path]]
 					&&([path belongsToDirectory:[contentsURL path]] || [path belongsToDirectory:[factoryURL path]])
@@ -4227,9 +4212,8 @@ To Do List:
 		NSArray * fileNames = [draggingPasteboard propertyListForType:NSFilenamesPboardType];
 		if(![fileNames isKindOfClass:[NSArray class]])
 		{
-			NSEnumerator * E = [fileNames objectEnumerator];
 			NSString * path;
-			while(path = [E nextObject])
+			for(path in fileNames)
 			{
 				url = [NSURL fileURLWithPath:path];
 				if(![projectDocument fileKeyForURL:url]
@@ -4384,8 +4368,7 @@ To Do List:
 			if(code == NSAlertDefaultReturn)
 			{
 				BOOL problem = NO;
-				E = [copiables objectEnumerator];
-				while(pathToCopy = [E nextObject])
+				for(pathToCopy in copiables)
 				{
 					NSString * lastComponent = [pathToCopy lastPathComponent];
 					NSString * target = [contentsName stringByAppendingPathComponent:lastComponent];
@@ -4422,8 +4405,7 @@ To Do List:
 				}
 			}
 		}
-		E = [FNs objectEnumerator];
-        while(pathToCopy = [E nextObject])
+        for(pathToCopy in FNs)
 		{
 			NSURL * url = [NSURL fileURLWithPath:pathToCopy];
 			[projectDocument openSubdocumentWithContentsOfURL:url context:nil display:YES error:nil];
@@ -4445,12 +4427,11 @@ To Do List:
 	if(returnCode == NSAlertDefaultReturn)
 	{
 		BOOL problem = NO;
-		NSEnumerator * E = [copiables objectEnumerator];
 		NSString * fullPath;
 		iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
 		NSURL * contentsURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[projectDocument fileURL]];
 		NSString * contentsName = [contentsURL path];
-		while(fullPath = [E nextObject])
+		for(fullPath in copiables)
 		{
 			NSString * lastComponent = [fullPath lastPathComponent];
 			NSString * target = [contentsName stringByAppendingPathComponent:lastComponent];
@@ -4533,8 +4514,7 @@ To Do List:
 			}
         }
     }
-	E = [removable objectEnumerator];
-	while(fileKey = [E nextObject])
+	for(fileKey in removable)
 	{
 		[projectDocument removeFileKey:fileKey];
 	}
@@ -4582,10 +4562,9 @@ To Do List:
 		return;
 	BOOL recycle = (returnCode == NSAlertAlternateReturn);
     iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
-    NSEnumerator * E = [recyclable objectEnumerator];
 	NSString * fileKey;
 	NSDictionary * contextInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:recycle] forKey:@"recycle"];
-    while(fileKey = [E nextObject])
+    for(fileKey in recyclable)
     {
 		NSURL * url = [projectDocument URLForFileKey:fileKey];
 		NSDocument * subdocument = [SDC documentForURL:url];
@@ -6222,10 +6201,9 @@ To Do List:
 	// migrate all the files known by the project into the destination folder
 	// if they are already open, change their name and save them to the new location
 	// if they are no just move them along
-	NSEnumerator * oldE = [oldURLs objectEnumerator];
 	NSEnumerator * newE = [newURLs objectEnumerator];
 	NSURL * newURL = nil;
-	while(oldURL = [oldE nextObject])
+	for(oldURL in oldURLs)
 	{
 		oldName = [oldURL path];
 		newURL = [newE nextObject];
@@ -6874,9 +6852,8 @@ To Do List:
 	}
 	NSMutableArray * projects = [NSMutableArray array];
 	NSArray * contents = [DFM directoryContentsAtPath:[self path]];
-	NSEnumerator *E = [contents objectEnumerator];
 	NSString * file = nil;
-	while (file = [E nextObject])
+	for (file in contents)
 	{
 		NSURL * url = [NSURL iTM2_URLWithPath:file relativeToURL:self];
 		if([SWS iTM2_isProjectPackageAtURL:url])

@@ -92,6 +92,25 @@ extern NSString * const iTM2ToolbarDoZoomToFitItemIdentifier;
 - (PDFView *)pdfView;
 - (iTM2PDFDocumentStatus)PDFDocumentStatus;
 - (void)setPDFDocumentStatus:(iTM2PDFDocumentStatus)status;
+@property (retain) PDFView *_pdfView;
+@property (retain) NSDrawer *_drawer;
+@property (retain) NSView *_drawerView;
+@property (retain) NSTabView *_pdfTabView;
+@property (retain) NSSegmentedControl *_tabViewControl;
+@property (retain) NSTableView *_thumbnailTable;
+@property (retain) NSOutlineView *_outlinesView;
+@property (retain) NSTextField *_searchCountText;
+@property (retain) NSSearchField *_searchField;
+@property (retain) NSProgressIndicator *_searchProgress;
+@property (retain) NSTableView *_searchTable;
+@property (retain) NSTextField *_scaleView;
+@property (retain) NSTextField *_pageNumView;
+@property (retain) NSView *_printAppendView;
+@property (retain) NSButton *_printButton;
+@property (retain) NSButton *_softProofButton;
+@property (retain) NSSegmentedControl *_toolbarToolModeView;
+@property (retain) NSSegmentedControl *_toolbarBackForwardView;
+@property (retain) NSPopUpButton *_toolbarDisplayBoxView;
 @end
 
 @interface iTM2PDFKitResponder: iTM2AutoInstallResponder
@@ -127,12 +146,16 @@ enum
 	id _SyncPointValues;
 	id _SyncDestinations;
 }
+@property (retain) id _Implementation;
+@property (retain) id _SyncDestination;
+@property (retain) id _SyncPointValues;
+@property (retain) id _SyncDestinations;
 @end
 
 @interface PDFView(iTM2SYNCKit)
 - (void)scrollDestinationToVisible:(PDFDestination *)destination;
 - (void)zoomToFit:(id)sender;
-- (void)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
+- (BOOL)pdfSynchronizeMouseDown:(NSEvent *)theEvent;
 - (iTM2ToolMode)toolMode;
 - (void)setToolMode:(iTM2ToolMode)argument;
 @end
@@ -235,6 +258,8 @@ typedef struct
 */
 - (NSString *)stringForPage:(PDFPage *)page;
 
+@property unsigned int * __PageStringOffsets;
+@property (retain) id __CachedPageStrings;
 @end
 
 @interface iTM2IconSegmentedControl: NSSegmentedControl
@@ -250,6 +275,9 @@ typedef struct
 	NSMutableArray * __OrderedFileNames;
 	NSMutableDictionary * __IndexForPageCache;
 }
+@property (retain) NSMutableDictionary * __PDFKitDocuments;
+@property (retain) NSMutableArray * __OrderedFileNames;
+@property (retain) NSMutableDictionary * __IndexForPageCache;
 @end
 
 @interface NSImage(iTM2PDFKit)

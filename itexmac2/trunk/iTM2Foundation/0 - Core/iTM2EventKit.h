@@ -50,6 +50,8 @@ extern NSString * const iTM2FlagsDidChangeNotification;
 }
 - (id)initWithFireDate:(NSDate *)date interval:(NSTimeInterval)inInterval target:(id)target userInfo:(id)userInfo;
 -(id)userInfo;
+@property EventLoopTimerRef timer;
+@property (retain,getter=userInfo) id info;
 @end
 
 @interface NSObject(iTM2IdleTimerTarget)

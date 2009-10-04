@@ -274,6 +274,7 @@ extern NSString * const iTM2MacroControllerComponent;
 - (id)objectInChildrenWithCodeName:(NSString *)theCodeName modifierFlags:(unsigned int)modifierFlags;
 - (id)objectInChildrenWithKeyStroke:(iTM2KeyStroke *)keyStroke;
 - (id)objectInKeyBindingsWithKeyStroke:(iTM2KeyStroke *)keyStroke;
+@property (assign,getter=parent,setter=setParent:) iTM2KeyBindingNode * parent;
 @end
 
 /*!

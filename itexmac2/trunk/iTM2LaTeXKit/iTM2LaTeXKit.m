@@ -2179,7 +2179,7 @@ conclude:
 		}
 		// No usepackage found, this is the first
 next_documentclass:
-		R = [S rangeOfString:@"documentclass" options:nil range:R];
+		R = [S rangeOfString:@"documentclass" options:0L range:R];
 		if(R.length)
 		{
 			if((R.location>0) &&[S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)

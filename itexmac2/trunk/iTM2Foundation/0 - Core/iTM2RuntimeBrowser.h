@@ -58,7 +58,7 @@
 @interface iTM2RuntimeBrowser: NSObject
 
 /*!
-    @method		swizzleInstanceMethodSelector:replacement:forClass:
+    @method		swizzleInstanceMethodSelector:replacement:forClass:error:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming. Raises exception if paramaters are not consistant.
                 See MethodSwizzle on cocoadev to have a description of what this method is doing.
@@ -67,20 +67,22 @@
 	@param		orig_sel
 	@param		alt_sel
 	@param		aClass
+	@param		a pointer to an autoreleased error object
 	@result		A flag indicating whether the change has benn made
 */
-+ (BOOL)swizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
++ (BOOL)swizzleInstanceMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass error:(NSError **)error;
 
 /*!
-    @method		swizzleClassMethodSelector:replacement:forClass:
+    @method		swizzleClassMethodSelector:replacement:forClass:error:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming. Raises exception if paramaters are not consistant.
 	@param		orig_sel
 	@param		alt_sel
 	@param		aClass
+	@param		a pointer to an autoreleased error object
 	@result		A flag indicating whether the change has benn made
 */
-+ (BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass;
++ (BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass error:(NSError **)error;
 
 /*!
     @method		allClassReferences

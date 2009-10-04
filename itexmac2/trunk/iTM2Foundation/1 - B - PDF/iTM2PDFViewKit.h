@@ -58,6 +58,12 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
 - (void)setSynchronizationPoint:(NSPoint)P;
 /*"Main methods"*/
 /*"Overriden methods"*/
+@property int _Tag;
+@property int _State;
+@property BOOL _DrawsBoundary;
+@property (retain) NSColor * _BackgroundColor;
+@property (retain) NSPDFImageRep * _Representation;
+@property (retain) id _ContextManager;
 @end
 
 extern NSString * const iTM2PDFViewerBackgroundColorKey;
@@ -136,6 +142,14 @@ typedef enum _iTM2PDFPageLayout
 - (void)updateFocusInformationWithPoint:(NSPoint)P;
 - (void)updateGeometry;
 /*"Overriden methods"*/
+@property (retain) id _ImageRepresentation;
+@property (retain) id _CachedImageRepresentation;
+@property float _Magnification;
+@property unsigned _PageLayout;
+@property int _CurrentLogicalPage;
+@property int _OrientationMode;
+@property BOOL _NewPage;
+@property BOOL _NeedsUpdateGeometry;
 @end
 
 #import <iTM2Foundation/iTM2ViewKit.h>

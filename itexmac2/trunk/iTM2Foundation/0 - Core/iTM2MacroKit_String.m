@@ -948,9 +948,8 @@ To Do List: ?
 
 	NSArray * lineComponents = [self lineComponents];
 	NSMutableString * normalized = [NSMutableString string];
-	NSEnumerator * E = [lineComponents objectEnumerator];
 	NSString * line;
-	while(line = [E nextObject])
+	for(line in lineComponents)
 	{
 		unsigned lineIndentation = 0;
 		unsigned currentLength = 0;
