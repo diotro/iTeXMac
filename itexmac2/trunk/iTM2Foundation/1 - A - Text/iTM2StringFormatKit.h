@@ -68,6 +68,11 @@ extern NSString * const TWSEOLFileKey;
 #import <iTM2Foundation/iTM2Implementation.h>
 
 @interface iTM2StringFormatController: iTM2Object
+{
+@private
+	id __weak iVarDocument;
+}
+@property (assign) __weak id document;
 
 /*"Class methods"*/
 /*"Public methods"*/

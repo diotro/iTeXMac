@@ -105,7 +105,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return _giTM2StatusNotificationCenter? _giTM2StatusNotificationCenter:
-                            (_giTM2StatusNotificationCenter = [[self allocWithZone:[NSApp zone]] init]);
+                            (_giTM2StatusNotificationCenter = [[self alloc] init]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
 - (id)init;
@@ -127,21 +127,6 @@ To Do List:
 //NSLog(@"status notification center has been inited");
         return _giTM2StatusNotificationCenter = [super init];
     }
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forhcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self setCurrentStatus:nil];
-    [self setCurrentToolTip:nil];
-    [self setTimer:nil];
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  timer
 - (NSTimer *)timer;
@@ -384,19 +369,6 @@ To Do List:
         [self setStringValue:[[iTM2StatusNotificationCenter defaultCenter] currentStatus]];
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [[iTM2StatusNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  statusNotified:
 - (void)statusNotified:(NSNotification *)aNotification;

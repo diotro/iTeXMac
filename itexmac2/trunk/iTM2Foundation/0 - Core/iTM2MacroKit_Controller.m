@@ -197,15 +197,6 @@ To Do List:
 	}
 	return _iTM2MacroController = self;
 }
-- (void)dealloc;
-{
-	if([self respondsToSelector:@selector(bindingsDealloc)])
-	{
-		[self bindingsDealloc];
-	}
-	[super dealloc];
-	return;
-}
 - (id)treeForContextNodeClass:(Class)aClass;
 {
 	NSString * requiredPathExtension = [aClass pathExtension];
@@ -559,7 +550,7 @@ To Do List:
 		{
 			name = ID;
 		}
-		NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+		NSMenuItem * MI = [[[NSMenuItem alloc]
 			initWithTitle:name action:NULL keyEquivalent: @""] autorelease];
 		[MI setToolTip:[leafNode tooltip]];
 		id submenuList = [[element elementsForName:@"MENU"] lastObject];
@@ -610,7 +601,7 @@ To Do List:
 			prefix = @"";
 		if([element childCount])
 		{
-			NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+			NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 			id child = [element childAtIndex:0];
 			do
 			{
@@ -715,7 +706,7 @@ To Do List:
 
 	for(mode in expectedModes)
 	{
-		MI = [[[NSMenuItem allocWithZone:[menu zone]] initWithTitle:[mode description] action:action keyEquivalent:@""] autorelease];
+		MI = [[[NSMenuItem alloc] initWithTitle:[mode description] action:action keyEquivalent:@""] autorelease];
 		[MI setRepresentedObject:mode];
 		[MI setIndentationLevel:1];
 		[menu insertItem:MI atIndex:index++];

@@ -334,16 +334,6 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepCopy
 - (NSMenu *)deepCopy;
-/*"Simply forwards a #{deepCopyWithZone:} to the receiver, with the receiver's zone as argument.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    return [self deepCopyWithZone:[self zone]];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepCopyWithZone:
-- (NSMenu *)deepCopyWithZone:(NSZone *)aZone;
 /*"The menu items are also copied, not only retained.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -351,18 +341,18 @@ To Do List: We should write a NSMenuItem category to implement the #{copy} metho
 The cell is not copied. Better should be done.
 "*/
 {iTM2_DIAGNOSTIC;
-    NSMenu * result = [[[self class] allocWithZone:aZone] initWithTitle:[self title]];
+    NSMenu * result = [[[self class] alloc] initWithTitle:[self title]];
     int index = 0;
     while(index < [[self itemArray] count])
     {
         NSMenuItem * MI5 = [self itemAtIndex:index];
-        NSMenuItem * MI6 = [[[MI5 class] allocWithZone:aZone] initWithTitle:[MI5 title]
+        NSMenuItem * MI6 = [[[MI5 class] alloc] initWithTitle:[MI5 title]
                                             action: [MI5 action] keyEquivalent:[MI5 keyEquivalent]];
         [MI6 setTarget:[MI5 target]];
         [MI6 setRepresentedObject:[MI5 representedObject]];
 		if([MI5 hasSubmenu])
 		{
-			[MI6 setSubmenu:[[[MI5 submenu] deepCopyWithZone:aZone] autorelease]];
+			[MI6 setSubmenu:[[[MI5 submenu] deepCopy] autorelease]];
 		}
         [result addItem:MI6];
         ++index;
@@ -468,7 +458,7 @@ To Do List: retain?
         [[[[NSFileWrapper alloc] initWithPath:aFullPath] autorelease] fileWrappers]:nil;
     if(D)
     {
-        NSMenu * result = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString string]] autorelease];
+        NSMenu * result = [[[NSMenu alloc] initWithTitle:[NSString string]] autorelease];
         NSEnumerator * enumerator = [[[D allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
         NSString * key;
         NSMutableArray * hiddenFiles = [NSMutableArray array];

@@ -1076,7 +1076,7 @@ To Do List:
     id result = metaGETTER;
     if(!result)
     {
-        metaSETTER([[[iTM2StringFormatController allocWithZone:[self zone]] initWithDocument:self] autorelease]);
+        metaSETTER([[[iTM2StringFormatController alloc] initWithDocument:self] autorelease]);
         result = metaGETTER;
     }
     return result;
@@ -1463,20 +1463,6 @@ To Do List:
 //iTM2_START;
     return iTM2DefaultInspectorMode;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [DNC removeObserver:self];
-#warning REMOVE THE RECEIVER AS TARGET OF A MENU
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupTextEditorsForView:
 - (void)setupTextEditorsForView:(id)view;
 /*"Description Forthcoming.
@@ -1564,8 +1550,8 @@ To Do List:
 					NSRect R = NSZeroRect;
 					R.size.height = [NSScroller scrollerWidth];
 					R.size.width = [NSScroller scrollerWidth];
-					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					NSButton * B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
+					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView alloc] initWithFrame:R] autorelease];
+					NSButton * B = [[[NSButton alloc] initWithFrame:R] autorelease];
 					[B setImage:[NSImage iTM2_imageSplitClose]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
@@ -1576,7 +1562,7 @@ To Do List:
 					[scrollerToolbar addSubview:B];
 					[scrollerToolbar setFrame:R];
 					R.origin = NSZeroPoint;
-					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
+					B = [[[NSButton alloc] initWithFrame:R] autorelease];
 					[B setImage:[NSImage iTM2_imageSplitHorizontal]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
@@ -1585,7 +1571,7 @@ To Do List:
 					[B setAction:@selector(splitHorizontal:)];
 					[B setTag:0];
 					[FCV addSubview:B];
-					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
+					B = [[[NSButton alloc] initWithFrame:R] autorelease];
 					[B setImage:[NSImage iTM2_imageSplitVertical]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
@@ -1631,8 +1617,8 @@ To Do List:
 					NSRect R = NSZeroRect;
 					R.size.height = [NSScroller scrollerWidth];
 					R.size.width = [NSScroller scrollerWidth];
-					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
-					NSButton * B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
+					iTM2FlagsChangedView * FCV = [[[iTM2FlagsChangedView alloc] initWithFrame:R] autorelease];
+					NSButton * B = [[[NSButton alloc] initWithFrame:R] autorelease];
 					[B setImage:[NSImage iTM2_imageSplitHorizontal]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
@@ -1641,7 +1627,7 @@ To Do List:
 					[B setAction:@selector(splitHorizontal:)];
 					[B setTag:0];
 					[FCV addSubview:B];
-					B = [[[NSButton allocWithZone:[ESV zone]] initWithFrame:R] autorelease];
+					B = [[[NSButton alloc] initWithFrame:R] autorelease];
 					[B setImage:[NSImage iTM2_imageSplitVertical]];
 					[B setImagePosition:NSImageOnly];
 					[B setAutoresizingMask:NSViewMaxXMargin];
@@ -1766,7 +1752,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[[NSTextStorage allocWithZone:[self zone]] init] autorelease];
+    return [[[NSTextStorage alloc] init] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorage
 - (id)textStorage;
@@ -2248,7 +2234,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[view saveContext:self];
-	iTM2TextInspector * inspector = [[[isa allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass([self class])] autorelease];
+	iTM2TextInspector * inspector = [[[isa alloc] initWithWindowNibName:NSStringFromClass([self class])] autorelease];
 	NSDocument * document = [self document];
 	[document addWindowController:inspector];
 	[inspector window];
@@ -2708,20 +2694,6 @@ To Do List:
 		[self initImplementation];
 	}
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self deallocImplementation];
-	[super dealloc];
-//iTM2_END;
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
 - (id)implementation;

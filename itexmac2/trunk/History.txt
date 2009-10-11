@@ -1,5 +1,208 @@
-This file is used to track down the subversion number
+This file was used to track down the subversion number
 
 Mon Sep 25 01:15:54 GMT 2006: better synchronization to be used with continuous typesetting mode
 Mon Sep 25 13:13:51 GMT 2006: FIFO replaced by iTeXMac2 server, changes in various places
 Mon Sep 25 21:12:43 GMT 2006: TextWrangler support added, bug fix in the external helper support, and in the above thing...
+
+Sunday October, 05th 2009
+
+perl one liner
+
+find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "searchPathsForSupportInDomains" "{}" \; -print -exec perl -pe "s/searchPathsForSupportInDomains/iTM2_searchPathsForSupportInDomains/g" "{}" \;
+
+
+find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+
+FIND="stringByResolvingFinderAliasesInPath";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+
+
+FIND="stringByAbbreviatingWithDotsRelativeToDirectory";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+FIND="shortestStringByAbbreviatingWithTildeInPath";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+FIND="stringByDeletingAllPathExtensions";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+FIND="stringByNormalizingPath";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+FIND="enclosingDirectoryForFileNames";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+FIND="isEqualToFileName";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+FIND="belongsToDirectory";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+
+FIND="absolutePathWithPath";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+
+
+FIND="";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+FIND="";find . \( -name "*.m" -or -name "*.h" \) -exec grep -q "$FIND" "{}" \; -print -exec perl -i.bak -pe "s/$FIND/iTM2_$FIND/g" "{}" \;
+
+List of methods that may conflict with cocoa
+
+toggleWatchDelimiter:
+
+
+translator.sh _nextLaTeXEnvironmentDelimiterRangeAfterIndex
+@interface NSString(MY_OWN_PRIVACY)
+- (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+@end
+
+@implementation NSString(iTM2TeXKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= backslashCharacter
++ (unichar)backslashCharacter;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [[self backslashString] characterAtIndex:0];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commentCharacter
++ (unichar)commentCharacter;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [[self commentString] characterAtIndex:0];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupCharacter
++ (unichar)bgroupCharacter;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [[self bgroupString] characterAtIndex:0];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= egroupCharacter
++ (unichar)egroupCharacter;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return [[self egroupString] characterAtIndex:0];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= backslashString
++ (NSString *)backslashString;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return @"\\";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commentString
++ (NSString *)commentString;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return @"%";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupString
++ (NSString *)bgroupString;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return @"{";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= egroupString
++ (NSString *)egroupString;
+/*" Description forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+//iTM2_END;
+	return @"}";
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isControlAtIndex:escaped:
+- (BOOL)isControlAtIndex:(unsigned)index escaped:(BOOL *)aFlagPtr;
+/*" Returns YES if there is a '\' at index index. For example "\\ " is a 3 length string.
+For index = 0, 1 and 2, the aFlagPtr* is NO, YES, NO.
+If there is no backslash, aFlagPtr will point to NO, if it is not nil.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:TeXComment:forIndex:
+- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
+/*" Description Forthcoming
+Version history:jlaurens AT users DOT sourceforge DOT net
+- 1.3:03/10/2002
+To Do List:
+"*/
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isTeXCommentAtIndex:
+- (BOOL)isTeXCommentAtIndex:(unsigned)index;
+/*" Description Forthcoming
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:
+- (NSRange)groupRangeAtIndex:(unsigned)index;
+/*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [self groupRangeAtIndex:index beginDelimiter:'{' endDelimiter:'}'];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:beginDelimiter:endDelimiter:
+- (NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
+/*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeForRange:
+- (NSRange)groupRangeForRange:(NSRange)range;
+/*"Returns the range of the smallest group in TeX sense, containing range. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
+The delimiters of the outer teX group are not part of range.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+    return [self groupRangeForRange:range beginDelimiter:'{' endDelimiter:'}'];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeForRange:beginDelimiter:endDelimiter:
+- (NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
+/*"Returns the range of the smallest group in TeX sense, containing range. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
+The delimiters of the outer teX group are not part of range.
+Version history:jlaurens AT users DOT sourceforge DOT net
+- < 1.1:03/10/2002
+To Do List:
+"*/
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByStrippingTeXTagsInString:
++ (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;

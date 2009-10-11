@@ -104,19 +104,6 @@ To Do List:
 //iTM2_START;
     return iTM2TeXProjectSettingsInspectorMode;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[INC removeObserver:self];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
 - (void)windowDidLoad;
 /*"Description forthcoming.
@@ -1060,7 +1047,7 @@ To Do List:
 #warning DEBUG: Problem when cancelled, the edited status might remain despite it should not.
 		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 		NSString * scriptMode = [self editedScriptMode];
-        iTM2TeXPShellScriptInspector * WC = [[[iTM2TeXPShellScriptInspector allocWithZone:[self zone]]
+        iTM2TeXPShellScriptInspector * WC = [[[iTM2TeXPShellScriptInspector alloc]
 			initWithWindowNibName: @"iTM2TeXPShellScriptInspector"] autorelease];
 		iTM2InfosController * ic = [[[iTM2InfosController alloc] initWithProject:TPD atomic:NO prefixWithKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,nil] autorelease];
 		[WC setInfosController:ic];
@@ -1258,7 +1245,7 @@ To Do List:
     {
 		NSString * environmentMode = [self editedEnvironmentMode];
 		Class C = [iTM2TeXPCommandInspector classForMode:environmentMode];
-        iTM2TeXPCommandInspector * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+        iTM2TeXPCommandInspector * WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
         iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 		[TPD addWindowController:WC];// now [WC document] == TPD, and WC is retained, the WC document is the project
 		NSWindow * W = [WC window];// may validate the window content as side effect
@@ -1617,7 +1604,7 @@ To Do List:
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
-				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[[performer class] localizedNameForName:name]
+				NSMenuItem * mi = [[[NSMenuItem alloc] initWithTitle:[[performer class] localizedNameForName:name]
 						action: action
 							keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
 				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
@@ -1688,7 +1675,7 @@ To Do List:
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
-				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[[performer class] localizedNameForName:name]
+				NSMenuItem * mi = [[[NSMenuItem alloc] initWithTitle:[[performer class] localizedNameForName:name]
 						action: action keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
 				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
 				[mi setRepresentedObject:performer];
@@ -1730,9 +1717,7 @@ To Do List:
 		[_iTM2TeXPBuiltInCommandNames autorelease];
 		_iTM2TeXPBuiltInCommandNames = nil;
 		NSMutableSet * set = [NSMutableSet set];
-		NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
-		Class C;
-		while(C = (Class)[[E nextObject] nonretainedObjectValue])
+		for(Class C in (Class)[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]])
 		{
 			if([C commandLevel])
 			{
@@ -1757,10 +1742,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
-	Class C;
 	NSNumber * K;
-	while(C = (Class)[[E nextObject] nonretainedObjectValue])
+	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]])
 	{
 		K = [NSNumber numberWithInt:[C commandGroup]];
 		NSMutableDictionary * md = [MD objectForKey:K];
@@ -1773,14 +1756,11 @@ To Do List:
 			[md setObject:[C commandName] forKey:[NSNumber numberWithInt:[C commandLevel]]];
 	}
 	NSMutableArray * MRA = [NSMutableArray array];
-	E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-	while(K = [E nextObject])
+	for(K in [[MD allKeys] sortedArrayUsingSelector:@selector(compare:)])
 	{
 		NSMutableArray * mra = [NSMutableArray array];
 		NSDictionary * D = [MD objectForKey:K];
-		NSEnumerator * e = [[[D allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-		NSNumber * k;
-		while(k = [e nextObject])
+		for(NSNumber * k in [[D allKeys] sortedArrayUsingSelector:@selector(compare:)])
 			[mra addObject:[D objectForKey:k]];
 		if([mra count])
 			[MRA addObject:mra];
@@ -1805,8 +1785,7 @@ To Do List:
 	id result = NSClassFromString([NSString stringWithFormat:@"iTM2TeXP%@Performer", name]);
 	if(!result)
 	{
-		NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]] objectEnumerator];
-		while(result = [[E nextObject] nonretainedObjectValue])
+		for(result in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]])
 			if([name isEqualToString:[result commandName]])
 				return result;
 	}
@@ -2108,7 +2087,7 @@ To Do List: to be improved...
 		[self postNotificationWithStatus:status];
 //        [project saveProjectDocuments:self]; this is already done if necessary
 //iTM2_LOG(@"/\\/\\/\\/\\  1");
-        iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
+        iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 //iTM2_LOG(@"/\\/\\/\\/\\  2");
 		[TW setLaunchPath:iTM2_Launch];
 //iTM2_LOG(@"/\\/\\/\\/\\  3");
@@ -2253,8 +2232,6 @@ To Do List:
 	id result = NSClassFromString(performerClassName);
 	if(result)
 	{
-		[self dealloc];
-		self = nil;
 		return result;
 	}
 	return self = [super init];

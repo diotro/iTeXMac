@@ -24,8 +24,8 @@
 #import <iTM2Foundation/iTM2DocumentKit.h>
 
 extern NSString * const iTM2TextDocumentType;
-extern NSString * const iTM2SupportTextComponent;
 extern NSString * const iTM2WildcardDocumentType;
+extern NSString * const iTM2SupportTextComponent;
 extern NSString * const iTM2TextInspectorType;
 
 @class iTM2StringFormatController;

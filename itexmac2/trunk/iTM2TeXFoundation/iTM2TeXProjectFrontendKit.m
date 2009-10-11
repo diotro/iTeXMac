@@ -191,7 +191,7 @@ To Do List:
             [[WC window] makeKeyAndOrderFront:self];
             return;
         }
-    WC = [[[iTM2TeXPCommandsInspector allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass([iTM2TeXPCommandsInspector class])] autorelease];
+    WC = [[[iTM2TeXPCommandsInspector alloc] initWithWindowNibName:NSStringFromClass([iTM2TeXPCommandsInspector class])] autorelease];
     [self addWindowController:WC];
     [[WC window] makeKeyAndOrderFront:self];
     return;
@@ -213,7 +213,7 @@ To Do List:
             [[WC window] makeKeyAndOrderFront:self];
             return;
         }
-    WC = [[[iTM2TeXPCommandsInspector allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass([iTM2TeXPCommandsInspector class])] autorelease];
+    WC = [[[iTM2TeXPCommandsInspector alloc] initWithWindowNibName:NSStringFromClass([iTM2TeXPCommandsInspector class])] autorelease];
     [self addWindowController:WC];
     [[WC window] makeKeyAndOrderFront:self];
     return;
@@ -240,12 +240,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-//    [self reallyMakeWindowControllers];
-#warning DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-//iTM2_LOG(@"%@", [self taskController]);
-//iTM2_LOG(@"%@", [[self taskController] inspectorsEnumerator]);
-//iTM2_LOG(@"%@", [[[self taskController] inspectorsEnumerator] nextObject]);
-	NSWindow * W = [[[[self taskController] inspectorsEnumerator] nextObject] window];
+	NSWindow * W = [[[[self taskController] allInspectors] lastObject] window];
 	if(W) [W makeKeyAndOrderFront:sender];
 	[[[self inspectorAddedWithMode:[iTM2TeXPTaskInspector inspectorMode]] window] makeKeyAndOrderFront:self];
     return;
@@ -267,7 +262,7 @@ To Do List:
             [[WC window] makeKeyAndOrderFront:self];
             return;
         }
-    WC = [[[iTM2TeXSubdocumentsInspector allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass([iTM2TeXSubdocumentsInspector class])] autorelease];
+    WC = [[[iTM2TeXSubdocumentsInspector alloc] initWithWindowNibName:NSStringFromClass([iTM2TeXSubdocumentsInspector class])] autorelease];
     [self addWindowController:WC];
     [[WC window] makeKeyAndOrderFront:self];
     return;
@@ -285,7 +280,7 @@ To Do List:
 	if([[self taskController] isMute])
 		return;
 	NSWindow * mainWindow = [NSApp mainWindow];
-	iTM2TeXPTaskInspector * inspector = [[[self taskController] inspectorsEnumerator] nextObject];
+	iTM2TeXPTaskInspector * inspector = [[[self taskController] allInspectors] lastObject];
 	if([inspector isHidden])
 		return;
 	NSWindow * window = [inspector window];
@@ -354,7 +349,7 @@ To Do List:
 		return NO;
 	const char * command = [commandName cStringUsingEncoding:NSUTF8StringEncoding];
 	size_t size = (37+strlen(command));
-	char * selName = malloc(size);
+	char * selName = NSAllocateCollectable(size,0);
 	if(!selName)
 	{
 		iTM2_LOG(@"*** ERROR:Memory management problem.");
@@ -378,7 +373,6 @@ To Do List:
 	dest[0] = '\0';// terminate the string
 	NSString * selectorName = [NSString stringWithCString:selName encoding:NSUTF8StringEncoding];
 	SEL selector = NSSelectorFromString(selectorName);
-	free(selName);
 	NSMethodSignature * myMS = [self methodSignatureForSelector:@selector(template_isValidCommandEnvironmentMode:forScriptMode:)];
 	NSMethodSignature * MS = [self methodSignatureForSelector:selector];
 	if(iTM2DebugEnabled)
@@ -445,20 +439,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self setEmptyFormat:nil];
-	[super dealloc];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getObjectValue:forString:errorDescription:
 - (BOOL)getObjectValue:(id *) obj forString:(NSString *) string errorDescription:(NSString **) error
 /*"Description Forthcoming.
@@ -505,12 +485,12 @@ To Do List:
 	NSAttributedString * result;
 	NSString * s = [self stringForObjectValue:obj];
 	if([s length])
-		result = [[[NSAttributedString allocWithZone:[self zone]] initWithString:s attributes:attrs] autorelease];
+		result = [[[NSAttributedString alloc] initWithString:s attributes:attrs] autorelease];
 	else
 	{
 		NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:attrs];
 		[MD setObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName];
-		result = [[[NSAttributedString allocWithZone:[self zone]] initWithString:([iVarEmptyFormat length]?iVarEmptyFormat:@"NO DESCRIPTION AVAILABLE")
+		result = [[[NSAttributedString alloc] initWithString:([iVarEmptyFormat length]?iVarEmptyFormat:@"NO DESCRIPTION AVAILABLE")
 			attributes:MD] autorelease];
 	}
 //iTM2_LOG(@"result is:%@", result);
@@ -697,7 +677,7 @@ To Do List:
 //iTM2_START;
 	if(![[sender formatter] isKindOfClass:[iTM2TeXPShellScriptLabelFormatter class]])
 	{
-		iTM2TeXPShellScriptLabelFormatter * F = [[[iTM2TeXPShellScriptLabelFormatter allocWithZone:[sender zone]] init] autorelease];
+		iTM2TeXPShellScriptLabelFormatter * F = [[[iTM2TeXPShellScriptLabelFormatter alloc] init] autorelease];
 		[F setEmptyFormat:[sender stringValue]];
 		[sender setFormatter:F];
 	}
@@ -966,7 +946,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	metaSETTER(fileURL);
-	NSString * fileName = [fileURL path];
 	NSURL * enclosing = [fileURL iTM2_enclosingWrapperURL];
 	if(enclosing)
 	{
@@ -977,7 +956,8 @@ To Do List:
 		NSURL * project = nil;
 		for(project in enclosed)
 		{
-			if([fileName belongsToDirectory:[[project iTM2_parentDirectoryURL] path]])
+	NSString * fileName = [fileURL path];
+			if([fileName iTM2_belongsToDirectory:[[project iTM2_parentDirectoryURL] path]])
 			{
 				[self setCreationMode:iTM2ToggleOldProjectMode];
 				break;
@@ -1341,8 +1321,8 @@ To Do List:
 //iTM2_END;
     return [[self fileURL] iTM2_enclosingWrapperURL] != nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectName
-- (NSString *)projectName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= projectURL
+- (NSURL *)projectURL;
 /*"Description forthcoming. Required method. This is where we return the name for new projects
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -1362,10 +1342,10 @@ To Do List:
 			result = [result stringByAppendingPathComponent:newProjectName];
 		}
 		result = [result stringByAppendingPathExtension:[SDC iTM2_projectPathExtension]];
-        return result;
+        return [[NSURL fileURLWithPath:result] iTM2_normalizedURL];
 	}
 //iTM2_END;
-    return [self oldProjectName];
+    return [[NSURL fileURLWithPath:[self oldProjectName]] iTM2_normalizedURL];
 }
 #pragma mark =-=-=-=-=-  WINDOW MNGT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowWillLoad
@@ -2394,7 +2374,7 @@ To Do List:
     NSMutableDictionary * BPs = [NSMutableDictionary dictionary];
     NSMutableDictionary * TPs = [NSMutableDictionary dictionary];
     NSBundle * B = [NSBundle mainBundle];
-    Class TeXPDocumentClass = [SDC documentClassForType:[SDC iTM2_projectDocumentType]];
+    Class TeXPDocumentClass = [SDC documentClassForType:(NSString *)[SDC iTM2_projectDocumentType]];
     NSString * P = [B pathForResource:iTM2TeXPBaseProjectsComponent ofType:nil];
 //iTM2_LOG(@"Reading base projects at path:%@", P);
     NSEnumerator * E = [[DFM directoryContentsAtPath:P] objectEnumerator];
@@ -2680,7 +2660,7 @@ To Do List:
 	}
 	if([self hasProject])
 	{
-		if(result = [SPC newProjectForURLRef:&url display:NO error:nil])
+		if(result = [SPC freshProjectForURLRef:&url display:NO error:nil])
 		{
 			if(![[url path] iTM2_pathIsEqual:[[self fileURL] path]])
 				[self setFileURL:url];// weird code, this is possobly due to a cocoa weird behaviour
@@ -2827,14 +2807,14 @@ To Do List:
 	{
 		iTM2_LOG(@"..........  ERROR:the project responder is not yet installed!");
 	}
-	NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 	[M addItemWithTitle:@"" action:NULL keyEquivalent:@""];// first item is used a s title
 	// populating the menu with project documents
 	if([sortedKeys count])
 	{
 		for(S in sortedKeys)
 		{
-			NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:S
+			NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle:S
 							action:@selector(projectEditDocumentUsingRepresentedObject1:) keyEquivalent:@""] autorelease];
 			[M addItem:MI];
 			[MI setTarget:nil];
@@ -2895,8 +2875,8 @@ DEFINE_TOOLBAR_ITEM(showCurrentProjectTerminalToolbarItem)
 	[toolbarItem setMinSize:frame.size];
 	[B setTarget:nil];
 	[[B cell] setBackgroundColor:[NSColor clearColor]];
-	NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-	NSPopUpButton * PB = [[[NSPopUpButton allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+	NSPopUpButton * PB = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect] autorelease];
 	[PB setMenu:M];
 	[PB setPullsDown:YES];
 	[[B cell] setPopUpCell:[PB cell]];

@@ -136,10 +136,8 @@ To Do List:
 			}
 		}
 	}
-	[self dealloc];
-	self = nil;
 //iTM2_END;
-    return self;
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowPositionShouldBeObserved
 - (BOOL)iTM2_windowPositionShouldBeObserved;
@@ -194,11 +192,11 @@ To Do List:
     MailApplication *mail = [SBApplication applicationWithBundleIdentifier:@"com.apple.Mail"];
     
 	/* create a new outgoing message object */
-    MailOutgoingMessage *emailMessage =	[[[mail classForScriptingClass:@"outgoing message"] alloc] initWithProperties:
+    MailOutgoingMessage *emailMessage =	[[[[mail classForScriptingClass:@"outgoing message"] alloc] initWithProperties:
 										 [NSDictionary dictionaryWithObjectsAndKeys:
 										  subject, @"subject",
 										  body, @"content",
-										  nil]];
+										  nil]] autorelease];
 	
 	/* add the object to the mail app  */
     [[mail outgoingMessages] addObject: emailMessage];
@@ -208,10 +206,10 @@ To Do List:
     emailMessage.visible = YES;
 	
 	/* create a new recipient and add it to the recipients list */
-    MailToRecipient *theRecipient =	[[[mail classForScriptingClass:@"to recipient"] alloc]
+    MailToRecipient *theRecipient =	[[[[mail classForScriptingClass:@"to recipient"] alloc]
 									 initWithProperties: [NSDictionary dictionaryWithObjectsAndKeys:
 										email, @"address",
-														  nil]];
+														  nil]] autorelease];
     [emailMessage.toRecipients addObject: theRecipient];
     
 	
@@ -330,25 +328,6 @@ To Do List:
 	_dontSendReport = yorn;
 	[self didChangeValueForKey:@"dontSendReport"];
 	[self didChangeValueForKey:@"reportColor"];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[_crashDescription autorelease];
-	_crashDescription = nil;
-	[_crashLog autorelease];
-	_crashLog = nil;
-	[_consoleLog autorelease];
-	_consoleLog = nil;
-	[super dealloc];
 //iTM2_END;
     return;
 }

@@ -81,7 +81,6 @@ extern NSString * const iTM2ToolbarHistorySetItemIdentifier;
 - (NSToolbarItem *)toolbar:(NSToolbar *)aToolbar itemForItemIdentifier:(NSString *)anItemIdentifier willBeInsertedIntoToolbar:(BOOL)aFlag;
 /*"Overriden methods"*/
 - (id)init;
-- (void)dealloc;
 @property (retain) NSString * __LastNavigationITII;
 @property (retain) NSTextField * _NavigationField;
 @property (retain) NSMenu * _BackMenu;

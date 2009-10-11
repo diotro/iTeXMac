@@ -99,27 +99,6 @@ To Do List:
 //iTM2_START;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- for 2.0:Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [_Files release];
-    _Files = nil;
-    [_FileName release];
-    _FileName = nil;
-    [_PageSyncLocations release];
-    _PageSyncLocations = nil;
-    [_Lines release];
-    _Lines = nil;
-    [super dealloc];
-//NSLog(@"[SDC documents]:%@", [SDC documents]);
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lock
 - (void)lock;
 /*"Description Forthcoming.
@@ -180,7 +159,7 @@ Version history:jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    NSLock * L = [[NSLock allocWithZone:[self zone]] init];
+    NSLock * L = [[NSLock alloc] init];
     NSString * s = nil;
     NSAutoreleasePool * pool = nil;
     
@@ -197,7 +176,7 @@ To Do List:
     [L unlock];
     
     [pool drain];
-    pool = [[NSAutoreleasePool allocWithZone:[self zone]] init];
+    pool = [[NSAutoreleasePool alloc] init];
 //iTM2_START;
 //NSLog(@"pdfsync ing");
     s = [NSString stringWithContentsOfFile:_FileName];
@@ -397,7 +376,7 @@ Version history:jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    NSLock * L = [[NSLock allocWithZone:[self zone]] init];
+    NSLock * L = [[NSLock alloc] init];
     NSString * s = nil;
     updatingStateAnchor:
     
@@ -1205,9 +1184,7 @@ To Do List:
 //iTM2_START;
 	if(![outputURL isFileURL])
 	{
-		[self dealloc];
-		self = nil;
-		return self;
+		return nil;
 	}
 	if(self = [super init])
 	{
@@ -1231,8 +1208,8 @@ To Do List:
 				// maybe the otherPath is the same as path
 				// in that case the faraway synctex information is appropriate
 				// otherwise we should ignore it
-				if(![[path stringByResolvingSymlinksAndFinderAliasesInPath] isEqual:
-					[otherPath stringByResolvingSymlinksAndFinderAliasesInPath]])
+				if(![[path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath] isEqual:
+					[otherPath iTM2_stringByResolvingSymlinksAndFinderAliasesInPath]])
 				{
 					[self release];
 					self = nil;
@@ -1761,7 +1738,7 @@ To Do List:
 	NSString * FN = [[self fileURL] path];
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-	pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
+	pdfsyncPath = [pdfsyncPath iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 	if([DFM fileExistsAtPath:pdfsyncPath])
 	{
 update:;
@@ -1779,12 +1756,15 @@ update:;
 		NSString * relativeName = [url relativeString];
 		pdfsyncPath = [relativeName stringByDeletingPathExtension];
 		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-		NSURL * pdfsyncURL = [NSURL URLWithString:pdfsyncPath relativeToURL:[url baseURL]];
-		pdfsyncPath = [[pdfsyncURL absoluteURL] path];
-		pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
-		if([DFM fileExistsAtPath:pdfsyncPath])
+		if([pdfsyncPath length])
 		{
-			goto update;
+			NSURL * pdfsyncURL = [NSURL URLWithString:pdfsyncPath relativeToURL:[url baseURL]];
+			pdfsyncPath = [[pdfsyncURL absoluteURL] path];
+			pdfsyncPath = [pdfsyncPath iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath];
+			if([DFM fileExistsAtPath:pdfsyncPath])
+			{
+				goto update;
+			}
 		}
 	}
 //iTM2_END;
@@ -1853,7 +1833,7 @@ laSuite:;
 	// we just try to create a SyncTeX synchronizer
 	// if something is returned, it means that there is a synctex file available.
 	id S = nil;
-	if(S = [[[iTM2SyncTeXSynchronizer allocWithZone:[self zone]] initWithOutputURL:[self fileURL]] autorelease])
+	if(S = [[[iTM2SyncTeXSynchronizer alloc] initWithOutputURL:[self fileURL]] autorelease])
 	{
 		[self replaceSynchronizer:S];
 		return;
@@ -1861,7 +1841,7 @@ laSuite:;
 	NSString * FN = [self fileName];
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-	pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
+	pdfsyncPath = [pdfsyncPath iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 	if(![DFM fileOrLinkExistsAtPath:pdfsyncPath])
 	{
 		iTM2ProjectDocument * PD = [SPC projectForURL:[self fileURL]];
@@ -1870,10 +1850,10 @@ laSuite:;
 		pdfsyncPath = [relativeName stringByDeletingPathExtension];
 		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 		pdfsyncPath = [[NSURL iTM2_URLWithPath:pdfsyncPath relativeToURL:[PD factoryURL]] path];
-		pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath];
+		pdfsyncPath = [pdfsyncPath iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath];
 		if(![DFM fileExistsAtPath:pdfsyncPath])
 		{
-			S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+			S = [[[iTM2PDFSynchronizer alloc] init] autorelease];
 			[self replaceSynchronizer:S];
 			return;
 		}
@@ -1883,7 +1863,7 @@ laSuite:;
 	{
 		if(![self synchronizer])
 		{
-			S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+			S = [[[iTM2PDFSynchronizer alloc] init] autorelease];
 			[self replaceSynchronizer:S];
 		}
 		return;
@@ -1907,7 +1887,7 @@ laSuite:;
 		[INC removeObserver:self
 			name:iTM2PDFSyncParsedNotificationName
 				object:nil];
-		id S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+		id S = [[[iTM2PDFSynchronizer alloc] init] autorelease];
 		[self replaceSynchronizer:S];
 		[INC addObserver:self
 			selector:@selector(pdfsyncDidParseNotified:)
@@ -1927,7 +1907,7 @@ laSuite:;
 		{
 			iTM2_LOG(@"ERROR:Could not recycle %@ due to %i, please do it for me...", pdfsyncPath, tag);
 		}
-		S = [[[iTM2PDFSynchronizer allocWithZone:[self zone]] init] autorelease];
+		S = [[[iTM2PDFSynchronizer alloc] init] autorelease];
 		[self replaceSynchronizer:S];
 	}
     return;
@@ -1975,7 +1955,7 @@ laSuite:
 	if([sourceURL isFileURL])
 	{
 		NSString * dirName = [[[self fileURL] path] stringByDeletingLastPathComponent];
-		SRCE = [[sourceURL path] stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
+		SRCE = [[sourceURL path] iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
 	}
 	else
 	{
@@ -2763,19 +2743,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[DNC addObserver:self selector:@selector(PDFSYNCKit_NSTextViewDidChangeSelectionNotified:) name:NSTextViewDidChangeSelectionNotification object:nil];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKitCompleteDealloc
-- (void)PDFSYNCKitCompleteDealloc;
-/*"Description forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 1.3:Mon Jun 30 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[DNC removeObserver:self];
 //iTM2_END;
     return;
 }

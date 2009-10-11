@@ -104,7 +104,7 @@ case OLDMODE: newMode = NEWMODE; break
 #define CAS1(OLDMODE,NEWMODE,NEWMODIFIER,STATUS)\
 case OLDMODE: newMode = NEWMODE; newModifier = NEWMODIFIER;	status = STATUS; break
 
-	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
+	NSCharacterSet * set = [NSCharacterSet iTM2_TeXLetterCharacterSet];
     if([set characterIsMember:theChar])
     {
 		newMode = kiTM2TeXRegularSyntaxMode;
@@ -954,7 +954,7 @@ To Do List:
 				return kiTM2TeXNoErrorSyntaxStatus;
 			}
 		}
-		NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
+		NSCharacterSet * set = [NSCharacterSet iTM2_TeXLetterCharacterSet];
 		if([set characterIsMember:theChar])
 		{
 			// is it a \input

@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
     return NSApplicationMain(argc, (const char **) argv);
 }
 
-@implementation iTM2Application(iTeXMac2)
+@implementation NSApplication(iTeXMac2)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentVersion
-+ (int)currentVersion;
++ (int)iTM2_currentVersion;
 /*"This is the build number.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.3: 03/10/2002
@@ -157,7 +157,7 @@ To Do List:
 	[iTM2MileStone putMileStoneForKey:@"iTeXMac2 Welcome"];
 	[NSBundle reportCrashIfNeeded];
     int CVN = [SUD integerForKey:iTM2CurrentVersionNumberKey];
-    int CCV = [self currentVersion];
+    int CCV = [self iTM2_currentVersion];
     if(!CVN)
     {
         [SUD setInteger:CCV forKey:iTM2CurrentVersionNumberKey];

@@ -225,7 +225,7 @@ To Do List:
     const char * utf8Backslash = [[NSString stringWithUTF8String: "\\"] cString];
     NSString * fileName = [[[[self window] windowController] document] fileName];
     NSString * title = fileName? [fileName stringByDeletingLastPathComponent]: [NSString string];
-    NSMenu * markMenu = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: title] autorelease];
+    NSMenu * markMenu = [[[NSMenu alloc] initWithTitle: title] autorelease];
     [markMenu setMenuRepresentation: [[[NSMenuView alloc] initWithFrame: NSZeroRect] autorelease]];
     [[markMenu menuRepresentation] setFont: [NSFont menuFontOfSize: [NSFont smallSystemFontSize]]];
     [markMenu addItemWithTitle:
@@ -474,7 +474,7 @@ To Do List:
     unsigned sectionCount = 0, subsectionCount = 0, subsubsectionCount = 0;
     NSString * fileName = [[[[self window] windowController] document] fileName];
     NSString * title = fileName? [fileName stringByDeletingLastPathComponent]: [NSString string];
-    NSMenu * sectionMenu = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: title] autorelease];
+    NSMenu * sectionMenu = [[[NSMenu alloc] initWithTitle: title] autorelease];
     [sectionMenu setMenuRepresentation: [[[NSMenuView alloc] initWithFrame: NSZeroRect] autorelease]];
     [[sectionMenu menuRepresentation] setFont: [NSFont menuFontOfSize: [NSFont smallSystemFontSize]]];
     [sectionMenu addItemWithTitle:
@@ -565,7 +565,7 @@ To Do List:
         {
             NSString * title = nil;
             NSString * object = nil;
-            NSMenuItem * MI = [[[NSMenuItem allocWithZone: [NSMenu menuZone]] init] autorelease];
+            NSMenuItem * MI = [[[NSMenuItem alloc] init] autorelease];
             while((* scanPtr == ' ') || (* scanPtr == '\r') || (* scanPtr == '\n')) ++scanPtr;
 //            char openBracket = '[', closeBracket = ']';
             if(inputDepth == depth)
@@ -701,8 +701,8 @@ To Do List:
     const char * utf8Backslash = [[NSString stringWithUTF8String: "\\"] cString];
     NSString * fileName = [[[[self window] windowController] document] fileName];
     NSString * title = fileName? [fileName stringByDeletingLastPathComponent]: [NSString string];
-    NSMenu * labelMenu = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: title] autorelease];
-    NSMenu * refMenu = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: [NSString string]] autorelease];
+    NSMenu * labelMenu = [[[NSMenu alloc] initWithTitle: title] autorelease];
+    NSMenu * refMenu = [[[NSMenu alloc] initWithTitle: [NSString string]] autorelease];
 
     [labelMenu setMenuRepresentation: [[[NSMenuView alloc] initWithFrame: NSZeroRect] autorelease]];
     [[labelMenu menuRepresentation] setFont: [NSFont menuFontOfSize: [NSFont smallSystemFontSize]]];

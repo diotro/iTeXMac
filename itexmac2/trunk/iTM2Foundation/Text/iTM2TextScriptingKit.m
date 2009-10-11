@@ -31,23 +31,6 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2FindScriptCommand
 /*"Description forthcoming."*/
 @implementation iTM2FindScriptCommand
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void) dealloc;
-/*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
-- 1.1.8: 06/06/2002
-To Do List:
-"*/
-{
-    [findString autorelease];
-    findString = nil;
-    [findTarget autorelease];
-    findTarget = nil;
-    [findRangeValue autorelease];
-    findRangeValue = nil;
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  performDefaultImplementation
 - (id) performDefaultImplementation;
 /*"Description forthcoming.
@@ -338,22 +321,6 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2InsertScriptCommand
 /*"Description forthcoming."*/
 @implementation iTM2InsertScriptCommand
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void) dealloc;
-/*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
-- 1.1.8: 06/06/2002
-To Do List:
-"*/
-{
-//iTM2_START;
-    [insertionTarget autorelease];
-    insertionTarget = nil;
-    [insertionRangeValue autorelease];
-    insertionRangeValue = nil;
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  performDefaultImplementation
 - (id) performDefaultImplementation;
 /*"Description forthcoming.
@@ -666,25 +633,6 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2ReplaceScriptCommand
 /*"Description forthcoming."*/
 @implementation iTM2ReplaceScriptCommand
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void) dealloc;
-/*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
-version: 1.1 (06/08/2002)
-To Do List:
-"*/
-{
-    [replaceString autorelease];
-    replaceString = nil;
-    [findString autorelease];
-    findString = nil;
-    [findTarget autorelease];
-    findTarget = nil;
-    [findRangeValue autorelease];
-    findRangeValue = nil;
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  performDefaultImplementation
 - (id) performDefaultImplementation;
 /*"Description forthcoming.

@@ -195,7 +195,7 @@ To Do List:
 		NSString * extension = [file pathExtension];
         if([extension iTM2_pathIsEqual:TWSSpellExtension])
         {
-            iTM2SpellContext * SC = [[[iTM2SpellContext allocWithZone:[self zone]] init] autorelease];
+            iTM2SpellContext * SC = [[[iTM2SpellContext alloc] init] autorelease];
 			NSString * path = [directoryName stringByAppendingPathComponent:file];
 			NSURL * url = [NSURL fileURLWithPath:path];
 			NSError * error = nil;

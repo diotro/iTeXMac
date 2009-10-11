@@ -30,6 +30,7 @@
 #import <iTM2Foundation/iTM2ApplicationDelegate.h>
 #import <iTM2Foundation/iTM2DocumentControllerKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 
 NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 
@@ -61,19 +62,6 @@ To Do List:
                                 nil]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Registers some defaults: initialize iTM2DefaultsController.
-Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self setApplicationDockMenu:nil];
-    [super dealloc];
     return;
 }
 #warning DEBUGGGGGGGGGG: NO APPLICATION DOCK MENU YET
@@ -150,22 +138,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationShouldTerminate:" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&sender atIndex:2];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-	NSApplicationTerminateReply reply;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
+    NSApplicationTerminateReply reply;
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] applicationShouldTerminate:sender];
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationShouldTerminate:" signature:[I methodSignature] inherited:YES]);
+	SEL selector;
+	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
+	{
+        [I setSelector:selector];
         [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
 		[I getReturnValue:&reply];
 		if((reply == NSTerminateCancel)
 			||(reply == NSTerminateLater))
@@ -173,10 +154,6 @@ To Do List:
 			return reply;
 		}
     }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...ApplicationShouldTerminate");
-	}
 //iTM2_END;
     return NSTerminateNow;
 }
@@ -189,26 +166,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationWillTerminate:" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&notification atIndex:2];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...ApplicationWillTerminate");
-	}
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] applicationWillTerminate:notification];
+    [I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationWillTerminate:" signature:[I methodSignature] inherited:YES]];
 //iTM2_END;
     return;
 }

@@ -29,24 +29,8 @@ NSString * const iTM2UDMatchDelimiterKey = @"iTM2-Text: Match Delimiter";
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTMTextWatcher
 /*"Description forthcoming."*/
-static id _iTM2TextWatcherDictionary = nil;
+static id _iTM2TextWatcherMapTable = nil;
 @implementation iTM2TextWatcher
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: 
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TextWatcher_dealloc)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description forthcoming.
@@ -60,9 +44,12 @@ To Do List:
     [SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
             [NSNumber numberWithBool:YES], iTM2UDMatchDelimiterKey,
                     nil]];
-	if(!_iTM2TextWatcherDictionary)
+	if(!_iTM2TextWatcherMapTable)
 	{
-		_iTM2TextWatcherDictionary = [[NSMutableDictionary dictionary] retain];
+		_iTM2TextWatcherMapTable = [NSMapTable mapTableWithKeyOptions:NSMapTableZeroingWeakMemory|NSMapTableObjectPointerPersonality
+														 valueOptions:NSMapTableStrongMemory];
+		
+		 
 	}
     return;
 }
@@ -168,12 +155,11 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 	NSTextView * TV = [notification object];
 	if(TV != [[TV window] firstResponder])
 		return;
-	NSValue * K = [NSValue valueWithNonretainedObject:TV];
-	NSMutableDictionary * D = [_iTM2TextWatcherDictionary objectForKey:K];
+	NSMutableDictionary * D = [_iTM2TextWatcherMapTable objectForKey:TV];
 	if(!D)
 	{
 		D = [NSMutableDictionary dictionary];
-		[_iTM2TextWatcherDictionary setObject:D forKey:K];
+		[_iTM2TextWatcherMapTable setObject:D forKey:TV];
 		[D setObject:[NSNumber numberWithBool:[TV contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask]] forKey:iTM2UDMatchDelimiterKey];
 	}
 	if([[D objectForKey:iTM2UDMatchDelimiterKey] boolValue])
@@ -215,21 +201,6 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 //iTM2_END;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TextWatcher_dealloc
-- (void)SWZ_iTM2TextWatcher_dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: Nothing
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSValue * V = [NSValue valueWithNonretainedObject:self];
-	[_iTM2TextWatcherDictionary removeObjectForKey:V];
-	[self SWZ_iTM2TextWatcher_dealloc];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
 - (void)contextDidChange;
 /*"Description forthcoming.
@@ -239,7 +210,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[_iTM2TextWatcherDictionary removeObjectForKey:[NSValue valueWithNonretainedObject:self]];
+	[_iTM2TextWatcherMapTable removeObjectForKey:self];
 	[super contextDidChange];
 	[self contextDidChangeComplete];
 //iTM2_END;

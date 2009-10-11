@@ -36,7 +36,14 @@
 {
 @private
     BOOL findStringChangedSinceLastPasteboardUpdate;
+	NSTextView * __weak iVarTextView;
+	NSTextView * __weak iVarFindWidget;
+	NSTextView * __weak iVarReplaceWidget;
 }
+
+@property (assign) textView;
+@property (assign) findWidget;
+@property (assign) replaceWidget;
 
 /* Common way to get a text finder. One instance of TextFinder per app is good enough. But likely...*/
 + (id) sharedTextFinder;
@@ -93,7 +100,7 @@
 
 
 @interface NSString (iTM2TextFinderKit)
-- (NSRange)rangeOfString:(NSString *)string selectedRange:(NSRange)selectedRange options:(unsigned)mask wrap:(BOOL)wrapFlag;
+- (NSRange)iTM2_rangeOfString:(NSString *)string selectedRange:(NSRange)selectedRange options:(unsigned)mask wrap:(BOOL)wrapFlag;
 @end
 
 // this is to mimic 10.3 behaviour in 10.2

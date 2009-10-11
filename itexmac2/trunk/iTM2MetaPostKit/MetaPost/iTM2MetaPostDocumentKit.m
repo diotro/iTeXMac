@@ -152,7 +152,7 @@ To Do List:
 	{
 		NSString * typeName = (NSString *)kUTTypePDF;
 		Class C = [SDC documentClassForType:typeName];
-		result = [[[C allocWithZone:[self zone]] initWithContentsOfURL:[NSURL fileURLWithPath:argument] ofType:typeName error:nil] autorelease];
+		result = [[[C alloc] initWithContentsOfURL:[NSURL fileURLWithPath:argument] ofType:typeName error:nil] autorelease];
 		if(result)
 		{
 			[[self PDFDocuments] setObject:result forKey:argument];
@@ -876,7 +876,7 @@ loop:
 							PDFPage * page = [[[document PDFKitDocumentForFileName:[RA objectAtIndex:pageIndex]] PDFDocument] pageAtIndex:0];
 							NSData * D = [[[page dataRepresentation] copy] autorelease];// there was a crash here (bad access)
 							[L unlock];
-							NSImage * tmpI = [[[NSImage allocWithZone:[w zone]] initWithData:D] autorelease];// tiff?
+							NSImage * tmpI = [[[NSImage alloc] initWithData:D] autorelease];// tiff?
 							[tmpI setScalesWhenResized:YES];
 							#if 0
 							NSSize S = [tmpI size];
@@ -894,7 +894,7 @@ loop:
 							}
 							[tmpI setSize:S];
 							#elif 0
-							NSImage * newI = [[[NSImage allocWithZone:[w zone]] initWithSize:size] autorelease];// tiff?
+							NSImage * newI = [[[NSImage alloc] initWithSize:size] autorelease];// tiff?
 							NSRect fromRect = NSZeroRect;
 							fromRect.size = [tmpI size];
 							float w = size.width  / fromRect.size.width;
@@ -1022,7 +1022,7 @@ To Do List:
 	id result = metaGETTER;
 	if(!result && _pdfView)
 	{
-		id inspector = [[[iTM2PDFKitInspector allocWithZone:[self zone]] initWithWindow:nil] autorelease];
+		id inspector = [[[iTM2PDFKitInspector alloc] initWithWindow:nil] autorelease];
 		metaSETTER([NSMutableArray arrayWithObject:inspector]);
 		object_setInstanceVariable(inspector, "_pdfView", _pdfView);
 		result = metaGETTER;
@@ -1676,7 +1676,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * owner = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
@@ -1776,7 +1776,7 @@ nextFigure:
 			goto nextFigure;
 		}
 	}
-    NSMenu * figureMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    NSMenu * figureMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     [figureMenu setAutoenablesItems:YES];
 	NSArray * keys = [[MD allKeys] sortedArrayUsingSelector:@selector(compare:)];
 	unsigned index = 0;
@@ -1784,14 +1784,14 @@ nextFigure:
 	id MI;
 	while(top <= [keys count])
 	{
-		NSMenu * submenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+		NSMenu * submenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 		do
 		{
 			NSNumber * key = [keys objectAtIndex:index];
 			NSArray * figures = [[MD objectForKey:key] sortedArrayUsingSelector:@selector(compare:)];
 			if([figures count]>1)
 			{
-				NSMenu * subsubmenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+				NSMenu * subsubmenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 				NSEnumerator * E = [figures objectEnumerator];
 				NSNumber * figure;
 				unsigned idx = 0;
@@ -1825,7 +1825,7 @@ nextFigure:
 		NSArray * figures = [[MD objectForKey:key] sortedArrayUsingSelector:@selector(compare:)];
 		if([figures count]>1)
 		{
-			NSMenu * subsubmenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+			NSMenu * subsubmenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 			NSEnumerator * E = [figures objectEnumerator];
 			NSNumber * figure;
 			unsigned idx = 0;

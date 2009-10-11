@@ -498,7 +498,7 @@ To Do List:
     NSTextStorage * oldTS = [LM textStorage];
     if(![oldTS isKindOfClass:[iTM2TextStorage class]])
 	{
-		iTM2TextStorage * TS = [[[iTM2TextStorage allocWithZone:[self zone]] initWithString:[oldTS string]] autorelease];
+		iTM2TextStorage * TS = [[[iTM2TextStorage alloc] initWithString:[oldTS string]] autorelease];
         [LM replaceTextStorage:TS];
 	}
     // now validating the user interface
@@ -718,7 +718,7 @@ To Do List:
 
 #define iTM2TSSMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
-static NSMutableArray * _giTM2TextSyntaxMenus;
+static NSHashTable * _giTM2TextSyntaxMenus;
 static NSMenu * _giTM2TextSyntaxMenu;
 static NSMenuItem * _giTM2TextSyntaxMenuItemName;
 static NSMenuItem * _giTM2TextSyntaxMenuItemVariant;
@@ -758,7 +758,7 @@ To Do List: Nothing
 		else
 		{
 			iTM2_LOG(@"WARNING: Missing a  a text syntax parser style menu item with action: %@", NSStringFromSelector(action));
-			_giTM2TextSyntaxMenuItemName = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
+			_giTM2TextSyntaxMenuItemName = [[NSMenuItem alloc]
 				initWithTitle: @"Style:" action: action keyEquivalent: @""];
 		}
 		action = @selector(textStyleVariant:);
@@ -771,7 +771,7 @@ To Do List: Nothing
 		else
 		{
 			iTM2_LOG(@"WARNING: Missing a  a text syntax parser style menu item with action: %@", NSStringFromSelector(action));
-			_giTM2TextSyntaxMenuItemVariant = [[NSMenuItem allocWithZone:[NSMenu menuZone]]
+			_giTM2TextSyntaxMenuItemVariant = [[NSMenuItem alloc]
 				initWithTitle: @"Variant:" action: action keyEquivalent: @""];
 		}
 		action = @selector(textStyleFormat:);
@@ -798,7 +798,7 @@ To Do List: Nothing
 			[_giTM2TextSyntaxMenu addItemWithTitle:@"Styles Text" action:action keyEquivalent:@""];
 		}
         // replacing the menu by a new one
-        [[MI menu] setSubmenu:[[[iTM2TextSyntaxMenu allocWithZone:[NSMenu menuZone]] initWithTitle:[MI title]] autorelease]
+        [[MI menu] setSubmenu:[[[iTM2TextSyntaxMenu alloc] initWithTitle:[MI title]] autorelease]
                 forItem: MI];
 		[[MI submenu] update];// Why is it necessary:Tiger is not cool! Panther was!
     }
@@ -808,7 +808,7 @@ To Do List: Nothing
     }
     if(!_giTM2TextSyntaxMenus)
     {
-        _giTM2TextSyntaxMenus = [[NSMutableArray array] retain];
+        _giTM2TextSyntaxMenus = [NSHashTable hashTableWithWeakObjects];
         [INC addObserver:[iTM2TextSyntaxMenu class]
             selector: @selector(syntaxAttributesDidChangeNotified:)
                 name: iTM2TextAttributesDidChangeNotification object: nil];
@@ -845,7 +845,7 @@ To Do List: NYI
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id MI = [[NSApp mainMenu] deepItemWithRepresentedObject:@"Text Syntax Styles"];
-	NSMenu * M = [[[iTM2TextSyntaxMenu allocWithZone:[NSMenu menuZone]] initWithTitle:[MI title]] autorelease];
+	NSMenu * M = [[[iTM2TextSyntaxMenu alloc] initWithTitle:[MI title]] autorelease];
 	[[MI menu] setSubmenu:M forItem:MI];
 	[[MI submenu] update];// Why is it necessary:Tiger is not cool! Panther was!
 //iTM2_END;
@@ -860,9 +860,7 @@ To Do List: NYI
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSEnumerator * E = [_giTM2TextSyntaxMenus objectEnumerator];
-    NSMenu * M;
-    while(M = (NSMenu *)[[E nextObject] nonretainedObjectValue])
+    for(NSMenu * M in _giTM2TextSyntaxMenus)
         while([M numberOfItems])
             [M removeItemAtIndex:0];
     return;
@@ -877,7 +875,7 @@ To Do List: Nothing
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     if(self = [super initWithTitle:aString])
-        [_giTM2TextSyntaxMenus addObject:[NSValue valueWithNonretainedObject:self]];
+        [_giTM2TextSyntaxMenus addObject:self];
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithCoder:
@@ -891,15 +889,15 @@ To Do List: Nothing
 //iTM2_START;
     if(self = [super initWithCoder:aDecoder])
     {
-        [_giTM2TextSyntaxMenus addObject:[NSValue valueWithNonretainedObject:self]];
+        [_giTM2TextSyntaxMenus addObject:self];
         while([self numberOfItems])
             [self removeItemAtIndex:0];
     }
 //iTM2_END;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= finalize
+- (void)finalize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004
@@ -907,8 +905,8 @@ To Do List: Nothing
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [_giTM2TextSyntaxMenus removeObject:[NSValue valueWithNonretainedObject:self]];
-    [super dealloc];
+    [_giTM2TextSyntaxMenus removeObject:self];
+    [super finalize];
 //iTM2_END;
     return;
 }
@@ -952,9 +950,9 @@ To Do List: Nothing
                 id MI = [self addItemWithTitle:pretty action:NULL keyEquivalent:@""];
 				[MI setIndentationLevel:iTM2TSSMenuItemIndentationLevel];
                 [MI setRepresentedObject:pretty];
-                NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:[MI title]] autorelease];
+                NSMenu * M = [[[NSMenu alloc] initWithTitle:[MI title]] autorelease];
                 [self setSubmenu:M forItem:MI];
-				[M addItem:[[_giTM2TextSyntaxMenuItemVariant copyWithZone:[NSMenu menuZone]] autorelease]];
+				[M addItem:[[_giTM2TextSyntaxMenuItemVariant copy] autorelease]];
 				[[[M itemArray] lastObject] setAction:NULL];
 				NSEnumerator * e = [RA objectEnumerator];
 				NSString * variant;
@@ -1208,7 +1206,7 @@ To Do List:
 //iTM2_START;
     if([[self superclass] instancesRespondToSelector:_cmd])
         [super awakeFromNib];
-	iTM2TextStorage * TS = [[[iTM2TextStorage allocWithZone:[self zone]] init] autorelease];
+	iTM2TextStorage * TS = [[[iTM2TextStorage alloc] init] autorelease];
     [[self layoutManager] replaceTextStorage:TS];
 	[TS setAttributesChangeDelegate:self];
     return;
@@ -2332,7 +2330,6 @@ To Do List:
 //iTM2_START;
     if(![variant length])
     {
-        [self dealloc];
         return nil;
     }
     else if(self = [super init])
@@ -2470,7 +2467,7 @@ To Do List:
                 NSBeep();
                 [[NSWorkspace sharedWorkspace] selectFile:stylePath inFileViewerRootedAtPath:[stylePath stringByDeletingLastPathComponent]];
     #warning THIS DOES NOT WORK!!!
-                NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]]
+                NSAppleScript * AS = [[[NSAppleScript alloc]
                     initWithSource: [NSString stringWithFormat:@"tell application \"Finder\"\ractivate\rdisplay dialog \"Could not recycle %@\" buttons {\"OK\"} default button 1\rend tell", [stylePath lastPathComponent]]] autorelease];
                 [AS executeAndReturnError:nil];
                 return;
@@ -2725,7 +2722,7 @@ To Do List:
 		NSString * variant = [document syntaxParserVariant];
     	[TS setSyntaxParserStyle:style variant:variant];
         id old = [[TS syntaxParser] attributesServer];
-		[self setAttributesServer:[[[[old class] allocWithZone:[old zone]]
+		[self setAttributesServer:[[[[old class] alloc]
             initWithVariant: [document syntaxParserVariant]] autorelease]];
         [[TS syntaxParser] replaceAttributesServer:[self attributesServer]];
 		NSString * sampleString = [self valueForKey:@"sampleString_meta"];

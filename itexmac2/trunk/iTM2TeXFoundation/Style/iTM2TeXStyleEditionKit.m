@@ -214,38 +214,6 @@ To Do List:
 //iTM2_END;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming..
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    [_BuiltInSymbolsSets autorelease];
-    _BuiltInSymbolsSets = nil;
-    [_NetworkSymbolsSets autorelease];
-    _NetworkSymbolsSets = nil;
-    [_LocalSymbolsSets autorelease];
-    _LocalSymbolsSets = nil;
-    [_CustomSymbolsSets autorelease];
-    _CustomSymbolsSets = nil;
-    [_RecycleSymbolsSets autorelease];
-    _RecycleSymbolsSets = nil;
-    [_CustomObjectsSets autorelease];
-    _CustomObjectsSets = nil;
-    [_CustomKeysSets autorelease];
-    _CustomKeysSets = nil;
-    [_EditedObjectsSets autorelease];
-    _EditedObjectsSets = nil;
-    [_AllSymbolsSets autorelease];
-    _AllSymbolsSets = nil;
-    [super dealloc];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentSets
 - (NSMutableDictionary *)currentSets;
 /*"Description Forthcoming..
@@ -280,14 +248,10 @@ To Do List:
 //iTM2_START;
 	BOOL result = YES;
 #warning ERROR
-    [_CustomObjectsSets autorelease];
-    _CustomObjectsSets = [[NSMutableDictionary dictionary] retain];
-    [_CustomKeysSets autorelease];
-    _CustomKeysSets = [[NSMutableDictionary dictionary] retain];
-    [_EditedObjectsSets autorelease];
-    _EditedObjectsSets = [[NSMutableDictionary dictionary] retain];
-    [_RecycleSymbolsSets autorelease];
-    _RecycleSymbolsSets = [[NSMutableDictionary dictionary] retain];
+    _CustomObjectsSets = [NSMutableDictionary dictionary];
+    _CustomKeysSets = [NSMutableDictionary dictionary];
+    _EditedObjectsSets = [NSMutableDictionary dictionary];
+    _RecycleSymbolsSets = [NSMutableDictionary dictionary];
 
     NSMutableDictionary * allSymbols = [NSMutableDictionary dictionary];
     
@@ -299,13 +263,12 @@ To Do List:
     NSString * variantComponent = [variant stringByAppendingPathExtension:iTM2TextVariantExtension];
 
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-    NSEnumerator * E = [[[syntaxParserClass attributesServerClass] builtInStylePaths] objectEnumerator];
-	NSString * path;
-	while(path = [E nextObject])
+    NSString * path;
+	for(path in [[syntaxParserClass attributesServerClass] builtInStylePaths])
 	{
 //iTM2_LOG(@"Reading built in symbols at path %@", stylePath);
 		BOOL isDir = NO;
-		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
 			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
@@ -337,16 +300,13 @@ To Do List:
 	MD = [NSMutableDictionary dictionary];
 	
     // loading the sets from the network
-    E = [[[NSBundle mainBundle] pathsForResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent domains:NSNetworkDomainMask] objectEnumerator];
-	while(path = [E nextObject])
+    for(path in [[NSBundle mainBundle] pathsForResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent domains:NSNetworkDomainMask])
 	{
 		BOOL isDir = NO;
-		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
-			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
-			NSString * p;
-			while(p = [e nextObject])
+			for(NSString * p in [DFM directoryContentsAtPath:stylePath])
 			{
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
@@ -373,18 +333,14 @@ To Do List:
 	}
     [_NetworkSymbolsSets setDictionary:MD];
 	MD = [NSMutableDictionary dictionary];
-
     // loading the sets from the local domain
-	E = [[[NSBundle mainBundle] pathsForResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent domains:NSLocalDomainMask] objectEnumerator];
-	while(path = [E nextObject])
+	for(path in [[NSBundle mainBundle] pathsForResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent domains:NSLocalDomainMask])
 	{
 		BOOL isDir = NO;
-		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
-			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
-			NSString * p;
-			while(p = [e nextObject])
+			for(NSString * p in [DFM directoryContentsAtPath:stylePath])
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
@@ -411,16 +367,13 @@ To Do List:
 	MD = [NSMutableDictionary dictionary];
     
     // loading the sets from the user domain
-	E = [[[NSBundle mainBundle] pathsForSupportResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent domains:NSUserDomainMask] objectEnumerator];
-	while(path = [E nextObject])
+	for(path in [[NSBundle mainBundle] pathsForSupportResource:style ofType:iTM2TextStyleExtension inDirectory:iTM2TextStyleComponent domains:NSUserDomainMask])
 	{
 		BOOL isDir = NO;
-		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
-			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
-			NSString * p;
-			while(p = [e nextObject])
+			for(NSString * p in [DFM directoryContentsAtPath:stylePath])
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
@@ -484,7 +437,7 @@ To Do List:
 	[_RecycleSymbolsSets autorelease];
 	_RecycleSymbolsSets = [[NSMutableDictionary dictionary] retain];
 	// saving the other sets.
-	NSTextView * TV = [[[NSTextView allocWithZone:[self zone]] initWithFrame:NSMakeRect(0,0,1e7,1e7)] autorelease];
+	NSTextView * TV = [[[NSTextView alloc] initWithFrame:NSMakeRect(0,0,1e7,1e7)] autorelease];
 	NSLayoutManager * LM = [TV layoutManager];
 	NSTextStorage * TS = [LM textStorage];
 	E = [_CustomSymbolsSets keyEnumerator];
@@ -618,7 +571,7 @@ To Do List:
                 && [symbolAttributes objectForKey:NSGlyphInfoAttributeName])
             {
                 NSString * S = [symbolAttributes objectForKey:iTM2TextAttributesCharacterAttributeName]?: @"-";
-                NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]]
+                NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc]
                                 initWithString: S attributes: symbolAttributes] autorelease];
                 rowHeight = MAX(rowHeight, [MAS size].height);
                 NSColor * symbolColor = [symbolAttributes objectForKey:iTM2Text2ndSymbolColorAttributeName];
@@ -733,7 +686,7 @@ To Do List:
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
@@ -745,13 +698,13 @@ To Do List:
             NSString * key;
             while(key = [E nextObject])
             {
-                id lastItem = [[[NSMenuItem allocWithZone:[self zone]] initWithTitle: key
+                id lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _BuiltInSymbolsSets, @"S", nil]];
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 [[sender menu] addItem:lastItem];
@@ -770,7 +723,7 @@ To Do List:
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
@@ -782,13 +735,13 @@ To Do List:
             NSString * key;
             while(key = [E nextObject])
             {
-                id lastItem = [[[NSMenuItem allocWithZone:[self zone]] initWithTitle: key
+                id lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _NetworkSymbolsSets, @"S", nil]];
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 [[sender menu] addItem:lastItem];
@@ -807,7 +760,7 @@ To Do List:
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
@@ -819,13 +772,13 @@ To Do List:
             NSString * key;
             while(key = [E nextObject])
             {
-                id lastItem = [[[NSMenuItem allocWithZone:[self zone]] initWithTitle: key
+                id lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _LocalSymbolsSets, @"S", nil]];
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 [[sender menu] addItem:lastItem];
@@ -853,7 +806,7 @@ To Do List:
             NSString * key;
             while(key = [E nextObject])
             {
-                id lastItem = [[[NSMenuItem allocWithZone:[self zone]] initWithTitle: key
+                id lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _CustomSymbolsSets, @"S", nil]];
@@ -875,7 +828,7 @@ To Do List:
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
                 [lastItem setEnabled:NO];
                 [lastItem setState:NSOffState];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
@@ -887,13 +840,13 @@ To Do List:
             NSString * key;
             while(key = [E nextObject])
             {
-                id lastItem = [[[NSMenuItem allocWithZone:[self zone]] initWithTitle: key
+                id lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _RecycleSymbolsSets, @"S", nil]];
                 [lastItem setTarget:self];// lastItem item belongs to the receivers window
 				[lastItem setIndentationLevel:indentationLevel];
-                [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+                [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                     initWithString: [lastItem title]
                         attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
                 [[sender menu] addItem:lastItem];
@@ -908,7 +861,7 @@ To Do List:
             [lastItem setRepresentedObject:
                     [NSDictionary dictionaryWithObjectsAndKeys:@"K", @"K", _AllSymbolsSets, @"S", nil]];
             [lastItem setState:NSOffState];
-            [lastItem setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+            [lastItem setAttributedTitle:[[[NSAttributedString alloc]
                 initWithString: [lastItem title]
                     attributes: [NSDictionary dictionaryWithObjectsAndKeys:italic, NSFontAttributeName, nil]] autorelease]];
 			if(!_CurrentSetItem)
@@ -1196,7 +1149,7 @@ To Do List:
             result = [_Os objectForKey:K];
             if(!result)
             {
-                result = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:@"?" attributes:[NSDictionary dictionaryWithObject:[NSColor magentaColor] forKey:NSForegroundColorAttributeName]] autorelease];
+                result = [[[NSMutableAttributedString alloc] initWithString:@"?" attributes:[NSDictionary dictionaryWithObject:[NSColor magentaColor] forKey:NSForegroundColorAttributeName]] autorelease];
             }
         }
         if(![result isKindOfClass:[NSMutableAttributedString class]])
@@ -1649,7 +1602,7 @@ To Do List:
     NSString * CSK = [self currentSetKey];
     NSArray * _Ks = [_CustomKeysSets objectForKey:CSK];
     NSMutableArray * MA = [NSMutableArray array];
-    NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:@"" attributes:nil] autorelease];
+    NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
 	[MAS beginEditing];
     NSNumber * N;
     for(N in rows)
@@ -1770,7 +1723,7 @@ To Do List:
 						key = [s stringByAppendingFormat:@"-%u",++index];
 					}
                     [_Ks addObject:key];
-					id MAS = [[[NSMutableAttributedString allocWithZone:[self zone]]
+					id MAS = [[[NSMutableAttributedString alloc]
                         initWithString: @"?" attributes:
                             [NSDictionary dictionaryWithObject:[NSColor redColor]
                                 forKey: NSForegroundColorAttributeName]] autorelease];

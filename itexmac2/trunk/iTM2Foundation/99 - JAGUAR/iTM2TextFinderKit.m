@@ -41,7 +41,7 @@ To Do List:
 //iTM2_START;
 	if(!_iTM2TextFinder)
 	{
-		_iTM2TextFinder = [[self allocWithZone:[NSApp zone]] initWithWindowNibName:NSStringFromClass(self)];
+		_iTM2TextFinder = [[self alloc] initWithWindowNibName:NSStringFromClass(self)];
 		[_iTM2TextFinder enterFindPboardSelection:self];
 	}
     return _iTM2TextFinder;
@@ -57,9 +57,7 @@ To Do List:
 //iTM2_START;
     if(_iTM2TextFinder)
     {
-        if(![self isEqual:_iTM2TextFinder])
-            [self dealloc];
-        return [_iTM2TextFinder retain];
+        return _iTM2TextFinder;
     }
     else
     {
@@ -81,9 +79,7 @@ To Do List: TEST
 //iTM2_START;
     if(_iTM2TextFinder)
     {
-        if(![self isEqual:_iTM2TextFinder])
-            [self dealloc];
-        return [_iTM2TextFinder retain];
+        return _iTM2TextFinder;
     }
     else
     {
@@ -105,23 +101,6 @@ To Do List: TEST
         _TextView = [TV retain];
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"No dealloc at all.
-Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self setFindString:nil];
-    [self setReplaceString:nil];
-    [_TextView autorelease];
-    _TextView = nil;
-    [super dealloc];
-//iTM2_END;
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
 - (void)windowDidLoad;
@@ -479,7 +458,7 @@ To Do List:
                 options |= NSBackwardsSearch;
             if (_CaseInsensitiveFlag)
                 options |= NSCaseInsensitiveSearch;
-            range = [textString rangeOfString:findString
+            range = [textString iTM2_rangeOfString:findString
                             selectedRange: [textView selectedRange] options:options wrap:[self wrapFlag]];
             if (range.length)
             {
@@ -836,8 +815,8 @@ To Do List:
 
 @implementation NSString (iTM2TextFinderKit)
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  rangeOfString:selectedRange:options:wrap:
-- (NSRange)rangeOfString:(NSString *)aString selectedRange:(NSRange)aSelectedRange options:(unsigned)options wrap:(BOOL)wrap;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_rangeOfString:selectedRange:options:wrap:
+- (NSRange)iTM2_rangeOfString:(NSString *)aString selectedRange:(NSRange)aSelectedRange options:(unsigned)options wrap:(BOOL)wrap;
 /*"Description Forthcoming.
 Version History: Apple, jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002

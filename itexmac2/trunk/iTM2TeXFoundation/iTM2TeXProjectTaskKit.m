@@ -70,17 +70,15 @@ To Do List:
     id TC = metaGETTER;
     if(!TC)
     {
-        TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
+        TC = [[iTM2TaskController alloc] init];
         metaSETTER(TC);
-        NSEnumerator * E = [[self windowControllers] objectEnumerator];
-        iTM2TeXPTaskInspector * TI;
-        while(TI = [E nextObject])
+        for (iTM2TeXPTaskInspector * TI in [self windowControllers])
             if([TI isKindOfClass:[iTM2TeXPTaskInspector class]])
                 [TC addInspector:TI];
 #if 0
-        if(![[TC inspectorsEnumerator] nextObject])
+        if(![[self allInspectors] lastObject])
         {
-            TI = [[[iTM2TeXPTaskInspector allocWithZone:[TC zone]] initWithWindowNibName:@"iTM2TeXPTaskInspector"] autorelease];
+            TI = [[[iTM2TeXPTaskInspector alloc] initWithWindowNibName:@"iTM2TeXPTaskInspector"] autorelease];
             [self addWindowController:TI];// the receiver is the owner!!
             [TI setTaskController:TC];
             [TC addInspector:TI];
@@ -528,7 +526,7 @@ To Do List:
     NSTextView * TV = [self customView];
     NSTextStorage * TS = [TV textStorage];
     [TS beginEditing];
-    [TS appendAttributedString:[[[NSAttributedString allocWithZone:[self zone]] initWithString:argument] autorelease]];
+    [TS appendAttributedString:[[[NSAttributedString alloc] initWithString:argument] autorelease]];
     [TS endEditing];
     return;
 }
@@ -1049,10 +1047,7 @@ To Do List:
 			unsigned oldCount = [sender numberOfItems];
 			// originally, this button only contains 1 fake item
 			// get the list of all the log parsers
-			NSArray * logParserClasses = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2LogParser class]];
-			NSEnumerator * E = [logParserClasses objectEnumerator];
-			Class C;
-			while(C = [[E nextObject] nonretainedObjectValue])
+			for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2LogParser class]])
 			{
 				NSString * key = [C key];
 				[sender addItemWithTitle:key];
@@ -1416,7 +1411,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id inspector, TPD;
-    return (inspector = [[self inspectorsEnumerator] nextObject])
+    return (inspector = [[self allInspectors] lastObject])
                 && (TPD = [SPC TeXProjectForSource:inspector])?
                     [TPD contextManager]:[self SWZ_iTM2TeXProject_contextManager];
 }

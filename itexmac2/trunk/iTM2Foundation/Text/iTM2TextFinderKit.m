@@ -78,7 +78,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-	_iTM2TextFinder = [[self allocWithZone: [NSApp zone]] initWithWindowNibName: NSStringFromClass(self)];
+	_iTM2TextFinder = [[self alloc] initWithWindowNibName: NSStringFromClass(self)];
 	[SUD registerDefaults:
 		[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithInt: 10], @"iTM2TextFinderContextMaxCount", nil]];
@@ -269,30 +269,6 @@ To Do List:
 {
 //iTM2_START;
     metaSETTER([NSNumber numberWithBool: yorn]);
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textView
-- (id) textView;
-/*"Description Forthcoming.
-Version History: jlaurens@users.sourceforge.net (09/02/2001)
-- 2.0: Fri Feb 25 09:23:47 GMT 2005
-To Do List:
-"*/
-{
-//iTM2_START;
-    return [metaGETTER nonretainedObjectValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTextView:
-- (void) setTextView: (id) argument;
-/*"Description Forthcoming.
-Version History: jlaurens@users.sourceforge.net (09/02/2001)
-- 2.0: Fri Feb 25 09:23:47 GMT 2005
-To Do List:
-"*/
-{
-//iTM2_START;
-    metaSETTER([NSValue valueWithNonretainedObject: argument]);
 //iTM2_END;
     return;
 }
@@ -490,54 +466,6 @@ To Do List:
 		metaSETTER([NSApp targetForAction: @selector(iTM2TextFinderKit_NSText_Catcher:)]);
 		return metaGETTER;
     }
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findWidget
-- (id) findWidget;
-/*"Description Forthcoming.
-Version History: jlaurens@users.sourceforge.net (09/02/2001)
-- 2.0: Fri Feb 25 09:23:47 GMT 2005
-To Do List:
-"*/
-{
-//iTM2_START;
-    return [metaGETTER nonretainedObjectValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFindWidget:
-- (void) setFindWidget: (id) argument;
-/*"Description Forthcoming.
-Version History: jlaurens@users.sourceforge.net (09/02/2001)
-- 2.0: Fri Feb 25 09:23:47 GMT 2005
-To Do List:
-"*/
-{
-//iTM2_START;
-    metaSETTER([NSValue valueWithNonretainedObject: argument]);
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceWidget
-- (id) replaceWidget;
-/*"Description Forthcoming.
-Version History: jlaurens@users.sourceforge.net (09/02/2001)
-- 2.0: Fri Feb 25 09:23:47 GMT 2005
-To Do List:
-"*/
-{
-//iTM2_START;
-    return [metaGETTER nonretainedObjectValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setReplaceWidget:
-- (void) setReplaceWidget: (id) argument;
-/*"Description Forthcoming.
-Version History: jlaurens@users.sourceforge.net (09/02/2001)
-- 2.0: Fri Feb 25 09:23:47 GMT 2005
-To Do List:
-"*/
-{
-//iTM2_START;
-    metaSETTER([NSValue valueWithNonretainedObject: argument]);
-//iTM2_END;
-    return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  TEXT FIELDS EDITED
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  findNextAndOrderFindPanelOut:
@@ -1357,6 +1285,9 @@ To Do List:
 - (IBAction) findNextAndOrderFindPanelOut: (id) sender;
 - (IBAction) replaceStringEdited: (id) sender;
 #endif
+@synthesize textView=iVarTextView;
+@synthesize findWidget=iVarFindWidget;
+@synthesize replaceWidget=iVarReplaceWidget;
 @end
 
 

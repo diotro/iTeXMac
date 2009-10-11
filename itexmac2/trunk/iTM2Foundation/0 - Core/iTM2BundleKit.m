@@ -197,25 +197,26 @@ To Do List:
 //iTM2_START;
     return [NSBundle bundleWithIdentifier:iTeXMac2BundleIdentifier];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  searchPathsForSupportInDomains:withName:
-+ (NSArray *)searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_searchPathsForSupportInDomains:withName:
++ (NSArray *)iTM2_searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
 /*"Description forthcoming. Does not check for existence.
 Returns a subarray of
-~/Library/Application\ Support/iTeXMac2
-/Library/Application\ Support/iTeXMac2
-/Network/Library/Application\ Support/iTeXMac2
-IGNORED: /System/Library/Application\ Support/iTeXMac2
+~/Library/Application\ Support/iTeXMac2/
+/Library/Application\ Support/iTeXMac2/
+/Network/Library/Application\ Support/iTeXMac2/
+IGNORED: /System/Library/Application\ Support/iTeXMac2/
 according to the flags given in argument
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSParameterAssert([appName length]>0);
     NSMutableArray * MRA = [NSMutableArray array];
     #define ADD_OBJECT(DOMAIN)\
     if(domainMask&DOMAIN)\
-        [MRA addObject:[[[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, DOMAIN, YES) lastObject]\
-            stringByAppendingPathComponent:appName] stringByResolvingSymlinksAndFinderAliasesInPath]];
+[MRA addObject:[[[[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, DOMAIN, YES) lastObject]\
+iTM2_stringByResolvingSymlinksAndFinderAliasesInPath] stringByAppendingPathComponent:appName] stringByAppendingString:iTM2PathComponentsSeparator]];
     ADD_OBJECT(NSUserDomainMask);
     ADD_OBJECT(NSLocalDomainMask);
     ADD_OBJECT(NSNetworkDomainMask);
@@ -235,9 +236,9 @@ To Do List:
 		return [NSString string];
     if(!subpath)
         subpath = [NSString string];
-    NSString * path = [[self searchPathsForSupportInDomains:domainMask withName:appName] lastObject];
+    NSString * path = [[self iTM2_searchPathsForSupportInDomains:domainMask withName:appName] lastObject];
     path = [path stringByAppendingPathComponent:subpath];
-    path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+    path = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	if([DFM fileExistsAtPath:path])
 	{
 		return path;
@@ -283,19 +284,18 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	static NSMutableDictionary * cache = nil;
+	static NSMapTable * cache = nil;
 	if(!cache)
 	{
-		cache = [[NSMutableDictionary dictionary] retain];
+		cache = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsOpaquePersonality valueOptions:NSPointerFunctionsStrongMemory];
 	}
-	NSValue * key = [NSValue valueWithNonretainedObject:self];
-	NSMutableArray * result = [cache objectForKey:key];
+	NSMutableArray * result = [cache objectForKey:self];
 	if(result)
 	{
 		return result;
 	}
 	result = [NSMutableArray array];
-	[cache setObject:result forKey:key];
+	[cache setObject:result forKey:self];
 	NSArray * subpaths;
 	NSString * component;
 	NSString * path = [self iTM2_pathForSupportDirectory:iTM2SupportBinaryComponent inDomain:NSNetworkDomainMask create:NO];
@@ -802,7 +802,7 @@ To Do List:
 //iTM2_LOG(@"path is: %@", path);
 	NSMutableArray * result = [NSMutableArray array];
 	if([path length])
-		path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+		path = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	else
 		return result;
 	NSDirectoryEnumerator * DE = [DFM enumeratorAtPath:path];
@@ -811,7 +811,7 @@ To Do List:
 	{
 		if([[component pathExtension] iTM2_pathIsEqual:aType])
 		{
-			component = [[path stringByAppendingPathComponent:component] stringByResolvingSymlinksAndFinderAliasesInPath];
+			component = [[path stringByAppendingPathComponent:component] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 			[result addObject:component];
 			if(![[NSBundle bundleWithPath:component] bundleIsWrapper])
 				[DE skipDescendents];// be shalow

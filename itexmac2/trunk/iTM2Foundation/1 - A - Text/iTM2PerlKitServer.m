@@ -108,10 +108,9 @@ To Do List:
 	if(!target)
 	{
 		unsigned MRL = [[invocation methodSignature] methodReturnLength];
-		void * returnValue = malloc(MRL);
+		void * returnValue = NSAllocateCollectable(MRL,0);
 		NSAssert(returnValue, @"Memory problem, could not malloc... 02133120");
 		[invocation setReturnValue:&returnValue];
-		free(returnValue);
 		return;
 	}
 	[invocation setTarget:target];
@@ -262,13 +261,6 @@ To Do List:
 		_target = [target retain];
 	}
 	return self;
-}
-- (void)dealloc;
-{
-	[_target autorelease];
-	_target = nil;
-	[super dealloc];
-	return;
 }
 - (BOOL)respondsToSelector:(SEL)aSelector
 {

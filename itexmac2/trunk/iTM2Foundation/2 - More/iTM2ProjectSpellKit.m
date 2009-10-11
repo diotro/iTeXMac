@@ -94,7 +94,7 @@ To Do List:
 //iTM2_START;
 	if(![self spellContextController])
 	{
-		[self setSpellContextController:[[[iTM2SpellContextController allocWithZone:[self zone]] init] autorelease]];
+		[self setSpellContextController:[[[iTM2SpellContextController alloc] init] autorelease]];
 	}
 //iTM2_LOG(@"[self spellContextController]:%@", [self spellContextController]);
 	id O = [self metaInfoForKeyPaths:@"SpellContextModes",nil];

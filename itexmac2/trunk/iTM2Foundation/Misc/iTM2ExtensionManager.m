@@ -50,20 +50,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void) dealloc;
-/*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
-To Do List:
-"*/
-{
-//iTM2_START;
-    [_ExtensionDictionary autorelease];
-    _ExtensionDictionary = nil;
-    [self setMenu: nil];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  extensionDictionary
 - (id) extensionDictionary;
 /*"Description forthcoming.
@@ -145,7 +131,7 @@ To Do List:
     else
     {
         Class C = [B principalClass];
-        id O = [[[C allocWithZone: [self zone]] init] autorelease];
+        id O = [[[C alloc] init] autorelease];
         if([O respondsToSelector: @selector(menuItem)])
         {
             id MI = [O menuItem];
@@ -172,7 +158,7 @@ To Do List:
 //iTM2_START;
     NSString * assistantsPath = [[libraryPath stringByAppendingPathComponent:
         [self relativePath]] stringByStandardizingPath];
-    NSMenu * M = [[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: assistantsPath];
+    NSMenu * M = [[NSMenu alloc] initWithTitle: assistantsPath];
     NSEnumerator * E = [[DFM directoryContentsAtPath: assistantsPath] objectEnumerator];
     NSString * P;
     while(P = [E nextObject])
@@ -326,7 +312,7 @@ To Do List:
         return [super willPopUp];\
     [self setEnabled: YES];
     [self setImagePosition: NSImageOnly];
-    NSMenu * M = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: @""] autorelease];
+    NSMenu * M = [[[NSMenu alloc] initWithTitle: @""] autorelease];
     NSBundle * B = [NSBundle mainBundle];
     NSDocument * document = [[[self window] windowController] document];
     if(!document)
@@ -345,7 +331,7 @@ To Do List:
     }
     BOOL separatorNeeded = NO;
     int here = [M numberOfItems];
-    NSMenu * MM = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: @""] autorelease];
+    NSMenu * MM = [[[NSMenu alloc] initWithTitle: @""] autorelease];
     path = [[B pathEnumeratorForSupportName: @"Scripts" ofType: nil inDirectory: subPath domains: NSLocalDomainMask] nextObject];
 //NSLog(@"path: %@", path);
     if([self menu: MM insertItemsAtPath: path atIndex: 0])
@@ -354,7 +340,7 @@ To Do List:
         [[M insertItemWithTitle:
             NSLocalizedStringFromTableInBundle(@"Local", TABLE, B, "DF")
                 action: NULL keyEquivalent: @"" atIndex: after++] setSubmenu: MM];
-        MM = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: @""] autorelease];
+        MM = [[[NSMenu alloc] initWithTitle: @""] autorelease];
     }
     path = [[B pathEnumeratorForSupportName: @"Scripts" ofType: nil inDirectory: subPath domains: NSNetworkDomainMask] nextObject];
 //NSLog(@"path: %@", path);
@@ -364,7 +350,7 @@ To Do List:
         [[M insertItemWithTitle:
             NSLocalizedStringFromTableInBundle(@"Network", TABLE, B, "DF")
                 action: NULL keyEquivalent: @"" atIndex: after++] setSubmenu: MM];
-        MM = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: @""] autorelease];
+        MM = [[[NSMenu alloc] initWithTitle: @""] autorelease];
     }
     path = [[self classBundle] pathForResource: mode ofType: nil inDirectory: subPath];
 //NSLog(@"path: %@", path);
@@ -374,7 +360,7 @@ To Do List:
         [[M insertItemWithTitle:
             NSLocalizedStringFromTableInBundle(@"Built in", TABLE, B, "DF")
                 action: NULL keyEquivalent: @"" atIndex: after++] setSubmenu: MM];
-        MM = [[[NSMenu allocWithZone: [NSMenu menuZone]] initWithTitle: @""] autorelease];
+        MM = [[[NSMenu alloc] initWithTitle: @""] autorelease];
     }
     if(separatorNeeded)
         [M insertItem: [NSMenuItem separatorItem] atIndex: here];
@@ -404,7 +390,7 @@ To Do List: ...
         if(![subpath hasPrefix: @"."] && ![subpath hasPrefix: [NSString bullet]] && ![subpath isEqual: @"CVS"])
         {
             BOOL isDirectory = NO;
-            NSString * RO = [[path stringByAppendingPathComponent: subpath] stringByResolvingSymlinksAndFinderAliasesInPath];
+            NSString * RO = [[path stringByAppendingPathComponent: subpath] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
     //NSLog(@"\n\nRO: %@\n\n", RO);
             if([DFM fileExistsAtPath: RO isDirectory: &isDirectory])
             {

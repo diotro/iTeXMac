@@ -84,7 +84,7 @@ To Do List:
     {
         iTM2_LOG(@"Installing the responder %@ after the application object %@...", self, NSApp);
     }
-	id R = [[self allocWithZone:[NSApp zone]] init];
+	id R = [[self alloc] init];
 	if([R insertInResponderChainAfter:NSApp])
 #warning SHOULD I FIX IMPLEMENTATION TOO
 	{
@@ -294,14 +294,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * toInstall = [NSMutableArray array];
-	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2AutoInstallResponder class]] objectEnumerator];
-	Class responderClass;
-	while(responderClass = [[E nextObject] nonretainedObjectValue])
+	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2AutoInstallResponder class]])
 	{
-		if(responderClass != [self class])
+		if(C != [self class])
 		{
-			NSString * className = NSStringFromClass(responderClass);
-			NSMutableString * K = [[className mutableCopy] autorelease];
+			NSString * className = NSStringFromClass(C);
+			NSMutableString * K = [className mutableCopy];
 			if(([K length] > 3) && ([K insertString:@"NO" atIndex:4], [SUD boolForKey:K]))
 			{
 				iTM2_LOG(@"No %@ available, to activate:", className);
@@ -314,7 +312,7 @@ To Do List:
 					iTM2_LOG(@"%@ available, to deactivate:", className);
 					NSLog(@"terminal%% defaults write %@ %@ 'YES'", [[NSBundle mainBundle] bundleIdentifier], K);
 				}
-				id R = [[responderClass allocWithZone:[self zone]] init];
+				id R = [[C alloc] init];
 				if([R insertInResponderChainAfter:self])
 			#warning SHOULD I FIX IMPLEMENTATION TOO
 				{
@@ -323,7 +321,7 @@ To Do List:
 						iTM2_LOG(@"Responder %@ installed after NSApp", R);
 					}
 				}
-				[toInstall addObject:responderClass];
+				[toInstall addObject:C];
 			}
 		}
 	}

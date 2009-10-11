@@ -34,21 +34,6 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTMController
 /*"iTMController is a view controller class. It is designed to wirk in conjunction with an iTMDataWrapper instance to control its stored data and an inspector to view the data. The tree item only knows the class of the inspector that will be able to display and edit its data. Those objects are the nodes and leaves of a tree: each object has access to a parent and to children, except the root object and the ending leaves."*/
 @implementation iTMController
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
-/*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
-- 1.4: Fri May 23 2003
-To Do List:
-"*/
-{
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
-    [self _setInspectors: nil];
-    [self setModel: nil];
-    [self _setEditor: nil];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  identifier
 - (id) identifier;
 /*"Lazy initialized.

@@ -124,7 +124,7 @@ To Do List: see the warning below
         selector: @selector(sytemSignalSIGUSR1Notified:)
             name: iTM2SystemSignalSIGUSR1Notification
                 object: nil];
-    NSTask * T = [[[NSTask allocWithZone:[self zone]] init] autorelease];
+    NSTask * T = [[[NSTask alloc] init] autorelease];
 	NSString * auxiliaryServerSetupPath = @"bin/iTeXMac2 Server Setup";
     NSString * path = [[self classBundle] pathForAuxiliaryExecutable:auxiliaryServerSetupPath];
 	NSAssert1([path length], @"***  ERROR: Missing \"%@\"", auxiliaryServerSetupPath);
@@ -399,7 +399,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerFileKey])
 		{
 			argument = [E nextObject];
-			argument = [NSString absolutePathWithPath:argument base:[sourceURL path]];
+			argument = [NSString iTM2_absolutePathWithPath:argument base:[sourceURL path]];
 //iTM2_END;
 			return argument;
 		}
@@ -442,7 +442,7 @@ To Do List: see the warning below
 				else
 				{
 					argument = [E nextObject];
-					argument = [NSString absolutePathWithPath:argument base:[sourceURL path]];
+					argument = [NSString iTM2_absolutePathWithPath:argument base:[sourceURL path]];
 					[RA addObject:argument];
 				}
 			}
@@ -471,7 +471,7 @@ To Do List: see the warning below
 		if([argument isEqual:iTM2ServerSourceKey])
 		{
 			argument = [E nextObject];
-			argument = [NSString absolutePathWithPath:argument base:[sourceURL path]];
+			argument = [NSString iTM2_absolutePathWithPath:argument base:[sourceURL path]];
 //iTM2_END;
 			return argument;
 		}
@@ -796,7 +796,7 @@ To Do List:
 			else
 			{
 				url = [NSURL fileURLWithPath:fileName];
-				PD = [SPC newProjectForURLRef:&url display:YES error:nil];
+				PD = [SPC freshProjectForURLRef:&url display:YES error:nil];
 			}
 		}
 	}
@@ -822,7 +822,7 @@ To Do List:
     iTM2_LOG(@"arguments: %@", arguments);
 #endif
 	NSString * sourceName = [self getSourceNameFromContext:context];
-    NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithSource:sourceName] autorelease];
+    NSAppleScript * AS = [[[NSAppleScript alloc] initWithSource:sourceName] autorelease];
     if(AS)
     {
         NSDictionary * errorInfo = nil;

@@ -30,6 +30,7 @@
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 #import <iTM2Foundation/iTM2ValidationKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 
 NSString * const iTM2PDFSheetBackgroundColorKey = @"iTM2PDFSheetBackgroundColor";
 NSString * const iTM2PDFUseSheetBackgroundColorKey = @"iTM2PDFUseSheetBackgroundColor";
@@ -211,7 +212,6 @@ To Do List:
         return;
 //iTM2_LOG(@"DRAWING...");
     id IR = [[[self imageRepresentation] retain] autorelease];
-    int old = [IR currentPage];
     [IR setCurrentPage:[self tag]-1];
     NSRect R = [self drawingBounds];
     NSRect r = R;
@@ -289,24 +289,12 @@ To Do List:
 //        [self setNeedsDisplayInRect:[self bounds]];
 //    else
         [(NSImageRep *)IR drawAtPoint:R.origin];// EXC_BAD_ACCESS HERE
-#if 1
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&rect atIndex:2];
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDrawRect:" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-//iTM2_LOG(NSStringFromSelector(selector));
-        [I setSelector:selector];
-        [I invoke];
-    }
+
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] drawRect:rect];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDrawRect:" signature:[I methodSignature] inherited:YES]];
 #endif
-    [IR setCurrentPage:old];
-//    [[NSString stringWithFormat:@"%i", [self tag]] drawAtPoint:R.origin withAttributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:50] forKey:NSFontAttributeName]];
-    return;
-#endif
+	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  minFrameSize
 - (NSSize)minFrameSize;
@@ -605,22 +593,6 @@ To Do List:
 //        [self setCurrentPhysicalPage:0];
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 10/16/02
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [DNC removeObserver:nil name:nil object:self];
-    [DNC removeObserver:self];
-    [self setImageRepresentation:nil];
-    [self recache];
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  drawRect:
 - (void)drawRect:(NSRect)rect;
@@ -1045,7 +1017,7 @@ To Do List:
     int logicalPage = [[self subviews] count];
     while(logicalPage < PC)
     {
-        iTM2PDFImageRepView * IRV = [[[iTM2PDFImageRepView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+        iTM2PDFImageRepView * IRV = [[[iTM2PDFImageRepView alloc] initWithFrame:NSZeroRect] autorelease];
         [super addSubview:IRV];// BEWARE ATTENTION DANGER
         ++logicalPage;
         [IRV setTag:logicalPage];

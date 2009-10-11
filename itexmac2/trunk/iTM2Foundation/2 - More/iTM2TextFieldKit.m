@@ -70,19 +70,6 @@ To Do List:
 	[self setTarget:self];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [DNC removeObserver:self];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineFieldAction:
 - (IBAction)lineFieldAction:(id)sender;
 /*"Description Forthcoming.
@@ -314,19 +301,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self setNavigationFormat:nil];
-    [super dealloc];
-    return;
-}	 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= navigationFormat
 - (NSString *)navigationFormat;
 /*"Description Forthcoming.
@@ -667,22 +641,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self willDealloc];
-	[DNC removeObserver:self];
-    [IMPNC removeObserver:self];
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
 - (id)implementation;
 /*"Description Forthcoming.
@@ -766,19 +724,19 @@ To Do List:
 	NSString * path = [[self stringForObjectValue:obj] stringByStandardizingPath];
 	if(![path hasPrefix:@"/"] || [DFM fileExistsAtPath:path])
 	{
-		return [[[NSAttributedString allocWithZone:[self zone]] initWithString:path attributes:attrs] autorelease];
+		return [[[NSAttributedString alloc] initWithString:path attributes:attrs] autorelease];
 	}
 	else if([path length])
 	{
 		NSMutableDictionary * MD = [[attrs mutableCopy] autorelease];
 		[MD setObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
-		return [[[NSAttributedString allocWithZone:[self zone]] initWithString:path attributes:MD] autorelease];
+		return [[[NSAttributedString alloc] initWithString:path attributes:MD] autorelease];
 	}
 	else
 	{
 		NSMutableDictionary * MD = [[attrs mutableCopy] autorelease];
 		[MD setObject:[NSColor lightGrayColor] forKey:NSForegroundColorAttributeName];
-		return [[[NSAttributedString allocWithZone:[self zone]]
+		return [[[NSAttributedString alloc]
 			initWithString: NSLocalizedStringFromTableInBundle(@"Enter a file name", TABLE, BUNDLE, "")
 				attributes: MD] autorelease];
 	}
@@ -844,7 +802,7 @@ To Do List:
 	NSString * string = [self stringForNilObjectValue];
 	NSMutableDictionary * MD = [[attrs mutableCopy] autorelease];
 	[MD setObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName];
-	return [[[NSAttributedString allocWithZone:[self zone]] initWithString:string attributes:MD] autorelease];
+	return [[[NSAttributedString alloc] initWithString:string attributes:MD] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForNilObjectValue
 - (NSString *)stringForNilObjectValue;
@@ -886,7 +844,7 @@ To Do List:
             if((new>=0) && [D respondsToSelector:@selector(showOutputForLine:column:source:)])
             {
                 NSString * source = [[[self document] fileName]
-                                        stringByAbbreviatingWithDotsRelativeToDirectory:
+                                        iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:
                                             [[D fileName] stringByDeletingLastPathComponent]];
                 [D showOutputForLine:new column:0 source:source];
             }

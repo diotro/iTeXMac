@@ -164,7 +164,11 @@ extern NSString * const iTM2TaskControllerIsBlindKey;
     @discussion See the iTM2TaskController documentation for more information.
 */
 @interface iTM2TaskInspector: iTM2Inspector <iTM2TaskInspector>
-
+{
+@private
+	id __weak _iVarTaskController;
+}
+@property (nonatomic,assign) __weak iTM2TaskController * taskController;
 - (id)errorView;
 - (void)setErrorView:(NSTextView *)argument;
 - (id)outputView;
@@ -476,14 +480,14 @@ Not strongly tested. Be coutious when using it.
 
 /*!
 	@class		iTM2TaskController
-    @abstract   Concrete minimal implementation of the iTM2TaskController protocol. It is a mute and blind object.
+    @abstract   Concrete minimal implementation. It is a mute and blind object.
     @discussion See the iTM2TaskController documentation for more information. Beware,
 				there are certainly some caveats concerning the design of the delegate, more precisely when the task controller is made standalone.
 */
 @interface iTM2TaskController: iTM2Object
 {
 @private
-    NSMutableArray * _Inspectors;
+    NSHashTable * _Inspectors;
     id <iTM2TaskWrapper> _CurrentWrapper;
     NSTask * _CurrentTask;
     NSFileHandle * _CustomReadFileHandle;
@@ -492,9 +496,18 @@ Not strongly tested. Be coutious when using it.
     NSMutableString * _Error;
     NSMutableArray * _FHGC;
     NSMutableArray * _NGC;
-	BOOL _Standalone;
 //iTM2;
 }
+
+@property (assign) NSHashTable * inspectors;
+@property (assign) id <iTM2TaskWrapper> currentWrapper;
+@property (assign) NSTask * currentTask;
+@property (assign) NSFileHandle * customReadFileHandle;
+@property (assign) NSMutableString * output;
+@property (assign) NSMutableString * custom;
+@property (assign) NSMutableString * error;
+@property (assign) NSMutableArray * _FHGC;
+@property (assign) NSMutableArray * _NGC;
 
 /*! 
     @method     isDeaf
@@ -544,13 +557,20 @@ Not strongly tested. Be coutious when using it.
 
 /*! 
     @method     becomeStandalone
-    @abstract   Detach the current task.
-    @discussion When the task controller is released, it stops its current task unless it is standalone.
-				Only mute and deaf tasks can be standalone.
-				These task controllers are owned by themselves and will be released when their last task terminates.
-    @result     An NSTask instance.
+    @abstract   The task controller is not owned by any one.
+    @discussion Discussion forthcoming. Dangerous design.
+    @result     None.
 */
 - (void)becomeStandalone;
+
+/*! 
+	@method     resignStandalone
+	@abstract   The task controller will be collected unless it is owned by someone else...
+	@discussion Discussion forthcoming.
+	These task controllers are owned by themselves and will be released when their last task terminates.
+	@result     None.
+ */
+- (void)resignStandalone;
 
 /*! 
     @method     addInspector:
@@ -571,15 +591,6 @@ Not strongly tested. Be coutious when using it.
     @result     None.
 */
 - (void)removeInspector:(id <iTM2TaskInspector>)argument;
-
-/*! 
-    @method     inspectorsEnumerator
-    @abstract   An inspectors enumerator.
-    @discussion Description Forthcoming.
-    @param      None.
-    @result     An NSEnumerator.
-*/
-- (NSEnumerator *)inspectorsEnumerator;
 
 /*! 
     @method     allInspectors
@@ -761,16 +772,6 @@ Not strongly tested. Be coutious when using it.
 */
 - (void)executeAppleScript:(NSString *)source;
 
-@property (retain) NSMutableArray * _Inspectors;
-@property (retain) id <iTM2TaskWrapper> _CurrentWrapper;
-@property (retain) NSTask * _CurrentTask;
-@property (retain) NSFileHandle * _CustomReadFileHandle;
-@property (retain) NSMutableString * _Output;
-@property (retain) NSMutableString * _Custom;
-@property (retain) NSMutableString * _Error;
-@property (retain) NSMutableArray * _FHGC;
-@property (retain) NSMutableArray * _NGC;
-@property BOOL _Standalone;
 @end
 
 @interface iTM2TaskControllerResponder: iTM2AutoInstallResponder

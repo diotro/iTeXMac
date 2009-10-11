@@ -50,22 +50,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
-    [__LastMagnificationITII release];
-    __LastMagnificationITII = nil;
-    [self setMagnificationField:nil];
-    [self setMagStepper:nil];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnification:
 - (void)setMagnification:(NSDecimalNumber *)aMagnification;
 /*"Description forthcoming.
@@ -285,7 +269,7 @@ To Do List:
     [button setCenteredArrow:YES];
     [button setBordered:NO];
 
-    NSMenu * menu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@"Magnification"] autorelease];
+    NSMenu * menu = [[[NSMenu alloc] initWithTitle:@"Magnification"] autorelease];
     [menu setMenuRepresentation:[[[NSMenuView alloc] initWithFrame:NSZeroRect] autorelease]];
     [[menu menuRepresentation] setFont:[NSFont menuFontOfSize:[NSFont smallSystemFontSize]]];
 
@@ -312,7 +296,7 @@ To Do List:
             action == @selector(displayFitToHeight:) ||
             action == @selector(displayFitToView:))
         {
-            [menu addItem:[MI copyWithZone:[MI zone]]];
+            [menu addItem:[[MI copy] autorelease]];
             shouldInsertSeparatorItem = YES;
         }
     }
@@ -329,7 +313,7 @@ To Do List:
             action == @selector(toggleStickToHeight:) ||
             action == @selector(toggleStickToView:))
         {
-            [menu addItem:[MI copyWithZone:[MI zone]]];
+            [menu addItem:[[MI copy] autorelease]];
             shouldInsertSeparatorItem = YES;
         }
     }

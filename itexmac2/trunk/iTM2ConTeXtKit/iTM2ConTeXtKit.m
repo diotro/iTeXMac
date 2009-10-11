@@ -208,8 +208,8 @@ DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
 		NSURL * url = [NSURL fileURLWithPath:path];
 		NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:nil] autorelease];
 		NSMenu * M = [NSMenu menuWithConTeXtGardenXMLElements:[[document rootElement] children]];
-		[M insertItem:[[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"COUCOU" action:NULL keyEquivalent:@""] autorelease] atIndex:0];
-		NSPopUpButton * PB = [[[NSPopUpButton allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+		[M insertItem:[[[NSMenuItem alloc] initWithTitle:@"COUCOU" action:NULL keyEquivalent:@""] autorelease] atIndex:0];
+		NSPopUpButton * PB = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect] autorelease];
 		[PB setMenu:M];
 		[PB setPullsDown:YES];
 		[[B cell] setPopUpCell:[PB cell]];
@@ -238,8 +238,8 @@ DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
 	[toolbarItem setMinSize:frame.size];
 	[B setTarget:nil];
 	[[B cell] setBackgroundColor:[NSColor clearColor]];
-	NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-	NSPopUpButton * PB = [[[NSPopUpButton allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+	NSPopUpButton * PB = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect] autorelease];
 	[PB setMenu:M];
 	[PB setPullsDown:YES];
 	[[B cell] setPopUpCell:[PB cell]];
@@ -435,7 +435,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 	[M addItemWithTitle:@"" action:NULL keyEquivalent:@""];// first item is used as title
 	NSEnumerator * E = [[SUD stringArrayForKey:iTM2ConTeXtManuals] objectEnumerator];
 	NSString * path;
@@ -443,7 +443,7 @@ To Do List:
 	{
 		NSString * key = [[path lastPathComponent] stringByDeletingPathExtension];
 		NSString * title = NSLocalizedStringFromTableInBundle(key, iTM2ConTeXtManualsTable, [self classBundle], "");
-		NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle: title
+		NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle: title
 						action: @selector(openConTeXtManualFromRepresentedObject:) keyEquivalent: @""] autorelease];
 		[M addItem:MI];
 		[MI setTarget:nil];
@@ -452,7 +452,7 @@ To Do List:
 	if([M numberOfItems] > 1)
 		[M addItem:[NSMenuItem separatorItem]];
 	NSString * title = NSLocalizedStringFromTableInBundle(@"showConTeXtManualsPrefs", iTM2ConTeXtManualsTable, [self classBundle], "");
-	NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle: title
+	NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle: title
 					action: @selector(showConTeXtManualsPrefs:) keyEquivalent: @""] autorelease];
 	[M addItem:MI];
 	[MI setTarget:nil];
@@ -591,7 +591,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * owner = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
@@ -684,7 +684,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * owner = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
@@ -828,7 +828,7 @@ To Do List:
 			NSScanner * scanner = [NSScanner scannerWithString:string];
 			[scanner scanString:@"{" intoString:nil];
 			NSString * fileName;
-			if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+			if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &fileName])
 			{
 				if(![fileName hasPrefix:@"/"])
 				{
@@ -858,7 +858,7 @@ To Do List:
 			NSScanner * scanner = [NSScanner scannerWithString:string];
 			[scanner scanString:@"{" intoString:nil];
 			NSString * fileName;
-			if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+			if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &fileName])
 			{
 				if(![fileName hasPrefix:@"/"])
 				{
@@ -888,7 +888,7 @@ To Do List:
 			NSScanner * scanner = [NSScanner scannerWithString:string];
 			[scanner scanString:@"{" intoString:nil];
 			NSString * URLString;
-			if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &URLString])
+			if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &URLString])
 			{
 				if([URLString length] && ![SWS openURL:[[[NSURL alloc] initWithString:URLString] autorelease]])
 				{
@@ -1444,7 +1444,7 @@ To Do List:
 {
 //iTM2_START;
     BOOL withGraphics = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=0;
-    NSMenu * sectionMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    NSMenu * sectionMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     NSString * S = [self string];
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S];
     unsigned scanLocation = 0, end = [S length];
@@ -1779,9 +1779,9 @@ To Do List: ...
 "*/
 {    
 //iTM2_START;
-    NSMenu * labelMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-    NSMenu * refMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-    NSMenu * eqrefMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    NSMenu * labelMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    NSMenu * refMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    NSMenu * eqrefMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     [labelMenu setAutoenablesItems:YES];
     [refMenu setAutoenablesItems:YES];
     [eqrefMenu setAutoenablesItems:YES];
@@ -2037,7 +2037,7 @@ To Do List:
 		case kiTM2ConTeXtIncludeSyntaxMode:
 		case kiTM2ConTeXtIncludegraphicsSyntaxMode:
 		case kiTM2ConTeXtURLSyntaxMode:
-		if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
+		if([[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember:theChar])
 		{
 			if([_AS character:theChar isMemberOfCoveredCharacterSetForMode:[_iTM2ConTeXtModeForModeArray objectAtIndex:switcher - 1000]])
 				return previousMode;
@@ -2067,7 +2067,7 @@ To Do List:
     NSParameterAssert(location<[S length]);
 	unsigned switcher = previousMode & ~kiTM2TeXErrorSyntaxMask;
 	unichar theChar, status;
-	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
+	NSCharacterSet * set = [NSCharacterSet iTM2_TeXLetterCharacterSet];
 	if(kiTM2TeXCommandStartSyntaxMode == switcher)
 	{
 		theChar = [S characterAtIndex:location];
@@ -2473,8 +2473,8 @@ To Do List:
 	[toolbarItem setMinSize:frame.size];
 	[B setTarget:nil];
 	[[B cell] setBackgroundColor:[NSColor clearColor]];
-	NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-	NSPopUpButton * PB = [[[NSPopUpButton allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+	NSPopUpButton * PB = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect] autorelease];
 	[PB setMenu:M];
 	[PB setPullsDown:YES];
 	[PB setAction:@selector(ConTeXtLabelAction:)];
@@ -2498,8 +2498,8 @@ To Do List:
 	[toolbarItem setMinSize:frame.size];
 	[B setTarget:nil];
 	[[B cell] setBackgroundColor:[NSColor clearColor]];
-	NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-	NSPopUpButton * PB = [[[NSPopUpButton allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+	NSPopUpButton * PB = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect] autorelease];
 	[PB setMenu:M];
 	[PB setPullsDown:YES];
 	[PB setAction:@selector(ConTeXtSectionAction:)];

@@ -28,6 +28,7 @@
 #import <iTM2Foundation/iTM2PathUtilities.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2ContextKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
@@ -393,30 +394,18 @@ To Do List:
 - (BOOL)isPrivateFileAtPath:(NSString *)path;
 {
 //iTM2_LOG(@"path: %@", path);
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&path atIndex:2];
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] isPrivateFileAtPath:path];
     BOOL result = NO;
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"IsPrivateFileAtPath:" signature:sig0 inherited:YES] objectEnumerator];
 	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"IsPrivateFileAtPath:" signature:[I methodSignature] inherited:YES]);
+	SEL selector;
+	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
     {
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing:%@", NSStringFromSelector(selector));
-//iTM2_LOG(@"Base project model is:%@", [[self implementation] modelOfType:@"frontends"]);
-        }
         [I setSelector:selector];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performed:%@ with result:%@", NSStringFromSelector(selector), (R? @"YES":@"NO"));
-//iTM2_LOG(@"Base project model is:%@", [[self implementation] modelOfType:@"frontends"]);
-        }
         result = result || R;
     }
 	return result;
@@ -711,7 +700,7 @@ To Do List:
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return D;
 	}
-	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	path = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	const char * src = [attributeName UTF8String];
 	if(strlen(src)>= 256)
 	{
@@ -844,7 +833,7 @@ To Do List:
 //iTM2_START;
 	if(![DFM fileExistsAtPath:path])
 		return NO;
-	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	path = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	BOOL result = YES;
 	const char * src = [attributeName UTF8String];
 	if(strlen(src)>= 256)
@@ -1000,7 +989,7 @@ To Do List:
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return NO;
 	}
-	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	path = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	BOOL result = YES;
 	const char * src = [attributeName UTF8String];
 	if(strlen(src)>= 256)
@@ -1158,7 +1147,7 @@ To Do List:
 	{
 		return NO;
 	}
-	path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+	path = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	BOOL result = YES;
 	FSRef fileSystemReference;
 	if(CFURLGetFSRef((CFURLRef)[NSURL fileURLWithPath:path], &fileSystemReference))

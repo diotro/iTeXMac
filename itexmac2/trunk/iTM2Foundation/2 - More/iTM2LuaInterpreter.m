@@ -29,15 +29,12 @@ typedef struct
 	lua_State * l = lua_objc_init();
 	if(!l)
 	{
-		[self dealloc];
 		return nil;
 	}
 	// then get private implementation
-	NSZone * zone = [self zone];
-	iTM2LuaInterpreter_Implementation * imp = NSZoneMalloc(zone,sizeof(iTM2LuaInterpreter_Implementation *));
+	iTM2LuaInterpreter_Implementation * imp = NSAllocateCollectable(sizeof(iTM2LuaInterpreter_Implementation *),0);// Collected
 	if(!imp)
 	{
-		[self dealloc];
 		return nil;
 	}
 	if(self = [super init])
@@ -54,20 +51,18 @@ typedef struct
 	return self;
 }
 
-- (void)dealloc;
+- (void)finalize;
 {
 	if(_implementation)
 	{
 		if(((iTM2LuaInterpreter_Implementation *)_implementation)->luaState)
 		{
 			lua_close(((iTM2LuaInterpreter_Implementation *)_implementation)->luaState);
+			lua_objc_release(((iTM2LuaInterpreter_Implementation *)_implementation)->luaState);
 			((iTM2LuaInterpreter_Implementation *)_implementation)->luaState = nil;
 		}
-		NSZone * zone = [self zone];
-		NSZoneFree(zone,_implementation);
-		_implementation = nil;
 	}
-	[super dealloc];
+	[super finalize];
 	return;
 }
 
@@ -102,7 +97,9 @@ typedef struct
 			NSString * line = [luaScript substringWithRange:subRange];
 			const char * s = [line UTF8String];
 			lua_State * l = ((iTM2LuaInterpreter_Implementation *)_implementation)->luaState;
-			luaL_dostring(l,s);
+			if(l) {
+				luaL_dostring(l,s);
+			}
 		}
 	}
 	@catch ( id what )

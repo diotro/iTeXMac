@@ -120,10 +120,8 @@ To Do List:
 //iTM2_START;
 	if([self isKindOfClass:[iTM2PDFKitDocument class]])
 		return [self SWZ_iTM2PDFKit_init];
-	id garbage = self;
-	self = [[iTM2PDFKitDocument allocWithZone:[self zone]] SWZ_iTM2PDFKit_init];
-	[garbage dealloc];
-    return self;
+	self = [[iTM2PDFKitDocument alloc] SWZ_iTM2PDFKit_init];
+	return self;
 }
 @end
 
@@ -452,7 +450,7 @@ To Do List:
 //iTM2_START;
 	if([type isEqualToString:iTM2MultiplePDFDocumentType])
 	{
-		iTM2MultiplePDFDocument * doc = [[[iTM2MultiplePDFDocument allocWithZone:[self zone]] initWithURL:[NSURL fileURLWithPath:fileName]] autorelease];
+		iTM2MultiplePDFDocument * doc = [[[iTM2MultiplePDFDocument alloc] initWithURL:[NSURL fileURLWithPath:fileName]] autorelease];
 		[self setPDFDocument:doc];
 		return doc != nil;
 	}
@@ -475,24 +473,9 @@ To Do List:
 }
 @end
 @implementation iTM2MultiplePDFDocument
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[__PDFKitDocuments autorelease];
-	__PDFKitDocuments = nil;
-	[__OrderedFileNames autorelease];
-	__OrderedFileNames = nil;
-	[__IndexForPageCache autorelease];
-	__IndexForPageCache = nil;
-	[super dealloc];
-    return;
-}
+@synthesize __PDFKitDocuments;
+@synthesize __OrderedFileNames;
+@synthesize __IndexForPageCache;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithURL:
 - (id)initWithURL:(NSURL *)URL;
 /*" Description forthcoming.
@@ -505,17 +488,13 @@ To Do List:
 	NSString * templatePath = [[self classBundle] pathForResource:@"template" ofType:@"pdf"];
 	if(self = [super initWithURL:[NSURL fileURLWithPath:templatePath]])
 	{
-		[__PDFKitDocuments autorelease];
-		__PDFKitDocuments = [[NSMutableDictionary dictionary] retain];
-		[__OrderedFileNames autorelease];
-		__OrderedFileNames = [[NSMutableArray array] retain];
-		[__IndexForPageCache autorelease];
-		__IndexForPageCache = [[NSMutableDictionary dictionary] retain];
+		__PDFKitDocuments = [NSMutableDictionary dictionary];
+		__OrderedFileNames = [NSMutableArray array];
+		__IndexForPageCache = [NSMutableDictionary dictionary];
 		NSString * directoryName = [URL isFileURL]? [URL path]:@"";
 		NSString * baseName = [NSString stringWithFormat:@"%@-", [[directoryName lastPathComponent] stringByDeletingPathExtension]];
-		NSEnumerator * E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
 		NSString * component;
-		while(component = [E nextObject])
+		for(component in [DFM directoryContentsAtPath:directoryName])
 		{
 			NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
 			Class C = [SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]];
@@ -536,8 +515,7 @@ To Do List:
 		{
 			// this was not a wrapper where all the files were collected
 			directoryName = [directoryName stringByDeletingLastPathComponent];
-			E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
-			while(component = [E nextObject])
+			for(component in [DFM directoryContentsAtPath:directoryName])
 			{
 				NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
 				Class C = [SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]];
@@ -557,23 +535,21 @@ To Do List:
 		[__OrderedFileNames sortUsingSelector:@selector(iTM2_compareAs__OrderedFileNames:)];
 		if([__OrderedFileNames count])
 		{
-			unsigned oldCount = [self pageCount];
+			NSUInteger oldCount = [self pageCount];
 			NSMutableArray * MRA = [NSMutableArray array];
-			E = [__OrderedFileNames objectEnumerator];
-			unsigned index = 0;
-			while((component = [E nextObject]) && index++<1)
+			NSEnumerator *E = [__OrderedFileNames objectEnumerator];
+			if(component = [E nextObject])
 			{
 				NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
 //iTM2_LOG(@"fullPath is :%@", fullPath);
-				PDFDocument * doc = [[PDFDocument allocWithZone:[self zone]] initWithURL:[NSURL fileURLWithPath:fullPath]];
+				PDFDocument * doc = [[PDFDocument alloc] initWithURL:[NSURL fileURLWithPath:fullPath]];
 				if([doc pageCount])
 				{
 					[MRA addObject:component];
-					PDFPage * P = [[doc pageAtIndex:0] retain];
+					PDFPage * P = [doc pageAtIndex:0];
 					[doc removePageAtIndex:0];
 //iTM2_LOG(@"[P document] is:%@", [P document]);
 					[self insertPage:P atIndex:[self pageCount]];
-					[P release];
 //iTM2_LOG(@"[P document] is:%@", [P document]);
 //iTM2_LOG(@"[self pageCount] is now:%i", [self pageCount]);
 //iTM2_LOG(@"[self dataRepresentation] is now:%@", [self dataRepresentation]);
@@ -582,8 +558,6 @@ To Do List:
 				{
 					iTM2_LOG(@"Void pdf document at:%@", fullPath);
 				}
-				[doc release];
-				doc = nil;
 			}
 			[__OrderedFileNames setArray:MRA];
 			if(NO && [__OrderedFileNames count])
@@ -594,9 +568,6 @@ To Do List:
 //iTM2_END;
 	return self;
 }
-@synthesize __PDFKitDocuments;
-@synthesize __OrderedFileNames;
-@synthesize __IndexForPageCache;
 @end
 
 @implementation NSString(__OrderedFileNames)
@@ -818,7 +789,7 @@ To Do List:
 	#if 0
 	Could not implement the shadow
 	NSTableColumn * column = [_thumbnailTable tableColumnWithIdentifier:@"thumbnail"];
-	iTM2ShadowedImageCell * newCell = [[[iTM2ShadowedImageCell allocWithZone:[_thumbnailTable zone]] initImageCell:nil] autorelease];
+	iTM2ShadowedImageCell * newCell = [[[iTM2ShadowedImageCell alloc] initImageCell:nil] autorelease];
 	NSImageCell * oldCell = [column dataCell];
 	[newCell setImageAlignment:[oldCell imageAlignment]];
 	[newCell setImageScaling:[oldCell imageScaling]];
@@ -1089,7 +1060,7 @@ To Do List:
 //iTM2_END;
     return;
 }
-static NSMutableDictionary * _iTM2PDFRenderInBackgroundThumbnails = nil;
+static NSMapTable * _iTM2PDFRenderInBackgroundThumbnails = nil;
 static BOOL _iTM2PDFThreadedRenderInBackgroundThumbnails = NO;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  renderInBackroundThumbnailAtIndex:
 - (void)renderInBackroundThumbnailAtIndex:(unsigned int)index;
@@ -1104,16 +1075,15 @@ To Do List:
 		return;
 	if(!_iTM2PDFRenderInBackgroundThumbnails)
 	{
-		_iTM2PDFRenderInBackgroundThumbnails = [[NSMutableDictionary dictionary] retain];
+		_iTM2PDFRenderInBackgroundThumbnails = [NSMapTable mapTableWithKeyOptions: NSPointerFunctionsOpaqueMemory|NSPointerFunctionsIntegerPersonality valueOptions:NSPointerFunctionsStrongMemory];
 	}
-	NSValue * V = [NSValue valueWithPointer:self];
-	NSMutableSet * set = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:V];
-	if(!set)
+	NSHashTable * HT = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:self];
+	if(!HT)
 	{
-		[_iTM2PDFRenderInBackgroundThumbnails setObject:[NSMutableSet set] forKey:V];
-		set = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:V];
+		[_iTM2PDFRenderInBackgroundThumbnails setObject:[NSHashTable hashTableWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsIntegerPersonality] forKey:self];
+		HT = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:self];
 	}
-	[set addObject:[NSNumber numberWithUnsignedInt:index]];
+	NSHashInsert(HT, (id)index);
 	if(_iTM2PDFThreadedRenderInBackgroundThumbnails)
 		return;
 	if([_iTM2PDFRenderInBackgroundThumbnails count])
@@ -1137,39 +1107,33 @@ To Do List:
 	NSLock * L = [[NSLock alloc] init];
 loop:
 	[L lock];
-	NSMutableDictionary * MD = [[_iTM2PDFRenderInBackgroundThumbnails mutableCopy] autorelease];
+	NSMapTable * MT = [_iTM2PDFRenderInBackgroundThumbnails copy];
 	[L unlock];
-	NSEnumerator * E = [MD keyEnumerator];
-	NSValue * V;
-	while(V = [E nextObject])
+	iTM2PDFKitInspector * inspector;
+	for(inspector in [MT keyEnumerator])
 	{
-		iTM2PDFKitInspector * inspector = [V pointerValue];
-		NSEnumerator * e = [[NSApp orderedWindows] objectEnumerator];
-		NSWindow * w;
-		while(w = [e nextObject])
+		for(NSWindow * w in [NSApp orderedWindows])
 		{
 			if([inspector isEqual:[w windowController]])
 			{
 				// this is the real inspector
 				[L lock];
-				id set = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:V];
-				if([set count])
+				NSHashTable * HT = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:inspector];
+				if([HT count])
 				{
-					[MD setObject:[[set mutableCopy] autorelease] forKey:V];
+					[MT setObject:[HT copy] forKey:inspector];
 					[L unlock];
-					e = [[MD objectForKey:V] objectEnumerator];
-					NSNumber * N = nil;
-					while(N = [e nextObject])
+					for(id O in [MT objectForKey:inspector])
 					{
-						unsigned int pageIndex = [N unsignedIntValue];
+						NSUInteger pageIndex = (NSUInteger)O;
 						PDFView * pdfView = nil;
-						object_getInstanceVariable(inspector, "[self pdfView]", (void **)&pdfView);
+						object_getInstanceVariable(inspector, "pdfView", (void **)&pdfView);
 						PDFDocument * doc = [pdfView document];
 						if(pageIndex < [doc pageCount])
 						{
 							PDFPage * page = [doc pageAtIndex:pageIndex];
 							NSData * D = [page dataRepresentation];
-							NSImage * I = [[[NSImage allocWithZone:[w zone]] initWithData:D] autorelease];// tiff?
+							NSImage * I = [[[NSImage alloc] initWithData:D] autorelease];// tiff?
 							[L lock];
 							if(pageIndex < [[inspector PDFThumbnails] count])
 							{
@@ -1189,14 +1153,13 @@ loop:
 	}
 	// everything is made...
 	[L lock];
-	E = [_iTM2PDFRenderInBackgroundThumbnails keyEnumerator];
-	while(V = [E nextObject])
+	for(inspector in [_iTM2PDFRenderInBackgroundThumbnails keyEnumerator])
 	{
-		NSMutableSet * set = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:V];
-		[set minusSet:[MD objectForKey:V]];
+		NSMutableSet * set = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:inspector];
+		[set minusSet:[MT objectForKey:inspector]];
 		if(![set count])
 		{
-			[_iTM2PDFRenderInBackgroundThumbnails removeObjectForKey:V];
+			[_iTM2PDFRenderInBackgroundThumbnails removeObjectForKey:inspector];
 		}
 	}
 	[L unlock];
@@ -1298,8 +1261,8 @@ To Do List:
 	}
 	else
 	{
-		NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:label] autorelease];
-		[MAS appendAttributedString:[[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+		NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] initWithString:label] autorelease];
+		[MAS appendAttributedString:[[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
 		[[self PDFSearchResults] addObject:[[MAS copy] autorelease]];
 	}
 	PDFOutline * outline = [[page document] outlineItemForSelection:selection];
@@ -1507,8 +1470,8 @@ To Do List:
 			{
 				return label;
 			}
-			NSMutableAttributedString * MAS = [[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:label] autorelease];
-			[MAS appendAttributedString:[[[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+			NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] initWithString:label] autorelease];
+			[MAS appendAttributedString:[[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@" [%i]", physicalPageIndex] attributes:[NSDictionary dictionaryWithObject:[NSColor disabledControlTextColor] forKey:NSForegroundColorAttributeName]] autorelease]];
 			return MAS;
 		}
 		else
@@ -1537,7 +1500,7 @@ To Do List:
 			rowIndex *= 3;
 			if(rowIndex < [results count])
 			{
-				PDFSelection * S = [results objectAtIndex:3*rowIndex];
+				PDFSelection * S = [results objectAtIndex:rowIndex];
 				[V setCurrentSelection:S];
 				[V scrollSelectionToVisible:self];
 			}
@@ -1617,7 +1580,7 @@ To Do List:
 	if(!result || [result isEqual:[NSNull null]])
 	{
 		PDFOutline * RO = [OL childAtIndex:index];
-		result = [[[iTM2TreeNode allocWithZone:[node zone]] initWithParent:node value:RO] autorelease];
+		result = [[[iTM2TreeNode alloc] initWithParent:node value:RO] autorelease];
 		[result setCountOfChildren:[RO numberOfChildren]];
 		[node replaceObjectInChildrenAtIndex:index withObject:result];
 	}
@@ -1702,7 +1665,7 @@ To Do List:
 	if(![self PDFOutlines])
 	{
 		PDFOutline * OLR = [[[self pdfView] document] outlineRoot];
-		[self setPDFOutlines:[[[iTM2TreeNode allocWithZone:[self zone]] initWithParent:nil value:OLR] autorelease]];
+		[self setPDFOutlines:[[[iTM2TreeNode alloc] initWithParent:nil value:OLR] autorelease]];
 		[[self PDFOutlines] setCountOfChildren:[OLR numberOfChildren]];
 		[_tabViewControl setEnabled:([[self PDFOutlines] countOfChildren]>0) forSegment:1];
 	}
@@ -2132,7 +2095,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 		if([result isKindOfClass:[NSColor class]])
 			return result;
 	}
-	return [[[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease] backgroundColor];
+	return [[[[PDFView alloc] initWithFrame:NSZeroRect] autorelease] backgroundColor];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBackgroundColor:
 - (void)setBackgroundColor:(NSColor *)argument;
@@ -2655,7 +2618,7 @@ To Do List:
 		NSTextField * F = [[[NSTextField alloc] initWithFrame:NSZeroRect] autorelease];
 		[F setAction:action];
 		[F setTarget:nil];
-		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter allocWithZone:[self zone]] init] autorelease];
+		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter alloc] init] autorelease];
 		[F setFormatter:NF];
 		[F setDelegate:NF];
 		[F setFrameOrigin:NSMakePoint(4,6)];
@@ -3341,20 +3304,6 @@ To Do List:
 //iTM2_END;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self deallocImplementation];
-	[super dealloc];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  zoomIn:
 - (void)zoomIn:(id)sender;
 /*"Description Forthcoming.
@@ -3473,18 +3422,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[super drawPage:page];
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&page atIndex:2];
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDrawPage:" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-//iTM2_LOG(NSStringFromSelector(selector));
-        [I setSelector:selector];
-        [I invoke];
-    }
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] drawPage:page];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDrawPage:" signature:[I methodSignature] inherited:YES]];
 //iTM2_END;
     return;
 }
@@ -3809,14 +3749,14 @@ To Do List:
 		return NO;
 	}
 	[NSEvent startPeriodicEventsAfterDelay:0 withPeriod:0.1];/* Force a refresh */
-	NSView * rootView = [[[NSView allocWithZone:[self zone]] initWithFrame:[self frame]] autorelease];
+	NSView * rootView = [[[NSView alloc] initWithFrame:[self frame]] autorelease];
 	[[self superview] replaceSubview:self with:rootView];
 	[rootView addSubview:self];
-	NSView * zoomView = [[[__iTM2PDFZoominView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
-	NSView * clipView = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * zoomView = [[[__iTM2PDFZoominView alloc] initWithFrame:NSZeroRect] autorelease];
+	NSView * clipView = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	[rootView addSubview:zoomView];
 	[zoomView addSubview:clipView];
-	PDFView * pdfViewZoomed = [[[PDFView allocWithZone:[self zone]] initWithFrame:NSMakeRect(0,0,1000,1000)] autorelease];
+	PDFView * pdfViewZoomed = [[[PDFView alloc] initWithFrame:NSMakeRect(0,0,1000,1000)] autorelease];
 	[pdfViewZoomed setDocument:[self document]];
 	[pdfViewZoomed setScaleFactor:[self scaleFactor]];
 	[pdfViewZoomed setDisplayMode:[self displayMode]];
@@ -4023,24 +3963,6 @@ iTM2_END;
 @end
 
 @implementation iTM2XtdPDFDocument
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version History:jlaurens AT users DOT sourceforge DOT net
-- < 1.1:03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	free(__PageStringOffsets);
-	__PageStringOffsets = nil;
-	[__CachedPageStrings release];
-	__CachedPageStrings = nil;
-	[self willDealloc];
-	[super dealloc];
-//iTM2_END;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringForPage:
 - (NSString *)stringForPage:(PDFPage *)page;
 /*"Description Forthcoming.
@@ -4052,16 +3974,16 @@ To Do List:
 //iTM2_START;
 	if(!__CachedPageStrings)
 	{
-		__CachedPageStrings = [[NSMutableDictionary dictionary] retain];
+		__CachedPageStrings = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsOpaquePersonality
+													valueOptions:NSPointerFunctionsStrongMemory];// collected
 	}
 	if(page)
 	{
-		NSValue * V = [NSValue valueWithNonretainedObject:page];
-		id result = [__CachedPageStrings objectForKey:V];
+		id result = [__CachedPageStrings objectForKey:page];
 		if(!result)
 		{
 			result = [page string];
-			[__CachedPageStrings setObject:result forKey:V];
+			[__CachedPageStrings setObject:result forKey:page];
 		}
 		return result;
 	}
@@ -4084,17 +4006,17 @@ To Do List:
 		[L unlock];
 		return;
 	}
-	unsigned int maxPageIndex = [self pageCount];
-	if(__PageStringOffsets = calloc(maxPageIndex + 3, sizeof(unsigned int)))
+	NSInteger maxPageIndex = [self pageCount];
+	if(__PageStringOffsets = NSAllocateCollectable(sizeof(NSUInteger),0))
 	{
-		unsigned int * validPageOff7Ref = __PageStringOffsets + maxPageIndex + 2;
+		NSUInteger * validPageOff7Ref = __PageStringOffsets + maxPageIndex + 2;
 		* validPageOff7Ref = 0;
 		* __PageStringOffsets = maxPageIndex;
 		[L unlock];
-		unsigned int * off7s = __PageStringOffsets + 1;
-		unsigned int pageOff7 = 0;
+		NSUInteger * off7s = __PageStringOffsets + 1;
+		NSUInteger pageOff7 = 0;
 		
-		unsigned int pageIndex = 0;
+		NSUInteger pageIndex = 0;
 		theStation:
 		[L lock];
 		* off7s = pageOff7;
@@ -4103,7 +4025,7 @@ To Do List:
 		if(pageIndex<maxPageIndex)
 		{
 			PDFPage * page = [self pageAtIndex:pageIndex];
-			unsigned int NOC = [page numberOfCharacters];
+			NSUInteger NOC = [page numberOfCharacters];
 			++off7s;
 			if(pageOff7 < UINT_MAX - NOC)
 				pageOff7 += NOC;
@@ -4496,7 +4418,7 @@ nextOccurrence:
 				unsigned localHereIndex = hitPosition.range.location + hitIndex - [self characterOffsetForPageAtIndex:hitPosition.pageIndex];
 				NSPoint point = [page characterBoundsAtIndex:localHereIndex].origin;
 				[currentDestinations addObject:
-					[[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:point] autorelease]];
+					[[[PDFDestination alloc] initWithPage:page atPoint:point] autorelease]];
 //iTM2_LOG(@"#### position:%@ with weight %i", NSStringFromRange(hitPosition.range), weight);
 				// We look for all the occurrences of hit between before and hit, the latter excluded.
 				searchRange.location = NSMaxRange(beforePosition.range);
@@ -4512,7 +4434,7 @@ previousHere:
 							- [self characterOffsetForPageAtIndex:hitPosition.pageIndex];
 						point = [page characterBoundsAtIndex:localHereIndex].origin;
 						[currentDestinations addObject:
-							[[[PDFDestination allocWithZone:[self zone]]
+							[[[PDFDestination alloc]
 								initWithPage:page atPoint:point] autorelease]];
 						goto previousHere;
 						
@@ -4615,7 +4537,7 @@ nextPointValue:
 					NSPoint point = [pointValue pointValue];
 					if([page characterIndexNearPoint:point] != -1)
 					{
-						[_SyncDestinations addObject:[[[PDFDestination allocWithZone:[self zone]]
+						[_SyncDestinations addObject:[[[PDFDestination alloc]
 							initWithPage:page atPoint:point] autorelease]];
 						[pageSet addObject:page];
 						return YES;
@@ -5101,7 +5023,7 @@ quelquepart:
 			NSPoint P = [[[hereRecords objectForKey:N] lastObject] pointValue];
 			NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
 			P.y = NSMaxY(bounds)-P.y;
-			PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:P] autorelease];
+			PDFDestination * destination = [[[PDFDestination alloc] initWithPage:page atPoint:P] autorelease];
 			[_SyncDestinations removeAllObjects];
 			[_SyncDestinations addObject:destination];
 		}
@@ -5499,7 +5421,7 @@ quelquepart:
 			NSPoint P = [[[hereRecords objectForKey:N] lastObject] pointValue];
 			NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
 			P.y = NSMaxY(bounds)-P.y;
-			PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:P] autorelease];
+			PDFDestination * destination = [[[PDFDestination alloc] initWithPage:page atPoint:P] autorelease];
 			[_SyncDestinations removeAllObjects];
 			[_SyncDestinations addObject:destination];
 		}
@@ -5903,7 +5825,7 @@ nextRangeIndex:
 								V = [wordRanges objectAtIndex:rangeIndex];
 								NSRange R = [V rangeValue];
 								NSRect bounds = [page characterBoundsAtIndex:R.location];
-								PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+								PDFDestination * destination = [[[PDFDestination alloc] initWithPage:page atPoint:bounds.origin] autorelease];
 								[_SyncDestinations addObject:destination];
 							}
 							if(![_SyncDestinations count])
@@ -5921,7 +5843,7 @@ nextRangeIndex:
 								}
 								PP.y = synctex_node_box_visible_v(first_node)+(synctex_node_box_visible_depth(first_node)-synctex_node_box_visible_height(first_node))/2;
 								PP.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - PP.y;
-								PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:PP] autorelease];
+								PDFDestination * destination = [[[PDFDestination alloc] initWithPage:page atPoint:PP] autorelease];
 								[_SyncDestinations addObject:destination];
 							}
 							[self setNeedsDisplay:YES];
@@ -6104,7 +6026,7 @@ next_chance:;
 					{
 						lineRange = [V rangeValue];
 						NSRect bounds = [page characterBoundsAtIndex:lineRange.location];
-						PDFDestination * destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+						PDFDestination * destination = [[[PDFDestination alloc] initWithPage:page atPoint:bounds.origin] autorelease];
 						[_SyncDestinations addObject:destination];
 					}
 				}
@@ -6150,7 +6072,7 @@ last_chance:
 			{
 				if((Q.x+=5)>top)
 				{
-					destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:PP] autorelease];
+					destination = [[[PDFDestination alloc] initWithPage:page atPoint:PP] autorelease];
 					[_SyncDestinations removeAllObjects];
 					[_SyncDestinations addObject:destination];
 					[self setNeedsDisplay:YES];
@@ -6190,7 +6112,7 @@ nextMatch:
 				{
 					findRange = [V rangeValue];
 					NSRect bounds = [page characterBoundsAtIndex:hereOffset+findRange.location];
-					destination = [[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:bounds.origin] autorelease];
+					destination = [[[PDFDestination alloc] initWithPage:page atPoint:bounds.origin] autorelease];
 					[_SyncDestinations addObject:destination];
 				}
 				while(V = [E nextObject]);
@@ -6215,7 +6137,7 @@ nextMatch:
 			{
 				_SyncDestinations = [[NSMutableArray array] retain];
 			}
-			[_SyncDestinations addObject:[[[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:P] autorelease]];
+			[_SyncDestinations addObject:[[[PDFDestination alloc] initWithPage:page atPoint:P] autorelease]];
 			[self setNeedsDisplay:YES];
 			[self scrollSynchronizationPointToVisible:self];
 			return YES;
@@ -6236,7 +6158,7 @@ To Do List:
 startAgain:;
 	iTM2_INIT_POOL;
 //iTM2_START;
-	NSLock * L = [[NSLock allocWithZone:[self zone]] init];
+	NSLock * L = [[NSLock alloc] init];
 	[L lock];
 	NSMutableArray * syncStack = [[self implementation] metaValueForKey:@"_SynchronizationStack"];
 	if([syncStack count]>1)
@@ -6357,7 +6279,7 @@ To Do List:
 		iTM2_LOG(@"destinations:%@",destinations);
 		iTM2_LOG(@"hint:%@",hint);
 	}
-	NSLock * L = [[[NSLock allocWithZone:[self zone]] init] autorelease];
+	NSLock * L = [[[NSLock alloc] init] autorelease];
 	[L lock];
 	NSMutableArray * syncStack = [[self implementation] metaValueForKey:@"_SynchronizationStack"];
 	if(![syncStack isKindOfClass:[NSMutableArray class]])
@@ -6401,7 +6323,7 @@ To Do List:
 		PDFPage * page = [document pageAtIndex:aCurrentPhysicalPage];
 		if(NSPointInRect(point, [page boundsForBox:kPDFDisplayBoxMediaBox]))
 		{
-			_SyncDestination = [[PDFDestination allocWithZone:[self zone]] initWithPage:page atPoint:point];
+			_SyncDestination = [[PDFDestination alloc] initWithPage:page atPoint:point];
 			[self setNeedsDisplay:YES];
 			if(hint)
 			{
@@ -7057,19 +6979,12 @@ To Do List:
 		_tracking = NO;
 		// _subview tracks the selection rect
 		[_subview removeFromSuperviewWithoutNeedingDisplay];
-		_subview = [[[NSView allocWithZone:[self zone]] initWithFrame:NSMakeRect(0,0,1,1)] autorelease];// faraway rect
+		_subview = [[[NSView alloc] initWithFrame:NSMakeRect(0,0,1,1)] autorelease];// faraway rect
 		[_subview setAutoresizingMask:NSViewMinXMargin|NSViewWidthSizable|NSViewMaxXMargin|NSViewMinYMargin|NSViewHeightSizable|NSViewMaxYMargin];
 		[self addSubview:_subview];
 		[_subview setHidden:YES];
 	}
 	return self;
-}
-- (void)dealloc;
-{
-	[_cachedShadow release];
-	_cachedShadow = nil;
-	[super dealloc];
-	return;
 }
 - (NSRect)selectionRect;
 {
@@ -7158,7 +7073,7 @@ To Do List:
 #if 0
 		if(!_cachedShadow)
 		{
-			_cachedShadow = [[NSImage allocWithZone:[self zone]] initWithSize:[self bounds].size];
+			_cachedShadow = [[NSImage alloc] initWithSize:[self bounds].size];
 			[_cachedShadow lockFocus];
 			path = [NSBezierPath bezierPathWithRect:selectionRect];
 			[path fill];
@@ -7241,8 +7156,8 @@ To Do List:
 			{
 				selectionRect = [pdfView convertRect:selectionRect toPage:page];
 				NSString * path = [[[[self window] windowController] document] fileName];
-				NSData * data = [[[NSData allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
-				NSPDFImageRep * imageRep = [[[NSPDFImageRep allocWithZone:[self zone]] initWithData:data] autorelease];
+				NSData * data = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
+				NSPDFImageRep * imageRep = [[[NSPDFImageRep alloc] initWithData:data] autorelease];
 				PDFDocument * document = [page document];
 				int currentPage = [document indexForPage:page];
 				[imageRep setCurrentPage:currentPage];
@@ -7258,7 +7173,7 @@ To Do List:
 				selectionRect.origin.y = repBounds.origin.y + (selectionRect.origin.y - pageBounds.origin.y) * pageBounds.size.height/repBounds.size.height;
 				selectionRect.size.width *= pageBounds.size.width/repBounds.size.width;
 				selectionRect.size.height *= pageBounds.size.height/repBounds.size.height;
-				__iTM2PDFPrintView * view = [[[__iTM2PDFPrintView allocWithZone:[self zone]] initWithFrame:repBounds] autorelease];
+				__iTM2PDFPrintView * view = [[[__iTM2PDFPrintView alloc] initWithFrame:repBounds] autorelease];
 				view->representation = imageRep;
 				NSData * pdfData = [view dataWithPDFInsideRect:selectionRect];
 				//NSData * pdfData = [view dataWithPDFInsideRect:repBounds];
@@ -7273,17 +7188,17 @@ To Do List:
 					selectionRect.size = NSMakeSize(32,32);
 					NSString * name = [[[[self window] windowController] document] fileName];
 					NSString * label = [page label];
-					id FPC = [[[_PDFFilePromiseController allocWithZone:[self zone]] initWithName:name data:pdfData label:label] autorelease];
+					id FPC = [[[_PDFFilePromiseController alloc] initWithName:name data:pdfData label:label] autorelease];
 					return [self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"pdf"] fromRect:selectionRect source:FPC slideBack:YES event:theEvent];
 				}
 				else
 				{
 					[pasteboard setData:pdfData forType:NSPDFPboardType];
-					NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithData:pdfData] autorelease];
+					NSImage * I = [[[NSImage alloc] initWithData:pdfData] autorelease];
 					selectionRect = [self selectionRect];
 					[I setSize:selectionRect.size];
 					[I setScalesWhenResized:YES];
-					dragImage = [[[NSImage allocWithZone:[self zone]] initWithSize:selectionRect.size] autorelease];
+					dragImage = [[[NSImage alloc] initWithSize:selectionRect.size] autorelease];
 					[dragImage lockFocus];
 					[I compositeToPoint:NSZeroPoint operation:NSCompositeCopy fraction:0.5];
 					[dragImage unlockFocus];
@@ -8265,8 +8180,8 @@ mainLoop:
 		{
 			selectionRect = [pdfView convertRect:selectionRect toPage:page];
 			NSString * path = [[[[self window] windowController] document] fileName];
-			NSData * data = [[[NSData allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
-			NSPDFImageRep * imageRep = [[[NSPDFImageRep allocWithZone:[self zone]] initWithData:data] autorelease];
+			NSData * data = [[[NSData alloc] initWithContentsOfFile:path] autorelease];
+			NSPDFImageRep * imageRep = [[[NSPDFImageRep alloc] initWithData:data] autorelease];
 			PDFDocument * document = [page document];
 			int currentPage = [document indexForPage:page];
 			[imageRep setCurrentPage:currentPage];
@@ -8282,7 +8197,7 @@ mainLoop:
 			selectionRect.origin.y = repBounds.origin.y + (selectionRect.origin.y - pageBounds.origin.y) * pageBounds.size.height/repBounds.size.height;
 			selectionRect.size.width *= pageBounds.size.width/repBounds.size.width;
 			selectionRect.size.height *= pageBounds.size.height/repBounds.size.height;
-			__iTM2PDFPrintView * view = [[[__iTM2PDFPrintView allocWithZone:[self zone]] initWithFrame:repBounds] autorelease];
+			__iTM2PDFPrintView * view = [[[__iTM2PDFPrintView alloc] initWithFrame:repBounds] autorelease];
 			view->representation = imageRep;
 			pdfData = [view dataWithPDFInsideRect:selectionRect];
 		}
@@ -8328,17 +8243,6 @@ mainLoop:
 		_label = [label copy];
 	}
 	return self;
-}
-- (void)dealloc;
-{
-	[_name autorelease];
-	_name = nil;
-	[_data autorelease];
-	_data = nil;
-	[_label autorelease];
-	_label = nil;
-	[super dealloc];
-	return;
 }
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination;
 {
@@ -8949,7 +8853,7 @@ To Do List:
 		if(oldImage)
 		{
 			[[oldImage retain] autorelease];
-			NSImage * newImage = [[[NSImage allocWithZone:[self zone]] initWithSize:[oldImage size]] autorelease];
+			NSImage * newImage = [[[NSImage alloc] initWithSize:[oldImage size]] autorelease];
 			[self setImage:newImage forSegment:segment];
 			[self SWZ_iTM2PDFKit_drawSegment:(int)segment inFrame:(NSRect)frame withView:(NSView *)controlView];
 			float fraction = [self isEnabledForSegment:segment]? 1:0.5;
@@ -9053,13 +8957,6 @@ To Do List:
 	[self setDefaultsController:nil];
 	[self autorelease];
 	iTM2PDFKitDefaultsController_sharedInstance = nil;
-	return;
-}
-- (void)dealloc;
-{
-	[self setDefaultsController:nil];
-	[DNC removeObserver:self];
-	[super dealloc];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidBecomeMainNotified:
@@ -9449,7 +9346,7 @@ To Do List:
 //iTM2_START;
 	iTM2_INIT_POOL;
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-	PDFView * V = [[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	PDFView * V = [[[PDFView alloc] initWithFrame:NSZeroRect] autorelease];
 	[MD setObject:[NSNumber numberWithInt:[V displayMode]] forKey:@"DisplayMode"];
 	[MD setObject:[NSNumber numberWithInt:[V displayBox]] forKey:@"DisplayBox"];
 //	[MD setObject:[V backgroundColor] forKey:@"BackgroundColor"];
@@ -9505,7 +9402,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 		if([result isKindOfClass:[NSColor class]])
 			return result;
 	}
-	return [[[[PDFView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease] backgroundColor];
+	return [[[[PDFView alloc] initWithFrame:NSZeroRect] autorelease] backgroundColor];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBackgroundColor:
 - (void)setBackgroundColor:(NSColor *)argument;

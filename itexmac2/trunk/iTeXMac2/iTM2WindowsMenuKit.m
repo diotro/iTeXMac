@@ -49,9 +49,8 @@ To Do List:
 	NSMutableArray * MRA = [NSMutableArray array];
 #warning EVERYTHING IS WELL DECLARED, on 10.2 I have 2 warnings here
     NSString * type = [[self class] inspectorType];
-	NSEnumerator * E = [[NSWindowController inspectorModesForType:type] objectEnumerator];
-    NSString * mode;
-	while(mode = [E nextObject])
+	NSString * mode;
+	for(mode in [NSWindowController inspectorModesForType:type])
 	{
         Class inspectorClass = [NSWindowController inspectorClassForType:type mode:mode variant:iTM2DefaultInspectorVariant];
 //iTM2_LOG(@"[inspectorClass inspectorType] is: %@(%@)", [inspectorClass inspectorType], type);
@@ -70,7 +69,7 @@ To Do List:
         }
         if(inspectorClass != Nil)
         {
-            NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+            NSMenuItem * MI = [[[NSMenuItem alloc]
                 initWithTitle: [inspectorClass prettyInspectorMode]
                     action: @selector(projectEditUsingRepresentedInspectorMode:) keyEquivalent: @""] autorelease];
             [MI setTarget:nil];
@@ -82,7 +81,7 @@ To Do List:
 	}
 	if([MRA count])
 	{
-		NSSortDescriptor * SD = [[[NSSortDescriptor allocWithZone:[self zone]] initWithKey:@"title" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
+		NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
 		NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
 		[MRA sortUsingDescriptors:sortDescriptors];
 		NSMenuItem * MI = nil;
@@ -91,10 +90,9 @@ To Do List:
 	}
 #if 1
 	// preparing the list of documents
-	E = [[self fileKeys] objectEnumerator];
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	NSString * S;
-	while(S = [E nextObject])
+	for(S in [self fileKeys])
 	{
 		NSString * FN = [[[self URLForFileKey:S] path] lastPathComponent];
 		if([FN length])
@@ -114,7 +112,7 @@ To Do List:
 	{
 		for(S in sortedKeys)
 		{
-			NSMenuItem * MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle: S
+			NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle: S
 							action: @selector(projectEditDocumentUsingRepresentedObject:) keyEquivalent: @""] autorelease];
 			[M addItem:MI];
 			[MI setTarget:nil];
@@ -288,10 +286,12 @@ To Do List:
 	id document = nil;
 	iTM2ProjectDocument * PD = nil;
 	// cleaning the iTM2ProjectGhostWindow menu item
-	NSMutableDictionary * projectRefsToProjectWindowsMenuItems = [NSMutableDictionary dictionary];
-	// projectRefsToProjectWindowsMenuItems: keys are NSValues containing the address of a Project Document
+	NSMapTable * projectRefsToProjectWindowsMenuItems = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality
+																			  valueOptions:NSPointerFunctionsStrongMemory];
+	// projectRefsToProjectWindowsMenuItems: keys are addresses of Project Documents
 	// values are mutable arrays of menu items for windows of this project
-	NSMutableDictionary * projectRefsToProjectDocumentsMenuItems = [NSMutableDictionary dictionary];
+	NSMutableDictionary * projectRefsToProjectDocumentsMenuItems = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality
+																						 valueOptions:NSPointerFunctionsStrongMemory];
 	// projectRefsToProjectDocumentsMenuItems: keys are NSValues containing the address of a Project Document
 	// values are mutable arrays of menu items for windows of documents of this project
 	NSMutableArray * otherMenuItems = [NSMutableArray array];
@@ -305,7 +305,6 @@ To Do List:
 	// first we scan all the application windows
 	// for each project, we prepare the 2 dictionaries above
 	NSArray * RA = [NSApp windows];
-	NSEnumerator * E = [RA objectEnumerator];
 	for(W in RA)
 	{
 		if([W isKindOfClass:[iTM2ProjectGhostWindow class]])// a ghost window is an awfull trick to have the projects listed in the windows menu, and other side effects
@@ -314,14 +313,13 @@ To Do List:
 			WC = [W windowController];
 			if(PD = [WC document])
 			{
-				key = [NSValue valueWithNonretainedObject:PD];
-				if(![projectRefsToProjectWindowsMenuItems objectForKey:key])
+				if(![projectRefsToProjectWindowsMenuItems objectForKey:PD])
 				{
-					[projectRefsToProjectWindowsMenuItems setObject:[NSMutableArray array] forKey:key];
+					[projectRefsToProjectWindowsMenuItems setObject:[NSMutableArray array] forKey:PD];
 				}
-				if(![projectRefsToProjectDocumentsMenuItems objectForKey:key])
+				if(![projectRefsToProjectDocumentsMenuItems objectForKey:PD])
 				{
-					[projectRefsToProjectDocumentsMenuItems setObject:[NSMutableArray array] forKey:key];
+					[projectRefsToProjectDocumentsMenuItems setObject:[NSMutableArray array] forKey:PD];
 				}
 				url = [PD fileURL];
 				if([set containsObject:url])
@@ -387,32 +385,31 @@ To Do List:
 				// the current menu item has a window
 				// this window has a document
 				PD = [document project];
-				key = [NSValue valueWithNonretainedObject:PD];
 				if(document == PD)
 				{
 					// this window is a project window
-					if(MRA = [projectRefsToProjectWindowsMenuItems objectForKey:key])
+					if(MRA = [projectRefsToProjectWindowsMenuItems objectForKey:PD])
 					{
 						[MRA addObject:MI];
 					}
 					else
 					{
 						MRA = [NSMutableArray arrayWithObject:MI];
-						[projectRefsToProjectWindowsMenuItems setObject:MRA forKey:key];
+						[projectRefsToProjectWindowsMenuItems setObject:MRA forKey:PD];
 					}
 //iTM2_LOG(@"=-=-=-=-=-  menu item is project item %#x, %@", PD, [document fileName]);
 				}
 				else if(PD)
 				{
 					// this window is a project document window
-					if(MRA = [projectRefsToProjectDocumentsMenuItems objectForKey:key])
+					if(MRA = [projectRefsToProjectDocumentsMenuItems objectForKey:PD])
 					{
 						[MRA addObject:MI];
 					}
 					else
 					{
 						MRA = [NSMutableArray arrayWithObject:MI];
-						[projectRefsToProjectDocumentsMenuItems setObject:MRA forKey:key];
+						[projectRefsToProjectDocumentsMenuItems setObject:MRA forKey:PD];
 					}
 					if(![MI image])
 					{
@@ -446,8 +443,9 @@ To Do List:
 	    insertIndex = 0;// just in case no item was previously added...
 	if(insertIndex > [windowsMenu numberOfItems])
 	    insertIndex = [windowsMenu numberOfItems];// just in case no item was previously added...
-	NSSortDescriptor * SD = [[[NSSortDescriptor allocWithZone:[self zone]] initWithKey:@"title" ascending:YES] autorelease];
+	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES] autorelease];
 	NSArray * sortDescriptors = [NSArray arrayWithObject:SD];
+	NSEnumerator * E;
 	if([otherMenuItems count])
 	{
 		RA = [otherMenuItems sortedArrayUsingDescriptors:sortDescriptors];
@@ -467,13 +465,11 @@ To Do List:
 	iTM2TreeNode * child = nil;
 	NSString * component = nil;
 	NSString * path = nil;
-	E = [projectRefsToProjectDocumentsMenuItems keyEnumerator];
-	while(key = [E nextObject])
+	for(PD in [projectRefsToProjectDocumentsMenuItems allKeys])
 	{
-		PD = [key nonretainedObjectValue];
 		url = [PD fileURL];
-		RA = [[[PD fileURL] path] pathComponents];
-		MRA = [[RA mutableCopy] autorelease];
+		RA = [[url path] pathComponents];
+		MRA = [RA mutableCopy];
 		if(path = [MRA lastObject])
 		{
 //iTM2_LOG(@"path component:%@",path);
@@ -514,8 +510,6 @@ To Do List:
 	{
 		node = root;
 		child = node;
-		index = 0;
-		count = 0;
 down:
 		while([child countOfChildren])
 		{
@@ -558,7 +552,8 @@ otherUp:
 	}
 	// now all the leaf nodes correspond to a different name
 	// record these names
-	NSMutableDictionary * shortProjectNames = [NSMutableDictionary dictionary];
+	NSMapTable * shortProjectNames = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsObjectPointerPersonality
+																	valueOptions:NSPointerFunctionsStrongMemory];
 	for(root in roots)
 	{
 		node = root;
@@ -570,9 +565,8 @@ down1:
 		}
 		if(PD = [child nonretainedValue])
 		{
-			key = [NSValue valueWithNonretainedObject:PD];
 			component = [child value];
-			[shortProjectNames setObject:component forKey:key];
+			[shortProjectNames setObject:component forKey:PD];
 up1:
 			if(node = [child parent])
 			{
@@ -595,11 +589,9 @@ up1:
 	NSString * dirName = nil;
 	NSString * lastPathComponent = nil;
 //iTM2_LOG(@"00 - shortProjectNames:%@",shortProjectNames);
-	E = [shortProjectNames keyEnumerator];
-	while(key = [E nextObject])
+	for(PD in [shortProjectNames keyEnumerator])
 	{
 		path = [shortProjectNames objectForKey:key];
-		PD = [key nonretainedObjectValue];
 		lastPathComponent = [PD displayName];
 		dirName = [path stringByDeletingLastPathComponent];
 		RA = [dirName pathComponents];
@@ -621,11 +613,9 @@ up1:
 	}
 	// second step, same loop taking the previous set into account
 //iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
-	E = [shortProjectNames keyEnumerator];
-	while(key = [E nextObject])
+	for(PD in [shortProjectNames keyEnumerator])
 	{
 		path = [shortProjectNames objectForKey:key];
-		PD = [key nonretainedObjectValue];
 		lastPathComponent = [PD displayName];
 		dirName = [path stringByDeletingLastPathComponent];
 		RA = [dirName pathComponents];
@@ -635,7 +625,7 @@ up1:
 			component = [NSString stringWithFormat:@"%@ - ...%@/...",lastPathComponent,component];
 			if([shortProjectNamesSet countForObject:path]<2)
 			{
-				[shortProjectNames setObject:component forKey:key];
+				[shortProjectNames setObject:component forKey:PD];
 			}
 		}
 		else if([RA count])
@@ -644,26 +634,27 @@ up1:
 			component = [NSString stringWithFormat:@"%@ - ...%@/",lastPathComponent,component];
 			if([shortProjectNamesSet countForObject:path]<2)
 			{
-				[shortProjectNames setObject:component forKey:key];
+				[shortProjectNames setObject:component forKey:PD];
 			}
 		}
 	}
-	NSEnumerator * e = nil;
+	
 	NSMenuItem * mi = nil;
 //iTM2_LOG(@"0 - shortProjectNames:%@",shortProjectNames);
 //iTM2_LOG(@"projectRefsToProjectDocumentsMenuItems:%@",projectRefsToProjectDocumentsMenuItems);
 //iTM2_LOG(@"projectRefsToProjectWindowsMenuItems:%@",projectRefsToProjectWindowsMenuItems);
 //iTM2_LOG(@"1 - windowsMenu:%@",windowsMenu);
-	RA = [shortProjectNames allValues];
+	RA = [[shortProjectNames objectEnumerator] allObjects];
 	RA = [RA sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-	E = [RA reverseObjectEnumerator];
-	while(path = [E nextObject])
+	for(path in [RA reverseObjectEnumerator])
 	{
 //iTM2_LOG(@"=-=-=-=-=-  [MI title] is: %@", [MI title]);
 //iTM2_LOG(@"=-=-=-=-=-  [MI submenu] is: %@", [MI submenu]);
-		RA = [shortProjectNames allKeysForObject:path];
-		key = [RA lastObject];
-		PD = [key nonretainedObjectValue];
+		for(PD in [shortProjectNames keyEnumerator])
+		{
+			if([[shortProjectNames objectForKey:key] isEqual:path])
+				break;
+		}
 		dirName = [path stringByDeletingLastPathComponent];
 		if([dirName length])
 		{
@@ -679,20 +670,19 @@ up1:
 				path = [NSString stringWithFormat:@"%@ (.../%@/)",path,component];
 			}
 		}
-		MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:path action:@selector(showSubdocuments:) keyEquivalent:@""] autorelease];
+		MI = [[[NSMenuItem alloc] initWithTitle:path action:@selector(showSubdocuments:) keyEquivalent:@""] autorelease];
 #warning FAILED
 		[MI setTarget:PD];// IS THE PD LIVING LONG ENOUGH
-		[MI setRepresentedObject:key];
+		[MI setRepresentedObject:[NSValue valueWithNonretainedObject:PD]];
 		if([SPC isBaseProject:PD])
 		{
-			[MI setAttributedTitle:[[[NSAttributedString allocWithZone:[MI zone]] initWithString:[MI title]
+			[MI setAttributedTitle:[[[NSAttributedString alloc] initWithString:[MI title]
 				attributes: [NSDictionary dictionaryWithObjectsAndKeys:
 					[NSFont boldSystemFontOfSize:[NSFont systemFontSize]], NSFontAttributeName, nil]] autorelease]];
 		}
-		RA = [projectRefsToProjectDocumentsMenuItems objectForKey:key];// no documents are expected at first, but things might change
+		RA = [projectRefsToProjectDocumentsMenuItems objectForKey:PD];// no documents are expected at first, but things might change
 		RA = [RA sortedArrayUsingDescriptors:sortDescriptors];
-		e = [RA reverseObjectEnumerator];
-		while(mi = [e nextObject])
+		for(mi in [RA reverseObjectEnumerator])
 		{
 //iTM2_LOG(@"=-=-=-=-=-  inserted document mi is: %@", mi);
 			[windowsMenu insertItem:mi atIndex:insertIndex];
@@ -701,11 +691,10 @@ up1:
 				[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
 			}
 		}
-		[projectRefsToProjectDocumentsMenuItems removeObjectForKey:key];
-		RA = [projectRefsToProjectWindowsMenuItems objectForKey:key];
+		[projectRefsToProjectDocumentsMenuItems removeObjectForKey:PD];
+		RA = [projectRefsToProjectWindowsMenuItems objectForKey:PD];
 		RA = [RA sortedArrayUsingDescriptors:sortDescriptors];
-		e = [RA reverseObjectEnumerator];
-		while(mi = [e nextObject])
+		for(mi in [RA reverseObjectEnumerator])
 		{
 //iTM2_LOG(@"=-=-=-=-=-  inserted project item mi is: %@", mi);
 			[windowsMenu insertItem:mi atIndex:insertIndex];
@@ -714,10 +703,10 @@ up1:
 				[mi setIndentationLevel:iTM2WindowsMenuItemIndentationLevel];
 			}
 		}
-		[projectRefsToProjectWindowsMenuItems removeObjectForKey:key];
+		[projectRefsToProjectWindowsMenuItems removeObjectForKey:PD];
 //iTM2_LOG(@"=-=-=-=-=-  inserted project MI is: %@", MI);
 		[windowsMenu insertItem:MI atIndex:insertIndex];
-		NSMenu * M = [[[iTM2ProjectWindowSubmenu allocWithZone:[MI zone]] initWithTitle:@""] autorelease];
+		NSMenu * M = [[[iTM2ProjectWindowSubmenu alloc] initWithTitle:@""] autorelease];
 		[windowsMenu setSubmenu:M forItem:MI];
 		[PD updateWindowsSubmenu:M];
 		[windowsMenu insertItem:[NSMenuItem separatorItem] atIndex:insertIndex];

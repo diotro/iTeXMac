@@ -29,6 +29,7 @@
 #import <iTM2Foundation/iTM2DistributedObjectKit.h>
 #import <iTM2Foundation/iTM2CursorKit.h>
 #import <iTM2Foundation/iTM2MacroKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 
 NSString * const iTM2TaskControllerIsDeafKey = @"iTM2TaskControllerIsDeaf";
 NSString * const iTM2TaskControllerIsMuteKey = @"iTM2TaskControllerIsMute";
@@ -251,42 +252,6 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-  TASK
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskController
-- (id)taskController;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [metaGETTER nonretainedObjectValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTaskController:
-- (void)setTaskController:(iTM2TaskController *)argument;
-/*"Description Forthcoming. The task controller si not owned.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(argument && ![argument isKindOfClass:[iTM2TaskController class]])
-        [NSException raise:NSInvalidArgumentException format:
-            @"%@ iTM2TaskController argument expected: got %@.",
-                __iTM2_PRETTY_FUNCTION__, argument];
-    else
-    {
-        iTM2TaskController * oldTC = [metaGETTER nonretainedObjectValue];
-        if(![argument isEqual:oldTC])
-        {
-            metaSETTER((argument? [NSValue valueWithNonretainedObject:argument]:nil));
-            [oldTC removeInspector:self];
-            [argument addInspector:self];
-        }
-    }
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= taskWillLaunch
 - (void)taskWillLaunch;
 /*"Description Forthcoming.
@@ -374,9 +339,34 @@ To Do List:
 //iTM2_END;
     return;
 }
+@synthesize taskController=_iVarTaskController;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTaskController:
+- (void)setTaskController:(iTM2TaskController *)argument;
+/*"Description Forthcoming. The task controller is the owner.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - for 1.3: Mon Jun 02 2003
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    if(argument && ![argument isKindOfClass:[iTM2TaskController class]])
+        [NSException raise:NSInvalidArgumentException format:
+		 @"%@ iTM2TaskController argument expected: got %@.",
+		 __iTM2_PRETTY_FUNCTION__, argument];
+    else
+    {
+        if(![argument isEqual:_iVarTaskController])
+        {
+            [_iVarTaskController removeInspector:self];
+			_iVarTaskController = argument;
+            [_iVarTaskController addInspector:self];
+        }
+    }
+    return;
+}
 @end
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TaskInspector
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TaskWindow
 
 
 @implementation iTM2TaskWindow
@@ -413,85 +403,12 @@ To Do List:
     {
         [[self implementation] takeMetaValue:[NSMutableArray array] forKey:@"_Wrappers"];
         [[self implementation] takeMetaValue:[[NSProcessInfo processInfo] globallyUniqueString] forKey:@"_Conversation"];
-        [[self implementation] takeMetaValue:[NSMutableArray array] forKey:@"_Inspectors"];
-        // NSMutableArray * _Inspectors = [[self implementation] metaValueForKey:@"_Inspectors"];
-        _Inspectors = [[NSMutableArray array] retain];
-        _FHGC = [[NSMutableArray array] retain];
-        _NGC = [[NSMutableArray array] retain];
-        _CustomReadFileHandle = nil;
-		_Standalone = NO;
+        self.inspectors = [NSHashTable hashTableWithWeakObjects];
+        _FHGC = [NSMutableArray array];
+        _NGC = [NSMutableArray array];
+        self.customReadFileHandle = nil;
     }
     return self;
-}
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  retain
-- (id)retain;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_LOG(@"=-=-=-=-=-=-=-=-=-=-  $$$  [self retainCount] is now:%i", [self retainCount] + 1);
-	return [super retain];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  release
-- (void)release;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_LOG(@"=-=-=-=-=-=-=-=-=-=-  $$$  [self retainCount] is now:%i", [self retainCount] - 1);
-	[super release];
-	return;
-}
-#endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-printf("%s %#x\n", __PRETTY_FUNCTION__, (NSUInteger)self);
-    [DNC removeObserver:self];
-    [[self allInspectors] makeObjectsPerformSelector:@selector(setTaskController:) withObject:nil];
-    [_Inspectors release];
-    _Inspectors = nil;
-    [_FHGC release];
-    _FHGC = nil;
-    NSString * path;
-    for(path in _NGC)
-        if([DFM removeFileAtPath:path handler:NULL])
-            [DFM removeFileAtPath:[path stringByDeletingLastPathComponent] handler:NULL];
-    [_NGC release];
-    _NGC = nil;
-    [_Error autorelease];
-    _Error = nil;
-    [_Output autorelease];
-    _Output = nil;
-    [_Custom autorelease];
-    _Custom = nil;
-    _CustomReadFileHandle = nil;// if not nil, a task has run and we are still listening to the output
-    [self stop];
-//iTM2_END;
-    [super dealloc];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentTask
-- (NSTask *)currentTask;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _CurrentTask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isDeaf
 - (BOOL)isDeaf;
@@ -562,17 +479,6 @@ To Do List:
     [self takeContextBool:yorn forKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentWrapper
-- (id <iTM2TaskWrapper>)currentWrapper;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _CurrentWrapper;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addInspector:
 - (void)addInspector:(id <iTM2TaskInspector>)argument;
 /*"Description Forthcoming.
@@ -590,17 +496,16 @@ To Do List:
                 __iTM2_PRETTY_FUNCTION__, argument];
         else
         {
-            NSValue * V = [NSValue valueWithNonretainedObject:argument];
-            if(V && ![_Inspectors containsObject:V])
+            if(![self.inspectors containsObject:argument])
             {
-                [_Inspectors addObject:V];
+                [self.inspectors addObject:argument];
                 [argument setTaskController:self];
                 [argument logOutput:[self output]];
                 [argument logError:[self errorStatus]];
             }
         }
     }
-//NSLog(@"_Inspectors: %@", _Inspectors);
+//NSLog(@"self.inspectors: %@", self.inspectors);
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeInspector:
@@ -612,31 +517,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSValue * V = [NSValue valueWithNonretainedObject:argument];
-    if([_Inspectors containsObject:V])
+    if([self.inspectors containsObject:argument])
     {
         [argument setTaskController:nil];
-        [_Inspectors removeObject:V];
+        [self.inspectors removeObject:argument];
     }
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorsEnumerator
-- (NSEnumerator *)inspectorsEnumerator;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMutableArray * MRA = [NSMutableArray array];
-    NSEnumerator * E = [_Inspectors objectEnumerator];
-    id O;
-    while(O = [[E nextObject] nonretainedObjectValue])
-	{
-        [MRA addObject:O];
-	}
-    return [MRA objectEnumerator];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allInspectors
 - (NSArray *)allInspectors;
@@ -648,9 +534,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSMutableArray * MRA = [NSMutableArray array];
-    NSEnumerator * E = [_Inspectors objectEnumerator];
-    id O;
-    while(O = [[E nextObject] nonretainedObjectValue])
+    for(id O in self.inspectors)
 	{
         [MRA addObject:O];
 	}
@@ -703,13 +587,11 @@ To Do List:
             __iTM2_PRETTY_FUNCTION__, argument];
     else if([argument isEqual:_CurrentWrapper])
     {
-        [_CurrentWrapper release];
         _CurrentWrapper = nil;
         // now we terminate the current task
         if([_CurrentTask isRunning])
             [_CurrentTask terminate];
-        [_CurrentTask dealloc];
-        _CurrentTask = nil;
+         _CurrentTask = nil;
     }
     else
     {
@@ -731,9 +613,7 @@ To Do List:
     [DNC removeObserver:self name:NSTaskDidTerminateNotification object:nil];
     if([_CurrentTask isRunning])
         [_CurrentTask terminate];
-    [_CurrentTask release];
     _CurrentTask = nil;
-    [_CurrentWrapper release];
     _CurrentWrapper = nil;
     return;
 }
@@ -764,19 +644,13 @@ To Do List:
 		{
 			iTM2_LOG(@"Nothing to start.");
 		}
-		if(_Standalone)
-		{
-//iTM2_LOG(@"Standalone: autorelease");
-			[self autorelease];
-		}
 		if([_CurrentTask isRunning])
 		{
 			[_CurrentTask terminate];
 		}
-		[_CurrentTask release];
 		_CurrentTask = nil;
-		[_CurrentWrapper release];
 		_CurrentWrapper = nil;
+		[self resignStandalone];// maybe collected now
         return;
     }
 //iTM2_LOG(@"2");
@@ -787,10 +661,8 @@ To Do List:
 	// stop observing
     [DNC removeObserver:self name:NSFileHandleDataAvailableNotification object:nil];
     [DNC removeObserver:self name:NSTaskDidTerminateNotification object:nil];
-    _CustomReadFileHandle = nil;// not retained, only garbage collected, in some sense
-    [_CurrentTask release];
+    _CustomReadFileHandle = nil;// not retained, only garbage collected
     _CurrentTask = nil;
-    [_CurrentWrapper release];
     _CurrentWrapper = nil;
 //iTM2_LOG(@"3");
 
@@ -872,9 +744,9 @@ To Do List:
                     close(master_fd);
                 else
                 {
-                    _CustomReadFileHandle = [[NSFileHandle allocWithZone:[self zone]]
+                    _CustomReadFileHandle = [[NSFileHandle alloc]
                         initWithFileDescriptor: master_fd closeOnDealloc: YES];
-                    _CustomWriteFileHandle = [[NSFileHandle allocWithZone:[self zone]]
+                    _CustomWriteFileHandle = [[NSFileHandle alloc]
                         initWithFileDescriptor: slave_fd closeOnDealloc: YES];
                     [environment setObject:[NSString stringWithCString:name] forKey:@"iTM2_Device"];
                     if(FH = _CustomReadFileHandle)
@@ -924,7 +796,7 @@ To Do List:
             int fd = open(FSR, O_RDONLY | O_NONBLOCK);
             if(fd)
             {
-                _CustomReadFileHandle = [[[NSFileHandle allocWithZone:[self zone]] initWithFileDescriptor:fd closeOnDealloc:YES] autorelease];
+                _CustomReadFileHandle = [[[NSFileHandle alloc] initWithFileDescriptor:fd closeOnDealloc:YES] autorelease];
                 [_FHGC addObject:_CustomReadFileHandle];
                 [_NGC addObject:path];
                 [DNC addObserver:self
@@ -1000,20 +872,34 @@ To Do List:
 //iTM2_LOG(@"_CurrentWrapper is: %@", _CurrentWrapper);
     return;
 }
+static NSMutableSet * __iTM2StandaloneTaskControllers;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= becomeStandalone
 - (void)becomeStandalone;
 /*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
+ Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
+ - for 1.3: Mon Jun 02 2003
+ To Do List:
+ "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(_Standalone)
-		return;
-	_Standalone = YES;
-	[self retain];
-//iTM2_END;
+	if(!__iTM2StandaloneTaskControllers) {
+		__iTM2StandaloneTaskControllers = [NSMutableSet set];
+	}
+	//iTM2_START;
+	[__iTM2StandaloneTaskControllers addObject:self];
+	//iTM2_END;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resignStandalone
+- (void)resignStandalone;
+/*"Description Forthcoming.
+ Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
+ - for 1.3: Mon Jun 02 2003
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	[__iTM2StandaloneTaskControllers removeObject:self];
+	//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= flush
@@ -1462,9 +1348,7 @@ To Do List:
 	}
     [_CurrentWrapper taskDidTerminate:self];
     [[self allInspectors] makeObjectsPerformSelector:@selector(taskDidTerminate)];
-    [_CurrentTask release];
     _CurrentTask = nil;
-    [_CurrentWrapper release];
     _CurrentWrapper = nil;
     [self start];
 //iTM2_END;
@@ -1480,7 +1364,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"source is: %@", source);
-    NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithSource:source] autorelease];
+    NSAppleScript * AS = [[[NSAppleScript alloc] initWithSource:source] autorelease];
     if(AS)
     {
         NSDictionary * errorInfo = nil;
@@ -1595,9 +1479,7 @@ start:
 		D = nil;
 		NS_ENDHANDLER
 	}
-	[_CurrentTask release];
 	_CurrentTask = nil;
-	[_CurrentWrapper release];
 	_CurrentWrapper = nil;
 	[self start];
 	if(_CurrentWrapper)
@@ -1637,16 +1519,15 @@ To Do List:
     }
     return;
 }
-@synthesize _Inspectors;
-@synthesize _CurrentWrapper;
-@synthesize _CurrentTask;
-@synthesize _CustomReadFileHandle;
-@synthesize _Output;
-@synthesize _Custom;
-@synthesize _Error;
+@synthesize inspectors=_Inspectors;
+@synthesize currentWrapper=_CurrentWrapper;
+@synthesize currentTask=_CurrentTask;
+@synthesize customReadFileHandle=_CustomReadFileHandle;
+@synthesize output=_Output;
+@synthesize custom=_Custom;
+@synthesize error=_Error;
 @synthesize _FHGC;
 @synthesize _NGC;
-@synthesize _Standalone;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TaskController
@@ -1670,50 +1551,7 @@ NSString * const iTM2TaskCanInterruptKey = @"iTM2TaskCanInterrupt";
 
 NSString * const iTM2TaskPATHKey = @"PATH";
 
-@interface iTM2TaskWrapper(PRIVATE)
-- (void)cleanInvocations;
-@end
 @implementation iTM2TaskWrapper
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//NSLog(@"DEALLOCING A TASK WRAPPER: %#x", self);
-    [self cleanInvocations];
-    [super dealloc];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cleanInvocations
-- (void)cleanInvocations;
-/*"The _Launch and _Terminate invocations are private, use them with care.
-There can be problems with retain/release of the target.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSInvocation * _Launch = [IMPLEMENTATION metaValueForKey:iTM2TaskLaunchInvocationKey];
-    [[_Launch target] retain];
-	[_Launch setTarget:nil];
-    [IMPLEMENTATION takeMetaValue:nil forKey:iTM2TaskLaunchInvocationKey];
-    NSInvocation * _Terminate = [IMPLEMENTATION metaValueForKey:iTM2TaskTerminateInvocationKey];
-    [[_Terminate target] retain];
-	[_Terminate setTarget:nil];
-    [IMPLEMENTATION takeMetaValue:nil forKey:iTM2TaskTerminateInvocationKey];
-    NSInvocation * _Interrupt = [IMPLEMENTATION metaValueForKey:iTM2TaskInterruptInvocationKey];
-    [[_Interrupt target] retain];
-	[_Interrupt setTarget:nil];
-    [IMPLEMENTATION takeMetaValue:nil forKey:iTM2TaskTerminateInvocationKey];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
 - (void)initImplementation;
 /*"Description Forthcoming.
@@ -1771,6 +1609,18 @@ To Do List:
     }
     return result;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTeXMac2_callbackTemplate:::
+- (void)iTeXMac2_callbackTemplate:(iTM2TaskWrapper *)arg1 :(iTM2TaskController *)taskController :(id)userInfo;
+/*"Description Forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - for 1.3: Mon Jun 02 2003
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	//iTM2_END;
+    return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDelegate:launchCallback:terminateCallback:interruptCallback:userInfo:
 - (void)setDelegate:(id)delegate launchCallback:(SEL)LCB terminateCallback:(SEL)TCB interruptCallback:(SEL)ICB userInfo:(id)userInfo;
 /*"Description Forthcoming.
@@ -1780,8 +1630,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self cleanInvocations];
-    if(delegate)
+    if(delegate && delegate != self)
     {
         NSMethodSignature * template = [self methodSignatureForSelector:@selector(_callbackTemplate:::)];
         if(LCB)
@@ -1792,7 +1641,7 @@ To Do List:
                 NSInvocation * _Launch = [NSInvocation invocationWithMethodSignature:MS];
                 [_Launch retainArguments];// for the userInfo!!! but will retain the target too
                 [_Launch setTarget:delegate];
-                [delegate autorelease];// compensate the above setTarget:retain, see the cleanInvocations
+                [delegate autorelease];// compensate the setTarget:retain, see the cleanInvocations
                 [_Launch setSelector:LCB];
                 [_Launch setArgument:&userInfo atIndex:4];
                 [IMPLEMENTATION takeMetaValue:_Launch forKey:iTM2TaskLaunchInvocationKey];
@@ -1830,21 +1679,9 @@ To Do List:
                 [IMPLEMENTATION takeMetaValue:_Interrupt forKey:iTM2TaskInterruptInvocationKey];
             }
             else
-                NSLog(@"Bad selector: %@", NSStringFromSelector(TCB));
+                NSLog(@"Bad selector: %@", NSStringFromSelector(ICB));
         }
     }
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _callbackTemplate:::
-- (void)_callbackTemplate:(iTM2TaskWrapper *)arg1 :(iTM2TaskController *)taskController :(id)userInfo;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  launchPath
@@ -2252,7 +2089,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
+    iTM2TaskController * TC = [[[iTM2TaskController alloc] init] autorelease];
     [TC addTaskWrapper:self];
 	[[self implementation] takeMetaValue:[NSNumber numberWithBool:YES] forKey:iTM2TaskCanInterruptKey];
 	[TC setDeaf:YES];// no input pipe
@@ -2275,7 +2112,7 @@ To Do List:
 //iTM2_START;
     iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
     [TW setLaunchPath:@"/bin/sh"];
-    iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
+    iTM2TaskController * TC = [[[iTM2TaskController alloc] init] autorelease];
     [TC addTaskWrapper:TW];
     [TC start];
     [TC execute:script];
@@ -2416,7 +2253,7 @@ To Do List:
 		iTM2_LOG(@"Executing script at path:%@",scriptPath);
 	}
 	NSURL * url = [NSURL fileURLWithPath:scriptPath];
-	NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithContentsOfURL:url error:nil] autorelease];
+	NSAppleScript * AS = [[[NSAppleScript alloc] initWithContentsOfURL:url error:nil] autorelease];
 	if(AS)
 	{
 		NSDictionary * errorInfo = nil;
@@ -2432,7 +2269,7 @@ To Do List:
 	}
 	if([DFM isExecutableFileAtPath:scriptPath])
 	{
-		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
+		iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 		[TW setLaunchPath:scriptPath];
 		NSError * localError = nil;
 		NSString * output = nil;
@@ -2540,7 +2377,7 @@ To Do List:
 		iTM2_LOG(@"Executing script at path:%@",scriptPath);
 	}
 	NSURL * url = [NSURL fileURLWithPath:scriptPath];
-	NSAppleScript * AS = [[[NSAppleScript allocWithZone:[self zone]] initWithContentsOfURL:url error:nil] autorelease];
+	NSAppleScript * AS = [[[NSAppleScript alloc] initWithContentsOfURL:url error:nil] autorelease];
 	if(AS)
 	{
 		NSDictionary * errorInfo = nil;
@@ -2556,7 +2393,7 @@ To Do List:
 	}
 	NSError * localError = nil;
 	url = [NSURL fileURLWithPath:scriptPath];
-	NSString * script = [[[NSString allocWithZone:[self zone]] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&localError] autorelease];
+	NSString * script = [[[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&localError] autorelease];
 	if([script length])
 	{
 		NSString * selection = [self preparedSelectedStringForMacroInsertion];
@@ -2572,7 +2409,7 @@ To Do List:
 			NSDictionary * attributes = [NSDictionary dictionaryWithObject:permissions forKey:NSFilePosixPermissions];
 			if([DFM changeFileAttributes:attributes atPath:scriptPath])
 			{
-				iTM2TaskWrapper * TW = [[[iTM2TaskWrapper allocWithZone:[self zone]] init] autorelease];
+				iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 				[TW setLaunchPath:scriptPath];
 				NSString * macro = nil;
 				//int status = [TW modalStatusAndOutput:&output error:&localError];

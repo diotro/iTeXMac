@@ -21,6 +21,10 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
+@interface iTM2TeXPEngineInspector(TeXWrapper)
+- (IBAction)toggleShellEscape:(id)sender;
+@end
+
 @interface iTM2EnginePDFTeX: iTM2TeXPEngineInspector
 - (IBAction)editFormat:(id)sender;
 - (IBAction)chooseFormat:(id)sender;
@@ -34,6 +38,7 @@
 - (IBAction)editTable:(id)sender;
 - (IBAction)toggleParseTable:(id)sender;
 - (IBAction)toggleSrcSpecials:(id)sender;
+- (IBAction)toggleSrcSpecialsWhere:(id)sender;
 - (IBAction)toggleOutputComment:(id)sender;
 - (IBAction)editOutputComment:(id)sender;
 - (IBAction)toggleIni:(id)sender;
@@ -43,7 +48,6 @@
 - (IBAction)toggleJobName:(id)sender;
 - (IBAction)editOutputDirectory:(id)sender;
 - (IBAction)toggleOutputDirectory:(id)sender;
-- (IBAction)toggleEnableETeX:(id)sender;
 - (IBAction)switchInteraction:(id)sender;
 - (IBAction)toggleHaltOnError:(id)sender;
 - (IBAction)toggleRecorder:(id)sender;
@@ -64,6 +68,7 @@
 - (IBAction)editTable:(id)sender;
 - (IBAction)toggleParseTable:(id)sender;
 - (IBAction)toggleSrcSpecials:(id)sender;
+- (IBAction)toggleSrcSpecialsWhere:(id)sender;
 - (IBAction)toggleOutputComment:(id)sender;
 - (IBAction)editOutputComment:(id)sender;
 - (IBAction)toggleIni:(id)sender;
@@ -92,6 +97,7 @@
 - (IBAction)editTable:(id)sender;
 - (IBAction)toggleParseTable:(id)sender;
 - (IBAction)toggleSrcSpecials:(id)sender;
+- (IBAction)toggleSrcSpecialsWhere:(id)sender;
 - (IBAction)toggleOutputComment:(id)sender;
 - (IBAction)editOutputComment:(id)sender;
 - (IBAction)toggleIni:(id)sender;
@@ -111,5 +117,6 @@
 - (IBAction)toggleEightBit:(id)sender;
 - (IBAction)toggleFileLineError:(id)sender;
 @end
+
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXEWrapperKit

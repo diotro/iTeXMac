@@ -60,6 +60,8 @@
 		51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */; };
 		51EFB39F0DFD23BD0090E7D0 /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B40854DC0F00F3EB8A /* README.rtf */; };
 		51EFB3B00DFD242D0090E7D0 /* skim in Copy Command */ = {isa = PBXBuildFile; fileRef = 51EFB3A70DFD23FA0090E7D0 /* skim */; };
+		5364E069107BF01D00FA2CD3 /* iTM2Invocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5364E067107BF01D00FA2CD3 /* iTM2Invocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5364E06A107BF01D00FA2CD3 /* iTM2Invocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5364E068107BF01D00FA2CD3 /* iTM2Invocation.m */; };
 		53C23FE410693C4A0000990A /* iTM2CompletionInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCA10693C4A0000990A /* iTM2CompletionInspector.xib */; };
 		53C23FE510693C4A0000990A /* iTM2CompletionServer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCC10693C4A0000990A /* iTM2CompletionServer.xib */; };
 		53C23FE610693C4A0000990A /* iTM2ExternalInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCE10693C4A0000990A /* iTM2ExternalInspector.xib */; };
@@ -739,6 +741,8 @@
 		51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Skim.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EFB3A70DFD23FA0090E7D0 /* skim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skim; sourceTree = "<group>"; };
 		51EFB3A80DFD23FA0090E7D0 /* Skim-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Skim-Info.plist"; sourceTree = "<group>"; };
+		5364E067107BF01D00FA2CD3 /* iTM2Invocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Invocation.h; sourceTree = "<group>"; };
+		5364E068107BF01D00FA2CD3 /* iTM2Invocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Invocation.m; sourceTree = "<group>"; };
 		53C23FCB10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2CompletionInspector.xib; sourceTree = "<group>"; };
 		53C23FCD10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2CompletionServer.xib; sourceTree = "<group>"; };
 		53C23FCF10693C4A0000990A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2ExternalInspector.xib; sourceTree = "<group>"; };
@@ -1433,6 +1437,8 @@
 				53E56D871071D6600077B6FD /* untitled */,
 				DCF61B520854654B003F5F79 /* iTeXMac2.h */,
 				DCF61B530854654B003F5F79 /* iTeXMac2.m */,
+				5364E067107BF01D00FA2CD3 /* iTM2Invocation.h */,
+				5364E068107BF01D00FA2CD3 /* iTM2Invocation.m */,
 				DC0C1D8109005FFE00C46507 /* iTM2TreeKit.h */,
 				DC0C1D8209005FFE00C46507 /* iTM2TreeKit.m */,
 				DCE52B390C0F2F2C00F2D5B9 /* ICURegEx.h */,
@@ -1758,6 +1764,7 @@
 				53C240D2106A3F9C0000990A /* iTM2InfoWrapperKit.h in Headers */,
 				53C240D4106A3F9C0000990A /* iTM2ProjectControllerKit.h in Headers */,
 				53C2425F106A725E0000990A /* RegexKitLite.h in Headers */,
+				5364E069107BF01D00FA2CD3 /* iTM2Invocation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2570,6 +2577,7 @@
 				53C240D3106A3F9C0000990A /* iTM2InfoWrapperKit.m in Sources */,
 				53C240D5106A3F9C0000990A /* iTM2ProjectControllerKit.m in Sources */,
 				53C24260106A725E0000990A /* RegexKitLite.m in Sources */,
+				5364E06A107BF01D00FA2CD3 /* iTM2Invocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

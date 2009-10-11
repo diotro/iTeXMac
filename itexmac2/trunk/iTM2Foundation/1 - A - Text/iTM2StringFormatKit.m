@@ -336,6 +336,7 @@ To Do List:
 @end
 
 @implementation iTM2StringFormatController
+@synthesize document=iVarDocument;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
 + (void)load;
 /*"Description forthcoming.
@@ -1288,7 +1289,7 @@ To Do List:
     static NSArray * g_iTM2AvailableStringEncodings = nil;
     if (!g_iTM2AvailableStringEncodings)
     {
-        NSLock * L = [[[NSLock allocWithZone:[self zone]] init] autorelease];
+        NSLock * L = [[[NSLock alloc] init] autorelease];
         [L lock];
         const CFStringEncoding * CFSGLOAEs = CFStringGetListOfAvailableEncodings();
         int count = 0;
@@ -1318,7 +1319,7 @@ To Do List:
 //iTM2_START;
 	if(self = [super init])
 	{
-		[self setDocument:document];
+		self.document=document;
 	}
 //iTM2_END;
 	return self;
@@ -1373,27 +1374,27 @@ To Do List:
     if(!strncmp(byteOrder, "\0\0\0\0FEFF", 8))
     {
         usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32BE);
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
     }
     else if(!strncmp(byteOrder, "FFFE\0\0\0\0", 4))
     {
         usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32LE);
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
     }
     else if(!strncmp(byteOrder, "FFFE", 4))
     {
         usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF16LE);
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
     }
     else if(!strncmp(byteOrder, "FEFF", 4))
     {
         usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF16BE);
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
     }
     else if(!strncmp(byteOrder, "EFBBBF", 6))
     {
         usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
     }
     else if([self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask])
     {
@@ -1407,7 +1408,7 @@ To Do List:
 		#define HEADER_LIMIT 8*125
 		NSRange range = NSMakeRange(0,MIN(HEADER_LIMIT,[docData length]));
 		NSData * headerData = [docData subdataWithRange:range];
-        string = [[[NSString allocWithZone:[self zone]] initWithData:headerData encoding:preferredStringEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:headerData encoding:preferredStringEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange;
 		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
@@ -1416,14 +1417,14 @@ To Do List:
             (hardCodedStringEncoding != preferredStringEncoding))
         {
             usedEncoding = hardCodedStringEncoding;
-            string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+            string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
         }
         else
         {
             usedEncoding = preferredStringEncoding;
 			if([docData length]>HEADER_LIMIT)
 			{
-				string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+				string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 			}
         }
     }
@@ -1437,15 +1438,15 @@ To Do List:
 		{
 			iTM2_LOG(@"Reading data with encoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
 		}
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 		if(!string)
 		{
             usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
-			string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+			string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 			if(!string)
 			{
 				usedEncoding = NSASCIIStringEncoding;
-				string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+				string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 			}
 		}
         canStringEncoding = YES;
@@ -1458,7 +1459,7 @@ To Do List:
             usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
             [SUD setInteger:usedEncoding forKey:iTM2StringEncodingPreferredKey];
         }
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange = NSMakeRange(0,0);
 		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
@@ -1472,11 +1473,11 @@ To Do List:
 	{
 		iTM2_LOG(@"Problem with the stringEncoding, report BUG 0213");
 		usedEncoding = NSMacOSRomanStringEncoding;
-        string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+        string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 		if(!string)
 		{
             usedEncoding = NSASCIIStringEncoding;
-			string = [[[NSString allocWithZone:[self zone]] initWithData:docData encoding:usedEncoding] autorelease];
+			string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 		}
         canStringEncoding = YES;
 		[self takeContextBool:NO forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
@@ -1488,10 +1489,9 @@ To Do List:
 	[self setStringEncoding:usedEncoding];
 	[self setStringEncodingHardCoded:!canStringEncoding];
 	[self setHardStringEncodingString:hardStringEncodingString];
-	id doc = [self document];
-	if(doc)
+	if(self.document)
 	{
-		NSString * defaultStringEncodingName = [doc contextValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];// we are expecting something
+		NSString * defaultStringEncodingName = [self.document contextValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
 	}
 //iTM2_START;
@@ -1533,7 +1533,7 @@ terminate:
 						[self setStringEncoding:usedEncoding];
 						[self setStringEncodingHardCoded:!canStringEncoding];
 						[self setHardStringEncodingString:hardStringEncodingString];
-						[[self document] setStringRepresentation:S];
+						[self.document setStringRepresentation:S];
 						if(iTM2DebugEnabled)
 						{
 							iTM2_LOG(@"usedEncoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
@@ -1613,7 +1613,7 @@ try_another_encoding:
 	{
 		S = [self stringWithData:[NSData dataWithContentsOfURL:absoluteURL options:0 error:outErrorPtr]];
 		// User is using some version of Mac OS X greater than 10.1.x
-		[[self document] setStringRepresentation:S];
+		[self.document setStringRepresentation:S];
 	}
 	return YES;
 }
@@ -1752,29 +1752,6 @@ To Do List:
 //	[[self implementation] takeMetaValue:[NSNumber numberWithBool:yorn] forKey:@"isStringEncodingHardCoded"];
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  document
-- (id)document;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [[[metaGETTER nonretainedObjectValue] retain] autorelease];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDocument:
-- (void)setDocument:(id)document;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    metaSETTER([NSValue valueWithNonretainedObject:document]);
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOLMenuWithAction:target:
 + (NSMenu *)EOLMenuWithAction:(SEL)anAction target:(id)aTarget;
 /*"Description Forthcoming.
@@ -1802,7 +1779,7 @@ To do list:
 	}
 	else
 	{
-		menu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@"Line Ending Menu"] autorelease];
+		menu = [[[NSMenu alloc] initWithTitle:@"Line Ending Menu"] autorelease];
 		id MI = [menu addItemWithTitle:[self nameOfEOL:iTM2MacintoshEOL]
 				action: anAction keyEquivalent: [NSString string]];
 		
@@ -1835,7 +1812,7 @@ To do list:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMenu * menu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:
+    NSMenu * menu = [[[NSMenu alloc] initWithTitle:
         NSLocalizedStringFromTableInBundle(@"Text Encoding", TABLE, BUNDLE, "Title of string encodings menu")] autorelease];
     NSArray * stringEncodings = [self supportedStringEncodings];
     NSNumber * number;
@@ -1956,7 +1933,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self document];
+    return self.document;
 }
 @end
 
@@ -2181,20 +2158,6 @@ To Do List:
 		_ActualStringEncodings = [[iTM2StringFormatController supportedStringEncodings] mutableCopy];
 	}
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Sat May 31 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [_ActualStringEncodings autorelease];
-    _ActualStringEncodings = nil;
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowNibName
 - (NSString *)windowNibName;
@@ -2442,8 +2405,8 @@ To Do List:
         [_ActualStringEncodings autorelease];
         _ActualStringEncodings = [[NSMutableArray array] retain];
     }
-    [[[[availableTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter allocWithZone:[self zone]] init] autorelease]];
-    [[[[actualTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter allocWithZone:[self zone]] init] autorelease]];
+    [[[[availableTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter alloc] init] autorelease]];
+    [[[[actualTableView tableColumns] lastObject] dataCell] setFormatter:[[[iTM2StringEncodingFormatter alloc] init] autorelease]];
     [actualTableView registerForDraggedTypes:[NSArray arrayWithObject:iTM2DraggingStringEncodingPboardType]];
     [availableTableView setDoubleAction:@selector(addSelection:)];
     [actualTableView reloadData];
@@ -2762,14 +2725,14 @@ To Do List:
 		{
 			title = [NSString stringWithFormat:@"StringEncoding:%u", tag];
 			}
-		sender = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+		sender = [[[NSMenuItem alloc]
 			initWithTitle:title action:@selector(takeStringEncodingFromTag:) keyEquivalent:@""]
 				autorelease];
 		NSFont * F = [NSFont menuFontOfSize:[NSFont systemFontSize]*1.1];
 		F = [SFM convertFont:F toFamily:@"Helvetica"];
 		F = [SFM convertFont:F toHaveTrait:NSItalicFontMask];
 		NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:F, NSFontAttributeName, nil];
-		[sender setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]]
+		[sender setAttributedTitle:[[[NSAttributedString alloc]
 			initWithString:title attributes:attributes]
 				autorelease]];
 		[sender setEnabled:NO];
@@ -2789,7 +2752,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self document] setEOL:[sender tag]];
+	[self.document setEOL:[sender tag]];
 	[self iTM2_validateWindowContent];
     return;
 }
@@ -2802,7 +2765,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int tag = [[self document] EOL];
+	int tag = [self.document EOL];
 	[sender setState:([sender tag] == tag? NSOnState:NSOffState)];
 	return YES;
 }
@@ -2895,11 +2858,11 @@ To Do List:
 		NSString * title = [NSString localizedNameOfStringEncoding:tag];
 		if(![title length])
 			title = [NSString stringWithFormat:@"StringEncoding:%u", tag];
-		sender = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:@selector(takeStringEncodingFromTag:) keyEquivalent:@""] autorelease];
+		sender = [[[NSMenuItem alloc] initWithTitle:title action:@selector(takeStringEncodingFromTag:) keyEquivalent:@""] autorelease];
 		NSFont * F = [NSFont menuFontOfSize:[NSFont systemFontSize]*1.1];
 		F = [SFM convertFont:F toFamily:@"Helvetica"];
 		F = [SFM convertFont:F toHaveTrait:NSItalicFontMask];
-		[sender setAttributedTitle:[[[NSAttributedString allocWithZone:[NSMenu menuZone]] initWithString:title attributes:[NSDictionary dictionaryWithObjectsAndKeys:F, NSFontAttributeName, nil]] autorelease]];
+		[sender setAttributedTitle:[[[NSAttributedString alloc] initWithString:title attributes:[NSDictionary dictionaryWithObjectsAndKeys:F, NSFontAttributeName, nil]] autorelease]];
 		[sender setEnabled:NO];
 //		[sender setTarget:self]; NO !
 		[sender setTag:tag];
@@ -2930,14 +2893,14 @@ To Do List:
 	}
 	if([DFM fileExistsAtPath:path])
 	{
-		D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]]
+		D = [[[iTM2StringEncodingDocument alloc]
 				initWithContentsOfURL:URL ofType:iTM2StringEncodingsTypeName error:nil] autorelease];
 		[SDC addDocument:D];
 		[D makeWindowControllers];
 		[D showWindows];
 		return;
 	}
-	D = [[[iTM2StringEncodingDocument allocWithZone:[self zone]] init] autorelease];
+	D = [[[iTM2StringEncodingDocument alloc] init] autorelease];
 	[D setFileURL:URL];
 	[D setFileType:iTM2StringEncodingsTypeName];
 	[SDC addDocument:D];

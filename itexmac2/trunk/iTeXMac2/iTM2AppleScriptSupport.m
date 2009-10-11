@@ -297,7 +297,7 @@ baumugnes:
 				NSError * error = nil;
 				if(project
 					|| (project = [SPC projectForURL:fileURL])
-						|| (project = [SPC newProjectForURLRef:&fileURL display:YES error:&error]))
+						|| (project = [SPC freshProjectForURLRef:&fileURL display:YES error:&error]))
 				{
 					[performer performCommandForProject:project];
 					return [project objectSpecifier];

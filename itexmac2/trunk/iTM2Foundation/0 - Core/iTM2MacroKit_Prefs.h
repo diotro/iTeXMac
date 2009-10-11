@@ -97,3 +97,33 @@
 - (void)setKeyBindingSelectionIndexPaths:(NSArray *)indexPaths;
 @property (retain,getter=keyBindingSelectionIndexPaths) NSArray * selectionIndexPaths;
 @end
+
+#import <iTM2Foundation/iTM2PreferencesKit.h>
+/*!
+ @class			The macros and key bindings preference pane.
+ @abstract		Managing the macro preferences.
+ @discussion		The preferences are more difficult to manage because we must read and write data.
+ 
+ @availability	iTM2.
+ @copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+ @updated		today
+ @version		1
+ */
+@interface iTM2MacroPrefPane: iTM2PreferencePane
+{
+@private
+	// Garbage collection of xib objects
+	IBOutlet id __domains;
+	IBOutlet id __modes;
+	IBOutlet id __macros;
+	IBOutlet id __keys;
+	IBOutlet id __actions;
+	IBOutlet id __key_bindings;
+	IBOutlet id __scripts;
+}
+- (void)setSelectedMode:(NSString *)mode;
+@end
+
+@interface iTM2KeyBindingTreeController: NSTreeController
+@end
+

@@ -1145,7 +1145,6 @@ extern NSString * const iTM2TextDefaultStyle;
 - (id)initWithString:(NSString *)aString atCursor:(unsigned *)cursor;
 - (void)describe;
 /*"Overriden methods"*/
-- (void)dealloc;
 #ifdef __ELEPHANT_MODELINE__
 - (NSString *)originalString;
 #endif

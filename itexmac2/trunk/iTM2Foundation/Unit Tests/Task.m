@@ -29,7 +29,7 @@ To Do List:
 	[TW setLaunchPath:path];
 	[TW addArgument:@"-alR"];
 	[TW addArgument:@"/Applications/TextEdit.app"];
-	iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
+	iTM2TaskController * TC = [[[iTM2TaskController alloc] init] autorelease];
 	[TC addTaskWrapper:TW];
 	[TC setMute:NO];
 	[TC start];
@@ -56,7 +56,7 @@ To Do List:
 	[TW setLaunchPath:path];
 	[TW addArgument:@"-R"];
 	[TW addArgument:@"/Applications/TextEdit.app"];
-	iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
+	iTM2TaskController * TC = [[[iTM2TaskController alloc] init] autorelease];
 	[TC addTaskWrapper:TW];
 	[TC setMute:YES];
 	[TC setDeaf:YES];

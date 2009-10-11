@@ -118,20 +118,6 @@ To Do List:
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [INC removeObserver:nil name:nil object:self];
-    [super dealloc];
-//iTM2_END;
-    return;
-}
 @end
 
 #import <objc/objc-class.h>
@@ -151,8 +137,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	NSAssert([NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_flagsChanged:)]
-		&& [NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_flagsChanged:)],
+	NSAssert([NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_flagsChanged:)],
 			@"****  HUGE ERROR: No swizzling for NSWindow(iTM2FlagsChanged)");
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -170,20 +155,6 @@ To Do List:
 //iTM2_START;
     [self SWZ_iTM2_flagsChanged:theEvent];
     [INC postNotificationName:iTM2FlagsDidChangeNotification object:self userInfo:nil];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_dealloc
-- (void)SWZ_iTM2_dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [INC removeObserver:nil name:nil object:self];
-    [self SWZ_iTM2_dealloc];
 //iTM2_END;
     return;
 }
@@ -228,12 +199,10 @@ static EventLoopIdleTimerUPP iTM2EventLoopIdleTimerUPP = NULL;
 	}
 	return self;
 }
--(void) dealloc
+-(void) finalize
 {
 	RemoveEventLoopTimer(timer);
-	[info release];
-	info = nil;
-	[super dealloc];
+	[super finalize];
 	return;
 }
 -(id)target;

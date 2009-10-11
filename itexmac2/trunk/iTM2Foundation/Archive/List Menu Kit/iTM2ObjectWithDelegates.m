@@ -176,15 +176,6 @@ To Do List:
 {
     return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- dealloc
-- (void) dealloc;
-/*"Cleaning _Delegate."*/
-{
-    [_Delegates autorelease];
-    [_MainDelegateKey autorelease];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- initWithDelegate:
 - (id) initWithDelegate: (id) aDelegate;
 /*"Description forthcoming.

@@ -320,7 +320,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * owner = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
@@ -413,7 +413,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * owner = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
@@ -2207,7 +2207,7 @@ To Do List:
 {
 //iTM2_START;
     BOOL withGraphics = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=0;
-    NSMenu * sectionMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    NSMenu * sectionMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     NSString * S = [self string];
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S];
     unsigned scanLocation = 0, end = [S length];
@@ -2645,9 +2645,9 @@ To Do List: ...
 "*/
 {
 //iTM2_START;
-    NSMenu * labelMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-    NSMenu * refMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
-    NSMenu * eqrefMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    NSMenu * labelMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    NSMenu * refMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+    NSMenu * eqrefMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     [labelMenu setAutoenablesItems:YES];
     [refMenu setAutoenablesItems:YES];
     [eqrefMenu setAutoenablesItems:YES];
@@ -2958,7 +2958,7 @@ To Do List:
 	}
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unsigned newModifier = previousModifier;
-	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
+	NSCharacterSet * set = [NSCharacterSet iTM2_TeXLetterCharacterSet];
 	unsigned newMode = previousModeWithoutModifiers;
 
 	switch(previousModeWithoutModifiers)
@@ -3009,7 +3009,7 @@ To Do List:
 //	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
 	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unichar theChar = [S characterAtIndex:location];
-	NSCharacterSet * set = [NSCharacterSet TeXLetterCharacterSet];
+	NSCharacterSet * set = [NSCharacterSet iTM2_TeXLetterCharacterSet];
 	if(kiTM2TeXCommandStartSyntaxMode == previousModeWithoutModifiers)
 	{
 		if([set characterIsMember:theChar])
@@ -3143,7 +3143,7 @@ To Do List:
 				NSScanner * scanner = [NSScanner scannerWithString:string];
 				[scanner scanString:@"{" intoString:nil];
 				NSString * fileName;
-				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+				if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &fileName])
 				{
 					if(![fileName hasPrefix:@"/"])
 					{
@@ -3175,7 +3175,7 @@ To Do List:
 				NSScanner * scanner = [NSScanner scannerWithString:string];
 				[scanner scanString:@"{" intoString:nil];
 				NSString * fileName;
-				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+				if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &fileName])
 				{
 					if(![fileName hasPrefix:@"/"])
 					{
@@ -3206,7 +3206,7 @@ To Do List:
 				NSScanner * scanner = [NSScanner scannerWithString:string];
 				[scanner scanString:@"{" intoString:nil];
 				NSString * URLString;
-				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &URLString])
+				if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &URLString])
 				{
 					if([URLString length] && ![SWS openURL:[[[NSURL alloc] initWithString:URLString] autorelease]])
 					{
@@ -3594,7 +3594,7 @@ To Do List:
 		NSRange fileRange = NSMakeRange(0, 0);
 		fileRange.location = [scanner scanLocation];
 		NSString * file;
-		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &file])
+		if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &file])
 		{
 			fileRange.length = [scanner scanLocation] - fileRange.location;
 			[MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:fileRange];
@@ -3607,7 +3607,7 @@ To Do List:
 		NSRange fileRange = NSMakeRange(0, 0);
 		fileRange.location = [scanner scanLocation];
 		NSString * file;
-		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &file])
+		if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &file])
 		{
 			fileRange.length = [scanner scanLocation] - fileRange.location;
 			if([file hasSuffix:@"."])// there is a final "." unwanted
@@ -3719,7 +3719,7 @@ To Do List:
                 || [scanner scanString:@"." intoString: &prefix])
             {
                 NSString * TeXFilenameTrailer;
-                if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &TeXFilenameTrailer])
+                if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &TeXFilenameTrailer])
                 {
                     fileRange.length = [scanner scanLocation] - fileRange.location;
                     NSString * file = [prefix stringByAppendingString:TeXFilenameTrailer];

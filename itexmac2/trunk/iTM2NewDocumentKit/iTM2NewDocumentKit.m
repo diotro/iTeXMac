@@ -76,8 +76,6 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (IBAction)next:(id)sender;
 - (NSURL *)panelDirectoryURL;
 - (void)setPanelDirectoryURL:(id)object;
-- (id)mandatoryProject;
-- (void)setMandatoryProject:(id)object;
 - (NSURL *)oldProjectURL;
 - (void)setOldProjectURL:(id)argument;
 - (IBAction)orderFrontPanelIfRelevant:(id)object;
@@ -91,7 +89,7 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (BOOL)selectedTemplateCanCreateNewProject;
 - (BOOL)item:(id)item canCreateNewProjectForDirectoryURL:(NSURL *)directoryURL;
 - (BOOL)selectedTemplateCanInsertInOldProject;
-- (BOOL)canInsertItem:(id)item inOldProjectForDirectory:(NSString *)directory;
+- (BOOL)canInsertItem:(id)item inOldProjectForDirectoryURL:(NSURL *)directoryURL;
 - (NSString *)standaloneFileName;
 - (id)availableProjects;
 - (void)setAvailableProjects:(id) argument;
@@ -134,10 +132,10 @@ To Do List:
 //iTM2_START;
 	if(!_iTM2NewDocumentAssistant)
 	{
-		_iTM2NewDocumentAssistant = [[iTM2NewDocumentAssistant allocWithZone:[self zone]]
+		_iTM2NewDocumentAssistant = [[iTM2NewDocumentAssistant alloc]
 			initWithWindowNibName: @"iTM2NewDocumentAssistant"];
 	}
-	[_iTM2NewDocumentAssistant setMandatoryProject:project];
+	_iTM2NewDocumentAssistant.mandatoryProjectURL=[project fileURL];
 	[_iTM2NewDocumentAssistant orderFrontPanelIfRelevant:self];
 //iTM2_END;
     return;
@@ -148,18 +146,17 @@ To Do List:
 
 @implementation iTM2NewDocumentAssistant
 
-@synthesize templateImage;
-@synthesize tabViewItemIdentifier;
-@synthesize templatePDFView;
+@synthesize createField = iVarCreateField;
+@synthesize createProgressIndicator = iVarCreateProgressIndicator;
+@synthesize createSheet = iVarCreateSheet;
+@synthesize savePanelAccessoryView = iVarSavePanelAccessoryView;
+@synthesize tabViewItemIdentifier = iVarTabViewItemIdentifier;
+@synthesize templateImageView = iVarTemplateImageView;
+@synthesize templateImage = iVarTemplateImage;
+@synthesize templatePDFView = iVarTemplatePDFView;
+@synthesize mandatoryProjectURL = iVarMandatoryProjectURL;
+@synthesize oldProjectURL = iVarOldProjectURL;
 
-- (void)dealloc;
-{
-	self.templateImage=nil;
-	self.tabViewItemIdentifier=nil;
-	self.templatePDFView=nil;
-	[super dealloc];
-	return;
-}
 static id _iTM2NewDocumentsTree = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataSourceWindowDidLoad
 - (void)dataSourceWindowDidLoad;
@@ -257,7 +254,7 @@ To Do List:
 //iTM2_LOG(@"+=+=+=+=+=+=+=+=+=+=  Loading Templates at path: %@", path);
 	if([path length])
 	{
-		path = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+		path = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	}
 	else
 	{
@@ -313,7 +310,7 @@ To Do List:
 		// The name is determined before the alias or links are resolved
 		// the object and children are determined once the alias or link has been resolved.
 		NSString * name = component;
-		NSString * resolvedPath = [fullPath stringByResolvingSymlinksAndFinderAliasesInPath];
+		NSString * resolvedPath = [fullPath iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDirectory;
 		if(![DFM fileExistsAtPath:resolvedPath isDirectory:&isDirectory])
 			continue;
@@ -371,34 +368,6 @@ To Do List:
 //iTM2_END;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= mandatoryProject
-- (id)mandatoryProject;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id result = [metaGETTER nonretainedObjectValue];
-	if([SPC isProject:result])
-		return [[result retain] autorelease];
-	metaSETTER(nil);
-//iTM2_END;
-	return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMandatoryProject:
-- (void)setMandatoryProject:(id)object;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(([SPC isProject:object]? [NSValue valueWithNonretainedObject:object]:nil));
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= panelDirectoryURL
 - (NSURL *)panelDirectoryURL;
 /*"Description forthcoming.
@@ -423,107 +392,6 @@ To Do List:
 	metaSETTER(object);
 	[self setAvailableProjects:nil];
 	[self validateCreationMode];
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= oldProjectURL
-- (NSURL *)oldProjectURL;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSURL * result = metaGETTER;
-	if(result)
-	{
-		return result;
-	}
-//iTM2_END;
-	return [[self mandatoryProject] fileURL];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setOldProjectURL:
-- (void)setOldProjectURL:(id)argument;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(argument);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createSheet
-- (id)createSheet;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateSheet:
-- (void)setCreateSheet:(id)object;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(object);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createField
-- (id)createField;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateField:
-- (void)setCreateField:(id)object;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(object);
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createProgressIndicator
-- (id)createProgressIndicator;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCreateProgressIndicator:
-- (void)setCreateProgressIndicator:(id)object;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER(object);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= orderFrontPanelIfRelevant:
@@ -631,12 +499,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
-	if(mandatoryProject)
+	NSURL * url = [self mandatoryProjectURL];
+	if(url)
 	{
-		NSString * mandatory = [mandatoryProject fileName];
-		mandatory = [mandatory stringByDeletingLastPathComponent];
-		return [self canInsertItem:item inOldProjectForDirectory:mandatory];
+		return [self canInsertItem:item inOldProjectForDirectoryURL:[url iTM2_parentDirectoryURL]];
 	}
 //iTM2_END;
     return ![[outlineView dataSource] outlineView:outlineView isItemExpandable:item];
@@ -809,7 +675,7 @@ To Do List:
 	{
 		NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 		NSString * filename;
-		while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
+		while(filename = [[E nextObject] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath])
 			if([DFM fileOrLinkExistsAtPath:filename])
 			{
 				result = NSDragOperationCopy;
@@ -910,7 +776,7 @@ To Do List:
 		NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 		NSString * filename;
 		NSMutableArray * filenames = [NSMutableArray array];
-		while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
+		while(filename = [[E nextObject] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath])
 			if([DFM fileOrLinkExistsAtPath:filename])
 				[filenames addObject:filename];
 		if([filenames count])
@@ -990,7 +856,7 @@ To Do List:
 	NSPasteboard * pboard = [info draggingPasteboard];
 	NSEnumerator * E = [[pboard propertyListForType:NSFilenamesPboardType] objectEnumerator];
 	NSString * filename;
-	while(filename = [[E nextObject] stringByResolvingSymlinksAndFinderAliasesInPath])
+	while(filename = [[E nextObject] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath])
 		if([DFM fileOrLinkExistsAtPath:filename])
 		{
 			NSString * target = [dirname stringByAppendingPathComponent:[filename lastPathComponent]];
@@ -1080,16 +946,16 @@ To Do List:
 	[SP setCanSelectHiddenExtension:YES];
 	NSString * newDirectory = nil;
 	BOOL isDirectory = NO;
-	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
-	if(mandatoryProject)
+	NSURL * url = [self mandatoryProjectURL];
+	if(url)
 	{
 		// the mandatory project is the one that asked for a new document
-		newDirectory = [mandatoryProject fileName];
-		newDirectory = [newDirectory stringByDeletingLastPathComponent];// the directory containing the mandatory project
+		newDirectory = [[url iTM2_parentDirectoryURL] path];// the directory containing the mandatory project
 		if([DFM fileExistsAtPath:newDirectory isDirectory:&isDirectory] && isDirectory)
 		{
 			[SP setTreatsFilePackagesAsDirectories:YES];
-			NSWindow * W = [[mandatoryProject subdocumentsInspector] window];
+			iTM2ProjectDocument * project = [SPC projectForURL:url];
+			NSWindow * W = [[project subdocumentsInspector] window];
 			[W orderFront:nil];
 			[[self window] orderOut:self];
 			[SP beginSheetForDirectory:newDirectory file:nil modalForWindow:(W? W:[self window])
@@ -1100,7 +966,7 @@ To Do List:
 		}
 	}
 	newDirectory = [self contextStringForKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
-	newDirectory = [newDirectory stringByResolvingSymlinksAndFinderAliasesInPath];
+	newDirectory = [newDirectory iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 	if(![DFM fileExistsAtPath:newDirectory isDirectory:&isDirectory] || !isDirectory)
 	{
 		newDirectory = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectEnumerator] nextObject];	
@@ -1234,7 +1100,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
+	NSURL * url = [self mandatoryProjectURL];
+	if(!url)
+	{
+		return NO;
+	}
+	iTM2ProjectDocument * mandatoryProject = [SPC projectForURL:url];
 	if(!mandatoryProject)
 	{
 		return NO;
@@ -1242,7 +1113,7 @@ To Do List:
 	// just insert a new document in an already existing project
 	NSString * sourceName = [self standaloneFileName];// must be a file name?
 	NSString * originalExtension = [sourceName pathExtension];
-	NSString * mandatoryName = [mandatoryProject fileName];
+	NSString * mandatoryName = [url path];
 	NSString * targetDirectory = [mandatoryName stringByDeletingLastPathComponent];
 	[self takeContextValue:targetDirectory forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	NSString * fileName = [fileURL path];
@@ -1412,7 +1283,7 @@ To Do List:
 			}
 			// creating one at the top level or just below
 			NSString * standaloneFileName = [self standaloneFileName];
-			standaloneFileName = [standaloneFileName stringByAbbreviatingWithDotsRelativeToDirectory:sourceName];
+			standaloneFileName = [standaloneFileName iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:sourceName];
 			standaloneFileName = [self convertedString:standaloneFileName withDictionary:filter];
 			standaloneFileName = [targetName stringByAppendingPathComponent:standaloneFileName];
 			standaloneFileName = [standaloneFileName stringByStandardizingPath];
@@ -2140,14 +2011,14 @@ To Do List:
 		{
 			PDFDocument * D = nil;
 longemer:
-			D = [[[PDFDocument allocWithZone:[self zone]]
+			D = [[[PDFDocument alloc]
 				  initWithURL:[NSURL fileURLWithPath:path]] autorelease];
 			[self.templatePDFView setDocument:D];
 			self.tabViewItemIdentifier = @"PDF";
 		}
 		else
 		{
-			NSImage * I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			NSImage * I = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
 			if(nil == I)
 			{
 				// is there a unique pdf file at the top level?
@@ -2174,7 +2045,7 @@ longemer:
 	path = [B pathForResource:@"templateDescription" ofType:@"rtf"];
 	if([path length])
 	{
-		id description = [[[NSAttributedString allocWithZone:[self zone]]
+		id description = [[[NSAttributedString alloc]
 			initWithRTF: [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path]] documentAttributes:nil] autorelease];
 		if([description length])
 		{
@@ -2306,13 +2177,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	int creationMode = [self creationMode];
-	iTM2ProjectDocument * mandatoryProject = [self mandatoryProject];
-	NSURL * mandatoryURL = nil;
+	NSURL * mandatoryURL = [self mandatoryProjectURL];
 	if(creationMode == iTM2ToggleForbiddenProjectMode)
 	{
-		if(mandatoryProject)
+		if(mandatoryURL)
 		{
-			mandatoryURL = [mandatoryProject fileURL];
 			mandatoryURL = [mandatoryURL iTM2_parentDirectoryURL];
 			mandatoryURL = [mandatoryURL absoluteURL];
 			[sender setDirectory:[mandatoryURL path]];
@@ -2324,12 +2193,11 @@ To Do List:
 		return NO;
 	}
 	BOOL result = NO;
-	if(mandatoryProject)
+	if(mandatoryURL)
 	{
-		mandatoryURL = [mandatoryProject fileURL];
 		mandatoryURL = [mandatoryURL iTM2_parentDirectoryURL];
 		mandatoryURL = [mandatoryURL absoluteURL];
-		if([filename belongsToDirectory:[mandatoryURL path]])
+		if([filename iTM2_belongsToDirectory:[mandatoryURL path]])
 		{
 			return YES;
 		}
@@ -2411,9 +2279,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [[self standaloneFileName] length]? [self mandatoryProject]:nil;
+    return [[self standaloneFileName] length]? [SPC projectForURL:[self mandatoryProjectURL]]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:(id)item inOldProjectForDirectoryURL
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:inOldProjectForDirectoryURL:
 - (BOOL)canInsertItem:(id)item inOldProjectForDirectoryURL:(NSURL *)directoryURL;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -2447,15 +2315,15 @@ To Do List:
 	{
 		return NO;
 	}
-	NSURL * mandatory = [[self mandatoryProject] fileURL];
-	if(mandatory)
+	NSURL * mandatoryURL = [self mandatoryProjectURL];
+	if(mandatoryURL)
 	{
-		if([SWS iTM2_isProjectPackageAtURL:mandatory])
+		if([SWS iTM2_isProjectPackageAtURL:mandatoryURL])
 		{
 			return NO;
 		}
-		mandatory = [mandatory iTM2_parentDirectoryURL];
-		NSString * relative = [directory stringByAbbreviatingWithDotsRelativeToDirectory:[mandatory path]];
+		mandatoryURL = [mandatoryURL iTM2_parentDirectoryURL];
+		NSString * relative = [directory iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:[mandatoryURL path]];
 		if([relative hasPrefix:@".."])
 		{
 			return NO;
@@ -2516,7 +2384,7 @@ To Do List:
 //iTM2_END;
 		return NO;
 	}
-	if([self mandatoryProject])
+	if(self.mandatoryProjectURL)
 	{
 //iTM2_END;
 		return NO;
@@ -2573,7 +2441,7 @@ To Do List:
 //iTM2_END;
 		return NO;
 	}
-	if([self mandatoryProject])
+	if(self.mandatoryProjectURL)
 	{
 //iTM2_END;
 		return NO;
@@ -3027,6 +2895,10 @@ To Do List:
     return string;
 }
 #endif
+- (void)showHelp:(id) sender;
+{
+	return;
+}
 @end
 
 @implementation NSUserDefaultsController(NewDocumentKit)

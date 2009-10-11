@@ -591,21 +591,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self willDealloc];
-    [IMPNC removeObserver:self];
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
 - (id)implementation;
 /*"Description Forthcoming.
@@ -675,22 +660,6 @@ To Do List:
         [self initImplementation];
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self willDealloc];
-    [[NSNotificationCenter implementationCenter] removeObserver:self];
-    _Subview = nil;// not retained!
-    [self deallocImplementation];
-    [super dealloc];
-    return;
 }
 #pragma mark =-=-=-=-=-  CENTERED SUBVIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  centeredSubview
@@ -1048,15 +1017,6 @@ To Do List:
 //iTM2_END;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-- (void)dealloc
-{iTM2_DIAGNOSTIC;
-    [INC removeObserver:self];
-    [_SubFrames autorelease];
-    _SubFrames = nil;
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-= acceptsFirstResponder =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 - (BOOL)acceptsFirstResponder
 /*"Overriden to always return  YES to allow event messages to go through the responder chain
@@ -1362,7 +1322,7 @@ To Do List:
 	}
 	else if(superview)
 	{
-		NSSplitView * SV = [[[NSSplitView allocWithZone:[enclosing zone]] initWithFrame:[enclosing frame]] autorelease];
+		NSSplitView * SV = [[[NSSplitView alloc] initWithFrame:[enclosing frame]] autorelease];
 		[SV setVertical:vertical];
 		[SV setAutoresizingMask:[enclosing autoresizingMask]];
 		NSSize size = [enclosing frame].size;
@@ -1533,12 +1493,6 @@ To Do List:
 	}
 //iTM2_END;
 	return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-- (void)dealloc
-{iTM2_DIAGNOSTIC;
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  position
 - (iTM2ScrollerToolbarPosition)position;
@@ -1715,14 +1669,6 @@ To Do List:
 		orderedSubviews = [[NSMutableArray array] retain];
 	}
 	return self;
-}
-- (void)dealloc;
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[orderedSubviews release];
-	orderedSubviews = nil;
-	[super dealloc];
-	return;
 }
 - (BOOL)isFlipped;
 {

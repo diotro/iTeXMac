@@ -8,14 +8,14 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>Plain Text Document</string>
+			<string>Text Document</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>public.plain-text</string>
+				<string>public.text</string>
 			</array>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
@@ -179,20 +179,6 @@
 			</array>
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>MetaPost Macro File</string>
-			<key>CFBundleTypeRole</key>
-			<string>None</string>
-			<key>LSHandlerRank</key>
-			<string>None</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>org.tug.mpost.mem</string>
-			</array>
-			<key>NSDocumentClass</key>
-			<string>iTM2WildcardDocument</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
@@ -934,22 +920,6 @@
 			<key>NSDocumentClass</key>
 			<string>iTM2TextDocument</string>
 		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>*</string>
-			</array>
-			<key>CFBundleTypeOSTypes</key>
-			<array>
-				<string>****</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>Wildcard Document</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>NSDocumentClass</key>
-			<string>iTM2TextDocument</string>
-		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>iTeXMac2</string>
@@ -1030,9 +1000,9 @@
 			<key>UTTypeIconFile</key>
 			<string>TEXP</string>
 			<key>UTTypeIdentifier</key>
-			<string>comp.text.tex.iTeXMac2.texp</string>
+			<string>org.tug.texp</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://itexmac.sourceforge.net</string>
+			<string>http://www.tug.org</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>com.apple.ostype</key>
@@ -1056,9 +1026,9 @@
 			<key>UTTypeIconFile</key>
 			<string>TEXD</string>
 			<key>UTTypeIdentifier</key>
-			<string>comp.text.tex.iTeXMac2.texd</string>
+			<string>org.tug.texd</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://itexmac.sourceforge.net</string>
+			<string>http://www.tug.org</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>com.apple.ostype</key>
@@ -1161,27 +1131,6 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>comp.text.tex.iTeXMac2.plugin</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>iTeXMac2 Symbols Plug In</string>
-			<key>UTTypeIconFile</key>
-			<string>iTM2</string>
-			<key>UTTypeIdentifier</key>
-			<string>comp.text.tex.iTeXMac2.plugin.symbols</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://itexmac.sourceforge.net</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>iTM2-Symbols</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>iTeXMac2 Symbols Plug In</string>

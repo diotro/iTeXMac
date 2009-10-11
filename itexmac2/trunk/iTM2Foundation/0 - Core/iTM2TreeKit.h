@@ -46,12 +46,18 @@
 @interface iTM2TreeNode: NSObject <NSCopying>
 {
 @private
-	id _Parent;
-	id _Value;
-	id _NonretainedValue;
-	id _Children;
-	unsigned int _Flags;
+	__weak   id _Parent;
+	__strong id _Children;
+	__strong id _Value;
+	__weak   id _NonretainedValue;
+	NSUInteger	_Flags;
 }
+
+@property (assign) __weak   id parent;
+@property (assign) __strong id children;
+@property (assign) __strong id value;
+@property (assign) __weak   id nonretainedValue;
+@property NSUInteger  flags;
 
 /*!
 	@method		initWithParent:
@@ -59,7 +65,7 @@
 	@discussion	The default value is a mutable dictionary.
 	@result		An object.
 */
-- (id)initWithParent:(id)aParent;
+- (id)initWithParent:(iTM2TreeNode *)aParent;
 
 /*!
 	@method		initWithParent:value:
@@ -67,7 +73,7 @@
 	@discussion	Discussion forthcoming.
 	@result		An object.
 */
-- (id)initWithParent:(id)aParent value:(id)anObject;
+- (id)initWithParent:(iTM2TreeNode *)aParent value:(id)anObject;
 
 /*!
 	@method		initWithParent:retainedValue:
@@ -75,55 +81,7 @@
 	@discussion	Discussion forthcoming.
 	@result		An object.
 */
-- (id)initWithParent:(id)aParent nonretainedValue:(id)anObject;
-
-/*!
-	@method		parent
-	@abstract	The parent.
-	@discussion	Not retained by the receiver.
-	@result		A node.
-*/
-- (id)parent;
-
-/*!
-	@method		setParent:
-	@abstract	set the value.
-	@discussion	Not retained by the receiver.
-	@result		None.
-*/
-- (void)setParent:(id)aNode;
-
-/*!
-	@method		value
-	@abstract	The retained represented object.
-	@discussion	Retained by the receiver.
-	@result		An object.
-*/
-- (id)value;
-
-/*!
-	@method		setValue:
-	@abstract	set the value.
-	@discussion	Put here whatever leaf value you want.
-	@result		None.
-*/
-- (void)setValue:(id)argument;
-
-/*!
-	@method		nonretainedValue
-	@abstract	The non retained represented object.
-	@discussion	Retained by the receiver.
-	@result		An object.
-*/
-- (id)nonretainedValue;
-
-/*!
-	@method		setNonretainedValue:
-	@abstract	set the non retained value.
-	@discussion	Put here whatever leaf value you want. This value must be held by someone else during the lifetime of the receiver.
-	@result		None.
-*/
-- (void)setNonretainedValue:(id)argument;
+- (id)initWithParent:(iTM2TreeNode *)aParent nonretainedValue:(id)anObject;
 
 /*!
 	@method		prepareChildren
@@ -168,7 +126,7 @@
 	@result The object added. If a copy is really added to the array, this copy is returned.
 	nil is returned when nothing has been added, either there was nothing to add or there was an error or the child item was already listed in the child items array.
 */
-- (void)addObjectInChildren:(id)anObject;
+- (void)addObjectInChildren:(iTM2TreeNode *)anObject;
 
 /*!
 	@method insertObject:inChildrenAtIndex:
@@ -179,7 +137,7 @@
 	@result The object added. If a copy is really added to the array, this copy is returned.
 	nil is returned when nothing has been added, either there was nothing to add or there was an error or the child item was already listed in the child items array.
 */
-- (void)insertObject:(id)anObject inChildrenAtIndex:(unsigned int)index;
+- (void)insertObject:(iTM2TreeNode *)anObject inChildrenAtIndex:(unsigned int)index;
 
 /*!
 	@method		replaceObjectInChildrenAtIndex:withObject:
@@ -187,7 +145,7 @@
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(id) anObject;
+- (void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(iTM2TreeNode *) anObject;
 
 /*!
 	@method		removeObjectFromChildren:
@@ -198,7 +156,7 @@
 				The overall consistency is preserved by asking the leaf of the receiver to do the real job through the message -removeOwnerChild:.
 	@result		A flag indicating wheether the object has really been removed.
 */
-- (void)removeObjectFromChildren:(id)anObject;
+- (void)removeObjectFromChildren:(iTM2TreeNode *)anObject;
 
 /*!
 	@method		removeObjectFromChildrenAtIndex:
@@ -217,7 +175,7 @@
 	@discussion	Discussion forthcoming.
 	@result		None.
 */
-- (unsigned)indexOfObjectInChildren:(id)anObject;
+- (unsigned)indexOfObjectInChildren:(iTM2TreeNode *)anObject;
 
 /*!
 	@method		objectInChildrenAtIndex:
@@ -307,11 +265,6 @@
 */
 - (NSIndexPath *)indexPath;
 
-@property (retain,getter=parent) id _Parent;
-@property (retain,getter=value) id _Value;
-@property (retain) id _NonretainedValue;
-@property (retain) id _Children;
-@property unsigned int _Flags;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
 

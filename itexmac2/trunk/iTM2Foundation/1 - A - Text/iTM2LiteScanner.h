@@ -63,7 +63,6 @@ typedef unichar (* iTM2CharacterAtIndexIMP) (id, SEL, unsigned);
 - (BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)stopSet intoString:(NSString **)value beforeIndex:(unsigned)stopIndex;
 /*"Overriden methods"*/
 - (id)init;
-- (void)dealloc;
 @end
 
 @interface iTM2LiteScanner (iTM2ExtendedScanner) 

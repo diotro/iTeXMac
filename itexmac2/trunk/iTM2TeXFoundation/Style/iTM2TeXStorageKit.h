@@ -206,24 +206,24 @@ typedef enum _iTM2TeXInputMode
 @interface NSCharacterSet(iTM2TeXStorageKit)
 
 /*!
-	@method			TeXLetterCharacterSet
+	@method			iTM2_TeXLetterCharacterSet
 	@abstract		The TeX letters character set.
 	@discussion		a-z, A-Z and @.
 	@result			A character set
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (NSCharacterSet *)TeXLetterCharacterSet;
++ (NSCharacterSet *)iTM2_TeXLetterCharacterSet;
 
 /*!
-	@method			TeXFileNameLetterCharacterSet
+	@method			iTM2_TeXFileNameLetterCharacterSet
 	@abstract		TeX file name letters character set.
 	@discussion		TeX letter character set plus _$^0123456789.-+*()[]/.
 	@result			A character set
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
++ (NSCharacterSet *)iTM2_TeXFileNameLetterCharacterSet;
 
 @end
 

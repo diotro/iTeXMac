@@ -81,20 +81,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming."*/
-{
-//NSLog(@"-[%@ %@] 0x%x", [self class], NSStringFromSelector(_cmd), self);
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [__LastNavigationITII release];
-    __LastNavigationITII = nil;
-    [self setNavigationField:nil];
-    [self setBackMenu:nil];
-    [self setForwardMenu:nil];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  focusedPageNumberDidChangeNotified:
 - (void)focusedPageNumberDidChangeNotified:(NSNotification *)aNotification;
 /*"Description forthcoming. Just to update the field
@@ -533,7 +519,7 @@ To Do List:
 {\
     if(!source)\
     {\
-        [self setter:[[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease]];\
+        [self setter:[[[NSMenu alloc] initWithTitle:@""] autorelease]];\
         [source setMenuRepresentation:[[[NSMenuView alloc] initWithFrame:NSZeroRect] autorelease]];\
         [[source menuRepresentation] setFont:[NSFont menuFontOfSize:[NSFont smallSystemFontSize]]];\
     }\

@@ -28,6 +28,7 @@
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 
 NSString * const iTM2ContextDidChangeNotification = @"iTM2ContextDidChange";
 
@@ -575,24 +576,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-	[I setArgument:&sender atIndex:2];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"CompleteSaveContext:" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
+	NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] saveContext:sender];
+    for(id selector in [iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"CompleteSaveContext:" signature:[I methodSignature] inherited:YES])
     {
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Soon entering: %@,\n%@", NSStringFromSelector(selector), [self contextDictionary]);
-		}
-        [I setSelector:selector];
+        [I setSelector:(SEL)selector];
         [I invoke];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Done: %@,\n%@", NSStringFromSelector(selector), [self contextDictionary]);
-		}
     }
 	[SUD synchronize];
 //iTM2_END;
@@ -619,15 +608,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-	[I setArgument:&sender atIndex:2];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"CompleteLoadContext:" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] loadContext:sender];
+    for(id selector in [iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"CompleteLoadContext:" signature:[I methodSignature] inherited:YES])
     {
-        [I setSelector:selector];
+        [I setSelector:(SEL)selector];
         [I invoke];
     }
 //iTM2_END;
@@ -1135,7 +1120,7 @@ To Do List:
 			}
 		}
 		NSString * type4URL = [SDC typeForContentsOfURL:[self fileURL] error:NULL];
-		if([type4URL length] && ![type4URL isEqual:type])
+		if([type4URL length] && !UTTypeEqual((CFStringRef)type4URL,(CFStringRef)type))
 		{
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [SUD dictionaryForKey:contextKey];
@@ -1176,7 +1161,7 @@ To Do List:
 			}
 		}
 		NSString * type4URL = [SDC typeForContentsOfURL:[self fileURL] error:NULL];
-		if([type4URL length] && ![type4URL isEqual:type])
+		if([type4URL length] && !UTTypeEqual((CFStringRef)type4URL,(CFStringRef)type))
 		{
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];

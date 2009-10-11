@@ -42,12 +42,10 @@ To Do List:
 //iTM2_START;
     if(self = [super init])
     {
-		[_Value autorelease];
-		_Value = nil;
-		[_Children autorelease];
-		_Children = nil;
-		_Parent = nil;
-		[self setParent:nil];
+		self.value = nil;
+		self.nonretainedValue = nil;
+		self.children = nil;
+		self.parent = nil;
     }
     return self;
 }
@@ -62,10 +60,8 @@ To Do List:
 //iTM2_START;
     if(self = [self init])
     {
-		[self setValue:anObject];
-		[_Children autorelease];
-		_Children = nil;
-		[self setParent:aParent];
+		self.value = anObject;
+		self.parent = aParent;
     }
     return self;
 }
@@ -80,10 +76,8 @@ To Do List:
 //iTM2_START;
     if(self = [self init])
     {
-		[self setValue:[NSMutableDictionary dictionary]];
-		[_Children autorelease];
-		_Children = nil;
-		[self setParent:aParent];
+		self.value = [NSMutableDictionary dictionary];
+		self.parent = aParent;
     }
     return self;
 }
@@ -98,20 +92,14 @@ To Do List:
 //iTM2_START;
     if(self = [self init])
     {
-		[self setNonretainedValue:anObject];
-		[_Children autorelease];
-		_Children = nil;
-		[self setParent:aParent];
-    }
+		self.nonretainedValue = anObject;
+		self.parent = aParent;
+	}
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  automaticallyNotifiesObserversForKey:
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey;
 /*"Description Forthcoming.
-Default implementation returns the number of objects in the #{children} array.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Sat May 24 2003
-To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -121,70 +109,39 @@ To Do List:
 		&& ![theKey isEqualToString:@"children"]
 		&& [super automaticallyNotifiesObserversForKey:theKey];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  copyWithZone:
-- (id)copyWithZone:(NSZone *)zone;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  copy
+- (id)copy;
 /*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Sat May 24 2003
-To Do List:
-"*/
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - for 2.0: Sat May 24 2003
+ To Do List:
+ "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id result = [[[self class] allocWithZone:zone] initWithParent:nil value:[self value]];
+	//iTM2_START;
+	id result = [[[self class] alloc] initWithParent:nil value:[self value]];
 	[result setNonretainedValue:[self nonretainedValue]];
 	int index = [self countOfChildren];
 	while(index--)
 	{
 		id child = [self objectInChildrenAtIndex:index];
-		[result insertObject:[[child copyWithZone:zone] autorelease] inChildrenAtIndex:0];
+		[result insertObject:[child copy] inChildrenAtIndex:0];
 	}
-//iTM2_END;
+	//iTM2_END;
 	return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  copyWithZone:
+- (id)copyWithZone:(NSZone *)aZone;
 /*"Description Forthcoming.
-Default implementation returns the number of objects in the #{children} array.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Sat May 24 2003
-To Do List:
-"*/
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - for 2.0: Sat May 24 2003
+ To Do List:
+ "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
-	// first remove the children DO NOT CHANGE THAT ORDER
-	NSEnumerator * E = [_Children objectEnumerator];
-	id child;
-	while(child = [E nextObject])
-	{
-		[child retain];
-		[_Children removeObject:child];// released
-		[child setParent:nil];
-		[child release];
-	}
-	[_Children autorelease];
-	_Children = nil;
-	// then remove the leaf DO NOT CHANGE THAT ORDER
-	[_Value autorelease];
-	_Value = nil;
-	[_NonretainedValue autorelease];
-	_NonretainedValue = nil;
-	// last operation! DO NOT CHANGE THAT ORDER
-	[self setParent:nil];
-	[super dealloc];
-    return;
+	//iTM2_START;
+	//iTM2_END;
+	return [self copy];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  value
-- (id)value;
-/*"Description Forthcoming.
-Default implementation returns the number of objects in the #{children} array.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Sat May 24 2003
-To Do List:
-"*/
-{
-//iTM2_START;
-    return _Value;
-}
+@synthesize value=_Value;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setValue:
 - (void)setValue:(id)argument;
 /*"Description Forthcoming.
@@ -200,23 +157,11 @@ To Do List:
 		return;
 	}
 	[self willChangeValueForKey:@"value"];
-	[_Value autorelease];
-	_Value = [argument retain];
+	_Value = argument;
 	[self didChangeValueForKey:@"value"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nonretainedValue
-- (id)nonretainedValue;
-/*"Description Forthcoming.
-Default implementation returns the number of objects in the #{children} array.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Sat May 24 2003
-To Do List:
-"*/
-{
-//iTM2_START;
-    return [_NonretainedValue nonretainedObjectValue];
-}
+@synthesize nonretainedValue=_NonretainedValue;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setNonretainedValue:
 - (void)setNonretainedValue:(id)argument;
 /*"Description Forthcoming.
@@ -231,22 +176,11 @@ To Do List:
 		return;
 	}
 	[self willChangeValueForKey:@"nonretainedValue"];
-	[_NonretainedValue autorelease];
-	_NonretainedValue = [[NSValue valueWithNonretainedObject:argument] retain];
+	_NonretainedValue = argument;
 	[self didChangeValueForKey:@"nonretainedValue"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parent
-- (id)parent;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 2.0: Sat May 24 2003
-To Do List:
-"*/
-{
-//iTM2_START;
-    return _Parent;
-}
+@synthesize parent = _Parent;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setParent
 - (void)setParent:(id)aNode;
 /*"Description Forthcoming.
@@ -258,14 +192,12 @@ To Do List:
 //iTM2_START;
 	if(aNode != _Parent)
 	{
-		[self retain];
 		[_Parent removeObjectFromChildren:self];
 		_Parent = aNode;
 		if([_Parent indexOfObjectInChildren:self] == NSNotFound)
 		{
 			[_Parent addObjectInChildren:self];
 		}
-		[self autorelease];
 	}
     return;
 }
@@ -309,7 +241,7 @@ To Do List:
 {
 //iTM2_START;
 	[self _prepareChildren];
-    return [[_Children copy] autorelease];
+    return [_Children copy];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfChildren
 - (unsigned)countOfChildren;
@@ -398,7 +330,7 @@ To Do List:
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
 	if(!_Children)
 	{
-		_Children = [[NSMutableArray array] retain];
+		_Children = [NSMutableArray array];
 	}
     [_Children addObject:node];
 	[node setParent:self];
@@ -406,7 +338,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromChildren:
-- (void)removeObjectFromChildren:(id)anObject;
+- (void)removeObjectFromChildren:(iTM2TreeNode *)anObject;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Sat May 24 2003
@@ -425,13 +357,13 @@ To Do List:
 		NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 		[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:IS forKey:@"children"];
 		[_Children removeObject:anObject];
-		[anObject setParent:nil];
+		anObject.parent=nil;
 		[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:IS forKey:@"children"];
 	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertObject:inChildrenAtIndex:
-- (void)insertObject:(id)node inChildrenAtIndex:(unsigned int)index;
+- (void)insertObject:(iTM2TreeNode *)node inChildrenAtIndex:(unsigned int)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Sat May 24 2003
@@ -448,12 +380,12 @@ To Do List:
 		_Children = [[NSMutableArray array] retain];
 	}
 	[_Children insertObject:node atIndex:index];
-	[node setParent:self];
+	node.parent=self;
 	[self didChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceObjectInChildrenAtIndex:withObject:
-- (void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(id)node;
+- (void)replaceObjectInChildrenAtIndex:(unsigned) index withObject:(iTM2TreeNode *)node;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Sat May 24 2003
@@ -463,14 +395,16 @@ To Do List:
 //iTM2_START;
 	[self _prepareChildren];
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
-	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
-	[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:IS forKey:@"children"];
-	id object = [[_Children objectAtIndex:index] retain];
-    [_Children replaceObjectAtIndex:index withObject:node];
-	[object setParent:nil];
-	[object autorelease];
-	[node setParent:self];
-	[self didChange:NSKeyValueChangeReplacement valuesAtIndexes:IS forKey:@"children"];
+	iTM2TreeNode * object = [_Children objectAtIndex:index];
+	if(![object isEqual:node])
+	{
+		NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
+		[self willChange:NSKeyValueChangeReplacement valuesAtIndexes:IS forKey:@"children"];
+		[_Children replaceObjectAtIndex:index withObject:node];
+		object.parent = nil;
+		node.parent = self;
+		[self didChange:NSKeyValueChangeReplacement valuesAtIndexes:IS forKey:@"children"];
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeObjectFromChildrenAtIndex:
@@ -486,10 +420,9 @@ To Do List:
 	[self _prepareChildren];
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 	[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:IS forKey:@"children"];
-	id object = [[_Children objectAtIndex:index] retain];
+	iTM2TreeNode * object = [_Children objectAtIndex:index];
+	object.parent = nil;
 	[_Children removeObjectAtIndex:index];
-	[object setParent:nil];
-	[object autorelease];
 	[self didChange:NSKeyValueChangeRemoval valuesAtIndexes:IS forKey:@"children"];
     return;
 }
@@ -503,18 +436,26 @@ To Do List:
 {
 //iTM2_START;
 	[self _prepareChildren];
-	NSEnumerator * E = [_Children objectEnumerator];
 	iTM2TreeNode * N = nil;
 	if(anObject)
 	{
-		while(N = [E nextObject])
-			if([[N value] isEqual:anObject])
-				break;// no return here due to a problem with intel gcc, unconfirmed
+		for(N in _Children)
+		{
+			if([N.value isEqual:anObject])
+			{
+				break;
+			}
+		}
 	}
 	else
 	{
-		while((N = [E nextObject]) && [N value])
-			;
+		for(N in _Children)
+		{
+			if(!N.value)
+			{
+				break;
+			}
+		}
 	}
     return N;
 }
@@ -526,20 +467,28 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {
-//iTM2_START;
+	//iTM2_START;
 	[self _prepareChildren];
-	NSEnumerator * E = [_Children objectEnumerator];
 	iTM2TreeNode * N = nil;
 	if(anObject)
 	{
-		while(N = [E nextObject])
-			if([[N nonretainedValue] isEqual:anObject])
-				break;// no return here due to a problem with intel gcc, unconfirmed
+		for(N in _Children)
+		{
+			if([N.nonretainedValue isEqual:anObject])
+			{
+				break;
+			}
+		}
 	}
 	else
 	{
-		while((N = [E nextObject]) && [N nonretainedValue])
-			;
+		for(N in _Children)
+		{
+			if(!N.nonretainedValue)
+			{
+				break;
+			}
+		}
 	}
     return N;
 }
@@ -558,8 +507,7 @@ To Do List:
 	{
 		return N;
 	}
-	NSEnumerator * E = [_Children objectEnumerator];
-	while(N = [E nextObject])
+	for(N in _Children)
 	{
 		if(N = [N deepObjectInChildrenWithValue:anObject])
 		{
@@ -576,15 +524,14 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {
-//iTM2_START;
+	//iTM2_START;
 	[self _prepareChildren];
 	iTM2TreeNode * N = [self objectInChildrenWithNonretainedValue:anObject];
 	if(N)
 	{
 		return N;
 	}
-	NSEnumerator * E = [_Children objectEnumerator];
-	while(N = [E nextObject])
+	for(N in _Children)
 	{
 		if(N = [N deepObjectInChildrenWithNonretainedValue:anObject])
 		{
@@ -603,18 +550,18 @@ To Do List:
 {
 //iTM2_START;
 	[self _prepareChildren];
-	NSEnumerator * E = [_Children objectEnumerator];
 	iTM2TreeNode * N = nil;
 	if(anObject)
 	{
-		while(N = [E nextObject])
+		for(N in _Children)
 			if([[N valueForKeyPath:path] isEqual:anObject])
 				break;// no return here due to a problem with intel gcc, unconfirmed
 	}
 	else
 	{
-		while((N = [E nextObject]) && [N value])
-			;
+		for(N in _Children)
+			if(![N valueForKeyPath:path])
+				break;// no return here due to a problem with intel gcc, unconfirmed
 	}
     return N;
 }
@@ -633,8 +580,7 @@ To Do List:
 	{
 		return N;
 	}
-	NSEnumerator * E = [_Children objectEnumerator];
-	while(N = [E nextObject])
+	for(N in _Children)
 	{
 		if(N = [N deepObjectInChildrenWithValue:anObject forKeyPath:path])
 		{
@@ -677,11 +623,8 @@ To Do List:
 	}
 	return IP;
 }
-@synthesize _Parent;
-@synthesize _Value;
-@synthesize _NonretainedValue;
-@synthesize _Children;
-@synthesize _Flags;
+@synthesize children=_Children;
+@synthesize flags=_Flags;
 @end
 
 /*!
@@ -722,6 +665,11 @@ To Do List:
 @end
 
 @implementation iTM2PatriciaNode
+@synthesize countOfCharacters;
+@synthesize characters;
+@synthesize countOfChildren;
+@synthesize children;
+@synthesize representedObject;
 
 - (id)init;
 {
@@ -738,7 +686,6 @@ To Do List:
 {
 	if(self = [self init])
 	{
-		NSZone * myZone = [self zone];
 		NSXMLNode * child = nil;
 		NSString * s = nil;
 		unsigned int index = 0;
@@ -757,28 +704,28 @@ To Do List:
 				countOfCharacters = [s length];
 				if(countOfCharacters)
 				{
-					characters = (unichar *)NSZoneCalloc(myZone,countOfCharacters,sizeof(unichar));
+					characters = (unichar *)NSAllocateCollectable(countOfCharacters*sizeof(unichar),1);
 					[s getCharacters:characters];
 //NSLog(@"%@:%@",[element name],s);
 				}
 				--countOfChildren;
-				children = NSZoneCalloc(myZone,countOfChildren,sizeof(id));
+				children = NSAllocateCollectable(countOfChildren*sizeof(id),0);
 				while(index<countOfChildren)
 				{
 //NSLog(@"index:%u",index);
 					child = [element childAtIndex:index+1];
-					children[index] = [[iTM2PatriciaNode allocWithZone:myZone] initWithXMLElement:(NSXMLElement *)child];
+					children[index] = [[iTM2PatriciaNode alloc] initWithXMLElement:(NSXMLElement *)child];
 					++index;
 				}
 			}
 			else
 			{
-				children = NSZoneCalloc(myZone,countOfChildren,sizeof(id));
+				children = NSAllocateCollectable(countOfChildren*sizeof(id),0);
 				do
 				{
 //NSLog(@"index:%u",index);
 					child = [element childAtIndex:index];
-					children[index] = [[iTM2PatriciaNode allocWithZone:myZone] initWithXMLElement:(NSXMLElement *)child];
+					children[index] = [[iTM2PatriciaNode alloc] initWithXMLElement:(NSXMLElement *)child];
 				}
 				while(++index<countOfChildren);
 			}
@@ -787,24 +734,11 @@ To Do List:
 	return self;
 }
 
-- (void)dealloc;
+- (void)finalize;
 {
-	NSZone * myZone = [self zone];
-	if(countOfCharacters)
-	{
-		NSZoneFree(myZone,characters);
-		characters = nil;
-		countOfCharacters = 0;
-	}
-	unsigned int index = 0;
-	for(index=0;index<countOfChildren;++index)
-	{
-		[children[index] release];
-	}
+	countOfCharacters = 0;
 	countOfChildren = 0;
-	[representedObject release];
-	representedObject = nil;
-	[super dealloc];
+	[super finalize];
 	return;
 }
 - (NSXMLElement *)XMLElement;
@@ -819,11 +753,6 @@ To Do List:
 	}
 	return element;
 }
-@synthesize countOfCharacters;
-@synthesize characters;
-@synthesize countOfChildren;
-@synthesize children;
-@synthesize representedObject;
 @end
 
 @implementation iTM2PatriciaLeafNode
@@ -3021,34 +2950,26 @@ To Do List:
 {
 	if(self = [super init])
 	{
-		if(_implementation = [[iTM2PatriciaNode allocWithZone:[self zone]] init])
+		if(_implementation = [[iTM2PatriciaNode alloc] init])
 		{
 			return self;
 		}
-		[self dealloc];
 		self = nil;
 	}
 	return self;
 }
 
-- (void)dealloc;
-{
-	[_implementation release];
-	_implementation = nil;
-	[super dealloc];
-	return;
-}
 
 - (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
 {
 	if(self = [self init])
 	{
 		NSError * error = nil;
-		NSXMLDocument * document = [[[NSXMLDocument allocWithZone:[self zone]] initWithContentsOfURL:url options:0 error:&error] autorelease];
+		NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&error] autorelease];
 		if(document)
 		{
 			NSXMLElement * rootElement = [document rootElement];
-			_implementation = [[iTM2PatriciaNode allocWithZone:[self zone]] initWithXMLElement:rootElement];
+			_implementation = [[iTM2PatriciaNode alloc] initWithXMLElement:rootElement];
 			return self;
 		}
 		else if(error && outErrorPtr)
@@ -3057,14 +2978,13 @@ To Do List:
 		}
 		return self;
 	}
-	[self dealloc];
 	return nil;
 }
 
 - (BOOL)writeToURL:(NSURL *)url error:(NSError **)outErrorPtr;
 {
 	NSXMLElement * element = [_implementation XMLElement];
-	NSXMLDocument * document = [[[NSXMLDocument allocWithZone:[self zone]] initWithRootElement:element] autorelease];
+	NSXMLDocument * document = [[[NSXMLDocument alloc] initWithRootElement:element] autorelease];
 	[document setDocumentContentKind:NSXMLDocumentXMLKind];
 	[document setCharacterEncoding:@"UTF-8"];
 	NSData * D = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
@@ -3078,8 +2998,7 @@ To Do List:
 	if(countOfStringCharsFromPtr)
 	{
 		// we need an access to prefix characters and we choose to compare unichars
-		NSZone * zone = [self zone];
-		unichar * const stringCharacters = (unichar *)NSZoneCalloc(zone,countOfStringCharsFromPtr,sizeof(unichar));
+		unichar * const stringCharacters = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),1);
 		[aString getCharacters:stringCharacters];
 		// we need to compare characters one at a time, for that we use a pointer
 		unichar * prefixCharsPtr = stringCharacters;
@@ -3121,7 +3040,6 @@ nextChild:
 				else
 				{
 					// no node will fit
-					NSZoneFree(zone,stringCharacters);
 					return NO;
 				}
 			}
@@ -3138,7 +3056,6 @@ nextChild:
 				else
 				{
 					// no node will fit
-					NSZoneFree(zone,stringCharacters);
 					return NO;
 				}
 			}
@@ -3160,7 +3077,6 @@ nextCharacter:
 						else
 						{
 							// No match
-							NSZoneFree(zone,stringCharacters);
 							return NO;
 						}
 					}
@@ -3173,12 +3089,10 @@ nextCharacter:
 				}
 				else if(--countOfChildCharsFromPtr)
 				{
-					NSZoneFree(zone,stringCharacters);
 					return NO;
 				}
 				else
 				{
-					NSZoneFree(zone,stringCharacters);
 					//return [self stringListOfNode:child withPrefix:@"PREFIX"];
 					if(child->countOfChildren)
 					{
@@ -3192,7 +3106,7 @@ nextCharacter:
 						if(node->countOfChildren)
 						{
 							id * newChildren;
-							if(newChildren = NSZoneCalloc(zone,node->countOfChildren-1,sizeof(id)))
+							if(newChildren = NSAllocateCollectable((node->countOfChildren-1)*sizeof(id),0))
 							{
 								if(childIndex
 									&& !memmove(newChildren,node->children,childIndex*sizeof(id)))
@@ -3206,21 +3120,18 @@ nextCharacter:
 									iTM2_LOG(@"memmove problem  2");
 									return NO;
 								}
-								NSZoneFree(zone,node->children);
 								node->children = newChildren;
 								--node->countOfChildren;
-								[child release];
 								return YES;
 							}
 							else
 							{
-								iTM2_LOG(@"NSZoneCalloc problem  1");
+								iTM2_LOG(@"NSAllocateCollectable problem  1");
 								return NO;
 							}
 						}
 						else
 						{
-							NSZoneFree(zone,node->children);
 							node->children = 0;
 							return YES;
 						}
@@ -3231,7 +3142,6 @@ nextCharacter:
 		else
 		{
 			// the root node has no children yet
-			NSZoneFree(zone,stringCharacters);
 			return NO;
 		}
 	}
@@ -3249,8 +3159,7 @@ nextCharacter:
 	{
 		// there are characters to be tested
 		// we need an access to prefix characters and we choose to compare unichars
-		NSZone * zone = [self zone];
-		unichar * const prefixCharacters = (unichar *)NSZoneCalloc(zone,countOfPrefixCharsFromPtr,sizeof(unichar));
+		unichar * const prefixCharacters = (unichar *)NSAllocateCollectable(countOfPrefixCharsFromPtr*sizeof(unichar),0);
 		[prefix getCharacters:prefixCharacters];
 		// we need to compare characters one at a time, for that we use a pointer
 		// prefixCharacters is left untouched because it will be freed later
@@ -3298,7 +3207,6 @@ nextChild:
 				else
 				{
 					// no node will fit
-					NSZoneFree(zone,prefixCharacters);
 					return [NSArray array];
 				}
 			}
@@ -3318,7 +3226,6 @@ nextChild:
 				{
 #pragma mark --- return void array
 					// no node will fit
-					NSZoneFree(zone,prefixCharacters);
 					return [NSArray array];
 				}
 			}
@@ -3342,7 +3249,6 @@ nextCharacter:
 						else
 						{
 							// No match
-							NSZoneFree(zone,prefixCharacters);
 							return [NSArray array];
 						}
 					}
@@ -3356,8 +3262,6 @@ nextCharacter:
 				else if(--countOfChildCharsFromPtr)
 				{
 					// all the characters of the prefix match, but the child has more characters available
-					NSZoneFree(zone,prefixCharacters);
-					//return [self stringListOfNode:child withPrefix:@"PREFIX"];
 					unsigned int index = child->countOfCharacters - countOfChildCharsFromPtr;// the number of characters common to the tail of prefix and child
 					index = [prefix length] - index;
 					prefix = [prefix substringToIndex:index];
@@ -3365,8 +3269,6 @@ nextCharacter:
 				}
 				else
 				{
-					NSZoneFree(zone,prefixCharacters);
-					//return [self stringListOfNode:child withPrefix:@"PREFIX"];
 					unsigned int index = [prefix length] - child->countOfCharacters;
 					prefix = [prefix substringToIndex:index];
 					prefix = [prefix stringByAppendingString:[NSString stringWithCharacters:child->characters length:child->countOfCharacters]];
@@ -3379,7 +3281,6 @@ nextCharacter:
 #pragma mark -- return void array
 			// the root node has no children yet
 			// just add a node with that string
-			NSZoneFree(zone,prefixCharacters);
 			return [NSArray array];
 		}
 	}
@@ -3498,10 +3399,8 @@ loop:
 	if(countOfStringCharsFromPtr)
 	{
 		// we have something to add, otherwise we will do nothing (this will not be the same later)
-		// We will allocate everything from the controller's zone
-		NSZone * myZone = [self zone];
 		// we need an access to aString characters and we choose to compare unichars
-		unichar * const aStringCharacters = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar));
+		unichar * const aStringCharacters = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0);
 		[aString getCharacters:aStringCharacters];
 		// we need to compare characters one at a time, for that we use a pointer
 		unichar * stringCharsPtr = aStringCharacters;
@@ -3536,22 +3435,20 @@ nextNode:
 #pragma mark -+ "];: first character of aSpring is after first character of last child: append a leaf node
 				// this is the most frequent situation, at least when adding a list of lexically ordered words
 				// I must add the string after the last node
-				if(newChildren = (id *)NSZoneCalloc(myZone,node->countOfChildren+1,sizeof(id)))
+				if(newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0))
 				{
 					if(memmove(newChildren,node->children,node->countOfChildren*sizeof(id)))
 					{
-						if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+						if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 						{
-							if(newChars = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar)))
+							if(newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))
 							{
 								if(memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))
 								{
-									NSZoneFree(myZone,aStringCharacters);
 									newChild->countOfCharacters = countOfStringCharsFromPtr;
 									newChild->characters = newChars;
 									newChildren[node->countOfChildren] = newChild;
 									++(node->countOfChildren);
-									NSZoneFree(myZone,node->children);
 									node->children = newChildren;
 									return YES;
 								}
@@ -3560,14 +3457,12 @@ nextNode:
 									// report error?
 									iTM2_LOG(@"There was a memory problem 1 (memmove)");
 								}
-								NSZoneFree(myZone,newChars);
 							}
 							else
 							{
 								// report error?
-								iTM2_LOG(@"There was a memory problem 1 (NSZoneCalloc)");
+								iTM2_LOG(@"There was a memory problem 1 (NSAllocateCollectable)");
 							}
-							[newChild release];
 						}
 						else
 						{
@@ -3580,14 +3475,12 @@ nextNode:
 						// report error?
 						iTM2_LOG(@"There was a memory problem 1 (memmove children)");
 					}
-					NSZoneFree(myZone,newChildren);
 				}
 				else
 				{
 					// report error?
-					iTM2_LOG(@"There was a memory problem 1 (NSZoneCalloc children)");
+					iTM2_LOG(@"There was a memory problem 1 (NSAllocateCollectable children)");
 				}
-				NSZoneFree(myZone,aStringCharacters);
 				return NO;
 			}
 			else if(stringCharsPtr[0]==child->characters[0])
@@ -3617,25 +3510,25 @@ splitNodeAndInsertAfter:
 							// all the characters before stringCharsPtr are common
 							// newChild is the child before the split
 							// its string will be the common part
-							if(commonChild = [[iTM2PatriciaNode allocWithZone:myZone] init])
+							if(commonChild = [[iTM2PatriciaNode alloc] init])
 							{
 								// copy the characters that have already been tested
 								// how many characters have been tested so far: countOfCharacters - countOfChildCharsFromPtr
 								countOfCommonChars = child->countOfCharacters - countOfChildCharsFromPtr;
-								if(commonChars = (unichar *)NSZoneCalloc(myZone,countOfCommonChars,sizeof(unichar)))
+								if(commonChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),0))
 								{
 									if(memmove(commonChars,child->characters,countOfCommonChars*sizeof(unichar)))
 									{
 										// 2 children
-										if(newChildren = (id *)NSZoneCalloc(myZone,2,sizeof(id)))
+										if(newChildren = (id *)NSAllocateCollectable(2*sizeof(id),0))
 										{
-											if(newChildCharsAfterSplit = (unichar *)NSZoneCalloc(myZone,countOfChildCharsFromPtr,sizeof(unichar)))
+											if(newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),0))
 											{
 												if(memmove(newChildCharsAfterSplit,childCharsPtr,countOfChildCharsFromPtr*sizeof(unichar)))
 												{
-													if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+													if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 													{
-														if(newChars = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar)))
+														if(newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))
 														{
 															if(memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))
 															{
@@ -3647,13 +3540,11 @@ splitNodeAndInsertAfter:
 																commonChild->children = newChildren;
 																commonChild->countOfChildren = 2;
 																commonChild->children[0] = child;// the children are good but the characters are not
-																NSZoneFree(myZone,child->characters);
 																child->characters = newChildCharsAfterSplit;
 																child->countOfCharacters = countOfChildCharsFromPtr;
 																commonChild->children[1] = newChild;// the end of the string
 																newChild->countOfCharacters = countOfStringCharsFromPtr;
 																newChild->characters = newChars;
-																NSZoneFree(myZone,aStringCharacters);
 																return YES;
 															}
 															else
@@ -3665,7 +3556,7 @@ splitNodeAndInsertAfter:
 														else
 														{
 															// report error?
-															iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc)");
+															iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable)");
 														}
 													}
 													else
@@ -3679,19 +3570,17 @@ splitNodeAndInsertAfter:
 													// report error?
 													iTM2_LOG(@"There was a memory problem 2 (memmove commonChars)");
 												}
-												NSZoneFree(myZone,commonChars);
 											}
 											else
 											{
 												// report error?
-												iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc commonChars)");
+												iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable commonChars)");
 											}
-											NSZoneFree(myZone,newChildren);
 										}
 										else
 										{
 											// report error?
-											iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc children)");
+											iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable children)");
 										}
 									}
 									else
@@ -3699,14 +3588,12 @@ splitNodeAndInsertAfter:
 										// report error?
 										iTM2_LOG(@"There was a memory problem 2 (memmove)");
 									}
-									NSZoneFree(myZone,newChars);
 								}
 								else
 								{
 									// report error?
-									iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc)");
+									iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable)");
 								}
-								[newChild release];
 							}
 							else
 							{
@@ -3729,25 +3616,25 @@ splitNodeAndInsertAfter:
 splitNodeAndInsertBefore:
 							// I must split the node and insert a new node before child
 							// just like above, except for swapped [0] and [1]
-							if(commonChild = [[iTM2PatriciaNode allocWithZone:myZone] init])
+							if(commonChild = [[iTM2PatriciaNode alloc] init])
 							{
 								// copy the characters that have already been tested
 								// how many characters have been tested so far: countOfCharacters - countOfChildCharsFromPtr
 								countOfCommonChars = child->countOfCharacters - countOfChildCharsFromPtr;
-								if(commonChars = (unichar *)NSZoneCalloc(myZone,countOfCommonChars,sizeof(unichar)))
+								if(commonChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),0))
 								{
 									if(memmove(commonChars,child->characters,countOfCommonChars*sizeof(unichar)))
 									{
 										// 2 children
-										if(newChildren = (id *)NSZoneCalloc(myZone,2,sizeof(id)))
+										if(newChildren = (id *)NSAllocateCollectable(2*sizeof(id),0))
 										{
-											if(newChildCharsAfterSplit = (unichar *)NSZoneCalloc(myZone,countOfChildCharsFromPtr,sizeof(unichar)))
+											if(newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),0))
 											{
 												if(memmove(newChildCharsAfterSplit,childCharsPtr,countOfChildCharsFromPtr*sizeof(unichar)))
 												{
-													if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+													if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 													{
-														if(newChars = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar)))
+														if(newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))
 														{
 															if(memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))
 															{
@@ -3759,13 +3646,11 @@ splitNodeAndInsertBefore:
 																commonChild->children = newChildren;
 																commonChild->countOfChildren = 2;
 																commonChild->children[1] = child;// the children are good but the characters are not
-																NSZoneFree(myZone,child->characters);
 																child->characters = newChildCharsAfterSplit;
 																child->countOfCharacters = countOfChildCharsFromPtr;
 																commonChild->children[0] = newChild;// the end of the string
 																newChild->countOfCharacters = countOfStringCharsFromPtr;
 																newChild->characters = newChars;
-																NSZoneFree(myZone,aStringCharacters);
 																return YES;
 															}
 															else
@@ -3777,7 +3662,7 @@ splitNodeAndInsertBefore:
 														else
 														{
 															// report error?
-															iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc)");
+															iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable)");
 														}
 													}
 													else
@@ -3791,19 +3676,17 @@ splitNodeAndInsertBefore:
 													// report error?
 													iTM2_LOG(@"There was a memory problem 2 (memmove commonChars)");
 												}
-												NSZoneFree(myZone,commonChars);
 											}
 											else
 											{
 												// report error?
-												iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc commonChars)");
+												iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable commonChars)");
 											}
-											NSZoneFree(myZone,newChildren);
 										}
 										else
 										{
 											// report error?
-											iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc children)");
+											iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable children)");
 										}
 									}
 									else
@@ -3811,14 +3694,12 @@ splitNodeAndInsertBefore:
 										// report error?
 										iTM2_LOG(@"There was a memory problem 2 (memmove)");
 									}
-									NSZoneFree(myZone,newChars);
 								}
 								else
 								{
 									// report error?
-									iTM2_LOG(@"There was a memory problem 2 (NSZoneCalloc)");
+									iTM2_LOG(@"There was a memory problem 2 (NSAllocateCollectable)");
 								}
-								[newChild release];
 							}
 							else
 							{
@@ -3875,16 +3756,16 @@ nextTest2:
 							// all the characters of stringCharsPtr are common
 							// newChild is the child before the split
 							// its string will be the common part
-							if(newChildren = (id *)NSZoneCalloc(myZone,1,sizeof(id)))
+							if(newChildren = (id *)NSAllocateCollectable(sizeof(id),0))
 							{
-								if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+								if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 								{
 									countOfCommonChars = child->countOfCharacters - countOfChildCharsFromPtr;
-									if(newChars = (unichar *)NSZoneCalloc(myZone,countOfCommonChars,sizeof(unichar)))
+									if(newChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),0))
 									{
 										if(memmove(newChars,child->characters,countOfCommonChars*sizeof(unichar)))
 										{
-											if(newChildCharsAfterSplit = (unichar *)NSZoneCalloc(myZone,countOfChildCharsFromPtr,sizeof(unichar)))
+											if(newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),0))
 											{
 												if(memmove(newChildCharsAfterSplit,childCharsPtr,countOfChildCharsFromPtr*sizeof(unichar)))
 												{
@@ -3896,10 +3777,8 @@ nextTest2:
 													newChildren[0] = child;
 													// the children are good but the characters are not
 													// now I have to update the characters in child
-													NSZoneFree(myZone,child->characters);
 													child->countOfCharacters = countOfChildCharsFromPtr;
 													child->characters = newChildCharsAfterSplit;
-													NSZoneFree(myZone,aStringCharacters);
 													return YES;
 												}
 												else
@@ -3907,12 +3786,11 @@ nextTest2:
 													// report error?
 													iTM2_LOG(@"There was a memory problem 4 (memmove newChildCharsAfterSplit)");
 												}
-												NSZoneFree(myZone,newChildCharsAfterSplit);
 											}
 											else
 											{
 												// report error?
-												iTM2_LOG(@"There was a memory problem 4 (NSZoneCalloc newChildCharsAfterSplit)");
+												iTM2_LOG(@"There was a memory problem 4 (NSAllocateCollectable newChildCharsAfterSplit)");
 											}
 										}
 										else
@@ -3920,28 +3798,24 @@ nextTest2:
 											// report error?
 											iTM2_LOG(@"There was a memory problem 4 (memmove newChars)");
 										}
-										NSZoneFree(myZone,newChars);
 									}
 									else
 									{
 										// report error?
-										iTM2_LOG(@"There was a memory problem 4 (NSZoneCalloc newChars)");
+										iTM2_LOG(@"There was a memory problem 4 (NSAllocateCollectable newChars)");
 									}
-									[newChild release];
 								}
 								else
 								{
 									// report error?
 									iTM2_LOG(@"There was a memory problem 4 (iTM2PatriciaLeafNode)");
 								}
-								NSZoneFree(myZone,newChildren);
 							}
 							else
 							{
 								// report error?
-								iTM2_LOG(@"There was a memory problem 4 (NSZoneCalloc children)");
+								iTM2_LOG(@"There was a memory problem 4 (NSAllocateCollectable children)");
 							}
-							NSZoneFree(myZone,aStringCharacters);
 							return NO;
 						}
 						else
@@ -3949,7 +3823,6 @@ nextTest2:
 #pragma mark ----+ "];: else no more characters in the node either for a patricia leaf node
 							typedef struct {@defs(iTM2PatriciaNode)} iTM2_PUBLIC_T;
 							((iTM2_PUBLIC_T*)child)->isa = [iTM2PatriciaLeafNode class];
-							NSZoneFree(myZone,aStringCharacters);
 							return YES;
 						}
 					}
@@ -3994,25 +3867,23 @@ nextChild:
 #pragma mark ----+ "];: else insert a new leaf node after this one.
 						// I must insert a new node after this one (at index childIndex + 1)
 						++ childIndex;
-						if(newChildren = (id *)NSZoneCalloc(myZone,node->countOfChildren+1,sizeof(id)))
+						if(newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0))
 						{
 							if(memmove(newChildren,node->children,sizeof(id) * childIndex))
 							{
 								if(memmove(newChildren + childIndex + 1,node->children + childIndex,sizeof(id) * (node->countOfChildren - childIndex)))
 								{
-									if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+									if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 									{
-										if(newChars = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar)))
+										if(newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))
 										{
 											if(memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))
 											{
 												newChild->countOfCharacters = countOfStringCharsFromPtr;
 												newChild->characters = newChars;
 												newChildren[childIndex] = newChild;
-												NSZoneFree(myZone,node->children);
 												node->children = newChildren;
 												++(node->countOfChildren);
-												NSZoneFree(myZone,aStringCharacters);
 												return YES;
 											}
 											else
@@ -4020,14 +3891,12 @@ nextChild:
 												// report error?
 												iTM2_LOG(@"There was a memory problem 5 (memmove newChars)");
 											}
-											NSZoneFree(myZone,newChars);
 										}
 										else
 										{
 											// report error?
-											iTM2_LOG(@"There was a memory problem 5 (NSZoneCalloc newChars)");
+											iTM2_LOG(@"There was a memory problem 5 (NSAllocateCollectable newChars)");
 										}
-										[newChild release];
 									}
 									else
 									{
@@ -4046,14 +3915,12 @@ nextChild:
 								// report error?
 								iTM2_LOG(@"There was a memory problem 5 (memmove children 1)");
 							}
-							NSZoneFree(myZone,newChildren);
 						}
 						else
 						{
 							// report error?
-							iTM2_LOG(@"There was a memory problem 5 (NSZoneCalloc children)");
+							iTM2_LOG(@"There was a memory problem 5 (NSAllocateCollectable children)");
 						}
-						NSZoneFree(myZone,aStringCharacters);
 						return NO;
 					}
 				}
@@ -4073,25 +3940,23 @@ nextChild:
 					{
 #pragma mark ----+ "];: else insert a new leaf node before this one.
 						// I must insert a new node before this one (at childIndex exactly)
-						if(newChildren = (id *)NSZoneCalloc(myZone,node->countOfChildren+1,sizeof(id)))
+						if(newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0))
 						{
 							if(memmove(newChildren,node->children,sizeof(id) * childIndex))
 							{
 								if(memmove(newChildren + childIndex + 1,node->children + childIndex,sizeof(id) * (node->countOfChildren - childIndex)))
 								{
-									if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+									if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 									{
-										if(newChars = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar)))
+										if(newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))
 										{
 											if(memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))
 											{
 												newChild->countOfCharacters = countOfStringCharsFromPtr;
 												newChild->characters = newChars;
 												newChildren[childIndex] = newChild;
-												NSZoneFree(myZone,node->children);
 												node->children = newChildren;
 												++(node->countOfChildren);
-												NSZoneFree(myZone,aStringCharacters);
 												return YES;
 											}
 											else
@@ -4099,14 +3964,12 @@ nextChild:
 												// report error?
 												iTM2_LOG(@"There was a memory problem 6 (memmove newChars)");
 											}
-											NSZoneFree(myZone,newChars);
 										}
 										else
 										{
 											// report error?
-											iTM2_LOG(@"There was a memory problem 6 (NSZoneCalloc newChars)");
+											iTM2_LOG(@"There was a memory problem 6 (NSAllocateCollectable newChars)");
 										}
-										[newChild release];
 									}
 									else
 									{
@@ -4125,14 +3988,12 @@ nextChild:
 								// report error?
 								iTM2_LOG(@"There was a memory problem 6 (memmove children 1)");
 							}
-							NSZoneFree(myZone,newChildren);
 						}
 						else
 						{
 							// report error?
-							iTM2_LOG(@"There was a memory problem 6 (NSZoneCalloc children)");
+							iTM2_LOG(@"There was a memory problem 6 (NSAllocateCollectable children)");
 						}
-						NSZoneFree(myZone,aStringCharacters);
 						return NO;
 					}
 				}
@@ -4146,23 +4007,21 @@ nextChild:
 			{
 #pragma mark --+ "];: 1 child only, add a new leaf node at the beginning or the list
 				// no other nodes: I must add the node at the beginning of the list
-				if(newChildren = (id *)NSZoneCalloc(myZone,node->countOfChildren+1,sizeof(id)))
+				if(newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0))
 				{
 					if(memmove(newChildren+1,node->children,sizeof(id) * node->countOfChildren))
 					{
-						if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+						if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 						{
-							if(newChars = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar)))
+							if(newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))
 							{
 								if(memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))
 								{
 									newChild->countOfCharacters = countOfStringCharsFromPtr;
 									newChild->characters = newChars;
 									newChildren[0] = newChild;
-									NSZoneFree(myZone,node->children);
 									node->children = newChildren;
 									++(node->countOfChildren);
-									NSZoneFree(myZone,aStringCharacters);
 									return YES;
 								}
 								else
@@ -4170,14 +4029,12 @@ nextChild:
 									// report error?
 									iTM2_LOG(@"There was a memory problem 7 (memmove newChars)");
 								}
-								NSZoneFree(myZone,newChars);
 							}
 							else
 							{
 								// report error?
-								iTM2_LOG(@"There was a memory problem 7 (NSZoneCalloc newChars)");
+								iTM2_LOG(@"There was a memory problem 7 (NSAllocateCollectable newChars)");
 							}
-							[newChild release];
 						}
 						else
 						{
@@ -4190,14 +4047,12 @@ nextChild:
 						// report error?
 						iTM2_LOG(@"There was a memory problem 7 (memmove children)");
 					}
-					NSZoneFree(myZone,newChildren);
 				}
 				else
 				{
 					// report error?
-					iTM2_LOG(@"There was a memory problem 7 (NSZoneCalloc children)");
+					iTM2_LOG(@"There was a memory problem 7 (NSAllocateCollectable children)");
 				}
-				NSZoneFree(myZone,aStringCharacters);
 				return NO;
 			}
 		}
@@ -4206,11 +4061,11 @@ nextChild:
 #pragma mark + "];: node has no children, just add a child
 			// the root node has no children yet
 			// just add a node with that string
-			if(newChildren = (id *)NSZoneCalloc(myZone,1,sizeof(id)))
+			if(newChildren = (id *)NSAllocateCollectable(sizeof(id),0))
 			{
-				if(newChild = [[iTM2PatriciaLeafNode allocWithZone:myZone] init])
+				if(newChild = [[iTM2PatriciaLeafNode alloc] init])
 				{
-					if(newChars = (unichar *)NSZoneCalloc(myZone,countOfStringCharsFromPtr,sizeof(unichar)))
+					if(newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))
 					{
 						if(memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))
 						{
@@ -4219,7 +4074,6 @@ nextChild:
 							newChildren[0] = newChild;
 							node->countOfChildren = 1;
 							node->children = newChildren;
-							NSZoneFree(myZone,aStringCharacters);
 							return YES;
 						}
 						else
@@ -4227,28 +4081,24 @@ nextChild:
 							// report error?
 							iTM2_LOG(@"There was a memory problem 8 (memmove newChars)");
 						}
-						NSZoneFree(myZone,newChars);
 					}
 					else
 					{
 						// report error?
-						iTM2_LOG(@"There was a memory problem 8 (NSZoneCalloc newChars)");
+						iTM2_LOG(@"There was a memory problem 8 (NSAllocateCollectable newChars)");
 					}
-					[newChild release];
 				}
 				else
 				{
 					// report error?
 					iTM2_LOG(@"There was a memory problem 8 (iTM2PatriciaLeafNode)");
 				}
-				NSZoneFree(myZone,newChildren);
 			}
 			else
 			{
 				// report error?
-				iTM2_LOG(@"There was a memory problem 8 (NSZoneCalloc children)");
+				iTM2_LOG(@"There was a memory problem 8 (NSAllocateCollectable children)");
 			}
-			NSZoneFree(myZone,aStringCharacters);
 			return NO;
 		}
 	}
@@ -4271,22 +4121,10 @@ typedef struct
 	}
 	return self;
 }
-- (id)copyWithZone:(NSZone *)zone;
+- (id)copyWithZone:(NSZone *)aZone;
 {
-	id clone = [[[self class] allocWithZone:zone] initWithValue:_Value];
+	id clone = [[[self class] allocWithZone:aZone] initWithValue:_Value];
 	return clone;
-}
-- (void)dealloc;
-{
-	_PreviousSibling = nil;
-	[_NextSibling autorelease];
-	_NextSibling = nil;
-	[_FirstChild autorelease];
-	_FirstChild = nil;
-	_Parent = nil;
-	_LastChild = nil;
-	[super dealloc];
-	return;
 }
 - (id)parent;
 {

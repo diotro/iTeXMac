@@ -139,7 +139,7 @@
 		DC70F4600BFC5DE6006C6A76 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC9BC3070ABA054500FAC59E /* LaTeX Doc Extractor.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LaTeX Doc Extractor.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9BC30D0ABA061700FAC59E /* iTM2_Engine_LaTeXDocExtractor */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_LaTeXDocExtractor; sourceTree = "<group>"; };
-		DC9BC30E0ABA061700FAC59E /* iTM2LaTeXDocExtractorWrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2LaTeXDocExtractorWrapper-Info.plist"; sourceTree = "<group>"; };
+		DC9BC30E0ABA061700FAC59E /* iTM2LaTeXDocExtractorWrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2LaTeXDocExtractorWrapper-Info.plist"; sourceTree = "<group>"; };
 		DC9BC30F0ABA061700FAC59E /* iTM2LaTeXDocExtractorWrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2LaTeXDocExtractorWrapper-Prefix.pch"; sourceTree = "<group>"; };
 		DC9BC3100ABA061700FAC59E /* iTM2LaTeXDocExtractorWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LaTeXDocExtractorWrapperKit.h; sourceTree = "<group>"; };
 		DC9BC3110ABA061700FAC59E /* iTM2LaTeXDocExtractorWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXDocExtractorWrapperKit.m; sourceTree = "<group>"; };
@@ -155,7 +155,7 @@
 		DC9DC56F0948413E0079E1B3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		DCE417AF0AB61CB200FB432D /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
 		DCE417B60AB61CCF00FB432D /* iTM2_Engine_LaTeXInstaller */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = iTM2_Engine_LaTeXInstaller; sourceTree = "<group>"; };
-		DCE417B70AB61CCF00FB432D /* iTM2LaTeXInstallerWrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2LaTeXInstallerWrapper-Info.plist"; sourceTree = "<group>"; };
+		DCE417B70AB61CCF00FB432D /* iTM2LaTeXInstallerWrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2LaTeXInstallerWrapper-Info.plist"; sourceTree = "<group>"; };
 		DCE417B80AB61CCF00FB432D /* iTM2LaTeXInstallerWrapper-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2LaTeXInstallerWrapper-Prefix.pch"; sourceTree = "<group>"; };
 		DCE417B90AB61CCF00FB432D /* iTM2LaTeXInstallerWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LaTeXInstallerWrapperKit.h; sourceTree = "<group>"; };
 		DCE417BA0AB61CCF00FB432D /* iTM2LaTeXInstallerWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXInstallerWrapperKit.m; sourceTree = "<group>"; };

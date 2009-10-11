@@ -159,17 +159,17 @@ if([STRING length] || UNDERLYING)\
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (int)currentVersion;
++ (int)iTM2_currentVersion;
 
 /*!
-	@method			currentFoundationVersion
+	@method			iTM2_currentFoundationVersion
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@result			an integter
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (int)currentFoundationVersion;
++ (int)iTM2_currentFoundationVersion;
 
 @end
 

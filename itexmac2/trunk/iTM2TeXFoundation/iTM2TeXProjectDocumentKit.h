@@ -29,6 +29,8 @@
 
 extern NSString * const iTM2TeXProjectInfoComponent;
 
+extern CFStringRef const iTM2UTTypeTeXWrapper;
+extern CFStringRef const iTM2UTTypeTeXProject;
 extern NSString * const iTM2TeXProjectDocumentType;
 extern NSString * const iTM2TeXProjectPathExtension;
 extern NSString * const iTM2TeXProjectInspectorType;

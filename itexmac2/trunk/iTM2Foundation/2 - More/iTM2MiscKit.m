@@ -494,7 +494,7 @@ NSString * const iTM2ToolbarUnlockDocumentItemIdentifier = @"unlockDocument";
 	{\
 		NSString * component = [IDENTIFIER stringByAppendingString:@"ToolbarImage"];\
 		NSString * path = [[iTM2SharedResponder classBundle] pathForImageResource:component];\
-		I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path];\
+		I = [[NSImage alloc] initWithContentsOfFile:path];\
 		component = [NSString stringWithFormat:@"iTM2:%@", IDENTIFIER];\
 		[I setName:component];\
 	}\
@@ -517,7 +517,7 @@ DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
 		return I;
 	}
 	NSString * imagePath = [[[NSBundle mainBundle] allPathsForImageResource:name] lastObject];
-	if(I = [[[self allocWithZone:[self zone]] initWithContentsOfFile:imagePath] autorelease])
+	if(I = [[[self alloc] initWithContentsOfFile:imagePath] autorelease])
 	{
 		[I setName:imageName];
 		return I;
@@ -724,7 +724,7 @@ To Do List:
 	NSString * imagePath = [[[NSBundle mainBundle] allPathsForImageResource:anIdentifier] lastObject];
 	if([imagePath length])
 	{
-		if(I = [[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath])
+		if(I = [[NSImage alloc] initWithContentsOfFile:imagePath])
 		{
 			[I setName:anIdentifier];
 			if(iTM2DebugEnabled)
@@ -732,7 +732,7 @@ To Do List:
 				iTM2_LOG(@"[NSImage imageNamed:%@] is:%@", anIdentifier, [NSImage imageNamed:anIdentifier]);
 			}
 			[toolbarItem setImage:I];
-			I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:imagePath] autorelease];
+			I = [[[NSImage alloc] initWithContentsOfFile:imagePath] autorelease];
 			NSBundle * bundle = [NSBundle bundleForResourceAtPath:imagePath];
 			[toolbarItem setLabel:
 				NSLocalizedStringFromTableInBundle([anIdentifier stringByAppendingString:@"Label"], @"Toolbar", bundle, "")];
@@ -855,10 +855,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2ValueTransformer class]] objectEnumerator];
-	Class C;
-	while(C = [[E nextObject] pointerValue])
-		[NSValueTransformer setValueTransformer:[[[C alloc] init] autorelease] forName:[C transformerName]];
+	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2ValueTransformer class]])
+		[NSValueTransformer setValueTransformer:[[C alloc] init] forName:[C transformerName]];
 //iTM2_END;
     return;
 }

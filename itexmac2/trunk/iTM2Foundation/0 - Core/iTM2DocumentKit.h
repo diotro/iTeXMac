@@ -288,20 +288,9 @@ extern NSString * const iTM2InspectorTable;
 @interface iTM2Document: NSDocument
 {
 @private
-    id _Implementation;
+    id iVarImplementation;
 }
-
-/*!
-    @method		dealloc
-    @abstract	deallocates the memory.
-    @discussion Automatically send all the ...CompleteDealloc messages the receiver can respond to.
-				Then it just deallocates the implementation and removes the receiver
-				from the iTeXMac2 and implementation notification centers, both as observer and observed.
-    @param		None.
-    @result		None.
-*/
-- (void)dealloc;
-
+@property (assign) id implementation;
 /*!
     @method		fileAttributes
     @abstract	The file attributes of the receiver.
@@ -954,9 +943,9 @@ extern NSString * const iTM2InspectorTable;
 @interface iTM2Inspector: NSWindowController
 {
 @private
-    id _Implementation;
+    id iVarImplementation;
 }
-
+@property (assign) id implementation;
 /*!
     @method		backupModel
     @abstract	Backup the model.

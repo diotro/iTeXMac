@@ -77,17 +77,6 @@ This is the designated initializer."*/
     [self autorelease];
     return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void) dealloc;
-/*"Cleaning _Controller."*/
-{
-//iTM2_START;
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
-    [self setTarget: nil];
-    [self setController: nil];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _Prepare
 - (void) _Prepare;
 /*"Asks the controller for #{-prepareMenu:} and send the message if appropriate. Otherwise sends a #{-prepare} message to the receiver."*/
@@ -310,7 +299,7 @@ To Do List:
                 if([fileType isEqualToString: NSFileTypeRegular] &&
                         ![file isFinderAliasTraverseLink: NO isDirectory: nil])
                 {
-                    NSMenuItem * menuItem = [[[NSMenuItem allocWithZone: [NSMenu menuZone]]	
+                    NSMenuItem * menuItem = [[[NSMenuItem alloc]	
                             initWithTitle: lastPathComponent
                                     action: NULL keyEquivalent: @""] autorelease];
                     [self insertItem: menuItem atIndex: itemIndex++];
@@ -318,7 +307,7 @@ To Do List:
                 }
                 else if([fileType isEqualToString: NSFileTypeDirectory])
                 {
-                    NSMenuItem * menuItem = [[[NSMenuItem allocWithZone: [NSMenu menuZone]]
+                    NSMenuItem * menuItem = [[[NSMenuItem alloc]
                             initWithTitle: [file lastPathComponent]
                                     action: @selector(_SubmenuAction:) keyEquivalent: @""] autorelease];
                     [menuItem setTarget: self];
@@ -365,7 +354,7 @@ To Do List:
                 NSString * filename = [FW filename];
                 if(!aFlag || ([filter isValidFileName: filename]))
                 {
-                    NSMenuItem * menuItem = [[[NSMenuItem allocWithZone: [NSMenu menuZone]]
+                    NSMenuItem * menuItem = [[[NSMenuItem alloc]
                             initWithTitle: filename
                                     action: NULL keyEquivalent: @""] autorelease];
                     [self insertItem: menuItem atIndex: itemIndex++];
@@ -384,7 +373,7 @@ To Do List:
                                     ![file isFinderAliasTraverseLink: NO isDirectory: nil])) &&
                         [[[enumerator fileAttributes] fileType] isEqualToString: NSFileTypeRegular])
         {
-            NSMenuItem * menuItem = [[[NSMenuItem allocWithZone: [NSMenu menuZone]] initWithTitle: lastPathComponent
+            NSMenuItem * menuItem = [[[NSMenuItem alloc] initWithTitle: lastPathComponent
                             action: NULL keyEquivalent: @""] autorelease];
             [self insertItem: menuItem atIndex: itemIndex++];
         }
@@ -418,7 +407,7 @@ To Do List:
                 NSString * filename = [FW filename];
                 if(!aFlag || ([filter isValidFileName: filename]))
                 {
-                    NSMenuItem * menuItem = [[[NSMenuItem allocWithZone: [NSMenu menuZone]]
+                    NSMenuItem * menuItem = [[[NSMenuItem alloc]
                             initWithTitle: filename
                                     action: @selector(_SubmenuAction:) keyEquivalent: @""] autorelease];
                     [menuItem setTarget: self];
@@ -438,7 +427,7 @@ To Do List:
                                     ![file isFinderAliasTraverseLink: NO isDirectory: nil])) &&
                         [[[enumerator fileAttributes] fileType] isEqualToString: NSFileTypeDirectory])
         {
-            NSMenuItem * menuItem = [[[NSMenuItem allocWithZone: [NSMenu menuZone]]
+            NSMenuItem * menuItem = [[[NSMenuItem alloc]
                     initWithTitle: lastPathComponent
                             action: @selector(_SubmenuAction:) keyEquivalent: @""] autorelease];
             [menuItem setTarget: self];
@@ -506,7 +495,7 @@ To Do List:
     {
         id menu = [aMenuItem menu];
         Class myClass = [menu isKindOfClass: [iTM2ListMenu class]]? [menu class]: [iTM2ListMenu class];
-        id submenu = [[[myClass allocWithZone: [NSMenu menuZone]]
+        id submenu = [[[myClass alloc]
                 initWithTitle: [[menu title] stringByAppendingPathComponent: [aMenuItem title]]
                         controller: [menu controller] target: [menu target] action: [menu action]] autorelease];
         [aMenuItem setSubmenu: submenu];

@@ -47,7 +47,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super completeInstallation];
-    NSTask * T = [[[NSTask allocWithZone:[self zone]] init] autorelease];
+    NSTask * T = [[[NSTask alloc] init] autorelease];
     NSString * path = [[NSBundle bundleForClass:self] pathForAuxiliaryExecutable:@"bin/iTM2_Setup"];
     NSString * P = [[NSBundle bundleForClass:self] pathForAuxiliaryExecutable:@"bin/latexmk"];
     if([path length] && [P length])

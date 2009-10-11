@@ -170,32 +170,6 @@ To Do List:
 //iTM2_END;
 	return self;
 }
-- (void)dealloc;
-{
-	[_LongCandidates autorelease];
-	_LongCandidates = nil;
-	[_TextView autorelease];
-	_TextView = nil;
-	[_Tab autorelease];
-	_Tab = nil;
-	[_OriginalString autorelease];
-	_OriginalString = nil;
-	[_EditedString autorelease];
-	_EditedString = nil;
-	[_ShortCompletionString autorelease];
-	_ShortCompletionString = nil;
-	[_LongCompletionString autorelease];
-	_LongCompletionString = nil;
-	[_ReplacementLines autorelease];
-	_ReplacementLines = nil;
-	[_OriginalSelectedString autorelease];
-	_OriginalSelectedString = nil;
-	[_PatriciaControllers autorelease];
-	_PatriciaControllers = nil;
-	[DNC removeObserver:self name:NSWindowWillCloseNotification object:nil];
-	[super dealloc];
-	return;
-}
 - (NSArray *)completionModes;
 {
 	return [_PatriciaControllers allKeys];
@@ -208,7 +182,7 @@ To Do List:
 	iTM2PatriciaController * patriciaController = [_PatriciaControllers objectForKey:completionMode];
 	if(![patriciaController isKindOfClass:[iTM2PatriciaController class]])
 	{
-		patriciaController = [[[iTM2PatriciaController allocWithZone:[self zone]] init] autorelease];
+		patriciaController = [[[iTM2PatriciaController alloc] init] autorelease];
 		[_PatriciaControllers setObject:patriciaController forKey:completionMode];
 		// read all the macros identifiers
 		NSArray * strings = [SMC IDsForContext:macroContext ofCategory:completionMode inDomain:macroDomain];
@@ -239,7 +213,7 @@ To Do List:
 		NSString * substring = [string substringWithRange:range];
 		if([substring length] && ![availableIDs containsObject:substring])
 		{
-			id object = [[[iTM2MacroNode allocWithZone:[node zone]] init] autorelease];
+			id object = [[[iTM2MacroNode alloc] init] autorelease];
 			[object setMacroID:substring];
 			[node insertObject:object inAvailableMacrosAtIndex:0];
 			[stringList addObject:substring];
@@ -600,7 +574,7 @@ grosbois:
 		{
 			cell = [tableColumn dataCellForRow:row];
 			NSString * aString = [_LongCandidates objectAtIndex:row];
-			NSAttributedString * anAttributesString = [[[NSAttributedString allocWithZone:[self zone]] initWithString:aString attributes:nil] autorelease];
+			NSAttributedString * anAttributesString = [[[NSAttributedString alloc] initWithString:aString attributes:nil] autorelease];
 			[cell setAttributedStringValue:anAttributesString];// using only setStringValue does not work, the formatter is not called to compute the cell size...
 			size = [cell cellSize];
 			if(size.width>maxWidth)

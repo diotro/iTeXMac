@@ -25,32 +25,32 @@ extern NSString * const iTM2PathFactoryComponent;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
 /*"Description forthcoming."*/
 @interface NSString(iTM2PathUtilities)
-- (BOOL)isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
-- (NSString *)stringByResolvingFinderAliasesInPath;
-- (NSString *)lazyStringByResolvingSymlinksAndFinderAliasesInPath;
-- (NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
-- (NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
-- (NSString *)shortestStringByAbbreviatingWithTildeInPath;
-- (NSString *)stringByDeletingAllPathExtensions;
-- (NSString *)stringByNormalizingPath;// removes void components, references to . and resolves .. as far as can do
+- (BOOL)iTM2_isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
+- (NSString *)iTM2_stringByResolvingFinderAliasesInPath;
+- (NSString *)iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath;
+- (NSString *)iTM2_stringByResolvingSymlinksAndFinderAliasesInPath;
+- (NSString *)iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
+- (NSString *)iTM2_shortestStringByAbbreviatingWithTildeInPath;
+- (NSString *)iTM2_stringByDeletingAllPathExtensions;
+- (NSString *)iTM2_stringByNormalizingPath;// removes void components, references to . and resolves .. as far as can do
 
 /*!
-	@method		enclosingDirectoryForFileNames:
+	@method		iTM2_enclosingDirectoryForFileNames:
 	@abstract	The enclosing doirectory for the given file names.
 	@discussion Discussion forthcoming.
 	@param		an array of file names.
 	@result		The common path, at least the root directory. 
 */
-+ (NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
++ (NSString*)iTM2_enclosingDirectoryForFileNames:(NSArray *)fileNames;
 
 /*!
-	@method		isEqualToFileName:
+	@method		iTM2_isEqualToFileName:
 	@abstract	Abstract forthcoming.
 	@discussion Compares the lower case versions of both the receiver and the argument... Please use the iTM2_pathIsEqual: method instead
 	@param		A file name.
 	@result		yorn. 
 */
-- (BOOL)isEqualToFileName:(NSString *)otherFileName;
+- (BOOL)iTM2_isEqualToFileName:(NSString *)otherFileName;
 
 /*!
 	@method		iTM2_pathIsEqual:
@@ -59,30 +59,30 @@ extern NSString * const iTM2PathFactoryComponent;
 				Use the compare: method to take into account unicode character decomposition.
 				This method is necessary because until build 150, accented characters in paths would lead to inconsistency problems
 				an exception raised in setProject:forFileName: method.
-				Should replace the isEqualToFileName:
+				Should replace the iTM2_isEqualToFileName:
 	@param		A file name.
 	@result		yorn. 
 */
 - (BOOL)iTM2_pathIsEqual:(NSString *)otherPath;
 
 /*!
-	@method		belongsToDirectory:
+	@method		iTM2_belongsToDirectory:
 	@abstract	Abstract forthcoming.
 	@discussion Discussion forthcoming...
 	@param		A file name.
 	@result		yorn. 
 */
-- (BOOL)belongsToDirectory:(NSString *)fileName;
+- (BOOL)iTM2_belongsToDirectory:(NSString *)fileName;
 
 /*!
- @method		absolutePathWithPath:base:
+ @method		iTM2_absolutePathWithPath:base:
  @abstract	Abstract forthcoming.
  @discussion If the given path is already absolute, it is returned as is.
  @param		path
  @param		base
  @result		absolute path. 
  */
-+ (NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
++ (NSString *)iTM2_absolutePathWithPath:(NSString *)path base:(NSString *)base;
 
 /*!
  @method	iTM2_pathWithComponents:
@@ -100,6 +100,15 @@ extern NSString * const iTM2PathFactoryComponent;
 @end
 
 @interface NSURL(iTM2PathUtilities)
+
+/*!
+ @method	iTM2_path
+ @abstract	The path.
+ @discussion The original method does not add a trailing path separator when the receiver represents a directory
+ @param		None
+ @result	a NSString instance. 
+ */
+- (NSString *)iTM2_path;
 
 /*!
 	@method		iTM2_URLWithPath:relativeToURL:
@@ -143,7 +152,7 @@ extern NSString * const iTM2PathFactoryComponent;
 	@abstract	Abstract forthcoming.
 	@discussion Discussion forthcoming.
 	@param		baseURL
-	@result		No if on of the urls is not a file url, otherwise uses -belongsToDirectory:. 
+	@result		No if on of the urls is not a file url, otherwise uses -iTM2_belongsToDirectory:. 
 */
 - (BOOL)iTM2_isRelativeToURL:(NSURL *)baseURL;
 
@@ -216,12 +225,13 @@ extern NSString * const iTM2PathFactoryComponent;
 /*!
     @method		iTM2_normalizedURL
     @abstract	normalized URL.
-    @discussion	The return URL wil be relative to the factory, the user folder, a mounted volume, the root.
+    @discussion	The return URL will be relative to the factory, the user folder, a mounted volume, the root.
 	            The first decomposition found is adopted.
 				If no such decomposition, url is returned unchanged.
 				No query, ressource specifier, parameter are supported.
+				This is exactly the kind of urls the documents should use.
     @param		None.
-    @result		A singleton URL.
+    @result		A singleton URL, unless the design has changed...
 */
 - (NSURL *)iTM2_normalizedURL;
 

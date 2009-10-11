@@ -393,7 +393,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 */
 
 @interface iTM2InfosController: iTM2Object
-
+{
+	id __weak iVarProject;
+}
+@property (assign) __weak id project;
 /*!
 	@method			initWithProject:atomic:prefixWithKeyPaths:
 	@abstract		Designated initializer.

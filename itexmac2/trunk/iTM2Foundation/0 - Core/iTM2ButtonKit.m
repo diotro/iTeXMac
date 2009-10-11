@@ -46,7 +46,7 @@ To Do List:
 //iTM2_START;
     NSString * path = [B pathForImageResource:name];
     NSImage * I = nil;
-    if(![path length] || !(I = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease]))
+    if(![path length] || !(I = [[[NSImage alloc] initWithContentsOfFile:path] autorelease]))
         NSLog(@"%@ %#x error: Could not find a %@ image, PLEASE report BUG iTM202103",
             NSStringFromClass([self class]), NSStringFromSelector(_cmd), self, name);
     else
@@ -340,15 +340,6 @@ To Do List:
     [self display];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc:
-- (void)dealloc;
-/*"Cleans the timer."*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self setTimer:nil];
-    [super dealloc];
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect
 - (void)drawRect:(NSRect)aRect;
 /*"Adding a small rectangle drawn when the receiver is ON to indicate that there is a menu to pull down."*/
@@ -454,15 +445,13 @@ To Do List:
     int length = strlen(selectorName);
     if(!length)
         return NO;
-    char * name = malloc(strlen(selectorName)+9);
+    char * name = NSAllocateCollectable(strlen(selectorName)+9,0);
     if(name)
 	{
 		strcpy(name, selectorName);
 		strcpy(name+strlen(selectorName)-1, "WillPopUp:");
 //iTM2_LOG(@"selector name: <%s>", name);
 		SEL willPopUpAction = sel_getUid(name);
-		free(name);
-		name = nil;
 		if(willPopUpAction)
 		{
 			id T = [self target]?:[NSApp targetForAction:[self action]];
@@ -593,20 +582,6 @@ To Do List:
 	[INC addObserver:self selector:@selector(documentEditedStatusNotified:) name:iTM2DocumentEditedStatusNotification object:[self window]];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: 13/12/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[INC removeObserver:self];
-	[INC removeObserver:nil name:nil object:self];
-	[super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  documentEditedStatusNotified:
 - (void)documentEditedStatusNotified:(NSNotification *)notification;
 /*"Description forthcoming.
@@ -629,7 +604,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 // finding the actual state of the art
-    NSString * path = [[[[[self window] windowController] document] fileName] stringByResolvingSymlinksAndFinderAliasesInPath];
+    NSString * path = [[[[[self window] windowController] document] fileName] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
     BOOL old = [[DFM fileAttributesAtPath:path traverseLink:YES] fileIsImmutable];
     NSDictionary * D = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:!old] forKey:NSFileImmutable];
     if([DFM changeFileAttributes:D atPath:path])
@@ -652,7 +627,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSDocument * doc = [[[self window] windowController] document];
-    NSString * path = [[doc fileName] stringByResolvingSymlinksAndFinderAliasesInPath];
+    NSString * path = [[doc fileName] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
     NSImage * I = [NSImage iTM2_imageReadOnlyPencil];
     BOOL editable = NO;
     BOOL enabled = NO;
@@ -691,21 +666,6 @@ To Do List:
 NSString * const _iTM2CoffeeBreakNotification = @"_iTM2CoffeeBreakNotification";
 
 @implementation iTM2CoffeeBreak
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 13/12/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [INC removeObserver:self];
-    [_VCB autorelease];
-    _VCB = nil;
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  awakeFromNib
 - (void)awakeFromNib;
 /*"No target set here.
@@ -731,7 +691,7 @@ To Do List:
                 name: _iTM2CoffeeBreakNotification
                     object: nil];
     [_VCB autorelease];
-    _VCB = [[NSView allocWithZone:[self zone]] initWithFrame:[self frame]];
+    _VCB = [[NSView alloc] initWithFrame:[self frame]];
     [_VCB setAutoresizingMask:[self autoresizingMask]];
     [[self class] timedCoffeeBreak:nil];
     return;
@@ -745,7 +705,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[[[NSAppleScript allocWithZone:[self zone]] initWithSource:
+    [[[[NSAppleScript alloc] initWithSource:
         @"tell application \"Finder\" to say \"Please, notice that I tek mac doesn't know how to make tea either.\""]
             autorelease] executeAndReturnError: nil];
     return;
@@ -783,13 +743,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_START;
-    if([[(NSTimer *)[notification object] userInfo] boolValue])
-        [NSTimer scheduledTimerWithTimeInterval:30*(3 + 2* rand()/RAND_MAX)  target:[self class]
-            selector: @selector(timedCoffeeBreak:) userInfo: [NSNumber numberWithBool:NO] repeats:NO];
-    else
-        [NSTimer scheduledTimerWithTimeInterval:60*(20 + 5* rand()/RAND_MAX)  target:[self class]
-            selector: @selector(timedCoffeeBreak:) userInfo: [NSNumber numberWithBool:YES] repeats:NO];
-
+	static char randstate[2048];
+	if(initstate(time(NULL), randstate, 256)){
+		if([[(NSTimer *)[notification object] userInfo] boolValue])
+			[NSTimer scheduledTimerWithTimeInterval:30*(3 + 2* random()/RAND_MAX)  target:[self class]
+										   selector: @selector(timedCoffeeBreak:) userInfo: [NSNumber numberWithBool:NO] repeats:NO];
+		else
+			[NSTimer scheduledTimerWithTimeInterval:60*(20 + 5* random()/RAND_MAX)  target:[self class]
+										   selector: @selector(timedCoffeeBreak:) userInfo: [NSNumber numberWithBool:YES] repeats:NO];
+	}
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  coffeeBreakNotified:
@@ -1348,12 +1310,6 @@ To Do List:
 	popUp = [argument retain];
 	return;
 }
-- (void)dealloc;
-{
-	[self setPopUp:nil];
-	[super dealloc];
-	return;
-}
 - (SEL)doubleAction;
 {
 	return [[self cell] doubleAction];
@@ -1371,7 +1327,7 @@ To Do List:
 {
 	if(![[self cell] isKindOfClass:[iTM2MixedButtonCell class]])
 	{
-		iTM2MixedButtonCell * newCell = [[[iTM2MixedButtonCell allocWithZone:[self zone]] init] autorelease];
+		iTM2MixedButtonCell * newCell = [[[iTM2MixedButtonCell alloc] init] autorelease];
 		NSButtonCell * oldCell = [self cell];
 		#define XFER(GETTER, SETTER) [newCell SETTER:[oldCell GETTER]]
 		XFER(controlView, setControlView);
@@ -1523,15 +1479,13 @@ To Do List:
 		if(!length)
 			return NO;
 	}
-    char * name = malloc(strlen(selectorName)+9);
+    char * name = NSAllocateCollectable(strlen(selectorName)+9,0);
     if(name)
 	{
 		strcpy(name, selectorName);
 		strcpy(name+strlen(selectorName)-1, "WillPopUp:");
 //iTM2_LOG(@"selector name: <%s>", name);
 		SEL willPopUpAction = sel_getUid(name);
-		free(name);
-		name = nil;
 		if(willPopUpAction)
 		{
 			id T = [self target]?:[NSApp targetForAction:[self action]];
@@ -1567,12 +1521,6 @@ To Do List:
 		case NSSmallControlSize:
 		case NSMiniControlSize: [popUpCell setControlSize:NSMiniControlSize]; break;
 	}
-	return;
-}
-- (void)dealloc;
-{
-	[self setPopUpCell:nil];
-	[super dealloc];
 	return;
 }
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
@@ -1648,7 +1596,7 @@ To Do List:
 		if(validatorTarget)
 		{
 			const char * selectorName = sel_getName(action);
-			char * name = malloc(strlen(selectorName)+9);
+			char * name = NSAllocateCollectable(strlen(selectorName)+9,0);
 			if(name)
 			{
 				strcpy(name, "validate");
@@ -1657,7 +1605,6 @@ To Do List:
 					name[8] = iTM2ANSICapitals[name[8]-'a'];
 			//iTM2_LOG(@"selector name: <%s>", name);
 				SEL validatorAction = sel_getUid(name);
-				free(name); name = nil;
 				if(validatorAction)
 				{
 					Method validatorMethod = ((id)validatorTarget == (id)([validatorTarget class])?

@@ -357,7 +357,7 @@ const char * iTM2InfoWrapper_get_prefix = "infoForPaths:";
 			++sel_name;
 			++size;
 		}
-		if((*sel_name == '\0')&&(signature = malloc(size+1)))// + termination
+		if((*sel_name == '\0')&&(signature = NSAllocateCollectable(size+1,0)))// + termination
 		{
 			memset(signature+1,'@',size-1);
 			signature[0]='c';
@@ -365,7 +365,6 @@ finish:
 			signature[size]='\0';
 			signature[2]=':';
 			id result = [NSMethodSignature signatureWithObjCTypes:signature];
-			free(signature);
 			return result;
 		}
 	}
@@ -377,7 +376,7 @@ finish:
 			++sel_name;
 			++size;
 		}
-		if((*sel_name == '\0')&&(signature = malloc(size+1)))
+		if((*sel_name == '\0')&&(signature = NSAllocateCollectable(size+1,0)))
 		{
 			memset(signature,'@',size);
 			goto finish;
@@ -851,7 +850,7 @@ NSString * const iTM2ProjectInfoComponent = @"Info";
 	if(!result)
 	{
 		NSError * outError = nil;
-		result = [[[iTM2MainInfoWrapper allocWithZone:[self zone]] initWithProjectURL:[self fileURL] error:&outError] autorelease];
+		result = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:[self fileURL] error:&outError] autorelease];
 		metaSETTER(result);
 	}
 	return result;
@@ -862,7 +861,7 @@ NSString * const iTM2ProjectInfoComponent = @"Info";
 	id result = metaGETTER;
 	if(!result)
 	{
-		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
+		result = [[[iTM2InfoWrapper alloc] init] autorelease];
 		metaSETTER(result);
 		[IMPLEMENTATION takeMetaValue:nil forKey:@"MutableInfos"];// next time mutableProjectInfos is called, it will make a mutable copy of otherInfos
 		NSError * outError;
@@ -891,7 +890,7 @@ NSString * const iTM2ProjectInfoComponent = @"Info";
 	id result = metaGETTER;
 	if(!result)
 	{
-		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
+		result = [[[iTM2InfoWrapper alloc] init] autorelease];
 		metaSETTER(result);
 		NSError * outError;
 		NSURL * url = [SPC customInfoURLFromURL:[self fileURL] create:NO error:&outError];
@@ -919,7 +918,7 @@ NSString * const iTM2ProjectInfoComponent = @"Info";
 	id result = metaGETTER;
 	if(!result)
 	{
-		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
+		result = [[[iTM2InfoWrapper alloc] init] autorelease];
 		[result setModel:[[self otherInfos] model]];// a mutable deep copy is done
 		metaSETTER(result);
 	}
@@ -930,7 +929,7 @@ NSString * const iTM2ProjectInfoComponent = @"Info";
 	id result = metaGETTER;
 	if(!result)
 	{
-		result = [[[iTM2InfoWrapper allocWithZone:[self zone]] init] autorelease];
+		result = [[[iTM2InfoWrapper alloc] init] autorelease];
 		metaSETTER(result);
 		NSError * outError;
 		NSURL * url = [SPC metaInfoURLFromURL:[self fileURL] create:NO error:&outError];
@@ -958,7 +957,7 @@ NSString * const iTM2ProjectInfoComponent = @"Info";
 	id result = metaGETTER;
 	if(!result)
 	{
-		result = [[[iTM2InfosController allocWithZone:[self zone]] initWithProject:self atomic:NO prefixWithKeyPaths:nil] autorelease];
+		result = [[[iTM2InfosController alloc] initWithProject:self atomic:NO prefixWithKeyPaths:nil] autorelease];
 		metaSETTER(result);
 	}
 	return result;
@@ -1084,7 +1083,7 @@ To Do List:
 		iTM2ProjectDocument * PD = [self document];
 		if([PD isKindOfClass:[iTM2ProjectDocument class]])
 		{
-			result = [[[iTM2InfosController allocWithZone:[self zone]] initWithProject:PD atomic:NO prefixWithKeyPaths:[self infosKeyPathPrefix],nil] autorelease];
+			result = [[[iTM2InfosController alloc] initWithProject:PD atomic:NO prefixWithKeyPaths:[self infosKeyPathPrefix],nil] autorelease];
 			metaSETTER(result);
 			result = metaGETTER;
 		}
@@ -1096,25 +1095,12 @@ To Do List:
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 
 @interface iTM2InfosController(PRIVATE)
-- (id)project;
-- (void)setProject:(id)project;
 - (NSArray *)prefix;
 - (id)infoForKeyPath:(NSString *)path prefix:(NSString *)prefix;
 @end
 
 
 @implementation iTM2InfosController
-/*  Each project has a unique infos controller, each controller belongs to a unique project.
- *  The project is the owner of the infos controller. */
-- (id)project;
-{
-	return [metaGETTER nonretainedObjectValue];
-}
-- (void)setProject:(id)project;
-{
-	metaSETTER([NSValue valueWithNonretainedObject:project]);
-	return;
-}
 /*  The prefix is used to access the model repository.
  *  The repository is in general a big tree,
  *  the model of the receiver may correspond to only a subtree. */
@@ -1341,7 +1327,7 @@ To Do List:
 	id edit = [[P otherInfos] infoForKeys:Ks];
 	return [[P mutableProjectInfos] setInfo:edit forKeys:Ks];
 }
-
+@synthesize project = iVarProject;
 @end
 
 @implementation NSObject(Infos)

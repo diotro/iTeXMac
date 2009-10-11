@@ -190,7 +190,7 @@ To Do List:
 		NSTextField * F = [[[NSTextField alloc] initWithFrame:NSZeroRect] autorelease];
 		[F setAction:action];
 		[F setTarget:nil];
-		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter allocWithZone:[self zone]] init] autorelease];
+		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter alloc] init] autorelease];
 		[F setFormatter:NF];
 		[F setDelegate:NF];
 		[F setFrameOrigin:NSMakePoint(4,6)];

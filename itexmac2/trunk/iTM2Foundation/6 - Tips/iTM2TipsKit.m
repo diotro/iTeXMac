@@ -53,7 +53,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return _iTMSharedPrefsController? _iTMSharedPrefsController: //_iTMSharedPrefsController =
-        [[self allocWithZone: [NSApp zone]] initWithWindowNibName: NSStringFromClass(self)];
+        [[self alloc] initWithWindowNibName: NSStringFromClass(self)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithWindow:
 - (id) initWithWindow: (NSWindow *) window;
@@ -205,10 +205,10 @@ To Do List:
 								if([B load])
 								{
 									iTM2_LOG(@"Pref pane plug-in: loaded %@\nPrincipal class: %@\nIf this pref pane plug-in causes any kind of problem you can disable it from the terminal\nterminal\%% defaults write comp.text.TeX.iTeXMac2 '%@' '1'", B, principalClassName, K);
-									Class prefPaneClass = [B principalClass];
-									if([prefPaneClass isSubclassOfClass: [NSPreferencePane class]])// + load message sent...
+									Class C = [B principalClass];
+									if([C isSubclassOfClass: [NSPreferencePane class]])// + load message sent...
 									{
-										id prefPane = [[[prefPaneClass allocWithZone: [self zone]] initWithBundle: B] autorelease];
+										id prefPane = [[C alloc] initWithBundle: B];
 										if(prefPane)
 											[[self prefPanes] setObject: prefPane forKey: [prefPane prefPaneIdentifier]];
 									}
@@ -265,11 +265,9 @@ To Do List:
 //iTM2_START;
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	// Start by recovering all the NSPreferencePane subclasses
-	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass: [NSPreferencePane class]] objectEnumerator];
-	Class prefPaneClass;
-	while(prefPaneClass = (Class)[[E nextObject] nonretainedObjectValue])
+	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass: [NSPreferencePane class]])
 	{
-		id pane = [[[prefPaneClass allocWithZone: [self zone]] initWithBundle: nil] autorelease];
+		id pane = [[C alloc] initWithBundle: nil];
 		if(pane)
 		{
 			NSString * identifier = [pane prefPaneIdentifier];
@@ -282,7 +280,7 @@ To Do List:
 		}
 		else
 		{
-			iTM2_LOG(@"No pane available for class: %@", NSStringFromClass(prefPaneClass));
+			iTM2_LOG(@"No pane available for class: %@", NSStringFromClass(C));
 		}
 	}
 	[self setPrefPanes: MD];// a copy is stored by the receiver
@@ -580,7 +578,7 @@ To Do List:
 		NSString * iconPath = [aBundle pathForImageResource: iconName];
 		if([iconPath length])
 		{
-			NSImage * result = [[[NSImage allocWithZone: [self zone]] initWithContentsOfFile: iconPath] autorelease];
+			NSImage * result = [[[NSImage alloc] initWithContentsOfFile: iconPath] autorelease];
 			if(result)
 			{
 				return result;
@@ -645,7 +643,7 @@ To Do List:
 	NSString * iconPath = [B pathForImageResource: NSStringFromClass([self class])];
 	if([iconPath length])
 	{
-		NSImage * result = [[[NSImage allocWithZone: [self zone]] initWithContentsOfFile: iconPath] autorelease];
+		NSImage * result = [[[NSImage alloc] initWithContentsOfFile: iconPath] autorelease];
 		if(result)
 		{
 			return result;
@@ -663,7 +661,7 @@ To Do List:
 	iconPath = [B pathForImageResource: @"iTM2GenericPrefPane"];
 	if([iconPath length])
 	{
-		NSImage * result = [[[NSImage allocWithZone: [self zone]] initWithContentsOfFile: iconPath] autorelease];
+		NSImage * result = [[[NSImage alloc] initWithContentsOfFile: iconPath] autorelease];
 		if(result)
 		{
 			return result;
@@ -736,20 +734,6 @@ To Do List:
         [self initImplementation];
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void) dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self willDealloc];
-    [self deallocImplementation];
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willUnselect
 - (void) willUnselect;

@@ -103,7 +103,7 @@ To Do List:
 //iTM2_LOG(@"[self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask]:%@", ([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask domain:iTM2ContextAllDomainsMask]? @"Y":@"N"));
 	if([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask])
 	{
-		id result = [[[iTM2TextStorage allocWithZone:[self zone]] init] autorelease];
+		id result = [[[iTM2TextStorage alloc] init] autorelease];
 		NSString * style = [[self contextValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask] lowercaseString];
 		NSString * variant = [[self contextValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask] lowercaseString];
 		NSEnumerator * E = [iTM2TextSyntaxParser syntaxParserClassEnumerator];
@@ -230,22 +230,6 @@ To Do List: Nothing
 //iTM2_START;
     return [self initWithString:[attrStr string]];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2: 12/05/2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [_Model autorelease];
-    _Model = nil;
-    [self setSyntaxParser:nil];
-    [super dealloc];
-//iTM2_END;
-    return;
-}
 - (void)edited:(unsigned)editedMask range:(NSRange)range changeInLength:(int)delta;
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -335,7 +319,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[[NSAttributedString allocWithZone:[self zone]] initWithString:[_TextModel substringWithRange:range]] autorelease];
+    return [[[NSAttributedString alloc] initWithString:[_TextModel substringWithRange:range]] autorelease];
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTING CHARACTERS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= replaceCharactersInRange:withString:
@@ -1149,10 +1133,8 @@ To Do List:
 //iTM2_LOG(@"style: %@", style);
 		[self registerObject:C forType:iTM2TextSyntaxParserType key:style retain:NO];
 	}
-    NSArray * references = [iTM2RuntimeBrowser subclassReferencesOfClass:C];
 //iTM2_LOG(@"There are currently %i subclasses of iTM2TextSyntaxParser", [references count]);
-	NSEnumerator * E = [references objectEnumerator];
-	while(C = (Class) [[E nextObject] nonretainedObjectValue])
+	for(C in [iTM2RuntimeBrowser subclassReferencesOfClass:C])
 	{
 //iTM2_LOG(@"Registering syntax parser: %@", NSStringFromClass(C));
         style = [[C syntaxParserStyle] lowercaseString];
@@ -1276,23 +1258,6 @@ To Do List: Nothing
 		_PreviousLocation = 0;
 	}
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [INC removeObserver:self];
-    _TS = nil;
-    _AS = nil;
-    [_ModeLines autorelease];
-    _ModeLines = nil;
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  diagnostic
 - (BOOL)diagnostic;
@@ -3646,19 +3611,15 @@ To Do List:
         _NumberOfSyntaxWords = 0;
         _MaxNumberOfSyntaxWords = _iTM2_MODE_BLOC_;
         size_t size = _MaxNumberOfSyntaxWords * sizeof(int);
-		NSZone * myZone = [self zone];
-        __SyntaxWordModes = NSZoneMalloc(myZone,size);
+		__SyntaxWordModes = NSAllocateCollectable(size,0);
         size += sizeof(int);
-        __SyntaxWordLengths = NSZoneMalloc(myZone,size);
-        __SyntaxWordOff7s = NSZoneMalloc(myZone,size);
+        __SyntaxWordLengths = NSAllocateCollectable(size,0);
+        __SyntaxWordOff7s = NSAllocateCollectable(size,0);
         if(!__SyntaxWordOff7s || !__SyntaxWordLengths || !__SyntaxWordModes)
         {
             iTM2_LOG(@"NOTHING!!!");
             _MaxNumberOfSyntaxWords = 0;
-            NSZoneFree(myZone,__SyntaxWordOff7s);
-            NSZoneFree(myZone,__SyntaxWordLengths);
-            NSZoneFree(myZone,__SyntaxWordModes);
-            __SyntaxWordOff7s = nil;
+			__SyntaxWordOff7s = nil;
             __SyntaxWordLengths = nil;
             __SyntaxWordModes = nil;
             __SyntaxWordEnds = nil;
@@ -3725,30 +3686,6 @@ To Do List:
     //NSLog(@"DEBUG initWithString: END");
 //[self describe];
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    free(__SyntaxWordOff7s);
-    free(__SyntaxWordLengths);
-    free(__SyntaxWordModes);
-    __SyntaxWordOff7s = nil;
-    __SyntaxWordLengths = nil;
-    __SyntaxWordModes = nil;
-    __SyntaxWordEnds = nil;
-    _NumberOfSyntaxWords = 0;
-#ifdef __ELEPHANT_MODELINE__
-	[originalString release];
-	originalString = nil;
-#endif
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swapContentsWithModeLine:
 - (void)swapContentsWithModeLine:(iTM2ModeLine *)swapModeLine;
@@ -4331,11 +4268,10 @@ To Do List:
 //iTM2_START;
     _MaxNumberOfSyntaxWords += _iTM2_MODE_BLOC_;
     size_t size = _MaxNumberOfSyntaxWords * sizeof(int);
-	NSZone * myZone = [self zone];
-    __SyntaxWordLengths = __SyntaxWordLengths? NSZoneRealloc(myZone,__SyntaxWordLengths, size): NSZoneMalloc(myZone,size);
-    __SyntaxWordModes = __SyntaxWordModes? NSZoneRealloc(myZone,__SyntaxWordModes, size): NSZoneMalloc(myZone,size);
+	__SyntaxWordLengths = __SyntaxWordLengths? NSReallocateCollectable(__SyntaxWordLengths, size,0): NSAllocateCollectable(size,0);
+    __SyntaxWordModes = __SyntaxWordModes? NSReallocateCollectable(__SyntaxWordModes, size,0): NSAllocateCollectable(size,0);
     size += sizeof(int);
-    __SyntaxWordOff7s = __SyntaxWordOff7s? NSZoneRealloc(myZone,__SyntaxWordOff7s, size): NSZoneMalloc(myZone,size);
+    __SyntaxWordOff7s = __SyntaxWordOff7s? NSReallocateCollectable(__SyntaxWordOff7s, size,0): NSAllocateCollectable(size,0);
     if(!__SyntaxWordOff7s || !__SyntaxWordLengths || !__SyntaxWordModes)
     {
         if(iTM2DebugEnabled > 999999)
@@ -4344,10 +4280,7 @@ To Do List:
         }
        _MaxNumberOfSyntaxWords = 0;
         _NumberOfSyntaxWords = 0;
-        free(__SyntaxWordOff7s);
-        free(__SyntaxWordLengths);
-        free(__SyntaxWordModes);
-        __SyntaxWordOff7s = nil;
+		__SyntaxWordOff7s = nil;
         __SyntaxWordLengths = nil;
         __SyntaxWordModes = nil;
         __SyntaxWordEnds = nil;
@@ -4377,19 +4310,15 @@ To Do List:
     {
         _MaxNumberOfSyntaxWords += _iTM2_MODE_BLOC_;
         size_t size = _MaxNumberOfSyntaxWords * sizeof(int);
-		NSZone * myZone = [self zone];
-        __SyntaxWordLengths = __SyntaxWordLengths? NSZoneRealloc(myZone,__SyntaxWordLengths, size): NSZoneMalloc(myZone,size);
-        __SyntaxWordModes = __SyntaxWordModes? NSZoneRealloc(myZone,__SyntaxWordModes, size): NSZoneMalloc(myZone,size);
+		__SyntaxWordLengths = __SyntaxWordLengths? NSReallocateCollectable(__SyntaxWordLengths, size,0): NSAllocateCollectable(size,0);
+        __SyntaxWordModes = __SyntaxWordModes? NSReallocateCollectable(__SyntaxWordModes, size,0): NSAllocateCollectable(size,0);
         size += sizeof(int);
-        __SyntaxWordOff7s = __SyntaxWordOff7s? NSZoneRealloc(myZone,__SyntaxWordOff7s, size): NSZoneMalloc(myZone,size);
+        __SyntaxWordOff7s = __SyntaxWordOff7s? NSReallocateCollectable(__SyntaxWordOff7s, size,0): NSAllocateCollectable(size,0);
         if(!__SyntaxWordOff7s || !__SyntaxWordLengths || !__SyntaxWordModes)
         {
             iTM2_LOG(@"NOTHING!!!");
             _MaxNumberOfSyntaxWords = 0;
             _NumberOfSyntaxWords = 0;
-            free(__SyntaxWordOff7s);
-            free(__SyntaxWordLengths);
-            free(__SyntaxWordModes);
             __SyntaxWordOff7s = nil;
             __SyntaxWordLengths = nil;
             __SyntaxWordModes = nil;
@@ -5273,24 +5202,6 @@ To Do List:
 //iTM2_END;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [INC removeObserver:self];
-    [_Variant autorelease];
-    _Variant = nil;
-    [_ModesAttributes autorelease];
-    _ModesAttributes = nil;
-    [super dealloc];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserVariant
 - (NSString *)syntaxParserVariant;
 /*"Description forthcoming.
@@ -5412,7 +5323,7 @@ To Do List:
 	for(stylePath in paths)
 	{
 		stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
-		stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [stylePath iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
@@ -5429,7 +5340,7 @@ To Do List:
 		while(stylePath = [E nextObject])
 		{
 			stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
-			stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
+			stylePath = [stylePath iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 			BOOL isDir = NO;
 			if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 			{
@@ -5445,7 +5356,7 @@ To Do List:
 	for(stylePath in paths)
 	{
 		stylePath = [stylePath stringByAppendingPathComponent:variantComponent];
-		stylePath = [stylePath stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [stylePath iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory:&isDir] && isDir)
 		{
@@ -5951,32 +5862,6 @@ To Do List:
         _Keys = [mra copy];
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Oct  6 12:57:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    if(iTM2DebugEnabled>1)
-    {
-        iTM2_START;
-    }
-    [_Keys autorelease];
-    [_Font autorelease];
-    [_ForegroundColor autorelease];
-    [_BackgroundColor autorelease];
-    [_TextMode autorelease];
-    [_CursorIsWhite autorelease];
-    [_NoBackground autorelease];
-    if(iTM2DebugEnabled>1)
-    {
-        iTM2_END;
-    }
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  count
 - (unsigned)count;

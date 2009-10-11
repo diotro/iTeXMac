@@ -24,6 +24,7 @@
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
 #import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 //#import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
 
@@ -34,6 +35,9 @@ NSString * const iTM2TeXProjectTable = @"TeX Project";
 NSString * const iTM2TeXProjectInspectorType = @"TeX Project Type";
 
 NSString * const iTM2TeXPCachedKeysKey = @"info_cachedKeys";
+
+CFStringRef const iTM2UTTypeTeXWrapper = CFSTR("org.tug.texd");
+CFStringRef const iTM2UTTypeTeXProject = CFSTR("org.tug.texp");
 
 NSString * const iTM2TeXWrapperDocumentType = @"TeX Project Wrapper";
 NSString * const iTM2TeXProjectDocumentType = @"TeX Project Document";
@@ -92,7 +96,7 @@ To Do List:
 	return iTM2TeXWrapperPathExtension;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXP_iTM2_projectDocumentType
-- (NSString *)SWZ_iTM2TeXP_iTM2_projectDocumentType;
+- (CFStringRef)SWZ_iTM2TeXP_iTM2_projectDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -101,10 +105,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return iTM2TeXProjectDocumentType;
+    return iTM2UTTypeTeXProject;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXP_iTM2_wrapperDocumentType
-- (NSString *)SWZ_iTM2TeXP_iTM2_wrapperDocumentType;
+- (CFStringRef)SWZ_iTM2TeXP_iTM2_wrapperDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -113,7 +117,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return iTM2TeXWrapperDocumentType;
+    return iTM2UTTypeTeXWrapper;
 }
 @end
 
@@ -165,7 +169,7 @@ To Do List:
     BOOL isDirectory = NO;
     if([path length])
     {
-        NSString * resolved = [path stringByResolvingSymlinksAndFinderAliasesInPath];
+        NSString * resolved = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
         if([[[DM fileAttributesAtPath:resolved traverseLink:NO] objectForKey:NSFileType] isEqualToString:NSFileTypeSymbolicLink])
         {
             resolved = [@"/private" stringByAppendingPathComponent:resolved];
@@ -291,7 +295,7 @@ To Do List:
 //iTM2_START;
 	if([absoluteURL isFileURL])
 	{
-		ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]]
+		ICURegEx * RE = [[[ICURegEx alloc]
 			initWithSearchPattern:[NSString stringWithFormat:@"/Library/.*/%@(?:$|/)",[iTM2ProjectBaseComponent stringByEscapingICUREControlCharacters]]
 				options:0 error:nil] autorelease];
 		[RE setInputString:[absoluteURL path]];
@@ -319,7 +323,7 @@ To Do List:
     NSString * output = @"";
     NSString * variant = @"";
     NSString * extension = @"";
-	ICURegEx * RE = [[[ICURegEx allocWithZone:[self zone]] initWithSearchPattern:@"(?:\\((.*?)\\))?([^\\+-]*)(?:\\+([^-]*))?(?:-(.*))?" options:0L error:nil] autorelease];
+	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"(?:\\((.*?)\\))?([^\\+-]*)(?:\\+([^-]*))?(?:-(.*))?" options:0L error:nil] autorelease];
     NSString * name = [[self lastPathComponent] stringByDeletingPathExtension];
 	[RE setInputString:name];
 	if([RE nextMatch] && ([RE numberOfCaptureGroups]>3))
@@ -869,7 +873,7 @@ To Do List:
 		title = [NSString stringWithFormat:iTM2StringEncodingDefaultFormat, title];
 		if(!(MI = [M itemWithAction:takeStringEncodingFromDefaults]))
 		{
-			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
+			MI = [[[NSMenuItem alloc] initWithTitle:title
 						action:takeStringEncodingFromDefaults keyEquivalent:[NSString string]] autorelease];
 			[MI setTarget:self];// MI belongs to the receiver's window
 			[MI setEnabled:YES];
@@ -894,7 +898,7 @@ To Do List:
 			enabled = NO;
 //multipleSelection:
 			title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM2FoundationBundle],"Description Forthcoming");
-			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
+			MI = [[[NSMenuItem alloc] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
 			[MI setTarget:nil];
 			[MI setEnabled:NO];
 			[M insertItem:[NSMenuItem separatorItem] atIndex:0];
@@ -921,13 +925,13 @@ selectOneItem:
 				// no item found, one should be created
 				title = [NSString localizedNameOfStringEncoding:encoding];
 				title = [NSString stringWithFormat:iTM2StringEncodingDefaultFormat, title];
-				MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
+				MI = [[[NSMenuItem alloc] initWithTitle:title
 						action:@selector(takeStringEncodingFromTag:) keyEquivalent:[NSString string]] autorelease];
 				NSFont * F = [NSFont fontWithName:@"Helvetica-Oblique" size:[NSFont systemFontSize]*1.1];
 				if(F)
 				{
 					NSDictionary * attrs = [NSDictionary dictionaryWithObject:F forKey:NSFontAttributeName];
-					NSAttributedString * AS = [[[NSAttributedString allocWithZone:[MI zone]] initWithString:title
+					NSAttributedString * AS = [[[NSAttributedString alloc] initWithString:title
 						attributes:attrs] autorelease];
 					[MI setAttributedTitle:AS];
 				}
@@ -1427,7 +1431,7 @@ To Do List:
 		title = [NSString stringWithFormat:iTM2EOLDefaultFormat, title];
 		if(!(MI = [M itemWithAction:takeEOLFromDefaults]))
 		{
-			MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
+			MI = [[[NSMenuItem alloc] initWithTitle:title
 						action:takeEOLFromDefaults keyEquivalent:[NSString string]] autorelease];
 			[MI setTarget:self];// MI belongs to the receiver's window
 			[MI setEnabled:YES];
@@ -1517,13 +1521,13 @@ selectOneItem:
 						// no item found, one should be created
 						title = [iTM2StringFormatController nameOfEOL:EOL];
 						title = [NSString stringWithFormat:iTM2EOLDefaultFormat, title];
-						MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title
+						MI = [[[NSMenuItem alloc] initWithTitle:title
 								action:@selector(takeEOLFromTag:) keyEquivalent:[NSString string]] autorelease];
 						NSFont * F = [NSFont fontWithName:@"Helvetica-Oblique" size:[NSFont systemFontSize]];
 						if(F)
 						{
 							NSDictionary * attrs = [NSDictionary dictionaryWithObject:F forKey:NSFontAttributeName];
-							NSAttributedString * AS = [[[NSAttributedString allocWithZone:[MI zone]] initWithString:title
+							NSAttributedString * AS = [[[NSAttributedString alloc] initWithString:title
 								attributes:attrs] autorelease];
 							[MI setAttributedTitle:AS];
 						}
@@ -1560,7 +1564,7 @@ selectOneItem:
 					enabled = NO;
 multipleSelection:
 					title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM2FoundationBundle],"Description Forthcoming");
-					MI = [[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
+					MI = [[[NSMenuItem alloc] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
 					[MI setTarget:nil];
 					[MI setEnabled:NO];
 					[M insertItem:[NSMenuItem separatorItem] atIndex:0];
@@ -2072,7 +2076,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [[SDC typeForContentsOfURL:url error:nil] isEqual:iTM2TeXProjectDocumentType];
+	NSString * type = [SDC typeForContentsOfURL:url error:nil];
+	BOOL result = UTTypeEqual((CFStringRef)type,iTM2UTTypeTeXProject);
+    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isTeXWrapperPackageAtURL:
 - (BOOL)iTM2_isTeXWrapperPackageAtURL:(NSURL *) url;
@@ -2084,7 +2090,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [[SDC typeForContentsOfURL:url error:nil] isEqual:iTM2TeXWrapperDocumentType];
+	NSString * type = [SDC typeForContentsOfURL:url error:nil];
+	BOOL result = UTTypeEqual((CFStringRef)type,iTM2UTTypeTeXWrapper);
+    return result;
 }
 @end
 

@@ -1484,7 +1484,7 @@ DEFINE_TOOLBAR_ITEM(stopTypesetCurrentProjectToolbarItem)
 	[toolbarItem setMinSize:frame.size];
 	[B setTarget:nil];
 	[[B cell] setBackgroundColor:[NSColor clearColor]];
-	NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 	NSEnumerator * E  = [[iTM2TeXPCommandManager orderedBuiltInCommandNames] objectEnumerator];
 	NSEnumerator * e;
 	if(e = [[E nextObject] objectEnumerator])
@@ -1497,7 +1497,7 @@ next:
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
-				NSMenuItem * mi = [[[NSMenuItem allocWithZone:[M zone]] initWithTitle:[[performer class] localizedNameForName:name]
+				NSMenuItem * mi = [[[NSMenuItem alloc] initWithTitle:[[performer class] localizedNameForName:name]
 						action: action
 							keyEquivalent: @""] autorelease];
 				[mi setRepresentedObject:performer];
@@ -1511,7 +1511,7 @@ next:
 			goto next;
 		}
 	}
-	NSPopUpButton * PB = [[[NSPopUpButton allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSPopUpButton * PB = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect] autorelease];
 	[PB setMenu:M];
 	[PB insertItemWithTitle:@"" atIndex:0];// the title is the first item
 	[PB setPullsDown:YES];

@@ -43,21 +43,6 @@ To Do List:
 //NSLog(@"<%@ initWithFrame:...%@>", self, ([self isFlipped]? @"Y": @"N"));
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Designated initializer.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [_CachedHeights release];
-    _CachedHeights = nil;
-    [super dealloc];
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sizeToFit
 - (void)sizeToFit;
 /*"Description forthcoming.

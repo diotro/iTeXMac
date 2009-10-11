@@ -25,6 +25,7 @@
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2InstallationKit.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
 
@@ -48,9 +49,7 @@ To Do List:
 //iTM2_START;
 	[iTM2RuntimeBrowser cleanCache];
 	[iTM2Application completeInstallation];
-	NSEnumerator * E = [[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2Installer class]] objectEnumerator];
-	Class C;
-	while(C = (Class)[[E nextObject] nonretainedObjectValue])
+	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2Installer class]])
 		if(C != self)
 		{
 			if(iTM2DebugEnabled)
@@ -58,23 +57,15 @@ To Do List:
 				iTM2_LOG(@"Auto installation of class %@ START", NSStringFromClass(C));
 			}
 			NSMethodSignature * signature = [iTM2Installer methodSignatureForSelector:_cmd];
-			NSEnumerator * e = [[iTM2RuntimeBrowser realClassSelectorsOfClass:C withSuffix:@"CompleteInstallation" signature:signature inherited:NO] objectEnumerator];
+			NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:C withSuffix:@"CompleteInstallation" signature:signature inherited:NO]);
 			SEL selector;
-			while(selector = (SEL)[[e nextObject] pointerValue])
+			while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
 			{
-				if(iTM2DebugEnabled)
-				{
-					iTM2_LOG(@"Performing %@", NSStringFromSelector(selector));
-				}
 				NS_DURING
 				[(id)C performSelector:selector withObject:nil];
 				NS_HANDLER
 				iTM2_LOG(@"***  ERROR: Exception catched while performing %@\n%@", NSStringFromSelector(selector), [localException reason]);
 				NS_ENDHANDLER
-			}
-			if(iTM2DebugEnabled)
-			{
-				iTM2_LOG(@"Auto installation of class %@ END", NSStringFromClass(C));
 			}
 			// Transforming to a zombie...
 			C->isa=[iTM2InstallerZombie class];
@@ -88,7 +79,7 @@ To Do List:
 // the delayed fix installation is used...
 
 static NSMutableArray * _iTM2_FixInstallationQueue = nil;
-static NSMutableArray * _iTM2_CompleteInstallationQueue = nil;
+static NSHashTable * _iTM2_CompleteInstallationQueue = nil;
 
 @interface NSApplication_iTM2InstallationKit: NSApplication
 @end
@@ -108,23 +99,15 @@ To Do List:
 		return;
 	already = YES;
 	NSMethodSignature * signature = [self methodSignatureForSelector:_cmd];
-	NSEnumerator * e = [[iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:signature inherited:YES] objectEnumerator];
+	NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:signature inherited:YES]);
 	SEL selector;
-	while(selector = (SEL)[[e nextObject] pointerValue])
+	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
 	{
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Performing %@", NSStringFromSelector(selector));
-		}
 		NS_DURING
 		[self performSelector:selector withObject:nil];
 		NS_HANDLER
 		iTM2_LOG(@"***  ERROR: Exception catched while performing %@\n%@", NSStringFromSelector(selector), [localException reason]);
 		NS_ENDHANDLER
-	}
-	if(iTM2DebugEnabled)
-	{
-		iTM2_LOG(@"Auto installation END");
 	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
@@ -157,33 +140,12 @@ To Do List:
 //iTM2_START;
 	[self  completeInstallation];
 	[iTM2Installer completeInstallation];
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"WillFinishLaunching" signature:sig0 inherited:YES];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] SWZ_iTM2Install_finishLaunching];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"WillFinishLaunching" signature:[I methodSignature] inherited:YES]];
 	[self SWZ_iTM2Install_finishLaunching];// inherited
-    selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"DidFinishLaunching" signature:sig0 inherited:YES];
-    E = [selectors objectEnumerator];
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] SWZ_iTM2Install_finishLaunching];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser realInstanceSelectorsOfClass:[self class] withSuffix:@"DidFinishLaunching" signature:[I methodSignature] inherited:YES]];
 	[iTM2MileStone verifyRegisteredMileStones];
 //iTM2_END;
     return;
@@ -311,11 +273,11 @@ To Do List:
 	if([iTM2RuntimeBrowser swizzleClassMethodSelector:_cmd
 		replacement: @selector(otherFixInstallationOf:)
 			forClass: [NSObject class]
-												error:nil])
+				error:NULL])
 	{
 		iTM2_LOG(@"INFO: Delayed fix installation available.");
 		if(!_iTM2_FixInstallationQueue)
-			_iTM2_FixInstallationQueue = [[NSMutableArray array] retain];
+			_iTM2_FixInstallationQueue = [NSHashTable hashTableWithWeakObjects];
 		[self fixInstallationOf:target];
 		return;
 	}
@@ -345,7 +307,7 @@ To Do List:
         else
         {
 			iTM2_LOG(@"INFO: Will fix installation of: %s, %#x", object_getClassName(target), target);
-            [_iTM2_FixInstallationQueue addObject:[NSValue valueWithNonretainedObject:target]];
+            [_iTM2_FixInstallationQueue addObject:target];
         }
     }
 //iTM2_END;
@@ -366,11 +328,9 @@ To Do List:
 		iTM2_LOG(@"INFO: STARTED...");
 		while([_iTM2_FixInstallationQueue count])
 		{
-			NSEnumerator * E = [[[_iTM2_FixInstallationQueue copy] autorelease] objectEnumerator];
-			[_iTM2_FixInstallationQueue autorelease];
-			_iTM2_FixInstallationQueue = [[NSMutableArray array] retain];
-			id O;
-			while(O = [[E nextObject] nonretainedObjectValue])
+			NSEnumerator * E = [_iTM2_FixInstallationQueue objectEnumerator];
+			_iTM2_FixInstallationQueue = [NSHashTable hashTableWithWeakObjects];
+			for(id O in E)
 			{
 				iTM2_LOG(@"INFO: Fix installation of: %s, %#x", object_getClassName(O), O);
 				[O fixInstallation];
@@ -378,8 +338,7 @@ To Do List:
 		}
 		iTM2_LOG(@"INFO: FINISHED.");
 	}
-    [_iTM2_FixInstallationQueue autorelease];
-    _iTM2_FixInstallationQueue = [[NSMutableArray array] retain];
+    _iTM2_FixInstallationQueue = [NSHashTable hashTableWithWeakObjects];
 //iTM2_END;
     return;
 }
@@ -393,26 +352,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"FixInstallation" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
+	NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] fixInstallation];
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"FixInstallation" signature:[I methodSignature] inherited:YES]);
+	SEL selector;
+	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
     {
-        [I setSelector:action];
+        [I setSelector:selector];
         [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-		[iTM2RuntimeBrowser disableClassMethodSelector:action forClass:self];
+		[iTM2RuntimeBrowser disableClassMethodSelector:selector forClass:self];
     }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...FixInstallation");
-	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
@@ -426,25 +375,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"FixInstallation" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...FixInstallation");
-	}
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] fixInstallation];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"FixInstallation" signature:[I methodSignature] inherited:YES]];
 //iTM2_END;
     return;
 }
@@ -466,7 +399,7 @@ To Do List:
 	{
 		iTM2_LOG(@"INFO: Delayed complete installation available.");
 		if(!_iTM2_CompleteInstallationQueue)
-			_iTM2_CompleteInstallationQueue = [[NSMutableArray array] retain];
+			_iTM2_CompleteInstallationQueue = [NSHashTable hashTableWithWeakObjects];
 		[self completeInstallationOf:target];
 		return;
 	}
@@ -496,7 +429,7 @@ To Do List:
         else
         {
 			iTM2_LOG(@"INFO: Will complete installation of: %s, %#x", object_getClassName(target), target);
-            [_iTM2_CompleteInstallationQueue addObject:[NSValue valueWithNonretainedObject:target]];
+            [_iTM2_CompleteInstallationQueue addObject:target];
         }
     }
 //iTM2_END;
@@ -518,11 +451,9 @@ To Do List:
 		[self fixAllInstallations];
 		while([_iTM2_CompleteInstallationQueue count])
 		{
-			NSEnumerator * E = [[[_iTM2_CompleteInstallationQueue copy] autorelease] objectEnumerator];
-			[_iTM2_CompleteInstallationQueue autorelease];
-			_iTM2_CompleteInstallationQueue = [[NSMutableArray array] retain];
-			id O;
-			while(O = [[E nextObject] nonretainedObjectValue])
+			NSEnumerator * E = [_iTM2_CompleteInstallationQueue objectEnumerator];
+			_iTM2_CompleteInstallationQueue = [NSHashTable hashTableWithWeakObjects];
+			for(id O in E)
 			{
 				if(iTM2DebugEnabled)
 				{
@@ -534,8 +465,7 @@ To Do List:
 		}
 		iTM2_LOG(@"INFO: FINISHED.");
 	}
-    [_iTM2_CompleteInstallationQueue autorelease];
-    _iTM2_CompleteInstallationQueue = [[NSMutableArray array] retain];
+    _iTM2_CompleteInstallationQueue = [NSHashTable hashTableWithWeakObjects];
 //iTM2_END;
     return;
 }
@@ -549,26 +479,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	iTM2_INIT_POOL;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] completeInstallation];
+	NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:[I methodSignature] inherited:YES]);
+	SEL selector;
+	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
     {
-        [I setSelector:action];
+        [I setSelector:selector];
         [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-		[iTM2RuntimeBrowser disableClassMethodSelector:action forClass:self];
+		[iTM2RuntimeBrowser disableClassMethodSelector:selector forClass:self];
     }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...CompleteInstallation");
-	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
@@ -582,25 +502,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"CompleteInstallation" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...CompleteInstallation");
-	}
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] completeInstallation];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"CompleteInstallation" signature:[I methodSignature] inherited:YES]];
 //iTM2_END;
     return;
 }

@@ -646,16 +646,6 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (void)fixImplementation;
 
 /*!
-	@method		deallocImplementation
-	@abstract	Dealloc's the implementation of the receiver.
-	@discussion	This method should balance an already used initImplementation.
-				Subclassers won't forget to call the inherited method.
-	@param		None.
-	@result		None.
-*/
-- (void)deallocImplementation;
-
-/*!
 	@method		observeImplementation
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
@@ -727,17 +717,6 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@result		None.
 */
 - (void)implementationDidChange;
-
-/*!
-	@method		willDealloc
-	@abstract	The receiver will dealloc.
-	@discussion	Automatically sends all the message which names match the regular expression .*CompleteDealloc.
-				You seldomly need to override this method.
-				In your .*CompleteDealloc, you will be given a chance to perform various operations.
-	@param		None.
-	@result		None.
-*/
-- (void)willDealloc;
 
 @end
 
@@ -837,16 +816,6 @@ extern NSString * const iTM2ImplementationDidChangeModelObjectNotification;
 	@result		None.
 */
 - (void)fixImplementation;
-
-/*!
-	@method		deallocImplementation
-	@abstract	Dealloc's the implementation of the receiver.
-	@discussion	This method should balance an already used initImplementation.
-				Subclassers won't forget to call the inherited method.
-	@param		None.
-	@result		None.
-*/
-- (void)deallocImplementation;
 
 /*!
 	@method		observeImplementation

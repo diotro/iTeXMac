@@ -379,7 +379,7 @@ extern NSString * const iTM2ToolbarProjectTerminalItemIdentifier;
 - (int)creationMode;
 - (void)setCreationMode:(int)tag;
 - (BOOL)belongsToAWrapper;
-- (NSString *)projectName;
+- (NSURL *)projectURL;
 - (BOOL)canInsertInOldProject;
 - (BOOL)canCreateNewProject;
 - (BOOL)canBeStandalone;

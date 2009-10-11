@@ -59,6 +59,9 @@ NSString * const iTM2SpellContextModeKey = @"Spell Context Mode";
 #define SSC [NSSpellChecker sharedSpellChecker]
 
 @implementation iTM2SpellContext
+@synthesize ignoredWords=iVarIgnoredWords;
+@synthesize spellLanguage=iVarLanguage;
+@synthesize tag=iVarTag;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initialize
 + (void)initialize;
 /*"Description forthcoming.
@@ -86,9 +89,9 @@ To Do List:
 //iTM2_START;
     if(self = [super init])
     {
-        [self setSpellLanguage:[SUD objectForKey:iTM2CurrentSpellLanguageKey]];
-        [self setIgnoredWords:[NSArray array]];
-        ivarTag = [NSSpellChecker uniqueSpellDocumentTag];// last
+        self.spellLanguage = [SUD objectForKey:iTM2CurrentSpellLanguageKey];
+        self.ignoredWords = [NSArray array];
+        self.tag = [NSSpellChecker uniqueSpellDocumentTag];// last
     }
     return self;
 }
@@ -113,9 +116,7 @@ To Do List:
             iTM2Beep();
             NSLog(@"Big problem\nReport BUG ref: iTM2168");
             NSLog(@"error string: '%@'", errorString);
-            [errorString autorelease];
-            errorString = nil;
-        }
+		}
 //NSLog(@"DM: %@", DM);
         if([self loadPropertyListRepresentation:DM])
             return YES;
@@ -139,7 +140,7 @@ To Do List:
     {
         id O;
         if(O = [PL valueForKey:TWSSpellLanguageKey])
-            [self setSpellLanguage:O];
+            self.spellLanguage = O;
         if(O = [PL valueForKey:TWSSpellIgnoredWordsKey])
             [self replaceIgnoredWords:O];
         result = YES;
@@ -163,13 +164,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	[self setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:[self tag]]];
-	if([[[SSC currentText] spellContext] isEqual:self])
-		[self setSpellLanguage:[SSC language]];
+	if([[SSC.currentText spellContext] isEqual:self])
+		self.spellLanguage = [SSC language];
 //iTM2_LOG(@"CURRENT LANGUAGE IS: %@, current spell context is: %#x", [SSC language], [[SSC currentText] spellContext]);
     return [NSDictionary dictionaryWithObjectsAndKeys:
                 TWSSpellIsaValue, TWSSpellIsaKey,
-                [self spellLanguage], TWSSpellLanguageKey,
-                [self ignoredWords], TWSSpellIgnoredWordsKey,
+                self.spellLanguage, TWSSpellLanguageKey,
+                self.ignoredWords, TWSSpellIgnoredWordsKey,
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:error:
@@ -197,106 +198,21 @@ To Do List:
     {
         iTM2Beep();
         iTM2_LOG(@"Big problem\nReport BUG ref: iTM2861, error string: '%@'\nPropery List: %@", errorString, PL);
-        [errorString autorelease];
-        errorString = nil;
     }
 //NSLog(@"data: %@", result);
 //iTM2_END;
     return [D writeToURL:fileURL options:NSAtomicWrite error:outErrorPtr];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  finalize
+- (void)finalize;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    [self setSpellLanguage:nil];
-    [self setIgnoredWords:nil];
-    [SSC closeSpellDocumentWithTag:ivarTag];
-    [super dealloc];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tag
-- (int)tag;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return ivarTag;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellLanguage
-- (NSString *)spellLanguage;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return ivarLanguage;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellLanguage:
-- (void)setSpellLanguage:(NSString *)argument;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(argument && ![argument isKindOfClass:[NSString class]])
-        [NSException raise:NSInvalidArgumentException format:@"%@ NSString argument expected:got %@.",
-            isa, NSStringFromSelector(_cmd), argument];
-    else if(![argument isEqualToString:ivarLanguage])
-    {
-
-//iTM2_LOG(@"THE LANGUAGE HAS CHANGED FROM %@ to %@", ivarLanguage, argument);
-        [ivarLanguage autorelease];
-        ivarLanguage = [argument copyWithZone:[self zone]];
-    }
-//iTM2_END;
-   return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  ignoredWords
-- (NSArray *)ignoredWords;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return ivarIgnoredWords;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setIgnoredWords:
-- (void)setIgnoredWords:(NSArray *)argument;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(argument && ![argument isKindOfClass:[NSArray class]])
-        [NSException raise:NSInvalidArgumentException format:@"%@ NSArray argument expected:got %@.",
-            isa, NSStringFromSelector(_cmd), argument];
-    else if(argument != ivarIgnoredWords)
-    {
-        NSMutableArray * MRA = [NSMutableArray array];
-        id O;
-        for(O in argument)
-            if([O isKindOfClass:[NSString class]])
-                [MRA addObject:O];
-        [ivarIgnoredWords autorelease];
-        ivarIgnoredWords = [MRA copyWithZone:[self zone]];
-//iTM2_LOG(@"ivarIgnoredWords are: %@", ivarIgnoredWords);
-    }
-//iTM2_END;
+    [SSC closeSpellDocumentWithTag:iVarTag];
+    [super finalize];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  replaceIgnoredWords:
@@ -308,14 +224,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setIgnoredWords:argument];
+    self.ignoredWords = argument;
 	[SSC setIgnoredWords:[self ignoredWords] inSpellDocumentWithTag:[self tag]];
 //iTM2_END;
     return;
 }
-@synthesize ivarIgnoredWords;
-@synthesize ivarLanguage;
-@synthesize ivarTag;
 @end
 
 @implementation NSWindow(iTM2SpellKit)
@@ -521,7 +434,7 @@ To Do List:
     if(!_iTM2SpellContextController)
     {
         [super initialize];
-        iTM2SpellContext * SC = [[[iTM2SpellContext alloc] init] autorelease];
+        iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
         [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
             [NSDictionary dictionaryWithObject:[SC propertyListRepresentation] forKey:TWSSpellDefaultContextMode], iTM2SpellContextsKey,
             [NSDictionary dictionary], iTM2SpellContextModesKey,
@@ -532,7 +445,7 @@ To Do List:
         NSString * mode;
         while(mode = [E nextObject])
         {
-            iTM2SpellContext * SC = [[[iTM2SpellContext allocWithZone:[_iTM2SpellContextController zone]] init] autorelease];
+            iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
             if(SC)
             {
                 [SC loadPropertyListRepresentation:[D objectForKey:mode]];
@@ -574,7 +487,7 @@ To Do List:
     [SCH _1stResponderMightHaveChanged:nil];
     iTM2SpellContextController * controller = [self defaultSpellContextController];
     NSArray * newModes = [[controller spellContextModesEnumerator] allObjects];
-    NSMutableDictionary * MD = [[[SUD dictionaryForKey:iTM2SpellContextsKey] mutableCopy] autorelease];
+    NSMutableDictionary * MD = [[SUD dictionaryForKey:iTM2SpellContextsKey] mutableCopy];
     NSEnumerator * E = [MD keyEnumerator];
     NSString * mode;
     while(mode = [E nextObject])
@@ -609,9 +522,7 @@ To Do List:
     if(self = [super init])
     {
         [self setSpellContexts:[NSDictionary dictionary]];
-        iTM2SpellContext * SC = [[[iTM2SpellContext allocWithZone:
-            [[iTM2SpellContextController defaultSpellContextController] zone]]
-                init] autorelease];
+        iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
         [SC loadPropertyListRepresentation:[[SUD objectForKey:iTM2SpellContextsKey] objectForKey:TWSSpellDefaultContextMode]];
         [self setSpellContext:SC forMode:TWSSpellDefaultContextMode];
 //iTM2_LOG(@"[self spellContexts] are:\n%@", [self spellContexts]);
@@ -634,7 +545,7 @@ To Do List:
         return NO;
     else if([mode length] && ![self spellContextForMode:mode])
     {
-        [self setSpellContext:[[[iTM2SpellContext allocWithZone:[self zone]] init] autorelease] forMode:mode];
+        [self setSpellContext:[[iTM2SpellContext alloc] init] forMode:mode];
 //NSLog(@"NEW MODE CREATED: %@\n%@", mode, MD);
         [self updateChangeCount:NSChangeDone];
 //iTM2_END;
@@ -731,9 +642,7 @@ To Do List:
     {
 		if([mode isEqualToString:TWSSpellDefaultContextMode])
 		{
-			iTM2SpellContext * SC = [[[iTM2SpellContext allocWithZone:
-				[[iTM2SpellContextController defaultSpellContextController] zone]]
-					init] autorelease];
+			iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
 			[SC loadPropertyListRepresentation:[[SUD objectForKey:iTM2SpellContextsKey] objectForKey:TWSSpellDefaultContextMode]];
 			[self setSpellContext:SC forMode:TWSSpellDefaultContextMode];
 			result = SC;
@@ -782,7 +691,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(!newContexts || [newContexts isKindOfClass:[NSDictionary class]]);
-    metaSETTER([[newContexts mutableCopy] autorelease]);// a dictionary is expected
+    metaSETTER([newContexts mutableCopy]);// a dictionary is expected
 //iTM2_END;
     return;
 }
@@ -826,7 +735,7 @@ To Do List:
             NSString * mode;
             while(mode = [E nextObject])
             {
-                iTM2SpellContext * SC = [[[iTM2SpellContext alloc] init] autorelease];
+                iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
                 if([SC loadPropertyListRepresentation:[d objectForKey:mode]])
                     [self setSpellContext:SC forMode:mode];
                 else
@@ -899,26 +808,23 @@ To Do List:
 @interface _iTM2IgnoredWordsEditor: NSWindowController
 {
 @private
-    NSValue *		iVarCurrentTextRef;
-    NSTableView *	iVarTableView;
-    NSTextField *	iVarModeField;
-    NSTextField *	iVarProjectField;
-    NSMutableArray *	iVarIgnoredWords;
-    int			iVarSpellDocumentTag;
+    NSText *		__weak iVarCurrentText;
+    NSTableView *	__strong iVarTableView;
+    NSTextField *	__strong iVarModeField;
+    NSTextField *	__strong iVarProjectField;
+    NSMutableArray *	__strong iVarIgnoredWords;
+    NSInteger			iVarSpellDocumentTag;
 }
 + (id)sharedEditor;
 - (BOOL)addIgnoredWord:(NSString *)argument;
 - (BOOL)smartReplaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
 - (BOOL)replaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
-- (NSMutableArray *)ignoredWords;
-- (void)setIgnoredWords:(NSArray *)argument;
-- (void)setCurrentText:(NSText *)currentText;
-@property (retain) NSValue *		iVarCurrentTextRef;
-@property (retain) NSTableView *	iVarTableView;
-@property (retain) NSTextField *	iVarModeField;
-@property (retain) NSTextField *	iVarProjectField;
-@property (retain) NSMutableArray *	iVarIgnoredWords;
-@property int			iVarSpellDocumentTag;
+@property (assign) __weak NSText *	currentText;
+@property (retain) NSTableView *	tableView;
+@property (retain) NSTextField *	modeField;
+@property (retain) NSTextField *	projectField;
+@property (retain) NSMutableArray *	ignoredWords;
+@property int						spellDocumentTag;
 @end
 
 #import <iTM2Foundation/iTM2ValidationKit.h>
@@ -928,6 +834,12 @@ To Do List:
 @end
 
 @implementation _iTM2IgnoredWordsEditor
+@synthesize currentText=iVarCurrentText;
+@synthesize tableView=iVarTableView;
+@synthesize modeField=iVarModeField;
+@synthesize projectField=iVarProjectField;
+@synthesize ignoredWords=iVarIgnoredWords;
+@synthesize spellDocumentTag=iVarSpellDocumentTag;
 static id _iTM2SpellIgnoredWordsEditor = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  sharedEditor
 + (id)sharedEditor;
@@ -940,30 +852,11 @@ To Do List:
 //iTM2_START;
 	if(!_iTM2SpellIgnoredWordsEditor)
 	{
-		_iTM2SpellIgnoredWordsEditor = [[_iTM2IgnoredWordsEditor allocWithZone:[self zone]]
+		_iTM2SpellIgnoredWordsEditor = [[_iTM2IgnoredWordsEditor alloc]
             initWithWindowNibName: @"iTM2IgnoredWordsEditor"];
 	}
 //iTM2_END;
     return _iTM2SpellIgnoredWordsEditor;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
-/*"Creating a new entry in the ignored words list.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    [iVarTableView setDelegate:nil];
-    [iVarCurrentTextRef autorelease];
-	iVarCurrentTextRef = nil;
-    iVarTableView = nil;
-    iVarModeField = nil;
-    iVarProjectField = nil;
-    [iVarIgnoredWords autorelease];
-    iVarIgnoredWords = nil;
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowDidLoad
 - (void)windowDidLoad;
@@ -979,17 +872,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentText
-- (NSText *)currentText;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return [iVarCurrentTextRef nonretainedObjectValue];
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentText:
 - (void)setCurrentText:(NSText *)currentText;
 /*"Description forthcoming.
@@ -999,26 +881,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [iVarCurrentTextRef autorelease];
 	if(currentText)
 	{
-		iVarCurrentTextRef = [[NSValue valueWithNonretainedObject:currentText] retain];
+		iVarCurrentText = currentText;
 		iTM2SpellContextController * currentController = [currentText spellContextController];
 		NSString * currentMode = [currentController spellContextModeForText:currentText];
 		iTM2SpellContext * currentContext = [currentController spellContextForMode:currentMode];
-		[iVarIgnoredWords autorelease];
-		iVarIgnoredWords = ([[SSC ignoredWordsInSpellDocumentWithTag:[currentContext tag]] mutableCopy]?
-			: [[NSMutableArray array] retain]);
-		[iVarIgnoredWords sortUsingSelector:@selector(compare:)];
-		[iVarTableView reloadData];
-		[iVarTableView display];
+		self.ignoredWords = ([[SSC ignoredWordsInSpellDocumentWithTag:[currentContext tag]] mutableCopy]?
+			: [NSMutableArray array]);
+		[self.ignoredWords sortUsingSelector:@selector(compare:)];
+		[self.tableView reloadData];
+		[self.tableView display];
 		[self iTM2_validateWindowContent];
 	}
 	else
 	{
-		iVarCurrentTextRef = nil;
-		[iVarTableView reloadData];
-		[iVarTableView display];
+		iVarCurrentText = nil;
+		[self.tableView reloadData];
+		[self.tableView display];
 	}
 //iTM2_END;
     return;
@@ -1040,7 +920,7 @@ To Do List:
     {
         [iVarTableView reloadData];
         [iVarTableView display];
-        int row = [iVarIgnoredWords indexOfObject:newArgument];
+        int row = [self.ignoredWords indexOfObject:newArgument];
         if(row>=0)
         {
             [iVarTableView deselectAll:self];
@@ -1052,7 +932,7 @@ To Do List:
     }
     iTM2_LOG(@"PROBLEM: could not add %@", newArgument);
     iTM2Beep();
-//NSLog(@"ignored words: %@", iVarIgnoredWords);
+//NSLog(@"ignored words: %@", self.ignoredWords);
 //iTM2_END;
     return;
 }
@@ -1065,11 +945,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    while([iVarIgnoredWords containsObject:@"?"])
-        [iVarIgnoredWords removeObject:@"?"];
-    iTM2SpellContext * currentContext = [[self currentText] spellContext];
-    [currentContext replaceIgnoredWords:iVarIgnoredWords];
-    [self setCurrentText:nil];// necessary
+    while([self.ignoredWords containsObject:@"?"])
+        [self.ignoredWords removeObject:@"?"];
+    iTM2SpellContext * currentContext = [self.currentText spellContext];
+    [currentContext replaceIgnoredWords:self.ignoredWords];
+    self.currentText = nil;// necessary
     [NSApp endSheet:[sender window] returnCode:NSAlertDefaultReturn];
 //iTM2_END;
     return;
@@ -1083,7 +963,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setCurrentText:nil];// necessary
+    self.currentText = nil;// necessary
     [NSApp endSheet:[sender window] returnCode:NSAlertAlternateReturn];
 //iTM2_END;
     return;
@@ -1121,7 +1001,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * name = [[self currentText] spellPrettyProjectName];
+    NSString * name = [self.currentText spellPrettyProjectName];
     [sender setStringValue:([name length]? name:
         NSLocalizedStringFromTableInBundle(@"None", TABLE,
             [self classBundle], "No project/text/mode name for the spell check document"))];
@@ -1148,7 +1028,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * currentMode = [[self currentText] spellContextMode];
+    NSString * currentMode = [self.currentText spellContextMode];
     [sender setStringValue:([currentMode length]? currentMode:
         NSLocalizedStringFromTableInBundle(@"None", TABLE,
             [self classBundle], "No project/text/mode name for the spell check document"))];
@@ -1214,7 +1094,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [iVarIgnoredWords count];
+    return [self.ignoredWords count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableView:objectValueForTableColumn:row:
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
@@ -1225,7 +1105,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return ((row>-1) && ((row<[iVarIgnoredWords count]))? [iVarIgnoredWords objectAtIndex:row]:@"?");
+    return ((row>-1) && ((row<[self.ignoredWords count]))? [self.ignoredWords objectAtIndex:row]:@"?");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableView:setObjectValue:forTableColumn:row:
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
@@ -1236,12 +1116,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * oldArgument = ((row>-1) && ((row<[iVarIgnoredWords count]))? [iVarIgnoredWords objectAtIndex:row]:nil);
+    NSString * oldArgument = ((row>-1) && ((row<[self.ignoredWords count]))? [self.ignoredWords objectAtIndex:row]:nil);
     if(oldArgument && [self smartReplaceIgnoredWord:oldArgument by:object])
     {
         [tableView reloadData];
         [tableView setNeedsDisplay:YES];
-        int row = [iVarIgnoredWords indexOfObject:object];
+        int row = [self.ignoredWords indexOfObject:object];
         [tableView selectRow:row byExtendingSelection:NO];
         [tableView scrollRowToVisible:row];
     }
@@ -1270,8 +1150,8 @@ To Do List:
     while(N = [E nextObject])
     {
         int idx = [N intValue];
-        if((idx>=0) && (idx<[iVarIgnoredWords count]))
-            [iVarIgnoredWords removeObjectAtIndex:idx];
+        if((idx>=0) && (idx<[self.ignoredWords count]))
+            [self.ignoredWords removeObjectAtIndex:idx];
     }
     [TV reloadData];
     [self iTM2_validateWindowContent];
@@ -1361,7 +1241,7 @@ To Do List:
         startingAt: 0
             language: [SSC language]
                 wrap: NO
-                    inSpellDocumentWithTag: [[self currentText] spellCheckerDocumentTag]
+                    inSpellDocumentWithTag: [self.currentText spellCheckerDocumentTag]
                         wordCount: nil];
     return R.location != NSNotFound;
 }
@@ -1387,17 +1267,17 @@ To Do List:
 //iTM2_START;
     // finding where to insert the word:
     int index = 0;
-    while(index < [iVarIgnoredWords count])
+    while(index < [self.ignoredWords count])
     {
-        NSComparisonResult CR = [argument compare:[iVarIgnoredWords objectAtIndex:index]];
+        NSComparisonResult CR = [argument compare:[self.ignoredWords objectAtIndex:index]];
         if(CR == NSOrderedSame)
             return NO;
         else if(CR == NSOrderedDescending)
             break;
         ++index;
     }
-    [iVarIgnoredWords insertObject:argument atIndex:index];
-//NSLog(@"%@", iVarIgnoredWords);
+    [self.ignoredWords insertObject:argument atIndex:index];
+//NSLog(@"%@", self.ignoredWords);
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  removeIgnoredWord:
@@ -1409,10 +1289,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int index = [iVarIgnoredWords indexOfObject:argument];
+    int index = [self.ignoredWords indexOfObject:argument];
     if(index != NSNotFound)
     {
-        [iVarIgnoredWords removeObject:argument];
+        [self.ignoredWords removeObject:argument];
         return YES;
     }
     else
@@ -1439,27 +1319,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int index = [iVarIgnoredWords indexOfObject:oldArgument];
+    int index = [self.ignoredWords indexOfObject:oldArgument];
     if((index != -1) && ![oldArgument isEqualToString:newArgument])
     {
-        [iVarIgnoredWords replaceObjectAtIndex:index withObject:newArgument];
-        [iVarIgnoredWords sortUsingSelector:@selector(compare:)];
-//NSLog(@"%@", iVarIgnoredWords);
+        [self.ignoredWords replaceObjectAtIndex:index withObject:newArgument];
+        [self.ignoredWords sortUsingSelector:@selector(compare:)];
+//NSLog(@"%@", self.ignoredWords);
         return YES;
     }
     else
         return NO;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  ignoredWords
-- (NSMutableArray *)ignoredWords;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return iVarIgnoredWords;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setIgnoredWords:
 - (void)setIgnoredWords:(NSArray *)argument;
@@ -1470,9 +1339,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [iVarIgnoredWords autorelease];
-    iVarIgnoredWords = [argument mutableCopy];
-    [iVarIgnoredWords sortUsingSelector:@selector(compare:)];
+    NSMutableArray * MRA = [argument mutableCopy];
+    [MRA sortUsingSelector:@selector(compare:)];
+    iVarIgnoredWords = MRA;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager:
@@ -1484,15 +1353,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START
-	id source = [self currentText];
+	id source = self.currentText;
     return [[source window] windowController] != self? [source contextManager]:nil;
 }
-@synthesize iVarCurrentTextRef;
-@synthesize iVarTableView;
-@synthesize iVarModeField;
-@synthesize iVarProjectField;
-@synthesize iVarIgnoredWords;
-@synthesize iVarSpellDocumentTag;
 @end
 
 @interface iTM2SpellCheckerHelper(PRIVATE)
@@ -1502,9 +1365,6 @@ To Do List:
 - (BOOL)isEditing;
 - (void)setEditing:(BOOL)yorn;
 - (void)delayedSetCurrentSpellLanguage:(NSString *)language;
-@end
-
-@interface NSText_iTM2SpellKit: NSText
 @end
 
 static id _iTM2SpellCheckerHelper = nil;
@@ -1525,7 +1385,6 @@ To Do List:
 //iTM2_START;
     if(![NSText instancesRespondToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
 	{
-		[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_dealloc)];
 		[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
 		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
 		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:)];
@@ -1598,6 +1457,8 @@ To Do List:
 }
 @end
 @implementation iTM2SpellCheckerHelper
+@synthesize implementation=_iVarPrivateImplementation;
+@synthesize currentText=_iVarCurrentText;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  sharedHelper
 + (id)sharedHelper;
 /*"Description forthcoming.
@@ -1620,9 +1481,7 @@ To Do List:
 //iTM2_START;
     if(_iTM2SpellCheckerHelper)
     {
-		if(self != _iTM2SpellCheckerHelper)
-			[self dealloc];
-        return [_iTM2SpellCheckerHelper retain];
+        return _iTM2SpellCheckerHelper;
     }
     else if(self = [super initWithWindow:window])
     {
@@ -1645,46 +1504,6 @@ To Do List:
 					object: nil];
     }
     return _iTM2SpellCheckerHelper = self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
-- (id)implementation;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _iVarPrivateImplementation;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void)setImplementation:(id)argument;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(argument != _iVarPrivateImplementation)
-	{
-		[_iVarPrivateImplementation autorelease];
-		_iVarPrivateImplementation = [argument retain];
-	}
-//iTM2_END;
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  windowDidLoad
 - (void)windowDidLoad;
@@ -1711,7 +1530,7 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"[SSC language] is:%@", [SSC language]);
 	NSText * text = [notification object];
-	if(text == [self currentText])
+	if(text == self.currentText)
 	{
 		iTM2SpellContext * SC = [text spellContext];
 		if(SC)
@@ -1724,12 +1543,12 @@ To Do List:
 		{
 //iTM2_LOG(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", text, [[text window] title]);
 		}
-		[self setCurrentText:nil];
+		self.currentText = nil;
 		[self iTM2_validateWindowContent];
 	}
 	else
 	{
-//iTM2_LOG(@"INFO: TEXT %#x IS NOT THE CURRENT TEXT %#x", text, [self currentText]);
+//iTM2_LOG(@"INFO: TEXT %#x IS NOT THE CURRENT TEXT %#x", text, self.currentText);
 	}
 //iTM2_END;
 	return;
@@ -1747,7 +1566,7 @@ To Do List:
         return;
 //iTM2_START;
 //iTM2_LOG(@"[SSC language] is:%@", [SSC language]);
-	NSText * text = [self currentText];
+	NSText * text = self.currentText;
     if([notification object] == [text window])
     {
 		iTM2SpellContext * SC = [text spellContext];
@@ -1766,7 +1585,7 @@ To Do List:
 		{
 //iTM2_LOG(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", text, [[text window] title]);
 		}
-        [self setCurrentText:nil];
+        self.currentText = nil;
 		[self iTM2_validateWindowContent];
 	}
 	else
@@ -1802,8 +1621,8 @@ To Do List:
 		newText = [newText nextResponder];
 //iTM2_LOG(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
-//iTM2_LOG(@"[self currentText] is:%@", [self currentText]);
-	[self setCurrentText:newText];
+//iTM2_LOG(@"self.currentText is:%@", self.currentText);
+	self.currentText = newText;
 	iTM2SpellContext * SC;
 //iTM2_LOG(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
 	if(SC = [newText spellContext])
@@ -1862,14 +1681,14 @@ To Do List:
         return;
 //iTM2_LOG(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
-//iTM2_LOG(@"[self currentText] is:%@", [self currentText]);
-	iTM2SpellContext * SC = [[self currentText] spellContext];
+//iTM2_LOG(@"self.currentText is:%@", self.currentText);
+	iTM2SpellContext * SC = [self.currentText spellContext];
     [SC setSpellLanguage:language];
     [SC setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:[SC tag]]];
-    if(newText != [self currentText])
+    if(newText != self.currentText)
     {
 		// save the actual settings for the old text:
-        [self setCurrentText:newText];
+        self.currentText = newText;
 //iTM2_LOG(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
 		if(SC = [newText spellContext])
 		{
@@ -1894,37 +1713,6 @@ To Do List:
     [self iTM2_validateWindowContent];
 //iTM2_END;
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentText
-- (id)currentText;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	return [metaGETTER nonretainedObjectValue];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCurrentText:
-- (void)setCurrentText:(id)argument;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	metaSETTER([NSValue valueWithNonretainedObject:argument]);
-	if(!argument && iTM2DebugEnabled)
-	{
-		NSLog(@"NO TEXT FOR SPELL CHECKING");
-		//iTM2_START_TRACKING;
-	}
-//iTM2_LOG(@"INFO: THE CURRENT TEXT FOR THE SPELL KIT IS NOW %#x in window %@", [self currentText], [[[self currentText] window] title]);
-//iTM2_END;
-	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isEditing
 - (BOOL)isEditing;
@@ -1960,7 +1748,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setCurrentSpellLanguage:[language autorelease]];// was retained above
+	[self setCurrentSpellLanguage:language];// was retained above
 //iTM2_END;
 	return;
 }
@@ -1986,14 +1774,14 @@ To Do List:
 		newText = [newText nextResponder];
 //iTM2_LOG(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
-//iTM2_LOG(@"[self currentText] is:%@", [self currentText]);
-	iTM2SpellContext * SC = [[self currentText] spellContext];
+//iTM2_LOG(@"self.currentText is:%@", self.currentText);
+	iTM2SpellContext * SC = [self.currentText spellContext];
     [SC setSpellLanguage:language];
     [SC setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:[SC tag]]];
-    if(newText != [self currentText])
+    if(newText != self.currentText)
     {
 		// save the actual settings for the old text:
-        [self setCurrentText:newText];
+        self.currentText = newText;
 //iTM2_LOG(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
 		if(SC = [newText spellContext])
 		{
@@ -2045,7 +1833,7 @@ To Do List:
 	if([[IMPLEMENTATION metaValueForKey:@"Synchronizing"] boolValue])
 		return;
 	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"Synchronizing"];
-    id text = [self currentText];
+    id text = self.currentText;
 	// this is the crucial part that needs reentrant management
 	iTM2SpellContext * SC = [text spellContext];
 	NSString * language = [SC spellLanguage];
@@ -2130,7 +1918,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * name = [[self currentText] spellPrettyProjectName];
+    NSString * name = [self.currentText spellPrettyProjectName];
     [sender setStringValue:([name length]? name:
         NSLocalizedStringFromTableInBundle(@"None", TABLE,
             [self classBundle], "No project/text/mode name for the spell check document"))];
@@ -2156,24 +1944,24 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * FN = [[self currentText] spellPrettyName];
+    NSString * FN = [self.currentText spellPrettyName];
 //NSLog(@"FN: %@", FN);
     if([FN length])
         [sender setStringValue:FN];
     else
     {
         NSAttributedString * AS = [sender attributedStringValue];
-		NSString * S = [[[self currentText] window] title];
+		NSString * S = [[self.currentText window] title];
         if([S length] && [AS length])
         {
-            NSMutableDictionary * attributes = [[[AS attributesAtIndex:0 effectiveRange:nil] mutableCopy] autorelease];
+            NSMutableDictionary * attributes = [[AS attributesAtIndex:0 effectiveRange:nil] mutableCopy];
             NSFont * F = [attributes objectForKey:NSFontAttributeName];
             if(!F)
                 F = [NSFont userFontOfSize:[NSFont systemFontSize]];
             [attributes setObject:[[NSFontManager sharedFontManager] convertFont:F toHaveTrait:NSItalicFontMask] forKey:NSFontAttributeName];
             [attributes setObject:[NSColor grayColor] forKey:NSForegroundColorAttributeName];
-            [sender setAttributedStringValue:[[[NSAttributedString allocWithZone:[self zone]]
-                            initWithString: S attributes:attributes] autorelease]];
+            [sender setAttributedStringValue:[[NSAttributedString alloc]
+											  initWithString: S attributes:attributes]];
         }
         else
             [sender setStringValue:NSLocalizedStringFromTableInBundle(@"None", TABLE,
@@ -2191,7 +1979,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * oldMode = [[self currentText] spellContextMode];
+    NSString * oldMode = [self.currentText spellContextMode];
 //NSLog(@"new mode: %@", newMode);
 //NSLog(@"old mode: %@", oldMode);
     if(![TWSSpellDefaultContextMode isEqualToString:oldMode])
@@ -2199,9 +1987,9 @@ To Do List:
         // synchronisation is critical here because we make an intensive use of side effects.
         // we must also force the cocoa spell checker to change the spell document tag.
         // this is the reason why we change the first responder.
-        [[[self currentText] spellContext] setSpellLanguage:[SSC language]];
-        [[self currentText] setSpellContextMode:TWSSpellDefaultContextMode];
-        NSWindow * W = [[self currentText] window];
+        [[self.currentText spellContext] setSpellLanguage:[SSC language]];
+        [self.currentText setSpellContextMode:TWSSpellDefaultContextMode];
+        NSWindow * W = [self.currentText window];
         id FR = [W firstResponder];
         [W makeFirstResponder:nil];
         [W makeFirstResponder:FR];
@@ -2220,7 +2008,7 @@ To Do List:
 //iTM2_START;
     if([sender isKindOfClass:[NSPopUpButton class]])
     {
-        iTM2SpellContextController * currentController = [[self currentText] spellContextController];
+        iTM2SpellContextController * currentController = [self.currentText spellContextController];
         // updating the popup:
         [sender removeAllItems];
         NSString * title = NSLocalizedStringFromTableInBundle(TWSSpellDefaultContextMode, TABLE,
@@ -2238,7 +2026,7 @@ To Do List:
         NSMenu * M = [sender menu];
         [M addItem:[NSMenuItem separatorItem]];
         NSMenuItem * MI;
-        NSMenu * SM = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+        NSMenu * SM = [[NSMenu alloc] initWithTitle:@""];
         NSEnumerator * E = [[[[currentController spellContextModesEnumerator] allObjects]
                                         sortedArrayUsingSelector: @selector(compare:)] objectEnumerator];
         NSString * contextMode;
@@ -2255,7 +2043,7 @@ To Do List:
                 [MI setTarget:self];
             }
         }
-        NSString * currentMode = [currentController spellContextModeForText:[self currentText]];
+        NSString * currentMode = [currentController spellContextModeForText:self.currentText];
         [sender selectItemAtIndex:[M indexOfItemWithRepresentedObject:currentMode]];
         [sender synchronizeTitleAndSelectedItem];
         // filling the spelling modes management items
@@ -2314,7 +2102,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSString * oldMode = [[self currentText] spellContextMode];
+    NSString * oldMode = [self.currentText spellContextMode];
     NSString * newMode = [sender representedObject];
 //NSLog(@"new mode: %@", newMode);
 //NSLog(@"old mode: %@", oldMode);
@@ -2324,19 +2112,19 @@ To Do List:
         // we must also force the cocoa spell checker to change the spell document tag.
         // this is the reason why we change the first responder.
 #if 1
-        [[[self currentText] spellContext] setSpellLanguage:[SSC language]];
-        [[self currentText] setSpellContextMode:newMode];
-        NSWindow * W = [[self currentText] window];
+        [[self.currentText spellContext] setSpellLanguage:[SSC language]];
+        [self.currentText setSpellContextMode:newMode];
+        NSWindow * W = [self.currentText window];
         id FR = [W firstResponder];
         [W makeFirstResponder:[W contentView]];
         [W makeFirstResponder:FR];
         [self iTM2_validateWindowContent];
 #else
         NSString * oldLanguage = [SSC language];
-        NSWindow * W = [[self currentText] window];
+        NSWindow * W = [self.currentText window];
         id FR = [W firstResponder];
         [W makeFirstResponder:[W contentView]];
-        [currentController setSpellContextMode:newMode forText:[self currentText]];
+        [currentController setSpellContextMode:newMode forText:self.currentText];
         [W makeFirstResponder:FR];
         if([oldLanguage length])
             [[currentController spellContextForMode:oldMode] setSpellLanguage:oldLanguage];
@@ -2375,7 +2163,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [[[self currentText] spellContextController] removeSpellMode:[sender representedObject]];
+    [[self.currentText spellContextController] removeSpellMode:[sender representedObject]];
     [self setEditing:NO];
     [self iTM2_validateWindowContent];
     return;
@@ -2389,16 +2177,16 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    if(![self currentText])
+    if(!self.currentText)
     {
         NSLog(@"No text available for spelling, comme c'est bizarre!");
         return;
     }
-//iTM2_LOG(@"THE IGNORED WORDS ARE: %@", [[[self currentText] spellContext] ignoredWords]);
+//iTM2_LOG(@"THE IGNORED WORDS ARE: %@", [[self.currentText spellContext] ignoredWords]);
     [self setEditing:YES];
 //NSLog(@"YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
     _iTM2IgnoredWordsEditor * IWE = [_iTM2IgnoredWordsEditor sharedEditor];
-    [IWE setCurrentText:[self currentText]];
+    [IWE setCurrentText:self.currentText];
     NSWindow * W = [IWE window];// this loads the window as side effect
     [NSApp beginSheet:W
             modalForWindow: [sender window]
@@ -2406,7 +2194,7 @@ To Do List:
             didEndSelector: @selector(editIgnoredWordsSheetDidEnd:returnCode:irrelevant:)
             contextInfo: nil];
 	// I tried to create a new window controller each time it is called but it caused an error 10/11 crash
-//iTM2_LOG(@"THE IGNORED WORDS ARE NOW: %@", [[[self currentText] spellContext] ignoredWords]);
+//iTM2_LOG(@"THE IGNORED WORDS ARE NOW: %@", [[self.currentText spellContext] ignoredWords]);
 //iTM2_END;
     return;
 }
@@ -2419,7 +2207,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [self currentText] != nil;
+    return self.currentText != nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editIgnoredWordsSheetDidEnd:returnCode:irrelevant:
 - (void)editIgnoredWordsSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode irrelevant:(void *)unused;
@@ -2447,7 +2235,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    iTM2SpellContextController * currentController = [[self currentText] spellContextController];
+    iTM2SpellContextController * currentController = [self.currentText spellContextController];
     NSString * newMode = [sender stringValue];
     if([[[currentController spellContextModesEnumerator] allObjects] containsObject:newMode])
     {
@@ -2456,7 +2244,7 @@ To Do List:
     }
     [NSApp stopModal];
     [currentController addSpellMode:newMode];
-    [currentController setSpellContextMode:newMode forText:[self currentText]];
+    [currentController setSpellContextMode:newMode forText:self.currentText];
 //iTM2_END;
     return;
 }
@@ -2472,7 +2260,6 @@ To Do List:
     [NSApp stopModal];
     return;
 }
-@synthesize _iVarPrivateImplementation;
 @end
 
 @interface NSObject(iTM2SpellKit_PRIVATE_2)
@@ -2588,20 +2375,6 @@ To Do List:
 @end
 
 @implementation NSText(iTM2Spell)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Spell_dealloc
-- (void)SWZ_iTM2Spell_dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(self == [SCH currentText])
-		[SCH setCurrentText:nil];
-    [self SWZ_iTM2Spell_dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2Spell_becomeFirstResponder
 - (BOOL)SWZ_iTM2Spell_becomeFirstResponder;
 /*"Description forthcoming.

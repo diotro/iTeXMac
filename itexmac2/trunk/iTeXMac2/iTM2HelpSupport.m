@@ -46,8 +46,7 @@ static iTM2MailController * iTM2_sharedMailController;
 {
 	if(iTM2_sharedMailController)
 	{
-		[self dealloc];
-		return [iTM2_sharedMailController retain];
+		return iTM2_sharedMailController;
 	}
 	else if(self = [super initWithWindow:window])
 	{
@@ -105,11 +104,11 @@ static iTM2MailController * iTM2_sharedMailController;
     MailApplication *mail = [SBApplication applicationWithBundleIdentifier:@"com.apple.Mail"];
     
 	/* create a new outgoing message object */
-    MailOutgoingMessage *emailMessage =	[[[mail classForScriptingClass:@"outgoing message"] alloc] initWithProperties:
+    MailOutgoingMessage *emailMessage =	[[[[mail classForScriptingClass:@"outgoing message"] alloc] initWithProperties:
 										 [NSDictionary dictionaryWithObjectsAndKeys:
 										  @"iTeXMac2 Help Request", @"subject",
 										  [[[self textView] textStorage] string], @"content",
-										  nil]];
+										  nil]] autorelease];
 	
 	/* add the object to the mail app  */
     [[mail outgoingMessages] addObject: emailMessage];
@@ -119,10 +118,10 @@ static iTM2MailController * iTM2_sharedMailController;
     emailMessage.visible = YES;
 	
 	/* create a new recipient and add it to the recipients list */
-    MailToRecipient *theRecipient =	[[[mail classForScriptingClass:@"to recipient"] alloc]
+    MailToRecipient *theRecipient =	[[[[mail classForScriptingClass:@"to recipient"] alloc]
 									 initWithProperties: [NSDictionary dictionaryWithObjectsAndKeys:
 														  @"jlaurens@users.sourceforge.net", @"address",
-														  nil]];
+														  nil]] autorelease];
     [emailMessage.toRecipients addObject: theRecipient];
     
 	

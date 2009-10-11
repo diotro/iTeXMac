@@ -109,16 +109,16 @@ extern NSString * const iTM2BundleContentsComponent;
 + (NSString *)NSLogOutputPath;
 
 /*!
-    @method 	searchPathsForSupportInDomains:withName:application's given name.
+    @method 	iTM2_searchPathsForSupportInDomains:withName:application's given name.
     @discussion	Returns objects of
-                1- ~/Library/Application\ Support/APPLICATION_NAME
-                2- /Library/Application\ Support/APPLICATION_NAME
-                3- /Network/Library/Application\ Support/APPLICATION_NAME
+                1- ~/Library/Application\ Support/APPLICATION_NAME/
+                2- /Library/Application\ Support/APPLICATION_NAME/
+                3- /Network/Library/Application\ Support/APPLICATION_NAME/
                 The system domain is ignored, not the others (fortunately, no other domain is defined)
     @param	domainMask is concerning one of the user, local or network domains, but NOT the system nor the built in one...
     @result	an array of the paths
 */
-+ (NSArray *)searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
++ (NSArray *)iTM2_searchPathsForSupportInDomains:(NSSearchPathDomainMask)domainMask withName:(NSString *)appName;
 
 /*!
     @method 	iTM2_pathForSupportDirectory:inDomain:withName:create:

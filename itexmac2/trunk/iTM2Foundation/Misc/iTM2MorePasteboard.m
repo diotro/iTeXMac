@@ -39,7 +39,7 @@ To Do List:
     static id names = nil;
     if(!names)
     {
-        names = [[NSMutableArray allocWithZone: [self zone]] initWithCapacity: [self morePasteboardCount]];
+        names = [[NSMutableArray alloc] initWithCapacity: [self morePasteboardCount]];
         int idx;
         for(idx = 0; idx<[self morePasteboardCount];++idx)
             [names addObject: [NSString stringWithFormat: @"iTeXMac2#%iPBoard", idx]];

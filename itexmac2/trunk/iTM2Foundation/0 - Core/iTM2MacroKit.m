@@ -453,13 +453,11 @@ To Do List:
 	{
 		return [super init];
 	}
-	[self dealloc];
-	return [[iTM2KeyCodesController sharedController] retain];
+	return [iTM2KeyCodesController sharedController];
 }
 - (id)initWithCoder:(NSCoder *)aDecoder;
 {
-	[self dealloc];
-	return [[iTM2KeyCodesController sharedController] retain];
+	return [iTM2KeyCodesController sharedController];
 }
 @end
 
@@ -514,15 +512,6 @@ To Do List:
 		}
 	}
 	return self;
-}
-- (void)dealloc;
-{
-	[keyCodesForNames release];
-	keyCodesForNames = nil;
-	[orderedCodeNames release];
-	orderedCodeNames = nil;
-	[super dealloc];
-	return;
 }
 - (NSArray *)orderedCodeNames;
 {
@@ -636,7 +625,7 @@ To Do List:
 		}
 	}
 //iTM2_END;
-    return [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    return [[[NSMenu alloc] initWithTitle:@""] autorelease];
 }
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= awakeFromNib
@@ -670,20 +659,6 @@ To Do List:
 //iTM2_START;
 	[self setMenu:[self macroMenu]];
 	[DNC removeObserver:self];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Jul 21 16:05:20 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[DNC removeObserver:self];
-	[super dealloc];
 //iTM2_END;
     return;
 }

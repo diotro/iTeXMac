@@ -89,7 +89,7 @@ To Do List:
 //iTM2_START;
     NSString * name = @"Release Notes";
     NSString * path = [[NSBundle mainBundle] pathForResource:name ofType:@"rtf"];
-    NSAttributedString * AS = [path length]>0? [[[NSAttributedString allocWithZone:[self zone]]
+    NSAttributedString * AS = [path length]>0? [[[NSAttributedString alloc]
         initWithPath: path documentAttributes: nil]
             autorelease]: nil;
     if(!AS)
@@ -118,7 +118,7 @@ To Do List:
 //iTM2_START;
     NSString * name = @"Welcome";
     NSString * path = [[NSBundle mainBundle] pathForResource:name ofType:@"rtf"];
-    NSAttributedString * AS = [path length]>0? [[[NSAttributedString allocWithZone:[self zone]]
+    NSAttributedString * AS = [path length]>0? [[[NSAttributedString alloc]
         initWithPath: path documentAttributes: nil]
             autorelease]: nil;
     if(!AS)

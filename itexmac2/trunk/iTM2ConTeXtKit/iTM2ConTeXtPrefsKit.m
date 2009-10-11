@@ -426,7 +426,7 @@ To Do List:
 			[NSApp beginSheet:[self downloadPanel] modalForWindow:[[self mainView] window] modalDelegate:nil didEndSelector:NULL contextInfo:nil];
 			[[self downloadIndicator] setIndeterminate:YES];
 			[[self downloadIndicator] startAnimation:nil];
-			[self setURLDownload:[[[NSURLDownload allocWithZone:[self zone]] initWithRequest:[NSURLRequest requestWithURL:myURL] delegate:self] autorelease]];
+			[self setURLDownload:[[[NSURLDownload alloc] initWithRequest:[NSURLRequest requestWithURL:myURL] delegate:self] autorelease]];
 			// [myURL loadResourceDataNotifyingClient:self usingCache:YES];
 			return YES;
 		}

@@ -33,9 +33,9 @@
 @interface iTM2NullImage: NSImage
 @end
 @implementation iTM2NullImage
-- (id)copyWitZone:(NSZone *)zone;
+- (id)copy;
 {
-	if(self = [super copyWithZone:zone])
+	if(self = [super copy])
 	{
 		isa = [iTM2NullImage class];
 	}
@@ -62,7 +62,7 @@
 		NSString * path = [[[[NSBundle mainBundle] allPathsForImageResource:name] objectEnumerator] nextObject];
 		if([path length])
 		{
-			result = [[[NSImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			result = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
 			[result setName:name];
 		}
 	}
@@ -96,7 +96,7 @@
 		NSString * path = [[[[NSBundle mainBundle] allPathsForImageResource:name] objectEnumerator] nextObject];
 		if([path length])
 		{
-			result = [[[iTM2NullImage allocWithZone:[self zone]] initWithContentsOfFile:path] autorelease];
+			result = [[[iTM2NullImage alloc] initWithContentsOfFile:path] autorelease];
 			[result setName:name];
 		}
 	}

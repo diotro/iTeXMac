@@ -49,7 +49,6 @@
 - (void)removeItemsWithRepresentedObject:(id)anObject;
 - (void)deepEnableItems;
 - (NSMenu *)deepCopy;
-- (NSMenu *)deepCopyWithZone:(NSZone *)aZone;
 - (void)_MakeCellSizeSmall;
 - (void)deepMakeCellSizeSmall;
 /*"Overriden methods"*/

@@ -35,6 +35,7 @@
 #import <iTM2Foundation/iTM2ValidationKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2WindowKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 #import <objc/objc-class.h>
 
 NSString * const iTM2UDKeepBackupFileKey = @"iTM2KeepBackupFile";
@@ -131,22 +132,7 @@ To Do List:
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
     [I setTarget:self];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWillClose" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Invoking:%@", NSStringFromSelector(selector));
-		}
-        [I setSelector:selector];
-        [I invoke];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Done invoking:%@", NSStringFromSelector(selector));
-		}
-    }
-//iTM2_LOG(@"0 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWillClose" signature:sig0 inherited:YES]];
 //iTM2_END;
     return;
 }
@@ -162,22 +148,7 @@ To Do List:
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
     [I setTarget:self];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidClose" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Invoking:%@", NSStringFromSelector(selector));
-		}
-        [I setSelector:selector];
-        [I invoke];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Done invoking:%@", NSStringFromSelector(selector));
-		}
-    }
-//iTM2_LOG(@"0 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
+    [I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidClose" signature:sig0 inherited:YES]];
 //iTM2_END;
     return;
 }
@@ -211,6 +182,10 @@ To Do List:
 //iTM2_END;
     return YES;
 }
+- (void)iTM2_template_selector_document:(NSDocument *)document shouldClose:(BOOL)shouldClose contextInfo:(void *)contextInfo;
+{
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:
 - (void)SWZ_iTM2_canCloseDocumentWithDelegate:(id)delegate shouldCloseSelector:(SEL)shouldCloseSelector contextInfo:(void *)contextInfo;
     // If the document is not dirty, this method will immediately call the callback with YES.  If the document is dirty, an alert will be presented giving the user a chance to save, not save or cancel.  If the user chooses to save, this method will save the document.  If the save completes successfully, this method will call the callback with YES.  If the save is cancelled or otherwise unsuccessful, this method will call the callback with NO.  This method is called by shouldCloseWindowController:sometimes.  It is also called by NSDocumentController's -closeAllDocuments.  You should call it before you call -close if you are closing the document and want to give the user a chance save any edits.
@@ -223,19 +198,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	if([delegate respondsToSelector:shouldCloseSelector]) {
+		
+	}
 	NSMethodSignature * MS = [delegate methodSignatureForSelector:shouldCloseSelector];
 	if(MS)
 	{
-		NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
-		[I setSelector:shouldCloseSelector];
-		[I setTarget:delegate];
-		[I setArgument:&self atIndex:2];
-		BOOL shouldClose = NO;
-		[I setArgument:&shouldClose atIndex:3];
-		[I setArgument:&contextInfo atIndex:4];
-//iTM2_LOG(@"....    invocation is:%@", I);
-//iTM2_LOG(@"....    [invocation target] is:%@", [I target]);
-		[self SWZ_iTM2_canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(iTM2_document:forwardShouldClose:toInvocation:) contextInfo:(void *)[I retain]];
+		NSInvocation * I;
+		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO]
+			 iTM2_template_selector_document:self shouldClose:NO contextInfo:contextInfo];
+		if([MS isEqual:[I methodSignature]])
+		{
+			[I setTarget:delegate];
+			[self SWZ_iTM2_canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(iTM2_document:forwardShouldClose:toInvocation:) contextInfo:(void *)I];
+		}
 		return;
 	}
 	[self SWZ_iTM2_canCloseDocumentWithDelegate:delegate shouldCloseSelector:shouldCloseSelector contextInfo:contextInfo];
@@ -326,9 +302,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
-    NSWindow * W;
-    while(W = [E nextObject])
+    for(NSWindow * W in [NSApp orderedWindows])
     {
         NSWindowController * WC = [W windowController];
 		NSDocument * D = [WC document];
@@ -455,10 +429,8 @@ To Do List:
 	NSDictionary * attributes = [DFM extendedFileAttributesInSpace:[NSNumber numberWithUnsignedInt:'iTM2'] atPath:[fileURL path] error:nil];
 //	if(!D)
 //		D = [DFM extendedFileAttributesAtPath:fullDocumentPath forNameSpace:@"org_tug_mac_iTM20" error:nil];
-	NSEnumerator * E = [attributes keyEnumerator];
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-	NSString * key;
-	while(key = [E nextObject])
+	for(NSString * key in [attributes keyEnumerator])
 	{
 		NS_DURING
 		id O = [NSUnarchiver unarchiveObjectWithData:[attributes objectForKey:key]];
@@ -493,7 +465,7 @@ To Do List:
 	{
 		BOOL wasUndoing = [[self undoManager] isUndoRegistrationEnabled];
 		[[self undoManager] disableUndoRegistration];
-		[self setPrintInfo:[[[NSPrintInfo allocWithZone:[self zone]] initWithDictionary:dictionary] autorelease]];
+		[self setPrintInfo:[[[NSPrintInfo alloc] initWithDictionary:dictionary] autorelease]];
 		if(wasUndoing)
 			[[self undoManager] enableUndoRegistration];
 	}
@@ -762,27 +734,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_LOG(@"I am currently deallocating %@",[[[self fileName] copy] autorelease]);
-	[self willDealloc];
-    [DNC removeObserver:self];
-    [DNC removeObserver:nil name:nil object:self];
-    [INC removeObserver:self];
-    [INC removeObserver:nil name:nil object:self];
-    [IMPNC removeObserver:self];
-    [IMPNC removeObserver:nil name:nil object:self];
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  userDefaultsDidChange:
 - (void)userDefaultsDidChange:(NSNotification *) notification;
 /*"Description Forthcoming.
@@ -810,9 +761,7 @@ To Do List:
 		iTM2_LOG(@"The new file url is:%@", url);
 	}
 	[self updateContextManager];
-    NSEnumerator * E = [[self windowControllers] objectEnumerator];
-    NSWindowController * WC;
-    while(WC = [E nextObject])
+    for(NSWindowController * WC in [self windowControllers])
         [[WC window] iTM2_validateContent];
     [IMPLEMENTATION takeMetaValue:nil forKey:iTM2DKDirectoryNameKey];
     return;
@@ -842,33 +791,7 @@ To Do List:
     return [IMPLEMENTATION metaValueForKey:iTM2DFileAttributesKey];
 }
 #pragma mark =-=-=-=-=-=-=-=  MODEL OBJECT
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
-- (id)implementation;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _Implementation;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void)setImplementation:(id) argument;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(_Implementation != argument)
-    {
-        [_Implementation autorelease];
-        _Implementation = [argument retain];
-    }
-    return;
-}
+@synthesize implementation=iVarImplementation;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isDocumentEdited
 - (BOOL)isDocumentEdited;
 /*"Description Forthcoming.
@@ -941,7 +864,7 @@ To Do List:
         {
             if(C = [NSWindowController inspectorClassForType:type mode:mode variant:variant])
             {
-                WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+                WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
 				[WC setInspectorVariant:variant];
                 [self addWindowController:WC];
                 if([WC window])
@@ -963,7 +886,7 @@ To Do List:
     [self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
     if(C = [NSWindowController inspectorClassForType:type mode:mode variant:iTM2DefaultInspectorVariant])
     {
-        WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+        WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
         [self addWindowController:WC];
 		[WC setInspectorVariant:iTM2DefaultInspectorVariant];
         if([WC window])
@@ -978,7 +901,7 @@ To Do List:
 	NSArray * inspectorClasses = [NSWindowController inspectorClassesForType:type mode:mode];
     if([inspectorClasses count] && (C = [inspectorClasses objectAtIndex:0]))
     {
-        WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+        WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
         [self addWindowController:WC];
 		[WC setInspectorVariant:[C inspectorVariant]];
         if([WC window])
@@ -1051,7 +974,7 @@ To Do List:
 // when I first removed the old WC, closeIfNeeded was called and the project document was closed
 // Then the window menu was updated and there was still a window for that closed document
 // of course, the document of that window was garbage, which caused an exception to be raised
-		NSWindowController * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:NSStringFromClass(C)] autorelease];
+		NSWindowController * WC = [[[C alloc] initWithWindowNibName:NSStringFromClass(C)] autorelease];
 		[WC setInspectorVariant:variant];
         [self addWindowController:WC];
 		NSWindow * W;
@@ -1231,7 +1154,7 @@ To Do List:
 					else
 					{
 						Class C = [NSWindowController inspectorClassForType:type mode:mode variant:variant];
-						WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+						WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
 						[WC setInspectorVariant:variant];
 						[self addWindowController:WC];// 1ZT
 						if(![WC window])// EXC_BAD_ACCESS HERE!!!
@@ -1247,7 +1170,7 @@ To Do List:
 					while(WC = [EE nextObject])
 						if([WC isKindOfClass:[iTM2ExternalInspector class]])
 							[self removeWindowController:WC];
-					WC = [[[iTM2ExternalInspector allocWithZone:[self zone]] initWithWindowNibName:@"iTM2ExternalInspector"] autorelease];
+					WC = [[[iTM2ExternalInspector alloc] initWithWindowNibName:@"iTM2ExternalInspector"] autorelease];
 					[WC setInspectorVariant:variant];
 					[self addWindowController:WC];
 					if(![WC window])
@@ -1311,7 +1234,7 @@ To Do List:
 			Class C = [NSWindowController inspectorClassForType:inspectorType mode:inspectorMode variant:inspectorVariant];
 			if(C)
 			{
-				NSWindowController * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+				NSWindowController * WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
 				[self addWindowController:WC];
 				NSWindow * W = [WC window];
 				if(W)
@@ -1414,25 +1337,15 @@ To Do List:
     [I setArgument:&typeName atIndex:3];
     [I setArgument:&localErrorRef atIndex:4];
     BOOL result = YES;
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteReadFromURL:ofType:error:" signature:sig0 inherited:YES] objectEnumerator];
 	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteReadFromURL:ofType:error:" signature:sig0 inherited:YES]);
+	SEL selector;
+	while(selector = NSNextHashEnumeratorItem(&HE))
     {
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing:%@", NSStringFromSelector(selector));
-//iTM2_LOG(@"Base project model is:%@", [[self implementation] modelOfType:@"frontends"]);
-        }
         [I setSelector:selector];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performed:%@ with result:%@", NSStringFromSelector(selector), (R? @"YES":@"NO"));
-//iTM2_LOG(@"Base project model is:%@", [[self implementation] modelOfType:@"frontends"]);
-        }
         result = result && R;
 		if(localErrorRef)
 		{
@@ -1483,33 +1396,25 @@ To Do List:
 	BOOL isDirectory;
 	if([DFM fileExistsAtPath:fullDocumentPath isDirectory:&isDirectory] && isDirectory)
 		return YES;
-    NSDictionary * selectors = [_iTM2SetResourceSelectors objectForKey:[isa description]];
+    NSMapTable * selectors = [_iTM2SetResourceSelectors objectForKey:[isa description]];
     NSMethodSignature * sig0 = [self methodSignatureForSelector:@selector(loadIDResourceTemplate:)];
     if(!selectors)
     {
-        NSMutableDictionary * Ss = [NSMutableDictionary dictionary];
-        NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES] objectEnumerator];
-        NSValue * V;
-        while(V = [E nextObject])
+		NSMapTable * Ss = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality
+												valueOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsOpaquePersonality];
+        NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES]);
+		SEL selector;
+		while(selector = NSNextHashEnumeratorItem(&HE))
         {
-            SEL selector = (SEL)[V pointerValue];
 			const char * name = [NSStringFromSelector(selector) UTF8String];
 			unsigned int hexa;
             if(sscanf(name, "load%u", &hexa))
             {
-                [Ss setObject:V forKey:[NSNumber numberWithUnsignedInt:hexa]];
+				 NSMapInsert(Ss,(void *)hexa,selector);
             }
         }
         [_iTM2SetResourceSelectors takeValue:Ss forKey:[isa description]];
         selectors = [_iTM2SetResourceSelectors objectForKey:[isa description]];
-		if(iTM2DebugEnabled>99)
-		{
-			iTM2_LOG(@"Set resource selectors");
-			NSEnumerator * E = [selectors objectEnumerator];
-			SEL action;
-			while(action = (SEL)[[E nextObject] pointerValue])
-				NSLog(@"%@",NSStringFromSelector(action));
-		}
     }
     if([selectors count])
     {
@@ -1577,10 +1482,11 @@ To Do List:
 				if(resourceContent)
 				{
 					[I setArgument:&resourceContent atIndex:2];
-					SEL selector = (SEL)[[selectors objectForKey:[NSNumber numberWithInt:resourceID]] pointerValue];
+					void * key = (void *)(NSUInteger)resourceID;
+					SEL selector = NSMapGet(selectors,key);
 					if(selector)
 					{
-						[I setSelector:(SEL)[[selectors objectForKey:[NSNumber numberWithInt:resourceID]] pointerValue]];
+						[I setSelector:selector];
 						[I invoke];
 						if(iTM2DebugEnabled>99)
 						{
@@ -1646,27 +1552,9 @@ To Do List:
     [IMPLEMENTATION updateChildren];
 	[self synchronizeWindowControllers];
     [IMPLEMENTATION didRead];
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&absoluteURL atIndex:2];
-    [I setArgument:&type atIndex:3];
-    [I setArgument:&error atIndex:4];
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidReadFromURL:ofType:error:" signature:sig0 inherited:YES] objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"INFO:Invoking %@", NSStringFromSelector(action));
-		}
-        [I invoke];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"INFO:%@ invoked", NSStringFromSelector(action));
-		}
-    }
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] didReadFromURL:absoluteURL ofType:type error:error];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidReadFromURL:ofType:error:" signature:[I methodSignature] inherited:YES]];
 //iTM2_END;
     return;
 }
@@ -1793,7 +1681,7 @@ To Do List:
 		if([myLSTypeIsPackage boolValue])
 		{
 			// I must create a directory at the expected location, either by copying a directory or not...
-			fullOriginalDocumentPath = [fullOriginalDocumentPath stringByResolvingSymlinksAndFinderAliasesInPath];
+			fullOriginalDocumentPath = [fullOriginalDocumentPath iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 			BOOL isOriginalDirectory = NO;
 			if([DFM fileExistsAtPath:fullOriginalDocumentPath isDirectory:&isOriginalDirectory])
 			{
@@ -1802,7 +1690,8 @@ To Do List:
 				{
 					// the receiver must be a package and not a flat file
 #warning
-#if 0
+/*
+ #if 0
             1240 NSApplicationMain
               1240 -[NSApplication(iTM2BundleKit) swizzle_iTM2BundleKit_run]
                 1240 -[NSApplication run]
@@ -1841,6 +1730,7 @@ the project exact location is broken
 if I try to save the project as...
 the save as panel cannot list the directory contents
 #endif
+*/
 
 					if([DFM copyPath:fullOriginalDocumentPath toPath:fullDocumentPath handler:self])
 					{
@@ -1886,31 +1776,16 @@ the save as panel cannot list the directory contents
 			}
 		}
 	}
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&absoluteURL atIndex:2];
-    [I setArgument:&typeName atIndex:3];
-    [I setArgument:&saveOperation atIndex:4];
-    [I setArgument:&absoluteOriginalContentsURL atIndex:5];
-    [I setArgument:&outErrorPtr atIndex:6];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:[I methodSignature] inherited:YES]);
+	SEL selector;
+	while(selector = NSNextHashEnumeratorItem(&HE))
     {
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing:%@", NSStringFromSelector(selector));
-        }
         [I setSelector:selector];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];
-		if(!R)
-		{
-			iTM2_LOG(@"FAILURE: %@\absoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %@",
-				NSStringFromSelector(selector), absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
-		}
         result = result && R;
     }
 	result = result && [self writeToURL:absoluteURL ofType:typeName error:outErrorPtr];
@@ -1920,25 +1795,9 @@ the save as panel cannot list the directory contents
         {
             [IMPLEMENTATION takeMetaValue:[DFM fileAttributesAtPath:fullDocumentPath traverseLink:YES] forKey:iTM2DFileAttributesKey];
         }
-		NSMethodSignature * sig0 = [self methodSignatureForSelector:@selector(_0213_DidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:)];
-		NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-		[I setTarget:self];
-		[I setArgument:&absoluteURL atIndex:2];
-		[I setArgument:&typeName atIndex:3];
-		[I setArgument:&saveOperation atIndex:4];
-		[I setArgument:&absoluteOriginalContentsURL atIndex:5];
-		[I setArgument:&outErrorPtr atIndex:6];
-		NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:sig0 inherited:YES] objectEnumerator];
-		SEL selector;
-		while(selector = (SEL)[[E nextObject] pointerValue])
-		{
-			if(iTM2DebugEnabled>99)
-			{
-				iTM2_LOG(@"Performing:%@", NSStringFromSelector(selector));
-			}
-			[I setSelector:selector];
-			[I invoke];
-		}
+		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO]
+			_0213_DidWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+		[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:[I methodSignature] inherited:YES]];
 		[self didSave];
     }
 //iTM2_END;
@@ -2006,35 +1865,18 @@ To Do List:
 	{
 		iTM2_LOG(@"DID WRITE? %@", (result? @"YES":@"NO"));
 	}
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    [I setArgument:&absoluteURL atIndex:2];
-    [I setArgument:&type atIndex:3];
-    [I setArgument:&outErrorPtr atIndex:4];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:error:" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
+	NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:type error:outErrorPtr];
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:error:" signature:[I methodSignature] inherited:YES]);
+	SEL selector;
+	while(selector = NSNextHashEnumeratorItem(&HE))
     {
         [I setSelector:selector];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];
         result = result && R;
-		if(!R)
-		{
-			iTM2_LOG(@"NO from %@", NSStringFromSelector(selector));
-		}
-		if(iTM2DebugEnabled>99)
-		{
-            iTM2_LOG(@"Performing:%@\nDID WRITE? %@", NSStringFromSelector(selector), (R? @"YES":@"NO"));
-		}
     }
-	if(iTM2DebugEnabled>99)
-	{
-		iTM2_LOG(@"FINAL DID WRITE? %@", (result || superResult? @"YES":@"NO"));
-		iTM2_LOG(@"Result exists:%@", ([DFM fileExistsAtPath:[absoluteURL path]]? @"YES":@"NO"));
-	}
 	[self writeContextToURL:absoluteURL ofType:type error:outErrorPtr];
 //iTM2_END;
     return result || superResult;
@@ -2069,21 +1911,21 @@ To Do List:
 	NSString * fullDocumentPath = [absoluteURL path];
 	if(!fullDocumentPath)
 		return NO;
-    NSDictionary * selectors = [_iTM2GetResourceSelectors objectForKey:[isa description]];
+    NSMapTable * selectors = [_iTM2GetResourceSelectors objectForKey:[isa description]];
     NSMethodSignature * sig0 = [self methodSignatureForSelector:@selector(getIDResourceTemplate:)];
     if(!selectors)
     {
-        NSMutableDictionary * Ss = [NSMutableDictionary dictionary];
-        NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES] objectEnumerator];
-		NSValue * V;
-        while(V = [E nextObject])
+		NSMapTable * Ss = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality
+												valueOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
+        NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES]);
+		SEL selector;
+		while(selector = NSNextHashEnumeratorItem(&HE))
         {
-            SEL selector = (SEL)[V pointerValue];
-			const char * name = [NSStringFromSelector(selector) UTF8String];
+            const char * name = [NSStringFromSelector(selector) UTF8String];
 			unsigned int hexa;
             if(sscanf(name, "get%u", &hexa))
             {
-                [Ss setObject:V forKey:[NSNumber numberWithUnsignedInt:hexa]];
+				NSMapInsert(Ss,(id)hexa,selector);
             }
         }
         [_iTM2GetResourceSelectors takeValue:Ss forKey:[isa description]];
@@ -2135,18 +1977,15 @@ To Do List:
                 NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
                 [I setTarget:self];
                 [I setArgument:&resourceContentPtr atIndex:2];
-                NSEnumerator * E = [selectors keyEnumerator];
-                NSNumber * K;
+				NSMapEnumerator ME = NSEnumerateMapTable(selectors);
+				unsigned int hexa;
+				SEL selector;
 				onceAgain:
-                while(K = [E nextObject])
+                while(NSNextMapEnumeratorPair(&ME, (void *)&hexa, (void *)&selector))
                 {
-                    if(iTM2DebugEnabled>99)
-                    {
-                        iTM2_LOG(@"Performing:%@", NSStringFromSelector((SEL)[[selectors objectForKey:K] pointerValue]));
-                    }
-                    [I setSelector:(SEL)[[selectors objectForKey:K] pointerValue]];
+                    [I setSelector:selector];
                     [I invoke];
-                    SInt16 resourceID = [K unsignedIntValue];
+                    SInt16 resourceID = hexa;
                     Handle H = Get1Resource(resourceType, resourceID);
 					if(resError = ResError())
 					{
@@ -2242,21 +2081,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [IMPLEMENTATION takeMetaValue:[DFM fileAttributesAtPath:[self fileName] traverseLink:YES] forKey:iTM2DFileAttributesKey];
-    NSEnumerator * E = [[self windowControllers] objectEnumerator];
-    id WC;
-    while(WC = [E nextObject])
+   for(id WC in [self windowControllers])
         [WC setDocumentEdited:NO];
     [IMPLEMENTATION didSave];
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-	E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidSave" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:selector];
-        [I invoke];
-    }
+	NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] didSave];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDidSave" signature:[I methodSignature] inherited:YES]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataOfType:error:
@@ -2554,11 +2384,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSArray * references = [iTM2RuntimeBrowser subclassReferencesOfClass:[NSWindowController class]];
-//iTM2_LOG(@"There are currently %i subclasses of NSWindowController", [references count]);
-	NSEnumerator * E = [references objectEnumerator];
-	Class C;
-	while(C = (Class) [[E nextObject] nonretainedObjectValue])
+	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[NSWindowController class]])
 	{
 //iTM2_LOG(@"Registering inspector :%@", NSStringFromClass(C));
         NSString * type = [C inspectorType];
@@ -3035,25 +2861,9 @@ To Do List:
 	[self SWZ_iTM2_windowWillLoad];
 	[self setShouldCascadeWindows:[self contextBoolForKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask]];
 //iTM2_LOG(@"should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WindowWillLoad" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Invoking:%@", NSStringFromSelector(selector));
-		}
-        [I setSelector:selector];
-        [I invoke];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Done invoking:%@", NSStringFromSelector(selector));
-		}
-    }
-//iTM2_LOG(@"0 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] windowWillLoad];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WindowWillLoad" signature:[I methodSignature] inherited:YES]];
 //iTM2_END;
     return;
 }
@@ -3069,25 +2879,10 @@ To Do List:
 //iTM2_LOG(@"1 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
 	[self SWZ_iTM2_windowDidLoad];
 //iTM2_LOG(@"2 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WindowDidLoad" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Invoking:%@", NSStringFromSelector(selector));
-		}
-        [I setSelector:selector];
-        [I invoke];
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"Done invoking:%@", NSStringFromSelector(selector));
-		}
-    }
-//iTM2_LOG(@"3 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] windowWillLoad];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WindowDidLoad" signature:[I methodSignature] inherited:YES]];
+	//iTM2_LOG(@"3 - should cascade:%@", ([self shouldCascadeWindows]? @"Y":@"N"));
 //iTM2_END;
     return;
 }
@@ -3181,53 +2976,7 @@ To Do List:
 	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:@"_modelBackups_"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self willDealloc];
-    [DNC removeObserver:self];
-    [DNC removeObserver:nil name:nil object:self];
-    [INC removeObserver:self];
-    [INC removeObserver:nil name:nil object:self];
-    [IMPNC removeObserver:self];
-    [IMPNC removeObserver:nil name:nil object:self];
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
-- (id)implementation;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _Implementation;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
-- (void)setImplementation:(id) argument;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(_Implementation != argument)
-    {
-        [_Implementation autorelease];
-        _Implementation = [argument retain];
-    }
-    return;
-}
+@synthesize implementation = iVarImplementation;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowNibPath;
 - (NSString *)windowNibPath;  
 /*"Description Forthcoming.
@@ -3334,16 +3083,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteBackupModel" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:selector];
-        [I invoke];
-    }
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] windowWillLoad];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteBackupModel" signature:[I methodSignature] inherited:YES]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  restoreModel
@@ -3355,16 +3097,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteRestoreModel" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:selector];
-        [I invoke];
-    }
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] windowWillLoad];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteRestoreModel" signature:[I methodSignature] inherited:YES]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModelBackup:(id) backup forKey:
@@ -3424,7 +3159,7 @@ To Do List:
     if([newTitle length])
     {
 		[sender setAction:NULL];
-		NSMenu * submenu = [[[iTM2InspectorMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+		NSMenu * submenu = [[[iTM2InspectorMenu alloc] initWithTitle:@""] autorelease];
         [[sender menu] setSubmenu:submenu forItem:sender];
         [submenu update];
 //iTM2_LOG(@"UPDATING THE SUBMENU (%@)", NSStringFromSelector([sender action]));
@@ -3463,20 +3198,6 @@ To Do List:
 	}
 //iTM2_END;
 	return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[DNC removeObserver:self];
-	[super dealloc];
-//iTM2_END;
-	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidChangeMainStatusNotified:
 - (void)windowDidChangeMainStatusNotified:(NSNotification *) notification;
@@ -3546,7 +3267,7 @@ To Do List:
 			NSMenuItem * MI = [self addItemWithTitle:([title length]? title:NSLocalizedStringFromTableInBundle(iTM2DefaultInspectorMode, iTM2InspectorTable, BUNDLE, "DF"))
 					action:NULL keyEquivalent:@""];
 			[MI setRepresentedObject:inspectorMode];
-			NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:title] autorelease];
+			NSMenu * M = [[[NSMenu alloc] initWithTitle:title] autorelease];
 			NSEnumerator * e = [inspectorClasses objectEnumerator];
 			while(C = [e nextObject])
 			{
@@ -3900,7 +3621,7 @@ To Do List:
 //iTM2_START;
         NSTask * task = [[self implementation] metaValueForKey:@"task"];
         [DNC removeObserver:self name:NSTaskDidTerminateNotification object:task];
-        task = [[[NSTask allocWithZone:[self zone]] init] autorelease];
+        task = [[[NSTask alloc] init] autorelease];
 		NSString * type = [[[self document] class] inspectorType];
 		NSString * variant = [self inspectorVariant];
 		NSString * launchPath = [iTM2ExternalInspectorServer objectForType:type key:variant];
@@ -4055,8 +3776,7 @@ To Do List:
     [super initialize];
     if(!_iTM2ExternalInspectorServerDictionary)
 	{
-		[_iTM2ExternalInspectorServerDictionary autorelease];
-		_iTM2ExternalInspectorServerDictionary = [[NSMutableDictionary dictionary] retain];
+		_iTM2ExternalInspectorServerDictionary = [NSMutableDictionary dictionary];
 	}
 //iTM2_END;
 	iTM2_RELEASE_POOL;

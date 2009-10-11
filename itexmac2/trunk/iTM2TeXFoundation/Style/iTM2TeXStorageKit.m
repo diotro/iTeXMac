@@ -310,7 +310,7 @@ To Do List:
 				NSScanner * scanner = [NSScanner scannerWithString:string];
 				[scanner scanString:@"{" intoString:nil];
 				NSString * fileName;
-				if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet] intoString: &fileName])
+				if([scanner scanCharactersFromSet:[NSCharacterSet iTM2_TeXFileNameLetterCharacterSet] intoString: &fileName])
 				{
 					if(![fileName hasPrefix:@"/"])
 					{
@@ -391,8 +391,8 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXLetterCharacterSet;
-+ (NSCharacterSet *)TeXLetterCharacterSet;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_TeXLetterCharacterSet;
++ (NSCharacterSet *)iTM2_TeXLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -401,8 +401,8 @@ To Do List:
 //iTM2_START;
     return _iTM2TeXPTeXLetterCharacterSet;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
-+ (NSCharacterSet *)TeXFileNameLetterCharacterSet;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_TeXFileNameLetterCharacterSet;
++ (NSCharacterSet *)iTM2_TeXFileNameLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -439,25 +439,6 @@ To Do List:
     }
 //iTM2_END;
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [_SymbolsAttributes autorelease];
-    _SymbolsAttributes = nil;
-    [_RegExAttributes autorelease];
-    _RegExAttributes = nil;
-    [_CachedSymbolsAttributes autorelease];
-    _CachedSymbolsAttributes = nil;
-    [super dealloc];
-//iTM2_END;
-    return;
 }
 #pragma mark =-=-=-=-=-  ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setAttributes:forMode:
@@ -561,7 +542,7 @@ To Do List:
 	NSEnumerator * E = [[[self class] builtInStylePaths] objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
-		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
@@ -575,7 +556,7 @@ To Do List:
 		E = [[[self class] builtInStylePaths] objectEnumerator];
 		while(stylePath = [E nextObject])
 		{
-			stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+			stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 			BOOL isDir = NO;
 			if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 				[self loadSymbolsAttributesAtPath:stylePath];
@@ -584,7 +565,7 @@ To Do List:
 	E = [[[self class] otherStylePaths] objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
-		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 			[self loadSymbolsAttributesAtPath:stylePath];

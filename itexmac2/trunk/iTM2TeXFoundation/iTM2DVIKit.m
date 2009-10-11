@@ -50,8 +50,7 @@ To Do List:
 	id result = [SDC documentForURL:url];
 	if(result)
 	{
-		[self dealloc];
-		return [result retain];
+		return result;
 	}
 	if([DFM fileExistsAtPath:path])
 	{
@@ -61,8 +60,7 @@ To Do List:
 	}
 	if(result = [SDC documentForURL:absoluteURL])
 	{
-		[self dealloc];
-		return [result retain];
+		return result;
 	}
 	if(self = [self init])
 	{

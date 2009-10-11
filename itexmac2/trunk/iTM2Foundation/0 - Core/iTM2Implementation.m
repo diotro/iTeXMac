@@ -25,6 +25,7 @@
 #import <iTM2Foundation/iTM2Implementation.h>
 #import <iTM2Foundation/iTM2RuntimeBrowser.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 
 NSString * const iTM2ItemPropertyListXMLFormatKey = @"iTM2ItemPropertyListXMLFormat";
 NSString * const iTM2MainType = @"main";
@@ -161,40 +162,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[[self implementation] takeModel:[[[[self class] defaultModel] mutableCopy] autorelease] ofType:iTM2MainType];
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"FixImplementation" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Done: %@", NSStringFromSelector(action));
-        }
-    }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...FixImplementation");
-	}
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deallocImplementation
-- (void)deallocImplementation;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self setImplementation:nil];
-    [IMPNC removeObserver:nil name:nil object:self];
-    return;
+	[[self implementation] takeModel:[[[self class] defaultModel] mutableCopy] ofType:iTM2MainType];
+	NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] fixImplementation];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"FixImplementation" signature:[I methodSignature] inherited:YES]];
+   return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeImplementation
 - (void)observeImplementation;
@@ -208,9 +180,9 @@ To Do List:
 //iTM2_START;
     [IMPNC removeObserver:self];
 	NSString * suffix = @"ModelObjectDidChangeNotified:";
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES]);
+	SEL selector;
+	while(selector = NSNextHashEnumeratorItem(&HE))
     {
 		NSString * S = NSStringFromSelector(selector);
 		[IMPNC addObserver:self
@@ -239,7 +211,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[[iTM2Implementation allocWithZone:[self zone]] initWithOwner:self] autorelease];
+    return [[[iTM2Implementation alloc] initWithOwner:self] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setImplementation:
 - (void)setImplementation:(id)argument;
@@ -298,28 +270,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [[self implementation] setOwner:self];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willDealloc
-- (void)willDealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-	NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDealloc" signature:sig0 inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:selector];
-        [I invoke];
-    }
 //iTM2_END;
     return;
 }
@@ -411,65 +361,6 @@ To Do List:
     return self;
 }
 #endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Oct 10 2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-//int count = [[[tracker allKeysForObject:[NSValue valueWithNonretainedObject:self]] lastObject] intValue];
-//if(count)
-//NSLog(@">>>>>>>>>  Deleted implementation count: %i", count);
-//[tracker removeObjectsForKeys:[tracker allKeysForObject:[NSValue valueWithNonretainedObject:self]]];
-    _Owner = nil;
-    _Parent = nil;
-//iTM2_LOG(@"_MetaValueDictionary is: %@", _MetaValueDictionary);
-#ifdef __iTM2DebugEnabled__
-	if(iTM2DebugEnabled>99)
-		[[self class] _cleanDictionary:_MetaValueDictionary];
-#endif
-    [_MetaValueDictionary release];
-    _MetaValueDictionary = nil;
-    [_DataRepresentations release];
-    _DataRepresentations = nil;
-	[super dealloc];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _cleanDictionary:
-+ (void)_cleanDictionary:(id)MD;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Oct 10 2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//	static int level = 0;
-//iTM2_LOG(@"CLEANING %i, remaining objects: %i", level++, [MD count]);
-	NSEnumerator * E = [MD keyEnumerator];
-	id key;
-	while(key = [E nextObject])
-	{
-		NSLog(@"Cleaning key: %@", key);
-		id O = [MD objectForKey:key];
-		if([O isKindOfClass:[NSDictionary class]])
-			[self _cleanDictionary:O];
-		else
-			NSLog(@"O: %@", O);
-		if([MD respondsToSelector:@selector(removeObjectForKey:)])
-		{
-			NS_DURING
-			[MD removeObjectForKey:key];
-			NS_HANDLER
-			iTM2_LOG(@"***  Could not remove an object: Exception catched: %@", [localException reason]);
-			NS_ENDHANDLER
-		}
-	}
-//iTM2_LOG(@"CLEANED %i, remaining objects: %i", level--, [MD count]);
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  owner
 - (id)owner;
 /*"Description forthcoming.
@@ -1376,8 +1267,8 @@ To Do List:
 	if(!selector)
 		return nil;
 	char * _selname = (char *)sel_getName(selector);
-	int n = strlen(_selname)+1;// + 1 for the \0 termination character
-	char * selname = malloc(n);
+	int n = strlen(_selname);
+	char * selname = NSAllocateCollectable(n+1,0);// + 1 for the \0 termination character
 	if(!selname)
 	{
 		NSLog(@"*** iTM2KeyFromSelector: MISSING MEMORY, report problem");
@@ -1399,14 +1290,16 @@ To Do List:
 	}
 	else if(!strncmp(_selname, "set", 3))
 	{
+		_selname[n-1] = '\0';
 		_selname += 3;
-		if((n = strlen(_selname)) && --n)
+		if((n = strlen(_selname)))
 			goto abacab;
 	}
 	else if(!strncmp(_selname, "take", 4))
 	{
+		_selname[n-1] = '\0';
 		_selname += 4;
-		if((n = strlen(_selname)) && --n)
+		if((n = strlen(_selname)))
 			goto abacab;
 	}
 	else if(!strncmp(_selname, "is", 2))
@@ -1423,14 +1316,12 @@ To Do List:
 	}
 	else if(n = strlen(_selname))
 		goto abacab;
-	free(selname);
 	return nil;
-	abacab:;
+abacab:;
     static const char * capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if((_selname[0]>='a') && (_selname[0]<='z'))
         _selname[0] = capitals[_selname[0]-'a'];
 	NSString * K = [NSString stringWithCString:_selname encoding:NSASCIIStringEncoding];
-	free(selname);
 	return K;	
 }
 
@@ -1546,22 +1437,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self willDealloc];
-	[DNC removeObserver:self];
-    [IMPNC removeObserver:self];
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
 - (id)implementation;
 /*"Description Forthcoming.
@@ -1605,19 +1480,6 @@ To Do List:
     [self initImplementation];
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- for 1.3: Mon Jun 02 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
 - (void)initImplementation;
 /*"Description Forthcoming.
@@ -1642,38 +1504,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSArray * selectors = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"FixImplementation" signature:sig0 inherited:YES];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    [I setTarget:self];
-    NSEnumerator * E = [selectors objectEnumerator];
-    SEL action;
-    while(action = (SEL)[[E nextObject] pointerValue])
-    {
-        [I setSelector:action];
-        [I invoke];
-        if(iTM2DebugEnabled>99)
-        {
-            iTM2_LOG(@"Performing: %@", NSStringFromSelector(action));
-        }
-    }
-	if(iTM2DebugEnabled>99 && ![selectors count])
-	{
-		iTM2_LOG(@"No need to ...FixImplementation");
-	}
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  deallocImplementation
-- (void)deallocImplementation;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [self setImplementation:nil];
-    [IMPNC removeObserver:nil name:nil object:self];
+    NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] fixImplementation];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"FixImplementation" signature:[I methodSignature] inherited:YES]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeImplementation
@@ -1688,10 +1521,10 @@ To Do List:
 //iTM2_START;
     [IMPNC removeObserver:self];
 	NSString * suffix = @"ModelObjectDidChangeNotified:";
-    NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES] objectEnumerator];
-    SEL selector;
-    while(selector = (SEL)[[E nextObject] pointerValue])
-    {
+    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES]);
+	SEL selector;
+	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
+	{
 		NSString * S = NSStringFromSelector(selector);
 		[IMPNC addObserver:self
 			selector: selector

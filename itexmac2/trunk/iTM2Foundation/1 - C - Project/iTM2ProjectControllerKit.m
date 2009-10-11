@@ -44,6 +44,7 @@
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2TextDocumentKit.h>
+#import <iTM2Foundation/iTM2Invocation.h>
 
 NSString * const iTM2ProjectComponent = @"Project";
 NSString * const iTM2ProjectPlistPathExtension = @"plist";
@@ -59,8 +60,8 @@ NSString * const iTM2ProjectCurrentDidChangeNotification = @"iTM2CurrentProjectD
 
 static NSString * const iTM2ProjectsKey = @"_PPs";
 #define PROJECTS [[self implementation] metaValueForKey:iTM2ProjectsKey]
-static NSString * const iTM2ProjectsForFileNamesKey = @"_PCPs";
-#define CACHED_PROJECTS [[self implementation] metaValueForKey:iTM2ProjectsForFileNamesKey]
+static NSString * const iTM2ProjectsForURLsKey = @"_PCPs";
+#define CACHED_PROJECTS [[self implementation] metaValueForKey:iTM2ProjectsForURLsKey]
 static NSString * const iTM2ProjectsReentrantKey = @"_PCPRE";
 #define REENTRANT_PROJECT [[self implementation] metaValueForKey:iTM2ProjectsReentrantKey]
 
@@ -140,12 +141,10 @@ To Do List:
 	}
 	NSString * newSupport = [[NSBundle mainBundle] iTM2_pathForSupportDirectory:@"Writable Projects.localized" inDomain:NSUserDomainMask create:YES];
 	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH[c] '.')"];
-	NSEnumerator * E = [[[DFM subpathsAtPath:oldSupport] filteredArrayUsingPredicate:predicate] objectEnumerator];
-	NSString * path;
-	NSString * wrapperType = [SDC iTM2_wrapperDocumentType];
-	while(path = [E nextObject])
+	CFStringRef wrapperType = [SDC iTM2_wrapperDocumentType];
+	for(NSString * path in [[DFM subpathsAtPath:oldSupport] filteredArrayUsingPredicate:predicate])
 	{
-		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:path] error:NULL] isEqual:wrapperType])
+		if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:[NSURL fileURLWithPath:path] error:NULL],wrapperType))
 		{
 			NSString * oldWrapper = [[oldSupport stringByAppendingPathComponent:path] stringByStandardizingPath];
 			NSString * oldProject = [[[[NSURL fileURLWithPath:oldWrapper] iTM2_enclosedProjectURLs] lastObject] path];
@@ -170,7 +169,7 @@ To Do List:
 				else if([newDate compare:oldDate] == NSOrderedDescending)
 				{
 					// first delete the old stuff
-#warning **** ERROR and FAILED, this is a transitional design
+#warning **** ERROR and FAILED, this is a transitional design BUGBUGBUG BUGBUGBUG BUGBUGBUG BUGBUGBUG
 					if(YES && [DFM removeFileAtPath:newProject handler:NULL])
 					{
 						// just create a symbolic link to keep track of the old design during the transition
@@ -224,6 +223,7 @@ static NSString * const iTM2ProjectsBaseKey = @"_PCPBs";
 
 @implementation iTM2ProjectController
 static id _iTM2SharedProjectController = nil;
+@dynamic currentProject;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sharedProjectController
 + (id)sharedProjectController;
 /*"Description forthcoming.
@@ -478,7 +478,7 @@ To Do List:
 			}
 			if(!MIW)
 			{
-				MIW = [[[iTM2MainInfoWrapper allocWithZone:[self zone]] initWithProjectURL:projectURL error:&outError] autorelease];
+				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
 				if(outError)
 				{
 					[NSApp presentError:outError];
@@ -503,7 +503,7 @@ To Do List:
 			}
 			if(!MIW)
 			{
-				MIW = [[[iTM2MainInfoWrapper allocWithZone:[self zone]] initWithProjectURL:projectURL error:&outError] autorelease];
+				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
 				if(outError)
 				{
 					[NSApp presentError:outError];
@@ -553,7 +553,7 @@ To Do List:
 			}
 			if(!MIW)
 			{
-				MIW = [[[iTM2MainInfoWrapper allocWithZone:[self zone]] initWithProjectURL:projectURL error:&outError] autorelease];
+				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
 				if(outError)
 				{
 					[NSApp presentError:outError];
@@ -602,7 +602,7 @@ ready_to_go:;
 			if(MIW == nil)
 			{
 				NSError * outError = nil;
-				MIW = [[[iTM2MainInfoWrapper allocWithZone:[self zone]] initWithProjectURL:projectURL error:&outError] autorelease];
+				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
 				if(outError)
 				{
 					[NSApp presentError:outError];
@@ -729,7 +729,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForFileNamesKey];
+	[IMPLEMENTATION takeMetaValue:
+				[NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory|NSPointerFunctionsObjectPersonality valueOptions:NSMapTableZeroingWeakMemory|NSPointerFunctionsObjectPointerPersonality]
+						   forKey:iTM2ProjectsForURLsKey];
 //iTM2_END;
 return;
 }
@@ -777,8 +779,8 @@ To Do List:
 	// stop as soon as projects are found
 	NSAssert1(![theURL iTM2_belongsToFactory], @"The path must not be in the factory domain:\n%@",theURL);
 	NSString * factoryPath = nil;
-	NSString * projectType = [SDC iTM2_projectDocumentType];
-	if([SDC documentClassForType:projectType])
+	CFStringRef projectType = [SDC iTM2_projectDocumentType];
+	if([SDC documentClassForType:(NSString *)projectType])
 	{
 		NSMutableArray * URLs = [NSMutableArray array];
 		NSEnumerator * E = nil;
@@ -895,11 +897,13 @@ To Do List:
 //iTM2_START;
 	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsKey])
 	{
-		[IMPLEMENTATION takeMetaValue:[NSMutableSet set] forKey:iTM2ProjectsKey];
+		[IMPLEMENTATION takeMetaValue:
+					[NSHashTable hashTableWithOptions:NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsOpaquePersonality]
+							forKey:iTM2ProjectsKey];
 	}
-	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsForFileNamesKey])
+	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsForURLsKey])
 	{
-		[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForFileNamesKey];
+		[self flushCaches];
 	}
 	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsReentrantKey])
 	{
@@ -918,12 +922,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if 1
-    NSMutableArray * MRA = [NSMutableArray array];
-    NSEnumerator * E = [PROJECTS objectEnumerator];
-    id P;
-    while(P = [[E nextObject] nonretainedObjectValue])
-        [MRA addObject:P];
-    return MRA;
+    return PROJECTS;
 #else
     NSMutableArray * MRA = [NSMutableArray array];
     NSEnumerator * E = [[SDC documents] objectEnumerator];
@@ -956,30 +955,8 @@ To Do List:
 	{
 		iTM2_LOG(@"fileURL:%@",fileURL);
 	}
-	NSValue * documentValue = [NSValue valueWithNonretainedObject:document];
 	iTM2ProjectDocument * projectDocument;
-	NSValue * projectValue;
-#warning: SIGTRAP here:coder:20060906
-//iTM2_LOG(@"CACHED_PROJECTS:%@",CACHED_PROJECTS);
-//iTM2_LOG(@"documentValue:%@",documentValue);
-    if(projectValue = [CACHED_PROJECTS objectForKey:documentValue])
-	{
-		if(projectDocument = [projectValue nonretainedObjectValue])
-		{
-			if([SPC isProject:projectDocument])
-			{
-				return projectDocument;
-			}
-		}
-		else
-		{
-			return nil;// this is a document with no project!
-		}
-	}
-	[document setHasProject:NO];
-	// if this method is entered once more from here,it will return from one of the above lines,unless the CACHED_PROJECTS are cleaned
-	NSEnumerator * E = [[SPC projects] objectEnumerator];
-	while(projectDocument = [E nextObject])
+	for(projectDocument in [SPC projects])
 	{
 		if([projectDocument ownsSubdocument:document])
 		{
@@ -987,24 +964,20 @@ To Do List:
 			return projectDocument;
 		}
 	}
-    if(projectValue = [CACHED_PROJECTS objectForKey:[fileURL absoluteURL]])
+    if(projectDocument = [CACHED_PROJECTS objectForKey:[fileURL absoluteURL]])
 	{
-		if(projectDocument = [projectValue nonretainedObjectValue])
-		{
-			if([SPC isProject:projectDocument])
-			{
-				[self setProject:projectDocument forDocument:document];
-				return projectDocument;
-			}
-		}
-		else
-		{
-			[self setProject:nil forDocument:document];
-			return nil;
-		}
+		[self setProject:projectDocument forDocument:document];
+		return projectDocument;
 	}
+	else
+	{
+		[self setProject:nil forDocument:document];
+		return nil;
+	}
+	[document setHasProject:NO];
+	// if this method is entered once more from here,it will return from one of the above lines,unless the CACHED_PROJECTS are cleaned
 	NSURL * url = fileURL;
-	if(projectDocument = [self newProjectForURLRef:&url display:YES error:nil])
+	if(projectDocument = [self freshProjectForURLRef:&url display:YES error:nil])
 	{
 		if([url isFileURL] && ![url iTM2_isEquivalentToURL:fileURL])
 		{
@@ -1033,15 +1006,11 @@ To Do List:
 	if(!document)
 		return;
 	NSParameterAssert((!projectDocument || [SPC isProject:projectDocument]));
-	NSValue * documentValue = [NSValue valueWithNonretainedObject:document];
-	NSValue * projectValue = [NSValue valueWithNonretainedObject:projectDocument];
-	[CACHED_PROJECTS setObject:projectValue forKey:documentValue];
 	[document setHasProject:(projectDocument != nil)];
-	NSAssert1((projectDocument == [self projectForDocument:document]),
-		@"..........  INCONSISTENCY:unexpected behaviour,report bug 1313 in %@",__iTM2_PRETTY_FUNCTION__);
-
 	NSURL * fileURL = [document fileURL];
 	[self setProject:projectDocument forURL:fileURL];
+	NSAssert1((projectDocument == [self projectForDocument:document]),
+		@"..........  INCONSISTENCY:unexpected behaviour,report bug 1313 in %@",__iTM2_PRETTY_FUNCTION__);
 	NSAssert3((!projectDocument || [[projectDocument fileKeyForURL:fileURL] length]),
 		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %@,\nproject:\n%@\nfileName:\n%@",__iTM2_PRETTY_FUNCTION__,projectDocument,fileURL);
 	return;
@@ -1057,9 +1026,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSEnumerator * E = [[self projects] objectEnumerator];
-	id projectDocument = nil;
-	while(projectDocument = [E nextObject])
+	for(id projectDocument in [self projects])
 	{
 		if([[projectDocument fileKeyForURL:fileURL] length]
 			|| [[projectDocument fileURL] iTM2_isEquivalentToURL:fileURL]
@@ -1082,13 +1049,8 @@ theEnd:
 			iTM2_LOG(@"The project:\n%@ does not know\n%@",[projectDocument fileURL],fileURL);
 		}
 	}
-	[self setProject:projectDocument forURL:fileURL];
-	if(iTM2DebugEnabled>10)
-	{
-		iTM2_LOG(@"\\infty - The project:%@ knows about %@",[projectDocument fileURL],fileURL);
-	}
 //iTM2_END;
-    return projectDocument;
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectForURL:
 - (id)projectForURL:(NSURL *)fileURL;
@@ -1100,29 +1062,26 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSParameterAssert(fileURL);
-	NSValue * projectValue = [CACHED_PROJECTS objectForKey:[fileURL absoluteURL]];
-	id projectDocument = [projectValue nonretainedObjectValue];
+	id projectDocument = [CACHED_PROJECTS objectForKey:[fileURL absoluteURL]];
 	if([SPC isProject:projectDocument])
 	{
 		return projectDocument;
 	}
 	NSURL * shortFileURL = [fileURL iTM2_URLByDeletingPathExtension];
-	projectValue = [CACHED_PROJECTS objectForKey:[shortFileURL absoluteURL]];
-	projectDocument = [projectValue nonretainedObjectValue];
+	projectDocument = [CACHED_PROJECTS objectForKey:[shortFileURL absoluteURL]];
 	if([SPC isProject:projectDocument])
 	{
-		[CACHED_PROJECTS setObject:projectValue forKey:[fileURL absoluteURL]];
+		[CACHED_PROJECTS setObject:projectDocument forKey:[fileURL absoluteURL]];
 		[projectDocument newFileKeyForURL:fileURL];
 		return projectDocument;
 	}
 	// Not yet cached
 	// reentrant management here
-	if(projectValue)
+	if([projectDocument isEqual:[NSNull null]])
 	{
 		return nil;
 	}
-	projectValue = [NSValue valueWithNonretainedObject:nil];
-	[CACHED_PROJECTS setObject:projectValue forKey:[fileURL absoluteURL]];
+	[CACHED_PROJECTS setObject:[NSNull null] forKey:[fileURL absoluteURL]];
 	return [self getOpenProjectForURL:fileURL];// Will cache the result as side effect
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:forURL:
@@ -1140,12 +1099,11 @@ To Do List:
 	}
 	NSParameterAssert(fileURL);
 	NSParameterAssert((!projectDocument || [SPC isProject:projectDocument]));
-	NSValue * projectValue = [NSValue valueWithNonretainedObject:projectDocument];// share the value?
-	[CACHED_PROJECTS setObject:projectValue forKey:[fileURL absoluteURL]];
+	[CACHED_PROJECTS setObject:projectDocument forKey:[fileURL absoluteURL]];
 	NSAssert1((projectDocument == [self projectForURL:fileURL]),
 		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %s",__iTM2_PRETTY_FUNCTION__);
 	fileURL = [fileURL iTM2_URLByDeletingPathExtension];
-	[CACHED_PROJECTS setObject:projectValue forKey:[fileURL absoluteURL]];
+	[CACHED_PROJECTS setObject:projectDocument forKey:[fileURL absoluteURL]];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectForSource:
@@ -1159,8 +1117,7 @@ To Do List:
 //iTM2_START;
 #warning THERE MIGHT BE A REALLY BIG PROBLEM WHEN CREATING NEW DOCUMENTS:the filename is void!!! Use the autosave?
 //NSLog(@"source:%@",source);
-	[[source retain] autorelease];
-    if([source isKindOfClass:[NSURL class]])
+	if([source isKindOfClass:[NSURL class]])
         return [self projectForURL:source];
     else if([source isKindOfClass:[NSString class]])
         return [self projectForURL:[NSURL fileURLWithPath:source]];
@@ -1176,17 +1133,6 @@ To Do List:
         return [[[[source window] windowController] document] project];
     else if([source isKindOfClass:[NSToolbarItem class]])
         return [self projectForSource:[source view]];
-    else if([source isKindOfClass:[NSValue class]])
-	{
-		source = [source nonretainedObjectValue];
-		NSEnumerator * E = [[SDC documents] objectEnumerator];
-		id doc;
-		while(doc = [E nextObject])
-			if(doc == source)
-				return [doc project];
-		iTM2_LOG(@"The object wrapped in the value is not owned by the document controller");
-        return [self projectForSource:source];
-	}
     else
         return [[SDC currentDocument] project];
 }
@@ -1207,16 +1153,14 @@ To Do List:
 		}
 		// testing consistency
 		// we are not authorized to register a project document with the same name as a previously registered project document
-		NSEnumerator * E = [PROJECTS objectEnumerator];
-		id P;
 		NSURL * projectURL = [[projectDocument fileURL] absoluteURL];
-		while(P = (id)[[E nextObject] nonretainedObjectValue])
+		for(id P in PROJECTS)
 		{
 //iTM2_LOG(@"PROBLEM");if([[P fileName] iTM2_pathIsEqual:FN]){
 //iTM2_LOG(@"PROBLEM");}
 			NSAssert2(![[P fileURL] iTM2_isEquivalentToURL:projectURL],@"You cannot register 2 different project documents with that URL:\n%@==%@",projectURL,[P fileURL]);
 		}
-		[PROJECTS addObject:[NSValue valueWithNonretainedObject:projectDocument]];
+		[PROJECTS addObject:projectDocument];
 		[self setProject:projectDocument forDocument:projectDocument];
 		if(iTM2DebugEnabled)
 		{
@@ -1238,9 +1182,8 @@ To Do List:
 //iTM2_START;
 	if([projectDocument isKindOfClass:[iTM2ProjectDocument class]])
 	{
-		NSValue * V = [NSValue valueWithNonretainedObject:projectDocument];
-		[PROJECTS removeObject:V];
-		[CACHED_PROJECTS removeObjectsForKeys:[CACHED_PROJECTS allKeysForObject:V]];
+		[PROJECTS removeObject:projectDocument];
+		[CACHED_PROJECTS removeObjectsForKeys:[CACHED_PROJECTS allKeysForObject:projectDocument]];
 		if(iTM2DebugEnabled)
 		{
 			iTM2_LOG(@"project:%@",projectDocument);
@@ -1259,7 +1202,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return (nil != argument) && [PROJECTS containsObject:[NSValue valueWithNonretainedObject:argument]];
+    return (nil != argument) && [PROJECTS containsObject:argument];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  finderAliasesSubdirectory
 - (NSString*)finderAliasesSubdirectory;
@@ -1421,7 +1364,7 @@ To Do List:
 				{
 					projectDocument = [SDC makeUntitledDocumentOfType:[SDC iTM2_projectPathExtension] error:outErrorPtr];
 					[projectDocument setFileURL:projectURL];
-					[projectDocument setFileType:[SDC iTM2_projectDocumentType]];
+					[projectDocument setFileType:(NSString *)[SDC iTM2_projectDocumentType]];
 					[projectDocument fixProjectConsistency];
 					[SDC addDocument:projectDocument];
 				}
@@ -1555,9 +1498,7 @@ To Do List:
 	NSURL * theURL = fileURL;
 	NSURL * url = nil;
 	NSString * component = nil;
-	NSString * iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
 	iTM2ProjectDocument * projectDocument = nil;
-	NSEnumerator * E = nil;
 	NSMutableArray * candidates = [NSMutableArray array];
 scanDirectoryContent:
 	if([SWS iTM2_isProjectPackageAtURL:theURL])
@@ -1570,11 +1511,11 @@ scanDirectoryContent:
 		[candidates addObjectsFromArray:[theURL iTM2_enclosedProjectURLs]];
 		return candidates;
 	}
-	E = [[DFM directoryContentsAtPath:[theURL path]] objectEnumerator];
 	BOOL finished = NO;
-	while(component = [E nextObject])
+	CFStringRef iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
+	for(component in [DFM directoryContentsAtPath:[theURL path]])
 	{
-		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL] iTM2_pathIsEqual:iTM2_projectDocumentType])
+		if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL],iTM2_projectDocumentType))
 		{
 			finished = YES;
 			url = [NSURL iTM2_URLWithPath:component relativeToURL:theURL];
@@ -1596,10 +1537,9 @@ scanDirectoryContent:
 	{
 		return candidates;
 	}
-	E = [[DFM directoryContentsAtPath:[theURL path]] objectEnumerator];
-	while(component = [E nextObject])
+	for(component in [DFM directoryContentsAtPath:[theURL path]])
 	{
-		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL] iTM2_pathIsEqual:iTM2_projectDocumentType])
+		if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL],iTM2_projectDocumentType))
 		{
 			finished = YES;
 			url = [NSURL iTM2_URLWithPath:component relativeToURL:theURL];
@@ -1893,7 +1833,7 @@ iTM2_LOG(@"projectURL:%@",projectURL);
 	}
 	// in the cached hierarchy, this is only for projects that could not be written because of a lack of rights
 	NSString * fileName = [fileURL path];
-	if(![fileName belongsToDirectory:[[NSURL iTM2_factoryURL] path]])
+	if(![fileName iTM2_belongsToDirectory:[[NSURL iTM2_factoryURL] path]])
 	{
 		dirName = [fileName stringByDeletingLastPathComponent];
 		dirName = [[NSURL iTM2_URLWithPath:dirName relativeToURL:[NSURL iTM2_factoryURL]] path];
@@ -1940,7 +1880,8 @@ iTM2_LOG(@"projectURL:%@",projectURL);
 	NSString * oldFileName = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey];
 	if(![oldFileName iTM2_pathIsEqual:fileName]
 		&& ![DFM fileExistsAtPath:oldFileName]
-			&& [self getUnregisteredProject:&projectDocument fileKey:&theKey forURL:[NSURL fileURLWithPath:oldFileName] display:display error:outErrorPtr])
+			&& oldFileName
+				&& [self getUnregisteredProject:&projectDocument fileKey:&theKey forURL:[NSURL fileURLWithPath:oldFileName] display:display error:outErrorPtr])
 	{
 		// as we passed a pointer to receive the key, the returned project has not yet set up the key->file binding.
 		goto theEnd;
@@ -2043,8 +1984,8 @@ To Do List:
 	}
 	// create an 'library' project
 	NSString * factoryDirectory = [[NSURL iTM2_factoryURL] path];
-	NSString * typeName = [SDC iTM2_projectDocumentType];
-	iTM2ProjectDocument * projectDocument = [SDC makeUntitledDocumentOfType:typeName error:outErrorPtr];
+	CFStringRef typeName = [SDC iTM2_projectDocumentType];
+	iTM2ProjectDocument * projectDocument = [SDC makeUntitledDocumentOfType:(NSString *)typeName error:outErrorPtr];
 	if(projectDocument)
 	{
 		NSString * fileName = [fileURL path];
@@ -2110,7 +2051,7 @@ createWrapper:
 		NSURL * url = [NSURL fileURLWithPath:projectName];
 //iTM2_LOG(@"url: %@",url);
 		[projectDocument setFileURL:url];
-		[projectDocument setFileType:typeName];// is it necessary?
+		[projectDocument setFileType:(NSString *)typeName];// is it necessary?
 		[SDC addDocument:projectDocument];
 		// the named file is linked to something in the wrapper
 		NSString * linkName = [projectName stringByDeletingLastPathComponent];
@@ -2167,7 +2108,7 @@ To Do List:
 		return nil;
 	}
 	NSURL * fileURL = *fileURLRef;
-	if([[fileURL path] belongsToDirectory:[[NSURL iTM2_factoryURL] path]])
+	if([[fileURL path] iTM2_belongsToDirectory:[[NSURL iTM2_factoryURL] path]])
 	{
 		return nil;
 	}
@@ -2251,7 +2192,7 @@ newWritableProject:
 				// as I said before, if the fileURL was part of a wrapper, we would have catched it before
 				// and the present method would never have been reached
 				NSString * sourceDirName = [[self URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL] path];
-				if(![dirName belongsToDirectory:sourceDirName])
+				if(![dirName iTM2_belongsToDirectory:sourceDirName])
 				{
 					NSString * component = [fileName lastPathComponent];
 					fileURL = [NSURL fileURLWithPath:[sourceDirName stringByAppendingPathComponent:component]];
@@ -2271,13 +2212,13 @@ newWritableProject:
 			}
 			// we will have a project at projectName
 			// is there an already existing file at that path?
-			NSString * typeName = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
 			if([SWS iTM2_isProjectPackageAtURL:projectURL] || [DFM iTM2_createDeepDirectoryAtPath:projectName attributes:nil error:outErrorPtr])
 			{
 				projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:NO error:outErrorPtr];
 			}
 			else
 			{
+				NSString * typeName = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
 				projectDocument = [[[SDC makeUntitledDocumentOfType:typeName error:outErrorPtr] retain] autorelease];
 				[projectDocument setFileURL:projectURL];
 				[projectDocument saveDocument:self];
@@ -2394,9 +2335,9 @@ To Do List:
 	}
 	[self willGetNewProjectForURL:fileURL];
 	// nil is returned for project file names...
-	NSString * iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
-	if(([[SDC typeForContentsOfURL:fileURL error:nil] isEqual:iTM2_projectDocumentType]
-		&& [SDC documentClassForType:iTM2_projectDocumentType])
+	CFStringRef iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
+	if((UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:fileURL error:nil],iTM2_projectDocumentType)
+		&& [SDC documentClassForType:(NSString *)iTM2_projectDocumentType])
 		|| (projectDocument = [self getOpenProjectForURL:fileURL])
 		|| (projectDocument = [self getProjectInWrapperForURL:fileURL display:display error:outErrorPtr])
 		|| (projectDocument = [self getProjectInHierarchyForURL:fileURL display:display error:outErrorPtr])
@@ -2412,8 +2353,8 @@ To Do List:
 	}
 	return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newProjectForURLRef:display:error:
-- (id)newProjectForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  freshProjectForURLRef:display:error:
+- (id)freshProjectForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
@@ -2434,16 +2375,15 @@ To Do List:
 		return projectDocument;// this filename is already registered, possibly with a "nil" project ("nil" projects are no longer supported, see "Elementary")
 	}
 	// reentrant code
-	[self setProject:nil forURL:fileURL];
 	if(![self canGetNewProjectForURL:fileURL error:outErrorPtr])
 	{
 		return nil;
 	}
 	[self willGetNewProjectForURL:fileURL];
 	// nil is returned for project file names...
-	NSString * iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
-	if(([[SDC typeForContentsOfURL:fileURL error:nil] isEqual:iTM2_projectDocumentType]
-		&& [SDC documentClassForType:iTM2_projectDocumentType])
+	CFStringRef iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
+	if((UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:fileURL error:outErrorPtr],iTM2_projectDocumentType)
+		&& [SDC documentClassForType:(NSString *)iTM2_projectDocumentType])
 		|| (projectDocument = [self getOpenProjectForURL:fileURL])
 		|| (projectDocument = [self getProjectInWrapperForURL:fileURL display:display error:outErrorPtr])
 		|| (projectDocument = [self getProjectInHierarchyForURL:fileURL display:display error:outErrorPtr])
@@ -2459,6 +2399,7 @@ To Do List:
 	}
 	return nil;
 }
+
 #pragma mark =-=-=-=-=-  BASE PROJECTS
 static NSString * const iTM2ProjectsBaseNamesKey = @"_PCPBNs";
 #define BASE_URLs [IMPLEMENTATION metaValueForKey:iTM2ProjectsBaseNamesKey]
@@ -2474,9 +2415,9 @@ To Do List:
 //iTM2_START;
 #warning ERROR ! those 2 are extremely suspect
 	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsBaseKey];
-	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsForFileNamesKey])
+	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsForURLsKey])
 	{
-		[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForFileNamesKey];
+		[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:iTM2ProjectsForURLsKey];
 	}
 	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsBaseNamesKey])
 	{
@@ -2560,7 +2501,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [BASE_PROJECTS objectForKey:fileURL];
+    return [BASE_PROJECTS objectForKey:[fileURL absoluteURL]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectWithName:
 - (id)baseProjectWithName:(NSString *)projectName;
@@ -2867,24 +2808,20 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	id old = [metaGETTER nonretainedObjectValue];// beware, old can point to nothing consistent
 	id result = [[SDC currentDocument] project];
-	if(result != old)
+	if(result != iVarCurrentProject)
 	{
-		metaSETTER([NSValue valueWithNonretainedObject:result]);// reentrant
+		id old = iVarCurrentProject;
+		iVarCurrentProject = result;// reentrant firewall
 		[INC performSelector:@selector(postNotification:) withObject:
 			[NSNotification notificationWithName:iTM2ProjectCurrentDidChangeNotification
-				object:self userInfo:([self isProject:old]? [NSDictionary dictionaryWithObjectsAndKeys:old,@"oldProject",nil]:nil)]
+				object:self userInfo:([self isProject:iVarCurrentProject]? [NSDictionary dictionaryWithObjectsAndKeys:old,@"oldProject",nil]:nil)]
 			afterDelay:0];// notice the isProject:that ensures old is consistent
-		NSEnumerator * E = [[self projects] objectEnumerator];
-		id projectDocument;
-		while(nil != (projectDocument = [E nextObject]))
+		for(id projectDocument in [self projects])
 		{
 			if(projectDocument == result)
 			{
 				[projectDocument exposeWindows];
-				while(projectDocument = [E nextObject])
-					[projectDocument dissimulateWindows];
 			}
 			else
 			{
@@ -3001,27 +2938,6 @@ To Do List:
 @end
 
 @implementation iTM2NewProjectController
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[_FileURL autorelease];
-	_FileURL = nil;
-	[_NewProjectName autorelease];
-	_NewProjectName = nil;
-	[_ProjectDirURL autorelease];
-	_ProjectDirURL = nil;
-	[_Projects autorelease];
-	_Projects = nil;
-	[super dealloc];
-//iTM2_END;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUpProject:
 - (void)setUpProject:(id)projectDocument;
 /*"Description forthcoming.
@@ -3049,7 +2965,7 @@ To Do List:
 	_ProjectDirURL = [fileURL copy];
 	_IsAlreadyDirectoryWrapper = NO;
 loop:
-	if([[SDC typeForContentsOfURL:fileURL error:nil] isEqual:iTM2WrapperDocumentType])
+	if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:fileURL error:NULL],(CFStringRef)iTM2WrapperDocumentType))
 	{
 		_IsAlreadyDirectoryWrapper = YES;
 		[_ProjectDirURL autorelease];
@@ -3596,13 +3512,11 @@ To Do List:
 //iTM2_START;
 	if(url)
 	{
-		NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-		NSInvocation * I = [[NSInvocation invocationWithMethodSignature:sig0] retain];
-		[I setTarget:self];
-		[I setArgument:&url atIndex:2];
-		NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"ProjectPackageAtURL:" signature:sig0 inherited:YES] objectEnumerator];
+		NSInvocation * I;
+		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] iTM2_isProjectPackageAtURL:url];
+		NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"ProjectPackageAtURL:" signature:[I methodSignature] inherited:YES]);
 		SEL selector;
-		while(selector = (SEL)[[E nextObject] pointerValue])
+		while(selector = NSNextHashEnumeratorItem(&HE))
 		{
 			if(selector != _cmd)
 			{
@@ -3612,13 +3526,11 @@ To Do List:
 				[I getReturnValue:&R];
 				if(R)
 				{
-					[I release];
 					return YES;
 				}
 			}
 		}
-		[I release];
-		return [[SDC typeForContentsOfURL:url error:nil] isEqual:iTM2ProjectDocumentType];
+		return UTTypeConformsTo((CFStringRef)[SDC typeForContentsOfURL:url error:nil],iTM2UTTypeProject);
 	}
 //iTM2_END;
     return NO;
@@ -3635,13 +3547,11 @@ To Do List:
 //iTM2_END;
 	if(url)
 	{
-		NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-		NSInvocation * I = [[NSInvocation invocationWithMethodSignature:sig0] retain];
-		[I setTarget:self];
-		[I setArgument:&url atIndex:2];
-		NSEnumerator * E = [[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WrapperPackageAtURL:" signature:sig0 inherited:YES] objectEnumerator];
+		NSInvocation * I;
+		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] iTM2_isWrapperPackageAtURL:url];
+		NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WrapperPackageAtURL:" signature:[I methodSignature] inherited:YES]);
 		SEL selector;
-		while(selector = (SEL)[[E nextObject] pointerValue])
+		while(selector = NSNextHashEnumeratorItem(&HE))
 		{
 			if(selector != _cmd)
 			{
@@ -3651,13 +3561,11 @@ To Do List:
 				[I getReturnValue:&R];
 				if(R)
 				{
-					[I release];
 					return YES;
 				}
 			}
 		}
-		[I release];
-		return [[SDC typeForContentsOfURL:url error:nil] isEqual:iTM2WrapperDocumentType];
+		return UTTypeConformsTo((CFStringRef)[SDC typeForContentsOfURL:url error:NULL],iTM2UTTypeWrapper);
 	}
 //iTM2_END;
     return NO;
@@ -3853,6 +3761,7 @@ To Do List:
 	}
     [super addDocument:document];
 	[SPC registerProject:document];
+iTM2_LOG(@"[document retainCount]:%i",[document retainCount]);
 //iTM2_END;
 	return;
 }
@@ -3865,24 +3774,21 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	// concistency check here
+	id projectDocument = [document project];
 	if([[self documents] containsObject:document])
 	{
 		// the document is owned by the document controller
 		// it should not be owned by a project,
-		id projectDocument = [document project];
-		if(![projectDocument isEqual:document])
-			[projectDocument removeSubdocument:document];
+		[projectDocument removeSubdocument:document];
 	}
 	else
 	{
 		// the document is owned by the project
 		// It is removed from the list of open project documents,
-		id projectDocument = [document project];
-		if(![projectDocument isEqual:document])
-			[projectDocument closeSubdocument:document];
+		[projectDocument closeSubdocument:document];
 	}
     [super removeDocument:document];
+	iTM2_LOG(@"[document retainCount]:%i",[document retainCount]);
 //	[SPC forgetProject:document];// too early
 //iTM2_END;
 	return;
@@ -3931,6 +3837,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+	NSError * outError;
+	iTM2_LOG(@"[SDC typeForContentsOfURL:absoluteURL error:&outError]:%@",[SDC typeForContentsOfURL:absoluteURL error:&outError]);
 	if(![absoluteURL isFileURL])
 	{// I only catch file URLs
 		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
@@ -4008,9 +3916,7 @@ To Do List:
 	{
 		iTM2_LOG(@"No document for %@",absoluteURL);
 		iTM2_LOG(@"[self documents] %@",[self documents]);
-		NSEnumerator * E = [[self documents] objectEnumerator];
-		id D;
-		while(D = [E nextObject])
+		for(D in [self documents])
 		{
 			iTM2_LOG(@"[D fileName] %@",[D fileName]);
 			iTM2_LOG(@"[D fileURL] %@",[D fileURL]);
@@ -4174,24 +4080,24 @@ To Do List:
 	// Do I have to create a project,opening another file?
 	url = [[absoluteURL copy] autorelease];
 	// What about documents in read only folders?
-	projectDocument = [SPC newProjectForURLRef:&url display:display error:outErrorPtr];
+	projectDocument = [SPC freshProjectForURLRef:&url display:display error:outErrorPtr];
     if(nil != projectDocument)
     {
 		return [projectDocument openSubdocumentWithContentsOfURL:url context:nil display:display error:outErrorPtr];
     }
-iTM2_LOG(@"absoluteURL:%@=%@",absoluteURL,[absoluteURL absoluteURL]);
-    return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
+	D = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
+    return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentForURL:
 - (id)documentForURL:(NSURL *)absoluteURL;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
-NOT YET VERIFIED
-To Do List:
-"*/
+ Version History: jlaurens AT users DOT sourceforge DOT net
+ SPC metaInfoURLFromFileURL
+ NOT YET VERIFIED
+ To Do List:
+ "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+	//iTM2_START;
     id result = [super documentForURL:absoluteURL];
     if(nil != result)
 	{

@@ -25,13 +25,6 @@
 #import "iTM2MacroKit_Prefs.h"
 
 @implementation iTM2KeyStroke
-- (void)dealloc;
-{
-	[self setCodeName:nil];
-	[self setAltCodeName:nil];
-	[super dealloc];
-	return;
-}
 - (BOOL)isEqualToKeyStroke:(iTM2KeyStroke *)rhs;
 {
 	if(![rhs isKindOfClass:[iTM2KeyStroke class]])
@@ -202,12 +195,6 @@ DEFINE(codeName,setCodeName)
 	current = [new retain];
 	return;
 }
-- (void)dealloc;
-{
-	self.bindings = nil;
-	self.current = nil;
-	[super dealloc];
-}
 - (ICURegEx *)keyValidationRE;
 {
 	return keyValidationRE?:(keyValidationRE = [ICURegEx regExWithSearchPattern:@"(?:(.*?)\\+)?(.+)"]);
@@ -337,13 +324,6 @@ To Do List:
 {
 	[children autorelease];
 	children = [new retain];
-}
-- (void)dealloc;
-{
-	[self setMacroID:nil];
-	[children autorelease];
-	children = nil;
-	[super dealloc];
 }
 - (NSString *)description;
 {
@@ -542,16 +522,6 @@ DEFINE(tooltip,setTooltip)
 		[self valueForKey:@"selector"],
 		[self valueForKey:@"insertion"]];// KVC compliant
 }
-- (void)dealloc;
-{
-	[self setName:nil];
-	[self setSelector:nil];
-	[self setMacroDescription:nil];
-	[self setTooltip:nil];
-	[self setInsertion:nil];
-	[self setSubstitutions:nil];
-	[super dealloc];
-}
 + (NSMutableDictionary *)macrosWithData:(NSData *)data owner:(id)anOwner;
 {
 	NSMutableDictionary * result = [NSMutableDictionary dictionary];
@@ -601,12 +571,6 @@ DEFINE(tooltip,setTooltip)
 	[current autorelease];
 	current = [new retain];
 	return;
-}
-- (void)dealloc;
-{
-	[self setMacros:nil];
-	[self setCurrent:nil];
-	[super dealloc];
 }
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
 {
@@ -695,7 +659,7 @@ DEFINE(tooltip,setTooltip)
 @implementation iTM2MacroTreeNode
 - (id)contextNode;
 {
-	iTM2MacroAbstractContextNode * contextNode = [self parent];
+	iTM2TreeNode * contextNode = [self parent];
 	while(contextNode && ![contextNode isKindOfClass:[iTM2MacroAbstractContextNode class]])
 	{
 		contextNode = [contextNode parent];

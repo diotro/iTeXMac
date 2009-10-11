@@ -86,3 +86,6 @@ Note:
 -seg1Addr 0X47000000 iTM2NewDocumentKit.framework
 
 There is a trick to automatically manage the build number using SVN_BUILD_NUMBER
+
+NB this is outdated
+NB see http://lists.apple.com/archives/objc-language/2008/Jun/msg00040.html concerning lua bridge

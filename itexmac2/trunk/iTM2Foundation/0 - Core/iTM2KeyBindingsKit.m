@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Oct 6 11 2003.
-//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
+//  Copyright © 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -52,11 +52,11 @@ NSString * const iTM2KeyStrokeIntervalKey = @"iTM2KeyStrokeInterval";
 @end
 
 static NSCharacterSet * iTM2_KeyStroke_CharacterSet = nil;
-static NSMutableDictionary * iTM2_KeyStroke_Selectors = nil;
+static NSMapTable * iTM2_KeyStroke_Selectors = nil;
 static NSMutableArray * iTM2_KeyStroke_Unmapped = nil;
 static NSMutableDictionary * iTM2_KeyStroke_Bases = nil;
 static NSMutableDictionary * iTM2_KeyStroke_Events = nil;
-static NSMutableDictionary * iTM2_KeyStroke_Timers = nil;
+static NSMapTable * iTM2_KeyStroke_Timers = nil;
 
 @interface iTM2KeyBindingsManager(PRIVATE)
 + (id)getKeyBindingsForIdentifier:(NSString *)identifier;
@@ -108,7 +108,6 @@ To Do List:
 	[NSWindow iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_performMnemonic:)];
 	[NSResponder iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_performKeyEquivalent:)];
 	[NSResponder iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_performMnemonic:)];
-	[NSResponder iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2KeyBindings_dealloc)];
 //iTM2_START;
     iTM2_RELEASE_POOL;
 	return;
@@ -128,18 +127,20 @@ To Do List:
     }
     else if(![_iTM2_KeyBindings_Dictionary isKindOfClass:[NSMutableDictionary class]])
     {
-        [_iTM2_KeyBindings_Dictionary autorelease];
-        _iTM2_KeyBindings_Dictionary = [[NSMutableDictionary dictionary] retain];
-        [_iTM2_SelectorMap_Dictionary autorelease];
-        _iTM2_SelectorMap_Dictionary = [[NSMutableDictionary dictionary] retain];
-        iTM2_KeyStroke_CharacterSet = [[NSCharacterSet characterSetWithCharactersInString:
-                @"_0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN"] retain];
+        _iTM2_KeyBindings_Dictionary = [NSMutableDictionary dictionary];
+        _iTM2_SelectorMap_Dictionary = [NSMutableDictionary dictionary];
+        iTM2_KeyStroke_CharacterSet = [NSCharacterSet characterSetWithCharactersInString:
+									   @"_0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN"];
         if(!iTM2_KeyStroke_Bases)
-            iTM2_KeyStroke_Bases = [[NSMutableDictionary dictionary] retain];
-        iTM2_KeyStroke_Selectors = [[NSMutableDictionary dictionary] retain];
-        iTM2_KeyStroke_Unmapped = [[NSMutableArray array] retain];
-        iTM2_KeyStroke_Events = [[NSMutableDictionary dictionary] retain];
-        iTM2_KeyStroke_Timers = [[NSMutableDictionary dictionary] retain];
+            iTM2_KeyStroke_Bases = [NSMutableDictionary dictionary];
+        iTM2_KeyStroke_Selectors = [NSMapTable mapTableWithKeyOptions:NSMapTableCopyIn
+														 valueOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
+        iTM2_KeyStroke_Unmapped = [NSMutableArray array];
+        iTM2_KeyStroke_Events = [NSMapTable mapTableWithKeyOptions:NSMapTableZeroingWeakMemory|NSMapTableObjectPointerPersonality
+													  valueOptions:NSMapTableStrongMemory];
+        iTM2_KeyStroke_Timers = [NSMapTable mapTableWithKeyOptions:NSMapTableZeroingWeakMemory|NSMapTableObjectPointerPersonality
+													  valueOptions:NSMapTableStrongMemory];
+
         [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithFloat:5.0], iTM2KeyStrokeIntervalKey,
                             nil]];
@@ -173,7 +174,7 @@ To Do List:
         return;
     }
 //iTM2_LOG(@"D is: %@", D);
-    NSMutableDictionary * MD = [[iTM2_KeyStroke_Bases mutableCopy] autorelease];
+    NSMutableDictionary * MD = [iTM2_KeyStroke_Bases mutableCopy];
     NSCharacterSet * nonCSet = [iTM2_KeyStroke_CharacterSet invertedSet];
     NSCharacterSet * nonHexaSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789abcdef"] invertedSet];
     NSCharacterSet * nonZeroSet = [[NSCharacterSet characterSetWithCharactersInString:@"0"] invertedSet];
@@ -250,9 +251,8 @@ To Do List:
 	NSDictionary * D;
 	NSBundle * MB = [NSBundle mainBundle];
 	NSArray * RA = [MB allPathsForResource:identifier ofType:iTM2KeyBindingPathExtension inDirectory:iTM2MacroControllerComponent];
-	NSEnumerator * E = [RA reverseObjectEnumerator];
 	NSString * path;
-	while(path = [E nextObject])
+	for(path in [RA reverseObjectEnumerator])
 	{
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
 		{
@@ -264,8 +264,7 @@ To Do List:
 		}
 	}
 	RA = [MB allPathsForResource:identifier ofType:iTM2SelectorMapExtension inDirectory:iTM2MacroControllerComponent];
-	E = [RA reverseObjectEnumerator];
-	while(path = [E nextObject])
+	for(path in [RA reverseObjectEnumerator])
 	{
 		if(D = [NSDictionary dictionaryWithContentsOfFile:path])
 		{
@@ -367,10 +366,9 @@ otherShorter:
     }
 	if(result = [self getKeyBindingsForIdentifier:identifier])
 		return result;
-	[self setKeyBindings:result forIdentifier:identifier];
-	[result autorelease];
+	[self setKeyBindings:nil forIdentifier:identifier];
 //iTM2_END;
-    return result;
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getKeyBindingsForIdentifier:
 + (id)getKeyBindingsForIdentifier:(NSString *)identifier;
@@ -450,10 +448,8 @@ To Do List:
 //iTM2_START;
     if(self = [super init])
     {
-        [_SM autorelease];
         _SM = [[[self class] selectorMapForIdentifier:identifier] retain];
-        [_KBS autorelease];
-        _KBS = [[NSMutableArray array] retain];
+        _KBS = [NSMutableArray array];
 		_iTM2IMFlags.handlesKeyStrokes = handlesKeyStrokes? 1: 0;
 		_iTM2IMFlags.handlesKeyBindings = handlesKeyBindings? 1: 0;
 		if(iTM2DebugEnabled)
@@ -474,23 +470,6 @@ To Do List:
 //iTM2_END;
 	return [NSString stringWithFormat:@"<%@ %#x, handlesKeyBindings:%@, handlesKeyStrokes:%@>",
 		NSStringFromClass(isa), self, (_iTM2IMFlags.handlesKeyBindings? @"Y":@"N"), (_iTM2IMFlags.handlesKeyStrokes? @"Y":@"N")];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [_SM autorelease];
-    _SM = nil;
-    [_KBS autorelease];
-    _KBS = nil;
-    [_CK autorelease];
-    _CK = nil;
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  currentKey
 - (NSString *)currentKey;
@@ -521,7 +500,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
  //NSLog(@"setCurrentKey: %@ %x", argument, ([argument length]? [argument characterAtIndex:[argument length]-1]:0));
-    [_CK autorelease];
     _CK = [argument copy];
 	if(iTM2DebugEnabled)
 	{
@@ -906,8 +884,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [_iTM2_KeyBindings_Dictionary autorelease];
-    _iTM2_KeyBindings_Dictionary = [[NSMutableDictionary dictionary] retain];
+    _iTM2_KeyBindings_Dictionary = [NSMutableDictionary dictionary];
     [self postNotificationWithStatus:
         [NSString stringWithFormat:NSLocalizedStringFromTableInBundle
             (@"Flushing Key Bindings.", TABLE,
@@ -967,10 +944,10 @@ iTM2_LOG(@"KBM:%@",KBM);
         if(!KBM)
         {
 			NSString * identifier = [self macroCategory];
-			KBM = [[[iTM2KeyBindingsManager allocWithZone:[self zone]]
-						initWithIdentifier:identifier
-							handleKeyBindings:[self handlesKeyBindings]
-								handleKeyStrokes:[self handlesKeyStrokes]] autorelease];
+			KBM = [[iTM2KeyBindingsManager alloc]
+				   initWithIdentifier:identifier
+				   handleKeyBindings:[self handlesKeyBindings]
+				   handleKeyStrokes:[self handlesKeyStrokes]];
             metaSETTER(KBM);
 			if(iTM2DebugEnabled > 1000)
 			{
@@ -1031,12 +1008,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id V = [NSValue valueWithNonretainedObject:self];
-    id result = [iTM2_KeyStroke_Events objectForKey:V];
+    id result = [iTM2_KeyStroke_Events objectForKey:self];
     if(!result)
     {
         result = [NSMutableArray array];
-        [iTM2_KeyStroke_Events setObject:result forKey:V];
+        [iTM2_KeyStroke_Events setObject:result forKey:self];
     }
 //iTM2_END;
     return result;
@@ -1051,9 +1027,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     id result = [NSMutableString string];
-    NSEnumerator * E = [[self keyStrokeEvents] objectEnumerator];
-    NSEvent * e;
-    while(e = [E nextObject])
+    for(NSEvent * e in [self keyStrokeEvents])
         [result appendString:[e characters]];
 //iTM2_LOG(@"result is: %@", result);
 //iTM2_END;
@@ -1068,14 +1042,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    id V = [NSValue valueWithNonretainedObject:self];
-    NSTimer * T = [iTM2_KeyStroke_Timers objectForKey:V];
+    NSTimer * T = [iTM2_KeyStroke_Timers objectForKey:self];
     [T invalidate];
-    [[self keyStrokeEvents] addObject:[[event copy] autorelease]];
+    [[self keyStrokeEvents] addObject:[event copy]];
     T = [NSTimer scheduledTimerWithTimeInterval:[SUD floatForKey:iTM2KeyStrokeIntervalKey]
         target: self selector: @selector(timedFlushKeyStrokeEvents:)
             userInfo: nil repeats: NO];
-    [iTM2_KeyStroke_Timers setObject:T forKey:V];
+    [iTM2_KeyStroke_Timers setObject:T forKey:self];
 //iTM2_END;
     return;
 }
@@ -1105,8 +1078,7 @@ To Do List:
 	{
 		iTM2_LOG(@"Nothing left...");
 	}
-    id V = [NSValue valueWithNonretainedObject:self];
-    [iTM2_KeyStroke_Timers removeObjectForKey:V];
+    [iTM2_KeyStroke_Timers removeObjectForKey:self];
     [[self keyStrokeEvents] removeAllObjects];
 //iTM2_END;
     return;
@@ -1136,19 +1108,17 @@ To Do List:
 //iTM2_LOG(@"entry key is: %@", key);
     if([key length] == 1)
     {
-		id result = [iTM2_KeyStroke_Selectors objectForKey:key];
+		SEL result = (SEL)NSMapGet(iTM2_KeyStroke_Selectors,key);
 		if(iTM2DebugEnabled > 999)
 		{
 			iTM2_LOG(@"result: %@", result);
 		}
 		if(result)
-			return (SEL)[result pointerValue];
+			return result;
 		if([iTM2_KeyStroke_Unmapped containsObject:key])
 		{
 			return NULL;
 		}
-		if(result)
-			return (SEL)[result pointerValue];
         unichar U = [key characterAtIndex:0];
 //iTM2_LOG(@"unichar is: %#x(%u)", U, U);
         NSString * base = [iTM2_KeyStroke_Bases objectForKey:[NSString stringWithFormat:@"%x", U]];
@@ -1198,71 +1168,71 @@ To Do List:
                     case '|':	base = @"Pipe";				break;
                     case '}':	base = @"RightCurlyBracket";	break;
                     case '~':	base = @"Tilde";			break;
-                    case 0x00a1: //¬°
+                    case 0x00a1: //¡
 									base = @"Noitamalcxe";	break;
-                    case 0x00a2: //¬¢
+                    case 0x00a2: //¢
 									base = @"Cent";			break;
-                    case 0x00a3: //¬£
+                    case 0x00a3: //£
                                     base = @"Pound";		break;
-                    case 0x00a4: //¬§
+                    case 0x00a4: //¤
                                     base = @"Currency";		break;
-                    case 0x00a5: //¬•
+                    case 0x00a5: //¥
                                     base = @"Yen";			break;
-                    case 0x00a6: //¬¶
+                    case 0x00a6: //¦
                                     base = @"BrokenPipe";	break;
-                    case 0x00a7: //¬ß
+                    case 0x00a7: //§
                                     base = @"Section";		break;
-                    case 0x00a8: //¬®
+                    case 0x00a8: //¨
                                     base = @"Diaeresis";	break;
-                    case 0x00a9: //¬©
+                    case 0x00a9: //©
                                     base = @"Copyright";	break;
-                    case 0x00aa: //¬™
+                    case 0x00aa: //ª
                                     base = @"Feminine";		break;
-                    case 0x00ab: //¬´
+                    case 0x00ab: //«
                                     base = @"LeftQuote";	break;
-                    case 0x00ac: //¬¨
+                    case 0x00ac: //¬
                                     base = @"Not";			break;
-                    case 0x00ad: //¬≠
+                    case 0x00ad: //­
                                     base = @"Hyphen";		break;
-                    case 0x00ae: //¬Æ
+                    case 0x00ae: //®
                                     base = @"Registered";	break;
-                    case 0x00af: //¬Ø
+                    case 0x00af: //¯
                                     base = @"Macron";		break;
-                    case 0x00b0: //¬∞
+                    case 0x00b0: //°
                                     base = @"Degree";		break;
-                    case 0x00b1: //¬±
+                    case 0x00b1: //±
                                     base = @"PlusMinus";	break;
-                    case 0x00b2: //¬≤
+                    case 0x00b2: //²
                                     base = @"SuperScript2";	break;
-                    case 0x00b3: //¬≥
+                    case 0x00b3: //³
                                     base = @"SuperScript3";	break;
-                    case 0x00b4: //¬¥
+                    case 0x00b4: //´
                                     base = @"Acute";		break;
-                    case 0x00b5: //¬µ
+                    case 0x00b5: //µ
                                     base = @"Micro";		break;
-                    case 0x00b6: //¬∂
+                    case 0x00b6: //¶
                                     base = @"Pilcrow";		break;
-                    case 0x00b7: //¬∑
+                    case 0x00b7: //·
                                     base = @"MiddleDot";	break;
-                    case 0x00b8: //¬∏
+                    case 0x00b8: //¸
                                     base = @"Cedilla";		break;
-                    case 0x00b9: //¬π
+                    case 0x00b9: //¹
                                     base = @"SuperScript1";	break;
-                    case 0x00ba: //¬∫
+                    case 0x00ba: //º
                                     base = @"Masculine";	break;
-                    case 0x00bb: //¬ª
+                    case 0x00bb: //»
                                     base = @"RightQuote";	break;
-                    case 0x00bc: //¬º
+                    case 0x00bc: //¼
                                     base = @"OneQuarter";	break;
-                    case 0x00bd: //¬Ω
+                    case 0x00bd: //½
                                     base = @"OneHalf";		break;
-                    case 0x00be: //¬æ
+                    case 0x00be: //¾
                                     base = @"ThreeQuarters";	break;
-                    case 0x00bf: //¬ø
+                    case 0x00bf: //¿
                                     base = @"Noitseuq";		break;
-                    case 0x00d7: //√ó
+                    case 0x00d7: //×
                                     base = @"Times";		break;
-                    case 0x00f7: //√∑
+                    case 0x00f7: //÷
                                     base = @"Division";		break;
                     case NSUpArrowFunctionKey:		base = @"UpArrow";	break;
                     case NSDownArrowFunctionKey:	base = @"DownArrow";	break;
@@ -1341,7 +1311,7 @@ To Do List:
 						{
 							iTM2_LOG(@"unmapped key stroke is: %@(%#x)", key, [key characterAtIndex:0]);
 						}
-						[iTM2_KeyStroke_Unmapped addObject:[[key copy] autorelease]];
+						[iTM2_KeyStroke_Unmapped addObject:[key copy]];
 						return NULL;
                 }
         NSString * selectorName = [NSString stringWithFormat:@"interpretKeyStroke%@:", base];
@@ -1349,9 +1319,9 @@ To Do List:
 		{
 			iTM2_LOG(@"selectorName is: %@", selectorName);
 		}
-        SEL action = NSSelectorFromString(selectorName);
-		[iTM2_KeyStroke_Selectors setObject:[NSValue valueWithPointer:action] forKey:key];
-		return action;
+        result = NSSelectorFromString(selectorName);
+		NSMapInsert(iTM2_KeyStroke_Selectors,key,result);
+		return result;
     }
 //iTM2_END;
     return NULL;
@@ -1731,27 +1701,6 @@ To Do List:
 //iTM2_START;
     return [[self keyBindingsManager] client:self performMnemonic:theKey]
         || [self SWZ_iTM2KeyBindings_performMnemonic:theKey];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2KeyBindings_dealloc
-- (void)SWZ_iTM2KeyBindings_dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Dec 15 14:34:51 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-//iTM2_START;
-//NSLog(NSStringFromClass(isa));
-    id V = [NSValue valueWithNonretainedObject:self];
-    NSTimer * T = [iTM2_KeyStroke_Timers objectForKey:V];
-    [T invalidate];
-    [iTM2_KeyStroke_Timers removeObjectForKey:V];
-    [iTM2_KeyStroke_Events removeObjectForKey:V];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    [self SWZ_iTM2KeyBindings_dealloc];
-    return;
 }
 @end
 

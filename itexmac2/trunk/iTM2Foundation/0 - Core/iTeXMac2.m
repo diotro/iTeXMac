@@ -104,8 +104,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentFoundationVersion
-+ (int)currentFoundationVersion;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_currentFoundationVersion
++ (int)iTM2_currentFoundationVersion;
 /*"This is the build number.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.3: 03/10/2002
@@ -116,8 +116,8 @@ To Do List:
 //iTM2_END;
     return 1;// iTM2 preview 5
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentVersion
-+ (int)currentVersion;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_currentVersion
++ (int)iTM2_currentVersion;
 /*"This is the build number. OLD STUFF
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
 - 1.3: 03/10/2002
@@ -200,7 +200,7 @@ To Do List:
                                 nil]];
 	[self createDocumentController];
 	const char * name = "sendApplicationDefinedEventOfSubtypeXX:";
-	iTM2Application_sendApplicationDefinedEvent = (char *)NSZoneMalloc(NSDefaultMallocZone(),strlen(name)+1);
+	iTM2Application_sendApplicationDefinedEvent = (char *)NSAllocateCollectable(strlen(name)+1, 0);
 	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
 	iTM2Application_sendApplicationDefinedEvent[strlen(name)+1]='\0';
 //iTM2_END;

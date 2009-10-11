@@ -180,7 +180,7 @@ To Do List:
 	NSEnumerator * E = [[[self class] builtInStylePaths] objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
-		stylePath = [[stylePath stringByAppendingPathComponent: variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [[stylePath stringByAppendingPathComponent: variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath: stylePath isDirectory: &isDir] && isDir)
 		{
@@ -194,7 +194,7 @@ To Do List:
 		E = [[[self class] builtInStylePaths] objectEnumerator];
 		while(stylePath = [E nextObject])
 		{
-			stylePath = [[stylePath stringByAppendingPathComponent: variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+			stylePath = [[stylePath stringByAppendingPathComponent: variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 			BOOL isDir = NO;
 			if([DFM fileExistsAtPath: stylePath isDirectory: &isDir] && isDir)
 				[self loadSymbolsAttributesAtPath: stylePath];
@@ -203,7 +203,7 @@ To Do List:
 	E = [[[self class] otherStylePaths] objectEnumerator];
 	while(stylePath = [E nextObject])
 	{
-		stylePath = [[stylePath stringByAppendingPathComponent: variantComponent] stringByResolvingSymlinksAndFinderAliasesInPath];
+		stylePath = [[stylePath stringByAppendingPathComponent: variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
 		if([DFM fileExistsAtPath: stylePath isDirectory: &isDir] && isDir)
 			[self loadSymbolsAttributesAtPath: stylePath];
@@ -420,7 +420,7 @@ To Do List:
 //        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorInputMask,  previousMode & ~kiTM2TeXErrorsMask);
 //iTM2_LOG(@"C'est %.1S qui s'y colle", &theChar);
 	unsigned switcher = previousMode & ~kiTM2TeXErrorsMask;
-    if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember: theChar])
+    if([[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember: theChar])
     {
 		unsigned result;
         switch(switcher)
@@ -695,7 +695,7 @@ To Do List:
 		{
 			unsigned start = location;
 			unsigned end = start;
-			while(end<[S length] && [[NSCharacterSet TeXLetterCharacterSet] characterIsMember: [S characterAtIndex: end]])
+			while(end<[S length] && [[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember: [S characterAtIndex: end]])
 				++end;
 			if(end == start+5)
 			{
@@ -741,7 +741,7 @@ To Do List:
 					{
 						unsigned start = location;
 						unsigned end = start;
-						while(end<[S length] && [[NSCharacterSet TeXLetterCharacterSet] characterIsMember: [S characterAtIndex: end]])
+						while(end<[S length] && [[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember: [S characterAtIndex: end]])
 							++end;
 						if((end == start+5) && ([@"input" isEqual: [S substringWithRange: NSMakeRange(start, end - start)]]))
 							* nextModeRef = kiTM2TeXInputInput;
@@ -1142,8 +1142,8 @@ To Do List:
 	iTM2_RELEASE_POOL;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXLetterCharacterSet;
-+ (NSCharacterSet *) TeXLetterCharacterSet;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_TeXLetterCharacterSet;
++ (NSCharacterSet *) iTM2_TeXLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:
@@ -1152,8 +1152,8 @@ To Do List:
 //iTM2_START;
     return _iTM2TextPTeXLetterCharacterSet;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  TeXFileNameLetterCharacterSet;
-+ (NSCharacterSet *) TeXFileNameLetterCharacterSet;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_TeXFileNameLetterCharacterSet;
++ (NSCharacterSet *) iTM2_TeXFileNameLetterCharacterSet;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 To Do List:

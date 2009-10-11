@@ -65,10 +65,19 @@ extern NSString * const TWSSpellDefaultContextMode;
 @interface iTM2SpellContext: NSObject
 {
 @private
-    NSArray *	ivarIgnoredWords;
-    NSString *	ivarLanguage;
-    int			ivarTag;
+    NSMutableArray *	iVarIgnoredWords;
+    NSString *			iVarLanguage;
+    NSInteger			iVarTag;
 }
+/*!
+    @method		ignoredWords
+    @abstract	The list of ignored words.
+    @discussion	Just an array of words, to feed the spell checker.
+    @result		An NSArray of NSString's.
+*/
+@property (copy,nonatomic) NSArray * ignoredWords;
+@property (assign) NSString * spellLanguage;
+@property (assign) NSInteger tag;
 
 /*!
     @method		loadPropertyListRepresentation:
@@ -120,43 +129,6 @@ extern NSString * const TWSSpellDefaultContextMode;
 - (id)propertyListRepresentation;
 
 /*!
-    @method		spellLanguage
-    @abstract	The language of the spelling context.
-    @discussion	The format for the language is Mac OS X specific.
-                If the stored format is different, there must be a translator.
-    @result		A NSString for the language.
-*/
-- (NSString *)spellLanguage;
-
-/*!
-    @method		setSpellLanguage:
-    @abstract	Sets the language of the spelling context.
-    @discussion	The format for the language is Mac OS X specific.
-                If the stored format is different, there must be a translator.
-    @param		A NSString for the language.
-    @result		None.
-*/
-- (void)setSpellLanguage:(NSString *)argument;
-
-/*!
-    @method		ignoredWords
-    @abstract	The list of ignored words.
-    @discussion	Just an array of words, to feed the spell checker.
-    @result		An NSArray of NSString's.
-*/
-- (NSArray *)ignoredWords;
-
-/*!
-    @method		setIgnoredWords:
-    @abstract	Sets the list of ignored words of the spelling context.
-    @discussion	It just replaces the old list.
-                There a consistency test that eliminates all objects that are not NSString's.
-    @param		An NSArray of NSString's.
-    @result		None.
-*/
-- (void)setIgnoredWords:(NSArray *)argument;
-
-/*!
     @method		replaceIgnoredWords:
     @abstract	Replace the list of ignored words of the spelling context.
     @discussion	It replaces the old list and actualize the shared spell checker.
@@ -174,9 +146,6 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 - (int)tag;
 
-@property (retain) NSArray *	ivarIgnoredWords;
-@property (retain) NSString *	ivarLanguage;
-@property int			ivarTag;
 @end
 
 /*!
@@ -461,7 +430,11 @@ extern NSString * const TWSSpellDefaultContextMode;
 {
 @private
     id			_iVarPrivateImplementation;
+	id __weak	_iVarCurrentText;
 }
+@property (assign) id implementation;
+@property (assign) __weak id currentText;
+
 /*!
     @method		sharedHelper
     @abstract	The shared instance.
@@ -537,7 +510,6 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 - (void)removeSpellingModeFromRepresentedObject:(id)sender;
 
-@property (retain) id			_iVarPrivateImplementation;
 @end
 
 @interface NSObject(CUDUORT)

@@ -30,8 +30,8 @@ NSString * const iTM2PathDotComponent = @".";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= 
 /*"Description forthcoming."*/
 @implementation NSString(iTM2PathUtilities)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isFinderAliasTraverseLink:isDirectory:
-- (BOOL)isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_isFinderAliasTraverseLink:isDirectory:
+- (BOOL)iTM2_isFinderAliasTraverseLink:(BOOL)aFlag isDirectory:(BOOL *)isDirectory;
 /*"Returns YES if the receiver is a Finder Alias.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -69,8 +69,8 @@ OSStatus FSPathMakeRef ( const UInt8 *path, FSRef *ref, Boolean *isDirectory );
 OSStatus FSRefMakePath ( const FSRef *ref, UInt8 *path, UInt32 pathSize );
  OSErr FSIsAliasFile ( const FSRef *fileRef, Boolean *aliasFileFlag, Boolean *folderFlag ); 
 */
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByResolvingFinderAliasesInPath
-- (NSString *)stringByResolvingFinderAliasesInPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_stringByResolvingFinderAliasesInPath
+- (NSString *)iTM2_stringByResolvingFinderAliasesInPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -155,8 +155,8 @@ To Do List:
     }
 }
 static NSMutableDictionary * lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lazyStringByResolvingSymlinksAndFinderAliasesInPath
-- (NSString *)lazyStringByResolvingSymlinksAndFinderAliasesInPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath
+- (NSString *)iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -172,10 +172,10 @@ To Do List:
 	{
 		return result;
 	}
-	return [self stringByResolvingSymlinksAndFinderAliasesInPath];
+	return [self iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByResolvingSymlinksAndFinderAliasesInPath
-- (NSString *)stringByResolvingSymlinksAndFinderAliasesInPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_stringByResolvingSymlinksAndFinderAliasesInPath
+- (NSString *)iTM2_stringByResolvingSymlinksAndFinderAliasesInPath;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -194,44 +194,52 @@ To Do List:
         temp = result;
         result = [temp stringByResolvingSymlinksInPath];
         result = [result stringByStandardizingPath];
-        result = [result stringByResolvingFinderAliasesInPath];
+        result = [result iTM2_stringByResolvingFinderAliasesInPath];
     }
     while((--firewall>0) && ![result iTM2_pathIsEqual:temp]);
 	[lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache setObject:result forKey:self];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByAbbreviatingWithDotsRelativeToDirectory:
-- (NSString *)stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:
+- (NSString *)iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:(NSString *)aPath;
 /*"It is not strong: the sender is responsible of the arguments, if they do not represent directory paths, the shame on it.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    self = [self stringByNormalizingPath];
-    aPath = [aPath stringByNormalizingPath];
+    self = [self iTM2_stringByNormalizingPath];
+    aPath = [aPath iTM2_stringByNormalizingPath];
     if([self length] && [aPath length] && ([self characterAtIndex:0]=='/') && ([aPath characterAtIndex:0]=='/'))
     {
-        NSArray * components = [self pathComponents];
+        NSArray * myComponents = [self pathComponents];
         NSArray * pathComponents = [aPath pathComponents];
         // common part
         int commonIdx = 0, index = 0;
-        int bound = MIN([components count], [pathComponents count]);
+        int bound = MIN([myComponents count], [pathComponents count]);
         while((commonIdx < bound) &&
-            [[components objectAtIndex:commonIdx] iTM2_pathIsEqual:[pathComponents objectAtIndex:commonIdx]])
+            [[myComponents objectAtIndex:commonIdx] iTM2_pathIsEqual:[pathComponents objectAtIndex:commonIdx]])
                 ++commonIdx;
         index = commonIdx;
         self = [NSString string];
-        while(index++ < [pathComponents count])
-            self = [self stringByAppendingPathComponent:@".."];
+		NSMutableArray * components = [NSMutableArray array];
+        while(index < [pathComponents count])
+		{
+			NSString * component = [pathComponents objectAtIndex:index++];
+			if(![component isEqual:iTM2PathComponentsSeparator] && ![component isEqual:@""])
+			{
+				[components addObject:@".."];
+			}
+		}
         index = commonIdx;
-        while(index < [components count])
-            self = [self stringByAppendingPathComponent:[components objectAtIndex:index++]];
+        while(index < [myComponents count])
+			[components addObject:[myComponents objectAtIndex:index++]];
+		self = [NSString iTM2_pathWithComponents:components];
     }
     return [self length]?self:@".";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shortestStringByAbbreviatingWithTildeInPath
-- (NSString *)shortestStringByAbbreviatingWithTildeInPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_shortestStringByAbbreviatingWithTildeInPath
+- (NSString *)iTM2_shortestStringByAbbreviatingWithTildeInPath;
 /*"In between the receiver and the path abbreviated with tilde, return the shortest one.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -241,8 +249,8 @@ To Do List:
     NSString * S = [self stringByAbbreviatingWithTildeInPath];
     return ([S length]<[self length]? S:self);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByNormalizingPath
-- (NSString *)stringByNormalizingPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_stringByNormalizingPath
+- (NSString *)iTM2_stringByNormalizingPath;
 /*"In between the receiver and the path abbreviated with tilde, return the shortest one.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -276,8 +284,8 @@ To Do List:
 //iTM2_END;
     return [NSString iTM2_pathWithComponents:components];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByDeletingAllPathExtensions
-- (NSString *)stringByDeletingAllPathExtensions;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_stringByDeletingAllPathExtensions
+- (NSString *)iTM2_stringByDeletingAllPathExtensions;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -294,8 +302,8 @@ To Do List:
     while(newLength<length);
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enclosingDirectoryForFileNames:
-+ (NSString*)enclosingDirectoryForFileNames:(NSArray *)fileNames;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_enclosingDirectoryForFileNames:
++ (NSString*)iTM2_enclosingDirectoryForFileNames:(NSArray *)fileNames;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -338,8 +346,8 @@ To Do List:
 //iTM2_END;
 	return [NSString iTM2_pathWithComponents:commonComponents];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isEqualToFileName:
-- (BOOL)isEqualToFileName:(NSString *)otherFileName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isEqualToFileName:
+- (BOOL)iTM2_isEqualToFileName:(NSString *)otherFileName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -371,8 +379,8 @@ To Do List:
 	}
 	return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  belongsToDirectory:
-- (BOOL)belongsToDirectory:(NSString *)dirName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_belongsToDirectory:
+- (BOOL)iTM2_belongsToDirectory:(NSString *)dirName;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 06/01/03
@@ -400,8 +408,8 @@ To Do List:
 //iTM2_END;
 	return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  absolutePathWithPath:base:
-+ (NSString *)absolutePathWithPath:(NSString *)path base:(NSString *)base;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_absolutePathWithPath:base:
++ (NSString *)iTM2_absolutePathWithPath:(NSString *)path base:(NSString *)base;
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 2.0: 06/01/03
@@ -417,7 +425,7 @@ To Do List:
 	path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSURL * fileURL = [NSURL URLWithString:path relativeToURL:baseURL];
 	//iTM2_END;
-	return [fileURL path];
+	return [fileURL iTM2_path];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_pathWithComponents:
 + (NSString *)iTM2_pathWithComponents:(NSArray *)components;
@@ -534,17 +542,34 @@ static NSMutableDictionary * iTM2URLSingletons = nil;
 NSString * const iTM2PathFactoryComponent = @"Factory.localized";
 
 @implementation NSURL(iTM2PathUtilities)
+- (NSString *)iTM2_path;
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	NSString * myPath = [[self path] stringByStandardizingPath];
+	BOOL isDirectory;
+	if([DFM fileExistsAtPath:myPath isDirectory:&isDirectory] && isDirectory && ![myPath hasSuffix:@"/"])
+	{
+		myPath = [myPath stringByAppendingString:@"/"];
+	}
+	//iTM2_END;
+	return myPath;
+}
 + (id)iTM2_URLWithPath:(NSString *)path relativeToURL:(NSURL *)baseURL;
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
-//iTM2_END;
-	if(!baseURL)
+	//iTM2_START;
+	//iTM2_END;
+	if([path hasPrefix:iTM2PathComponentsSeparator])
+	{
+		baseURL = [NSURL iTM2_rootURL];
+		path = [path iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:NSOpenStepRootDirectory()];
+	}
+	else if(!baseURL)
 	{
 		baseURL = [NSURL fileURLWithPath:NSOpenStepRootDirectory()];
 	}
 	return path.length?
-		[self URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:baseURL]:
-		baseURL;
+	[self URLWithString:[path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:baseURL]:
+	baseURL;
 }
 - (BOOL)iTM2_isEquivalentToURL:(NSURL *)otherURL;
 {iTM2_DIAGNOSTIC;
@@ -574,7 +599,7 @@ NSString * const iTM2PathFactoryComponent = @"Factory.localized";
 	}
 	relativePath = [self relativePath];
 	relativePath = [relativePath stringByDeletingPathExtension];
-	return [NSURL iTM2_URLWithPath:relativePath relativeToURL:self];
+	return [NSURL iTM2_URLWithPath:relativePath relativeToURL:nil];
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_isEqualToFileURL:
@@ -607,7 +632,7 @@ To Do List:
 //iTM2_END;
 	NSString * myPath = [[self path] stringByStandardizingPath];
 	NSString * otherPath = [[otherURL path] stringByStandardizingPath];
-	return [myPath belongsToDirectory:otherPath];
+	return [myPath iTM2_belongsToDirectory:otherPath];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_pathRelativeToURL:
 - (NSString *)iTM2_pathRelativeToURL:(NSURL *)otherURL;
@@ -620,16 +645,9 @@ To Do List:
 //iTM2_START;
 //iTM2_END;
 	NSParameterAssert(otherURL);
-	NSString * otherPath = [otherURL path];
-	otherPath = [otherPath stringByStandardizingPath];
-	NSString * myPath = [self path];
-	myPath = [myPath stringByStandardizingPath];
-	BOOL isDirectory;
-	if([DFM fileExistsAtPath:myPath isDirectory:&isDirectory] && isDirectory && ![myPath hasSuffix:@"/"])
-	{
-		myPath = [myPath stringByAppendingString:@"/"];
-	}
-	NSString * result = [myPath stringByAbbreviatingWithDotsRelativeToDirectory:otherPath];
+	NSString * otherPath = [otherURL iTM2_path];
+	NSString * myPath = [self iTM2_path];
+	NSString * result = [myPath iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:otherPath];
 	if(![self iTM2_isEquivalentToURL:[NSURL iTM2_URLWithPath:result relativeToURL:otherURL]])
 	{
 		iTM2_LOG(@"HERE");

@@ -148,7 +148,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [[[NSTextStorage allocWithZone:[self zone]]
+    return [[[NSTextStorage alloc]
         initWithString: [[self string] substringWithRange:[self selectedRange]]] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectedRange
@@ -201,13 +201,13 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSRange R = [self selectedRange];
-    return [[[NSRangeSpecifier allocWithZone:[self zone]]
+    return [[[NSRangeSpecifier alloc]
         initWithContainerClassDescription : nil
             containerSpecifier: nil
                 key:  @""
-                    startSpecifier: [[NSIndexSpecifier allocWithZone:[self zone]] 
+                    startSpecifier: [[NSIndexSpecifier alloc] 
             initWithContainerClassDescription: nil containerSpecifier:  nil key: @"" index: R.location]
-                    	endSpecifier: [[NSIndexSpecifier allocWithZone:[self zone]]
+                    	endSpecifier: [[NSIndexSpecifier alloc]
     initWithContainerClassDescription: nil containerSpecifier:  nil key: @"" index: NSMaxRange(R)-1]
                                 ] autorelease];
 }

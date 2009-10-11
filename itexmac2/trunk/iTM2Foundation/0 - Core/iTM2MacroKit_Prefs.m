@@ -30,7 +30,6 @@
 #import <iTM2Foundation/iTM2BundleKit.h>
 #import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2PathUtilities.h>
-#import <iTM2Foundation/iTM2PreferencesKit.h>
 
 
 #pragma mark =-=-=-=-=-  MACROS
@@ -693,7 +692,7 @@ To Do List:
 	id result = [self valueForKeyPath:@"value.list"];
 	if(!result)
 	{
-		result = [[[[self listClass] allocWithZone:[self zone]] initWithParent:self] autorelease];
+		result = [[[[self listClass] alloc] initWithParent:self] autorelease];
 		[self setValue:result forKeyPath:@"value.list"];
 		result = [self valueForKeyPath:@"value.list"];
 	}
@@ -1114,13 +1113,6 @@ COPY(modifierFlags,setModifierFlags)
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 	return;
 }
-- (void)dealloc;
-{
-	[self setMacro:nil];// cleans bindings
-	[value autorelease];
-	value = nil;
-	[super dealloc];
-}
 @end
 
 @interface iTM2MutableKeyBindingNode(XML)
@@ -1198,11 +1190,6 @@ To Do List:
 	otherNode = [theOtherNode retain];
 //iTM2_END;
     return;
-}
-- (void)dealloc;
-{
-	[self setOtherNode:nil];
-	[super dealloc];
 }
 - (void)feedElementWithChildren:(NSXMLElement *)element;
 {
@@ -1449,12 +1436,6 @@ To Do List:
 	}
 	return self;
 }
-- (void)dealloc;
-{
-	[self setKeyBindingSelectionIndexPaths:nil];
-	[super dealloc];
-	return;
-}
 - (NSArray *)keyBindingSelectionIndexPaths;// bound to the key bindings controller
 {
 	return selectionIndexPaths;
@@ -1492,9 +1473,6 @@ To Do List:
 @synthesize selectionIndexPaths;
 @end
 
-@interface iTM2KeyBindingTreeController: NSTreeController
-@end
-
 @implementation iTM2KeyBindingTreeController
 @end
 
@@ -1511,20 +1489,6 @@ To Do List:
 
 #pragma mark -
 #pragma mark =-=-=-=-=-  THE USER INTERFACE
-
-/*!
-	@class			The macros and key bindings preference pane.
-	@abstract		Managing the macro preferences.
-	@discussion		The preferences are more difficult to manage because we must read and write data.
-					
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-	@updated		today
-	@version		1
-*/
-@interface iTM2MacroPrefPane: iTM2PreferencePane
-- (void)setSelectedMode:(NSString *)mode;
-@end
 
 @interface iTM2HumanReadableActionNameValueTransformer: NSValueTransformer
 + (NSArray *)actionNames;
@@ -2152,6 +2116,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
+#warning FAILED bindingsDealloc to be removed
 	[self setMacrosArrayController:nil];
 	[self setKeysTreeController:nil];
 	[self setKeyBindingEditor:nil];

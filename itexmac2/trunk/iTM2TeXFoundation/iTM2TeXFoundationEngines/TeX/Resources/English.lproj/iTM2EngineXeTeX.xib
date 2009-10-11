@@ -43,7 +43,7 @@
 				<string key="NSWindowRect">{{17, 159}, {509, 565}}</string>
 				<int key="NSWTFlags">1886912512</int>
 				<string key="NSWindowTitle">Window</string>
-				<string key="NSWindowClass">NSWindow</string>
+				<string key="NSWindowClass">NSSavePanel</string>
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
 				</object>
@@ -3371,9 +3371,140 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">iTM2EngineXeTeX</string>
 					<string key="superclassName">iTM2TeXPEngineInspector</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>chooseFormat:</string>
+							<string>chooseProgName:</string>
+							<string>editFormat:</string>
+							<string>editJobName:</string>
+							<string>editOutputComment:</string>
+							<string>editOutputDirectory:</string>
+							<string>editOutputDriver:</string>
+							<string>editProgName:</string>
+							<string>editTable:</string>
+							<string>switchFormat:</string>
+							<string>switchInteraction:</string>
+							<string>switchOutputDriver:</string>
+							<string>switchOutputFormat:</string>
+							<string>toggleEightBit:</string>
+							<string>toggleEnableETeX:</string>
+							<string>toggleEnc:</string>
+							<string>toggleFileLineError:</string>
+							<string>toggleFrenchPro:</string>
+							<string>toggleHaltOnError:</string>
+							<string>toggleIni:</string>
+							<string>toggleJobName:</string>
+							<string>toggleMLTeX:</string>
+							<string>toggleOutputComment:</string>
+							<string>toggleOutputDirectory:</string>
+							<string>toggleParseTable:</string>
+							<string>toggleProgName:</string>
+							<string>toggleRecorder:</string>
+							<string>toggleSrcSpecials:</string>
+							<string>toggleTable:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="209041925">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">TeX/iTM2TeXWrapperKit.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iTM2TeXPEngineInspector</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">toggleShellEscape:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<reference key="sourceIdentifier" ref="209041925"/>
+				</object>
+			</object>
+			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.1+">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSResponder</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">toggleSmartUndo:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="351260039">
+						<string key="majorKey">IBDocumentRelativeSource</string>
+						<string key="minorKey">../../../../../iTM2Foundation/0 - Core/iTM2DocumentKit.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">showWindowBelowFront:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<reference key="sourceIdentifier" ref="351260039"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iTM2Inspector</string>
+					<string key="superclassName">NSWindowController</string>
+					<reference key="sourceIdentifier" ref="351260039"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iTM2TeXPEngineInspector</string>
+					<string key="superclassName">iTM2TeXProjectInspector</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBDocumentRelativeSource</string>
+						<string key="minorKey">../../../../iTM2TeXPCompileWrapperKit.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iTM2TeXProjectInspector</string>
+					<string key="superclassName">iTM2Inspector</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>OK:</string>
+							<string>cancel:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBDocumentRelativeSource</string>
+						<string key="minorKey">../../../../iTM2TeXProjectFrontendKit.h</string>
 					</object>
 				</object>
 			</object>
@@ -3467,6 +3598,14 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">iTM2TeXFoundation.framework/Headers/iTM2TeXDistributionKit.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSBox</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSBox.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3673,7 +3812,7 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="1025669226">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSSavePanel.h</string>
 					</object>
@@ -3950,6 +4089,14 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">NSPanel</string>
+					<string key="superclassName">NSWindow</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSPanel.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">NSPopUpButton</string>
 					<string key="superclassName">NSButton</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -3963,6 +4110,14 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSPopUpButtonCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSProgressIndicator</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">AppKit.framework/Headers/NSProgressIndicator.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4015,6 +4170,78 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2TaskKit.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSSavePanel</string>
+					<string key="superclassName">NSPanel</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancel:</string>
+							<string>ok:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_accessoryViewContainer</string>
+							<string>_bottomControlsContainer</string>
+							<string>_cancelButton</string>
+							<string>_directoryPopUp</string>
+							<string>_directoryPopUpContainer</string>
+							<string>_directoryPopUpLabel</string>
+							<string>_expansionButton</string>
+							<string>_hideExtensionButton</string>
+							<string>_messageTextField</string>
+							<string>_nameField</string>
+							<string>_nameFieldLabel</string>
+							<string>_navViewContainer</string>
+							<string>_newFolderButton</string>
+							<string>_newFolderController</string>
+							<string>_okButton</string>
+							<string>_openProgressIndicator</string>
+							<string>_saveNavSeparatorBox</string>
+							<string>_savePane</string>
+							<string>_savePaneTopPartsContainer</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSBox</string>
+							<string>NSView</string>
+							<string>NSButton</string>
+							<string>id</string>
+							<string>NSView</string>
+							<string>NSTextField</string>
+							<string>NSButton</string>
+							<string>NSButton</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSBox</string>
+							<string>NSButton</string>
+							<string>id</string>
+							<string>NSButton</string>
+							<string>NSProgressIndicator</string>
+							<string>NSBox</string>
+							<string>NSView</string>
+							<string>NSView</string>
+						</object>
+					</object>
+					<reference key="sourceIdentifier" ref="1025669226"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSSavePanel</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="600434367">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2MiscKit.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -4074,10 +4301,7 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2MiscKit.h</string>
-					</object>
+					<reference key="sourceIdentifier" ref="600434367"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSView</string>
@@ -4209,7 +4433,7 @@ Y3JpcHRzLnNpbC5vcmcveGV0ZXg</string>
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<nil key="IBDocument.LastKnownRelativeProjectPath"/>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../../../iTM2TeXFoundationEngines.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 	</data>
 </archive>

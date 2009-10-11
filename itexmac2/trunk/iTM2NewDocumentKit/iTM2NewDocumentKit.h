@@ -83,15 +83,27 @@ enum
 @interface iTM2NewDocumentAssistant: iTM2Inspector
 {
 @private
-	NSImage * templateImage;// necessary on 32 bits machines
-	NSString * tabViewItemIdentifier;
-	PDFView * templatePDFView;
-	
+	NSTextField	*	iVarCreateField;
+	NSProgressIndicator *iVarCreateProgressIndicator;
+	NSWindow	*	iVarCreateSheet;
+	NSView		*	iVarSavePanelAccessoryView;
+	NSString	*	iVarTabViewItemIdentifier;
+	NSImage		*	iVarTemplateImage;
+	NSImageView	*	iVarTemplateImageView;
+	PDFView		*	iVarTemplatePDFView;
+	NSURL		*	iVarMandatoryProjectURL;
+	NSURL		*	iVarOldProjectURL;
 }
-@property (readwrite, copy) IBOutlet NSString *tabViewItemIdentifier;
-@property (readwrite, retain) IBOutlet NSImage *templateImage;
-@property (readwrite, retain) IBOutlet PDFView *templatePDFView;
-
+@property (assign) IBOutlet NSTextField * createField;
+@property (assign) IBOutlet NSProgressIndicator *	createProgressIndicator;
+@property (assign) IBOutlet NSWindow	*	createSheet;
+@property (assign) IBOutlet NSView	*	savePanelAccessoryView;
+@property (copy) IBOutlet NSString	*	tabViewItemIdentifier;
+@property (assign) IBOutlet NSImage		*	templateImage;
+@property (assign) IBOutlet NSImageView	*	templateImageView;
+@property (assign) IBOutlet PDFView		*	templatePDFView;
+@property (assign) NSURL * mandatoryProjectURL;
+@property (assign) NSURL * oldProjectURL;
 /*!
     @method     loadTemplates
     @abstract   Loads the templates in various places, either built in or plugged in.
@@ -137,6 +149,15 @@ enum
 	@result		None.
 */
 + (void)loadTemplates;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)editTemplateDescription:(id)sender;
+- (IBAction)editTemplateFolderPath:(id)sender;
+- (IBAction)next:(id)sender;
+- (IBAction)showHelp:(id)sender;
+- (IBAction)takeCreationModeFromTag:(id)sender;
+- (IBAction)takeProjectFromSelectedItem:(id)sender;
+- (IBAction)toggleWrapper:(id)sender;
 
 @end
 

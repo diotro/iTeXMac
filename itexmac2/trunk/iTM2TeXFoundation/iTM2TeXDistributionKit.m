@@ -861,7 +861,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 		[TW addArgument:@"-c"];
 		[TW addArgument:@"kpsewhich tex.fmt"];
 //		[TW complete];
-		iTM2TaskController * TC = [[[iTM2TaskController allocWithZone:[self zone]] init] autorelease];
+		iTM2TaskController * TC = [[[iTM2TaskController alloc] init] autorelease];
 		[TC addTaskWrapper:TW];
 		[TC start];
 //		[[TC currentTask] waitUntilExit];
@@ -1384,7 +1384,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
+		[sender setFormatter:[[[iTM2FileNameFormatter alloc] init] autorelease]];
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[sender setStringValue:[TPD getTeXMFProgramsPath]];
 //iTM2_END;
@@ -1543,7 +1543,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
+		[sender setFormatter:[[[iTM2FileNameFormatter alloc] init] autorelease]];
     id TPD = (iTM2TeXProjectDocument *)[self document];
 	[sender setStringValue:[TPD getOtherProgramsPath]];
 //iTM2_END;
@@ -2067,7 +2067,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
+		[sender setFormatter:[[[iTM2FileNameFormatter alloc] init] autorelease]];
     [sender setStringValue: ([SUD stringForKey:iTM2DistributionOutputDirectoryKey]?:@"")];
 	if([SUD boolForKey:iTM2DistributionUseOutputDirectoryKey])
 		return YES;
@@ -2155,7 +2155,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
+		[sender setFormatter:[[[iTM2FileNameFormatter alloc] init] autorelease]];
     [sender setStringValue: ([SUD stringForKey:iTM2DistributionPATHPrefixKey]?:@"")];
 	if([SUD boolForKey:iTM2DistributionUsePATHPrefixKey])
 		return YES;
@@ -2215,7 +2215,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
+		[sender setFormatter:[[[iTM2FileNameFormatter alloc] init] autorelease]];
     [sender setStringValue: ([SUD stringForKey:iTM2DistributionPATHSuffixKey]?:@"")];
 	if([SUD boolForKey:iTM2DistributionUsePATHSuffixKey])
 		return YES;
@@ -2578,14 +2578,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
+		[sender setFormatter:[[[iTM2FileNameFormatter alloc] init] autorelease]];
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 	NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
 	NSString * path = [SUD stringForKey:key]?: @"";
 	if([DFM fileExistsAtPath:path])
 		[sender setStringValue:path];
 	else
-		[sender setAttributedStringValue:[[[NSAttributedString allocWithZone:[self zone]] initWithString: path
+		[sender setAttributedStringValue:[[[NSAttributedString alloc] initWithString: path
 			attributes: [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName]] autorelease]];
 	if([distribution iTM2_pathIsEqual:iTM2DistributionCustom])
 		return YES;
@@ -2708,14 +2708,14 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(![sender formatter])
-		[sender setFormatter:[[[iTM2FileNameFormatter allocWithZone:[self zone]] init] autorelease]];
+		[sender setFormatter:[[[iTM2FileNameFormatter alloc] init] autorelease]];
 	NSString * distribution = [SUD stringForKey:iTM2DistributionOtherPrograms];
 	NSString * key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
 	NSString * path = [SUD stringForKey:key]?: @"";
 	if([DFM fileExistsAtPath:path])
 		[sender setStringValue:path];
 	else
-		[sender setAttributedStringValue:[[[NSAttributedString allocWithZone:[self zone]] initWithString: path
+		[sender setAttributedStringValue:[[[NSAttributedString alloc] initWithString: path
 			attributes: [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName]] autorelease]];
 	if([distribution iTM2_pathIsEqual:iTM2DistributionCustom])
 		return YES;

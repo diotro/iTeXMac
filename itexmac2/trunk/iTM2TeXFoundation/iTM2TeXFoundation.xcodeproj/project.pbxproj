@@ -171,7 +171,6 @@
 		DCC7F4700854AC9200F3EB8A /* iTM2PDFSYNCKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F3DC0854AC9200F3EB8A /* iTM2PDFSYNCKit.m */; };
 		DCC7F4710854AC9200F3EB8A /* iTM2TeXDocumentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F3DD0854AC9200F3EB8A /* iTM2TeXDocumentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCC7F4720854AC9200F3EB8A /* iTM2TeXDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */; };
-		DCC7F4730854AC9200F3EB8A /* iTM2TeXFoundation-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCC7F3DF0854AC9200F3EB8A /* iTM2TeXFoundation-Info.plist */; };
 		DCC7F4750854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F3E10854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCC7F4760854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F3E20854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.m */; };
 		DCC7F4770854AC9200F3EB8A /* iTM2TeXPCompileWrapperKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F3E30854AC9200F3EB8A /* iTM2TeXPCompileWrapperKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -722,14 +721,14 @@
 				DC05CBD70919FDFD0003E471 /* iTM2TeXProjectCommandKit.m */,
 				DC6941D60CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.h */,
 				DC6941D70CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.m */,
+				DCC7F3E70854AC9200F3EB8A /* iTM2TeXProjectFrontendKit.h */,
+				DCC7F3E80854AC9200F3EB8A /* iTM2TeXProjectFrontendKit.m */,
 				DCC7F3E10854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.h */,
 				DCC7F3E20854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.m */,
 				DCC7F3E30854AC9200F3EB8A /* iTM2TeXPCompileWrapperKit.h */,
 				DCC7F3E40854AC9200F3EB8A /* iTM2TeXPCompileWrapperKit.m */,
 				DCC7F3E50854AC9200F3EB8A /* iTM2TeXProjectDocumentKit.h */,
 				DCC7F3E60854AC9200F3EB8A /* iTM2TeXProjectDocumentKit.m */,
-				DCC7F3E70854AC9200F3EB8A /* iTM2TeXProjectFrontendKit.h */,
-				DCC7F3E80854AC9200F3EB8A /* iTM2TeXProjectFrontendKit.m */,
 				DCC7F3E90854AC9200F3EB8A /* iTM2TeXProjectSpellKit.h */,
 				DCC7F3EA0854AC9200F3EB8A /* iTM2TeXProjectSpellKit.m */,
 				DCC7F3EB0854AC9200F3EB8A /* iTM2TeXProjectTaskKit.h */,
@@ -1005,7 +1004,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCC7F4730854AC9200F3EB8A /* iTM2TeXFoundation-Info.plist in Resources */,
 				DCC7F4850854AC9200F3EB8A /* CompileFileExtensions.plist in Resources */,
 				DCC7F4BF0854AC9200F3EB8A /* PATHs.plist in Resources */,
 				DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */,

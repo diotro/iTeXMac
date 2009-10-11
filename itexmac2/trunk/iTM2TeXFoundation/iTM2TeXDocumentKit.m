@@ -1091,7 +1091,7 @@ To Do List:
 			if([word hasPrefix:[NSString backslashString]])
 			{
 				unichar theChar = [macro characterAtIndex:index];
-				if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
+				if([[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember:theChar])
 				{
 					R.location = 0;
 					R.length = index+1;
@@ -1110,7 +1110,7 @@ To Do List:
 		if([word hasPrefix:[NSString backslashString]])
 		{
 			unichar theChar = [macro characterAtIndex:index];
-			if([[NSCharacterSet TeXLetterCharacterSet] characterIsMember:theChar])
+			if([[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember:theChar])
 			{
 				R.location = 0;
 				R.length = index+1;
@@ -1476,7 +1476,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * owner = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
@@ -1591,7 +1591,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSView * owner = [[[NSView allocWithZone:[self zone]] initWithFrame:NSZeroRect] autorelease];
+	NSView * owner = [[[NSView alloc] initWithFrame:NSZeroRect] autorelease];
 	NSDictionary * context = [NSDictionary dictionaryWithObject:owner forKey:@"NSOwner"];
 	NSString * fileName;
 	Class class = [self class];
@@ -1658,7 +1658,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSMenu * markMenu = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+    NSMenu * markMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     [markMenu setAutoenablesItems:YES];
 	
     NSString * S = [self string];

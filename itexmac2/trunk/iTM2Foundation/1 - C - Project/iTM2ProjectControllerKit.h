@@ -29,9 +29,6 @@ extern NSString * const iTM2ProjectCurrentDidChangeNotification;
 
 extern NSString * const TWSFactoryExtension;
 
-extern NSString * const iTM2ProjectDocumentType;
-extern NSString * const iTM2ProjectInspectorType;
-
 extern NSString * const iTM2SubdocumentsInspectorMode;
 
 extern NSString * const iTM2ProjectPlistPathExtension;
@@ -44,36 +41,6 @@ extern NSString * const iTM2ProjectDefaultsKey;
 
 extern NSString * const iTM2NewDocumentEnclosedInWrapperKey;
 extern NSString * const iTM2NewProjectCreationModeKey;
-
-extern NSString * const iTM2PROJECT_PATHComponent;
-
-/*!
-    @const      iTM2ProjectPathExtension
-    @abstract   ".project"
-    @discussion The path extension of project file wrappers
-*/
-extern NSString * const iTM2ProjectPathExtension;
-
-/*!
-    @const      iTM2WrapperPathExtension
-    @abstract   ".wrapper"
-    @discussion The path extension of project file wrappers
-*/
-extern NSString * const iTM2WrapperPathExtension;
-
-/*!
-    @const      iTM2WrapperDocumentType
-    @abstract   Wrapper Document
-    @discussion The path extension of project file wrappers
-*/
-extern NSString * const iTM2WrapperDocumentType;
-
-/*!
-    @const      iTM2ProjectDocumentType
-    @abstract   Project Document
-    @discussion The path extension of project file wrappers
-*/
-extern NSString * const iTM2ProjectDocumentType;
 
 /*!
     @const      iTM2OtherProjectWindowsAlphaValue
@@ -108,6 +75,11 @@ typedef enum
 */
 
 @interface iTM2ProjectController: iTM2Object
+{
+@private
+	id __weak iVarCurrentProject;
+}
+@property (readonly) id currentProject;
 
 /*!
     @method     sharedProjectController
@@ -476,7 +448,7 @@ typedef enum
 - (NSString*)relativeSoftLinksSubdirectory;
 
 /*! 
-    @method     newProjectForURLRef:display:error:
+    @method     freshProjectForURLRef:display:error:
     @abstract   Create a new project.
     @discussion This method is split into different parts.
 				This method is used by various other methods to ensure that some objects are really bound to a project.
@@ -507,7 +479,7 @@ typedef enum
     @param      outErrorPtr
     @result     A project.
 */
-- (id)newProjectForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)freshProjectForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
 
 - (void)willGetNewProjectForURL:(NSURL *)fileURL;
 - (void)didGetNewProjectForURL:(NSURL *)fileURL;

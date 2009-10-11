@@ -116,21 +116,6 @@ To Do List:
     }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[self willDealloc];
-    [DNC removeObserver:self];
-    [self deallocImplementation];
-    [super dealloc];
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  implementation
 - (id)implementation;
 /*"Description Forthcoming.
@@ -664,7 +649,7 @@ nextApplication:
 			infoPath = [applicationName stringByAppendingPathComponent:@"Contents"];
 			infoPath = [infoPath stringByAppendingPathComponent:@"Info.plist"];
 			url = [NSURL fileURLWithPath:infoPath];
-			NSXMLDocument * doc = [[[NSXMLDocument allocWithZone:[self zone]]
+			NSXMLDocument * doc = [[[NSXMLDocument alloc]
 						initWithContentsOfURL:url options:0 error:outErrorPtr] autorelease];
 			if(doc)
 			{
@@ -934,7 +919,7 @@ To Do List: retain?
 	_iTM2OpenQuicklyGfxMenuItem = [[[NSApp mainMenu] deepItemWithAction:@selector(openDocumentQuicklyGfx:)] retain];
 	_iTM2OpenQuicklyOtherMenuItem = [[[NSApp mainMenu] deepItemWithAction:@selector(openDocumentQuicklyOther:)] retain];
 	NSMenu * m = [[[_iTM2OpenQuicklyTextMenuItem menu] retain] autorelease];
-	[[m supermenu] setSubmenu:[[[iTM2OpenQuicklyMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease] forItem:[[m supermenu] itemAtIndex:[[m supermenu] indexOfItemWithSubmenu:m]]];
+	[[m supermenu] setSubmenu:[[[iTM2OpenQuicklyMenu alloc] initWithTitle:@""] autorelease] forItem:[[m supermenu] itemAtIndex:[[m supermenu] indexOfItemWithSubmenu:m]]];
 	[[_iTM2OpenQuicklyTextMenuItem menu] removeItem:_iTM2OpenQuicklyTextMenuItem];
 	[[_iTM2OpenQuicklyGfxMenuItem menu] removeItem:_iTM2OpenQuicklyGfxMenuItem];
 	[[_iTM2OpenQuicklyOtherMenuItem menu] removeItem:_iTM2OpenQuicklyOtherMenuItem];
@@ -948,19 +933,19 @@ To Do List: retain?
 	if(!_iTM2OpenQuicklyTextMenuItem)
 	{
 		iTM2_LOG(@"WARNING: Missing locale for an open quickly text menu item");
-		_iTM2OpenQuicklyTextMenuItem = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+		_iTM2OpenQuicklyTextMenuItem = [[[NSMenuItem alloc]
 			initWithTitle: @"Text Documents" action: NULL keyEquivalent: @""] retain];
 	}
 	if(!_iTM2OpenQuicklyGfxMenuItem)
 	{
 		iTM2_LOG(@"WARNING: Missing locale for an open quickly text menu item");
-		_iTM2OpenQuicklyGfxMenuItem = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+		_iTM2OpenQuicklyGfxMenuItem = [[[NSMenuItem alloc]
 			initWithTitle: @"Graphics Documents" action: NULL keyEquivalent: @""] retain];
 	}
 	if(!_iTM2OpenQuicklyOtherMenuItem)
 	{
 		iTM2_LOG(@"WARNING: Missing locale for an open quickly text menu item");
-		_iTM2OpenQuicklyOtherMenuItem = [[[NSMenuItem allocWithZone:[NSMenu menuZone]]
+		_iTM2OpenQuicklyOtherMenuItem = [[[NSMenuItem alloc]
 			initWithTitle: @"Other Documents" action: NULL keyEquivalent: @""] retain];
 	}
 //iTM2_END;
@@ -1090,7 +1075,7 @@ To Do List: retain?
 		if([textFiles count] > [SUD integerForKey:iTM2OpenQuicklyCountKey])
 		{
 			// too many items, use a submenu
-			NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:[MI title]] autorelease];
+			NSMenu * M = [[[NSMenu alloc] initWithTitle:[MI title]] autorelease];
 			[self setSubmenu:M forItem:MI];
 			while(O = [E nextObject])
 			{
@@ -1122,7 +1107,7 @@ To Do List: retain?
 		if([textFiles count] + [gfxFiles count] > [SUD integerForKey:iTM2OpenQuicklyCountKey])
 		{
 			// too many items, use a submenu
-			NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:[MI title]] autorelease];
+			NSMenu * M = [[[NSMenu alloc] initWithTitle:[MI title]] autorelease];
 			[self setSubmenu:M forItem:MI];
 			while(O = [E nextObject])
 			{
@@ -1154,7 +1139,7 @@ To Do List: retain?
 			NSMenuItem * MI = [[_iTM2OpenQuicklyOtherMenuItem copy] autorelease];
 			[self addItem:MI];
 			// use a submenu
-			NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:[MI title]] autorelease];
+			NSMenu * M = [[[NSMenu alloc] initWithTitle:[MI title]] autorelease];
 			[self setSubmenu:M forItem:MI];
 			while(O = [E nextObject])
 			{
@@ -1177,7 +1162,7 @@ To Do List: retain?
     for(O in directories)
     {
 		NSMenuItem * MI = [self addItemWithTitle:O action:NULL keyEquivalent:@""];
-		NSMenu * M = [[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""] autorelease];
+		NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 		[self setSubmenu:M forItem:MI];
         NSString * P = [cdp stringByAppendingPathComponent:O];
 		if(limit > 0)

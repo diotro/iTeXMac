@@ -108,27 +108,14 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
 - (id)init;
 /*"Convenience void method to be swizzled. DON'T REMOVE THAT PLEASE!!!
-However, you can expand it according to your needs.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
+ However, you can expand it according to your needs.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 2.0: Fri Sep 05 2003
+ To Do List:
+ "*/
 {iTM2_DIAGNOSTIC;
-//iTM2_START;
+	//iTM2_START;
 	return [super init];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [INC removeObserver:self];
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithContentsOfURL:ofType:error:
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
@@ -445,19 +432,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return iTM2DefaultInspectorMode;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dealloc
-- (void)dealloc;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    [INC removeObserver:self];
-    [super dealloc];
-    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_windowFrameIdentifier
 - (NSString *)iTM2_windowFrameIdentifier;
@@ -2426,7 +2400,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSPrintInfo * PI = [self printInfo];
-    iTM2PDFPrintView * V = [[[iTM2PDFPrintView allocWithZone:[self zone]] initWithRepresentation:[self imageRepresentation]
+    iTM2PDFPrintView * V = [[[iTM2PDFPrintView alloc] initWithRepresentation:[self imageRepresentation]
         slidesLandscape: [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask]
             scale: [[[PI dictionary] objectForKey:NSPrintScalingFactor] floatValue]] autorelease];
     NSPrintOperation * PO = [NSPrintOperation printOperationWithView:V printInfo:PI];
@@ -2525,7 +2499,7 @@ To Do List:
 	[toolbar setAutosavesConfiguration:YES];
     [toolbar setAllowsUserCustomization:YES];
 //    [toolbar setSizeMode:NSToolbarSizeModeSmall];
-	id toolbarDelegate = [[[iTM2PDFToolbarDelegate allocWithZone:[self zone]] init] autorelease];
+	id toolbarDelegate = [[[iTM2PDFToolbarDelegate alloc] init] autorelease];
 	[[self implementation] takeMetaValue:toolbarDelegate forKey:@"_toolbarDelegate"];// retain the object
     [toolbar setDelegate:toolbarDelegate];
     [[self window] setToolbar:toolbar];
@@ -2645,7 +2619,7 @@ To Do List:
 		NSTextField * F = [[[NSTextField alloc] initWithFrame:NSZeroRect] autorelease];
 		[F setAction:action];
 		[F setTarget:nil];
-		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter allocWithZone:[self zone]] init] autorelease];
+		iTM2MagnificationFormatter * NF = [[[iTM2MagnificationFormatter alloc] init] autorelease];
 		[F setFormatter:NF];
 		[F setDelegate:NF];
 		[F setFrameOrigin:NSMakePoint(4,6)];

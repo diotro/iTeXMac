@@ -527,7 +527,7 @@ To Do List:
 #warning DEBUG: Problem when cancelled, the edited status might remain despite it should not.
 		iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[self document];
 		NSString * scriptMode = [self editedScriptMode];
-        iTM2TeXPShellScriptInspector * WC = [[[iTM2TeXPShellScriptInspector allocWithZone:[self zone]]
+        iTM2TeXPShellScriptInspector * WC = [[[iTM2TeXPShellScriptInspector alloc]
 			initWithWindowNibName: @"iTM2TeXPShellScriptInspector"] autorelease];
 		iTM2InfosController * IC = [[[iTM2InfosController alloc] initWithProject:TPD atomic:YES prefixWithKeyPaths:iTM2TPFEEngineScriptsKey,scriptMode,nil] autorelease];
 		[WC setInfosController:IC];
@@ -708,7 +708,7 @@ To Do List:
         iTM2TeXProjectDocument * TPD = [self document];
 		NSString * environmentMode = [self infoForKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 		Class C = [iTM2TeXPEngineInspector classForMode:environmentMode];
-        iTM2TeXPCommandInspector * WC = [[[C allocWithZone:[self zone]] initWithWindowNibName:[C windowNibName]] autorelease];
+        iTM2TeXPCommandInspector * WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
 		[TPD addWindowController:WC];// now [WC document] == TPD, and WC is retained, the WC document is the project
 		iTM2InfosController * IC = [[[iTM2InfosController alloc] initWithProject:TPD atomic:YES prefixWithKeyPaths:iTM2TPFEEngineEnvironmentsKey, environmentMode, nil] autorelease];
 		[WC setInfosController:IC];
@@ -784,9 +784,7 @@ To Do List:
 	}
     else
     {
-        NSEnumerator * E = [[iTM2TeXPEngineInspector engineReferences] objectEnumerator];
-		id C;
-		while(C = [[E nextObject] nonretainedObjectValue])
+        for(Class C in [iTM2TeXPEngineInspector engineReferences])
             if([environmentMode isEqual:[C engineMode]])
                 return YES;
     }
@@ -1114,20 +1112,18 @@ To Do List:
 				iTM2_LOG(@"There is a missing CompileFileExtensions.plist file");
 			}
 		}
-		allBuiltInEngineModes = [[NSMutableArray arrayWithContentsOfFile:P] retain];
+		allBuiltInEngineModes = [NSMutableArray arrayWithContentsOfFile:P];
 		NSMutableSet * MS = [NSMutableSet set];
-        NSEnumerator * E = [[iTM2TeXPEngineInspector engineReferences] objectEnumerator];
-		id C;
-		while(C = [[E nextObject] nonretainedObjectValue])
+        for(Class C in [iTM2TeXPEngineInspector engineReferences])
 		{
             [MS addObjectsFromArray:[C inputFileExtensions]];
 		}
 		NSMutableSet * ms = [NSMutableSet setWithArray:allBuiltInEngineModes];
-		for(C in allBuiltInEngineModes)
+		for(NSArray * RA in allBuiltInEngineModes)
 		{
-			if([C isKindOfClass:[NSArray class]])
+			if([RA isKindOfClass:[NSArray class]])
 			{
-				[ms addObjectsFromArray:C];
+				[ms addObjectsFromArray:RA];
 			}
 		}
 		[MS minusSet:ms];
@@ -1149,9 +1145,7 @@ To Do List:
 	if(!builtInEngineModes)
 	{
 		NSMutableArray * MRA = [NSMutableArray array];
-		NSEnumerator * E = [[self allBuiltInEngineModes] objectEnumerator];
-		id O;
-		while(O = [E nextObject])
+		for(id O in [self allBuiltInEngineModes])
 		{
 			if([O isKindOfClass:[NSString class]])
 			{
@@ -1159,18 +1153,17 @@ To Do List:
 			}
 			else if([O isKindOfClass:[NSArray class]])
 			{
-				NSEnumerator * e = [O objectEnumerator];
-				while(O = [e nextObject])
+				for(id o in O)
 				{
-					if([O isKindOfClass:[NSString class]])
+					if([o isKindOfClass:[NSString class]])
 					{
-						[MRA addObject:O];
+						[MRA addObject:o];
 						break;
 					}
 				}
 			}
 		}
-		builtInEngineModes = [MRA copyWithZone:[self zone]];
+		builtInEngineModes = [MRA copy];
 	}
 //iTM2_END;
     return builtInEngineModes;
@@ -1406,9 +1399,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSEnumerator * E = [[self engineReferences] objectEnumerator];
-	Class C;
-	while(C = [[E nextObject] nonretainedObjectValue])
+    for(Class C in [self engineReferences])
 		if([[C engineMode] isEqualToString:action])
 			return C;
     return Nil;
@@ -1447,7 +1438,7 @@ To Do List:
     return [[self prettyEngineMode] compare:[rhs prettyEngineMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineReferences
-+ (NSArray *)engineReferences;
++ (NSHashTable *)engineReferences;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004

@@ -80,11 +80,10 @@ To Do List:
 //iTM2_START;
     if(self = [super init])
     {
-        [_Implementation release];
-        _Implementation = [[NSMutableDictionary dictionary] retain];
-		[_Implementation setObject:[NSMutableSet set] forKey:@"Observers"];
+        _Implementation = [NSMutableDictionary dictionary];
+		[_Implementation setObject:[NSHashTable hashTableWithWeakObjects] forKey:@"Observers"];
 		#define _OBSERVERS [_Implementation objectForKey:@"Observers"]
-		[_Implementation setObject:[[[NSLock alloc] init] autorelease] forKey:@"Lock"];
+		[_Implementation setObject:[[NSLock alloc] init] forKey:@"Lock"];
 		#define _LOCK [_Implementation objectForKey:@"Lock"]
     }
 //iTM2_END;
@@ -189,7 +188,7 @@ To Do List:
             {
                 [super addObserver:(id) observer selector:(SEL) aSelector name:(NSString *) aName object:(id) anObject];
                 [NSTimer scheduledTimerWithTimeInterval:[SUD floatForKey:@"iTM2SystemSignalTimeInterval"] target:self selector:@selector(iTM2_timed:) userInfo:nil repeats:YES];
-                [_OBSERVERS addObject:[NSValue valueWithNonretainedObject:observer]];
+                [_OBSERVERS addObject:observer];
             }
         }
     }
@@ -235,7 +234,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super removeObserver:(id) observer];
-    [_OBSERVERS removeObject:[NSValue valueWithNonretainedObject:observer]];
+    [_OBSERVERS removeObject:observer];
 //iTM2_END;
     return;
 }
@@ -249,7 +248,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     [super removeObserver:(id) observer name:(NSString *) aName object:(id) anObject];
-    [_OBSERVERS removeObject:[NSValue valueWithNonretainedObject:observer]];
+    [_OBSERVERS removeObject:observer];
 //iTM2_END;
     return;
 }
