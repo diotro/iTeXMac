@@ -180,10 +180,11 @@ To Do List:
 //iTM2_START;
     [IMPNC removeObserver:self];
 	NSString * suffix = @"ModelObjectDidChangeNotified:";
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES]);
-	SEL selector;
-	while(selector = NSNextHashEnumeratorItem(&HE))
-    {
+	NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		SEL selector = (SEL)[PA pointerAtIndex:i];
 		NSString * S = NSStringFromSelector(selector);
 		[IMPNC addObserver:self
 			selector: selector
@@ -1521,11 +1522,12 @@ To Do List:
 //iTM2_START;
     [IMPNC removeObserver:self];
 	NSString * suffix = @"ModelObjectDidChangeNotified:";
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES]);
-	SEL selector;
-	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
+	NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:suffix signature:nil inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
 	{
-		NSString * S = NSStringFromSelector(selector);
+		SEL selector = (SEL)[PA pointerAtIndex:i];
+    	NSString * S = NSStringFromSelector(selector);
 		[IMPNC addObserver:self
 			selector: selector
 				name: [S substringWithRange:NSMakeRange(0, [S length] - [suffix length])]

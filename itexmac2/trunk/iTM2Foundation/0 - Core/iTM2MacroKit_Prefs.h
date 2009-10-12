@@ -113,14 +113,19 @@
 {
 @private
 	// Garbage collection of xib objects
-	IBOutlet id __domains;
-	IBOutlet id __modes;
-	IBOutlet id __macros;
-	IBOutlet id __keys;
-	IBOutlet id __actions;
-	IBOutlet id __key_bindings;
-	IBOutlet id __scripts;
+	IBOutlet id __domains;// NSArrayController
+	IBOutlet id __modes;// NSArrayController
+	IBOutlet id __keys;// NSArrayController
+	IBOutlet id __actions;//iTM2MacroArrayController
+	IBOutlet id __scripts;// iTM2MacroArrayController
+	id __macroTestView; // NSTextView
+	id __macros;// NSArrayController
+	id __key_bindings;// iTM2KeyBindingTreeController
 }
+@property (assign) __strong id keysTreeController;
+@property (assign) __strong id macrosArrayController;
+@property (assign) __strong id macroTestView;
+
 - (void)setSelectedMode:(NSString *)mode;
 @end
 

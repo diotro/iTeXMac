@@ -360,6 +360,7 @@ static SEL _iTM2_DEBUG_LastAction = NULL;
 	return;
 }
 @end
+
 @implementation NSApplication(iTM2DEBUG)
 - (BOOL)SWZ_iTM2DEBUG_sendAction:(SEL)theAction to:(id)theTarget from:(id)sender;
 {
@@ -380,3 +381,13 @@ if(_iTM2_DEBUG_LastAction == nil)
 }
 @end
 
+@implementation NSPointerArray(iTeXMac2)
+- (void) iTM2_addPointerIfAbsent:(void *)pointer;
+{
+	NSUInteger i = [self count];
+	while(i--)
+		if([self pointerAtIndex:i] == pointer)
+			return;
+	[self addPointer:pointer];
+}
+@end

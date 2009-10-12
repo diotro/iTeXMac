@@ -91,7 +91,7 @@
 	@param		None
 	@result		An array of NSNumber's containing references to classes
 */
-+ (NSHashTable *)allClassReferences;
++ (NSPointerArray *)allClassReferences;
 
 /*!
     @method		numberOfClasses
@@ -110,7 +110,7 @@
 	@param		The class for which subclasses are looked for.
 	@result		An array of weak references to classes
 */
-+ (NSHashTable *)subclassReferencesOfClass:(Class)aClass;
++ (NSPointerArray *)subclassReferencesOfClass:(Class)aClass;
 
 /*!
     @method		cleanCache:
@@ -151,7 +151,7 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of numbers wrapping selectors
 */
-+ (NSHashTable *)instanceSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)instanceSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
 /*!
     @method		classSelectorsOfClass:withSuffix:signature:inherited:
@@ -163,7 +163,7 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of numbers wrapping selectors
 */
-+ (NSHashTable *)classSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)classSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
 /*!
     @method		realInstanceSelectorsOfClass:withSuffix:signature:inherited:
@@ -178,7 +178,7 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of values wrapping selectors
 */
-+ (NSHashTable *)realInstanceSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)realInstanceSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
 /*!
     @method		realClassSelectorsOfClass:withSuffix:signature:inherited:
@@ -191,11 +191,11 @@
 	@param		A flag: No to return only the instance methods and not the inherited ones.
 	@result		An array of values wrapping selectors
 */
-+ (NSHashTable *)realClassSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)realClassSelectorsOfClass:(Class)Class withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 
 + (BOOL)disableInstanceMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
 + (BOOL)disableClassMethodSelector:(SEL)orig_sel forClass:(Class)aClass;
 
-+ (NSArray *)responderMessages;
++ (NSPointerArray *)responderMessages;
 
 @end

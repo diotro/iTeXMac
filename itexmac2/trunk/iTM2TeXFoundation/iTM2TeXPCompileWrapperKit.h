@@ -100,7 +100,7 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @param      None
     @result     An NSArray
 */
-+ (NSHashTable *)engineReferences;
++ (NSPointerArray *)engineReferences;
 
 /*!
     @method     inputFileExtensions

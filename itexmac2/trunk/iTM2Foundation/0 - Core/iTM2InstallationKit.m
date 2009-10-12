@@ -49,27 +49,23 @@ To Do List:
 //iTM2_START;
 	[iTM2RuntimeBrowser cleanCache];
 	[iTM2Application completeInstallation];
-	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2Installer class]])
+	NSPointerArray * refs = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2Installer class]];
+	NSUInteger i = [refs count];
+	while(i--)
+	{
+		Class C = [refs pointerAtIndex:i];
 		if(C != self)
 		{
 			if(iTM2DebugEnabled)
 			{
 				iTM2_LOG(@"Auto installation of class %@ START", NSStringFromClass(C));
 			}
-			NSMethodSignature * signature = [iTM2Installer methodSignatureForSelector:_cmd];
-			NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:C withSuffix:@"CompleteInstallation" signature:signature inherited:NO]);
-			SEL selector;
-			while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
-			{
-				NS_DURING
-				[(id)C performSelector:selector withObject:nil];
-				NS_HANDLER
-				iTM2_LOG(@"***  ERROR: Exception catched while performing %@\n%@", NSStringFromSelector(selector), [localException reason]);
-				NS_ENDHANDLER
-			}
-			// Transforming to a zombie...
+			NSInvocation * I;
+			[[NSInvocation iTM2_getInvocation:&I withTarget:C retainArguments:NO] completeInstallation];
+			[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser realClassSelectorsOfClass:C withSuffix:@"CompleteInstallation" signature:[I methodSignature] inherited:NO]];
 			C->isa=[iTM2InstallerZombie class];
 		}
+	}
 //iTM2_END;
     return;
 }
@@ -98,17 +94,9 @@ To Do List:
 	if(already)
 		return;
 	already = YES;
-	NSMethodSignature * signature = [self methodSignatureForSelector:_cmd];
-	NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:signature inherited:YES]);
-	SEL selector;
-	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
-	{
-		NS_DURING
-		[self performSelector:selector withObject:nil];
-		NS_HANDLER
-		iTM2_LOG(@"***  ERROR: Exception catched while performing %@\n%@", NSStringFromSelector(selector), [localException reason]);
-		NS_ENDHANDLER
-	}
+	NSInvocation * I;
+	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] completeInstallation];
+	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:[I methodSignature] inherited:YES]];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
     return;
@@ -354,10 +342,11 @@ To Do List:
 //iTM2_START;
 	NSInvocation * I;
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] fixInstallation];
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"FixInstallation" signature:[I methodSignature] inherited:YES]);
-	SEL selector;
-	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
-    {
+	NSPointerArray * PA = [iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"FixInstallation" signature:[I methodSignature] inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		SEL selector = (SEL)[PA pointerAtIndex:i];
         [I setSelector:selector];
         [I invoke];
 		[iTM2RuntimeBrowser disableClassMethodSelector:selector forClass:self];
@@ -481,10 +470,11 @@ To Do List:
 //iTM2_START;
     NSInvocation * I;
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] completeInstallation];
-	NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:[I methodSignature] inherited:YES]);
-	SEL selector;
-	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
-    {
+	NSPointerArray * PA = [iTM2RuntimeBrowser realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation" signature:[I methodSignature] inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		SEL selector = (SEL)[PA pointerAtIndex:i];
         [I setSelector:selector];
         [I invoke];
 		[iTM2RuntimeBrowser disableClassMethodSelector:selector forClass:self];

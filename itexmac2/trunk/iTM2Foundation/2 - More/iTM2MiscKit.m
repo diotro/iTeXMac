@@ -855,8 +855,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2ValueTransformer class]])
+	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2ValueTransformer class]];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		Class C = (Class)[PA pointerAtIndex:i];
 		[NSValueTransformer setValueTransformer:[[C alloc] init] forName:[C transformerName]];
+	}
 //iTM2_END;
     return;
 }

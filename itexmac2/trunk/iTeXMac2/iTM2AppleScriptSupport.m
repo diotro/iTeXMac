@@ -256,7 +256,7 @@ To Do List:
 - (id)performDefaultImplementation;
 {
 	NSString * commandName = [[self class] commandName];
-	id performer = [iTM2TeXPCommandManager commandPerformerForName:commandName];
+	Class performer = [iTM2TeXPCommandManager commandPerformerForName:commandName];
 	if(!performer)
 	{
 		[self setScriptErrorNumber:1];

@@ -784,9 +784,14 @@ To Do List:
 	}
     else
     {
-        for(Class C in [iTM2TeXPEngineInspector engineReferences])
-            if([environmentMode isEqual:[C engineMode]])
+		NSPointerArray * PA = [iTM2TeXPEngineInspector engineReferences];
+		NSUInteger i = [PA count];
+		while(i--)
+		{
+			Class C = (Class)[PA pointerAtIndex:i];
+			if([environmentMode isEqual:[C engineMode]])
                 return YES;
+		}
     }
 //iTM2_END;
     return NO;
@@ -1114,8 +1119,11 @@ To Do List:
 		}
 		allBuiltInEngineModes = [NSMutableArray arrayWithContentsOfFile:P];
 		NSMutableSet * MS = [NSMutableSet set];
-        for(Class C in [iTM2TeXPEngineInspector engineReferences])
+		NSPointerArray * PA = [iTM2TeXPEngineInspector engineReferences];
+		NSUInteger i = [PA count];
+		while(i--)
 		{
+			Class C = (Class)[PA pointerAtIndex:i];
             [MS addObjectsFromArray:[C inputFileExtensions]];
 		}
 		NSMutableSet * ms = [NSMutableSet setWithArray:allBuiltInEngineModes];
@@ -1399,9 +1407,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    for(Class C in [self engineReferences])
+	NSPointerArray * PA = [iTM2TeXPEngineInspector engineReferences];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		Class C = (Class)[PA pointerAtIndex:i];
 		if([[C engineMode] isEqualToString:action])
 			return C;
+	}
     return Nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineMode
@@ -1438,7 +1451,7 @@ To Do List:
     return [[self prettyEngineMode] compare:[rhs prettyEngineMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  engineReferences
-+ (NSHashTable *)engineReferences;
++ (NSPointerArray *)engineReferences;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004

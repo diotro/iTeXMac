@@ -141,6 +141,7 @@ To Do List:
 		iTM2RuntimeBrowserDictionary = [[NSMutableDictionary dictionary] retain];
 		[INC addObserver:self selector:@selector(bundleDidLoadNotified:) name:iTM2BundleDidLoadNotification object:nil];
 	}
+	[NSMethodSignature iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_description)];
 //iTM2_END;
 	iTM2_RELEASE_POOL;
 	return;
@@ -347,7 +348,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  allClassReferences
-+ (NSHashTable *)allClassReferences;
++ (NSPointerArray *)allClassReferences;
 /*"Description forthcoming.
  Hash table with weak objects.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -356,10 +357,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"I AM CURRENLY LOOKING FOR ALL CLASSES");
-	NSHashTable * result = [iTM2RuntimeBrowserDictionary valueForKey:@"Main"];
+	NSPointerArray * result = [iTM2RuntimeBrowserDictionary valueForKey:@"Main"];
 	if(![result count])
 	{
-		result = [NSHashTable hashTableWithWeakObjects];
+		result = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 		int numClasses = objc_getClassList(NULL, 0);
 		Class * classes = NULL;
 		if(numClasses > 0)
@@ -367,12 +368,11 @@ To Do List:
 			classes = NSAllocateCollectable(sizeof(Class) * numClasses,0);
 			(void) objc_getClassList(classes, numClasses);
 			Class * ptr = classes;
-			[result addObject:*ptr];
 //iTM2_LOG(@"CLASS number %i IS: %@", numClasses, NSStringFromClass(* ptr));
-			while(--numClasses>0)
+			while(numClasses--)
 			{
+				[result iTM2_addPointerIfAbsent:(void *)*ptr];
 				++ptr;
-				[result addObject:*ptr];
 //iTM2_LOG(@"CLASS number %i IS: %@", numClasses, NSStringFromClass(* ptr));
 			}
 			[iTM2RuntimeBrowserDictionary takeValue:result forKey:@"Main"];
@@ -383,7 +383,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  subclassReferencesOfClass:
-+ (NSHashTable *)subclassReferencesOfClass:(Class)aClass;
++ (NSPointerArray *)subclassReferencesOfClass:(Class)aClass;
 /*"Description forthcoming.
  Hash table with weak objects.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -394,10 +394,10 @@ To Do List:
 	NSString * name = NSStringFromClass(aClass);
 //iTM2_LOG(@"I AM CURRENLY LOOKING FOR SUBCLASSES OF: %@", name);
 	id classDict = [iTM2RuntimeBrowserDictionary objectForKey:@"Classes"];
-	NSHashTable * result = [classDict objectForKey:name];
+	NSPointerArray * result = [classDict objectForKey:name];
 	if(!result)
 	{
-		result = [NSHashTable hashTableWithWeakObjects];
+		result = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 		Class * classes = NULL;
 		int numClasses = objc_getClassList(NULL, 0);
 		if(numClasses > 0 )
@@ -413,7 +413,7 @@ To Do List:
 //NSLog(@"DEBUGGGGGG");
 					if([self isClass:* ptr subclassOfClassNamed:cName])
 					{
-						[result addObject:* ptr];
+						[result addPointer:(void *)* ptr];
 //iTM2_LOG(@"ADDED CLASS number %i IS: %@", numClasses, NSStringFromClass(* ptr));
 					}
 					else
@@ -475,10 +475,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	return [[self allClassReferences] count];
+	return objc_getClassList(NULL, 0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  instanceSelectorsOfClass:withSuffix:signature:inherited:
-+ (NSHashTable *)instanceSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)instanceSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -486,7 +486,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(!theClass)
-		return [NSHashTable hashTableWithWeakObjects];
+		return [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	NSString * selsKey = (yorn? @"InheritedSelectors": @"Selectors");
 	NSMutableDictionary * sels = [iTM2RuntimeBrowserDictionary objectForKey:selsKey];
 	if(![sels isKindOfClass:[NSMutableDictionary class]])
@@ -513,8 +513,8 @@ To Do List:
 	}
 	MD = temp;
 	NSString * methodKey = signature? [signature description]:@"";
-	NSHashTable * result = [MD objectForKey:methodKey];
-	if(![result isKindOfClass:[NSHashTable class]])
+	NSPointerArray * result = [MD objectForKey:methodKey];
+	if(![result isKindOfClass:[NSPointerArray class]])
 	{
 		result = [self realInstanceSelectorsOfClass:theClass withSuffix:suffix signature:signature inherited:yorn];
         [MD takeValue:result forKey:methodKey];
@@ -523,7 +523,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  realInstanceSelectorsOfClass:withSuffix:signature:inherited:
-+ (NSHashTable *)realInstanceSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)realInstanceSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -637,17 +637,13 @@ To Do List:
 	[prepareSELs sortUsingSelector:@selector(compare:)];
 	[prepareSELs addObjectsFromArray:[SELs sortedArrayUsingSelector:@selector(compare:)]];
 	//iTM2_LOG(@"Class: %@ suffix: %@, sels: %@", theClass,suffix, prepareSELs);
-	NSHashTable * result = [NSHashTable hashTableWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
+	NSPointerArray * result = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	for(name in prepareSELs)
-		NSHashInsert(result, NSSelectorFromString(name));
-	if(iTM2DebugEnabled>999)
-	{
-		iTM2_LOG(@"result: %@", result);
-	}
+		[result addPointer:(void *)NSSelectorFromString(name)];
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  classSelectorsOfClass:withSuffix:signature:inherited:
-+ (NSHashTable *)classSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)classSelectorsOfClass:(Class)theClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -655,7 +651,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if(!theClass)
-		return [NSHashTable hashTableWithWeakObjects];
+		return [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	NSString * selsKey = (yorn? @"InheritedClassSelectors": @"ClassSelectors");
 	NSMutableDictionary * sels = [iTM2RuntimeBrowserDictionary objectForKey:selsKey];
 	if(![sels isKindOfClass:[NSMutableDictionary class]])
@@ -683,8 +679,8 @@ To Do List:
 	}
 	MD = temp;
 	NSString * methodKey = signature? [signature description]:@"";
-	NSHashTable * result = [MD objectForKey:methodKey];
-	if(![NSHashTable isKindOfClass:[NSHashTable class]])
+	NSPointerArray * result = [MD objectForKey:methodKey];
+	if(![result isKindOfClass:[NSPointerArray class]])
 	{
         [MD takeValue:[self realClassSelectorsOfClass:aClass withSuffix:suffix signature:signature inherited:yorn] forKey:methodKey];
         result = [MD objectForKey:methodKey];
@@ -692,7 +688,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  realClassSelectorsOfClass:withSuffix:signature:inherited:
-+ (NSHashTable *)realClassSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
++ (NSPointerArray *)realClassSelectorsOfClass:(Class)aClass withSuffix:(NSString *)suffix signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  To Do List:
@@ -806,13 +802,9 @@ To Do List:
 	[prepareSELs sortUsingSelector:@selector(compare:)];
 	[prepareSELs addObjectsFromArray:[SELs sortedArrayUsingSelector:@selector(compare:)]];
 	//iTM2_LOG(@"Class: %@ suffix: %@, sels: %@", theClass,suffix, prepareSELs);
-	NSHashTable * result = [NSHashTable hashTableWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
+	NSPointerArray * result = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	for(name in prepareSELs)
-		NSHashInsert(result, NSSelectorFromString(name));
-	if(iTM2DebugEnabled>999)
-	{
-		iTM2_LOG(@"result: %@", result);
-	}
+		[result addPointer:(void *)NSSelectorFromString(name)];
 	return result;
 }
 #if 0
@@ -879,7 +871,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  responderMessages:
-+ (NSArray *)responderMessages;
++ (NSPointerArray *)responderMessages;
 /*"Sample code from apple documentation (Tiger).
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -888,23 +880,48 @@ To Do List:
 //iTM2_START;
 	NSString * K = @"Responder Messages";
 	id messages = [iTM2RuntimeBrowserDictionary objectForKey:K];
-	if([messages isKindOfClass:[NSArray class]])
+	if([messages isKindOfClass:[NSPointerArray class]])
 	{
 		return messages;
 	}
 	// get all the NSResponder subclasses
 	NSMethodSignature * MS = [self iTM2_instanceMethodSignatureForSelector:@selector(forwardInvocation:)];
-	NSHashTable * classes = [self subclassReferencesOfClass:[NSResponder class]];
-	messages = [NSMutableSet set];
-	for(Class C in classes)
+	NSPointerArray * classes = [self subclassReferencesOfClass:[NSResponder class]];
+	messages = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
+	NSUInteger i = [classes count];
+	while(i--)
 	{
-		NSArray * RA = [self realInstanceSelectorsOfClass:C withSuffix:@"" signature:MS inherited:NO];
-		[messages addObjectsFromArray:RA];
+		NSPointerArray * PA = [self realInstanceSelectorsOfClass:(Class)[classes pointerAtIndex:i] withSuffix:@"" signature:MS inherited:NO];
+		NSUInteger j = [PA count];
+		while(j--)
+		{
+			[classes iTM2_addPointerIfAbsent:[PA pointerAtIndex:j]];
+		}
 	}
+	
 //iTM2_END;
-	messages = [messages allObjects];
 	[iTM2RuntimeBrowserDictionary setObject:messages forKey:K];
 	return messages;
+}
+@end
+
+@implementation NSMethodSignature(PRIVATE)
+- (NSString *)SWZ_iTM2_description;
+{
+	NSMutableString * result = [NSMutableString string];
+	[result appendFormat:@"<NSMethodSignature %x",self];
+	NSUInteger numberOfArguments = [self numberOfArguments];
+	[result appendFormat:@"\n numberOfArguments %u",numberOfArguments];
+	while(numberOfArguments)
+	{
+		[result appendFormat:@"\n getArgumentTypeAtIndex %u->%s",numberOfArguments,[self getArgumentTypeAtIndex:--numberOfArguments]];
+	}
+	[result appendFormat:@"\n frameLength %u",[self frameLength]];
+	[result appendFormat:@"\n isOneway: %@",([self isOneway]?@"YES":@"NO")];
+	[result appendFormat:@"\n methodReturnType %s:",[self methodReturnType]];
+	[result appendFormat:@"\n methodReturnLength %u:",[self methodReturnLength]];
+	[result appendString:@">"];
+	return result;
 }
 @end
 

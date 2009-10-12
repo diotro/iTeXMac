@@ -1394,7 +1394,7 @@ To Do List:
 	else
 	{
 		NSString * commandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
-		id performer = [iTM2TeXPCommandManager commandPerformerForName:(commandName?:@"Compile")];
+		Class performer = [iTM2TeXPCommandManager commandPerformerForName:(commandName?:@"Compile")];
 		[performer performCommandForProject: TPD];
 		I = [NSImage iTM2_cachedImageNamed:@"stopTypesetCurrentProject"];
 	}
@@ -1493,7 +1493,7 @@ DEFINE_TOOLBAR_ITEM(stopTypesetCurrentProjectToolbarItem)
 next:
 		while(name = [e nextObject])
 		{
-			id performer = [iTM2TeXPCommandManager commandPerformerForName:name];
+			Class performer = [iTM2TeXPCommandManager commandPerformerForName:name];
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{

@@ -173,6 +173,10 @@ if([STRING length] || UNDERLYING)\
 
 @end
 
+@interface NSPointerArray(iTeXMac2)
+- (void) iTM2_addPointerIfAbsent:(void *)pointer;
+@end
+
 /*
 (@header|@param|@method|@class|@result|@abstract|@discussion|@protocol) 
 */

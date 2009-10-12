@@ -898,7 +898,7 @@ To Do List:
 	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsKey])
 	{
 		[IMPLEMENTATION takeMetaValue:
-					[NSHashTable hashTableWithOptions:NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsOpaquePersonality]
+					[NSHashTable hashTableWithOptions:NSPointerFunctionsZeroingWeakMemory|NSPointerFunctionsObjectPointerPersonality]
 							forKey:iTM2ProjectsKey];
 	}
 	if(![IMPLEMENTATION metaValueForKey:iTM2ProjectsForURLsKey])
@@ -2669,9 +2669,7 @@ To Do List:
 	NSString * baseProjectsRepository = [NSBundle iTM2_temporaryBaseProjectsDirectory];
 	unsigned index = [paths count];
 	id P = nil;
-	NSURL * url;
 	NSString * source = nil;
-	NSEnumerator * E = nil;
 	NSString * K;
 	[BASE_URLs setDictionary:[NSDictionary dictionary]];// clean the previous cache
 	NSMutableArray * MRA;
@@ -2687,12 +2685,14 @@ To Do List:
 		}
 		else
 		{
-			E = [[DFM directoryContentsAtPath:P] objectEnumerator];
-			while(source = [E nextObject])
+			for(source in [DFM directoryContentsAtPath:P])
 			{
+				iTM2_LOG(@"source is: %@",source);
 				K = [source stringByDeletingPathExtension];
-				source = [[P stringByAppendingPathComponent:source] stringByStandardizingPath];// don't miss that!
-				url = [NSURL fileURLWithPath:source];
+				source = [P stringByAppendingPathComponent:source];
+				source = [source stringByStandardizingPath];// don't miss that!
+				iTM2_LOG(@"source is: %@",source);
+				NSURL * url = [NSURL fileURLWithPath:source];
 				if([SWS iTM2_isProjectPackageAtURL:url])
 				{
 					if(MRA = [BASE_URLs objectForKey:K])
@@ -2718,8 +2718,7 @@ next:
 	}
 	[IMPLEMENTATION takeMetaValue:[NSMutableDictionary dictionary] forKey:@"baseNamesOfAncestorsForBaseProjectName"];
 	// update the base projects
-	E = [BASE_PROJECTS keyEnumerator];
-	while(P = [E nextObject])
+	for(P in [BASE_PROJECTS keyEnumerator])
 	{
 		K = [[P lastPathComponent] stringByDeletingPathExtension];
 		if(!(MRA = [BASE_URLs objectForKey:K]) || ![MRA containsObject:P])
@@ -3514,10 +3513,11 @@ To Do List:
 	{
 		NSInvocation * I;
 		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] iTM2_isProjectPackageAtURL:url];
-		NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"ProjectPackageAtURL:" signature:[I methodSignature] inherited:YES]);
-		SEL selector;
-		while(selector = NSNextHashEnumeratorItem(&HE))
+		NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"ProjectPackageAtURL:" signature:[I methodSignature] inherited:YES];
+		NSUInteger i = [PA count];
+		while(i--)
 		{
+			SEL selector = (SEL)[PA pointerAtIndex:i];
 			if(selector != _cmd)
 			{
 				[I setSelector:selector];
@@ -3549,10 +3549,11 @@ To Do List:
 	{
 		NSInvocation * I;
 		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] iTM2_isWrapperPackageAtURL:url];
-		NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WrapperPackageAtURL:" signature:[I methodSignature] inherited:YES]);
-		SEL selector;
-		while(selector = NSNextHashEnumeratorItem(&HE))
+		NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WrapperPackageAtURL:" signature:[I methodSignature] inherited:YES];
+		NSUInteger i = [PA count];
+		while(i--)
 		{
+			SEL selector = (SEL)[PA pointerAtIndex:i];
 			if(selector != _cmd)
 			{
 				[I setSelector:selector];

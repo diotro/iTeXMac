@@ -294,8 +294,11 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSMutableArray * toInstall = [NSMutableArray array];
-	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2AutoInstallResponder class]])
+	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2AutoInstallResponder class]];
+	NSUInteger i = [PA count];
+	while (i--)
 	{
+		Class C = (Class)[PA pointerAtIndex:i];
 		if(C != [self class])
 		{
 			NSString * className = NSStringFromClass(C);

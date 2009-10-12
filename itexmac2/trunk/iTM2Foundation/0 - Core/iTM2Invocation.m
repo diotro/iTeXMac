@@ -133,15 +133,21 @@
 	NSParameterAssert(target!=nil);
 	return [iTM2InvocatorProxy iTM2_getInvocation: invocationRef withTarget:target retainArguments:retain];
 }
-- (void)iTM2_invokeWithSelectors:(NSHashTable *)selectors;
+- (void)iTM2_invokeWithSelectors:(NSPointerArray *)selectors;
 {
-	NSHashEnumerator HE = NSEnumerateHashTable(selectors);
-	SEL selector;
-	while(selector = NSNextHashEnumeratorItem(&HE))
-    {
-        [self setSelector:selector];
-        [self invoke];
-    }
+	NSUInteger i = [selectors count];
+	while(i--) {
+		SEL selector = (SEL)[selectors pointerAtIndex:i];
+		if([[self target] respondsToSelector:selector])
+		{
+			[self setSelector:selector];
+			[self invoke];
+		}
+		else
+		{
+			iTM2_LOG(@"%@ does not respond to %@",[self target], NSStringFromSelector(selector));
+		}
+	}
     return;
 	
 }

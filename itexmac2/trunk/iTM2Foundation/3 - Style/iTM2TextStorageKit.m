@@ -1134,9 +1134,12 @@ To Do List:
 		[self registerObject:C forType:iTM2TextSyntaxParserType key:style retain:NO];
 	}
 //iTM2_LOG(@"There are currently %i subclasses of iTM2TextSyntaxParser", [references count]);
-	for(C in [iTM2RuntimeBrowser subclassReferencesOfClass:C])
+	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:C];
+	NSUInteger i = [PA count];
+	while(i--)
 	{
 //iTM2_LOG(@"Registering syntax parser: %@", NSStringFromClass(C));
+		Class C = (Class)[PA pointerAtIndex:i];
         style = [[C syntaxParserStyle] lowercaseString];
         if([style length])// the type and the modes must have a length!!!
         {

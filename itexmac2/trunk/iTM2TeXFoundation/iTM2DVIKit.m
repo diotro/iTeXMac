@@ -69,7 +69,7 @@ To Do List:
 		iTM2TeXProjectDocument * TPD = [SPC projectForURL:url];
 		NSString * K = [TPD fileKeyForURL:url];
 		[TPD setMasterFileKey:K];
-		id performer = [iTM2TeXPCommandManager commandPerformerForName:@"Compile"];
+		Class performer = [iTM2TeXPCommandManager commandPerformerForName:@"Compile"];
 		[performer performCommandForProject: TPD];
 	}
 //iTM2_END;

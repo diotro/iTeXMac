@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="1025"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -50,7 +51,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{811, 488}</string>
 				<object class="NSView" key="NSWindowView" id="823206931">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -265,6 +266,7 @@
 																							<string>NeXT font pasteboard type</string>
 																							<string>NeXT ruler pasteboard type</string>
 																							<string>WebURLsWithTitlesPboardType</string>
+																							<string>public.url</string>
 																						</object>
 																					</object>
 																					<string key="NSFrameSize">{378, 98}</string>
@@ -2277,6 +2279,7 @@ PFBSSVZBVEU+A</bytes>
 															<string>NeXT font pasteboard type</string>
 															<string>NeXT ruler pasteboard type</string>
 															<string>WebURLsWithTitlesPboardType</string>
+															<string>public.url</string>
 														</object>
 													</object>
 													<string key="NSFrameSize">{358, 14}</string>
@@ -2572,6 +2575,7 @@ PFBSSVZBVEU+A</bytes>
 						</object>
 					</object>
 					<string key="NSFrameSize">{811, 488}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{811, 510}</string>
@@ -4985,14 +4989,6 @@ PFBSSVZBVEU+A</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">__macros</string>
-						<reference key="source" ref="81924020"/>
-						<reference key="destination" ref="704730957"/>
-					</object>
-					<int key="connectionID">2577</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">__keys</string>
 						<reference key="source" ref="81924020"/>
 						<reference key="destination" ref="466982571"/>
@@ -5006,14 +5002,6 @@ PFBSSVZBVEU+A</bytes>
 						<reference key="destination" ref="983937985"/>
 					</object>
 					<int key="connectionID">2579</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">__key_bindings</string>
-						<reference key="source" ref="81924020"/>
-						<reference key="destination" ref="166009943"/>
-					</object>
-					<int key="connectionID">2580</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -6721,7 +6709,9 @@ PFBSSVZBVEU+A</bytes>
 					<string>478.ImportedFromIB2</string>
 					<string>491.IBPluginDependency</string>
 					<string>491.ImportedFromIB2</string>
+					<string>5.IBEditorWindowLastContentRect</string>
 					<string>5.IBPluginDependency</string>
+					<string>5.IBWindowTemplateEditedContentRect</string>
 					<string>5.ImportedFromIB2</string>
 					<string>5.windowTemplate.hasMaxSize</string>
 					<string>5.windowTemplate.hasMinSize</string>
@@ -7219,7 +7209,9 @@ dCBhbmQgdHlwZXNldHRpbmcuA</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
+					<string>{{146, 24}, {811, 488}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{146, 24}, {811, 488}}</string>
 					<integer value="1"/>
 					<boolean value="NO"/>
 					<integer value="1"/>
@@ -7910,16 +7902,12 @@ dCBhbmQgdHlwZXNldHRpbmcuA</string>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>__actions</string>
 							<string>__domains</string>
-							<string>__key_bindings</string>
 							<string>__keys</string>
-							<string>__macros</string>
 							<string>__modes</string>
 							<string>__scripts</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

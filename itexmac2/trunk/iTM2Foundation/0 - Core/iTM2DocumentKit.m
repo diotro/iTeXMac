@@ -1338,11 +1338,11 @@ To Do List:
     [I setArgument:&localErrorRef atIndex:4];
     BOOL result = YES;
 	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteReadFromURL:ofType:error:" signature:sig0 inherited:YES]);
-	SEL selector;
-	while(selector = NSNextHashEnumeratorItem(&HE))
-    {
-        [I setSelector:selector];
+	NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteReadFromURL:ofType:error:" signature:sig0 inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		[I setSelector:(SEL)[PA pointerAtIndex:i]];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];
@@ -1402,10 +1402,11 @@ To Do List:
     {
 		NSMapTable * Ss = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality
 												valueOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsOpaquePersonality];
-        NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES]);
-		SEL selector;
-		while(selector = NSNextHashEnumeratorItem(&HE))
-        {
+		NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES];
+		NSUInteger i = [PA count];
+		while(i--)
+		{
+			SEL selector = (SEL)[PA pointerAtIndex:i];
 			const char * name = [NSStringFromSelector(selector) UTF8String];
 			unsigned int hexa;
             if(sscanf(name, "load%u", &hexa))
@@ -1778,11 +1779,11 @@ the save as panel cannot list the directory contents
 	}
     NSInvocation * I;
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:[I methodSignature] inherited:YES]);
-	SEL selector;
-	while(selector = NSNextHashEnumeratorItem(&HE))
-    {
-        [I setSelector:selector];
+	NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:forSaveOperation:originalContentsURL:error:" signature:[I methodSignature] inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		[I setSelector:(SEL)[PA pointerAtIndex:i]];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];
@@ -1867,11 +1868,11 @@ To Do List:
 	}
 	NSInvocation * I;
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:type error:outErrorPtr];
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:error:" signature:[I methodSignature] inherited:YES]);
-	SEL selector;
-	while(selector = NSNextHashEnumeratorItem(&HE))
-    {
-        [I setSelector:selector];
+	NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteWriteToURL:ofType:error:" signature:[I methodSignature] inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+		[I setSelector:(SEL)[PA pointerAtIndex:i]];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];
@@ -1917,11 +1918,12 @@ To Do List:
     {
 		NSMapTable * Ss = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality
 												valueOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
-        NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES]);
-		SEL selector;
-		while(selector = NSNextHashEnumeratorItem(&HE))
-        {
-            const char * name = [NSStringFromSelector(selector) UTF8String];
+		NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"IDResource:" signature:sig0 inherited:YES];
+		NSUInteger i = [PA count];
+		while(i--)
+		{
+			SEL selector = (SEL)[PA pointerAtIndex:i];
+			const char * name = [NSStringFromSelector(selector) UTF8String];
 			unsigned int hexa;
             if(sscanf(name, "get%u", &hexa))
             {
@@ -2384,9 +2386,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[NSWindowController class]])
+	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[NSWindowController class]];
+	NSUInteger i = [PA count];
+	while(i--)
 	{
-//iTM2_LOG(@"Registering inspector :%@", NSStringFromClass(C));
+		Class C = (Class)[PA pointerAtIndex:i];
         NSString * type = [C inspectorType];
         if([type length])// the type and the modes must have a length!!!
         {

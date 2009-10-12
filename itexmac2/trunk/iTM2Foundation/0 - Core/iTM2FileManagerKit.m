@@ -398,11 +398,11 @@ To Do List:
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] isPrivateFileAtPath:path];
     BOOL result = NO;
 	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"IsPrivateFileAtPath:" signature:[I methodSignature] inherited:YES]);
-	SEL selector;
-	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
-    {
-        [I setSelector:selector];
+	NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"IsPrivateFileAtPath:" signature:[I methodSignature] inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
+	{
+        [I setSelector:(SEL)[PA pointerAtIndex:i]];
         [I invoke];
         BOOL R = NO;
         [I getReturnValue:&R];

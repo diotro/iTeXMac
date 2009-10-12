@@ -265,8 +265,11 @@ To Do List:
 //iTM2_START;
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	// Start by recovering all the NSPreferencePane subclasses
-	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[NSPreferencePane class]])
+	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[NSPreferencePane class]];
+	NSUInteger i = [PA count];
+	while(i--)
 	{
+		Class C = (Class)[PA pointerAtIndex:i];
 		id pane = [[C alloc] initWithBundle:nil];
 		if(pane)
 		{

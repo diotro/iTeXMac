@@ -1600,7 +1600,7 @@ To Do List:
 		NSString * name;
 		while(name = [e nextObject])
 		{
-			id performer = [self commandPerformerForName:name];
+			Class performer = [self commandPerformerForName:name];
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
@@ -1671,7 +1671,7 @@ To Do List:
 		NSString * name;
 		while(name = [e nextObject])
 		{
-			id performer = [self commandPerformerForName:name];
+			Class performer = [self commandPerformerForName:name];
 			SEL action = @selector(performCommand:);
 			if([performer respondsToSelector:action])
 			{
@@ -1714,11 +1714,13 @@ To Do List:
 	int newNumberOfClasses = [iTM2RuntimeBrowser numberOfClasses];
     if(oldNumberOfClasses != newNumberOfClasses)
 	{
-		[_iTM2TeXPBuiltInCommandNames autorelease];
 		_iTM2TeXPBuiltInCommandNames = nil;
 		NSMutableSet * set = [NSMutableSet set];
-		for(Class C in (Class)[iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]])
+		NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+		NSUInteger i = [PA count];
+		while(i--)
 		{
+			Class C = (Class)[PA pointerAtIndex:i];
 			if([C commandLevel])
 			{
 				[set addObject:[C commandName]];
@@ -1741,10 +1743,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
+	NSMutableDictionary * MD = [NSMutableDictionary dictionary];// NSMapTable here ?
 	NSNumber * K;
-	for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]])
+	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+	NSUInteger i = [PA count];
+	while(i--)
 	{
+		Class C = (Class)[PA pointerAtIndex:i];
 		K = [NSNumber numberWithInt:[C commandGroup]];
 		NSMutableDictionary * md = [MD objectForKey:K];
 		if(!md)
@@ -1772,7 +1777,7 @@ To Do List:
     return MRA;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandPerformerForName:
-+ (id)commandPerformerForName:(NSString *)name;
++ (Class)commandPerformerForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1782,12 +1787,17 @@ To Do List:
 //iTM2_START;
 	if(![name length])
 		return nil;
-	id result = NSClassFromString([NSString stringWithFormat:@"iTM2TeXP%@Performer", name]);
+	Class result = NSClassFromString([NSString stringWithFormat:@"iTM2TeXP%@Performer", name]);
 	if(!result)
 	{
-		for(result in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]])
+		NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+		NSUInteger i = [PA count];
+		while(i--)
+		{
+			result = [PA pointerAtIndex:i];
 			if([name isEqualToString:[result commandName]])
 				return result;
+		}
 	}
     return result;
 }

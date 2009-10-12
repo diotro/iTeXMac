@@ -17,6 +17,6 @@
 
 @interface NSInvocation(iTeXMac2)
 + (id)iTM2_getInvocation:(NSInvocation **)invocationRef withTarget:(id)target retainArguments:(BOOL)retain;
-- (void)iTM2_invokeWithSelectors:(NSHashTable *)selectors;
+- (void)iTM2_invokeWithSelectors:(NSPointerArray *)selectors;
 @end
 

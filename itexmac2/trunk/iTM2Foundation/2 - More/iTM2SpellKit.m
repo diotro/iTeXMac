@@ -163,7 +163,9 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[self setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:[self tag]]];
+	NSInteger tag = self.tag;
+	NSArray * RA = [SSC ignoredWordsInSpellDocumentWithTag:tag];
+	self.ignoredWords=RA;
 	if([[SSC.currentText spellContext] isEqual:self])
 		self.spellLanguage = [SSC language];
 //iTM2_LOG(@"CURRENT LANGUAGE IS: %@, current spell context is: %#x", [SSC language], [[SSC currentText] spellContext]);
@@ -434,18 +436,27 @@ To Do List:
     if(!_iTM2SpellContextController)
     {
         [super initialize];
-        iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
+        iTM2SpellContext * SC = [iTM2SpellContext new];
+		NSDictionary * D;
+#if 1
+		D = [SC propertyListRepresentation];
+		D = [NSDictionary dictionaryWithObject:D forKey:TWSSpellDefaultContextMode];
+		D = [NSDictionary dictionaryWithObjectsAndKeys:
+							   D, iTM2SpellContextsKey,
+							   [NSDictionary dictionary], iTM2SpellContextModesKey,
+				 nil];
+        [SUD registerDefaults:D];
+#else
         [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
             [NSDictionary dictionaryWithObject:[SC propertyListRepresentation] forKey:TWSSpellDefaultContextMode], iTM2SpellContextsKey,
             [NSDictionary dictionary], iTM2SpellContextModesKey,
                     nil]];
-        _iTM2SpellContextController = [[self alloc] init];
-        NSDictionary * D = [SUD dictionaryForKey:iTM2SpellContextsKey];
-        NSEnumerator * E = [D keyEnumerator];
-        NSString * mode;
-        while(mode = [E nextObject])
+#endif
+        _iTM2SpellContextController = [self new];
+        D = [SUD dictionaryForKey:iTM2SpellContextsKey];
+        for(NSString * mode in [D keyEnumerator])
         {
-            iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
+            iTM2SpellContext * SC = [iTM2SpellContext new];
             if(SC)
             {
                 [SC loadPropertyListRepresentation:[D objectForKey:mode]];
@@ -820,10 +831,10 @@ To Do List:
 - (BOOL)smartReplaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
 - (BOOL)replaceIgnoredWord:(NSString *)oldArgument by:(NSString *)newArgument;
 @property (assign) __weak NSText *	currentText;
-@property (retain) NSTableView *	tableView;
-@property (retain) NSTextField *	modeField;
-@property (retain) NSTextField *	projectField;
-@property (retain) NSMutableArray *	ignoredWords;
+@property (assign) NSTableView *	tableView;
+@property (assign) NSTextField *	modeField;
+@property (assign) NSTextField *	projectField;
+@property (assign) id	ignoredWords;
 @property int						spellDocumentTag;
 @end
 
@@ -1341,7 +1352,7 @@ To Do List:
 //iTM2_START;
     NSMutableArray * MRA = [argument mutableCopy];
     [MRA sortUsingSelector:@selector(compare:)];
-    iVarIgnoredWords = MRA;
+    iVarIgnoredWords = [MRA copy];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager:

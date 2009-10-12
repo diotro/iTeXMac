@@ -802,7 +802,7 @@ To Do List:
 	}
 	if(PD)
 	{
-		id performer = [iTM2TeXPCommandManager commandPerformerForName:name];
+		Class performer = [iTM2TeXPCommandManager commandPerformerForName:name];
 		[performer performCommandForProject:PD];
 	}
 //iTM2_END;

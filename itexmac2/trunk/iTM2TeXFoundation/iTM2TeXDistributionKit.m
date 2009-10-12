@@ -96,7 +96,7 @@ To do list:
 	NSEnumerator * E = [[[NSBundle mainBundle]
 		allPathsForResource: iTM2DistributionsComponent ofType:@"plist" inDirectory: nil] reverseObjectEnumerator];
     NSString * path;
-    while(path = [E nextObject])
+    for(path in E)
     {
         NSDictionary * D = [NSDictionary dictionaryWithContentsOfFile:path];
         if([D count] && ![[D objectForKey:@"isa"] iTM2_pathIsEqual:iTM2DistributionSDictionaryKey])

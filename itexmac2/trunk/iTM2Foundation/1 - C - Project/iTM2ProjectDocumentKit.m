@@ -3208,28 +3208,6 @@ To Do List:
 	}
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteReadFromURL:ofType:error:
-- (BOOL)projectCompleteReadFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	if(outErrorPtr)
-	{
-		*outErrorPtr = nil;
-	}
-	NSMethodSignature * MS = [self methodSignatureForSelector:@selector(prepareProjectFixImplementation)];
-	NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser instanceSelectorsOfClass:[self class] withSuffix:@"rojectFixImplementation" signature:MS inherited:YES]);
-	SEL selector;
-	while(selector = NSNextHashEnumeratorItem(&HE))
-	{
-		[self performSelector:selector withObject:nil];
-	}
-    return YES;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveAllSubdocumentsWithDelegate:didSaveSelector:contextInfo:
 - (void)saveAllSubdocumentsWithDelegate:(id)delegate didSaveAllSelector:(SEL)action contextInfo:(void *)contextInfo;
 /*"Call back must have the following signature:

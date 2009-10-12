@@ -1047,8 +1047,11 @@ To Do List:
 			unsigned oldCount = [sender numberOfItems];
 			// originally, this button only contains 1 fake item
 			// get the list of all the log parsers
-			for(Class C in [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2LogParser class]])
+			NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2LogParser class]];
+			NSUInteger i = [PA count];
+			while(i--)
 			{
+				Class C = (Class)[PA pointerAtIndex:i];
 				NSString * key = [C key];
 				[sender addItemWithTitle:key];
 				[[sender lastItem] setRepresentedObject:key];

@@ -1129,18 +1129,17 @@ To Do List:
 		name = [name stringByDeletingPathExtension];
 	}
 	NSMutableArray * result = [NSMutableArray array];
-	NSArray * RA = [self embeddedBundles];
-	NSEnumerator * E = [RA objectEnumerator];
+	NSArray * where = [self embeddedBundles];
+	NSArray * RA;
 	NSBundle * B;
-	while(B = [E nextObject])
+	for(B in where)
 	{
 		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
 		[result addObjectsFromArray:RA];
 	}
 	NSString * path;
-	RA = [self supportBundlesInDomain:NSNetworkDomainMask];
-	E = [RA objectEnumerator];
-	while(B = [E nextObject])
+	where = [self supportBundlesInDomain:NSNetworkDomainMask];
+	for(B in where)
 	{
 		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
 		[result addObjectsFromArray:RA];
@@ -1150,9 +1149,8 @@ To Do List:
 			[result addObject:path];
 		}
 	}
-	RA = [self supportBundlesInDomain:NSLocalDomainMask];
-	E = [RA objectEnumerator];
-	while(B = [E nextObject])
+	where = [self supportBundlesInDomain:NSLocalDomainMask];
+	for(B in where)
 	{
 		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
 		[result addObjectsFromArray:RA];
@@ -1167,10 +1165,9 @@ To Do List:
 		// from preview 13 to 14, folders in the application support directory now are localizable
 		// if I am looking for a .localized folder and I just find a not localized one,
 		// turn the old into the new...
-		RA = [self supportBundlesInDomain:NSUserDomainMask];
-		E = [RA objectEnumerator];
+		where = [self supportBundlesInDomain:NSUserDomainMask];
 		NSMutableArray * paths = [NSMutableArray array];
-		while(B = [E nextObject])
+		for(B in where)
 		{
 			RA = [B pathsForSupportResource:name ofType:@"" inDirectory:subpath domains:NSUserDomainMask];
 			[paths addObjectsFromArray:RA];
@@ -1192,9 +1189,8 @@ To Do List:
 			}
 		}
 	}
-	RA = [self supportBundlesInDomain:NSUserDomainMask];
-	E = [RA objectEnumerator];
-	while(B = [E nextObject])
+	where = [self supportBundlesInDomain:NSUserDomainMask];
+	for(B in where)
 	{
 		RA = [B pathsForSupportResource:name ofType:type inDirectory:subpath];
 		[result addObjectsFromArray:RA];

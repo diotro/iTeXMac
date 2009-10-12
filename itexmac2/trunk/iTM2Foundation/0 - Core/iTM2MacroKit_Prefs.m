@@ -79,9 +79,13 @@
 }
 - (BOOL)isMessage;
 {
-	NSArray * responderMessages = [iTM2RuntimeBrowser responderMessages];
-	NSValue * V = [NSValue valueWithPointer:NSSelectorFromString([self macroID])];
-	return [responderMessages containsObject:V];
+	NSPointerArray * responderMessages = [iTM2RuntimeBrowser responderMessages];
+	NSUInteger i = [responderMessages count];
+	while(i--)
+		if(NSSelectorFromString([self macroID])==[responderMessages pointerAtIndex:i])
+			return YES;
+
+	return NO;
 }
 - (BOOL)shouldShowArgument;
 {
@@ -1705,50 +1709,6 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedMode:
-- (void)setSelectedMode:(NSString *)newMode;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSString * domain = [self selectedDomain];
-	NSString * oldMode = [self selectedMode];
-	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
-	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
-	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
-	[MD setValue:newMode forKey:domain];
-	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
-	// change the editors
-	if(newMode)
-	{
-		id editor = [SMC macroTree];
-		editor = [editor objectInChildrenWithDomain:domain]?:
-				[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
-		editor = [editor objectInChildrenWithCategory:newMode]?:
-				[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
-		editor = [editor objectInChildrenWithContext:@""]?:
-				[[[iTM2MacroContextNode alloc] initWithParent:editor context:@""] autorelease];
-		[self setMacroEditor:[editor list]];// the macro editor MUST be changed first because key bindings use macros
-		editor = [SMC keyBindingTree];
-		editor = [editor objectInChildrenWithDomain:domain]?:
-				[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
-		editor = [editor objectInChildrenWithCategory:newMode]?:
-				[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
-		editor = [editor objectInChildrenWithContext:@""]?:
-				[[[iTM2KeyBindingContextNode alloc] initWithParent:editor context:@""] autorelease];
-		[self setKeyBindingEditor:[editor list]];
-	}
-	else
-	{
-		[self setMacroEditor:nil];
-		[self setKeyBindingEditor:nil];
-	}
-//iTM2_END;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedDomain:
 - (void)setSelectedDomain:(NSString *)newDomain;
 /*"Desription Forthcoming.
@@ -1776,20 +1736,6 @@ To Do List:
 //iTM2_END;
     return;
 }
--(id)macrosArrayController;// nib outlets won't accept kvc (10.4)
-{
-	return metaGETTER;
-}
--(void)setMacrosArrayController:(id)argument;
-{
-	id old = metaGETTER;
-	if([old isEqual:argument] || old==argument)
-	{
-		return;
-	}
-	metaSETTER(argument);
-	return;
-}
 -(id)macroSortDescriptors;// nib outlets won't accept kvc (10.4)
 {
 	return metaGETTER;
@@ -1804,20 +1750,8 @@ To Do List:
 	metaSETTER(argument);
 	return;
 }
--(id)keysTreeController;
-{
-	return metaGETTER;
-}
--(void)setKeysTreeController:(id)argument;
-{
-	id old = metaGETTER;
-	if([old isEqual:argument] || old==argument)
-	{
-		return;
-	}
-	metaSETTER(argument);
-	return;
-}
+@synthesize macrosArrayController = __macros;
+@synthesize keysTreeController = __key_bindings;
 -(unsigned int)masterTabViewItemIndex;
 {
 	return [SUD integerForKey:@"iTM2MacroMasterTabViewItemIndex"];
@@ -1831,29 +1765,7 @@ To Do List:
 	}
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroTestView
-- (id)macroTestView;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return metaGETTER;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMacroTestView:
-- (void)setMacroTestView:(id)argument;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    metaSETTER(argument);
-	return;
-}
+@synthesize macroTestView = __macroTestView;
 #pragma mark =-=-=-=-=-  MACROS
 #warning edit: and browse: message support// is missing (the 2 square buttons to edit external scripts)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  apply
@@ -2104,24 +2016,6 @@ here:
 		}
 	}
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-//iTM2_END;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  bindingsDealloc
-- (void)bindingsDealloc;
-/*"Desription Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Sun Nov  5 16:57:31 GMT 2006
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-#warning FAILED bindingsDealloc to be removed
-	[self setMacrosArrayController:nil];
-	[self setKeysTreeController:nil];
-	[self setKeyBindingEditor:nil];
-	[self setMacroEditor:nil];
-//	[self removeObserver:self forKeyPath:@"masterTabViewItemIndex_meta"];
 //iTM2_END;
     return;
 }

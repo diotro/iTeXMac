@@ -141,11 +141,11 @@ To Do List:
     NSApplicationTerminateReply reply;
     NSInvocation * I;
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] applicationShouldTerminate:sender];
-    NSHashEnumerator HE = NSEnumerateHashTable([iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationShouldTerminate:" signature:[I methodSignature] inherited:YES]);
-	SEL selector;
-	while(selector = (SEL)NSNextHashEnumeratorItem(&HE))
+	NSPointerArray * PA = [iTM2RuntimeBrowser realInstanceSelectorsOfClass:isa withSuffix:@"ApplicationShouldTerminate:" signature:[I methodSignature] inherited:YES];
+	NSUInteger i = [PA count];
+	while(i--)
 	{
-        [I setSelector:selector];
+		[I setSelector:(SEL)[PA pointerAtIndex:i]];
         [I invoke];
 		[I getReturnValue:&reply];
 		if((reply == NSTerminateCancel)
