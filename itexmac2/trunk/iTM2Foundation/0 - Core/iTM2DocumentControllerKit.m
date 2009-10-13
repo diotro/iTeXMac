@@ -1021,12 +1021,12 @@ To Do List: retain?
     NSString * O;
     while(O = [E nextObject])
         [hiddenFiles addObjectsFromArray:[O componentsSeparatedByString:@"\r"]];
-    E = [[dfm directoryContentsAtPath:cdp] objectEnumerator];
+    E = [[dfm contentsOfDirectoryAtPath:cdp error:NULL] objectEnumerator];
     NSMutableArray * textFiles = [NSMutableArray array];
     NSMutableArray * gfxFiles = [NSMutableArray array];
     NSMutableArray * otherFiles = [NSMutableArray array];
     NSMutableArray * directories = [NSMutableArray array];
-    oneMoreTime:
+oneMoreTime:
     if(O = [E nextObject])
     {
         if([O hasPrefix:@"."])

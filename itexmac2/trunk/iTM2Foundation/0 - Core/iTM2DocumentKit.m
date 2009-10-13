@@ -327,7 +327,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSDate * oldMD = [self fileModificationDate];
-    NSDate * newMD = [[DFM fileAttributesAtPath:[self fileName] traverseLink:YES] fileModificationDate];
+    NSDate * newMD = [[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:[self fileName] error:NULL] fileModificationDate];
 	BOOL result = [newMD compare:oldMD] == NSOrderedDescending;
 	if(result && (iTM2DebugEnabled>999))
 	{
@@ -349,7 +349,7 @@ To Do List:
 		return;
 	}
 	NSString * path = [absoluteURL path];
-	NSDictionary * attributes = [DFM fileAttributesAtPath:path traverseLink:YES];
+	NSDictionary * attributes = [DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:path error:NULL];
 	NSDate * date = [attributes fileModificationDate];
 //iTM2_LOG(@"path is:%@ date:%@",path,date);
 	if(date)
@@ -360,7 +360,7 @@ To Do List:
 			iTM2_LOG(@"****  ERROR:THERE IS AN INCONSISTENCY... please report light bug");
 		}
 	}
-//iTM2_LOG(@"%@ should be %@ should be %@", [self fileModificationDate], [[DFM fileAttributesAtPath:fileName traverseLink:YES] fileModificationDate], [[self implementation] metaValueForKey:@"LastFileModificationDate"]);
+//iTM2_LOG(@"%@ should be %@ should be %@", [self fileModificationDate], [[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:fileName error:NULL] fileModificationDate], [[self implementation] metaValueForKey:@"LastFileModificationDate"]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
@@ -1548,7 +1548,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * fileName = absoluteURL? [absoluteURL path]:[self fileName];
-    NSDictionary * fileAttributes = [DFM fileAttributesAtPath:fileName traverseLink:YES];
+    NSDictionary * fileAttributes = [DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:fileName error:NULL];
     [IMPLEMENTATION takeMetaValue:fileAttributes forKey:iTM2DFileAttributesKey];
     [IMPLEMENTATION updateChildren];
 	[self synchronizeWindowControllers];
@@ -1628,7 +1628,7 @@ To Do List:
 	Be confident in cocoa otherwise things are broken with continuous typesetting
 	NSArray * files;
 	int tag = 0;
-	if([DFM fileExistsAtPath:fullDocumentPath] || [DFM pathContentOfSymbolicLinkAtPath:fullDocumentPath])
+	if([DFM fileExistsAtPath:fullDocumentPath] || [DFM destinationOfSymbolicLinkAtPath:fullDocumentPath error:NULL])
 	{
 		// try to recycle it
 		dirName = [fullDocumentPath stringByDeletingLastPathComponent];
@@ -1732,8 +1732,8 @@ if I try to save the project as...
 the save as panel cannot list the directory contents
 #endif
 */
-
-					if([DFM copyPath:fullOriginalDocumentPath toPath:fullDocumentPath handler:self])
+					[DFM setDelegate:self];
+					if([DFM copyItemAtPath:fullOriginalDocumentPath toPath:fullDocumentPath error:NULL])
 					{
 						//iTM2_LOG(@"Copied from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
 						dirName = [fullDocumentPath stringByAppendingPathComponent:@"DATE"];
@@ -1747,6 +1747,7 @@ the save as panel cannot list the directory contents
 						iTM2_LOG(@"****  FAILURE: Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
 						result = NO;
 					}
+					[DFM setDelegate:nil];
 				}
 				else
 				{
@@ -1757,8 +1758,8 @@ the save as panel cannot list the directory contents
 						absoluteOriginalContentsURL:%@\n[self fileType]:%@",absoluteOriginalContentsURL,[self fileType]);
 				}
 			}
-			if((![DFM fileExistsAtPath:fullDocumentPath] || ([DFM pathContentOfSymbolicLinkAtPath:fullDocumentPath] && [DFM removeFileAtPath:fullDocumentPath handler:NULL]))
-				&& ![DFM createDirectoryAtPath:fullDocumentPath attributes:nil])
+			if((![DFM fileExistsAtPath:fullDocumentPath] || ([DFM destinationOfSymbolicLinkAtPath:fullDocumentPath error:NULL] && [DFM removeItemAtPath:fullDocumentPath error:NULL]))
+				&& ![DFM createDirectoryAtPath:fullDocumentPath withIntermediateDirectories:YES attributes:nil error:NULL])
 			{
 				iTM2_OUTERROR(4,([NSString stringWithFormat:@"Could not create a directory at\n%@", fullDocumentPath]),nil);
 				dirName = [fullDocumentPath stringByDeletingLastPathComponent];
@@ -1794,7 +1795,7 @@ the save as panel cannot list the directory contents
     {
         if(saveOperation == NSSaveOperation || saveOperation == NSSaveAsOperation)
         {
-            [IMPLEMENTATION takeMetaValue:[DFM fileAttributesAtPath:fullDocumentPath traverseLink:YES] forKey:iTM2DFileAttributesKey];
+            [IMPLEMENTATION takeMetaValue:[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:fullDocumentPath error:NULL] forKey:iTM2DFileAttributesKey];
         }
 		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO]
 			_0213_DidWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
@@ -2082,7 +2083,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [IMPLEMENTATION takeMetaValue:[DFM fileAttributesAtPath:[self fileName] traverseLink:YES] forKey:iTM2DFileAttributesKey];
+    [IMPLEMENTATION takeMetaValue:[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:[self fileName] error:NULL] forKey:iTM2DFileAttributesKey];
    for(id WC in [self windowControllers])
         [WC setDocumentEdited:NO];
     [IMPLEMENTATION didSave];
@@ -2265,7 +2266,7 @@ To Do List:
     if(FAs)
     {
         NSDate * oldMD = [FAs fileModificationDate];
-        NSDate * newMD = [[DFM fileAttributesAtPath:[self fileName] traverseLink:YES] fileModificationDate];
+        NSDate * newMD = [[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:[self fileName] error:NULL] fileModificationDate];
         return [newMD compare:oldMD] == NSOrderedDescending;
     }
     else

@@ -271,9 +271,7 @@ To Do List:
 		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
-			NSEnumerator * e = [[DFM directoryContentsAtPath:stylePath] objectEnumerator];
-			NSString * p;
-			while(p = [e nextObject])
+			for(NSString * p in [DFM contentsOfDirectoryAtPath:stylePath error:NULL])
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
@@ -306,7 +304,7 @@ To Do List:
 		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
-			for(NSString * p in [DFM directoryContentsAtPath:stylePath])
+			for(NSString * p in [DFM contentsOfDirectoryAtPath:stylePath error:NULL])
 			{
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
@@ -340,7 +338,7 @@ To Do List:
 		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
-			for(NSString * p in [DFM directoryContentsAtPath:stylePath])
+			for(NSString * p in [DFM contentsOfDirectoryAtPath:stylePath error:NULL])
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];
@@ -373,7 +371,7 @@ To Do List:
 		NSString * stylePath = [[path stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		if([DFM fileExistsAtPath:stylePath isDirectory: &isDir] && isDir)
 		{
-			for(NSString * p in [DFM directoryContentsAtPath:stylePath])
+			for(NSString * p in [DFM contentsOfDirectoryAtPath:stylePath error:NULL])
 				if([[p pathExtension] isEqualToString:iTM2TextAttributesPathExtension])
 				{
 					NSString * key = [p stringByDeletingPathExtension];

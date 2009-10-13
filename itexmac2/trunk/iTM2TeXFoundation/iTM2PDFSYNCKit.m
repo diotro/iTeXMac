@@ -1226,8 +1226,8 @@ To Do List:
 			// then it is not up to date.
 			const char * synctex = synctex_scanner_get_synctex(scanner);
 			otherPath = [DFM stringWithFileSystemRepresentation:synctex length:strlen(synctex)];
-			NSDate * date = [[DFM fileAttributesAtPath:path traverseLink:YES] objectForKey:NSFileModificationDate];
-			NSDate * otherDate = [[DFM fileAttributesAtPath:otherPath traverseLink:YES] objectForKey:NSFileModificationDate];
+			NSDate * date = [[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:path error:NULL] objectForKey:NSFileModificationDate];
+			NSDate * otherDate = [[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:otherPath error:NULL] objectForKey:NSFileModificationDate];
 			if([otherDate timeIntervalSinceDate:date]<1)
 			{
 				// the path was modified 1 second after other path was
@@ -1742,8 +1742,8 @@ To Do List:
 	if([DFM fileExistsAtPath:pdfsyncPath])
 	{
 update:;
-		NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
-		if(pdfDate && ![DFM changeFileAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] atPath:pdfsyncPath])
+		NSDate * pdfDate = [[DFM attributesOfItemAtPath:FN error:NULL] fileModificationDate];
+		if(pdfDate && ![DFM setAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] ofItemAtPath:pdfsyncPath error:NULL])
 		{
 			iTM2_LOG(@"ERROR:Unexpected problem:could not change the file modification date...");
 		}
@@ -1858,7 +1858,7 @@ laSuite:;
 			return;
 		}
 	}
-	NSDate * pdfsyncDate = [[DFM fileAttributesAtPath:pdfsyncPath traverseLink:NO] fileModificationDate];
+	NSDate * pdfsyncDate = [[DFM attributesOfItemAtPath:pdfsyncPath error:NULL] fileModificationDate];
 	if(!pdfsyncDate)
 	{
 		if(![self synchronizer])
@@ -1880,7 +1880,7 @@ laSuite:;
 		NSLog(@"The file is already open");        
 	}
 #endif
-	NSDate * pdfDate = [[DFM fileAttributesAtPath:FN traverseLink:NO] fileModificationDate];
+	NSDate * pdfDate = [[DFM attributesOfItemAtPath:FN error:NULL] fileModificationDate];
 //iTM2_LOG(@"pdfDate:%@, pdfsyncDate:%@, [pdfDate timeIntervalSinceDate:pdfsyncDate]:%d", pdfDate, pdfsyncDate, [pdfDate timeIntervalSinceDate:pdfsyncDate]);
 	if([pdfDate timeIntervalSinceDate:pdfsyncDate] < [self contextFloatForKey:iTM2PDFSYNCTimeKey domain:iTM2ContextAllDomainsMask])// in seconds
 	{

@@ -882,19 +882,17 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	if(![DFM fileExistsAtPath:path isDirectory: &isDirectory] || !isDirectory)
 		return nil;
 	// We list the contents of the given directory
-	NSEnumerator * E = [[DFM directoryContentsAtPath:path] objectEnumerator];
-	NSString * P;
 	NSMutableArray * TeXs = [NSMutableArray array];
 	NSMutableArray * PDFTeXs = [NSMutableArray array];
 	NSMutableArray * Others = [NSMutableArray array];
 	NSString * TeXLogHeader = [SUD objectForKey:iTM2TEXLogHeaderKey];
 	NSString * PDFTeXLogHeader = [SUD objectForKey:iTM2PDFTEXLogHeaderKey];
-	while(P = [E nextObject])
+	for(NSString * P in [DFM contentsOfDirectoryAtPath:path error:NULL])
 	{
 		if([[P pathExtension] iTM2_pathIsEqual:@"fmt"])
 		{
 			NSString * fullPath = [path stringByAppendingPathComponent:P];
-			NSString * linkTarget = [DFM pathContentOfSymbolicLinkAtPath:fullPath];
+			NSString * linkTarget = [DFM destinationOfSymbolicLinkAtPath:fullPath error:NULL];
 			NSString * coreName = [(linkTarget? linkTarget:fullPath) stringByDeletingPathExtension];
 			NSString * logPath = [coreName stringByAppendingPathExtension:@"log"];
 			NSString * S = [NSString stringWithContentsOfFile:logPath encoding:NSUTF8StringEncoding error:NULL];
@@ -924,10 +922,8 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	if(![DFM fileExistsAtPath:path isDirectory: &isDirectory] || !isDirectory)
 		return nil;
 	// We list the contents of the given directory
-	NSEnumerator * E = [[DFM directoryContentsAtPath:path] objectEnumerator];
-	NSString * P;
 	NSMutableArray * bases = [NSMutableArray array];
-	while(P = [E nextObject])
+	for(NSString * P [DFM contentsOfDirectoryAtPath:path error:NULL])
 		if([[P pathExtension] iTM2_pathIsEqual:@"base"])
 			[bases addObject:[P stringByDeletingPathExtension]];
 	return bases;
@@ -944,10 +940,8 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 	if(![DFM fileExistsAtPath:path isDirectory: &isDirectory] || !isDirectory)
 		return nil;
 	// We list the contents of the given directory
-	NSEnumerator * E = [[DFM directoryContentsAtPath:path] objectEnumerator];
-	NSString * P;
 	NSMutableArray * mems = [NSMutableArray array];
-	while(P = [E nextObject])
+	for(NSString * P in [DFM contentsOfDirectoryAtPath:path error:NULL])
 		if([[P pathExtension] iTM2_pathIsEqual:@"mem"])
 			[mems addObject:[P stringByDeletingPathExtension]];
 	return mems;

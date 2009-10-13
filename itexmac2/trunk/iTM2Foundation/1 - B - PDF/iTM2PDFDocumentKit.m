@@ -137,9 +137,9 @@ To Do List:
 #warning REVISITED?
 			if([DFM fileExistsAtPath:pdfPath])
 			{
-				NSDictionary * attributes = [DFM fileAttributesAtPath:path traverseLink:YES];
+				NSDictionary * attributes = [DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:path error:NULL];
 				NSDate * date = [attributes fileModificationDate];
-				attributes = [DFM fileAttributesAtPath:pdfPath traverseLink:YES];
+				attributes = [DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:pdfPath error:NULL];
 				NSDate * pdfDate = [attributes fileModificationDate];
 				if([pdfDate compare:date] == NSOrderedDescending)
 				{

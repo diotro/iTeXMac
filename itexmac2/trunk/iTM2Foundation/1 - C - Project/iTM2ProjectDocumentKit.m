@@ -565,7 +565,7 @@ changeName:
 		dest = [requiredCore stringByAppendingPathExtension:dest];
 		dest = [expectedDirName stringByAppendingPathComponent:dest];
 		dest = [[NSURL iTM2_URLWithPath:dest relativeToURL:[NSURL iTM2_factoryURL]] path];
-		if([DFM movePath:src toPath:dest handler:NULL])
+		if([DFM moveItemAtPath:src toPath:dest error:NULL])
 		{
 			// also change the receiver's file name
 			name = [[projectURL path] iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:src];
@@ -804,7 +804,7 @@ To Do List:
 			required = [[[projectURL path] stringByDeletingLastPathComponent] stringByAppendingPathComponent:required];
 			if(![required iTM2_pathIsEqual:[projectURL path]])// Contents directory?
 			{
-				if([DFM movePath:[projectURL path] toPath:required handler:nil])
+				if([DFM moveItemAtPath:[projectURL path] toPath:required error:NULL])
 				{
 					NSURL * url = [NSURL fileURLWithPath:required];
 					[self setFileURL:url];
@@ -1887,7 +1887,7 @@ To Do List:
 	NSURL * url = [self factoryURL];
 	if([url isFileURL]) {
 		NSString * factory = [url path];
-		return [DFM removeFileAtPath:factory handler:nil];
+		return [DFM removeItemAtPath:factory error:NULL];
 	}
 //iTM2_END;
     return NO;
@@ -2325,7 +2325,7 @@ To Do List:
 			base = [SPC finderAliasesSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
 			if([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory
-				|| [DFM iTM2_createDeepDirectoryAtPath:base attributes:nil error:nil])
+				|| [DFM createDirectoryAtPath:base withIntermediateDirectories:YES attributes:nil error:nil])
 			{
 				if(![DFM fileExistsAtPath:(path = [base stringByAppendingPathComponent:@"Readme.txt"])])
 				{
@@ -2334,7 +2334,7 @@ To Do List:
 				path = [base stringByAppendingPathComponent:key];
 //iTM2_LOG(@"alias to fileName: %@",fileName);
 //iTM2_LOG(@"stored at path: %@",path);
-				[DFM removeFileAtPath:path handler:NULL];
+				[DFM removeItemAtPath:path error:NULL];
 				if([DFM fileExistsAtPath:[fileURL path]])
 				{
 					NSError * localError = nil;
@@ -2395,7 +2395,7 @@ To Do List:
 			base = [SPC absoluteSoftLinksSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
 			if([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory
-				|| [DFM iTM2_createDeepDirectoryAtPath:base attributes:nil error:nil])
+				|| [DFM createDirectoryAtPath:base withIntermediateDirectories:YES attributes:nil error:nil])
 			{
 				path = [base stringByAppendingPathComponent:@"Readme.txt"];
 				if(![DFM fileExistsAtPath:path])
@@ -2405,7 +2405,7 @@ To Do List:
 				path = [base stringByAppendingPathComponent:key];
 //iTM2_LOG(@"fileName is: %@",fileName);
 //iTM2_LOG(@"path is: %@",path);
-				[DFM removeFileAtPath:path handler:NULL];
+				[DFM removeItemAtPath:path error:NULL];
 				if(![DFM iTM2_createSoftLinkAtPath:path pathContent:fileName])
 				{
 					if(iTM2DebugEnabled)
@@ -2433,7 +2433,7 @@ To Do List:
 			base = [SPC relativeSoftLinksSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
 			if([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory
-				|| [DFM iTM2_createDeepDirectoryAtPath:base attributes:nil error:nil])
+				|| [DFM createDirectoryAtPath:base withIntermediateDirectories:YES attributes:nil error:nil])
 			{
 				path = [base stringByAppendingPathComponent:@"Readme.txt"];
 				if(![DFM fileExistsAtPath:path])
@@ -2443,7 +2443,7 @@ To Do List:
 				path = [base stringByAppendingPathComponent:key];
 //iTM2_LOG(@"fileName is: %@",fileName);
 //iTM2_LOG(@"path is: %@",path);
-				[DFM removeFileAtPath:path handler:NULL];
+				[DFM removeItemAtPath:path error:NULL];
 				NSString * dirName = [self fileName];
 				dirName = [dirName stringByDeletingLastPathComponent];
 				NSString * relativeFileName = [fileName iTM2_stringByAbbreviatingWithDotsRelativeToDirectory:dirName];
@@ -2549,13 +2549,13 @@ To Do List:
 	NSString * projectFileName = [[self fileURL] path];
 	NSString * subdirectory = [projectFileName stringByAppendingPathComponent:[SPC finderAliasesSubdirectory]];
 	NSString * path = [[subdirectory stringByAppendingPathComponent:key] stringByAppendingPathExtension:iTM2SoftLinkExtension];
-	if([DFM fileExistsAtPath:path] && ![DFM removeFileAtPath:path handler:NULL])
+	if([DFM fileExistsAtPath:path] && ![DFM removeItemAtPath:path error:NULL])
 	{
 		iTM2_LOG(@"*** ERROR: I could not remove %@,please do it for me...",path);
 	}
 	subdirectory = [projectFileName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
 	path = [[subdirectory stringByAppendingPathComponent:key] stringByAppendingPathExtension:iTM2SoftLinkExtension];
-	if(([DFM fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path]) && ![DFM removeFileAtPath:path handler:NULL])
+	if(([DFM fileExistsAtPath:path] || [DFM destinationOfSymbolicLinkAtPath:path error:NULL]) && ![DFM removeItemAtPath:path error:NULL])
 	{
 		iTM2_LOG(@"*** ERROR: I could not remove %@,please do it for me...",path);
 	}
@@ -2864,7 +2864,7 @@ absoluteFileNameIsChosen:
 			else
 			{
 				// make a copy of the file
-				if([DFM copyPath:[recordedURL path] toPath:[fileURL path] handler:NULL])
+				if([DFM copyItemAtPath:[recordedURL path] toPath:[fileURL path] error:NULL])
 				{
 					fileURL = [NSURL fileURLWithPath:[fileURL path]];
 					return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
@@ -3096,7 +3096,7 @@ To Do List:
 			{
 				NSString * relativePath = [self nameForFileKey:K];
 				NSString * fullPath = [fullProjectPath stringByAppendingPathComponent:relativePath];
-				[DFM iTM2_createDeepDirectoryAtPath:[fullPath stringByDeletingLastPathComponent] attributes:nil error:nil];
+				[DFM createDirectoryAtPath:[fullPath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:nil];
 				NSURL * url = [NSURL fileURLWithPath:fullPath];
 				if(![D writeSafelyToURL:url ofType:[D fileType] forSaveOperation:saveOperation error:outErrorPtr])
 				{
@@ -3181,17 +3181,17 @@ To Do List:
 		else
 		{
 			NSString * fileNamePutAside = [[fileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"put_aside_by_iTeXMac2"];
-			if([DFM fileExistsAtPath:fileNamePutAside] && ![DFM removeFileAtPath:fileNamePutAside handler:nil])
+			if([DFM fileExistsAtPath:fileNamePutAside] && ![DFM removeItemAtPath:fileNamePutAside error:NULL])
 			{
 				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nshould be recycled...",fileNamePutAside] forKey:NSLocalizedDescriptionKey]]];
 			}
-			if(![DFM copyPath:fileName toPath:fileNamePutAside handler:nil])
+			if(![DFM copyItemAtPath:fileName toPath:fileNamePutAside error:NULL])
 			{
 				[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nhas been put aside...",fileNamePutAside] forKey:NSLocalizedDescriptionKey]]];
 			}
-			if(![DFM removeFileAtPath:fileName handler:nil])
+			if(![DFM removeItemAtPath:fileName error:NULL])
 			{
 				if(outErrorPtr)
 				{
@@ -3891,9 +3891,9 @@ To Do List:
 			{
 				[projectDocument setURL:[NSURL fileURLWithPath:object] forFileKey:key];
 				NSString * newAbsolute = [[projectDocument URLForFileKey:key] path];
-				if([DFM iTM2_createDeepDirectoryAtPath:[newAbsolute stringByDeletingLastPathComponent] attributes:nil error:nil])
+				if([DFM createDirectoryAtPath:[newAbsolute stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:nil])
 				{
-					if(![DFM copyPath:absolute toPath:newAbsolute handler:nil])
+					if(![DFM copyItemAtPath:absolute toPath:newAbsolute error:NULL])
 					{
 						[projectDocument setURL:[NSURL fileURLWithPath:oldObject] forFileKey:key];// revert
 						iTM2_LOG(@"*** ERROR:Could not move %@ to %@\ndue to problem %i,please do it by hand",absolute,newAbsolute);
@@ -4316,7 +4316,7 @@ To Do List:
 				{
 					NSString * lastComponent = [pathToCopy lastPathComponent];
 					NSString * target = [contentsName stringByAppendingPathComponent:lastComponent];
-					if([DFM fileExistsAtPath:target] || [DFM pathContentOfSymbolicLinkAtPath:target])
+					if([DFM fileExistsAtPath:target] || [DFM destinationOfSymbolicLinkAtPath:target error:NULL])
 					{
 						problem = YES;
 					}
@@ -4379,7 +4379,7 @@ To Do List:
 		{
 			NSString * lastComponent = [fullPath lastPathComponent];
 			NSString * target = [contentsName stringByAppendingPathComponent:lastComponent];
-			if([DFM fileExistsAtPath:target] || [DFM pathContentOfSymbolicLinkAtPath:target])
+			if([DFM fileExistsAtPath:target] || [DFM destinationOfSymbolicLinkAtPath:target error:NULL])
 			{
 				problem = YES;
 			}
@@ -4447,7 +4447,7 @@ To Do List:
 			NSURL * url = [projectDocument URLForFileKey:fileKey];
 			if(![[url absoluteURL] isEqual:[[projectDocument fileURL] absoluteURL]]// don't recycle the project
 				&& ![[url absoluteURL] isEqual:[dirURL absoluteURL]]// nor its containing directory!!!
-					&& ([DFM fileExistsAtPath:[url path]] || [DFM pathContentOfSymbolicLinkAtPath:[url path]]))
+					&& ([DFM fileExistsAtPath:[url path]] || [DFM destinationOfSymbolicLinkAtPath:[url path] error:NULL]))
 			{
 				// if the file belongs to another project it should not be recycled
 				[recyclable addObject:fileKey];
@@ -4709,7 +4709,7 @@ To Do List:
 				return;
 			}
 			NSError * localError = nil;
-			if([DFM iTM2_createDeepDirectoryAtPath:[new stringByDeletingLastPathComponent] attributes:nil error:&localError])
+			if([DFM createDirectoryAtPath:[new stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:&localError])
 			{
 				if([DFM fileExistsAtPath:old])
 				{
@@ -4722,7 +4722,7 @@ To Do List:
 							iTM2_LOG(@"Name successfully changed from %@ to %@",old,new);
 						}
 					}
-					else if([DFM movePath:old toPath:new handler:nil])
+					else if([DFM moveItemAtPath:old toPath:new error:NULL])
 					{
 						[projectDocument setURL:[NSURL fileURLWithPath:new] forFileKey:key];
 						[[projectDocument subdocumentForURL:[NSURL fileURLWithPath:old]] setFileURL:[NSURL fileURLWithPath:new]];
@@ -6123,7 +6123,7 @@ To Do List:
 	NSArray * oldURLs = [PD URLsForFileKeys:Ks];
 	NSError * localError = nil;
 	NSString * dirName = [newName stringByDeletingLastPathComponent];
-	[DFM iTM2_createDeepDirectoryAtPath:dirName attributes:nil error:&localError];
+	[DFM createDirectoryAtPath:dirName withIntermediateDirectories:YES attributes:nil error:&localError];
 	if(localError)
 	{
 		iTM2_LOG(@"Error:%@\ndirName:%@",localError,dirName);
@@ -6172,7 +6172,7 @@ To Do List:
 		}
 		else
 		{
-			[DFM iTM2_createDeepDirectoryAtPath:dirName attributes:nil error:&localError];
+			[DFM createDirectoryAtPath:dirName withIntermediateDirectories:YES attributes:nil error:&localError];
 			if(localError)
 			{
 				iTM2_LOG(@"Error:%@",localError);
@@ -6207,7 +6207,7 @@ To Do List:
 				return;
 			}
 		}
-		else if([DFM movePath:oldName toPath:newName handler:NULL] || [DFM copyPath:oldName toPath:newName handler:NULL])
+		else if([DFM moveItemAtPath:oldName toPath:newName error:NULL] || [DFM copyItemAtPath:oldName toPath:newName error:NULL])
 		{
 			[SDC forgetRecentDocumentURL:oldURL];
 		}
@@ -6396,7 +6396,7 @@ To Do List:
 			iTM2_LOG(@"*** WARNING:You gave twice the same name! (%@)",src);
 			return YES;
 		}
-		else if([DFM copyPath:src toPath:dest handler:nil])
+		else if([DFM copyItemAtPath:src toPath:dest error:NULL])
 		{
 			iTM2ProjectDocument * projectDocument = [self project];
 			NSString * fullProjectPath = [fullDocumentPath stringByAppendingPathComponent:[[projectDocument fileName] lastPathComponent]];
@@ -6423,7 +6423,7 @@ To Do List:
 			iTM2_LOG(@"*** WARNING:You gave twice the same name! (%@)",src);
 			return YES;
 		}
-		else if([DFM copyPath:src toPath:dest handler:nil])
+		else if([DFM copyItemAtPath:src toPath:dest error:NULL])
 		{
 			iTM2ProjectDocument * projectDocument = [self project];
 			NSString * fullProjectPath = [fullDocumentPath stringByAppendingPathComponent:[[projectDocument fileName] lastPathComponent]];
@@ -6795,9 +6795,7 @@ To Do List:
 		return nil;
 	}
 	NSMutableArray * projects = [NSMutableArray array];
-	NSArray * contents = [DFM directoryContentsAtPath:[self path]];
-	NSString * file = nil;
-	for (file in contents)
+	for (NSString * file in [DFM contentsOfDirectoryAtPath:[self path] error:NULL])
 	{
 		NSURL * url = [NSURL iTM2_URLWithPath:file relativeToURL:self];
 		if([SWS iTM2_isProjectPackageAtURL:url])

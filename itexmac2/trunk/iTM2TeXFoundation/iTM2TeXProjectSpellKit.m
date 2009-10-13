@@ -128,7 +128,7 @@ To Do List:
     BOOL isDirectory;
     if(![DFM fileExistsAtPath:directoryName isDirectory:&isDirectory])
     {
-        if(![DFM createDirectoryAtPath:directoryName attributes:nil])
+        if(![DFM createDirectoryAtPath:directoryName withIntermediateDirectories:YES attributes:nil error:NULL])
         {
             iTM2_LOG(@"Could create a directory at path:\n%@\nDon't know where to save the spelling contexts", directoryName);
 //iTM2_END;
@@ -138,23 +138,22 @@ To Do List:
     else if(!isDirectory)
     {
         // links are not supported
-        if(![DFM removeFileAtPath:directoryName handler:nil])
+        if(![DFM removeItemAtPath:directoryName error:NULL])
         {
             iTM2_LOG(@"Could remove whatever exists at path:\n%@\nDon't know where to save the spelling contexts", directoryName);
 //iTM2_END;
             return NO;
         }
-        if(![DFM createDirectoryAtPath:directoryName attributes:nil])
+        if(![DFM createDirectoryAtPath:directoryName withIntermediateDirectories:YES attributes:nil error:NULL])
         {
             iTM2_LOG(@"Could create a directory at path:\n%@\nDon't know where to save the spelling contexts", directoryName);
 //iTM2_END;
             return NO;
         }
     }
-    NSEnumerator * E = [[self spellContexts] keyEnumerator];
     NSString * mode;
     BOOL result = YES;
-    while(mode = [E nextObject])
+    for(mode in [[self spellContexts] keyEnumerator])
     {
 		NSString * component = [mode stringByAppendingPathExtension:TWSSpellExtension];
 		NSString * path = [directoryName stringByAppendingPathComponent:component];
@@ -168,11 +167,10 @@ To Do List:
 		}
     }
     // then removes the spelling context files that are not in the actual list
-    E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
-    while (mode = [E nextObject])
+    for (mode in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
         if([[mode pathExtension] iTM2_pathIsEqual:TWSSpellExtension]
             && ![[[self spellContexts] allKeys] containsObject:[mode stringByDeletingPathExtension]])
-		[DFM removeFileAtPath:[directoryName stringByAppendingPathComponent:mode] handler:nil];
+		[DFM removeItemAtPath:[directoryName stringByAppendingPathComponent:mode] error:NULL];
 //iTM2_END;
     return result;
 }
@@ -187,10 +185,8 @@ To Do List:
 //iTM2_START;
     directoryName = [directoryName stringByAppendingPathComponent:TWSSpellComponent];
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:[self spellContexts]];
-    NSString * file;
-    NSEnumerator * E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
     BOOL result = YES;
-    while (file = [E nextObject])
+    for(NSString * file in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
     {
 		NSString * extension = [file pathExtension];
         if([extension iTM2_pathIsEqual:TWSSpellExtension])

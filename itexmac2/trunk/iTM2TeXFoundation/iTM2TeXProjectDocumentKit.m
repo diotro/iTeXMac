@@ -170,12 +170,12 @@ To Do List:
     if([path length])
     {
         NSString * resolved = [path iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
-        if([[[DM fileAttributesAtPath:resolved traverseLink:NO] objectForKey:NSFileType] isEqualToString:NSFileTypeSymbolicLink])
+        if([[[DM attributesOfItemAtPath:resolved error:NULL] objectForKey:NSFileType] isEqualToString:NSFileTypeSymbolicLink])
         {
             resolved = [@"/private" stringByAppendingPathComponent:resolved];
         }
         if(![DM fileExistsAtPath:resolved isDirectory:&isDirectory])
-            isDirectory = [DM createDirectoryAtPath:resolved attributes:nil];
+            isDirectory = [DM createDirectoryAtPath:resolved withIntermediateDirectories:YES attributes:nil error:NULL];
         if(!isDirectory)
         {
             NSBeginAlertSheet(NSLocalizedStringFromTableInBundle(@"Bad TEXMFOUTPUT", @"Project", [self classBundle], nil),
@@ -191,14 +191,14 @@ To Do List:
         {
             path = [[[RA objectAtIndex:0] stringByAppendingPathComponent:@"TeX"] stringByStandardizingPath];
                 if(![DM fileExistsAtPath:path isDirectory:&isDirectory])
-                isDirectory = [DM createDirectoryAtPath:path attributes:nil];
+                isDirectory = [DM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
             if(isDirectory)
             {
                 if([DM isReadableFileAtPath:path] && [DM isWritableFileAtPath:path])
                 {
                     path = [[path stringByAppendingPathComponent:@"Default Output"] stringByStandardizingPath];
                     if(![DFM fileExistsAtPath:path isDirectory:&isDirectory])
-                        isDirectory = [DFM createDirectoryAtPath:path attributes:nil];
+                        isDirectory = [DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
                     if(isDirectory && [DM isReadableFileAtPath:path] && [DM isWritableFileAtPath:path])
                         [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                             path,  @"TEXMFOUTPUT",
@@ -240,7 +240,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	[DFM removeFileAtPath:[[self fileName] stringByAppendingPathComponent:@".iTM2"] handler:NULL];// this directory was created by iTeXMac2
+	[DFM removeItemAtPath:[[self fileName] stringByAppendingPathComponent:@".iTM2"] error:NULL];// this directory was created by iTeXMac2
 	[super close];
 //iTM2_END;
     return;
@@ -731,9 +731,9 @@ To Do List:
 			return;
 		}
 		NSError * localError = nil;
-		if([DFM iTM2_createDeepDirectoryAtPath:[[newURL iTM2_parentDirectoryURL] path] attributes:nil error:&localError])
+		if([DFM createDirectoryAtPath:[[newURL iTM2_parentDirectoryURL] path] withIntermediateDirectories:YES attributes:nil error:&localError])
 		{
-			if(![DFM movePath:[oldURL path] toPath:[newURL path] handler:nil])
+			if(![DFM moveItemAtPath:[oldURL path] toPath:[newURL path] error:NULL])
 			{
 				NSBeginAlertSheet(
 					NSLocalizedStringFromTableInBundle(@"Naming problem", iTM2ProjectTable, B, ""),
@@ -1874,16 +1874,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSString * baseProjectsRepository = [NSBundle iTM2_temporaryBaseProjectsDirectory];
-	NSEnumerator * E = [[DFM directoryContentsAtPath:baseProjectsRepository] objectEnumerator];
-	NSString * path = nil;
 	NSMutableSet * MS = [NSMutableSet set];
-	while(path = [E nextObject])
+	for(NSString * path in [DFM contentsOfDirectoryAtPath:baseProjectsRepository error:NULL])
 	{
 		path = [baseProjectsRepository stringByAppendingPathComponent:path];
-		NSEnumerator * e = [[DFM directoryContentsAtPath:path] objectEnumerator];
 		NSString * requiredExtension = [SDC iTM2_projectPathExtension];
-		NSString * component = nil;
-		while(component = [e nextObject])
+		for(NSString * component in [DFM contentsOfDirectoryAtPath:path error:NULL])
 		{
 			if(![component hasPrefix:@"."] && [[component pathExtension] iTM2_pathIsEqual:requiredExtension])
 			{

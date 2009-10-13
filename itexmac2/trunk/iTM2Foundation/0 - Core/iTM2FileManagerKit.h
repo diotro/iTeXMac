@@ -29,42 +29,6 @@ extern NSString * const iTM2SoftLinkExtension;
 
 @interface NSFileManager(iTeXMac2)
 
-/*! 
-	@method		iTM2_createDeepDirectoryAtPath:attributes:error:
-	@abstract	creates a directory and the whole hierarchy if necessary. Returns YES if the file exists
-	@discussion The given path must be non void. If it does not start with a / character, it will be appended to the current directory path.
-				The answer is YES if either the directory was successfully created or the directory was already existing.
-				If the answer is NO and there was an error, an explanation is returned.
-				If no error is returned, the specified directory do exist.
-				In the user info dictionary of the returned error, you will find the faulty path with the key @"iTM2DirectoryPath"
-	@param		path is the path where the directory should be created, if the path is not absolute (ie if it does not start with a /, it is appended to the current directory.
-	@param		attributes are the attributes of all the created directories.
-	@param		errorPtr points to an NSError place holder.
-	@result		yorn.
-*/
-- (BOOL)iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)errorPtr;
-
-/*! 
-	@method		iTM2_createDeepFileAtPath:contents:attributes:
-	@abstract	creates a file and the whole hierarchy if necessary. Returns YES if the file is created, No if the file can't be created or is already existing.
-	@discussion	Description Forthcoming.
-	@param		path is the path where the directory should be created, if the path is not absolute (ie if it does not start with a /, it is appended to the current directory.
-	@param		contents is the file contents.
-	@param		attributes are the attributes of all the created directories.
-	@result		yorn.
-*/
-- (BOOL)iTM2_createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
-
-/*!
-	@method		iTM2_createDeepSymbolicLinkAtPath:pathContent:
-	@abstract	creates a link and the whole hierarchy if necessary. Returns YES if the link is created, no otherwise. If there exists something at path, No is returned.
-	@discussion Description Forthcoming.
-	@param		path is the path where the directory should be created, if the path is not absolute (ie if it does not start with a /, it is appended to the current directory.
-	@param		otherpath is the target.
-	@result		yorn.
-*/
-- (BOOL)iTM2_createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
-
 /*!
 	@method			iTM2_makeFileWritableAtPath:recursive:
 	@abstract		Abstract forthcoming.
@@ -193,6 +157,16 @@ extern NSString * const iTM2SoftLinkExtension;
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (BOOL)isPrivateFileAtPath:(NSString *)path;
+
+/*!
+ @method	iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:atPath:error:
+ @abstract	This is a workaround for the dto be deprecated fileAttributesAtPath:traverseLink:YES method..
+ @discussion This uses the resource fork.
+ @param		path.
+ @param		error will contain an error description if non void and if the return value is nil.
+ @result	A dictionary of attributes. 
+ */
+- (NSDictionary *)iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:(NSString *)path error:(NSError **)errorRef;
 
 @end
 

@@ -221,9 +221,7 @@ To Do List: NYI
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"stylePath: %@", stylePath);
-    NSEnumerator * e = [[DFM directoryContentsAtPath: stylePath] objectEnumerator];
-    NSString * p;
-    while(p = [e nextObject])
+    for(NSString * p in [DFM contentsOfDirectoryAtPath: stylePath error:NULL])
         if([[p pathExtension] isEqualToString: iTM2TextAttributesSymbolsExtension])
         {
             [_CachedSymbolsAttributes autorelease];
@@ -252,9 +250,7 @@ To Do List: NYI
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_LOG(@"stylePath: %@", stylePath);
-    NSEnumerator * e = [[DFM directoryContentsAtPath: stylePath] objectEnumerator];
-    NSString * p;
-    while(p = [e nextObject])
+    for(NSString * p in [DFM contentsOfDirectoryAtPath: stylePath error:NULL])
         if([[p pathExtension] isEqualToString: iTM2TextAttributesDraftSymbolsExtension])
         {
             [_SymbolsAttributes addEntriesFromDictionary:

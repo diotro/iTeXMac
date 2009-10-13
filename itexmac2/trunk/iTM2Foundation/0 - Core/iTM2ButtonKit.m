@@ -21,6 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
+#import <iTM2Foundation/iTM2FileManagerKit.h>
 #import <iTM2Foundation/iTM2ButtonKit.h>
 #import <iTM2Foundation/iTM2NotificationKit.h>
 #import <iTM2Foundation/iTM2ValidationKit.h>
@@ -605,9 +606,9 @@ To Do List:
 //iTM2_START;
 // finding the actual state of the art
     NSString * path = [[[[[self window] windowController] document] fileName] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
-    BOOL old = [[DFM fileAttributesAtPath:path traverseLink:YES] fileIsImmutable];
+    BOOL old = [[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:path error:NULL] fileIsImmutable];
     NSDictionary * D = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:!old] forKey:NSFileImmutable];
-    if([DFM changeFileAttributes:D atPath:path])
+    if([DFM setAttributes:D ofItemAtPath:path error:NULL])
         [sender setEnabled:[self validateAction:sender]];
     else
     {
@@ -631,7 +632,7 @@ To Do List:
     NSImage * I = [NSImage iTM2_imageReadOnlyPencil];
     BOOL editable = NO;
     BOOL enabled = NO;
-    if([[DFM fileAttributesAtPath:path traverseLink:YES] fileIsImmutable])
+    if([[DFM iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:path error:NULL] fileIsImmutable])
     {
         I = [NSImage iTM2_imageLock];
         enabled = YES;

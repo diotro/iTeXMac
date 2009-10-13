@@ -494,7 +494,7 @@ To Do List:
 		NSString * directoryName = [URL isFileURL]? [URL path]:@"";
 		NSString * baseName = [NSString stringWithFormat:@"%@-", [[directoryName lastPathComponent] stringByDeletingPathExtension]];
 		NSString * component;
-		for(component in [DFM directoryContentsAtPath:directoryName])
+		for(component in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
 		{
 			NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
 			Class C = [SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]];
@@ -515,7 +515,7 @@ To Do List:
 		{
 			// this was not a wrapper where all the files were collected
 			directoryName = [directoryName stringByDeletingLastPathComponent];
-			for(component in [DFM directoryContentsAtPath:directoryName])
+			for(component in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
 			{
 				NSString * fullPath = [directoryName stringByAppendingPathComponent:component];
 				Class C = [SDC documentClassForType:[SDC typeForContentsOfURL:[NSURL fileURLWithPath:fullPath] error:NULL]];

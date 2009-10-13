@@ -701,9 +701,7 @@ To Do List:
 //iTM2_START;
 	NSMutableArray * urls = [NSMutableArray array];
 	NSURL * volumesURL = [self iTM2_volumesURL];
-	NSEnumerator * E = [[DFM directoryContentsAtPath:[volumesURL path]] objectEnumerator];
-	NSString * component;
-	while(component = [E nextObject])
+	for(NSString * component in [DFM contentsOfDirectoryAtPath:[volumesURL path] error:NULL])
 	{
 		[urls addObject:[NSURL iTM2_URLWithPath:component relativeToURL:volumesURL]];
 	}
@@ -753,9 +751,9 @@ url_is_normalized:
 	{
 		[iTM2URLSingletons setObject:[NSNull null] forKey:K];
 		NSString * path = [[NSBundle mainBundle] iTM2_pathForSupportDirectory:iTM2PathFactoryComponent inDomain:NSUserDomainMask create:YES];
-		NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithDictionary:[DFM fileAttributesAtPath:path traverseLink:NO]];
+		NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithDictionary:[DFM attributesOfItemAtPath:path error:NULL]];
 		[attributes setObject:[NSNumber numberWithBool:YES] forKey:NSFileExtensionHidden];
-		[DFM changeFileAttributes:attributes atPath:path];
+		[DFM setAttributes:attributes ofItemAtPath:path error:NULL];
 		url = [iTM2URLSingleton fileURLWithPath:path];// this should be a writable directory
 		[iTM2URLSingletons setObject:[url iTM2_normalizedURL] forKey:K];
 	}

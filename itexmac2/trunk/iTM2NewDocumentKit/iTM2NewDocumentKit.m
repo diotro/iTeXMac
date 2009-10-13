@@ -279,8 +279,7 @@ To Do List:
 	NSArray * hiddenFiles = [hidden componentsSeparatedByString:@"\n"];
 //- (id) _MutableDictionaryFromArray: (id) array;
 //- (id) _ArrayFromDictionary: (id) dictionary;
-	NSString * component;
-	for(component in [DFM directoryContentsAtPath:path])
+	for(NSString * component in [DFM contentsOfDirectoryAtPath:path error:NULL])
 	{
 //iTM2_LOG(@"+=+=+=+=+=+=+=+=+=+=  component: %@", component);
 		if([component hasPrefix:@"."])
@@ -873,7 +872,7 @@ To Do List:
 							contextInfo: [filename copy]];
 				
 			}
-			else if(![DFM copyPath:filename toPath:target handler:nil])
+			else if(![DFM copyItemAtPath:filename toPath:target error:NULL])
 			{
 				iTM2_LOG(@"*** ERROR: I could not copy %@ to %@, please do it yourself...", filename, target);
 			}
@@ -895,7 +894,7 @@ To Do List:
 	if(returnCode == NSOKButton)
 	{
 		NSString * target = [panel filename];
-		if(![DFM copyPath:filename toPath:target handler:nil])
+		if(![DFM copyItemAtPath:filename toPath:target error:NULL])
 		{
 			iTM2_LOG(@"*** ERROR: I could not copy %@ to %@, please do it yourself...", filename, target);
 		}
@@ -1148,7 +1147,7 @@ To Do List:
 	targetName = [targetDirectory stringByAppendingPathComponent:newCore];
 	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
 	[self startProgressIndicationForName:targetName];
-	if([DFM copyPath:sourceName toPath:targetName handler:nil])
+	if([DFM copyItemAtPath:sourceName toPath:targetName error:NULL])
 	{
 		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
 		BOOL isDirectory;
@@ -1238,7 +1237,7 @@ To Do List:
 	{
 		iTM2_LOG(@"There is already a wrapper at %@...", targetName);
 	}
-	else if(![DFM copyPath:sourceName toPath:targetName handler:nil])
+	else if(![DFM copyItemAtPath:sourceName toPath:targetName error:NULL])
 	{
 		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
 	}
@@ -1275,7 +1274,7 @@ To Do List:
 					path = [targetName stringByAppendingPathComponent:path];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
 					convertedPath = [convertedPath stringByStandardizingPath];
-					if(![DFM movePath:path toPath:convertedPath handler:NULL])
+					if(![DFM moveItemAtPath:path toPath:convertedPath error:NULL])
 					{
 						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", path, convertedPath);
 					}
@@ -1367,7 +1366,7 @@ To Do List:
 	{
 		iTM2_LOG(@"There is already a wrapper at %@...", targetName);
 	}
-	else if(![DFM copyPath:sourceName toPath:targetName handler:nil])
+	else if(![DFM copyItemAtPath:sourceName toPath:targetName error:NULL])
 	{
 		iTM2_LOG(@"*** ERROR: Could not copy %@ to %@", sourceName, targetName);
 	}
@@ -1404,7 +1403,7 @@ To Do List:
 					originalPath = [targetName stringByAppendingPathComponent:originalPath];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
 					convertedPath = [convertedPath stringByStandardizingPath];
-					if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
+					if(![DFM moveItemAtPath:originalPath toPath:convertedPath error:NULL])
 					{
 						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalPath, convertedPath);
 					}
@@ -1499,7 +1498,7 @@ To Do List:
 					originalPath = [targetName stringByAppendingPathComponent:originalPath];
 					convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
 					convertedPath = [convertedPath stringByStandardizingPath];
-					if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
+					if(![DFM moveItemAtPath:originalPath toPath:convertedPath error:NULL])
 					{
 						iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalPath, convertedPath);
 					}
@@ -1575,7 +1574,7 @@ To Do List:
 		iTM2_LOG(@"There is already a project at\n%@",targetName);
 	}
 	NSDictionary * filter = [self filterForProjectName:projectName];
-	if([DFM copyPath:sourceName toPath:fileName handler:nil])
+	if([DFM copyItemAtPath:sourceName toPath:fileName error:NULL])
 	{
 		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:fileName];
 		BOOL isDirectory;
@@ -1610,7 +1609,7 @@ To Do List:
 					convertedPath = [self convertedString:originalPath withDictionary:filter];
 					if(![convertedPath iTM2_pathIsEqual:originalPath])
 					{
-						if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
+						if(![DFM moveItemAtPath:originalPath toPath:convertedPath error:NULL])
 						{
 							iTM2_LOG(@"..........  ERROR: Could not change the project file name.");
 							convertedPath = originalPath;
@@ -1649,7 +1648,7 @@ To Do List:
 							}
 							if(![convertedPath iTM2_pathIsEqual:originalPath])
 							{
-								if([DFM movePath:originalPath toPath:convertedPath handler:NULL])
+								if([DFM moveItemAtPath:originalPath toPath:convertedPath error:NULL])
 								{
 									NSURL * url = [NSURL fileURLWithPath:convertedPath];
 									[PD setURL:url forFileKey:key];
@@ -1719,7 +1718,7 @@ To Do List:
 										}
 										else
 										{
-											if([DFM movePath:originalPath toPath:convertedPath handler:NULL])
+											if([DFM moveItemAtPath:originalPath toPath:convertedPath error:NULL])
 											{
 												NSURL * url = [NSURL fileURLWithPath:convertedPath];
 												[PD setURL:url forFileKey:key];
@@ -1762,7 +1761,7 @@ iTM2_LOG(@"Document saved and closed");
 						originalPath = [targetName stringByAppendingPathComponent:originalPath];
 						convertedPath = [targetName stringByAppendingPathComponent:convertedPath];
 						convertedPath = [convertedPath stringByStandardizingPath];
-						if(![DFM movePath:originalPath toPath:convertedPath handler:NULL])
+						if(![DFM moveItemAtPath:originalPath toPath:convertedPath error:NULL])
 						{
 							iTM2_LOG(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalPath, convertedPath);
 						}
@@ -1846,7 +1845,7 @@ To Do List:
 	NSAssert(![DFM fileExistsAtPath:targetName], @"***  My dear, you as a programmer are a big naze...");
 
 	[self startProgressIndicationForName:targetName];
-	if([DFM copyPath:sourceName toPath:targetName handler:nil])
+	if([DFM copyItemAtPath:sourceName toPath:targetName error:NULL])
 	{
 		[DFM iTM2_setExtensionHidden:[SUD boolForKey:NSFileExtensionHidden] atPath:targetName];
 		BOOL isDirectory;
@@ -1871,7 +1870,7 @@ To Do List:
 					new = [self convertedString:old withDictionary:filter];
 					if(![old iTM2_pathIsEqual:new])
 					{
-						if(![DFM movePath:old toPath:new handler:NULL])
+						if(![DFM moveItemAtPath:old toPath:new error:NULL])
 						{
 							iTM2_LOG(@"Could not move\n%@\nto\n%@",old,new);
 						}
@@ -2023,8 +2022,7 @@ longemer:
 			{
 				// is there a unique pdf file at the top level?
 				path = [B bundlePath];
-				NSString * component;
-				for(component in [DFM directoryContentsAtPath:path]) {
+				for(NSString * component in [DFM contentsOfDirectoryAtPath:path error:NULL]) {
 					type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL];
 					if(UTTypeEqual((CFStringRef)type,kUTTypePDF))
 					{

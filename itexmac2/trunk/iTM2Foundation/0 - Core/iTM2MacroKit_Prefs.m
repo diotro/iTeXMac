@@ -1639,6 +1639,50 @@ To Do List:
 //iTM2_END;
     return result?:@"";
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSelectedMode:
+- (void)setSelectedMode:(NSString *)newMode;
+/*"Desription Forthcoming.
+  Version history: jlaurens AT users DOT sourceforge DOT net
+  - 2.0: Sun Nov  5 16:57:31 GMT 2006
+  To Do List:
+  "*/
+{iTM2_DIAGNOSTIC;
+//iTM2_START;
+	NSString * domain = [self selectedDomain];
+	NSString * oldMode = [self selectedMode];
+	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
+	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
+	[MD setValue:newMode forKey:domain];
+	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	// change the editors
+	if(newMode)
+	{
+		id editor = [SMC macroTree];
+		editor = [editor objectInChildrenWithDomain:domain]?:
+				[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
+		editor = [editor objectInChildrenWithCategory:newMode]?:
+				[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
+		editor = [editor objectInChildrenWithContext:@""]?:
+				[[[iTM2MacroContextNode alloc] initWithParent:editor context:@""] autorelease];
+		[self setMacroEditor:[editor list]];// the macro editor MUST be changed first because key bindings use macros
+		editor = [SMC keyBindingTree];
+		editor = [editor objectInChildrenWithDomain:domain]?:
+				[[[iTM2MacroDomainNode alloc] initWithParent:editor domain:domain] autorelease];
+		editor = [editor objectInChildrenWithCategory:newMode]?:
+				[[[iTM2MacroCategoryNode alloc] initWithParent:editor category:newMode] autorelease];
+		editor = [editor objectInChildrenWithContext:@""]?:
+				[[[iTM2KeyBindingContextNode alloc] initWithParent:editor context:@""] autorelease];
+		[self setKeyBindingEditor:[editor list]];
+	}
+	else
+	{
+		[self setMacroEditor:nil];
+		[self setKeyBindingEditor:nil];
+	}
+//iTM2_END;
+	return;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroEditor
 - (id)macroEditor;
 /*"The macro editor is used by the prefs management.

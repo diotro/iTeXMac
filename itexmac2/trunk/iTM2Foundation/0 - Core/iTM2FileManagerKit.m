@@ -32,187 +32,7 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  NSFileManager(iTeXMac2)
 /*"Description Forthcoming."*/
-@interface NSFileManager(PRIVATE)
-- (BOOL)_iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
-@end
-
 @implementation NSFileManager(iTeXMac2)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_createDeepDirectoryAtPath:attributes:error:
-- (BOOL)iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes error:(NSError**)outErrorPtr;
-/*"Description forthcoming. mkdir -p
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 06/01/03
-To Do List:
-"*/
-{//iTM2_DIAGNOSTIC;
-//iTM2_START;
-	NSParameterAssert([path length]);
-	NSString * currentDirectoryPath = [self currentDirectoryPath];
-    if([path isAbsolutePath] && ![self changeCurrentDirectoryPath:NSOpenStepRootDirectory()])
-	{
-		return NO;
-	}
-	NSEnumerator * E = [[path pathComponents] objectEnumerator];
-	NSString * component;
-	while(component = [E nextObject])
-	{
-		if([self changeCurrentDirectoryPath:component])
-		{
-			//that's ok, next slide please
-		}
-		else if([self fileExistsAtPath:component])
-		{
-			// may be it was a finder alias
-			NSString * fullPath = [self currentDirectoryPath];
-			fullPath = [fullPath stringByAppendingPathComponent:component];
-			NSURL * url = [NSURL fileURLWithPath:fullPath];
-			NSData * aliasData = [NSData iTM2_aliasDataWithContentsOfURL:url error:nil];
-			NSString * resolvedPath = [aliasData iTM2_pathByResolvingDataAliasRelativeTo:nil error:nil];
-			if([self changeCurrentDirectoryPath:resolvedPath])
-			{
-				//that's ok, next slide please
-			}
-			else
-			{
-				if(outErrorPtr)
-				{
-					*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-							[NSString stringWithFormat:@"A (link to a)directory was expected at\n%@", fullPath], NSLocalizedDescriptionKey,
-							fullPath, @"iTM2DirectoryPath",
-								nil]];
-				}
-				return NO;
-			}
-		}
-		else if([self createDirectoryAtPath:component attributes:nil])
-		{
-			if([self changeCurrentDirectoryPath:component])
-			{
-				//that's ok, next slide please
-			}
-			else
-			{
-				if(outErrorPtr)
-				{
-					NSString * fullPath = [[self currentDirectoryPath] stringByAppendingPathComponent:component];
-					*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:2
-						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-							[NSString stringWithFormat:@"Could not change to directory\n%@", fullPath], NSLocalizedDescriptionKey,
-							fullPath, @"iTM2DirectoryPath",
-								nil]];
-				}
-				return NO;
-			}
-		}
-		else
-		{
-			if(outErrorPtr)
-			{
-				NSString * fullPath = [[self currentDirectoryPath] stringByAppendingPathComponent:component];
-				*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:2
-					userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-						[NSString stringWithFormat:@"Could not create directory\n%@", fullPath], NSLocalizedDescriptionKey,
-						fullPath, @"iTM2DirectoryPath",
-							nil]];
-			}
-			return NO;
-		}
-	}
-	[self changeCurrentDirectoryPath:currentDirectoryPath];
-	return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_createDeepFileAtPath:contents:attributes:
-- (BOOL)iTM2_createDeepFileAtPath:(NSString *)path contents:(NSData *)data attributes:(NSDictionary *)attributes;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 06/01/03
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(![path isAbsolutePath])
-        path = [[self currentDirectoryPath] stringByAppendingPathComponent:path];
-    path = [path stringByStandardizingPath];
-    if([self fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path])
-    {
-        return NO;
-    }
-    else
-    {
-        NSFileWrapper * son = [[[NSFileWrapper alloc] initRegularFileWithContents:data] autorelease];
-        [son setPreferredFilename:[path lastPathComponent]];
-        if(attributes)
-            [son setFileAttributes:attributes];
-        return [self _iTM2_createDeepDirectoryAtPath:[path stringByDeletingLastPathComponent]
-                            attributes: attributes seed: son];
-    }
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_createDeepSymbolicLinkAtPath:pathContent:
-- (BOOL)iTM2_createDeepSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 06/01/03
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(![path isAbsolutePath])
-        path = [[self currentDirectoryPath] stringByAppendingPathComponent:path];
-    path = [path stringByStandardizingPath];
-    if([self fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path])
-        return NO;
-    else
-    {
-        NSFileWrapper * son = [[[NSFileWrapper alloc] initSymbolicLinkWithDestination:path] autorelease];
-        [son setPreferredFilename:[path lastPathComponent]];
-        return [self _iTM2_createDeepDirectoryAtPath:[path stringByDeletingLastPathComponent]
-                            attributes: nil seed: son];
-    }
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _iTM2_createDeepDirectoryAtPath:attributes:seed:
-- (BOOL)_iTM2_createDeepDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes seed:(NSFileWrapper *)son;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 06/01/03
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    if(![path isAbsolutePath])
-        path = [[self currentDirectoryPath] stringByAppendingPathComponent:path];
-    path = [path stringByStandardizingPath];
-    BOOL isDirectory;
-oneMoreTime:
-    if([self fileExistsAtPath:path isDirectory:&isDirectory])
-    {
-        return isDirectory && (!son
-                    || [son writeToFile:[path stringByAppendingPathComponent:[son preferredFilename]]
-                                atomically: YES updateFilenames: NO]);
-    }
-    else
-    {
-        if(son)
-        {
-            NSFileWrapper * newSon = [[[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil] autorelease];
-            [newSon addFileWrapper:son];
-            son = newSon;
-        }
-        else
-            son = [[[NSFileWrapper alloc] initDirectoryWithFileWrappers:nil] autorelease];
-        [son setPreferredFilename:[path lastPathComponent]];
-        if(attributes)
-            [son setFileAttributes:attributes];
-        NSString * newPath = [path stringByDeletingLastPathComponent];
-        if([newPath length]<[path length])
-        {
-            path = newPath;
-            goto oneMoreTime;
-        }
-        else
-            return NO;
-    }
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_makeFileWritableAtPath:recursive:
 - (void)iTM2_makeFileWritableAtPath:(NSString *)fileName recursive:(BOOL)recursive;
 /*"Description forthcoming.
@@ -225,7 +45,7 @@ To Do List:
 	BOOL isDirectory = NO;
 	if([self fileExistsAtPath:fileName isDirectory:&isDirectory])// traverse the link:bug in the documentation
 	{
-		NSMutableDictionary * fileAttributes = [[[self fileAttributesAtPath:fileName traverseLink:NO] mutableCopy] autorelease];
+		NSMutableDictionary * fileAttributes = [[[self attributesOfItemAtPath:fileName error:NULL] mutableCopy] autorelease];
 		unsigned int oldPosixPermissions = [fileAttributes filePosixPermissions];
 		struct stat myStat;
 		if(noErr == stat([fileName fileSystemRepresentation], &myStat))
@@ -238,14 +58,12 @@ To Do List:
 			if(chmod([fileName fileSystemRepresentation],newPosixPermissions) != noErr)
 			{
 				[fileAttributes setObject:[NSNumber numberWithUnsignedInt:newPosixPermissions] forKey:NSFilePosixPermissions];
-				[self changeFileAttributes:fileAttributes atPath:fileName];
+				[self setAttributes:fileAttributes ofItemAtPath:fileName error:NULL];
 			}
 		}
-		if(recursive && [[fileAttributes objectForKey:NSFileType] isEqual:NSFileTypeDirectory])// beware, do not use isDirectory
+		if(recursive && [[fileAttributes objectForKey:NSFileType] isEqual:NSFileTypeDirectory])// beware, do not use isDirectory (Why? JL:2009/10/12)
 		{
-			NSEnumerator * E = [[self directoryContentsAtPath:fileName] objectEnumerator];
-			NSString * component;
-			while(component = [E nextObject])
+			for(NSString * component in [self contentsOfDirectoryAtPath:fileName error:NULL])
 				[self iTM2_makeFileWritableAtPath:[fileName stringByAppendingPathComponent:component] recursive:recursive];
 		}
 	}
@@ -261,10 +79,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSMutableDictionary * attributes = [[[self fileAttributesAtPath:path traverseLink:NO] mutableCopy] autorelease];
+	NSMutableDictionary * attributes = [[[self attributesOfItemAtPath:path error:NULL] mutableCopy] autorelease];
 	[attributes setObject:[NSNumber numberWithBool:yorn] forKey:NSFileExtensionHidden];
 //iTM2_END;
-	return [self changeFileAttributes:attributes atPath:path];
+	return [self setAttributes:attributes ofItemAtPath:path error:NULL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_prettyNameAtPath:
 - (NSString *)iTM2_prettyNameAtPath:(NSString *)path;
@@ -276,7 +94,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [[self fileAttributesAtPath:path traverseLink:NO] fileExtensionHidden]?
+	return [[self attributesOfItemAtPath:path error:NULL] fileExtensionHidden]?
 			[[path lastPathComponent] stringByDeletingPathExtension]:[path lastPathComponent];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileExistsAtPath:isAlias:error:
@@ -379,7 +197,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-	return [[[self fileAttributesAtPath:path traverseLink:NO] fileType] isEqual:NSFileTypeSymbolicLink];
+	return [[[self attributesOfItemAtPath:path error:NULL] fileType] isEqual:NSFileTypeSymbolicLink];
 }
 - (BOOL)isVisibleFileAtPath:(NSString *)path;
 {
@@ -426,7 +244,7 @@ To Do List:
 	iTM2_INIT_POOL;
 	iTM2RedirectNSLogOutput();
 //iTM2_START;
-	if(![NSFileManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_removeFileAtPath:handler:)])
+	if(![NSFileManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_removeFileAtPath:error:)])
 	{
 		iTM2_LOG(@"WARNING: No hook available to init NSFileManager...");
 	}
@@ -434,7 +252,7 @@ To Do List:
 	iTM2_RELEASE_POOL;
 	return;
 }
-- (BOOL)SWZ_iTM2_removeFileAtPath:(NSString *)path handler:handler;
+- (BOOL)SWZ_iTM2_removeItemAtPath:(NSString *)path error:(NSError **)error;
 {
 //iTM2_LOG(@"path: %@", path);
 	if([[path lastPathComponent] iTM2_pathIsEqual:@"CV.tex"])
@@ -450,7 +268,7 @@ To Do List:
 	{
 		iTM2_LOG(@"NOT STANDARDIZED: %@", path);
 	}
-	return [self SWZ_iTM2_removeFileAtPath:path handler:handler];
+	return [self SWZ_iTM2_removeItemAtPath:path error:error];
 }
 #endif
 
@@ -459,12 +277,10 @@ To Do List:
 NSString * const iTM2SoftLinkExtension = @"soft_link";
 - (void)convertSymbolicLinksToSoftLinksAtPath:(NSString *)path;
 {
-	NSEnumerator * E = [[self directoryContentsAtPath:path] objectEnumerator];
-	NSString * component;
-	while(component = [E nextObject])
+	for(NSString * component in [self contentsOfDirectoryAtPath:path error:NULL])
 	{
 		component = [path stringByAppendingPathComponent:component];
-		NSString * content = [self pathContentOfSymbolicLinkAtPath:component];
+		NSString * content = [self destinationOfSymbolicLinkAtPath:component error:NULL];
 		if([content length])
 		{
 			component = [component stringByAppendingPathExtension:iTM2SoftLinkExtension];
@@ -485,6 +301,14 @@ NSString * const iTM2SoftLinkExtension = @"soft_link";
 	return [otherpath writeToFile:path atomically:NO encoding:ENCODING error:nil];
 }
 #undef ENCODING
+- (NSDictionary *)iTM2_attributesOfItemOrDestinationOfSymbolicLinkAtPath:(NSString *)path error:(NSError **)errorRef;
+{
+	// is it a symbolic link?
+	NSString * destination = [self destinationOfSymbolicLinkAtPath:path error:errorRef];
+	if(destination)
+		return [self attributesOfItemAtPath:destination error:errorRef];
+	return [self attributesOfItemAtPath:path error:errorRef];
+}
 @end
 
 @implementation NSObject (iTM2CopyLinkMoveHandler)
@@ -847,7 +671,7 @@ To Do List:
 			short curResFile = CurResFile();
 			OSErr resError;
 			BOOL wasCurResFile = (noErr == ResError());
-			NSDictionary * fileAttributes = [DFM fileAttributesAtPath:path traverseLink:NO];
+			NSDictionary * fileAttributes = [DFM attributesOfItemAtPath:path error:NULL];
 			FSpCreateResFile(&spec, [fileAttributes fileHFSCreatorCode], [fileAttributes fileHFSTypeCode], smRoman);
 			// no error check needed
 			short fileSystemReferenceNumber = FSOpenResFile(&fileSystemReference, fsWrPerm);
@@ -1008,7 +832,7 @@ To Do List:
 			short curResFile = CurResFile();
 			OSErr resError;
 			BOOL wasCurResFile = (noErr == ResError());
-			NSDictionary * fileAttributes = [DFM fileAttributesAtPath:path traverseLink:NO];
+			NSDictionary * fileAttributes = [DFM attributesOfItemAtPath:path error:NULL];
 			FSpCreateResFile(&spec, [fileAttributes fileHFSCreatorCode], [fileAttributes fileHFSTypeCode], smRoman);
 			// no error check needed
 			short fileSystemReferenceNumber = FSOpenResFile(&fileSystemReference, fsWrPerm);
@@ -1158,7 +982,7 @@ To Do List:
 			short curResFile = CurResFile();
 			OSErr resError;
 			BOOL wasCurResFile = (noErr == ResError());
-			NSDictionary * fileAttributes = [DFM fileAttributesAtPath:path traverseLink:NO];
+			NSDictionary * fileAttributes = [DFM attributesOfItemAtPath:path error:NULL];
 			FSpCreateResFile(&spec, [fileAttributes fileHFSCreatorCode], [fileAttributes fileHFSTypeCode], smRoman);
 			if(resError = ResError())
 			{
@@ -1524,7 +1348,7 @@ To Do List:
 			short curResFile = CurResFile();
 			OSErr resError;
 			BOOL wasCurResFile = (noErr == ResError());
-			NSDictionary * fileAttributes = [DFM fileAttributesAtPath:path traverseLink:NO];
+			NSDictionary * fileAttributes = [DFM attributesOfItemAtPath:path error:NULL];
 			FSpCreateResFile(&spec, [fileAttributes fileHFSCreatorCode], [fileAttributes fileHFSTypeCode], smRoman);
 			// no error check needed
 			short fileSystemReferenceNumber = FSOpenResFile(&fileSystemReference, fsWrPerm);
@@ -1778,7 +1602,7 @@ To Do List:
 	}
 //iTM2_LOG(@"1");
 	NSString * path = [url path];
-	if(([DFM fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path]) && ![DFM removeFileAtPath:path handler:NULL])
+	if(([DFM fileExistsAtPath:path] || [DFM destinationOfSymbolicLinkAtPath:path error:NULL]) && ![DFM removeItemAtPath:path error:NULL])
 	{
 		if(outErrorPtr)
 		{

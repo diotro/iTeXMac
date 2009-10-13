@@ -244,8 +244,8 @@ To Do List:
 		return path;
 	}
 	NSError * localError = nil;
-	if([DFM pathContentOfSymbolicLinkAtPath:path]
-		&& ![DFM removeFileAtPath:path handler:NULL])
+	if([DFM destinationOfSymbolicLinkAtPath:path error:NULL]
+		&& ![DFM removeItemAtPath:path error:NULL])
 	{
 		localError = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 						userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -254,7 +254,7 @@ To Do List:
 								nil]];
 		[NSApp presentError:localError];
 	}
-	if(create && [DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:&localError])
+	if(create && [DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&localError])
 	{
 		return path;
 	}
@@ -458,7 +458,7 @@ To Do List:
 	{
 		path = [NSTemporaryDirectory() stringByAppendingPathComponent:[self uniqueApplicationIdentifier]];
 		NSError * localError = nil;
-		if([DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:&localError])
+		if([DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&localError])
 			[path retain];
 		else
 		{
@@ -482,7 +482,7 @@ To Do List:
 	{
 		path = [[self temporaryDirectory] stringByAppendingPathComponent:@"bin"];
 		NSError * localError = nil;
-		if([DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:&localError])
+		if([DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&localError])
 			[path retain];
 		else
 		{
@@ -503,8 +503,8 @@ To Do List:
 //iTM2_START;
 	NSString * binaryDirectory = [self temporaryBinaryDirectory];
 	NSString * link = [binaryDirectory stringByAppendingPathComponent:[executable lastPathComponent]];// no stringByStandardizingPath please
-	if(([DFM fileExistsAtPath:link] || [DFM pathContentOfSymbolicLinkAtPath:link])
-			&& (![DFM isDeletableFileAtPath:link] || ![DFM removeFileAtPath:link handler:nil]))
+	if(([DFM fileExistsAtPath:link] || [DFM destinationOfSymbolicLinkAtPath:link error:NULL])
+			&& (![DFM isDeletableFileAtPath:link] || ![DFM removeItemAtPath:link error:NULL]))
 	{
 		if(errorRef)
 		{
@@ -516,7 +516,7 @@ To Do List:
 						nil]];
 		}
 	}
-	else if([DFM createSymbolicLinkAtPath:link pathContent:executable])
+	else if([DFM createSymbolicLinkAtPath:link withDestinationPath:executable error:NULL])
 	{
 		if(iTM2DebugEnabled)
 		{
@@ -555,9 +555,9 @@ To Do List:
 		NSString * component = [NSString stringWithFormat:@"%u", i++];
 		path = [directory stringByAppendingPathComponent:component];
 	}
-	while([DFM fileExistsAtPath:path] || [DFM pathContentOfSymbolicLinkAtPath:path]);
+	while([DFM fileExistsAtPath:path] || [DFM destinationOfSymbolicLinkAtPath:path error:NULL]);
 	
-	if([DFM iTM2_createDeepDirectoryAtPath:path attributes:nil error:nil])
+	if([DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil])
 	{
 		return path;
 	}
@@ -586,9 +586,9 @@ To Do List:
 			return path;
 		}
 	}
-	else if((![DFM pathContentOfSymbolicLinkAtPath:path]
-			|| [DFM removeFileAtPath:path handler:NULL])
-				&& [DFM createDirectoryAtPath:path attributes:nil])
+	else if((![DFM destinationOfSymbolicLinkAtPath:path error:NULL]
+			|| [DFM removeItemAtPath:path error:NULL])
+				&& [DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL])
 	{
 		return path;
 	}
@@ -942,17 +942,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 #if 1
-	NSArray * directoryContents = [DFM directoryContentsAtPath:path];
-	NSEnumerator * E = [directoryContents objectEnumerator];
+	NSArray * directoryContents = [DFM contentsOfDirectoryAtPath:path error:NULL];
 	NSString * component = nil;
-	while(component = [E nextObject])
+	for(component in directoryContents)
 	{
 		if([component isEqual:@"Contents"] || [component isEqual:@"Resources"])// Application or Frameworks
 		{
 			path = [path stringByAppendingPathComponent:component];
-			directoryContents = [DFM directoryContentsAtPath:path];
-			E = [directoryContents objectEnumerator];
-			while(component = [E nextObject])
+			directoryContents = [DFM contentsOfDirectoryAtPath:path error:NULL];
+			for(component in directoryContents)
 			{
 				if([component isEqual:@"Info.plist"])
 				{
@@ -970,7 +968,7 @@ To Do List:
 			return;
 		}
 	}
-	directoryContents = [DFM directoryContentsAtPath:path];
+	directoryContents = [DFM contentsOfDirectoryAtPath:path error:NULL];
 	for(component in directoryContents)
 	{
 		component = [path stringByAppendingPathComponent:component];
@@ -1175,7 +1173,7 @@ To Do List:
 		for(path in paths)
 		{
 			NSString * newPath = [path stringByAppendingPathExtension:iTM2LocalizedExtension];
-			if([DFM fileExistsAtPath:newPath] || [DFM pathContentOfSymbolicLinkAtPath:path])
+			if([DFM fileExistsAtPath:newPath] || [DFM destinationOfSymbolicLinkAtPath:path error:NULL])
 			{
 				iTM2_REPORTERROR(1, ([NSString stringWithFormat:@"Recycle file at:\n%@", path]), nil);
 				if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:[path stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[path lastPathComponent]] tag:nil])
@@ -1183,7 +1181,7 @@ To Do List:
 					iTM2_REPORTERROR(1, ([NSString stringWithFormat:@"Failed to recycle file at:\n%@\nWould you do it for me?", path]), nil);
 				}
 			}
-			else if(![DFM movePath:path toPath:newPath handler:NULL])
+			else if(![DFM moveItemAtPath:path toPath:newPath error:NULL])
 			{
 				iTM2_REPORTERROR(1, ([NSString stringWithFormat:@"Failed to move:\n%@\nto\n%@\nWould you do it for me?", path, newPath]), nil);
 			}
@@ -1233,7 +1231,7 @@ To Do List:
 				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					RA = [DFM directoryContentsAtPath:path];
+					RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1253,7 +1251,7 @@ To Do List:
 				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					RA = [DFM directoryContentsAtPath:path];
+					RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1273,7 +1271,7 @@ To Do List:
 				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					RA = [DFM directoryContentsAtPath:path];
+					RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1296,7 +1294,7 @@ To Do List:
 				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					RA = [DFM directoryContentsAtPath:path];
+					RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1316,7 +1314,7 @@ To Do List:
 				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					RA = [DFM directoryContentsAtPath:path];
+					RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1336,7 +1334,7 @@ To Do List:
 				path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 				if([path length])
 				{
-					RA = [DFM directoryContentsAtPath:path];
+					RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 					for(lastComponent in RA)
 					{
 						pathExtension = [lastComponent pathExtension];
@@ -1362,7 +1360,7 @@ To Do List:
 			path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
-				RA = [DFM directoryContentsAtPath:path];
+				RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 				for(lastComponent in RA)
 				{
 					lastName = [lastComponent lowercaseString];
@@ -1380,7 +1378,7 @@ To Do List:
 			path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
-				RA = [DFM directoryContentsAtPath:path];
+				RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 				for(lastComponent in RA)
 				{
 					lastName = [lastComponent lowercaseString];
@@ -1398,7 +1396,7 @@ To Do List:
 			path = [self iTM2_pathForSupportDirectory:subpath inDomain:mask create:NO];
 			if([path length])
 			{
-				RA = [DFM directoryContentsAtPath:path];
+				RA = [DFM contentsOfDirectoryAtPath:path error:NULL];
 				for(lastComponent in RA)
 				{
 					lastName = [lastComponent lowercaseString];
@@ -1730,10 +1728,10 @@ To Do List:
 	NSString * logPath = [libraries lastObject];
 	logPath = [logPath stringByAppendingPathComponent:@"Logs"];
 	logPath = [logPath stringByAppendingPathComponent:executable];
-	[DFM iTM2_createDeepDirectoryAtPath:logPath attributes:nil error:nil];
+	[DFM createDirectoryAtPath:logPath withIntermediateDirectories:YES attributes:nil error:nil];
 	if([DFM pushDirectory:logPath])
 	{
-		NSArray * availableLogs = [DFM directoryContentsAtPath:logPath];
+		NSArray * availableLogs = [DFM contentsOfDirectoryAtPath:logPath error:NULL];
 		NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF ENDSWITH[c] 'log'"];
 		availableLogs = [availableLogs filteredArrayUsingPredicate:predicate];
 		NSMutableArray * MRA = [NSMutableArray array];
@@ -1741,7 +1739,7 @@ To Do List:
 		NSMutableDictionary * attributes = nil;
 		for(component in availableLogs)
 		{
-			attributes = [[[DFM fileAttributesAtPath:component traverseLink:NO] mutableCopy] autorelease];
+			attributes = [[[DFM attributesOfItemAtPath:component error:NULL] mutableCopy] autorelease];
 			[attributes setObject:component forKey:@"file name"];
 			[MRA addObject:attributes];
 		}
@@ -1761,7 +1759,7 @@ To Do List:
 			if(![N boolValue])
 			{
 				component = [attributes objectForKey:@"file name"];
-				if(![DFM removeFileAtPath:component handler:nil])
+				if(![DFM removeItemAtPath:component error:NULL])
 				{
 					[logOutput appendFormat:@"could not remove %@/%@\n",logPath,component];
 				}
@@ -1825,7 +1823,7 @@ To Do List:
 //iTM2_START;
 	NSString * path = [NSBundle temporaryDirectory];
 	iTM2_LOG(@"Clean the temporary directory at %@", path);
-	if([DFM removeFileAtPath:path handler:nil])
+	if([DFM removeItemAtPath:path error:NULL])
 	{
 		iTM2_LOG(@"Done.");
 	}

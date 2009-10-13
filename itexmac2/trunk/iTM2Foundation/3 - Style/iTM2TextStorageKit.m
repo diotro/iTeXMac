@@ -5036,7 +5036,7 @@ To Do List:
     NSString * stylePath = [support stringByAppendingPathComponent:variant];
     stylePath = [stylePath stringByAppendingPathExtension:iTM2TextVariantExtension];
 	NSError * localError = nil;
-    if([DFM iTM2_createDeepDirectoryAtPath:stylePath attributes:nil error:&localError])
+    if([DFM createDirectoryAtPath:stylePath withIntermediateDirectories:YES attributes:nil error:&localError])
     {
         Class C = [[self syntaxParserClassForStyle:style] attributesServerClass];
         id O = [[[C alloc] initWithVariant:variant] autorelease];
@@ -5069,7 +5069,7 @@ To Do List:
     NSString * stylePath = [[[NSBundle mainBundle] pathsForSupportResource:variant ofType:iTM2TextVariantExtension
 	inDirectory: [[iTM2TextStyleComponent stringByAppendingPathComponent:style] stringByAppendingPathExtension:iTM2TextStyleExtension]
 		domains: NSUserDomainMask] lastObject];
-    if(![DFM removeFileAtPath:stylePath handler:DFM])
+    if(![DFM removeItemAtPath:stylePath error:NULL])
     {
         iTM2_LOG(@"Could not remove file at path: %@\nPlease, do it for me... TIA", stylePath);
     }
@@ -5104,7 +5104,7 @@ To Do List:
             stringByAppendingPathComponent:styleComponent];
         NSString * variantComponent;
 		DFM;
-		NSArray * directoryContents = [DFM directoryContentsAtPath:stylePath];
+		NSArray * directoryContents = [DFM contentsOfDirectoryAtPath:stylePath error:NULL];
         for(variantComponent in directoryContents)
             if(![variantComponent hasPrefix:@"."]
                 && [[variantComponent pathExtension] isEqual:iTM2TextVariantExtension])
@@ -5122,7 +5122,7 @@ To Do List:
 										domains: NSNetworkDomainMask|NSLocalDomainMask|NSUserDomainMask])
 		{
 //iTM2_LOG(@"stylePath:%@",stylePath);
-			NSArray * directoryContent = [DFM directoryContentsAtPath:stylePath];
+			NSArray * directoryContent = [DFM contentsOfDirectoryAtPath:stylePath error:NULL];
 			for(variantComponent in directoryContent)
 			{
 				if(![variantComponent hasPrefix:@"."])

@@ -159,9 +159,7 @@ To Do List:
     NSString * assistantsPath = [[libraryPath stringByAppendingPathComponent:
         [self relativePath]] stringByStandardizingPath];
     NSMenu * M = [[NSMenu alloc] initWithTitle: assistantsPath];
-    NSEnumerator * E = [[DFM directoryContentsAtPath: assistantsPath] objectEnumerator];
-    NSString * P;
-    while(P = [E nextObject])
+    for(NSString * P in [DFM contentsOfDirectoryAtPath: assistantsPath error:NULL])
     {
         if(![P hasPrefix: @"."])
         {
@@ -382,10 +380,8 @@ To Do List: ...
     while([templateMenu numberOfItems])
         [templateMenu removeItemAtIndex: 0];
 //    NSFileManager * DFM = DFM;
-    NSEnumerator * E = [[DFM directoryContentsAtPath: path] objectEnumerator];
     NSMutableArray * dirMenus = [NSMutableArray array];
-    NSString * subpath;
-    while(subpath = [E nextObject])
+    for(NSString * subpath in [DFM contentsOfDirectoryAtPath: path error:NULL])
     {
         if(![subpath hasPrefix: @"."] && ![subpath hasPrefix: [NSString bullet]] && ![subpath isEqual: @"CVS"])
         {
@@ -412,9 +408,7 @@ To Do List: ...
             }
         }
     }
-    E = [dirMenus objectEnumerator];
-    NSMenu * menu;
-    while(menu = [E nextObject])
+    for(NSMenu * menu in dirMenus)
         [[M insertItemWithTitle: [menu title] action: NULL keyEquivalent: @"" atIndex: index++] setSubmenu: menu];
     return index;
 }

@@ -174,9 +174,8 @@ To Do List:
 	NSMutableArray * __OrderedFileNames = [NSMutableArray array];
 	NSString * directoryName = [[fileName stringByDeletingPathExtension] stringByAppendingPathExtension:@"pdfd"];
 	NSString * baseName = [NSString stringWithFormat:@"%@-", [[directoryName lastPathComponent] stringByDeletingPathExtension]];
-	NSEnumerator * E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
 	NSString * component;
-	while(component = [E nextObject])
+	for(component in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
 	{
 		NSString * fullPath = nil;
 		if([component hasPrefix:baseName]
@@ -195,8 +194,7 @@ To Do List:
 	{
 		// this was not a wrapper where all the files were collected
 		directoryName = [directoryName stringByDeletingLastPathComponent];
-		E = [[DFM directoryContentsAtPath:directoryName] objectEnumerator];
-		while(component = [E nextObject])
+		for(component in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
 		{
 			NSString * fullPath = nil;
 			if([component hasPrefix:baseName]
@@ -212,7 +210,7 @@ To Do List:
 		}
 	}
 	// comparison:
-	NSMutableArray * alreadyFileNames = [[[self orderedPDFDocumentFileNames] mutableCopy] autorelease];
+	NSMutableArray * alreadyFileNames = [[self orderedPDFDocumentFileNames] mutableCopy];
 	[alreadyFileNames removeObjectsInArray:__OrderedFileNames];
 	// alreadyFileNames now contains obsolete file names to be removed
 	[__OrderedFileNames removeObjectsInArray:[self orderedPDFDocumentFileNames]];

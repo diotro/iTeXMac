@@ -2306,7 +2306,7 @@ To Do List:
 		// make it executable
 		NSNumber * permission = [NSNumber numberWithUnsignedInt:S_IRWXU];
 		NSDictionary * attributes = [NSDictionary dictionaryWithObject:permission forKey:NSFilePosixPermissions];
-		if([DFM changeFileAttributes:attributes atPath:path])
+		if([DFM setAttributes:attributes ofItemAtPath:path error:NULL])
 		{
 			[self executeScriptAtPath:path];
 		}
@@ -2407,7 +2407,7 @@ To Do List:
 		{
 			NSNumber * permissions = [NSNumber numberWithInt:S_IRWXU];
 			NSDictionary * attributes = [NSDictionary dictionaryWithObject:permissions forKey:NSFilePosixPermissions];
-			if([DFM changeFileAttributes:attributes atPath:scriptPath])
+			if([DFM setAttributes:attributes ofItemAtPath:scriptPath error:NULL])
 			{
 				iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
 				[TW setLaunchPath:scriptPath];
@@ -2424,7 +2424,7 @@ To Do List:
 			{
 				iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Problem: Cannot set permission at %@",scriptPath]),nil);
 			}
-			[DFM removeFileAtPath:scriptPath handler:nil];
+			[DFM removeItemAtPath:scriptPath error:NULL];
 		}
 		else if(localError)
 		{

@@ -99,7 +99,7 @@ To Do List:
 		{
 			NSString * consoleDir = [logsPath stringByAppendingPathComponent:name];
 			
-			NSArray * availableLogs = [DFM directoryContentsAtPath:consoleDir];
+			NSArray * availableLogs = [DFM contentsOfDirectoryAtPath:consoleDir error:NULL];
 			NSString * component;
 			NSMutableArray * files = [NSMutableArray array];
 			for(component in availableLogs)

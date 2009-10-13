@@ -379,7 +379,7 @@ To Do List:
 					NSError * localError = nil;
 					NSString * path = [url isFileURL]?[url path]:@"";
 					NSString * dirname = [path stringByDeletingLastPathComponent];
-					if([dirname length] && ![DFM iTM2_createDeepDirectoryAtPath:dirname attributes:nil error:&localError])
+					if([dirname length] && ![DFM createDirectoryAtPath:dirname withIntermediateDirectories:YES attributes:nil error:&localError])
 					{
 						iTM2_REPORTERROR(1,([NSString stringWithFormat:@"Could not create directory at %@",dirname]),localError);
 					}

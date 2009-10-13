@@ -2369,54 +2369,6 @@ To Do List:
 @end
 
 
-#if 0
-//iTM2_START;
-    NSMutableDictionary * BPs = [NSMutableDictionary dictionary];
-    NSMutableDictionary * TPs = [NSMutableDictionary dictionary];
-    NSBundle * B = [NSBundle mainBundle];
-    Class TeXPDocumentClass = [SDC documentClassForType:(NSString *)[SDC iTM2_projectDocumentType]];
-    NSString * P = [B pathForResource:iTM2TeXPBaseProjectsComponent ofType:nil];
-//iTM2_LOG(@"Reading base projects at path:%@", P);
-    NSEnumerator * E = [[DFM directoryContentsAtPath:P] objectEnumerator];
-    NSString * p;
-    while(p = [E nextObject])
-    {
-        if([[p pathExtension] isEqualToString:[SDC iTM2_projectPathExtension]])
-        {
-            NSString * k = [[p stringByDeletingPathExtension] lowercaseString];
-            id v = [[[TeXPDocumentClass alloc]
-                initWithContentsOfFile:[P stringByAppendingPathComponent:p]
-                    ofType:iTM2TeXProjectDocumentType] autorelease];
-            [BPs takeValue:v forKey:k];
-            [TPs takeValue:v forKey:k];
-        }
-    }
-    E = [[B pathsForSupportInDomain:NSAllDomainsMask] objectEnumerator];
-    while(P = [[E nextObject] stringByAppendingPathComponent:iTM2TeXPBaseProjectsComponent])
-    {
-//iTM2_LOG(@"Reading projects at path:%@", P);
-        NSEnumerator * e = [[DFM directoryContentsAtPath:P] objectEnumerator];
-        NSString * p;
-        while(p = [e nextObject])
-        {
-            if([[p pathExtension] isEqualToString:[SDC iTM2_projectPathExtension]])
-            {
-                NSString * k = [[p stringByDeletingPathExtension] lowercaseString];
-                id v = [[[TeXPDocumentClass alloc]
-                    initWithContentsOfFile:[P stringByAppendingPathComponent:p]
-                        ofType:iTM2TeXProjectDocumentType] autorelease];
-                [BPs takeValue:v forKey:k];// already existing base projects must be overriden
-                [TPs takeValue:v forKey:k];
-            }
-        }
-    }
-    [IMPLEMENTATION takeMetaValue:BPs forKey:iTM2TeXPBaseProjectsKey];
-    [IMPLEMENTATION takeMetaValue:TPs forKey:iTM2TeXProjectsKey];
-//iTM2_LOG(@"[self TeXProjects] ARE:%@", [self TeXProjects]);
-//iTM2_LOG(@"TPs:%@", TPs);
-    return;
-#endif
-
 #if 1
 @implementation NSMenu(TESTING_PRIVATE_FRONTEND)
 - (void)recursiveEnableCheck;

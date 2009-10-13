@@ -2475,7 +2475,7 @@ To Do List:
             goto save;
         }
     }
-    else if([DFM iTM2_createDeepDirectoryAtPath:stylePath attributes:nil error:&localError])
+    else if([DFM createDirectoryAtPath:stylePath withIntermediateDirectories:YES attributes:nil error:&localError])
 	{
 		goto save;
 	}

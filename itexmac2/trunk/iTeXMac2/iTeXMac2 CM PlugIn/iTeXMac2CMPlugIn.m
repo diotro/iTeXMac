@@ -375,9 +375,7 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 								if([DFM fileExistsAtPath:P isDirectory: &isDirectory] && isDirectory)
 								{
 									NSMutableArray * mra = [NSMutableArray array];
-									NSEnumerator * E = [[DFM directoryContentsAtPath:P] objectEnumerator];
-									NSString * p;
-									while(p = [E nextObject])
+									for(NSString * p in [DFM contentsOfDirectoryAtPath:P error:NULL])
 										if([[[p pathExtension] lowercaseString] isEqualToString:@"texp"])
 											[mra addObject:p];
 									[(([mra count] == 1)? folders:others) addObject:P];
@@ -634,7 +632,7 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 						notAll = YES;
 						NSLog(@"INFO: iTeXMac2 CM PlugIn, File already existing at %@", dest);
 					}
-					else if([DFM movePath:src toPath:dest handler:nil])
+					else if([DFM moveItemAtPath:src toPath:dest error:NULL])
 					{
 						NSLog(@"INFO: iTeXMac2 CM PlugIn\n%@ moved to %@", src, dest);
 						[[NSWorkspace sharedWorkspace] noteFileSystemChanged:src];
@@ -669,7 +667,7 @@ static OSStatus iTeXMac2CMPlugInHandleSelection(void*				thisInstanceRef,
 						notAll = YES;
 						NSLog(@"INFO: iTeXMac2 CM PlugIn, File already existing at %@", dest);
 					}
-					else if([DFM movePath:src toPath:dest handler:nil])	
+					else if([DFM moveItemAtPath:src toPath:dest error:NULL])	
 					{
 						NSLog(@"INFO: iTeXMac2 CM PlugIn\n%@ moved to %@", src, dest);
 						[[NSWorkspace sharedWorkspace] noteFileSystemChanged:src];
