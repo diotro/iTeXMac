@@ -34,11 +34,11 @@ extern NSString * const iTM2ListMenuSmallSizeKey;
     SEL _Action;
     struct __iTM2LMFlags
     {
-        unsigned int acceptsAlternate: 1;
-        unsigned int isAlternate: 1;
-        unsigned int didUpdateListMenu: 1;
-        unsigned int isMenuPanelObserver: 1;
-        unsigned int RESERVED: 28;
+        NSUInteger acceptsAlternate: 1;
+        NSUInteger isAlternate: 1;
+        NSUInteger didUpdateListMenu: 1;
+        NSUInteger isMenuPanelObserver: 1;
+        NSUInteger RESERVED: 28;
     } _iTM2LMFlags;
 }
 /*"Class methods."*/

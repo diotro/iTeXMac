@@ -19,22 +19,23 @@
 */
 
 
-#import <iTM2Foundation/iTM2ResponderKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2WindowKit.h>
-#import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2ViewKit.h>
-#import <iTM2Foundation/iTM2ButtonKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2StringKit.h>
-#import <iTM2Foundation/iTM2MacroKit.h>
-#import <iTM2Foundation/iTM2KeyBindingsKit.h>
-#import <iTM2Foundation/iTM2PDFDocumentKit.h>
-#import <iTM2Foundation/iTM2PDFViewKit.h>
-#import <iTM2Foundation/iTM2ValidationKit.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
+#import "iTM2ResponderKit.h"
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
+#import "iTM2WindowKit.h"
+#import "iTM2NotificationKit.h"
+#import "iTM2ViewKit.h"
+#import "iTM2ButtonKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2StringKit.h"
+#import "iTM2MacroKit.h"
+#import "iTM2KeyBindingsKit.h"
+#import "iTM2PDFDocumentKit.h"
+#import "iTM2PDFViewKit.h"
+#import "iTM2ValidationKit.h"
+#import "iTM2PathUtilities.h"
+#import "iTM2BundleKit.h"
+#import "iTM2FileManagerKit.h"
 
 //#import <unistd.h>
 //#import <fcntl.h>
@@ -393,7 +394,7 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2BundleKit.h>
+#import "iTM2BundleKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFWindow
 /*"Description forthcoming."*/
@@ -464,14 +465,14 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= firstPhysicalPage
-- (int)firstPhysicalPage;
+- (NSInteger)firstPhysicalPage;
 /*"Description forthcoming."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lastPhysicalPage
-- (int)lastPhysicalPage;
+- (NSInteger)lastPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -482,7 +483,7 @@ To Do List:
     return [[[self document] imageRepresentation] pageCount]-1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentPhysicalPage
-- (int)currentPhysicalPage;
+- (NSInteger)currentPhysicalPage;
 /*"The album is the chief.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -493,7 +494,7 @@ To Do List:
     return [[self album] currentPhysicalPage];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCurrentPhysicalPage:
-- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
+- (void)setCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1025,7 +1026,7 @@ To Do List:
 @end
 
 @interface NSString(iTM2PDFInspector)
-- (BOOL)getIntegerTrailer:(int *)intPtr;
+- (BOOL)getIntegerTrailer:(NSInteger *)intPtr;
 @end
 @implementation iTM2PDFInspector(iTM2KeyStrokeKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  macroCategory
@@ -1121,7 +1122,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100;
+    NSInteger n = 100;
     [[[self window] keyStrokes] getIntegerTrailer:&n];
     [self setMagnification:n/100.0];
 //iTM2_END;
@@ -1136,7 +1137,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 1;
+    NSInteger n = 1;
     if([[[self window] keyStrokes] getIntegerTrailer:&n])
         [self setCurrentPhysicalPage:n-1];
 //iTM2_END;
@@ -1151,7 +1152,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(n>0)
 		[self setMagnification:n / 100.0 * [self magnification]];
@@ -1167,7 +1168,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[[self window] keyStrokes] getIntegerTrailer:&n];
 	if(n>0)
 		[self setMagnification:100.0 * [self magnification] / n];
@@ -1183,7 +1184,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 1;
+    NSInteger n = 1;
     [[[self window] keyStrokes] getIntegerTrailer:&n];
     [self setCurrentPhysicalPage:[self currentPhysicalPage] - n];
 //iTM2_END;
@@ -1209,7 +1210,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 1;
+    NSInteger n = 1;
 //iTM2_LOG(@"n=%i", n);
     [[[self window] keyStrokes] getIntegerTrailer:&n];
 //iTM2_LOG(@"n=%i", n);
@@ -1240,7 +1241,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 5;
+    NSInteger n = 5;
     [[[self window] keyStrokes] getIntegerTrailer:&n];
     [self setCurrentPhysicalPage:[self currentPhysicalPage] - n];
 //iTM2_END;
@@ -1266,7 +1267,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int n = 5;
+    NSInteger n = 5;
 //iTM2_LOG(@"n=%i", n);
     [[[self window] keyStrokes] getIntegerTrailer:&n];
 //iTM2_LOG(@"n=%i", n);
@@ -1290,16 +1291,16 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2ViewKit.h>
-#import <iTM2Foundation/iTM2CursorKit.h>
-#import <iTM2Foundation/iTM2ButtonKit.h>
+#import "iTM2ViewKit.h"
+#import "iTM2CursorKit.h"
+#import "iTM2ButtonKit.h"
 
 @interface iTM2PDFAlbumView(PRIVATE_123)
 - (void)zoomInMouseDown:(NSEvent *)theEvent;
 - (void)zoomOutMouseDown:(NSEvent *)theEvent;
 - (void)_SetMagnification:(float)newMagnification;
-- (int)firstPhysicalPage;
-- (int)lastPhysicalPage;
+- (NSInteger)firstPhysicalPage;
+- (NSInteger)lastPhysicalPage;
 @end
 
 NSString * const iTM2PDFZoomInMagnificationScaleKey = @"iTM2PDFZoomInMagnificationScale";
@@ -1424,7 +1425,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentPhysicalPage
-- (int)currentPhysicalPage;
+- (NSInteger)currentPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1436,7 +1437,7 @@ To Do List:
     return [[self centeredSubview] currentPhysicalPage];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCurrentPhysicalPage:
-- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
+- (void)setCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage;
 /*"O based.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1453,7 +1454,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logicalToPhysicalPage:
-- (int)logicalToPhysicalPage:(int)logicalPage;
+- (NSInteger)logicalToPhysicalPage:(NSInteger)logicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1464,7 +1465,7 @@ To Do List:
     return logicalPage - 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  physicalToLogicalPage:
-- (int)physicalToLogicalPage:(int)physicalPage;
+- (NSInteger)physicalToLogicalPage:(NSInteger)physicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1475,7 +1476,7 @@ To Do List:
     return physicalPage + 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  firstPhysicalPage
-- (int)firstPhysicalPage;
+- (NSInteger)firstPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1486,7 +1487,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lastPhysicalPage
-- (int)lastPhysicalPage;
+- (NSInteger)lastPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1497,7 +1498,7 @@ To Do List:
     return [[self imageRepresentation] pageCount];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forwardPhysicalPage
-- (int)forwardPhysicalPage;
+- (NSInteger)forwardPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1508,7 +1509,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backPhysicalPage
-- (int)backPhysicalPage;
+- (NSInteger)backPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1520,7 +1521,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE LAYOUT MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pageLayout
-- (unsigned)pageLayout;
+- (NSUInteger)pageLayout;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1531,7 +1532,7 @@ To Do List:
     return [self contextIntegerForKey:@"iTM2PDFLayoutMode" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setPageLayout:
-- (void)setPageLayout:(unsigned)PL;
+- (void)setPageLayout:(NSUInteger)PL;
 /*"Initializer. MUST be called at initialization time.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1547,7 +1548,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= PDFOrientation
-- (int)PDFOrientation;
+- (NSInteger)PDFOrientation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1558,7 +1559,7 @@ To Do List:
     return [self contextIntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPDFOrientation:
-- (void)setPDFOrientation:(int)argument;
+- (void)setPDFOrientation:(NSInteger)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1666,7 +1667,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnificationWithDisplayMode:stickMode:
-- (void)setMagnificationWithDisplayMode:(int)displayMode stickMode:(int)stickMode;
+- (void)setMagnificationWithDisplayMode:(NSInteger)displayMode stickMode:(NSInteger)stickMode;
 /*"If the display mode is iTM2StickMode, fix the magnification according to the stick mode.
 Nothing else.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -2326,23 +2327,6 @@ NSString * const iTM2PDFSetUpPageWhenBadPaperSizeKey = @"iTM2PDFSetUpPageWhenBad
 NSString * const iTM2PDFPreferA4PaperKey = @"iTM2PDFPreferA4Paper";
 
 @implementation iTM2PDFDocument(Print)
-#if 0
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming."*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-    [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-        [NSNumber numberWithBool:NO], iTM2PDFPreferA4PaperKey,
-        [NSNumber numberWithBool:NO], iTM2PDFSetUpPageWhenBadPaperSizeKey,
-            nil]];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  printShowingPrintPanel:
 - (void)printShowingPrintPanel:(BOOL)flag;
 /*"Description forthcoming.
@@ -2427,7 +2411,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFPrintKit  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 NSString * const iTM2PDFToolbarIdentifier = @"iTM2 PDF Toolbar: Default";
-#import <iTM2Foundation/iTM2PDFToolbarDelegate.h>
+#import "iTM2PDFToolbarDelegate.h"
 
 @implementation iTM2MainInstaller(PDFDocumentKitInspectorToolbar)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFKitInspectorToolbarCompleteInstallation
@@ -2676,7 +2660,7 @@ To Do List:
 		{
 			PDFPage * page = [[self PDFView] currentPage];
 			PDFDocument * document = [page document];
-			unsigned int pageCount = [document indexForPage:page];
+			NSUInteger pageCount = [document indexForPage:page];
 			[F setIntValue:pageCount+1];
 			pageCount = [document pageCount];
 			[NF setMaximum:[NSNumber numberWithInt:pageCount]];
@@ -2940,14 +2924,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned int n = (unsigned int)[sender intValue];
+    NSUInteger n = (NSUInteger)[sender intValue];
 	if(n<1)
 		n = 0;
 	else
 		--n;
 	PDFPage * page = [[self PDFView] currentPage];
 	PDFDocument * document = [page document];
-	unsigned int pageCount = [document pageCount];
+	NSUInteger pageCount = [document pageCount];
 	if(n<pageCount)
 		[[self PDFView] goToPage:[document pageAtIndex:n]];
 //iTM2_END;
@@ -2967,7 +2951,7 @@ To Do List:
 		return YES;
 	PDFPage * page = [[self PDFView] currentPage];
 	PDFDocument * document = [page document];
-	unsigned int pageCount = [document indexForPage:page];
+	NSUInteger pageCount = [document indexForPage:page];
 	[sender setIntValue:pageCount+1];
 	pageCount = [document pageCount];
 	NSNumberFormatter * NF = [sender formatter];

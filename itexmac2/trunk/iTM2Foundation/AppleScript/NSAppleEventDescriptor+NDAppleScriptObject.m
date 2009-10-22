@@ -26,7 +26,7 @@
 + (NSAppleEventDescriptor *)aliasListDescriptorWithArray:(NSArray *)aArray
 {
 	NSAppleEventDescriptor	* theEventList = nil;
-	unsigned int				theIndex,
+	NSUInteger				theIndex,
 									theNumOfParam;
 
 	theNumOfParam = [aArray count];
@@ -119,7 +119,7 @@
 	return [self descriptorWithDescriptorType:typeLongFloat data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 // typeMagnitude
-+ (NSAppleEventDescriptor *)appleEventDescriptorWithUnsignedInt:(unsigned int)aValue
++ (NSAppleEventDescriptor *)appleEventDescriptorWithUnsignedInt:(NSUInteger)aValue
 {
 	return [self descriptorWithDescriptorType:typeMagnitude data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }

@@ -40,7 +40,7 @@
     NSString * _FindString;
     NSString * _ReplaceString;
     NSTextView * _TextView;
-    unsigned _NumberOfOps;
+    NSUInteger _NumberOfOps;
     BOOL findStringChangedSinceLastPasteboardUpdate;
     BOOL _EntireFileFlag;
     BOOL _CaseInsensitiveFlag;
@@ -92,7 +92,7 @@
 - (void)setWrapFlag:(BOOL)aFlag;
 
 - (BOOL)lastFindWasSuccessful;
-- (unsigned)numberOfOps;
+- (NSUInteger)numberOfOps;
 
 - (void)setMute:(BOOL)flag;
 - (BOOL)isMute;
@@ -100,7 +100,7 @@
 
 
 @interface NSString (iTM2TextFinderKit)
-- (NSRange)rangeOfString:(NSString *)string selectedRange:(NSRange)selectedRange options:(unsigned)mask wrap:(BOOL)wrapFlag;
+- (NSRange)rangeOfString:(NSString *)string selectedRange:(NSRange)selectedRange options:(NSUInteger)mask wrap:(BOOL)wrapFlag;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextFinder

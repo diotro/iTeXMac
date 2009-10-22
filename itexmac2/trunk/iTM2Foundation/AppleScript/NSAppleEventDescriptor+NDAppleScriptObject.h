@@ -27,7 +27,7 @@
 + (NSAppleEventDescriptor *)appleEventDescriptorWithInt:(int)aValue;
 + (NSAppleEventDescriptor *)appleEventDescriptorWithFloat:(float)aValue;
 + (NSAppleEventDescriptor *)appleEventDescriptorWithDouble:(double)aValue;
-+ (NSAppleEventDescriptor *)appleEventDescriptorWithUnsignedInt:(unsigned int)aValue;
++ (NSAppleEventDescriptor *)appleEventDescriptorWithUnsignedInt:(NSUInteger)aValue;
 
 - (ProcessSerialNumber)targetProcessSerialNumber;
 - (OSType)targetCreator;

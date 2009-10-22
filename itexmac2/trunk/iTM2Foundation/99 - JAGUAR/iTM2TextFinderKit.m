@@ -21,8 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2TextFinderKit.h>
-#import <iTM2Foundation/iTM2Foundation.h>
+#import "iTM2TextFinderKit.h"
+#import "iTM2Foundation.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextFinder
 /*"It is very very very closely based on the text finder sample provided by apple™. 
@@ -453,7 +453,7 @@ To Do List:
         if ([findString length] > 0)
         {
             NSRange range;
-            unsigned options = 0;
+            NSUInteger options = 0;
             if (direction == Backward)
                 options |= NSBackwardsSearch;
             if (_CaseInsensitiveFlag)
@@ -470,7 +470,7 @@ To Do List:
         else
         {
             if(![self isMute]) NSBeep();
-            [self postNotificationWithStatus:
+            [self iTM2_postNotificationWithStatus:
                 NSLocalizedStringFromTableInBundle(@"No textView found.", [[self class] description],
                     [self classBundle], nil)];
         }
@@ -478,21 +478,21 @@ To Do List:
     else
     {
         if(![self isMute]) NSBeep();
-        [self postNotificationWithStatus:
+        [self iTM2_postNotificationWithStatus:
             NSLocalizedStringFromTableInBundle(@"No textView to search in.", [[self class] description],
                 [self classBundle], nil)];
     }
     if (![self lastFindWasSuccessful])
     {
         if(![self isMute]) NSBeep();
-        [self postNotificationWithStatus:
+        [self iTM2_postNotificationWithStatus:
                 NSLocalizedStringFromTableInBundle(@"Not found", [[self class] description],
                     [self classBundle],
                         @"Status displayed in find panel when the find string is not found.")];
     }
     else
     {
-        [self postNotificationWithStatus:@"OK"];
+        [self iTM2_postNotificationWithStatus:@"OK"];
     }
     return [self lastFindWasSuccessful];
 }
@@ -645,7 +645,7 @@ To Do List: rewrite this to replace all in range...
         NSTextStorage *textStorage = [textView textStorage];
         NSString *textString = [textView string];
         NSRange replaceRange = [self entireFileFlag] ? NSMakeRange(0, [textStorage length]) :[textView selectedRange];
-        unsigned searchOption = ([self caseInsensitiveFlag] ? NSCaseInsensitiveSearch :0);
+        NSUInteger searchOption = ([self caseInsensitiveFlag] ? NSCaseInsensitiveSearch :0);
         NSRange firstOccurence;
         
         // Find the first occurence of the string being replaced; if not found, we're done!
@@ -704,7 +704,7 @@ To Do List: rewrite this to replace all in range...
         }
         if ([self lastFindWasSuccessful])
         {
-            [self postNotificationWithStatus:
+            [self iTM2_postNotificationWithStatus:
                 [NSString localizedStringWithFormat:NSLocalizedStringFromTableInBundle(@"%d replaced",
                     [[self class] description], [self classBundle],
                         @"Status displayed in find panel when indicated number of matches are replaced."),
@@ -713,7 +713,7 @@ To Do List: rewrite this to replace all in range...
         else
         {
             if(![self isMute]) NSBeep();
-            [self postNotificationWithStatus:
+            [self iTM2_postNotificationWithStatus:
                 NSLocalizedStringFromTableInBundle(@"Not found",
                     [[self class] description], [self classBundle],
                         @"Status displayed in find panel when the find string is not found.")];
@@ -766,7 +766,7 @@ To Do List:
     return _NumberOfOps > 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfOps
-- (unsigned)numberOfOps;
+- (NSUInteger)numberOfOps;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -805,7 +805,7 @@ To Do List:
 //iTM2_START;
     NSWindow * W = [self window];// load the window
     [self iTM2_validateUserInterfaceItems];// validates the UI
-    [self postNotificationWithStatus:@""];
+    [self iTM2_postNotificationWithStatus:@""];
     [W makeKeyAndOrderFront:nil];// show the window
 //iTM2_END;
     return;
@@ -816,7 +816,7 @@ To Do List:
 @implementation NSString (iTM2TextFinderKit)
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_rangeOfString:selectedRange:options:wrap:
-- (NSRange)iTM2_rangeOfString:(NSString *)aString selectedRange:(NSRange)aSelectedRange options:(unsigned)options wrap:(BOOL)wrap;
+- (NSRange)iTM2_rangeOfString:(NSString *)aString selectedRange:(NSRange)aSelectedRange options:(NSUInteger)options wrap:(BOOL)wrap;
 /*"Description Forthcoming.
 Version History: Apple, jlaurens AT users DOT sourceforge DOT net (09/02/2001)
 - < 1.1: 03/10/2002
@@ -830,7 +830,7 @@ To Do List:
 //NSLog(@"options: %i", options);
 //NSLog(@"wrap: %@", (wrap? @"Y": @"N"));
     BOOL forwards = (options & NSBackwardsSearch) == 0;
-    unsigned length = [self length];
+    NSUInteger length = [self length];
     NSRange searchRange, range;
     if (forwards)
     {

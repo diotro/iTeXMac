@@ -28,7 +28,7 @@
     @discussion CONSIDER THIS HEADER AS PRIVATE
 */
 #import <Foundation/NSObject.h>
-#import <iTM2Foundation/iTM2DocumentKit.h>
+#import "iTM2DocumentKit.h"
 
 @class NSApplication, NSMenu, NSWindow, NSString, NSTextView;
 @protocol NSMenuItem;

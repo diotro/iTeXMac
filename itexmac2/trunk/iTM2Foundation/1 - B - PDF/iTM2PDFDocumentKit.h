@@ -18,7 +18,7 @@
 //  to the actual developper team.
 */
 
-#import <iTM2Foundation/iTM2DocumentKit.h>
+#import "iTM2DocumentKit.h"
 
 extern NSString * const iTM2PDFGraphicsInspectorType;
 extern NSString * const iTM2PDFNoAutoUpdateKey;
@@ -78,10 +78,10 @@ extern NSString * const iTM2PDFInspectorMode;
 /*"Class methods"*/
 /*"Setters and Getters"*/
 - (id)album;
-- (int)firstPhysicalPage;
-- (int)lastPhysicalPage;
-- (int)currentPhysicalPage;
-- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
+- (NSInteger)firstPhysicalPage;
+- (NSInteger)lastPhysicalPage;
+- (NSInteger)currentPhysicalPage;
+- (void)setCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage;
 - (float)magnification;
 - (void)setMagnification:(float)magnification;
 /*"Main methods"*/
@@ -107,40 +107,40 @@ extern NSString * const iTM2PDFToolbarIdentifier;
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFAlbumView  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-#import <iTM2Foundation/iTM2ViewKit.h>
+#import "iTM2ViewKit.h"
 
 @interface iTM2PDFAlbumView: iTM2CenteringView
 {
 @private
     BOOL _CanStick;
     BOOL _ParametersHaveChanged;
-    int _CurrentPhysicalPage;
+    NSInteger _CurrentPhysicalPage;
 }
 /*"Class mathods."*/
 /*"Setters and getters."*/
-- (int)currentPhysicalPage;
-- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
-- (unsigned)pageLayout;
-- (void)setPageLayout:(unsigned)PL;
+- (NSInteger)currentPhysicalPage;
+- (void)setCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage;
+- (NSUInteger)pageLayout;
+- (void)setPageLayout:(NSUInteger)PL;
 /*"Main mathods."*/
 - (float)magnification;
 - (void)setMagnification:(float)aMagnification;
-- (void)setMagnificationWithDisplayMode:(int)displayMode stickMode:(int)stickMode;
+- (void)setMagnificationWithDisplayMode:(NSInteger)displayMode stickMode:(NSInteger)stickMode;
 - (BOOL)parametersHaveChanged;
 - (void)setParametersHaveChanged:(BOOL)aFlag;
-- (int)PDFOrientation;
-- (void)setPDFOrientation:(int)argument;
+- (NSInteger)PDFOrientation;
+- (void)setPDFOrientation:(NSInteger)argument;
 - (id)imageRepresentation;
 /*"Overriden methods."*/
 - (void)awakeFromNib;
 - (float)ratioContentVersusDocumentWidth;
 - (float)ratioContentVersusDocumentHeight;
-- (int)forwardPhysicalPage;
-- (int)backPhysicalPage;
-- (int)logicalToPhysicalPage:(int)logicalPage;
+- (NSInteger)forwardPhysicalPage;
+- (NSInteger)backPhysicalPage;
+- (NSInteger)logicalToPhysicalPage:(NSInteger)logicalPage;
 @property BOOL _CanStick;
 @property BOOL _ParametersHaveChanged;
-@property int _CurrentPhysicalPage;
+@property NSInteger _CurrentPhysicalPage;
 @end
 
 extern NSString * const iTM2PDFSSetUpPageWhenBadPaperSizeKey;

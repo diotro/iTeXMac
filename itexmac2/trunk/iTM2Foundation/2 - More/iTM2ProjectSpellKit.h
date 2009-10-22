@@ -23,7 +23,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
-#import <iTM2Foundation/iTM2SpellKit.h>
+#import "iTM2SpellKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ProjectSpellKit
 

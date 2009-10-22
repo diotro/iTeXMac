@@ -18,10 +18,10 @@
 //  to the actual developper team.
 */
 
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2DocumentKit.h>
-#import <iTM2Foundation/iTM2ResponderKit.h>
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
+#import "iTM2DocumentKit.h"
+#import "iTM2ResponderKit.h"
 
 @class iTM2TaskController;
 

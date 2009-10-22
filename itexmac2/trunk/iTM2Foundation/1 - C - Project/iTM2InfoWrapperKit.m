@@ -21,11 +21,14 @@
 //  To Do List:(format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2InfoWrapperKit.h>
-#import <iTM2Foundation/iTM2ProjectControllerKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
+#import "iTM2Runtime.h"
+#import "iTM2FileManagerKit.h"
+#import "iTM2ProjectControllerKit.h"
+#import "iTM2Implementation.h"
+#import "iTM2ContextKit.h"
+#import "iTM2PathUtilities.h"
+#import <objc/objc.h>
+#import "iTM2InfoWrapperKit.h"
 
 NSString * const TWSProjectKey = @"project";
 NSString * const TWSContentsKey = @"contents";
@@ -186,13 +189,13 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 {
 	metaSETTER(path);
 }
-- (int)changeCount;
+- (NSInteger)changeCount;
 {
-	return [metaGETTER intValue];
+	return [metaGETTER integerValue];
 }
 - (void)updateChangeCount:(NSDocumentChangeType)change;
 {
-	int old = [[IMPLEMENTATION metaValueForSelector:@selector(changeCount)] intValue];
+	NSInteger old = [[IMPLEMENTATION metaValueForSelector:@selector(changeCount)] integerValue];
 	switch(change)
 	{
 		case  NSChangeDone: ++old;break;
@@ -200,7 +203,7 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 		case  NSChangeCleared:
 		default: old = 0;break;
 	}
-	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithInt:old] forSelector:@selector(changeCount)];
+	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:old] forSelector:@selector(changeCount)];
 	return;
 }
 - (id)infoForKeys:(NSArray *)keys;
@@ -264,7 +267,7 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 {
 	NSParameterAssert([keys count]);
 	id model = [self model];
-	unsigned index = [keys count];
+	NSUInteger index = [keys count];
 	NSEnumerator * E = [keys reverseObjectEnumerator];
 	// we must treat the last key differently
 	NSString * lastK = nil;
@@ -344,7 +347,7 @@ const char * iTM2InfoWrapper_get_prefix = "infoForPaths:";
 	// where components is a dot separated list of path components
 	// with the usual restrictions
 	// Those path components are used as dictionary keys
-	const char * sel_name = SELNAME(aSelector);
+	const char * sel_name = sel_getName(aSelector);
 	// if sel_name matches /infoForPaths(:+)/ or /setInfo:forPaths(:+)/
 	// the 
 	size_t size = 4;//"c@:@" for the setter or "@@:@" for the getter
@@ -387,8 +390,8 @@ finish:
 - (void)forwardInvocation:(NSInvocation *)anInvocation;
 {
 	// see methodSignatureForSelector above
-	const char * name = SELNAME([anInvocation selector]);
-	unsigned index = 2;
+	const char * name = sel_getName([anInvocation selector]);
+	NSUInteger index = 2;
 	NSMutableArray * Ks = [NSMutableArray array];
 	NSString * K;
 	id O;
@@ -840,7 +843,6 @@ NSString * const iTM2ProjectInfoCustomType = @"custom";
 NSString * const iTM2ProjectInfoMetaComponent = @"MetaInfo";
 NSString * const iTM2ProjectInfoComponent = @"Info";
 
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
 
 @implementation iTM2ProjectDocument(Infos)
 #pragma mark =-=-=-=-=-  INFOS
@@ -1092,7 +1094,6 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2FileManagerKit.h>
 
 @interface iTM2InfosController(PRIVATE)
 - (NSArray *)prefix;

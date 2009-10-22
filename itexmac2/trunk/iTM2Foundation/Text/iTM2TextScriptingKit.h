@@ -113,3 +113,35 @@
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2TextScriptingKit
+
+@interface NSObject(iTeXMac2)
++ (Class)distantClass;
+- (Class)distantClass;
++ (bool)isDistantClass;
+- (bool)isDistantClass;
+/*"Class methods"*/
+/*"Setters and Getters"*/
+- (NSUInteger)evaluatedPosition;
+- (NSRange)evaluatedRange;
+/*"Main methods"*/
+/*"Overriden methods"*/
+@end
+
+@interface NSTextStorage(TextScripting)
+/*"Class methods"*/
+/*"Setters and Getters"*/
+- (NSTextView *)mainTextView;
+- (NSRangeSpecifier *)selectedRangeSpecifier;
+- (NSTextStorage *)selection;
+- (NSRange)selectedRange;
+- (void)setSelectedRange:(NSRange)aRange;
+- (NSUInteger)firstSelectedIndex;
+- (NSUInteger)lastSelectedIndex;
+- (void)setSelectedRangeValue:(id)argument;
+/*"Main methods"*/
+- (void)selectAll:(id)irrelevant;
+- (void)insertText:(id)text inRangeValue:(id)rangeValue;
+- (BOOL)didClickOnLink:(id)link atIndex:(NSUInteger)charIndex;
+- (id)document;
+/*"Overriden methods"*/
+@end

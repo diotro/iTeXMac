@@ -28,8 +28,8 @@
     NSString * _HiddenName;
     struct __iTM2FPFFlags
     {
-        unsigned int isOpen: 1;
-        unsigned int RESERVED: 31;
+        NSUInteger isOpen: 1;
+        NSUInteger RESERVED: 31;
     } _iTM2FPFFlags;
 }
 /*"Class methods"*/

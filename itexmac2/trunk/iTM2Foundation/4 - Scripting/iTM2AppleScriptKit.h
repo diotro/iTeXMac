@@ -47,7 +47,7 @@
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2AppleScriptLauncher
 
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
+#import "iTM2TextDocumentKit.h"
 
 @interface iTM2TextDocument(AppleScripting)
 /*!
@@ -57,6 +57,6 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (unsigned int)endOfLine;
-- (void)setEndOfLine:(unsigned int)argument;
+- (NSUInteger)endOfLine;
+- (void)setEndOfLine:(NSUInteger)argument;
 @end

@@ -27,8 +27,8 @@
 */
 
 //
-#import <iTM2Foundation/iTM2StartupKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
+#import "iTM2StartupKit.h"
+#import "iTM2Implementation.h"
 
 NSString * const iTM2DontShowTipsKey = @"iTM2DontShowTips";
 

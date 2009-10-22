@@ -156,7 +156,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
         if((oldSelectedRange.location == selectedRange.location - 1) ||
                 (oldSelectedRange.location == selectedRange.location + 1))
         {
-            unsigned index = MIN(selectedRange.location, oldSelectedRange.location);
+            NSUInteger index = MIN(selectedRange.location, oldSelectedRange.location);
             NSString * string = [TV string];
             NSRange range = NSMakeRange(0, [string length]);
             BOOL isInRange = NSLocationInRange(index, range);
@@ -198,7 +198,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
                 NSRange R = [string groupRangeAtIndex: index beginDelimiter: left endDelimiter: right];
                 if (R.location != NSNotFound)
                 {
-                    unsigned matchIndex = isLeft? NSMaxRange(R)-1: R.location;
+                    NSUInteger matchIndex = isLeft? NSMaxRange(R)-1: R.location;
                     if(matchIndex != index)
                     {
                         NSRange matchRange = NSMakeRange(matchIndex, 1);
@@ -274,7 +274,7 @@ To Do List:
 #import <objc/objc-class.h>
 
 @interface NSTextStorage_iTM2SmartSelection: NSTextStorage
-- (NSRange) smartDoubleClickAtIndex: (unsigned) index;
+- (NSRange) smartDoubleClickAtIndex: (NSUInteger) index;
 @end
 @implementation NSTextStorage_iTM2SmartSelection
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
@@ -293,7 +293,7 @@ To Do List: implement some kind of balance range for range
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
-- (NSRange) doubleClickAtIndex: (unsigned) index;
+- (NSRange) doubleClickAtIndex: (NSUInteger) index;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -306,7 +306,7 @@ To Do List: implement some kind of balance range for range
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartDoubleClickAtIndex:
-- (NSRange) smartDoubleClickAtIndex: (unsigned) index;
+- (NSRange) smartDoubleClickAtIndex: (NSUInteger) index;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -352,9 +352,9 @@ To Do List:
                     return NSMakeRange(index-1, 2);
                 else
                 {
-                    unsigned int start;
-                    unsigned int end;
-                    unsigned int contentsEnd;
+                    NSUInteger start;
+                    NSUInteger end;
+                    NSUInteger contentsEnd;
 //NSLog(@"GLS");
                     [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange: NSMakeRange(index, 0)];
 //NSLog(@"GLS");

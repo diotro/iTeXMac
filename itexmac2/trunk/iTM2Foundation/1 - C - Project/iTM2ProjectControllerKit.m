@@ -21,30 +21,30 @@
 //  To Do List:(format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2ProjectControllerKit.h>
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
-#import <iTM2Foundation/iTM2InfoWrapperKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-//#import <iTM2Foundation/iTM2ResponderKit.h>
-#import <iTM2Foundation/iTM2WindowKit.h>
-#import <iTM2Foundation/iTM2MenuKit.h>
-#import <iTM2Foundation/iTM2ValidationKit.h>
-#import <iTM2Foundation/iTM2StringFormatKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
-#import <iTM2Foundation/iTM2EventKit.h>
-#import <iTM2Foundation/iTM2ViewKit.h>
-#import <iTM2Foundation/iTM2FileManagerKit.h>
-#import <iTM2Foundation/ICURegEx.h>
+#import "iTM2ProjectControllerKit.h"
+#import "iTM2ProjectDocumentKit.h"
+#import "iTM2InfoWrapperKit.h"
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
+#import "iTM2BundleKit.h"
+//#import "iTM2ResponderKit.h"
+#import "iTM2WindowKit.h"
+#import "iTM2MenuKit.h"
+#import "iTM2ValidationKit.h"
+#import "iTM2StringFormatKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2PathUtilities.h"
+#import "iTM2Runtime.h"
+#import "iTM2EventKit.h"
+#import "iTM2ViewKit.h"
+#import "iTM2FileManagerKit.h"
+#import "ICURegEx.h"
 
 //#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
-#import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2FileManagerKit.h>
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
-#import <iTM2Foundation/iTM2Invocation.h>
+#import "iTM2NotificationKit.h"
+#import "iTM2FileManagerKit.h"
+#import "iTM2TextDocumentKit.h"
+#import "iTM2Invocation.h"
 
 NSString * const iTM2ProjectComponent = @"Project";
 NSString * const iTM2ProjectPlistPathExtension = @"plist";
@@ -102,23 +102,6 @@ static NSString * const iTM2ProjectsReentrantKey = @"_PCPRE";
 @end
 
 @implementation iTM2MainInstaller(ProjectController)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-This message is sent at initialization time.
-Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2MileStone registerMileStone:@"Project Migration Missing" forKey:@"iTM2 Project Migrator"];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ProjectMigratorCompleteInstallation
 + (void)iTM2ProjectMigratorCompleteInstallation;
 /*"Change the old faraway project design to the new cached one.
@@ -206,13 +189,13 @@ up_one_level:
 			}
 		}
 	}
-	[iTM2MileStone putMileStoneForKey:@"iTM2 Project Migrator"];
+	iTM2_MILESTONE((@"iTM2 Project Migrator"),(@"Project Migration Missing"));
 //iTM2_END;
     return;
 }
 @end
 
-#import <iTM2Foundation/iTM2FileManagerKit.h>
+#import "iTM2FileManagerKit.h"
 
 static NSString * const iTM2ProjectIsDirectoryWrapperKey = @"iTM2ProjectIsDirectoryWrapper";
 NSString * const iTM2ProjectWritableProjectsComponent = @"Writable Projects.localized";
@@ -1342,7 +1325,7 @@ To Do List:
 				projectURL = [NSURL iTM2_URLWithPath:component relativeToURL:wrapperURL];
 				if([DFM fileExistsAtPath:[projectURL path]])
 				{
-					int tag = 0;
+					NSInteger tag = 0;
 					if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:[wrapperURL path]
 							destination:@"" files:[NSArray arrayWithObject:component] tag:&tag])
 					{
@@ -1998,7 +1981,7 @@ To Do List:
 					[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:3
 							userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not remove\n%@\nPlease,do it for me now and click OK.",libraryWrapperName]
 								forKey:NSLocalizedDescriptionKey]]];
-					if([DFM fileOrLinkExistsAtPath:libraryWrapperName])
+					if([DFM iTM2_fileOrLinkExistsAtPath:libraryWrapperName])
 					{
 						if(outErrorPtr)
 						{
@@ -2056,12 +2039,12 @@ createWrapper:
 				iTM2_OUTERROR(1,([NSString stringWithFormat:@"Could not remove the link at %@",linkName]),nil);
 			}
 		}
-		else if([DFM fileOrLinkExistsAtPath:linkName])
+		else if([DFM iTM2_fileOrLinkExistsAtPath:linkName])
 		{
 			NSString * dirName = [linkName stringByDeletingLastPathComponent];
 			NSString * component = [linkName lastPathComponent];
 			NSArray * RA = [NSArray arrayWithObject:component];
-			int tag = 0;
+			NSInteger tag = 0;
 			if(![SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName destination:@"" files:RA tag:&tag])
 			{
 				iTM2_OUTERROR(tag,([NSString stringWithFormat:@"Could not recycle synchronously file at %@",linkName]),nil);
@@ -2187,7 +2170,7 @@ newWritableProject:
 					NSString * component = [fileName lastPathComponent];
 					fileURL = [NSURL fileURLWithPath:[sourceDirName stringByAppendingPathComponent:component]];
 					* fileURLRef = fileURL;
-					int tag;
+					NSInteger tag;
 					if(![SWS performFileOperation:NSWorkspaceMoveOperation
 							source:dirName
 								destination:sourceDirName
@@ -2242,7 +2225,7 @@ newWritableProject:
 					NSString * component = [fileName lastPathComponent];
 					fileName = [projectDirName stringByAppendingPathComponent:component];
 					* fileURLRef = [NSURL fileURLWithPath:fileName];
-					int tag;
+					NSInteger tag;
 					if(![SWS performFileOperation:NSWorkspaceMoveOperation
 							source:dirName
 								destination:projectDirName
@@ -2417,7 +2400,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfBaseProjects
-- (unsigned int)countOfBaseProjects;
+- (NSUInteger)countOfBaseProjects;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 SPC metaInfoURLFromFileURL
@@ -2591,7 +2574,7 @@ To Do List:
 	[MS removeObject:path];
 	for(path in MS)
 	{
-		unsigned index = [MRA count];
+		NSUInteger index = [MRA count];
 next_index:
 		if(index--)
 		{
@@ -2650,7 +2633,7 @@ To Do List:
 	[MB iTM2_pathForSupportDirectory:iTM2ProjectBaseComponent inDomain:NSUserDomainMask create:YES];
 	NSArray * paths = [MB allPathsForResource:iTM2ProjectBaseComponent ofType:@""];
 	NSString * baseProjectsRepository = [NSBundle iTM2_temporaryBaseProjectsDirectory];
-	unsigned index = [paths count];
+	NSUInteger index = [paths count];
 	id P = nil;
 	NSString * source = nil;
 	NSString * K;
@@ -3394,7 +3377,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 SPC metaInfoURLFromFileURL
@@ -3406,7 +3389,7 @@ To Do List:
 	return [_Projects count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 SPC metaInfoURLFromFileURL
@@ -3498,7 +3481,7 @@ To Do List:
 	{
 		NSInvocation * I;
 		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] iTM2_isProjectPackageAtURL:url];
-		NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"ProjectPackageAtURL:" signature:[I methodSignature] inherited:YES];
+		NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:isa withSuffix:@"ProjectPackageAtURL:" signature:[I methodSignature] inherited:YES];
 		NSUInteger i = [PA count];
 		while(i--)
 		{
@@ -3534,7 +3517,7 @@ To Do List:
 	{
 		NSInvocation * I;
 		[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] iTM2_isWrapperPackageAtURL:url];
-		NSPointerArray * PA = [iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"WrapperPackageAtURL:" signature:[I methodSignature] inherited:YES];
+		NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:isa withSuffix:@"WrapperPackageAtURL:" signature:[I methodSignature] inherited:YES];
 		NSUInteger i = [PA count];
 		while(i--)
 		{
@@ -3589,7 +3572,7 @@ To Do List:
 	static NSString * path = nil;
 	if(!path)
 	{
-		path = [self temporaryDirectory];
+		path = [self iTM2_temporaryDirectory];
 		path = [path stringByAppendingPathComponent:iTM2ProjectBaseComponent];
 		NSError * localError = nil;
 		if([DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&localError])
@@ -3624,7 +3607,7 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2DocumentKit.h>
+#import "iTM2DocumentKit.h"
 
 @interface iTM2PDocumentController: iTM2DocumentController
 

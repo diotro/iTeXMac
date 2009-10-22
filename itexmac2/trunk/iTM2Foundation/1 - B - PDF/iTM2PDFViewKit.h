@@ -30,8 +30,8 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
 @interface iTM2PDFImageRepView: NSView
 {
 @private
-    int _Tag;
-    int _State;
+    NSInteger _Tag;
+    NSInteger _State;
     BOOL _DrawsBoundary;
     NSPoint _AbsoluteFocusPoint;
     NSColor * _BackgroundColor;
@@ -45,10 +45,10 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
 - (void)setImageRepresentation:(NSPDFImageRep *)value;
 - (NSSize)inset;
 - (NSSize)minFrameSize;
-- (int)tag;
-- (void)setTag:(int)anInt;
-- (int)state;
-- (void)setState:(int)value;
+- (NSInteger)tag;
+- (void)setTag:(NSInteger)anInt;
+- (NSInteger)state;
+- (void)setState:(NSInteger)value;
 - (NSPoint)focusPoint;
 - (void)setFocusPoint:(NSPoint)value;
 - (NSRect)drawingBounds;
@@ -58,8 +58,8 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
 - (void)setSynchronizationPoint:(NSPoint)P;
 /*"Main methods"*/
 /*"Overriden methods"*/
-@property int _Tag;
-@property int _State;
+@property NSInteger _Tag;
+@property NSInteger _State;
 @property BOOL _DrawsBoundary;
 @property (retain) NSColor * _BackgroundColor;
 @property (retain) NSPDFImageRep * _Representation;
@@ -101,9 +101,9 @@ typedef enum _iTM2PDFPageLayout
     id _CachedImageRepresentation;
     NSPoint _AbsoluteFocus;
     float _Magnification;
-    unsigned _PageLayout;
-    int _CurrentLogicalPage;
-    int _OrientationMode;
+    NSUInteger _PageLayout;
+    NSInteger _CurrentLogicalPage;
+    NSInteger _OrientationMode;
     BOOL _NewPage;
     BOOL _NeedsUpdateGeometry;
 }
@@ -119,19 +119,19 @@ typedef enum _iTM2PDFPageLayout
 - (BOOL)needsToUpdateGeometry;
 - (void)setNeedsUpdateGeometry:(BOOL)flag;
 - (NSColor *)backgroundColor;
-- (unsigned)pageLayout;
-- (void)setPageLayout:(unsigned)PL;
+- (NSUInteger)pageLayout;
+- (void)setPageLayout:(NSUInteger)PL;
 - (void)pageLayoutDidChange;
-- (int)softCurrentPhysicalPage;
-- (int)currentPhysicalPage;
-- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
-- (int)currentLogicalPage;
-- (void)setCurrentLogicalPage:(int)aCurrentLogicalPage;
+- (NSInteger)softCurrentPhysicalPage;
+- (NSInteger)currentPhysicalPage;
+- (void)setCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage;
+- (NSInteger)currentLogicalPage;
+- (void)setCurrentLogicalPage:(NSInteger)aCurrentLogicalPage;
 - (void)currentPageDidChange;
-- (int)PDFOrientation;
-- (void)setPDFOrientation:(int)argument;
+- (NSInteger)PDFOrientation;
+- (void)setPDFOrientation:(NSInteger)argument;
 - (id)selectedView;
-- (void)selectViewWithTag:(int)tag;
+- (void)selectViewWithTag:(NSInteger)tag;
 - (id)focusView;
 /*"Main methods"*/
 - (NSSize)pageFrameSizeWithMagnification:(float)aMagnification;
@@ -145,14 +145,14 @@ typedef enum _iTM2PDFPageLayout
 @property (retain) id _ImageRepresentation;
 @property (retain) id _CachedImageRepresentation;
 @property float _Magnification;
-@property unsigned _PageLayout;
-@property int _CurrentLogicalPage;
-@property int _OrientationMode;
+@property NSUInteger _PageLayout;
+@property NSInteger _CurrentLogicalPage;
+@property NSInteger _OrientationMode;
 @property BOOL _NewPage;
 @property BOOL _NeedsUpdateGeometry;
 @end
 
-#import <iTM2Foundation/iTM2ViewKit.h>
+#import "iTM2ViewKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFPrintKit
 @interface iTM2PDFPrintView: iTM2View 
@@ -165,7 +165,7 @@ typedef enum _iTM2PDFPageLayout
 - (void)setSlidesLandscape:(BOOL)yorn;
 /*"Main methods"*/
 - (id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(float)scale;
-- (int)pageCount;
+- (NSInteger)pageCount;
 /*"Overriden methods"*/
 - (void)drawRect:(NSRect)aRect;
 - (BOOL)knowsPageRange:(NSRangePointer)range;

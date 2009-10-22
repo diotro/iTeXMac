@@ -62,8 +62,8 @@ NSLog(@"returning MyCustomElementClass");
 @end
 #endif
 
-#import <iTM2Foundation/iTeXMac2.h>
-#import <iTM2Foundation/ICURegEx.h>
+#import "iTeXMac2.h"
+#import "ICURegEx.h"
 
 @interface NSObject(OgreKit)
 - (void)setShouldHackFindMenu:(BOOL)yorn;
@@ -89,7 +89,7 @@ NSLog(@"returning MyCustomElementClass");
 }
 @end
 
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
+#import "iTM2TextDocumentKit.h"
 
 @implementation iTM2TextEditor(Test)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionary
@@ -138,8 +138,8 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2PreferencesKit.h>
-#import <iTM2Foundation/iTM2DocumentControllerKit.h>
+#import "iTM2PreferencesKit.h"
+#import "iTM2DocumentControllerKit.h"
 
 static id text = nil;
 @implementation iTM2Application(Test)

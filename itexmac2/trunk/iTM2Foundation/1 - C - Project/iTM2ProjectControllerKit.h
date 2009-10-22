@@ -57,7 +57,7 @@ typedef enum
 	iTM2PCFilterAlias = 3
 } iTM2ProjectControllerFilter;
 
-#import <iTM2Foundation/iTM2Implementation.h>
+#import "iTM2Implementation.h"
 
 /*!
     @class    	iTM2ProjectController
@@ -551,7 +551,7 @@ typedef enum
     @param      None
     @result     A number
 */
-- (unsigned int)countOfBaseProjects;
+- (NSUInteger)countOfBaseProjects;
 
 /*! 
     @method     baseProjectWithName:

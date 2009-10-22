@@ -22,7 +22,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2RepToolbarDelegate.h>
+#import "iTM2RepToolbarDelegate.h"
 
 extern NSString * const iTM2ToolbarNavigationFieldItemIdentifier;
 extern NSString * const iTM2ToolbarNavigationSetItemIdentifier;

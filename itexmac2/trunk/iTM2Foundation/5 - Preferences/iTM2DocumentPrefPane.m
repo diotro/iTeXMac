@@ -21,8 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2DocumentPrefPane.h>
-#import <iTM2Foundation/iTeXMac2.h>
+#import "iTM2DocumentPrefPane.h"
+#import "iTeXMac2.h"
 
 NSString * const iTM2AutosaveThresholdTransformerName = @"iTM2AutosaveThreshold";
 NSString * const iTM2LevelsOfUndoThresholdTransformerName = @"iTM2LevelsOfUndoThreshold";
@@ -163,7 +163,7 @@ To Do List:
 		{
 			f = 5 * powf(2,f);
 		}
-		unsigned int i = f;
+		NSUInteger i = f;
 		return [NSNumber numberWithUnsignedInt:i];
 	}
     return nil;

@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Oct 16 2001.
-//  Copyright © 2004 Laurens'Tribune. All rights reserved.
+//  Copyright © 2009 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -21,13 +21,13 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2TextStorageKit.h>
-#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2CursorKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
-#import <iTM2Foundation/ICURegEx.h>
+#import "iTM2TextStorageKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2CursorKit.h"
+#import "iTM2BundleKit.h"
+#import "iTM2Runtime.h"
+#import "iTM2StringKit.h"
+#import "ICURegEx.h"
 
 #warning DEBUGGGGG
 #undef __iTM2DebugEnabled__
@@ -36,10 +36,7 @@
 #undef _iTM2InternalAssert
 #define _iTM2InternalAssert(CONDITION, REASON) if(!(CONDITION))[[NSException exceptionWithName:NSInternalInconsistencyException reason:REASON userInfo:nil] raise]
 
-typedef struct
-{
-@defs(iTM2ModeLine)
-} iTM2ModeLineDef;
+#define iTM2ModeLineDef iTM2ModeLine
 
 NSString * const iTM2TextDefaultSyntaxModeName = @"default";// MUST BE LOWERCASE
 NSString * const iTM2TextWhitePrefixSyntaxModeName = @"white prefix";// MUST BE LOWERCASE
@@ -65,30 +62,11 @@ NSString * const iTM2TextSyntaxParserVariantKey = @"iTM2TextSyntaxParserVariant"
 - (BOOL)diagnostic;
 @end
 
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
+#import "iTM2TextDocumentKit.h"
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
 
 NSString * const iTM2SyntaxParserStyleEnabledKey = @"iTM2SyntaxParserStyleEnabled";
-
-@implementation iTM2MainInstaller(TextStorageKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TextStorageCompleteInstallation
-+ (void)iTM2TextStorageCompleteInstallation;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2: Mon Jun  7 21:48:56 GMT 2004
-To Do List: Nothing
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[iTM2TextInspector iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2style_lazyTextStorage)];
-	[iTM2TextSyntaxParser class];
-	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-		[NSNumber numberWithBool:YES], iTM2SyntaxParserStyleEnabledKey, nil]];
-//iTM2_END;
-    return;
-}
-@end
 
 @implementation iTM2TextInspector(iTM2TextStorageKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2style_lazyTextStorage
@@ -165,7 +143,7 @@ To Do List:
 @interface NSTextStorage(PRIVATE)
 // never ever call this method by yourself
 // this is buggy in leopard and is called by NSTextFinder
-- (unsigned)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range;
+- (NSUInteger)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(NSUInteger)options inView:(id)view replacementRange:(NSRange)range;
 @end
 
 @implementation iTM2TextStorage
@@ -230,10 +208,10 @@ To Do List: Nothing
 //iTM2_START;
     return [self initWithString:[attrStr string]];
 }
-- (void)edited:(unsigned)editedMask range:(NSRange)range changeInLength:(int)delta;
+- (void)edited:(NSUInteger)editedMask range:(NSRange)range changeInLength:(NSInteger)delta;
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [super edited:(unsigned)editedMask range:(NSRange)range changeInLength:(int)delta];
+    [super edited:(NSUInteger)editedMask range:(NSRange)range changeInLength:(NSInteger)delta];
 //iTM2_END;
     return;
 }
@@ -276,7 +254,7 @@ To Do List:
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lineBreakBeforeIndex:withinRange:
-- (unsigned)lineBreakBeforeIndex:(unsigned)location withinRange:(NSRange)aRange;
+- (NSUInteger)lineBreakBeforeIndex:(NSUInteger)location withinRange:(NSRange)aRange;
 /*"Don't know if it is a bug of mine or apple's but sometimes the returned location has nothing to do with aRange.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 03/10/2002
@@ -347,7 +325,7 @@ To Do List:
         return;
     }
 #endif
-    unsigned originalLength = [_TextModel length];
+    NSUInteger originalLength = [_TextModel length];
     [_SP textStorageWillReplaceCharactersInRange:range withString:string];
     if([_SP diagnostic])
     {
@@ -356,7 +334,7 @@ To Do List:
 	// the next call will put the text storage in an inconsistent state
     [_TextModel replaceCharactersInRange:range withString:string];
 	// now we have to synchronize
-    unsigned stringLength = [string length];
+    NSUInteger stringLength = [string length];
 	NSRange editedAttributesRange;// will receive the range where the attributes might have changed
     if(range.length && stringLength)
     {
@@ -373,7 +351,7 @@ To Do List:
 		[self invalidateAttributesInRange:editedAttributesRange];
         return;
     }
-    unsigned newLength = [_TextModel length];
+    NSUInteger newLength = [_TextModel length];
     if(!range.length)
     {
         if(stringLength == 1)
@@ -410,7 +388,7 @@ To Do List:
     {
         if(newLength > originalLength)
         {
-            unsigned delta = newLength-originalLength;
+            NSUInteger delta = newLength-originalLength;
             [_SP textStorageDidInsertCharactersAtIndex:range.location count:delta editedAttributesRangeIn:&editedAttributesRange];
 			if(iTM2DebugEnabled > 999999)
 			{
@@ -423,7 +401,7 @@ To Do List:
         }
         else
         {
-            unsigned delta = originalLength-newLength;
+            NSUInteger delta = originalLength-newLength;
             if(delta == 1)
             {
                 [_SP textStorageDidDeleteCharacterAtIndex:range.location editedAttributesRangeIn:&editedAttributesRange];
@@ -516,7 +494,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= replaceString:withString:ranges:options:inView:replacementRange:
-- (unsigned)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range;
+- (NSUInteger)replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(NSUInteger)options inView:(id)view replacementRange:(NSRange)range;
 /*"Attribute changes are catched.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -526,11 +504,11 @@ To Do List:
 //iTM2_START;
 	if([SUD boolForKey:@"iTM2DontPatchNSTextStorageReplaceString"])
 	{
-		return [super replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(unsigned)options inView:(id)view replacementRange:(NSRange)range];
+		return [super replaceString:(NSString *)old withString:(NSString *)new ranges:(NSArray *)ranges options:(NSUInteger)options inView:(id)view replacementRange:(NSRange)range];
 	}
 	iTM2_INIT_POOL;
 	NSMutableDictionary * map = [NSMutableDictionary dictionary];
-	unsigned flags = ICUREMultilineOption;
+	NSUInteger flags = ICUREMultilineOption;
 	if(options & 1)
 	{
 		flags |= ICURECaseSensitiveOption;
@@ -540,7 +518,7 @@ To Do List:
 	{
 		[pattern appendString:@"\\b"];
 	}
-	unsigned end, contentsEnd;
+	NSUInteger end, contentsEnd;
 	NSRange R = NSMakeRange(0,0);
 	if(R.location<[old length])
 	{
@@ -590,7 +568,7 @@ To Do List:
 	{
 		[replacementStrings addObject:[map objectForKey:V]];
 	}
-	unsigned result = 0;
+	NSUInteger result = 0;
 	if([affectedRanges count] && [view shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
 	{
 		[self beginEditing];
@@ -609,7 +587,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  GETTING ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:effectiveRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(NSUInteger)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -630,7 +608,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:effectiveRange:inRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
+- (NSDictionary *)attributesAtIndex:(NSUInteger)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: 12/05/2003
@@ -638,7 +616,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	unsigned length = [_TextModel length];
+	NSUInteger length = [_TextModel length];
     if(iTM2DebugEnabled > 1000 && (aLocation >= length))
     {
 		iTM2_LOG(@"idx: %u (%u)", aLocation, length);
@@ -914,7 +892,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  INDEXING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineIndexForLocation:
-- (unsigned int)lineIndexForLocation:(unsigned)index;
+- (NSUInteger)lineIndexForLocation:(NSUInteger)index;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -926,7 +904,7 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 	return TSP?[TSP lineIndexForLocation:index]:[super lineIndexForLocation:index];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:forRange:
-- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr forRange:(NSRange)range;
+- (void)getLineStart:(NSUInteger *)startPtr end:(NSUInteger *)lineEndPtr contentsEnd:(NSUInteger *)contentsEndPtr forRange:(NSRange)range;
 /*"Given a range, it returns the line number of the first char of the range.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -940,9 +918,9 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 		[super getLineStart:startPtr end:lineEndPtr contentsEnd:contentsEndPtr forRange:range];
 		return;
 	}
-	unsigned start = range.location;
-	unsigned stop = NSMaxRange(range);
-	unsigned index;
+	NSUInteger start = range.location;
+	NSUInteger stop = NSMaxRange(range);
+	NSUInteger index;
 	iTM2ModeLine * ML = nil;
 	if(startPtr)
 	{
@@ -989,7 +967,7 @@ conclude:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLine:
-- (NSRange)getRangeForLine:(unsigned int)aLine;
+- (NSRange)getRangeForLine:(NSUInteger)aLine;
 /*"Given a 1 based line number, it returns the line range including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -1003,8 +981,8 @@ To Do List:
 		return [super getRangeForLine:aLine];
 	}
 	iTM2ModeLine * ML = [TSP modeLineAtIndex:aLine];
-	unsigned start = [ML startOffset];
-	unsigned end = [ML endOffset];
+	NSUInteger start = [ML startOffset];
+	NSUInteger end = [ML endOffset];
 	return NSMakeRange(start,end-start);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLineRange:
@@ -1022,17 +1000,17 @@ To Do List:
 		return [super getRangeForLineRange:aLineRange];
 	}
 	iTM2ModeLine * ML = [TSP modeLineAtIndex:aLineRange.location];
-	unsigned start = [ML startOffset];
+	NSUInteger start = [ML startOffset];
 	if(aLineRange.length>1)
 	{
 		aLineRange.location += aLineRange.length-1;
 		ML = [TSP modeLineAtIndex:aLineRange.location];
 	}
-	unsigned end = [ML endOffset];
+	NSUInteger end = [ML endOffset];
 	return NSMakeRange(start,end-start);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
-- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+- (BOOL)didClickOnLink:(id)link atIndex:(NSUInteger)charIndex;
 /*"Given a line range number, it returns the range including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1049,8 +1027,8 @@ To Do List:
 
 NSString * const iTM2TextSyntaxParserType = @"_SPC";
 
-#import <iTM2Foundation/iTM2ObjectServer.h>
-#import <iTM2Foundation/iTM2NotificationKit.h>
+#import "iTM2ObjectServer.h"
+#import "iTM2NotificationKit.h"
 #import <objc/objc-class.h>
 
 /*
@@ -1134,7 +1112,7 @@ To Do List:
 		[self registerObject:C forType:iTM2TextSyntaxParserType key:style retain:NO];
 	}
 //iTM2_LOG(@"There are currently %i subclasses of iTM2TextSyntaxParser", [references count]);
-	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:C];
+	NSPointerArray * PA = [iTM2Runtime subclassReferencesOfClass:C];
 	NSUInteger i = [PA count];
 	while(i--)
 	{
@@ -1153,7 +1131,7 @@ To Do List:
 @end
 
 @interface iTM2TextSyntaxParser(PRIVATE)
-- (unsigned int)xlineIndexForLocation:(unsigned)location;
+- (NSUInteger)xlineIndexForLocation:(NSUInteger)location;
 @end
 
 @implementation iTM2TextSyntaxParser
@@ -1274,12 +1252,12 @@ To Do List:
 	if(iTM2DebugEnabled < 9999)
 		return NO;
     NSString * S = [_TextStorage string];
-    unsigned numberOfModeLines = [self numberOfModeLines];
+    NSUInteger numberOfModeLines = [self numberOfModeLines];
 	BOOL toJail = NO;
 	if(numberOfModeLines)
 	{
-		unsigned end, contentsEnd;
-		unsigned modeLineIndex = 0;
+		NSUInteger end, contentsEnd;
+		NSUInteger modeLineIndex = 0;
 		NSRange R = NSMakeRange(0, 0);
 		iTM2ModeLine * modeLine = [self modeLineAtIndex:modeLineIndex];
 testNextLine:
@@ -1460,7 +1438,7 @@ To Do List:
     {
 //iTM2_LOG(@"S is: <%@>", S);
         iTM2ModeLine * modeLine;
-        unsigned end, contentsEnd;
+        NSUInteger end, contentsEnd;
         NSRange R = NSMakeRange(0, 0);
 RoseRouge:
         modeLine = [iTM2ModeLine modeLine];
@@ -1663,7 +1641,7 @@ To Do List: NYI
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  INDEX WITH BAD OFFSET
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  badOffsetIndex
-- (unsigned)badOffsetIndex;
+- (NSUInteger)badOffsetIndex;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1674,7 +1652,7 @@ To Do List:
     return _BadOffsetIndex;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOffsetsUpTo:
-- (void)validateOffsetsUpTo:(unsigned)argument;
+- (void)validateOffsetsUpTo:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1689,7 +1667,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  invalidateOffsetsFrom:
-- (void)invalidateOffsetsFrom:(unsigned)argument;
+- (void)invalidateOffsetsFrom:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1702,7 +1680,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  INDEX WITH BAD MODE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  badModeIndex
-- (unsigned)badModeIndex;
+- (NSUInteger)badModeIndex;
 /*"The default implementation does nothing visible, subclassers will append or prepend their own stuff.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1713,7 +1691,7 @@ To Do List:
     return _BadModeIndex;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateModesUpTo:
-- (void)validateModesUpTo:(unsigned)argument;
+- (void)validateModesUpTo:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1728,7 +1706,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  invalidateModesFrom:
-- (void)invalidateModesFrom:(unsigned)argument;
+- (void)invalidateModesFrom:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1753,7 +1731,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MODELINES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modeLineAtIndex:
-- (id)modeLineAtIndex:(unsigned)idx;
+- (id)modeLineAtIndex:(NSUInteger)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1764,7 +1742,7 @@ To Do List:
     return [_ModeLines objectAtIndex:idx];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertModeLine:atIndex:
-- (void)insertModeLine:(id)modeLine atIndex:(unsigned)idx;
+- (void)insertModeLine:(id)modeLine atIndex:(NSUInteger)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1776,7 +1754,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceModeLineAtIndex:withModeLine:
-- (void)replaceModeLineAtIndex:(unsigned)idx withModeLine:(id)modeLine;
+- (void)replaceModeLineAtIndex:(NSUInteger)idx withModeLine:(id)modeLine;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1803,7 +1781,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfModeLines
-- (unsigned)numberOfModeLines;
+- (NSUInteger)numberOfModeLines;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1814,7 +1792,7 @@ To Do List:
     return [_ModeLines count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  lineIndexForLocation:
-- (unsigned int)lineIndexForLocation:(unsigned)location;
+- (NSUInteger)lineIndexForLocation:(NSUInteger)location;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -1831,10 +1809,10 @@ To Do List:
     // _ModeLines is assumed to have at least one object!!!
     // _InvalidOffset is assumed to be greater than one, assuming that the first offset is necessary 0!!!
 //iTM2_LOG(@"..........  [self numberOfModeLines] is:%u", [self numberOfModeLines]);
-	unsigned int expected = iTM2DebugEnabled? [self xlineIndexForLocation:location]:0;
-    unsigned n = MIN(_BadOffsetIndex, [self numberOfModeLines])-1;
-	unsigned min = 0;
-	unsigned max = 0;
+	NSUInteger expected = iTM2DebugEnabled? [self xlineIndexForLocation:location]:0;
+    NSUInteger n = MIN(_BadOffsetIndex, [self numberOfModeLines])-1;
+	NSUInteger min = 0;
+	NSUInteger max = 0;
     // _BadOffsetIndex is assumed to be greater than 1
     // The offset of the first mode line must be 0
 //NSLog(@"Index of the last valid mode line with respect to the offset: %u", n);
@@ -1869,7 +1847,7 @@ To Do List:
 //		_PreviousLocation = 0;
 
     modeLine = [_ModeLines objectAtIndex:n];
-    unsigned offset = [modeLine startOffset];
+    NSUInteger offset = [modeLine startOffset];
     if(location < offset)
     {
         // the result is an idx in [0, n-1]
@@ -1909,7 +1887,7 @@ next:
         // n = _BadOffsetIndex-1
         // unless the receiver is really inconsistent
         // the result is an idx between _BadOffsetIndex-1 and [self numberOfModeLines]-1, both included.
-        unsigned top = [_ModeLines count];//=[self numberOfModeLines];
+        NSUInteger top = [_ModeLines count];//=[self numberOfModeLines];
 //NSLog(@"The number of mode lines of this text is: %u, the invalid idx is: %u", top, _BadOffsetIndex);
 waikiki:
         // O is the mode line at idx n
@@ -1950,7 +1928,7 @@ waikiki:
 //NSLog(@"This is a default return");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  xlineIndexForLocation:
-- (unsigned int)xlineIndexForLocation:(unsigned)location;
+- (NSUInteger)xlineIndexForLocation:(NSUInteger)location;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -1967,14 +1945,14 @@ To Do List:
     // _ModeLines is assumed to have at least one object!!!
     // _InvalidOffset is assumed to be greater than one, assuming that the first offset is necessary 0!!!
 //iTM2_LOG(@"..........  [self numberOfModeLines] is:%u", [self numberOfModeLines]);
-    unsigned n = MIN(_BadOffsetIndex, [self numberOfModeLines])-1;
-	unsigned min = 0;
-	unsigned max = 0;
+    NSUInteger n = MIN(_BadOffsetIndex, [self numberOfModeLines])-1;
+	NSUInteger min = 0;
+	NSUInteger max = 0;
     // _BadOffsetIndex is assumed to be greater than 1
     // The offset of the first mode line must be 0
 //NSLog(@"Index of the last valid mode line with respect to the offset: %u", n);
 	iTM2ModeLine * modeLine = [_ModeLines objectAtIndex:n];
-    unsigned offset = [modeLine startOffset];
+    NSUInteger offset = [modeLine startOffset];
     if(location < offset)
     {
         // the result is an idx in [0, n-1]
@@ -2012,7 +1990,7 @@ next:
         // n = _BadOffsetIndex-1
         // unless the receiver is really inconsistent
         // the result is an idx between _BadOffsetIndex-1 and [self numberOfModeLines]-1, both included.
-        unsigned top = [_ModeLines count];//=[self numberOfModeLines];
+        NSUInteger top = [_ModeLines count];//=[self numberOfModeLines];
 //NSLog(@"The number of mode lines of this text is: %u, the invalid idx is: %u", top, _BadOffsetIndex);
 waikiki:
         // O is the mode line at idx n
@@ -2050,7 +2028,7 @@ waikiki:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  ATTRIBUTES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(NSUInteger)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2066,7 +2044,7 @@ To Do List:
     return [_AS attributesForMode:iTM2TextDefaultSyntaxModeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= attributesAtIndex:longestEffectiveRange:inRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
+- (NSDictionary *)attributesAtIndex:(NSUInteger)aLocation longestEffectiveRange:(NSRangePointer)aRangePtr inRange:(NSRange)aRangeLimit;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2074,7 +2052,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSDictionary * D = [self attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr];
+	NSDictionary * D = [self attributesAtIndex:(NSUInteger)aLocation effectiveRange:(NSRangePointer)aRangePtr];
     if(aRangePtr)
     {
 		*aRangePtr = NSIntersectionRange(aRangeLimit, *aRangePtr);
@@ -2082,7 +2060,7 @@ To Do List:
     return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getSyntaxMode:atIndex:longestRange:
-- (unsigned)getSyntaxMode:(unsigned *)modeRef atIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)modeRef atIndex:(NSUInteger)aLocation longestRange:(NSRangePointer)aRangePtr;
 /*"This has been overriden by a subclasser... No need to further subclassing. Default return value is 0 on (inconsistency?)
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2091,12 +2069,12 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //NSLog(@"Location: %u", aLocation);
-    unsigned lineIndex = [self lineIndexForLocation:aLocation];
+    NSUInteger lineIndex = [self lineIndexForLocation:aLocation];
     iTM2ModeLine * modeLine = [self modeLineAtIndex:lineIndex];
     return [modeLine getSyntaxMode:modeRef atGlobalLocation:aLocation longestRange:aRangePtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getSmartSyntaxMode:atIndex:longestRange:
-- (unsigned)getSmartSyntaxMode:(unsigned *)modeRef atIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (NSUInteger)getSmartSyntaxMode:(NSUInteger *)modeRef atIndex:(NSUInteger)aLocation longestRange:(NSRangePointer)aRangePtr;
 /*"This has been overriden by a subclasser... No need to further subclassing. Default return value is 0 on (inconsistency?)
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -2124,7 +2102,7 @@ To Do List:
         return;
     // I don't know if the range is valid.
     range.length = MIN(range.length, [(NSTextStorage *)_TextStorage length]-range.location);
-    unsigned last  = [self lineIndexForLocation:range.location+range.length-1];
+    NSUInteger last  = [self lineIndexForLocation:range.location+range.length-1];
     // last: offset <= range.location range.length-1 < offset+end
     // It means that all the character indices in range are spread over the lines between first and last,
     // both included.
@@ -2132,10 +2110,10 @@ To Do List:
     // all the line indices strictly before _BadOffsetIndex are all valid: no need to make further computation
         return;
 //iTM2_START;
-    unsigned first = MIN([self lineIndexForLocation:range.location], _BadModeIndex);
+    NSUInteger first = MIN([self lineIndexForLocation:range.location], _BadModeIndex);
     // first: offset <= range.location < offset+end
 	// what is the previous mode?
-    unsigned mode = first? [[self modeLineAtIndex:first-1] EOLMode]:[[self modeLineAtIndex:first] previousMode];
+    NSUInteger mode = first? [[self modeLineAtIndex:first-1] EOLMode]:[[self modeLineAtIndex:first] previousMode];
 //NSLog(@"BIG CALCULUS (first is: %u, last is: %u and _BadModeIndex is: %u, mode is: %u)", first, last, _BadModeIndex, mode);
 	if([self diagnostic])
     {
@@ -2147,7 +2125,7 @@ ValidateNextModeLine:;
         id modeLine = [self modeLineAtIndex:first];
 		#ifdef __ELEPHANT_MODELINE__
 		#warning ELEPHANT MODE: For debugging purpose only... see iTM2TextStorageKit.h
-		unsigned start, end;
+		NSUInteger start, end;
 		[[_TS string] getLineStart:&start end:&end contentsEnd:nil forRange:NSMakeRange([modeLine startOffset], 0)];
 		_iTM2InternalAssert([[modeLine originalString] isEqualToString:[[_TS string] substringWithRange:NSMakeRange(start, end-start)]], ([NSString stringWithFormat:@"original is\n<%@> != expected string is:\n<%@>", [modeLine originalString], [[_TS string] substringWithRange:NSMakeRange(start, end-start)]]));
 		#endif
@@ -2176,12 +2154,12 @@ To Do List:
 //iTM2_START;
     if(!range.length)
         return;
-    unsigned top = MIN(NSMaxRange(range), [_TextStorage length]);
+    NSUInteger top = MIN(NSMaxRange(range), [_TextStorage length]);
     if(!top)
         return;
-    unsigned bottom = range.location;
+    NSUInteger bottom = range.location;
     range.location = 0;
-    unsigned lineIndex;
+    NSUInteger lineIndex;
 	lineIndex = [self lineIndexForLocation:top-1];
 	iTM2ModeLine * modeLine = [self modeLineAtIndex:lineIndex];
 	range.location = [modeLine startOffset];
@@ -2230,7 +2208,7 @@ here:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  didUpdateModeLine:forPreviousMode:
-- (void)didUpdateModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
+- (void)didUpdateModeLine:(id)originalModeLine forPreviousMode:(NSUInteger)previousMode;
 /*"This method will compute all the correct attributes. No need to override..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2242,7 +2220,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validEOLModeOfModeLine:forPreviousMode:
-- (unsigned)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
+- (NSUInteger)validEOLModeOfModeLine:(id)originalModeLine forPreviousMode:(NSUInteger)previousMode;
 /*"This method is an entry point will compute all the correct attributes."*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -2282,7 +2260,7 @@ To Do List:
     #define IR _OriginalModeLine->_InvalidLocalRange
 //iTM2_LOG(@"Working hard: local invalid range %@, previousMode: %u", NSStringFromRange(IR), previousMode);
 //[originalModeLine describe];
-//unsigned N = 0;
+//NSUInteger N = 0;
     // From now on, IR.location < the length of the mode line there is some mode to fix
     #undef _ML
     iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)[iTM2ModeLine modeLine];
@@ -2293,22 +2271,22 @@ To Do List:
 	[workingML validateLocalRange:NSMakeRange(0, UINT_MAX)];
 //[workingML describe];
     // We start duplicating the good modes and mode wordLengths
-    unsigned syntaxWordIndex = 0;// Here, syntaxWordIndex < _OriginalModeLine->_NumberOfSyntaxWords
-    unsigned currentSyntaxWordOff7 = 0;// it is the offset of the syntax word at index syntaxWordIndex
+    NSUInteger syntaxWordIndex = 0;// Here, syntaxWordIndex < _OriginalModeLine->_NumberOfSyntaxWords
+    NSUInteger currentSyntaxWordOff7 = 0;// it is the offset of the syntax word at index syntaxWordIndex
     //currentSyntaxWordOff7 = \sum_{i=0}^{syntaxWordIndex-1} [originalModeLine syntaxLengthAtIndex:i]
     _iTM2InternalAssert(![self diagnostic], @"***  1 :BIG PROBLEM IN VALIDATING THE MODE");
-    unsigned testigo = 0;// debugger to ensure that all chars are the same
+    NSUInteger testigo = 0;// debugger to ensure that all chars are the same
 	// We start by copying the valid original modes
 	// a syntax word is considered to be valid when it is before the invalid range and far from it
 	// More precisely a valid syntax word contains no invalid character and is followed by a valid character
 	// We merge the syntax words when possible
 	// if many consecutive syntax words have the same mode, they will be copied as one word
 	// previousMode and previousLength serve this purpose
-    unsigned previousLength = 0;
+    NSUInteger previousLength = 0;
     // previousLength stores the length of the current syntax word
 	copyValidOriginalMode:;
-	unsigned originalMode = _OriginalModeLine->__SyntaxWordModes[syntaxWordIndex];
-    unsigned nextSyntaxWordOff7 = _OriginalModeLine->__SyntaxWordEnds[syntaxWordIndex];// it will be the offset of the syntax word at index syntaxWordIndex+1
+	NSUInteger originalMode = _OriginalModeLine->__SyntaxWordModes[syntaxWordIndex];
+    NSUInteger nextSyntaxWordOff7 = _OriginalModeLine->__SyntaxWordEnds[syntaxWordIndex];// it will be the offset of the syntax word at index syntaxWordIndex+1
     //nextSyntaxWordOff7 = \sum_{i=0}^{syntaxWordIndex} [originalModeLine syntaxLengthAtIndex:i]
     //nextSyntaxWordOff7 = currentSyntaxWordOff7+[originalModeLine syntaxLengthAtIndex:syntaxWordIndex]
 	if(nextSyntaxWordOff7<IR.location)
@@ -2342,20 +2320,20 @@ To Do List:
     // syntaxWordIndex < _OriginalModeLine->_NumberOfSyntaxWords
     //
     // NOW WE ARE FIXING THE ATTRIBUTES...
-    unsigned localLocation = IR.location;// the location we are validating
+    NSUInteger localLocation = IR.location;// the location we are validating
     // localLocation is the first character index for which the mode is not yet fixed
-    unsigned globalLocation = _OriginalModeLine->_StartOff7+localLocation;
-    unsigned topGlobalLocation = _OriginalModeLine->_StartOff7+MIN(NSMaxRange(IR), _OriginalModeLine->_ContentsLength);
+    NSUInteger globalLocation = _OriginalModeLine->_StartOff7+localLocation;
+    NSUInteger topGlobalLocation = _OriginalModeLine->_StartOff7+MIN(NSMaxRange(IR), _OriginalModeLine->_ContentsLength);
     //topGlobalLocation <= [originalModeLine startOffset]+[originalModeLine contentsLength];
 //NSLog(@"Fixing the modes\r(first unsaved mode syntaxWordIndex: %u, nextSyntaxWordOff7: %u, localLocation: %u, previousLength: %u)", syntaxWordIndex, nextSyntaxWordOff7, localLocation, previousLength);
 //[workingML describe];
 //NSLog(@"Looking for globalLocation: %u (?%u)", globalLocation, topGlobalLocation);
     NSAssert2(topGlobalLocation <= [(NSTextStorage *)[self textStorage] length],
 		@"PROBLEM: text length is: %i >? %i", [(NSTextStorage *)[self textStorage] length], topGlobalLocation);
-    unsigned parsedMode = kiTM2TextUnknownSyntaxMode;
-    unsigned parsedLength = 0;
-    unsigned nextMode = kiTM2TextUnknownSyntaxMode;
-	unsigned status;
+    NSUInteger parsedMode = kiTM2TextUnknownSyntaxMode;
+    NSUInteger parsedLength = 0;
+    NSUInteger nextMode = kiTM2TextUnknownSyntaxMode;
+	NSUInteger status;
     // parsedLength is used as a cache
 	_iTM2InternalAssert(![self diagnostic], @"3-BIG PROBLEM IN VALIDATING THE MODE");
     if(globalLocation < topGlobalLocation)
@@ -2439,7 +2417,7 @@ fixGlobalLocationMode:
     // nextSyntaxWordOff7 = currentSyntaxWordOff7+[originalModeLine syntaxLengthAtIndex:syntaxWordIndex]
     // currentSyntaxWordOff7 <= localLocation < nextSyntaxWordOff7
 	_iTM2InternalAssert(![self diagnostic], @"4-BIG PROBLEM IN VALIDATING THE MODE");
-    unsigned oldPreviousMode = (localLocation>currentSyntaxWordOff7)? [originalModeLine syntaxModeAtIndex:syntaxWordIndex]:
+    NSUInteger oldPreviousMode = (localLocation>currentSyntaxWordOff7)? [originalModeLine syntaxModeAtIndex:syntaxWordIndex]:
         (syntaxWordIndex? [originalModeLine syntaxModeAtIndex:syntaxWordIndex-1]:[originalModeLine previousMode]);
     if(oldPreviousMode == previousMode)
     {
@@ -2482,7 +2460,7 @@ fixGlobalLocationMode:
     #undef workingML
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forCharacter:previousMode:
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)newModeRef forCharacter:(unichar)theChar previousMode:(NSUInteger)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2495,7 +2473,7 @@ To Do List:
 	return kiTM2TextNoErrorSyntaxStatus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)idx previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)newModeRef forLocation:(NSUInteger)idx previousMode:(NSUInteger)previousMode effectiveLength:(NSUInteger *)lengthRef nextModeIn:(NSUInteger *)nextModeRef before:(NSUInteger)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2516,7 +2494,7 @@ To Do List:
     return kiTM2TextNoErrorSyntaxStatus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLModeForPreviousMode:
-- (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
+- (NSUInteger)EOLModeForPreviousMode:(NSUInteger)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -2554,7 +2532,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharacterAtIndex:
-- (void)textStorageDidInsertCharacterAtIndex:(unsigned)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidInsertCharacterAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"This new version is stronger.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 05/15/2002
@@ -2566,7 +2544,7 @@ To Do List:
 #warning build FAILED, this is for debugging
     [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1 editedAttributesRangeIn:editedAttributesRangePtr];
 #else
-	unsigned lineIndex = [self lineIndexForLocation:aGlobalLocation];
+	NSUInteger lineIndex = [self lineIndexForLocation:aGlobalLocation];
 	[self invalidateOffsetsFrom:lineIndex+1];
 #undef _ML
 	iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)[[[self modeLineAtIndex:lineIndex] retain] autorelease];
@@ -2575,7 +2553,7 @@ To Do List:
 	// If this mode line is already invalid, we will recompute everything
     // The central question is:
     // Did I insert a new line character?
-    unsigned newEnd, newContentsEnd;
+    NSUInteger newEnd, newContentsEnd;
     NSString * S = [_TextStorage string];
 //NSLog(@"[S length] is:%u", [S length]);
     [S getLineStart:nil end:&newEnd contentsEnd:&newContentsEnd forRange:NSMakeRange(aGlobalLocation, 0)];
@@ -2685,7 +2663,7 @@ theEnd:
 #elif
 #warning FAILED menu item to toggle smart undo
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharacterAtIndex:
-- (void)textStorageDidInsertCharacterAtIndex:(unsigned)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidInsertCharacterAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -2696,7 +2674,7 @@ To Do List:
 #if 0
     [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:1 editedAttributesRangeIn:editedAttributesRangePtr];
 #else
-	unsigned lineIndex = [self lineIndexForLocation:aGlobalLocation];
+	NSUInteger lineIndex = [self lineIndexForLocation:aGlobalLocation];
 	[self invalidateOffsetsFrom:lineIndex+1];
 #undef _ML
 	iTM2ModeLineDef * _ML = (iTM2ModeLineDef *)[self modeLineAtIndex:lineIndex];
@@ -2705,9 +2683,9 @@ To Do List:
 	// If this mode line is already invalid, we will recompute everything
     // The central question is:
     // Did I insert a new line character?
-	unsigned status;
-	unsigned previousMode,newMode;
-    unsigned newEnd, newContentsEnd;
+	NSUInteger status;
+	NSUInteger previousMode,newMode;
+    NSUInteger newEnd, newContentsEnd;
 	unichar theChar;
     NSString * S = [_TextStorage string];
 //NSLog(@"[S length] is:%u", [S length]);
@@ -2819,7 +2797,7 @@ bailWithError:
 			{
 				// the newly appended character may change the previous modes too
 				[workingML deleteModesInRange:previousRange];
-				unsigned globalLocation = previousRange.location;
+				NSUInteger globalLocation = previousRange.location;
 deletePreviousRange:
 				if(globalLocation>_ML->_StartOff7)
 				{
@@ -2841,17 +2819,17 @@ deletePreviousRange:
 				// remove this last syntax word
 				// everything was valid, but now the invalid range is
 				// from globalLocation to the end
-				unsigned previousLength = 0;
+				NSUInteger previousLength = 0;
 				// previousLength stores the length of the current syntax word
 				//
 				// NOW WE ARE FIXING THE ATTRIBUTES...
 				// localLocation is the first character index for which the mode is not yet fixed
-				unsigned localLocation = globalLocation-_ML->_StartOff7;
+				NSUInteger localLocation = globalLocation-_ML->_StartOff7;
 //[workingML describe];
 //NSLog(@"Looking for globalLocation: %u (?%u)", globalLocation, newContentsEnd);
-				unsigned parsedMode = kiTM2TextUnknownSyntaxMode;
-				unsigned parsedLength = 0;
-				unsigned nextMode = kiTM2TextUnknownSyntaxMode;
+				NSUInteger parsedMode = kiTM2TextUnknownSyntaxMode;
+				NSUInteger parsedLength = 0;
+				NSUInteger nextMode = kiTM2TextUnknownSyntaxMode;
 				// parsedLength is used as a cache
 fixGlobalLocationMode:
 //NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, newContentsEnd: %u", globalLocation, newContentsEnd);
@@ -2957,7 +2935,7 @@ fixGlobalLocationMode:
 				iTM2_LOG(@"/*/*/*/*/*  <:?( BAD ENLARGED MODE LINE!!!");
 			}
 			NSRange availableRange;
-			unsigned availableMode;
+			NSUInteger availableMode;
 			status = [workingML getSyntaxMode:&availableMode atGlobalLocation:aGlobalLocation longestRange:&availableRange];
 			if(availableMode != kiTM2TextRegularSyntaxMode)
 			{
@@ -3085,7 +3063,7 @@ nextAvailableMode:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:
-- (void)textStorageDidReplaceCharactersAtIndex:(unsigned)location count:(unsigned)oldCount withCount:(unsigned)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidReplaceCharactersAtIndex:(NSUInteger)location count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3101,9 +3079,9 @@ To Do List:
     }
     // please no diagnostic here: we really know that the mode lines are inconsistent
     // the purpose of this method is to make things consistent.
-	unsigned lastLocation = location+oldCount-1;// it is the index of the last changed character, if relevant
+	NSUInteger lastLocation = location+oldCount-1;// it is the index of the last changed character, if relevant
     NSString * S = [_TextStorage string];
-    unsigned last = [self lineIndexForLocation:lastLocation];
+    NSUInteger last = [self lineIndexForLocation:lastLocation];
 	// we act as if the whole line was modified:
 	// location+oldCount-1 is the index of the last character removed
     // In general 
@@ -3124,14 +3102,14 @@ To Do List:
     #undef _ML
 //    #define _ML ((iTM2ModeLine *)workingML)
     iTM2ModeLineDef * lastModeLine = (iTM2ModeLineDef *)[_ModeLines objectAtIndex:last];
-	unsigned complement = lastModeLine->_EndOff7-lastLocation-1;// is the EOL 1 or 2 chars long?
+	NSUInteger complement = lastModeLine->_EndOff7-lastLocation-1;// is the EOL 1 or 2 chars long?
 	newCount += complement;
 	oldCount += complement;
 	lastLocation += complement;
 	// Now we are sure that the EOL at line last is completely replaced!
 	// there could have been a problem if the EOL was 2 chars long and we replaced only one of the chars...
     iTM2ModeLineDef * _ML = lastModeLine;
-    unsigned nextLineOff7 = _ML->_EndOff7+newCount-oldCount;
+    NSUInteger nextLineOff7 = _ML->_EndOff7+newCount-oldCount;
     #undef workingML
     #define workingML ((iTM2ModeLine *)_ML)
     if(nextLineOff7>[S length])
@@ -3140,12 +3118,12 @@ To Do List:
 		nextLineOff7 = [S length];
         [workingML describe];
     }
-    unsigned first = [self lineIndexForLocation:location];
+    NSUInteger first = [self lineIndexForLocation:location];
 	_ML = (iTM2ModeLineDef *)[_ModeLines objectAtIndex:first];
     // [[self modeLineAtIndex:first] startOffset] <= location < [[self modeLineAtIndex:first] endOffset]
     // except when location == [the_text_storage length], and the mode line is the last one
     // [[self modeLineAtIndex:first] startOffset] <= location <= [[self modeLineAtIndex:first] endOffset]
-    unsigned begin, contentsEnd, end;
+    NSUInteger begin, contentsEnd, end;
     NSRange R = NSMakeRange(location, 0);
     NSMutableArray * newModes = [NSMutableArray array];
     begin = _ML->_StartOff7;
@@ -3222,7 +3200,7 @@ BesameMucho:
     #undef workingML
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharactersAtIndex:count:editedAttributesRangeIn:
-- (void)textStorageDidInsertCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidInsertCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3243,14 +3221,14 @@ To Do List:
 	// if not, they are inserted before the last character,
 	// such that in that case there is always an EOL marker remaining
 	// and there is already a last void mode line
-    unsigned lineIndex = [self lineIndexForLocation:location];
+    NSUInteger lineIndex = [self lineIndexForLocation:location];
 	// there is a possibility of bad mess up
 	// suppose the previous EOL is \r
 	// suppose we add a new line at the beginning of a line
 	// if this new line is a \n, then the previous EOL marker will become \r\n and we did modify the previous line!!!
 	// we have to test if we inserted an EOL
     NSString * S = [_TextStorage string];
-	unsigned end, contentsEnd;
+	NSUInteger end, contentsEnd;
 	iTM2ModeLine * oldModeLine;
     NSRange R;
 	if(lineIndex)
@@ -3258,7 +3236,7 @@ To Do List:
 		oldModeLine = [self modeLineAtIndex:lineIndex-1];
 		R = NSMakeRange([oldModeLine startOffset], 0);
 		[S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-		unsigned newEOLLength = end-contentsEnd;
+		NSUInteger newEOLLength = end-contentsEnd;
 		if(newEOLLength != [oldModeLine EOLLength])
 		{
 			[oldModeLine setEOLLength:newEOLLength];
@@ -3267,7 +3245,7 @@ To Do List:
 	}
 	oldModeLine = [self modeLineAtIndex:lineIndex];
 //NSLog(@"[S length]:%u, %u characters inserted.", [S length], count);
-    unsigned top = [oldModeLine endOffset]+count;
+    NSUInteger top = [oldModeLine endOffset]+count;
 	// top is the index of the last character of the affected line
 	// it is either the index of an EOL marker
 	// or the length of the text storage
@@ -3322,7 +3300,7 @@ RoseRouge:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharacterAtIndex:editedAttributesRangeIn:
-- (void)textStorageDidDeleteCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidDeleteCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3332,14 +3310,14 @@ To Do List:
 //iTM2_START;
 //NSLog(@"=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=");
 //NSLog(@"THE NUMBER OF LINES WAS: %u", [self numberOfModeLines]);
-    unsigned lineIndex = [self lineIndexForLocation:location];
+    NSUInteger lineIndex = [self lineIndexForLocation:location];
 //NSLog(@"The line idx for location %u is %u", location, lineIndex);
     iTM2ModeLine * workingML = [self modeLineAtIndex:lineIndex];
 //[workingML diagnostic];
     if(location < [workingML contentsEndOffset])
     {
 		NSRange affectedRange;
-		unsigned mode;
+		NSUInteger mode;
 		[workingML getSyntaxMode:&mode atGlobalLocation:location longestRange:&affectedRange];
 		if(![workingML deleteModesInRange:NSMakeRange(location, 1)])
 		{
@@ -3348,7 +3326,7 @@ To Do List:
 			// [[self modeLineAtIndex:first] startOffset] <= location < [[self modeLineAtIndex:first] endOffset]
 			// except when location == [the_text_storage length], and the mode line is the last one
 			// [[self modeLineAtIndex:first] startOffset] <= location <= [[self modeLineAtIndex:first] endOffset]
-			unsigned begin, contentsEnd, end;
+			NSUInteger begin, contentsEnd, end;
 			NSRange R = NSMakeRange(location, 0);
 			NSString * S = [[self textStorage] string];
 			[S getLineStart:&begin end:&end contentsEnd:&contentsEnd forRange:R];
@@ -3368,7 +3346,7 @@ To Do List:
 			[self replaceModeLineAtIndex:lineIndex withModeLine:workingML];
 			if(editedAttributesRangePtr)
 			{
-				unsigned offset = [workingML startOffset];
+				NSUInteger offset = [workingML startOffset];
 				* editedAttributesRangePtr = NSMakeRange(offset, [_TS length]-offset);
 			}
 			R = NSMakeRange(0,UINT_MAX);
@@ -3405,7 +3383,7 @@ To Do List:
         [self invalidateOffsetsFrom:lineIndex+1];
 		if(editedAttributesRangePtr)
 		{
-			unsigned offset = [workingML startOffset];
+			NSUInteger offset = [workingML startOffset];
 			* editedAttributesRangePtr = NSMakeRange(offset, [_TS length]-offset);
 		}
 #ifdef __ELEPHANT_MODELINE__
@@ -3437,7 +3415,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharactersAtIndex:count:editedAttributesRangeIn:
-- (void)textStorageDidDeleteCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidDeleteCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: 05/15/2002
@@ -3448,25 +3426,25 @@ To Do List:
 //NSLog(@"=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=-<>-=");
 //[self diagnostic];
 //NSLog(@"THE NUMBER OF LINES WAS: %u", [self numberOfModeLines]);
-    unsigned oldFirstIndex = [self lineIndexForLocation:location];
+    NSUInteger oldFirstIndex = [self lineIndexForLocation:location];
 //NSLog(@"The line idx for location %u is %u", location, oldFirstIndex);
     iTM2ModeLine * oldFirst = [self modeLineAtIndex:oldFirstIndex];
 	if(editedAttributesRangePtr)
 	{
-		unsigned location = [oldFirst startOffset];
+		NSUInteger location = [oldFirst startOffset];
 		* editedAttributesRangePtr = NSMakeRange(location, [_TS length]-location);
 	}
-	unsigned oldLastIndex = [self lineIndexForLocation:location+count];
+	NSUInteger oldLastIndex = [self lineIndexForLocation:location+count];
 //NSLog(@"The line idx for location %u is %u", location+count, oldLastIndex);
     iTM2ModeLine * oldLast = [self modeLineAtIndex:oldLastIndex];
-	// unsigned nextOffset = [oldLast endOffset];
+	// NSUInteger nextOffset = [oldLast endOffset];
 //NSLog(@"The number of affected line is: %u (= %u-%u+1)", oldLastIndex-oldFirstIndex+1, oldLastIndex, oldFirstIndex);
     NSRange R;
     R.location = [oldFirst startOffset];
     R.length = 0;
     NSString * S = [_TextStorage string];
 //NSLog(@"[S length]:%u", [S length]);
-    unsigned topLocation = [oldLast endOffset];
+    NSUInteger topLocation = [oldLast endOffset];
 //NSLog(@"The affected range is: %u <= ? < %u", [oldFirst startOffset], topLocation);
     topLocation -= count;
     if(topLocation > [S length])
@@ -3474,17 +3452,17 @@ To Do List:
         iTM2_LOG(@"There is a consistency problem, the characters deleted were not as numerous as declared, please report bug");
         topLocation = [S length];
     }
-    unsigned contentsEnd = 0;
+    NSUInteger contentsEnd = 0;
     NSMutableArray * newModes = [NSMutableArray array];
 //NSLog(@"R.location: %u, topLocation: %u", R.location, topLocation);
     iTM2ModeLine * new;
 maui:
     new = [iTM2ModeLine modeLine];
-    unsigned offset = R.location;
+    NSUInteger offset = R.location;
     [new setStartOffset:offset];
 //NSLog(@"XVXVXVXVXVXVXVXXVXVXVXXVX");
 //NSLog(@"Starting offset: %u", R.location);
-	unsigned end;
+	NSUInteger end;
     [S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 #ifdef __ELEPHANT_MODELINE__
 #warning ELEPHANT MODE: For debugging purpose only... see iTM2TextStorageKit.h
@@ -3555,7 +3533,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
-- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+- (BOOL)didClickOnLink:(id)link atIndex:(NSUInteger)charIndex;
 /*"Given a line range number, it returns the range including the ending characters.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -3598,7 +3576,7 @@ To Do List:
     return [[[self alloc] initWithString:@"" atCursor:nil] autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  initWithString:atCursor:
-- (id)initWithString:(NSString *)aString atCursor:(unsigned *)cursorPtr;
+- (id)initWithString:(NSString *)aString atCursor:(NSUInteger *)cursorPtr;
 /*"Designated initializer. The cursor is meant to point to the beginning of the line (typically given by a #{getLineStart:...} or 0)
 on return, it will point to the beginning of the next line. If the cursor is nil, it is assumed to point to 0.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -3638,12 +3616,12 @@ To Do List:
         }
         if([aString length])
         {
-            unsigned contents = 0;
-            unsigned length = 0;
+            NSUInteger contents = 0;
+            NSUInteger length = 0;
             if(cursorPtr)
             {
                 _StartOff7 = *cursorPtr;
-                unsigned start = MIN(* cursorPtr, [aString length]);
+                NSUInteger start = MIN(* cursorPtr, [aString length]);
 //NSLog(@"GLS 1");
                 [aString getLineStart:nil end:cursorPtr contentsEnd:&contents forRange:NSMakeRange(start, 0)];
                 length = *cursorPtr-start;
@@ -3715,7 +3693,7 @@ To Do List:
         }
 		// it is possible to swap mode lines with different EOL lengths
     }
-    unsigned temp;
+    NSUInteger temp;
     #define _iTM2_SWAP(C, A, B) C=A;A=B;B=C;
 //    _iTM2_SWAP(temp, _StartOff7, swapModeLine->_StartOff7);
 //    _iTM2_SWAP(temp, _ContentsEndOff7, swapModeLine->_ContentsEndOff7);
@@ -3769,7 +3747,7 @@ To Do List:
     NSLog(@"_EOLMode: %u", _EOLMode);
     NSLog(@"_NumberOfSyntaxWords: %u", _NumberOfSyntaxWords);
     NSLog(@"_MaxNumberOfSyntaxWords: %u", _MaxNumberOfSyntaxWords);
-    unsigned idx = 0;
+    NSUInteger idx = 0;
     while(idx<_NumberOfSyntaxWords)
     {
         NSLog(@"idx: %4u, offset: %4u, end: %4u(= %4u), length: %4u, mode: %4i",
@@ -3821,7 +3799,7 @@ To Do List:
             goto bail;
         }
 
-        unsigned idx = 0;
+        NSUInteger idx = 0;
         while(idx<_NumberOfSyntaxWords)
             if(__SyntaxWordEnds[idx] != __SyntaxWordOff7s[idx]+__SyntaxWordLengths[idx])
             {
@@ -3840,7 +3818,7 @@ To Do List:
 			if(_ContentsLength != __SyntaxWordOff7s[_NumberOfSyntaxWords])
 			{
 				iTM2_LOG(@"_ContentsLength(%u) != __SyntaxWordOff7s[%u](%u=%u)", _ContentsLength, _NumberOfSyntaxWords, __SyntaxWordOff7s[_NumberOfSyntaxWords], __SyntaxWordEnds[_NumberOfSyntaxWords-1]);
-				unsigned idx = 0;
+				NSUInteger idx = 0;
 				while(idx <= _NumberOfSyntaxWords)
 					NSLog(@"idx: %u, __SyntaxWordOff7s[idx]:%u", idx, __SyntaxWordOff7s[idx]),++idx;
 				idx = 0;
@@ -3857,7 +3835,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTER/GETTER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  startOffset
-- (unsigned)startOffset;
+- (NSUInteger)startOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3868,7 +3846,7 @@ To Do List:
     return _StartOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setStartOffset:
-- (void)setStartOffset:(unsigned)argument;
+- (void)setStartOffset:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3882,7 +3860,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  commentOffset
-- (unsigned)commentOffset;
+- (NSUInteger)commentOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3893,7 +3871,7 @@ To Do List:
     return _CommentOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  uncommentedLength
-- (unsigned)uncommentedLength;
+- (NSUInteger)uncommentedLength;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3905,7 +3883,7 @@ To Do List:
     return _UncommentedLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setCommentStart:
-- (void)setUncommentedLength:(unsigned)argument;
+- (void)setUncommentedLength:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3918,7 +3896,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  contentsEndOffset
-- (unsigned)contentsEndOffset;
+- (NSUInteger)contentsEndOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3929,7 +3907,7 @@ To Do List:
     return _ContentsEndOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  endOffset
-- (unsigned)endOffset;
+- (NSUInteger)endOffset;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3940,7 +3918,7 @@ To Do List:
     return _EndOff7;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLLength
-- (unsigned)EOLLength;
+- (NSUInteger)EOLLength;
 /*"Description forthcoming. The sum of all the wordLengths are assumed to be the EOLLength.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3951,7 +3929,7 @@ To Do List:
     return _EOLLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setEOLLength:
-- (void)setEOLLength:(unsigned)argument;
+- (void)setEOLLength:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3965,7 +3943,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  contentsLength
-- (unsigned)contentsLength;
+- (NSUInteger)contentsLength;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3976,7 +3954,7 @@ To Do List:
     return _ContentsLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  length
-- (unsigned)length;
+- (NSUInteger)length;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4017,11 +3995,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned maxInvalidRange = NSMaxRange(_InvalidLocalRange);
+    NSUInteger maxInvalidRange = NSMaxRange(_InvalidLocalRange);
     if(argument.location <= _InvalidLocalRange.location)
     {
         // argument starts at the left of the actual _InvalidLocalRange
-        unsigned maxArgument = NSMaxRange(argument);
+        NSUInteger maxArgument = NSMaxRange(argument);
         if(maxArgument < maxInvalidRange)
         {
             // argument ends in the interior of the actual _InvalidLocalRange
@@ -4040,7 +4018,7 @@ To Do List:
     {
         // argument starts in the interior of the actual _InvalidLocalRange
         // validation can occur only if argument ends at the right
-        unsigned maxArgument = argument.location+argument.length;
+        NSUInteger maxArgument = argument.location+argument.length;
         if(maxArgument >= maxInvalidRange)
         {
             // argument ends in the interior of the actual _InvalidLocalRange
@@ -4126,7 +4104,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  previousMode
-- (unsigned)previousMode;
+- (NSUInteger)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4137,7 +4115,7 @@ To Do List:
     return _PreviousMode | kiTM2TextEndOfLineSyntaxMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setPreviousMode:
-- (void)setPreviousMode:(unsigned)argument;
+- (void)setPreviousMode:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4149,7 +4127,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLMode
-- (unsigned)EOLMode;
+- (NSUInteger)EOLMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4160,7 +4138,7 @@ To Do List:
     return _EOLMode | kiTM2TextEndOfLineSyntaxMask;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setEOLMode:
-- (void)setEOLMode:(unsigned)argument;
+- (void)setEOLMode:(NSUInteger)argument;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4183,7 +4161,7 @@ To Do List:
     return _Length > _EOLLength;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  numberOfSyntaxWords
-- (unsigned)numberOfSyntaxWords;
+- (NSUInteger)numberOfSyntaxWords;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4194,14 +4172,14 @@ To Do List:
     return _NumberOfSyntaxWords;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  status
-- (unsigned int)status;
+- (NSUInteger)status;
 /*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return _Status;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setStatus:
-- (void)setStatus:(unsigned int)argument;
+- (void)setStatus:(NSUInteger)argument;
 /*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -4209,14 +4187,14 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  depth
-- (int)depth;
+- (NSUInteger)depth;
 /*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     return _Depth;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setDepth:
-- (void)setDepth:(int)argument;
+- (void)setDepth:(NSUInteger)argument;
 /*"Description forthcoming.jlaurens AT users DOT sourceforge DOT net"*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
@@ -4239,7 +4217,7 @@ To Do List:
 #endif
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MODES/LENGTHS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxLengthAtIndex
-- (unsigned)syntaxLengthAtIndex:(unsigned)idx;
+- (NSUInteger)syntaxLengthAtIndex:(NSUInteger)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4250,7 +4228,7 @@ To Do List:
     return (idx < _NumberOfSyntaxWords)? __SyntaxWordLengths[idx]:(idx? 0:[self contentsLength]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeAtIndex
-- (unsigned)syntaxModeAtIndex:(unsigned)idx;
+- (NSUInteger)syntaxModeAtIndex:(NSUInteger)idx;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4294,7 +4272,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  appendSyntaxMode:length:
-- (void)appendSyntaxMode:(unsigned)mode length:(unsigned)length;
+- (void)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4373,7 +4351,7 @@ To Do List:
             iTM2_LOG(@"****  INTERNAL INCONSISTENCY: Deleting last mode on a bad mode line");
         }
 		NSAssert(__SyntaxWordLengths, @"****  INTERNAL INCONSISTENCY: unexpected lack of storage for modes");
-		unsigned lastLength = __SyntaxWordLengths[--_NumberOfSyntaxWords];
+		NSUInteger lastLength = __SyntaxWordLengths[--_NumberOfSyntaxWords];
 		NSAssert(_ContentsLength >= lastLength, @"****  INTERNAL INCONSISTENCY: unexpected lack of storage for modes");
 		_ContentsLength -= lastLength;
 		if(_UncommentedLength >= _ContentsLength)
@@ -4392,7 +4370,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  enlargeSyntaxModeAtGlobalLocation:length:
-- (BOOL)enlargeSyntaxModeAtGlobalLocation:(unsigned)aGlobalLocation length:(unsigned)lengthOffset;
+- (BOOL)enlargeSyntaxModeAtGlobalLocation:(NSUInteger)aGlobalLocation length:(NSUInteger)lengthOffset;
 /*Adds length to the length at global location aGlobalLocation.
 It is relative to the beginning of the line. Other locations mean new line char insertions.
 The attribute value at aGlobalLocation won't change once the message is sent!!! It simply finds the "word" containing
@@ -4426,11 +4404,11 @@ To Do List:
         }
         // we look for an idx such that
         // _StartOff7+__SyntaxWordsOff7s[idx] <= aGlobalLocation < _StartOff7+__SyntaxWordEnds[idx]
-        unsigned localLocation = aGlobalLocation-_StartOff7;
-        unsigned left = 0;
-        unsigned right = _NumberOfSyntaxWords;
-        unsigned delta;
-        unsigned idx;
+        NSUInteger localLocation = aGlobalLocation-_StartOff7;
+        NSUInteger left = 0;
+        NSUInteger right = _NumberOfSyntaxWords;
+        NSUInteger delta;
+        NSUInteger idx;
         // we have
         // _StartOff7+__SyntaxWordOff7s[left] <= aGlobalLocation < _StartOff7+__SyntaxWordOff7s[_NumberOfSyntaxWords] = _ContentsEndOff7
         while(delta = (right-left)/2)
@@ -4481,7 +4459,7 @@ To Do List:
         }
         if(_NumberOfSyntaxWords)
         {
-            unsigned idx = _NumberOfSyntaxWords-1;
+            NSUInteger idx = _NumberOfSyntaxWords-1;
             __SyntaxWordLengths[idx] += lengthOffset;
 			if(_UncommentedLength >= __SyntaxWordEnds[idx])
 				_UncommentedLength += lengthOffset;
@@ -4510,7 +4488,7 @@ To Do List:
 //[self describe];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  longestRangeAtGlobalLocation:mask:
-- (NSRange)longestRangeAtGlobalLocation:(unsigned)aGlobalLocation mask:(unsigned int)mask;
+- (NSRange)longestRangeAtGlobalLocation:(NSUInteger)aGlobalLocation mask:(NSUInteger)mask;
 /*"Description forthcoming. aGlobalLocation is global.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Dec 17 09:32:38 GMT 2003
@@ -4518,7 +4496,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	unsigned mode;
+	NSUInteger mode;
 	NSRange range;
 	NSRange result = NSMakeRange(NSNotFound,0);
 	if([self getSyntaxMode:&mode atGlobalLocation:aGlobalLocation longestRange:&range])
@@ -4543,7 +4521,7 @@ To Do List:
 			break;
 		}
 	}
-	unsigned top = NSMaxRange(result);
+	NSUInteger top = NSMaxRange(result);
 	while(top<_EndOff7)
 	{
 		[self getSyntaxMode:&mode atGlobalLocation:top longestRange:&range];
@@ -4562,7 +4540,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:atGlobalLocation:longestRange:
-- (unsigned)getSyntaxMode:(unsigned *)modeRef atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)modeRef atGlobalLocation:(NSUInteger)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming. aGlobalLocation is global.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4588,11 +4566,11 @@ To Do List:
         // _StartOff7 <= aGlobalLocation < _EndOff7
         if(_NumberOfSyntaxWords)
         {
-			unsigned localLocation = aGlobalLocation-_StartOff7;
-            unsigned left = 0;
-            unsigned right = _NumberOfSyntaxWords;
-            unsigned idx = left;
-            unsigned delta;
+			NSUInteger localLocation = aGlobalLocation-_StartOff7;
+            NSUInteger left = 0;
+            NSUInteger right = _NumberOfSyntaxWords;
+            NSUInteger idx = left;
+            NSUInteger delta;
             // we start with: 
             // > left < right (if not insconsistent)
             // > __SyntaxWordOff7s[left = 0] <= localLocation < __SyntaxWordOff7s[right = _NumberOfSyntaxWords] = _ContentsEndOff7
@@ -4654,7 +4632,7 @@ pano2:
 					// __SyntaxWordOff7s[idx] <= localLocation < __SyntaxWordOff7s[idx+1]
 				}
 			}
-			unsigned result = __SyntaxWordModes[left];
+			NSUInteger result = __SyntaxWordModes[left];
 			if(aRangePtr)
 			{
 				* aRangePtr = NSMakeRange(_StartOff7+__SyntaxWordOff7s[left], __SyntaxWordLengths[left]);
@@ -4708,7 +4686,7 @@ pano2:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getPreviousSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
-- (unsigned)getPreviousSyntaxMode:(unsigned *)modeRef notEqualTo:(unsigned)excludeMode atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
+- (NSUInteger)getPreviousSyntaxMode:(NSUInteger *)modeRef notEqualTo:(NSUInteger)excludeMode atGlobalLocation:(NSUInteger)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming. aGlobalLocation is global.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -4717,8 +4695,8 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSRange r;
-	unsigned mode;
-	unsigned status = [self getSyntaxMode:&mode atGlobalLocation:aGlobalLocation longestRange:&r];
+	NSUInteger mode;
+	NSUInteger status = [self getSyntaxMode:&mode atGlobalLocation:aGlobalLocation longestRange:&r];
 	if(status == kiTM2TextMissingModeSyntaxStatus)
 	{
 		if(aRangePtr)
@@ -4772,7 +4750,7 @@ To Do List:
     // everything is removed from the right part
         return NO;
     // deleteRange.location < _EndOff7
-    unsigned maxDeleteRange = NSMaxRange(deleteRange);
+    NSUInteger maxDeleteRange = NSMaxRange(deleteRange);
 	// maxDeleteRange is the index of the first character kept after the deleted range
     if(maxDeleteRange <= _StartOff7 )
     {
@@ -4791,7 +4769,7 @@ To Do List:
     else if(_ContentsEndOff7 <= deleteRange.location )
     {
         // only EOL is affected
-        unsigned removed = MIN(maxDeleteRange, _EndOff7)-deleteRange.location;
+        NSUInteger removed = MIN(maxDeleteRange, _EndOff7)-deleteRange.location;
         [self setEOLLength:_EOLLength-removed];
         return YES;// We always have removed>0 due to the previous test;
     }
@@ -4801,7 +4779,7 @@ To Do List:
     else if(_ContentsEndOff7 < maxDeleteRange)
     {
         // EOL is affected but it is not completely removed
-        unsigned removed = MIN(maxDeleteRange, _EndOff7)-_ContentsEndOff7;
+        NSUInteger removed = MIN(maxDeleteRange, _EndOff7)-_ContentsEndOff7;
         [self setEOLLength:_EOLLength-removed];
 		if(_ContentsEndOff7 > deleteRange.location)
 		{
@@ -4832,7 +4810,7 @@ To Do List:
 	// we are scanning the syntax words 3 times
 	// twice for deleting, first to delete the modes and second to delete void syntax words
 	// Finally once for fixing the consistency
-	unsigned idx = 0;
+	NSUInteger idx = 0;
 	NSRange R;
 fautea:
 	//
@@ -4858,7 +4836,7 @@ canella:
 		goto fautea;
 	// Now deleting the 0 length syntax words
 	idx = 0;
-	unsigned target=0;
+	NSUInteger target=0;
 capiciola:
 	if(!__SyntaxWordLengths[idx])
 	{
@@ -4902,24 +4880,24 @@ propriano:
 //	[self description];
     return YES;
 }
-@synthesize _StartOff7;
-@synthesize _CommentOff7;
-@synthesize _ContentsEndOff7;
-@synthesize _EndOff7;
-@synthesize _UncommentedLength;
-@synthesize _ContentsLength;
-@synthesize _Length;
-@synthesize _EOLLength;
-@synthesize _PreviousMode;
-@synthesize _EOLMode;
-@synthesize _NumberOfSyntaxWords;
-@synthesize _MaxNumberOfSyntaxWords;
-@synthesize __SyntaxWordOff7s;
-@synthesize __SyntaxWordLengths;
-@synthesize __SyntaxWordEnds;
-@synthesize __SyntaxWordModes;
-@synthesize _Status;
-@synthesize _Depth;
+@synthesize startOff7=_StartOff7;
+@synthesize commentOff7=_CommentOff7;
+@synthesize contentsEndOff7=_ContentsEndOff7;
+@synthesize endOff7=_EndOff7;
+@synthesize uncommentedLength=_UncommentedLength;
+@synthesize contentsLength=_ContentsLength;
+@synthesize length=_Length;
+@synthesize EOLLength=_EOLLength;
+@synthesize previousMode=_PreviousMode;
+@synthesize EOLMode=_EOLMode;
+@synthesize numberOfSyntaxWords=_NumberOfSyntaxWords;
+@synthesize maxNumberOfSyntaxWords=_MaxNumberOfSyntaxWords;
+@synthesize syntaxWordOff7s=__SyntaxWordOff7s;
+@synthesize syntaxWordLengths=__SyntaxWordLengths;
+@synthesize syntaxWordEnds=__SyntaxWordEnds;
+@synthesize syntaxWordModes=__SyntaxWordModes;
+@synthesize status=_Status;
+@synthesize depth=_Depth;
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextStorageKit
 
@@ -4937,7 +4915,7 @@ NSString * const iTM2TextDefaultVariant = @"default";
 
 NSString * const iTM2TextAttributesServerType = @"_AS";
 
-#import <iTM2Foundation/iTM2FileManagerKit.h>
+#import "iTM2FileManagerKit.h"
 
 @implementation iTM2TextSyntaxParser(Attributes)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultModesAttributes
@@ -5145,7 +5123,7 @@ To Do List:
 @interface iTM2TextModeAttributesDictionary: NSDictionary
 {
 @private
-    unsigned _Count;
+    NSUInteger _Count;
     id _Keys;
     id _Font;
     id _ForegroundColor;
@@ -5154,7 +5132,7 @@ To Do List:
     id _NoBackground;
     id _TextMode;
 }
-@property unsigned _Count;
+@property NSUInteger _Count;
 @property (retain) id _Keys;
 @property (retain) id _Font;
 @property (retain) id _ForegroundColor;
@@ -5164,7 +5142,7 @@ To Do List:
 @property (retain) id _TextMode;
 @end
 
-#import <iTM2Foundation/iTM2PathUtilities.h>
+#import "iTM2PathUtilities.h"
 
 @implementation iTM2TextSyntaxParserAttributesServer
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserClass
@@ -5484,7 +5462,7 @@ To Do List:
 	id attributes = nil;
 	NSString * line;
 	NSRange R = NSMakeRange(0,0);
-	unsigned nextStart = 0, contentsEnd = 0;
+	NSUInteger nextStart = 0, contentsEnd = 0;
 	do
 	{
 		R.location = nextStart;
@@ -5659,23 +5637,15 @@ To Do List:
 
 @implementation iTM2TextModeAttributesDictionary
 
-static unsigned iTM2FontAttributeNameHash = 0;
-static unsigned iTM2ForegroundColorAttributeNameHash = 0;
-static unsigned iTM2BackgroundColorAttributeNameHash = 0;
-static unsigned iTM2TextModeAttributeNameHash = 0;
-static unsigned iTM2CursorIsWhiteAttributeNameHash = 0;
-static unsigned iTM2NoBackgroundAttributeNameHash = 0;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Oct  6 12:57:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
+static NSUInteger iTM2FontAttributeNameHash = 0;
+static NSUInteger iTM2ForegroundColorAttributeNameHash = 0;
+static NSUInteger iTM2BackgroundColorAttributeNameHash = 0;
+static NSUInteger iTM2TextModeAttributeNameHash = 0;
+static NSUInteger iTM2CursorIsWhiteAttributeNameHash = 0;
+static NSUInteger iTM2NoBackgroundAttributeNameHash = 0;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
++ (void)initialize;
+{
     iTM2FontAttributeNameHash = [NSFontAttributeName hash];
     iTM2ForegroundColorAttributeNameHash = [NSForegroundColorAttributeName hash];
     iTM2BackgroundColorAttributeNameHash = [NSBackgroundColorAttributeName hash];
@@ -5688,9 +5658,6 @@ To Do List:
 //iTM2_LOG(@"iTM2TextModeAttributeNameHash is: %i", iTM2TextModeAttributeNameHash);
 //iTM2_LOG(@"iTM2CursorIsWhiteAttributeNameHash is: %i", iTM2CursorIsWhiteAttributeNameHash);
 //iTM2_LOG(@"iTM2NoBackgroundAttributeNameHash is: %i", iTM2NoBackgroundAttributeNameHash);
-//iTM2_END;
-#warning ! FAILED this has no meaning
-	iTM2_RELEASE_POOL;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  init
@@ -5792,7 +5759,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithObjects:forKeys:count:
-- (id)initWithObjects:(id *)objects forKeys:(id *)keys count:(unsigned)count;
+- (id)initWithObjects:(id *)objects forKeys:(id *)keys count:(NSUInteger)count;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5803,7 +5770,7 @@ To Do List:
     if(self = [self init])
     {
 	_Count = 0;
-        NSDictionary * D = [[[NSDictionary alloc] initWithObjects:(id *)objects forKeys:(id *)keys count:(unsigned)count] autorelease];
+        NSDictionary * D = [[[NSDictionary alloc] initWithObjects:(id *)objects forKeys:(id *)keys count:(NSUInteger)count] autorelease];
         NSMutableArray * mra = [NSMutableArray array];
         id O;
         REGISTER(_Font, NSFontAttributeName);
@@ -5867,7 +5834,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  count
-- (unsigned)count;
+- (NSUInteger)count;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Oct  6 12:57:00 GMT 2004
@@ -5894,7 +5861,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    unsigned hash = [aKey hash];
+    NSUInteger hash = [aKey hash];
     if(hash == iTM2FontAttributeNameHash)
         return _Font;
     else if(hash == iTM2ForegroundColorAttributeNameHash)
@@ -5929,5 +5896,25 @@ To Do List:
 @synthesize _NoBackground;
 @synthesize _TextMode;
 @end
+
+@implementation iTM2MainInstaller(TextStorageKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TextStorageCompleteInstallation
++ (void)iTM2TextStorageCompleteInstallation;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 2: Mon Jun  7 21:48:56 GMT 2004
+ To Do List: Nothing
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	[iTM2TextInspector iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2style_lazyTextStorage)];
+	[iTM2TextSyntaxParser class];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+						   [NSNumber numberWithBool:YES], iTM2SyntaxParserStyleEnabledKey, nil]];
+	//iTM2_END;
+    return;
+}
+@end
+
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextAttributesKit

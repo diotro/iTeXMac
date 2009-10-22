@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2SystemSignalKit.h>
+#import "iTM2SystemSignalKit.h"
 #import <signal.h>
 
 NSString * const iTM2SystemSignalSIGUSR1Notification = @"SIGUSR1";

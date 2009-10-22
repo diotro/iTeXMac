@@ -704,7 +704,7 @@ static ComponentInstance		defaultOSAComponent = NULL;
  */
 - (NSAppleEventDescriptor *)targetNoProcess
 {
-	unsigned int				theCurrentProcess = kNoProcess; //kCurrentProcess;
+	NSUInteger				theCurrentProcess = kNoProcess; //kCurrentProcess;
 
 	return [NSAppleEventDescriptor descriptorWithDescriptorType:typeProcessSerialNumber data:[NSData dataWithBytes:&theCurrentProcess length:sizeof(theCurrentProcess)]];
 }
@@ -1210,7 +1210,7 @@ void setUpToRecieveFirstEvent( NSAppleEventDescriptor * anAppleEventDescriptor )
 {
 	NSMutableData *			theInstance;
 
-	theInstance = [NSMutableData dataWithLength: (unsigned int)AEGetDescDataSize(aDesc)];
+	theInstance = [NSMutableData dataWithLength: (NSUInteger)AEGetDescDataSize(aDesc)];
 	
 	if( AEGetDescData(aDesc, [theInstance mutableBytes], [theInstance length]) != noErr )
 	{
@@ -1275,8 +1275,8 @@ void setUpToRecieveFirstEvent( NSAppleEventDescriptor * anAppleEventDescriptor )
 //			break;
 		case typeMagnitude:					//	unsigned 32-bit integer
 		{
-			unsigned int		theInteger;
-			if( AEGetDescData(aDesc, &theInteger, sizeof(unsigned int)) == noErr )
+			NSUInteger		theInteger;
+			if( AEGetDescData(aDesc, &theInteger, sizeof(NSUInteger)) == noErr )
 				theInstance = [NSNumber numberWithUnsignedInt: theInteger];
 			break;
 		}
@@ -1303,11 +1303,11 @@ void setUpToRecieveFirstEvent( NSAppleEventDescriptor * anAppleEventDescriptor )
  */
 + (id)nd_URLWithAEDesc:(const AEDesc *)aDesc
 {
-	unsigned int	theSize;
+	NSUInteger	theSize;
 	id					theURL = nil;
 	OSAError			theError;
 	
-	theSize = (unsigned int)AEGetDescDataSize(aDesc);
+	theSize = (NSUInteger)AEGetDescDataSize(aDesc);
 
 	switch(aDesc->descriptorType)
 	{

@@ -21,45 +21,30 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2Responders.h>
+#import "iTM2Responders.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2Responders  
 
-#import <iTM2Foundation/iTM2MenuKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
-#import <iTM2Foundation/iTM2PDFDocumentKit.h>
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
-#import <iTM2Foundation/iTM2StringFormatKit.h>
-#import <iTM2Foundation/iTM2ResponderKit.h>
-//#import <iTM2Foundation/iTM2CompatibilityChecker.h>
+#import "iTM2MenuKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2BundleKit.h"
+#import "iTM2TextDocumentKit.h"
+#import "iTM2PDFDocumentKit.h"
+#import "iTM2ProjectDocumentKit.h"
+#import "iTM2StringFormatKit.h"
+#import "iTM2ResponderKit.h"
+//#import "iTM2CompatibilityChecker.h"
 
-#import <iTM2Foundation/iTM2PDFViewKit.h>
-#import <iTM2Foundation/iTM2TextFieldKit.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
+#import "iTM2PDFViewKit.h"
+#import "iTM2TextFieldKit.h"
+#import "iTM2PathUtilities.h"
+#import "iTM2InstallationKit.h"
 
 @interface iTM2PDFResponder: iTM2AutoInstallResponder
 - (id)PDFInspector;
 @end
 
-@implementation NSApplication(iTM2PDFResponder)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2PDFResponder"];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
+@implementation iTM2MainInstaller(Responders)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFResponderDidFinishLaunching
 - (void)iTM2PDFResponderDidFinishLaunching;
 /*"Description forthcoming.
@@ -70,7 +55,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if([NSApp targetForAction:@selector(displayPDFAtMagnification:)])
-		[iTM2MileStone putMileStoneForKey:@"iTM2PDFResponder"];
+	{
+		iTM2_MILESTONE((@"iTM2PDFResponder"),(@"No responder available for displayPDFAtMagnification:"));
+	}
 //iTM2_END;
 	return;
 }

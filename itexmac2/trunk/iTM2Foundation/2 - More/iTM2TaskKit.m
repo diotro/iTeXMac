@@ -18,18 +18,27 @@
   to the actual developper team.
 */
 
-#import <iTM2Foundation/iTM2TaskKit.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2DocumentKit.h>
-#import <iTM2Foundation/iTM2WindowKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2DistributedObjectKit.h>
-#import <iTM2Foundation/iTM2CursorKit.h>
-#import <iTM2Foundation/iTM2MacroKit.h>
-#import <iTM2Foundation/iTM2Invocation.h>
+#import "iTM2TaskKit.h"
+#import "iTM2PathUtilities.h"
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
+#import "iTM2DocumentKit.h"
+#import "iTM2WindowKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2BundleKit.h"
+#import "iTM2DistributedObjectKit.h"
+#import "iTM2CursorKit.h"
+#import "iTM2MacroKit.h"
+#import "iTM2Invocation.h"
+#import "iTM2FileManagerKit.h"
+#import "ICURegex.h"
+
+#import	<sys/fcntl.h>
+#import	<sys/stat.h>
+#import <sys/file.h>
+#import <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 NSString * const iTM2TaskControllerIsDeafKey = @"iTM2TaskControllerIsDeaf";
 NSString * const iTM2TaskControllerIsMuteKey = @"iTM2TaskControllerIsMute";
@@ -373,14 +382,6 @@ To Do List:
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TaskController
-
-#import	"iTM2BundleKit.h"
-#import	<sys/fcntl.h>
-#import	<sys/stat.h>
-#import <sys/file.h>
-#import <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 
 /*
 NSString * const iTM2ServerConversationIDKey = @"ConversationID";
@@ -834,7 +835,7 @@ To Do List:
     [_CurrentWrapper taskWillLaunch:self];
     [environment setObject:[[self implementation] metaValueForKey:@"_Conversation"] forKey:@"iTM2_Conversation"];
     [environment setObject:NSHomeDirectory() forKey:@"iTM2_HOME"];
-    [environment setObject:[NSBundle temporaryDirectory] forKey:@"iTM2_TemporaryDirectory"];
+    [environment setObject:[NSBundle iTM2_temporaryDirectory] forKey:@"iTM2_TemporaryDirectory"];
 //NSLog(@"[_CurrentWrapper launchPath]:%@", [_CurrentTask launchPath]);
     [_CurrentTask setLaunchPath:[_CurrentWrapper launchPath]];
 //NSLog(@"[_CurrentTask launchPath]:%@", [_CurrentTask launchPath]);
@@ -1418,7 +1419,7 @@ start:
 				string = [E characters];
 				if([string length] && ([string characterAtIndex:0] == '.'))
 				{
-					unsigned modifierFlags = [E modifierFlags];
+					NSUInteger modifierFlags = [E modifierFlags];
 					modifierFlags &= NSDeviceIndependentModifierFlagsMask;
 					modifierFlags &= ~NSShiftKeyMask;
 					if(modifierFlags == NSCommandKeyMask)
@@ -2240,11 +2241,6 @@ To Do List:
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TaskController
 
-#import <iTM2Foundation/iTM2MacroKit.h>
-#import <iTM2Foundation/iTM2CursorKit.h>
-#import <iTM2Foundation/iTM2FileManagerKit.h>
-#import <iTM2Foundation/iTM2LuaInterpreter.h>
-
 @implementation NSResponder(iTM2TaskKit)
 - (NSString *)stringByExecutingScriptAtPath:(NSString *)scriptPath;
 {
@@ -2287,15 +2283,20 @@ To Do List:
 {
 	NSString * script = [sender insertion];
 	// is it a lua script?
-	NSRange R = NSMakeRange(0,0);
-	[script getLineStart:nil end:nil contentsEnd:&R.length forRange:R];
-	NSString * line = [script substringWithRange:R];
-	if([line hasPrefix:@"#!"] && [line hasSuffix:@"lua"])
-	{
-		iTM2LuaInterpreter * interpreter = [iTM2LuaInterpreter interpreter];
-		[interpreter executeString:script];
-		return;
+	ICURegEx * RE = [[ICURegEx alloc] initWithSearchPattern:@"^#!\\S*/([^/\\s]+)" options:0 error:NULL];
+	[RE setInputString:script];
+	if([RE nextMatch]) {
+		NSString * shell = [RE substringOfCaptureGroupAtIndex:1];// the length is at least 1 but we force it
+		NSAssert([shell length]>0,@"Bad programing, a regular expression does not gove the expected result, report BUG or FIX ME (code 78355)");
+		NSString * selName = [NSString stringWithFormat:@"executeAs%@Script:",[shell capitalizedString]];
+		SEL selector = NSSelectorFromString(selName);
+		if([self respondsToSelector:selector]) {
+			[self performSelector:selector withObject:script];
+			return;
+		}
 	}
+	[RE release];
+	RE = nil;
 	// save the script somewhere
 	NSString * path = [NSBundle temporaryBinaryDirectory];
 	path = [path stringByAppendingPathComponent:@"macro_script"];
@@ -2340,25 +2341,25 @@ To Do List:
 	NSString * path;
 	while(path = [E nextObject])
 	{
-		if([DFM pushDirectory:path])
+		if([DFM iTM2_pushDirectory:path])
 		{
-			if([DFM pushDirectory:subpath])
+			if([DFM iTM2_pushDirectory:subpath])
 			{
 				path = [DFM currentDirectoryPath];
 				path = [path stringByAppendingPathComponent:scriptPath];
 				if([DFM fileExistsAtPath:scriptPath])
 				{
 					[FR executeMacroWithText:[FR stringByExecutingScriptAtPath:scriptPath]];//delayed?
-					[DFM popDirectory];
+					[DFM iTM2_popDirectory];
 					return;
 				}
-				[DFM popDirectory];
+				[DFM iTM2_popDirectory];
 			}
 			else if([DFM fileExistsAtPath:subpath isDirectory:nil])
 			{
 				iTM2_LOG(@"*** SILENT Error: could not push \"%@/%@\"",[DFM currentDirectoryPath],subpath);
 			}
-			[DFM popDirectory];
+			[DFM iTM2_popDirectory];
 		}
 		else
 		{
@@ -2399,7 +2400,7 @@ To Do List:
 		NSString * selection = [self preparedSelectedStringForMacroInsertion];
 		NSString * line = [self preparedSelectedLineForMacroInsertion];
 		script = [self concreteReplacementStringForMacro:script selection:selection line:line];
-		NSString * path = [NSBundle temporaryDirectory];
+		NSString * path = [NSBundle iTM2_temporaryDirectory];
 		scriptPath = [[NSProcessInfo processInfo] globallyUniqueString];
 		scriptPath = [path stringByAppendingPathComponent:scriptPath];
 		url = [NSURL fileURLWithPath:scriptPath];

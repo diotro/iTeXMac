@@ -20,17 +20,17 @@
 */
 
 
-#import <iTM2Foundation/iTM2PDFViewKit.h>
-#import <iTM2Foundation/iTM2ViewKit.h>
-#import <iTM2Foundation/iTM2ResponderKit.h>
-#import <iTM2Foundation/iTM2UserDefaultsKit.h>
-#import <iTM2Foundation/iTM2CursorKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
-#import <iTM2Foundation/iTM2ValidationKit.h>
-#import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2Invocation.h>
+#import "iTM2PDFViewKit.h"
+#import "iTM2ViewKit.h"
+#import "iTM2ResponderKit.h"
+#import "iTM2UserDefaultsKit.h"
+#import "iTM2CursorKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2BundleKit.h"
+#import "iTM2Runtime.h"
+#import "iTM2ValidationKit.h"
+#import "iTM2NotificationKit.h"
+#import "iTM2Invocation.h"
 
 NSString * const iTM2PDFSheetBackgroundColorKey = @"iTM2PDFSheetBackgroundColor";
 NSString * const iTM2PDFUseSheetBackgroundColorKey = @"iTM2PDFUseSheetBackgroundColor";
@@ -292,7 +292,7 @@ To Do List:
 
     NSInvocation * I;
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] drawRect:rect];
-	[I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"CompleteDrawRect:" signature:[I methodSignature] inherited:YES]];
+	[I iTM2_invokeWithSelectors:[iTM2Runtime instanceSelectorsOfClass:isa withSuffix:@"CompleteDrawRect:" signature:[I methodSignature] inherited:YES]];
 #endif
 	return;
 }
@@ -330,7 +330,7 @@ To Do List:
     return NSMakeSize(10, 10);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tag
-- (int)tag;
+- (NSInteger)tag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -341,7 +341,7 @@ To Do List:
     return _Tag;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTag:
-- (void)setTag:(int)anInt;
+- (void)setTag:(NSInteger)anInt;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -353,7 +353,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  state
-- (int)state;
+- (NSInteger)state;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -364,7 +364,7 @@ To Do List:
     return _State;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setState:
-- (void)setState:(int)value;
+- (void)setState:(NSInteger)value;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -547,7 +547,7 @@ NSString * const iTM2FocusedPageNumberDidChangeNotification = @"iTM2FocusedPageN
 - (NSRect)focusFrame;
 @end
 
-#import <iTM2Foundation/iTM2NotificationKit.h>
+#import "iTM2NotificationKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFView
 /*"Description forthcoming."*/
@@ -740,7 +740,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  viewWithTag:
-- (id)viewWithTag:(int)tag;
+- (id)viewWithTag:(NSInteger)tag;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -757,7 +757,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectViewWithTag
-- (void)selectViewWithTag:(int)tag;
+- (void)selectViewWithTag:(NSInteger)tag;
 /*"Only one subview please.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -765,12 +765,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSEnumerator * E = [[self subviews] objectEnumerator];
-    id V;
     BOOL shouldDisplay = NO;
-    while(V = [E nextObject])
+    for(id V in [self subviews])
     {
-        int old = [V state];
+        NSInteger old = [V state];
         if([V tag] == tag)
         {
             if(old == NSOffState)
@@ -862,7 +860,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= softCurrentPhysicalPage
-- (int)softCurrentPhysicalPage;
+- (NSInteger)softCurrentPhysicalPage;
 /*"Description forthcoming.
 Safe: the return value lies inside the cells index range.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -874,7 +872,7 @@ To Do List:
     return MAX(0, MIN([self currentPhysicalPage], [[self subviews] count]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentPhysicalPage
-- (int)currentPhysicalPage;
+- (NSInteger)currentPhysicalPage;
 /*"Description forthcoming.
 Safe: the return value lies inside the cells index range.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -886,7 +884,7 @@ To Do List:
     return [self currentLogicalPage] - 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCurrentPhysicalPage:
-- (void)setCurrentPhysicalPage:(int)aCurrentPhysicalPage;
+- (void)setCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -900,7 +898,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentLogicalPage
-- (int)currentLogicalPage;
+- (NSInteger)currentLogicalPage;
 /*"Starting at 1, in general the number printed at the bottom of the page.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -915,7 +913,7 @@ To Do List:
     return _CurrentLogicalPage;//MAX(1, MIN(_CurrentLogicalPage, [[self cells] count]));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setCurrentLogicalPage:
-- (void)setCurrentLogicalPage:(int)aCurrentLogicalPage;
+- (void)setCurrentLogicalPage:(NSInteger)aCurrentLogicalPage;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1261,7 +1259,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  pageLayout
-- (unsigned)pageLayout;
+- (NSUInteger)pageLayout;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -1272,7 +1270,7 @@ To Do List:
     return _PageLayout;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setPageLayout:
-- (void)setPageLayout:(unsigned)PL;
+- (void)setPageLayout:(NSUInteger)PL;
 /*"Initializer. MUST be called at initialization time.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 10/16/02
@@ -1302,7 +1300,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBoundsRotation:
-- (void)setBoundsRotation:(float)angle;
+- (void)setBoundsRotation:(CGFloat)angle;
 /*"Catching the message: changes in fact the orientation.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 11/11/2002
@@ -1310,12 +1308,12 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int i = angle / 90;
+    NSInteger i = angle / 90;
     [self setPDFOrientation:i];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= PDFOrientation
-- (int)PDFOrientation;
+- (NSInteger)PDFOrientation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1326,7 +1324,7 @@ To Do List:
     return _OrientationMode;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPDFOrientation:
-- (void)setPDFOrientation:(int)argument;
+- (void)setPDFOrientation:(NSInteger)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1390,8 +1388,8 @@ To Do List:
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFView
 
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFPrintView  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 @implementation iTM2PDFPrintView
@@ -1462,7 +1460,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= pageCount
-- (int)pageCount;
+- (NSInteger)pageCount;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

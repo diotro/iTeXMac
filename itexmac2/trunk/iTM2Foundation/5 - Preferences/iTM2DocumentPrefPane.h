@@ -36,7 +36,7 @@
 extern NSString * const iTM2AutosaveThresholdTransformerName;
 extern NSString * const iTM2LevelsOfUndoThresholdTransformerName;
 
-#import <iTM2Foundation/iTM2PreferencesKit.h>
+#import "iTM2PreferencesKit.h"
 
 @interface iTM2DocumentPrefPane: iTM2PreferencePane
 @end

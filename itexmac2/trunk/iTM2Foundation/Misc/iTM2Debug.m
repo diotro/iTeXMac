@@ -33,40 +33,9 @@
 @end
 #import <objc/objc-runtime.h>
 #import <objc/objc-class.h>
-@interface NSMenu_iTM2Debug: NSMenu
-@end
-@implementation NSMenu_iTM2Debug
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void) load;
-/*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
-- 1.3: 07/26/2003
-To Do List:
-"*/
-{
-	iTM2_INIT_POOL;
-//iTM2_START;
-    [NSObject fixInstallationOf: self];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DebugFixInstallation
-+ (void) iTM2DebugFixInstallation;
-/*"Description forthcoming.
-Version history: jlaurens@users.sourceforge.net
-- 1.3: 07/26/2003
-To Do List:
-"*/
-{
-//iTM2_START;
-    if([SUD boolForKey: @"iTM2_DEBUG_NSMenu"])
-		iTM2NamedClassPoseAs("NSMenu_iTM2Debug", "NSMenu");
-//iTM2_END;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _recursiveEnableItems
-- (void) _recursiveEnableItems;
+@implementation NSMenu(iTM2Debug)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2__recursiveEnableItems
+- (void) SWZ_iTM2__recursiveEnableItems;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 1.3: 07/26/2003
@@ -80,8 +49,18 @@ To Do List:
             [self performSelector: @selector(recursiveEnableCheck) withObject: nil];
     }
 //iTM2_LOG(@"[self title] is: %@", [self title]);
-    [super _recursiveEnableItems];
+    [self SWZ_iTM2__recursiveEnableItems];
 //iTM2_END;
 	return;
+}
+@end
+#warning MIGRATION: iTM2NamedClassPoseAs
+@implementation iTM2MainInstaller(Debug)
++ (void)prepareNSMenuDebugCompleteInstallation;
+{
+	if([self iTM2_swizzleInstanceMethodSelector:@selector()])
+	{
+		iTM2_MILESTONE((@"NSMenu(iTM2Debug)"),(@"The menu might scheck recursively its items"));
+	}
 }
 @end

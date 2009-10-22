@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2ProjectControllerKit.h>
+#import "iTM2ProjectControllerKit.h"
 
 #define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
@@ -83,9 +83,9 @@ extern NSString * const iTM2ProjectDocumentType;
 */
 extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 
-#import <iTM2Foundation/iTM2DocumentKit.h>
-#import <iTM2Foundation/iTM2DocumentControllerKit.h>
-#import <iTM2Foundation/iTM2ResponderKit.h>
+#import "iTM2DocumentKit.h"
+#import "iTM2DocumentControllerKit.h"
+#import "iTM2ResponderKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ProjectDocument
 
@@ -604,7 +604,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		mask is a context domain mask
     @result     a language.
 */
-- (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
+- (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(NSUInteger)mask;
 
 /*! 
     @method     fileKeyForRecordedURL:
@@ -625,7 +625,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      mask is a context domain mask
     @result     a value.
 */
-- (void)setPropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
+- (void)setPropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(NSUInteger)mask;
 
 /*! 
     @method     addGhostWindowController:
@@ -722,7 +722,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     An object.
 */
-- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
     @method     getContextValueForKey:fileKey:domain:
@@ -735,7 +735,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     An object.
 */
-- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
     @method     takeContextValue:forKey:fileKey:domain:
@@ -747,7 +747,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     yorn whether something has changed.
 */
-- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (NSUInteger)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
     @method     setContextValue:forKey:fileKey:domain:
@@ -760,7 +760,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     yorn whether something has changed.
 */
-- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
     @method     allowsSubdocumentsInteraction
@@ -929,7 +929,7 @@ extern NSString * const iTM2ProjectURLKey;
     @param      key
     @result     A project
 */
-- (id)contextValueForKey:(NSString *)key domain:(unsigned int)mask;
+- (id)contextValueForKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
     @method     takeContextValue:forKey:domain:
@@ -970,7 +970,7 @@ extern NSString * const iTM2ProjectURLKey;
     @param      key is the context value key
     @result     yorn whether something has changed.
 */
-- (unsigned int)takeContextValue:(id)value forKey:(NSString *)key domain:(unsigned int)mask;
+- (NSUInteger)takeContextValue:(id)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*!
 	@method			documentProjectCompleteSaveContext:

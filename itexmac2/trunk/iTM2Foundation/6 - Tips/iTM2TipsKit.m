@@ -24,7 +24,7 @@
 #import "iTM2PreferencesKit.h"
 #import "iTM2Implementation.h"
 #import "iTM2BundleKit.h"
-#import "iTM2RuntimeBrowser.h"
+#import "iTM2Runtime.h"
 #import "iTM2ViewKit.h"
 #import "iTM2ValidationKit.h"
 
@@ -146,15 +146,15 @@ To Do List:
 	NSMutableArray * paths = [NSMutableArray array];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath:
 		[[mainBundle class] iTM2_pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSUserDomainMask
-			withName: [mainBundle bundleName] create: YES]
+			withName: [mainBundle iTM2_bundleName] create: YES]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath:
 		[[mainBundle class] iTM2_pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSLocalDomainMask
-			withName: [mainBundle bundleName] create: YES]
+			withName: [mainBundle iTM2_bundleName] create: YES]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath:
 		[[mainBundle class] iTM2_pathForSupportDirectory: iTM2SupportPluginsComponent inDomain: NSNetworkDomainMask
-			withName: [mainBundle bundleName] create: YES]
+			withName: [mainBundle iTM2_bundleName] create: YES]
 				ofType: @"prefPane"]];
 	[paths addObjectsFromArray: [[mainBundle class] availablePlugInPathsAtPath: [mainBundle builtInPlugInsPath] ofType: @"prefPane"]];
 	int newCount = [paths count];
@@ -265,7 +265,7 @@ To Do List:
 //iTM2_START;
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	// Start by recovering all the NSPreferencePane subclasses
-	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass: [NSPreferencePane class]];
+	NSPointerArray * PA = [iTM2Runtime subclassReferencesOfClass: [NSPreferencePane class]];
 	NSUInteger i = [PA count];
 	while(i--)
 	{

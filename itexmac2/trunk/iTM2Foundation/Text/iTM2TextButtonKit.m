@@ -158,7 +158,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-    unsigned begin, end;
+    NSUInteger begin, end;
 //NSLog(@"GLS");
 	id TV = [[[self window] windowController] textView];
     [[TV string] getLineStart: &begin end: &end contentsEnd: nil forRange: NSMakeRange([sender tag], 0)];
@@ -175,14 +175,14 @@ To Do List:
 "*/
 {
 //iTM2_START;
-    unsigned int location = 0;
+    NSUInteger int location = 0;
     NSMenu * menu = [sender menu];
     int ceiling = [menu indexOfItem: sender];
     int index = 0;
     for(; index<=ceiling ; ++index)
         location += [[menu itemAtIndex: index] tag];
 
-    unsigned begin, end;
+    NSUInteger begin, end;
 //NSLog(@"GLS");
 	id TV = [[[self window] windowController] textView]
     [[textView string] getLineStart: &begin end: &end contentsEnd: nil forRange: NSMakeRange(location, 0)];
@@ -288,19 +288,19 @@ To Do List:
                 scanPtr+=2;
                 if(!strncmp(scanPtr, "clude", 5))
                 {
-                    unsigned char bgroup = '{';//}
+                    NSUInteger char bgroup = '{';//}
                     scanPtr+=5;
                     while((* scanPtr == ' ') || (* scanPtr == '\r') || (* scanPtr == '\n')) ++scanPtr;
                     if(* scanPtr == bgroup)
                     {//{
-                        unsigned char egroup = '}';
+                        NSUInteger char egroup = '}';
                         scanPtr+=1;
                         //semi critical: read the comments here
                         scanBackslash = scanPtr;
                         scanPtr = strchr(scanPtr, egroup);
                         if(scanPtr)
                         {
-                            NSString * object = [[[NSString stringWithCString: scanBackslash length: (unsigned)(scanPtr - scanBackslash)]
+                            NSString * object = [[[NSString stringWithCString: scanBackslash length: (NSUInteger)(scanPtr - scanBackslash)]
                                     stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = ([object length] > 48)?
@@ -330,7 +330,7 @@ To Do List:
                         end = SPACE? (CR? MIN(SPACE, CR): SPACE): CR;
                         end = end? (LF? MIN(LF, end): end): (LF? LF: strchr(scanPtr, '\0'));
                         {
-                            NSString * object = [[[NSString stringWithCString: scanPtr length: (unsigned)(end - scanPtr)]
+                            NSString * object = [[[NSString stringWithCString: scanPtr length: (NSUInteger)(end - scanPtr)]
                                     stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = ([object length] > 48)?
@@ -387,7 +387,7 @@ To Do List:
                                             scanPtr = CR? (LF? MIN(CR, LF): CR): (LF? LF: strchr(scanPtr, '\0'));
                                             {
                                                 NSString * object =
-                                                    [[[NSString stringWithCString: scanComment  length: (unsigned)(scanPtr - scanComment)]
+                                                    [[[NSString stringWithCString: scanComment  length: (NSUInteger)(scanPtr - scanComment)]
                                                 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                             stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                                                 NSString * title = ([object length] > 48)?
@@ -452,7 +452,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-//    static unsigned int meter;
+//    static NSUInteger int meter;
     const char * cString = [[[[[self window] windowController] textView] string] lossyCString];
     const char * scanPtr = cString;
     const char * backslashPtr;
@@ -471,7 +471,7 @@ To Do List:
     #define subsubparagraphDepth 8
     #define includeDepth 9
     #define inputDepth 10
-    unsigned sectionCount = 0, subsectionCount = 0, subsubsectionCount = 0;
+    NSUInteger sectionCount = 0, subsectionCount = 0, subsubsectionCount = 0;
     NSString * fileName = [[[[self window] windowController] document] fileName];
     NSString * title = fileName? [fileName stringByDeletingLastPathComponent]: [NSString string];
     NSMenu * sectionMenu = [[[NSMenu alloc] initWithTitle: title] autorelease];
@@ -576,13 +576,13 @@ To Do List:
                 l3 = l1? (l2? MIN(l1, l2): l1): l2;
                 l2 = strchr(scanPtr, '\n');
                 l1 = l3? (l2? MIN(l3, l2): l3): (l2? l2: strchr(scanPtr, '\0'));
-                object = [NSString stringWithCString: scanPtr length:(unsigned)(l1-scanPtr)];
+                object = [NSString stringWithCString: scanPtr length:(NSUInteger)(l1-scanPtr)];
                 [MI setAction: @selector(scrollInputToVisible:)];
                 [MI setEnabled: ([[sectionMenu title] length] > 0)];
             }
             else if((bgroupPtr = strchr(scanPtr, bgroup)) && (egroupPtr = strchr(bgroupPtr, egroup)))
             {
-                object = [NSString stringWithCString: bgroupPtr length:(unsigned)(egroupPtr-bgroupPtr)];
+                object = [NSString stringWithCString: bgroupPtr length:(NSUInteger)(egroupPtr-bgroupPtr)];
                 [MI setAction: (depth == includeDepth? @selector(scrollIncludeToVisible:):
                     @selector(scrollTaggedToVisible:))];
                 [MI setEnabled: ([[sectionMenu title] length] > 0)];
@@ -638,9 +638,9 @@ To Do List:
                 iTM2Beep();
         }
         #if 0
-        if(((unsigned)scanPtr)/1000 > meter)
+        if(((NSUInteger)scanPtr)/1000 > meter)
         {
-            meter = ((unsigned)scanPtr)/1000;
+            meter = ((NSUInteger)scanPtr)/1000;
             NSLog(@"meter: %d", meter);
         }
         #endif
@@ -664,7 +664,7 @@ To Do List:
 "*/
 {
 //iTM2_START;
-    unsigned modifierFlags = [[NSApp currentEvent] modifierFlags];
+    NSUInteger modifierFlags = [[NSApp currentEvent] modifierFlags];
     if(modifierFlags & NSAlternateKeyMask)
     {
 		id textView = [[[self window] windowController] textView];
@@ -763,19 +763,19 @@ To Do List:
                 scanPtr+=2;
                 if(!strncmp(scanPtr, "clude", 5))
                 {
-                    unsigned char bgroup = '{';//}
+                    NSUInteger char bgroup = '{';//}
                     scanPtr+=5;
                     while((* scanPtr == ' ') || (* scanPtr == '\r') || (* scanPtr == '\n')) ++scanPtr;
                     if(* scanPtr == bgroup)
                     {//{
-                        unsigned char egroup = '}';
+                        NSUInteger char egroup = '}';
                         scanPtr+=1;
                         //semi critical: read the comments here
                         scanBackslash = scanPtr;
                         scanPtr = strchr(scanPtr, egroup);
                         if(scanPtr)
                         {
-                            NSString *  object = [[[NSString stringWithCString: scanBackslash length: (unsigned)(scanPtr - scanBackslash)]
+                            NSString *  object = [[[NSString stringWithCString: scanBackslash length: (NSUInteger)(scanPtr - scanBackslash)]
                                         stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = ([object length] > 48)?
@@ -813,7 +813,7 @@ To Do List:
                         end = (char *)(SPACE? (CR? MIN(SPACE, CR): SPACE): CR);
                         end = (char *)(end? (LF? MIN(LF, end): end): (LF? LF: strchr(scanPtr, '\0')));
                         {
-                            NSString * object = [[[NSString stringWithCString: scanPtr length: (unsigned)(end - scanPtr)]
+                            NSString * object = [[[NSString stringWithCString: scanPtr length: (NSUInteger)(end - scanPtr)]
                                     stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = ([object length] > 48)?
@@ -834,12 +834,12 @@ To Do List:
             }
             else if(!strncmp(scanPtr, "label", 5))
             {
-                unsigned char bgroup = '{';//}
+                NSUInteger char bgroup = '{';//}
                 scanPtr+=5;
                 while((* scanPtr == ' ') || (* scanPtr == '\r') || (* scanPtr == '\n')) ++scanPtr;
                 if(* scanPtr == bgroup)
                 {//{
-                    unsigned char egroup = '}';
+                    NSUInteger char egroup = '}';
                     const char * tag = scanPtr;
                     scanPtr+=1;
                     //semi critical: read the comments here
@@ -847,7 +847,7 @@ To Do List:
                     scanPtr = strchr(scanPtr, egroup);
                     if(scanPtr)
                     {
-                        NSString * object = [[[NSString stringWithCString: scanBackslash length: (unsigned)(scanPtr - scanBackslash)]
+                        NSString * object = [[[NSString stringWithCString: scanBackslash length: (NSUInteger)(scanPtr - scanBackslash)]
                                 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                     stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                         NSString * title = ([object length] > 41)?
@@ -869,19 +869,19 @@ To Do List:
             }
             else if(!strncmp(scanPtr, "ref", 3))
             {
-                unsigned char bgroup = '{';//}
+                NSUInteger char bgroup = '{';//}
                 scanPtr+=3;
                 while((* scanPtr == ' ') || (* scanPtr == '\r') || (* scanPtr == '\n')) ++scanPtr;
                 if(* scanPtr == bgroup)
                 {//{
-                    unsigned char egroup = '}';
+                    NSUInteger char egroup = '}';
                     scanPtr+=1;
                     //semi critical: read the comments here
                     scanBackslash = scanPtr;
                     scanPtr = strchr(scanPtr, egroup);
                     if(scanPtr)
                     {
-                        NSString * object = [[[NSString stringWithCString: scanBackslash length: (unsigned)(scanPtr - scanBackslash)]
+                        NSString * object = [[[NSString stringWithCString: scanBackslash length: (NSUInteger)(scanPtr - scanBackslash)]
                                 stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                     stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                         NSString * title = ([object length] > 43)?
@@ -903,19 +903,19 @@ To Do List:
             }
             else if(!strncmp(scanPtr, "eqref", 5))
             {
-                unsigned char bgroup = '{';//}
+                NSUInteger char bgroup = '{';//}
                 scanPtr+=5;
                 while((* scanPtr == ' ') || (* scanPtr == '\r') || (* scanPtr == '\n')) ++scanPtr;
                 if(* scanPtr == bgroup)
                 {//{
-                    unsigned char egroup = '}';
+                    NSUInteger char egroup = '}';
                     scanPtr+=1;
                     //semi critical: read the comments here
                     scanBackslash = scanPtr;
                     scanPtr = strchr(scanPtr, egroup);
                     if(scanPtr)
                     {
-                        NSString * object = [[[NSString stringWithCString: scanBackslash length: (unsigned)(scanPtr - scanBackslash)]
+                        NSString * object = [[[NSString stringWithCString: scanBackslash length: (NSUInteger)(scanPtr - scanBackslash)]
                                     stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                         NSString * title = ([object length] > 41)?

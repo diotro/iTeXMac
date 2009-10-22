@@ -21,11 +21,9 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2TextScriptingKit.h>
-#import <iTM2Foundation/iTM2TextFinderKit.h>
-#import <iTM2Foundation/iTM2TextMacroKit.h>
-#import "NSObject_iTeXMac2.h"
-#import "NSTextStorage_iTeXMac2.h"
+#import "iTM2TextScriptingKit.h"
+#import "iTM2TextFinderKit.h"
+#import "iTM2TextMacroKit.h"
 
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2FindScriptCommand
@@ -142,8 +140,8 @@ To Do List:
             {
                 if([[O key] isEqualToString: @"characters"])
                 {
-                    unsigned length = [(NSString *)container length];
-                    unsigned index = MIN([O index], length);
+                    NSUInteger length = [(NSString *)container length];
+                    NSUInteger index = MIN([O index], length);
                     NSRange R;
                     if([self backwardsFlag])
                     {
@@ -759,8 +757,8 @@ To Do List:
             {
                 if([[O key] isEqualToString: @"characters"])
                 {
-                    unsigned length = [(NSString *)container length];
-                    unsigned index = MIN([O index], length);
+                    NSUInteger length = [(NSString *)container length];
+                    NSUInteger index = MIN([O index], length);
                     NSRange R;
                     if([self backwardsFlag])
                     {
@@ -923,8 +921,8 @@ To Do List:
             {
                 if([[O key] isEqualToString: @"characters"])
                 {
-                    unsigned length = [container length];
-                    unsigned index = MIN([O index], length);
+                    NSUInteger length = [container length];
+                    NSUInteger index = MIN([O index], length);
                     NSRange R;
                     if([self backwardsFlag])
                     {
@@ -1071,8 +1069,8 @@ To Do List:
             {
                 if([[O key] isEqualToString: @"characters"])
                 {
-                    unsigned length = [container length];
-                    unsigned index = MIN([O index], length);
+                    NSUInteger length = [container length];
+                    NSUInteger index = MIN([O index], length);
                     NSRange R;
                     if([self backwardsFlag])
                     {
@@ -1201,7 +1199,7 @@ To Do List:
             {
                 if([[PS insertionKey] isEqualToString: @"characters"])
                     [O setSelectedRangeValue:
-                        [NSValue valueWithRange: NSMakeRange(MIN([PS insertionIndex], (unsigned)[(NSString *)O length]), 0)]];
+                        [NSValue valueWithRange: NSMakeRange(MIN([PS insertionIndex], (NSUInteger)[(NSString *)O length]), 0)]];
                 else
                 {
                     [self setScriptErrorNumber: 4];
@@ -1233,6 +1231,260 @@ To Do List:
     return nil;
 }
 @end
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSObject(iTeXMac2)
+/*"Description forthcoming."*/
+@implementation NSObject(iTeXMac2)
++ (Class)distantClass;
+{
+	return self;
+}
+- (Class)distantClass;
+{
+	iTM2_LOG(@"Returning %@", [self class]);
+	return [self class];
+}
++ (bool)isDistantClass;
+{
+	return YES;
+}
+- (bool)isDistantClass;
+{
+	return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  evaluatedPosition
+- (NSUInteger)evaluatedPosition;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_LOG;
+    if([self respondsToSelector:@selector(insertionIndex)])
+    {
+        return [self insertionIndex];
+    }
+    else if([self respondsToSelector:@selector(index)])
+    {
+        return [self index];
+    }
+    else if([self respondsToSelector:@selector(intValue)])
+    {
+        return [self intValue];
+    }
+    else
+        return NSNotFound;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  evaluatedRange
+- (NSRange)evaluatedRange;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_LOG;
+    if([self isKindOfClass:[NSRangeSpecifier class]])
+    {
+        NSUInteger start = [[self startSpecifier] evaluatedPosition];
+        NSUInteger end = [[self endSpecifier] evaluatedPosition];
+        return NSMakeRange(start, end - start);
+    }
+    else if([self respondsToSelector:@selector(rangeValue)])
+    {
+        return [self rangeValue];
+    }
+    else
+        return NSMakeRange(NSNotFound, 0);
+}
+@end
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSObject(iTeXMac2)
+
+@implementation NSTextStorage(TextScripting)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  firstTextView
+- (NSTextView *)firstTextView;
+/*"Scans the layout managers and their text containers for the first text view with a window.
+ If none is found, returns the first text view if any.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    NSEnumerator * E = [[self layoutManagers] objectEnumerator];
+    NSLayoutManager * LM;
+    NSTextView * cachedTV = nil;
+    while(LM = [E nextObject])
+    {
+        NSEnumerator * EE = [[LM textContainers] objectEnumerator];
+        NSTextContainer * TC;
+        while(TC = [EE nextObject])
+        {
+            NSTextView * TV = [TC textView];
+            if([TV window])
+                return TV;
+            else if(!cachedTV)
+                cachedTV = TV;
+        }
+    }
+    return cachedTV;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= document
+- (id)document;
+/*"Given a line range number, it returns the range including the ending characters.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - < 1.1: 03/10/2002
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	return [[[[self firstTextView] window] windowController] document];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  mainTextView
+- (NSTextView *)mainTextView;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    NSTextView * TV = [self firstTextView];
+    NSWindowController * WC = [[[self firstTextView] window] windowController];
+    if([WC respondsToSelector:@selector(mainTextView)])
+        return [WC mainTextView];
+    else
+        return TV;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selection
+- (NSTextStorage *)selection;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    return [[[NSTextStorage alloc]
+			 initWithString: [[self string] substringWithRange:[self selectedRange]]] autorelease];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectedRange
+- (NSRange)selectedRange;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    return [[self mainTextView] selectedRange];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSelectedRange:
+- (void)setSelectedRange:(NSRange)aRange;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    [[self mainTextView] setSelectedRange:aRange];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  firstSelectedIndex
+- (NSUInteger)firstSelectedIndex;
+/*"Description forthcoming. 1 based for AppleScript.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    return [self selectedRange].location + 1;// beware of 0 ves 1 based numeration
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  lastSelectedIndex
+- (NSUInteger)lastSelectedIndex;
+/*"Description forthcoming. 1 based for AppleScript.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    return NSMaxRange([self selectedRange]);// beware of 0 versus 1 based numeration
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectedRangeSpecifier
+- (NSRangeSpecifier *)selectedRangeSpecifier;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    NSRange R = [self selectedRange];
+    return [[[NSRangeSpecifier alloc]
+			 initWithContainerClassDescription : nil
+			 containerSpecifier: nil
+			 key:  @""
+			 startSpecifier: [[NSIndexSpecifier alloc] 
+							  initWithContainerClassDescription: nil containerSpecifier:  nil key: @"" index: R.location]
+			 endSpecifier: [[NSIndexSpecifier alloc]
+							initWithContainerClassDescription: nil containerSpecifier:  nil key: @"" index: NSMaxRange(R)-1]
+			 ] autorelease];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSelectedRangeValue:
+- (void)setSelectedRangeValue:(id)argument;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    NSRange R = argument? [argument evaluatedRange]:NSMakeRange(NSNotFound, 0);
+    if(R.location != NSNotFound)
+    {
+        NSUInteger length = [self length];
+        NSTextView * TV = [self mainTextView];
+        R.location = MIN(R.location, length);
+        R.length = MIN(R.length, length - R.location);
+        if(TV)
+        {
+            [TV setSelectedRange:R];
+            [[TV window] makeFirstResponder:TV];
+        }
+    }
+    else
+	{
+        iTM2_LOG(@"Don't know what to do with %@.", argument);
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectAll:
+- (void)selectAll:(id)irrelevant;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    [self setSelectedRangeValue:[NSValue valueWithRange:NSMakeRange(0, [self length])]];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertText:inRangeValue:
+- (void)insertText:(id)text inRangeValue:(id)rangeValue;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    if([text isKindOfClass:[NSString class]])
+    {
+        NSTextView * TV = [self mainTextView];
+        if([rangeValue respondsToSelector:@selector(rangeValue)])
+            [TV setSelectedRange:[rangeValue rangeValue]];
+        [TV insertText:text];
+    }
+    else
+    {
+        iTM2_LOG(@"JL, you should have raised an exception!!! (code 1515)");
+    }
+    return;
+}
+@end
+
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2TextScriptingKit
 

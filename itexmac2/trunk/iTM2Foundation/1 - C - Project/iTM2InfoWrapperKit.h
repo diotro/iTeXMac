@@ -21,8 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
-#import <iTM2Foundation/iTM2ProjectControllerKit.h>
+#import "iTM2ProjectDocumentKit.h"
+#import "iTM2ProjectControllerKit.h"
 
 extern NSString * const TWSProjectKey;
 extern NSString * const TWSContentsKey;
@@ -137,7 +137,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (int)changeCount;
+- (NSInteger)changeCount;
 
 /*!
 	@method			updateChangeCount:

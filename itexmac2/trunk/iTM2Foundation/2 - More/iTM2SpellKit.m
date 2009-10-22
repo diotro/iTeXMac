@@ -30,11 +30,11 @@
 #else
 #endif
 #if 1
-#import <iTM2Foundation/iTM2SpellKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2InfoWrapperKit.h>
+#import "iTM2SpellKit.h"
+#import "iTM2BundleKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2InstallationKit.h"
+#import "iTM2InfoWrapperKit.h"
 
 NSString * const iTM2UDContinuousSpellCheckingKey = @"iTM2CheckSpellingAsYouType";
 
@@ -292,11 +292,11 @@ To Do List:
 @end
 
 
-#import <iTM2Foundation/iTM2ContextKit.h>
+#import "iTM2ContextKit.h"
 
 @implementation NSTextView(iTM2Spell)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellCheckerDocumentTag
-- (int)spellCheckerDocumentTag;
+- (NSInteger)spellCheckerDocumentTag;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -407,7 +407,7 @@ To Do List:
 - (void)_1stResponderMightHaveChanged:(id)irrelevant;
 @end
 
-@implementation iTM2MainInstaller(iTM2SpellContextController)
+@implementation iTM2MainInstaller(SpellContextController)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextControllerCompleteInstallation
 + (void)spellContextControllerCompleteInstallation;
 /*"Description Forthcoming.
@@ -800,7 +800,7 @@ To Do List:
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellCheckerHelper
 
-#import <iTM2Foundation/iTM2WindowKit.h>
+#import "iTM2WindowKit.h"
 
 @implementation iTM2IgnoredWordsWindow 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_frameIdentifier
@@ -835,10 +835,10 @@ To Do List:
 @property (assign) NSTextField *	modeField;
 @property (assign) NSTextField *	projectField;
 @property (assign) id	ignoredWords;
-@property int						spellDocumentTag;
+@property NSInteger	spellDocumentTag;
 @end
 
-#import <iTM2Foundation/iTM2ValidationKit.h>
+#import "iTM2ValidationKit.h"
 
 @interface NSText(iTM2SpellKit0)
 - (int)spellCheckerDocumentTag;
@@ -1097,7 +1097,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description forthcoming. Passive delegate.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1108,7 +1108,7 @@ To Do List:
     return [self.ignoredWords count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableView:objectValueForTableColumn:row:
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1119,7 +1119,7 @@ To Do List:
     return ((row>-1) && ((row<[self.ignoredWords count]))? [self.ignoredWords objectAtIndex:row]:@"?");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableView:setObjectValue:forTableColumn:row:
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1300,7 +1300,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int index = [self.ignoredWords indexOfObject:argument];
+    NSInteger index = [self.ignoredWords indexOfObject:argument];
     if(index != NSNotFound)
     {
         [self.ignoredWords removeObject:argument];
@@ -1380,31 +1380,9 @@ To Do List:
 
 static id _iTM2SpellCheckerHelper = nil;
 
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+#import "iTM2Runtime.h"
 
 @implementation iTM2MainInstaller(SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-    if(![NSText instancesRespondToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
-	{
-		[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
-		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
-		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:)];
-		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_toggleContinuousSpellChecking:)];
-	}
-//iTM2_START;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SpellKitCompleteInstallation
 + (void)iTM2SpellKitCompleteInstallation;
 /*"Description forthcoming.
@@ -1413,12 +1391,17 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
 //iTM2_START;
+    if(![NSText instancesRespondToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
+	{
+		[NSText iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
+		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_becomeFirstResponder)];
+		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:)];
+		[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2Spell_toggleContinuousSpellChecking:)];
+	}
 	if([SUD boolForKey:@"iTM2DisableMoreSpell"])
 	{
 		iTM2_LOG(@"No MoreSpell available...");
-		iTM2_RELEASE_POOL;
 		return;
 	}
     [SUD registerDefaults:
@@ -1427,7 +1410,8 @@ To Do List:
                 nil]];
 //iTM2_LOG(@"[SUD objectForKey:iTM2DisableMoreSpell] is:%@", [SUD objectForKey:@"iTM2DisableMoreSpell"]);
     _iTM2SpellCheckerHelper = [[iTM2SpellCheckerHelper alloc] initWithWindowNibName:@"iTM2SpellCheckerHelper"];
-	[[_iTM2SpellCheckerHelper window] setExcludedFromWindowsMenu:YES];// loads the nib as side effect...
+	NSWindow * W = [_iTM2SpellCheckerHelper window];
+	[W setExcludedFromWindowsMenu:YES];// loads the nib as side effect...
     // installing the accessory view in the spell checker panel
     NSView * V1 = [_iTM2SpellCheckerHelper spellCheckerAccessoryView];
     NSView * V2 = [SSC accessoryView];
@@ -1458,12 +1442,11 @@ To Do List:
     }
 	if(iTM2DebugEnabled)
 	{
-		iTM2_LOG(@"the accessory view is: %@", [[SSC accessoryView] description]);
+		iTM2_LOG(@"the accessory view is: %@", [SSC accessoryView]);
 		iTM2_LOG(@"the accessory view was: %@", V2);
 		iTM2_LOG(@"the accessory view should be: %@", V1);
 	}
 //	iTM2_START_TRACKING;
-	iTM2_RELEASE_POOL;
     return;
 }
 @end
@@ -1497,6 +1480,7 @@ To Do List:
     else if(self = [super initWithWindow:window])
     {
 		[self initImplementation];
+		_iVarCurrentText = nil;
         [DNC addObserver:self
             selector: @selector(_windowWillCloseOrDidResignKeyNotified:)
                 name: NSWindowDidResignKeyNotification
@@ -2300,7 +2284,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  drawRow:clipRect:
-- (void)drawRow:(int)row clipRect:(NSRect)theRect;
+- (void)drawRow:(NSInteger)row clipRect:(NSRect)theRect;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2314,7 +2298,7 @@ To Do List:
 #endif
 @end
 
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
+#import "iTM2ProjectDocumentKit.h"
 
 #import <objc/objc-class.h>
 

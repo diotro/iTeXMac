@@ -21,11 +21,11 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2AppleScriptKit.h>
-#import <iTM2Foundation/iTM2KeyBindingsKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
+#import "iTM2AppleScriptKit.h"
+#import "iTM2KeyBindingsKit.h"
+#import "iTM2BundleKit.h"
+#import "iTM2Runtime.h"
+#import "iTM2PathUtilities.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2AppleScriptLauncher
 /*"Description forthcoming."*/
@@ -135,46 +135,6 @@ To Do List:
 - (NSDictionary *)dictionaryForLoadingSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 @end
 @implementation NSScriptSuiteRegistry(iTeXMac2_)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-To Do List:
-"*/
-{
-    iTM2_INIT_POOL;
-//iTM2_START;
-	iTM2RedirectNSLogOutput();
-	static BOOL firstTime = YES;
-    if([SUD boolForKey:@"iTM2DontSwizzleScriptSuiteRegistry"])
-    {
-		if(iTM2DebugEnabled)
-		{
-			iTM2_LOG(@"AppleScripting extension has been disabled, if this was not wanted: issue:");
-			NSLog(@"terminal%% defaults remove comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry");
-		}
-    }
-    else if(firstTime)
-	{
-		firstTime = NO;
-		if([NSScriptSuiteRegistry iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:)])
-        {
-			if(iTM2DebugEnabled)
-			{
-				iTM2_LOG(@"AppleScripting extension available. If this causes any kind of harm, please issue");
-				NSLog(@"terminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry '1'");
-			}
-        }
-        else
-        {
-            [self class];
-            iTM2_LOG(@"***  no applescripting: please report bug");
-        }
-    }
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dictionaryForloadingSuiteWithDictionary:fromBundle:
 - (NSDictionary *)dictionaryForLoadingSuiteWithDictionary:(NSDictionary *)dictionary fromBundle:(NSBundle *)bundle;
 /*"Description forthcoming.
@@ -276,11 +236,11 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2StringFormatKit.h>
+#import "iTM2StringFormatKit.h"
 
 @implementation iTM2TextDocument(AppleScripting)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  endOfLine
-- (unsigned int)endOfLine;
+- (NSUInteger)endOfLine;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -298,7 +258,7 @@ To Do List:
 	}
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEndOfLine:
-- (void)setEndOfLine:(unsigned int)argument;
+- (void)setEndOfLine:(NSUInteger)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -316,3 +276,22 @@ To Do List:
 	}
 }
 @end
+
+@implementation iTM2MainInstaller(NSScriptSuiteRegistry)
+
++ (void)prepareNSScriptSuiteRegistryCompleteInstallation;
+{
+    if([SUD boolForKey:@"iTM2DontSwizzleScriptSuiteRegistry"])
+    {
+		iTM2_MILESTONE((@"NSScriptSuiteRegistry(iTeXMac2_)"),(@"AppleScripting extension has been disabled, if this was not wanted: issue:\nterminal%% defaults remove comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry"));
+    }
+    else if([NSScriptSuiteRegistry iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2MiscKit_loadSuiteWithDictionary:fromBundle:)])
+	{
+		iTM2_MILESTONE((@"NSScriptSuiteRegistry(iTeXMac2_)"),(@"AppleScripting extension available. If this causes any kind of harm, please issue\nterminal%% defaults write comp.text.TeX.iTeXMac2 iTM2DontSwizzleScriptSuiteRegistry '1'"));
+	}
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dictionaryForloadingSuiteWithDictionary:fromBundle:
+
+@end
+

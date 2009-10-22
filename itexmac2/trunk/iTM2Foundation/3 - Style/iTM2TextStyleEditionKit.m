@@ -21,26 +21,26 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2TextStyleEditionKit.h>
-#import <iTM2Foundation/iTM2TextStorageKit.h>
+#import "iTM2TextStyleEditionKit.h"
+#import "iTM2TextStorageKit.h"
 
-#import <iTM2Foundation/iTM2PathUtilities.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2ValidationKit.h>
-#import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2MenuKit.h>
-#import <iTM2Foundation/iTM2MiscKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
-//#import <iTM2Foundation/iTM2CompatibilityChecker.h>
-#import <iTM2Foundation/iTM2CursorKit.h>
-#import <iTM2Foundation/iTM2WindowKit.h>
-#import <iTM2Foundation/iTM2FileManagerKit.h>
-#import <iTM2Foundation/iTM2textFieldKit.h>
-#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
-#import <iTM2Foundation/iTM2ImageKit.h>
+#import "iTM2PathUtilities.h"
+#import "iTM2BundleKit.h"
+#import "iTM2ValidationKit.h"
+#import "iTM2NotificationKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2MenuKit.h"
+#import "iTM2StringKit.h"
+#import "iTM2MiscKit.h"
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
+#import "iTM2TextDocumentKit.h"
+//#import "iTM2CompatibilityChecker.h"
+#import "iTM2CursorKit.h"
+#import "iTM2WindowKit.h"
+#import "iTM2FileManagerKit.h"
+#import "iTM2textFieldKit.h"
+#import "iTM2ImageKit.h"
 
 #define TABLE @"TextStyle"
 #define BUNDLE [iTM2TextStyleDocument classBundle]
@@ -1181,7 +1181,7 @@ To Do List: Nothing
 @private
     BOOL _SameXHeight;
 }
-- (void)setFont:(NSFont *)newF atIndex:(unsigned)location;
+- (void)setFont:(NSFont *)newF atIndex:(NSUInteger)location;
 - (void)syntaxParserAttributesDidChange;
 @property BOOL _SameXHeight;
 @end
@@ -1388,7 +1388,7 @@ To Do List:
     float xHeight = [[sender convertFont:[NSFont systemFontOfSize:[NSFont systemFontSize]]] xHeight];
     if(range.length)
     {
-        unsigned top = NSMaxRange(range);
+        NSUInteger top = NSMaxRange(range);
         do
         {
             NSFont * oldF = [[SP attributesAtIndex:range.location effectiveRange:&range]
@@ -1415,7 +1415,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFont:atIndex:
-- (void)setFont:(NSFont *)newF atIndex:(unsigned)location;
+- (void)setFont:(NSFont *)newF atIndex:(NSUInteger)location;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2064,7 +2064,7 @@ To Do List:
 	NSDictionary * D = nil;
     if(range.length)
     {
-        unsigned top = NSMaxRange(range);
+        NSUInteger top = NSMaxRange(range);
         D = [SP attributesAtIndex:range.location effectiveRange:&range];
         mode = [D objectForKey:iTM2TextModeAttributeName];
 next:
@@ -2085,7 +2085,7 @@ next:
     }
 	else
 	{
-		unsigned start,contentsEnd;
+		NSUInteger start,contentsEnd;
 		[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:range];
 		if(range.location<contentsEnd)
 		{
@@ -2253,7 +2253,7 @@ enum {
     NSUnderlinePatternDashDotDot	= 0x0400
 };
 
-APPKIT_EXTERN unsigned NSUnderlineByWordMask; 
+APPKIT_EXTERN NSUInteger NSUnderlineByWordMask; 
 #endif
 
 @interface iTM2TextSyntaxParserAttributesDocument(PRIVATE)

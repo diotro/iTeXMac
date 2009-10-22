@@ -22,12 +22,12 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2PDFToolbarDelegate.h>
-#import <iTM2Foundation/iTM2PDFViewKit.h>
-#import <iTM2Foundation/iTM2HelpKit.h>
-#import <iTM2Foundation/iTM2ButtonKit.h>
-#import <iTM2Foundation/iTM2TextFieldKit.h>
-#import <iTM2Foundation/iTM2ViewKit.h>
+#import "iTM2PDFToolbarDelegate.h"
+#import "iTM2PDFViewKit.h"
+#import "iTM2HelpKit.h"
+#import "iTM2ButtonKit.h"
+#import "iTM2TextFieldKit.h"
+#import "iTM2ViewKit.h"
 
 NSString * const iTM2ToolbarNavigationFieldItemIdentifier = @"AtNavigation";
 NSString * const iTM2ToolbarNavigationSetItemIdentifier = @"Navigation";
@@ -133,7 +133,7 @@ To Do List:
                     action: @selector(displayPageFromItem:) keyEquivalent: @"" atIndex: 0] setTag: OP];
                 while(OPIndex>0)
                 {
-                    id MI = [[[forwardMenu itemAtIndex:0] retain] autorelease];
+                    NSMenuItem * MI = [[[forwardMenu itemAtIndex:0] retain] autorelease];
                     [forwardMenu removeItemAtIndex:0];
                     // Do not insert successive menu items with the same tag
                     if([[backMenu itemAtIndex:0] tag]!=[MI tag])
@@ -149,7 +149,7 @@ To Do List:
                 // jump to the correct item in the back menu
                 while(OPIndex>0)
                 {
-                    id MI = [[[backMenu itemAtIndex:0] retain] autorelease];
+                    NSMenuItem * MI = [[[backMenu itemAtIndex:0] retain] autorelease];
                     [backMenu removeItemAtIndex:0];
                     // Do not insert successive menu items with the same tag
                     if([forwardMenu numberOfItems] == 0 || ([[forwardMenu itemAtIndex:0] tag]!=[MI tag]))
@@ -520,8 +520,6 @@ To Do List:
     if(!source)\
     {\
         [self setter:[[[NSMenu alloc] initWithTitle:@""] autorelease]];\
-        [source setMenuRepresentation:[[[NSMenuView alloc] initWithFrame:NSZeroRect] autorelease]];\
-        [[source menuRepresentation] setFont:[NSFont menuFontOfSize:[NSFont smallSystemFontSize]]];\
     }\
     return source;\
 }\
@@ -540,6 +538,7 @@ To Do List:
     }\
     return;\
 }
+#warning Small menu is missing for the back and forward menus below
 MENUGETTERSETTER(_BackMenu, backMenu, setBackMenu);
 MENUGETTERSETTER(_ForwardMenu, forwardMenu, setForwardMenu);
 @synthesize __LastNavigationITII;

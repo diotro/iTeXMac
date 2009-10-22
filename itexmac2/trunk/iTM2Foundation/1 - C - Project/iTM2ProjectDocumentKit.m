@@ -21,25 +21,25 @@
 //  To Do List:(format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
-#import <iTM2Foundation/iTM2InfoWrapperKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-//#import <iTM2Foundation/iTM2ResponderKit.h>
-#import <iTM2Foundation/iTM2WindowKit.h>
-#import <iTM2Foundation/iTM2MenuKit.h>
-#import <iTM2Foundation/iTM2ValidationKit.h>
-#import <iTM2Foundation/iTM2StringFormatKit.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
-#import <iTM2Foundation/iTM2RuntimeBrowser.h>
-#import <iTM2Foundation/iTM2EventKit.h>
-#import <iTM2Foundation/iTM2ViewKit.h>
-#import <iTM2Foundation/iTM2FileManagerKit.h>
-#import <iTM2Foundation/ICURegEx.h>
-#import <iTM2Foundation/iTM2ImageKit.h>
-#import <iTM2Foundation/iTM2Invocation.h>
+#import "iTM2ProjectDocumentKit.h"
+#import "iTM2InfoWrapperKit.h"
+#import "iTM2InstallationKit.h"
+#import "iTM2Implementation.h"
+#import "iTM2BundleKit.h"
+//#import "iTM2ResponderKit.h"
+#import "iTM2WindowKit.h"
+#import "iTM2MenuKit.h"
+#import "iTM2ValidationKit.h"
+#import "iTM2StringFormatKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2PathUtilities.h"
+#import "iTM2Runtime.h"
+#import "iTM2EventKit.h"
+#import "iTM2ViewKit.h"
+#import "iTM2FileManagerKit.h"
+#import "ICURegEx.h"
+#import "iTM2ImageKit.h"
+#import "iTM2Invocation.h"
 
 NSString * const iTM2WrapperDocumentType = @"Wrapper Document";
 NSString * const iTM2ProjectDocumentType = @"Project Document";
@@ -81,8 +81,8 @@ NSString * const iTM2NewProjectCreationModeKey = @"iTM2NewProjectCreationMode";
 NSString * const iTM2ProjectDefaultsKey = @"_";
 
 //#import "../99 - JAGUAR/iTM2JAGUARSupportKit.h"
-#import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2FileManagerKit.h>
+#import "iTM2NotificationKit.h"
+#import "iTM2FileManagerKit.h"
 
 NSString * const iTM2ProjectFileKeyKey = @"iTM2ProjectFileKey";
 NSString * const iTM2ProjectAbsolutePathKey = @"iTM2ProjectAbsolutePath";
@@ -97,8 +97,8 @@ NSString * const iTM2ProjectURLKey = @"iTM2ProjectURLKey";
 - (NSArray *)arrayWithCommonFirstObjectsOfArray:(NSArray *)array;
 @end
 
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
-#import <iTM2Foundation/iTM2InfoWrapperKit.h>
+#import "iTM2TextDocumentKit.h"
+#import "iTM2InfoWrapperKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2ProjectDocumentKit
 /*"Description forthcoming."*/
@@ -2054,7 +2054,7 @@ To Do List:
 	NSURL * projectURL = [self fileURL];
 	NSEnumerator * E = nil;
 	NSString * K = nil;
-	unsigned filter;
+	NSUInteger filter;
 	NSURL * url = nil;
 	filter = iTM2PCFilterAlias;
 	E = [[SPC fileKeysWithFilter:filter inProjectWithURL:projectURL] objectEnumerator];
@@ -2104,7 +2104,7 @@ To Do List:
 	NSURL * url;
 	if(url = [SPC URLForFileKey:aKey filter:iTM2PCFilterAlias inProjectWithURL:[self fileURL]])
 	{
-		if([DFM isPrivateFileAtPath:[url path]])
+		if([DFM iTM2_isPrivateFileAtPath:[url path]])
 		{
 			return nil;
 		}
@@ -2115,7 +2115,7 @@ To Do List:
 	}
 	if(url = [SPC URLForFileKey:aKey filter:iTM2PCFilterAbsoluteLink inProjectWithURL:[self fileURL]])
 	{
-		if([DFM isPrivateFileAtPath:[url path]])
+		if([DFM iTM2_isPrivateFileAtPath:[url path]])
 		{
 			return nil;
 		}
@@ -2126,7 +2126,7 @@ To Do List:
 	}
 	if(url = [SPC URLForFileKey:aKey filter:iTM2PCFilterRelativeLink inProjectWithURL:[self fileURL]])
 	{
-		if([DFM isPrivateFileAtPath:[url path]])
+		if([DFM iTM2_isPrivateFileAtPath:[url path]])
 		{
 			return nil;
 		}
@@ -2950,7 +2950,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PROPERTIES
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  propertyValueForKey:fileKey:contextDomain:
-- (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
+- (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2969,7 +2969,7 @@ To Do List:
     return [self contextValueForKey:key fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPropertyValue:forKey:fileKey:contextDomain:
-- (void)setPropertyValue:(id)property forKey:(NSString *)aKey fileKey:(NSString *)fileKey contextDomain:(unsigned int)mask;
+- (void)setPropertyValue:(id)property forKey:(NSString *)aKey fileKey:(NSString *)fileKey contextDomain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3172,7 +3172,7 @@ To Do List:
 			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nwas unexpected and will be recycled",fileName] forKey:NSLocalizedDescriptionKey]]];
 		[SWS selectFile:fileName inFileViewerRootedAtPath:[fileName stringByDeletingLastPathComponent]];
 		// it is not a directory: recycle it.
-		int tag;
+		NSInteger tag;
 		if([SWS performFileOperation:NSWorkspaceRecycleOperation source:[fileName stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[fileName lastPathComponent]] tag:&tag])
 		{
 			[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
@@ -3441,14 +3441,14 @@ To Do List:
 	NSError ** outErrorPtr = nil;
     NSInvocation * I;
 	[[NSInvocation iTM2_getInvocation:&I withTarget:self retainArguments:NO] writeToURL:[self fileURL] ofType:[self fileType] error:outErrorPtr];
-    [I iTM2_invokeWithSelectors:[iTM2RuntimeBrowser instanceSelectorsOfClass:isa withSuffix:@"MetaCompleteWriteToURL:ofType:error:" signature:[I methodSignature] inherited:YES]];
+    [I iTM2_invokeWithSelectors:[iTM2Runtime instanceSelectorsOfClass:isa withSuffix:@"MetaCompleteWriteToURL:ofType:error:" signature:[I methodSignature] inherited:YES]];
 	if(!needsToUpdate)
 		[self iTM2_recordFileModificationDateFromURL:[self fileURL]];
 //iTM2_END;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
-- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+- (id)getContextValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -3469,7 +3469,7 @@ To Do List:
     return [super getContextValueForKey:aKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
-- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -3480,13 +3480,13 @@ To Do List:
 	iTM2ProjectDocument * project = [self project];
 	id contextManager = [self contextManager];
 	NSAssert2(((project != contextManager) || (!project && !contextManager) || ((id)project == self)),@"*** %@ %#x The document's project must not be the context manager!",__iTM2_PRETTY_FUNCTION__, self);
-	unsigned int didChange = [super setContextValue:object forKey:aKey domain:mask];
+	NSUInteger didChange = [super setContextValue:object forKey:aKey domain:mask];
 	NSString * fileKey = @".";// weird...
 //iTM2_LOG(@"[self contextDictionary] is:%@",[self contextDictionary]);
     return didChange |= [self setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:fileKey:domain;
-- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -3499,7 +3499,7 @@ To Do List:
     return [self getContextValueForKey:aKey fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:fileKey:domain;
-- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -3558,7 +3558,7 @@ To Do List:
     return [fileKey isEqual:@"."]?[super getContextValueForKey:aKey domain:mask]:nil;// not self, reentrant code management
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:fileKey:domain:
-- (unsigned int)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (NSUInteger)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -3570,7 +3570,7 @@ To Do List:
 	return [self setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:fileKey:domain:
-- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(unsigned int)mask;
+- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -3584,7 +3584,7 @@ To Do List:
 	{
 		return NO;
 	}
-	unsigned int didChange = 0;
+	NSUInteger didChange = 0;
 	if(mask & iTM2ContextStandardLocalMask)
 	{
 		if([self setMetaInfo:object forKeyPaths:iTM2ProjectContextKeyedFilesKey,fileKey,aKey,nil])
@@ -3810,7 +3810,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3821,7 +3821,7 @@ To Do List:
     return [[self orderedFileKeys] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3859,7 +3859,7 @@ To Do List:
         return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:setObjectValue:forTableColumn:row:
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming. NOT USED!
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3930,7 +3930,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:willDisplayCell:forTableColumn:row:
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex;
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -3973,7 +3973,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:shouldEditTableColumn:row:
-- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -4028,7 +4028,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:toolTipForCell:rect:tableColumn:row:mouseLocation::
-- (NSString *)tableView:(NSTableView *)tv toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tc row:(int)row mouseLocation:(NSPoint)mouseLocation;
+- (NSString *)tableView:(NSTableView *)tv toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tc row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation;
 /*"Thx http://www.corbinstreehouse.com/blog/?p=50.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0
@@ -4073,7 +4073,7 @@ To Do List:
 	NSString * path;
 	NSString * key;
  	NSMutableArray * array = [NSMutableArray array];
-	unsigned int row = [rowIndexes firstIndex];
+	NSUInteger row = [rowIndexes firstIndex];
 	while(row != NSNotFound)
 	{
 		key = [fileKeys objectAtIndex:row];
@@ -4090,7 +4090,7 @@ To Do List:
 //iTM2_END;
     return NO;
 }
-- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op
 {
     // Add code here to validate the drop
 	iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
@@ -4136,7 +4136,7 @@ To Do List:
 	}
     return NSDragOperationNone;
 }
-- (BOOL)tableView:(NSTableView *)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op
+- (BOOL)tableView:(NSTableView *)tv acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)op
 {
 	BOOL result = NO;
 	iTM2ProjectDocument * projectDocument = (iTM2ProjectDocument *)[self document];
@@ -4323,7 +4323,7 @@ To Do List:
 					else
 					{
 						NSString * dirName = [pathToCopy stringByDeletingLastPathComponent];
-						int tag;
+						NSInteger tag;
 						if([SWS performFileOperation:NSWorkspaceCopyOperation source:dirName
 										destination:contentsName files:[NSArray arrayWithObject:lastComponent] tag:&tag])
 						{
@@ -4386,7 +4386,7 @@ To Do List:
 			else
 			{
 				NSString * dirName = [fullPath stringByDeletingLastPathComponent];
-				int tag;
+				NSInteger tag;
 				if([SWS performFileOperation:NSWorkspaceCopyOperation source:dirName
 								destination:contentsName files:[NSArray arrayWithObject:lastComponent] tag:&tag])
 				{
@@ -4522,7 +4522,7 @@ To Do List:
 		{
 			NSString * lastComponent = [[url path] lastPathComponent];
 			NSString * dirName = [[url path] stringByDeletingLastPathComponent];
-			int tag;
+			NSInteger tag;
 			if(recycle)
 			{
 				if([SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName
@@ -4579,7 +4579,7 @@ To Do List:
 	BOOL recycle = [[contextInfo objectForKey:@"recycle"] boolValue];
 	NSString * lastComponent = [[fileURL path] lastPathComponent];
 	NSString * dirName = [[fileURL path] stringByDeletingLastPathComponent];
-	int tag;
+	NSInteger tag;
 	if(recycle)
 	{
 		if([SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName
@@ -4675,7 +4675,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int row = [[self documentsView] selectedRow];
+    NSInteger row = [[self documentsView] selectedRow];
     NSString * oldRelative;
     if(row < 0 || row >= [[self documentsView] numberOfRows])
 	{
@@ -4777,7 +4777,7 @@ To Do List:
 	}
 	else if([selectedRowIndexes count] == 1)
 	{
-		unsigned int row = [selectedRowIndexes firstIndex];
+		NSUInteger row = [selectedRowIndexes firstIndex];
 		NSTableColumn * TC = [documentsView tableColumnWithIdentifier:iTM2PDTableViewPathIdentifier];
 		id dataSource = [documentsView dataSource];
         p = [dataSource tableView:documentsView objectValueForTableColumn:TC row:row];
@@ -4925,26 +4925,6 @@ To Do List:
 @end
 
 @implementation NSWindowController(Project)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Mar 30 15:52:06 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	if(![NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_windowTitleForDocumentDisplayName:)]
-	|| ![NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ__iTM2_windowsMenuItemTitleForDocumentDisplayName:)])
-	{
-		iTM2_LOG(@"It is unlikely that things will work as expected...");
-	}
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_windowTitleForDocumentDisplayName:
 - (NSString *)SWZ_iTM2_windowTitleForDocumentDisplayName:(NSString *)displayName;
 /*"Description forthcoming.
@@ -5009,24 +4989,6 @@ To Do List:
 NSString * const iTM2OtherProjectWindowsAlphaValue = @"iTM2OtherProjectWindowsAlphaValue";
 
 @implementation NSWindow(iTM2ProjectDocument)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Jan 19 23:19:59 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-		[NSNumber numberWithFloat:1],iTM2OtherProjectWindowsAlphaValue,// to be improved...
-			nil]];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2ProjectDocument_display
 - (void)SWZ_iTM2ProjectDocument_display;
@@ -5122,25 +5084,6 @@ To Do List:
 #import <objc/objc-class.h>
 
 @implementation NSDocument(iTM2ProjectDocumentKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"TogglePDFs the display mode between iTM2StickMode and iTM2LastMode.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Jan 19 23:19:59 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setFileURL:)];
-	[NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:)];
-	[NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_newRecentDocument)];
-	[NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_shouldCascadeWindows)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_setFileURL:
 - (void)SWZ_iTM2ProjectDocument_setFileURL:(NSURL*)newURL;
 /*"Description Forthcoming.
@@ -5255,7 +5198,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
-- (id)getContextValueForKey:(NSString *)aKey domain:(unsigned int)mask;
+- (id)getContextValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -5285,7 +5228,7 @@ To Do List:
     return [super getContextValueForKey:aKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
-- (unsigned int)setContextValue:(id)object forKey:(NSString *)aKey domain:(unsigned int)mask;
+- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -5570,7 +5513,7 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2ResponderKit.h>
+#import "iTM2ResponderKit.h"
 
 @interface iTM2ProjectDocumentResponder(PRIVATE)
 - (BOOL)validateProjectAddCurrentDocument:(id)sender;
@@ -5583,33 +5526,6 @@ static NSString * _iTM2NewProjectLocalizedTitle = @"NEW PROJECT?";
 
 
 @implementation NSApplication(iTM2ProjectDocumentKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	if(![NSApplication iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocumentKit_terminate:)])
-	{
-		iTM2_LOG(@"WARNING:terminate message could not be patched...");
-	}
-#if 0
-	if(![iTM2RuntimeBrowser iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocumentKit_arrangeInFront:)])
-	{
-		iTM2_LOG(@"WARNING:arrangeInFront message could not be patched...");
-	}
-#endif
-	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2ProjectDocumentResponder"];
-	[iTM2MileStone registerMileStone:@"No project menu item localization available" forKey:@"iTM2LocalizedProjectMenuItems"];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _iTM2ProjectDocumentResponderDidFinishLaunching
 - (void)_iTM2ProjectDocumentResponderDidFinishLaunching;
 /*"Description forthcoming.
@@ -5651,13 +5567,15 @@ To Do List:
 		OK = NO;
 	}
 	if(OK)
-		[iTM2MileStone putMileStoneForKey:@"iTM2LocalizedProjectMenuItems"];
+	{
+		iTM2_MILESTONE((@"iTM2LocalizedProjectMenuItems"),(@"No project menu item localization available"));
+	}
 	[_iTM2CurrentProjectLocalizedFormat autorelease];
 	_iTM2CurrentProjectLocalizedFormat = [proposal copy];
 	if([NSApp targetForAction:@selector(performCloseProject:)])
-		[iTM2MileStone putMileStoneForKey:@"iTM2ProjectDocumentResponder"];
-//iTM2_LOG(@"_iTM2CurrentProjectLocalizedFormat = %@",_iTM2CurrentProjectLocalizedFormat);
-//iTM2_END;
+	{
+		iTM2_MILESTONE((@"iTM2ProjectDocumentResponder"),(@"No responder available to handle the performCloseProject: action"));
+	}
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocumentKit_terminate:
@@ -5700,7 +5618,7 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2MiscKit.h>
+#import "iTM2MiscKit.h"
 
 @implementation iTM2ProjectDocumentResponder
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performCloseProject:
@@ -6154,7 +6072,7 @@ To Do List:
 		newName = [newURL path];
 		// recycle what is at newName
 		NSArray * files = nil;
-		int tag;
+		NSInteger tag;
 		if([DFM fileExistsAtPath:newName])
 		{
 			source = [newName lastPathComponent];
@@ -6466,27 +6384,8 @@ To Do List:
 
 
 @implementation iTM2StringFormatController(iTM2ProjectDocumentKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_EOL)];
-	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setEOL:)];
-	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_stringEncoding)];
-	[iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setStringEncoding:)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_EOL
-- (unsigned int)SWZ_iTM2ProjectDocument_EOL;
+- (NSUInteger)SWZ_iTM2ProjectDocument_EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -6502,14 +6401,14 @@ To Do List:
 		if([fileKey length])
 		{
 			NSString * EOLName = [P propertyValueForKey:TWSEOLFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-			unsigned int EOL = [iTM2StringFormatController EOLForName:EOLName];
+			NSUInteger EOL = [iTM2StringFormatController EOLForName:EOLName];
 			return EOL == iTM2UnknownEOL? [iTM2StringFormatController EOLForName:EOLName]:EOL;
 		}
 	}
     return [self SWZ_iTM2ProjectDocument_EOL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2ProjectDocument_setEOL:
-- (void)SWZ_iTM2ProjectDocument_setEOL:(unsigned int) argument;
+- (void)SWZ_iTM2ProjectDocument_setEOL:(NSUInteger) argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -6807,3 +6706,38 @@ To Do List:
 	return projects;
 }
 @end
+
+@implementation iTM2MainInstaller(ProjectDocumentKit)
+
++ (void)prepareProjectDocumentKitCompleteInstallation;
+{
+	if([iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_EOL)]
+		&& [iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setEOL:)]
+		&& [iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_stringEncoding)]
+		&& [iTM2StringFormatController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setStringEncoding:)])
+	{
+		iTM2_MILESTONE((@"iTM2StringFormatController(iTM2ProjectDocumentKit)"),(@"No patch for EOL and StringEncoding management which is project friendly"));
+	}
+	if([NSApplication iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocumentKit_terminate:)])
+	{
+		iTM2_MILESTONE((@"NSApplication(iTM2ProjectDocumentKit)"),(@"WARNING:terminate message could not be patched..."));
+	}
+	if([NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_windowTitleForDocumentDisplayName:)]
+		   &&[NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ__iTM2_windowsMenuItemTitleForDocumentDisplayName:)])
+	{
+		iTM2_MILESTONE((@"NSWindowController(Project)"),(@"It is unlikely that things will work as expected..."));
+	}
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+							   [NSNumber numberWithFloat:1],iTM2OtherProjectWindowsAlphaValue,// to be improved...
+							   nil]];
+	if([NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_setFileURL:)]
+		&& [NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:)]
+		&& [NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_newRecentDocument)]
+		&& [NSWindowController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2ProjectDocument_shouldCascadeWindows)])
+	{
+		iTM2_MILESTONE((@"NSDocument(iTM2ProjectDocumentKit)"),(@"project documents do not behave as expected"));
+	}
+}
+
+@end
+

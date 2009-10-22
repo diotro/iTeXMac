@@ -27,9 +27,9 @@
 #else
 #endif
 #if 1
-#import <iTM2Foundation/iTM2SpellKit.h>
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
-#import <iTM2Foundation/iTM2InfoWrapperKit.h>
+#import "iTM2SpellKit.h"
+#import "iTM2ProjectDocumentKit.h"
+#import "iTM2InfoWrapperKit.h"
 
 @implementation iTM2SpellContextController(Project)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectNameForText:

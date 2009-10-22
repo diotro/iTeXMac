@@ -22,7 +22,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2Implementation.h>
+#import "iTM2Implementation.h"
 
 extern NSString * const iTM2UDContinuousSpellCheckingKey;
 
@@ -144,7 +144,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		An integer.
 */
-- (int)tag;
+- (NSInteger)tag;
 
 @end
 

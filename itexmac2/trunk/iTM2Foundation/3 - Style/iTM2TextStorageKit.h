@@ -282,10 +282,10 @@ enum
 {
 @private
     id			_ModeLines;
-    unsigned	_BadOffsetIndex;
-    unsigned	_BadModeIndex;
-    unsigned	_PreviousLineIndex;
-    unsigned	_PreviousLocation;
+    NSUInteger	_BadOffsetIndex;
+    NSUInteger	_BadModeIndex;
+    NSUInteger	_PreviousLineIndex;
+    NSUInteger	_PreviousLocation;
 @protected
     id _TS;
     id _AS;
@@ -371,7 +371,7 @@ enum
     @param      None
     @result     an index.
 */
-- (unsigned)badOffsetIndex;
+- (NSUInteger)badOffsetIndex;
 
 /*!
     @method     validateOffsetsUpTo:
@@ -380,7 +380,7 @@ enum
     @param      argument
     @result     None.
 */
-- (void)validateOffsetsUpTo:(unsigned)argument;
+- (void)validateOffsetsUpTo:(NSUInteger)argument;
 
 /*!
     @method     invalidateOffsetsFrom:
@@ -389,7 +389,7 @@ enum
     @param      argument
     @result     None.
 */
-- (void)invalidateOffsetsFrom:(unsigned)argument;
+- (void)invalidateOffsetsFrom:(NSUInteger)argument;
 
 /*!
     @method     badModeIndex
@@ -399,7 +399,7 @@ enum
     @param      None
     @result     an index.
 */
-- (unsigned)badModeIndex;
+- (NSUInteger)badModeIndex;
 
 /*!
     @method     validateModesUpTo:
@@ -410,7 +410,7 @@ enum
     @param      argument
     @result     None.
 */
-- (void)validateModesUpTo:(unsigned)argument;
+- (void)validateModesUpTo:(NSUInteger)argument;
 
 /*!
     @method     invalidateModesFrom:
@@ -421,7 +421,7 @@ enum
     @param      argument
     @result     None.
 */
-- (void)invalidateModesFrom:(unsigned)argument;
+- (void)invalidateModesFrom:(NSUInteger)argument;
 
 /*!
     @method     lineIndexForLocation:
@@ -438,7 +438,7 @@ enum
     @param      location
     @result     index
 */
-- (unsigned int)lineIndexForLocation:(unsigned)location;
+- (NSUInteger)lineIndexForLocation:(NSUInteger)location;
 
 /*!
     @method     insertModeLine:atIndex:
@@ -448,15 +448,15 @@ enum
     @param      index
     @result     None.
 */
-- (void)insertModeLine:(id)ML atIndex:(unsigned)index;
+- (void)insertModeLine:(id)ML atIndex:(NSUInteger)index;
 
 /*!
     @method     numberOfModeLines
     @abstract   The number of mode lines.
     @discussion Description forthcoming.
-    @result     unsigned.
+    @result     NSUInteger.
 */
-- (unsigned)numberOfModeLines;
+- (NSUInteger)numberOfModeLines;
 
 /*!
     @method     modeLineAtIndex:
@@ -465,7 +465,7 @@ enum
     @param      index
     @result     ML.
 */
-- (id)modeLineAtIndex:(unsigned)index;
+- (id)modeLineAtIndex:(NSUInteger)index;
 
 /*!
     @method     replaceModeLineAtIndex:withModeLine:
@@ -475,7 +475,7 @@ enum
     @param      ML
     @result     None.
 */
-- (void)replaceModeLineAtIndex:(unsigned)index withModeLine:(id)ML;
+- (void)replaceModeLineAtIndex:(NSUInteger)index withModeLine:(id)ML;
 
 /*!
     @method     replaceModeLinesInRange:withModeLines:
@@ -494,7 +494,7 @@ enum
     @param      aLocation
     @result     A dictionary of attributes
 */
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(NSUInteger)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 
 /*!
     @method     setAttributes:range:
@@ -597,7 +597,7 @@ enum
     @param      editedAttributesRangePtr, on return points to the edited attributes range
     @result     None
 */
-- (void)textStorageDidInsertCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidInsertCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidInsertCharactersAtIndex:count:editedAttributesRangeIn:
@@ -610,7 +610,7 @@ enum
     @param      editedAttributesRangePtr, on return points to the edited attributes range
     @result     None
 */
-- (void)textStorageDidInsertCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidInsertCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidDeleteCharacterAtIndex:editedAttributesRangeIn:
@@ -623,7 +623,7 @@ enum
     @param      editedAttributesRangePtr, on return points to the edited attributes range
     @result     None
 */
-- (void)textStorageDidDeleteCharacterAtIndex:(unsigned)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidDeleteCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidDeleteCharactersAtIndex:count:editedAttributesRangeIn:
@@ -638,7 +638,7 @@ enum
 	@param      editedAttributesRangePtr, on return points to the edited attributes range
 	@result     None
 */
-- (void)textStorageDidDeleteCharactersAtIndex:(unsigned)location count:(unsigned)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidDeleteCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:
@@ -651,7 +651,7 @@ enum
 	@param      editedAttributesRangePtr, on return points to the edited attributes range
 	@result     None
 */
-- (void)textStorageDidReplaceCharactersAtIndex:(unsigned)location count:(unsigned)oldCount withCount:(unsigned)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
+- (void)textStorageDidReplaceCharactersAtIndex:(NSUInteger)location count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr;
 
 /*!
     @method     textStorageWillProcessEditing
@@ -693,7 +693,7 @@ This default implementation does nothing.
     @param      the previous mode which is the last mode of the previous line
     @result     the EOL mode once things are fixed
 */
-- (unsigned)validEOLModeOfModeLine:(id)modeLine forPreviousMode:(unsigned)mode;
+- (NSUInteger)validEOLModeOfModeLine:(id)modeLine forPreviousMode:(NSUInteger)mode;
 
 /*!
     @method     didUpdateModeLine:forPreviousMode:
@@ -705,7 +705,7 @@ This default implementation does nothing.
     @param      the previous mode which is the last mode of the previous line
     @result     None
 */
-- (void)didUpdateModeLine:(id)originalModeLine forPreviousMode:(unsigned)previousMode;
+- (void)didUpdateModeLine:(id)originalModeLine forPreviousMode:(NSUInteger)previousMode;
 
 /*!
     @method     isFoldingCompliant
@@ -736,7 +736,7 @@ This default implementation does nothing.
     @param      beforeIndex is a wall
     @result     a mode
 */
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)index previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthPtr nextModeIn:(unsigned *)nextModePtr before:(unsigned)beforeIndex;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)newModeRef forLocation:(NSUInteger)index previousMode:(NSUInteger)previousMode effectiveLength:(NSUInteger *)lengthPtr nextModeIn:(NSUInteger *)nextModePtr before:(NSUInteger)beforeIndex;
 
 /*!
     @method     getSyntaxMode:forCharacter:previousMode:
@@ -746,7 +746,7 @@ This default implementation does nothing.
     @param      previousMode
     @result     a mode
 */
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)newModeRef forCharacter:(unichar)theChar previousMode:(NSUInteger)previousMode;
 
 /*!
     @method     invalidateModesForCharacterRange:editedAttributesRangeIn:
@@ -765,7 +765,7 @@ This default implementation does nothing.
     @param      previousMode
     @result     a mode
 */
-- (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
+- (NSUInteger)EOLModeForPreviousMode:(NSUInteger)previousMode;
 
 /*!
     @method     getSyntaxMode:atIndex:longestRange:
@@ -776,7 +776,7 @@ This default implementation does nothing.
     @param      aRangePtr
     @result     a mode
 */
-- (unsigned)getSyntaxMode:(unsigned *)modeRef atIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)modeRef atIndex:(NSUInteger)aLocation longestRange:(NSRangePointer)aRangePtr;
 
 /*!
     @method     getSmartSyntaxMode:atIndex:longestRange:
@@ -789,7 +789,7 @@ This default implementation does nothing.
     @param      aRangePtr
     @result     a mode
 */
-- (unsigned)getSmartSyntaxMode:(unsigned *)aModeRef atIndex:(unsigned)aLocation longestRange:(NSRangePointer)aRangePtr;
+- (NSUInteger)getSmartSyntaxMode:(NSUInteger *)aModeRef atIndex:(NSUInteger)aLocation longestRange:(NSRangePointer)aRangePtr;
 
 /*!
     @method     fixSyntaxModesInRange:
@@ -809,18 +809,18 @@ This default implementation does nothing.
     @param      range
     @result     YES if the receiver has managed the link
 */
-- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+- (BOOL)didClickOnLink:(id)link atIndex:(NSUInteger)charIndex;
 
 @property (retain) id			_ModeLines;
-@property unsigned	_BadOffsetIndex;
-@property unsigned	_BadModeIndex;
-@property unsigned	_PreviousLineIndex;
-@property unsigned	_PreviousLocation;
+@property NSUInteger	_BadOffsetIndex;
+@property NSUInteger	_BadModeIndex;
+@property NSUInteger	_PreviousLineIndex;
+@property NSUInteger	_PreviousLocation;
 @property (retain) id _TS;
 @property (retain) id _AS;
 @end
 
-//#import <iTM2Foundation/iTM2ObjectsKit.h>
+//#import "iTM2ObjectsKit.h"
 extern NSString * const iTM2TextSyntaxParserName;
 extern NSString * const iTM2TextModesAttributesExtension;
 extern NSString * const iTM2TextSymbolsAttributesExtension;
@@ -849,7 +849,7 @@ extern NSString * const iTM2TextDefaultStyle;
                 The end and contentsEnd are similar to the result of -getLineStart:end:contentsEnd:forRange:.
                 The only difference is that both are relative to the beginning of a line of text.
                 That way, no need to update these values if the text is edited in another line.
-                The line mode contains two mutable data that store a range length and a range mode, both are unsigned int's.
+                The line mode contains two mutable data that store a range length and a range mode, both are NSUInteger's.
                 The contentsEnd is expected to be the sum of all the lengths.
                 Two successive modes should not have the same value but it is not required at first glance.
                 In order to avoid computing the modes, information is cached.
@@ -858,7 +858,7 @@ extern NSString * const iTM2TextDefaultStyle;
                 but it is sufficient to have the end.
                 The previous and last modes are responsible of the continuity of the text stream.
                 Those values make the link between a line and its preceeding line or its following one.
-                Here we assume that line switch is described by an unsigned integer.
+                Here we assume that line switch is described by an NSUIntegereger.
                 We must understand this as the mode of the switch between the line such that
                 the last mode of a line mode is the previous mode of the next line.
                 Similarly, the previous mode of a line mode is also the last mode of the previous line mode.
@@ -878,30 +878,30 @@ extern NSString * const iTM2TextDefaultStyle;
 
 @interface iTM2ModeLine: NSObject
 {
-@private
+@public
     // global coordinates
-    unsigned int _StartOff7;//primitive
-    unsigned int _CommentOff7;//:=_StartOff7+_UncommentedLength, possibly UINT_MAX
-    unsigned int _ContentsEndOff7;//:=_StartOff7+_ContentsLength
-    unsigned int _EndOff7;//:=_StartOff7+_Length
+    NSUInteger _StartOff7;//primitive
+    NSUInteger _CommentOff7;//:=_StartOff7+_UncommentedLength, possibly UINT_MAX
+    NSUInteger _ContentsEndOff7;//:=_StartOff7+_ContentsLength
+    NSUInteger _EndOff7;//:=_StartOff7+_Length
     // local coordinates
-    unsigned int _UncommentedLength;//primitive, _UncommentedLength = UINT_MAX
-    unsigned int _ContentsLength;//primitive
-    unsigned int _Length;//_Length:=_ContentsLength + _EOLLength
-    unsigned int _EOLLength;//primitive
+    NSUInteger _UncommentedLength;//primitive, _UncommentedLength = UINT_MAX
+    NSUInteger _ContentsLength;//primitive
+    NSUInteger _Length;//_Length:=_ContentsLength + _EOLLength
+    NSUInteger _EOLLength;//primitive
     NSRange  _InvalidLocalRange;
     // modes
-    unsigned int _PreviousMode;
-    unsigned int _EOLMode;
-    unsigned int _NumberOfSyntaxWords;
-    unsigned int _MaxNumberOfSyntaxWords;
-    unsigned int * __SyntaxWordOff7s;
-    unsigned int * __SyntaxWordLengths;
-    unsigned int * __SyntaxWordEnds;
-    unsigned int * __SyntaxWordModes;
+    NSUInteger _PreviousMode;
+    NSUInteger _EOLMode;
+    NSUInteger _NumberOfSyntaxWords;
+    NSUInteger _MaxNumberOfSyntaxWords;
+    NSUInteger * __SyntaxWordOff7s;
+    NSUInteger * __SyntaxWordLengths;
+    NSUInteger * __SyntaxWordEnds;
+    NSUInteger * __SyntaxWordModes;
     // flags
-    unsigned int _Status;
-    unsigned int _Depth;
+    NSUInteger _Status;
+    NSUInteger _Depth;
 #ifdef __ELEPHANT_MODELINE__
 @public
 	NSString * originalString;
@@ -916,10 +916,10 @@ extern NSString * const iTM2TextDefaultStyle;
     @abstract   The status of the receiver.
     @discussion This is not yet used.
     @param      None
-    @result     an unsigned int
+    @result     an NSUInteger
 */
-- (unsigned int)status;
-- (void)setStatus:(unsigned int)argument;
+- (NSUInteger)status;
+- (void)setStatus:(NSUInteger)argument;
 
 /*!
     @method     depth
@@ -928,17 +928,17 @@ extern NSString * const iTM2TextDefaultStyle;
 				Nonegative depth are absolute.
 				-1 means one level deeper, -2 means one level upper.
     @param      None
-    @result     an unsigned int
+    @result     an NSUInteger
 */
-- (int)depth;
-- (void)setDepth:(int)argument;
-- (unsigned)startOffset;
-- (unsigned)commentOffset;
-- (unsigned)contentsEndOffset;
-- (unsigned)endOffset;
-- (void)setStartOffset:(unsigned)argument;
-- (unsigned)EOLLength;
-- (unsigned)contentsLength;
+- (NSUInteger)depth;
+- (void)setDepth:(NSUInteger)argument;
+- (NSUInteger)startOffset;
+- (NSUInteger)commentOffset;
+- (NSUInteger)contentsEndOffset;
+- (NSUInteger)endOffset;
+- (void)setStartOffset:(NSUInteger)argument;
+- (NSUInteger)EOLLength;
+- (NSUInteger)contentsLength;
 
 /*!
     @method     uncommentedLength
@@ -949,7 +949,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      argument
     @result     None
 */
-- (unsigned)uncommentedLength;
+- (NSUInteger)uncommentedLength;
 
 /*!
     @method     setEOLLength:
@@ -958,8 +958,8 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      argument
     @result     None
 */
-- (void)setEOLLength:(unsigned)argument;
-- (unsigned)length;
+- (void)setEOLLength:(NSUInteger)argument;
+- (NSUInteger)length;
 
 /*!
     @method     contentsLength
@@ -968,7 +968,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      argument
     @result     None
 */
-- (unsigned)contentsLength;
+- (NSUInteger)contentsLength;
 
 /*!
     @method     invalidLocalRange
@@ -1057,16 +1057,16 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     mode
 */
-- (unsigned)previousMode;
+- (NSUInteger)previousMode;
 
 /*!
     @method     setPreviousMode:
     @abstract   Set the previous mode of the receiver.
-    @discussion The mode an unsigned int value.
+    @discussion The mode an NSUInteger value.
     @param      argument
     @result     None
 */
-- (void)setPreviousMode:(unsigned)argument;
+- (void)setPreviousMode:(NSUInteger)argument;
 
 /*!
     @method     EOLMode:
@@ -1076,8 +1076,8 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      None
     @result     A mode
 */
-- (unsigned)EOLMode;
-- (void)setEOLMode:(unsigned)argument;
+- (NSUInteger)EOLMode;
+- (void)setEOLMode:(NSUInteger)argument;
 
 /*!
     @method     deleteModesInRange:
@@ -1098,8 +1098,8 @@ extern NSString * const iTM2TextDefaultStyle;
 */
 - (BOOL)moreStorage;
 
-- (BOOL)enlargeSyntaxModeAtGlobalLocation:(unsigned)aLocation length:(unsigned)length;
-- (void)appendSyntaxMode:(unsigned)mode length:(unsigned)length;// beware: the _Length is updated too
+- (BOOL)enlargeSyntaxModeAtGlobalLocation:(NSUInteger)aLocation length:(NSUInteger)length;
+- (void)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length;// beware: the _Length is updated too
 - (BOOL)removeLastMode;// NO if no storage for modes
 - (void)swapContentsWithModeLine:(iTM2ModeLine *)ML;
 
@@ -1112,7 +1112,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      mask is mask
     @result     A range, {NSNotFound,0} if nothing was found.
 */
-- (NSRange)longestRangeAtGlobalLocation:(unsigned)aGlobalLocation mask:(unsigned int)mask;
+- (NSRange)longestRangeAtGlobalLocation:(NSUInteger)aGlobalLocation mask:(NSUInteger)mask;
 
 /*!
     @method     getSyntaxMode:atGlobalLocation:longestRange:
@@ -1123,7 +1123,7 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      ref is a range reference where the mode range is returned
     @result     A flag indicating whether the increase succeeded.
 */
-- (unsigned)getSyntaxMode:(unsigned *)modeRef atGlobalLocation:(unsigned)aLocation longestRange:(NSRangePointer)ref;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)modeRef atGlobalLocation:(NSUInteger)aLocation longestRange:(NSRangePointer)ref;
 
 /*!
     @method     getPreviousSyntaxMode:notEqualTo:atGlobalLocation:longestRange:
@@ -1135,37 +1135,37 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      ref is a range reference where the mode range is returned
     @result     A flag indicating whether the increase succeeded.
 */
-- (unsigned)getPreviousSyntaxMode:(unsigned *)modeRef notEqualTo:(unsigned)excludeMode atGlobalLocation:(unsigned)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
+- (NSUInteger)getPreviousSyntaxMode:(NSUInteger *)modeRef notEqualTo:(NSUInteger)excludeMode atGlobalLocation:(NSUInteger)aGlobalLocation longestRange:(NSRangePointer)aRangePtr;
 
-- (unsigned)numberOfSyntaxWords;
-- (unsigned)syntaxModeAtIndex:(unsigned)index;
-- (unsigned)syntaxLengthAtIndex:(unsigned)index;
+- (NSUInteger)numberOfSyntaxWords;
+- (NSUInteger)syntaxModeAtIndex:(NSUInteger)index;
+- (NSUInteger)syntaxLengthAtIndex:(NSUInteger)index;
 //All these should be private
 /*"Main methods"*/
-- (id)initWithString:(NSString *)aString atCursor:(unsigned *)cursor;
+- (id)initWithString:(NSString *)aString atCursor:(NSUInteger *)cursor;
 - (void)describe;
 /*"Overriden methods"*/
 #ifdef __ELEPHANT_MODELINE__
 - (NSString *)originalString;
 #endif
-@property unsigned int _StartOff7;
-@property unsigned int _CommentOff7;
-@property unsigned int _ContentsEndOff7;
-@property unsigned int _EndOff7;
-@property unsigned int _UncommentedLength;
-@property unsigned int _ContentsLength;
-@property unsigned int _Length;
-@property unsigned int _EOLLength;
-@property unsigned int _PreviousMode;
-@property unsigned int _EOLMode;
-@property unsigned int _NumberOfSyntaxWords;
-@property unsigned int _MaxNumberOfSyntaxWords;
-@property unsigned int * __SyntaxWordOff7s;
-@property unsigned int * __SyntaxWordLengths;
-@property unsigned int * __SyntaxWordEnds;
-@property unsigned int * __SyntaxWordModes;
-@property unsigned int _Status;
-@property unsigned int _Depth;
+@property NSUInteger startOff7;
+@property NSUInteger commentOff7;
+@property NSUInteger contentsEndOff7;
+@property NSUInteger endOff7;
+@property NSUInteger uncommentedLength;
+@property NSUInteger contentsLength;
+@property NSUInteger length;
+@property NSUInteger EOLLength;
+@property NSUInteger previousMode;
+@property NSUInteger EOLMode;
+@property NSUInteger numberOfSyntaxWords;
+@property NSUInteger maxNumberOfSyntaxWords;
+@property (assign) NSUInteger * syntaxWordOff7s;
+@property (assign) NSUInteger * syntaxWordLengths;
+@property (assign) NSUInteger * syntaxWordEnds;
+@property (assign) NSUInteger * syntaxWordModes;
+@property NSUInteger status;
+@property NSUInteger depth;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextStorageKit
