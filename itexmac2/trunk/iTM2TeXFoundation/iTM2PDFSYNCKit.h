@@ -46,7 +46,7 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
     @param      yorn is a flag
     @result     y or n
 */
-- (BOOL)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(NSUInteger)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 
 /*! 
     @method     displayPageForLine:column:source:withHint:orderFront:
@@ -58,7 +58,7 @@ extern NSString * const iTM2PDFSYNCDisplayBulletsKey;
     @param      yorn is a flag.
     @result     NO if nothing special is done
 */
-- (BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(NSUInteger)l column:(NSUInteger)c source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 
 - (id)synchronizer;
 - (void)setSynchronizer:(id)argument;
@@ -98,8 +98,8 @@ typedef struct
 
 typedef struct
 {
-    int line;
-    int column;
+    NSInteger line;
+    NSInteger column;
 } iTM2SynchronizationLineRecord;
     
 @interface iTM2PDFSynchronizer: NSObject
@@ -109,8 +109,8 @@ typedef struct
     id _Files;
     id _PageSyncLocations;
     id _Lines;
-    int _Version;
-    int _Semaphore;
+    NSInteger _Version;
+    NSInteger _Semaphore;
     BOOL _IsLocked;
 }
 
@@ -119,16 +119,16 @@ typedef struct
     @abstract   Translates a source information into an output information.
     @discussion These are the methods for synchronization.
 				Destinations is a dictionary containing 3 dictionaries for keys @"here", @"before" and @"after".
-				Each dictionary keys are page indexes wrapped in numbers as unsigned ints and corresponding
+				Each dictionary keys are page indexes wrapped in numbers as NSUIntegers and corresponding
 				values are mutable arrays of pdfsync points wrapped in NSValue's. Points are expressed in page coordinates,
 				as expected by Mac OS X (bp vs pt, this might be a strange affair because it is not clear what TeX gives...)
     @param      line is a line number.
     @param      column is a column number.
     @param      source is the full path of the file for which we know the above line and column numbers.
-    @result     a dictionary which keys are 0 based page indices wrapped as unsigned int in numbers,
+    @result     a dictionary which keys are 0 based page indices wrapped as NSUInteger in numbers,
 				values are arrays of points wrapped in values.
 */
-- (NSDictionary *)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (NSDictionary *)destinationsForLine:(NSUInteger)line column:(NSUInteger)column inSource:(NSString *)source;
 
 /*! 
     @method     getLine:column:length:source:forLocation:withHint:inPageAtIndex:
@@ -142,8 +142,8 @@ typedef struct
     @param      point is the point of the PDF, the origin is at the top left corner of teh page.
     @result     a flag, NO if no PDFSYNC info where available, YES othewise. A NO return value does not mean that the receiver is using DVI.
 */
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr length:(unsigned int *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr length:(NSUInteger *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(NSUInteger)pageIndex;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(NSUInteger)pageIndex;
 
 /*! 
     @method     synchronizationLocationsForPageIndex:
@@ -152,7 +152,7 @@ typedef struct
     @param      page is a 0 based page number.
     @result     an enumerator, maybe nil.
 */
-- (NSDictionary *)synchronizationLocationsForPageIndex:(unsigned int)page;
+- (NSDictionary *)synchronizationLocationsForPageIndex:(NSUInteger)page;
 
 /*!
     @method     sourcesForPageAtIndex:
@@ -163,7 +163,7 @@ typedef struct
     @param		pageIndex is the 0 based page index in the output.
     @result     An array of source paths, relative to the main source/pdf file.
 */
-- (NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
+- (NSArray *)sourcesForPageAtIndex:(NSUInteger)pageIndex;
 
 /*! 
     @method     parsePdfsync:
@@ -198,8 +198,8 @@ typedef struct
 @property (retain) id _Files;
 @property (retain) id _PageSyncLocations;
 @property (retain) id _Lines;
-@property int _Version;
-@property int _Semaphore;
+@property NSInteger _Version;
+@property NSInteger _Semaphore;
 @property BOOL _IsLocked;
 @end
 
@@ -265,7 +265,7 @@ typedef struct
 
 @interface iTM2PDFAlbumView(iTM2PDFSYNCKit)
 
-- (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (BOOL)takeCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 - (void)scrollSynchronizationPointToVisible:(id)sender;
 
 @end
@@ -279,9 +279,9 @@ typedef struct
 - (BOOL)canSynchronizeOutput;
 - (IBAction)scrollSynchronizationPointToVisible:(id)sender;
 - (BOOL)validateScrollSynchronizationPointToVisible:(id)sender;
-- (void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (void)displayPhysicalPage:(NSInteger)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 - (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
-- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *)hint;
+- (BOOL)synchronizeWithLine:(NSUInteger)l column:(NSUInteger)c source:(NSString *)SRCE hint:(NSDictionary *)hint;
 @end
 
 @interface NSTextView(iTM2PDFSYNCKit)

@@ -336,7 +336,7 @@ extern NSString * const iTM2ToolbarProjectTerminalItemIdentifier;
 @interface iTM2NewTeXProjectController:iTM2Inspector
 {
 @private
-	unsigned int flags;
+	NSUInteger flags;
 }
 - (NSURL *)fileURL;
 - (void)setFileURL:(NSURL *)fileURL;
@@ -376,12 +376,12 @@ extern NSString * const iTM2ToolbarProjectTerminalItemIdentifier;
 				- are there projects the file could be added to?
 */
 - (void)validateCreationMode;
-- (int)creationMode;
-- (void)setCreationMode:(int)tag;
+- (NSInteger)creationMode;
+- (void)setCreationMode:(NSInteger)tag;
 - (BOOL)belongsToAWrapper;
 - (NSURL *)projectURL;
 - (BOOL)canInsertInOldProject;
 - (BOOL)canCreateNewProject;
 - (BOOL)canBeStandalone;
-@property unsigned int flags;
+@property NSUInteger flags;
 @end

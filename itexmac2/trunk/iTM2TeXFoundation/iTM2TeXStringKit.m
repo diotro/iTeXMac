@@ -24,7 +24,7 @@
 #define ANCS [NSCharacterSet alphanumericCharacterSet]
 
 @interface NSAttributedString(PRIVATE)
-- (NSRange)SWZ_iTM2_doubleClickAtIndex:(unsigned)index;
+- (NSRange)SWZ_iTM2_doubleClickAtIndex:(NSUInteger)index;
 @end
 
 @implementation iTM2TeXStringController
@@ -62,7 +62,7 @@ To Do List:implement some kind of balance range for range
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfCharactersInSet:inAttributedString:atIndex:
-+ (NSRange)rangeOfCharactersInSet:(NSCharacterSet *)theSet inAttributedString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
++ (NSRange)rangeOfCharactersInSet:(NSCharacterSet *)theSet inAttributedString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
 /*"All the letters around the index
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:03/10/2002
@@ -77,7 +77,7 @@ To Do List:implement some kind of balance range for range
 	{
 		R.location = index;
 		R.length = 1;
-		unsigned loc = index;
+		NSUInteger loc = index;
 left:
 		if(--index)
 		{
@@ -90,7 +90,7 @@ left:
 			}
 		}
 		loc = index;
-		unsigned length = [itsString length];
+		NSUInteger length = [itsString length];
 right:
 		if(++index<length)
 		{
@@ -106,7 +106,7 @@ right:
 	return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareWordRangeInString:atIndex:
-+ (NSRange)TeXAwareWordRangeInString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
++ (NSRange)TeXAwareWordRangeInString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
 /*"This takes TeX commands into account, and \- hyphenation too
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:03/10/2002
@@ -118,7 +118,7 @@ To Do List:implement some kind of balance range for range
 	return NSMakeRange(NSNotFound,0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareWordRangeInAttributedString:atIndex:
-+ (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
++ (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
 /*"This takes TeX commands into account, and \- hyphenation too
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:03/10/2002
@@ -128,11 +128,11 @@ To Do List:implement some kind of balance range for range
 //iTM2_START;
 	NSString * itsString = [theAttributedString string];
 	NSString * s;
-	unsigned length = [itsString length];
+	NSUInteger length = [itsString length];
 	unichar theChar = [itsString characterAtIndex:index];
     NSRange R, r;
-	unsigned loc;
-	unsigned commandIndex = NSNotFound;
+	NSUInteger loc;
+	NSUInteger commandIndex = NSNotFound;
 	BOOL escaped;
 	if([ANCS characterIsMember:theChar])
 	{
@@ -530,8 +530,8 @@ expandToTheRightAsLetters:
 @end
 
 @interface NSString(MY_OWN_PRIVACY)
-- (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
-- (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(unsigned)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_nextLaTeXEnvironmentDelimiterRangeAfterIndex:(NSUInteger)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
+- (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(NSUInteger)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
 @end
 
 @implementation NSString(iTM2TeXKit)
@@ -632,7 +632,7 @@ To Do List:
 	return @"}";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isControlAtIndex:escaped:
-- (BOOL)isControlAtIndex:(unsigned)index escaped:(BOOL *)aFlagPtr;
+- (BOOL)isControlAtIndex:(NSUInteger)index escaped:(BOOL *)aFlagPtr;
 /*" Returns YES if there is a '\' at index index. For example "\\ " is a 3 length string.
 For index = 0, 1 and 2, the aFlagPtr* is NO, YES, NO.
 If there is no backslash, aFlagPtr will point to NO, if it is not nil.
@@ -647,7 +647,7 @@ To Do List:
     {
         if(aFlagPtr)
         {
-            unsigned level = 0;
+            NSUInteger level = 0;
             while(index-->0)
                 if([self characterAtIndex:index]==backslash)
                     ++level;
@@ -662,7 +662,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineStart:end:contentsEnd:TeXComment:forIndex:
-- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
+- (void)getLineStart:(NSUInteger *)startPtr end:(NSUInteger *)lineEndPtr contentsEnd:(NSUInteger *)contentsEndPtr TeXComment:(NSUInteger *)commentPtr forIndex:(NSUInteger) index;
 /*" Description Forthcoming
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:03/10/2002
@@ -672,7 +672,7 @@ To Do List:
 //iTM2_START;
     if(commentPtr)
     {
-        unsigned start, contentsEnd;
+        NSUInteger start, contentsEnd;
 //NSLog(@"GLS");
         [self getLineStart:&start end:lineEndPtr contentsEnd:&contentsEnd forRange:NSMakeRange(index, 0)];
         if(startPtr) *startPtr = start;
@@ -690,7 +690,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isTeXCommentAtIndex:
-- (BOOL)isTeXCommentAtIndex:(unsigned)index;
+- (BOOL)isTeXCommentAtIndex:(NSUInteger)index;
 /*" Description Forthcoming
 Version history:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -698,7 +698,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned int anchor;
+    NSUInteger anchor;
 //NSLog(@"GLS");
     [self getLineStart:&anchor end:nil contentsEnd:nil forRange:NSMakeRange(index, 0)];
     while(anchor<index)
@@ -723,7 +723,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:
-- (NSRange)groupRangeAtIndex:(unsigned)index;
+- (NSRange)groupRangeAtIndex:(NSUInteger)index;
 /*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -734,7 +734,7 @@ To Do List:
     return [self groupRangeAtIndex:index beginDelimiter:'{' endDelimiter:'}'];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeAtIndex:beginDelimiter:endDelimiter:
-- (NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
+- (NSRange)groupRangeAtIndex:(NSUInteger)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 /*"Returns the range of the smallest group in TeX sense, containing index. If index is out of the string range, the classical not found range is returned. If no group is found, returns a 1 length range at location index. Otherwise, the first character in the range is '{' and the last one is '}'. It is implemented TeX friendly.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -742,11 +742,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int scanLocation = index;
-    int maxLocation = [self length];
-    int groupLevel = 1;
+    NSInteger scanLocation = index;
+    NSInteger maxLocation = [self length];
+    NSInteger groupLevel = 1;
     // speedy
-    typedef unichar (* CharacterAtIndexIMP) (id, SEL, unsigned);
+    typedef unichar (* CharacterAtIndexIMP) (id, SEL, NSUInteger);
     CharacterAtIndexIMP CAI = (CharacterAtIndexIMP) [self methodForSelector:@selector(characterAtIndex:)];
     #define NextCharacter CAI(self, @selector(characterAtIndex:), scanLocation)
     BOOL escaped = YES;
@@ -850,16 +850,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     // first we balance the delimiters
-    typedef unichar (* CharacterAtIndexIMP) (id, SEL, unsigned);
+    typedef unichar (* CharacterAtIndexIMP) (id, SEL, NSUInteger);
     CharacterAtIndexIMP CAI = (CharacterAtIndexIMP) [self methodForSelector:@selector(characterAtIndex:)];
     #define PreviousCharacter CAI(self, @selector(characterAtIndex:), left)
     #undef NextCharacter
     #define NextCharacter CAI(self, @selector(characterAtIndex:), right)
     
-    int left = range.location;
-    int right = range.location;
-    int top = [self length];
-    int max = NSMaxRange(range);
+    NSUInteger left = range.location;
+    NSUInteger right = range.location;
+    NSUInteger top = [self length];
+    NSUInteger max = NSMaxRange(range);
     BOOL escaped;
     int groupLevel;
     kahuei:
@@ -871,7 +871,7 @@ To Do List:
         {
             if(left==0)
                 return NSMakeRange(NSNotFound, 0);
-            unsigned previous = left-1;
+            NSUInteger previous = left-1;
             if([self isControlAtIndex:previous escaped:&escaped])
             {
                 if(escaped)
@@ -940,7 +940,7 @@ To Do List:
 	NSMutableArray * MRA = [NSMutableArray array];
 	for(string in components)
 	{
-		unsigned length = [string length];
+		NSUInteger length = [string length];
 		if(length>0)
 		{
 			BOOL escaped;
@@ -1041,7 +1041,7 @@ To Do List:
 	return [MRA componentsJoinedByString:@"%"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _iTM2_getWordBefore:here:after:atIndex:
-- (unsigned int)_iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex;
+- (NSUInteger)_iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(NSUInteger)hitIndex;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:02/03/2003
@@ -1058,8 +1058,8 @@ To Do List:
 	if(beforePtr) * beforePtr = nil;
 	if(herePtr) * herePtr = nil;
 	if(afterPtr) * afterPtr = nil;
-	unsigned int TeXCommentIndex, start, end, contentsEnd;
-	unsigned afterAnchor = 0;// the after word is expected after this anchor
+	NSUInteger TeXCommentIndex, start, end, contentsEnd;
+	NSUInteger afterAnchor = 0;// the after word is expected after this anchor
 	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
 startAgain:
 	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
@@ -1140,7 +1140,7 @@ point1:;
 	[self getLineStart:&R.location end:nil contentsEnd:nil forRange:hereRange];
 	NSString * before = [NSString stringByStrippingTeXTagsInString:
 				[self substringWithRange:NSMakeRange(R.location, hereRange.location-R.location)]];
-	unsigned int limit = 50;
+	NSUInteger limit = 50;
 	while([before length] < limit && R.location)
 	{
 		--R.location;
@@ -1172,7 +1172,7 @@ mamita:
 	NSString * afterWord = nil;
 	if([after length] > 1)
 	{
-		unsigned int index = 1;
+		NSUInteger index = 1;
 		NSString * afterWord0 = nil;// default value
 		NSString * afterWord1 = nil;// first candidate
 		NSString * afterWord2 = nil;// second candidate, the chosen one will be the longest
@@ -1254,7 +1254,7 @@ nextBeforeWord:
 	return inControl?NSNotFound:hitIndex-hereRange.location;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_getWordBefore:here:after:atIndex:mode:
-- (unsigned int)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)hitIndex mode:(BOOL)isSyncTeX;
+- (NSUInteger)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(NSUInteger)hitIndex mode:(BOOL)isSyncTeX;
 /*"Description forthcoming. No TeX comment is managed. This method is intended for a one line tex source with no comment.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.3:02/03/2003
@@ -1275,8 +1275,8 @@ To Do List:
 	if(beforePtr) * beforePtr = nil;
 	if(herePtr) * herePtr = nil;
 	if(afterPtr) * afterPtr = nil;
-	unsigned int TeXCommentIndex, start, end, contentsEnd;
-	unsigned afterAnchor = 0;// the after word is expected after this anchor
+	NSUInteger TeXCommentIndex, start, end, contentsEnd;
+	NSUInteger afterAnchor = 0;// the after word is expected after this anchor
 	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
 startAgain:
 	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
@@ -1370,7 +1370,7 @@ point1:;
 	[self getLineStart:&R.location end:nil contentsEnd:nil forRange:hereRange];
 	NSString * before = [NSString stringByStrippingTeXTagsInString:
 				[self substringWithRange:NSMakeRange(R.location, hereRange.location-R.location)]];
-	unsigned int limit = 50;
+	NSUInteger limit = 50;
 	while([before length] < limit && R.location)
 	{
 		--R.location;
@@ -1402,7 +1402,7 @@ mamita:
 	NSString * afterWord = nil;
 	if([after length] > 1)
 	{
-		unsigned int index = 1;
+		NSUInteger index = 1;
 		NSString * afterWord0 = nil;// default value
 		NSString * afterWord1 = nil;// first candidate
 		NSString * afterWord2 = nil;// second candidate, the chosen one was the longest
@@ -1510,25 +1510,19 @@ nextBeforeWord:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2XAttributedString
 /*"Description forthcoming."*/
 
-@implementation NSAttributedString(iTM2_TeX)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming. This takes TeX commands into account, and \- hyphenation two
-Version history:jlaurens AT users.sourceforge.net
-- 2.0:02/15/2006
-To Do List:implement some kind of balance range for range
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSAttributedString iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_doubleClickAtIndex:)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
+@implementation iTM2MainInstaller(TeXStringKit)
++ (void)prepareTeXStringKitCompleteInstallation;
+{
+	if([NSAttributedString iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_doubleClickAtIndex:)])
+	{
+		iTM2_MILESTONE((@"NSAttributedString(iTM2_TeX)"),(@"The doubleClickAtIndex: is not patched to take TeX commands intou account."));
+	}
 }
+@end
+
+@implementation NSAttributedString(iTM2_TeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= SWZ_iTM2_doubleClickAtIndex:
-- (NSRange)SWZ_iTM2_doubleClickAtIndex:(unsigned)index;
+- (NSRange)SWZ_iTM2_doubleClickAtIndex:(NSUInteger)index;
 /*"Description forthcoming. This takes TeX commands into account, and \- hyphenation too
 Version history:jlaurens AT users.sourceforge.net
 - 2.0:02/15/2006

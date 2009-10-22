@@ -54,24 +54,8 @@ NSString * const iTM2TeXPCommandPropertiesKey = @"Properties";
 #endif
 
 @implementation NSDocumentController(iTM2TeXProjectFrontend)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TPFE_displayPageForLine:column:source:withHint:orderFront:force:)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TPFE_displayPageForLine:column:source:withHint:orderFront:force:
-- (BOOL)SWZ_iTM2TPFE_displayPageForLine:(unsigned int)line column:(unsigned int)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)SWZ_iTM2TPFE_displayPageForLine:(NSUInteger)line column:(NSUInteger)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -135,22 +119,6 @@ To Do List:
 NSString * const iTM2TeXProjectDefaultBaseNameKey = @"iTM2TeXProjectBaseName";
 
 @implementation iTM2TeXProjectDocument(Frontend)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[SUD setObject:@"LaTeX" forKey:iTM2TeXProjectDefaultBaseNameKey];
-//iTM2_START;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outputFileExtension
 - (NSString *)outputFileExtension;
 /*"Description Forthcoming.
@@ -618,7 +586,7 @@ To Do List:
     NSString * shellScript = [scriptDescriptor valueForKey:iTM2TPFEContentKey];
     if(![shellScript length])
         shellScript = @"#!/bin/sh\n";
-    unsigned end;
+    NSUInteger end;
     [shellScript getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(0, 0)];
     [[self textView] setString:[shellScript substringWithRange:NSMakeRange(end, [shellScript length] - end)]];
     [IMPLEMENTATION takeMetaValue:(end>2? [shellScript substringWithRange:NSMakeRange(2, end-3)]:@"") forKey:iTM2TPFEShellKey];
@@ -807,24 +775,6 @@ NSString * const iTM2TPFEPDFOutput = @"PDF";
 - (BOOL)isValidTeXProjectPath;
 @end
 
-@implementation iTM2MainInstaller(TeXPFrontend)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-+ (void)iTM2TeXPFrontendCompleteInstallation;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-		@"~", @"iTM2BackupSuffix", nil]];
-//iTM2_LOG(@"iTM2BackupSuffix -is-:%@", [SUD stringForKey:@"iTM2BackupSuffix"]);
-//iTM2_END;
-	return;
-}
-@end
-
 @implementation NSString(TeXPFrontend)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  TeXProjectProperties
 - (NSDictionary *)TeXProjectProperties;
@@ -898,15 +848,15 @@ NSString * const iTM2TeXProjectDocumentIsMasterFileKey = @"iTM2TeXProjectDocumen
 extern NSString * const iTM2TeXWrapperPathExtension;
 
 typedef struct {
-        unsigned int        hasEnclosingProject:1;
-        unsigned int        hasEnclosingWrapper:1;
-        unsigned int        hasEnclosedProjects:1;
-        unsigned int        isWritable:1;
-        unsigned int        preferWrapper:1;
-        unsigned int        standalone:1;
-        unsigned int        old:1;
-        unsigned int        new:1;
-        unsigned int        reserved:24;
+        NSUInteger        hasEnclosingProject:1;
+        NSUInteger        hasEnclosingWrapper:1;
+        NSUInteger        hasEnclosedProjects:1;
+        NSUInteger        isWritable:1;
+        NSUInteger        preferWrapper:1;
+        NSUInteger        standalone:1;
+        NSUInteger        old:1;
+        NSUInteger        new:1;
+        NSUInteger        reserved:24;
     } iTM2NewTeXProjectFlags;
 
 @implementation iTM2NewTeXProjectController
@@ -1141,7 +1091,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int creationMode = [self creationMode];
+	NSInteger creationMode = [self creationMode];
 	if(creationMode == iTM2ToggleOldProjectMode)
 	{
 old:
@@ -1189,7 +1139,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSDictionary * availableProjects = [self availableProjects];
-	int count = [availableProjects count];
+	NSInteger count = [availableProjects count];
 	// this peculiar situation occurs when I insert in a wrapper that has no project inside
 	if(count == 1)
 	{
@@ -1259,7 +1209,7 @@ To Do List:
 //iTM2_END;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  creationMode
-- (int)creationMode;
+- (NSInteger)creationMode;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1268,10 +1218,10 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
-    return [metaGETTER intValue];
+    return [metaGETTER integerValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCreationMode:
-- (void)setCreationMode:(int)tag;
+- (void)setCreationMode:(NSInteger)tag;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Nov  8 09:18:47 GMT 2005
@@ -1279,7 +1229,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	metaSETTER([NSNumber numberWithInt:tag]);
+	metaSETTER([NSNumber numberWithInteger:tag]);
 	[SUD setInteger:tag forKey:iTM2NewProjectCreationModeKey];
 //iTM2_END;
     return;
@@ -1365,7 +1315,7 @@ To Do List:
 	[self setPreferWrapper:[SUD boolForKey:iTM2NewDocumentEnclosedInWrapperKey]];
 	NSDictionary * availableProjects = [SPC availableProjectsForURL:[self fileURL]];
 	[self setAvailableProjects:availableProjects];
-	int creationMode = [SUD integerForKey:iTM2NewProjectCreationModeKey];
+	NSInteger creationMode = [SUD integerForKey:iTM2NewProjectCreationModeKey];
 	[self setCreationMode:creationMode];
 	[self validateCreationMode];
 //iTM2_END;
@@ -1576,7 +1526,7 @@ To Do List:
 		}
 		if([sender numberOfItems]>0)
 		{
-			int index = 0;
+			NSInteger index = 0;
 			if(![oldProjectName length])
 			{
 				oldProjectName = [[sender itemAtIndex:index] representedObject];
@@ -1662,7 +1612,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int creationMode = [self creationMode];
+	NSInteger creationMode = [self creationMode];
 	if(creationMode == iTM2ToggleForbiddenProjectMode)
 	{
 		[sender setState:NSOffState];
@@ -1779,8 +1729,8 @@ iTM2_LOG(@"[D iVarMode]:%@",[D iVarMode]);
         }
         NSDictionary * Ps = [[self baseProjectName] TeXProjectProperties];
         NSString * mode = [Ps iVarMode];
-        int idx = [sender indexOfItemWithRepresentedObject:[mode lowercaseString]];
-        if(idx == -1)
+        NSInteger idx = [sender indexOfItemWithRepresentedObject:[mode lowercaseString]];
+        if(idx == -1 || idx == NSNotFound)
         {
             NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", mode];
             [[sender menu] addItem:[NSMenuItem separatorItem]];
@@ -1903,8 +1853,8 @@ To Do List:
         }
         NSString * variant = [Ps iVarVariant];
 //iTM2_LOG(@"variant for validation is %@", variant);
-        int idx = [sender indexOfItemWithRepresentedObject:([variant length]? [variant lowercaseString]:iTM2ProjectDefaultsKey)];
-        if(idx == -1)
+        NSInteger idx = [sender indexOfItemWithRepresentedObject:([variant length]? [variant lowercaseString]:iTM2ProjectDefaultsKey)];
+        if(idx == -1 || idx == NSNotFound)
         {
             NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", variant];
             [[sender menu] addItem:[NSMenuItem separatorItem]];
@@ -1995,8 +1945,8 @@ To Do List:
             [[sender lastItem] setRepresentedObject:k];// the lowercase string
         }
         NSString * output = [Ps iVarOutput];
-        int idx = [sender indexOfItemWithRepresentedObject:[([output length]? output:iTM2TPFEPDFOutput) lowercaseString]];
-        if(idx == -1)
+        NSInteger idx = [sender indexOfItemWithRepresentedObject:[([output length]? output:iTM2TPFEPDFOutput) lowercaseString]];
+        if(idx == -1 || idx == NSNotFound)
         {
             NSString * lastTitle = [NSString stringWithFormat:@"%@(Unknown)", output];
             [[sender menu] addItem:[NSMenuItem separatorItem]];
@@ -2376,7 +2326,7 @@ To Do List:
 //iTM2_START;
 //iTM2_LOG(@"[self title] is:%@", [self title]);
 //iTM2_LOG(@"[self numberOfItems] is:%i", [self numberOfItems]);
-    int i;
+    NSInteger i;
     for(i=0;i<[self numberOfItems];++i)
     {
         iTM2_LOG(@"[self itemAtIndex:%i] is:%@", i, [self itemAtIndex:i]);
@@ -2391,7 +2341,7 @@ To Do List:
 
 @implementation NSObject(iTM2FrontendKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PD__compareUsingTitle:
-- (int)iTM2PD__compareUsingTitle:(NSMenuItem *) MI;
+- (NSInteger)iTM2PD__compareUsingTitle:(NSMenuItem *) MI;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2405,7 +2355,7 @@ To Do List:
 @end
 @implementation NSMenuItem(iTM2FontendKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PD__compareUsingTitle:
-- (int)iTM2PD__compareUsingTitle:(NSMenuItem *) MI;
+- (NSInteger)iTM2PD__compareUsingTitle:(NSMenuItem *) MI;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -2418,26 +2368,7 @@ To Do List:
 }
 @end
 
-@implementation iTM2ProjectController(iTM2TeXProjectFrontendKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	if(![iTM2ProjectController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_newProjectPanelControllerClass)])
-	{
-		iTM2_LOG(@"WARNING: No swizzled newProjectPanelControllerClass...");
-	}
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
+@implementation iTM2ProjectController(TeXProjectFrontendKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_newProjectPanelControllerClass
 - (Class)SWZ_iTM2_newProjectPanelControllerClass;
 /*"Description forthcoming.
@@ -2553,38 +2484,6 @@ To Do List:
 }
 @end
 
-#if 0
-@implementation NSDocument(iTM2TeXProject)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	if(![NSDocument iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_project)])
-	{
-		iTM2_LOG(@"WARNING: No hook available for project...");
-	}
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_project
-- (id)SWZ_iTM2_project;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Wed Mar 30 15:52:06 GMT 2005
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	id result = [self SWZ_iTM2_project];
-#else
 @implementation iTM2Document(iTM2TeXProject)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project
 - (id)project;
@@ -2596,7 +2495,6 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	id result = [super project];
-#endif
 	if(result)
 		return result;
 	NSURL * url = [self fileURL];
@@ -2625,10 +2523,6 @@ To Do List:
     return result;
 }
 @end
-#if 0
-}
-@end
-#endif
 
 #warning DEBUG:THIS MUST BE IMPLEMENTED 
 #if 0
@@ -2893,3 +2787,29 @@ To Do List:
 	return NO;
 }
 @end
+
+@implementation iTM2MainInstaller(TeXProjectFrontendKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
++ (void)prepareTeXProjectFrontendKitCompleteInstallation;
+/*"Description forthcoming.
+ Version History: jlaurens AT users DOT sourceforge DOT net
+ - 1.4: Fri Feb 20 13:19:00 GMT 2004
+ To Do List:
+ "*/
+{
+	if([iTM2ProjectController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_newProjectPanelControllerClass)])
+	{
+		iTM2_MILESTONE((@"iTM2ProjectController(TeXProjectFrontendKit)"),(@"WARNING: No swizzled newProjectPanelControllerClass..."));
+	}
+	if([NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TPFE_displayPageForLine:column:source:withHint:orderFront:force:)])
+	{
+		iTM2_MILESTONE((@"NSDocumentController(iTM2TeXProjectFrontend)"),(@"WARNING: displayPageForLine:column:source:withHint:orderFront:force: is not the expected one."));
+	}
+	[SUD setObject:@"LaTeX" forKey:iTM2TeXProjectDefaultBaseNameKey];
+	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+						   @"LaTeX", iTM2TeXProjectDefaultBaseNameKey,
+						   @"~", @"iTM2BackupSuffix",
+								nil]];
+}
+@end
+

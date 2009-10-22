@@ -63,7 +63,6 @@ NSString * const iTM2ServerOutputSelectedLengthKey = @"output_selected_length";
 NSString * const iTM2ServerOutputInsertionLocationKey = @"output_insertion_location";
 NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length";
 
-#import <iTM2Foundation/iTM2JAGUARSupportKit.h>
 #import <iTM2Foundation/iTM2BundleKit.h>
 
 //#import <iTM2Foundation/iTM2SystemSignalKit.h>
@@ -78,8 +77,8 @@ NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length"
 + (NSString *)getFileNameFromContext:(NSDictionary *)context;
 + (NSArray *)getFileNamesFromContext:(NSDictionary *)context;
 + (NSString *)getSourceNameFromContext:(NSDictionary *)context;
-+ (unsigned int)getLineFromContext:(NSDictionary *)context;
-+ (unsigned int)getColumnFromContext:(NSDictionary *)context;
++ (NSUInteger)getLineFromContext:(NSDictionary *)context;
++ (NSUInteger)getColumnFromContext:(NSDictionary *)context;
 + (BOOL)getDontOrderFrontFromContext:(NSDictionary *)context;
 + (NSString *)getReasonFromContext:(NSDictionary *)context;
 + (BOOL)getIdlingFromContext:(NSDictionary *)context;
@@ -149,7 +148,7 @@ To Do List: see the warning below
 		k = @"iTM2_APPLICATION_BUNDLE_NAME";
 		if([P length])
 			[environment setObject:P forKey:k];
-		P = iTeXMac2;//[[NSBundle mainBundle] bundleName];
+		P = iTeXMac2;//[[NSBundle mainBundle] iTM2_bundleName];
 		k = @"iTM2_APPLICATION_NAME";
 		if([P length])
 			[environment setObject:P forKey:k];
@@ -159,7 +158,7 @@ To Do List: see the warning below
 		k = @"iTM2_HOME";
 		if([P length])
 			[environment setObject:P forKey:k];
-		P = [NSBundle temporaryDirectory];
+		P = [NSBundle iTM2_temporaryDirectory];
 		k = @"iTM2_TemporaryDirectory";
 		if([P length])
 			[environment setObject:P forKey:k];
@@ -257,14 +256,14 @@ To Do List: see the warning below
 //iTM2_START;
 	if([environment isKindOfClass:[NSDictionary class]])
 	{
-		NSString * temporaryDirectory = [environment objectForKey:@"iTM2_TemporaryDirectory"];
-		if([temporaryDirectory isKindOfClass:[NSString class]])
+		NSString * iTM2_temporaryDirectory = [environment objectForKey:@"iTM2_TemporaryDirectory"];
+		if([iTM2_temporaryDirectory isKindOfClass:[NSString class]])
 		{
 //iTM2_END;
-			return [temporaryDirectory iTM2_pathIsEqual:[NSBundle temporaryDirectory]] || ![temporaryDirectory length];
+			return [iTM2_temporaryDirectory iTM2_pathIsEqual:[NSBundle iTM2_temporaryDirectory]] || ![iTM2_temporaryDirectory length];
 		}
 //iTM2_END;
-		return !temporaryDirectory;
+		return !iTM2_temporaryDirectory;
 	}
 //iTM2_END;
 	return YES;
@@ -480,7 +479,7 @@ To Do List: see the warning below
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getLineFromContext:
-+ (unsigned int)getLineFromContext:(NSDictionary *)context;
++ (NSUInteger)getLineFromContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -505,7 +504,7 @@ To Do List: see the warning below
     return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getColumnFromContext:
-+ (unsigned int)getColumnFromContext:(NSDictionary *)context;
++ (NSUInteger)getColumnFromContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -891,8 +890,8 @@ To Do List: see the warning below
 		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
 	}
 	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
-	unsigned int line = [self getLineFromContext:context];
-	unsigned int column = [self getColumnFromContext:context];
+	NSUInteger line = [self getLineFromContext:context];
+	NSUInteger column = [self getColumnFromContext:context];
     NSString * sourceName = [self getSourceNameFromContext:context];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSDictionary * hints = [NSMutableDictionary dictionary];
@@ -958,8 +957,8 @@ To Do List: see the warning below
 	}
 	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
 	NSError * localError = nil;
-	unsigned int line = [self getLineFromContext:context];
-	unsigned int column = [self getColumnFromContext:context];
+	NSUInteger line = [self getLineFromContext:context];
+	NSUInteger column = [self getColumnFromContext:context];
 	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
 	id doc = [SDC documentForURL:fileURL];
 	if(doc)

@@ -58,23 +58,7 @@ NSString * const iTM2DistributionDomainTeXMFFAQs = @"iTM2DistributionDomainTeXMF
 NSString * const iTM2DistributionsComponent = @"PATHs";
 NSString * const iTM2DistributionSDictionaryKey = @"PATHs dictionary";
 
-@implementation iTM2MainInstaller(iTM2TeXProjectTaskKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  load
-+ (void)load;
-/*"Description Forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 23 23:02:08 GMT 2005
-To do list:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2MileStone registerMileStone:@"The PATHs.plist is missing" forKey:@"PATHs and TeX Distributions"];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
+@implementation iTM2MainInstaller(TeXProjectTaskKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  iTM2TeXProjectTaskKitCompleteInstallation;
 + (void)iTM2TeXProjectTaskKitCompleteInstallation;
 /*"Description Forthcoming.
@@ -245,7 +229,7 @@ conclusion:
 		[iTM2TeXProjectDocument performSelector:@selector(notifyDefaultDistributionUnfixedError:) withObject:nil afterDelay:0.01];
 	else if(distributionWasNotCorrect)
 		[iTM2TeXProjectDocument performSelector:@selector(notifyDefaultDistributionFixedWarning:) withObject:nil afterDelay:0.01];
-	[iTM2MileStone putMileStoneForKey:@"PATHs and TeX Distributions"];
+	iTM2_MILESTONE((@"PATHs and TeX Distributions"),(@"The PATHs.plist is missing"));
 #endif
 //iTM2_END;
     return;
@@ -923,7 +907,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 		return nil;
 	// We list the contents of the given directory
 	NSMutableArray * bases = [NSMutableArray array];
-	for(NSString * P [DFM contentsOfDirectoryAtPath:path error:NULL])
+	for(NSString * P in [DFM contentsOfDirectoryAtPath:path error:NULL])
 		if([[P pathExtension] iTM2_pathIsEqual:@"base"])
 			[bases addObject:[P stringByDeletingPathExtension]];
 	return bases;
@@ -1216,7 +1200,7 @@ To Do List:
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSString * distribution = [[self document] TeXMFDistribution];
-		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
+		NSUInteger index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
 		else if([distribution iTM2_pathIsEqual:iTM2DistributionDefault])
@@ -1304,7 +1288,7 @@ To Do List:
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSString * distribution = [self lossyTeXMFProgramsDistribution];
-		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
+		NSUInteger index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
 		else if([distribution iTM2_pathIsEqual:iTM2DistributionDefault])
@@ -1463,7 +1447,7 @@ To Do List:
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSString * distribution = [self lossyOtherProgramsDistribution];
-		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
+		NSUInteger index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
 		else if([distribution iTM2_pathIsEqual:iTM2DistributionDefault])
@@ -1727,7 +1711,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  Environment variables
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1743,7 +1727,7 @@ To Do List:
     return [[self orderedEnvironmentVariableNames] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1774,7 +1758,7 @@ To Do List:
     return key;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:setObjectValue:forTableColumn:row:
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1844,7 +1828,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int row = [[self orderedEnvironmentVariableNames] indexOfObject:@"VARIABLE"];
+	NSUInteger row = [[self orderedEnvironmentVariableNames] indexOfObject:@"VARIABLE"];
 	if(row == NSNotFound)
 	{
 		[[self orderedEnvironmentVariableNames] addObject:@"VARIABLE"];
@@ -1874,7 +1858,7 @@ To Do List:
 	NSIndexSet * indexSet = [[self environmentTableView] selectedRowIndexes];
 	if([indexSet count])
 	{
-		unsigned currentIndex = [indexSet firstIndex];
+		NSUInteger currentIndex = [indexSet firstIndex];
 		NSMutableString * MS = [[[[[self orderedEnvironmentVariableNames] objectAtIndex:currentIndex] stringByDeletingPathExtension] mutableCopy] autorelease];
 		currentIndex = [indexSet indexGreaterThanIndex:currentIndex];
 		while (currentIndex != NSNotFound)
@@ -1899,7 +1883,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= removeEnvironmentVariableSheetDidDismiss:returnCode:indexSet:
-- (void)removeEnvironmentVariableSheetDidDismiss:(NSWindow *)sheet returnCode:(int)returnCode indexSet:(NSIndexSet *)indexSet;
+- (void)removeEnvironmentVariableSheetDidDismiss:(NSWindow *)sheet returnCode:(NSInteger)returnCode indexSet:(NSIndexSet *)indexSet;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 09/21/2005
@@ -1910,7 +1894,7 @@ To Do List:
 	[indexSet autorelease];
 	if(returnCode == NSAlertDefaultReturn)
 	{
-		unsigned currentIndex = [indexSet lastIndex];
+		NSUInteger currentIndex = [indexSet lastIndex];
 		while (currentIndex != NSNotFound)
 		{
 			NSString * key = [[self orderedEnvironmentVariableNames] objectAtIndex:currentIndex];
@@ -2496,7 +2480,7 @@ To Do List:
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSString * distribution = [self lossyTeXMFProgramsDistribution];
-		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
+		NSUInteger index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
 		else if([distribution iTM2_pathIsEqual:iTM2DistributionDefault])
@@ -2626,7 +2610,7 @@ To Do List:
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSString * distribution = [self lossyOtherProgramsDistribution];
-		unsigned index = [sender indexOfItemWithRepresentedObject:distribution];
+		NSUInteger index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
 		else if([distribution iTM2_pathIsEqual:iTM2DistributionDefault])
@@ -2819,7 +2803,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXMFProgramsFromPanel:returnCode:contextInfo:
-- (void)chooseTeXMFProgramsFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
+- (void)chooseTeXMFProgramsFromPanel:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void  *)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2006
@@ -2889,7 +2873,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOtherProgramsFromPanel:returnCode:contextInfo:
-- (void)chooseOtherProgramsFromPanel:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void  *)irrelevant;
+- (void)chooseOtherProgramsFromPanel:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void  *)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Nov 18 07:53:25 GMT 2006

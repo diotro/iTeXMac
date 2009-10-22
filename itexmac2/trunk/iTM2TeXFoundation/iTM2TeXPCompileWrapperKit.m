@@ -105,7 +105,7 @@ To Do List:
 //iTM2_START;
     NSTabView * TV = [self tabView];
     NSString * identifier = [self contextStringForKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
-    int index = [TV indexOfTabViewItemWithIdentifier:identifier];
+    NSUInteger index = [TV indexOfTabViewItemWithIdentifier:identifier];
     if(index !=  NSNotFound)
         [TV selectTabViewItemAtIndex:index];
     [super windowDidLoad];
@@ -259,7 +259,7 @@ To Do List:
 //            [sender addItemWithTitle:@"Other"];//LOCALIZED?
 //            [[sender lastItem] setRepresentedObject:@"unknown"];
         }
-		int index = [sender indexOfItemWithRepresentedObject:[self editedEngine]];
+		NSInteger index = [sender indexOfItemWithRepresentedObject:[self editedEngine]];
 		if(index>=0 && index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
 		else
@@ -430,7 +430,7 @@ To Do List:
             [[sender lastItem] setSubmenu:removeScriptMenu];
         }
 		NSString * scriptMode = [self editedScriptMode];
-        unsigned idx = -1;
+        NSUInteger idx = -1;
 		if(![scriptMode length])
 		{
 			scriptMode = iTM2TPFEBaseMode;
@@ -471,7 +471,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSArray * allEngineModes = [[self infoForKeyPaths:iTM2TPFEEngineScriptsKey,nil] allKeys];
-    int idx = 0;
+    NSInteger idx = 0;
     NSString * engineMode;
     while((engineMode = [NSString stringWithFormat:@"%i", idx++]), [allEngineModes containsObject:engineMode]);
 	NSString * editedEngine = [self editedEngine];
@@ -567,7 +567,7 @@ To Do List:
 	return [[[self infoForKeyPaths: iTM2TPFEEngineScriptsKey,nil] allKeys] containsObject:[self editedScriptMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editScriptSheetDidEnd:returnCode:context:
-- (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode context:(id)irrelevant;
+- (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode context:(id)irrelevant;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -740,7 +740,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOptionsSheetDidEnd:returnCode:environmentMode:
-- (void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode irrelevant:(void *)unused;
+- (void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode irrelevant:(void *)unused;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1036,11 +1036,11 @@ To Do List:
 NSString * const iTM2ContinuousCompile = @"iTM2_ContinuousCompile";
 
 @implementation iTM2TeXPContinuousPerformer
-+ (int)commandGroup;
++ (NSInteger)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
-+ (int)commandLevel;
++ (NSInteger)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 100;
 }
@@ -1086,11 +1086,11 @@ NSString * const iTM2ContinuousCompileDelay = @"iTM2ContinuousCompileDelay";
 	[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:5] forKey:iTM2ContinuousCompileDelay]];
 	return;
 }
-+ (int)commandGroup;
++ (NSInteger)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
-+ (int)commandLevel;
++ (NSInteger)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
@@ -1322,7 +1322,7 @@ To do list:
 @end
 
 //#import <iTM2Foundation/iTM2BundleKit.h>
-//#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+//#import <iTM2Foundation/iTM2Runtime.h>
 
 @implementation NSBundle(iTM2CompileWrapperKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  installBinaryWithName:
@@ -1459,7 +1459,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPEngineInspector class]];
+    return [iTM2Runtime subclassReferencesOfClass:[iTM2TeXPEngineInspector class]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inputFileExtensions
 + (NSArray *)inputFileExtensions;

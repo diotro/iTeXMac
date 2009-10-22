@@ -255,7 +255,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      None
     @result     An integer
 */
-+ (int)commandGroup;
++ (NSInteger)commandGroup;
 
 /*!
     @method     commandLevel
@@ -269,7 +269,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      None
     @result     An integer
 */
-+ (int)commandLevel;
++ (NSInteger)commandLevel;
 
 /*!
     @method     localizedNameForName:
@@ -314,7 +314,7 @@ extern NSString * const iTM2FactoryEnvironmentVariablesKey;
     @param      Name
     @result     flags
 */
-+ (unsigned int)keyEquivalentModifierMaskForName:(NSString *)commandName;
++ (NSUInteger)keyEquivalentModifierMaskForName:(NSString *)commandName;
 
 /*!
     @method     launchAction:withEngine:forMaster:ofProject:

@@ -52,25 +52,6 @@ NSString * const iTM2TPDKOutputKey = @"output";
 NSString * const iTM2TPDKNameKey = @"name";
 
 @implementation NSDocumentController(iTM2TeXProject)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_projectPathExtension)];
-	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_wrapperPathExtension)];
-	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_projectDocumentType)];
-	[NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_wrapperDocumentType)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXP_iTM2_projectPathExtension
 - (NSString *)SWZ_iTM2TeXP_iTM2_projectPathExtension;
 /*"Description forthcoming.
@@ -582,7 +563,7 @@ To Do List:
 //	[[sender lastItem] setAction:@selector(takeMainFileFromRepresentedObject:)];
 //	[[sender lastItem] setTarget:self];
     NSArray * fileKeys = [self orderedFileKeys];
-    int row = 0;
+    NSInteger row = 0;
     iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
 	NSString * fileKey = nil;
     while(row<[fileKeys count])
@@ -606,7 +587,7 @@ To Do List:
 	{
 		[senderMenu addItem:[NSMenuItem separatorItem]];
 	}
-	unsigned lastIndex = [sender numberOfItems];
+	NSUInteger lastIndex = [sender numberOfItems];
 	if(frontDocumentMenuItem)
 	{
 		[senderMenu addItem:frontDocumentMenuItem];
@@ -616,7 +597,7 @@ To Do List:
 		[item setTarget:self];// sender belongs to the receiver's window
 	}
 	fileKey = [project realMasterFileKey];
-	int idx = [sender indexOfItemWithRepresentedObject:fileKey];
+	NSInteger idx = [sender indexOfItemWithRepresentedObject:fileKey];
 	if(idx < 0)
 	{
 		;
@@ -660,7 +641,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int row = [[self documentsView] selectedRow];
+    NSInteger row = [[self documentsView] selectedRow];
 	NSArray * orderedFileKeys = [self orderedFileKeys];
     if(row < 0 || row >= [orderedFileKeys count])
 	{
@@ -775,7 +756,7 @@ To Do List:
 //iTM2_START;
 	BOOL editable = NO;
 	NSTableView * DV = [self documentsView];
-    int row = [DV selectedRow];
+    NSInteger row = [DV selectedRow];
     NSString * title = nil;
 	NSBundle * B = [iTM2ProjectDocument classBundle];
     if(row < 0 || row >= [DV numberOfRows])
@@ -913,7 +894,7 @@ To Do List:
 		NSString * defaultStringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
 		NSStringEncoding defaultStringEncoding = [NSString stringEncodingWithName:defaultStringEncodingName];
-		unsigned int row = [selectedRowIndexes firstIndex];
+		NSUInteger row = [selectedRowIndexes firstIndex];
 		if(row == 0)
         {
 			enabled = YES;
@@ -1056,19 +1037,19 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSStringEncoding stringEncoding = [sender tag];
-	unsigned int new = CFStringConvertNSStringEncodingToEncoding(stringEncoding);
+	NSUInteger new = CFStringConvertNSStringEncodingToEncoding(stringEncoding);
 	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
 	NSArray * fileKeys = [self orderedFileKeys];
 	NSTableView * documentsView = [self documentsView];
 	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
-	unsigned int row = [selectedRowIndexes firstIndex];
-	unsigned int top = [fileKeys count];
+	NSUInteger row = [selectedRowIndexes firstIndex];
+	NSUInteger top = [fileKeys count];
 	BOOL changed = NO;
 	while(row < top)
 	{
 		NSString * fileKey = [fileKeys objectAtIndex:row];
 		NSString * stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-		unsigned int old = [iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncodingName];
+		NSUInteger old = [iTM2StringFormatController coreFoundationStringEncodingWithName:stringEncodingName];
 		if(new != old)
 		{
 			id D = [project subdocumentForFileKey:fileKey];
@@ -1112,12 +1093,12 @@ To Do List:
 	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
 	NSString * stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
 	NSStringEncoding stringEncoding = [NSString stringEncodingWithName:stringEncodingName];
-	unsigned int new = CFStringConvertNSStringEncodingToEncoding(stringEncoding);
+	NSUInteger new = CFStringConvertNSStringEncodingToEncoding(stringEncoding);
 	NSArray * fileKeys = [self orderedFileKeys];
 	NSTableView * documentsView = [self documentsView];
 	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
-	unsigned int row = [selectedRowIndexes firstIndex];
-	unsigned int top = [fileKeys count];
+	NSUInteger row = [selectedRowIndexes firstIndex];
+	NSUInteger top = [fileKeys count];
 	BOOL changed = NO;
 	while(row < top)
 	{
@@ -1165,8 +1146,8 @@ To Do List:
 	NSArray * fileKeys = [self orderedFileKeys];
 	NSTableView * documentsView = [self documentsView];
 	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
-	unsigned int row = [selectedRowIndexes firstIndex];
-	unsigned int top = [fileKeys count];
+	NSUInteger row = [selectedRowIndexes firstIndex];
+	NSUInteger top = [fileKeys count];
 	id D = nil;
 	BOOL changed = NO;
 	while(row < top)
@@ -1256,7 +1237,7 @@ To Do List:
 	BOOL hasOff = NO;
 	BOOL isDefaults = NO;
 	NSString * keyWithAutoDefault = nil;// the last file key having a default string encoding
-	unsigned int row = [selectedRowIndexes firstIndex];
+	NSUInteger row = [selectedRowIndexes firstIndex];
 	if(row == 0)
 	{
 		isDefaults = YES;
@@ -1425,8 +1406,8 @@ To Do List:
 		NSString * fileKey = [fileKeys objectAtIndex:0];
 		SEL takeEOLFromDefaults = @selector(takeEOLFromDefaults:);
 		NSString * EOLName = [project propertyValueForKey:TWSEOLFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
-		int EOL = [iTM2StringFormatController EOLForName:EOLName];
-		unsigned int row = [sender indexOfItemWithTag:EOL];
+		NSInteger EOL = [iTM2StringFormatController EOLForName:EOLName];
+		NSUInteger row = [sender indexOfItemWithTag:EOL];
 		NSString * title = [[sender itemAtIndex:row] title];
 		title = [NSString stringWithFormat:iTM2EOLDefaultFormat, title];
 		if(!(MI = [M itemWithAction:takeEOLFromDefaults]))
@@ -1606,14 +1587,14 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int EOL = [sender tag];
+	NSInteger EOL = [sender tag];
 	NSString * new = [iTM2StringFormatController terminationStringForEOL:EOL];
 	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)[self document];
 	NSArray * fileKeys = [self orderedFileKeys];
 	NSTableView * documentsView = [self documentsView];
 	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
-	unsigned int row = [selectedRowIndexes firstIndex];
-	unsigned int top = [fileKeys count];
+	NSUInteger row = [selectedRowIndexes firstIndex];
+	NSUInteger top = [fileKeys count];
 	BOOL changed = NO;
 	while(row < top)
 	{
@@ -1776,10 +1757,10 @@ To Do List:
 - (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
     // This method is called after it has been determined that a drag should begin, but before the drag has been started.  To refuse the drag, return NO.  To start a drag, return YES and place the drag data onto the pasteboard (data, owner, etc...).  The drag image and other drag related information will be set up and provided by the table view once this call returns with YES.  The rows array is the list of row numbers that will be participating in the drag.
 
-- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op;
     // This method is used by NSTableView to determine a valid drop target.  Based on the mouse position, the table view will suggest a proposed drop location.  This method must return a value that indicates which dragging operation the data source will perform.  The data source may "re-target" a drop if desired by calling setDropRow:dropOperation:and returning something other than NSDragOperationNone.  One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
 
-- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
+- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)op;
 #endif
 #pragma mark >>>>  HUNTING
 #endif
@@ -1789,23 +1770,6 @@ To Do List:
 //#import <iTM2Foundation/iTM2PathUtilities.h>
 
 @implementation iTM2MainInstaller(TeXProjectDocument)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-This message is sent at initialization time.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2MileStone registerMileStone:@"Localization is not complete" forKey:@"TeX Project Menu Items"];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXProjectControllerCompleteInstallation
 + (void)iTM2TeXProjectControllerCompleteInstallation;
 /*"Description forthcoming.
@@ -1833,7 +1797,7 @@ To Do List:
 		}
 		else
 		{
-			[iTM2MileStone putMileStoneForKey:@"TeX Project Menu Items"];
+			iTM2_MILESTONE((@"TeX Project Menu Items"),(@"Localization is not complete"));
 		}
 		[iTM2ProjectLocalizedChooseMaster autorelease];
 		iTM2ProjectLocalizedChooseMaster = [proposal copy];
@@ -1841,7 +1805,13 @@ To Do List:
 		[m removeItem:MI];
 		[m cleanSeparators];
 	}
-//iTM2_END;
+	if([NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_projectPathExtension)]
+		&& [NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_wrapperPathExtension)]
+	   && [NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_projectDocumentType)]
+	   && [NSDocumentController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXP_iTM2_wrapperDocumentType)])
+	{
+		iTM2_MILESTONE((@"NSDocumentController(iTM2TeXProject)"),(@"The various document types do not conform to the TeX design"));
+	}
     return;
 }
 @end

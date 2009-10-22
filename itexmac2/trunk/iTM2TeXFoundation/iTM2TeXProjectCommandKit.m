@@ -374,7 +374,7 @@ To Do List:
 		NSString * BPN = [TPD baseProjectName];
         NSDictionary * Ps = [BPN TeXProjectProperties];
         mode = [Ps iVarMode];
-        int idx = [sender indexOfItemWithRepresentedObject:mode];
+        NSInteger idx = [sender indexOfItemWithRepresentedObject:mode];
         if(idx == -1)
         {
             if([sender numberOfItems])
@@ -497,7 +497,7 @@ To Do List:
 			[[sender lastItem] setRepresentedObject:extension];
         }
         extension = [Ps iVarExtension];
-        int idx = [sender indexOfItemWithRepresentedObject:extension];
+        NSInteger idx = [sender indexOfItemWithRepresentedObject:extension];
         if(idx == -1)
         {
             if([sender numberOfItems])
@@ -610,7 +610,7 @@ To Do List:
 			[[sender lastItem] setRepresentedObject:variant];
         }
         variant = [Ps iVarVariant];
-        int idx = [sender indexOfItemWithRepresentedObject:variant];
+        NSInteger idx = [sender indexOfItemWithRepresentedObject:variant];
         if(idx == -1)
         {
             if([sender numberOfItems])
@@ -719,7 +719,7 @@ To Do List:
 			[[sender lastItem] setRepresentedObject:output];
         }
         output = [Ps iVarOutput];
-        int idx = [sender indexOfItemWithRepresentedObject:output];
+        NSInteger idx = [sender indexOfItemWithRepresentedObject:output];
         if(idx == -1)
         {
             if([sender numberOfItems])
@@ -817,7 +817,7 @@ To Do List:
 				[[sender menu] removeItem:[sender lastItem]];
 			}
         }
-        int index = [sender indexOfItemWithRepresentedObject:[self editedCommand]];
+        NSInteger index = [sender indexOfItemWithRepresentedObject:[self editedCommand]];
         if(index < 0)
         {
             [self setEditedCommand:[[[[[iTM2TeXPCommandManager orderedBuiltInCommandNames] objectEnumerator] nextObject] objectEnumerator] nextObject]];
@@ -956,7 +956,7 @@ To Do List:
         }
 //iTM2_LOG(@"CW is: %@", [CW description]);
 		NSString * scriptMode = [self editedScriptMode];
-        unsigned idx = -1;
+        NSUInteger idx = -1;
 		if(![scriptMode length])
 		{
 			scriptMode = iTM2TPFEBaseMode;
@@ -996,7 +996,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSArray * allActionModes = [[self infoForKeyPaths:iTM2TPFECommandScriptsKey,nil] allKeys];
-    int idx = 0;
+    NSInteger idx = 0;
     NSString * scriptMode;
     while((scriptMode = [NSString stringWithFormat:@"%i", idx++]), [allActionModes containsObject:scriptMode]);
 	[self setInfo:scriptMode forKeyPaths:iTM2TPFECommandsKey,[self editedCommand],iTM2TPFEScriptModeKey,nil];
@@ -1085,7 +1085,7 @@ To Do List:
     return [[[self infoForKeyPaths:iTM2TPFECommandScriptsKey,nil] allKeys] containsObject:[self editedScriptMode]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editScriptSheetDidEnd:returnCode:scriptMode:
-- (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode irrelevant:(void *)unused;
+- (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode irrelevant:(void *)unused;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1276,7 +1276,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editOptionsSheetDidEnd:returnCode:irrelevant:
-- (void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode irrelevant:(void *)unused;
+- (void)editOptionsSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode irrelevant:(void *)unused;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1381,12 +1381,12 @@ To Do List:
 @end
 
 @interface iTM2TeXPCommandPerformer(PRIVATE)
-+ (int)_commandLevel;
-+ (int)_commandGroup;
++ (NSInteger)_commandLevel;
++ (NSInteger)_commandGroup;
 @end
 
 NSString * const iTM2TPFEDefaultEnvironmentKey = @"DefaultEnvironment";
-//#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+//#import <iTM2Foundation/iTM2Runtime.h>
 //#import <iTM2Foundation/iTM2BundleKit.h>
 
 static NSMutableDictionary * _iTM2TeXPCommandInspectors = nil;
@@ -1479,7 +1479,7 @@ To Do List:
 @end
 
 //#import <iTM2Foundation/iTM2BundleKit.h>
-//#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+//#import <iTM2Foundation/iTM2Runtime.h>
 //#import <iTM2Foundation/iTM2NotificationKit.h>
 
 NSString * const TWSShellEnvironmentFrontKey = @"TWSFront";
@@ -1565,7 +1565,7 @@ To Do List:
 	NSMenu * M = [MI menu];
 	// removing all the menu items with command responders as represented objects
 	// finding the first menu item like that
-	int index = [M indexOfItem:MI] + 1;
+	NSInteger index = [M indexOfItem:MI] + 1;
 	while(index < [M numberOfItems])
 	{
 		NSMenuItem * mi = [M itemAtIndex:index];
@@ -1636,7 +1636,7 @@ To Do List:
 	NSMenu * M = [MI menu];
 	// removing all the menu items with command responders as represented objects
 	// finding the first menu item like that
-	int index = [M indexOfItem:MI] + 1;
+	NSInteger index = [M indexOfItem:MI] + 1;
 	while(index < [M numberOfItems])
 	{
 		NSMenuItem * mi = [M itemAtIndex:index];
@@ -1710,13 +1710,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	static int oldNumberOfClasses = 0;
-	int newNumberOfClasses = [iTM2RuntimeBrowser numberOfClasses];
+	static NSInteger oldNumberOfClasses = 0;
+	NSInteger newNumberOfClasses = [iTM2Runtime numberOfClasses];
     if(oldNumberOfClasses != newNumberOfClasses)
 	{
 		_iTM2TeXPBuiltInCommandNames = nil;
 		NSMutableSet * set = [NSMutableSet set];
-		NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+		NSPointerArray * PA = [iTM2Runtime subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
 		NSUInteger i = [PA count];
 		while(i--)
 		{
@@ -1745,12 +1745,12 @@ To Do List:
 //iTM2_START;
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];// NSMapTable here ?
 	NSNumber * K;
-	NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+	NSPointerArray * PA = [iTM2Runtime subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
 	NSUInteger i = [PA count];
 	while(i--)
 	{
 		Class C = (Class)[PA pointerAtIndex:i];
-		K = [NSNumber numberWithInt:[C commandGroup]];
+		K = [NSNumber numberWithInteger:[C commandGroup]];
 		NSMutableDictionary * md = [MD objectForKey:K];
 		if(!md)
 		{
@@ -1758,7 +1758,7 @@ To Do List:
 			md = [MD objectForKey:K];
 		}
 		if([C commandLevel])
-			[md setObject:[C commandName] forKey:[NSNumber numberWithInt:[C commandLevel]]];
+			[md setObject:[C commandName] forKey:[NSNumber numberWithInteger:[C commandLevel]]];
 	}
 	NSMutableArray * MRA = [NSMutableArray array];
 	for(K in [[MD allKeys] sortedArrayUsingSelector:@selector(compare:)])
@@ -1790,7 +1790,7 @@ To Do List:
 	Class result = NSClassFromString([NSString stringWithFormat:@"iTM2TeXP%@Performer", name]);
 	if(!result)
 	{
-		NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
+		NSPointerArray * PA = [iTM2Runtime subclassReferencesOfClass:[iTM2TeXPCommandPerformer class]];
 		NSUInteger i = [PA count];
 		while(i--)
 		{
@@ -1844,7 +1844,7 @@ To Do List:
 	const char * _classname = [NSStringFromClass(self) cStringUsingEncoding:NSASCIIStringEncoding];
 	if(!strncmp(_classname, "iTM2TeXP", strlen("iTM2TeXP")))
 	{
-		int n = strlen(_classname);
+		NSInteger n = strlen(_classname);
 		if(n>strlen("iTM2TeXPPerformer"))
 		{
 			if(!strncmp(_classname + n - strlen("Performer"), "Performer", strlen("Performer")))
@@ -1881,7 +1881,7 @@ To Do List:
     return [self localizedNameForName:[self commandName]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandLevel
-+ (int)commandLevel;
++ (NSInteger)commandLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1893,7 +1893,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandLevel
-+ (int)_commandLevel;
++ (NSInteger)_commandLevel;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1907,7 +1907,7 @@ To Do List:
     return [S intValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandGroup
-+ (int)commandGroup;
++ (NSInteger)commandGroup;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1919,7 +1919,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandGroup
-+ (int)_commandGroup;
++ (NSInteger)_commandGroup;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1946,7 +1946,7 @@ To Do List:
     return [result length] != 1? @"":[result substringWithRange:NSMakeRange(0, 1)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentModifierMaskForName;
-+ (unsigned int)keyEquivalentModifierMaskForName:(NSString *)name;
++ (NSUInteger)keyEquivalentModifierMaskForName:(NSString *)name;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Feb  3 09:56:38 GMT 2004
@@ -1956,7 +1956,7 @@ To Do List:
 //iTM2_START;
 	NSString * stringResult = NSLocalizedStringWithDefaultValue([name stringByAppendingPathExtension:@"modifierMask"],
 				iTM2TeXPCommandTableName, myBUNDLE, @"NONE", "");
-	unsigned int result = 0;
+	NSUInteger result = 0;
 	if([stringResult rangeOfString:@"^"].location != NSNotFound)
 		result = result | NSControlKeyMask;
 	if([stringResult rangeOfString:@"$"].location != NSNotFound)
@@ -2094,7 +2094,7 @@ To Do List: to be improved...
 							localizedCommand,
 								[project nameForFileKey:[project masterFileKey]],
 									[project projectName]];
-		[self postNotificationWithStatus:status];
+		[self iTM2_postNotificationWithStatus:status];
 //        [project saveProjectDocuments:self]; this is already done if necessary
 //iTM2_LOG(@"/\\/\\/\\/\\  1");
         iTM2TaskWrapper * TW = [[[iTM2TaskWrapper alloc] init] autorelease];
@@ -2132,7 +2132,7 @@ To Do List: to be improved...
 		[TW setEnvironmentString:[project getCompletePATHPrefix] forKey:@"iTM2_PATH_Prefix"];
 		[TW setEnvironmentString:[project getCompletePATHSuffix] forKey:@"iTM2_PATH_Suffix"];
 		[TW setEnvironmentString:[project getCompleteTEXMFOUTPUT] forKey:@"iTM2_TEXMFOUTPUT"];
-		[TW setEnvironmentString:[[NSNumber numberWithInt:iTM2DebugEnabled] description] forKey:@"iTM2_Debug"];
+		[TW setEnvironmentString:[[NSNumber numberWithInteger:iTM2DebugEnabled] description] forKey:@"iTM2_Debug"];
  		if([project getPATHUsesLoginShell])
 		{
 			[TW setEnvironmentString:@"YES" forKey:@"iTM2_PATH_UsesLoginShell"];// not yet used?

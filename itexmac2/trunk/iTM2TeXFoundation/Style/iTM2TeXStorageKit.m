@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Oct 16 2001.
-//  Copyright ¬© 2004 Laurens'Tribune. All rights reserved.
+//  Copyright © 2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -28,25 +28,6 @@ NSString * const iTM2TextAttributesRegExComponent = @"regex";
 NSString * const iTM2TextAttributesDraftSymbolsExtension = @"DraftSymbols";
 NSString * const iTM2Text2ndSymbolColorAttributeName = @"iTM2Text2ndSymbolColorAttribute";
 NSString * const iTM2TextAttributesCharacterAttributeName = @"iTM2Character";
-
-@implementation iTM2MainInstaller(TeXStorageKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXStorageCompleteInstallation
-+ (void)iTM2TeXStorageCompleteInstallation;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2: Mon Jun  7 21:48:56 GMT 2004
-To Do List: Nothing
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-	[iTM2TeXParser class];
-	[iTM2XtdTeXParser class];
-//iTM2_END;
-    return;
-}
-@end
-
-static NSArray * _iTM2TeXModeForModeArray = nil;
 
 #define _TextStorage (iTM2TextStorage *)_TS
 
@@ -77,37 +58,9 @@ NSString * const iTM2TeXCommandInputSyntaxModeName = @"\\input";
 #undef iTM2_ATTRIBUTE_ASSERT
 #define iTM2_ATTRIBUTE_ASSERT(CONDITION,REASON) if(iTM2DebugEnabled>99&&!(CONDITION)) {ERROR=REASON;goto returnERROR;}
 
+static NSArray * _iTM2TeXModeForModeArray = nil;
+
 @implementation iTM2TeXParser
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-//iTM2_LOG(@"iTM2TeXParser");
-    if(!_iTM2TeXModeForModeArray)
-	{
-        _iTM2TeXModeForModeArray = [[NSArray arrayWithObjects:
-			iTM2TextErrorSyntaxModeName, iTM2TextWhitePrefixSyntaxModeName, iTM2TextDefaultSyntaxModeName,// +3
-			iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName, // +4
-			iTM2TeXCommentSyntaxModeName,iTM2TeXCommentSyntaxModeName,iTM2TeXMarkSyntaxModeName,iTM2TeXMarkSyntaxModeName,// +4
-			iTM2TeXGroupSyntaxModeName, iTM2TeXGroupSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXBracketSyntaxModeName, iTM2TeXBracketSyntaxModeName, // +6
-			iTM2TeXMathToggleSyntaxModeName,iTM2TeXMathDisplayToggleSyntaxModeName,iTM2TeXMathInlineSwitchSyntaxModeName,iTM2TeXMathInlineSwitchSyntaxModeName,iTM2TeXMathDisplaySwitchSyntaxModeName,iTM2TeXMathDisplaySwitchSyntaxModeName,// +6
-			iTM2TeXSubSyntaxModeName, iTM2TeXSubShortSyntaxModeName, iTM2TeXSubLongSyntaxModeName,// +3
-			iTM2TeXSuperSyntaxModeName, iTM2TeXSuperContinueSyntaxModeName, iTM2TeXSuperShortSyntaxModeName, iTM2TeXSuperLongSyntaxModeName,// +4
-			iTM2TeXAmpersandSyntaxModeName,// +1
-			iTM2TeXAccentSyntaxModeName,// +1
-			iTM2TeXPlaceholderDelimiterSyntaxModeName,// +1
-				nil] retain];
-	}
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= syntaxParserStyle
 + (NSString *)syntaxParserStyle;
 /*"Designated initializer.
@@ -281,10 +234,11 @@ To Do List:
 	}
     return [NSDictionary dictionaryWithDictionary:MD];
 }
+#pragma mark iTM2TeXStorageAttributes.m without Symbols
 #undef iTM2_WITH_SYMBOLS
 #include "iTM2TeXStorageAttributes.m"
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink:atIndex:
-- (BOOL)didClickOnLink:(id)link atIndex:(unsigned)charIndex;
+- (BOOL)didClickOnLink:(id)link atIndex:(NSUInteger)charIndex;
 /*"Subclasses will return YES.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
@@ -300,10 +254,10 @@ To Do List:
 		NSString * command = [S substringWithRange:R];
 		if([command isEqualToString:iTM2TeXCommandInputSyntaxModeName])
 		{
-			unsigned start = NSMaxRange(R);
+			NSUInteger start = NSMaxRange(R);
 			if(start < [S length])
 			{
-				unsigned contentsEnd, TeXComment;
+				NSUInteger contentsEnd, TeXComment;
 				[S getLineStart:nil end:nil contentsEnd: &contentsEnd TeXComment: &TeXComment forIndex:start];
 				NSString * string = [S substringWithRange:
 					NSMakeRange(start, (TeXComment == NSNotFound? contentsEnd: TeXComment) - start)];
@@ -356,41 +310,15 @@ To Do List: Nothing
 //iTM2_START;
     return @"TeX-Xtd";
 }
+#pragma mark iTM2TeXStorageAttributes.m with Symbols
 #define iTM2_WITH_SYMBOLS
 #include "iTM2TeXStorageAttributes.m"
 @end
 
-@implementation NSCharacterSet(iTM2TeXStorageKit)
 static id _iTM2TeXPTeXLetterCharacterSet = nil;
 static id _iTM2TeXPTeXFileNameLetterCharacterSet = nil;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-    if(!_iTM2TeXPTeXLetterCharacterSet)
-    {
-        id set = [[[NSCharacterSet characterSetWithRange:NSMakeRange('a', 26)] mutableCopy] autorelease];
-        [set addCharactersInRange:NSMakeRange('A', 26)];
-//        [set addCharactersInString:@"@"];
-        _iTM2TeXPTeXLetterCharacterSet = [set copy];
-    }
-    if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
-    {
-        _iTM2TeXPTeXFileNameLetterCharacterSet = [NSMutableCharacterSet characterSetWithCharactersInString:@".,;\\+-*[]=_/:0123456789"];
-		[_iTM2TeXPTeXFileNameLetterCharacterSet formUnionWithCharacterSet:[NSCharacterSet letterCharacterSet]];
-		_iTM2TeXPTeXFileNameLetterCharacterSet = [_iTM2TeXPTeXFileNameLetterCharacterSet copy];
-    }
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
+
+@implementation NSCharacterSet(iTM2TeXStorageKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2_TeXLetterCharacterSet;
 + (NSCharacterSet *)iTM2_TeXLetterCharacterSet;
 /*"Description forthcoming.
@@ -429,12 +357,9 @@ To Do List:
     variant = [variant lowercaseString];
     if(self = [super initWithVariant:variant])
     {
-        [_SymbolsAttributes autorelease];
-        _SymbolsAttributes = [[NSMutableDictionary dictionary] retain];
-        [_RegExAttributes autorelease];
-        _RegExAttributes = [[NSMutableDictionary dictionary] retain];
-        [_CachedSymbolsAttributes autorelease];
-        _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+        self.symbolsAttributes = [NSMutableDictionary dictionary];
+        self.regExAttributes = [NSMutableDictionary dictionary];
+        self.cachedSymbolsAttributes = [NSMutableDictionary dictionary];
         [self loadSymbolsAttributesWithVariant:variant];
     }
 //iTM2_END;
@@ -453,8 +378,7 @@ To Do List:
     [super setAttributes: (NSDictionary *) dictionary forMode: (NSString *) mode];
     if([mode isEqualToString:iTM2TeXCommandSyntaxModeName])
     {
-        [_CachedSymbolsAttributes release];
-        _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+        self.cachedSymbolsAttributes = [NSMutableDictionary dictionary];
     }
     return;
 }
@@ -470,10 +394,8 @@ To Do List:
     [super attributesDidChange];
     // built in attributes are not expected to change!!!
     // just load ther other attributes
-    [_SymbolsAttributes autorelease];
-    _SymbolsAttributes = [[NSMutableDictionary dictionary] retain];
-    [_CachedSymbolsAttributes autorelease];
-    _CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+    self.symbolsAttributes = [NSMutableDictionary dictionary];
+    self.cachedSymbolsAttributes = [NSMutableDictionary dictionary];
     [self loadSymbolsAttributesWithVariant:[self syntaxParserVariant]];
 //iTM2_END;
     return;
@@ -490,10 +412,10 @@ To Do List:
 //iTM2_START;
 	if(![symbol length])
 		return nil;
-    NSDictionary * symbolAttributes = [_CachedSymbolsAttributes objectForKey:symbol];
+    NSDictionary * symbolAttributes = [self.cachedSymbolsAttributes objectForKey:symbol];
     if(symbolAttributes)
         return [symbolAttributes isKindOfClass:[NSDictionary class]]?symbolAttributes:nil;
-    symbolAttributes = [_SymbolsAttributes objectForKey:symbol];
+    symbolAttributes = [self.symbolsAttributes objectForKey:symbol];
     if(symbolAttributes)
     {
         id attributes = nil;
@@ -521,10 +443,10 @@ To Do List:
                     commandColor;
             [attributes setObject:replacementColor forKey:NSForegroundColorAttributeName];
         }
-		[_CachedSymbolsAttributes setObject:[NSDictionary dictionaryWithDictionary:attributes] forKey:symbol];
-		return [_CachedSymbolsAttributes objectForKey:symbol];
+		[self.cachedSymbolsAttributes setObject:[NSDictionary dictionaryWithDictionary:attributes] forKey:symbol];
+		return [self.cachedSymbolsAttributes objectForKey:symbol];
     }
-	[_CachedSymbolsAttributes setObject:[NSNull null] forKey:symbol];
+	[self.cachedSymbolsAttributes setObject:[NSNull null] forKey:symbol];
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= loadSymbolsAttributesWithVariant:
@@ -539,8 +461,7 @@ To Do List:
 //iTM2_LOG(@"variant is: %@", variant);
 	NSString * variantComponent = [iTM2TextDefaultVariant stringByAppendingPathExtension:iTM2TextVariantExtension];
 	NSString * stylePath;
-	NSEnumerator * E = [[[self class] builtInStylePaths] objectEnumerator];
-	while(stylePath = [E nextObject])
+	for(stylePath in [[self class] builtInStylePaths])
 	{
 		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
@@ -553,8 +474,7 @@ To Do List:
 	variantComponent = [variant stringByAppendingPathExtension:iTM2TextVariantExtension];
     if(![iTM2TextDefaultVariant isEqualToString:variant])
 	{
-		E = [[[self class] builtInStylePaths] objectEnumerator];
-		while(stylePath = [E nextObject])
+		for(stylePath in [[self class] builtInStylePaths])
 		{
 			stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 			BOOL isDir = NO;
@@ -562,8 +482,7 @@ To Do List:
 				[self loadSymbolsAttributesAtPath:stylePath];
 		}
 	}
-	E = [[[self class] otherStylePaths] objectEnumerator];
-	while(stylePath = [E nextObject])
+	for(stylePath in [[self class] otherStylePaths])
 	{
 		stylePath = [[stylePath stringByAppendingPathComponent:variantComponent] iTM2_stringByResolvingSymlinksAndFinderAliasesInPath];
 		BOOL isDir = NO;
@@ -602,7 +521,7 @@ To Do List:
 		[TS addLayoutManager:LM]; 
 		NSMutableDictionary * result = [NSMutableDictionary dictionary];
 		NSString * S = [TS string];
-		unsigned start = 0, contentsEnd;
+		NSUInteger start = 0, contentsEnd;
 		NSRange R = NSMakeRange(0,0);
 		while(start<[S length])
 		{
@@ -663,7 +582,7 @@ To Do List:
 		[TS addLayoutManager:LM]; 
 		NSMutableDictionary * result = [NSMutableDictionary dictionary];
 		NSString * S = [TS string];
-		unsigned start = 0, contentsEnd;
+		NSUInteger start = 0, contentsEnd;
 		NSRange R = NSMakeRange(0,0);
 		while(start<[S length])
 		{
@@ -711,36 +630,34 @@ To Do List: NYI
 			}
 			else if([p isEqual:[iTM2TextAttributesRegExComponent stringByAppendingPathExtension:iTM2TextAttributesPathExtension]])
 			{
-				[_CachedSymbolsAttributes autorelease];
-				_CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+				self.cachedSymbolsAttributes = [NSMutableDictionary dictionary];
 				p = [stylePath stringByAppendingPathComponent:p];
 				attributes = [[self class] regexAttributesWithContentsOfFile:p];
 				if(iTM2DebugEnabled > 1000)
 				{
 					iTM2_LOG(@"We have loaded regex attributes at path: %@", p);
-					NSMutableSet * set1 = [NSMutableSet setWithArray:[_RegExAttributes allKeys]];
+					NSMutableSet * set1 = [NSMutableSet setWithArray:[self.regExAttributes allKeys]];
 					NSSet * set2 = [NSSet setWithArray:[attributes allKeys]];
 					[set1 intersectSet:set2];
 					 iTM2_LOG(@"The overriden keys are: %@", set1);
 				}
-				[_RegExAttributes addEntriesFromDictionary:attributes];
+				[self.regExAttributes addEntriesFromDictionary:attributes];
 			}
 			else 
 			{
-				[_CachedSymbolsAttributes autorelease];
-				_CachedSymbolsAttributes = [[NSMutableDictionary dictionary] retain];
+				self.cachedSymbolsAttributes = [NSMutableDictionary dictionary];
 				p = [stylePath stringByAppendingPathComponent:p];
 				if(attributes = [[self class] symbolsAttributesWithContentsOfFile:p])
 				{
 					if(iTM2DebugEnabled > 1000)
 					{
 						iTM2_LOG(@"We have loaded symbols attributes at path: %@", p);
-						NSMutableSet * set1 = [NSMutableSet setWithArray:[_SymbolsAttributes allKeys]];
+						NSMutableSet * set1 = [NSMutableSet setWithArray:[self.symbolsAttributes allKeys]];
 						NSSet * set2 = [NSSet setWithArray:[attributes allKeys]];
 						[set1 intersectSet:set2];
 						 iTM2_LOG(@"The overriden keys are: %@", set1);
 					}
-					[_SymbolsAttributes addEntriesFromDictionary:attributes];
+					[self.symbolsAttributes addEntriesFromDictionary:attributes];
 				}
 			}
 		}
@@ -755,11 +672,10 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	NSEnumerator * E = [dictionary keyEnumerator];
-	NSString * command;
+
 	NSMutableAttributedString * MAS =
 		[[[NSMutableAttributedString alloc] initWithString:@"% iTeXMac2 style symbols file\n% each line is 'c=\\command'\n"] autorelease];
-	while(command = [E nextObject])
+	for(NSString * command in [dictionary keyEnumerator])
 	{
 		NSMutableDictionary * attributes = [[[dictionary objectForKey:command] mutableCopy] autorelease];
 		NSString * S = [attributes objectForKey:iTM2TextAttributesCharacterAttributeName];
@@ -774,10 +690,54 @@ To Do List:
 //iTM2_END;
 	return [data writeToFile:fileName options:NSAtomicWrite error:nil];
 }
-@synthesize _SymbolsAttributes;
-@synthesize _RegExAttributes;
-@synthesize _CachedSymbolsAttributes;
+@synthesize symbolsAttributes=_SymbolsAttributes;
+@synthesize regExAttributes=_RegExAttributes;
+@synthesize cachedSymbolsAttributes=_CachedSymbolsAttributes;
 @end
 
+@implementation iTM2MainInstaller(TeXStorageKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXStorageCompleteInstallation
++ (void)iTM2TeXStorageCompleteInstallation;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 2: Mon Jun  7 21:48:56 GMT 2004
+ To Do List: Nothing
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	[iTM2TeXParser class];
+	[iTM2XtdTeXParser class];
+    if(!_iTM2TeXPTeXLetterCharacterSet)
+    {
+        id set = [[[NSCharacterSet characterSetWithRange:NSMakeRange('a', 26)] mutableCopy] autorelease];
+        [set addCharactersInRange:NSMakeRange('A', 26)];
+		//        [set addCharactersInString:@"@"];
+        _iTM2TeXPTeXLetterCharacterSet = [set copy];
+    }
+    if(!_iTM2TeXPTeXFileNameLetterCharacterSet)
+    {
+        _iTM2TeXPTeXFileNameLetterCharacterSet = [NSMutableCharacterSet characterSetWithCharactersInString:@".,;\\+-*[]=_/:0123456789"];
+		[_iTM2TeXPTeXFileNameLetterCharacterSet formUnionWithCharacterSet:[NSCharacterSet letterCharacterSet]];
+		_iTM2TeXPTeXFileNameLetterCharacterSet = [_iTM2TeXPTeXFileNameLetterCharacterSet copy];
+    }
+    if(!_iTM2TeXModeForModeArray)
+	{
+        _iTM2TeXModeForModeArray = [NSArray arrayWithObjects:
+									iTM2TextErrorSyntaxModeName, iTM2TextWhitePrefixSyntaxModeName, iTM2TextDefaultSyntaxModeName,// +3
+									iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName,iTM2TeXCommandSyntaxModeName, // +4
+									iTM2TeXCommentSyntaxModeName,iTM2TeXCommentSyntaxModeName,iTM2TeXMarkSyntaxModeName,iTM2TeXMarkSyntaxModeName,// +4
+									iTM2TeXGroupSyntaxModeName, iTM2TeXGroupSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXParenSyntaxModeName, iTM2TeXBracketSyntaxModeName, iTM2TeXBracketSyntaxModeName, // +6
+									iTM2TeXMathToggleSyntaxModeName,iTM2TeXMathDisplayToggleSyntaxModeName,iTM2TeXMathInlineSwitchSyntaxModeName,iTM2TeXMathInlineSwitchSyntaxModeName,iTM2TeXMathDisplaySwitchSyntaxModeName,iTM2TeXMathDisplaySwitchSyntaxModeName,// +6
+									iTM2TeXSubSyntaxModeName, iTM2TeXSubShortSyntaxModeName, iTM2TeXSubLongSyntaxModeName,// +3
+									iTM2TeXSuperSyntaxModeName, iTM2TeXSuperContinueSyntaxModeName, iTM2TeXSuperShortSyntaxModeName, iTM2TeXSuperLongSyntaxModeName,// +4
+									iTM2TeXAmpersandSyntaxModeName,// +1
+									iTM2TeXAccentSyntaxModeName,// +1
+									iTM2TeXPlaceholderDelimiterSyntaxModeName,// +1
+									nil];
+	}
+	//iTM2_END;
+    return;
+}
+@end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXStorageKit

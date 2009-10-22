@@ -34,23 +34,18 @@
 NSString * const TWSSpellingFileKey = @"spelling";
 NSString * const TWSSpellComponent = @"spell";
 
-@implementation iTM2SpellContextController(TeX)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2SpellContextController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeX_spellContextModeForText:)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-	return;
+@implementation iTM2MainInstaller(TeXProjectSpellKit)
+- (void)prepareSpellContextControllerCompleteInstallation;
+{
+	if([iTM2SpellContextController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeX_spellContextModeForText:)])
+	{
+		iTM2_MILESTONE((@"iTM2SpellContextController(TeX)"),(@"The spell context does not take tex projects into account."));
+	}
 }
+
+@end
+
+@implementation iTM2SpellContextController(TeX)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  SWZ_iTM2TeX_spellContextModeForText:
 - (NSString *)SWZ_iTM2TeX_spellContextModeForText:(NSText *) text;
 /*"Description forthcoming.
@@ -98,6 +93,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_END;
+#warning MIGRATION: nonretainedObjectValue
     return [metaGETTER nonretainedObjectValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setProject:

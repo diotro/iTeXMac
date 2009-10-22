@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri Sep 05 2003.
-//  Copyright ¬© 2006 Laurens'Tribune. All rights reserved.
+//  Copyright © 2006 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -40,20 +40,20 @@ extern NSString * const iTM2TeX7bitsAccentsKey;
 @private
     struct __iTMTVFlags
     {
-        unsigned int isDeepEscaped: 1;
-        unsigned int isEscaped: 1;
-        unsigned int smartInsert: 1;
-        unsigned int smartInsertIsLocal: 1;
-        unsigned int autoIndent: 1;
-        unsigned int autoIndentIsLocal: 1;
-        unsigned int shiftDelete: 1;
-        unsigned int shiftDeleteIsLocal: 1;
-        unsigned int shouldAntialias: 1;
-        unsigned int shouldAntialiasIsLocal: 1;
-        unsigned int tempAttrArePending: 1;
-        unsigned int rectAlreadyDrawnOnce: 1;
-        unsigned int wrapTextPosted: 1;
-        unsigned int reserved: 19;
+        NSUInteger isDeepEscaped: 1;
+        NSUInteger isEscaped: 1;
+        NSUInteger smartInsert: 1;
+        NSUInteger smartInsertIsLocal: 1;
+        NSUInteger autoIndent: 1;
+        NSUInteger autoIndentIsLocal: 1;
+        NSUInteger shiftDelete: 1;
+        NSUInteger shiftDeleteIsLocal: 1;
+        NSUInteger shouldAntialias: 1;
+        NSUInteger shouldAntialiasIsLocal: 1;
+        NSUInteger tempAttrArePending: 1;
+        NSUInteger rectAlreadyDrawnOnce: 1;
+        NSUInteger wrapTextPosted: 1;
+        NSUInteger reserved: 19;
     } _iTMTVFlags;
 }
 - (void)scrollInputToVisible:(id <NSMenuItem>)sender;
@@ -70,7 +70,7 @@ extern NSString * const iTM2TeX7bitsAccentsKey;
 @end
 
 @interface iTM2TextStorage(DoubleClick)
-- (NSRange)smartDoubleClickAtIndex:(unsigned)index;
+- (NSRange)smartDoubleClickAtIndex:(NSUInteger)index;
 @end
 
 @interface NSTextView(TeXMacro)

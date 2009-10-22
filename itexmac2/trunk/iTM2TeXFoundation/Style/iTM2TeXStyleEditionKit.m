@@ -192,24 +192,15 @@ To Do List:
 //iTM2_START;
     if(self = [super initWithWindow:window])
     {
-        [_BuiltInSymbolsSets autorelease];
-        _BuiltInSymbolsSets = [[NSMutableDictionary dictionary] retain];
-        [_NetworkSymbolsSets autorelease];
-        _NetworkSymbolsSets = [[NSMutableDictionary dictionary] retain];
-        [_LocalSymbolsSets autorelease];
-        _LocalSymbolsSets = [[NSMutableDictionary dictionary] retain];
-        [_CustomSymbolsSets autorelease];
-        _CustomSymbolsSets = [[NSMutableDictionary dictionary] retain];
-        [_CustomObjectsSets autorelease];
-        _CustomObjectsSets = [[NSMutableDictionary dictionary] retain];
-        [_CustomKeysSets autorelease];
-        _CustomKeysSets = [[NSMutableDictionary dictionary] retain];
-        [_EditedObjectsSets autorelease];
-        _EditedObjectsSets = [[NSMutableDictionary dictionary] retain];
-        [_RecycleSymbolsSets autorelease];
-        _RecycleSymbolsSets = [[NSMutableDictionary dictionary] retain];
-        [_AllSymbolsSets autorelease];
-        _AllSymbolsSets = [[NSMutableDictionary dictionary] retain];
+        _BuiltInSymbolsSets = [NSMutableDictionary dictionary];
+        _NetworkSymbolsSets = [NSMutableDictionary dictionary];
+        _LocalSymbolsSets = [NSMutableDictionary dictionary];
+        _CustomSymbolsSets = [NSMutableDictionary dictionary];
+        _CustomObjectsSets = [NSMutableDictionary dictionary];
+        _CustomKeysSets = [NSMutableDictionary dictionary];
+        _EditedObjectsSets = [NSMutableDictionary dictionary];
+        _RecycleSymbolsSets = [NSMutableDictionary dictionary];
+        _AllSymbolsSets = [NSMutableDictionary dictionary];
     }
 //iTM2_END;
     return self;
@@ -415,12 +406,11 @@ To Do List:
     // loading the built in symbols sets
     BOOL success = YES;
 	// recycling all necessary sets.
-	NSEnumerator * E = [_RecycleSymbolsSets keyEnumerator];
 	NSString * CSK;
 	NSString * fileName = [absoluteURL path];
-	while(CSK = [E nextObject])
+	for(CSK in [_RecycleSymbolsSets keyEnumerator])
 	{
-		int tag;
+		NSInteger tag;
 		NSString * lastPathComponent = [CSK stringByAppendingPathExtension:iTM2TextAttributesPathExtension];
 		NSString * fullPath = [fileName stringByAppendingPathComponent:lastPathComponent];
 //iTM2_LOG(@"RECYCLING FILE AT PATH: %@", fullPath);
@@ -432,14 +422,12 @@ To Do List:
 								files: [NSArray arrayWithObject:lastPathComponent]
 									tag: &tag]);
 	}
-	[_RecycleSymbolsSets autorelease];
-	_RecycleSymbolsSets = [[NSMutableDictionary dictionary] retain];
+	_RecycleSymbolsSets = [NSMutableDictionary dictionary];
 	// saving the other sets.
 	NSTextView * TV = [[[NSTextView alloc] initWithFrame:NSMakeRect(0,0,1e7,1e7)] autorelease];
 	NSLayoutManager * LM = [TV layoutManager];
 	NSTextStorage * TS = [LM textStorage];
-	E = [_CustomSymbolsSets keyEnumerator];
-	while(CSK = [E nextObject])
+	for(CSK in [_CustomSymbolsSets keyEnumerator])
 	{
 //iTM2_LOG(@"CSK: %@", CSK);
 		NSEnumerator * EE = [[_CustomKeysSets objectForKey:CSK] objectEnumerator];
@@ -673,7 +661,7 @@ To Do List:
     if(!_CurrentSetItem)
     {
         [sender removeAllItems];
-        int indentationLevel = iTM2TSSMenuItemIndentationLevel;
+        NSInteger indentationLevel = iTM2TSSMenuItemIndentationLevel;
         if([_BuiltInSymbolsSets count])
         {
             if(builtInSetMenuItem)
@@ -952,7 +940,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSetSheetDidEnd:returnCode:contextInfo:
-- (void)addSetSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+- (void)addSetSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1089,7 +1077,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSetSheetDidEnd:returnCode:recycleSet:
-- (void)removeSetSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode recycleSet:(NSString *)name;
+- (void)removeSetSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode recycleSet:(NSString *)name;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1126,7 +1114,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  TABLEVIEW
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  symbolAtRow:
-- (id)symbolAtRow:(int)row;
+- (id)symbolAtRow:(NSInteger)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1160,7 +1148,7 @@ To Do List:
         return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)tableView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1171,7 +1159,7 @@ To Do List:
     return [[_CustomKeysSets objectForKey:[self currentSetKey]] count];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:objectValueForTableColumn:row:
-- (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1203,7 +1191,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:shouldEditTableColumn:row:
-- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1259,7 +1247,7 @@ To Do List:
     NSString * CSK = [self currentSetKey];
     NSMutableArray * _Ks = [_CustomKeysSets objectForKey:CSK];
     NSMutableDictionary * _EOs = [_EditedObjectsSets objectForKey:CSK];
-    int row = [_Ks indexOfObject:@"?"];
+    NSInteger row = [_Ks indexOfObject:@"?"];
     if(row == NSNotFound)
     {
         row = [tv selectedRow];
@@ -1283,7 +1271,7 @@ To Do List:
 		NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:[tv methodSignatureForSelector:selector]];
 		[invocation setTarget:tv];
 		[invocation setSelector:selector];
-		int column = [tv columnWithIdentifier:iTM2TextAttributesCommandIdentifier];
+		NSInteger column = [tv columnWithIdentifier:iTM2TextAttributesCommandIdentifier];
 		[invocation setArgument: &column atIndex:2];
 		[invocation setArgument: &row atIndex:3];
 		id argument = nil;
@@ -1326,11 +1314,10 @@ To Do List:
     NSMutableArray * _Ks = [_CustomKeysSets objectForKey:CSK];
     NSMutableDictionary * _Os = [_CustomObjectsSets objectForKey:CSK];
     NSMutableDictionary * _EOs = [_EditedObjectsSets objectForKey:CSK];
-    NSEnumerator * E = [[[tv selectedRowEnumerator] allObjects] reverseObjectEnumerator];
-    NSNumber * N;
-    while(N = [E nextObject])
-    {
-        int row = [N intValue];
+	NSIndexSet * indexes = [tv selectedRowIndexes];
+	NSInteger row = [indexes lastIndex];
+	while(row!=NSNotFound)
+	{
         if((row >= 0) && (row < [_Ks count]))
         {
             NSString * K = [_Ks objectAtIndex:row];
@@ -1339,7 +1326,8 @@ To Do List:
             [_Ks removeObjectAtIndex:row];
             [[self document] updateChangeCount:NSChangeDone];
         }
-    }
+		row = [indexes indexLessThanIndex:row];
+	}
 //    [tv reloadData];
     [self iTM2_validateWindowContent];
     return;
@@ -1406,7 +1394,7 @@ To Do List:
     return NO && ([self currentSets] == _CustomSymbolsSets);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:setObjectValue:forTableColumn:row:
-- (void)tableView:(NSTableView *)TV setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (void)tableView:(NSTableView *)TV setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1588,8 +1576,8 @@ To Do List:
 //iTM2_END;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:writeRows:toPasteboard:
-- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray *)rows toPasteboard:(NSPasteboard *)pboard;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:writeRowsWithIndexes:toPasteboard:
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1602,10 +1590,9 @@ To Do List:
     NSMutableArray * MA = [NSMutableArray array];
     NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] initWithString:@"" attributes:nil] autorelease];
 	[MAS beginEditing];
-    NSNumber * N;
-    for(N in rows)
-    {
-        int row = [N intValue];
+	NSInteger row = [rowIndexes firstIndex];
+	while(row != NSNotFound)
+	{
         if((row>=0) && (row<[_Ks count]))
         {
             id O = [self symbolAtRow:row];
@@ -1617,7 +1604,8 @@ To Do List:
 				[MAS appendAttributedString:O];
             }
         }
-    }
+		row = [rowIndexes indexGreaterThanIndex:row];
+	}
 	[MAS endEditing];
     if([MA count])
     {
@@ -1629,7 +1617,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:validateDrop:proposedRow:proposedDropOperation:
-- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;
+- (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1643,7 +1631,7 @@ To Do List:
     return [type length]? NSDragOperationEvery: NSDragOperationNone;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:acceptDrop:row:dropOperation:
-- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)op;
+- (BOOL)tableView:(NSTableView*)tv acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)op;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1683,7 +1671,7 @@ To Do List:
         while((K = [E nextObject]) && (O = [E nextObject]))
         {
 			NSString * key = K;
-			unsigned index = 0;
+			NSUInteger index = 0;
 			while([_Ks containsObject:key])
 			{
 				key = [K stringByAppendingFormat:@"-%u",++index];
@@ -1715,7 +1703,7 @@ To Do List:
                 if([s length])
                 {
 					NSString * key = s;
-					unsigned index = 0;
+					NSUInteger index = 0;
 					while([_Ks containsObject:key])
 					{
 						key = [s stringByAppendingFormat:@"-%u",++index];
@@ -1838,11 +1826,11 @@ To Do List:
 //iTM2_LOG(@"NR is: %@", NR);
         return (NR != nil) && [SV acceptsFirstResponder] && [W makeFirstResponder:SV];
     }
-    int column = [tableView editedColumn];
+    NSInteger column = [tableView editedColumn];
     if(column == [tableView numberOfColumns] - 1)
     {
-        int row = [tableView selectedRow];
-        int max = [self numberOfRowsInTableView:tableView];
+        NSInteger row = [tableView selectedRow];
+        NSInteger max = [self numberOfRowsInTableView:tableView];
         if((row<0) || (row >= max - 1))
             row = 0;
         else
@@ -1856,26 +1844,19 @@ To Do List:
         return NO;
     else if([[self window] firstResponder] == tableView)
     {
-        int row = [tableView selectedRow];
-        int max = [self numberOfRowsInTableView:tableView];
+        NSInteger row = [tableView selectedRow];
+        NSInteger max = [self numberOfRowsInTableView:tableView];
         if((row<0) || (row >= max))
             row = 0;
         [tableView selectRow:row byExtendingSelection:NO];
         row = [tableView selectedRow];
-        int column = 0;
+        NSInteger column = 0;
         if([self tableView:tableView shouldEditTableColumn:[[tableView tableColumns] objectAtIndex:column] row:row])
-        {        
-            SEL selector = @selector(editColumn:row:withEvent:select:);
-            NSInvocation * invocation = [NSInvocation invocationWithMethodSignature:[tableView methodSignatureForSelector:selector]];
-            [invocation setTarget:tableView];
-            [invocation setSelector:selector];
-            [invocation setArgument: &column atIndex:2];
-            [invocation setArgument: &row atIndex:3];
-            id argument = nil;
-            [invocation setArgument: &argument atIndex:4];
-            BOOL flag = YES;
-            [invocation setArgument: &flag atIndex:5];
-            [NSTimer scheduledTimerWithTimeInterval:0 invocation:invocation repeats:NO];
+        {
+			NSInvocation * I;
+			[[NSInvocation iTM2_getInvocation:&I withTarget:tableView retainArguments:NO]
+				editColumn:column row:row withEvent:nil select:YES];
+            [NSTimer scheduledTimerWithTimeInterval:0 invocation:I repeats:NO];
         }
         return YES;
     }

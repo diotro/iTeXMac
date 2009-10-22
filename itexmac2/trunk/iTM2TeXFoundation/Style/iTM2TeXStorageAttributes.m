@@ -30,7 +30,7 @@
 #pragma mark =-=-=-=-=-  NO SYMBOLS:
 #ifndef iTM2_WITH_SYMBOLS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forCharacter:previousMode:
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forCharacter:(unichar)theChar previousMode:(unsigned)previousMode;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)newModeRef forCharacter:(unichar)theChar previousMode:(NSUInteger)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -42,8 +42,8 @@ To Do List:
 //    if(previousMode != ( previousMode & ~kiTM2TeXFlagsSyntaxMask))
 //        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorSyntaxModeMask,  previousMode & ~kiTM2TeXFlagsSyntaxMask);
 //iTM2_LOG(@"C'est %.1S qui s'y colle", &theChar);
-	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
-	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
+	NSUInteger previousError = previousMode & kiTM2TeXErrorSyntaxMask;
+	NSUInteger previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
 	if(previousModifier & kiTM2TeXEndOfLineSyntaxMask)
 	{
 		// this is the first character of the line
@@ -54,13 +54,13 @@ To Do List:
 		}
 		previousModifier &= ~kiTM2TeXEndOfLineSyntaxMask;
 	}
-	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
-	unsigned newModifier = previousModifier;
+	NSUInteger previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
+	NSUInteger newModifier = previousModifier;
 	newModifier = previousModifier  & ~kiTM2TeXAtSyntaxMask;
 	newModifier = newModifier  & ~kiTM2TeXCommandSyntaxMask;
-	unsigned status = kiTM2TeXNoErrorSyntaxStatus;
+	NSUInteger status = kiTM2TeXNoErrorSyntaxStatus;
 	NSString * modeString = @"";
-	unsigned newMode = previousModeWithoutModifiers;
+	NSUInteger newMode = previousModeWithoutModifiers;
 #if 0
 CAS0(kiTM2TeXWhitePrefixSyntaxMode,				previousModeWithoutModifiers,	previousModifier);
 CAS0(kiTM2TeXRegularSyntaxMode,					previousModeWithoutModifiers,	previousModifier);
@@ -873,7 +873,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModif
 #if 1
 #include <iTM2Foundation/iTM2Foundation.h>
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned)getSyntaxMode:(unsigned *)newModeRef forLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)newModeRef forLocation:(NSUInteger)location previousMode:(NSUInteger)previousMode effectiveLength:(NSUInteger *)lengthRef nextModeIn:(NSUInteger *)nextModeRef before:(NSUInteger)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -883,16 +883,16 @@ To Do List:
 //iTM2_START;
 	NSParameterAssert(newModeRef);
     NSString * S = [_TextStorage string];
-	unsigned length = [S length];
+	NSUInteger length = [S length];
     NSParameterAssert(location<length);
 	NSString * substring;
 	NSRange r;
-	unsigned status;
-//	unsigned previousError = previousMode & kiTM2TeXErrorSyntaxMask;
-//	unsigned previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
-	unsigned previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
+	NSUInteger status;
+//	NSUInteger previousError = previousMode & kiTM2TeXErrorSyntaxMask;
+//	NSUInteger previousModifier = previousMode & kiTM2TeXModifiersSyntaxMask;
+	NSUInteger previousModeWithoutModifiers = previousMode & ~kiTM2TeXFlagsSyntaxMask;
 	unichar theChar = [S characterAtIndex:location];
-	unsigned start, end;
+	NSUInteger start, end;
 	static ICURegEx * RE = nil;
 	if(kiTM2TeXCommandStartSyntaxMode == previousModeWithoutModifiers)
 	{
@@ -1137,7 +1137,7 @@ placeholder:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned)getSyntaxMode:(unsigned *)nextModeRef forLocation:(unsigned)location previousMode:(unsigned)previousMode effectiveLength:(unsigned *)lengthRef nextModeIn:(unsigned *)nextModeRef before:(unsigned)beforeIndex;
+- (NSUInteger)getSyntaxMode:(NSUInteger *)nextModeRef forLocation:(NSUInteger)location previousMode:(NSUInteger)previousMode effectiveLength:(NSUInteger *)lengthRef nextModeIn:(NSUInteger *)nextModeRef before:(NSUInteger)beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -1154,7 +1154,7 @@ To Do List:
         {
             * lengthRef = 1;
 			theChar = [S characterAtIndex:location];
-            unsigned nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
+            NSUInteger nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
 //NSLog(@"0: character: %@", [NSString stringWithCharacters: &C length:1]);
 //NSLog(@"1: nextMode: %u, previousMode: %u", nextMode, previousMode);
             beforeIndex = MIN(beforeIndex, [S length]);
@@ -1182,7 +1182,7 @@ To Do List:
             if(nextModeRef)
                 * nextModeRef = 0;
 			theChar = [S characterAtIndex:location];
-            unsigned nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
+            NSUInteger nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
 //NSLog(@"nextMode: %u, previousMode: %u", nextMode, previousMode);
             return nextMode;
         }
@@ -1197,7 +1197,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLModeForPreviousMode:
-- (unsigned)EOLModeForPreviousMode:(unsigned)previousMode;
+- (NSUInteger)EOLModeForPreviousMode:(NSUInteger)previousMode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -1228,7 +1228,7 @@ To Do List:
 		previousMode = kiTM2TeXRegularSyntaxMode | kiTM2TeXEndOfLineSyntaxMask;
 		return previousMode;
 	}
-	unsigned previousFlags = previousMode & kiTM2TeXFlagsSyntaxMask;
+	NSUInteger previousFlags = previousMode & kiTM2TeXFlagsSyntaxMask;
 	
     previousFlags &= ~kiTM2TeXCommandSyntaxMask;
     previousFlags &= ~kiTM2TeXErrorFontSyntaxMask;
@@ -1241,7 +1241,7 @@ To Do List:
 #pragma mark =-=-=-=-=-  iTM2TeXParser and Xtd:
 // this file should be included
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *)attributesAtIndex:(unsigned)aLocation effectiveRange:(NSRangePointer)aRangePtr;
+- (NSDictionary *)attributesAtIndex:(NSUInteger)aLocation effectiveRange:(NSRangePointer)aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -1251,8 +1251,8 @@ To Do List:
 //iTM2_START;
 	// we manage at the same time the attributes with or without symbols
 	// the symbol variant adds more tests
-	unsigned fullMode;
-    unsigned lineIndex = [self lineIndexForLocation:aLocation];
+	NSUInteger fullMode;
+    NSUInteger lineIndex = [self lineIndexForLocation:aLocation];
     iTM2ModeLine * modeLine = [self modeLineAtIndex:lineIndex];
 	NSRange range;
  	[modeLine getSyntaxMode:&fullMode atGlobalLocation:aLocation longestRange:&range];
@@ -1260,20 +1260,20 @@ To Do List:
 	{
 		*aRangePtr = range;
 	}
-	unsigned int modeWithoutModifiers = fullMode & ~kiTM2TeXFlagsSyntaxMask;
+	NSUInteger modeWithoutModifiers = fullMode & ~kiTM2TeXFlagsSyntaxMask;
 	
 	NSString * S = [_TextStorage string];
 
 	// when the attributes are properly set, go to returnOutAttributes
 	// it will take care of the return for you
-	unsigned outRangeStart = range.location;
-	unsigned outRangeStop = NSMaxRange(range);
-	unsigned outMode = modeWithoutModifiers;
+	NSUInteger outRangeStart = range.location;
+	NSUInteger outRangeStop = NSMaxRange(range);
+	NSUInteger outMode = modeWithoutModifiers;
 	NSString * outModeName;
 
 	// auxiliary
-	unsigned otherMode;
-	unsigned otherFullMode;
+	NSUInteger otherMode;
+	NSUInteger otherFullMode;
 	
 	NSDictionary * attributes;
 	
@@ -1282,9 +1282,9 @@ To Do List:
 	
 #ifdef iTM2_WITH_SYMBOLS
 	NSString * symbolName;// the real string corresponding to the symbol
-	unsigned symbolRangeStart = outRangeStart;// not yet complete
-	unsigned symbolRangeStop = outRangeStop;// not yet complete
-	unsigned symbolMode = modeWithoutModifiers;
+	NSUInteger symbolRangeStart = outRangeStart;// not yet complete
+	NSUInteger symbolRangeStop = outRangeStop;// not yet complete
+	NSUInteger symbolMode = modeWithoutModifiers;
 
 	// if I am in a simple group or near a simple group things might be more difficult
 	// simple groups are delimited by { and }

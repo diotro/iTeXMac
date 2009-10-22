@@ -218,23 +218,8 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 }
 @end
 
-@implementation iTM2MainInstaller(iTM2TextWatcher)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2MileStone registerMileStone:@"!!!   No delimiter watching available, report BUG" forKey:@"iTM2TextWatcher"];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
+
+@implementation iTM2MainInstaller(TextWatcher)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextWatcherCompleteInstallation:
 + (void)iTM2TextWatcherCompleteInstallation;
 /*"Description forthcoming.
@@ -248,7 +233,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 		selector: @selector(textViewDidChangeSelectionNotified:)
 			name: NSTextViewDidChangeSelectionNotification
 				object: nil];
-	[iTM2MileStone putMileStoneForKey:@"iTM2TextWatcher"];
+	iTM2_MILESTONE(@"iTM2TextWatcher",(@"!!!   No delimiter watching available, report BUG"));
     return;
 }
 @end

@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Fri Sep 05 2003.
-//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
+//  Copyright © 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -341,7 +341,7 @@ To Do List: include the tetex path...
         {
             [sender setEnabled:NO];
             NSBeep();
-            [self postNotificationWithStatus:
+            [self iTM2_postNotificationWithStatus:
                 [NSString stringWithFormat:  NSLocalizedStringFromTableInBundle(@"No file at path: %@", @"TeX",
                             [NSBundle bundleForClass:[self class]], "Could not complete the \\input action... 1 line only"), path]]; 
         }
@@ -366,7 +366,7 @@ To Do List:
 //        NSRange GR = [S groupRangeForRange:SR];
 		// comparer SR, GR, PR
 //NSLog(NSStringFromRange(GR));
-        unsigned start, end;
+        NSUInteger start, end;
         [S getLineStart: &start end: &end contentsEnd:nil forRange:SR];
         end -= start;
         NSRange PR = (end>SR.length)? NSMakeRange(start, end): NSMakeRange(0, [S length]);
@@ -448,7 +448,7 @@ To Do List: Nothing at first glance.
     else
     {
         BOOL escaped;
-        int index = [self hasMarkedText]? [self markedRange].location:[self selectedRange].location;
+        NSInteger index = [self hasMarkedText]? [self markedRange].location:[self selectedRange].location;
         if(!index || ![[self string] isControlAtIndex:index-1 escaped: &escaped] || !escaped)
         {
             index = [self selectedRange].location;
@@ -584,7 +584,7 @@ To Do List: Nothing at first glance.
     BOOL escaped;
     NSString * S = [self string];
     NSRange R = [self selectedRange];
-	unsigned start, contentsEnd;
+	NSUInteger start, contentsEnd;
 	BOOL BOL, EOL;
 	NSString * macro;
 	if(!R.location || ![S isControlAtIndex:R.location-1 escaped:&escaped])
@@ -636,7 +636,7 @@ To Do List: Nothing at first glance.
 	for(V in selectedRanges)
 	{
 		NSRange R = [V rangeValue];
-		unsigned int nextStart,top;
+		NSUInteger nextStart,top;
 		top = NSMaxRange(R);
 		R.length = 0;
 		[S getLineStart:&R.location end:&nextStart contentsEnd:nil forRange:R];
@@ -661,7 +661,7 @@ To Do List: Nothing at first glance.
 	[self willChangeSelectedRanges];
 	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
 	{
-		unsigned int shift = 0;
+		NSUInteger shift = 0;
 		NSEnumerator * E = [affectedRanges objectEnumerator];// no reverse enumerator to properly manage the selection
 		affectedRanges = [NSMutableArray array];
 		// no need to enumerate the replacementStrings
@@ -701,13 +701,13 @@ To Do List: Nothing at first glance.
 	NSRange selectedRange;
 	NSArray * selectedRanges = [self selectedRanges];
 	NSValue * V;
-	unsigned comment;
+	NSUInteger comment;
 	affectedRange.length = 1;// all the affected ranges have a 1 length
 	for(V in selectedRanges)
 	{
 		selectedRange = [V rangeValue];
-		unsigned int top = NSMaxRange(selectedRange);
-		unsigned int nextStart;
+		NSUInteger top = NSMaxRange(selectedRange);
+		NSUInteger nextStart;
 		[S getLineStart:&affectedRange.location end:&nextStart contentsEnd:nil TeXComment:&comment forIndex:selectedRange.location];
 		if(comment == affectedRange.location)
 		{
@@ -1078,7 +1078,7 @@ To Do List:
 	{
 		return macro;
 	}
-	unsigned index = [macro length];
+	NSUInteger index = [macro length];
 	NSRange R;
 	NSString * word = nil;
 	if([macro hasSuffix:@"@@@()@@@"])
@@ -1178,7 +1178,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsSheetDidDismiss:returnCode:irrelevant:
-- (void)the7bitsAccentsSheetDidDismiss:(NSWindow *) sheet returnCode:(int) returnCode irrelevant:(id)nothing;
+- (void)the7bitsAccentsSheetDidDismiss:(NSWindow *) sheet returnCode:(NSInteger) returnCode irrelevant:(id)nothing;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -1218,15 +1218,18 @@ To Do List:
 }
 @end
 
+@implementation iTM2MainInstaller(iTM2TeXDocumentKit)
++ (void)prepareTeXDocumentKitCompleteInstallation;
+{
+	if([iTM2KeyBindingsManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_client:executeBindingForKeyStroke:)])
+	{
+		iTM2_MILESTONE((@"iTM2KeyBindingsManager(TeX)"),(@"The 7 bits accents are not managed properly"));
+	}
+}
+@end
+
 @implementation iTM2KeyBindingsManager(TeX)
 static id iTM2KeyBindingsManager_7bitsAccents = nil;
-+(void)load;
-{
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-	[iTM2KeyBindingsManager iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2_client:executeBindingForKeyStroke:)];
-	iTM2_RELEASE_POOL;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  the7bitsAccentsMapping
 + (id)the7bitsAccentsMapping;
 /*"Description forthcoming.
@@ -1340,11 +1343,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-	int tag = [sender tag];
+	NSInteger tag = [sender tag];
 	NSString * S = [[self textStorage] string];
 	if(tag>=0 && tag<[S length])
 	{
-		unsigned begin, end;
+		NSUInteger begin, end;
 		[S getLineStart: &begin end: &end contentsEnd:nil forRange:NSMakeRange(tag, 0)];
 		[self highlightAndScrollToVisibleRange:NSMakeRange(begin, end-begin)];
 	}
@@ -1374,7 +1377,7 @@ To Do List:
 //iTM2_START;
 	NSString * macro = NSLocalizedStringWithDefaultValue(NSStringFromSelector(_cmd),
 		TABLE, BUNDLE, @"%! TEX bookmark: @(@identifier@)@", "Inserting a  macro");
-	unsigned start, end, contentsEnd;
+	NSUInteger start, end, contentsEnd;
 	NSRange selectedRange = [self selectedRange];
 	[[[self textStorage] string] getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:selectedRange];
 	NSString * prefix = @"";
@@ -1663,7 +1666,7 @@ To Do List:
 	
     NSString * S = [self string];
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S];
-    unsigned scanLocation = 0, end = [S length];
+    NSUInteger scanLocation = 0, end = [S length];
     unichar theChar;
     while(scanLocation < end)
     {
@@ -1710,7 +1713,7 @@ To Do List:
                     {
                         SEL selector = @selector(scrollIncludeToVisible:);
                         NSString * prefix = @"Include";
-                        unsigned int contentsEnd;
+                        NSUInteger contentsEnd;
                         [S getLineStart:nil end:nil contentsEnd: &contentsEnd forRange:R1];
                         [scan setScanLocation:NSMaxRange(R2)];
                         if([scan scanString:@"[" intoString:nil beforeIndex:contentsEnd])
@@ -1807,7 +1810,7 @@ To Do List: implement some kind of balance range for range
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= doubleClickAtIndex:
-- (NSRange)XdoubleClickAtIndex:(unsigned)index;
+- (NSRange)XdoubleClickAtIndex:(NSUInteger)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -1821,7 +1824,7 @@ To Do List: implement some kind of balance range for range
     return R;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartDoubleClickAtIndex:
-- (NSRange)smartDoubleClickAtIndex:(unsigned)index;
+- (NSRange)smartDoubleClickAtIndex:(NSUInteger)index;
 /*"Description forthcoming.
 Version history: jlaurens AT users.sourceforge.net
 - < 1.1: 03/10/2002
@@ -1867,9 +1870,9 @@ To Do List:
                     return NSMakeRange(index-1, 2);
                 else
                 {
-                    unsigned int start;
-                    unsigned int end;
-                    unsigned int contentsEnd;
+                    NSUInteger start;
+                    NSUInteger end;
+                    NSUInteger contentsEnd;
 //NSLog(@"GLS");
                     [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:NSMakeRange(index, 0)];
 //NSLog(@"GLS");
@@ -1895,10 +1898,10 @@ To Do List:
             }
             case '.':
             {
-                int rightBlackChars = 0;
-                int leftBlackChars = 0;
-                int top = [[self string] length];
-                int n = index;
+                NSInteger rightBlackChars = 0;
+                NSInteger leftBlackChars = 0;
+                NSInteger top = [[self string] length];
+                NSInteger n = index;
                 while((++n<top) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:n]])
                     ++rightBlackChars;
                 while((n--<0) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:n]])

@@ -111,7 +111,6 @@
 		DC4E1A160CCDD63800F5CE3E /* typesetCurrentProject.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A0D0CCDD63800F5CE3E /* typesetCurrentProject.png */; };
 		DC6941D80CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC6941D60CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC6941D90CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6941D70CC4B0B6002A7AF6 /* iTM2TeXInfoWrapperKit.m */; };
-		DC70EFB10BFC56BF006C6A76 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70EFA80BFC56BF006C6A76 /* Lua.framework */; };
 		DC72F8D708E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC72F8D608E4D01200D81CEB /* iTM2TeXDistributionPrefPane.tif */; };
 		DC7888830C46801A00E30CB0 /* iTM2DVIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC7888810C46801900E30CB0 /* iTM2DVIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC7888840C46801A00E30CB0 /* iTM2DVIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7888820C46801900E30CB0 /* iTM2DVIKit.m */; };
@@ -501,7 +500,6 @@
 				DCC7F4C40854ACBA00F3EB8A /* iTM2Foundation.framework in Frameworks */,
 				DCC7F4C80854ACD700F3EB8A /* Carbon.framework in Frameworks */,
 				DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */,
-				DC70EFB10BFC56BF006C6A76 /* Lua.framework in Frameworks */,
 				DCE52F720C0F3CC700F2D5B9 /* libicucore.dylib in Frameworks */,
 				5150EC8B0E8139C300578A0A /* libz.dylib in Frameworks */,
 			);

@@ -575,7 +575,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textView:clickedOnLink:atIndex:
-- (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link atIndex:(unsigned)charIndex;
+- (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link atIndex:(NSUInteger)charIndex;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -629,11 +629,11 @@ resolved:
 	id N = [TS attribute:iTM2LogLinkLineAttributeName atIndex:charIndex effectiveRange:nil];
 	if([N unsignedIntValue]>0)
 	{
-		unsigned int line = [N unsignedIntValue]-1;
+		NSUInteger line = [N unsignedIntValue]-1;
 		N = [TS attribute:iTM2LogLinkColumnAttributeName atIndex:charIndex effectiveRange:nil];
-		unsigned int column = ([N intValue]>0? [N intValue]: -1);
+		NSUInteger column = ([N intValue]>0? [N intValue]: -1);
 		N = [TS attribute:iTM2LogLinkLengthAttributeName atIndex:charIndex effectiveRange:nil];
-		unsigned int length = (N? [N intValue]: -1);
+		NSUInteger length = (N? [N intValue]: -1);
 		[[SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:NO error:nil]
 			displayLine:line column:column length:length withHint:nil orderFront:YES];
 	}
@@ -718,7 +718,7 @@ To Do List:
     NSRange R = NSMakeRange(0, 0);
     while(R.location<[argument length])
     {
-        unsigned contentsEnd;
+        NSUInteger contentsEnd;
         NSRange r = R;
         [argument getLineStart:nil end: &R.location contentsEnd: &contentsEnd forRange:R];
         r.length = R.location - r.location;
@@ -948,7 +948,7 @@ To Do List:
     [IMPLEMENTATION takeMetaValue:[NSMutableArray array] forKey:@"_lines"];
     [IMPLEMENTATION takeMetaValue:[NSMutableArray array] forKey:@"_messages"];
     [IMPLEMENTATION takeMetaValue:@"" forKey:@"_currentOutputBuffer"];
-    [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInt:0] forKey:@"_numberOfLines"];
+    [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:0] forKey:@"_numberOfLines"];
     [[self outputView] setString:@""];
     [[self errorView] setString:@""];
     [[self customView] setString:@""];
@@ -965,7 +965,7 @@ To Do List:
 //iTM2_START;
     NSMutableArray * lines = [IMPLEMENTATION metaValueForKey:@"_lines"];
     NSMutableArray * messages = [IMPLEMENTATION metaValueForKey:@"_messages"];
-    int oldNORs = [[IMPLEMENTATION metaValueForKey:@"_numberOfLines"] intValue];
+    NSInteger oldNORs = [[IMPLEMENTATION metaValueForKey:@"_numberOfLines"] integerValue];
 	NSString * key = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
     id LP = [iTM2LogParser logParserForKey:key];// get the cached log parser
     NSTextView * TV = [self outputView];
@@ -973,7 +973,7 @@ To Do List:
     NSTextStorage * TS = [TV textStorage];
 //iTM2_LOG(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),[TS length]);
     [TS beginEditing];
-    unsigned int begin = 0;
+    NSUInteger begin = 0;
     [[TS mutableString] getLineStart: &begin end:nil contentsEnd:nil forRange:NSMakeRange([TS length], 0)];
     [TS deleteCharactersInRange:NSMakeRange(begin, [[TV string] length] - begin)];
     NSAttributedString * AS = [messages lastObject];
@@ -995,7 +995,7 @@ To Do List:
         [TS appendAttributedString:AS];
     }
     [TS endEditing];
-    [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInt:[lines count]] forKey:@"_numberOfLines"];
+    [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:[lines count]] forKey:@"_numberOfLines"];
     [[self smartView] reloadData];
 	if(NSMaxRange(visibleRange)+1>=begin)
 	{
@@ -1044,10 +1044,10 @@ To Do List:
 		// populate the button with items
 		if(![[sender lastItem] representedObject])
 		{
-			unsigned oldCount = [sender numberOfItems];
+			NSUInteger oldCount = [sender numberOfItems];
 			// originally, this button only contains 1 fake item
 			// get the list of all the log parsers
-			NSPointerArray * PA = [iTM2RuntimeBrowser subclassReferencesOfClass:[iTM2LogParser class]];
+			NSPointerArray * PA = [iTM2Runtime subclassReferencesOfClass:[iTM2LogParser class]];
 			NSUInteger i = [PA count];
 			while(i--)
 			{
@@ -1061,11 +1061,11 @@ To Do List:
 				[sender removeItemAtIndex:0];
 			}
 		}
-		unsigned int compatibility = [self contextIntegerForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];// old implementation
+		NSUInteger compatibility = [self contextIntegerForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];// old implementation
         NSString * style = compatibility == 1?
 			@"LaTeX":
 			[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
-		int idx = [sender indexOfItemWithRepresentedObject:style];
+		NSUInteger idx = [sender indexOfItemWithRepresentedObject:style];
 		if(idx == NSNotFound)
 		{
 			style = [iTM2TeXLogParser key];
@@ -1307,7 +1307,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  smartView:objectValueForTableColumn:row:
-- (id)smartView:(NSTableView *)smartView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row;
+- (id)smartView:(NSTableView *)smartView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1319,7 +1319,7 @@ To Do List:
     return (row >= 0 && row < [RA count])? [[RA objectAtIndex:row] valueForKey:[tableColumn identifier]]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
-- (int)numberOfRowsInTableView:(NSTableView *)smartView;
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)smartView;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -1382,28 +1382,22 @@ To Do List:
 - (id)taskController;{return nil;}
 @end
 @interface NSObject(RIEN_RIEN)
-- (int)length;
+- (NSInteger)length;
 @end
 
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
 
-@implementation iTM2TaskController(TeXProject)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Apr 16 11:39:43 GMT 2004
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-    iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2TaskController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXProject_contextManager)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
+@implementation iTM2MainInstaller(TeXProjectTaskKit)
++ (void)prepareTeXProjectTaskKitCompleteInstallation;
+{
+	if([iTM2TaskController iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2TeXProject_contextManager)])
+	{
+		iTM2_MILESTONE((@"iTM2TaskController(TeXProject)"),(@"The context manager of TeX projects is not the good one"));
+	}
 }
+@end
+
+@implementation iTM2TaskController(TeXProject)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXProject_contextManager
 - (id)SWZ_iTM2TeXProject_contextManager;
 /*"Description Forthcoming.

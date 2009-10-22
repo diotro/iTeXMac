@@ -35,11 +35,11 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 + (NSString *)commentString;
 + (NSString *)bgroupString;
 + (NSString *)egroupString;
-- (void)getLineStart:(unsigned *)startPtr end:(unsigned *)lineEndPtr contentsEnd:(unsigned *)contentsEndPtr TeXComment:(unsigned *)commentPtr forIndex:(unsigned) index;
-- (BOOL)isTeXCommentAtIndex:(unsigned)index;
-- (BOOL)isControlAtIndex:(unsigned)index escaped:(BOOL *)aFlagPtr;
-- (NSRange)groupRangeAtIndex:(unsigned)index;
-- (NSRange)groupRangeAtIndex:(unsigned)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
+- (void)getLineStart:(NSUInteger *)startPtr end:(NSUInteger *)lineEndPtr contentsEnd:(NSUInteger *)contentsEndPtr TeXComment:(NSUInteger *)commentPtr forIndex:(NSUInteger) index;
+- (BOOL)isTeXCommentAtIndex:(NSUInteger)index;
+- (BOOL)isControlAtIndex:(NSUInteger)index escaped:(BOOL *)aFlagPtr;
+- (NSRange)groupRangeAtIndex:(NSUInteger)index;
+- (NSRange)groupRangeAtIndex:(NSUInteger)index beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 - (NSRange)groupRangeForRange:(NSRange)range;
 - (NSRange)groupRangeForRange:(NSRange)range beginDelimiter:(unichar)bgroup endDelimiter:(unichar)egroup;
 + (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
@@ -55,12 +55,12 @@ extern NSString * const iTM2UDTabAnchorStringKey;
     @param		isSyncTeX is yes or no, depending on SyncTeX use
 	@result		The character index in the word here of the very character indexed by index in the receiver.
 */
-- (unsigned int)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(unsigned int)index mode:(BOOL)isSyncTeX;
+- (NSUInteger)iTM2_getWordBefore:(NSString **)beforePtr here:(NSString **)herePtr after:(NSString **)afterPtr atIndex:(NSUInteger)index mode:(BOOL)isSyncTeX;
 
 @end
 
 @interface iTM2TeXStringController: NSObject
-+ (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(unsigned)index;
++ (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)

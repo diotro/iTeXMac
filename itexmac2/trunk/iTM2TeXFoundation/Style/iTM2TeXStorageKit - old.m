@@ -404,7 +404,7 @@ To Do List:
     return [NSDictionary dictionaryWithDictionary: MD];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForCharacter:previousMode:
-- (unsigned) syntaxModeForCharacter: (unichar) theChar previousMode: (unsigned) previousMode;
+- (NSUInteger) syntaxModeForCharacter: (unichar) theChar previousMode: (NSUInteger) previousMode;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -415,10 +415,10 @@ To Do List:
 //    if(previousMode != ( previousMode & ~kiTM2TeXErrorsMask))
 //        NSLog(@"previousMode: 0X%x, mask: 0X%x, previousMode & ~mask: 0X%x",  previousMode, kiTM2TeXErrorInputMask,  previousMode & ~kiTM2TeXErrorsMask);
 //iTM2_LOG(@"C'est %.1S qui s'y colle", &theChar);
-	unsigned switcher = previousMode & ~kiTM2TeXErrorsMask;
+	NSUInteger switcher = previousMode & ~kiTM2TeXErrorsMask;
     if([[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember: theChar])
     {
-		unsigned result;
+		NSUInteger result;
         switch(switcher)
         {
             case kiTM2TeXRegularInput:
@@ -634,7 +634,7 @@ To Do List:
             default:
             {
 //NSLog(@"Non letter character: %@", [NSString stringWithCharacters: &theChar length: 1]);
-                unsigned result;
+                NSUInteger result;
                 switch(switcher)
                 {
                     case kiTM2TeXRegularInput:
@@ -676,7 +676,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned) syntaxModeForLocation: (unsigned) location previousMode: (unsigned) previousMode effectiveLength: (unsigned *) lengthRef nextModeIn: (unsigned *) nextModeRef before: (unsigned) beforeIndex;
+- (NSUInteger) syntaxModeForLocation: (NSUInteger) location previousMode: (NSUInteger) previousMode effectiveLength: (NSUInteger *) lengthRef nextModeIn: (NSUInteger *) nextModeRef before: (NSUInteger) beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -689,8 +689,8 @@ To Do List:
     {
 		if(previousMode == kiTM2TeXBeginCommandInput)
 		{
-			unsigned start = location;
-			unsigned end = start;
+			NSUInteger start = location;
+			NSUInteger end = start;
 			while(end<[S length] && [[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember: [S characterAtIndex: end]])
 				++end;
 			if(end == start+5)
@@ -720,7 +720,7 @@ To Do List:
 		else if(lengthRef)
 		{
 			* lengthRef = 1;
-			unsigned nextMode = [self syntaxModeForCharacter: [S characterAtIndex: location] previousMode: previousMode];
+			NSUInteger nextMode = [self syntaxModeForCharacter: [S characterAtIndex: location] previousMode: previousMode];
 //NSLog(@"0: character: %@", [NSString stringWithCharacters: &C length: 1]);
 //NSLog(@"1: nextMode: %u, previousMode: %u", nextMode, previousMode);
 			beforeIndex = MIN(beforeIndex, [S length]);
@@ -735,8 +735,8 @@ To Do List:
 				{
 					if(nextModeRef)
 					{
-						unsigned start = location;
-						unsigned end = start;
+						NSUInteger start = location;
+						NSUInteger end = start;
 						while(end<[S length] && [[NSCharacterSet iTM2_TeXLetterCharacterSet] characterIsMember: [S characterAtIndex: end]])
 							++end;
 						if((end == start+5) && ([@"input" isEqual: [S substringWithRange: NSMakeRange(start, end - start)]]))
@@ -761,7 +761,7 @@ To Do List:
 		{
 			if(nextModeRef)
 				* nextModeRef = 0;
-			unsigned nextMode = [self syntaxModeForCharacter: [S characterAtIndex: location] previousMode: previousMode];
+			NSUInteger nextMode = [self syntaxModeForCharacter: [S characterAtIndex: location] previousMode: previousMode];
 //NSLog(@"nextMode: %u, previousMode: %u", nextMode, previousMode);
 			return nextMode;
 		}
@@ -776,7 +776,7 @@ To Do List:
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxModeForLocation:previousMode:effectiveLength:nextModeIn:before:
-- (unsigned) syntaxModeForLocation: (unsigned) location previousMode: (unsigned) previousMode effectiveLength: (unsigned *) lengthRef nextModeIn: (unsigned *) nextModeRef before: (unsigned) beforeIndex;
+- (NSUInteger) syntaxModeForLocation: (NSUInteger) location previousMode: (NSUInteger) previousMode effectiveLength: (NSUInteger *) lengthRef nextModeIn: (NSUInteger *) nextModeRef before: (NSUInteger) beforeIndex;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -790,7 +790,7 @@ To Do List:
         if(lengthRef)
         {
             * lengthRef = 1;
-            unsigned nextMode = [self syntaxModeForCharacter: [S characterAtIndex: location] previousMode: previousMode];
+            NSUInteger nextMode = [self syntaxModeForCharacter: [S characterAtIndex: location] previousMode: previousMode];
 //NSLog(@"0: character: %@", [NSString stringWithCharacters: &C length: 1]);
 //NSLog(@"1: nextMode: %u, previousMode: %u", nextMode, previousMode);
             beforeIndex = MIN(beforeIndex, [S length]);
@@ -816,7 +816,7 @@ To Do List:
         {
             if(nextModeRef)
                 * nextModeRef = 0;
-            unsigned nextMode = [self syntaxModeForCharacter: [[_TextStorage string] characterAtIndex: location] previousMode: previousMode];
+            NSUInteger nextMode = [self syntaxModeForCharacter: [[_TextStorage string] characterAtIndex: location] previousMode: previousMode];
 //NSLog(@"nextMode: %u, previousMode: %u", nextMode, previousMode);
             return nextMode;
         }
@@ -831,7 +831,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  EOLModeForPreviousMode:
-- (unsigned) EOLModeForPreviousMode: (unsigned) previousMode;
+- (NSUInteger) EOLModeForPreviousMode: (NSUInteger) previousMode;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 1.4: Fri Dec 12 22:44:56 GMT 2003
@@ -845,7 +845,7 @@ To Do List:
     return 1;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *) attributesAtIndex: (unsigned) aLocation effectiveRange: (NSRangePointer) aRangePtr;
+- (NSDictionary *) attributesAtIndex: (NSUInteger) aLocation effectiveRange: (NSRangePointer) aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -853,8 +853,8 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    unsigned mode = [self syntaxModeAtIndex: aLocation longestRange: aRangePtr];
-	unsigned switcher = mode & ~kiTM2TeXErrorsMask;
+    NSUInteger mode = [self syntaxModeAtIndex: aLocation longestRange: aRangePtr];
+	NSUInteger switcher = mode & ~kiTM2TeXErrorsMask;
     switch(switcher)
     {
         case kiTM2TeXRegularInput:
@@ -878,9 +878,9 @@ To Do List:
             return [_AS attributesForMode: [_iTM2TeXModeForModeArray objectAtIndex: switcher]];
         case kiTM2TeXBeginCommentInput:
         {
-            unsigned lineIndex = [self lineIndexForLocation: aLocation];
+            NSUInteger lineIndex = [self lineIndexForLocation: aLocation];
             iTM2ModeLine * ML = [self modeLineAtIndex: lineIndex];
-            unsigned endOffset = [ML startOffset] + [ML contentsLength];
+            NSUInteger endOffset = [ML startOffset] + [ML contentsLength];
             if(aRangePtr)
                 * aRangePtr = NSMakeRange(aLocation, endOffset - aLocation);
             if(++aLocation < endOffset)
@@ -908,7 +908,7 @@ To Do List: Nothing
     return @"TeX-Xtd";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  attributesAtIndex:effectiveRange:
-- (NSDictionary *) attributesAtIndex: (unsigned) aLocation effectiveRange: (NSRangePointer) aRangePtr;
+- (NSDictionary *) attributesAtIndex: (NSUInteger) aLocation effectiveRange: (NSRangePointer) aRangePtr;
 /*"Description forthcoming.
 Version history: jlaurens@users.sourceforge.net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -917,7 +917,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSRange r;
-    unsigned mode = [self syntaxModeAtIndex: aLocation longestRange: &r];
+    NSUInteger mode = [self syntaxModeAtIndex: aLocation longestRange: &r];
 #if 0
     if(mode & kiTM2TeXErrorInputMask)
     {
@@ -931,7 +931,7 @@ To Do List:
 #endif
     if(aRangePtr)
             *aRangePtr = r;
-	unsigned int switcher = mode & ~kiTM2TeXErrorsMask;
+	NSUInteger switcher = mode & ~kiTM2TeXErrorsMask;
     switch(switcher)
     {
         case kiTM2TeXRegularInput:
@@ -1090,9 +1090,9 @@ To Do List:
         }
         case kiTM2TeXBeginCommentInput:
         {
-            unsigned lineIndex = [self lineIndexForLocation: aLocation];
+            NSUInteger lineIndex = [self lineIndexForLocation: aLocation];
             iTM2ModeLine * ML = [self modeLineAtIndex: lineIndex];
-            unsigned endOffset = [ML startOffset] + [ML contentsLength];
+            NSUInteger endOffset = [ML startOffset] + [ML contentsLength];
             if(aRangePtr)
                 * aRangePtr = NSMakeRange(aLocation, endOffset - aLocation);
             if(++aLocation < endOffset)

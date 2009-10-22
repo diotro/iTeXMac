@@ -25,6 +25,7 @@
 #else
 #import "iTM2PDFSYNCKit.h"
 
+
 NSString * const iTM2PDFSyncParsedNotificationName = @"iTM2:PDF-SyncParsedNotification";
 NSString * const iTM2PDFNoSynchronizationKey = @"iTM2:PDF-NOSynchronization";
 NSString * const iTM2PDFSyncPriorityKey = @"iTM2:PDF-SyncPriority";
@@ -39,10 +40,10 @@ NSString * const iTM2PDFSYNCTimeKey = @"iTM2PDFSYNCTime";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFSynchronizer
 
 @interface iTM2PDFSynchronizer(PRIVATE)
-- (BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
-- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
-- (int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLocation:(NSPoint *)thePointPtr page:(NSUInteger *)thePagePtr forRecordIndex:(NSUInteger)index;
+- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(NSUInteger)line column:(NSUInteger)column inSource:(NSString *)source;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(NSUInteger)index;
+- (NSUInteger)recordIndexForLocation:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex;
 - (void)doDealloc:(id)sender;
 @end
 
@@ -72,7 +73,7 @@ To Do List:
 			[NSNumber numberWithBool:YES], iTM2PDFSyncFollowFocusKey,
 			[NSNumber numberWithFloat:0.5], iTM2PDFSyncPriorityKey,
 			[NSNumber numberWithBool:NO], iTM2PDFSyncShowRecordNumberKey,
-			[NSNumber numberWithInt:7], iTM2PDFSYNCDisplayBulletsKey,
+			[NSNumber numberWithInteger:7], iTM2PDFSYNCDisplayBulletsKey,
 			[NSNumber numberWithFloat:30], iTM2PDFSYNCTimeKey,
 				nil]];
     return;
@@ -219,11 +220,11 @@ To Do List:
     // each time a page is shipped out, a new array is created.
     // the objects of that array are just iTM2SynchronizationLineRecord encapsulated in values
     NSMutableArray * lines = [NSMutableArray array];
-    [lines addObject:[NSNumber numberWithInt:0]];
+    [lines addObject:[NSNumber numberWithInteger:0]];
     [lines addObject:[NSMutableDictionary dictionary]];
-    int folio = 0;// the \@@folio?
+    NSInteger folio = 0;// the \@@folio?
     
-    unsigned recordIndex;
+    NSUInteger recordIndex;
     iTM2SynchronizationLineRecord lineRecord;
     lineRecord.column = -1;
     iTM2SynchronizationLocationRecord locationRecord;
@@ -288,14 +289,14 @@ To Do List:
         [fileStack addObject:file];
         if(![files containsObject:file])
             [files addObject:file];
-        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:file]]];
+        [lines addObject:[NSNumber numberWithInteger:[files indexOfObject:file]]];
         [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"down to:%@", [fileStack lastObject]);
     }
     else if([S scanString:@")" intoString:nil])
     {
         [fileStack removeLastObject];
-        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:[fileStack lastObject]]]];
+        [lines addObject:[NSNumber numberWithInteger:[files indexOfObject:[fileStack lastObject]]]];
         [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"up to :%@", [fileStack lastObject]);
     }
@@ -319,8 +320,8 @@ To Do List:
         while(O = [E nextObject])
             [allRecordIndices addObjectsFromArray:[O allKeys]];
         E = [lines objectEnumerator];
-        unsigned saved = 0;
-        unsigned total = 0;
+        NSUInteger saved = 0;
+        NSUInteger total = 0;
         while([E nextObject] && (O = [E nextObject]))
         {
             NSEnumerator * e = [[O allKeys] objectEnumerator];
@@ -434,11 +435,11 @@ To Do List:
     // each time a page is shipped out, a new array is created.
     // the objects of that array are just iTM2SynchronizationLineRecord encapsulated in values
     NSMutableArray * lines = [NSMutableArray array];
-    [lines addObject:[NSNumber numberWithInt:0]];
+    [lines addObject:[NSNumber numberWithInteger:0]];
     [lines addObject:[NSMutableDictionary dictionary]];
-    int folio = 0;// the \@@folio?
+    NSInteger folio = 0;// the \@@folio?
     
-    int recordIndex;
+    NSInteger recordIndex;
     iTM2SynchronizationLineRecord lineRecord;
     lineRecord.column = -1;
     iTM2SynchronizationLocationRecord locationRecord;
@@ -508,14 +509,14 @@ To Do List:
         [fileStack addObject:file];
         if(![files containsObject:file])
             [files addObject:file];
-        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:file]]];
+        [lines addObject:[NSNumber numberWithInteger:[files indexOfObject:file]]];
         [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"down to:%@", [fileStack lastObject]);
     }
     else if([S scanString:@")" intoString:nil])
     {
         [fileStack removeLastObject];
-        [lines addObject:[NSNumber numberWithInt:[files indexOfObject:[fileStack lastObject]]]];
+        [lines addObject:[NSNumber numberWithInteger:[files indexOfObject:[fileStack lastObject]]]];
         [lines addObject:[NSMutableDictionary dictionary]];
 //NSLog(@"up to :%@", [fileStack lastObject]);
     }
@@ -539,8 +540,8 @@ To Do List:
         for(O in pages)
             [allRecordIndices addObjectsFromArray:[O allKeys]];// EXC_BAD_ACCESS Here?
         E = [lines objectEnumerator];
-        unsigned saved = 0;
-        unsigned total = 0;
+        NSUInteger saved = 0;
+        NSUInteger total = 0;
         while([E nextObject] && (O = [E nextObject]))
         {
             NSEnumerator * e = [[O allKeys] objectEnumerator];
@@ -602,7 +603,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:source:forLocation:withHint:inPageAtIndex:
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr length:(unsigned int *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr length:(NSUInteger *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -689,7 +690,7 @@ To Do List:
 		forRecordIndex:[self recordIndexForLocation:point inPageAtIndex:pageIndex]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:sourceBefore:sourceAfter:forLocation:withHint:inPageAtIndex:
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -776,7 +777,7 @@ To Do List:
 		forRecordIndex:[self recordIndexForLocation:point inPageAtIndex:pageIndex]];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getRecordIndexes:beforeIndexes:afterIndexes:column:inSource:
-- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(NSUInteger)line column:(NSUInteger)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -800,7 +801,7 @@ To Do List:
         source = [[[_FileName stringByDeletingLastPathComponent]
 			stringByAppendingPathComponent:source] stringByStandardizingPath];
 //NSLog(@"hereIndexesForLine:%u (%u) column:%u inSource:%@", line, NSNotFound, column, source);
-	int sourceIndex = [_Files indexOfObject:source];
+	NSUInteger sourceIndex = [_Files indexOfObject:source];
     if(sourceIndex == NSNotFound)
     {
         iTM2_LOG(@"%@ not found in available:%@", source, _Files);
@@ -808,8 +809,8 @@ To Do List:
     }
     NSEnumerator * E = [_Lines objectEnumerator];
     NSNumber * N;
-    int beforeMin = INT_MAX;
-    int afterMin = INT_MAX;
+    NSInteger beforeMin = INT_MAX;
+    NSInteger afterMin = INT_MAX;
     id beforeObjectResult = nil;
     id beforeDictResult = nil;
     id afterObjectResult = nil;
@@ -839,7 +840,7 @@ To Do List:
                 else if(lineRecord.line < line)
                 {
 //NSLog(@"result exact line number:%u", [[[D allKeysForObject:V] lastObject] unsignedIntValue]);
-					int newMin = line-lineRecord.line;
+					NSInteger newMin = line-lineRecord.line;
 					if(newMin < beforeMin)
 					{
 						beforeMin = newMin;
@@ -850,7 +851,7 @@ To Do List:
                 else//if(lineRecord.line > line)
                 {
 //NSLog(@"result exact line number:%u", [[[D allKeysForObject:V] lastObject] unsignedIntValue]);
-					int newMin = lineRecord.line-line;
+					NSInteger newMin = lineRecord.line-line;
 					if(newMin < afterMin)
 					{
 						afterMin = newMin;
@@ -872,7 +873,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLocation:page:forRecordIndex:
-- (BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
+- (BOOL)getLocation:(NSPoint *)thePointPtr page:(NSUInteger *)thePagePtr forRecordIndex:(NSUInteger)index;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -882,7 +883,7 @@ To Do List:
 //iTM2_START;
     if(index == NSNotFound)
         return NO;
-    unsigned int page = 0;
+    NSUInteger page = 0;
     NSNumber * K = [NSNumber numberWithUnsignedInt:index];
     while(page<[_PageSyncLocations count])
     {
@@ -904,7 +905,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  destinationsForLine:column:inSource:
-- (NSDictionary*)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (NSDictionary*)destinationsForLine:(NSUInteger)line column:(NSUInteger)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -921,9 +922,9 @@ To Do List:
 	NSMutableDictionary * beforeResult = [NSMutableDictionary dictionary];
 	NSMutableDictionary * afterResult = [NSMutableDictionary dictionary];
 	NSPoint point;
-	unsigned int pageIndex;
+	NSUInteger pageIndex;
 	NSNumber * N = nil;
-	unsigned int recordIndex = 0;
+	NSUInteger recordIndex = 0;
 	NSNumber * key = nil;
 	NSValue * V = nil;
 	NSMutableArray * MRA = nil;
@@ -994,7 +995,7 @@ To Do List:
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordIndexForLocation:inPageAtIndex:
-- (int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
+- (NSUInteger)recordIndexForLocation:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1030,7 +1031,7 @@ To Do List:
     return resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntValue]:NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forRecordIndex:
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(NSUInteger)index;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1047,7 +1048,7 @@ To Do List:
     NSNumber * N;
     while(N = [E nextObject])
     {
-        int sourceIndex = [N intValue];
+        NSInteger sourceIndex = [N integerValue];
 //NSLog(@"sourceIndex:%i", sourceIndex);
         NSDictionary * lines = [E nextObject];
         NSValue * V = [lines objectForKey:recordNumber];
@@ -1067,7 +1068,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sourcesForPageAtIndex:
-- (NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
+- (NSArray *)sourcesForPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1093,7 +1094,7 @@ To Do List:
 	return [result allObjects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationLocationsForPageIndex:
-- (NSDictionary *)synchronizationLocationsForPageIndex:(unsigned int)page;
+- (NSDictionary *)synchronizationLocationsForPageIndex:(NSUInteger)page;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1243,7 +1244,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:length:source:forLocation:withHint:inPageAtIndex:
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr length:(unsigned int *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr length:(NSUInteger *)lengthPtr source:(NSString **)sourcePtr forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1275,9 +1276,9 @@ To Do List:
 						rep = synctex_scanner_get_synctex(scanner);
 						NSString * dir = [DFM stringWithFileSystemRepresentation:rep length:strlen(rep)];
 						dir = [dir stringByDeletingLastPathComponent];
-						[DFM pushDirectory:dir];
+						[DFM iTM2_pushDirectory:dir];
 						NSURL * url = [NSURL fileURLWithPath:*sourcePtr];
-						[DFM popDirectory];
+						[DFM iTM2_popDirectory];
 						*sourcePtr = [url path];
 					}
 				}
@@ -1294,7 +1295,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:sourceBefore:sourceAfter:forLocation:withHint:inPageAtIndex:
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(unsigned int)pageIndex;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr sourceBefore:(NSString **)sourceBeforeRef sourceAfter:(NSString **)sourceAfterRef forLocation:(NSPoint)point withHint:(NSDictionary *)hint inPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1307,7 +1308,7 @@ To Do List:
 	return [self getLine:linePtr column:columnPtr length:nil source:sourceBeforeRef forLocation:point withHint:hint inPageAtIndex:pageIndex];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getRecordIndexes:beforeIndexes:afterIndexes:column:inSource:
-- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (void)getRecordIndexes:(NSArray **)hereIndexes beforeIndexes:(NSArray **)beforeIndexes afterIndexes:(NSArray **)afterIndexes forLine:(NSUInteger)line column:(NSUInteger)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1319,7 +1320,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLocation:page:forRecordIndex:
-- (BOOL)getLocation:(NSPoint *)thePointPtr page:(unsigned int *)thePagePtr forRecordIndex:(unsigned int)index;
+- (BOOL)getLocation:(NSPoint *)thePointPtr page:(NSUInteger *)thePagePtr forRecordIndex:(NSUInteger)index;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1331,7 +1332,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  destinationsForLine:column:inSource:
-- (NSDictionary*)destinationsForLine:(unsigned int)line column:(unsigned int)column inSource:(NSString *)source;
+- (NSDictionary*)destinationsForLine:(NSUInteger)line column:(NSUInteger)column inSource:(NSString *)source;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1344,7 +1345,7 @@ To Do List:
 		NSMutableDictionary * hereResult = [NSMutableDictionary dictionary];
 		synctex_node_t node;
 		while((node = synctex_next_result(scanner))) {
-			NSNumber * N = [NSNumber numberWithInt:synctex_node_page(node)-1];
+			NSNumber * N = [NSNumber numberWithInteger:synctex_node_page(node)-1];
 			NSPoint P = NSMakePoint(synctex_node_visible_h(node),synctex_node_visible_v(node));
 			NSValue * V = [NSValue valueWithPoint:P];
 			[hereResult setObject:[NSArray arrayWithObject:V] forKey:N];
@@ -1356,7 +1357,7 @@ To Do List:
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  recordIndexForLocation:inPageAtIndex:
-- (int)recordIndexForLocation:(NSPoint)point inPageAtIndex:(unsigned int)pageIndex;
+- (NSUInteger)recordIndexForLocation:(NSPoint)point inPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1368,7 +1369,7 @@ To Do List:
 	return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forRecordIndex:
-- (BOOL)getLine:(unsigned int *)linePtr column:(unsigned int *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(unsigned int)index;
+- (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(NSUInteger)index;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1380,7 +1381,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  sourcesForPageAtIndex:
-- (NSArray *)sourcesForPageAtIndex:(unsigned int)pageIndex;
+- (NSArray *)sourcesForPageAtIndex:(NSUInteger)pageIndex;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1413,29 +1414,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	if([self targetForAction:@selector(toggleSyncFollowFocus:)])
-		[iTM2MileStone putMileStoneForKey:@"iTM2PDFSYNCResponder"];
+	{
+		iTM2_MILESTONE((@"iTM2PDFSYNCResponder"),(@"No installer available for iTM2PDFSYNCResponder, things won't work as expected."));
+	}
 //iTM2_END;
 	return;
 }
 @end
 
 @implementation iTM2PDFSYNCResponder
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version History:jlaurens AT users DOT sourceforge DOT net
-- 1.3:03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[iTM2MileStone registerMileStone:@"No installer available" forKey:@"iTM2PDFSYNCResponder"];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncFollowFocus:
 - (IBAction)toggleSyncFollowFocus:(id)sender;
 /*"Description forthcoming.
@@ -1517,7 +1504,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
+	NSInteger mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState:(mode == 0? NSOnState:NSOffState)];
     return YES;
 }
@@ -1548,7 +1535,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
+	NSInteger mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState:(mode == (kiTM2PDFSYNCDisplayBuiltInBullets|kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
@@ -1580,7 +1567,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
+	NSInteger mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState:(mode == (kiTM2PDFSYNCDisplayUserBullets|kiTM2PDFSYNCDisplayFocusBullets)? NSOnState:NSOffState)];
 //iTM2_END;
     return YES;
@@ -1610,7 +1597,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 	NSWindow * W = [NSApp mainWindow];
-	int mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
+	NSInteger mode = [[W firstResponder] contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
 	[sender setState:(mode == kiTM2PDFSYNCDisplayFocusBullets? NSOnState:NSOffState)];
     return YES;
 }
@@ -1842,7 +1829,7 @@ laSuite:;
 	NSString * pdfsyncPath = [FN stringByDeletingPathExtension];
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 	pdfsyncPath = [pdfsyncPath iTM2_lazyStringByResolvingSymlinksAndFinderAliasesInPath];
-	if(![DFM fileOrLinkExistsAtPath:pdfsyncPath])
+	if(![DFM iTM2_fileOrLinkExistsAtPath:pdfsyncPath])
 	{
 		iTM2ProjectDocument * PD = [SPC projectForURL:[self fileURL]];
 		NSString * K = [PD fileKeyForSubdocument:self];
@@ -1898,7 +1885,7 @@ laSuite:;
 	else
 	{
 		iTM2_LOG(@"No synchronization available (pdfsync date %@>= pdf date %@ (%f s error -> pdfsync %lf)).", pdfsyncDate, pdfDate, [self contextFloatForKey:iTM2PDFSYNCTimeKey domain:iTM2ContextAllDomainsMask], [pdfDate timeIntervalSinceDate:pdfsyncDate]);
-		int tag;
+		NSInteger tag;
 		if(![SWS performFileOperation:NSWorkspaceRecycleOperation
 			source:[pdfsyncPath stringByDeletingLastPathComponent]	
 				destination:nil
@@ -1925,7 +1912,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPageForLine:column:source:withHint:orderFront:
-- (BOOL)displayPageForLine:(unsigned int)l column:(unsigned int)c source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
+- (BOOL)displayPageForLine:(NSUInteger)l column:(NSUInteger)c source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn force:(BOOL)force;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1973,8 +1960,8 @@ laSuite:
 		{
 			result = result || [WC switchToExternalHelperWithEnvironment:[NSDictionary dictionaryWithObjectsAndKeys:
 				[self fileName], @"file",
-				[NSNumber numberWithInt:l], @"line",
-				[NSNumber numberWithInt:c], @"column",
+				[NSNumber numberWithInteger:l], @"line",
+				[NSNumber numberWithInteger:c], @"column",
 				([SRCE length]? SRCE:@""), @"source", nil]];
 		}
 	}
@@ -2077,7 +2064,7 @@ laSuite:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithLocation:inPageAtIndex:withHint:orderFront:
-- (BOOL)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(unsigned int)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
+- (BOOL)synchronizeWithLocation:(NSPoint)thePoint inPageAtIndex:(NSUInteger)thePage withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -2086,9 +2073,9 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     NSString * source = @"";
-    unsigned int line = 0;
-    unsigned int column = -1;
-    unsigned int length = 1;
+    NSUInteger line = 0;
+    NSUInteger column = -1;
+    NSUInteger length = 1;
     [[self synchronizer] getLine:&line column:&column length:&length source:&source forLocation:thePoint withHint:hint inPageAtIndex:thePage];
 //NSLog(@"point:%@ page:%u", NSStringFromPoint(thePoint) , thePage);
 //NSLog(@"line:%u source:%@", line, source);
@@ -2100,9 +2087,9 @@ To Do List:
 		{
 			NSDictionary * d = [NSDictionary dictionaryWithObjectsAndKeys:
 				absoluteURL,@"current source URL",
-				[NSNumber numberWithInt:line],@"line",
-				[NSNumber numberWithInt:column],@"column",
-				[NSNumber numberWithInt:length],@"length",
+				[NSNumber numberWithInteger:line],@"line",
+				[NSNumber numberWithInteger:column],@"column",
+				[NSNumber numberWithInteger:length],@"length",
 					nil];
 			[[self implementation] takeMetaValue:d forKey:@"current source synchronization location"];
 			[D displayLine:line column:column length:length withHint:hint orderFront:yorn];
@@ -2132,9 +2119,9 @@ To Do List:
 		id D = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 		if(D)
 		{
-			int line = [[d objectForKey:@"line"] intValue];
-			int column = [[d objectForKey:@"column"] intValue];
-			int length = [[d objectForKey:@"length"] intValue];
+			NSInteger line = [[d objectForKey:@"line"] integerValue];
+			NSInteger column = [[d objectForKey:@"column"] integerValue];
+			NSInteger length = [[d objectForKey:@"length"] integerValue];
 			[D displayLine:line column:column length:length withHint:nil orderFront:YES];
 		}
 	}
@@ -2192,7 +2179,7 @@ To Do List:
 	return [(iTM2PDFImageRepView *)[[[self album] centeredSubview] focusView] validateScrollSynchronizationPointToVisible:(NSMenuItem *) sender];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayPhysicalPage:synchronizationPoint:withHint:
-- (void)displayPhysicalPage:(int)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (void)displayPhysicalPage:(NSInteger)page synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2209,7 +2196,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithLine:column:source:hint:
-- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *)hint
+- (BOOL)synchronizeWithLine:(NSUInteger)l column:(NSUInteger)c source:(NSString *)SRCE hint:(NSDictionary *)hint
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2219,7 +2206,7 @@ To Do List:
 //iTM2_START;
 //iTM2_END;
     return [[[self document] synchronizer] isSyncTeX]
-		&& [[self album] synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *) hint];
+		&& [[self album] synchronizeWithLine:(NSUInteger)l column:(NSUInteger)c source:(NSString *)SRCE hint:(NSDictionary *) hint];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithDestinations:hint:
 - (BOOL)synchronizeWithDestinations:(NSDictionary *)destinations hint:(NSDictionary *)hint;
@@ -2241,7 +2228,7 @@ To Do List:
 @implementation iTM2PDFAlbumView(SYNCKit)
 /*"Description forthcoming."*/
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizeWithLine:column:source:hint:
-- (BOOL)synchronizeWithLine:(unsigned int)l column:(unsigned int)c source:(NSString *)SRCE hint:(NSDictionary *)hint
+- (BOOL)synchronizeWithLine:(NSUInteger)l column:(NSUInteger)c source:(NSString *)SRCE hint:(NSDictionary *)hint
 /*"Description Forthcoming. The first responder must never be the window but at least its content view unless we want to neutralize the iTM2FlagsChangedResponder.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2265,13 +2252,13 @@ To Do List:
 	NSEnumerator * E = [Ds keyEnumerator];
 	NSNumber * N = [E nextObject];
 	NSNumber * minN = N;
-	unsigned min;
+	NSUInteger min;
 	if(N)
 	{
 		min = abs([N unsignedIntValue]-[self currentPhysicalPage]);
 		while(N = [E nextObject])
 		{
-			unsigned newMin = abs([N unsignedIntValue]-[self currentPhysicalPage]);
+			NSUInteger newMin = abs([N unsignedIntValue]-[self currentPhysicalPage]);
 			if(newMin<min)
 			{
 				min = newMin;
@@ -2298,7 +2285,7 @@ To Do List:
 		min = abs([N unsignedIntValue]-[self currentPhysicalPage]);
 		while(N = [E nextObject])
 		{
-			unsigned newMin = abs([N unsignedIntValue]-[self currentPhysicalPage]);
+			NSUInteger newMin = abs([N unsignedIntValue]-[self currentPhysicalPage]);
 			if(newMin<min)
 			{
 				min = newMin;
@@ -2320,7 +2307,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint:
-- (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (BOOL)takeCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"O based.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2370,7 +2357,7 @@ To Do List:
 
 @implementation iTM2PDFView(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeCurrentPhysicalPage:synchronizationPoint:withHint:
-- (BOOL)takeCurrentPhysicalPage:(int)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
+- (BOOL)takeCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage synchronizationPoint:(NSPoint)P withHint:(NSDictionary *)hint;
 /*"Description forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -2424,7 +2411,7 @@ To Do List:
     if(![self contextBoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask])
     {
         NSRect R = NSZeroRect;
-        R.origin = _SynchronizationPoint;
+        R.origin = self.synchronizationPoint;
         NSSize S = [self convertSize:NSMakeSize(15, 15) fromView:nil];
         R.origin.x -= S.width;
         R.origin.y -= S.height;
@@ -2446,7 +2433,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return NSPointInRect(_SynchronizationPoint, [self bounds]);
+    return NSPointInRect(self.synchronizationPoint, [self bounds]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mouseDown
 - (void)mouseDown:(NSEvent *)theEvent;
@@ -2459,7 +2446,7 @@ To Do List:
 //iTM2_START;
     if([theEvent clickCount] == 1)
 	{
-		unsigned int modifierFlags = [theEvent modifierFlags]
+		NSUInteger modifierFlags = [theEvent modifierFlags]
 			& (NSAlphaShiftKeyMask
 				|NSShiftKeyMask
 				|NSControlKeyMask
@@ -2533,10 +2520,10 @@ To Do List:
                 [[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(P.x-2, P.y-2, 4, 4)] fill];
                 [[NSString stringWithFormat:@"%@", K] drawAtPoint:P withAttributes:D];
             }
-            if(NSPointInRect(_SynchronizationPoint, NSInsetRect([self bounds], 2, 2)))
+            if(NSPointInRect(self.synchronizationPoint, NSInsetRect([self bounds], 2, 2)))
             {
                 [[[NSColor redColor] colorWithAlphaComponent:0.1] set];
-                NSRect R = NSMakeRect(_SynchronizationPoint.x-3, _SynchronizationPoint.y-3, 6, 6);
+                NSRect R = NSMakeRect(self.synchronizationPoint.x-3, self.synchronizationPoint.y-3, 6, 6);
                 [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 #define INSET 1.0
                 #define DOUBLEINSET 2.0
@@ -2564,7 +2551,7 @@ To Do List:
         }
         else
         {
-            unsigned displayBulletsMode = [self contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
+            NSUInteger displayBulletsMode = [self contextIntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
             NSEnumerator * E = [SLs objectEnumerator];
             iTM2SynchronizationLocationRecord locationRecord;
             NSValue * V;
@@ -2587,10 +2574,10 @@ To Do List:
                 }
             }
             if((displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)
-                    && NSPointInRect(_SynchronizationPoint, NSInsetRect([self bounds], 2, 2)))
+                    && NSPointInRect(self.synchronizationPoint, NSInsetRect([self bounds], 2, 2)))
             {
                 [[[NSColor redColor] colorWithAlphaComponent:0.1] set];
-                NSRect R = NSMakeRect(_SynchronizationPoint.x-3, _SynchronizationPoint.y-3, 6, 6);
+                NSRect R = NSMakeRect(self.synchronizationPoint.x-3, self.synchronizationPoint.y-3, 6, 6);
                 [[NSBezierPath bezierPathWithOvalInRect:R] fill];
                 #define INSET 1.0
                 #define DOUBLEINSET 2.0
@@ -2634,22 +2621,6 @@ To Do List:
 #import <objc/objc-class.h>
 
 @implementation NSTextView(iTM2IOSynch)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  load
-+ (void)load;
-/*"Description forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 1.3:Thu Jul 03 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-	iTM2_INIT_POOL;
-	iTM2RedirectNSLogOutput();
-//iTM2_START;
-	[NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2IOSynch_mouseDown:)];
-//iTM2_END;
-	iTM2_RELEASE_POOL;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2IOSynch_mouseDown:
 - (void)SWZ_iTM2IOSynch_mouseDown:(NSEvent *)event
 /*"Description Forthcoming
@@ -2660,7 +2631,7 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     // this is where the support for poor man synchronicity begins
-    unsigned modifierFlags = [event modifierFlags];
+    NSUInteger modifierFlags = [event modifierFlags];
     if((modifierFlags & NSCommandKeyMask)>0)
 	{
 		if(([event clickCount]==1) && [self pdfSynchronizeMouseDown:event])
@@ -2714,12 +2685,12 @@ To Do List:
 	hitPoint = [self convertPoint:hitPoint fromView:nil];
 	NSLayoutManager * LM = [self layoutManager];
 	NSTextContainer * TC = [self textContainer];
-	unsigned int glyphIndex = [LM glyphIndexForPoint:hitPoint inTextContainer:TC];
-	unsigned charIndex = [LM characterIndexForGlyphAtIndex:glyphIndex];
-	unsigned start, contentsEnd;
+	NSUInteger glyphIndex = [LM glyphIndexForPoint:hitPoint inTextContainer:TC];
+	NSUInteger charIndex = [LM characterIndexForGlyphAtIndex:glyphIndex];
+	NSUInteger start, contentsEnd;
 	[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 1)];// got out of range error once, don't know the cause
-	unsigned line = [TS lineIndexForLocation:charIndex];
-	unsigned column = charIndex - start;
+	NSUInteger line = [TS lineIndexForLocation:charIndex];
+	NSUInteger column = charIndex - start;
 	NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:charIndex], @"character index", S, @"container", nil];
 	BOOL result = [SDC displayPageForLine:line column:column source:[D fileURL] withHint:hint
@@ -2729,8 +2700,6 @@ To Do List:
 }
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFSynchronizer
-#import <iTM2Foundation/iTM2TextDocumentKit.h>
-#import <iTM2Foundation/NSTextStorage_iTeXMac2.h>
 
 @implementation iTM2TextInspector(PDFSYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFSYNCKitWindowDidLoad
@@ -2765,11 +2734,11 @@ To Do List:
 		NSDocument * D = [self document];
 		NSString * S = [TV string];
 		NSRange selectedRange = [TV selectedRange];
-		unsigned charIndex = selectedRange.location;
-		unsigned start, contentsEnd;
+		NSUInteger charIndex = selectedRange.location;
+		NSUInteger start, contentsEnd;
 		[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:NSMakeRange(charIndex, 0)];
-		unsigned line = [TS lineIndexForLocation:charIndex];
-		unsigned column = charIndex - start;
+		NSUInteger line = [TS lineIndexForLocation:charIndex];
+		NSUInteger column = charIndex - start;
 		NSValue * oldValue = [[notification userInfo] objectForKey:@"NSOldSelectedCharacterRange"];
 		NSValue * newValue = [NSValue valueWithRange:selectedRange];
 		NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -2808,3 +2777,15 @@ To Do List:
 }
 @end
 #endif
+
+@implementation iTM2MainInstaller(PDFSyncKit)
+
++ (void) prepareIOSynchCompleteInstallation;
+{
+	if([NSTextView iTM2_swizzleInstanceMethodSelector:@selector(SWZ_iTM2IOSynch_mouseDown:)])
+	{
+		iTM2_MILESTONE((@"NSTextView(iTM2IOSynch)"),(@"No poor man synchronicity available"));
+	}
+	return;
+}
+@end

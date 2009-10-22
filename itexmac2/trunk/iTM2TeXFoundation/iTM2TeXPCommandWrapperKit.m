@@ -363,7 +363,7 @@ To Do List:
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSString * option = [self infoForKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
-		int index = 3;
+		NSInteger index = 3;
 		if([option isEqualToString:@"any"])
 			index = 0;
 		else if([option isEqualToString:@"odd"])
@@ -384,7 +384,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
+    [self setInfo:[NSNumber numberWithInteger:[sender intValue]] forKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateStartingAtEdited:
@@ -788,7 +788,7 @@ To Do List:
 	if([sender isKindOfClass:[NSPopUpButton class]])
 	{
 		NSString * option = [self infoForKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
-		int index = 3;
+		NSInteger index = 3;
 		if([option isEqualToString:@"any"])
 			index = 0;
 		else if([option isEqualToString:@"odd"])
@@ -809,7 +809,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
+    [self setInfo:[NSNumber numberWithInteger:[sender intValue]] forKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateStartingAtEdited:
@@ -871,7 +871,7 @@ To Do List:
 				[NSNumber numberWithBool:NO], iTM2TeXPBibliographyRunSilentlyKey,
                 [NSNumber numberWithBool:NO], iTM2TeXPBibliographyUseAuxNameKey,
                 @"", iTM2TeXPBibliographyAuxNameKey,
-                [NSNumber numberWithInt:NO], iTM2TeXPBibliographyMinXReferencesKey,
+                [NSNumber numberWithInteger:NO], iTM2TeXPBibliographyMinXReferencesKey,
 					nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleRunSilently:
@@ -965,7 +965,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setInfo:[NSNumber numberWithInt:[sender intValue]] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
+    [self setInfo:[NSNumber numberWithInteger:[sender intValue]] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateMinXReferencesEdited:
@@ -980,7 +980,7 @@ To Do List:
     NSNumber * N = [self infoForKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
     if(!N)
     {
-        [self setInfo:[NSNumber numberWithInt:2] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];// 2 is a default value
+        [self setInfo:[NSNumber numberWithInteger:2] forKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];// 2 is a default value
         N = [self infoForKeyPaths:iTM2TeXPBibliographyMinXReferencesKey,nil];
     }
     [sender setIntValue:[N intValue]];
@@ -1066,7 +1066,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int tag = [[sender selectedCell] tag];
+    NSInteger tag = [[sender selectedCell] tag];
     [self setInfo:[_iTM2TeXProjectTypesetModes objectAtIndex: (tag>3? 0:tag)] forKeyPaths:iTM2TeXPTypesetModeKey,nil];
     return;
 }
@@ -1137,7 +1137,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    int tag = [[sender selectedCell] tag];
+    NSInteger tag = [[sender selectedCell] tag];
     [self setInfo:[_iTM2TeXProjectCleanModes objectAtIndex: (tag>1? 0:tag)] forKeyPaths:iTM2TeXPCleanModeKey,nil];
     return;
 }
@@ -1220,7 +1220,7 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    [self setInfo:[NSNumber numberWithInt:MAX(0, MIN([sender intValue], 5))] forKeyPaths:iTM2TeXPCleanLevelKey,nil];
+    [self setInfo:[NSNumber numberWithInteger:MAX(0, MIN([sender intValue], 5))] forKeyPaths:iTM2TeXPCleanLevelKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateLevelEdited:
@@ -1253,65 +1253,51 @@ To Do List:
 }
 #endif
 @end
-// If I don't define the load message, the next classes are ignored...
-// This could some kind of buggy optimization
-#if 1
-#define DEFINECLASS(className, group, level)\
-@interface className: iTM2TeXPCommandPerformer\
- @end\
-@implementation className\
-+ (void)load;\
-{iTM2_DIAGNOSTIC;\
-	iTM2_INIT_POOL;\
-	iTM2RedirectNSLogOutput();\
-	[NSObject class];\
-	iTM2_RELEASE_POOL;\
-	return;\
-}\
-+ (int)commandGroup;\
-{iTM2_DIAGNOSTIC;\
-	return group;\
-}\
-+ (int)commandLevel;\
-{iTM2_DIAGNOSTIC;\
-	return level;\
-}\
+
+@interface iTM2TeXPBibliographyPerformer: iTM2TeXPCommandPerformer
 @end
-#else
-#define DEFINECLASS(className, group, level)\
-@interface className: iTM2TeXPCommandPerformer\
- @end\
-@implementation className\
-+ (int)commandGroup;\
-{iTM2_DIAGNOSTIC;\
-	return group;\
-}\
-+ (int)commandLevel;\
-{iTM2_DIAGNOSTIC;\
-	return level;\
-}\
+@implementation iTM2TeXPBibliographyPerformer
++ (NSInteger)commandGroup;{return 20;}
++ (NSInteger)commandLevel;{return 10;}
 @end
-#endif
-DEFINECLASS(iTM2TeXPBibliographyPerformer, 20, 10)
-DEFINECLASS(iTM2TeXPIndexPerformer, 20, 20)
-DEFINECLASS(iTM2TeXPGlossaryPerformer, 20, 30)
-DEFINECLASS(iTM2TeXPCleanPerformer, 30, 10)
-DEFINECLASS(iTM2TeXPRenderPerformer, 30, 0)
-//DEFINECLASS(iTM2TeXPTypesetPerformer, 10, 20)
-//DEFINECLASS(iTM2TeXPSpecialPerformer, 30, 20)
+@interface iTM2TeXPIndexPerformer: iTM2TeXPCommandPerformer
+@end
+@implementation iTM2TeXPIndexPerformer
++ (NSInteger)commandGroup;{return 20;}
++ (NSInteger)commandLevel;{return 20;}
+@end
+@interface iTM2TeXPGlossaryPerformer: iTM2TeXPCommandPerformer
+@end
+@implementation iTM2TeXPGlossaryPerformer
++ (NSInteger)commandGroup;{return 20;}
++ (NSInteger)commandLevel;{return 30;}
+@end
+@interface iTM2TeXPCleanPerformer: iTM2TeXPCommandPerformer
+@end
+@implementation iTM2TeXPCleanPerformer
++ (NSInteger)commandGroup;{return 30;}
++ (NSInteger)commandLevel;{return 10;}
+@end
+@interface iTM2TeXPRenderPerformer: iTM2TeXPCommandPerformer
+@end
+@implementation iTM2TeXPRenderPerformer
++ (NSInteger)commandGroup;{return 30;}
++ (NSInteger)commandLevel;{return 0;}
+@end
+
 #warning %%%%%%%%%%%%%%%  ALL THE CLASSES HAVE BEEN DEFINED
 #undef DEFINECLASS
 
-////#import <iTM2Foundation/iTM2RuntimeBrowser.h>
+////#import <iTM2Foundation/iTM2Runtime.h>
 
 @interface iTM2TeXPTypesetPerformer: iTM2TeXPCommandPerformer
 @end
 @implementation iTM2TeXPTypesetPerformer
-+ (int)commandGroup;
++ (NSInteger)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 10;
 }
-+ (int)commandLevel;
++ (NSInteger)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 20;
 }
@@ -1320,11 +1306,11 @@ DEFINECLASS(iTM2TeXPRenderPerformer, 30, 0)
 @interface iTM2TeXPSpecialPerformer: iTM2TeXPCommandPerformer
 @end
 @implementation iTM2TeXPSpecialPerformer
-+ (int)commandGroup;
++ (NSInteger)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return 30;
 }
-+ (int)commandLevel;
++ (NSInteger)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 20;
 }
@@ -1335,11 +1321,11 @@ DEFINECLASS(iTM2TeXPRenderPerformer, 30, 0)
 @interface iTM2TeXPStopPerformer: iTM2TeXPCommandPerformer
 @end
 @implementation iTM2TeXPStopPerformer
-+ (int)commandGroup;
++ (NSInteger)commandGroup;
 {iTM2_DIAGNOSTIC;
 	return INT_MAX;
 }
-+ (int)commandLevel;
++ (NSInteger)commandLevel;
 {iTM2_DIAGNOSTIC;
 	return 20;
 }

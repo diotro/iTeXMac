@@ -98,13 +98,13 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
     #endif
     iTM2_INIT_POOL;
 //NSLog(@"Launching iTeXMac2");
-	NSString * temporaryDirectory = [[[NSProcessInfo processInfo] environment] objectForKey:@"iTM2_TemporaryDirectory"];
-//NSLog(@"temporaryDirectory is: %@", temporaryDirectory);
-	if([temporaryDirectory length])
+	NSString * iTM2_temporaryDirectory = [[[NSProcessInfo processInfo] environment] objectForKey:@"iTM2_TemporaryDirectory"];
+//NSLog(@"iTM2_temporaryDirectory is: %@", iTM2_temporaryDirectory);
+	if([iTM2_temporaryDirectory length])
 	{
 		// this program was launched by iTeXMac, either directly or through another script.
         if([[NSWorkspace sharedWorkspace] launchApplication:
-				[[temporaryDirectory stringByAppendingPathComponent:@"iTeXMac2.app"] stringByStandardizingPath]])
+				[[iTM2_temporaryDirectory stringByAppendingPathComponent:@"iTeXMac2.app"] stringByStandardizingPath]])
 		{
 //NSLog(@".....  Switching to iTeXMac2.");
 			return YES;

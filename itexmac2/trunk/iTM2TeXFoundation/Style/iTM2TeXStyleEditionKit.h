@@ -80,8 +80,8 @@ extern NSString * const iTM2StyleSymbolsPboardType;
 @interface iTM2XtdTeXParserSymbolsInspector: iTM2Inspector
 {
 @private
-    IBOutlet NSTableView * tableView;
-    IBOutlet NSPanel * addSetPanel;
+    IBOutlet NSTableView * __weak tableView;
+    IBOutlet NSPanel * __weak addSetPanel;
 
     NSMutableDictionary * _BuiltInSymbolsSets;// the keys are the paths where it must be saved, the values are mutable dictionaries with symbols, edited symbols, edited keys, as many things as needed.
     NSMutableDictionary * _NetworkSymbolsSets;
@@ -93,17 +93,17 @@ extern NSString * const iTM2StyleSymbolsPboardType;
     NSMutableDictionary * _RecycleSymbolsSets;
     NSMutableDictionary * _AllSymbolsSets;// a medley of all the symbols
 
-    id _CurrentSetItem;// NSMenuItem not retained!!!
+    id __weak _CurrentSetItem;// NSMenuItem not retained!!!
     
     BOOL _Background;
 }
-- (id)symbolAtRow:(int)row;
+- (id)symbolAtRow:(NSInteger)row;
 - (BOOL)tableView:(NSTableView*)tv paste:(NSPasteboard *)pboard;
 - (void)addSymbolInTableView:(NSTableView *)tv;
 - (NSMutableDictionary *)currentSets;
 - (NSString *)currentSetKey;
-@property (retain) NSTableView * tableView;
-@property (retain) NSPanel * addSetPanel;
+@property (assign) NSTableView * __weak tableView;
+@property (assign) NSPanel * __weak addSetPanel;
 @property (retain) NSMutableDictionary * _BuiltInSymbolsSets;
 @property (retain) NSMutableDictionary * _NetworkSymbolsSets;
 @property (retain) NSMutableDictionary * _LocalSymbolsSets;
@@ -113,7 +113,7 @@ extern NSString * const iTM2StyleSymbolsPboardType;
 @property (retain) NSMutableDictionary * _EditedObjectsSets;
 @property (retain) NSMutableDictionary * _RecycleSymbolsSets;
 @property (retain) NSMutableDictionary * _AllSymbolsSets;
-@property (retain) id _CurrentSetItem;
+@property (assign) id __weak _CurrentSetItem;
 @property BOOL _Background;
 @end
 
