@@ -27,10 +27,6 @@
     @abstract   CONSIDER THIS HEADER AS PRIVATE
     @discussion CONSIDER THIS HEADER AS PRIVATE
 */
-#import <Foundation/NSObject.h>
-
-@class NSApplication, NSMenu, NSWindow, NSString, NSTextView;
-@protocol NSMenuItem;
 
 extern NSString * const iTM2MakeEmptyDocumentKey;
 
@@ -39,17 +35,7 @@ extern NSString * const iTM2MakeEmptyDocumentKey;
 @private
     NSMenu * _ADM;
 }
-+ (void)initialize;
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApplication;
 - (void)setApplicationDockMenu:(NSMenu *)argument;
 @property (retain) NSMenu * _ADM;
-@end
-
-@interface NSObject(iTM2ApplicationDelegate)
-- (BOOL)isStrongGeneric;
-- (int)count;
-- (int)currentPhysicalPage;
-- (void)setCurrentPhysicalPage:(int)argument;
-- (NSRange)selectedRange;
-- (NSArray *)windowControllers;
 @end

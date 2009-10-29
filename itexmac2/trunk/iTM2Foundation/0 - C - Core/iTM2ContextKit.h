@@ -278,6 +278,15 @@ enum
 - (NSInteger)contextIntegerForKey:(NSString *)key domain:(NSUInteger)mask; 
 
 /*! 
+    @method		contextUnsignedIntegerForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSUInteger)contextUnsignedIntegerForKey:(NSString *)key domain:(NSUInteger)mask; 
+
+/*! 
     @method		contextFloatForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
@@ -304,6 +313,16 @@ enum
     @result		None
 */
 - (void)takeContextInteger:(NSInteger)value forKey:(NSString *)key domain:(NSUInteger)mask;
+
+/*! 
+    @method		takeContextUnsignedInteger:forKey:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		value
+    @param		key
+    @result		None
+*/
+- (void)takeContextUnsignedInteger:(NSUInteger)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
     @method		takeContextFloat:forKey:

@@ -1197,6 +1197,15 @@ To Do List:
 }
 @end
 
+@implementation NSString(iTM2DocumentController)
+
+- (BOOL)iTM2_isEqualToUTType:(NSString *)otherType;
+{
+    return otherType != nil && UTTypeEqual((CFStringRef)self, (CFStringRef)otherType);
+}
+
+@end
+
 #if 0
 
 /*! UTI's and pasteboard types... */

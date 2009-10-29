@@ -210,3 +210,16 @@ extern NSString * const iTM2AutosavingDelayKey;
 @interface iTM2GhostDocument: NSDocument
 @end
 
+@interface NSString(iTM2DocumentController)
+
+/*!
+    @method		openSelectionQuickly:
+    @abstract	Open the selection quickly.
+    @discussion	Description forthcoming.
+    @param      otherType
+    @result     yorn
+*/
+- (BOOL)iTM2_isEqualToUTType:(NSString *)otherType;
+
+@end
+

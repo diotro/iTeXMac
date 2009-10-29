@@ -22,7 +22,10 @@
 */
 
 
+#import "iTM2PathUtilities.h"
+#import "iTM2DocumentControllerKit.h"
 #import "iTM2Runtime.h"
+#import "iTM2StringKit.h"
 #import "iTM2InstallationKit.h"
 #import "iTM2Implementation.h"
 #import "iTM2BundleKit.h"
@@ -502,6 +505,36 @@ next:;
 	int result = [SUD contextIntegerForKey:aKey domain:mask];
     return result;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:domain:
+- (NSUInteger)contextUnsignedIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 1.1.a6: 03/26/2002
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	id value = nil;
+	if(mask & iTM2ContextStandardLocalMask)
+	{
+		if(value = [[self contextDictionary] valueForKey:aKey])
+		{
+			if([value respondsToSelector:@selector(unsignedIntegerValue)])
+			{
+				return [value unsignedIntegerValue];
+			}
+		}
+		id contextManager = [self contextManager];
+		if((contextManager != self) && (contextManager != SUD)
+		   && (value = [contextManager contextValueForKey:aKey domain:mask])
+		   &&([value respondsToSelector:@selector(unsignedIntegerValue)]))
+		{
+			return [value unsignedIntegerValue];
+		}
+	}
+	int result = [SUD contextUnsignedIntegerForKey:aKey domain:mask];
+    return result;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextBoolForKey:domain:
 - (BOOL)contextBoolForKey:(NSString *)aKey domain:(NSUInteger)mask;  
 /*"Description forthcoming.
@@ -541,6 +574,18 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 	//iTM2_START;
     [self takeContextValue:[NSNumber numberWithInteger:value] forKey:aKey domain:mask];
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextUnsignedInteger:forKey:domain:
+- (void)takeContextUnsignedInteger:(NSUInteger)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 1.1.a6: 03/26/2002
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+    [self takeContextValue:[NSNumber numberWithUnsignedInteger:value] forKey:aKey domain:mask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextFloat:forKey:domain:
@@ -962,6 +1007,18 @@ To Do List:
 	//iTM2_END;
     return mask & iTM2ContextStandardDefaultsMask?[self integerForKey:aKey]:0;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextUnsignedIntegerForKey:domain:
+- (NSUInteger)contextUnsignedIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+/*"Description forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - 1.1.a6: 03/26/2002
+ To Do List:
+ "*/
+{iTM2_DIAGNOSTIC;
+	//iTM2_START;
+	//iTM2_END;
+    return mask & iTM2ContextStandardDefaultsMask?(NSUInteger)[self integerForKey:aKey]:0;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:domain:
 - (float)contextFloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
@@ -1120,7 +1177,7 @@ To Do List:
 			}
 		}
 		NSString * type4URL = [SDC typeForContentsOfURL:[self fileURL] error:NULL];
-		if([type4URL length] && !UTTypeEqual((CFStringRef)type4URL,(CFStringRef)type))
+		if([type4URL length] && ![type4URL iTM2_isEqualToUTType:type])
 		{
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [SUD dictionaryForKey:contextKey];
@@ -1161,7 +1218,7 @@ To Do List:
 			}
 		}
 		NSString * type4URL = [SDC typeForContentsOfURL:[self fileURL] error:NULL];
-		if([type4URL length] && !UTTypeEqual((CFStringRef)type4URL,(CFStringRef)type))
+		if([type4URL length] && ![type4URL iTM2_isEqualToUTType:type])
 		{
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];

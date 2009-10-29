@@ -4,7 +4,7 @@
 //  @version Subversion: $Id: iTM2PreferencesKit.m 798 2009-10-12 19:32:06Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Mar 04 2002.
-//  Copyright ¬© 2005 Laurens'Tribune. All rights reserved.
+//  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -26,6 +26,7 @@
 #import "iTM2BundleKit.h"
 #import "iTM2Runtime.h"
 #import "iTM2ValidationKit.h"
+#import "iTM2PathUtilities.h"
 #import "iTM2InstallationKit.h"
 
 #import "iTM2ViewKit.h"
@@ -709,7 +710,7 @@ To Do List:
 	}
 	else
 	{
-		iTM2_LOG(@"..........  ERROR: Missing a nib for this preference pane...");
+		iTM2_LOG(@"..........  ERROR: Missing a nib for this preference pane (%@)...",NSStringFromClass([self class]));
 //iTM2_END;
 		return nil;
 	}
