@@ -1,5 +1,5 @@
 /*
-//  iTM2PrefsController.m
+//  iTM2TipsKit.m
 //  iTeXMac
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon Mar 04 2002.

@@ -28,8 +28,8 @@
 extern NSString * const iTM2ProjectContextDidChangeNotification;
 extern NSString * const iTM2ProjectCurrentDidChangeNotification;
 
-extern const CFStringRef iTM2UTTypeWrapper;
-extern const CFStringRef iTM2UTTypeProject;
+extern NSString * const iTM2UTTypeWrapper;
+extern NSString * const iTM2UTTypeProject;
 
 extern NSString * const iTM2SubdocumentsInspectorMode;
 
@@ -1020,7 +1020,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param		None.
     @result		A project document type.
 */
-- (CFStringRef)iTM2_projectDocumentType;
+- (NSString *)iTM2_projectDocumentType;
 
 /*!
     @method		iTM2_projectPathExtension
@@ -1038,7 +1038,7 @@ extern NSString * const iTM2WrapperInspectorType;
     @param		None.
     @result		A project document type.
 */
-- (CFStringRef)iTM2_wrapperDocumentType;
+- (NSString *)iTM2_wrapperDocumentType;
 
 /*!
     @method		iTM2_wrapperPathExtension

@@ -133,6 +133,7 @@ enum
 @private
     id _Model;
     id _SP;
+    id _SC;
 	id _ACD;
 }
 
@@ -237,6 +238,7 @@ enum
 */
 - (void)setAttributesChangeDelegate:(id)delegate;
 
+@property (retain,getter=iTM2_stringController) id stringController;
 @property (retain) id _Model;
 @property (retain) id _SP;
 @property (retain) id _ACD;

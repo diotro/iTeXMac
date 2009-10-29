@@ -124,10 +124,10 @@ To Do List:
 	}
 	NSString * newSupport = [[NSBundle mainBundle] iTM2_pathForSupportDirectory:@"Writable Projects.localized" inDomain:NSUserDomainMask create:YES];
 	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"NOT(SELF BEGINSWITH[c] '.')"];
-	CFStringRef wrapperType = [SDC iTM2_wrapperDocumentType];
+	NSString * wrapperType = [SDC iTM2_wrapperDocumentType];
 	for(NSString * path in [[DFM subpathsAtPath:oldSupport] filteredArrayUsingPredicate:predicate])
 	{
-		if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:[NSURL fileURLWithPath:path] error:NULL],wrapperType))
+		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:path] error:NULL] iTM2_isEqualToUTType:wrapperType])
 		{
 			NSString * oldWrapper = [[oldSupport stringByAppendingPathComponent:path] stringByStandardizingPath];
 			NSString * oldProject = [[[[NSURL fileURLWithPath:oldWrapper] iTM2_enclosedProjectURLs] lastObject] path];
@@ -763,8 +763,8 @@ To Do List:
 	// stop as soon as projects are found
 	NSAssert1(![theURL iTM2_belongsToFactory], @"The path must not be in the factory domain:\n%@",theURL);
 	NSString * factoryPath = nil;
-	CFStringRef projectType = [SDC iTM2_projectDocumentType];
-	if([SDC documentClassForType:(NSString *)projectType])
+	NSString * projectType = [SDC iTM2_projectDocumentType];
+	if([SDC documentClassForType:projectType])
 	{
 		NSMutableArray * URLs = [NSMutableArray array];
 		NSString * content = nil;
@@ -1491,10 +1491,10 @@ scanDirectoryContent:
 		return candidates;
 	}
 	BOOL finished = NO;
-	CFStringRef iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
+	NSString * iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
 	for(component in [DFM contentsOfDirectoryAtPath:[theURL path] error:NULL])
 	{
-		if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL],iTM2_projectDocumentType))
+		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL]iTM2_isEqualToUTType:iTM2_projectDocumentType])
 		{
 			finished = YES;
 			url = [NSURL iTM2_URLWithPath:component relativeToURL:theURL];
@@ -1518,7 +1518,7 @@ scanDirectoryContent:
 	}
 	for(component in [DFM contentsOfDirectoryAtPath:[theURL path] error:NULL])
 	{
-		if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL],iTM2_projectDocumentType))
+		if([[SDC typeForContentsOfURL:[NSURL fileURLWithPath:component] error:NULL]iTM2_isEqualToUTType:iTM2_projectDocumentType])
 		{
 			finished = YES;
 			url = [NSURL iTM2_URLWithPath:component relativeToURL:theURL];
@@ -1957,7 +1957,7 @@ To Do List:
 	}
 	// create an 'library' project
 	NSString * factoryDirectory = [[NSURL iTM2_factoryURL] path];
-	CFStringRef typeName = [SDC iTM2_projectDocumentType];
+	NSString * typeName = [SDC iTM2_projectDocumentType];
 	iTM2ProjectDocument * projectDocument = [SDC makeUntitledDocumentOfType:(NSString *)typeName error:outErrorPtr];
 	if(projectDocument)
 	{
@@ -2308,8 +2308,8 @@ To Do List:
 	}
 	[self willGetNewProjectForURL:fileURL];
 	// nil is returned for project file names...
-	CFStringRef iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
-	if((UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:fileURL error:nil],iTM2_projectDocumentType)
+	NSString * iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
+	if(([[SDC typeForContentsOfURL:fileURL error:nil]iTM2_isEqualToUTType:iTM2_projectDocumentType]
 		&& [SDC documentClassForType:(NSString *)iTM2_projectDocumentType])
 		|| (projectDocument = [self getOpenProjectForURL:fileURL])
 		|| (projectDocument = [self getProjectInWrapperForURL:fileURL display:display error:outErrorPtr])
@@ -2354,8 +2354,8 @@ To Do List:
 	}
 	[self willGetNewProjectForURL:fileURL];
 	// nil is returned for project file names...
-	CFStringRef iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
-	if((UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:fileURL error:outErrorPtr],iTM2_projectDocumentType)
+	NSString * iTM2_projectDocumentType = [SDC iTM2_projectDocumentType];
+	if(([[SDC typeForContentsOfURL:fileURL error:outErrorPtr]iTM2_isEqualToUTType:iTM2_projectDocumentType]
 		&& [SDC documentClassForType:(NSString *)iTM2_projectDocumentType])
 		|| (projectDocument = [self getOpenProjectForURL:fileURL])
 		|| (projectDocument = [self getProjectInWrapperForURL:fileURL display:display error:outErrorPtr])
@@ -2932,7 +2932,7 @@ To Do List:
 	_ProjectDirURL = [fileURL copy];
 	_IsAlreadyDirectoryWrapper = NO;
 loop:
-	if(UTTypeEqual((CFStringRef)[SDC typeForContentsOfURL:fileURL error:NULL],(CFStringRef)iTM2WrapperDocumentType))
+	if([[SDC typeForContentsOfURL:fileURL error:NULL]iTM2_isEqualToUTType:iTM2WrapperDocumentType])
 	{
 		_IsAlreadyDirectoryWrapper = YES;
 		[_ProjectDirURL autorelease];
@@ -3366,7 +3366,7 @@ To Do List:
 	if(_SelectedRow < [_Projects count])
 	{
 		[sender deselectAll:self];
-		[sender selectRow:_SelectedRow byExtendingSelection:NO];
+		[sender selectRowIndexes:[NSIndexSet indexSetWithIndex:_SelectedRow] byExtendingSelection:NO];
 		return YES;
 	}
 	else
@@ -3498,7 +3498,8 @@ To Do List:
 				}
 			}
 		}
-		return UTTypeConformsTo((CFStringRef)[SDC typeForContentsOfURL:url error:nil],iTM2UTTypeProject);
+        NSString * type = [SDC typeForContentsOfURL:url error:nil];
+		return type!=nil && UTTypeConformsTo((CFStringRef)type,(CFStringRef)iTM2UTTypeProject);
 	}
 //iTM2_END;
     return NO;
@@ -3534,7 +3535,7 @@ To Do List:
 				}
 			}
 		}
-		return UTTypeConformsTo((CFStringRef)[SDC typeForContentsOfURL:url error:NULL],iTM2UTTypeWrapper);
+		return UTTypeConformsTo((CFStringRef)[SDC typeForContentsOfURL:url error:NULL],(CFStringRef)iTM2UTTypeWrapper);
 	}
 //iTM2_END;
     return NO;

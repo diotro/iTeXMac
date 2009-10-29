@@ -43,8 +43,8 @@
 
 NSString * const iTM2WrapperDocumentType = @"Wrapper Document";
 NSString * const iTM2ProjectDocumentType = @"Project Document";
-const CFStringRef iTM2UTTypeWrapper = CFSTR("comp.text.tex.itexmac2.wrapper");
-const CFStringRef iTM2UTTypeProject = CFSTR("comp.text.tex.itexmac2.project");
+NSString * const iTM2UTTypeWrapper = @"comp.text.tex.itexmac2.wrapper";
+NSString * const iTM2UTTypeProject = @"comp.text.tex.itexmac2.project";
 NSString * const iTM2WrapperPathExtension = @"wrapper";
 NSString * const iTM2ProjectPathExtension = @"project";
 NSString * const iTM2ProjectInfoMainType = @"info";
@@ -2719,7 +2719,7 @@ tahiti:
 		{
 			[doc setFileURL:fileURL];
 			[self addSubdocument:doc];
-			if(UTTypeEqual((CFStringRef)typeName,(CFStringRef)iTM2WildcardDocumentType))
+			if([typeName iTM2_isEqualToUTType:iTM2WildcardDocumentType])
 			{
 				// this kind of documents can be managed by external helpers
 				if(display)
@@ -3546,7 +3546,7 @@ To Do List:
 		{
 			NSURL * fileURL = [self URLForFileKey:fileKey];
 			NSString * type4URL = [SDC typeForContentsOfURL:fileURL error:NULL];
-			if([type4URL length] && !UTTypeEqual((CFStringRef)type4URL,(CFStringRef)type))
+			if([type4URL length] && ![type4URL iTM2_isEqualToUTType:type])
 			{
 				if(result = [self metaInfoForKeyPaths:iTM2ContextTypesKey,type4URL,aKey,nil])
 				{
@@ -4434,20 +4434,18 @@ To Do List:
     NSURL * dirURL = [[[projectDocument fileURL] iTM2_URLByRemovingFactoryBaseURL] iTM2_parentDirectoryURL];
 	NSMutableArray * recyclable = [NSMutableArray array];
 	NSMutableArray * removable = [NSMutableArray array];
-    NSEnumerator * E = [[self documentsView] selectedRowEnumerator];
-    NSNumber * N;
-	NSString * fileKey;
-    while(N = [E nextObject])
-    {
-        int index = [N intValue];
-        if(NSLocationInRange(index,R))
+ 	NSIndexSet * IS = [[self documentsView] selectedRowIndexes];
+	NSInteger index = [IS firstIndex];
+	NSString * fileKey = nil;
+	while(index != NSNotFound) {
+		if(NSLocationInRange(index,R))
         {
             [projectDocument updateChangeCount:NSChangeDone];// RAISE
 			fileKey = [fileKeys objectAtIndex:index];
 			NSURL * url = [projectDocument URLForFileKey:fileKey];
 			if(![[url absoluteURL] isEqual:[[projectDocument fileURL] absoluteURL]]// don't recycle the project
-				&& ![[url absoluteURL] isEqual:[dirURL absoluteURL]]// nor its containing directory!!!
-					&& ([DFM fileExistsAtPath:[url path]] || [DFM destinationOfSymbolicLinkAtPath:[url path] error:NULL]))
+			   && ![[url absoluteURL] isEqual:[dirURL absoluteURL]]// nor its containing directory!!!
+			   && ([DFM fileExistsAtPath:[url path]] || [DFM destinationOfSymbolicLinkAtPath:[url path] error:NULL]))
 			{
 				// if the file belongs to another project it should not be recycled
 				[recyclable addObject:fileKey];
@@ -4457,7 +4455,8 @@ To Do List:
 				[removable addObject:fileKey];
 			}
         }
-    }
+		index = [IS indexGreaterThanIndex:index];
+	}
 	for(fileKey in removable)
 	{
 		[projectDocument removeFileKey:fileKey];
@@ -5488,7 +5487,7 @@ To Do List:
 	return iTM2WrapperPathExtension;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_projectDocumentType
-- (CFStringRef)iTM2_projectDocumentType;
+- (NSString *)iTM2_projectDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -5500,7 +5499,7 @@ To Do List:
     return iTM2UTTypeProject;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2_wrapperDocumentType
-- (CFStringRef)iTM2_wrapperDocumentType;
+- (NSString *)iTM2_wrapperDocumentType;
 /*"On n'est jamais si bien servi qua par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002

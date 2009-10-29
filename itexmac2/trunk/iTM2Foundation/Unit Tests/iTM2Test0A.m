@@ -17,6 +17,7 @@
 #import "iTM2PathUtilities.h"
 #import "iTM2Runtime.h"
 #import "iTM2TreeKit.h"
+#import "iTM2StringKit.h"
 #import "RegexKitLite.h"
 #import "ICURegEx.h"
 #import "iTM2Test0A.h"

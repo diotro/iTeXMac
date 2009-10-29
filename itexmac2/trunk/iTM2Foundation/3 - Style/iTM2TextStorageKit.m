@@ -27,6 +27,8 @@
 #import "iTM2BundleKit.h"
 #import "iTM2Runtime.h"
 #import "iTM2StringKit.h"
+#import "iTM2StringController.h"
+#import "iTM2PathUtilities.h"
 #import "ICURegEx.h"
 
 #warning DEBUGGGGG
@@ -82,6 +84,8 @@ To Do List:
 	if([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask])
 	{
 		id result = [[[iTM2TextStorage alloc] init] autorelease];
+        iTM2StringController * SC = [[[iTM2StringController alloc] init] autorelease];
+        [result setStringController:SC];
 		NSString * style = [[self contextValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask] lowercaseString];
 		NSString * variant = [[self contextValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask] lowercaseString];
 		NSEnumerator * E = [iTM2TextSyntaxParser syntaxParserClassEnumerator];
@@ -160,6 +164,7 @@ To Do List: Nothing
     {
         _Model = (id)CFStringCreateMutableWithExternalCharactersNoCopy(kCFAllocatorDefault,nil,0,0,kCFAllocatorDefault);// force a 16 bits storage
         [self setSyntaxParserStyle:iTM2TextDefaultStyle variant:iTM2TextDefaultVariant];
+        [self setStringController:[[[iTM2StringController alloc] init] autorelease]];
     }
     return self;
 }
@@ -1020,9 +1025,15 @@ To Do List:
 //iTM2_START;
 	return [_SP didClickOnLink:link atIndex:charIndex];
 }
+- (void)setStringController:(id)aStringController
+{
+    self->_SC = aStringController;
+    [aStringController setDelegate:self];
+}
 @synthesize _Model;
 @synthesize _SP;
 @synthesize _ACD;
+@synthesize stringController=_SC;
 @end
 
 NSString * const iTM2TextSyntaxParserType = @"_SPC";

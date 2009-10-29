@@ -28,7 +28,6 @@
 #import "iTM2PathUtilities.h"
 #import "iTM2BundleKit.h"
 #import "iTM2InstallationKit.h"
-#import "iTM2StringKit.h"
 #import "limits.h"
 #import "iTM2StringKit.h"
 #import "iTM2StringController.h"

@@ -4,7 +4,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Sep 15 21:07:40 GMT 2004.
-//  Copyright ¬© 2004 Laurens'Tribune. All rights reserved.
+//  Copyright © 2004 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -935,7 +935,7 @@ To Do List:
         if(row>=0)
         {
             [iVarTableView deselectAll:self];
-            [iVarTableView selectRow:row byExtendingSelection:NO];
+            [iVarTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 //            [iVarTableView scrollRowToVisible:row];
             [iVarTableView editColumn:0 row:[iVarTableView selectedRow] withEvent:nil select:YES];
             return;
@@ -1133,7 +1133,7 @@ To Do List:
         [tableView reloadData];
         [tableView setNeedsDisplay:YES];
         int row = [self.ignoredWords indexOfObject:object];
-        [tableView selectRow:row byExtendingSelection:NO];
+        [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
         [tableView scrollRowToVisible:row];
     }
     else
@@ -1155,15 +1155,13 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    NSEnumerator * E = [[[[TV selectedRowEnumerator] allObjects]
-                                sortedArrayUsingSelector: @selector(compare:)] reverseObjectEnumerator];
-    NSNumber * N;
-    while(N = [E nextObject])
-    {
-        int idx = [N intValue];
+	NSIndexSet * IS = [TV selectedRowIndexes];
+	NSInteger idx = [IS lastIndex];
+	while(idx != NSNotFound) {
         if((idx>=0) && (idx<[self.ignoredWords count]))
             [self.ignoredWords removeObjectAtIndex:idx];
-    }
+		idx = [IS indexLessThanIndex:idx];
+	}
     [TV reloadData];
     [self iTM2_validateWindowContent];
 }
@@ -1199,7 +1197,7 @@ To Do List:
 // optional
 
 // optional - drag and drop support
-- (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard;
+- (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard;
     // This method is called after it has been determined that a drag should begin, but before the drag has been started.  To refuse the drag, return NO.  To start a drag, return YES and place the drag data onto the pasteboard (data, owner, etc...).  The drag image and other drag related information will be set up and provided by the table view once this call returns with YES.  The rows array is the list of row numbers that will be participating in the drag.
 
 - (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)op;

@@ -74,12 +74,12 @@ NSLog(@"returning MyCustomElementClass");
 @implementation NSApplication(OgreKit)
 - (void)testRegularExpression_DidFinishLaunching;
 {
-	NSRange R = [@"@@@@(@" rangeOfICUREPattern:@"@@@\\(" error:nil];
+	NSRange R = [@"@__(@" rangeOfICUREPattern:@"@@@\\(" error:nil];
 	if(R.length)
 	{
 		NSLog(@"1: %@",NSStringFromRange(R));
 	}
-	R = [@"@@@@(@" rangeOfICUREPattern:@"@@@\\(|\\)@@@" error:nil];
+	R = [@"@__(@" rangeOfICUREPattern:@"@@@\\(|\\)__" error:nil];
 	if(R.length)
 	{
 		NSLog(@"1: %@",NSStringFromRange(R));
@@ -140,9 +140,18 @@ To Do List:
 
 #import "iTM2PreferencesKit.h"
 #import "iTM2DocumentControllerKit.h"
+#import "iTM2StringController.h"
 
 static id text = nil;
 @implementation iTM2Application(Test)
+- (void)stringControllerDidFinishLaunching;
+{
+    iTM2StringController * SC = [iTM2StringController defaultController];
+    NSUInteger numberOfSpacesPerTab = [SC numberOfSpacesPerTab];
+    SC.numberOfSpacesPerTab=3;
+    NSString * S = [SC stringByNormalizingIndentationInString:@"  %"];
+    NSLog(@"<%@>",S);
+}
 - (void)prefsControllerDidFinishLaunching;
 {
 	[[iTM2PrefsController sharedPrefsController] displayPrefsPaneWithIdentifier:@"3.Macro"];

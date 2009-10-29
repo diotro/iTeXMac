@@ -329,75 +329,6 @@ To Do List:
 //iTM2_START;
     return NSMakeSize(10, 10);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tag
-- (NSInteger)tag;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Fri Jul 25 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _Tag;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTag:
-- (void)setTag:(NSInteger)anInt;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Fri Jul 25 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    _Tag = anInt;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  state
-- (NSInteger)state;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Fri Jul 25 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _State;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setState:
-- (void)setState:(NSInteger)value;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Fri Jul 25 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    _State = value;
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawsBoundary
-- (BOOL)drawsBoundary;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Fri Jul 25 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return _DrawsBoundary;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDrawsBoundary:
-- (void)setDrawsBoundary:(BOOL)flag;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Fri Jul 25 2003
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    _DrawsBoundary = flag;
-    return;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
 - (id)contextManager;
 /*"Description forthcoming.
@@ -521,9 +452,9 @@ To Do List:
 	[self takeContextValue:NSStringFromRect([self visibleRect]) forKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask];
     return;
 }
-@synthesize _Tag;
-@synthesize _State;
-@synthesize _DrawsBoundary;
+@synthesize tag=_Tag;
+@synthesize state=_State;
+@synthesize drawsBoundary=_DrawsBoundary;
 @synthesize _BackgroundColor;
 @synthesize _Representation;
 @synthesize _ContextManager;

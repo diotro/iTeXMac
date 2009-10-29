@@ -7,6 +7,30 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		514218B1109885EA00A01853 /* All Tests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 514218D71098863800A01853 /* Build configuration list for PBXAggregateTarget "All Tests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				514218D6109885FC00A01853 /* PBXTargetDependency */,
+				514218D4109885FC00A01853 /* PBXTargetDependency */,
+				514218D2109885FC00A01853 /* PBXTargetDependency */,
+				514218D0109885FC00A01853 /* PBXTargetDependency */,
+				514218CE109885FC00A01853 /* PBXTargetDependency */,
+				514218CC109885FC00A01853 /* PBXTargetDependency */,
+				514218CA109885FC00A01853 /* PBXTargetDependency */,
+				514218C8109885FC00A01853 /* PBXTargetDependency */,
+				514218C6109885FC00A01853 /* PBXTargetDependency */,
+				514218C4109885FC00A01853 /* PBXTargetDependency */,
+				514218C2109885FC00A01853 /* PBXTargetDependency */,
+				514218C0109885FC00A01853 /* PBXTargetDependency */,
+				514218BE109885FC00A01853 /* PBXTargetDependency */,
+				514218BC109885FC00A01853 /* PBXTargetDependency */,
+			);
+			name = "All Tests";
+			productName = "All Tests";
+		};
 		DC2CA7A50855D53C00128F14 /* All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = DC1E8AA509462DC40037B13F /* Build configuration list for PBXAggregateTarget "All" */;
@@ -55,7 +79,18 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		51167E2B10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51167E2A10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist */; };
 		5131527F0D0584F000862683 /* iTM2StringEncodingRegEx.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */; };
+		5142191910988E0600A01853 /* iTM2StringController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5142191710988E0600A01853 /* iTM2StringController.h */; };
+		5142191A10988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142191B10988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142191C10988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142191D10988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142191E10988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142191F10988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142192010988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142192110988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
+		5142192210988E0700A01853 /* iTM2StringController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringController.m */; };
 		518E0C650CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */; };
 		51B7732F0E06B98C00322495 /* NERedArrow-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 51B7732E0E06B98C00322495 /* NERedArrow-16.png */; };
 		51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */; };
@@ -63,10 +98,6 @@
 		51EFB3B00DFD242D0090E7D0 /* skim in Copy Command */ = {isa = PBXBuildFile; fileRef = 51EFB3A70DFD23FA0090E7D0 /* skim */; };
 		531AC414108A5155008C6308 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		531AC4D4108A516E008C6308 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
-		5338F213108F5A9000842A70 /* iTM2Test2.m in Sources */ = {isa = PBXBuildFile; fileRef = 5338F20C108F5A9000842A70 /* iTM2Test2.m */; };
-		5338F214108F5A9000842A70 /* iTM2Test3.m in Sources */ = {isa = PBXBuildFile; fileRef = 5338F20E108F5A9000842A70 /* iTM2Test3.m */; };
-		5338F215108F5A9000842A70 /* iTM2Test4.m in Sources */ = {isa = PBXBuildFile; fileRef = 5338F210108F5A9000842A70 /* iTM2Test4.m */; };
-		5338F216108F5A9000842A70 /* iTM2Test5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5338F212108F5A9000842A70 /* iTM2Test5.m */; };
 		5338F220108F5AA700842A70 /* iTeXMac2.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251C81089E80F002312DA /* iTeXMac2.m */; };
 		5338F221108F5AA700842A70 /* iTM2BundleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251CA1089E80F002312DA /* iTM2BundleKit.m */; };
 		5338F222108F5AA700842A70 /* iTM2DistributedObjectKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251CC1089E80F002312DA /* iTM2DistributedObjectKit.m */; };
@@ -357,14 +388,11 @@
 		5338F5E6108FAF7D00842A70 /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
 		5338F5E7108FAF7D00842A70 /* iTM2TextStyleEditionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */; };
 		5338F5E9108FAF7D00842A70 /* iTM2AppleScriptKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8303EF086EA056004799EB /* iTM2AppleScriptKit.m */; };
-		5338F5EA108FAF7D00842A70 /* iTM2TextScriptingKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB3F3108E6C59001B3F81 /* iTM2TextScriptingKit.m */; };
-		5338F5EB108FAF7D00842A70 /* iTM2PerlKitServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5338F2FA108F679300842A70 /* iTM2PerlKitServer.m */; };
 		5338F5EE108FAF7D00842A70 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		5338F5EF108FAF7D00842A70 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
 		5338F5F0108FAF7D00842A70 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC18E08E1A5890011D2B7 /* PreferencePanes.framework */; };
 		5338F5F1108FAF7D00842A70 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
 		5338F5F2108FAF7D00842A70 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
-		5338F5F3108FAF7D00842A70 /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0F14AD0BFB7D1E00108852 /* Lua.framework */; };
 		5338F5FD108FAFBA00842A70 /* iTM2Test5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5338F212108F5A9000842A70 /* iTM2Test5.m */; };
 		5338F5FF108FAFDC00842A70 /* iTM2DocumentPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */; };
 		5338F600108FAFEC00842A70 /* iTM2DocumentPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2B477A0AD2EED70039FCBA /* iTM2DocumentPrefPane.strings */; };
@@ -785,7 +813,7 @@
 		539E1C071090F59A00BAB1DB /* iTM2MacroKit_Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EAE3A108E087D001B3F81 /* iTM2MacroKit_Controller.h */; settings = {ATTRIBUTES = (); }; };
 		539E1C081090F59A00BAB1DB /* iTM2MacroKit_Prefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EAE3C108E087D001B3F81 /* iTM2MacroKit_Prefs.h */; };
 		539E1C091090F59A00BAB1DB /* iTM2MacroKit_String.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EAE3E108E087D001B3F81 /* iTM2MacroKit_String.h */; };
-		539E1C0A1090F59A00BAB1DB /* iTM2MacroKit_Tree.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EAE40108E087D001B3F81 /* iTM2MacroKit_Tree.h */; };
+		539E1C0A1090F59A00BAB1DB /* iTM2MacroKit_Tree.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EAE40108E087D001B3F81 /* iTM2MacroKit_Tree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		539E1C0B1090F59A00BAB1DB /* iTM2TextCompletionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EB164108E5CF4001B3F81 /* iTM2TextCompletionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		539E1C141090F78000BAB1DB /* iTM2StringKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB38D108E6808001B3F81 /* iTM2StringKit.m */; };
 		539E1C2B1090F78E00BAB1DB /* iTM2MiscKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAFBE108E4785001B3F81 /* iTM2MiscKit.m */; };
@@ -1071,6 +1099,104 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		514218BB109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5338F59E108FAF7D00842A70;
+			remoteInfo = iTM2Test5;
+		};
+		514218BD109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5338F3F3108F7BFF00842A70;
+			remoteInfo = iTM2Test4;
+		};
+		514218BF109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5338F365108F6F7A00842A70;
+			remoteInfo = iTM2Test3;
+		};
+		514218C1109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5338F21D108F5AA700842A70;
+			remoteInfo = iTM2Test2;
+		};
+		514218C3109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 533EB320108E652C001B3F81;
+			remoteInfo = iTM2Test1C;
+		};
+		514218C5109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 533EB2DC108E64E1001B3F81;
+			remoteInfo = iTM2Test1B;
+		};
+		514218C7109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 533EB18E108E605E001B3F81;
+			remoteInfo = iTM2Test1A;
+		};
+		514218C9109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 533EAE48108E09FD001B3F81;
+			remoteInfo = iTM2Test0D;
+		};
+		514218CB109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 533EAD4E108CFC1D001B3F81;
+			remoteInfo = iTM2Test0C;
+		};
+		514218CD109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 53C251331089DF36002312DA;
+			remoteInfo = iTM2Test0B;
+		};
+		514218CF109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 53767F7210887003007CCC1E;
+			remoteInfo = iTM2Test0A;
+		};
+		514218D1109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCAD22750C144930005549DC;
+			remoteInfo = "ICU RegEx test";
+		};
+		514218D3109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB0A00909AEF96E00D2A37C;
+			remoteInfo = "Alias Test";
+		};
+		514218D5109885FC00A01853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC25E42D0991F5F000545F27;
+			remoteInfo = "iTM2TaskKit Test";
+		};
 		51EFB39B0DFD23BD0090E7D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1086,13 +1212,6 @@
 			remoteInfo = Skim;
 		};
 		5338F491108FA15C00842A70 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC0F125B0BFB74CA00108852;
-			remoteInfo = "Prepare Lua";
-		};
-		5338F5A0108FAF7D00842A70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -1521,7 +1640,10 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		51167E2A10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2StringControllerMacroTypes.plist; sourceTree = "<group>"; };
 		5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2StringEncodingRegEx.strings; sourceTree = "<group>"; };
+		5142191710988E0600A01853 /* iTM2StringController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StringController.h; sourceTree = "<group>"; };
+		5142191810988E0600A01853 /* iTM2StringController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StringController.m; sourceTree = "<group>"; };
 		518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SmallToolbarBackground.png; sourceTree = "<group>"; };
 		51B7732E0E06B98C00322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
@@ -1544,7 +1666,6 @@
 		5338F3AF108F6F7A00842A70 /* iTM2Test3.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test3.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5338F446108F7BFF00842A70 /* iTM2Test4.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test4.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5338F5F8108FAF7D00842A70 /* iTM2Test5.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test5.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5338F5FC108FAF7D00842A70 /* Tests-Info copy 4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info copy 4.plist"; sourceTree = "<group>"; };
 		533EAD4A108CFBB1001B3F81 /* iTM2Test0C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test0C.h; sourceTree = "<group>"; };
 		533EAD4B108CFBB1001B3F81 /* iTM2Test0C.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test0C.m; sourceTree = "<group>"; };
 		533EAD71108CFC1D001B3F81 /* iTM2Test0C.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test0C.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1953,7 +2074,6 @@
 				5338F5F0108FAF7D00842A70 /* PreferencePanes.framework in Frameworks */,
 				5338F5F1108FAF7D00842A70 /* ExceptionHandling.framework in Frameworks */,
 				5338F5F2108FAF7D00842A70 /* libicucore.dylib in Frameworks */,
-				5338F5F3108FAF7D00842A70 /* Lua.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2363,12 +2483,12 @@
 				53C251FE1089E80F002312DA /* iTM2InheritanceKit.m */,
 				53C2520D1089E80F002312DA /* iTM2UserDefaultsKit.h */,
 				53C2520E1089E80F002312DA /* iTM2UserDefaultsKit.m */,
-				533EB233108E63BB001B3F81 /* iTM2PreferencesKit.h */,
-				533EB234108E63BB001B3F81 /* iTM2PreferencesKit.m */,
 				53C251F71089E80F002312DA /* iTM2ContextKit.h */,
 				53C251F81089E80F002312DA /* iTM2ContextKit.m */,
 				53C251FB1089E80F002312DA /* iTM2DocumentKit.h */,
 				53C251FC1089E80F002312DA /* iTM2DocumentKit.m */,
+				533EB233108E63BB001B3F81 /* iTM2PreferencesKit.h */,
+				533EB234108E63BB001B3F81 /* iTM2PreferencesKit.m */,
 				53C251F91089E80F002312DA /* iTM2DocumentControllerKit.h */,
 				53C251FA1089E80F002312DA /* iTM2DocumentControllerKit.m */,
 				53C251F31089E80F002312DA /* iTM2ApplicationDelegate.h */,
@@ -2437,7 +2557,6 @@
 				5338F210108F5A9000842A70 /* iTM2Test4.m */,
 				5338F211108F5A9000842A70 /* iTM2Test5.h */,
 				5338F212108F5A9000842A70 /* iTM2Test5.m */,
-				5338F5FC108FAF7D00842A70 /* Tests-Info copy 4.plist */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -2571,6 +2690,8 @@
 			children = (
 				DCF61B990854654B003F5F79 /* iTM2LiteScanner.h */,
 				DCF61B9A0854654B003F5F79 /* iTM2LiteScanner.m */,
+				5142191710988E0600A01853 /* iTM2StringController.h */,
+				5142191810988E0600A01853 /* iTM2StringController.m */,
 				DCF61BA10854654B003F5F79 /* iTM2TextKit.h */,
 				DCF61BA20854654B003F5F79 /* iTM2TextKit.m */,
 				DCF61B9B0854654B003F5F79 /* iTM2StringFormatKit.h */,
@@ -2646,6 +2767,7 @@
 			children = (
 				5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */,
 				DC2D65510A985F30006BED13 /* iTM2KeyCodes.xml */,
+				51167E2A10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist */,
 				DC4B41060BAC98F500288F8D /* iTM2HumanReadableActionNames.plist */,
 				DC1E4E710B8CFCC300B8F0A8 /* Template.iTM2-macros */,
 				DC1E60FC0B8F6B1300B8F0A8 /* Template.iTM2-key-bindings */,
@@ -2799,6 +2921,7 @@
 				DCF61CB00854654B003F5F79 /* iTM2TextStyleEditionKit.h in Headers */,
 				DC8303F1086EA056004799EB /* iTM2AppleScriptKit.h in Headers */,
 				DC2B47380AD2D2930039FCBA /* iTM2DocumentPrefPane.h in Headers */,
+				5142191910988E0600A01853 /* iTM2StringController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2889,7 +3012,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5338F59F108FAF7D00842A70 /* PBXTargetDependency */,
 			);
 			name = iTM2Test5;
 			productName = iTM2NotificationKitTest;
@@ -3444,6 +3566,7 @@
 				5338F365108F6F7A00842A70 /* iTM2Test3 */,
 				5338F3F3108F7BFF00842A70 /* iTM2Test4 */,
 				5338F59E108FAF7D00842A70 /* iTM2Test5 */,
+				514218B1109885EA00A01853 /* All Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -3775,6 +3898,7 @@
 				53C240421069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib in Resources */,
 				53C240431069407D0000990A /* iTM2TextStyleInspector.xib in Resources */,
 				53C240441069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib in Resources */,
+				51167E2B10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4229,6 +4353,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5338F22C108F5AA700842A70 /* RegexKitLite.m in Sources */,
+				5338F22D108F5AA700842A70 /* ICURegEx.mm in Sources */,
+				5338F22E108F5AA700842A70 /* iTM2StringKit.m in Sources */,
+				5338F22A108F5AA700842A70 /* iTM2Runtime.m in Sources */,
 				5338F220108F5AA700842A70 /* iTeXMac2.m in Sources */,
 				5338F221108F5AA700842A70 /* iTM2BundleKit.m in Sources */,
 				5338F222108F5AA700842A70 /* iTM2DistributedObjectKit.m in Sources */,
@@ -4239,11 +4367,7 @@
 				5338F227108F5AA700842A70 /* iTM2NotificationKit.m in Sources */,
 				5338F228108F5AA700842A70 /* iTM2ObjectServer.m in Sources */,
 				5338F229108F5AA700842A70 /* iTM2PathUtilities.m in Sources */,
-				5338F22A108F5AA700842A70 /* iTM2Runtime.m in Sources */,
 				5338F22B108F5AA700842A70 /* iTM2TreeKit.m in Sources */,
-				5338F22C108F5AA700842A70 /* RegexKitLite.m in Sources */,
-				5338F22D108F5AA700842A70 /* ICURegEx.mm in Sources */,
-				5338F22E108F5AA700842A70 /* iTM2StringKit.m in Sources */,
 				5338F22F108F5AA700842A70 /* iTM2ButtonKit.m in Sources */,
 				5338F230108F5AA700842A70 /* iTM2CursorKit.m in Sources */,
 				5338F231108F5AA700842A70 /* iTM2EventKit.m in Sources */,
@@ -4268,6 +4392,7 @@
 				5338F244108F5AA700842A70 /* iTM2TextKit.m in Sources */,
 				5338F245108F5AA700842A70 /* iTM2StringFormatKit.m in Sources */,
 				5338F246108F5AA700842A70 /* iTM2TextDocumentKit.m in Sources */,
+				5142191F10988E0700A01853 /* iTM2StringController.m in Sources */,
 				5338F248108F5AA700842A70 /* iTM2KeyBindingsKit.m in Sources */,
 				5338F249108F5AA700842A70 /* iTM2MacroKit.m in Sources */,
 				5338F24A108F5AA700842A70 /* iTM2MacroKit_Action.m in Sources */,
@@ -4297,6 +4422,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5338F374108F6F7A00842A70 /* RegexKitLite.m in Sources */,
+				5338F375108F6F7A00842A70 /* ICURegEx.mm in Sources */,
+				5338F376108F6F7A00842A70 /* iTM2StringKit.m in Sources */,
+				5338F372108F6F7A00842A70 /* iTM2Runtime.m in Sources */,
 				5338F368108F6F7A00842A70 /* iTeXMac2.m in Sources */,
 				5338F369108F6F7A00842A70 /* iTM2BundleKit.m in Sources */,
 				5338F36A108F6F7A00842A70 /* iTM2DistributedObjectKit.m in Sources */,
@@ -4307,11 +4436,7 @@
 				5338F36F108F6F7A00842A70 /* iTM2NotificationKit.m in Sources */,
 				5338F370108F6F7A00842A70 /* iTM2ObjectServer.m in Sources */,
 				5338F371108F6F7A00842A70 /* iTM2PathUtilities.m in Sources */,
-				5338F372108F6F7A00842A70 /* iTM2Runtime.m in Sources */,
 				5338F373108F6F7A00842A70 /* iTM2TreeKit.m in Sources */,
-				5338F374108F6F7A00842A70 /* RegexKitLite.m in Sources */,
-				5338F375108F6F7A00842A70 /* ICURegEx.mm in Sources */,
-				5338F376108F6F7A00842A70 /* iTM2StringKit.m in Sources */,
 				5338F377108F6F7A00842A70 /* iTM2ButtonKit.m in Sources */,
 				5338F378108F6F7A00842A70 /* iTM2CursorKit.m in Sources */,
 				5338F379108F6F7A00842A70 /* iTM2EventKit.m in Sources */,
@@ -4336,6 +4461,7 @@
 				5338F38C108F6F7A00842A70 /* iTM2TextKit.m in Sources */,
 				5338F38D108F6F7A00842A70 /* iTM2StringFormatKit.m in Sources */,
 				5338F38E108F6F7A00842A70 /* iTM2TextDocumentKit.m in Sources */,
+				5142192010988E0700A01853 /* iTM2StringController.m in Sources */,
 				5338F38F108F6F7A00842A70 /* iTM2KeyBindingsKit.m in Sources */,
 				5338F390108F6F7A00842A70 /* iTM2MacroKit.m in Sources */,
 				5338F391108F6F7A00842A70 /* iTM2MacroKit_Action.m in Sources */,
@@ -4367,6 +4493,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5338F409108F7BFF00842A70 /* RegexKitLite.m in Sources */,
+				5338F40A108F7BFF00842A70 /* ICURegEx.mm in Sources */,
+				5338F40B108F7BFF00842A70 /* iTM2StringKit.m in Sources */,
+				5338F407108F7BFF00842A70 /* iTM2Runtime.m in Sources */,
 				5338F3FD108F7BFF00842A70 /* iTeXMac2.m in Sources */,
 				5338F3FE108F7BFF00842A70 /* iTM2BundleKit.m in Sources */,
 				5338F3FF108F7BFF00842A70 /* iTM2DistributedObjectKit.m in Sources */,
@@ -4377,11 +4507,7 @@
 				5338F404108F7BFF00842A70 /* iTM2NotificationKit.m in Sources */,
 				5338F405108F7BFF00842A70 /* iTM2ObjectServer.m in Sources */,
 				5338F406108F7BFF00842A70 /* iTM2PathUtilities.m in Sources */,
-				5338F407108F7BFF00842A70 /* iTM2Runtime.m in Sources */,
 				5338F408108F7BFF00842A70 /* iTM2TreeKit.m in Sources */,
-				5338F409108F7BFF00842A70 /* RegexKitLite.m in Sources */,
-				5338F40A108F7BFF00842A70 /* ICURegEx.mm in Sources */,
-				5338F40B108F7BFF00842A70 /* iTM2StringKit.m in Sources */,
 				5338F40C108F7BFF00842A70 /* iTM2ButtonKit.m in Sources */,
 				5338F40D108F7BFF00842A70 /* iTM2CursorKit.m in Sources */,
 				5338F40E108F7BFF00842A70 /* iTM2EventKit.m in Sources */,
@@ -4406,6 +4532,7 @@
 				5338F421108F7BFF00842A70 /* iTM2TextKit.m in Sources */,
 				5338F422108F7BFF00842A70 /* iTM2StringFormatKit.m in Sources */,
 				5338F423108F7BFF00842A70 /* iTM2TextDocumentKit.m in Sources */,
+				5142192110988E0700A01853 /* iTM2StringController.m in Sources */,
 				5338F424108F7BFF00842A70 /* iTM2KeyBindingsKit.m in Sources */,
 				5338F425108F7BFF00842A70 /* iTM2MacroKit.m in Sources */,
 				5338F426108F7BFF00842A70 /* iTM2MacroKit_Action.m in Sources */,
@@ -4440,6 +4567,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5338F5B6108FAF7D00842A70 /* RegexKitLite.m in Sources */,
+				5338F5B7108FAF7D00842A70 /* ICURegEx.mm in Sources */,
+				5338F5B8108FAF7D00842A70 /* iTM2StringKit.m in Sources */,
+				5338F5B4108FAF7D00842A70 /* iTM2Runtime.m in Sources */,
 				5338F5AA108FAF7D00842A70 /* iTeXMac2.m in Sources */,
 				5338F5AB108FAF7D00842A70 /* iTM2BundleKit.m in Sources */,
 				5338F5AC108FAF7D00842A70 /* iTM2DistributedObjectKit.m in Sources */,
@@ -4450,11 +4581,7 @@
 				5338F5B1108FAF7D00842A70 /* iTM2NotificationKit.m in Sources */,
 				5338F5B2108FAF7D00842A70 /* iTM2ObjectServer.m in Sources */,
 				5338F5B3108FAF7D00842A70 /* iTM2PathUtilities.m in Sources */,
-				5338F5B4108FAF7D00842A70 /* iTM2Runtime.m in Sources */,
 				5338F5B5108FAF7D00842A70 /* iTM2TreeKit.m in Sources */,
-				5338F5B6108FAF7D00842A70 /* RegexKitLite.m in Sources */,
-				5338F5B7108FAF7D00842A70 /* ICURegEx.mm in Sources */,
-				5338F5B8108FAF7D00842A70 /* iTM2StringKit.m in Sources */,
 				5338F5B9108FAF7D00842A70 /* iTM2ButtonKit.m in Sources */,
 				5338F5BA108FAF7D00842A70 /* iTM2CursorKit.m in Sources */,
 				5338F5BB108FAF7D00842A70 /* iTM2EventKit.m in Sources */,
@@ -4503,10 +4630,9 @@
 				5338F5E6108FAF7D00842A70 /* iTM2TextStorageKit.m in Sources */,
 				5338F5E7108FAF7D00842A70 /* iTM2TextStyleEditionKit.m in Sources */,
 				5338F5E9108FAF7D00842A70 /* iTM2AppleScriptKit.m in Sources */,
-				5338F5EA108FAF7D00842A70 /* iTM2TextScriptingKit.m in Sources */,
-				5338F5EB108FAF7D00842A70 /* iTM2PerlKitServer.m in Sources */,
 				5338F5FD108FAFBA00842A70 /* iTM2Test5.m in Sources */,
 				5338F5FF108FAFDC00842A70 /* iTM2DocumentPrefPane.m in Sources */,
+				5142192210988E0700A01853 /* iTM2StringController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4597,6 +4723,7 @@
 				533EB16A108E5DA7001B3F81 /* iTM2TextKit.m in Sources */,
 				533EB16B108E5DA7001B3F81 /* iTM2StringFormatKit.m in Sources */,
 				533EB16C108E5DA7001B3F81 /* iTM2TextDocumentKit.m in Sources */,
+				5142191B10988E0700A01853 /* iTM2StringController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4643,6 +4770,7 @@
 				533EB1B4108E605E001B3F81 /* iTM2TextKit.m in Sources */,
 				533EB1B5108E605E001B3F81 /* iTM2StringFormatKit.m in Sources */,
 				533EB1B6108E605E001B3F81 /* iTM2TextDocumentKit.m in Sources */,
+				5142191C10988E0700A01853 /* iTM2StringController.m in Sources */,
 				533EB1C9108E60B3001B3F81 /* iTM2Test1A.m in Sources */,
 				533EB1CB108E60C4001B3F81 /* iTM2KeyBindingsKit.m in Sources */,
 				533EB1CD108E60C4001B3F81 /* iTM2MacroKit.m in Sources */,
@@ -4699,6 +4827,7 @@
 				533EB302108E64E1001B3F81 /* iTM2TextKit.m in Sources */,
 				533EB303108E64E1001B3F81 /* iTM2StringFormatKit.m in Sources */,
 				533EB304108E64E1001B3F81 /* iTM2TextDocumentKit.m in Sources */,
+				5142191D10988E0700A01853 /* iTM2StringController.m in Sources */,
 				533EB307108E64E1001B3F81 /* iTM2KeyBindingsKit.m in Sources */,
 				533EB308108E64E1001B3F81 /* iTM2MacroKit.m in Sources */,
 				533EB309108E64E1001B3F81 /* iTM2MacroKit_Action.m in Sources */,
@@ -4713,10 +4842,6 @@
 				533EB36E108E65E3001B3F81 /* iTM2PDFDocumentKit.m in Sources */,
 				533EB370108E65E3001B3F81 /* iTM2PDFViewKit.m in Sources */,
 				533EB3F6108E6C59001B3F81 /* iTM2TextScriptingKit.m in Sources */,
-				5338F213108F5A9000842A70 /* iTM2Test2.m in Sources */,
-				5338F214108F5A9000842A70 /* iTM2Test3.m in Sources */,
-				5338F215108F5A9000842A70 /* iTM2Test4.m in Sources */,
-				5338F216108F5A9000842A70 /* iTM2Test5.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4724,6 +4849,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				533EB32F108E652C001B3F81 /* RegexKitLite.m in Sources */,
+				533EB330108E652C001B3F81 /* ICURegEx.mm in Sources */,
+				533EB390108E683B001B3F81 /* iTM2StringKit.m in Sources */,
+				533EB32D108E652C001B3F81 /* iTM2Runtime.m in Sources */,
 				533EB323108E652C001B3F81 /* iTeXMac2.m in Sources */,
 				533EB324108E652C001B3F81 /* iTM2BundleKit.m in Sources */,
 				533EB325108E652C001B3F81 /* iTM2DistributedObjectKit.m in Sources */,
@@ -4734,11 +4863,7 @@
 				533EB32A108E652C001B3F81 /* iTM2NotificationKit.m in Sources */,
 				533EB32B108E652C001B3F81 /* iTM2ObjectServer.m in Sources */,
 				533EB32C108E652C001B3F81 /* iTM2PathUtilities.m in Sources */,
-				533EB32D108E652C001B3F81 /* iTM2Runtime.m in Sources */,
 				533EB32E108E652C001B3F81 /* iTM2TreeKit.m in Sources */,
-				533EB32F108E652C001B3F81 /* RegexKitLite.m in Sources */,
-				533EB330108E652C001B3F81 /* ICURegEx.mm in Sources */,
-				533EB390108E683B001B3F81 /* iTM2StringKit.m in Sources */,
 				533EB331108E652C001B3F81 /* iTM2ButtonKit.m in Sources */,
 				533EB332108E652C001B3F81 /* iTM2CursorKit.m in Sources */,
 				533EB333108E652C001B3F81 /* iTM2EventKit.m in Sources */,
@@ -4763,6 +4888,7 @@
 				533EB346108E652C001B3F81 /* iTM2TextKit.m in Sources */,
 				533EB347108E652C001B3F81 /* iTM2StringFormatKit.m in Sources */,
 				533EB348108E652C001B3F81 /* iTM2TextDocumentKit.m in Sources */,
+				5142191E10988E0700A01853 /* iTM2StringController.m in Sources */,
 				533EB34B108E652C001B3F81 /* iTM2KeyBindingsKit.m in Sources */,
 				533EB34C108E652C001B3F81 /* iTM2MacroKit.m in Sources */,
 				533EB34D108E652C001B3F81 /* iTM2MacroKit_Action.m in Sources */,
@@ -4802,6 +4928,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				53C252821089EA06002312DA /* ICURegEx.mm in Sources */,
+				53C252811089EA06002312DA /* RegexKitLite.m in Sources */,
+				533EB38E108E6808001B3F81 /* iTM2StringKit.m in Sources */,
 				53C2527F1089EA06002312DA /* iTM2Runtime.m in Sources */,
 				53C252751089EA06002312DA /* iTeXMac2.m in Sources */,
 				53C2527B1089EA06002312DA /* iTM2Invocation.m in Sources */,
@@ -4814,8 +4942,6 @@
 				53C252771089EA06002312DA /* iTM2DistributedObjectKit.m in Sources */,
 				53C2527D1089EA06002312DA /* iTM2ObjectServer.m in Sources */,
 				53C252801089EA06002312DA /* iTM2TreeKit.m in Sources */,
-				53C252811089EA06002312DA /* RegexKitLite.m in Sources */,
-				533EB38E108E6808001B3F81 /* iTM2StringKit.m in Sources */,
 				53768019108874C6007CCC1E /* iTM2Test0A.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4824,6 +4950,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53C252731089E9E8002312DA /* RegexKitLite.m in Sources */,
+				53C252741089E9E8002312DA /* ICURegEx.mm in Sources */,
+				533EB394108E687C001B3F81 /* iTM2StringKit.m in Sources */,
+				53C252711089E9E8002312DA /* iTM2Runtime.m in Sources */,
 				53C252671089E9E8002312DA /* iTeXMac2.m in Sources */,
 				53C252681089E9E8002312DA /* iTM2BundleKit.m in Sources */,
 				53C252691089E9E8002312DA /* iTM2DistributedObjectKit.m in Sources */,
@@ -4834,11 +4964,7 @@
 				53C2526E1089E9E8002312DA /* iTM2NotificationKit.m in Sources */,
 				53C2526F1089E9E8002312DA /* iTM2ObjectServer.m in Sources */,
 				53C252701089E9E8002312DA /* iTM2PathUtilities.m in Sources */,
-				53C252711089E9E8002312DA /* iTM2Runtime.m in Sources */,
 				53C252721089E9E8002312DA /* iTM2TreeKit.m in Sources */,
-				53C252731089E9E8002312DA /* RegexKitLite.m in Sources */,
-				53C252741089E9E8002312DA /* ICURegEx.mm in Sources */,
-				533EB394108E687C001B3F81 /* iTM2StringKit.m in Sources */,
 				53C251741089E0EC002312DA /* iTM2Test0B.m in Sources */,
 				533EA73F108CE6E6001B3F81 /* iTM2ButtonKit.m in Sources */,
 				533EA741108CE6E6001B3F81 /* iTM2CursorKit.m in Sources */,
@@ -4935,6 +5061,7 @@
 				DCF61CB10854654B003F5F79 /* iTM2TextStyleEditionKit.m in Sources */,
 				DC8303F2086EA056004799EB /* iTM2AppleScriptKit.m in Sources */,
 				DC2B47390AD2D2930039FCBA /* iTM2DocumentPrefPane.m in Sources */,
+				5142191A10988E0700A01853 /* iTM2StringController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4983,6 +5110,76 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		514218BC109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5338F59E108FAF7D00842A70 /* iTM2Test5 */;
+			targetProxy = 514218BB109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218BE109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5338F3F3108F7BFF00842A70 /* iTM2Test4 */;
+			targetProxy = 514218BD109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218C0109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5338F365108F6F7A00842A70 /* iTM2Test3 */;
+			targetProxy = 514218BF109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218C2109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5338F21D108F5AA700842A70 /* iTM2Test2 */;
+			targetProxy = 514218C1109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218C4109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 533EB320108E652C001B3F81 /* iTM2Test1C */;
+			targetProxy = 514218C3109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218C6109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 533EB2DC108E64E1001B3F81 /* iTM2Test1B */;
+			targetProxy = 514218C5109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218C8109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 533EB18E108E605E001B3F81 /* iTM2Test1A */;
+			targetProxy = 514218C7109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218CA109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 533EAE48108E09FD001B3F81 /* iTM2Test0D */;
+			targetProxy = 514218C9109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218CC109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 533EAD4E108CFC1D001B3F81 /* iTM2Test0C */;
+			targetProxy = 514218CB109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218CE109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53C251331089DF36002312DA /* iTM2Test0B */;
+			targetProxy = 514218CD109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218D0109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53767F7210887003007CCC1E /* iTM2Test0A */;
+			targetProxy = 514218CF109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218D2109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCAD22750C144930005549DC /* ICU RegEx test */;
+			targetProxy = 514218D1109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218D4109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB0A00909AEF96E00D2A37C /* Alias Test */;
+			targetProxy = 514218D3109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		514218D6109885FC00A01853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */;
+			targetProxy = 514218D5109885FC00A01853 /* PBXContainerItemProxy */;
+		};
 		51EFB39A0DFD23BD0090E7D0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
@@ -4997,11 +5194,6 @@
 			isa = PBXTargetDependency;
 			target = DC0F125B0BFB74CA00108852 /* Prepare Lua */;
 			targetProxy = 5338F491108FA15C00842A70 /* PBXContainerItemProxy */;
-		};
-		5338F59F108FAF7D00842A70 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC0F125B0BFB74CA00108852 /* Prepare Lua */;
-			targetProxy = 5338F5A0108FAF7D00842A70 /* PBXContainerItemProxy */;
 		};
 		53767800108852E6007CCC1E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5514,6 +5706,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		514218B9109885EB00A01853 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "All Tests";
+			};
+			name = Development;
+		};
+		514218BA109885EB00A01853 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "All Tests";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		51EFB3A10DFD23BD0090E7D0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
@@ -7102,6 +7315,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		514218D71098863800A01853 /* Build configuration list for PBXAggregateTarget "All Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				514218B9109885EB00A01853 /* Development */,
+				514218BA109885EB00A01853 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
 		51EFB3A00DFD23BD0090E7D0 /* Build configuration list for PBXNativeTarget "Skim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

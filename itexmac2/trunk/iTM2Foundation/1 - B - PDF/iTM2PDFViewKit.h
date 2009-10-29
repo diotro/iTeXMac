@@ -45,22 +45,15 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
 - (void)setImageRepresentation:(NSPDFImageRep *)value;
 - (NSSize)inset;
 - (NSSize)minFrameSize;
-- (NSInteger)tag;
-- (void)setTag:(NSInteger)anInt;
-- (NSInteger)state;
-- (void)setState:(NSInteger)value;
 - (NSPoint)focusPoint;
 - (void)setFocusPoint:(NSPoint)value;
 - (NSRect)drawingBounds;
-- (BOOL)drawsBoundary;
-- (void)setDrawsBoundary:(BOOL)flag;
-- (NSPoint)synchronizationPoint;
-- (void)setSynchronizationPoint:(NSPoint)P;
 /*"Main methods"*/
 /*"Overriden methods"*/
-@property NSInteger _Tag;
-@property NSInteger _State;
-@property BOOL _DrawsBoundary;
+@property NSInteger tag;
+@property NSInteger state;
+@property BOOL drawsBoundary;
+@property NSPoint synchronizationPoint;
 @property (retain) NSColor * _BackgroundColor;
 @property (retain) NSPDFImageRep * _Representation;
 @property (retain) id _ContextManager;
