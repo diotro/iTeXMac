@@ -20,6 +20,8 @@
 
 #import "ICURegEx.h"
 #import "iTM2StringKit.h"
+#import "iTM2ContextKit.h"
+#import "iTM2InstallationKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)
 /*"Description forthcoming."*/
@@ -522,8 +524,8 @@ To Do List:
 //iTM2_END;
 	return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineComponents
-- (NSArray *)lineComponents;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2_lineComponents
+- (NSArray *)iTM2_lineComponents;
 /*"Description forthcoming.
  Version history: jlaurens AT users.sourceforge.net
  - 2.0: 
@@ -553,178 +555,6 @@ To Do List:
 	return lines;
 }
 #pragma mark =-=-=-=-=-  INDENTATION
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByNormalizingIndentationWithNumberOfSpacesPerTab:
-- (NSString *)stringByNormalizingIndentationWithNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
-/*"Description forthcoming.
- Version history: jlaurens AT users.sourceforge.net
- - 2.0: 
- To Do List: ?
- "*/
-{iTM2_DIAGNOSTIC;
-	//iTM2_START;
-	NSString * _Tab = nil;
-	int idx = numberOfSpacesPerTab;
-	if(idx<=0)
-	{
-		_Tab = @"\t";
-	}
-	else
-	{
-		NSMutableString * MS = [NSMutableString string];
-		while(idx--)
-		{
-			[MS appendString:@" "];
-		}
-		_Tab = [MS copy];
-	}
-	if(numberOfSpacesPerTab<0)
-	{
-		numberOfSpacesPerTab = -numberOfSpacesPerTab;
-	}
-	else if(numberOfSpacesPerTab==0)
-	{
-		numberOfSpacesPerTab = 4;
-	}
-	
-	NSArray * lineComponents = [self lineComponents];
-	NSMutableString * normalized = [NSMutableString string];
-	NSString * line;
-	for(line in lineComponents)
-	{
-		NSUInteger lineIndentation = 0;
-		NSUInteger currentLength = 0;
-		NSUInteger charIndex = 0;
-		while(charIndex<[line length])
-		{
-			unichar theChar = [self characterAtIndex:charIndex];
-			if(theChar == ' ')
-			{
-				++currentLength;
-			}
-			else if(theChar == '\t')
-			{
-				++lineIndentation;
-				lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-				currentLength = 0;
-			}
-			else
-			{
-				break;
-			}
-			++charIndex;
-		}
-		lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-		while(lineIndentation--)
-		{
-			[normalized appendString:_Tab];
-		}
-		NSString * tail = [line substringFromIndex:charIndex];
-		[normalized appendString:tail];
-	}
-	//iTM2_END;
-	return normalized;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringWithIndentationLevel:atIndex:withNumberOfSpacesPerTab:
-- (NSString *)stringWithIndentationLevel:(NSUInteger)indentation atIndex:(NSUInteger)index withNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
-/*"Description forthcoming.
- Version history: jlaurens AT users.sourceforge.net
- - 2.0: 02/15/2006
- To Do List: ?
- "*/
-{iTM2_DIAGNOSTIC;
-	//iTM2_START;
-	NSMutableString * result = [NSMutableString string];
-	NSRange lineRange = NSMakeRange(index,0);
-	lineRange = [self lineRangeForRange:lineRange];// the line range containing the given index
-	NSString * string = [self substringToIndex:lineRange.location];// everything before the line
-	[result appendString:string];// copied as is
-	// now append the expected indentation for the line containing index
-	NSString * tabString = nil;
-	int idx = numberOfSpacesPerTab;
-	if(idx<=0)
-	{
-		tabString = @"\t";
-	}
-	else
-	{
-		NSMutableString * MS = [NSMutableString string];
-		while(idx--)
-		{
-			[MS appendString:@" "];
-		}
-		tabString = [MS copy];
-	}
-	while(indentation--)
-	{
-		[result appendString:tabString];
-	}
-	// now copying the line without its white prefix
-	NSUInteger top = NSMaxRange(lineRange);
-	NSCharacterSet * whiteSet = [NSCharacterSet whitespaceCharacterSet];
-	while(lineRange.location<top)
-	{
-		unichar theChar = [self characterAtIndex:lineRange.location];
-		if(![whiteSet characterIsMember:theChar])
-		{
-			break;
-		}
-		++lineRange.location;
-	}
-	lineRange.length = top - lineRange.location;
-	string = [self substringWithRange:lineRange];
-	[result appendString:string];
-	// finally copy the rest of the receiver as is
-	string = [self substringFromIndex:top];
-	[result appendString:string];
-	//iTM2_END;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indentationLevelAtIndex:withNumberOfSpacesPerTab:
-- (NSUInteger)indentationLevelAtIndex:(NSUInteger)index withNumberOfSpacesPerTab:(NSUInteger)numberOfSpacesPerTab;
-/*"Description forthcoming.
- Version history: jlaurens AT users.sourceforge.net
- - 2.0: 02/15/2006
- To Do List: ?
- "*/
-{iTM2_DIAGNOSTIC;
-	//iTM2_START;
-	if(numberOfSpacesPerTab<0)
-	{
-		numberOfSpacesPerTab = -numberOfSpacesPerTab;
-	}
-	else if(!numberOfSpacesPerTab)
-	{
-		numberOfSpacesPerTab = 4;
-	}
-	NSRange R;
-	R.location = index;
-	R.length = 0;
-	NSUInteger top;
-	[self getLineStart:&index end:nil contentsEnd:&top forRange:R];
-	NSUInteger result = 0;
-	NSUInteger currentLength = 0;
-	while(index<top)
-	{
-		unichar theChar = [self characterAtIndex:index++];
-		if(theChar == ' ')
-		{
-			++currentLength;
-		}
-		else if(theChar == '\t')
-		{
-			++result;
-			result += (2*currentLength)/numberOfSpacesPerTab;
-			currentLength = 0;
-		}
-		else
-		{
-			break;
-		}
-	}
-	result += (2*currentLength)/numberOfSpacesPerTab;
-	//iTM2_END;
-	return result;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByEscapingPerlControlCharacters
 - (NSString *)stringByEscapingPerlControlCharacters;
 /*"Description forthcoming.
@@ -748,7 +578,7 @@ To Do List:
 }
 @end
 
-@implementation NSTextStorage(StringKit)
+@implementation NSTextStorage(iTM2StringKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineIndexForLocation:
 - (NSUInteger)lineIndexForLocation:(NSUInteger)index;
 /*"Given a range, it returns the line number of the first char of the range.

@@ -82,22 +82,18 @@
 
 - (NSString *)stringByEscapingPerlControlCharacters;
 
-- (NSString *)stringByNormalizingIndentationWithNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
-- (NSString *)stringWithIndentationLevel:(NSUInteger)indentation atIndex:(NSUInteger)index withNumberOfSpacesPerTab:(int)numberOfSpacesPerTab;
-- (NSUInteger)indentationLevelAtIndex:(NSUInteger)index withNumberOfSpacesPerTab:(NSUInteger)numberOfSpacesPerTab;
-
 /*!
- @method		lineComponents
+ @method		iTM2_lineComponents
  @abstract	Abstract forthcoming.
  @discussion	Discussion forthcoming.
  @param		None.
  @result     NSArray, receiver split into lines
  */
-- (NSArray *)lineComponents;
+- (NSArray *)iTM2_lineComponents;
 
 @end
 
-@interface NSTextStorage(iTeXMac2)
+@interface NSTextStorage(iTM2StringKit)
 /*"Class methods"*/
 /*"Setters and Getters"*/
 - (NSUInteger)lineIndexForLocation:(NSUInteger)index;

@@ -115,12 +115,18 @@ To Do List:
 + (id)iTM2_instanceMethodSignatureForSelector:(SEL)aSelector;
 {
 	id result = nil;
+    if(aSelector == @selector(heartBeat:))
+    {
 NS_DURING
 	result = [self instancesRespondToSelector:(SEL)aSelector]?[self instanceMethodSignatureForSelector:(SEL)aSelector]:nil;
 NS_HANDLER
 	result = nil;
 	iTM2_LOG(@"Exception catched");
 NS_ENDHANDLER
+    }
+    else {
+        result = [self instancesRespondToSelector:(SEL)aSelector]?[self instanceMethodSignatureForSelector:(SEL)aSelector]:nil;
+    }
 	return result;
 }
 @end

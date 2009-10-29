@@ -3,7 +3,7 @@
 //  @version Subversion: $Id: iTM2BundleKit.m 799 2009-10-13 16:46:39Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Sun Apr 28 2002.
-//  Copyright ¬© 2003 Laurens'Tribune. All rights reserved.
+//  Copyright © 2003 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either

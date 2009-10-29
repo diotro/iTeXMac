@@ -23,6 +23,7 @@
 
 #import "iTM2Runtime.h"
 #import "iTM2Invocation.h"
+#import "iTM2PathUtilities.h"
 #import "iTM2FileManagerKit.h"
 #import <sys/stat.h>
 

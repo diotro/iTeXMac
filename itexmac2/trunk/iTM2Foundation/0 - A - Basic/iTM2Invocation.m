@@ -155,9 +155,9 @@
 }
 - (void)iTM2_invokeWithSelectors:(NSPointerArray *)selectors;
 {
-	NSUInteger i = [selectors count];
-	while(i--) {
-		SEL selector = (SEL)[selectors pointerAtIndex:i];
+	NSUInteger i = 0;
+	while(i<[selectors count]) {
+		SEL selector = (SEL)[selectors pointerAtIndex:i++];
 		if([[self target] respondsToSelector:selector])
 		{
 			[self setSelector:selector];
