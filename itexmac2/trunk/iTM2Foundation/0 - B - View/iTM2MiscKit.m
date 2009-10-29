@@ -3,7 +3,7 @@
 //  @version Subversion: $Id: iTM2MiscKit.m 798 2009-10-12 19:32:06Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Mon May 17 13:54:52 GMT 2004.
-//  Copyright ¬© 2005 Laurens'Tribune. All rights reserved.
+//  Copyright © 2005 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
