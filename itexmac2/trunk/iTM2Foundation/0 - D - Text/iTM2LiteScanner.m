@@ -3,7 +3,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Wed Dec 05 2001.
-//  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
+//  Copyright © 2001-2009 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -49,9 +49,11 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    self = [super init];
-    [self setString:nil];
-    [self setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if(self = [super init])
+    {
+        self.string = nil;
+        [self setCharactersToBeSkipped:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    }
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithString:
@@ -63,20 +65,25 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    self = [self init];
-    [self setString:aString];
+    if(self = [self init])
+    {
+        self.string = aString;
+    }
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= string
-- (NSString *)string;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dealloc
+- (void)dealloc;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+- 2.1: Thu Nov  5 08:13:48 UTC 2009
 To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return self->string;
+    self.string = nil;
+    [self setCharactersToBeSkipped:nil];
+    [super dealloc];
+    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setString
 - (void)setString:(NSString *)aString;
@@ -89,30 +96,8 @@ To Do List:
 //iTM2_START;
     [self->string autorelease];
     self->string = [aString retain];
+    self.scanLocation = 0;
 //    CAI = (iTM2CharacterAtIndexIMP) [aString methodForSelector:@selector(characterAtIndex:)];
-    return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanLocation
-- (NSUInteger)scanLocation;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    return self->scanLocation;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setScanLocation:
-- (void)setScanLocation:(NSUInteger)pos;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
-{iTM2_DIAGNOSTIC;
-//iTM2_START;
-    self->scanLocation = pos;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= charactersToBeSkipped
@@ -214,16 +199,16 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
     // map stopIndex to a consistent value
-    stopIndex = MIN([self->string length], stopIndex);
-    if((self->scanLocation < stopIndex) && [aString length])
+    stopIndex = MIN([self.string length], stopIndex);
+    if((self.scanLocation < stopIndex) && [aString length])
     {
         // we are looking into a non void range
-        NSRange searchRange = NSMakeRange(self->scanLocation, stopIndex - self->scanLocation);
+        NSRange searchRange = NSMakeRange(self.scanLocation, stopIndex - self.scanLocation);
         NSRange r;
         if(self->charactersNotToBeSkipped)
         {
             // characters to be skipped are explicitely defined.
-            r = [self->string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
+            r = [self.string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
                         options: NSLiteralSearch
                             range: searchRange];
             if(r.location < stopIndex)//(r.location != NSNotFound)
@@ -241,13 +226,13 @@ To Do List:
         }
         // now the search range is definitely fixed
         // make an anchored search of the string
-        r = [self->string rangeOfString:aString
+        r = [self.string rangeOfString:aString
                 options: (self->caseSensitive? NSLiteralSearch: NSCaseInsensitiveSearch) | NSAnchoredSearch
                     range: searchRange];
         if(r.length)
         {
             [self setScanLocation:NSMaxRange(r)];
-            if(value) *value = [self->string substringWithRange:r];
+            if(value) *value = [self.string substringWithRange:r];
             return YES;
         }
         else
@@ -286,15 +271,15 @@ To Do List:
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
 //iTM2_START;
-    stopIndex = MIN([self->string length], stopIndex);
-    if(self->scanLocation < stopIndex)
+    stopIndex = MIN([self.string length], stopIndex);
+    if(self.scanLocation < stopIndex)
     {
-        NSRange searchRange = NSMakeRange(self->scanLocation, stopIndex - self->scanLocation);
+        NSRange searchRange = NSMakeRange(self.scanLocation, stopIndex - self.scanLocation);
         NSRange r;
         if(self->charactersNotToBeSkipped)
         {
             // characters to be skipped are explicitely defined
-            r = [self->string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
+            r = [self.string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
                         options: NSLiteralSearch
                             range: searchRange];
             if(r.location < stopIndex)//(r.location != NSNotFound)
@@ -309,7 +294,7 @@ To Do List:
                 return NO;
             }
         }
-        r = [self->string rangeOfCharacterFromSet:[set invertedSet]
+        r = [self.string rangeOfCharacterFromSet:[set invertedSet]
                 options: NSLiteralSearch
                     range: searchRange];
         if(r.location > searchRange.location)
@@ -318,7 +303,7 @@ To Do List:
             {
                 NSUInteger L = r.location - searchRange.location;
                 if(value)
-                    *value = [self->string substringWithRange:NSMakeRange(searchRange.location, L)];
+                    *value = [self.string substringWithRange:NSMakeRange(searchRange.location, L)];
                 [self setScanLocation:r.location];
                 return L != 0;
             }
@@ -351,17 +336,17 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    stopIndex = MIN([self->string length], stopIndex);
+    stopIndex = MIN([self.string length], stopIndex);
 //NSLog(@"scanUpToString:intoString:beforeIndex:\nstopString:\n<%@>\nin string:\n<%@>", stopString,
-//        [self->string substringWithRange:NSMakeRange(self->scanLocation, stopIndex - self->scanLocation)]);
-    if((self->scanLocation < stopIndex) && [stopString length])
+//        [self.string substringWithRange:NSMakeRange(self.scanLocation, stopIndex - self.scanLocation)]);
+    if((self.scanLocation < stopIndex) && [stopString length])
     {
-        NSRange searchRange = NSMakeRange(self->scanLocation, stopIndex - self->scanLocation);
+        NSRange searchRange = NSMakeRange(self.scanLocation, stopIndex - self.scanLocation);
         NSRange r;
         if(self->charactersNotToBeSkipped)
         {
             // characters to be skipped are explicitely defined
-            r = [self->string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
+            r = [self.string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
                         options: NSLiteralSearch
                             range: searchRange];
             if(r.location < stopIndex)//(r.location != NSNotFound)
@@ -376,16 +361,16 @@ To Do List:
                 return NO;
             }
         }
-        r = [self->string rangeOfString:stopString
+        r = [self.string rangeOfString:stopString
                 options: (self->caseSensitive? NSLiteralSearch: NSCaseInsensitiveSearch)
                     range: searchRange];
         r.location = MIN(r.location, stopIndex);
         // stopString was found: the MIN is r.location
         // stopString was not found: the MIN is stopIndex
         {
-            NSUInteger L = r.location - self->scanLocation;
+            NSUInteger L = r.location - self.scanLocation;
             if(value)
-                *value = [self->string substringWithRange:NSMakeRange(self->scanLocation, L)];
+                *value = [self.string substringWithRange:NSMakeRange(self.scanLocation, L)];
             [self setScanLocation:r.location];
             return L != 0;
         }
@@ -413,15 +398,15 @@ To Do List:
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    stopIndex = MIN([self->string length], stopIndex);
-    if(self->scanLocation < stopIndex)
+    stopIndex = MIN([self.string length], stopIndex);
+    if(self.scanLocation < stopIndex)
     {
-        NSRange searchRange = NSMakeRange(self->scanLocation, stopIndex - self->scanLocation);
+        NSRange searchRange = NSMakeRange(self.scanLocation, stopIndex - self.scanLocation);
         NSRange r;
         if(self->charactersNotToBeSkipped)
         {
             // characters to be skipped are explicitely defined
-            r = [self->string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
+            r = [self.string rangeOfCharacterFromSet:self->charactersNotToBeSkipped
                         options: NSLiteralSearch
                             range: searchRange];
             if(r.location < stopIndex)//(r.location != NSNotFound)
@@ -437,14 +422,14 @@ To Do List:
                 return NO;
             }
         }
-        r = [self->string rangeOfCharacterFromSet:stopSet
+        r = [self.string rangeOfCharacterFromSet:stopSet
                 options: NSLiteralSearch
                     range: searchRange];
         r.location = MIN(r.location, stopIndex);
         {
             NSUInteger L = r.location - searchRange.location;
             if(value)
-                *value = [self->string substringWithRange:NSMakeRange(self->scanLocation, L)];
+                *value = [self.string substringWithRange:NSMakeRange(self.scanLocation, L)];
             [self setScanLocation:r.location];
             return L != 0;
         }
@@ -473,8 +458,10 @@ To Do List: Use characters to be skipped...
 "*/
 {iTM2_DIAGNOSTIC;
 //iTM2_START;
-    return self->scanLocation >= [self->string length];
+    return self.scanLocation >= [self.string length];
 }
+@synthesize scanLocation;
+@synthesize string;
 @end
 
 @implementation iTM2LiteScanner (iTM2ExtendedScanner) 
@@ -490,15 +477,15 @@ To Do List: Use characters to be skipped...
     NSUInteger end;
     BOOL result;
     NSScanner * S;
-    if([self->string length])
+    if([self.string length])
     {
 		//NSLog(@"GLS");
-        [self->string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self->scanLocation, 0)];
-        S = [NSScanner scannerWithString:[self->string substringWithRange:
-										  NSIntersectionRange(NSMakeRange(self->scanLocation, end - self->scanLocation),
-															  NSMakeRange(0, [self->string length]))]];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self.scanLocation, 0)];
+        S = [NSScanner scannerWithString:[self.string substringWithRange:
+										  NSIntersectionRange(NSMakeRange(self.scanLocation, end - self.scanLocation),
+															  NSMakeRange(0, [self.string length]))]];
         result = [S scanInt:value];
-        self->scanLocation += [S scanLocation];
+        self.scanLocation += [S scanLocation];
     }
     else
         result = NO;
@@ -516,15 +503,15 @@ To Do List: Use characters to be skipped...
     NSUInteger end;
     BOOL result;
     NSScanner * S;
-    if([self->string length])
+    if([self.string length])
     {
 		//NSLog(@"GLS");
-        [self->string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self->scanLocation, 0)];
-        S = [NSScanner scannerWithString:[self->string substringWithRange:
-										  NSIntersectionRange(NSMakeRange(self->scanLocation, end - self->scanLocation),
-															  NSMakeRange(0, [self->string length]))]];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self.scanLocation, 0)];
+        S = [NSScanner scannerWithString:[self.string substringWithRange:
+										  NSIntersectionRange(NSMakeRange(self.scanLocation, end - self.scanLocation),
+															  NSMakeRange(0, [self.string length]))]];
         result = [S scanInteger:value];
-        self->scanLocation += [S scanLocation];
+        self.scanLocation += [S scanLocation];
     }
     else
         result = NO;
@@ -542,17 +529,17 @@ To Do List:
     NSUInteger end;
     BOOL result;
     NSScanner * S;
-    if([self->string length])
+    if([self.string length])
     {
 //NSLog(@"GLS");
-        [self->string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self->scanLocation, 0)];
-        S = [NSScanner scannerWithString:[self->string substringWithRange:
-            NSIntersectionRange(NSMakeRange(self->scanLocation, end - self->scanLocation),
-                NSMakeRange(0, [self->string length]))]];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self.scanLocation, 0)];
+        S = [NSScanner scannerWithString:[self.string substringWithRange:
+            NSIntersectionRange(NSMakeRange(self.scanLocation, end - self.scanLocation),
+                NSMakeRange(0, [self.string length]))]];
 		unsigned value;
         result = [S scanHexInt:&value];
 		if(valueRef)*valueRef=value;
-        self->scanLocation += [S scanLocation];
+        self.scanLocation += [S scanLocation];
     }
     else
         result = NO;
@@ -570,15 +557,15 @@ To Do List:
     NSUInteger end;
     BOOL result;
     NSScanner * S;
-    if([self->string length])
+    if([self.string length])
     {
 //NSLog(@"GLS");
-        [self->string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self->scanLocation, 0)];
-        S = [NSScanner scannerWithString:[self->string substringWithRange:
-            NSIntersectionRange(NSMakeRange(self->scanLocation, end - self->scanLocation),
-                NSMakeRange(0, [self->string length]))]];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self.scanLocation, 0)];
+        S = [NSScanner scannerWithString:[self.string substringWithRange:
+            NSIntersectionRange(NSMakeRange(self.scanLocation, end - self.scanLocation),
+                NSMakeRange(0, [self.string length]))]];
         result = [S scanLongLong:value];
-        self->scanLocation += [S scanLocation];
+        self.scanLocation += [S scanLocation];
     }
     else
         result = NO;
@@ -596,15 +583,15 @@ To Do List:
     NSUInteger end;
     BOOL result;
     NSScanner * S;
-    if([self->string length])
+    if([self.string length])
     {
 //NSLog(@"GLS");
-        [self->string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self->scanLocation, 0)];
-        S = [NSScanner scannerWithString:[self->string substringWithRange:
-            NSIntersectionRange(NSMakeRange(self->scanLocation, end - self->scanLocation),
-                NSMakeRange(0, [self->string length]))]];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self.scanLocation, 0)];
+        S = [NSScanner scannerWithString:[self.string substringWithRange:
+            NSIntersectionRange(NSMakeRange(self.scanLocation, end - self.scanLocation),
+                NSMakeRange(0, [self.string length]))]];
         result = [S scanFloat:value];
-        self->scanLocation += [S scanLocation];
+        self.scanLocation += [S scanLocation];
     }
     else
         result = NO;
@@ -622,19 +609,28 @@ To Do List:
     NSUInteger end;
     BOOL result;
     NSScanner * S;
-    if([self->string length])
+    if([self.string length])
     {
 //NSLog(@"GLS");
-        [self->string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self->scanLocation, 0)];
-        S = [NSScanner scannerWithString:[self->string substringWithRange:
-            NSIntersectionRange(NSMakeRange(self->scanLocation, end - self->scanLocation),
-                NSMakeRange(0, [self->string length]))]];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:NSMakeRange(self.scanLocation, 0)];
+        S = [NSScanner scannerWithString:[self.string substringWithRange:
+            NSIntersectionRange(NSMakeRange(self.scanLocation, end - self.scanLocation),
+                NSMakeRange(0, [self.string length]))]];
         result = [S scanDouble:value];
-        self->scanLocation += [S scanLocation];
+        self.scanLocation += [S scanLocation];
     }
     else
         result = NO;
     return result;
+}
+- (BOOL)scanCharacter:(unichar)value;
+{
+    if(![self isAtEnd] && ([self.string characterAtIndex:self.scanLocation] == value))
+    {
+        ++self.scanLocation;
+        return YES;
+    }
+    return NO;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= message
@@ -649,6 +645,13 @@ To Do List:
     return;
 }
 #endif
+@end
+
+@implementation iTM2LiteScanner (String) 
+- (BOOL)scanCommentSequence;
+{
+    return [self scanCharacter:'%'];
+}
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2LiteScanner
