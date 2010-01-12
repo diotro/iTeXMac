@@ -5,7 +5,7 @@ echo "warning: iTeXMac2 INFO, Importing frameworks from ${PRODUCT_NAME}"
 pushd "`dirname "$0"`/.."
 echo "iTM2 tree root: `pwd`"
 find . -regex ".*${PRODUCT_NAME}/${PRODUCT_NAME}\.framework" -print
-CANDIDATEs="`find . -regex \"./${PRODUCT_NAME}/${PRODUCT_NAME}\.framework\" -print`"
+CANDIDATEs="`find . -regex \".*/build/.*/${PRODUCT_NAME}\.framework\" -print`"
 for TEMP in ${CANDIDATEs}
 do
 	CANDIDATE="${TEMP}"
