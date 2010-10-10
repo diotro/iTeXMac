@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Auto saving the documents.</key>
+	<string>Auto saving the documents.</string>
+	<key>Documents saved.</key>
+	<string>Documents saved.</string>
+	<key>Don't %@</key>
+	<string>Don't %@</string>
+	<key>Encodings</key>
+	<string>Encodings</string>
+	<key>Text Encoding</key>
+	<string>Text Encoding</string>
+	<key>Installing Text Watcher.</key>
+	<string>Installing Text Watcher.</string>
+	<key>Line Endings</key>
+	<string>Line Endings</string>
+	<key>Loading String Encoding Menus.</key>
+	<string>Loading String Encoding Menus.</string>
+	<key>Missing built in helper scripts. Please reinstall soon. You can still use command lines.</key>
+	<string>Missing built in helper scripts. Please reinstall soon. You can still use command lines.</string>
+	<key>%1$@/%2$@</key>
+	<string>%1$@/%2$@</string>
+	<key>Line %1$@ of %2$@</key>
+	<string>Line %1$@ of %2$@</string>
+	<key>Undo past save?</key>
+	<string>Undo past save?</string>
+	<key>Unknown Line Endings Used</key>
+	<string>Unknown Line Endings Used</string>
+	<key>Use Mac Line Endings (CR)</key>
+	<string>Use Mac Line Endings (CR)</string>
+	<key>Use UNIX Line Endings (LF)</key>
+	<string>Use UNIX Line Endings (LF)</string>
+	<key>Use Unicode Line Endings</key>
+	<string>Use Unicode Line Endings</string>
+	<key>Use Windows Line Endings (CR+LF)</key>
+	<string>Use Windows Line Endings (CR+LF)</string>
+	<key>iTeXMac2 Helpers</key>
+	<string>iTeXMac2 Helpers</string>
+	<key>showHelp:</key>
+	<string>Online Help</string>
+	<key>Could not open: %@.</key>
+	<string>Could not open: %@.</string>
+	<key>None</key>
+	<string>Sans</string>
+	<key>default</key>
+	<string>default</string>
+	<key>Remove mode</key>
+	<string>Remove mode</string>
+	<key>New mode...</key>
+	<string>New mode...</string>
+</dict>
+</plist>

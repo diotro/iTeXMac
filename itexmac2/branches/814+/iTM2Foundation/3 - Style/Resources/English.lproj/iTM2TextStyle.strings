@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>%@ - Modes</key>
+	<string>%@ - Modes</string>
+	<key>%@ - Symbols</key>
+	<string>%@ - Symbols</string>
+	<key>Add a symbols set to style %@</key>
+	<string>Add a symbols set to style %@</string>
+	<key>Cancel</key>
+	<string>Cancel</string>
+	<key>Multiple modes</key>
+	<string>Multiple modes</string>
+	<key>No mode</key>
+	<string>No mode</string>
+	<key>OK</key>
+	<string>OK</string>
+	<key>Remove set</key>
+	<string>Remove set</string>
+	<key>Remove symbols set %@?</key>
+	<string>Remove symbols set %@?</string>
+	<key>Style: %@ (%@)</key>
+	<string>Style: %@ (%@)</string>
+</dict>
+</plist>

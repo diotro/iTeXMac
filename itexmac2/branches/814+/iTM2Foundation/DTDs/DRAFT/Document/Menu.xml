@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE LIST [
+<!-- 2006/02/11 -->
+<!ELEMENT ITEM (NAME?, DESC?, LIST?)><!-- primitive item -->
+<!ELEMENT NAME (#PCDATA)><!-- primitive item -->
+<!ELEMENT DESC (#PCDATA)><!-- optional description -->
+<!ELEMENT LIST (ITEM, (SEP?, ITEM)*)><!-- primitive list -->
+<!ELEMENT SEP EMPTY><!-- separator -->
+<!ATTLIST ITEM KEY CDATA #REQUIRED>
+<!ATTLIST ITEM CONT CDATA #IMPLIED><!-- context -->
+<!ATTLIST ITEM CAT CDATA #IMPLIED><!-- category -->
+<!ATTLIST ITEM DOM CDATA #IMPLIED><!-- domain -->
+<!ATTLIST LIST KEY CDATA #IMPLIED>
+<!ATTLIST LIST CONT CDATA #IMPLIED><!-- context -->
+<!ATTLIST LIST CAT CDATA #IMPLIED><!-- category -->
+<!ATTLIST LIST DOM CDATA #IMPLIED><!-- domain -->
+]>
+
+<LIST>
+    <ITEM KEY="LaTeX_Document_Macro"><NAME>LaTeX Document Macro</NAME />
+    <ITEM KEY="part" />
+    <ITEM KEY="chapter" />
+    <ITEM KEY="section" />
+    <ITEM KEY="subsection" />
+    <ITEM KEY="subsubsection" />
+    <ITEM KEY="paragraph" />
+    <ITEM KEY="subparagraph" />
+    <ITEM KEY="document">
+        <LIST>
+            <ITEM KEY="document/book">
+                <LIST>
+                    <ITEM KEY="document/book/10pt" />
+                    <ITEM KEY="document/book/11pt" />
+                    <ITEM KEY="document/book/12pt" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="document/amsbook">
+                <LIST>
+                    <ITEM KEY="document/amsbook/10pt" />
+                    <ITEM KEY="document/amsbook/11pt" />
+                    <ITEM KEY="document/amsbook/12pt" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="document/report">
+                <LIST>
+                    <ITEM KEY="document/report/10pt" />
+                    <ITEM KEY="document/report/11pt" />
+                    <ITEM KEY="document/report/12pt" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="document/article">
+                <LIST>
+                    <ITEM KEY="document/article/10pt" />
+                    <ITEM KEY="document/article/11pt" />
+                    <ITEM KEY="document/article/12pt" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="document/amsart">
+                <LIST>
+                    <ITEM KEY="document/amsart/10pt" />
+                    <ITEM KEY="document/amsart/11pt" />
+                    <ITEM KEY="document/amsart/12pt" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="document/letter">
+                <LIST>
+                    <ITEM KEY="document/letter/10pt" />
+                    <ITEM KEY="document/letter/11pt" />
+                    <ITEM KEY="document/letter/12pt" />
+                    <ITEM KEY="document/letter/macros">
+                        <LIST>
+                            <ITEM KEY="document/letter/macros/begin/end_doc/letter" />
+                            <ITEM KEY="document/letter/macros/name" />
+                            <ITEM KEY="document/letter/macros/address" />
+                            <ITEM KEY="document/letter/macros/signature" />
+                            <ITEM KEY="document/letter/macros/date" />
+                            <ITEM KEY="document/letter/macros/opening" />
+                            <ITEM KEY="document/letter/macros/closing" />
+                            <ITEM KEY="document/letter/macros/encl" />
+                            <ITEM KEY="document/letter/macros/cc" />
+                        </LIST>
+                    </ITEM>
+                </LIST>
+            </ITEM>
+            <ITEM KEY="document/Options">
+                <LIST>
+                    <ITEM KEY="document/Options/landscape" />
+                    <ITEM KEY="document/Options/draft" />
+                    <ITEM KEY="document/Options/openbib" />
+                    <ITEM KEY="document/Options/paper">
+                        <LIST>
+                            <ITEM KEY="document/Options/paper/letter_paper" />
+                            <ITEM KEY="document/Options/paper/legal_paper" />
+                            <ITEM KEY="document/Options/paper/executive_paper" />
+                            <ITEM KEY="document/Options/paper/a4_paper" />
+                            <ITEM KEY="document/Options/paper/a5_paper" />
+                            <ITEM KEY="document/Options/paper/B5_paper" />
+                        </LIST>
+                    </ITEM>
+                    <ITEM KEY="document/Options/Dimensions">
+                        <LIST>
+                            <ITEM KEY="document/Options/Dimensions/pageheight" />
+                            <ITEM KEY="document/Options/Dimensions/topmargin" />
+                            <ITEM KEY="document/Options/Dimensions/headheight" />
+                            <ITEM KEY="document/Options/Dimensions/headsep" />
+                            <ITEM KEY="document/Options/Dimensions/textheight" />
+                            <ITEM KEY="document/Options/Dimensions/footskip" />
+                            <ITEM KEY="document/Options/Dimensions/pagewidth" />
+                            <ITEM KEY="document/Options/Dimensions/oddsidemargin" />
+                            <ITEM KEY="document/Options/Dimensions/evensidemargin" />
+                            <ITEM KEY="document/Options/Dimensions/textwidth" />
+                            <ITEM KEY="document/Options/Dimensions/marginparsep" />
+                            <ITEM KEY="document/Options/Dimensions/marginparwidth" />
+                        </LIST>
+                    </ITEM>
+                    <ITEM KEY="document/Options/sides">
+                        <LIST>
+                            <ITEM KEY="document/Options/sides/one_side" />
+                            <ITEM KEY="document/Options/sides/two_sides" />
+                        </LIST>
+                    </ITEM>
+                    <ITEM KEY="document/Options/columns">
+                        <LIST>
+                            <ITEM KEY="document/Options/columns/one_column" />
+                            <ITEM KEY="document/Options/columns/two_columns" />
+                        </LIST>
+                    </ITEM>
+                    <ITEM KEY="document/Options/title">
+                        <LIST>
+                            <ITEM KEY="document/Options/title/no_title_page" />
+                            <ITEM KEY="document/Options/title/title_page" />
+                        </LIST>
+                    </ITEM>
+                    <ITEM KEY="document/Options/equation">
+                        <LIST>
+                            <ITEM KEY="document/Options/equation/left" />
+                            <ITEM KEY="document/Options/equation/left_align" />
+                        </LIST>
+                    </ITEM>
+                </LIST>
+            </ITEM>
+        </LIST>
+    </ITEM>
+    <ITEM KEY="Format">
+        <LIST>
+            <ITEM KEY="Format/paragraph">
+                <LIST>
+                    <ITEM KEY="Format/paragraph/indent" />
+                    <ITEM KEY="Format/paragraph/noindent" />
+                    <ITEM KEY="Format/paragraph/par" />
+                    <ITEM KEY="Format/paragraph/parameters">
+                        <LIST>
+                            <ITEM KEY="Format/paragraph/parameters/textwidth" />
+                            <ITEM KEY="Format/paragraph/parameters/linewidth" />
+                            <ITEM KEY="Format/paragraph/parameters/parindent" />
+                            <ITEM KEY="Format/paragraph/parameters/baselineskip" />
+                            <ITEM KEY="Format/paragraph/parameters/baselinestretch" />
+                            <ITEM KEY="Format/paragraph/parameters/parskip" />
+                        </LIST>
+                    </ITEM>
+                </LIST>
+            </ITEM>
+            <ITEM KEY="Format/marginal_notes">
+                <LIST>
+                    <ITEM KEY="Format/marginal_notes/marginpar" />
+                    <ITEM KEY="Format/marginal_notes/normalmarginpar" />
+                    <ITEM KEY="Format/marginal_notes/reversemarginpar" />
+                    <ITEM KEY="Format/marginal_notes/parameters">
+                        <LIST>
+                            <ITEM KEY="Format/marginal_notes/parameters/marginparwidth" />
+                            <ITEM KEY="Format/marginal_notes/parameters/marginparsep" />
+                            <ITEM KEY="Format/marginal_notes/parameters/marginparpush" />
+                        </LIST>
+                    </ITEM>
+                </LIST>
+            </ITEM>
+            <ITEM KEY="Format/numbering">
+                <LIST>
+                    <ITEM KEY="Format/numbering/newcounter" />
+                    <ITEM KEY="Format/numbering/setcounter" />
+                    <ITEM KEY="Format/numbering/addtocounter" />
+                    <ITEM KEY="Format/numbering/value" />
+                    <ITEM KEY="Format/numbering/the" />
+                    <ITEM KEY="Format/numbering/style">
+                        <LIST>
+                            <ITEM KEY="Format/numbering/style/arabic" />
+                            <ITEM KEY="Format/numbering/style/roman" />
+                            <ITEM KEY="Format/numbering/style/Roman" />
+                            <ITEM KEY="Format/numbering/style/alph" />
+                            <ITEM KEY="Format/numbering/style/Alph" />
+                        </LIST>
+                    </ITEM>
+                    <ITEM KEY="Format/numbering/fnsymbol" />
+                    <ITEM KEY="Format/numbering/stepcounter" />
+                    <ITEM KEY="Format/numbering/refstepcounter" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="Format/footnote">
+                <LIST>
+                    <ITEM KEY="Format/footnote/footnote" />
+                    <ITEM KEY="Format/footnote/footnotemark" />
+                    <ITEM KEY="Format/footnote/footnotetext" />
+                    <ITEM KEY="Format/footnote/parameters">
+                        <LIST>
+                            <ITEM KEY="Format/footnote/parameters/footnotesep" />
+                            <ITEM KEY="Format/footnote/parameters/footnoterule" />
+                        </LIST>
+                    </ITEM>
+                    <ITEM KEY="Format/footnote/caption" />
+                    <ITEM KEY="Format/footnote/vspace" />
+                </LIST>
+            </ITEM>
+        </LIST>
+    </ITEM>
+    <ITEM KEY="Page_Style">
+        <LIST>
+            <ITEM KEY="Page_Style/title_page" />
+            <ITEM KEY="Page_Style/page_style">
+                <LIST>
+                    <ITEM KEY="Page_Style/page_style/plain" />
+                    <ITEM KEY="Page_Style/page_style/empty" />
+                    <ITEM KEY="Page_Style/page_style/headings" />
+                    <ITEM KEY="Page_Style/page_style/myheadings" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="Page_Style/this_page_style">
+                <LIST>
+                    <ITEM KEY="Page_Style/this_page_style/plain" />
+                    <ITEM KEY="Page_Style/this_page_style/empty" />
+                    <ITEM KEY="Page_Style/this_page_style/headings" />
+                    <ITEM KEY="Page_Style/this_page_style/myheadings" />
+                    <ITEM KEY="Page_Style/this_page_style/Left_heading" />
+                    <ITEM KEY="Page_Style/this_page_style/Right_heading" />
+                    <ITEM KEY="Page_Style/this_page_style/Both_headings" />
+                </LIST>
+            </ITEM>
+            <ITEM KEY="Page_Style/page_numbering">
+                <LIST>
+                    <ITEM KEY="Page_Style/page_numbering/arabic" />
+                    <ITEM KEY="Page_Style/page_numbering/roman" />
+                    <ITEM KEY="Page_Style/page_numbering/Roman" />
+                    <ITEM KEY="Page_Style/page_numbering/alph" />
+                    <ITEM KEY="Page_Style/page_numbering/Alph" />
+                </LIST>
+            </ITEM>
+        </LIST>
+    </ITEM>
+    <ITEM KEY="Layout">
+        <LIST>
+            <ITEM KEY="Layout/landscape" />
+            <ITEM KEY="Layout/Use_lscape_Pkg" />
+        </LIST>
+    </ITEM>
+    <SEP/>
+    <ITEM KEY="%!iTeXMac">
+        <LIST>
+            <ITEM KEY="%!iTeXMac/project" />
+            <ITEM KEY="%!iTeXMac/input" />
+            <SEP/>
+            <ITEM KEY="%!iTeXMac/compile" />
+            <ITEM KEY="%!iTeXMac/typeset" />
+            <ITEM KEY="%!iTeXMac/bibtex" />
+            <ITEM KEY="%!iTeXMac/makeindex" />
+        </LIST>
+    </ITEM>
+</LIST>

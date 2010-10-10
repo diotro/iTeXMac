@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\Subset </string>
+		<string>\Supset </string>
+		<string>\not\Subset </string>
+		<string>\not\Supset </string>
+		<string>\subseteqq </string>
+		<string>\supseteqq </string>
+		<string>\sqsubset </string>
+		<string>\sqsupset </string>
+		<string>\nsubseteqq </string>
+		<string>\nsupseteqq </string>
+		<string>\nsubseteq </string>
+		<string>\nsupseteq </string>
+		<string>\varsubsetneqq </string>
+		<string>\varsupsetneqq </string>
+		<string>\varsubsetneq </string>
+		<string>\varsupsetneq </string>
+		<string>\subsetneqq </string>
+		<string>\supsetneqq </string>
+		<string>\subsetneq </string>
+		<string>\supsetneq </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

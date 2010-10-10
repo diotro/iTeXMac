@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>iTM2_Engine_texexec</key>
+	<string>ConTeXt</string>
+	<key>iTM2_Engine_pdfarrange</key>
+	<string>Arrange PDF documents</string>
+	<key>iTM2_Engine_pdfcopy</key>
+	<string>Scale PDF documents</string>
+	<key>iTM2_Engine_pdfcombine</key>
+	<string>Combine PDF documents</string>
+	<key>iTM2_Engine_pdfselect</key>
+	<string>Extract PDF pages</string>
+</dict>
+</plist>

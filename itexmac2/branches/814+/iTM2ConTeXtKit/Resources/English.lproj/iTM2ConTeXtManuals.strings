@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>showConTeXtManualsPrefs</key>
+	<string>ConTeXt Manuals Preferences</string>
+<key>mp-cb-en</key>
+<string>CONTEXT, an excursion</string>
+<key>mp-cb-nl</key>
+<string>CONTEXT, een rondleiding</string>
+<key>mreadme</key>
+<string>Read Me</string>
+<key>minstall</key>
+<string>Installation</string>
+<key>mtexexec</key>
+<string>TEXEXEC</string>
+<key>mtexutil</key>
+<string>TEXUTIL</string>
+<key>mfonts</key>
+<string>Fonts</string>
+<key>metafun-p</key>
+<string>MetaFun</string>
+<key>mtexfont</key>
+<string>Fonts</string>
+<key>cont-enp</key>
+<string>The Manual</string>
+<key>cont-nlp</key>
+<string>The Manual</string>
+<key>setup-en</key>
+<string>Quick References</string>
+<key>setup-nl</key>
+<string>Quick References</string>
+<key>setup-de</key>
+<string>Quick References</string>
+<key>setup-cz</key>
+<string>Quick References</string>
+<key>setup-it</key>
+<string>Quick References</string>
+<key>setup-ro</key>
+<string>Quick References</string>
+<key>mp-ch-en</key>
+<string>Chemistry</string>
+<key>mp-ch-nl</key>
+<string>Chemistry</string>
+<key>mp-ch-de</key>
+<string>Chemistry</string>
+<key>mchinese</key>
+<string>Chinese</string>
+<key>mtexwork</key>
+<string>TEXWORK</string>
+<key>mmakempy</key>
+<string>METAPOST outlines</string>
+<key>example</key>
+<string>XML</string>
+<key>mmlprime</key>
+<string>MathML</string>
+<key>xfigures-p</key>
+<string>Figure Databases</string>
+<key>xsteps-p</key>
+<string>Stepcharts</string>
+<key>xmathml-p</key>
+<string>MathML support</string>
+<key>xphysml-p</key>
+<string>PhysML support</string>
+<key>xchemml-p</key>
+<string>ChemML support</string>
+<key>mwidget-p</key>
+<string>Widgets</string>
+<key>mchart</key>
+<string>Charts</string>
+<key>mlabels</key>
+<string>Labels</string>
+<key>msplit</key>
+<string>Color separation</string>
+<key>ex-gui</key>
+<string>Example GUI</string>
+<key>details</key>
+<string>It's in the details</string>
+<key>columns</key>
+<string>Extreme</string>
+<key>xcorresp</key>
+<string>Correspondence</string>
+<key>mpstopdf</key>
+<string>Weaving PS into PDF</string>
+<key>ex-imple</key>
+<string>Eximple Toolkit</string>
+<key>ex-ample</key>
+<string>Example Interface</string>
+<key>mscite-p</key>
+<string>SciTE in CONTEXT</string>
+<key>mtexmfstart</key>
+<string>texmfstart &amp; ...tools</string>
+<key>mtexsync-p</key>
+<string>texsync</string>
+<key>xxmldir</key>
+<string>xmldir</string>
+<key>xmlfoe</key>
+<string>foXet</string>
+<key>aleph</key>
+<string>Aleph</string>
+<key>style</key>
+<string>Typographic Programming</string>
+<key>mpattern</key>
+<string>Hyphenation Patterns</string>
+<key>mmodes</key>
+<string>Modes</string>
+<key>xmanipulate</key>
+<string>Preprocessing and Manipulating</string>
+<key>mag-0000</key>
+<string>introduction</string>
+<key>mag-0001</key>
+<string>hiding parts of section titles</string>
+<key>mag-0002</key>
+<string>page ranges</string>
+<key>mag-0003</key>
+<string>pasting digits together</string>
+<key>mag-0004</key>
+<string>manipulating the foreground</string>
+<key>mag-0005</key>
+<string>mixed normal and bold math</string>
+<key>mag-0006</key>
+<string>a few dangerous features</string>
+<key>mag-0007</key>
+<string>faking text and more</string>
+<key>mag-0008</key>
+<string>dealing with XML</string>
+<key>mag-0009</key>
+<string>using platform fonts</string>
+<key>mag-0010</key>
+<string>good looking shapes</string>
+<key>pdfboxes</key>
+<string>Puzzling graphics in METAPOST</string>
+<key>tfmetrics</key>
+<string>Equal Font Metrics</string>
+<key>10-10-95</key>
+<string>Elektronisch papier, de voortzetting van een traditie</string>
+<key>gw-s</key>
+<string>the Dutch constitution</string>
+<key>rgb-cmyk</key>
+<string>RGB-CMYK</string>
+<key>cweb-scr</key>
+<string>cweb</string>
+<key>spell-96</key>
+<string>spell-nl</string>
+<key>maps</key>
+<string>ntg-maps</string>
+<key>pdfclock</key>
+<string>clock</string>
+<key>johan</key>
+<string>Johan drawing</string>
+<key>ex-files</key>
+<string>ex-files</string>
+<key>calculat</key>
+<string>calculator</string>
+<key>travel00</key>
+<string>travel</string>
+<key>mediashow</key>
+<string>mediashow</string>
+<key>pre-2001</key>
+<string>TUG 2001</string>
+<key>pre-mml</key>
+<string>MathML</string>
+<key>pre-2001</key>
+<string>HZ optimization in PDFTEX</string>
+<key>roadmap</key>
+<string>RoadMap</string>
+<key>fifteen</key>
+<string>Dante XV</string>
+<key>fontspecial-p</key>
+<string>Font Sampler</string>
+</dict>
+</plist>

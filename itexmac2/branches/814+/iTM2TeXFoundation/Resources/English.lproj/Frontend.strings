@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>No options</key>
+	<string>No options</string>
+	<key>BASE</key>
+	<string>From base mode</string>
+	<key>BUILT IN</key>
+	<string>Built in</string>
+	<key>CUSTOM</key>
+	<string>Custom script</string>
+	<key>Base</key>
+	<string>Built in</string>
+	<key>None</key>
+	<string>Disabled</string>
+	<key>Custom</key>
+	<string>Customized</string>
+	<key>Support Scripts</key>
+	<string>Support:</string>
+	<key>Project Scripts</key>
+	<string>Project:</string>
+	<key>Built in Scripts</key>
+	<string>Built in:</string>
+	<key>Script %@</key>
+	<string>Script %@</string>
+	<key>New</key>
+	<string>New</string>
+	<key>Remove</key>
+	<string>Remove</string>
+	<key>Unsupported</key>
+	<string>Unsupported</string>
+	<key>Disabled</key>
+	<string>Disabled</string>
+	<key>xe</key>
+	<string>XeTeX</string>
+	<key>fr</key>
+	<string>French</string>
+</dict>
+</plist>
