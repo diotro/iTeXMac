@@ -31,6 +31,17 @@
 			name = "All Tests";
 			productName = "All Tests";
 		};
+		515C9691127106DD0000C5BB /* Prepare ICU */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 515C96AC127107080000C5BB /* Build configuration list for PBXAggregateTarget "Prepare ICU" */;
+			buildPhases = (
+				515C9690127106DD0000C5BB /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare ICU";
+			productName = "Prepare ICU";
+		};
 		5185E6DB126F89C100AFA001 /* Prepare Milestones */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 5185E6DE126F89E000AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
@@ -1072,7 +1083,6 @@
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC13E6A2085587160063D5A5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC13E6A50855874D0063D5A5 /* Test Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F7FA0854BBEE00F3EB8A /* Test Application-main.m */; };
-		DC13E6A8085587640063D5A5 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC13E67B085586540063D5A5 /* iTeXMac2.nib */; };
 		DC13E6C2085588F20063D5A5 /* iTM2Foundation.framework in Copy framework */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */; };
 		DC13E6E80855A01A0063D5A5 /* External Text Editor.iTM2 in Copy Plug-Ins */ = {isa = PBXBuildFile; fileRef = DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */; };
 		DC13E6E90855A01A0063D5A5 /* External PDF Viewer.iTM2 in Copy Plug-Ins */ = {isa = PBXBuildFile; fileRef = DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */; };
@@ -1981,7 +1991,6 @@
 		DC0F14AD0BFB7D1E00108852 /* Lua.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lua.framework; path = ../build/Lua.framework; sourceTree = SOURCE_ROOT; };
 		DC13E678085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		DC13E67A085586540063D5A5 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
-		DC13E67C085586540063D5A5 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = iTeXMac2.nib; sourceTree = "<group>"; };
 		DC13E68B0855867D0063D5A5 /* Test Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC13E6A1085586E50063D5A5 /* Test Application-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test Application-Info.plist"; sourceTree = "<group>"; };
 		DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2ButtonBack.tiff; sourceTree = "<group>"; };
@@ -2670,7 +2679,6 @@
 			children = (
 				DC13E677085586540063D5A5 /* Credits.rtf */,
 				DC13E679085586540063D5A5 /* InfoPlist.strings */,
-				DC13E67B085586540063D5A5 /* iTeXMac2.nib */,
 			);
 			path = English.lproj;
 			sourceTree = "<group>";
@@ -3734,6 +3742,7 @@
 				53F81EA21086742B0000F555 /* Test Application debug */,
 				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
 				5185E6DB126F89C100AFA001 /* Prepare Milestones */,
+				515C9691127106DD0000C5BB /* Prepare ICU */,
 				DC0F125B0BFB74CA00108852 /* Prepare Lua */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
 				DCB200320858E250003659F3 /* Install iTM2Foundation */,
@@ -4130,7 +4139,6 @@
 			files = (
 				5160E29810CE9ABF00476E56 /* iTM2RegularExpressions.plist in Resources */,
 				51EEA16C11B6EB21000D538E /* InfoPlist.strings in Resources */,
-				DC13E6A8085587640063D5A5 /* iTeXMac2.nib in Resources */,
 				51D1D5B91196F2C700BC8256 /* iTM2RegExTests.plist in Resources */,
 				515C95E11270DC8B0000C5BB /* iTeXMac2.xib in Resources */,
 			);
@@ -4181,6 +4189,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "lipo -info \"${BUILD_DIR}/${EXECUTABLE_PATH}\"\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		515C9690127106DD0000C5BB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\ncd \"${PROJECT_DIR}/../ICU\"\nif ! [ -d \"icu\" ]\nthen\n\tunzip -oq icu.zip\nfi\nexit 0";
+			showEnvVarsInLog = 0;
 		};
 		5185E6DA126F89C100AFA001 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5914,14 +5936,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		DC13E67B085586540063D5A5 /* iTeXMac2.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC13E67C085586540063D5A5 /* English */,
-			);
-			name = iTeXMac2.nib;
-			sourceTree = "<group>";
-		};
 		DC2B477A0AD2EED70039FCBA /* iTM2DocumentPrefPane.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -6130,6 +6144,27 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "All Tests";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		515C9692127106DD0000C5BB /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare ICU";
+			};
+			name = Development;
+		};
+		515C9693127106DD0000C5BB /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare ICU";
 				ZERO_LINK = NO;
 			};
 			name = Deployment;
@@ -7770,6 +7805,15 @@
 			buildConfigurations = (
 				514218B9109885EB00A01853 /* Development */,
 				514218BA109885EB00A01853 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		515C96AC127107080000C5BB /* Build configuration list for PBXAggregateTarget "Prepare ICU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				515C9692127106DD0000C5BB /* Development */,
+				515C9693127106DD0000C5BB /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
