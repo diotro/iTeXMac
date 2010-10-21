@@ -1,0 +1,211 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Development;
+		activeExecutable = 5116798610961585007E76C8 /* iTeXMac2 */;
+		activeTarget = DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */;
+		addToTargets = (
+		);
+		codeSenseManager = 511679BA10961587007E76C8 /* Code sense */;
+		executables = (
+			5116798610961585007E76C8 /* iTeXMac2 */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					477,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					437,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 309271047;
+			PBXWorkspaceStateSaveDate = 309271047;
+		};
+		perUserProjectItems = {
+			5185ED6712702B1E00AFA001 /* PlistBookmark */ = 5185ED6712702B1E00AFA001 /* PlistBookmark */;
+			5185ED6912702B1E00AFA001 /* PBXTextBookmark */ = 5185ED6912702B1E00AFA001 /* PBXTextBookmark */;
+			5185EE901270449400AFA001 /* PBXTextBookmark */ = 5185EE901270449400AFA001 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 511679B910961587007E76C8 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	5116798610961585007E76C8 /* iTeXMac2 */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = iTeXMac2;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	511679B910961587007E76C8 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = sourceforge;
+			};
+		};
+	};
+	511679BA10961587007E76C8 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	5185ED4D12702A2F00AFA001 /* DevelopmentGC.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1065, 394}}";
+			sepNavSelRange = "{216, 0}";
+			sepNavVisRange = "{0, 216}";
+		};
+	};
+	5185ED5212702A4F00AFA001 /* Prepare Milestones */ = {
+		activeExec = 0;
+	};
+	5185ED6712702B1E00AFA001 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 51D464BD114A7A4300A66A19 /* iTM2RegularExpressions.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			"file-#",
+		);
+		name = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/branches/814+/iTM2PDFKit/Resources/iTM2RegularExpressions.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	5185ED6912702B1E00AFA001 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
+		name = "iTM2PDFKit.m: 3689";
+		rLen = 0;
+		rLoc = 131880;
+		rType = 0;
+		vrLen = 474;
+		vrLoc = 131511;
+	};
+	5185EE901270449400AFA001 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */;
+		name = "iTM2PDFKit.m: 8958";
+		rLen = 0;
+		rLoc = 319814;
+		rType = 0;
+		vrLen = 747;
+		vrLoc = 319067;
+	};
+	51D464BD114A7A4300A66A19 /* iTM2RegularExpressions.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{107, 43}, {1321, 746}}";
+		};
+	};
+	51D46526114CEA7200A66A19 /* replacements.command */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1470, 3680}}";
+			sepNavSelRange = "{699, 0}";
+			sepNavVisRange = "{2728, 1889}";
+			sepNavWindowFrame = "{{84, 64}, {1321, 746}}";
+		};
+	};
+	DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1146, 7100}}";
+			sepNavSelRange = "{7711, 0}";
+			sepNavVisRange = "{7691, 361}";
+			sepNavWindowFrame = "{{38, 106}, {1321, 746}}";
+		};
+	};
+	DC2CA6700855D08300128F14 /* iTM2PDFKit.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1236, 177740}}";
+			sepNavSelRange = "{131880, 0}";
+			sepNavVisRange = "{131615, 765}";
+			sepNavWindowFrame = "{{416, 136}, {1024, 742}}";
+		};
+	};
+	DC3B41830A4ADCEE00E83ABA /* Deployment.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {579, 580}}";
+			sepNavSelRange = "{685, 0}";
+			sepNavVisRange = "{561, 430}";
+		};
+	};
+	DC3B41840A4ADCEE00E83ABA /* Development.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {777, 228}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 222}";
+		};
+	};
+	DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */ = {
+		activeExec = 0;
+	};
+	DC81AD950887196E00943C99 /* iTeXMac2 */ = {
+		activeExec = 0;
+		executables = (
+			5116798610961585007E76C8 /* iTeXMac2 */,
+		);
+	};
+	DC9E4F310858A8A300A86BED /* All */ = {
+		activeExec = 0;
+	};
+	DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */ = {
+		activeExec = 0;
+	};
+}

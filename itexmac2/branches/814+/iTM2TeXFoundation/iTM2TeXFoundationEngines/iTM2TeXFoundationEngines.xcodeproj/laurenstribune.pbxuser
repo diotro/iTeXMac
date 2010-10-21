@@ -1,0 +1,175 @@
+// !$*UTF8*$!
+{
+	5364DD25107A7B4000FA2CD3 /* iTM2TeXWrapperKit.m:1720 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = DC9DC4C3094840CC0079E1B3 /* iTM2TeXWrapperKit.m */;
+		functionName = "-toggleFileLineError:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1720;
+		modificationTime = 276462400.148618;
+		originalNumberOfMultipleMatches = 0;
+		state = 1;
+	};
+	53E5640F106B9A8D0077B6FD /* iTeXMac2 */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = iTeXMac2;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	53E56423106B9ACC0077B6FD /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	53E56424106B9ACC0077B6FD /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	DC0EF842094856570018276F /* dvipdfm wrapper */ = {
+		activeExec = 0;
+	};
+	DC0EF8A8094858D00018276F /* dvips wrapper */ = {
+		activeExec = 0;
+	};
+	DC0EF91709485D730018276F /* pstopdf wrapper */ = {
+		activeExec = 0;
+	};
+	DC0EF94A094899550018276F /* Install in iTM2TeXFoundation */ = {
+		activeExec = 0;
+	};
+	DC3865880948B02100352215 /* iTeXMac2 */ = {
+		activeExec = 0;
+		executables = (
+			53E5640F106B9A8D0077B6FD /* iTeXMac2 */,
+		);
+	};
+	DC5D6D0E0949A97100EBA96C /* Prepare iTM2TeXFoundation */ = {
+		activeExec = 0;
+	};
+	DC9DC47A094840B10079E1B3 /* Project object */ = {
+		activeBuildConfigurationName = Development;
+		activeExecutable = 53E5640F106B9A8D0077B6FD /* iTeXMac2 */;
+		activeTarget = DC9DC6E5094844DF0079E1B3 /* All */;
+		breakpoints = (
+			5364DD25107A7B4000FA2CD3 /* iTM2TeXWrapperKit.m:1720 */,
+		);
+		codeSenseManager = 53E56424106B9ACC0077B6FD /* Code sense */;
+		executables = (
+			53E5640F106B9A8D0077B6FD /* iTeXMac2 */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					170,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					130,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 276628107;
+			PBXWorkspaceStateSaveDate = 276628107;
+		};
+		sourceControlManager = 53E56423106B9ACC0077B6FD /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	DC9DC499094840CC0079E1B3 /* iTM2DvipsWrapperKit.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1606, 891}}";
+			sepNavSelRange = "{1354, 23}";
+			sepNavVisRange = "{0, 1448}";
+			sepNavWindowFrame = "{{15, 4}, {1665, 1019}}";
+		};
+	};
+	DC9DC4C2094840CC0079E1B3 /* iTM2TeXWrapperKit.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1606, 1599}}";
+			sepNavSelRange = "{3087, 0}";
+			sepNavVisRange = "{2326, 2574}";
+			sepNavWindowFrame = "{{15, 4}, {1665, 1019}}";
+		};
+	};
+	DC9DC4C3094840CC0079E1B3 /* iTM2TeXWrapperKit.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1606, 38103}}";
+			sepNavSelRange = "{67812, 15}";
+			sepNavVisRange = "{65941, 2986}";
+			sepNavWindowFrame = "{{15, 4}, {1665, 1019}}";
+		};
+	};
+	DC9DC6E5094844DF0079E1B3 /* All */ = {
+		activeExec = 0;
+	};
+	DC9DC71A09484CB90079E1B3 /* TeX Engines */ = {
+		activeExec = 0;
+	};
+}

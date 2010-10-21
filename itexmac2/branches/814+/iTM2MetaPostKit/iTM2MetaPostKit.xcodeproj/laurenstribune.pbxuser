@@ -1,0 +1,97 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Development;
+		activeExecutable = 53E56942106D63FE0077B6FD /* iTeXMac2 */;
+		activeTarget = DC81AE6D08871B4600943C99 /* iTeXMac2 */;
+		codeSenseManager = 53E5695F106D64200077B6FD /* Code sense */;
+		executables = (
+			53E56942106D63FE0077B6FD /* iTeXMac2 */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					280,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 276965166;
+			PBXWorkspaceStateSaveDate = 276965166;
+		};
+		sourceControlManager = 53E5695E106D64200077B6FD /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	53E56942106D63FE0077B6FD /* iTeXMac2 */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = iTeXMac2;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	53E5695E106D64200077B6FD /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	53E5695F106D64200077B6FD /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	8DC2EF4F0486A6940098B216 /* iTM2MetaPostKit */ = {
+		activeExec = 0;
+	};
+	DC2CA78D0855D4F500128F14 /* All */ = {
+		activeExec = 0;
+	};
+	DC81AE6D08871B4600943C99 /* iTeXMac2 */ = {
+		activeExec = 0;
+		executables = (
+			53E56942106D63FE0077B6FD /* iTeXMac2 */,
+		);
+	};
+	DCBD7E3709491B4500E2ACC7 /* Prepare iTM2PDFKit */ = {
+		activeExec = 0;
+	};
+}
