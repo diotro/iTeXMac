@@ -9,35 +9,41 @@ cd "${PRODUCT_NAME}"
 PROJECT_DIR="$(pwd)"
 if ! [ -d "${PRODUCT_NAME}" ]
 then
-	../Scripts/DownloadSparkle.command
+    if ! [ -f "${PRODUCT_NAME}.zip" ]
+    then
+        ../Scripts/DownloadSparkle.command
+    fi
+    unzip -oq "${PRODUCT_NAME}.zip" -d "${PRODUCT_NAME}"
+    find "${PRODUCT_NAME}" -name ".svn" -exec rm -Rf "{}" \;
+    if ! [ -d "${PRODUCT_NAME}" ]
+    then
+        echo "error: iTeXMac2 ERROR, I can't download Sparkle Sources"
+        exit 1
+    fi
 fi
 if ! [ -d "${PRODUCT_NAME}" ]
 then
-	echo "warning: iTeXMac2 ERROR, I can't download Sparkle Sources"
+	echo "error: iTeXMac2 ERROR, I can't download Sparkle Sources"
 	exit 1
 fi
 cd "${PRODUCT_NAME}"
 IFS='
 '
-FRAMEWORKS=$(find . -name "*.framework" -print)
+FRAMEWORK="${PRODUCT_NAME}.framework"
+FRAMEWORKS=$(find . -regex ".*Garbage.*${FRAMEWORK}/${PRODUCT_NAME}" -print)
 if test -z "$FRAMEWORKS"
 then
-	xcodebuild -target "${PRODUCT_NAME}" -configuration "$CONFIGURATION" clean build
-	STATUS=$?
-	if [ ${STATUS} -ne 0 ]
-	then
-		echo "warning: iTeXMac2 INFO, Building ${PRODUCT_NAME} complete... FAILED (${STATUS})"
-		exit ${STATUS}
-	fi
-	FRAMEWORKS=$(find . -name "*.framework" -print)
+	echo "error: iTeXMac2 ERROR, I can't find Sparkle Framework"
+	exit 1
 fi
 for BUILD in $FRAMEWORKS
 do
 	break
 done
-FRAMEWORK="${PRODUCT_NAME}.framework"
 rm -Rf ../*.framework
-cp -R "$BUILD" "../$FRAMEWORK"
+BUILD="$(dirname "$BUILD")"
+echo copy "$BUILD" to "../$FRAMEWORK"
+ditto "$BUILD" "../$FRAMEWORK"
 cd ..
 if [ -L "${FRAMEWORK}/${PRODUCT_NAME}" ]
 then
