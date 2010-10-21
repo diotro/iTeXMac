@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TeX Project Properties</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>extension</string>
+			<string>mode</string>
+			<string>output</string>
+			<string>variant</string>
+		</array>
+		<key>search</key>
+		<string>(?:\((.*?)\))?([^\+-]*)(?:\+([^-]*))?(?:-(.*))?</string>
+	</dict>
+	<key>Command Name</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>name</string>
+		</array>
+		<key>search</key>
+		<string>^Command(?:4iTM3)_(.*)</string>
+	</dict>
+	<key>Engine Name</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>name</string>
+		</array>
+		<key>search</key>
+		<string>^Engine(?:4iTM3)_(.*)</string>
+	</dict>
+</dict>
+</plist>
