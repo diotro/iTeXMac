@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>5185EE991270449800AFA001</string>
+						<string>515C962D1270DDE50000C5BB</string>
 						<key>history</key>
 						<array>
-							<string>5185ED7F12702BA700AFA001</string>
+							<string>5185EE991270449800AFA001</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -270,6 +270,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -306,15 +308,13 @@
 							<array>
 								<string>0867D691FE84028FC02AAC07</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>5185EE931270449800AFA001</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>20</integer>
-									<integer>12</integer>
-									<integer>9</integer>
+									<integer>2</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -337,7 +337,7 @@
 							<real>241</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>135 166 1306 711 0 0 1440 878 </string>
+						<string>134 166 1306 711 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -353,7 +353,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2TeXDocumentKit.m</string>
+								<string>replacements.command</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -361,32 +361,34 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>iTM2TeXDocumentKit.m</string>
+										<string>replacements.command</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>5185EE961270449800AFA001</string>
+										<string>515C962A1270DDE50000C5BB</string>
 										<key>history</key>
 										<array>
 											<string>51B162CE117C5BFB00FBBE04</string>
 											<string>51B162CF117C5BFB00FBBE04</string>
 											<string>51B162D1117C5BFB00FBBE04</string>
 											<string>51B162D3117C5BFB00FBBE04</string>
-											<string>515EC29B123E0A6B00B23679</string>
 											<string>515EC29C123E0A6B00B23679</string>
 											<string>515EC2CA123E24F900B23679</string>
-											<string>515EC4631240C26100B23679</string>
 											<string>515EC4661240C26100B23679</string>
 											<string>515EC4971241FADD00B23679</string>
-											<string>51DCEA9C124CED8A005B968A</string>
 											<string>519E9E65125B452F00EA6CB2</string>
-											<string>51E6CCAC126C95D200DDB802</string>
 											<string>51E6CCF4126C9A0E00DDB802</string>
 											<string>51E6CCF5126C9A0E00DDB802</string>
 											<string>51E6CCF7126C9A0E00DDB802</string>
 											<string>51B55B5A126D9A1A00D1E410</string>
 											<string>5185EE941270449800AFA001</string>
-											<string>5185EE951270449800AFA001</string>
+											<string>515C96231270DDE50000C5BB</string>
+											<string>515C96241270DDE50000C5BB</string>
+											<string>515C96251270DDE50000C5BB</string>
+											<string>515C96261270DDE50000C5BB</string>
+											<string>515C96271270DDE50000C5BB</string>
+											<string>515C96281270DDE50000C5BB</string>
+											<string>515C96291270DDE50000C5BB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -398,18 +400,16 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1043, 466}}</string>
+								<string>{{0, 0}, {1043, 299}}</string>
 								<key>RubberWindowFrame</key>
-								<string>135 166 1306 711 0 0 1440 878 </string>
+								<string>134 166 1306 711 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>466pt</string>
+							<string>299pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -420,14 +420,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 471}, {1043, 200}}</string>
+								<string>{{0, 304}, {1043, 366}}</string>
 								<key>RubberWindowFrame</key>
-								<string>135 166 1306 711 0 0 1440 878 </string>
+								<string>134 166 1306 711 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>200pt</string>
+							<string>366pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -446,9 +446,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>5185E1C3126F1C3B00AFA001</string>
+				<string>515C962B1270DDE50000C5BB</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>5185E1C4126F1C3B00AFA001</string>
+				<string>515C962C1270DDE50000C5BB</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -586,17 +586,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C530D57069F1CE1000CFCEE</string>
-		<string>5185E1C8126F1C3B00AFA001</string>
-		<string>5185E1C9126F1C3B00AFA001</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>5185EE971270449800AFA001</string>
 		<string>511678E1109610BD007E76C8</string>
+		<string>5185EE971270449800AFA001</string>
 		<string>/Volumes/HD2/Users/itexmac2/dev/itexmac2/branches/814+/iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>135 166 1306 711 0 0 1440 878 </string>
+	<string>134 166 1306 711 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -617,7 +612,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>iTM2TeXProjectDocumentKit.m</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -634,8 +629,6 @@
 							<string>554pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -675,7 +668,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>511678E1109610BD007E76C8</string>
-				<string>5185E1BA126F1C2F00AFA001</string>
+				<string>515C962E1270DDE50000C5BB</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -688,7 +681,7 @@
 			<key>WindowToolGUID</key>
 			<string>511678E1109610BD007E76C8</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

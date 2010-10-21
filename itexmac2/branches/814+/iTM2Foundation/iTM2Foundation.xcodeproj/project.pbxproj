@@ -192,6 +192,7 @@
 		5142192010988E0700A01853 /* iTM2StringControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringControllerKit.m */; };
 		5142192110988E0700A01853 /* iTM2StringControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringControllerKit.m */; };
 		5142192210988E0700A01853 /* iTM2StringControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringControllerKit.m */; };
+		515C95E11270DC8B0000C5BB /* iTeXMac2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 515C95DF1270DC8B0000C5BB /* iTeXMac2.xib */; };
 		5160E1D510CE8F8300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E1D610CE8F8300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E1E110CE916300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
@@ -818,7 +819,6 @@
 		533EB3A1108E6908001B3F81 /* iTM2HelpKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB39D108E6908001B3F81 /* iTM2HelpKit.m */; };
 		533EB3A2108E6908001B3F81 /* iTM2HelpKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB39D108E6908001B3F81 /* iTM2HelpKit.m */; };
 		533EB3F6108E6C59001B3F81 /* iTM2TextScriptingKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB3F3108E6C59001B3F81 /* iTM2TextScriptingKit.m */; };
-		537677D61088518D007CCC1E /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = 537677CB10885159007CCC1E /* iTeXMac2.nib */; };
 		537677D710885190007CCC1E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 537677C910885159007CCC1E /* InfoPlist.strings */; };
 		537677D810885192007CCC1E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 537677C710885159007CCC1E /* Credits.rtf */; };
 		537677D91088519A007CCC1E /* TestApp-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 537677CE10885159007CCC1E /* TestApp-main.m */; };
@@ -1067,7 +1067,6 @@
 		53F81EB51086742B0000F555 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		53F81F9F108677360000F555 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 53F81F96108677090000F555 /* Credits.rtf */; };
 		53F81FA0108677360000F555 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53F81F98108677090000F555 /* InfoPlist.strings */; };
-		53F81FA1108677360000F555 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = 53F81F9A108677090000F555 /* iTeXMac2.nib */; };
 		53F81FA2108677450000F555 /* Test Application debug-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F81F9D108677090000F555 /* Test Application debug-main.m */; };
 		53F81FD6108679EB0000F555 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -1770,7 +1769,6 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		510F9BBF1156941E002E6E48 /* iTM2ToggleProjectWrapperInspector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iTM2ToggleProjectWrapperInspector.xib; sourceTree = "<group>"; };
 		5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test3B.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5113C2EB11731B7700F6D951 /* Tests-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info copy.plist"; sourceTree = "<group>"; };
 		5113C2EC11731BBE00F6D951 /* iTM2Test3B.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test3B.m; sourceTree = "<group>"; };
 		5113C2ED11731BBE00F6D951 /* iTM2Test3B.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test3B.h; sourceTree = "<group>"; };
 		51167E2A10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2StringControllerMacroTypes.plist; sourceTree = "<group>"; };
@@ -1779,6 +1777,7 @@
 		513EDA6511943CBA0069EFCA /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM3SenTestKit.m; sourceTree = "<group>"; };
 		5142191710988E0600A01853 /* iTM2StringControllerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StringControllerKit.h; sourceTree = "<group>"; };
 		5142191810988E0600A01853 /* iTM2StringControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StringControllerKit.m; sourceTree = "<group>"; };
+		515C95E01270DC8B0000C5BB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Test Application/English.lproj/iTeXMac2.xib"; sourceTree = "<group>"; };
 		5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
 		5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
 		5185EB5712701C8400AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
@@ -1789,7 +1788,6 @@
 		5194557810BFE283006254DD /* iTM2Test_RE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test_RE.m; sourceTree = "<group>"; };
 		51A6870810A2DE1F006E0065 /* iTM2StringControllerKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StringControllerKitPrivate.h; sourceTree = "<group>"; };
 		51AF60AC1114999A008C6D22 /* replacements.command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = replacements.command; path = ../replacements.command; sourceTree = "<group>"; };
-		51AF60B311149CA2008C6D22 /* Translator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Translator.txt; path = ../Translator.txt; sourceTree = SOURCE_ROOT; };
 		51B7732E0E06B98C00322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		51D1D48A1196037000BC8256 /* Sandbox */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Sandbox; sourceTree = "<group>"; };
 		51D1D5B81196F2C700BC8256 /* iTM2RegExTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegExTests.plist; sourceTree = "<group>"; };
@@ -1859,7 +1857,6 @@
 		5376779C10885028007CCC1E /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537677C810885159007CCC1E /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		537677CA10885159007CCC1E /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		537677CC10885159007CCC1E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
 		537677CD10885159007CCC1E /* TestApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TestApp-Info.plist"; sourceTree = "<group>"; };
 		537677CE10885159007CCC1E /* TestApp-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TestApp-main.m"; sourceTree = "<group>"; };
 		537677CF10885159007CCC1E /* TestApp.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestApp.pch; sourceTree = "<group>"; };
@@ -1975,7 +1972,6 @@
 		53F81EBB1086742B0000F555 /* Test Application debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test Application debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53F81F97108677090000F555 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		53F81F99108677090000F555 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		53F81F9B108677090000F555 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
 		53F81F9C108677090000F555 /* Test Application debug-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test Application debug-Info.plist"; sourceTree = "<group>"; };
 		53F81F9D108677090000F555 /* Test Application debug-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test Application debug-main.m"; sourceTree = "<group>"; };
 		53F81F9E108677090000F555 /* Test Application debug-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test Application debug-Prefix.pch"; sourceTree = "<group>"; };
@@ -2458,7 +2454,6 @@
 			isa = PBXGroup;
 			children = (
 				51AF60AC1114999A008C6D22 /* replacements.command */,
-				51AF60B311149CA2008C6D22 /* Translator.txt */,
 				53C251C61089E80F002312DA /* 0 - A - Basic */,
 				53C251DF1089E80F002312DA /* 0 - B - View */,
 				53C251F21089E80F002312DA /* 0 - C - Core */,
@@ -2491,6 +2486,7 @@
 				537677C610885159007CCC1E /* TestApp */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
+				515C95DF1270DC8B0000C5BB /* iTeXMac2.xib */,
 			);
 			name = iTM2Foundation;
 			sourceTree = "<group>";
@@ -2559,7 +2555,6 @@
 			children = (
 				537677C710885159007CCC1E /* Credits.rtf */,
 				537677C910885159007CCC1E /* InfoPlist.strings */,
-				537677CB10885159007CCC1E /* iTeXMac2.nib */,
 				537677CD10885159007CCC1E /* TestApp-Info.plist */,
 				537677CE10885159007CCC1E /* TestApp-main.m */,
 				537677CF10885159007CCC1E /* TestApp.pch */,
@@ -2663,7 +2658,6 @@
 			children = (
 				53F81F96108677090000F555 /* Credits.rtf */,
 				53F81F98108677090000F555 /* InfoPlist.strings */,
-				53F81F9A108677090000F555 /* iTeXMac2.nib */,
 				53F81F9C108677090000F555 /* Test Application debug-Info.plist */,
 				53F81F9D108677090000F555 /* Test Application debug-main.m */,
 				53F81F9E108677090000F555 /* Test Application debug-Prefix.pch */,
@@ -2721,7 +2715,6 @@
 				5338F210108F5A9000842A70 /* iTM2Test4.m */,
 				5338F211108F5A9000842A70 /* iTM2Test5.h */,
 				5338F212108F5A9000842A70 /* iTM2Test5.m */,
-				5113C2EB11731B7700F6D951 /* Tests-Info copy.plist */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -3897,7 +3890,6 @@
 				537677D810885192007CCC1E /* Credits.rtf in Resources */,
 				5160E1E110CE916300476E56 /* iTM2RegularExpressions.plist in Resources */,
 				537677D710885190007CCC1E /* InfoPlist.strings in Resources */,
-				537677D61088518D007CCC1E /* iTeXMac2.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4032,7 +4024,6 @@
 				5338F6D8108FB39A00842A70 /* iTM2FontsAndColors.tiff in Resources */,
 				53F81F9F108677360000F555 /* Credits.rtf in Resources */,
 				53F81FA0108677360000F555 /* InfoPlist.strings in Resources */,
-				53F81FA1108677360000F555 /* iTeXMac2.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4141,6 +4132,7 @@
 				51EEA16C11B6EB21000D538E /* InfoPlist.strings in Resources */,
 				DC13E6A8085587640063D5A5 /* iTeXMac2.nib in Resources */,
 				51D1D5B91196F2C700BC8256 /* iTM2RegExTests.plist in Resources */,
+				515C95E11270DC8B0000C5BB /* iTeXMac2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5697,6 +5689,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		515C95DF1270DC8B0000C5BB /* iTeXMac2.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				515C95E01270DC8B0000C5BB /* English */,
+			);
+			name = iTeXMac2.xib;
+			sourceTree = "<group>";
+		};
 		537677C710885159007CCC1E /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -5711,14 +5711,6 @@
 				537677CA10885159007CCC1E /* English */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		537677CB10885159007CCC1E /* iTeXMac2.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				537677CC10885159007CCC1E /* English */,
-			);
-			name = iTeXMac2.nib;
 			sourceTree = "<group>";
 		};
 		53C23FCA10693C4A0000990A /* iTM2CompletionInspector.xib */ = {
@@ -5904,14 +5896,6 @@
 				53F81F99108677090000F555 /* English */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		53F81F9A108677090000F555 /* iTeXMac2.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				53F81F9B108677090000F555 /* English */,
-			);
-			name = iTeXMac2.nib;
 			sourceTree = "<group>";
 		};
 		DC13E677085586540063D5A5 /* Credits.rtf */ = {

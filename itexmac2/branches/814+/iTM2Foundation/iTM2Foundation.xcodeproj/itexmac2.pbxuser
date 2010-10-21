@@ -94,7 +94,7 @@
 			};
 			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
 				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
-				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_FiletypeID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					825,
@@ -735,6 +735,11 @@
 		name = iTM2InstallationKit.m;
 		path = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/branches/814+/iTM2Foundation/0 - A - Basic/iTM2InstallationKit.m";
 		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1614, 9100}}";
+			sepNavSelRange = "{13983, 0}";
+			sepNavVisRange = "{12784, 1210}";
+		};
 	};
 	5185E4DB126F51B700AFA001 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1124,14 +1129,6 @@
 			sepNavSelRange = "{754, 0}";
 			sepNavVisRange = "{101, 1961}";
 			sepNavWindowFrame = "{{95, 106}, {1321, 746}}";
-		};
-	};
-	51AF60B311149CA2008C6D22 /* Translator.txt */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1479, 9320}}";
-			sepNavSelRange = "{225, 0}";
-			sepNavVisRange = "{5, 449}";
-			sepNavWindowFrame = "{{22, 72}, {1313, 746}}";
 		};
 	};
 	51B15B45117B28FF00FBBE04 /* ICURegEx.mm:1405 */ = {
