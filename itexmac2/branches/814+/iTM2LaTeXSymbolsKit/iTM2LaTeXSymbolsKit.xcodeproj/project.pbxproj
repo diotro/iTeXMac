@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		5185EE5E127043FE00AFA001 /* Prepare Milestones */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5185EE6D1270442700AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
+			buildPhases = (
+				5185EE5D127043FE00AFA001 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Milestones";
+			productName = "Prepare Milestones";
+		};
 		DC9E4F310858A8A300A86BED /* All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = DC6BB7F909474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
@@ -304,6 +315,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5185EE611270441100AFA001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5185EE5E127043FE00AFA001 /* Prepare Milestones */;
+			remoteInfo = "Prepare Milestones";
+		};
 		DC5D70B00949E3A200EBA96C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
@@ -333,6 +351,10 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		512D9CE90D59F8B900FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
 		512D9CEB0D59F8C300FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
+		5185EE57127043E400AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
+		5185EE58127043E400AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		5185EE59127043E400AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
+		5185EE5A127043E400AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
 		51E279810CEDDD7F003A0980 /* symbolPalette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = symbolPalette.png; sourceTree = "<group>"; };
 		532F3C711092FC3D00F18A18 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		532F3D231093009000F18A18 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -626,6 +648,9 @@
 		DC3B41AE0A4ADE1500E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5185EE58127043E400AFA001 /* GC-set.xcconfig */,
+				5185EE59127043E400AFA001 /* Development-set.xcconfig */,
+				5185EE5A127043E400AFA001 /* Deployment-set.xcconfig */,
 				DC5B69990A4B6BEC00F7DE47 /* Framework */,
 				DC5B699A0A4B6BEC00F7DE47 /* FrameworkDeployment.xcconfig */,
 				DC5B699B0A4B6BEC00F7DE47 /* FrameworkDevelopment.xcconfig */,
@@ -634,6 +659,7 @@
 				DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */,
 				DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */,
+				5185EE57127043E400AFA001 /* DevelopmentGC.xcconfig */,
 			);
 			name = Settings;
 			path = ../Settings;
@@ -845,6 +871,7 @@
 			);
 			dependencies = (
 				DC5D70B10949E3A200EBA96C /* PBXTargetDependency */,
+				5185EE621270441100AFA001 /* PBXTargetDependency */,
 			);
 			name = iTM2LaTeXSymbolsKit;
 			productInstallPath = "$(HOME)/Library/Bundles";
@@ -904,6 +931,7 @@
 			projectRoot = "";
 			targets = (
 				DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */,
+				5185EE5E127043FE00AFA001 /* Prepare Milestones */,
 				8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */,
 				DC9E4F310858A8A300A86BED /* All */,
 				DC81AE8608871B9A00943C99 /* iTeXMac2 */,
@@ -1201,6 +1229,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5185EE5D127043FE00AFA001 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"${PROJECT_DIR}\" \"${BUILD_ROOT}\"\nexit 0\n";
+		};
 		DC5D70A40949E32C00EBA96C /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1252,6 +1293,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5185EE621270441100AFA001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5185EE5E127043FE00AFA001 /* Prepare Milestones */;
+			targetProxy = 5185EE611270441100AFA001 /* PBXContainerItemProxy */;
+		};
 		DC5D70B10949E3A200EBA96C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */;
@@ -1306,6 +1352,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5185EE5F127043FE00AFA001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare Milestones";
+			};
+			name = Development;
+		};
+		5185EE60127043FE00AFA001 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare Milestones";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		532F3C741092FC3F00F18A18 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1482,6 +1549,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5185EE6D1270442700AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5185EE5F127043FE00AFA001 /* Development */,
+				5185EE60127043FE00AFA001 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
 		532F3C761092FC4000F18A18 /* Build configuration list for PBXNativeTarget "Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1327,7 +1327,7 @@ To Do List:
 					iTM2ScrollerToolbar * scrollerToolbar;
 					for (scrollerToolbar in ESV.subviews.copy) {
 						if ([scrollerToolbar isKindOfClass:[iTM2ScrollerToolbar class]]
-								&& ([scrollerToolbar position] == iTM2ScrollerToolbarPositionBottom)) {
+								&& (scrollerToolbar.position4iTM3 == iTM2ScrollerToolbarPositionBottom)) {
 							[scrollerToolbar performSelector:@selector(class) withObject:nil afterDelay:1];
 							scrollerToolbar.removeFromSuperview;
 						}
@@ -1387,7 +1387,7 @@ To Do List:
 					iTM2ScrollerToolbar * scrollerToolbar;
 					for (scrollerToolbar in ESV.subviews.copy) {
 						if ([scrollerToolbar isKindOfClass:[iTM2ScrollerToolbar class]]
-								&& ([scrollerToolbar position] == iTM2ScrollerToolbarPositionBottom)) {
+								&& (scrollerToolbar.position4iTM3 == iTM2ScrollerToolbarPositionBottom)) {
 							[scrollerToolbar performSelector:@selector(class) withObject:nil afterDelay:1];
 							scrollerToolbar.removeFromSuperview;
 						}
@@ -2002,12 +2002,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	// first we clean all the text views that no longer belong to the view hierarchy
-	for (NSTextView * TV in self.textEditors.objectEnumerator) {
+	for (NSTextView * TV in self.textEditors.copy) {
 		if ([TV isDescendantOf:self.window.contentView]) {
 			NSLayoutManager * LM = TV.layoutManager;
 			[LM replaceTextStorage:[[[NSTextStorage alloc] init] autorelease]];
-//			[TV performSelector:@selector(class) withObject:nil afterDelay:1];
-#warning CAUTION: does this cause a crash????
 			[self.textEditors removeObject:TV];
 		}
 	}
@@ -2345,11 +2343,11 @@ To Do List:
 	[super awakeFromContext];
 	float scale = [self contextFloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
-    NSRange R = iTM3MakeRange(0, [[self string] length]);
+    NSRange R = iTM3MakeRange(0,self.string.length);
     NSRange r = NSRangeFromString([self contextValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);
-    [self setSelectedRange:iTM3IntersectionRange(R, r)];
+    [self setSelectedRange:iTM3ProjectionRange(R, r)];
     r = NSRangeFromString([self contextValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask]);
-    [self scrollRangeToVisible:iTM3IntersectionRange(R, r)];
+    [self scrollRangeToVisible:iTM3ProjectionRange(R, r)];
 //END4iTM3;
     return;
 }

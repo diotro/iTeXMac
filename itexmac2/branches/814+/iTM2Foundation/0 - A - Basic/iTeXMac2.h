@@ -203,8 +203,6 @@ if ([STRING length] || UNDERLYING)\
 + (NSNumber *) numberWithCGFloat4iTM3:(CGFloat)value;
 @end
 
-#define MILESTONE4iTM3(KEY,DESCRIPTION) [iTM2MileStone putMileStoneForKey:KEY]
-
 //  All the forthcoming NSRange function manage the NSUIntegerMax barrier more appropriately
 //  The resulting ranges always satisfy location+length <= NSUIntegerMax
 
@@ -228,6 +226,8 @@ NS_INLINE BOOL iTM3LocationInRange(NSUInteger loc, NSRange range) {
 FOUNDATION_EXPORT NSRange iTM3UnionRange(NSRange range1, NSRange range2);
 
 FOUNDATION_EXPORT NSRange iTM3IntersectionRange(NSRange range1, NSRange range2);
+
+FOUNDATION_EXPORT NSRange iTM3ProjectionRange(NSRange destinationRange, NSRange range);
 
 FOUNDATION_EXPORT NSRange iTM3ShiftRange(NSRange range, NSInteger off7);
 

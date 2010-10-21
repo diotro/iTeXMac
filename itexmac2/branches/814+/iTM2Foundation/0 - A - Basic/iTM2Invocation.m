@@ -161,7 +161,7 @@
 	while(i<selectors.count) {
 		SEL selector = (SEL)[selectors pointerAtIndex:i++];
 		if ([self.target respondsToSelector:selector]) {
-			[self setSelector:selector];
+            self.selector=selector;
 			self.invoke;
 		} else {
 			LOG4iTM3(@"%@ does not respond to %@",self.target, NSStringFromSelector(selector));

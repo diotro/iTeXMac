@@ -252,9 +252,9 @@ typedef enum
 @interface iTM2ScrollerToolbar: NSView//iTM2View
 {
 @private
-    iTM2ScrollerToolbarPosition position4iTM3;
+    iTM2ScrollerToolbarPosition _position4iTM3;
 }
-@property iTM2ScrollerToolbarPosition position;
+@property iTM2ScrollerToolbarPosition position4iTM3;
 + (id)scrollerToolbarForPosition:(iTM2ScrollerToolbarPosition)position;
 @end
 

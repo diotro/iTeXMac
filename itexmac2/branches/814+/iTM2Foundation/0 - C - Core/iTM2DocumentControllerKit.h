@@ -214,7 +214,7 @@ extern NSString * const iTM2AutosavingDelayKey;
 
 /*!
     @method		isEqualToUTType4iTM3:
-    @abstract	Abstract forthcoming.
+    @abstract	Wrapper over UTTypeEqual.
     @discussion	Description forthcoming.
     @param      otherType
     @result     yorn
@@ -223,12 +223,30 @@ extern NSString * const iTM2AutosavingDelayKey;
 
 /*!
     @method		conformsToUTType4iTM3:
-    @abstract	Abstract forthcoming.
+    @abstract	Wrapper over UTTypeConformsTo.
     @discussion	Description forthcoming.
     @param      otherType
     @result     yorn
 */
 - (BOOL)conformsToUTType4iTM3:(NSString *)otherType;
+
+/*!
+    @method		UTTypeDeclaration4iTM3:
+    @abstract	Wrapper over UTTypeCopyDeclaration.
+    @discussion	Description forthcoming.
+    @param      None
+    @result     a dictionary
+*/
+- (NSDictionary *) UTTypeDeclaration4iTM3;
+
+/*!
+    @method		UTTypeDeclaringBundleURL4iTM3:
+    @abstract	Wrapper over UTTypeCopyDeclaringBundleURL.
+    @discussion	Description forthcoming.
+    @param      None
+    @result     an URL
+*/
+- (NSURL *) UTTypeDeclaringBundleURL4iTM3;
 
 @end
 

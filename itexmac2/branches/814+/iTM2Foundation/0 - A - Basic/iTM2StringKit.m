@@ -82,7 +82,7 @@ no_match:
 		return [NSString string];
 	}
 	NSRange r =  iTM3MakeRange(0, self.length);
-	aRange = aFlag? r: iTM3IntersectionRange(aRange, r);
+	aRange = aFlag? r: iTM3ProjectionRange(aRange, r);
 	ICURegEx * RE = [ICURegEx regExForKey:@"%!iTeXMac2..." error:NULL];
 	[RE setInputString:self range:aRange];
 	if (![RE nextMatch] || [RE numberOfCaptureGroups]!=1) {
@@ -249,7 +249,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    range = iTM3IntersectionRange(range, iTM3MakeRange(0, self.length));
+    range = iTM3ProjectionRange(iTM3MakeRange(0, self.length),range);
 	NSRange biggerRange = range;
 	NSCharacterSet * set = [NSCharacterSet whitespaceCharacterSet];
 	while(biggerRange.location && [set characterIsMember:[self characterAtIndex:biggerRange.location-1]])

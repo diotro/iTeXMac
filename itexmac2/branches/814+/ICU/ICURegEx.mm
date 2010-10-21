@@ -181,6 +181,19 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
     NSDictionary * resource = [NSDictionary dictionaryWithContentsOfURL:url];
     //  get the dictionary for the given pattern key
     NSDictionary * infos = [resource objectForKey:patternKey];
+    if (!infos) {
+        if (errorRef) {
+            //  creation failure, setting the error on return
+            *errorRef = [NSError errorWithDomain:@"ICURegEx" code:-5
+                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSString stringWithFormat:@"Unknown key:"
+                    @"%@ in regex patterns resource file at %@"
+                    "\nmissing valid pattern or format entry",patternKey,url,nil],
+                    NSLocalizedDescriptionKey,
+                        nil]];
+        }
+        return nil;
+    }
     //  get the search field
     NSString * search = [infos objectForKey:@"search"];
     NSMutableIndexSet * MIS = nil;
@@ -897,51 +910,58 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 }
 - (void)setInputString:(NSString *)argument;
 {
-	[self setInputString:argument range:iTM3MakeRange(0,argument.length)];
+    if(!argument || [argument isKindOfClass:[NSString class]]) {
+        [self setInputString:argument range:iTM3MakeRange(0,argument.length)];
+    } else {
+        [self setInputString:@"" range:iTM3MakeRange(0,0)];
+    }
 }
 - (BOOL)setInputString:(NSString *)argument range:(NSRange)range;
 {
-    _IVARS.status = U_ZERO_ERROR;
-	_IVARS.error = nil;
-	_IVARS.string = argument;
-	delete _IVARS.regexMatcher;
-	_IVARS.regexMatcher = nil;
-	if (_IVARS.uString) {
-		delete _IVARS.uString;
-		_IVARS.uString = nil;
-	}
-	NSUInteger length = [argument length];
-	if (range.location < length) {
-		if (iTM3MaxRange(range)>length) {
-			range.length = length - range.location;
-		}
-        //  grow the range to take into account surrogate pairs
-        range = [argument rangeOfComposedCharacterSequencesForRange:range];
-		_IVARS.stringOffset = range.location;
-		_IVARS.stringLength = range.length;
-		if (_IVARS.string) {
-			UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)argument);
-			if (!buffer) {
-				NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(
+    if(!argument || [argument isKindOfClass:[NSString class]]) {
+        _IVARS.status = U_ZERO_ERROR;
+        _IVARS.error = nil;
+        _IVARS.string = argument;
+        delete _IVARS.regexMatcher;
+        _IVARS.regexMatcher = nil;
+        if (_IVARS.uString) {
+            delete _IVARS.uString;
+            _IVARS.uString = nil;
+        }
+        NSUInteger length = [argument length];
+        if (range.location < length) {
+            if (iTM3MaxRange(range)>length) {
+                range.length = length - range.location;
+            }
+            //  grow the range to take into account surrogate pairs
+            range = [argument rangeOfComposedCharacterSequencesForRange:range];
+            _IVARS.stringOffset = range.location;
+            _IVARS.stringLength = range.length;
+            if (_IVARS.string) {
+                UChar * buffer = (UChar *)CFStringGetCharactersPtr((CFStringRef)argument);
+                if (!buffer) {
+                    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(
 #if __BIG_ENDIAN__
-				kCFStringEncodingUTF16BE
+                    kCFStringEncodingUTF16BE
 #elif __LITTLE_ENDIAN__
-				kCFStringEncodingUTF16LE
+                    kCFStringEncodingUTF16LE
 #endif
-				);
-				buffer = (UChar *)[argument cStringUsingEncoding:encoding];
-			}
-			_IVARS.uString = new UnicodeString(FALSE, buffer+range.location, range.length);// the string to search is big
-			_IVARS.status = U_ZERO_ERROR;
-		}
-	} else if (length) {
-		NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-				@"The given range is out of the bounds of the input string.",NSLocalizedDescriptionKey,
-					nil];
-		_IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-4 userInfo:dict] retain];
-		return NO;
-	}
-	return YES;
+                    );
+                    buffer = (UChar *)[argument cStringUsingEncoding:encoding];
+                }
+                _IVARS.uString = new UnicodeString(FALSE, buffer+range.location, range.length);// the string to search is big
+                _IVARS.status = U_ZERO_ERROR;
+            }
+        } else if (length) {
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                    @"The given range is out of the bounds of the input string.",NSLocalizedDescriptionKey,
+                        nil];
+            _IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-4 userInfo:dict] retain];
+            return NO;
+        }
+        return YES;
+    }
+    return NO;
 }
 - (NSString *)searchPattern;
 {
@@ -1676,3 +1696,66 @@ groupName_found: {
 
 @end
 
+@implementation NSMutableArray(ICURegEx)
+
+- (void)removeObjectsNotMatchingICURegEx4iTM3:(ICURegEx *)RE;
+{
+    NSUInteger i = self.count;
+    while(i) {
+        id O = [self objectAtIndex:i];
+        if ([O isKindOfClass:[NSString class]]) {
+            RE.inputString = O;
+        } else if ([O isKindOfClass:[NSURL class]]) {
+            if ([O isFileURL]) {
+                RE.inputString = [[O absoluteURL] path];
+            } else {
+                RE.inputString = [O absoluteString];
+            }
+        } else if ([O respondsToSelector:@selector(string)]) {
+            RE.inputString = [O string];
+        } else {
+            RE.inputString = [O description];
+        }
+        if (RE.nextMatch) {
+            [self removeObjectAtIndex:i];
+        }
+        --i;
+    }
+}
+- (void)removeObjectsMatchingICURegEx4iTM3:(ICURegEx *)RE;
+{
+    NSUInteger i = self.count;
+    while(i) {
+        id O = [self objectAtIndex:i];
+        if ([O isKindOfClass:[NSString class]]) {
+            RE.inputString = O;
+        } else if ([O isKindOfClass:[NSURL class]]) {
+            if ([O isFileURL]) {
+                RE.inputString = [[O absoluteURL] path];
+            } else {
+                RE.inputString = [O absoluteString];
+            }
+        } else if ([O respondsToSelector:@selector(string)]) {
+            RE.inputString = [O string];
+        } else {
+            RE.inputString = [O description];
+        }
+        if (RE.nextMatch) {
+            [self removeObjectAtIndex:i];
+        }
+        --i;
+    }
+}
+
+@end
+
+@implementation NSArray(ICURegEx)
+
+- (id)filteredArrayUsingICURegEx4iTM3:(ICURegEx *)RE;
+{
+    NSMutableArray * MRA = self.mutableCopy;
+    [MRA removeObjectsNotMatchingICURegEx4iTM3:RE];
+    return MRA.copy;
+}
+
+@end

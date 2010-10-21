@@ -258,3 +258,35 @@ To Do List:
 	return;
 }
 @end
+
+#ifdef __iTM3_DEVELOPMENT__
+#warning Runtime TEST Unit
+@implementation iTM2Application(iTM2TPDK)
+- (void)testTeXPackageAtURLCompleteDidFinishLaunching4iTM3;
+{
+    LOG4iTM3(@"LSRegisterURL:%lu",LSRegisterURL((CFURLRef)[[NSBundle mainBundle] bundleURL],NO));
+    // create a temporary directory
+    NSURL * tempURL = [NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
+    NSURL * url = [tempURL URLByAppendingPathComponent:@"foo.texd"];
+    BOOL yorn = NO;
+    NSError * ROR = nil;
+    NSAssert(([DFM fileExistsAtPath:url.path isDirectory:&yorn] && yorn)
+        || [DFM createDirectoryAtPath:url.path withIntermediateDirectories:YES attributes:nil error:&ROR],@"MISSED");
+    NSString * theType = [SDC typeForContentsOfURL:url error:&ROR];
+    CFDictionaryRef D = UTTypeCopyDeclaration((CFStringRef) theType);
+    CFURLRef URL = UTTypeCopyDeclaringBundleURL((CFStringRef) theType);
+    LOG4iTM3(@"Type:%@\nDeclaration:%@,from bundle:%@",theType,D,URL);
+    NSAssert([theType conformsToUTType4iTM3:iTM2UTTypeTeXWrapper] || [theType conformsToUTType4iTM3:iTM3UTTypeTeXWrapper],@"MISSED TeX Wrapper");
+    url = [tempURL URLByAppendingPathComponent:@"foo.texp"];
+    NSAssert(([DFM fileExistsAtPath:url.path isDirectory:&yorn] && yorn)
+        || [DFM createDirectoryAtPath:url.path withIntermediateDirectories:YES attributes:nil error:&ROR],@"MISSED");
+    theType = [SDC typeForContentsOfURL:url error:&ROR];
+    D = UTTypeCopyDeclaration((CFStringRef) theType);
+    URL = UTTypeCopyDeclaringBundleURL((CFStringRef) theType);
+    LOG4iTM3(@"Type:%@\nDeclaration:%@,from bundle:%@",theType,D,URL);
+    NSAssert([theType conformsToUTType4iTM3:iTM2UTTypeTeXProject] || [theType conformsToUTType4iTM3:iTM3UTTypeTeXProject],@"MISSED TeX Project");
+}
+@end
+#endif
+
+#include "../build/Milestones/iTeXMac2.m"

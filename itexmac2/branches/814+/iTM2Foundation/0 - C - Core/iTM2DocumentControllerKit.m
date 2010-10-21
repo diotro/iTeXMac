@@ -107,8 +107,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
-    {
+    if ((self = [super init])) {
         self.initImplementation;
 		[self setAutosavingDelay:[SUD floatForKey:iTM2AutosavingDelayKey]];
     }
@@ -1144,6 +1143,16 @@ To Do List:
 - (BOOL)conformsToUTType4iTM3:(NSString *)otherType;
 {
     return otherType != nil && UTTypeConformsTo((CFStringRef)self, (CFStringRef)otherType);
+}
+
+- (NSDictionary *) UTTypeDeclaration4iTM3;
+{
+    return (NSDictionary *)UTTypeCopyDeclaration((CFStringRef)self);
+}
+
+- (NSURL *) UTTypeDeclaringBundleURL4iTM3;
+{
+    return (NSURL *)UTTypeCopyDeclaringBundleURL((CFStringRef)self);
 }
 
 @end

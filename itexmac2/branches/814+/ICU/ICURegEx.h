@@ -485,3 +485,30 @@ extern NSString * const iTM2RegExpResourceName;
 - (ICURegEx *)ICURegExForKey4iTM3:(NSString *)patternKey error:(NSError **)errorRef;
 
 @end
+
+@interface NSArray(ICURegEx)
+
+/*!
+    @method     filteredArrayUsingICURegEx4iTM3:
+    @abstract   Only the string elements that match the given regular expression.
+    @discussion Convenient method.
+    @param      RE is a regular expression
+	@result     an NSArray instance
+*/
+- (id)filteredArrayUsingICURegEx4iTM3:(ICURegEx *)RE;
+
+@end
+
+@interface NSMutableArray(ICURegEx)
+
+/*!
+    @method     removeObjectsMatchingICURegEx4iTM3:
+    @abstract   Only the string elements that do not match the given regular expression are kept.
+    @discussion Convenient method. If any element of the array is not a string object, the regex match applies to its description. 
+    @param      RE is a regular expression
+	@result     none
+*/
+- (void)removeObjectsMatchingICURegEx4iTM3:(ICURegEx *)RE;
+- (void)removeObjectsNotMatchingICURegEx4iTM3:(ICURegEx *)RE;
+
+@end

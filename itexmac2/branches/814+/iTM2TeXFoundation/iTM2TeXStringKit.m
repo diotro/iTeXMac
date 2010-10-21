@@ -1457,15 +1457,17 @@ nextBeforeWord:
 		R = [before rangeOfWordAtIndex4iTM3:R.location-1];
 		if(!R.length)
 		{
-			R = [self rangeOfComposedCharacterSequenceAtIndex:R.location-1];
-			if(R.length == 1)
-			{
-				if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
-						&& (R.location>0))
-				{
-					goto nextBeforeWord;
-				}
-			}
+            if (R.location) {
+                R = [self rangeOfComposedCharacterSequenceAtIndex:R.location-1];
+                if(R.length == 1)
+                {
+                    if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
+                            && (R.location>0))
+                    {
+                        goto nextBeforeWord;
+                    }
+                }
+            }
 		}
 		if(R.length>1)
 		{

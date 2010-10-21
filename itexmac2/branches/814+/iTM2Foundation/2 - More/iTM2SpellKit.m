@@ -311,12 +311,15 @@ To Do List:
     [super setSelectedRange:charRange affinity:affinity stillSelecting:stillSelectingFlag];
     if (!stillSelectingFlag && self.window && ([self.window level] < [[SSC spellingPanel] level]))// avoid recursion when no window
     {
-        NSString * S = [self.string substringWithRange:self.selectedRange];
-		if (S.length)
-		{
-			[SSC updateSpellingPanelWithMisspelledWord:S];
-			[SSC updateGuessesList];
-		}
+        NSString * S = self.string;
+        NSRange R = iTM3MakeRange(0,S.length);
+        R = iTM3ProjectionRange(R,self.selectedRange);// do not assume that the selected range lays between the text limits
+        if (R.length)
+        {
+            S = [S substringWithRange:R];
+            [SSC updateSpellingPanelWithMisspelledWord:S];
+            [SSC updateGuessesList];
+        }
     }
 //END4iTM3;
     return;
@@ -1582,18 +1585,18 @@ To Do List:
 //START4iTM3;
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
 	[SUD setObject:[SSC language] forKey:iTM2CurrentSpellLanguageKey];
-    id newText = newW.firstResponder;
+    NSText * newText = (NSText *)(newW.firstResponder);
 	while(newText && ![newText respondsToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
-		newText = [newText nextResponder];
+		newText = (NSText *)(newText.nextResponder);
 //LOG4iTM3(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
 	self.currentText = newText;
 	iTM2SpellContext * SC;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-	if (SC = [newText spellContext])
+	if (SC = newText.spellContext)
 	{
-		NSString * language = [SC spellLanguage];
+		NSString * language = SC.spellLanguage;
 		if (![SSC setLanguage:language])
 		{
 			LOG4iTM3(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(1)", language, [SSC language]);
@@ -1605,18 +1608,21 @@ To Do List:
 		}
 		if (newW)// avoid recursivity
 		{
-			NSString * S = [[newText string] substringWithRange:[newText selectedRange]];
-			if (S.length)
-			{
-				[SSC updateSpellingPanelWithMisspelledWord:S];
-				[SSC updateGuessesList];
-			}
-		}
+            NSString * S = newText.string;
+            NSRange R = iTM3MakeRange(0,S.length);
+            R = iTM3ProjectionRange(R,newText.selectedRange);// do not assume that the selected range lays between the text limits
+            if (R.length)
+            {
+                S = [S substringWithRange:R];
+                [SSC updateSpellingPanelWithMisspelledWord:S];
+                [SSC updateGuessesList];
+            }
+        }
 	}
 	else if (newText)
 	{
 //LOG4iTM3(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", newText, newText.window.title);
-[newText spellContext];
+newText.spellContext;
 	}
 	else
 	{
@@ -1656,21 +1662,22 @@ To Do List:
 		// save the actual settings for the old text:
         self.currentText = newText;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-		if (SC = [newText spellContext])
+		if (SC = newText.spellContext)
 		{
-			NSString * language = [SC spellLanguage];
+			NSString * language = SC.spellLanguage;
 			if (![SSC setLanguage:language])
 			{
 				LOG4iTM3(@"INFO: THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(2)", language, [SSC language]);
-				[SC setSpellLanguage:[SSC language]];
+				SC.spellLanguage = [SSC language];
 			}
 			if (newW)// avoid recursivity
 			{
-                NSRange R = iTM3MakeRange(0,newText.string.length);
-                R = iTM3IntersectionRange(R,newText.selectedRange);// do not assume that the selected range lays between the text limits
-				NSString * S = [newText.string substringWithRange:R];
-				if (S.length)
+                NSString * S = newText.string;
+				NSRange R = iTM3MakeRange(0,S.length);
+                R = iTM3ProjectionRange(R,newText.selectedRange);// do not assume that the selected range lays between the text limits
+				if (R.length)
 				{
+                    S = [S substringWithRange:R];
 					[SSC updateSpellingPanelWithMisspelledWord:S];
 					[SSC updateGuessesList];
 				}
@@ -1737,23 +1744,23 @@ To Do List:
 		if ([newW level] >= [[SSC spellingPanel] level])
 			return;
 	}
-    id newText = newW.firstResponder;
+    NSText * newText = (NSText *)(newW.firstResponder);
 	while(newText && ![newText respondsToSelector:@selector(iTM2SpellKit_NSText_Catcher:)])
-		newText = [newText nextResponder];
+		newText = (NSText *)(newText.nextResponder);
 //LOG4iTM3(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
-	iTM2SpellContext * SC = [self.currentText spellContext];
-    [SC setSpellLanguage:language];
-    [SC setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:SC.tag]];
+	iTM2SpellContext * SC = self.currentText.spellContext;
+    SC.spellLanguage = language;
+    SC.ignoredWords = [SSC ignoredWordsInSpellDocumentWithTag:SC.tag];
     if (newText != self.currentText)
     {
 		// save the actual settings for the old text:
         self.currentText = newText;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-		if (SC = [newText spellContext])
+		if (SC = newText.spellContext)
 		{
-			NSString * language = [SC spellLanguage];
+			NSString * language = SC.spellLanguage;
 			if (![SSC setLanguage:language])
 			{
 				LOG4iTM3(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(3)", language, [SSC language]);
@@ -1761,13 +1768,16 @@ To Do List:
 			}
 			if (newW)// avoid recursivity
 			{
-				NSString * S = [[newText string] substringWithRange:[newText selectedRange]];
-				if (S.length)
-				{
-					[SSC updateSpellingPanelWithMisspelledWord:S];
-					[SSC updateGuessesList];
-				}
-			}
+                NSString * S = newText.string;
+                NSRange R = iTM3MakeRange(0,S.length);
+                R = iTM3ProjectionRange(R,newText.selectedRange);// do not assume that the selected range lays between the text limits
+                if (R.length)
+                {
+                    S = [S substringWithRange:R];
+                    [SSC updateSpellingPanelWithMisspelledWord:S];
+                    [SSC updateGuessesList];
+                }
+            }
 		}
 	}
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
@@ -1804,7 +1814,7 @@ To Do List:
     NSText * text = self.currentText;
 	// this is the crucial part that needs reentrant management
 	iTM2SpellContext * SC = [text spellContext];
-	NSString * language = [SC spellLanguage];
+	NSString * language = SC.spellLanguage;
 	if (![SSC setLanguage:language])
 	{
 		LOG4iTM3(@"THE %@ LANGUAGE IS UNKNOWN by cocoa spell checker, %@ is used instead(4)", language, [SSC language]);
@@ -1812,13 +1822,16 @@ To Do List:
 	}
 	if (text.window)// avoid recursivity
 	{
-		NSString * S = [[text string] substringWithRange:[text selectedRange]];
-		if (S.length)
-		{
-			[SSC updateSpellingPanelWithMisspelledWord:S];
-			[SSC updateGuessesList];
-		}
-	}
+        NSString * S = text.string;
+        NSRange R = iTM3MakeRange(0,S.length);
+        R = iTM3ProjectionRange(R,text.selectedRange);// do not assume that the selected range lays between the text limits
+        if (R.length)
+        {
+            S = [S substringWithRange:R];
+            [SSC updateSpellingPanelWithMisspelledWord:S];
+            [SSC updateGuessesList];
+        }
+    }
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
 	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:NO] forKey:@"Synchronizing"];
     self.validateWindowContent4iTM3;

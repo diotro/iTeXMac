@@ -36,6 +36,10 @@ NSString * const iTM2TeXProjectInspectorType = @"TeX Project Type";
 
 NSString * const iTM2TeXPCachedKeysKey = @"info_cachedKeys";
 
+//  You must keep the following declaration for backwards compatibility
+NSString * const iTM2UTTypeTeXWrapper = @"comp.text.tex.iTeXMac2.texd";
+NSString * const iTM2UTTypeTeXProject = @"comp.text.tex.iTeXMac2.texp";
+
 NSString * const iTM3UTTypeTeXWrapper = @"org.tug.tex.texd";
 NSString * const iTM3UTTypeTeXProject = @"org.tug.tex.texp";
 
@@ -1991,6 +1995,32 @@ To Do List:
 //END4iTM3;
 	NSString * type = [SDC typeForContentsOfURL:url error:nil];
     return [type conformsToUTType4iTM3:iTM3UTTypeTeXProject];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isiTM2WrapperPackageAtURL4iTM3:
+- (BOOL)isiTM2WrapperPackageAtURL4iTM3:(NSURL *) url;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Latest Revision: Mon Oct  4 07:13:51 UTC 2010
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+//END4iTM3;
+	NSString * type = [SDC typeForContentsOfURL:url error:nil];
+    return [type conformsToUTType4iTM3:iTM2UTTypeTeXWrapper];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isiTM2ProjectPackageAtURL4iTM3:
+- (BOOL)isiTM2ProjectPackageAtURL4iTM3:(NSURL *) url;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Latest Revision: Mon Oct  4 07:13:37 UTC 2010
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+//END4iTM3;
+	NSString * type = [SDC typeForContentsOfURL:url error:nil];
+    return [type conformsToUTType4iTM3:iTM2UTTypeTeXProject];
 }
 @end
 

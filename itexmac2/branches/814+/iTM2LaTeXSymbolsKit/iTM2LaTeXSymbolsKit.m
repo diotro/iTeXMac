@@ -385,5 +385,8 @@ To Do List:
 }
 @end
 #endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2SymbolMenu
+
+#include "../build/Milestones/iTM2LaTeXSymbolsKit.m"
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  iTM2LaTeXSymbolsKit
 

@@ -398,7 +398,7 @@ To Do List:
 	[RE setReplacementPattern:replacementPattern];
 	NSValue * V;
 	for (V in ranges) {
-		R = iTM3IntersectionRange(V.rangeValue,myRange);
+		R = iTM3ProjectionRange(myRange,V.rangeValue);
         V = nil;
 		if (R.length) {
 			[RE setInputString:myString range:R];
@@ -1706,9 +1706,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSDictionary * D = [self attributesAtIndex:(NSUInteger)aLocation effectiveRange:(NSRangePointer)aRangePtr];
-    if (aRangePtr)
-    {
-		*aRangePtr = iTM3IntersectionRange(aRangeLimit, *aRangePtr);
+    if (aRangePtr) {
+		*aRangePtr = iTM3ProjectionRange(aRangeLimit, *aRangePtr);
     }
     return D;
 }
@@ -4032,7 +4031,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    argument = iTM3IntersectionRange(argument, iTM3MakeRange(self.startOff7, self.length));
+    argument = iTM3ProjectionRange(iTM3MakeRange(self.startOff7, self.length),argument);
     argument.location -= self.startOff7;
     [self validateLocalRange:argument];
     return;
@@ -4046,7 +4045,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    argument = iTM3IntersectionRange(argument, iTM3MakeRange(self.startOff7, self.length));
+    argument = iTM3IntersectionRange(iTM3MakeRange(self.startOff7, self.length),argument);
     argument.location -= self.startOff7;
     [self invalidateLocalRange:argument];
     return;
@@ -4060,7 +4059,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    argument = iTM3IntersectionRange(argument, iTM3MakeRange(0, self.length));
+    argument = iTM3ProjectionRange(iTM3MakeRange(0, self.length),argument);
     if (!argument.length) {
         return;
     }

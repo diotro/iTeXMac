@@ -27,7 +27,7 @@
 #import "iTM2InstallationKit.h"
 #import <objc/objc-runtime.h>
 
-#ifndef ___1
+#ifndef __iTM2_NO_INSTALLATION_KIT__
 @interface iTM2InstallerZombie: NSObject
 @end
 @implementation iTM2InstallerZombie
@@ -89,8 +89,7 @@ To Do List:
 	INIT_POOL4iTM3;
 //START4iTM3;
 	[super initialize];
-	if (!__iTM2MileStone)
-	{
+	if (!__iTM2MileStone) {
 		__iTM2MileStone = [[NSMutableDictionary dictionary] retain];
 	}
 //END4iTM3;
@@ -424,8 +423,8 @@ To Do List:
 }
 @end
 @implementation iTM2Application(Runtime)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInstallation
-+ (void)completeInstallation;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInstallation4iTM3
++ (void)completeInstallation4iTM3;
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  To Do List:
@@ -445,7 +444,6 @@ To Do List:
 - (void)finishLaunching;
 {
 	[iTM2Installer completeInstallation];
-	[self  completeInstallation];
 	NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] finishLaunching];
 	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteWillFinishLaunching4iTM3" signature:[I methodSignature] inherited:YES]];
@@ -455,4 +453,7 @@ To Do List:
 }
 
 @end
+
+#include "../../build/Milestones/iTM2Foundation.m"
+
 #endif

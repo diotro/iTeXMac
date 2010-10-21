@@ -47,11 +47,11 @@ void iTM2Beep(void)
 NSInteger iTM2DebugEnabled = 0;
 
 @implementation NSApplication(iTMFoundationVersion)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createDocumentController
-+ (void)createDocumentController;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createDocumentController4iTM3
++ (void)createDocumentController4iTM3;
 /*"This is the build number.
 Version History: jlaurens AT users DOT sourceforge DOT net (07/12/2001)
-- 1.3: 03/10/2002
+Latest Revision: Tue Oct 19 06:55:44 UTC 2010
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -158,7 +158,7 @@ To Do List:
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithInteger:0], iTM2CurrentVersionNumberKey,
                                 nil]];
-	self.createDocumentController;
+	self.createDocumentController4iTM3;
 	const char * name = "sendApplicationDefinedEventOfSubtypeXX:";
 	iTM2Application_sendApplicationDefinedEvent = (char *)NSAllocateCollectable(strlen(name)+1, 0);
 	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
@@ -373,13 +373,35 @@ NSRange iTM3IntersectionRange(NSRange range1, NSRange range2)
     NSRange r;
     if ((r.location = iTM3MaxRange(range1))<(r.length = iTM3MaxRange(range2))) r.length = r.location;
     r.location = range1.location>range2.location?range1.location:range2.location;
-    if (r.length > r.location) {
+    if (r.length >= r.location) {// Do not change this! [0 10] \cap [11 20] = [11 0]
         r.length -= r.location;
     } else {
-        r.location = NSNotFound;
+        r.location = NSNotFound;// Do not change this! [0 10] \cap [12 20] = [NSNotFound 0]
         r.length = 0;
     }
     return r;
+}
+
+NSRange iTM3ProjectionRange(NSRange destinationRange, NSRange range)
+{
+    NSUInteger maxDestinationRange = iTM3MaxRange(destinationRange);
+    NSUInteger maxRange = iTM3MaxRange(range);
+    //  compute the min of the max ranges
+    if(maxDestinationRange<=range.location) {
+        return NSMakeRange(maxDestinationRange,0);
+    } else if(maxRange<=destinationRange.location){
+        return NSMakeRange(destinationRange.location,0);
+    } else if (/*maxDestinationRange>*/range.location>=destinationRange.location) {
+        if(maxDestinationRange<=maxRange) {
+            return NSMakeRange(range.location,maxDestinationRange-range.location);
+        } else /* if (maxDestinationRange>maxRange>=range.location>=destinationRange.location) */{
+            return range;
+        }
+    } else if (maxDestinationRange >= maxRange/*>destinationRange.location>range.location*/) {
+        return NSMakeRange(destinationRange.location,maxRange-destinationRange.location);
+    } else /*if (maxRange>maxDestinationRange>=destinationRange.location>range.location) */ {
+        return destinationRange;
+    }
 }
 
 NSRange iTM3ShiftRange(NSRange range, NSInteger off7) {

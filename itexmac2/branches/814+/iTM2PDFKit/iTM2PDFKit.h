@@ -211,7 +211,7 @@ typedef struct
 @interface iTM2XtdPDFDocument: PDFDocument
 {
 @private
-	NSUInteger * __PageStringOffsets;
+	NSUInteger * __PageCharacterCounts;
 	id __CachedPageStrings;
 }
 /*!
@@ -269,7 +269,7 @@ typedef struct
 */
 - (NSString *)stringForPage:(PDFPage *)page;
 
-@property NSUInteger * __PageStringOffsets;
+@property NSUInteger * __PageCharacterCounts;
 @property (retain) id __CachedPageStrings;
 @end
 

@@ -464,7 +464,7 @@ extern NSString * const iTM2RegExpURLFragmentName;
 
 - (NSURL *)URLByResolvingSymlinksAndBookmarkDataWithOptions:(NSURLBookmarkResolutionOptions)options relativeToURL:(NSURL *)relativeURL error4iTM3:(NSError **)errorRef;
 
-- (NSURL *)URLByRemovingParentLastPathComponent4iTM3;
+- (NSURL *)URLByDeletingParentLastPathComponent4iTM3;
 
 - (NSURL *)URLByRemovingParentPathExtension4iTM3;
 
@@ -511,7 +511,7 @@ extern NSString * const iTM2RegExpURLFragmentName;
 
 - (NSDate *) attributeModificationDateOrError4iTM3:(NSError**)errorRef;
 
-- (BOOL) linkCountOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) linkCountOrError4iTM3:(NSError**)errorRef;
 
 - (NSURL *) parentDirectoryURLOrError4iTM3:(NSError**)errorRef;
 

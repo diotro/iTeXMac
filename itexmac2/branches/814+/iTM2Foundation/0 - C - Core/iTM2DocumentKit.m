@@ -40,6 +40,7 @@
 
 #import "iTM2UserDefaultsKit.h"
 #import "iTM2ContextKit.h"
+#import "iTM2DocumentControllerKit.h"
 #import "iTM2DocumentKit.h"
 
 NSString * const iTM2UDKeepBackupFileKey = @"iTM2KeepBackupFile";
@@ -1570,8 +1571,6 @@ To Do List:
 	{
 		fullOriginalDocumentPath = absoluteOriginalContentsURL.path;
 	}
-	NSString * dirName;
-	NSString * baseName;
 	// is there something at the target URL?
 	// The problem is that I don't know what to do in such a situation because I don't know for sure whether the cocoa framework
 	// tries to override an existing file with the user permission
@@ -1609,70 +1608,51 @@ To Do List:
 		NSLog(@"Directory exists:%@", ([DFM fileExistsAtPath:absoluteURL.path.stringByDeletingLastPathComponent]? @"YES":@"NO"));
 	}
 	self.willSave;
-    // just duplicate the orginal content if it is not a file: respect the third parties that will certainly write things inside the folder.
+    // just duplicate the original content if it is not a file: respect the third parties that will certainly write things inside the folder.
     // question are the resource forks respected?
     BOOL result = YES;
     if (![fullDocumentPath pathIsEqual4iTM3:fullOriginalDocumentPath])
     {
 		// only copy original contents if this is a directory and the expected destination is a wrapper package
-		NSNumber * myLSTypeIsPackage = [IMPLEMENTATION metaValueForKey:@"LSTypeIsPackage"];
-        if (!myLSTypeIsPackage || ![self.fileType isEqual:typeName])
-		{
-			// either this is the first time we save or the given type is not the same as the recever's one (it has changed somehow)
-			NSEnumerator * E = [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDocumentTypes"] objectEnumerator];
-			NSDictionary * dico;
-			while(dico = E.nextObject)
-			{
-				if ([[dico objectForKey:@"CFBundleTypeName"] isEqualToString:typeName])
-				{
-					myLSTypeIsPackage = [dico objectForKey:@"LSTypeIsPackage"];
-					[IMPLEMENTATION takeMetaValue:myLSTypeIsPackage forKey:@"LSTypeIsPackage"];
-					break;
-				}
-			}
-		}
-		if (myLSTypeIsPackage.boolValue)
+		if ([typeName conformsToUTType4iTM3:@"com.apple.package"])
 		{
 			// I must create a directory at the expected location, either by copying a directory or not...
 			fullOriginalDocumentPath = [fullOriginalDocumentPath stringByResolvingSymlinksAndFinderAliasesInPath4iTM3];
-			BOOL isOriginalDirectory = NO;
-			if ([DFM fileExistsAtPath:fullOriginalDocumentPath isDirectory:&isOriginalDirectory])
+            absoluteOriginalContentsURL = absoluteOriginalContentsURL.URLByResolvingSymlinksAndFinderAliasesInPath4iTM3;
+			if ([absoluteOriginalContentsURL isDirectoryOrError4iTM3:outErrorPtr])
 			{
-				// there might be something to copy
-				if (isOriginalDirectory)
-				{
-					// the receiver must be a package and not a flat file
+                // the receiver must be a package and not a flat file
 #warning
 /*
- #if 0
-            1240 NSApplicationMain
-              1240 -[NSApplication(iTM2BundleKit) swizzle_iTM2BundleKit_run]
-                1240 -[NSApplication run]
-                  1240 -[iTM2Application sendEvent:]
-                    1240 -[NSApplication sendEvent:]
-                      1240 -[NSApplication _handleKeyEquivalent:]
-                        1240 -[NSMenu performKeyEquivalent:]
-                          1240 -[NSCarbonMenuImpl performActionWithHighlightingForItemAtIndex:]
-                            1240 -[NSMenu performActionForItemAtIndex:]
-                              1240 -[NSApplication sendAction:to:from:]
-                                1240 -[iTM2TeXPCommandPerformer performCommand:]
-                                  1240 -[iTM2TeXPCommandPerformer performCommandForProject:]
-                                    1240 -[NSDocument saveDocument:]
-                                      1240 -[NSDocument saveDocumentWithDelegate:didSaveSelector:contextInfo:]
-                                        1240 -[NSDocument _saveDocumentWithDelegate:didSaveSelector:contextInfo:]
-                                          1240 -[NSDocument_iTM2ProjectDocumentKit saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
-                                            1240 -[NSDocument saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
-                                              1240 -[NSDocument _saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
-                                                1240 -[NSDocument saveToURL:ofType:forSaveOperation:error:]
-                                                  1240 -[NSDocument writeSafelyToURL:ofType:forSaveOperation:error:]
-                                                    1240 -[NSDocument _writeSafelyToURL:ofType:forSaveOperation:error:]
-                                                      1240 -[iTM2ProjectDocument writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
-                                                        1240 -[iTM2Document writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
-                                                          1240 -[NSFileManager copyPath:toPath:handler:]
-                                                            1240 -[NSFileManager _replicatePath:atPath:operation:fileMap:handler:]
-                                                              1240 -[NSFileManager _newReplicatePath:ref:atPath:ref:operation:fileMap:handler:]
-                                                                1240 -[iTM2Document fileManager:shouldProceedAfterError:]
-                                                                  1240 NSRunCriticalAlertPanel
+#if 0
+        1240 NSApplicationMain
+          1240 -[NSApplication(iTM2BundleKit) swizzle_iTM2BundleKit_run]
+            1240 -[NSApplication run]
+              1240 -[iTM2Application sendEvent:]
+                1240 -[NSApplication sendEvent:]
+                  1240 -[NSApplication _handleKeyEquivalent:]
+                    1240 -[NSMenu performKeyEquivalent:]
+                      1240 -[NSCarbonMenuImpl performActionWithHighlightingForItemAtIndex:]
+                        1240 -[NSMenu performActionForItemAtIndex:]
+                          1240 -[NSApplication sendAction:to:from:]
+                            1240 -[iTM2TeXPCommandPerformer performCommand:]
+                              1240 -[iTM2TeXPCommandPerformer performCommandForProject:]
+                                1240 -[NSDocument saveDocument:]
+                                  1240 -[NSDocument saveDocumentWithDelegate:didSaveSelector:contextInfo:]
+                                    1240 -[NSDocument _saveDocumentWithDelegate:didSaveSelector:contextInfo:]
+                                      1240 -[NSDocument_iTM2ProjectDocumentKit saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                        1240 -[NSDocument saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                          1240 -[NSDocument _saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:]
+                                            1240 -[NSDocument saveToURL:ofType:forSaveOperation:error:]
+                                              1240 -[NSDocument writeSafelyToURL:ofType:forSaveOperation:error:]
+                                                1240 -[NSDocument _writeSafelyToURL:ofType:forSaveOperation:error:]
+                                                  1240 -[iTM2ProjectDocument writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
+                                                    1240 -[iTM2Document writeToURL:ofType:forSaveOperation:originalContentsURL:error:]
+                                                      1240 -[NSFileManager copyPath:toPath:handler:]
+                                                        1240 -[NSFileManager _replicatePath:atPath:operation:fileMap:handler:]
+                                                          1240 -[NSFileManager _newReplicatePath:ref:atPath:ref:operation:fileMap:handler:]
+                                                            1240 -[iTM2Document fileManager:shouldProceedAfterError:]
+                                                              1240 NSRunCriticalAlertPanel
 On 2008-08-11, bug
 Don't know what are the exact circonstances
 The project content is lost
@@ -1684,66 +1664,62 @@ if I try to save the project as...
 the save as panel cannot list the directory contents
 #endif
 */
-					DFM.delegate = self;
-					if ([DFM copyItemAtPath:fullOriginalDocumentPath toPath:fullDocumentPath error:NULL])
-					{
-						//LOG4iTM3(@"Copied from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
-						dirName = [fullDocumentPath stringByAppendingPathComponent:@"DATE"];
-						NSString * date = [[NSDate date] description];
-						// no matter if it fails
-						[date writeToFile:dirName atomically:NO encoding:NSUTF8StringEncoding error:nil];
-					}
-					else
-					{
-						OUTERROR4iTM3(3,([NSString stringWithFormat:@"Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath]),nil);
-						LOG4iTM3(@"****  FAILURE: Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
-						result = NO;
-					}
-					DFM.delegate = nil;
-				}
-				else
-				{
-					// this is an unexpected situation, notice the user in the log and ignore the original contents
-					OUTERROR4iTM3(3,([NSString stringWithFormat:@"CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
-						absoluteOriginalContentsURL:%@\nself.fileType:%@",absoluteOriginalContentsURL,self.fileType]),nil);
-					LOG4iTM3(@"**** CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
-						absoluteOriginalContentsURL:%@\nself.fileType:%@",absoluteOriginalContentsURL,self.fileType);
-				}
-			}
-			if ((![DFM fileExistsAtPath:fullDocumentPath] || ([DFM destinationOfSymbolicLinkAtPath:fullDocumentPath error:NULL] && [DFM removeItemAtPath:fullDocumentPath error:NULL]))
-				&& ![DFM createDirectoryAtPath:fullDocumentPath withIntermediateDirectories:YES attributes:nil error:NULL])
+                DFM.delegate = self;
+                if ([DFM copyItemAtURL:absoluteOriginalContentsURL toURL:absoluteURL error:NULL])
+                {
+                    //LOG4iTM3(@"Copied from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
+                    NSString * date = [[NSDate date] description];
+                    // no matter if it fails
+                    [date writeToURL:[absoluteURL URLByAppendingPathComponent:@"DATE"] atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+                }
+                else
+                {
+                    OUTERROR4iTM3(3,([NSString stringWithFormat:@"Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath]),nil);
+                    LOG4iTM3(@"****  FAILURE: Could not copy from\n%@\nto\n%@", fullOriginalDocumentPath, fullDocumentPath);
+                    result = NO;
+                }
+                DFM.delegate = nil;
+            }
+            else if ([absoluteOriginalContentsURL linkCountOrError4iTM3:outErrorPtr])
+            {
+                // this is an unexpected situation, notice the user in the log and ignore the original contents
+                OUTERROR4iTM3(3,([NSString stringWithFormat:@"CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
+                    absoluteOriginalContentsURL:%@\nself.fileType:%@",absoluteOriginalContentsURL,self.fileType]),nil);
+                LOG4iTM3(@"**** CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
+                    absoluteOriginalContentsURL:%@\nself.fileType:%@",absoluteOriginalContentsURL,self.fileType);
+            }
+			if ((![absoluteURL linkCountOrError4iTM3:outErrorPtr]
+                    || ([absoluteURL isSymbolicLinkOrError4iTM3:outErrorPtr] && [DFM removeItemAtURL:absoluteURL error:outErrorPtr]))
+				&& ![DFM createDirectoryAtPath:absoluteURL.path withIntermediateDirectories:YES attributes:nil error:NULL])
 			{
-				OUTERROR4iTM3(4,([NSString stringWithFormat:@"Could not create a directory at\n%@", fullDocumentPath]),nil);
-				dirName = fullDocumentPath.stringByDeletingLastPathComponent;
-				LOG4iTM3(@"FILE OPERATION FAILURE: Could not create a directory at\n%@(can write?%@)", fullDocumentPath,([DFM isWritableFileAtPath:dirName]?@"Y":@"N"));            
+				OUTERROR4iTM3(4,([NSString stringWithFormat:@"Could not create a directory at\n%@", absoluteURL]),nil);
+				LOG4iTM3(@"FILE OPERATION FAILURE: Could not create a directory at\n%@(can write?%@)", absoluteURL,([DFM isWritableFileAtPath:absoluteURL.URLByDeletingLastPathComponent.path]?@"Y":@"N"));            
 				return NO;
 			}
 		}
 		else if ([SUD boolForKey:@"iTM2PreserveResourceFork"])
 		{
-			baseName = [fullOriginalDocumentPath stringByAppendingPathComponent:@"..namedfork/rsrc"];
-			NSData * D = [NSData dataWithContentsOfFile:baseName];
+			NSURL * url = [absoluteOriginalContentsURL URLByAppendingPathComponent:@"..namedfork/rsrc"];
+			NSData * D = [NSData dataWithContentsOfURL:url];
 			if (D.length)
 			{
-				baseName = [fullDocumentPath stringByAppendingPathComponent:@"..namedfork/rsrc"];
-				[D writeToFile:baseName options:NSAtomicWrite error:outErrorPtr];
+				url = [absoluteURL URLByAppendingPathComponent:@"..namedfork/rsrc"];
+				[D writeToURL:url options:NSAtomicWrite error:outErrorPtr];
 			}
 		}
 	}
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
-	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWriteToURL4iTM3:ofType:forSaveOperation:originalContentsURL:error:" signature:[I methodSignature] inherited:YES];
+	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWriteToURL4iTM3:ofType:forSaveOperation:originalContentsURL:error:" signature:I.methodSignature inherited:YES];
 	NSUInteger i = PA.count;
-	while(i--)
-	{
+	while(i--) {
 		[I setSelector:(SEL)[PA pointerAtIndex:i]];
         I.invoke;
         BOOL R = NO;
         [I getReturnValue:&R];
         result = result && R;
     }
-	result = result && [self writeToURL:absoluteURL ofType:typeName error:outErrorPtr];
-    if (result)
+	if ((result = [self writeToURL:absoluteURL ofType:typeName error:outErrorPtr] && result))
     {
         if (saveOperation == NSSaveOperation || saveOperation == NSSaveAsOperation)
         {
@@ -1765,8 +1741,6 @@ the save as panel cannot list the directory contents
 		LOG4iTM3(@"FAILURE\nabsoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %@",
 			absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
 	}
-//END4iTM3;
-//LOG4iTM3(@"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileManager:shouldProceedAfterError:
@@ -1800,20 +1774,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSNumber * myLSTypeIsPackage = [IMPLEMENTATION metaValueForKey:@"LSTypeIsPackage"];
-	if (!myLSTypeIsPackage)
-	{
-		NSEnumerator * E = [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDocumentTypes"] objectEnumerator];
-		NSDictionary * dico;
-		while(dico = E.nextObject)
-			if ([[dico objectForKey:@"CFBundleTypeName"] isEqualToString:self.fileType])
-			{
-				myLSTypeIsPackage = [dico objectForKey:@"LSTypeIsPackage"];
-				[IMPLEMENTATION takeMetaValue:myLSTypeIsPackage forKey:@"LSTypeIsPackage"];
-				break;
-			}
-	}
-    BOOL superResult = myLSTypeIsPackage.boolValue || [super writeToURL:absoluteURL ofType:type error:outErrorPtr];
+	BOOL superResult = [type conformsToUTType4iTM3:@"com.apple.package"] || [super writeToURL:absoluteURL ofType:type error:outErrorPtr];
 	BOOL result = YES;
 	if (iTM2DebugEnabled>99)
 	{
@@ -1830,6 +1791,9 @@ To Do List:
         BOOL R = NO;
         [I getReturnValue:&R];
         result = result && R;
+        if (!R) {
+            LOG4iTM3(@"FALSE:%@",I);
+        }
     }
 	[self writeContextToURL:absoluteURL ofType:type error:outErrorPtr];
 //END4iTM3;

@@ -4901,7 +4901,7 @@ To Do List:
 //START4iTM3;
 //END4iTM3;
     NSString * extension = (NSString *) UTTypeCopyPreferredTagWithClass(
-        self.projectDocumentType4iTM3,
+        (CFStringRef)(self.projectDocumentType4iTM3),
             kUTTagClassFilenameExtension);
 	return extension;
 }
@@ -6291,13 +6291,13 @@ To Do List:
 		return url;
 	}
 	url = self;
-    do {
+    while (url.path.length>1) {
         if ([SWS isWrapperPackageAtURL4iTM3:url]) {
 //END4iTM3;
             return url;
         }
         url = [url URLByDeletingLastPathComponent];
-    } while (url.path.length>1);
+    };
 //END4iTM3;
     return nil;
 }

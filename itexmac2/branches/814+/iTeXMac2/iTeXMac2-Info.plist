@@ -57,8 +57,8 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.tug.tex.texp</string>
 				<string>comp.text.tex.iTeXMac2.texp</string>
+				<string>org.tug.tex.texp</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<true/>
@@ -74,8 +74,8 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.tug.tex.texd</string>
 				<string>comp.text.tex.iTeXMac2.texd</string>
+				<string>org.tug.tex.texd</string>
 			</array>
 			<key>LSTypeIsPackage</key>
 			<true/>
@@ -972,7 +972,10 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>TeX File</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.tug.tex</string>
 			<key>UTTypeReferenceURL</key>
@@ -994,7 +997,9 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>comp.text.tex.iTeXMac.project</string>
+				<string>com.apple.package</string>
+				<string>public.composite-content</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX Project</string>
@@ -1019,7 +1024,9 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>comp.text.tex.iTeXMac.wrapper</string>
+				<string>com.apple.package</string>
+				<string>public.composite-content</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX Wrapper</string>
@@ -1045,6 +1052,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>com.apple.plugin</string>
+				<string>comp.text.tex.iTeXMac2.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX Contextual Menu Plug-In</string>
@@ -1066,6 +1074,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plugin</string>
+				<string>comp.text.tex.iTeXMac2.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>iTeXMac2 Plug In</string>
@@ -1154,83 +1163,8 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>com.apple.package</string>
-				<string>public.composite-content</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Project</string>
-			<key>UTTypeIdentifier</key>
-			<string>comp.text.tex.iTeXMac.project</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://itexmac.sourceforge.net</string>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>com.apple.package</string>
-				<string>public.composite-content</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Wrapper</string>
-			<key>UTTypeIdentifier</key>
-			<string>comp.text.tex.iTeXMac.wrapper</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://itexmac.sourceforge.net</string>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>org.tug.tex.texp</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>TeX Project</string>
-			<key>UTTypeIconFile</key>
-			<string>TEXP</string>
-			<key>UTTypeIdentifier</key>
-			<string>comp.text.tex.iTeXMac2.texp</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://itexmac.sourceforge.net</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>com.apple.ostype</key>
-				<string>i™2¶</string>
-				<key>public.filename-extension</key>
-				<array>
-					<string>texp</string>
-				</array>
-				<key>public.mime-type</key>
-				<string>application/x-tex-project</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>org.tug.tex.texd</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>TeX Wrapper</string>
-			<key>UTTypeIconFile</key>
-			<string>TEXD</string>
-			<key>UTTypeIdentifier</key>
-			<string>comp.text.tex.iTeXMac2.texd</string>
-			<key>UTTypeReferenceURL</key>
-			<string>http://itexmac.sourceforge.net</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>com.apple.ostype</key>
-				<string>i™2¶</string>
-				<key>public.filename-extension</key>
-				<array>
-					<string>texd</string>
-				</array>
-				<key>public.mime-type</key>
-				<string>application/x-tex-wrapper</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.metapost.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MetaPost Document</string>
@@ -1250,6 +1184,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.metapost.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MetaPost Special Document</string>
@@ -1269,6 +1204,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.metapost.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MetaPost Macro File</string>
@@ -1288,6 +1224,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.bibtex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>BibTeX auxiliary file</string>
@@ -1307,6 +1244,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.bibtex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>BibTeX bibliography</string>
@@ -1326,6 +1264,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.bibtex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>BibTeX log</string>
@@ -1345,6 +1284,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.bibtex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>BibTeX bibliography style</string>
@@ -1364,6 +1304,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.bibtex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>BibTeX sorting order</string>
@@ -1383,6 +1324,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.bibtex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>BibTeX resource</string>
@@ -1402,6 +1344,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.makeindex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MakeIndex log</string>
@@ -1421,6 +1364,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.makeindex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MakeIndex input</string>
@@ -1440,6 +1384,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.makeindex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MakeIndex output</string>
@@ -1459,6 +1404,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.makeindex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MakeIndex style</string>
@@ -1478,6 +1424,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX class options</string>
@@ -1497,6 +1444,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX class</string>
@@ -1516,6 +1464,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX style</string>
@@ -1535,6 +1484,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX auxiliary file</string>
@@ -1554,6 +1504,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX list of figures</string>
@@ -1573,6 +1524,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX log file (or other)</string>
@@ -1592,6 +1544,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX list of tables</string>
@@ -1611,6 +1564,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX source</string>
@@ -1630,6 +1584,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX table of contents</string>
@@ -1649,6 +1604,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX installation</string>
@@ -1668,6 +1624,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX package source</string>
@@ -1687,6 +1644,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX resource</string>
@@ -1706,6 +1664,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX koma-script resource</string>
@@ -1725,6 +1684,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX language resource</string>
@@ -1744,6 +1704,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX titlesec resource</string>
@@ -1763,6 +1724,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX minitoc resource</string>
@@ -1782,6 +1744,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX ntheorem resource</string>
@@ -1801,6 +1764,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX revtex resource</string>
@@ -1820,6 +1784,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>(La)TeX definitions</string>
@@ -1839,6 +1804,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>(La)TeX configuration</string>
@@ -1858,6 +1824,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX font definition</string>
@@ -1877,6 +1844,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>LaTeX Hyperref Output</string>
@@ -1896,6 +1864,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex4ht.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX4ht resource</string>
@@ -1915,6 +1884,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex4ht.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX4ht font resource</string>
@@ -1934,6 +1904,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.pstricks.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>PSTricks resource file</string>
@@ -1953,6 +1924,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.context.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ConTeXt resource</string>
@@ -1972,6 +1944,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.context.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ConTeXt resource</string>
@@ -1991,6 +1964,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.metapost.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MetaPost resource</string>
@@ -2010,6 +1984,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.metapost.item</string>
+				<string>org.tug.context.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MetaPost resource for ConTeXt</string>
@@ -2029,6 +2005,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.metapost.item</string>
+				<string>org.tug.contextitem</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MetaPost resource for ConTeXt</string>
@@ -2048,6 +2026,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.omega.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Omega font resource</string>
@@ -2067,6 +2046,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.omega.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Omega font resource</string>
@@ -2086,6 +2066,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.omega.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Omega resource</string>
@@ -2105,6 +2086,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.omega.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Omega font resource</string>
@@ -2124,6 +2106,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.omega.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Omega virtual font resource</string>
@@ -2143,6 +2126,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Configuration file</string>
@@ -2162,6 +2146,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX resource</string>
@@ -2181,6 +2166,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX resource</string>
@@ -2200,6 +2186,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX resource</string>
@@ -2219,6 +2206,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX resource</string>
@@ -2238,6 +2226,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX resource</string>
@@ -2257,6 +2246,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX format</string>
@@ -2276,6 +2266,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX font encoding</string>
@@ -2295,6 +2286,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string></string>
@@ -2314,6 +2306,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string></string>
@@ -2333,6 +2326,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX virtual font</string>
@@ -2352,9 +2346,10 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string></string>
+			<string>TeX Format</string>
 			<key>UTTypeIconFile</key>
 			<string>FMT</string>
 			<key>UTTypeIdentifier</key>
@@ -2371,6 +2366,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string></string>
@@ -2390,6 +2386,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX font translation table</string>
@@ -2409,6 +2406,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX font resource</string>
@@ -2428,6 +2426,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX font resource</string>
@@ -2447,6 +2446,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX font resource</string>
@@ -2466,6 +2466,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX font resource</string>
@@ -2485,6 +2486,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.dvips.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX dvips resource</string>
@@ -2504,6 +2506,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Web2c configuration file</string>
@@ -2523,6 +2526,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.metafont.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string></string>
@@ -2542,6 +2546,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.metafont.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>MetaFont format</string>
@@ -2561,6 +2566,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.texutils.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeXUtil Document I</string>
@@ -2580,6 +2586,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.texutils.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeXUtil Document O</string>
@@ -2599,6 +2606,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.texutils.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeXUtil Document F</string>
@@ -2618,6 +2626,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.asy.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Asymptote Document</string>
@@ -2637,6 +2646,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.dvi.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX DeVice Independent</string>
@@ -2656,6 +2666,7 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>
+				<string>org.tug.xdv.item</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>XeTeX DeVice Independent</string>

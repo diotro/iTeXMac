@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		5185EE781270447700AFA001 /* Prepare Milestones */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5185EE8D1270448B00AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
+			buildPhases = (
+				5185EE771270447700AFA001 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Milestones";
+			productName = "Prepare Milestones";
+		};
 		DC2CA78D0855D4F500128F14 /* All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = DC6BB80D09474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
@@ -59,6 +70,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5185EE7B1270448500AFA001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5185EE781270447700AFA001;
+			remoteInfo = "Prepare Milestones";
+		};
 		DC8A60CC088D72200016FAA2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -113,6 +131,10 @@
 		512D9CE30D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineMPtoPDF.xib; sourceTree = "<group>"; };
 		512D9CE40D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2MetaPostFigureMenu.xib; sourceTree = "<group>"; };
 		512D9CE50D59F88700FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2MetaPostInspector.xib; sourceTree = "<group>"; };
+		5185EE711270446500AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
+		5185EE721270446500AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		5185EE731270446500AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
+		5185EE741270446500AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
 		51D4620D1148E78B00A66A19 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC14CE8C091F2E36009D184E /* iTM2MetaPostToolbarKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2MetaPostToolbarKit.h; sourceTree = "<group>"; };
@@ -246,6 +268,9 @@
 		DC3B41A50A4ADDCF00E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5185EE721270446500AFA001 /* GC-set.xcconfig */,
+				5185EE731270446500AFA001 /* Development-set.xcconfig */,
+				5185EE741270446500AFA001 /* Deployment-set.xcconfig */,
 				DC5B69890A4B6B9100F7DE47 /* Framework */,
 				DC5B698A0A4B6B9100F7DE47 /* FrameworkDeployment.xcconfig */,
 				DC5B698B0A4B6B9100F7DE47 /* FrameworkDevelopment.xcconfig */,
@@ -254,6 +279,7 @@
 				DC5B698E0A4B6B9100F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41A60A4ADDCF00E83ABA /* Deployment.xcconfig */,
 				DC3B41A70A4ADDCF00E83ABA /* Development.xcconfig */,
+				5185EE711270446500AFA001 /* DevelopmentGC.xcconfig */,
 			);
 			name = Settings;
 			path = ../Settings;
@@ -335,6 +361,7 @@
 			);
 			dependencies = (
 				DCBD7E4109491B7100E2ACC7 /* PBXTargetDependency */,
+				5185EE7C1270448500AFA001 /* PBXTargetDependency */,
 			);
 			name = iTM2MetaPostKit;
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -395,6 +422,7 @@
 			projectRoot = "";
 			targets = (
 				DCBD7E3709491B4500E2ACC7 /* Prepare iTM2PDFKit */,
+				5185EE781270447700AFA001 /* Prepare Milestones */,
 				8DC2EF4F0486A6940098B216 /* iTM2MetaPostKit */,
 				DC2CA78D0855D4F500128F14 /* All */,
 				DC81AE6D08871B4600943C99 /* iTeXMac2 */,
@@ -430,6 +458,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5185EE771270447700AFA001 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"${PROJECT_DIR}\" \"${BUILD_ROOT}\"\nexit 0\n";
+		};
 		DC7477450886C8FD00C264BB /* Prepare public headers directory */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -544,6 +585,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5185EE7C1270448500AFA001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5185EE781270447700AFA001 /* Prepare Milestones */;
+			targetProxy = 5185EE7B1270448500AFA001 /* PBXContainerItemProxy */;
+		};
 		DC8A60CD088D72200016FAA2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iTM2MetaPostKit */;
@@ -646,6 +692,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5185EE791270447700AFA001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare Milestones";
+			};
+			name = Development;
+		};
+		5185EE7A1270447700AFA001 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare Milestones";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		DC6BB80A09474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B698B0A4B6B9100F7DE47 /* FrameworkDevelopment.xcconfig */;
@@ -770,6 +837,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5185EE8D1270448B00AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5185EE791270447700AFA001 /* Development */,
+				5185EE7A1270447700AFA001 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
 		DC6BB80909474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2MetaPostKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -1083,7 +1083,7 @@ To Do List:
 //END4iTM3;
 	return ![P hasPrefix:iTM2PathComponentDoubleDot];
 }
-- (NSURL *)URLByRemovingParentLastPathComponent4iTM3;
+- (NSURL *)URLByDeletingParentLastPathComponent4iTM3;
 {
 //  Latest Revision: Fri Oct  8 06:44:02 UTC 2010
     return [self.URLByDeletingLastPathComponent.URLByDeletingLastPathComponent URLByAppendingPathComponent:self.lastPathComponent];
@@ -1205,7 +1205,7 @@ To Do List:
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLAttributeModificationDateKey] error:errorRef] objectForKey:NSURLAttributeModificationDateKey];
 }
-- (BOOL) linkCountOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) linkCountOrError4iTM3:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLLinkCountKey] error:errorRef] objectForKey:NSURLLinkCountKey] unsignedIntegerValue];
 }

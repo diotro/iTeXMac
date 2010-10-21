@@ -29,6 +29,9 @@
 
 extern NSString * const iTM2TeXProjectInfoComponent;
 
+extern NSString * const iTM2UTTypeTeXWrapper;
+extern NSString * const iTM2UTTypeTeXProject;
+
 extern NSString * const iTM3UTTypeTeXWrapper;
 extern NSString * const iTM3UTTypeTeXProject;
 

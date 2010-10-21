@@ -1428,7 +1428,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ScrollerToolbarKit
 
 @interface iTM2ScrollerToolbar(PRIVATE)
-- (void)setPosition:(iTM2ScrollerToolbarPosition)position;
+- (void)setPosition4iTM3:(iTM2ScrollerToolbarPosition)position;
 @end
 @implementation iTM2ScrollerToolbar
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollerToolbarForPosition:
@@ -1441,7 +1441,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	iTM2ScrollerToolbar * result = [[self.alloc initWithFrame:NSMakeRect(0, 0, [NSScroller scrollerWidth], [NSScroller scrollerWidth])] autorelease];
-	result.position = position;
+	result.position4iTM3 = position;
 //END4iTM3;
 	return result;
 }
@@ -1455,7 +1455,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super encodeWithCoder:aCoder];
-	NSUInteger position = self.position;
+	NSUInteger position = self.position4iTM3;
 	[aCoder encodeValueOfObjCType:@encode(NSUInteger) at:&position];
 //END4iTM3;
 	return;
@@ -1473,13 +1473,13 @@ To Do List:
 	{
 		NSUInteger position;
 		[aDecoder decodeValueOfObjCType:@encode(NSUInteger) at:&position];
-		[self setPosition:position];
+		self.position4iTM3 = position;
 	}
 //END4iTM3;
 	return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  position
-@synthesize position = position4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  position4iTM3
+@synthesize position4iTM3 = _position4iTM3;
 @end
 
 @implementation NSScrollView(iTM2ViewKit)
@@ -1493,13 +1493,9 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self SWZ_iTM2ViewKit_tile];
-	NSEnumerator * E = [self.subviews objectEnumerator];
-	iTM2ScrollerToolbar * subview;
-	while(subview = [E nextObject])
-		if ([subview isKindOfClass:[iTM2ScrollerToolbar class]])
-		{
-			switch([subview position])
-			{
+	for (iTM2ScrollerToolbar * subview in self.subviews) {
+		if ([subview isKindOfClass:[iTM2ScrollerToolbar class]]) {
+			switch(subview.position4iTM3) {
 				case iTM2ScrollerToolbarPositionTop:
 				{
 //LOG4iTM3(@"PLACING TOP");
@@ -1575,6 +1571,7 @@ To Do List:
 				break;
 			}
 		}
+    }
 //END4iTM3;
     return;
 }
@@ -1659,8 +1656,8 @@ To Do List:
 }
 - (void)viewFrameDidChangeNotified:(NSNotification *)notification;
 {
-	NSView * V = [notification object];
-	if ([self isEqual:[V superview]])
+	NSView * V = notification.object;
+	if ([self isEqual:V.superview])
 	{
 		self.stackAndFit;
 	}
@@ -1770,8 +1767,7 @@ To Do List:
 @implementation iTM2MainInstaller(ViewKit)
 + (void)prepareViewKitCompleteInstallation4iTM3;
 {
-	if ([self swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ViewKit_tile) error:NULL])
-	{
+	if ([NSScrollView swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ViewKit_tile) error:NULL]) {
 		MILESTONE4iTM3((@"NSScrollView(iTM2ViewKit)"),(@"..........  ERROR: Bad configuration, no auto scroller toolbar..."));
 	}
 }

@@ -1602,7 +1602,7 @@ To Do List:
                 [IMPLEMENTATION takeMetaValue:_Launch forKey:iTM2TaskLaunchInvocationKey];
             }
             else
-                NSLog(@"Bad selector: %@", NSStringFromSelector(LCB));
+                LOG4iTM3(@"Bad selector: %@", NSStringFromSelector(LCB));
         }
         if (TCB)
         {
@@ -1618,7 +1618,7 @@ To Do List:
                 [IMPLEMENTATION takeMetaValue:_Terminate forKey:iTM2TaskTerminateInvocationKey];
             }
             else
-                NSLog(@"Bad selector: %@", NSStringFromSelector(TCB));
+                LOG4iTM3(@"Bad selector: %@", NSStringFromSelector(TCB));
         }
         if (ICB)
         {
@@ -1634,7 +1634,7 @@ To Do List:
                 [IMPLEMENTATION takeMetaValue:_Interrupt forKey:iTM2TaskInterruptInvocationKey];
             }
             else
-                NSLog(@"Bad selector: %@", NSStringFromSelector(ICB));
+                LOG4iTM3(@"Bad selector: %@", NSStringFromSelector(ICB));
         }
     }
     return;

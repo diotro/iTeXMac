@@ -31,6 +31,17 @@
 			name = "All Tests";
 			productName = "All Tests";
 		};
+		5185E6DB126F89C100AFA001 /* Prepare Milestones */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5185E6DE126F89E000AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
+			buildPhases = (
+				5185E6DA126F89C100AFA001 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Milestones";
+			productName = "Prepare Milestones";
+		};
 		DC2CA7A50855D53C00128F14 /* All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = DC1E8AA509462DC40037B13F /* Build configuration list for PBXAggregateTarget "All" */;
@@ -186,6 +197,10 @@
 		5160E1E110CE916300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E29810CE9ABF00476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E3C610CEBEC100476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
+		5185EB5A12701C8400AFA001 /* Deployment-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */; };
+		5185EB5B12701C8400AFA001 /* Development-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5712701C8400AFA001 /* Development-set.xcconfig */; };
+		5185EB5C12701C8400AFA001 /* DevelopmentGC.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5812701C8400AFA001 /* DevelopmentGC.xcconfig */; };
+		5185EB5D12701C8400AFA001 /* GC-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5912701C8400AFA001 /* GC-set.xcconfig */; };
 		518E0C650CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */; };
 		5194551B10BFE1B0006254DD /* ICURegEx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 53C2525E1089E836002312DA /* ICURegEx.mm */; };
 		5194551C10BFE1B0006254DD /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C252621089E84D002312DA /* RegexKitLite.m */; };
@@ -1296,6 +1311,20 @@
 			remoteGlobalIDString = DC25E42D0991F5F000545F27;
 			remoteInfo = "iTM2TaskKit Test";
 		};
+		5185E6DF126F89F400AFA001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5185E6DB126F89C100AFA001;
+			remoteInfo = "Prepare Milestones";
+		};
+		5185E6E1126F8A1600AFA001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5185E6DB126F89C100AFA001;
+			remoteInfo = "Prepare Milestones";
+		};
 		51A6873C10A2E269006E0065 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1751,6 +1780,10 @@
 		5142191710988E0600A01853 /* iTM2StringControllerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StringControllerKit.h; sourceTree = "<group>"; };
 		5142191810988E0600A01853 /* iTM2StringControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StringControllerKit.m; sourceTree = "<group>"; };
 		5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
+		5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
+		5185EB5712701C8400AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
+		5185EB5812701C8400AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
+		5185EB5912701C8400AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
 		518E0C640CE8CCA900ED9277 /* iTM2SmallToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SmallToolbarBackground.png; sourceTree = "<group>"; };
 		5194557710BFE283006254DD /* iTM2Test_RE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test_RE.h; sourceTree = "<group>"; };
 		5194557810BFE283006254DD /* iTM2Test_RE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test_RE.m; sourceTree = "<group>"; };
@@ -2609,12 +2642,12 @@
 				53C2520E1089E80F002312DA /* iTM2UserDefaultsKit.m */,
 				53C251F71089E80F002312DA /* iTM2ContextKit.h */,
 				53C251F81089E80F002312DA /* iTM2ContextKit.m */,
+				53C251F91089E80F002312DA /* iTM2DocumentControllerKit.h */,
+				53C251FA1089E80F002312DA /* iTM2DocumentControllerKit.m */,
 				53C251FB1089E80F002312DA /* iTM2DocumentKit.h */,
 				53C251FC1089E80F002312DA /* iTM2DocumentKit.m */,
 				533EB233108E63BB001B3F81 /* iTM2PreferencesKit.h */,
 				533EB234108E63BB001B3F81 /* iTM2PreferencesKit.m */,
-				53C251F91089E80F002312DA /* iTM2DocumentControllerKit.h */,
-				53C251FA1089E80F002312DA /* iTM2DocumentControllerKit.m */,
 				53C251F31089E80F002312DA /* iTM2ApplicationDelegate.h */,
 				53C251F41089E80F002312DA /* iTM2ApplicationDelegate.m */,
 				53C251F51089E80F002312DA /* iTM2AutoKit.h */,
@@ -2696,6 +2729,9 @@
 		DC3B41C40A4ADEA400E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */,
+				5185EB5712701C8400AFA001 /* Development-set.xcconfig */,
+				5185EB5912701C8400AFA001 /* GC-set.xcconfig */,
 				DC5B69B20A4B6CD100F7DE47 /* Framework */,
 				DC5B69B30A4B6CD100F7DE47 /* FrameworkDeployment.xcconfig */,
 				DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */,
@@ -2704,6 +2740,7 @@
 				DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */,
 				DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */,
+				5185EB5812701C8400AFA001 /* DevelopmentGC.xcconfig */,
 			);
 			name = Settings;
 			path = ../Settings;
@@ -3301,6 +3338,7 @@
 			);
 			dependencies = (
 				53767800108852E6007CCC1E /* PBXTargetDependency */,
+				5185E6E0126F89F400AFA001 /* PBXTargetDependency */,
 			);
 			name = "iTM2Foundation-debug";
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -3383,6 +3421,7 @@
 			);
 			dependencies = (
 				DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */,
+				5185E6E2126F8A1600AFA001 /* PBXTargetDependency */,
 			);
 			name = iTM2Foundation;
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -3701,6 +3740,7 @@
 				DC13E68A0855867D0063D5A5 /* Test Application */,
 				53F81EA21086742B0000F555 /* Test Application debug */,
 				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
+				5185E6DB126F89C100AFA001 /* Prepare Milestones */,
 				DC0F125B0BFB74CA00108852 /* Prepare Lua */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
 				DCB200320858E250003659F3 /* Install iTM2Foundation */,
@@ -3829,6 +3869,10 @@
 			files = (
 				5107D97110D29CD20039FA0E /* iTM2RegularExpressions.plist in Resources */,
 				51D1D5BA1196F2C700BC8256 /* iTM2RegExTests.plist in Resources */,
+				5185EB5A12701C8400AFA001 /* Deployment-set.xcconfig in Resources */,
+				5185EB5B12701C8400AFA001 /* Development-set.xcconfig in Resources */,
+				5185EB5C12701C8400AFA001 /* DevelopmentGC.xcconfig in Resources */,
+				5185EB5D12701C8400AFA001 /* GC-set.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4145,6 +4189,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "lipo -info \"${BUILD_DIR}/${EXECUTABLE_PATH}\"\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		5185E6DA126F89C100AFA001 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}\"\nexit 0\n";
 		};
 		5338F263108F5AA700842A70 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4535,6 +4592,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/PrepareBuildNumber.pl;
+			showEnvVarsInLog = 0;
 		};
 		DCF61CF00854662D003F5F79 /* Merge the headers */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5471,6 +5529,16 @@
 			target = DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */;
 			targetProxy = 514218D5109885FC00A01853 /* PBXContainerItemProxy */;
 		};
+		5185E6E0126F89F400AFA001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5185E6DB126F89C100AFA001 /* Prepare Milestones */;
+			targetProxy = 5185E6DF126F89F400AFA001 /* PBXContainerItemProxy */;
+		};
+		5185E6E2126F8A1600AFA001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5185E6DB126F89C100AFA001 /* Prepare Milestones */;
+			targetProxy = 5185E6E1126F8A1600AFA001 /* PBXContainerItemProxy */;
+		};
 		51A6873D10A2E269006E0065 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
@@ -6078,6 +6146,27 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "All Tests";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		5185E6DC126F89C200AFA001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare Milestones";
+			};
+			name = Development;
+		};
+		5185E6DD126F89C200AFA001 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare Milestones";
 				ZERO_LINK = NO;
 			};
 			name = Deployment;
@@ -7697,6 +7786,15 @@
 			buildConfigurations = (
 				514218B9109885EB00A01853 /* Development */,
 				514218BA109885EB00A01853 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		5185E6DE126F89E000AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5185E6DC126F89C200AFA001 /* Development */,
+				5185E6DD126F89C200AFA001 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

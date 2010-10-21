@@ -854,7 +854,7 @@ To Do List:
 	NSURL * fileURL = document.fileURL;
     if (![[self projectForURL:fileURL] isEqual:projectDocument]) {
         [self setProject:projectDocument forURL:fileURL];
-        NSAssert1((projectDocument == [self projectForDocument:document]),
+        NSAssert1(!projectDocument || (projectDocument == [self projectForDocument:document]),
             @"..........  INCONSISTENCY:unexpected behaviour,report bug 1313 in %@",__iTM2_PRETTY_FUNCTION__);
     }
 	NSAssert3((!projectDocument || [[projectDocument fileKeyForURL:fileURL] length]),
@@ -939,7 +939,7 @@ To Do List:
 	NSParameterAssert(fileURL);
 	NSParameterAssert((!projectDocument || [SPC isProject:projectDocument]));
 	[self.cachedProjects setObject:projectDocument forKey:fileURL.URLByStandardizingPath];
-	NSAssert1((projectDocument == [self projectForURL:fileURL]),
+	NSAssert1(!projectDocument || (projectDocument == [self projectForURL:fileURL]),
 		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %@",__iTM2_PRETTY_FUNCTION__);
 	[self.cachedProjects setObject:projectDocument forKey:fileURL.URLByDeletingPathExtension.URLByStandardizingPath];
 	return;
@@ -1142,7 +1142,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	iTM2ProjectDocument * projectDocument = nil;
-	NSString * fileName = [fileURL.path stringByStandardizingPath];
+	NSString * fileName = fileURL.path.stringByStandardizingPath;
 	NSURL * wrapperURL = fileURL.enclosingWrapperURL4iTM3;
 	if (wrapperURL.isFileURL) {
 		// then we are trying to find a project just below
@@ -2986,8 +2986,8 @@ To Do List:
 		while(i--) {
 			SEL selector = (SEL)[PA pointerAtIndex:i];
 			if (selector != _cmd) {
-				[I setSelector:selector];
-				[I invoke];
+				I.selector = selector;
+				I.invoke;
 				BOOL R = NO;
 				[I getReturnValue:&R];
 				if (R) {
@@ -3019,8 +3019,8 @@ To Do List:
 		while(i--) {
 			SEL selector = (SEL)[PA pointerAtIndex:i];
 			if (selector != _cmd) {
-				[I setSelector:selector];
-				[I invoke];
+				I.selector = selector;
+				I.invoke;
 				BOOL R = NO;
 				[I getReturnValue:&R];
 				if (R) {
@@ -3028,7 +3028,8 @@ To Do List:
 				}
 			}
 		}
-		return [[SDC typeForContentsOfURL:url error:NULL] conformsToUTType4iTM3:iTM2UTTypeWrapper];
+        NSString * theType = [SDC typeForContentsOfURL:url error:NULL];
+		return [theType conformsToUTType4iTM3:iTM2UTTypeWrapper];
 	}
 //END4iTM3;
     return NO;
@@ -3108,7 +3109,7 @@ To Do List:
 
 @end
 
-@implementation NSApplication(iTM2DocumentController)
+@implementation NSApplication(iTM2PDocumentController)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentControllerCompleteInstallation4iTM3
 + (void)documentControllerCompleteInstallation4iTM3;
 /*"Installs the custom document controller.
@@ -3118,12 +3119,18 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[iTM2PDocumentController alloc] performSelector:@selector(init)];
+	NSDocumentController * DC = [[iTM2PDocumentController alloc] performSelector:@selector(init)];
+    NSAssert((DC == SDC), @"MISSED, bad document controller...");
     return;
 }
 @end
 
 @implementation iTM2PDocumentController
+- (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
+{
+    NSString * theType = [super typeForContentsOfURL:inAbsoluteURL error:outError];
+    return theType;
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= noteNewRecentDocumentURL:
 - (void)noteNewRecentDocumentURL:(NSURL *)absoluteURL;
 /*"Description Forthcoming.
@@ -3272,7 +3279,7 @@ To Do List:
     //  - outside wrappers and out of the factory
     NSURL * projectURL1 = absoluteURL.URLByRemovingFactoryBaseURL4iTM3;
     NSURL * projectURL2 = projectURL1.URLByRemovingParentPathExtension4iTM3;
-    NSURL * projectURL3 = projectURL1.URLByRemovingParentLastPathComponent4iTM3;
+    NSURL * projectURL3 = projectURL1.URLByDeletingParentLastPathComponent4iTM3;
     NSURL * factoryURL = absoluteURL.URLByPrependingFactoryBaseURL4iTM3;
     NSURL * folderURL = nil;
 	if (absoluteURL.belongsToFactory4iTM3) {
@@ -3395,7 +3402,7 @@ To Do List:
     // This is possible because the app keeps tracks of the wrappers it opens through some indirect address.
     // trying to open a project document at the first level if any
     NSArray * URLs = absoluteURL.enclosedProjectURLs4iTM3;
-    NSURL * nil;
+    NSURL * url = nil;
     if (URLs.count == 1) {
         return [self openDocumentWithContentsOfURL:URLs.lastObject display:display error:outErrorPtr];
     } else if ((url = [SPC mainInfoURLFromURL:absoluteURL create:NO error:outErrorPtr])) {
@@ -3418,21 +3425,22 @@ To Do List:
         }
         else if (dict) {
             OUTERROR4iTM3(3,([NSString stringWithFormat:@"Something weird occurred to that folder\n%@.",absoluteURL]),nil);
-            [SWS selectFile:fileName inFileViewerRootedAtPath:absoluteURL.URLByDeletingLastPathComponent.path];
+            [SWS selectFile:absoluteURL.path inFileViewerRootedAtPath:absoluteURL.URLByDeletingLastPathComponent.path];
             return nil;
         }
     } else if (URLs.count > 0) {
-        NSString * pattern = absoluteURL.lastPathComponent;
-        pattern = [NSString stringWithFormat:@".*%@.*",pattern];
-        NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES[c] %@",pattern];
-        RA = [DFM contentsOfDirectoryAtPath:absoluteURL.path error:NULL];
-        RA = [RA filteredArrayUsingPredicate:predicate];
+        NSString * pattern = [NSString stringWithFormat:@".*\\Q%@\\E.*",absoluteURL.lastPathComponent.stringByDeletingPathExtension];
+        ICURegEx * RE = [ICURegEx regExWithSearchPattern:pattern error:outErrorPtr];
+        NSArray * RA = [DFM contentsOfDirectoryAtPath:absoluteURL.path error:outErrorPtr];
+        RA = [RA filteredArrayUsingICURegEx4iTM3:RE];
         if (RA.count) {
-            NSString * subpath = [fileName stringByAppendingPathComponent:RA.lastObject];
-            return [self openDocumentWithContentsOfURL:[NSURL fileURLWithPath:subpath] display:display error:outErrorPtr];
+            NSURL * url = [absoluteURL URLByAppendingPathComponent:RA.lastObject];
+            if (RA.count == 1) {
+                return [self openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
+            }
+            OUTERROR4iTM3(1,(@"Confusing situation:too many projects in that directory.\nSee what you can do from the Finder."),nil);
+            [SWS selectFile:url.path inFileViewerRootedAtPath:absoluteURL.path];
         }
-        OUTERROR4iTM3(1,(@"Confusing situation:too many projects in that directory.\nSee what you can do from the Finder."),nil);
-        [SWS selectFile:fileName inFileViewerRootedAtPath:absoluteURL.path];
         return nil;
     }
     return nil;
@@ -3459,12 +3467,10 @@ To Do List:
 	}
     //  Normalize the URL according to iTM3 standards
     absoluteURL = absoluteURL.normalizedURL4iTM3;
-    //  resolve the URL
-	NSURL * resolvedURL = [absoluteURL URLByResolvingSymlinksAndBookmarkDataWithOptions:NSURLBookmarkResolutionWithoutUI relativeToURL:nil error4iTM3:&outError];
 	//  is it an already open document (including projects and wrappers) ?
     id D = nil;
 	if ((D = [self documentForURL:absoluteURL])) {
-		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:&outError];
+		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
 	}
 	// if the file was trashed, recover it
 	NSArray * components = absoluteURL.pathComponents;
@@ -3479,43 +3485,46 @@ To Do List:
 	NSString * component;
 	for(component in components) {
 		if ([component hasPrefix:TWSDotKey]) {
-			REPORTERROR4iTM3(1,([NSString stringWithFormat:@"Please, copy %@ to a visible location of the Finder before opening it.",fileName.lastPathComponent]),nil);
-			[SWS selectFile:fileName inFileViewerRootedAtPath:fileName.stringByDeletingLastPathComponent];
+			REPORTERROR4iTM3(1,([NSString stringWithFormat:@"Please, copy %@ to a visible location of the Finder before opening it.",absoluteURL.lastPathComponent]),nil);
+			[SWS selectFile:absoluteURL.path inFileViewerRootedAtPath:absoluteURL.URLByDeletingLastPathComponent.path];
 			return nil;
 		}
 	}
     if ((D = [self _openProjectDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&outError])) {
         return D;
     } else if (outError) {
-        OUTERROR4iTM3(1,([NSString stringWithFormat:@"Could not open\n%@",absoluteURL]),outError);
+        OUTERROR4iTM3(1,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),outError);
 		return nil;
     }
-    if ([SWS isProjectPackageAtURL4iTM3:resolvedURL]) {
+    //  resolve the URL
+	NSURL * resolvedURL = [absoluteURL URLByResolvingSymlinksAndBookmarkDataWithOptions:NSURLBookmarkResolutionWithoutUI relativeToURL:nil error4iTM3:&outError];
+    if (!outError && [SWS isProjectPackageAtURL4iTM3:resolvedURL]) {
         OUTERROR4iTM3(2,([NSString stringWithFormat:@"Unsupported soft link or alias\n%@\nto\n%@",absoluteURL,resolvedURL]),nil);
 		return nil;
 	}
+    outError = nil;
     if ((D = [self _openWrapperDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&outError])) {
         return D;
     } else if (outError) {
-        OUTERROR4iTM3(3,([NSString stringWithFormat:@"Could not open\n%@",absoluteURL]),outError);
+        OUTERROR4iTM3(3,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),outError);
 		return nil;
     }
     if ((D = [self _openWrapperDocumentWithContentsOfURL:resolvedURL display:display error4iTM3:&outError])) {
         return D;
     } else if (outError) {
-        OUTERROR4iTM3(4,([NSString stringWithFormat:@"Could not open\n%@",resolvedURL]),outError);
+        OUTERROR4iTM3(4,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",resolvedURL]),outError);
 		return nil;
     }
-    if ((D = [self _openFolderDocumentWithContentsOfURL:absoluteURL display:display error:&outError])) {
+    if ((D = [self _openFolderDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&outError])) {
         return D;
     } else if (outError) {
-        OUTERROR4iTM3(5,([NSString stringWithFormat:@"Could not open\n%@",absoluteURL]),outError);
+        OUTERROR4iTM3(5,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),outError);
 		return nil;
     }
-    if ((D = [self _openFolderDocumentWithContentsOfURL:resolvedURL display:display error:&outError])) {
+    if ((D = [self _openFolderDocumentWithContentsOfURL:resolvedURL display:display error4iTM3:&outError])) {
         return D;
     } else if (outError) {
-        OUTERROR4iTM3(6,([NSString stringWithFormat:@"Could not open\n%@",resolvedURL]),outError);
+        OUTERROR4iTM3(6,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",resolvedURL]),outError);
 		return nil;
     }
     // Now we assume that absoluteURL does not point to a project nor wrapper nor directory.

@@ -70,3 +70,5 @@ To Do List:
     return iTM2DefaultInspectorMode;
 }
 @end
+
+#include "../build/Milestones/iTM2BibTeXSupportKit.m"

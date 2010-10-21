@@ -766,9 +766,6 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	// if you have in your text the "alpha" word as is, not the name of a TeX command
-	{
-		return NO;
-	}
 	// this is a patch to manage the special glyph generation used by iTM2
 	// some TeX commands are displayed just with one glyph
 	// when the style is extended latex for example, the \alpha command is replaced by the alpha greek letter
@@ -1185,8 +1182,7 @@ To Do List:
 @implementation iTM2MainInstaller(iTM2TeXDocumentKit)
 + (void)prepareTeXDocumentKitCompleteInstallation4iTM3;
 {
-	if([iTM2KeyBindingsManager swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_client:executeBindingForKeyStroke:) error:NULL])
-	{
+	if(![iTM2KeyBindingsManager swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_client:executeBindingForKeyStroke:) error:NULL]) {
 		MILESTONE4iTM3((@"iTM2KeyBindingsManager(TeX)"),(@"The 7 bits accents are not managed properly"));
 	}
 }
@@ -1877,3 +1873,5 @@ To Do List:
     return iTM3MakeRange(NSNotFound, 0);
 }
 @end
+
+#include "../build/Milestones/iTM2TeXFoundation.m"

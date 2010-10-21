@@ -3686,53 +3686,50 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSLock * L = [[[NSLock alloc] init] autorelease];
-	[L lock];
-	if (__PageStringOffsets) {
-		[L unlock];
+	if (__PageCharacterCounts) {
 		return;
 	}
-	NSInteger maxPageIndex = self.pageCount;
-	if (__PageStringOffsets = NSAllocateCollectable(sizeof(NSUInteger),0)) {
-		NSUInteger * validPageOff7Ref = __PageStringOffsets + maxPageIndex + 2;
-		* validPageOff7Ref = 0;
-		* __PageStringOffsets = maxPageIndex;
+	NSLock * L = [[[NSLock alloc] init] autorelease];
+	[L lock];
+	NSInteger pageCount = self.pageCount;
+    // __PageCharacterCounts[0] is the total number of pages, in other words pageCount
+    // __PageCharacterCounts[1] is the total amount of characters in page 1
+    // __PageCharacterCounts[2] is the total amount of characters in pages 1 and 2
+    // __PageCharacterCounts[i] is the total amount of characters in the i leading pages, from index 0 to i-1
+    // __PageCharacterCounts[pageCount] is also the total amount of characters in that document.
+    // __PageCharacterCounts[pageCount+1] is the last page index for which the character count is valid.
+    // this last index can have the value pageCount at most
+    // The size of __PageCharacterCounts is pageCount+2
+	if (__PageCharacterCounts = NSAllocateCollectable(sizeof(NSUInteger),pageCount+2)) {
+		__PageCharacterCounts[pageCount + 1] = 0;
+		__PageCharacterCounts[0] = pageCount;
 		[L unlock];
-		NSUInteger * off7s = __PageStringOffsets + 1;
 		NSUInteger pageOff7 = 0;
-		
 		NSUInteger pageIndex = 0;
-        while (YES) {
-            [L lock];
-            * off7s = pageOff7;
-            * validPageOff7Ref = pageIndex;
-            [L unlock];
-            if (pageIndex>=maxPageIndex) {
-                break;
-            }
+        while (pageIndex < pageCount) {
             PDFPage * page = [self pageAtIndex:pageIndex];
             NSUInteger NOC = [page numberOfCharacters];
-            ++off7s;
-            if (pageOff7 < UINT_MAX - NOC)
+            if (pageOff7 < UINT_MAX - NOC) {
                 pageOff7 += NOC;
-            else
-                pageOff7 = UINT_MAX;
-            ++pageIndex;
+                ++pageIndex;
+                [L lock];
+                __PageCharacterCounts[pageIndex] = pageOff7;
+                __PageCharacterCounts[pageCount+1] = pageIndex;
+                [L unlock];
+            } else {
+                break;
+            }
         }
-		// __PageStringOffsets[0] is the total number of pages, in other words pageCount
-		// __PageStringOffsets[i+1] is the total number of characters from pages 0 to i-1
-		// __PageStringOffsets[pageCount+1] is the total amount of characters in that document.
-		// __PageStringOffsets[pageCount+2] is the last page index for which the offset is valid.
 		// it is for safety reasons due to multi threading, this whole method can take time
 		// because the PDFKit has to parse the whole pdf file before it known the real offsets
 		if (iTM2DebugEnabled) {
 			pageIndex = 0;
-			LOG4iTM3(@"<-><-><->  Number of pages(%u) is:%u", pageIndex, __PageStringOffsets[pageIndex]);
-			++maxPageIndex;
-			while (++pageIndex<maxPageIndex) {
-				LOG4iTM3(@"<-><-><->  offset at index:%u is %u (= %u is %u)", pageIndex-1, __PageStringOffsets[pageIndex], [self pageIndexForCharacterIndex:__PageStringOffsets[pageIndex]], [self characterOffsetForPageAtIndex:pageIndex - 1]);
+			LOG4iTM3(@"<-><-><->  Number of pages(%u) is:%u", pageIndex, __PageCharacterCounts[pageIndex]);
+			++pageCount;
+			while (++pageIndex<pageCount) {
+				LOG4iTM3(@"<-><-><->  count at index:%u is %u (= %u is %u)", pageIndex-1, __PageCharacterCounts[pageIndex], [self pageIndexForCharacterIndex:__PageCharacterCounts[pageIndex-1]], [self characterOffsetForPageAtIndex:pageIndex - 1]);
 			}
-			LOG4iTM3(@"<-><-><->  Total number of characters (%u) is:%u", maxPageIndex, __PageStringOffsets[maxPageIndex]);
+			LOG4iTM3(@"<-><-><->  Total number of characters (%u) is:%u", pageCount, __PageCharacterCounts[pageCount]);
 		}
 		return;
 	} else {
@@ -3754,39 +3751,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.__SetupPageStringOffsets;
-	NSUInteger pageCount = __PageStringOffsets[0];
-	// what is the max valid offset?
-	NSUInteger maxValidIndex = __PageStringOffsets[pageCount+2];
-	NSUInteger maxValidCharacterOffset = __PageStringOffsets[maxValidIndex+1];
-	if (characterIndex > maxValidCharacterOffset) {
-		// the pdf file is not yet parsed
-		return NSNotFound;
-	}
-	NSUInteger min = 1;
-	NSUInteger max = min + maxValidIndex;
-	while (YES) {
-		// here we always have __PageStringOffsets[min] <= characterIndex < __PageStringOffsets[max]
-		NSUInteger mid = (min + max)/2;
-		if (min == mid) {
-//LOG4iTM3(@"%%%%%%%% character index:%i, page index:%i", characterIndex, min);
-			// beware of void pages.
-			// the only possibility is to have __PageStringOffsets[min] == characterIndex
-			// and then __PageStringOffsets[min] == __PageStringOffsets[min - 1]
-			if (__PageStringOffsets[min] == characterIndex)
-				while (__PageStringOffsets[min - 1] == characterIndex)
-					--min;
-				// when exiting this loop, we still have __PageStringOffsets[min] == characterIndex
-				// but __PageStringOffsets[min-1] != characterIndex
-				// as characterIndex < __PageStringOffsets[min-1], we have min>0
-//END4iTM3;
-			return --min;
-		}
-		if (characterIndex < __PageStringOffsets[mid])
-			max = mid;
-		else
-			min = mid;
-	}
-//	return NSNotFound;// never reached
+	NSUInteger pageCount = __PageCharacterCounts[0];
+    if (pageCount) {
+        //  very simple loop, no dichotomy
+        NSUInteger min = 1;
+        while (min <= __PageCharacterCounts[pageCount+1]) {
+            if (characterIndex < __PageCharacterCounts[min]) {
+                return --min;
+            }
+        }
+    }
+	return NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= characterOffsetForPageAtIndex:
 - (NSUInteger)characterOffsetForPageAtIndex:(NSUInteger)pageIndex;
@@ -3797,12 +3772,15 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.__SetupPageStringOffsets;
-	NSUInteger pageCount = __PageStringOffsets[0];
-	// what is the max valid offset?
-	NSUInteger maxValidIndex = __PageStringOffsets[pageCount+2];
+    if (pageIndex) {
+        self.__SetupPageStringOffsets;
+        NSUInteger pageCount = __PageCharacterCounts[0];
+        // what is the max valid offset?
+        NSUInteger maxValidIndex = __PageCharacterCounts[pageCount+1];
 //END4iTM3;
-	return pageIndex <= maxValidIndex? __PageStringOffsets[pageIndex+1]:NSNotFound;
+        return pageIndex <= maxValidIndex? __PageCharacterCounts[pageIndex]:NSNotFound;
+    }
+    return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionOfWord:options:range:
 - (iTM2Position)positionOfWord:(NSString *)aWord options:(NSUInteger)mask range:(NSRange)searchRange;
@@ -3842,7 +3820,7 @@ nextPage:
 	pageString = [self stringForPage:page];
 	numberOfCharacters = pageString.length;
 	if (numberOfCharacters>0) {
-		localSearchRange = iTM3IntersectionRange(searchRange, iTM3MakeRange(0, numberOfCharacters));
+		localSearchRange = iTM3ProjectionRange(iTM3MakeRange(0, numberOfCharacters),searchRange);
 nextOccurrence:
 		if (localSearchRange.length>0) {
 			result = [pageString rangeOfString:aWord options:mask range:localSearchRange];
@@ -3904,7 +3882,7 @@ backwards:
 	}
 previousPage:
 	if (numberOfCharacters) {
-		localSearchRange = iTM3IntersectionRange(searchRange, iTM3MakeRange(characterOffset, numberOfCharacters));
+		localSearchRange = iTM3IntersectionRange(iTM3MakeRange(characterOffset, numberOfCharacters),searchRange);
 		localSearchRange.location -= characterOffset;
 previousOccurrence:
 		if (localSearchRange.length) {
@@ -3974,12 +3952,12 @@ To Do List:
 	hitIndex = MIN(hitIndex, hit.length - 1);
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	self.__SetupPageStringOffsets;
-	NSUInteger pageCount = __PageStringOffsets[0];
-	NSUInteger maxValidIndex = __PageStringOffsets[pageCount+2];
-	NSUInteger characterLimit = __PageStringOffsets[maxValidIndex+1];
+	NSUInteger pageCount = __PageCharacterCounts[0];
+	NSUInteger maxValidIndex = __PageCharacterCounts[pageCount+1];
+	NSUInteger totalNumberOfCharacters = __PageCharacterCounts[maxValidIndex];
 //END4iTM3;
-	return characterLimit?
-		[self positionsOfWordBefore:before here:hit after:after index:hitIndex inRange:iTM3MakeRange(0, characterLimit)]:nil;
+	return totalNumberOfCharacters?
+		[self positionsOfWordBefore:before here:hit after:after index:hitIndex inRange:iTM3MakeRange(0, totalNumberOfCharacters)]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionsOfWordBefore:before:here:after:index:inRange:
 - (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(NSUInteger)hitIndex inRange:(NSRange)searchRange;
@@ -3997,24 +3975,24 @@ To Do List:
 	NSParameterAssert(after.length);
 	hitIndex = MIN(hitIndex, hit.length - 1);
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
-	//	NSUInteger characterLimit = [self characterOffsetForPageAtIndex:self.pageCount];
-	//	NSRange searchRange = iTM3MakeRange(0, characterLimit);
+	//	NSUInteger totalNumberOfCharacters = [self characterOffsetForPageAtIndex:self.pageCount];
+	//	NSRange searchRange = iTM3MakeRange(0, totalNumberOfCharacters);
 	self.__SetupPageStringOffsets;
-	NSUInteger pageCount = __PageStringOffsets[0];
-	NSUInteger maxValidIndex = __PageStringOffsets[pageCount+2];
-	NSUInteger characterLimit = __PageStringOffsets[maxValidIndex+1];
-	searchRange = iTM3IntersectionRange(searchRange, iTM3MakeRange(0, characterLimit));
+	NSUInteger pageCount = __PageCharacterCounts[0];
+	NSUInteger maxValidIndex = __PageCharacterCounts[pageCount+1];
+	NSUInteger totalNumberOfCharacters = __PageCharacterCounts[maxValidIndex];
+	searchRange = iTM3IntersectionRange(iTM3MakeRange(0, totalNumberOfCharacters),searchRange);
 	if (!searchRange.length) {
 		return nil;
 	}
 	iTM2Position beforePosition = [self positionOfWord:before options:0L range:searchRange];
 	if (beforePosition.range.length) {
 		searchRange.location = iTM3MaxRange(beforePosition.range);
-		searchRange.length = characterLimit - searchRange.location;
+		searchRange.length = totalNumberOfCharacters - searchRange.location;
 		iTM2Position hitPosition = [self positionOfWord:hit options:0L range:searchRange];
 		if (hitPosition.range.length) {
 			searchRange.location = iTM3MaxRange(hitPosition.range);
-			searchRange.length = characterLimit - searchRange.location;
+			searchRange.length = totalNumberOfCharacters - searchRange.location;
 			iTM2Position afterPosition = [self positionOfWord:after options:0L range:searchRange];
 			if (afterPosition.range.length) {
 				// in the document all 3 words are available
@@ -4080,15 +4058,15 @@ previousHere:
 				// no more hit
 				// we prepare for the next occurrence:
 				searchRange.location = iTM3MaxRange(afterPosition.range);
-				searchRange.length = characterLimit - searchRange.location;
+				searchRange.length = totalNumberOfCharacters - searchRange.location;
 				beforePosition = [self positionOfWord:before options:0L range:searchRange];
 				if (beforePosition.range.length) {
 					searchRange.location = iTM3MaxRange(beforePosition.range);
-					searchRange.length = characterLimit - searchRange.location;
+					searchRange.length = totalNumberOfCharacters - searchRange.location;
 					hitPosition = [self positionOfWord:hit options:0L range:searchRange];
 					if (hitPosition.range.length) {
 						searchRange.location = iTM3MaxRange(hitPosition.range);
-						searchRange.length = characterLimit - searchRange.location;
+						searchRange.length = totalNumberOfCharacters - searchRange.location;
 						afterPosition = [self positionOfWord:after options:0L range:searchRange];
 						if (afterPosition.range.length)
 							goto nextOccurrence;
@@ -4110,7 +4088,7 @@ previousHere:
 //END4iTM3;
 	return nil;
 }
-@synthesize __PageStringOffsets;
+@synthesize __PageCharacterCounts;
 @synthesize __CachedPageStrings;
 @end
 
@@ -8976,3 +8954,5 @@ To Do List:
 }
 
 @end
+
+#include "../build/Milestones/iTM2PDFKit.m"

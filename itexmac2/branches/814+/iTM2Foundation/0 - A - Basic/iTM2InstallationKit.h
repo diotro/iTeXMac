@@ -48,7 +48,7 @@
 @end
 
 /*!
-	@category	iTM2MainInstaller
+	@class      iTM2MainInstaller
 	@abstract	The main installer.
 	@discussion	For the main part of the code. Just add a +blahCompleteInstallation4iTM3 in a category
 				In a loadable bundle, you should declare your own iTM2Installer subclass because the main installer is burnt.
@@ -65,7 +65,7 @@
 					to be performed asynchronously before the application is launched.
 					In some method that you expect to be called, you will test for some consistency and
 					put a miles stone if you are satisfied.
-					Once the applicationis launched, all the registered miles stones are tested,
+					Once the application is launched, all the registered miles stones are tested,
 					if one of them was not put, a message is logged and you can see that something did not happen as expected.
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
@@ -111,7 +111,7 @@
 @interface NSApplication(iTM2InstallationKit)
 
 /*!
-	@method			completeInstallation
+	@method			completeInstallation4iTM3
 	@abstract		Complete the application installation.
 	@discussion		Will perform all the +...CompleteInstallation4iTM3 methods of the receiver.
 					This method acts only once, before all the other installers are ever asked to work.
@@ -124,7 +124,17 @@
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-+ (void)completeInstallation;
++ (void)completeInstallation4iTM3;
+
+/*!
+	@method			prepareFoundationMilestonesCompleteInstallation4iTM3
+	@abstract		Manage the milestones.
+	@discussion		You should implement some mechanism similar to this one. See the source code.
+	@result			None.
+	@availability	iTM3.
+	@copyright		2010 jlaurens AT users DOT sourceforge DOT net and others.
+*/
++ (void)prepareFoundationMilestonesCompleteInstallation4iTM3;
 
 /*!
 	@method			finishLaunching
@@ -220,4 +230,8 @@
 - (void)completeInstallation;
 
 @end
+
+#define MILESTONE4iTM3(KEY,DESCRIPTION) [iTM2MileStone putMileStoneForKey:KEY]
+#define ENOTSELIM4iTM3(KEY,DESCRIPTION) [iTM2MileStone registerMileStone:(DESCRIPTION) forKey:(KEY)]
+
 

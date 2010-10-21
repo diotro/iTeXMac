@@ -157,7 +157,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * S = self.string;
-    aRange = iTM3IntersectionRange(aRange, iTM3MakeRange(0, S.length));
+    aRange = iTM3ProjectionRange(iTM3MakeRange(0, S.length),aRange);
     [self scrollRangeToVisible:aRange];
     [self highlightRange:aRange cleanBefore:YES];
 	[self setNeedsDisplay:YES];
@@ -240,7 +240,7 @@ To Do List:
     NSString * S = self.string;
 	NSUInteger length = S.length;
     NSRange effectiveRange = iTM3MakeRange(0,length);
-    aRange = iTM3IntersectionRange(aRange,effectiveRange);
+    aRange = iTM3ProjectionRange(effectiveRange,aRange);
 	NSUInteger index = 0;
 	NSDictionary * attributes;
 	if (aFlag && index<length)
