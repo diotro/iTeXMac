@@ -3,7 +3,7 @@
 	2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Development;
 		activeExecutable = 511678A010946FC6007E76C8 /* iTeXMac2 */;
-		activeTarget = 8D15AC270486D014006FF6A4 /* iTeXMac2 */;
+		activeTarget = DCEF60820B62148A00A19262 /* Prepare Sparkle */;
 		addToTargets = (
 		);
 		breakpoints = (
@@ -83,16 +83,16 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 309347775;
-			PBXWorkspaceStateSaveDate = 309347775;
+			PBXPerProjectTemplateStateSaveDate = 309394488;
+			PBXWorkspaceStateSaveDate = 309394488;
 		};
 		perUserProjectItems = {
-			5185EE9C1270449D00AFA001 /* PBXTextBookmark */ = 5185EE9C1270449D00AFA001 /* PBXTextBookmark */;
-			5185EE9D1270449D00AFA001 /* PBXTextBookmark */ = 5185EE9D1270449D00AFA001 /* PBXTextBookmark */;
-			5185EEDC127060FA00AFA001 /* PBXTextBookmark */ = 5185EEDC127060FA00AFA001 /* PBXTextBookmark */;
-			5185EEDD127060FA00AFA001 /* PBXTextBookmark */ = 5185EEDD127060FA00AFA001 /* PBXTextBookmark */;
-			51B55B4D126D97CF00D1E410 /* PBXTextBookmark */ = 51B55B4D126D97CF00D1E410 /* PBXTextBookmark */;
-			51B55B8B126D9D5900D1E410 /* PlistBookmark */ = 51B55B8B126D9D5900D1E410 /* PlistBookmark */;
+			5185EE9C1270449D00AFA001 = 5185EE9C1270449D00AFA001 /* PBXTextBookmark */;
+			5185EE9D1270449D00AFA001 = 5185EE9D1270449D00AFA001 /* PBXTextBookmark */;
+			5185EEDC127060FA00AFA001 = 5185EEDC127060FA00AFA001 /* PBXTextBookmark */;
+			5185EEDD127060FA00AFA001 = 5185EEDD127060FA00AFA001 /* PBXTextBookmark */;
+			51B55B4D126D97CF00D1E410 = 51B55B4D126D97CF00D1E410 /* PBXTextBookmark */;
+			51B55B8B126D9D5900D1E410 = 51B55B8B126D9D5900D1E410 /* PlistBookmark */;
 		};
 		sourceControlManager = 511678CB10946FE8007E76C8 /* Source Control */;
 		userBuildSettings = {
@@ -233,12 +233,6 @@
 		name = iTM2MilestoneRegistration.sh;
 		path = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/branches/814+/Scripts/iTM2MilestoneRegistration.sh";
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1328, 638}}";
-			sepNavSelRange = "{721, 0}";
-			sepNavVisRange = "{0, 723}";
-			sepNavWindowFrame = "{{-103, 4}, {1387, 742}}";
-		};
 	};
 	5185EEDC127060FA00AFA001 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -262,6 +256,7 @@
 	};
 	5185EEDE127060FA00AFA001 /* iTM2MilestoneRegistration.sh */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = text.script.sh;
 		name = iTM2MilestoneRegistration.sh;
 		path = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/branches/814+/Scripts/iTM2MilestoneRegistration.sh";
 		sourceTree = "<absolute>";
