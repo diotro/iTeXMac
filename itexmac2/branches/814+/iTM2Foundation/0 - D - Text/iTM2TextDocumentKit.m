@@ -2341,7 +2341,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super awakeFromContext];
-	float scale = [self contextFloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
+	CGFloat scale = [self contextFloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
     NSRange R = iTM3MakeRange(0,self.string.length);
     NSRange r = NSRangeFromString([self contextValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);

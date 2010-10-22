@@ -104,7 +104,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5185EE25127042AC00AFA001 /* Prepare Milestones */;
+			remoteGlobalIDString = 5185EE25127042AC00AFA001;
 			remoteInfo = "Prepare Milestones";
 		};
 		DC1C6962090D1C5D000F4FDE /* PBXContainerItemProxy */ = {
@@ -188,7 +188,7 @@
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		DCAF97E909D80BEB00AFD95F /* ConTeXtURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ConTeXtURLs.plist; sourceTree = "<group>"; };
 		DCAF97EC09D80BEB00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
-		DCAF97EE09D80BEB00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCAF97EE09D80BEB00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCAF97F409D80BEB00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2ConTeXtManuals.strings; sourceTree = "<group>"; };
 		DCAF97F809D80BEB00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2ConTeXtPrefsPane.strings; sourceTree = "<group>"; };
 		DCAF97FC09D80BEB00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 		DCAF980009D80BEB00AFD95F /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
 		DCAF980209D80BEB00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		DCAF980309D80BEB00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/BaseProjects.resources.tgz; sourceTree = "<group>"; };
-		DCAF980409D80BEB00AFD95F /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCAF980409D80BEB00AFD95F /* French */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCAF980709D80BEB00AFD95F /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2ConTeXtManuals.strings; sourceTree = "<group>"; };
 		DCAF980909D80BEB00AFD95F /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2ConTeXtPrefsPane.strings; sourceTree = "<group>"; };
 		DCAF980B09D80BEB00AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
@@ -441,7 +441,6 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB7C509474611004B0A81 /* Build configuration list for PBXProject "iTM2ConTeXtKit" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

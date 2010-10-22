@@ -581,9 +581,9 @@ To Do List:
         *(NSInteger *)(&expectedDepth) = 0;
     }
     //  Managing the comment
-    _iTM2IndentationComponent * globalCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:0]:nil;
-    _iTM2IndentationComponent * macroCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:0]:nil;
-    _iTM2IndentationComponent * selectionCommentIC = selectionICsAfter.count?[selectionICsAfter objectAtIndex:0]:nil;
+    iTM2IndentationComponent * globalCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:0]:nil;
+    iTM2IndentationComponent * macroCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:0]:nil;
+    iTM2IndentationComponent * selectionCommentIC = selectionICsAfter.count?[selectionICsAfter objectAtIndex:0]:nil;
     //  Switchers:
     //  The discussion is basically organized with 2 switches
     //  0 - the sign of the change in depth
@@ -595,7 +595,7 @@ To Do List:
     //  First stage:
     //  - set the comment header if necessary
     //  - prepare for further management
-    _iTM2IndentationComponent * IC = nil;
+    iTM2IndentationComponent * IC = nil;
     NSEnumerator * E = nil;
     NSUInteger depth = 0;
     NSUInteger length = 0;

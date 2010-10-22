@@ -852,7 +852,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     NSBezierPath * path = [[NSBezierPath bezierPath] retain];
     NSRect aRect = self.bounds;
     [path setLineJoinStyle:NSRoundLineJoinStyle];
@@ -891,7 +891,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     NSBezierPath * path = [[NSBezierPath bezierPath] retain];
     NSRect aRect = self.bounds;
     [path setLineJoinStyle:NSRoundLineJoinStyle];
@@ -929,7 +929,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     NSBezierPath * path = [[NSBezierPath bezierPath] retain];
     NSRect aRect = self.bounds;
     [path setLineJoinStyle:NSRoundLineJoinStyle];
@@ -963,7 +963,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     NSBezierPath * path = [[NSBezierPath bezierPath] retain];
     NSRect aRect = self.bounds;
     [path setLineJoinStyle:NSRoundLineJoinStyle];
@@ -997,7 +997,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     NSBezierPath * path = [[NSBezierPath bezierPath] retain];
     NSRect aRect = self.bounds;
     [path setLineJoinStyle:NSRoundLineJoinStyle];
@@ -1035,7 +1035,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     NSBezierPath * path = [[NSBezierPath bezierPath] retain];
     NSRect aRect = self.bounds;
     [path setLineJoinStyle:NSRoundLineJoinStyle];
@@ -1183,7 +1183,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     [NSColor setIgnoresAlpha:NO];
     [[[NSColor blackColor] colorWithAlphaComponent:alpha] set];
     static NSBezierPath * path;
@@ -1193,9 +1193,9 @@ To Do List:
         [path setLineJoinStyle:NSRoundLineJoinStyle];
         [path setLineCapStyle:NSRoundLineCapStyle];
         NSRect aRect = self.bounds;
-        float W = NSWidth(aRect)*0.03;
+        CGFloat W = NSWidth(aRect)*0.03;
     //    [path setLineWidth:40*W];
-        float H = NSWidth(aRect)*0.15;
+        CGFloat H = NSWidth(aRect)*0.15;
         [path moveToPoint:NSMakePoint(NSMidX(aRect) - H - W, NSMidY(aRect) - W - 1)];
         [path relativeLineToPoint:NSMakePoint(0, 2*W)];
         [path relativeLineToPoint:NSMakePoint(H, 0)];
@@ -1239,7 +1239,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
     [NSColor setIgnoresAlpha:NO];
     [[[NSColor blackColor] colorWithAlphaComponent:alpha] set];
     static NSBezierPath * path;
@@ -1249,9 +1249,9 @@ To Do List:
         [path setLineJoinStyle:NSRoundLineJoinStyle];
         [path setLineCapStyle:NSRoundLineCapStyle];
         NSRect aRect = self.bounds;
-        float W = NSWidth(aRect)*0.03;
+        CGFloat W = NSWidth(aRect)*0.03;
     //    [path setLineWidth:40*W];
-        float H = NSWidth(aRect)*0.15;
+        CGFloat H = NSWidth(aRect)*0.15;
         [path moveToPoint:NSMakePoint(NSMidX(aRect) - H - W, NSMidY(aRect) - W - 1)];
         [path relativeLineToPoint:NSMakePoint(0, 2*W)];
         [path relativeLineToPoint:NSMakePoint(H, 0)];

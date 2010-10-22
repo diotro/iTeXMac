@@ -462,8 +462,8 @@ To Do List:
 		NSRect VRect = V.frame;
 		VRect = [container convertRect:VRect toView:nil];
 		
-		float deltaHeight = VRect.size.height - containerRect.size.height;
-		float deltaWidth = VRect.size.width - containerRect.size.width;
+		CGFloat deltaHeight = VRect.size.height - containerRect.size.height;
+		CGFloat deltaWidth = VRect.size.width - containerRect.size.width;
 		if (deltaWidth<0)
 			deltaWidth = 0;
 		NSRect newWindowFrame = self.window.frame;

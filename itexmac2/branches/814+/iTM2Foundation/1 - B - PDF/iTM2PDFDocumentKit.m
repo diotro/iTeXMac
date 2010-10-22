@@ -321,7 +321,7 @@ To Do List:
         LOG4iTM3(@"Problem with PDF file format...");
         NSInteger _FW = MAX(0, [[IMPLEMENTATION metaValueForKey:@" _FW"] integerValue]);
         NSInteger retryCount = MAX([SUD integerForKey:iTM2PDFDocumentReadDataRetryCountKey], 0);
-        float retryInterval = [SUD floatForKey:iTM2PDFDocumentReadDataRetryIntervalKey] > 0?:1;
+        CGFloat retryInterval = [SUD floatForKey:iTM2PDFDocumentReadDataRetryIntervalKey] > 0?:1;
         if (_FW<retryCount)
         {
             NSTimer * _TIM = [IMPLEMENTATION metaValueForKey:@" _TIM"];
@@ -516,7 +516,7 @@ To Do List:
 }
 @synthesize album = _Album4iTM3;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= magnification
-- (float)magnification;
+- (CGFloat)magnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -527,7 +527,7 @@ To Do List:
     return [self.album magnification];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setMagnification:
-- (void)setMagnification:(float)magnification;
+- (void)setMagnification:(CGFloat)magnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1267,7 +1267,7 @@ To Do List:
 @interface iTM2PDFAlbumView(PRIVATE_123)
 - (void)zoomInMouseDown:(NSEvent *)theEvent;
 - (void)zoomOutMouseDown:(NSEvent *)theEvent;
-- (void)_SetMagnification:(float)newMagnification;
+- (void)_SetMagnification:(CGFloat)newMagnification;
 @end
 
 NSString * const iTM2PDFZoomInMagnificationScaleKey = @"iTM2PDFZoomInMagnificationScale";
@@ -1577,7 +1577,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  MAGNIFICATION MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  magnification
-- (float)magnification;
+- (CGFloat)magnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1588,7 +1588,7 @@ To Do List:
     return [self contextFloatForKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnification:
-- (void)setMagnification:(float)aMagnification;
+- (void)setMagnification:(CGFloat)aMagnification;
 /*A wrapper of _SetMagnification: _CanStick added.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1601,7 +1601,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _SetMagnification:
-- (void)_SetMagnification:(float)newMagnification;
+- (void)_SetMagnification:(CGFloat)newMagnification;
 /*"If there is something to set, this will be registered in the user default domain under key iTM2PDFRepCurrentMagnificationKey,
 and a iTM2MagnificationDidChangeNotification is posted with the receiver as object and as userInfo the new magnification
 under key iTM2MagnificationKey in a dictionary.
@@ -1616,7 +1616,7 @@ To Do List:
 		newMagnification = 0.01;
 	else if (newMagnification>100)
 		newMagnification = 100;
-    float old = [self magnification];
+    CGFloat old = [self magnification];
     if (old != newMagnification)
     {
         [self takeContextFloat:newMagnification forKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask];
@@ -1676,7 +1676,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  innerMagnification
-- (float)innerMagnification;
+- (CGFloat)innerMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1687,7 +1687,7 @@ To Do List:
     return MIN([self magnification] * sqrt(2), 6400);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outerMagnification
-- (float)outerMagnification;
+- (CGFloat)outerMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1698,7 +1698,7 @@ To Do List:
     return MAX([self magnification]/sqrt(2), 0.1);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=  ratioContentVersusDocumentWidth
-- (float)ratioContentVersusDocumentWidth;
+- (CGFloat)ratioContentVersusDocumentWidth;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1714,7 +1714,7 @@ To Do List:
             NSSize S = [[self imageRepresentation] size];
             BOOL rotated = [self PDFOrientation] != 0;
             BOOL slideMode = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
-            float width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
+            CGFloat width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
             if (width>0)
             {
                 NSView * contentView=self.enclosingScrollView.contentView;
@@ -1731,7 +1731,7 @@ To Do List:
             NSSize S = [[self imageRepresentation] size];
             BOOL rotated = [self PDFOrientation] != 0;
             BOOL slideMode = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
-            float width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
+            CGFloat width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
             if (width>0)
             {
                 NSView * contentView=self.enclosingScrollView.contentView;
@@ -1744,7 +1744,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=  ratioContentVersusDocumentHeight
-- (float)ratioContentVersusDocumentHeight;
+- (CGFloat)ratioContentVersusDocumentHeight;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -1755,7 +1755,7 @@ To Do List:
     NSSize S = [[self imageRepresentation] size];
     BOOL rotated = [self PDFOrientation] != 0;
     BOOL slideMode = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
-    float height = slideMode? (rotated? S.height: S.width): (rotated? S.width: S.height);
+    CGFloat height = slideMode? (rotated? S.height: S.width): (rotated? S.width: S.height);
     if (height>0)
     {
         NSView * contentView = self.enclosingScrollView.contentView;
@@ -1857,7 +1857,7 @@ To Do List:
     
     NSSize magSize = NSMakeSize(240, 180);
     
-    float zoomFactor = 1.0/([self contextFloatForKey:iTM2PDFZoomInMagnificationScaleKey domain:iTM2ContextAllDomainsMask]?:1);
+    CGFloat zoomFactor = 1.0/([self contextFloatForKey:iTM2PDFZoomInMagnificationScaleKey domain:iTM2ContextAllDomainsMask]?:1);
 
     NSPoint locationInWindow, locationInView;
     NSRect nextRect;
@@ -1893,7 +1893,7 @@ To Do List:
         
         // clean up the trace
         NSRect diffRect = NSZeroRect;
-        float minY, maxY;
+        CGFloat minY, maxY;
         diffRect.origin.x = previousRect.origin.x;
         diffRect.size.width = previousRect.size.width;
         if ((diffRect.size.height = nextRect.origin.y-previousRect.origin.y) > 0)
@@ -2313,10 +2313,10 @@ To Do List:
             if ((paperSize.width>0) && (paperSize.height>0))
             {
                 NSSize repSize = [[self imageRepresentation] size];
-                float dH = paperSize.height - repSize.height;
-                float dW = paperSize.width - repSize.width;
-                float dWH = dH*dH+dW*dW;
-                float WH = paperSize.height*paperSize.height + paperSize.width*paperSize.width;
+                CGFloat dH = paperSize.height - repSize.height;
+                CGFloat dW = paperSize.width - repSize.width;
+                CGFloat dWH = dH*dH+dW*dW;
+                CGFloat WH = paperSize.height*paperSize.height + paperSize.width*paperSize.width;
                 NSLog(@"repSize: %@", NSStringFromSize(repSize));
                 if (dWH>0.0001*WH)
                 {
@@ -2864,7 +2864,7 @@ To Do List:
 	NSNumberFormatter * NF = [sender formatter];
 	[NF setMaximum:[NSNumber numberWithInteger:pageCount]];
 	NSSize oldSize = sender.frame.size;
-	float width = 8 + MAX(
+	CGFloat width = 8 + MAX(
 		([[NF stringForObjectValue:[NSNumber numberWithInteger:[sender integerValue]]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[self.cell font], NSFontAttributeName, nil]].width),
@@ -2890,7 +2890,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	float newScale = sender.floatValue;
+	CGFloat newScale = sender.floatValue;
 	if (newScale <= 0) {
 		newScale = 1;
     }
@@ -2913,7 +2913,7 @@ To Do List:
 	[sender setFloatValue:self.PDFView.scaleFactor];
 	NSNumberFormatter * NF = [sender formatter];
 	NSSize oldSize = sender.frame.size;
-	float width = 8 + MAX(
+	CGFloat width = 8 + MAX(
 			([[NF stringForObjectValue:[NSNumber numberWithFloat:sender.floatValue]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[sender.cell font], NSFontAttributeName, nil]].width),

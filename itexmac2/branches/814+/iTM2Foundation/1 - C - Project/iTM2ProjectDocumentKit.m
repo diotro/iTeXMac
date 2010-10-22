@@ -923,7 +923,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	float otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
+	CGFloat otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
 	if (otherAlpha<0.01)
 	{
 		otherAlpha = 0.01;
@@ -964,7 +964,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	float otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
+	CGFloat otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
 	if (otherAlpha<0.01)
 	{
 		otherAlpha = 0.01;
@@ -4462,7 +4462,7 @@ To Do List:
 	if ((project != nil)&& (project != [SPC currentProject]))
 	{
 		// encapsulate the inherited display method to change the alpha channel
-		float otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
+		CGFloat otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
 		if (otherAlpha<0)
 		{
 			otherAlpha = 0.0;
@@ -4478,7 +4478,7 @@ To Do List:
 //LOG4iTM3(@"YES");
 			BOOL wasOpaque = self.isOpaque;
 			[self setOpaque:NO];
-			float oldAlpha = self.alphaValue;
+			CGFloat oldAlpha = self.alphaValue;
 			[self setAlphaValue:oldAlpha * otherAlpha];
 			[self SWZ_iTM2ProjectDocument_display];
 			[self setAlphaValue:oldAlpha];
@@ -4504,7 +4504,7 @@ To Do List:
 	if ((project != nil)&& (project != [SPC currentProject]))
 	{
 		// encapsulate the inherited display method to change the alpha channel
-		float otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
+		CGFloat otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
 		if (otherAlpha<0)
 		{
 			otherAlpha = 0.0;
@@ -4519,7 +4519,7 @@ To Do List:
 		{
 			BOOL wasOpaque = self.isOpaque;
 			[self setOpaque:NO];
-			float oldAlpha = self.alphaValue;
+			CGFloat oldAlpha = self.alphaValue;
 			[self setAlphaValue:oldAlpha * otherAlpha];
 //LOG4iTM3(@"YES");
 			[self SWZ_iTM2ProjectDocument_displayIfNeeded];

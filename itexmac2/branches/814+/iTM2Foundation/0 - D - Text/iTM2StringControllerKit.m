@@ -39,10 +39,10 @@ NSString * const iTM2TextTabAnchorStringKey = @"iTM2TextTabAnchorString";
 }
 @end
 
-@implementation _iTM2IndentationComponent
-- (BOOL)isEqual:(_iTM2IndentationComponent *)rhs;
+@implementation iTM2IndentationComponent
+- (BOOL)isEqual:(iTM2IndentationComponent *)rhs;
 {
-    return [rhs isKindOfClass:[_iTM2IndentationComponent class]]?
+    return [rhs isKindOfClass:[iTM2IndentationComponent class]]?
         rhs.location == self.location
         && rhs.contentLength == self.contentLength
         && rhs.commentLength == self.commentLength
@@ -127,54 +127,71 @@ NSString * const iTM2TextTabAnchorStringKey = @"iTM2TextTabAnchorString";
 }
 @end
 
-@interface __iTM2IndentationComponent0: _iTM2IndentationComponent
-{
-@private
-    NSUInteger depth;
-    NSUInteger location;
-@protected
-    NSUInteger length0;
-}
-@property NSUInteger depth;
-@property NSUInteger location;
-@end
-
-@implementation __iTM2IndentationComponent0
+@implementation __iTM2IndentationComponent
 @synthesize location;
 @synthesize depth;
+@dynamic contentLength;
+@dynamic commentLength;
+@dynamic blackLength;
+@dynamic afterLength;
+@dynamic endsWithTab;
+- (void)setContentLength:(NSUInteger)arg;{return;}
+- (void)setCommentLength:(NSUInteger)arg;{return;}
+- (void)setBlackLength:(NSUInteger)arg;{return;}
+- (void)setAfterLength:(NSUInteger)arg;{return;}
+- (void)setEndsWithTab:(BOOL)yorn;{return;}
 @end
 
-#define DECLARE4iTM3(FATHER,SON)\
-@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent##FATHER { @protected NSUInteger length##SON; } @end\
-@implementation __iTM2IndentationComponent##SON @end
-DECLARE4iTM3(0,1)
-DECLARE4iTM3(1,2)
-DECLARE4iTM3(2,3)
-#undef DECLARE4iTM3
+#define DECLARE4iTM3(SON,IVAR_1)\
+@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent{@private NSUInteger IVAR_1;} @property NSUInteger IVAR_1; @end\
+@implementation __iTM2IndentationComponent##SON @synthesize IVAR_1 = IVAR_1; @end\
+@interface _iTM2IndentationComponentWithTab##SON: __iTM2IndentationComponent##SON @property (readonly) BOOL endsWithTab; @end\
+@implementation _iTM2IndentationComponentWithTab##SON -(BOOL)endsWithTab{return YES;} @end
 
-#define DECLARE4iTM3(FATHER,SON,PROPERTY,SYNTHESIZE)\
-@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent##FATHER PROPERTY @end\
-@implementation __iTM2IndentationComponent##SON SYNTHESIZE @end\
-@interface __iTM2IndentationComponentWithTab##SON: __iTM2IndentationComponent##SON @property (readonly) BOOL endsWithTab; @end\
-@implementation __iTM2IndentationComponentWithTab##SON -(BOOL)endsWithTab{return YES;} @end
-
-DECLARE4iTM3(0,10000,@property NSUInteger contentLength;,@synthesize contentLength=length0;)
-DECLARE4iTM3(0,01000,@property NSUInteger commentLength;,@synthesize commentLength=length0;)
-DECLARE4iTM3(1,01100,@property NSUInteger commentLength;@property NSUInteger blackLength;,@synthesize commentLength=length0;@synthesize blackLength=length1;)
-DECLARE4iTM3(1,01010,@property NSUInteger commentLength;@property NSUInteger afterLength;,@synthesize commentLength=length0;@synthesize afterLength=length1;)
-DECLARE4iTM3(2,01110,@property NSUInteger commentLength;@property NSUInteger blackLength;@property NSUInteger afterLength;,@synthesize commentLength=length0;@synthesize blackLength=length1;@synthesize afterLength=length2;)
-DECLARE4iTM3(1,11000,@property NSUInteger commentLength;@property NSUInteger contentLength;,@synthesize commentLength=length0;@synthesize contentLength=length1;)
-DECLARE4iTM3(2,11100,@property NSUInteger commentLength;@property NSUInteger blackLength;@property NSUInteger contentLength;,@synthesize commentLength=length0;@synthesize blackLength=length1;@synthesize contentLength=length2;)
-DECLARE4iTM3(2,11010,@property NSUInteger commentLength;@property NSUInteger afterLength;@property NSUInteger contentLength;,@synthesize commentLength=length0;@synthesize afterLength=length1;@synthesize contentLength=length2;)
-DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger blackLength;@property NSUInteger afterLength;@property NSUInteger contentLength;,@synthesize commentLength=length0;@synthesize blackLength=length1;@synthesize afterLength=length2;@synthesize contentLength=length3;)
+DECLARE4iTM3(10000,contentLength)
+DECLARE4iTM3(01000,commentLength)
 
 #undef DECLARE4iTM3
 
-@implementation __iTM2IndentationComponent
+#define DECLARE4iTM3(SON,IVAR_1,IVAR_2)\
+@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent{@private NSUInteger IVAR_1;NSUInteger IVAR_2;} @property NSUInteger IVAR_1;@property NSUInteger IVAR_2; @end\
+@implementation __iTM2IndentationComponent##SON @synthesize IVAR_1 = IVAR_1;@synthesize IVAR_2 = IVAR_2; @end\
+@interface _iTM2IndentationComponentWithTab##SON: __iTM2IndentationComponent##SON @property (readonly) BOOL endsWithTab; @end\
+@implementation _iTM2IndentationComponentWithTab##SON -(BOOL)endsWithTab{return YES;} @end
+
+DECLARE4iTM3(01100,commentLength,blackLength)
+DECLARE4iTM3(01010,commentLength,afterLength)
+DECLARE4iTM3(11000,commentLength,contentLength)
+
+#undef DECLARE4iTM3
+
+#define DECLARE4iTM3(SON,IVAR_1,IVAR_2,IVAR_3)\
+@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent{@private NSUInteger IVAR_1;NSUInteger IVAR_2;NSUInteger IVAR_3;} @property NSUInteger IVAR_1;@property NSUInteger IVAR_2;@property NSUInteger IVAR_3; @end\
+@implementation __iTM2IndentationComponent##SON @synthesize IVAR_1 = IVAR_1;@synthesize IVAR_2 = IVAR_2;@synthesize IVAR_3 = IVAR_3; @end\
+@interface _iTM2IndentationComponentWithTab##SON: __iTM2IndentationComponent##SON @property (readonly) BOOL endsWithTab; @end\
+@implementation _iTM2IndentationComponentWithTab##SON -(BOOL)endsWithTab{return YES;} @end
+
+DECLARE4iTM3(01110,commentLength,blackLength,afterLength)
+DECLARE4iTM3(11100,commentLength,blackLength,contentLength)
+DECLARE4iTM3(11010,commentLength,afterLength,contentLength)
+
+#undef DECLARE4iTM3
+
+#define DECLARE4iTM3(SON,IVAR_1,IVAR_2,IVAR_3,IVAR_4)\
+@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent{@private NSUInteger IVAR_1;NSUInteger IVAR_2;NSUInteger IVAR_3;} @property NSUInteger IVAR_1;@property NSUInteger IVAR_2;@property NSUInteger IVAR_3;@property NSUInteger IVAR_4; @end\
+@implementation __iTM2IndentationComponent##SON @synthesize IVAR_1 = IVAR_1;@synthesize IVAR_2 = IVAR_2;@synthesize IVAR_3 = IVAR_3;@synthesize IVAR_4 = IVAR_4; @end\
+@interface _iTM2IndentationComponentWithTab##SON: __iTM2IndentationComponent##SON @property (readonly) BOOL endsWithTab; @end\
+@implementation _iTM2IndentationComponentWithTab##SON -(BOOL)endsWithTab{return YES;} @end
+
+DECLARE4iTM3(11110,commentLength,blackLength,afterLength,contentLength)
+
+#undef DECLARE4iTM3
+
+@implementation _iTM2IndentationComponent
 + (id)indentationComponent;
 {
-    __iTM2IndentationComponent * new = [[__iTM2IndentationComponent new] autorelease];
-    [new reset];
+    _iTM2IndentationComponent * new = [[_iTM2IndentationComponent new] autorelease];
+    new.reset;
     return new;
 }
 - (void)reset;
@@ -197,7 +214,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
             {
                 if (self.afterLength)
                 {
-                    __iTM2IndentationComponent11110 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab11110 new]:[__iTM2IndentationComponent11110 new];
+                    __iTM2IndentationComponent11110 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab11110 new]:[__iTM2IndentationComponent11110 new];
                     new.location = self.location;
                     new.depth = self.depth;
                     new.contentLength = self.contentLength;
@@ -208,7 +225,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
                 }
                 else
                 {
-                    __iTM2IndentationComponent11100 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab11100 new]:[__iTM2IndentationComponent11100 new];
+                    __iTM2IndentationComponent11100 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab11100 new]:[__iTM2IndentationComponent11100 new];
                     new.location = self.location;
                     new.depth = self.depth;
                     new.contentLength = self.contentLength;
@@ -219,7 +236,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
             }
             else if (self.afterLength)
             {
-                __iTM2IndentationComponent11010 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab11010 new]:[__iTM2IndentationComponent11010 new];
+                __iTM2IndentationComponent11010 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab11010 new]:[__iTM2IndentationComponent11010 new];
                 new.depth = self.depth;
                 new.location = self.location;
                 new.contentLength = self.contentLength;
@@ -229,7 +246,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
             }
             else
             {
-                __iTM2IndentationComponent11000 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab11000 new]:[__iTM2IndentationComponent11000 new];
+                __iTM2IndentationComponent11000 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab11000 new]:[__iTM2IndentationComponent11000 new];
                 new.location = self.location;
                 new.depth = self.depth;
                 new.contentLength = self.contentLength;
@@ -239,7 +256,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
         }
         else
         {
-            __iTM2IndentationComponent10000 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab10000 new]:[__iTM2IndentationComponent10000 new];
+            __iTM2IndentationComponent10000 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab10000 new]:[__iTM2IndentationComponent10000 new];
             new.location = self.location;
             new.depth = self.depth;
             new.contentLength = self.contentLength;
@@ -252,7 +269,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
         {
             if (self.afterLength)
             {
-                __iTM2IndentationComponent01110 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab01110 new]:[__iTM2IndentationComponent01110 new];
+                __iTM2IndentationComponent01110 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab01110 new]:[__iTM2IndentationComponent01110 new];
                 new.location = self.location;
                 new.depth = self.depth;
                 new.commentLength = self.commentLength;
@@ -262,7 +279,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
             }
             else
             {
-                __iTM2IndentationComponent01100 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab01100 new]:[__iTM2IndentationComponent01100 new];
+                __iTM2IndentationComponent01100 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab01100 new]:[__iTM2IndentationComponent01100 new];
                 new.location = self.location;
                 new.depth = self.depth;
                 new.commentLength = self.commentLength;
@@ -272,7 +289,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
         }
         else if (self.afterLength)
         {
-            __iTM2IndentationComponent01010 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab01010 new]:[__iTM2IndentationComponent01010 new];
+            __iTM2IndentationComponent01010 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab01010 new]:[__iTM2IndentationComponent01010 new];
             new.depth = self.depth;
             new.location = self.location;
             new.commentLength = self.commentLength;
@@ -281,7 +298,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
         }
         else
         {
-            __iTM2IndentationComponent01000 * new = self.endsWithTab?[__iTM2IndentationComponentWithTab01000 new]:[__iTM2IndentationComponent01000 new];
+            __iTM2IndentationComponent01000 * new = self.endsWithTab?[_iTM2IndentationComponentWithTab01000 new]:[__iTM2IndentationComponent01000 new];
             new.location = self.location;
             new.depth = self.depth;
             new.commentLength = self.commentLength;
@@ -290,7 +307,7 @@ DECLARE4iTM3(3,11110,@property NSUInteger commentLength;@property NSUInteger bla
     }
     else
     {
-        __iTM2IndentationComponent0 * new = [__iTM2IndentationComponent0 new];
+        __iTM2IndentationComponent * new = [__iTM2IndentationComponent new];
         new.location = self.location;
         new.depth = self.depth;
         return [new autorelease];
@@ -451,12 +468,12 @@ To Do List:
 {
 	return [iTM2LiteScanner scannerWithString:aString charactersToBeSkipped:nil];
 }
-- (BOOL)_getNextIndentationComponent:(__iTM2IndentationComponent *)IC withScanner:(iTM2LiteScanner *)LS alreadyScanned:(NSUInteger)offset maxDepth:(NSUInteger)maxDepth;
+- (BOOL)_getNextIndentationComponent:(_iTM2IndentationComponent *)IC withScanner:(iTM2LiteScanner *)LS alreadyScanned:(NSUInteger)offset maxDepth:(NSUInteger)maxDepth;
 /*! Description forthcoming.
 */
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [IC reset];
+    IC.reset;
     IC.location = LS.scanLocation - offset;
     while (IC.depth < maxDepth) {
         NSUInteger index = 0;
@@ -634,7 +651,7 @@ continue_after_comment:
     const NSUInteger numberOfSpacesPerTab = self.numberOfSpacesPerTab;
     NSAssert2(numberOfSpacesPerTab>0,@"What the hell? This is a HUUUUUGE bug %s:%lu",__FILE__,__LINE__);
 
-    __iTM2IndentationComponent * IC = [__iTM2IndentationComponent indentationComponent];
+    _iTM2IndentationComponent * IC = [_iTM2IndentationComponent indentationComponent];
     IC.location = index;
     iTM2LiteScanner * LS = [self liteScannerWithString:aString];
     LS.scanLocation = index;
@@ -643,8 +660,8 @@ continue_after_comment:
         if (yorn && IC.commentLength) {
             return result;
         }
-        [result addObject:[IC clone]];
-        [IC reset];
+        [result addObject:IC.clone];
+        IC.reset;
         IC.location = LS.scanLocation;
     }
     return result;
@@ -667,18 +684,18 @@ continue_after_comment:
     if (ICsAfterRef) {
         *ICsAfterRef = [NSMutableArray array];
     }
-    __iTM2IndentationComponent * IC  = [__iTM2IndentationComponent indentationComponent];
+    _iTM2IndentationComponent * IC  = [_iTM2IndentationComponent indentationComponent];
     while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:0 maxDepth:NSUIntegerMax]) {
         if (IC.commentLength) {
             if (ICsAfterRef) {
-                [*ICsAfterRef addObject:[IC clone]];
+                [*ICsAfterRef addObject:IC.clone];
                 while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:0 maxDepth:NSUIntegerMax]) {
-                    [*ICsAfterRef addObject:[IC clone]];
+                    [*ICsAfterRef addObject:IC.clone];
                 }
             }
             return;
         } else if (ICsBeforeRef) {
-            [*ICsBeforeRef addObject:[IC clone]];
+            [*ICsBeforeRef addObject:IC.clone];
         }
     }
 }
@@ -707,7 +724,7 @@ continue_after_comment:
     }
     return @"";
 }
-- (NSString *)stringComplementForIndentationComponent:(_iTM2IndentationComponent *)IC;
+- (NSString *)stringComplementForIndentationComponent:(iTM2IndentationComponent *)IC;
 {
     if (!IC.shouldRemainAtTheEnd && !IC.endsWithTab && IC.length % self.numberOfSpacesPerTab) {
         return [self stringComplementForLength:IC.length];
@@ -724,13 +741,13 @@ continue_after_comment:
         *stringRef = @"";
         return;
     }
-    __iTM2IndentationComponent * IC  = [__iTM2IndentationComponent indentationComponent];
+    _iTM2IndentationComponent * IC  = [_iTM2IndentationComponent indentationComponent];
     iTM2LiteScanner * LS = [self liteScannerWithString:actualS];
     LS.scanLimit = actualS.length;
     LS.scanLocation = actualIndex;
     NSMutableArray * actualICs = [NSMutableArray array];
     while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:0 maxDepth:NSUIntegerMax]) {
-        [actualICs addObject:[IC clone]];
+        [actualICs addObject:IC.clone];
     }
     if (affectedRangeRef) {
         *affectedRangeRef = [actualICs indentationRange4iTM3];
@@ -740,7 +757,7 @@ continue_after_comment:
     NSString * S2 = @"";
     NSRange R;
     NSEnumerator * E = nil;
-    _iTM2IndentationComponent * lastAvailableIC = nil;
+    iTM2IndentationComponent * lastAvailableIC = nil;
     NSMutableArray * availableICs = [self _indentationComponentsInString:availableS atIndex:availableIndex uncommentedOnly:NO];
     if (actualICs.count) {
         //  How do I manage the last indentation component?
@@ -752,7 +769,7 @@ continue_after_comment:
         //    and use instead the last available IC if any
         //  - if the last IC is commented and has 0 depth, it should remain the last IC
         //  We choose the last item and the first one.
-        _iTM2IndentationComponent * lastActualIC  = actualICs.lastObject;
+        iTM2IndentationComponent * lastActualIC  = actualICs.lastObject;
         //  Shall we keep the last indentation component
         if (lastActualIC.shouldRemainAtTheEnd) {
             //  Yes
@@ -1300,8 +1317,8 @@ terminate:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSUInteger depth = [[ICs valueForKeyPath:@"self.@sum.depth"] unsignedIntegerValue];
-    __iTM2IndentationComponent * IC = nil;
-    __iTM2IndentationComponent * ic = nil;
+    _iTM2IndentationComponent * IC = nil;
+    _iTM2IndentationComponent * ic = nil;
     if (level>=depth)
     {
         // we must remove all the indentation components
@@ -1318,7 +1335,7 @@ terminate:
                 if (ic.commentLength)
                 {
                     // yes it is.
-                    ic = [ic clone];// don't mess up with the originals
+                    ic = ic.clone;// don't mess up with the originals
                     ic.depth=0;
                     if (level==depth)
                     {
@@ -1368,10 +1385,10 @@ terminate:
                     {
                         // If I remove this component, the indentation will not be deep enough
                         // insert indentation strings to compensate
-                        ic = [__iTM2IndentationComponent indentationComponent];
+                        ic = [_iTM2IndentationComponent indentationComponent];
                         ic.location = IC.location;
                         ic.depth = IC.depth-level;
-                        [ICs insertObject:ic atIndex:idx+1];// this object has a 0 length but a non zero depth, clients will manage this properly
+                        [ICs insertObject:ic.clone atIndex:idx+1];// this object has a 0 length but a non zero depth, clients will manage this properly
                         [MIS addIndex:idx];
                         [ICs removeObjectsAtIndexes:MIS];
                         return YES;
@@ -1789,7 +1806,7 @@ edit_commented_IC:
 - (NSInteger)___prepareIndentationChange:(NSInteger)change atIndex:(NSUInteger)start inString:(NSString *)S withReplacementString:(NSMutableArray *)replacementStrings affectedRanges:(NSMutableArray *)affectedRanges;
 {
     NSArray * ICs = [self _indentationComponentsInString:S atIndex:start uncommentedOnly:NO];
-    _iTM2IndentationComponent * IC = nil;
+    iTM2IndentationComponent * IC = nil;
     NSRange R = iTM3VoidRange;
     NSInteger changeInLength = 0;
     NSUInteger length = 0;
@@ -1993,13 +2010,13 @@ edit_commented_IC:
     NSInteger i = change;
     NSRange R = iTM3MakeRange(NSNotFound,0);
     NSString * replacement = @"";
-    _iTM2IndentationComponent * theIC = nil;
+    iTM2IndentationComponent * theIC = nil;
     //  When you insert indentation components from a reference string, leading comments are treated separately.
     //  If the actual prefix does not start with a comment but the replacement starts
     //  with a commented indentation component with no leading space,
     //  then the new indentation should start with the same component.
     NSArray * ICs = [self _indentationComponentsInString:S atIndex:start uncommentedOnly:NO];
-    _iTM2IndentationComponent * IC = nil;
+    iTM2IndentationComponent * IC = nil;
     if (theICs.count) {
         //  indentation components come from the reference string
         if (ICs.count) {
@@ -2100,7 +2117,7 @@ terminate:
 - (NSInteger)_prepareUnindentationAtIndex:(NSUInteger)start inString:(NSString *)S withReplacementString:(NSMutableArray *)replacementStrings affectedRanges:(NSMutableArray *)affectedRanges;
 {
     NSArray * ICs = [self _indentationComponentsInString:S atIndex:start uncommentedOnly:NO];
-    _iTM2IndentationComponent * IC = nil;
+    iTM2IndentationComponent * IC = nil;
     if (ICs.count)
     {
         // In general insert at the end, after the last full indentation component
@@ -2283,7 +2300,7 @@ To Do List: Nothing at first glance.
 		[S getLineStart:&start end:&end contentsEnd:nil forRange:R];
         // get the indentation for this line
         NSArray * ICs = [SC _indentationComponentsInString:S atIndex:start uncommentedOnly:NO];
-        _iTM2IndentationComponent * IC = nil;
+        iTM2IndentationComponent * IC = nil;
         NSEnumerator * EE = nil;
         if (ICs.count)
         {
@@ -2449,17 +2466,17 @@ To Do List: Nothing at first glance.
 - (NSRange)indentationRange4iTM3;
 {
     if (self.count) {
-        _iTM2IndentationComponent * IC = [self objectAtIndex:0];
-        if ([IC isKindOfClass:[_iTM2IndentationComponent class]]) {
+        iTM2IndentationComponent * IC = [self objectAtIndex:0];
+        if ([IC isKindOfClass:[iTM2IndentationComponent class]]) {
             return iTM3MakeRange(IC.location,self.indentationLength4iTM3);
         }
     }
     return iTM3MakeRange(0, 0);
 }
-- (_iTM2IndentationComponent *)firstCommentedIndentationComponent4iTM3;
+- (iTM2IndentationComponent *)firstCommentedIndentationComponent4iTM3;
 {
-    for (_iTM2IndentationComponent * IC in self) {
-        if ([IC isKindOfClass:[_iTM2IndentationComponent class]] && IC.commentLength > 0) {
+    for (iTM2IndentationComponent * IC in self) {
+        if ([IC isKindOfClass:[iTM2IndentationComponent class]] && IC.commentLength > 0) {
             return IC;
         }
     }

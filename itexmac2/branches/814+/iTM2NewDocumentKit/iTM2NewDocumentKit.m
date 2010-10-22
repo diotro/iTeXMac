@@ -2271,7 +2271,7 @@ To Do List:
             NSImage * icon = [SWS iconForFile:url.path];
 			NSSize iconSize = [icon size];
 			if (iconSize.height > 0) {
-				float height = sender.frame.size.height;
+				CGFloat height = sender.frame.size.height;
 				height -= 8;
 				iconSize.width *= height/iconSize.height;
 				iconSize.height = height;

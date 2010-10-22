@@ -86,7 +86,7 @@ typedef enum _iTM2PDFPageLayout
     id iVarImageRepresentation;
     id iVarCachedImageRepresentation;
     NSPoint iVarAbsoluteFocus;
-    float iVarMagnification;
+    CGFloat iVarMagnification;
     NSUInteger iVarPageLayout;
     NSInteger iVarCurrentLogicalPage;
     NSInteger iVarOrientationMode;
@@ -102,7 +102,7 @@ typedef enum _iTM2PDFPageLayout
 - (void)selectViewWithTag:(NSInteger)tag;
 - (id)focusView;
 /*"Main methods"*/
-- (NSSize)pageFrameSizeWithMagnification:(float)aMagnification;
+- (NSSize)pageFrameSizeWithMagnification:(CGFloat)aMagnification;
 - (void)recache;
 - (void)updateGeometry;
 - (void)placeFocusPointInVisibleArea;
@@ -113,7 +113,7 @@ typedef enum _iTM2PDFPageLayout
 @property (retain) NSPDFImageRep * imageRepresentation;
 @property (readonly,retain) NSPDFImageRep * cachedImageRepresentation;
 @property (readonly) NSColor * backgroundColor;
-@property float magnification;
+@property CGFloat magnification;
 @property NSUInteger pageLayout;
 @property (readonly) NSInteger softCurrentPhysicalPage;
 @property (readonly) id selectedView;
@@ -131,17 +131,17 @@ typedef enum _iTM2PDFPageLayout
 {
 @private
     NSPDFImageRep * iVarImageRepresentation;
-    float iVarScale;
+    CGFloat iVarScale;
     BOOL iVarSlidesLandscape;
 }
-- (id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(float)scale;
+- (id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(CGFloat)scale;
 - (void)drawRect:(NSRect)aRect;
 - (BOOL)knowsPageRange:(NSRangePointer)range;
 - (NSRect)rectForPage:(NSInteger)pageNumber;
 - (BOOL)isVerticallyCentered;
 - (BOOL)isHorizontallyCentered;
 @property (retain) NSPDFImageRep * imageRepresentation;
-@property float scale;
+@property CGFloat scale;
 @property BOOL slidesLandscape;
 @property (readonly) NSInteger pageCount;
 @end

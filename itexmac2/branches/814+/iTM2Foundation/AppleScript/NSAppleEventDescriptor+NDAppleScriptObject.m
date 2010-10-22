@@ -109,7 +109,7 @@
 	return [self descriptorWithDescriptorType:typeInteger data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 // typeShortFloat
-+ (NSAppleEventDescriptor *)appleEventDescriptorWithFloat:(float)aValue
++ (NSAppleEventDescriptor *)appleEventDescriptorWithFloat:(CGFloat)aValue
 {
 	return [self descriptorWithDescriptorType:typeShortFloat data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }

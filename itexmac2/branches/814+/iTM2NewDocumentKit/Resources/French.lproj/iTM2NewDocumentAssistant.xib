@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10B504</string>
+		<int key="IBDocument.SystemTarget">1060</int>
+		<string key="IBDocument.SystemVersion">10D2125</string>
 		<string key="IBDocument.InterfaceBuilderVersion">732</string>
-		<string key="IBDocument.AppKitVersion">1038.2</string>
-		<string key="IBDocument.HIToolboxVersion">437.00</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.HIToolboxVersion">460.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
@@ -21,8 +21,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="248"/>
 			<integer value="125"/>
+			<integer value="59"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -117,7 +117,7 @@
 						<object class="NSButton" id="868658111">
 							<reference key="NSNextResponder" ref="994841899"/>
 							<int key="NSvFlags">292</int>
-							<string key="NSFrame">{{18, 9}, {25, 24}}</string>
+							<string key="NSFrame">{{18, 8}, {25, 25}}</string>
 							<reference key="NSSuperview" ref="994841899"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="406467047">
@@ -1810,16 +1810,16 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{63, 425}, {773, 501}}</string>
+					<string>{{63, 255}, {773, 501}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{63, 425}, {773, 501}}</string>
+					<string>{{63, 255}, {773, 501}}</string>
 					<integer value="1"/>
 					<string>{{34, 117}, {773, 501}}</string>
 					<boolean value="NO"/>
 					<integer value="1"/>
 					<string>{3.40282e+38, 3.40282e+38}</string>
 					<string>{773, 501}</string>
-					<string>{{0, 849}, {346, 146}}</string>
+					<string>{{0, 610}, {346, 146}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{0, 666}, {346, 146}}</string>
@@ -2020,29 +2020,6 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">iTM2NewDocumentAssistant</string>
 					<string key="superclassName">iTM2Inspector</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>tabViewItemIdentifier</string>
-							<string>templateImage</string>
-							<string>templatePDFView</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>NSString</string>
-							<string>NSImage</string>
-							<string>PDFView</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">iTM2NewDocumentKit.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">iTM2NewDocumentAssistant</string>
-					<string key="superclassName">iTM2Inspector</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -2076,8 +2053,10 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 							<string>createProgressIndicator</string>
 							<string>createSheet</string>
 							<string>savePanelAccessoryView</string>
+							<string>tabViewItemIdentifier</string>
+							<string>templateImage</string>
 							<string>templateImageView</string>
-							<string>window</string>
+							<string>templatePDFView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2085,9 +2064,23 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 							<string>NSProgressIndicator</string>
 							<string>NSWindow</string>
 							<string>NSView</string>
+							<string>NSString</string>
+							<string>NSImage</string>
 							<string>NSImageView</string>
-							<string>NSWindow</string>
+							<string>PDFView</string>
 						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">iTM2NewDocumentKit.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iTM2NewDocumentAssistant</string>
+					<string key="superclassName">iTM2Inspector</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">window</string>
+						<string key="NS.object.0">NSWindow</string>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
@@ -2153,13 +2146,6 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="519961058">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2InstallationKit.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSApplication</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2PerlKitServer.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2347,13 +2333,6 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="1031948263">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSMenuItem.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSMenuItem</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2JAGUARSupportKit.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2677,16 +2656,9 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="33533713">
 						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/NSObject_iTeXMac2.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2ApplicationDelegate.h</string>
+						<string key="minorKey">iTM2Foundation.framework/Headers/ICURegEx.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2760,7 +2732,7 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2RuntimeBrowser.h</string>
+						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2Runtime.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2768,6 +2740,13 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2SpellKit.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2StringControllerKit.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2929,10 +2908,7 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSString</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/ICURegEx.h</string>
-					</object>
+					<reference key="sourceIdentifier" ref="33533713"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSString</string>
@@ -2945,12 +2921,8 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 					<string key="className">NSString</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2FileManagerKit.h</string>
+						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2DocumentControllerKit.h</string>
 					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSString</string>
-					<reference key="sourceIdentifier" ref="514619248"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSString</string>
@@ -2971,13 +2943,6 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2StringKit.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSString</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">iTM2Foundation.framework/Headers/iTM2TextFinderKit.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3196,18 +3161,53 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">iTM2NewDocumentAssistant</string>
 					<string key="superclassName">iTM2Inspector</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>cancel:</string>
+							<string>editTemplateDescription:</string>
+							<string>editTemplateFolderPath:</string>
+							<string>next:</string>
+							<string>showHelp:</string>
+							<string>takeCreationModeFromTag:</string>
+							<string>takeProjectFromSelectedItem:</string>
+							<string>toggleWrapper:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>createField</string>
+							<string>createProgressIndicator</string>
+							<string>createSheet</string>
+							<string>savePanelAccessoryView</string>
 							<string>tabViewItemIdentifier</string>
 							<string>templateImage</string>
+							<string>templateImageView</string>
 							<string>templatePDFView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSTextField</string>
+							<string>NSProgressIndicator</string>
+							<string>NSWindow</string>
+							<string>NSView</string>
 							<string>NSString</string>
 							<string>NSImage</string>
+							<string>NSImageView</string>
 							<string>PDFView</string>
 						</object>
 					</object>
@@ -3221,11 +3221,11 @@ w6llciB1biBwcm9qZXQgYXV0b25vbWUuA</string>
 		<int key="IBDocument.localizationMode">0</int>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1050" key="NS.object.0"/>
+			<integer value="1060" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1050" key="NS.object.0"/>
+			<integer value="1060" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>

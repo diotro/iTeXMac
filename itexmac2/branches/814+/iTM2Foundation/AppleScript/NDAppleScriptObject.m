@@ -1256,8 +1256,8 @@ void setUpToRecieveFirstEvent( NSAppleEventDescriptor * anAppleEventDescriptor )
 		case typeShortFloat:					//	SANE single
 //		case typeSMFloat:							//	SANE single
 		{
-			float		theFloat;
-			if( AEGetDescData(aDesc, &theFloat, sizeof(float)) == noErr )
+			CGFloat		theFloat;
+			if( AEGetDescData(aDesc, &theFloat, sizeof(CGFloat)) == noErr )
 				theInstance = [NSNumber numberWithFloat: theFloat];
 			break;
 		}

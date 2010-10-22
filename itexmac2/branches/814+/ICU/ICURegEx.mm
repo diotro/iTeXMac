@@ -549,7 +549,7 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 {
 	return _IVARS.error;
 }
-+ (NSString *)errorDescriptionForStatus:(int)status;
++ (NSString *)errorDescriptionForStatus:(NSInteger)status;
 {
 #if 1
 	switch(status) {

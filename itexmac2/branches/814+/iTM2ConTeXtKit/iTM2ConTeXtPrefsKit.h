@@ -21,6 +21,10 @@
 */
 
 @interface iTM2ConTeXtPrefsPane: iTM2PreferencePane <NSTableViewDelegate, NSTableViewDataSource>
+{
+}
+@end
+
 @end
 
 @interface NSApplication(iTM2ConTeXtPrefsKit)

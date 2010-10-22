@@ -346,7 +346,7 @@ if (_iTM2_DEBUG_LastAction == nil)
 #if CGFLOAT_IS_DOUBLE
     return [self initWithDouble:(double)value];
 #else
-    return [self initWithFloat:(float)value];
+    return [self initWithFloat:(CGFloat)value];
 #endif
 }
 + (NSNumber *) numberWithCGFloat4iTM3:(CGFloat)value;
@@ -354,7 +354,7 @@ if (_iTM2_DEBUG_LastAction == nil)
 #if CGFLOAT_IS_DOUBLE
     return [self numberWithDouble:(double)value];
 #else
-    return [self numberWithFloat:(float)value];
+    return [self numberWithFloat:(CGFloat)value];
 #endif
 }
 @end

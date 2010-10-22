@@ -315,7 +315,6 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB82909474616004B0A81 /* Build configuration list for PBXProject "iTM2NewDocumentKit" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -641,7 +640,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41890A4ADD2400E83ABA /* Development.xcconfig */;
 			buildSettings = {
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Development;
 		};
@@ -649,7 +647,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Deployment;
 		};

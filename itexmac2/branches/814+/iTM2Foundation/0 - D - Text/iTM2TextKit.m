@@ -330,7 +330,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
+    CGFloat f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
  	if (f>0)
 		[self setScaleFactor:f * self.scaleFactor];
 //END4iTM3;
@@ -345,7 +345,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
+    CGFloat f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
 	if (f>0)
 		[self setScaleFactor:self.scaleFactor / f];
 //END4iTM3;
@@ -377,7 +377,7 @@ To Do List:
     return self.scaleFactor != 1.0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scaleFactor
-- (float)scaleFactor;
+- (CGFloat)scaleFactor;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -385,12 +385,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	float frameWidth = self.frame.size.width;
-	float boundsWidth = self.bounds.size.width;
+	CGFloat frameWidth = self.frame.size.width;
+	CGFloat boundsWidth = self.bounds.size.width;
     return boundsWidth>0? frameWidth / boundsWidth: 0.00001;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleFactor:
-- (void)setScaleFactor:(float)aMagnification;
+- (void)setScaleFactor:(CGFloat)aMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005

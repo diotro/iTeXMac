@@ -221,12 +221,12 @@ To Do List:
     // Adjusting the size of the split view
     NSEnumerator * E = [[[self contextStringForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]
                                 componentsSeparatedByString: @":"] objectEnumerator];
-    float f = [E.nextObject floatValue];
-    float f1 = f<0.05? 0: (f>0.95? 1: f);
+    CGFloat f = [E.nextObject floatValue];
+    CGFloat f1 = f<0.05? 0: (f>0.95? 1: f);
     f = [E.nextObject floatValue];
-    float f2 = f<0.05? 0: (f>0.95? 1: f);
+    CGFloat f2 = f<0.05? 0: (f>0.95? 1: f);
     f = [E.nextObject floatValue];
-    float f3 = f<0.05? 0: (f>0.95? 1: f);
+    CGFloat f3 = f<0.05? 0: (f>0.95? 1: f);
 //LOG4iTM3(@"f1: %f, f2: %f, f3: %f", f1, f2, f3);
     NSView * V1 = self.smartView.enclosingScrollView;
     NSView * V2 = self.outputView.enclosingScrollView;
@@ -302,10 +302,10 @@ To Do List:
     NSView * V2 = self.outputView.enclosingScrollView;
     NSView * V3 = self.errorView.enclosingScrollView;
     NSView * V4 = self.customView.enclosingScrollView;
-    float h1 = V1? V1.frame.size.height: 0;
-    float h2 = V2? V2.frame.size.height: 0;
-    float h3 = V3? V3.frame.size.height: 0;
-    float h4 = V4? V4.frame.size.height: 0;
+    CGFloat h1 = V1? V1.frame.size.height: 0;
+    CGFloat h2 = V2? V2.frame.size.height: 0;
+    CGFloat h3 = V3? V3.frame.size.height: 0;
+    CGFloat h4 = V4? V4.frame.size.height: 0;
     [self takeContextValue: [NSString stringWithFormat: @"%f:%f:%f",
                 (h1+h2+h3+h4>0? h1/(h1+h2+h3+h4): 0),
                 (h2+h3+h4>0? h2/(h2+h3+h4): 0),
@@ -371,7 +371,7 @@ To Do List:
     NSRect R2 = V2.frame;
     NSRect R3 = V3.frame;
     NSRect R4 = V4.frame;
-    float level = 4;
+    CGFloat level = 4;
     if(R1.size.height<level)
     {
         R2.size.height += R1.size.height;

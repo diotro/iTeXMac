@@ -121,8 +121,8 @@ MODEL_BOOL(usePaper, setUsePaper, iTM2Dvipdfm_USE_paper);
 MODEL_OBJECT(paper, setPaper, iTM2Dvipdfm_paper);
 MODEL_BOOL(useOffset, setUseOffset, iTM2Dvipdfm_USE_offset);
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
-- (float)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
-- (void)SETTER:(float)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
+- (CGFloat)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
+- (void)SETTER:(CGFloat)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 MODEL_FLOAT(xOffset, setXOffset, iTM2Dvipdfm_x_offset);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvipdfm_y_offset);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  xOffsetUnit

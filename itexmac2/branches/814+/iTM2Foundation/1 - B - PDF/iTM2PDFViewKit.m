@@ -118,7 +118,7 @@ To Do List:
     NSRect r = R;
     [[NSGraphicsContext currentContext] saveGraphicsState];
     [NSBezierPath setDefaultLineJoinStyle:NSRoundLineJoinStyle];
-    float lineWidth = [self convertSize:NSMakeSize(0.9, 0) fromView:nil].width;
+    CGFloat lineWidth = [self convertSize:NSMakeSize(0.9, 0) fromView:nil].width;
     [NSBezierPath setDefaultLineWidth:lineWidth];
     if (self.state==NSOnState) {
         [[[NSColor blackColor] colorWithAlphaComponent:0.8] set];
@@ -852,7 +852,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  MAGNIFICATION MANAGEMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnification:
-- (void)setMagnification:(float)aMagnification;
+- (void)setMagnification:(CGFloat)aMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -894,7 +894,7 @@ To Do List:
     self.needsUpdateGeometry = NO;// still usefull?
     // 1 determine the optimal size for the subviews
     iTM2PDFImageRepView * IRV;
-    float maxSubviewHeight = 0, maxSubviewWidth = 0;
+    CGFloat maxSubviewHeight = 0, maxSubviewWidth = 0;
     for (IRV in self.subviews) {
         NSSize S = [IRV minFrameSize];
         maxSubviewHeight = MAX(maxSubviewHeight, S.height);
@@ -955,7 +955,7 @@ To Do List:
     }
     // 5 setting the frame
     [self setFrameOrigin: NSZeroPoint];
-    float scale = self.magnification;
+    CGFloat scale = self.magnification;
     [self setFrameSize: NSMakeSize(nearbyint(maxSubviewWidth * scale), nearbyint(maxSubviewHeight * scale))];
     [self setBoundsSize:NSMakeSize(maxSubviewWidth, maxSubviewHeight)];
     self.currentPageDidChange;
@@ -963,7 +963,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pageFrameSizeWithMagnification:
-- (NSSize)pageFrameSizeWithMagnification:(float)aMagnification;
+- (NSSize)pageFrameSizeWithMagnification:(CGFloat)aMagnification;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -1103,7 +1103,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PDFPrintView  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 @implementation iTM2PDFPrintView
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithRepresentation:slidesLandscape:scale:
-- (id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(float)scale;
+- (id)initWithRepresentation:(id)aRepresentation slidesLandscape:(BOOL)flag scale:(CGFloat)scale;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002

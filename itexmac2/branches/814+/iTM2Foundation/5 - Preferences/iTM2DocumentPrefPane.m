@@ -73,7 +73,7 @@ To Do List:
 - (id)transformedValue:(id)value;
 {
 	if ([value isKindOfClass:[NSNumber class]]) {
-		float f = [value floatValue];
+		CGFloat f = [value floatValue];
 		// 60=1*60->0
 		// 120=2*60 -> 1
 		// 240=4*60 -> 2
@@ -94,7 +94,7 @@ To Do List:
 - (id)reverseTransformedValue:(id)value;
 {
 	if ([value isKindOfClass:[NSNumber class]]) {
-		float f = [value floatValue];
+		CGFloat f = [value floatValue];
 		if (f>=4.9) {
 			f = 0;
 		} else {
@@ -112,7 +112,7 @@ To Do List:
 - (id)transformedValue:(id)value;
 {
 	if ([value isKindOfClass:[NSNumber class]]) {
-		float f = [value floatValue];
+		CGFloat f = [value floatValue];
 		// 1->0
 		// 10=1*10 -> 1
 		// 20=2*10 -> 2
@@ -133,7 +133,7 @@ To Do List:
 - (id)reverseTransformedValue:(id)value;
 {
 	if ([value isKindOfClass:[NSNumber class]]) {
-		float f = [value floatValue];
+		CGFloat f = [value floatValue];
 		if (f>=4.9) {
 			f = 0;
 		} else if (f<=1) {

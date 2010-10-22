@@ -113,8 +113,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float width = self.bounds.size.width != 0? self.bounds.size.width:0.0001;
-    float height = self.bounds.size.height != 0? self.bounds.size.height:0.0001;
+    CGFloat width = self.bounds.size.width != 0? self.bounds.size.width:0.0001;
+    CGFloat height = self.bounds.size.height != 0? self.bounds.size.height:0.0001;
     NSPoint result;
     result = NSMakePoint((aPoint.x-self.bounds.origin.x)/width, (aPoint.y-self.bounds.origin.y)/height);
     return result;
@@ -140,8 +140,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float width = self.bounds.size.width != 0? self.bounds.size.width:0.0001;
-    float height = self.bounds.size.height != 0? self.bounds.size.height:0.0001;
+    CGFloat width = self.bounds.size.width != 0? self.bounds.size.width:0.0001;
+    CGFloat height = self.bounds.size.height != 0? self.bounds.size.height:0.0001;
     NSSize result;
     result = NSMakeSize(aSize.width/width, aSize.height/height);
     return result;
@@ -166,8 +166,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float width = self.bounds.size.width != 0? self.bounds.size.width:0.0001;
-    float height = self.bounds.size.height != 0? self.bounds.size.height:0.0001;
+    CGFloat width = self.bounds.size.width != 0? self.bounds.size.width:0.0001;
+    CGFloat height = self.bounds.size.height != 0? self.bounds.size.height:0.0001;
     NSRect result;
     result = NSMakeRect((aRect.origin.x-self.bounds.origin.x)/width, (aRect.origin.y-self.bounds.origin.y)/height,
         aRect.size.width/width, aRect.size.height/height);
@@ -259,7 +259,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= visibleArea
-- (float)visibleArea;
+- (CGFloat)visibleArea;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 2.1: 03/10/2002
@@ -280,8 +280,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSAssert(!otherView || [otherView isKindOfClass:[NSView class]], @"Unexpected  rhs");
-    float lhs = self.visibleArea;
-    float rhs = [otherView visibleArea];
+    CGFloat lhs = self.visibleArea;
+    CGFloat rhs = [otherView visibleArea];
     if (lhs>rhs)
         return NSOrderedDescending;
     else if (lhs<rhs)
@@ -314,8 +314,8 @@ To Do List:
     absoluteFocus.y-=self.bounds.origin.y;
     {
         NSSize size = self.bounds.size;
-        float width = size.width > 0? size.width: 0.000001;
-        float height = size.height > 0? size.height: 0.000001;
+        CGFloat width = size.width > 0? size.width: 0.000001;
+        CGFloat height = size.height > 0? size.height: 0.000001;
         absoluteFocus.x/=width;
         absoluteFocus.y/=height;
     }
@@ -395,7 +395,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = 2*VR.size.width/5;
+	CGFloat scrollAmount = 2*VR.size.width/5;
 	scrollPosition.x -= scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -415,7 +415,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = 2*VR.size.width/5;
+	CGFloat scrollAmount = 2*VR.size.width/5;
 	scrollPosition.x += scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -435,7 +435,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = 2*VR.size.height/5;
+	CGFloat scrollAmount = 2*VR.size.height/5;
 	scrollPosition.y -= self.isFlipped? scrollAmount:-scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -455,7 +455,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = 2*VR.size.height/5;
+	CGFloat scrollAmount = 2*VR.size.height/5;
 	scrollPosition.y += self.isFlipped? scrollAmount:-scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -475,7 +475,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = MAX(VR.size.width/50, 16);
+	CGFloat scrollAmount = MAX(VR.size.width/50, 16);
 	scrollPosition.x -= scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -495,7 +495,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = MAX(VR.size.width/50, 16);
+	CGFloat scrollAmount = MAX(VR.size.width/50, 16);
 	scrollPosition.x += scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -515,7 +515,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = MAX(VR.size.height/50, 16);
+	CGFloat scrollAmount = MAX(VR.size.height/50, 16);
 	scrollPosition.y -= self.isFlipped? scrollAmount:-scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -535,7 +535,7 @@ To Do List:
 	NSPoint scrollPosition = [CV  bounds].origin;
 	scrollPosition = [self convertPoint:scrollPosition fromView:CV];
     NSRect VR = [SV documentVisibleRect];
-	float scrollAmount = MAX(VR.size.height/50, 16);
+	CGFloat scrollAmount = MAX(VR.size.height/50, 16);
 	scrollPosition.y += self.isFlipped? scrollAmount:-scrollAmount;
 	[self scrollPoint:scrollPosition];
 //END4iTM3;
@@ -809,7 +809,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  horizontalMargin
-- (float)horizontalMargin;
+- (CGFloat)horizontalMargin;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -820,7 +820,7 @@ To Do List:
     return 0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verticalMargin
-- (float)verticalMargin;
+- (CGFloat)verticalMargin;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003

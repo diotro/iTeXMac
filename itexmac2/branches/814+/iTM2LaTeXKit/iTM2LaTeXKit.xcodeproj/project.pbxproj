@@ -96,7 +96,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5185EE3B1270435100AFA001 /* Prepare Milestones */;
+			remoteGlobalIDString = 5185EE3B1270435100AFA001;
 			remoteInfo = "Prepare Milestones";
 		};
 		DC1C6962090D1C5D000F4FDE /* PBXContainerItemProxy */ = {
@@ -190,7 +190,7 @@
 		DC986AEC09EFD52100FF4BD3 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
 		DC986AED09EFD52100FF4BD3 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/NewDocuments.resources.tgz; sourceTree = "<group>"; };
 		DC986AEE09EFD52100FF4BD3 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Styles.resources.tgz; sourceTree = "<group>"; };
-		DC986AFC09EFD65F00FF4BD3 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DC986AFC09EFD65F00FF4BD3 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC986AFE09EFD66900FF4BD3 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LaTeXKit.h; sourceTree = "<group>"; };
 		DC99EACE08831D52007AF81F /* iTM2LaTeXKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXKit.m; sourceTree = "<group>"; };
@@ -430,7 +430,6 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB7ED09474615004B0A81 /* Build configuration list for PBXProject "iTM2LaTeXKit" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

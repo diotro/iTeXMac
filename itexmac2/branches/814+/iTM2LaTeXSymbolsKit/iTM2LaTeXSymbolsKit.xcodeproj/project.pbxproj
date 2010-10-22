@@ -319,7 +319,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5185EE5E127043FE00AFA001 /* Prepare Milestones */;
+			remoteGlobalIDString = 5185EE5E127043FE00AFA001;
 			remoteInfo = "Prepare Milestones";
 		};
 		DC5D70B00949E3A200EBA96C /* PBXContainerItemProxy */ = {
@@ -918,7 +918,6 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB80109474616004B0A81 /* Build configuration list for PBXProject "iTM2LaTeXSymbolsKit" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

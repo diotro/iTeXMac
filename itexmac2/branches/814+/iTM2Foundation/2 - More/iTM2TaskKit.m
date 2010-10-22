@@ -132,7 +132,7 @@ To Do List:
 //START4iTM3;
     NSTextView * TV = self.outputView;
 	NSScroller * S = [TV.enclosingScrollView verticalScroller];
-	float old = S.floatValue;
+	CGFloat old = S.floatValue;
     NSTextStorage * TS = [TV textStorage];
     [TS beginEditing];
     [[TS mutableString] appendString:argument];
@@ -1916,7 +1916,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  terminationStatus
-- (int)terminationStatus;
+- (NSInteger)terminationStatus;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1927,7 +1927,7 @@ To Do List:
     return iVarTerminationStatus;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTerminationStatus:
-- (void)setTerminationStatus:(int)argument;
+- (void)setTerminationStatus:(NSInteger)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2034,7 +2034,7 @@ To Do List:
     return [self.implementation metaValueForKey:iTM2TaskInterruptInvocationKey] != nil || [[self.implementation metaValueForKey:iTM2TaskCanInterruptKey] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusAndOutput:error:
-- (int)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)outErrorPtr;
+- (NSInteger)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2055,7 +2055,7 @@ To Do List:
     return [[TC currentTask] terminationStatus];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusOfScript:output:error:
-+ (int)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSError **)outErrorPtr;
++ (NSInteger)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003

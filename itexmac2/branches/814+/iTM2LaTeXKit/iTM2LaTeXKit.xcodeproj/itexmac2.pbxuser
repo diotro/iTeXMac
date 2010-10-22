@@ -30,7 +30,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					697,
+					622,
 					20,
 					48,
 					43,
@@ -69,14 +69,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 309341438;
-			PBXWorkspaceStateSaveDate = 309341438;
+			PBXPerProjectTemplateStateSaveDate = 309463305;
+			PBXWorkspaceStateSaveDate = 309463305;
 		};
 		perUserProjectItems = {
-			5185EE521270439500AFA001 /* PBXTextBookmark */ = 5185EE521270439500AFA001 /* PBXTextBookmark */;
-			51D45FAD1148350400A66A19 /* PBXTextBookmark */ = 51D45FAD1148350400A66A19 /* PBXTextBookmark */;
-			51D45FAE1148350400A66A19 /* PBXTextBookmark */ = 51D45FAE1148350400A66A19 /* PBXTextBookmark */;
-			51D45FB01148350400A66A19 /* PBXTextBookmark */ = 51D45FB01148350400A66A19 /* PBXTextBookmark */;
+			51FC73581272091E009C8DD0 /* PBXTextBookmark */ = 51FC73581272091E009C8DD0 /* PBXTextBookmark */;
+			51FC73A81272118C009C8DD0 /* PBXTextBookmark */ = 51FC73A81272118C009C8DD0 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 5116799D10961587007E76C8 /* Source Control */;
 		userBuildSettings = {
@@ -133,72 +131,25 @@
 	5185EE3B1270435100AFA001 /* Prepare Milestones */ = {
 		activeExec = 0;
 	};
-	5185EE521270439500AFA001 /* PBXTextBookmark */ = {
+	51FC73581272091E009C8DD0 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 5185EE531270439500AFA001 /* iTM2MacroKit_Action.m */;
-		name = "iTM2MacroKit_Action.m: 1";
+		fRef = DC986AFE09EFD66900FF4BD3 /* French */;
+		name = "InfoPlist.strings: 5";
 		rLen = 0;
-		rLoc = 0;
+		rLoc = 130;
 		rType = 0;
-		vrLen = 1177;
+		vrLen = 130;
 		vrLoc = 0;
 	};
-	5185EE531270439500AFA001 /* iTM2MacroKit_Action.m */ = {
-		isa = PBXFileReference;
-		name = iTM2MacroKit_Action.m;
-		path = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/trunk/iTM2Foundation/1 - A - Macros/iTM2MacroKit_Action.m";
-		sourceTree = "<absolute>";
-	};
-	51D45F4E114834EF00A66A19 /* iTM2StringControllerKit.m */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.objc;
-		name = iTM2StringControllerKit.m;
-		path = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/trunk/iTM2Foundation/0 - D - Text/iTM2StringControllerKit.m";
-		sourceTree = "<absolute>";
-	};
-	51D45FAD1148350400A66A19 /* PBXTextBookmark */ = {
+	51FC73A81272118C009C8DD0 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 51D45F4E114834EF00A66A19 /* iTM2StringControllerKit.m */;
-		name = "iTM2StringControllerKit.m: 440";
-		rLen = 4;
-		rLoc = 16036;
-		rType = 0;
-		vrLen = 528;
-		vrLoc = 15963;
-	};
-	51D45FAE1148350400A66A19 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 51D45FAF1148350400A66A19 /* iTM2MacroKit.m */;
-		name = "iTM2MacroKit.m: 1";
+		fRef = DC986AFE09EFD66900FF4BD3 /* French */;
+		name = "InfoPlist.strings: 5";
 		rLen = 0;
-		rLoc = 0;
+		rLoc = 130;
 		rType = 0;
-		vrLen = 1310;
+		vrLen = 130;
 		vrLoc = 0;
-	};
-	51D45FAF1148350400A66A19 /* iTM2MacroKit.m */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.objc;
-		name = iTM2MacroKit.m;
-		path = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/trunk/iTM2Foundation/1 - A - Macros/iTM2MacroKit.m";
-		sourceTree = "<absolute>";
-	};
-	51D45FB01148350400A66A19 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 51D45FB11148350400A66A19 /* iTM2MacroKit_Action.m */;
-		name = "iTM2MacroKit_Action.m: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1310;
-		vrLoc = 0;
-	};
-	51D45FB11148350400A66A19 /* iTM2MacroKit_Action.m */ = {
-		isa = PBXFileReference;
-		lastKnownFileType = sourcecode.c.objc;
-		name = iTM2MacroKit_Action.m;
-		path = "/Volumes/HD2/Users/itexmac2/dev/itexmac2/trunk/iTM2Foundation/1 - A - Macros/iTM2MacroKit_Action.m";
-		sourceTree = "<absolute>";
 	};
 	DC2741E7090CE39000C2D1D2 /* iTM2LaTeXKit */ = {
 		activeExec = 0;
@@ -211,6 +162,21 @@
 		executables = (
 			5116796610961581007E76C8 /* iTeXMac2 */,
 		);
+	};
+	DC986AFC09EFD65F00FF4BD3 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {875, 344}}";
+			sepNavSelRange = "{130, 0}";
+			sepNavVisRange = "{0, 130}";
+		};
+	};
+	DC986AFE09EFD66900FF4BD3 /* French */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {800, 161}}";
+			sepNavSelRange = "{130, 0}";
+			sepNavVisRange = "{0, 130}";
+			sepNavWindowFrame = "{{0, 4}, {1280, 774}}";
+		};
 	};
 	DC99EACD08831D52007AF81F /* iTM2LaTeXKit.h */ = {
 		uiCtxt = {

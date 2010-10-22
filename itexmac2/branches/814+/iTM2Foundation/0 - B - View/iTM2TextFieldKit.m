@@ -123,11 +123,11 @@ To Do List:
 //START4iTM3;
 //NSLog(self.stringValue);
 //NSLog(@"%@", self.objectValue);
-	float oldMaxX = NSMaxX(self.frame);
-    float newWidth = MAX(([self.stringValue sizeWithAttributes:
+	CGFloat oldMaxX = NSMaxX(self.frame);
+    CGFloat newWidth = MAX(([self.stringValue sizeWithAttributes:
             [NSDictionary dictionaryWithObjectsAndKeys:self.font, NSFontAttributeName, nil]].width
                     + 8), 30);
-    float deltaWidth = newWidth - self.frame.size.width;
+    CGFloat deltaWidth = newWidth - self.frame.size.width;
     if ((deltaWidth < -8) || (deltaWidth > 0))
     {
         NSRect oldRect = self.frame;
@@ -136,7 +136,7 @@ To Do List:
         [self setFrameSize: size];
 		if (rightView)
 		{
-			float delta = NSMaxX(self.frame) - oldMaxX;
+			CGFloat delta = NSMaxX(self.frame) - oldMaxX;
 			NSRect frame = rightView.frame;
 			frame.origin.x -= delta;
 			frame.size.width += delta;
@@ -549,7 +549,7 @@ To Do List: Bug when inherited method is used: 200 % comes instead of 221 % (for
 //START4iTM3;
     if ([anObject respondsToSelector:@selector(floatValue)])
     {
-        float f = [anObject floatValue]*100;
+        CGFloat f = [anObject floatValue]*100;
         return [NSString stringWithFormat:@"%.0f %%", f];
 //        return [super stringForObjectValue:[NSDecimalNumber numberWithFloat:100*anObject.floatValue]];
     }
@@ -567,7 +567,7 @@ To Do List:
 //START4iTM3;
     if ([anObject respondsToSelector:@selector(floatValue)])
     {
-        float f = [anObject floatValue]*100;
+        CGFloat f = [anObject floatValue]*100;
         return [NSString stringWithFormat:@"%.0f", f];
 //        return [super stringForObjectValue:[NSDecimalNumber numberWithFloat:100*anObject.floatValue]];
     }

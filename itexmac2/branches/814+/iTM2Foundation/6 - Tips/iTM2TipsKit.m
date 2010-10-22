@@ -471,8 +471,8 @@ To Do List:
 	// inserting the new view
 	if(V = [new loadMainView])
 	{
-		float deltaHeight = V.frame.size.height - container.frame.size.height;
-		float deltaWidth = V.frame.size.width - container.frame.size.width;
+		CGFloat deltaHeight = V.frame.size.height - container.frame.size.height;
+		CGFloat deltaWidth = V.frame.size.width - container.frame.size.width;
 		if(deltaWidth<0)
 			deltaWidth = 0;
 		NSRect newWindowFrame = self.window.frame;

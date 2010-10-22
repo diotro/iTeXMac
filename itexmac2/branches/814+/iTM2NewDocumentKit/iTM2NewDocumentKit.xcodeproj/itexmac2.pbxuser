@@ -1,7 +1,7 @@
 // !$*UTF8*$!
 {
 	089C1669FE841209C02AAC07 /* Project object */ = {
-		activeArchitecturePreference = i386;
+		activeArchitecturePreference = x86_64;
 		activeBuildConfigurationName = Development;
 		activeExecutable = 5116797F10961584007E76C8 /* iTeXMac2 */;
 		activeTarget = DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */;
@@ -42,7 +42,7 @@
 					620,
 					60,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 				);
@@ -56,12 +56,12 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 309346879;
-			PBXWorkspaceStateSaveDate = 309346879;
+			PBXPerProjectTemplateStateSaveDate = 309465193;
+			PBXWorkspaceStateSaveDate = 309465193;
 		};
 		perUserProjectItems = {
-			5185EE161270424A00AFA001 /* PBXTextBookmark */ = 5185EE161270424A00AFA001 /* PBXTextBookmark */;
-			5185EE171270424A00AFA001 /* PBXTextBookmark */ = 5185EE171270424A00AFA001 /* PBXTextBookmark */;
+			51FC6F84127171F6009C8DD0 /* PBXTextBookmark */ = 51FC6F84127171F6009C8DD0 /* PBXTextBookmark */;
+			51FC739B1272118A009C8DD0 /* PBXTextBookmark */ = 51FC739B1272118A009C8DD0 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 511679B210961587007E76C8 /* Source Control */;
 		userBuildSettings = {
@@ -125,17 +125,7 @@
 	5185EDDA1270416B00AFA001 /* Prepare Milestones */ = {
 		activeExec = 0;
 	};
-	5185EE161270424A00AFA001 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
-		name = "iTM2NewDocumentKit.m: 2657";
-		rLen = 0;
-		rLoc = 105222;
-		rType = 0;
-		vrLen = 246;
-		vrLoc = 104965;
-	};
-	5185EE171270424A00AFA001 /* PBXTextBookmark */ = {
+	51FC6F84127171F6009C8DD0 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
 		name = "iTM2NewDocumentKit.m: 2657";
@@ -144,6 +134,16 @@
 		rType = 0;
 		vrLen = 257;
 		vrLoc = 104965;
+	};
+	51FC739B1272118A009C8DD0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */;
+		name = "iTM2NewDocumentKit.m: 2656";
+		rLen = 0;
+		rLoc = 105222;
+		rType = 0;
+		vrLen = 257;
+		vrLoc = 104967;
 	};
 	DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */ = {
 		activeExec = 0;
@@ -158,9 +158,9 @@
 	};
 	DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {838, 52800}}";
+			sepNavIntBoundsRect = "{{0, 0}, {838, 42240}}";
 			sepNavSelRange = "{105222, 0}";
-			sepNavVisRange = "{104965, 257}";
+			sepNavVisRange = "{104967, 257}";
 			sepNavWindowFrame = "{{107, 43}, {1321, 746}}";
 		};
 	};

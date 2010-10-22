@@ -72,8 +72,8 @@ extern NSString * const iTM2PDFToolbarIdentifier;
 - (NSUInteger)pageLayout;
 - (void)setPageLayout:(NSUInteger)PL;
 /*"Main mathods."*/
-- (float)magnification;
-- (void)setMagnification:(float)aMagnification;
+- (CGFloat)magnification;
+- (void)setMagnification:(CGFloat)aMagnification;
 - (void)setMagnificationWithDisplayMode:(NSInteger)displayMode stickMode:(NSInteger)stickMode;
 - (BOOL)parametersHaveChanged;
 - (void)setParametersHaveChanged:(BOOL)aFlag;
@@ -82,8 +82,8 @@ extern NSString * const iTM2PDFToolbarIdentifier;
 - (id)imageRepresentation;
 /*"Overriden methods."*/
 - (void)awakeFromNib;
-- (float)ratioContentVersusDocumentWidth;
-- (float)ratioContentVersusDocumentHeight;
+- (CGFloat)ratioContentVersusDocumentWidth;
+- (CGFloat)ratioContentVersusDocumentHeight;
 - (NSInteger)forwardPhysicalPage;
 - (NSInteger)backPhysicalPage;
 - (NSInteger)logicalToPhysicalPage:(NSInteger)logicalPage;
@@ -134,8 +134,8 @@ extern NSString * const iTM2PDFInspectorMode;
 - (NSInteger)lastPhysicalPage;
 - (NSInteger)currentPhysicalPage;
 - (void)setCurrentPhysicalPage:(NSInteger)aCurrentPhysicalPage;
-- (float)magnification;
-- (void)setMagnification:(float)magnification;
+- (CGFloat)magnification;
+- (void)setMagnification:(CGFloat)magnification;
 /*"Main methods"*/
 //- (void) synchronizePageWith: (NSNumber *) aCurrentPhysicalPage;
 /*"Overriden methods"*/

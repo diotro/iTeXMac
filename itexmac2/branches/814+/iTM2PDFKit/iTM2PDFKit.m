@@ -58,10 +58,10 @@ NSString * const iTM2PDFKitRENumberedNameGroupName = @"number";
 - (void)setDisplayBox:(NSInteger)argument;
 - (PDFDisplayMode)displayMode;
 - (void)setDisplayMode:(PDFDisplayMode)argument;
-- (float)greekingThreshold;
-- (void)setGreekingThreshold:(float)argument;
-- (float)scaleFactor;
-- (void)setScaleFactor:(float)argument;
+- (CGFloat)greekingThreshold;
+- (void)setGreekingThreshold:(CGFloat)argument;
+- (CGFloat)scaleFactor;
+- (void)setScaleFactor:(CGFloat)argument;
 - (BOOL)shouldAntiAlias;
 - (void)setShouldAntiAlias:(BOOL)argument;
 - (BOOL)autoScales;
@@ -1568,7 +1568,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	PDFView * V = [notification object];
-	float scale = V.scaleFactor;
+	CGFloat scale = V.scaleFactor;
 	[self setScaleFactor:scale];
 	[self setAutoScales:[V autoScales]];
 	[[self.window toolbar] validateVisibleItems];
@@ -1784,7 +1784,7 @@ To Do List:
 	[V setShouldAntiAlias:self.shouldAntiAlias];
 //LOG4iTM3(@"[V shouldAntiAlias]:%@", ([V shouldAntiAlias]? @"Y":@"N"));
 	[V setGreekingThreshold:self.greekingThreshold];
-	float scale = self.scaleFactor;
+	CGFloat scale = self.scaleFactor;
 LOG4iTM3(@"inspector scale:%f",scale);
 LOG4iTM3(@"view      scale:%f",.);
 	[V setScaleFactor:scale];
@@ -1975,24 +1975,24 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  greekingThreshold
-- (float)greekingThreshold;
+- (CGFloat)greekingThreshold;
 {
 	return [GETTER floatValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setGreekingThreshold:
-- (void)setGreekingThreshold:(float)argument;
+- (void)setGreekingThreshold:(CGFloat)argument;
 {
 	SETTER([NSNumber numberWithFloat:argument]);
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scaleFactor
-- (float)scaleFactor;
+- (CGFloat)scaleFactor;
 {
-	float result = [GETTER floatValue];
+	CGFloat result = [GETTER floatValue];
 	return result>0?result:1.0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleFactor:
-- (void)setScaleFactor:(float)argument;
+- (void)setScaleFactor:(CGFloat)argument;
 {
 	SETTER([NSNumber numberWithFloat:argument]);
 	return;
@@ -2752,7 +2752,7 @@ To Do List:
 	[NF setMaximum:[NSNumber numberWithUnsignedInteger:document.pageCount]];
     NSSize oldSize = sender.frame.size;
     
-	float width = 8 + MAX(
+	CGFloat width = 8 + MAX(
 		([[NF stringForObjectValue:[NSNumber numberWithInteger:[sender integerValue]]]
 				sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 							[sender.cell font], NSFontAttributeName, nil]].width),
@@ -2799,7 +2799,7 @@ To Do List:
 	[sender setFloatValue:self.pdfView.scaleFactor];
 	NSNumberFormatter * NF = [sender formatter];
 	NSSize oldSize = sender.frame.size;
-	float width = 8 + MAX(
+	CGFloat width = 8 + MAX(
 			([[NF stringForObjectValue:[NSNumber numberWithFloat:sender.floatValue]]
 				sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 							[sender.cell font], NSFontAttributeName, nil]].width),
@@ -3488,7 +3488,7 @@ To Do List:
 	NSPoint windowFocus, clipFocus, focus, focusZoomed;
 	NSRect boundsInWindow, R1,R2, R3;
 	NSSize size;
-	float scale, scaleFactor;
+	CGFloat scale, scaleFactor;
 	NSWindow * window = self.window;
 	//
 next:
@@ -4989,8 +4989,8 @@ To Do List:
 				{
 					node = [V pointerValue];
 					// get the full line text of the click
-					float tmp;
-					float top;
+					CGFloat tmp;
+					CGFloat top;
 					NSPoint PP;
 next_attempt:
 					tmp = synctex_node_box_visible_width(node);
@@ -5225,7 +5225,7 @@ nextRangeIndex:
 							}
 							if (!self.syncDestinations.count) {
 								// just add something for the line, and that is all
-								float tmp = synctex_node_box_visible_width(first_node);
+								CGFloat tmp = synctex_node_box_visible_width(first_node);
 								NSPoint PP;
 								if(tmp<0) {
 									PP.x = synctex_node_box_visible_h(first_node)+tmp;
@@ -5293,8 +5293,8 @@ nextRangeIndex:
 				NSString * pageString = [page string];
 				while ((node = [E.nextObject pointerValue]) {
                     // get the full line text of the click
-					float tmp = synctex_node_box_visible_width(node);
-					float top;
+					CGFloat tmp = synctex_node_box_visible_width(node);
+					CGFloat top;
 					NSPoint PP;
 next_attempt:
 					tmp = synctex_node_box_visible_width(node);
@@ -5406,8 +5406,8 @@ last_chance:
 			}
 			page = [document pageAtIndex:pageIndex];
 			// get the full line text of the click
-			float tmp = synctex_node_box_visible_width(node);
-			float top;
+			CGFloat tmp = synctex_node_box_visible_width(node);
+			CGFloat top;
 			NSPoint PP;
 			if (tmp<0) {
 				top = synctex_node_box_visible_h(node);
@@ -5833,7 +5833,7 @@ mainLoop:
 	NSPoint scrollOffset = NSZeroPoint;
 	NSPoint location = [documentView convertPoint:newHit fromView:nil];
 	NSPoint point = NSZeroPoint;
-	float f,g;
+	CGFloat f,g;
 	if ((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect)))) {
 		point = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
@@ -5921,12 +5921,12 @@ To Do List:
 		if (modifierFlags & NSCommandKeyMask) {
 			if (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask)) {
 				NSWindow * window = self.window;
-				float timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
+				CGFloat timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
 				NSEvent * otherEvent = nil;
 				if ((otherEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES])) {
 					NSInteger n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
 					if (n>0) {
-						float zoom = (modifierFlags & NSShiftKeyMask)?n/100.0:100.0/n;
+						CGFloat zoom = (modifierFlags & NSShiftKeyMask)?n/100.0:100.0/n;
 						NSView * docView = self.documentView;
 						NSPoint oldHit = [theEvent locationInWindow];
 						oldHit = [docView convertPoint:oldHit fromView:nil];
@@ -6015,16 +6015,16 @@ To Do List:
 	PDFPage * P = self.currentPage;
 	NSRect bounds = [P boundsForBox:kPDFDisplayBoxMediaBox];
 	NSRect frame = [self convertRect:bounds fromPage:P];
-	float expectedWidth = self.frame.size.width;
-	float actualWidth = frame.size.width;
+	CGFloat expectedWidth = self.frame.size.width;
+	CGFloat actualWidth = frame.size.width;
 	if(actualWidth == 0)
 		return;
-	float widthCorrection = expectedWidth/actualWidth;
-	float expectedHeight = self.frame.size.height;
-	float actualHeight = frame.size.height;
+	CGFloat widthCorrection = expectedWidth/actualWidth;
+	CGFloat expectedHeight = self.frame.size.height;
+	CGFloat actualHeight = frame.size.height;
 	if(actualHeight == 0)
 		return;
-	float heightCorrection = expectedHeight/actualHeight;
+	CGFloat heightCorrection = expectedHeight/actualHeight;
 	[self setScaleFactor:MIN(widthCorrection, heightCorrection) * self.scaleFactor * 0.85];
 	[self goToPage:P];
 //END4iTM3;
@@ -6333,7 +6333,7 @@ To Do List:
 		//[[NSGraphicsContext currentContext] setCompositingOperation:(NSCompositingOperation)operation;
 		NSBezierPath * path = [NSBezierPath bezierPathWithRect:aRect];
 		[path setLineWidth:1.0];
-		//float lineDash[] = {2.0,3.0};
+		//CGFloat lineDash[] = {2.0,3.0};
 		//[path setLineDash:lineDash count:2 phase:0.0];
 		NSRect selectionRect = self.selectionRect;
 		selectionRect = NSInsetRect(selectionRect,0.005,0.005);// necessary to have a good clipping region
@@ -6892,7 +6892,7 @@ theEnd:
 	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
 	NSPoint newPoint, location;
 	BOOL scroll = NO;
-	float f,g;
+	CGFloat f,g;
 	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
 	[[NSCursor closedHandCursor] push];
 mainLoop:
@@ -7043,7 +7043,7 @@ mainLoop:
 	locationAnchorRect = NSInsetRect(locationAnchorRect,-1,-1);
 	NSPoint newPoint, location;
 	BOOL scroll = NO;
-	float f,g;
+	CGFloat f,g;
 	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
 mainLoop:
 	[[NSCursor crosshairCursor] set];
@@ -7177,7 +7177,7 @@ mainLoop:
 	NSPoint locationAnchor = [self convertPoint:anchor fromView:nil];
 	NSPoint newPoint, location;
 	BOOL scroll = NO;
-	float f,g;
+	CGFloat f,g;
 	NSRect mainScreenFrame = [[NSScreen mainScreen] visibleFrame];
 	[[NSCursor closedHandCursor] push];
 mainLoop:
@@ -8070,17 +8070,17 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	float totalSize = 0;
-	float totalWidth = 0;
+	CGFloat totalSize = 0;
+	CGFloat totalWidth = 0;
 	NSInteger segment = 0;
 	while (segment < self.segmentCount) {
-		float imageWidth = [[self imageForSegment:segment] size].width;
-		float segmentSize = [self widthForSegment:segment];
+		CGFloat imageWidth = [[self imageForSegment:segment] size].width;
+		CGFloat segmentSize = [self widthForSegment:segment];
 		totalSize += MIN(imageWidth, segmentSize);
 		totalWidth += segmentSize;
 		++segment;
 	}
-	float meanBlank = (totalWidth - totalSize) / self.segmentCount;
+	CGFloat meanBlank = (totalWidth - totalSize) / self.segmentCount;
 	while (segment--) {
 		[self setWidth:[[self imageForSegment:segment] size].width + meanBlank forSegment:segment];
 	}
@@ -8105,9 +8105,9 @@ To Do List:
 			NSImage * newImage = [[[NSImage alloc] initWithSize:[oldImage size]] autorelease];
 			[self setImage:newImage forSegment:segment];
 			[self SWZ_iTM2PDFKit_drawSegment:(NSInteger)segment inFrame:(NSRect)frame withView:(NSView *)controlView];
-			float fraction = [self isEnabledForSegment:segment]? 1:0.5;
+			CGFloat fraction = [self isEnabledForSegment:segment]? 1:0.5;
 			NSControlSize CS = self.controlSize;
-			float factor = (CS == NSRegularControlSize)? 1:
+			CGFloat factor = (CS == NSRegularControlSize)? 1:
 								((CS == NSSmallControlSize)? [SUD floatForKey:@"iTM2SmallControlScaleFactor"]:
 									[SUD floatForKey:@"iTM2MiniControlScaleFactor"]);
 //NSLog(@"factor is:%f", factor);

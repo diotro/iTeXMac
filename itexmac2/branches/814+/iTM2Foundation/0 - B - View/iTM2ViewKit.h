@@ -31,7 +31,7 @@
 - (void)setFrameCenter:(NSPoint)aCenter;
 - (NSPoint)boundsCenter;
 - (void)setBoundsCenter:(NSPoint)aCenter;
-- (float)visibleArea;
+- (CGFloat)visibleArea;
 - (NSComparisonResult)compareArea:(NSView *)otherView;
 /*"Main methods"*/
 - (NSPoint)absolutePointWithPoint:(NSPoint)aPoint;
@@ -105,8 +105,8 @@
 - (void)didChangeCenteredSubview;
 - (void)centerSubview;
 - (NSSize)minFrameSize;
-- (float)horizontalMargin;
-- (float)verticalMargin;
+- (CGFloat)horizontalMargin;
+- (CGFloat)verticalMargin;
 /*"Main methods"*/
 /*"Overriden methods"*/
 @property (retain) NSView * _Subview;

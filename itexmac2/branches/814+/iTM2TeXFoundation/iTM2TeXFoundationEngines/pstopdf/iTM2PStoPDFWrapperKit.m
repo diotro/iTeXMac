@@ -75,8 +75,8 @@ To Do List:
 - (id)GETTER;{return [self infoForKeyPaths:KEY,nil];}\
 - (void)SETTER:(id)argument;{[self setInfo:argument forKeyPaths:KEY,nil];return;}
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
-- (float)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
-- (void)SETTER:(float)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
+- (CGFloat)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
+- (void)SETTER:(CGFloat)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 #define MODEL_INT(GETTER, SETTER, KEY)\
 - (NSInteger)GETTER;{return [[self infoForKeyPaths:KEY,nil] integerValue];}\
 - (void)SETTER:(NSInteger)argument;{[self setInfo:[NSNumber numberWithInteger:argument] forKeyPaths:KEY,nil];return;}

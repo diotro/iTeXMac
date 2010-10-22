@@ -99,7 +99,7 @@ To Do List:
     return self.PDFInspector.album;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtMagnification:
-- (void)displayPDFAtMagnification:(float)magnification;
+- (void)displayPDFAtMagnification:(CGFloat)magnification;
 /*"Description forthcoming. From the menu items
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Jan 19 23:19:59 GMT 2005
@@ -139,7 +139,7 @@ of the magnification."*/
 	if (!atFixedSizeFormat) {
 		atFixedSizeFormat = anItem.title.copy;
 	}
-    float f = [self contextFloatForKey:iTM2PDFFixedMagnificationKey domain:iTM2ContextAllDomainsMask] * 100;
+    CGFloat f = [self contextFloatForKey:iTM2PDFFixedMagnificationKey domain:iTM2ContextAllDomainsMask] * 100;
     anItem.title = [NSString stringWithFormat:atFixedSizeFormat, f];
     return (f > 0);
 }

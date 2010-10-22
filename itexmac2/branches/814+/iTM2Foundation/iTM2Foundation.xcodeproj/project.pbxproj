@@ -3722,7 +3722,6 @@
 			};
 			buildConfigurationList = DC1E8AB909462DC40037B13F /* Build configuration list for PBXProject "iTM2Foundation" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -4216,6 +4215,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}\"\nexit 0\n";
+			showEnvVarsInLog = 0;
 		};
 		5338F263108F5AA700842A70 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7433,6 +7433,7 @@
 			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				SDKROOT = macosx10.6;
 			};
 			name = Development;
 		};
@@ -7441,6 +7442,7 @@
 			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				SDKROOT = macosx10.6;
 			};
 			name = Deployment;
 		};

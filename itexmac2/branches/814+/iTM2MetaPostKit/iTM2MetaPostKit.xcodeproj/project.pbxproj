@@ -408,7 +408,6 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB81509474616004B0A81 /* Build configuration list for PBXProject "iTM2MetaPostKit" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

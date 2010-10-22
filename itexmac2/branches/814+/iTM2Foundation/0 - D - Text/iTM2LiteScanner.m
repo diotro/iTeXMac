@@ -530,7 +530,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= scanFloat
-- (BOOL)scanFloat:(float *)value;
+- (BOOL)scanFloat:(CGFloat *)valueRef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -548,7 +548,10 @@ To Do List:
         S = [NSScanner scannerWithString:[self.string substringWithRange:
             iTM3ProjectionRange(iTM3MakeRange(self.scanLocation, end - self.scanLocation),
                 iTM3MakeRange(0, self.scanLimit))]];
-        result = [S scanFloat:value];
+		float f = 0;
+        if ((result = [S scanFloat:&f]) && valueRef) {
+			*valueRef = f;
+		}
         self.scanLocation += [S scanLocation];
     }
     else

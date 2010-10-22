@@ -295,8 +295,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    float alpha = self.isEnabled? 0.66:0.4;
-    float fontSize = dIsLargeButtonSize? 20:14;
+    CGFloat alpha = self.isEnabled? 0.66:0.4;
+    CGFloat fontSize = dIsLargeButtonSize? 20:14;
     NSString * QM = @"?";
     NSSize size;
     NSFont * font = [NSFont fontWithName:@"Times-Bold" size:18];

@@ -293,7 +293,7 @@ enum
     @param		key
     @result		None
 */
-- (float)contextFloatForKey:(NSString *)key domain:(NSUInteger)mask; 
+- (CGFloat)contextFloatForKey:(NSString *)key domain:(NSUInteger)mask; 
 
 /*! 
     @method		contextBoolForKey:domain:
@@ -332,7 +332,7 @@ enum
     @param		key
     @result		None
 */
-- (void)takeContextFloat:(float)value forKey:(NSString *)key domain:(NSUInteger)mask;
+- (void)takeContextFloat:(CGFloat)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
     @method		takeContextBool:forKey:

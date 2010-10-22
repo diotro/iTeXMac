@@ -329,9 +329,10 @@ To Do List:
 	strncpy(dest, source, size);
 	dest += size;
 	dest[0] = '\0';// terminate the string
+#warning OBJC_EXPORT SEL sel_getUid(const char *str);
 	SEL selector = sel_getUid(selName);
     if([I.methodSignature isEqual:[self methodSignatureForSelector:selector]]) {
-		[I setSelector:selector];
+		I.selector = selector;
 		I.invoke;
 		BOOL flag;
 		[I getReturnValue:&flag];

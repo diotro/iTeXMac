@@ -139,17 +139,17 @@
 	@discussion	The magnification is the ration of the frame width over the bounds width.
 	@result		a positive ratio.
 */
-- (float)scaleFactor;
+- (CGFloat)scaleFactor;
 
 /*!
 	@method		setScaleFactor:
 	@abstract	Change the magnification.
 	@discussion	Set the receiver's magnification to the given value.
-				The parameter must be a positive float
-	@param		aMagnification is a positive float.
+				The parameter must be a positive CGFloat
+	@param		aMagnification is a positive CGFloat.
 	@result		None
 */
-- (void)setScaleFactor:(float)aMagnification;
+- (void)setScaleFactor:(CGFloat)aMagnification;
 
 - (IBAction)doZoomIn:(id)sender;
 - (IBAction)doZoomOut:(id)sender;

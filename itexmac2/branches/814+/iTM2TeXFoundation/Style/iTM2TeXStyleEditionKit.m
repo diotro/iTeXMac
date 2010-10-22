@@ -494,7 +494,7 @@ To Do List:
             [[symbolsAttributes allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]]
                 forKey: CSK];
 //LOG4iTM3(@"_CustomKeysSets is: %@", _CustomKeysSets);
-        float rowHeight = 15;
+        CGFloat rowHeight = 15;
         NSEnumerator * E = symbolsAttributes.keyEnumerator;
         NSString * K;
         while(K = E.nextObject)
@@ -1396,7 +1396,7 @@ To Do List:
                 else
                 {
                     [_EOs setObject:[[object mutableCopy] autorelease] forKey:K];
-                    float rowHeight = [object size].height;
+                    CGFloat rowHeight = [object size].height;
                     if(rowHeight > [TV rowHeight])
                         [TV setRowHeight:rowHeight];
                     [self.document updateChangeCount:NSChangeDone];
@@ -1424,7 +1424,7 @@ To Do List:
 //START4iTM3;
     if(self.currentSets != _CustomSymbolsSets)
         return;
-    float rowHeight = [tableView rowHeight];
+    CGFloat rowHeight = [tableView rowHeight];
     BOOL isDocumentEdited = NO;
 	NSIndexSet * IS = [tableView selectedRowIndexes];
 	NSInteger row = [IS firstIndex];
@@ -1602,7 +1602,7 @@ To Do List:
 //NSLog(@"[pboard types]: %@", [pboard types]);
 //NSLog(@"type: %@", type);
 //NSLog(@"iTM2StyleSymbolsPboardType: %@", iTM2StyleSymbolsPboardType);
-    float rowHeight = [tv rowHeight];
+    CGFloat rowHeight = [tv rowHeight];
     if([type isEqualToString:iTM2StyleSymbolsPboardType])
     {
         NSArray * RA = [NSKeyedUnarchiver unarchiveObjectWithData:[pboard dataForType:type]];

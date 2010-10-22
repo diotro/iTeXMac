@@ -50,7 +50,7 @@
 @end
 
 // private object
-@interface _iTM2IndentationComponent:NSObject
+@interface iTM2IndentationComponent:NSObject
 @property (readonly) NSUInteger depth;
 @property (readonly) NSUInteger whiteDepth;
 @property (readonly) NSUInteger location;
@@ -67,7 +67,24 @@
 @property (readonly) NSRange commentRange;
 @end
 
-@interface __iTM2IndentationComponent: _iTM2IndentationComponent
+@interface __iTM2IndentationComponent: iTM2IndentationComponent
+{
+@private
+    NSUInteger depth;
+    NSUInteger location;
+@protected
+    NSUInteger length0;
+}
+@property NSUInteger depth;
+@property NSUInteger location;
+@property (readwrite) NSUInteger contentLength;
+@property (readwrite) NSUInteger commentLength;
+@property (readwrite) NSUInteger afterLength;
+@property (readwrite) NSUInteger blackLength;
+@property (readwrite) BOOL endsWithTab;
+@end
+
+@interface _iTM2IndentationComponent: iTM2IndentationComponent
 {
 @private
     NSUInteger depth;
@@ -81,13 +98,13 @@
 + (id)indentationComponent;
 - (id)clone;
 - (void)reset;
-@property NSUInteger depth;
-@property NSUInteger location;
-@property NSUInteger contentLength;
-@property NSUInteger commentLength;
-@property NSUInteger afterLength;
-@property NSUInteger blackLength;
-@property BOOL endsWithTab;
+@property (readwrite) NSUInteger depth;
+@property (readwrite) NSUInteger location;
+@property (readwrite) NSUInteger contentLength;
+@property (readwrite) NSUInteger commentLength;
+@property (readwrite) NSUInteger afterLength;
+@property (readwrite) NSUInteger blackLength;
+@property (readwrite) BOOL endsWithTab;
 @end
 
 @interface NSArray(iTM2StringController)
@@ -135,7 +152,7 @@
 	@param		None.
     @result     The first commented indentation component or nil.
 */
-- (_iTM2IndentationComponent *)firstCommentedIndentationComponent4iTM3;
+- (iTM2IndentationComponent *)firstCommentedIndentationComponent4iTM3;
 
 @end
 

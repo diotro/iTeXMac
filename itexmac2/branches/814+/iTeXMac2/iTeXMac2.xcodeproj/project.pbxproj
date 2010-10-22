@@ -1038,7 +1038,6 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB77D09474610004B0A81 /* Build configuration list for PBXProject "iTeXMac2" */;
 			compatibilityVersion = "Xcode 2.4";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

@@ -1010,7 +1010,7 @@ To Do List:
     NSDictionary * D = [_PageSyncLocations objectAtIndex:pageIndex];
     NSEnumerator * E = D.objectEnumerator;
     NSValue * V = nil;
-    float min = 1e20;
+    CGFloat min = 1e20;
     id resultObject = nil;
     while(V = E.nextObject)
     {
@@ -1018,7 +1018,7 @@ To Do List:
         [V getValue:&locationRecord];
         locationRecord.x -= point.x;
         locationRecord.y -= point.y;
-        float newMin = MAX(abs(locationRecord.x), abs(locationRecord.y));
+        CGFloat newMin = MAX(abs(locationRecord.x), abs(locationRecord.y));
 //NSLog(@"P.x:%f", P.x);
 //NSLog(@"min:%f", min);
         if(newMin<min)
@@ -2613,7 +2613,7 @@ To Do List:
 	NSWindow * window = self.window;
 	if(self.selectedRange.length>0)
 	{
-		float timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];//rather big
+		CGFloat timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];//rather big
 		NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
 		if(![window nextEventMatchingMask:NSLeftMouseUpMask untilDate:date inMode:NSEventTrackingRunLoopMode dequeue:NO])
 		{

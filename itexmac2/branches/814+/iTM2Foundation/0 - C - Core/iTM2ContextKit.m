@@ -411,7 +411,7 @@ next:;
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:domain:
-- (float)contextFloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+- (CGFloat)contextFloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -433,7 +433,7 @@ next:;
 			return value.floatValue;
 		}
 	}
-	float result = [SUD contextFloatForKey:aKey domain:mask];
+	CGFloat result = [SUD contextFloatForKey:aKey domain:mask];
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:domain:
@@ -539,7 +539,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextFloat:forKey:domain:
-- (void)takeContextFloat:(float)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (void)takeContextFloat:(CGFloat)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -957,7 +957,7 @@ To Do List:
     return mask & iTM2ContextStandardDefaultsMask?(NSUInteger)[self integerForKey:aKey]:0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:domain:
-- (float)contextFloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+- (CGFloat)contextFloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002

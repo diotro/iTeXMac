@@ -557,7 +557,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  logarithmScaleFactor
-- (float)logarithmScaleFactor;
+- (CGFloat)logarithmScaleFactor;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Mar 11 09:37:50 UTC 2010
@@ -568,7 +568,7 @@ To Do List:
     return 2*log2f(MAX(0, self.pdfView.scaleFactor));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setLogarithmScaleFactor:
-- (void)setLogarithmScaleFactor:(float)argument;
+- (void)setLogarithmScaleFactor:(CGFloat)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Mar 11 09:37:58 UTC 2010
@@ -576,8 +576,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	float old = self.pdfView.scaleFactor;
-	float new = powf(2, argument/2);
+	CGFloat old = self.pdfView.scaleFactor;
+	CGFloat new = powf(2, argument/2);
 	if(fabsf(old - new) > 0.001*new)
 		self.pdfView.scaleFactor = new;
 //END4iTM3;
@@ -592,7 +592,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setLogarithmScaleFactor:2*log2f(MAX(0, [[notification object] scaleFactor]))];
+	[self setLogarithmScaleFactor:2*log2f(MAX(0, [(PDFView *)[notification object] scaleFactor]))];
 	[self.window.toolbar validateVisibleItems];
 //END4iTM3;
     return;
@@ -818,8 +818,8 @@ loop:
 							[tmpI setScalesWhenResized:YES];
 							#if 0
 							NSSize S = [tmpI size];
-							float w = size.width  / S.width;
-							float h = size.height / S.height;
+							CGFloat w = size.width  / S.width;
+							CGFloat h = size.height / S.height;
 							if (h>w) {
 								S.width  *= w;
 								S.height *= w;
@@ -832,8 +832,8 @@ loop:
 							NSImage * newI = [[[NSImage alloc] initWithSize:size] autorelease];// tiff?
 							NSRect fromRect = NSZeroRect;
 							fromRect.size = [tmpI size];
-							float w = size.width  / fromRect.size.width;
-							float h = size.height / fromRect.size.height;
+							CGFloat w = size.width  / fromRect.size.width;
+							CGFloat h = size.height / fromRect.size.height;
 							NSRect rect;
 							if(h>w) {
 								fromRect.size.width  *= w;

@@ -570,8 +570,8 @@ grosbois:
 	{
 		NSUInteger row = 0;
 		NSSize size = NSZeroSize;
-		float maxWidth = 0;
-		float maxHeight = 0;
+		CGFloat maxWidth = 0;
+		CGFloat maxHeight = 0;
 		NSCell * cell;
 		while(row<numberOfRows)
 		{
@@ -612,7 +612,7 @@ grosbois:
 
 	completionRect.origin.x = MIN(bottomLeft.x, NSMaxX(screenVisibleFrame) - completionRect.size.width);
 
-	float midAnchorY = NSMidY(textRect);
+	CGFloat midAnchorY = NSMidY(textRect);
 	if (midAnchorY>NSMidY(screenVisibleFrame))
 	{
 		// draw in the lowest part of the screen
@@ -678,8 +678,8 @@ grosbois:
 	{
 		NSUInteger row = 0;
 		NSSize size = NSZeroSize;
-		float maxWidth = 0;
-		float maxHeight = 0;
+		CGFloat maxWidth = 0;
+		CGFloat maxHeight = 0;
 		NSCell * cell;
 		while(row<numberOfRows)
 		{
@@ -719,7 +719,7 @@ grosbois:
 
 	completionRect.origin.x = MIN(bottomLeft.x, NSMaxX(screenVisibleFrame) - completionRect.size.width);
 
-	float midAnchorY = NSMidY(textRect);
+	CGFloat midAnchorY = NSMidY(textRect);
 	if (midAnchorY>NSMidY(screenVisibleFrame))
 	{
 		// draw in the lowest part of the screen

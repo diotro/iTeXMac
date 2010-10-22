@@ -102,7 +102,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
     }
     else
     {
-        float fraction = ++level/16.0;
+        CGFloat fraction = ++level/16.0;
         [MD setObject: [NSNumber numberWithInteger: ++level] forKey: @"level"];
         [LM addTemporaryAttributes: [NSDictionary dictionaryWithObject: [[TV backgroundColor] blendedColorWithFraction: fraction ofColor: [NSColor selectedTextBackgroundColor]] forKey: NSBackgroundColorAttributeName] forCharacterRange: r];
         _iTM2DelimiterWatcherTimer = [NSTimer scheduledTimerWithTimeInterval: 0.025
@@ -132,7 +132,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
         [LM removeTemporaryAttribute: NSBackgroundColorAttributeName forCharacterRange: r];
     else
     {
-        float fraction = ++level/50.0;
+        CGFloat fraction = ++level/50.0;
         NSColor * C = [[LM temporaryAttributesAtCharacterIndex: r.location effectiveRange: nil] objectForKey: NSBackgroundColorAttributeName];
         [MD setObject: [NSNumber numberWithInteger: ++level] forKey: @"level"];
         [LM addTemporaryAttributes: [NSDictionary dictionaryWithObject: [C blendedColorWithFraction: fraction ofColor: [TV backgroundColor]] forKey: NSBackgroundColorAttributeName] forCharacterRange: r];

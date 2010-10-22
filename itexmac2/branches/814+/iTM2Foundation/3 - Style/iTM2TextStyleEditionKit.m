@@ -1323,7 +1323,7 @@ To Do List:
     iTM2TextStorage * TS = (iTM2TextStorage *)self.textStorage;
     iTM2TextSyntaxParser * SP = [TS isKindOfClass:[iTM2TextStorage class]]? TS.syntaxParser:nil;
     NSRange range = self.selectedRange;
-    float xHeight = [[sender convertFont:[NSFont systemFontOfSize:[NSFont systemFontSize]]] xHeight];
+    CGFloat xHeight = [[sender convertFont:[NSFont systemFontOfSize:[NSFont systemFontSize]]] xHeight];
     if (range.length)
     {
         NSUInteger top = iTM3MaxRange(range);

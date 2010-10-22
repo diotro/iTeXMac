@@ -361,28 +361,28 @@ To Do List:
 	[self SWZ_iTM2Misc_setOrientation:(NSPrintingOrientation)orientation];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)SWZ_iTM2Misc_setLeftMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setLeftMargin:(CGFloat)margin;
 {
 	NSDictionary * oldDictionary = [[self.dictionary copy] autorelease];
-	[self SWZ_iTM2Misc_setLeftMargin:(float)margin];
+	[self SWZ_iTM2Misc_setLeftMargin:(CGFloat)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)SWZ_iTM2Misc_setRightMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setRightMargin:(CGFloat)margin;
 {
 	NSDictionary * oldDictionary = [[self.dictionary copy] autorelease];
-	[self SWZ_iTM2Misc_setRightMargin:(float)margin];
+	[self SWZ_iTM2Misc_setRightMargin:(CGFloat)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)SWZ_iTM2Misc_setTopMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setTopMargin:(CGFloat)margin;
 {
 	NSDictionary * oldDictionary = [[self.dictionary copy] autorelease];
-	[self SWZ_iTM2Misc_setTopMargin:(float)margin];
+	[self SWZ_iTM2Misc_setTopMargin:(CGFloat)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
-- (void)SWZ_iTM2Misc_setBottomMargin:(float)margin;
+- (void)SWZ_iTM2Misc_setBottomMargin:(CGFloat)margin;
 {
 	NSDictionary * oldDictionary = [[self.dictionary copy] autorelease];
-	[self SWZ_iTM2Misc_setBottomMargin:(float)margin];
+	[self SWZ_iTM2Misc_setBottomMargin:(CGFloat)margin];
 	[INC postNotificationName:iTM2PrintInfoDidChangeNotification object:self userInfo:oldDictionary];
 }
 - (void)SWZ_iTM2Misc_setHorizontallyCentered:(BOOL)flag;

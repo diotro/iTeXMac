@@ -446,7 +446,7 @@ To Do List:
 	pageCount = [self.outputFigureNumbers indexOfObject:self.currentOutputFigure];
 	sender.integerValue = pageCount == NSNotFound?0:pageCount+1;
 	NSSize oldSize = sender.frame.size;
-	float width = 8 + MAX(
+	CGFloat width = 8 + MAX(
 		([[NF stringForObjectValue:[NSNumber numberWithInteger:sender.integerValue]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[sender.cell font], NSFontAttributeName, nil]].width),
@@ -474,7 +474,7 @@ To Do List:
 //START4iTM3;
 	CGFloat newScale = sender.floatValue;
 	if (newScale <= 0) newScale = 1;
-    [(self.scaleAndPageTarget?:self.pdfView) setScaleFactor:newScale];
+    [(PDFView *)(self.scaleAndPageTarget?:self.pdfView) setScaleFactor:newScale];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
     return;
@@ -493,7 +493,7 @@ To Do List:
 	sender.floatValue = self.pdfView.scaleFactor;
 	NSNumberFormatter * NF = sender.formatter;
 	NSSize oldSize = sender.frame.size;
-	float width = 8 + MAX(
+	CGFloat width = 8 + MAX(
 			([[NF stringForObjectValue:[NSNumber numberWithFloat:sender.floatValue]]
 				sizeWithAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
 							[sender.cell font], NSFontAttributeName, nil]].width),
