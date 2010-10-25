@@ -178,7 +178,7 @@ DECLARE4iTM3(11010,commentLength,afterLength,contentLength)
 #undef DECLARE4iTM3
 
 #define DECLARE4iTM3(SON,IVAR_1,IVAR_2,IVAR_3,IVAR_4)\
-@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent{@private NSUInteger IVAR_1;NSUInteger IVAR_2;NSUInteger IVAR_3;} @property NSUInteger IVAR_1;@property NSUInteger IVAR_2;@property NSUInteger IVAR_3;@property NSUInteger IVAR_4; @end\
+@interface __iTM2IndentationComponent##SON: __iTM2IndentationComponent{@private NSUInteger IVAR_1;NSUInteger IVAR_2;NSUInteger IVAR_3;NSUInteger IVAR_4;} @property NSUInteger IVAR_1;@property NSUInteger IVAR_2;@property NSUInteger IVAR_3;@property NSUInteger IVAR_4; @end\
 @implementation __iTM2IndentationComponent##SON @synthesize IVAR_1 = IVAR_1;@synthesize IVAR_2 = IVAR_2;@synthesize IVAR_3 = IVAR_3;@synthesize IVAR_4 = IVAR_4; @end\
 @interface _iTM2IndentationComponentWithTab##SON: __iTM2IndentationComponent##SON @property (readonly) BOOL endsWithTab; @end\
 @implementation _iTM2IndentationComponentWithTab##SON -(BOOL)endsWithTab{return YES;} @end
