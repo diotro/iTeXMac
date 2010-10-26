@@ -1010,6 +1010,7 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB87509474619004B0A81 /* Build configuration list for PBXProject "iTM2TeXFoundation" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -1156,6 +1157,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DC5D6CCC0949A41E00EBA96C /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1253,6 +1255,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"warning: iTeXMac2 INFO, Copying the plug-ins\"\nDESTINATION_DIRECTORY=\"${TARGET_BUILD_DIR}/${PLUGINS_FOLDER_PATH}\"\nif ! [ -d \"${DESTINATION_DIRECTORY}\" ]\nthen\n\tmkdir \"${DESTINATION_DIRECTORY}\"\n\techo \"Creating ${DESTINATION_DIRECTORY}\"\n\tif ! [ -d \"${DESTINATION_DIRECTORY}\" ]\n\tthen\n\t\techo \"warning: iTeXMac2 INFO, Copying the plug-ins... FAILED\"\n\t\texit 1\n\tfi\nfi\ncd \"${SYMROOT}\"\n# copier tout ce qui se termine par iTM2\nIFS='\n'\niTM2_TARGETS=\"`ls -1 -d *`$IFS\"\nfor iTM2_VAR in ${iTM2_TARGETS}\ndo\n\tif [ \"${iTM2_VAR##*.}\" == \"iTM2\" ]\n\tthen\n\t\trm -Rf \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\"\n\t\tcp -Rf \"${iTM2_VAR}\" \"${DESTINATION_DIRECTORY}\"\n\t\tif [ -d \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\" ]\n\t\tthen\n\t\t\techo \"warning: iTeXMac2 INFO, ${iTM2_VAR} plug-in copied\"\n\t\telse\n\t\t\techo \"warning: iTeXMac2 INFO, Copying ${iTM2_VAR} plug-in... FAILED\"\n\t\t\texit 2\n\t\tfi\n\tfi\ndone\n# copier tout ce qui se termine par prefPane\nIFS='\n'\n#iTM2_TARGETS=\"`ls -1 -d *`$IFS\"\niTM2_TARGETS=\"\n\"\nfor iTM2_VAR in ${iTM2_TARGETS}\ndo\n\tif [ \"${iTM2_VAR##*.}\" == \"prefPane\" ]\n\tthen\n\t\trm -Rf \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\"\n\t\tcp -Rf \"${iTM2_VAR}\" \"${DESTINATION_DIRECTORY}\"\n\t\tif [ -d \"${DESTINATION_DIRECTORY}/${iTM2_VAR}\" ]\n\t\tthen\n\t\t\techo \"warning: iTeXMac2 INFO, ${iTM2_VAR} preference wrapper copied\"\n\t\telse\n\t\t\techo \"warning: iTeXMac2 INFO, Copying ${iTM2_VAR} preference wrapper... FAILED\"\n\t\t\texit 2\n\t\tfi\n\tfi\ndone\necho \"warning: iTeXMac2 INFO, Copying the plug-ins... DONE\"\nexit 0\nif [ \"${BUILD_STYLE}\" != \"Development\" ]\nthen\n\t\"${CHOWN}\" -RH \"${INSTALL_OWNER}:${INSTALL_GROUP}\" \"${DESTINATION_DIRECTORY}\"\n\t\"${CHMOD}\" -RH ${INSTALL_MODE_FLAG} \"${DESTINATION_DIRECTORY}\"\nfi\necho \"=-=-=-=-=-  Copying the plug ins result:\"\nls -l \"${DESTINATION_DIRECTORY}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DCC7F9EB0854E21900F3EB8A /* Merge Headers */ = {
 			isa = PBXShellScriptBuildPhase;

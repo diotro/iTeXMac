@@ -293,12 +293,14 @@ EOF
 			end
 	end
 end
+require 'pp'
+pp ENV
 $launcher = Launcher.new($project_name,$action,$master_name,$engine_mode)
 $launcher.do_execute
 $launcher.setup_bin_links
 # known public variables
 # $launcher
 puts "Creating shortcut:"+$launcher.shortcut.to_s
-load 'iTM2_Launch_Concrete.rb'
+load 'Launch_Concrete4iTM3.rb'
 #
 $launcher.execute

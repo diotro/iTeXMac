@@ -4417,8 +4417,8 @@ To Do List:
 	}
 	return [self SWZ_iTM2_windowTitleForDocumentDisplayName:displayName];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ__iTM2_windowsMenuItemTitleForDocumentDisplayName:
-- (NSString *)SWZ__iTM2_windowsMenuItemTitleForDocumentDisplayName:(NSString *)displayName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2_windowsMenuItemTitleForDocumentDisplayName4iTM3:
+- (NSString *)SWZ_iTM2_windowsMenuItemTitleForDocumentDisplayName4iTM3:(NSString *)displayName;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 17 16:14:55 UTC 2010
@@ -6332,32 +6332,41 @@ To Do List:
 
 + (void)prepareProjectDocumentKitCompleteInstallation4iTM3;
 {
-	if ([iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_EOL) error:NULL]
-		&& [iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_setEOL:) error:NULL]
-		&& [iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_stringEncoding) error:NULL]
-		&& [iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_setStringEncoding:) error:NULL])
+    NSError * ROR = nil;
+	if ([iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_EOL) error:&ROR]
+		&& [iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_setEOL:) error:&ROR]
+		&& [iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_stringEncoding) error:&ROR]
+		&& [iTM2StringFormatController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_setStringEncoding:) error:&ROR])
 	{
 		MILESTONE4iTM3((@"iTM2StringFormatController(iTM2ProjectDocumentKit)"),(@"No patch for EOL and StringEncoding management which is project friendly"));
-	}
-	if ([NSApplication swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocumentKit_terminate:) error:NULL])
+	} else if (ROR) {
+        LOG4iTM3(@"ROR: %@",ROR);
+    }
+	if ([NSApplication swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocumentKit_terminate:) error:&ROR])
 	{
 		MILESTONE4iTM3((@"NSApplication(iTM2ProjectDocumentKit)"),(@"WARNING:terminate message could not be patched..."));
-	}
-	if ([NSWindowController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_windowTitleForDocumentDisplayName:) error:NULL]
-		   &&[NSWindowController swizzleInstanceMethodSelector4iTM3:@selector(SWZ__iTM2_windowsMenuItemTitleForDocumentDisplayName:) error:NULL])
+	} else if (ROR) {
+        LOG4iTM3(@"ROR: %@",ROR);
+    }
+	if ([NSWindowController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_windowTitleForDocumentDisplayName:) error:&ROR]
+		   &&[NSWindowController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_windowsMenuItemTitleForDocumentDisplayName4iTM3:) error:&ROR])
 	{
 		MILESTONE4iTM3((@"NSWindowController(Project)"),(@"It is unlikely that things will work as expected..."));
-	}
+	} else if (ROR) {
+        LOG4iTM3(@"ROR: %@",ROR);
+    }
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                             [NSNumber numberWithFloat:1],iTM2OtherProjectWindowsAlphaValue,// to be improved...
                                 nil]];
-	if ([NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_setFileURL:) error:NULL]
-		&& [NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:) error:NULL]
-		&& [NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_newRecentDocument) error:NULL]
-		&& [NSWindowController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_shouldCascadeWindows) error:NULL])
+	if ([NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_setFileURL:) error:&ROR]
+		&& [NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:) error:&ROR]
+		&& [NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_newRecentDocument) error:&ROR]
+		&& [NSWindowController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ProjectDocument_shouldCascadeWindows) error:&ROR])
 	{
 		MILESTONE4iTM3((@"NSDocument(iTM2ProjectDocumentKit)"),(@"project documents do not behave as expected"));
-	}
+	} else if (ROR) {
+        LOG4iTM3(@"ROR: %@",ROR);
+    }
 }
 
 @end

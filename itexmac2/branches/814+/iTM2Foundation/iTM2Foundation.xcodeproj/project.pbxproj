@@ -1320,6 +1320,20 @@
 			remoteGlobalIDString = DC25E42D0991F5F000545F27;
 			remoteInfo = "iTM2TaskKit Test";
 		};
+		515C96CA12710B1B0000C5BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 515C9691127106DD0000C5BB;
+			remoteInfo = "Prepare ICU";
+		};
+		515C96CC12710B270000C5BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 515C9691127106DD0000C5BB;
+			remoteInfo = "Prepare ICU";
+		};
 		5185E6DF126F89F400AFA001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -3340,6 +3354,7 @@
 			dependencies = (
 				53767800108852E6007CCC1E /* PBXTargetDependency */,
 				5185E6E0126F89F400AFA001 /* PBXTargetDependency */,
+				515C96CD12710B270000C5BB /* PBXTargetDependency */,
 			);
 			name = "iTM2Foundation-debug";
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -3423,6 +3438,7 @@
 			dependencies = (
 				DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */,
 				5185E6E2126F8A1600AFA001 /* PBXTargetDependency */,
+				515C96CB12710B1B0000C5BB /* PBXTargetDependency */,
 			);
 			name = iTM2Foundation;
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -3722,6 +3738,7 @@
 			};
 			buildConfigurationList = DC1E8AB909462DC40037B13F /* Build configuration list for PBXProject "iTM2Foundation" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -4567,6 +4584,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
+			showEnvVarsInLog = 0;
 		};
 		DCAD22740C144930005549DC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5542,6 +5560,16 @@
 			isa = PBXTargetDependency;
 			target = DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */;
 			targetProxy = 514218D5109885FC00A01853 /* PBXContainerItemProxy */;
+		};
+		515C96CB12710B1B0000C5BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 515C9691127106DD0000C5BB /* Prepare ICU */;
+			targetProxy = 515C96CA12710B1B0000C5BB /* PBXContainerItemProxy */;
+		};
+		515C96CD12710B270000C5BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 515C9691127106DD0000C5BB /* Prepare ICU */;
+			targetProxy = 515C96CC12710B270000C5BB /* PBXContainerItemProxy */;
 		};
 		5185E6E0126F89F400AFA001 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

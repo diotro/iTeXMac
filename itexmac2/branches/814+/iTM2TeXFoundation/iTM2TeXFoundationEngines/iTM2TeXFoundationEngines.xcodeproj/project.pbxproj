@@ -627,7 +627,14 @@
 			isa = PBXProject;
 			buildConfigurationList = DC9DC47B094840B10079E1B3 /* Build configuration list for PBXProject "iTM2TeXFoundationEngines" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = DC9DC478094840B10079E1B3;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1212,7 +1219,7 @@
 					"$(SYMROOT)",
 					"$(PROJECT_DIR)/../../build",
 				);
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				SDKROOT = macosx10.6;
 				SYMROOT = build;
 			};
 			name = Development;
@@ -1225,7 +1232,7 @@
 					"$(SYMROOT)",
 					"$(PROJECT_DIR)/../../build",
 				);
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				SDKROOT = macosx10.6;
 				SYMROOT = build;
 			};
 			name = Deployment;

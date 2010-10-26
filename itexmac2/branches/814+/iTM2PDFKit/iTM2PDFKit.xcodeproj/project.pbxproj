@@ -431,6 +431,7 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB83D09474616004B0A81 /* Build configuration list for PBXProject "iTM2PDFKit" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

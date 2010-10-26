@@ -1,7 +1,7 @@
 # these are project utilities for iTeXMac2 1.0
 # iTM2_Launch.rb loads this dependant script if it did not find a direct script engine
 # The purpose is to create the common interface for all the possible actions
-# © 2007 jlaurens AT users.sourceforge.net
+# © 2007-2010 jlaurens AT users.sourceforge.net
 
 require 'rexml/document'
 include REXML
@@ -151,7 +151,7 @@ class Pathname
 	end
 
 	def base?
-		to_s =~ Regexp.new('^'+ENV['iTM2_Base_Projects_Directory'])
+        to_s =~ Regexp.new('^'+Regexp.escape(ENV['Base_Projects_Directory4iTM3']))
 	end
 
 end
@@ -186,7 +186,7 @@ class Named_document
 	def last_modification_time
 		name.mtime
 	end
-THIS MODEL DESIGN IS BAD
+
 	def model
 		return @model if @model
 		bail("Missing file at #{name.to_s}") if !name.exist?
@@ -208,6 +208,17 @@ THIS MODEL DESIGN IS BAD
 
 end
 
+class NilClass
+
+    def next_element()
+        self
+    end
+    
+    def get_text()
+        ""
+    end
+end
+
 # This is the main Info.plist where we find relevant information about files
 class Info < Named_document
 
@@ -221,15 +232,15 @@ class Info < Named_document
 	end
 
 	def main_key
-		n = model.elements['key[text()="main"]'].next_element().get_text()
-		return n.to_s if n
-		""
+		n = model.elements['key[text()="main"]'].next_element().get_text().to_s
 	end
     
 	def filename_for_key(key)
-		n = model.elements['key[text()="files"]/following-sibling::dict[1]/child::key[text()="'+key+'"]'].next_element().get_text()
-		return n.to_s if n
-		nil
+        # bug in XPath
+        a = XPath.first(model,'key[text()="files"]')
+        a = XPath.first(a,'following-sibling::dict')
+        a = XPath.first(a,'child::key')
+        a.next_element().get_text().to_s
 	end
 
 	def each_file_name
@@ -240,7 +251,7 @@ class Info < Named_document
 	end
 
 	def source_folder
-		(p = model.elements['key[text()="files folder"]'].next_element().get_text())?(p.to_s):(nil)
+		model.elements['key[text()="files folder"]'].next_element().get_text()
 	end
 
 end
@@ -454,7 +465,7 @@ class Project < Named_document
 		# now list all the other stuff
 		all_base_names.each{|name|
 			$launcher.base_project_entries[name].each{|base|
-				p = Pathname.new(ENV['iTM2_Base_Projects_Directory'])+base
+				p = Pathname.new(ENV['Base_Projects_Directory4iTM3'])+base
 				@command_infos.push(CommandInfo.create(p))
 			}
 		}
@@ -512,7 +523,7 @@ class Project < Named_document
 		end
 		# no source folder was recorded in the main_info
 		return @source_name = name.standard_directory if name.standalone?
-		return nil if name.project.nil?
+		# return nil if name.project.nil?
 		d = name.dirname
 		if(b = main_info.source_folder)
 			@source_name = d+b
@@ -853,7 +864,7 @@ class Launcher
 	def base_project_entries
 		return @base_project_entries if @base_project_entries
 		@base_project_entries = Hash.new
-		Dir.chdir(ENV['iTM2_Base_Projects_Directory'])
+		Dir.chdir(ENV['Base_Projects_Directory4iTM3'])
 		Dir["*.texps"].each {|x|
 			Dir.entries(x).each {|y|
 				if /(^.*)\.texp$/ =~ y
@@ -906,6 +917,8 @@ class Launcher
 	end
 
 end
+puts "! Info:"
+puts $launcher.project.main_info.model.to_s
 print "! What are the commands?
 "
 $launcher.project.all_commands.each{|cmd|
@@ -923,6 +936,6 @@ print "! What are the infos?
 print $launcher.project.command_infos
 print "
 "
-exit -1
+#exit -1
 $launcher.execute_concrete
 

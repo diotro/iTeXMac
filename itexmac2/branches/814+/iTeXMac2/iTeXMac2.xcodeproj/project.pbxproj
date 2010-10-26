@@ -1038,6 +1038,7 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB77D09474610004B0A81 /* Build configuration list for PBXProject "iTeXMac2" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -1236,6 +1237,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2CreateMacrosHashTable.pl --directory \"$TARGET_BUILD_DIR\" -c\n";
+			showEnvVarsInLog = 0;
 		};
 		DC2CA5C40855C9CB00128F14 /* Copy plug ins */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1264,6 +1266,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeApplication.sh iTM2Readme\n";
+			showEnvVarsInLog = 0;
 		};
 		DC6BC5D00948FBB9008F8188 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1278,6 +1281,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2LaTeXKit\n";
+			showEnvVarsInLog = 0;
 		};
 		DC6BC5D90948FCEC008F8188 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1292,6 +1296,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2MetaPostKit\n";
+			showEnvVarsInLog = 0;
 		};
 		DC6BC5E40948FD59008F8188 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1306,6 +1311,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2NewDocumentKit\n";
+			showEnvVarsInLog = 0;
 		};
 		DC6BC5EF0948FD8B008F8188 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1320,6 +1326,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2ConTeXtKit\n";
+			showEnvVarsInLog = 0;
 		};
 		DC6BC66B0949099D008F8188 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1334,6 +1341,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizePlugIn.sh iTM2BibTeXSupportKit\n";
+			showEnvVarsInLog = 0;
 		};
 		DC6D4900091C217500539664 /* Create the script suites */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1362,6 +1370,7 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "iTM2_FULL_PRODUCT_NAME=\"${PRODUCT_NAME}.${WRAPPER_EXTENSION}\"\necho \"warning: iTeXMac2 INFO, installing ${iTM2_FULL_PRODUCT_NAME}\"\nif [ -d \"${TARGET_BUILD_DIR}/${iTM2_FULL_PRODUCT_NAME}\" ]\nthen\n\tif [ \"${TARGET_BUILD_DIR}\" != \"${SYMROOT}\" ]\n\tthen\n\t\trm -Rf \"${SYMROOT}/${iTM2_FULL_PRODUCT_NAME}\"\n\t\tmv -f \"${TARGET_BUILD_DIR}/${iTM2_FULL_PRODUCT_NAME}\" \"${SYMROOT}\"\n\tfi\n\tif [ -d \"${SYMROOT}/${iTM2_FULL_PRODUCT_NAME}\" ]\n\tthen\n\t\techo \"warning: iTeXMac2 INFO, installing ${iTM2_FULL_PRODUCT_NAME}... DONE\"\n\t\texit 0\n\telse\n\t\techo \"warning: iTeXMac2 INFO, missing ${iTM2_FULL_PRODUCT_NAME}... FAILED\"\n\t\texit 2\n\tfi\nelse\n\t\techo \"warning: iTeXMac2 INFO, missing ${iTM2_FULL_PRODUCT_NAME}... FAILED\"\n\t\texit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 		DC81D83508840CF60086F2EB /* ls iTeXMac2.app contents */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1376,6 +1385,7 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "echo \"warning: iTeXMac2 INFO, Creating ls-al diagnostic file\"\nls -alR \"${SYMROOT}/iTeXMac2.app\" > \"${SYMROOT}/ls-al\"\necho \"warning: iTeXMac2 INFO, Creating ls-al diagnostic file... DONE\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DCB530910B59BDD200CD713D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1389,6 +1399,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/PrepareBuildNumber.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DCD24FC1094ED0DD00346075 /* Test for 'x' flag */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1403,6 +1414,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/iTM2CheckExecutable.sh;
+			showEnvVarsInLog = 0;
 		};
 		DCEF60830B62148A00A19262 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1417,6 +1429,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeSparkle.sh\n";
+			showEnvVarsInLog = 0;
 		};
 		DCF9297A0948EC2100EE2F46 /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1431,6 +1444,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizePlugIn.sh iTM2LaTeXSymbolsKit\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -4350,7 +4350,7 @@ quelquepart:
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	if (positions) {
 		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-		self.syncDestinations = [positions objectForKey:key];
+		self.syncDestinations = [[positions objectForKey:key] mutableCopy];
 //LOG4iTM3(@"****  self.syncDestinations are now:%@", self.syncDestinations);
 		// then what shall we do?
 		// let us try first to use the given destinations
@@ -4679,7 +4679,7 @@ quelquepart:
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	if (positions) {
 		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-		self.syncDestinations = [positions objectForKey:key];
+		self.syncDestinations = [[positions objectForKey:key] mutableCopy];
 //LOG4iTM3(@"****  self.syncDestinations are now:%@", self.syncDestinations);
 		// then what shall we do?
 		// let us try first to use the given destinations
@@ -4789,24 +4789,23 @@ quelquepart:
 			}
 //LOG4iTM3(@"$$$$  globalBeforeIndexes is:%@", globalBeforeIndexes);
 //LOG4iTM3(@"$$$$  globalAfterIndexes is:%@", globalAfterIndexes);
-			NSMutableArray * oldSyncDestinations = [NSMutableArray arrayWithArray:self.syncDestinations];
+			NSMutableArray * oldSyncDestinations = self.syncDestinations.mutableCopy;
 			NSMutableArray * newSyncDestinations = [NSMutableArray array];
 			NSEnumerator * beforeE = globalBeforeIndexes.objectEnumerator;
-			NSUInteger beforeIndex = [[beforeE nextObject] unsignedIntegerValue];
+			NSUInteger beforeIndex = [beforeE.nextObject unsignedIntegerValue];
 			NSEnumerator * afterE = globalAfterIndexes.objectEnumerator;
 			NSNumber * afterNumber;
 			NSUInteger afterIndex;
 			nextAfterIndexLabel:
-			afterNumber = [afterE nextObject];
+			afterNumber = afterE.nextObject;
 			afterIndex = afterNumber? [afterNumber unsignedIntegerValue]:UINT_MAX;
-			if(beforeIndex < afterIndex)
+			if (beforeIndex < afterIndex)
 			{
 				// now we augment beforeIndex
 				NSUInteger nextBeforeIndex = UINT_MAX;
 				NSNumber * beforeNumber;
-				while(beforeNumber = [beforeE nextObject])
-				{
-					nextBeforeIndex = [beforeNumber unsignedIntegerValue];
+				while (beforeNumber = beforeE.nextObject) {
+					nextBeforeIndex = beforeNumber.unsignedIntegerValue;
 					if(nextBeforeIndex < afterIndex)
 						beforeIndex = nextBeforeIndex;
 					else
@@ -4815,25 +4814,19 @@ quelquepart:
 				// OK we found a good intervalle
 				// then we try to find all the destinations that fit in that intervalle
 				NSRange R = iTM3MakeRange(beforeIndex, afterIndex - beforeIndex);
-				NSEnumerator * e = oldSyncDestinations.objectEnumerator;
-				while(destination = [e nextObject])
-				{
-					PDFPage * page = [destination page];
+				for (destination in oldSyncDestinations.copy) {
+					PDFPage * page = destination.page;
 					NSInteger globalIdx = [page localToGlobalCharacterIndex4iTM3:
-						[page characterIndexNearPoint4iTM3:[destination point]]];
-					if(globalIdx<0)
-					{
+						[page characterIndexNearPoint4iTM3:destination.point]];
+					if(globalIdx<0) {
 						[oldSyncDestinations removeObject:destination];
-					}
-					else if(iTM3LocationInRange(globalIdx, R))
-					{
+					} else if(iTM3LocationInRange(globalIdx, R)) {
 						[oldSyncDestinations removeObject:destination];
 						[newSyncDestinations addObject:destination];
 					}
 				}
 				// next loop:
-				if(beforeNumber)
-				{
+				if (beforeNumber) {
 					beforeIndex = nextBeforeIndex;
 					goto nextAfterIndexLabel;
 				}
@@ -4841,7 +4834,8 @@ quelquepart:
 				goto nextAfterIndexLabel;
 			if (newSyncDestinations.count) {
 				PDFDestination * hitDestination = [self.syncDestinations objectAtIndex:0];
-				[self.syncDestinations setArray:[NSArray arrayWithObject:hitDestination]];
+				[self.syncDestinations setArray: [NSArray arrayWithObject:hitDestination]];
+				//[self.syncDestinations setArray:[NSArray arrayWithObject:hitDestination]];
 			}
 		}
 	} else {
@@ -4853,9 +4847,8 @@ quelquepart:
 			NSPoint P = [[[hereRecords objectForKey:N] lastObject] pointValue];
 			NSRect bounds = [page boundsForBox:kPDFDisplayBoxMediaBox];
 			P.y = NSMaxY(bounds)-P.y;
-			PDFDestination * destination = [[[PDFDestination alloc] initWithPage:page atPoint:P] autorelease];
-			[self.syncDestinations removeAllObjects];
-			[self.syncDestinations addObject:destination];
+			PDFDestination * hitDestination = [[PDFDestination alloc] initWithPage:page atPoint:P];
+            [self.syncDestinations setArray:[NSArray arrayWithObject:hitDestination]];
 		}
 	}
 //END4iTM3;
@@ -4940,7 +4933,7 @@ To Do List:
 		// NSUInteger hereOffset = 
 		[container getWordBefore4iTM3:&before here:&here after:&after atIndex:N.unsignedIntegerValue mode:YES];
 		if (!self.syncDestinations) {
-			self.syncDestinations = [NSArray array];
+			self.syncDestinations = [NSMutableArray array];
 		}
 #if 0
 		first_node = synctex_next_result(scanner);
@@ -5476,12 +5469,9 @@ last_chance:
 				return NO;
 			}
 			page = [document pageAtIndex:pageIndex];
-			[self.syncDestinations removeAllObjects];
+			self.syncDestinations = [NSMutableArray array];
 			NSPoint P = NSMakePoint(synctex_node_box_visible_h(first_node),synctex_node_box_visible_v(first_node));
 			P.y = NSMaxY([page boundsForBox:kPDFDisplayBoxMediaBox]) - P.y;
-			if (!self.syncDestinations) {
-				self.syncDestinations = [NSMutableArray array];
-			}
 			[self.syncDestinations addObject:[[[PDFDestination alloc] initWithPage:page atPoint:P] autorelease]];
 			[self setNeedsDisplay:YES];
 			[self scrollSynchronizationPointToVisible:self];

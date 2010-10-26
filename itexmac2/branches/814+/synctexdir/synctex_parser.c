@@ -2616,9 +2616,9 @@ int __synctex_open(const char * output, char ** synctex_name_ref, gzFile * file_
         char * synctex_name = NULL;
         gzFile the_file = NULL;
         char * quoteless_synctex_name = NULL;
-		synctex_io_mode_type io_mode = *io_mode_ref;
 		size_t size = 0;
-        const char * mode = NULL;
+        synctex_io_mode_type io_mode = *io_mode_ref;
+		const char * mode = _synctex_get_io_mode_name(io_mode);
 		/*  now create the synctex file name */
 		size = strlen(output)+strlen(synctex_suffix)+strlen(synctex_suffix_gz)+1;
 		synctex_name = (char *)malloc(size);

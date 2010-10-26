@@ -1784,6 +1784,46 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>LaTeX beamer resource</string>
+			<key>UTTypeIconFile</key>
+			<string>NAV</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.tug.latex.nav</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>NAV</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+				<string>org.tug.latex.item</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>LaTeX beamer resource</string>
+			<key>UTTypeIconFile</key>
+			<string>SNM</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.tug.latex.snm</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>SNM</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
 				<string>org.tug.tex.item</string>
 			</array>
 			<key>UTTypeDescription</key>

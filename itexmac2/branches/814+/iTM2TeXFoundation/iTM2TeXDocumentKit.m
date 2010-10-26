@@ -1875,3 +1875,74 @@ To Do List:
 @end
 
 #include "../build/Milestones/iTM2TeXFoundation.m"
+
+#if 0
+
+This is a code extract from the vim program
+The purpose is to check for the various formats according to
+" TeX
+au BufNewFile,BufRead *.latex,*.sty,*.dtx,*.ltx,*.bbl	setf tex
+au BufNewFile,BufRead *.tex			call s:FTtex()
+
+" Choose context, plaintex, or tex (LaTeX) based on these rules:
+" 1. Check the first line of the file for "%&<format>".
+" 2. Check the first 1000 non-comment lines for LaTeX or ConTeXt keywords.
+" 3. Default to "latex" or to g:tex_flavor, can be set in user's vimrc.
+func! s:FTtex()
+  let firstline = getline(1)
+  if firstline =~ '^%&\s*\a\+'
+    let format = tolower(matchstr(firstline, '\a\+'))
+    let format = substitute(format, 'pdf', '', '')
+    if format == 'tex'
+      let format = 'plain'
+    endif
+  else
+    " Default value, may be changed later:
+    let format = exists("g:tex_flavor") ? g:tex_flavor : 'plain'
+    " Save position, go to the top of the file, find first non-comment line.
+    let save_cursor = getpos('.')
+    call cursor(1,1)
+    let firstNC = search('^\s*[^[:space:]%]', 'c', 1000)
+    if firstNC " Check the next thousand lines for a LaTeX or ConTeXt keyword.
+      let lpat = 'documentclass\>\|usepackage\>\|begin{\|newcommand\>\|renewcommand\>'
+      let cpat = 'start\a\+\|setup\a\+\|usemodule\|enablemode\|enableregime\|setvariables\|useencoding\|usesymbols\|stelle\a\+\|verwende\a\+\|stel\a\+\|gebruik\a\+\|usa\a\+\|imposta\a\+\|regle\a\+\|utilisemodule\>'
+      let kwline = search('^\s*\\\%(' . lpat . '\)\|^\s*\\\(' . cpat . '\)',
+			      \ 'cnp', firstNC + 1000)
+      if kwline == 1	" lpat matched
+	let format = 'latex'
+      elseif kwline == 2	" cpat matched
+	let format = 'context'
+      endif		" If neither matched, keep default set above.
+      " let lline = search('^\s*\\\%(' . lpat . '\)', 'cn', firstNC + 1000)
+      " let cline = search('^\s*\\\%(' . cpat . '\)', 'cn', firstNC + 1000)
+      " if cline > 0
+      "   let format = 'context'
+      " endif
+      " if lline > 0 && (cline == 0 || cline > lline)
+      "   let format = 'tex'
+      " endif
+    endif " firstNC
+    call setpos('.', save_cursor)
+  endif " firstline =~ '^%&\s*\a\+'
+
+  " Translation from formats to file types.  TODO:  add AMSTeX, RevTex, others?
+  if format == 'plain'
+    setf plaintex
+  elseif format == 'context'
+    setf context
+  else " probably LaTeX
+    setf tex
+  endif
+  return
+endfunc
+
+" ConTeXt
+au BufNewFile,BufRead tex/context/*/*.tex,*.mkii,*.mkiv   setf context
+
+" Texinfo
+au BufNewFile,BufRead *.texinfo,*.texi,*.txi	setf texinfo
+
+" TeX configuration
+au BufNewFile,BufRead texmf.cnf			setf texmf
+*/
+#endif
