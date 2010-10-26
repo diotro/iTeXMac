@@ -5,7 +5,7 @@
 //  @version Subversion: $Id$ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Sep 11 2001.
-//  Copyright © 2005 Laurens'Tribune. All rights reserved.
+//  Copyright © 2005-2010 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General public License as published by the Free Software Foundation; either
@@ -97,11 +97,11 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (void)setAvailableProjects:(id) argument;
 - (BOOL)preferWrapper;
 - (void)setPreferWrapper:(BOOL) yorn;
-- (BOOL)createNewWrapperWithURL:(NSURL *) fileURL;
-- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL;
-- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL;
-- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL;
-- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL;
+- (BOOL)createNewWrapperWithURL:(NSURL *) fileURL error:(NSError **)errorRef;
+- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL error:(NSError **)errorRef;
+- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL error:(NSError **)errorRef;
+- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)errorRef;
+- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)errorRef;
 @end
 
 @interface iTM2SharedResponder(NewDocumentKit)
@@ -970,6 +970,7 @@ To Do List:
 	[SUD setBool:isExtensionHidden forKey:NSFileExtensionHidden];
 	[panel popNavLastRootDirectory4iTM3];
 	[panel close];
+    [self.window orderOut:self];
 	if (returnCode == NSOKButton) {
 		NSURL * URL = [panel URL];
 		if(![DFM fileOrLinkExistsAtPath4iTM3:URL.path]
@@ -979,22 +980,27 @@ To Do List:
 						files:[NSArray arrayWithObject:URL.path.lastPathComponent]
 							tag:nil])
 		{
-			[self createInMandatoryProjectNewDocumentWithURL:URL]
-			|| [self createNewWrapperAndProjectWithURL:URL]// create a new wrapper and the new included project, if relevant
-			|| [self createNewWrapperWithURL:URL]// create a new wrapper assuming that the included project will come for free
-			|| [self createInNewProjectNewDocumentWithURL:URL]// create a new project if relevant, but no wrapper
-			|| [self createInOldProjectNewDocumentWithURL:URL];// just insert the main file in the project if relevant
+            NSError * ROR = nil;
+			[self createInMandatoryProjectNewDocumentWithURL:URL error:&ROR]
+			|| [self createNewWrapperAndProjectWithURL:URL error:&ROR]// create a new wrapper and the new included project, if relevant
+			|| [self createNewWrapperWithURL:URL error:&ROR]// create a new wrapper assuming that the included project will come for free
+			|| [self createInNewProjectNewDocumentWithURL:URL error:&ROR]// create a new project if relevant, but no wrapper
+			|| [self createInOldProjectNewDocumentWithURL:URL error:&ROR];// just insert the main file in the project if relevant
+			if (ROR) {
+                REPORTERROR4iTM3(2,@"There was a problem creating the new document",ROR);
+            }
+            
 		} else {
 			REPORTERROR4iTM3(1,@"There is already a file I can't remove",nil);
-			[SWS selectFile:URL.path inFileViewerRootedAtPath:URL.path.stringByDeletingLastPathComponent];
+			[SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:URL]];
 		}
 	}
 	[self.window orderOut:self];// the run modal is dangerous:don't autorelease when not garbage collected
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithURL:
-- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithURL:error:
+- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)errorRef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 19:40:10 UTC 2010
@@ -1033,7 +1039,7 @@ To Do List:
 		newCore = [newCore.stringByDeletingPathExtension stringByAppendingPathExtension:originalExtension];
 	}
     //  Manage spaces in filenames for tex documents
-	if ([[SDC documentClassForType:[SDC typeForContentsOfURL:sourceURL error:NULL]] isSubclassOfClass:[iTM2TeXDocument class]]) {
+	if ([[SDC documentClassForType:[SDC typeForContentsOfURL:sourceURL error:errorRef]] isSubclassOfClass:[iTM2TeXDocument class]]) {
 		NSDictionary * filter = [NSDictionary dictionaryWithObject:	@"-" forKey:@" "];
 		newCore = [self convertedString:newCore withDictionary:filter];
 	}
@@ -1044,7 +1050,7 @@ To Do List:
 	NSAssert(![DFM fileExistsAtPath:targetURL.path], @"***  My dear, you as a programmer are a big naze...");
 	[self startProgressIndicationForName:targetURL.path];
 
-	if ([DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:NULL]) {
+	if ([DFM copyItemAtURL:sourceURL toURL:targetURL error:errorRef]) {
 		[DFM setExtensionHidden4iTM3:[SUD boolForKey:NSFileExtensionHidden] atURL:targetURL];
 		BOOL isDirectory = NO;
 		if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
@@ -1058,7 +1064,7 @@ To Do List:
             [filter setObject:mandatoryURL.lastPathComponent.stringByDeletingPathExtension forKey:iTM2NewDPROJECTNAMEKey];
 			for (NSURL * url in urls) {
 				[SPC setProject:mandatoryProject forURL:url];//
-				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
+				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:url display:YES error:errorRef];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					NSTextStorage * TS = [document textStorage];
 					[TS beginEditing];
@@ -1067,7 +1073,7 @@ To Do List:
                     [TS endEditing];
 				}//if([document isKindOfClass:[iTM2TextDocument class]])
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
-				[document.undoManager removeAllActions];
+				document.undoManager.removeAllActions;
 			}
 			[mandatoryProject saveDocument:self];
 		} else {
@@ -1080,8 +1086,8 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithURL:
-- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithURL:error:
+- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL error:(NSError **)errorRef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 19:44:45 UTC 2010
@@ -1110,7 +1116,7 @@ To Do List:
 	// we copy the whole directory at sourceName, possibly add a project, clean extra folders, change the names
 	if ([DFM fileExistsAtPath:targetURL.path]) {
 		LOG4iTM3(@"There is already a wrapper at %@...", targetURL);
-	} else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:NULL]) {
+	} else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:errorRef]) {
 		LOG4iTM3(@"*** ERROR: Could not copy %@ to %@", sourceURL, targetURL);
 	}
 	BOOL isDirectory;
@@ -1138,7 +1144,7 @@ To Do List:
 					fileURL = [targetURL URLByAppendingPathComponent:path];
 					convertedURL = [targetURL URLByAppendingPathComponent:convertedPath];
 					convertedURL = convertedURL.URLByStandardizingPath;
-					if (![DFM moveItemAtPath:fileURL.path toPath:convertedURL.path error:NULL]) {
+					if (![DFM moveItemAtPath:fileURL.path toPath:convertedURL.path error:errorRef]) {
 						LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", path, convertedPath);
 					}
 				}
@@ -1148,7 +1154,7 @@ To Do List:
 			convertedPath = [self convertedString:convertedPath withDictionary:filter];
             convertedURL = [targetURL URLByAppendingPathComponent:convertedPath];
             convertedURL = convertedURL.URLByStandardizingPath;
-			iTM2TeXProjectDocument * PD = [SPC getProjectFromPanelForURLRef:&convertedURL display:NO error:nil];
+			iTM2TeXProjectDocument * PD = [SPC getProjectFromPanelForURLRef:&convertedURL display:NO error:errorRef];
 			NSString * key = [PD createNewFileKeyForURL:convertedURL];
 			[PD setMasterFileKey:key];
 			
@@ -1157,18 +1163,18 @@ To Do List:
 			NSUInteger encoding = [N integerValue];
 			NSString * S = nil;
 			if (encoding) {
-				if(!(S = [NSString stringWithContentsOfURL:convertedURL encoding:encoding error:nil])) {
-					S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:nil];
+				if(!(S = [NSString stringWithContentsOfURL:convertedURL encoding:encoding error:errorRef])) {
+					S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:errorRef];
 				}
 			} else {
-				S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:nil];
+				S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:errorRef];
 			}
 			S = [self convertedString:S withDictionary:filter];
 			NSData * D = [S dataUsingEncoding:encoding allowLossyConversion:YES];
-			[D writeToURL:convertedURL options:NSAtomicWrite error:nil];
+			[D writeToURL:convertedURL options:NSAtomicWrite error:errorRef];
 			[PD makeWindowControllers];
 			[PD showWindows];
-			[PD openSubdocumentWithContentsOfURL:convertedURL context:context display:YES error:nil];
+			[PD openSubdocumentWithContentsOfURL:convertedURL context:context display:YES error:errorRef];
 			[PD saveDocument:self];
 //END4iTM3;
 			return YES;
@@ -1182,8 +1188,8 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperWithURL:
-- (BOOL)createNewWrapperWithURL:(NSURL *)fileURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperWithURL:error:
+- (BOOL)createNewWrapperWithURL:(NSURL *)fileURL error:(NSError **)errorRef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 10:24:04 UTC 2010
@@ -1214,7 +1220,7 @@ To Do List:
 	if (targetURL.isFileURL) {
         if ( [DFM fileExistsAtPath:targetURL.path]) {
             LOG4iTM3(@"There is already a wrapper at %@...", targetURL);
-        } else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:NULL]) {
+        } else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:errorRef]) {
             LOG4iTM3(@"*** ERROR: Could not copy %@ to %@", sourceURL, targetURL);
         }
         BOOL isDirectory = NO;
@@ -1238,7 +1244,7 @@ To Do List:
                 for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:NULL]) {
+                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:errorRef]) {
                             LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
                         }
                     }
@@ -1250,7 +1256,7 @@ To Do List:
     //LOG4iTM3(@"originalURL is: %@", originalURL);
                     // originalURL is no longer used
                     // open the project document
-                    PD = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:nil];// first registerProject
+                    PD = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:errorRef];// first registerProject
     //LOG4iTM3(@"[SDC documents]:%@",[SDC documents]);
                     // filter out the declared files
                     for (NSString * key in [PD.mainInfos fileKeys]) {
@@ -1273,7 +1279,7 @@ To Do List:
                                 [TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:new];
                                 [TS endEditing];
                                 [document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
-                                [[document undoManager] removeAllActions];
+                                document.undoManager.removeAllActions;
     //LOG4iTM3(@"Open document saved");
                             }
                         } else if(originalURL = [PD URLForFileKey:key]) {
@@ -1281,7 +1287,7 @@ To Do List:
                             if(![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
                                 [PD setURL:convertedURL forFileKey:key];// do this before...
                             }
-                            document = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:nil];
+                            document = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:errorRef];
     //LOG4iTM3(@"document is: %@", document);
                             if ([document isKindOfClass:[iTM2TextDocument class]]) {
                                 NSTextStorage * TS = [document textStorage];
@@ -1309,7 +1315,7 @@ To Do List:
                 for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:NULL]) {
+                        if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:errorRef]) {
                             LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
                         }
                     }
@@ -1325,7 +1331,7 @@ To Do List:
                 // what are the available documents
                 // I must create a project here before calling the next stuff, is it really true?
     //			NSURL * url = [NSURL fileURLWithPath:targetName];
-    //			[SDC openDocumentWithContentsOfURL:url display:YES error:nil];//second registerProject
+    //			[SDC openDocumentWithContentsOfURL:url display:YES error:errorRef];//second registerProject
             } else {
                 LOG4iTM3(@"*** ERROR: Missing directory at %@", targetURL);
             }
@@ -1337,8 +1343,8 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithURL:
-- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithURL:error:
+- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL error:(NSError **)errorRef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 10:23:58 UTC 2010
@@ -1354,15 +1360,13 @@ To Do List:
 	}
 	NSURL * sourceURL = self.selectedTemplate.URLValue;
 	// No extension for fileName, the extension will be borrowed from the project
-	fileURL = fileURL.URLByDeletingPathExtension;
 	// we copy the whole directory at sourceURL
 	// add a project
 	// clean extra folders
 	// change the names
 	// what is the target name?
-	NSURL * targetURL = self.preferWrapper?
-        [fileURL URLByAppendingPathExtension:[SDC wrapperPathExtension4iTM3]]:
-        fileURL;
+	fileURL = fileURL.URLByDeletingPathExtension;
+	NSURL * targetURL = fileURL;
 	NSString * projectName = fileURL.lastPathComponent;
 	[self takeContextValue:targetURL.URLByDeletingLastPathComponent.path
 		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
@@ -1370,7 +1374,7 @@ To Do List:
 		LOG4iTM3(@"There is already a project at\n%@",targetURL);
 	}
 	NSDictionary * filter = [self filterForProjectName:projectName];
-	if ([DFM copyItemAtPath:sourceURL.path toPath:fileURL.path error:NULL]) {
+	if ([DFM copyItemAtPath:sourceURL.path toPath:fileURL.path error:errorRef]) {
 		BOOL isDirectory = NO;
 		if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
 			if (isDirectory) {
@@ -1394,39 +1398,30 @@ To Do List:
 					originalURL = originalURL.URLByStandardizingPath;
 					convertedURL = [self convertedURL:originalURL withDictionary:filter];
 					if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-						if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.path error:NULL]) {
+						if (![DFM moveItemAtURL:originalURL toURL:convertedURL error:errorRef]) {
 							LOG4iTM3(@"..........  ERROR: Could not change the project file name.");
 							convertedURL = originalURL;
 						}
 					}
-//LOG4iTM3(@"convertedPath is: %@", convertedPath);
-					// originalPath is no longer used
+					// originalURL is no longer used
 					// open the project document
-					iTM2ProjectDocument * PD = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:nil];
-					// filter out the declared files
-					for (NSString * key in [PD fileKeys]) {
-//LOG4iTM3(@"key is: %@", key);
-						iTM2TeXDocument * document = [PD subdocumentForFileKey:key];
-//LOG4iTM3(@"document is: %@", document);
+					iTM2ProjectDocument * PD = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:errorRef];
+					// filter out all the declared files
+					for (NSString * key in PD.fileKeys) {
+						iTM2TextDocument * document = [PD subdocumentForFileKey:key];
 						if ([document isKindOfClass:[iTM2TextDocument class]]) {
-							NSTextStorage * TS = [document textStorage];
-							[TS beginEditing];
-							NSString * old = [TS string];
+							NSTextStorage * TS = document.textStorage;
+							NSString * old = TS.string;
 							NSString * new = [self convertedString:old withDictionary:filter];
+							TS.beginEditing;
 							[TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:new];
-							[TS beginEditing];
+							TS.endEditing;
 							// then change the file name:
 							originalURL = document.fileURL;
 							convertedURL = [self convertedURL:originalURL withDictionary:filter];
-//LOG4iTM3(@"convertedPath is: %@", convertedPath);
                             //  manage spaces in file names
-							if ([document isKindOfClass:[iTM2TeXDocument class]]) {
-								convertedURL = [self convertedURL:convertedURL
-									withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]];
-//LOG4iTM3(@"convertedPath is: %@", convertedPath);
-							}
 							if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-								if ([DFM moveItemAtPath:originalURL.path toPath:convertedURL.path error:NULL]) {
+								if ([DFM moveItemAtPath:originalURL.path toPath:convertedURL.path error:errorRef]) {
 									[PD setURL:convertedURL forFileKey:key];
 									document.fileURL = convertedURL;
 								} else {
@@ -1434,38 +1429,31 @@ To Do List:
 								}
 							}
 							[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
-							[[document undoManager] removeAllActions];
+							document.undoManager.removeAllActions;
 //LOG4iTM3(@"Open document saved");
 						} else if (!document) {
 							originalURL = [PD URLForFileKey:key];
 //LOG4iTM3(@"originalPath is: %@", originalPath);
 							convertedURL = [self convertedURL:originalURL withDictionary:filter];
 //LOG4iTM3(@"convertedPath is: %@", convertedPath);
-							NSError * error = nil;
-							NSString * typeName = [SDC typeForContentsOfURL:originalURL error:&error];
+							NSString * typeName = [SDC typeForContentsOfURL:originalURL error:errorRef];
 							if (typeName.length) {
 								Class C = [SDC documentClassForType:typeName];
 								if ([C isSubclassOfClass:[iTM2TextDocument class]]) {
-									document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:nil];
-									NSString * old = [document stringRepresentation];
-									iTM2StringFormatController * stringFormatter = [document stringFormatter];
-									NSStringEncoding encoding = [stringFormatter stringEncoding];
-									NSMutableDictionary * filteredFilter = [filter mutableCopy];
-									// convert the filter to then new encoding
+									document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:errorRef];
+									NSString * old = document.stringRepresentation;
+									iTM2StringFormatController * stringFormatter = document.stringFormatter;
+									NSStringEncoding encoding = stringFormatter.stringEncoding;
+									NSMutableDictionary * filteredFilter = filter.mutableCopy;
+									// convert the filter to the new encoding
 									// just in case this was not suitable, do not loose much.
 									for (NSString * key in filter.keyEnumerator) {
 										NSString * translation = [filter objectForKey:key];
 										NSData * data = [translation dataUsingEncoding:encoding allowLossyConversion:YES];
-										translation = [[[NSString alloc] initWithData:data encoding:encoding] autorelease];
+										translation = [[NSString alloc] initWithData:data encoding:encoding];
 										[filteredFilter setObject:translation forKey:key];
 									}
-									NSString * new = [self convertedString:old withDictionary:filteredFilter];
-									[document setStringRepresentation:new];
-									if ([document isKindOfClass:[iTM2TeXDocument class]]) {
-										convertedURL = [convertedURL.URLByDeletingLastPathComponent URLByAppendingPathComponent:
-												[self convertedString:convertedURL.lastPathComponent
-														withDictionary: [NSDictionary dictionaryWithObject:	@"-" forKey:@" "]]];
-									}
+									document.stringRepresentation = [self convertedString:old withDictionary:filteredFilter];
 								}
 							}
 							if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
@@ -1477,7 +1465,7 @@ To Do List:
 										if ([DFM fileExistsAtPath:convertedURL.path]) {
 											LOG4iTM3(@"..........  ERROR: Already existing file at\n%@");
 										} else {
-											if ([DFM moveItemAtPath:originalURL.path toPath:convertedURL.path error:NULL]) {
+											if ([DFM moveItemAtPath:originalURL.path toPath:convertedURL.path error:errorRef]) {
 												[PD setURL:convertedURL forFileKey:key];
 												document.fileURL = convertedURL;
 											} else {
@@ -1491,22 +1479,23 @@ To Do List:
 									[PD setURL:convertedURL forFileKey:key];
 								}
 							}
-							[document stringRepresentationCompleteWriteToURL4iTM3:document.fileURL ofType:document.fileType error:nil];
-							[document close];
+							[document stringRepresentationCompleteWriteToURL4iTM3:document.fileURL ofType:document.fileType error:errorRef];
+							document.close;
 LOG4iTM3(@"[PD subdocumentForFileKey:%@]:%@",key,[PD subdocumentForFileKey:key]);
 LOG4iTM3(@"Document saved and closed");
 						}
 					}
 					[PD saveDocument:self];
-					[[PD undoManager] removeAllActions];
-					[PD makeWindowControllers];
-					[PD showWindows];
+					PD.undoManager.removeAllActions;
+					PD.makeWindowControllers;
+					PD.showWindows;
 				}
 				// changing the name of all the files included in the newly created directory according to the filter above
+                
                 for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:NULL]) {
+                        if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:errorRef]) {
                             LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
                         }
                     }
@@ -1520,7 +1509,7 @@ LOG4iTM3(@"Document saved and closed");
 					}
 				}
 				// I must create a project here before calling the next stuff
-				[SDC openDocumentWithContentsOfURL:targetURL display:YES error:nil];
+				[SDC openDocumentWithContentsOfURL:targetURL display:YES error:errorRef];
 			} else {
 				LOG4iTM3(@"*** ERROR: Missing directory at %@", targetURL);
 			}
@@ -1534,8 +1523,8 @@ LOG4iTM3(@"Document saved and closed");
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInOldProjectNewDocumentWithURL:
-- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInOldProjectNewDocumentWithURL:error:
+- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)errorRef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 10:41:46 UTC 2010
@@ -1556,10 +1545,8 @@ To Do List:
 			return NO;
 		}
 	}
-	NSError * localError = nil;
-	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:oldProjectURL display:NO error:&localError];
-	if (localError) {
-		[SDC presentError:localError];
+	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:oldProjectURL display:NO error:errorRef];
+	if (!oldProject) {
 		return YES;
 	}
 #warning **** ERROR: this MUST be revisited, together with the other similar methods above
@@ -1571,7 +1558,7 @@ To Do List:
 
 	[self startProgressIndicationForName:targetURL.path];
 	NSURL * sourceURL = self.standaloneFileURL;
-	if ([DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:NULL]) {
+	if ([DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:errorRef]) {
 		[DFM setExtensionHidden4iTM3:[SUD boolForKey:NSFileExtensionHidden] atURL:targetURL];
 		BOOL isDirectory = NO;
 		if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
@@ -1582,18 +1569,17 @@ To Do List:
 				// changing the file permissions: it is relevant if the document was built in...
 				[DFM makeFileWritableAtPath4iTM3:targetURL.path recursive:YES];
 				// If necessary, the project will be created as expected side effect
-				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:nil];
+				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:errorRef];
 				for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
                     originalURL = originalURL.URLByStandardizingPath;
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:NULL]) {
+                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:errorRef]) {
                             LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
                         }
                     }
-					NSError * localError = nil;
-					if ([[SDC documentClassForType:[SDC typeForContentsOfURL:originalURL error:&localError]] isSubclassOfClass:[iTM2TeXDocument class]]) {
-						iTM2TeXDocument * document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:nil];
+					if ([[SDC documentClassForType:[SDC typeForContentsOfURL:originalURL error:errorRef]] isSubclassOfClass:[iTM2TeXDocument class]]) {
+						iTM2TeXDocument * document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:errorRef];
 						NSTextStorage * TS = document.textStorage;
 						TS.beginEditing;
 						[TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
@@ -1603,13 +1589,13 @@ To Do List:
 				[oldProject saveDocument:self];
 				[[oldProject undoManager] removeAllActions];
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
-				[[document undoManager] removeAllActions];
+				document.undoManager.removeAllActions;
 			} else {
 				[oldProject createNewFileKeyForURL:targetURL];
 				// changing the file permissions: it is relevant if the document was built in...
 				[DFM makeFileWritableAtPath4iTM3:targetURL.path recursive:YES];
 				// If necessary, the project will be created as expected side effect
-				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:nil];
+				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:errorRef];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					NSTextStorage * TS = [document textStorage];
 					[TS beginEditing];
@@ -1619,7 +1605,7 @@ To Do List:
 				[oldProject saveDocument:self];
 				[[oldProject undoManager] removeAllActions];
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
-				[[document undoManager] removeAllActions];
+				document.undoManager.removeAllActions;
 			}
 		} else {
 			LOG4iTM3(@"*** ERROR: Missing file at %@", targetURL);
@@ -1688,7 +1674,7 @@ To Do List:
 //START4iTM3;
 	static NSString * noDescriptionAvailable = nil;
 	if (!noDescriptionAvailable) {
-		noDescriptionAvailable = [[sender stringValue] copy];
+		noDescriptionAvailable = sender.stringValue.copy;
 	}
 #warning EXC_BAD_ACCESS here
 //LOG4iTM3(@"Item is: %@ (%@)", item, [item pathValue]);

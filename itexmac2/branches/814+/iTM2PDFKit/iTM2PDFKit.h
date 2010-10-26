@@ -155,12 +155,14 @@ enum
 	id _Implementation;
 	id iVarSyncDestination4iTM3;
 	id iVarSyncPointValues4iTM3;
-	NSMutableArray * iVarSyncDestinations4iTM3;
+	id iVarSyncDestinations4iTM3;
+	id iVarSyncStack4iTM3;
 }
 @property (assign) id implementation;
 @property (assign) id syncDestination;
 @property (assign) id syncPointValues;
 @property (assign) NSMutableArray * syncDestinations;
+@property (assign) NSMutableArray * syncStack;
 @end
 
 @interface PDFView(iTM2SYNCKit)

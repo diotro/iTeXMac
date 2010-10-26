@@ -101,7 +101,7 @@ enum
 @property (assign) IBOutlet NSProgressIndicator *	createProgressIndicator;
 @property (assign) IBOutlet NSWindow	*	createSheet;
 @property (assign) IBOutlet NSView	*	savePanelAccessoryView;
-@property (copy) IBOutlet NSString	*	tabViewItemIdentifier;
+@property (copy)   IBOutlet NSString	*	tabViewItemIdentifier;
 @property (assign) IBOutlet NSImage		*	templateImage;
 @property (assign) IBOutlet NSImageView	*	templateImageView;
 @property (assign) IBOutlet PDFView		*	templatePDFView;

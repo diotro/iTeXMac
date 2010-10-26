@@ -1125,28 +1125,27 @@ synctex_status_t _synctex_buffer_get_available_size(synctex_scanner_t scanner, s
 			size = SYNCTEX_END - SYNCTEX_CUR; /* == old available + already_read*/
 			return SYNCTEX_STATUS_OK; /*  May be available is less than size, the caller will have to test. */
 		} else if (0>already_read) {
-			/*  There is an error in zlib */
+			/*  There is a possible error in reading the file */
 			int errnum = 0;
 			const char * error_string = gzerror(SYNCTEX_FILE, &errnum);
 			if (Z_ERRNO == errnum) {
 				/*  There is an error in zlib caused by the file system */
 				_synctex_error("gzread error from the file system (%i)",errno);
-			} else {
+                return SYNCTEX_STATUS_ERROR;
+			} else if (errnum) {
 				_synctex_error("gzread error (%i:%i,%s)",already_read,errnum,error_string);
+                return SYNCTEX_STATUS_ERROR;
 			}
-			return SYNCTEX_STATUS_ERROR;
-		} else {
-			/*  Nothing was read, we are at the end of the file. */
-			gzclose(SYNCTEX_FILE);
-			SYNCTEX_FILE = NULL;
- 			SYNCTEX_END = SYNCTEX_CUR;
- 			SYNCTEX_CUR = SYNCTEX_START;
-			* SYNCTEX_END = '\0';/*  Terminate the string properly.*/
-			size = SYNCTEX_END - SYNCTEX_CUR;
- 			return SYNCTEX_STATUS_EOF; /*  there might be a bit of text left */
 		}
-		/*  At this point, the function has already returned from above */
-	}
+        /*  Nothing was read, we are at the end of the file. */
+        gzclose(SYNCTEX_FILE);
+        SYNCTEX_FILE = NULL;
+        SYNCTEX_END = SYNCTEX_CUR;
+        SYNCTEX_CUR = SYNCTEX_START;
+        * SYNCTEX_END = '\0';/*  Terminate the string properly.*/
+        size = SYNCTEX_END - SYNCTEX_CUR;
+        return SYNCTEX_STATUS_EOF; /*  there might be a bit of text left */
+    }
 	/*  We cannot enlarge the buffer because the end of the file was reached. */
 	size = available;
  	return SYNCTEX_STATUS_EOF;

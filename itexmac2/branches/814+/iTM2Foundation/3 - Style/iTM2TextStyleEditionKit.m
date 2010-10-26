@@ -2388,7 +2388,7 @@ To Do List:
             {
                 LOG4iTM3(@"Something weird at path: %@, cannot recycle", styleURL.path);
                 NSBeep();
-                [[NSWorkspace sharedWorkspace] selectFile:styleURL.path inFileViewerRootedAtPath:styleURL.path.stringByDeletingLastPathComponent];
+                [SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:styleURL]];
 #warning THIS DOES NOT WORK!!!
                 NSAppleScript * AS = [[[NSAppleScript alloc]
                     initWithSource: [NSString stringWithFormat:@"tell application \"Finder\"\ractivate\rdisplay dialog \"Could not recycle %@\" buttons {\"OK\"} default button 1\rend tell", styleURL.lastPathComponent]] autorelease];

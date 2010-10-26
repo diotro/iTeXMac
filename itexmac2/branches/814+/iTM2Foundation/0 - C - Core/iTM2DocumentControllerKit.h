@@ -73,7 +73,7 @@ extern NSString * const iTM2AutosavingDelayKey;
 #endif
 
 /*!
-    @method		localizedTypeForContentsOfURL:error:
+    @method		localizedTypeForContentsOfURL:error4iTM3:
     @abstract	A localized name of document type.
     @discussion	Plug-ins support. The localized name is retrived from the various InfoPlist.strings files available.
 				If the document type is not supported by the application, or has no localized entry,
@@ -83,12 +83,12 @@ extern NSString * const iTM2AutosavingDelayKey;
     @param		outErrorPtr.
     @result		A localized document type name owned by the receiver.
 */
-- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outErrorPtr;
+- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error4iTM3:(NSError **)outErrorPtr;
 
 /*!
     @method		localizedDocumentTypesDictionary
     @abstract	A type to localized type dictionary.
-    @discussion	Plug-ins support. See localizedTypeForContentsOfURL:error:.
+    @discussion	Plug-ins support. See localizedTypeForContentsOfURL:error4iTM3:.
     @param		None.
     @result		A dictionary.
 */

@@ -757,7 +757,7 @@ NSString * const iTM2PathFactoryComponent = @"Factory.localized";
 {//DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    self = self.directoryURL4iTM3;//    this always exist
+    self = self.directoryURL4iTM3;//    this always exist, but is nil for non file urls
     if (self.path.length<2 || [self.path hasPrefix:iTM2PathComponentDoubleDot]) {// Only '/'
         return nil;
     }
@@ -960,8 +960,15 @@ To Do List:
 "*/
 {//DIAGNOSTIC4iTM3;
 //START4iTM3;
+    if (!self.isFileURL) {
+        return self;
+    }
     self = self.standardizedURL;// remove the dots in the relative path or everything when no base url
-	NSURL * url = self.baseURL.standardizedURL;
+    if (!self.path.isDirectoryPath4iTM3 && [self isDirectoryOrError4iTM3:nil]) {
+        self = [NSURL fileURLWithPath:self.path];
+    }
+	NSURL * url = self.baseURL;
+    url = url.standardizedURL;
 	NSString * relative = nil;
 	if (url) {
 		url = url.normalizedURL4iTM3;

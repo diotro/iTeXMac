@@ -996,9 +996,9 @@ To Do List:
 //START4iTM3;
 	NSLock * L = [[NSLock alloc] init];
 loop:
-	[L lock];
+	L.lock;
 	NSMapTable * MT = [_iTM2PDFRenderInBackgroundThumbnails copy];
-	[L unlock];
+	L.unlock;
 	iTM2PDFKitInspector * inspector;
 	for (inspector in MT.keyEnumerator) {
 		for(NSWindow * w in [NSApp orderedWindows])
@@ -1006,12 +1006,12 @@ loop:
 			if([inspector isEqual:w.windowController])
 			{
 				// this is the real inspector
-				[L lock];
+				L.lock;
 				NSHashTable * HT = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:inspector];
 				if(HT.count)
 				{
 					[MT setObject:[HT copy] forKey:inspector];
-					[L unlock];
+					L.unlock;
 					for(id O in [MT objectForKey:inspector])
 					{
 						NSUInteger pageIndex = (NSUInteger)O;
@@ -1023,37 +1023,33 @@ loop:
 							PDFPage * page = [doc pageAtIndex:pageIndex];
 							NSData * D = [page dataRepresentation];
 							NSImage * I = [[[NSImage alloc] initWithData:D] autorelease];// tiff?
-							[L lock];
-							if(pageIndex < [[inspector PDFThumbnails] count])
-							{
+							L.lock;
+							if (pageIndex < [[inspector PDFThumbnails] count]) {
 								[[inspector PDFThumbnails] replaceObjectAtIndex:pageIndex withObject:I];
 								[inspector performSelectorOnMainThread:@selector(updateThumbnailTable) withObject:nil waitUntilDone:NO];
 							}
-							[L unlock];
+							L.unlock;
 						}
 					}
-				}
-				else
-				{
-					[L unlock];
+				} else {
+					L.unlock;
 				}
 			}
 		}
 	}
 	// everything is made...
-	[L lock];
-	for (inspector in _iTM2PDFRenderInBackgroundThumbnails.keyEnumerator)
-	{
+	L.lock;
+	for (inspector in _iTM2PDFRenderInBackgroundThumbnails.keyEnumerator) {
 		NSMutableSet * set = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:inspector];
 		[set minusSet:[MT objectForKey:inspector]];
 		if (!set.count) {
 			[_iTM2PDFRenderInBackgroundThumbnails removeObjectForKey:inspector];
 		}
 	}
-	[L unlock];
+	L.unlock;
 	if(_iTM2PDFRenderInBackgroundThumbnails.count)
 		goto loop;
-	[L release];
+	L.release;
 	L = nil;
 	_iTM2PDFThreadedRenderInBackgroundThumbnails = NO;
 //END4iTM3;
@@ -3650,6 +3646,7 @@ END4iTM3;
 @synthesize syncDestination = iVarSyncDestination4iTM3;
 @synthesize syncPointValues = iVarSyncPointValues4iTM3;
 @synthesize syncDestinations = iVarSyncDestinations4iTM3;
+@synthesize syncStack = iVarSyncStack4iTM3;
 @end
 
 @implementation iTM2XtdPDFDocument
@@ -3667,9 +3664,9 @@ To Do List:
 													valueOptions:NSPointerFunctionsStrongMemory];// collected
 	}
 	if (page) {
-		id result = [__CachedPageStrings objectForKey:page];
+		NSString * result = [__CachedPageStrings objectForKey:page];
 		if (!result) {
-			result = [page string];
+			result = page.string;
 			[__CachedPageStrings setObject:result forKey:page];
 		}
 		return result;
@@ -3690,7 +3687,7 @@ To Do List:
 		return;
 	}
 	NSLock * L = [[[NSLock alloc] init] autorelease];
-	[L lock];
+	L.lock;
 	NSInteger pageCount = self.pageCount;
     // __PageCharacterCounts[0] is the total number of pages, in other words pageCount
     // __PageCharacterCounts[1] is the total amount of characters in page 1
@@ -3703,7 +3700,7 @@ To Do List:
 	if (__PageCharacterCounts = NSAllocateCollectable(sizeof(NSUInteger),pageCount+2)) {
 		__PageCharacterCounts[pageCount + 1] = 0;
 		__PageCharacterCounts[0] = pageCount;
-		[L unlock];
+		L.unlock;
 		NSUInteger pageOff7 = 0;
 		NSUInteger pageIndex = 0;
         while (pageIndex < pageCount) {
@@ -3712,10 +3709,10 @@ To Do List:
             if (pageOff7 < UINT_MAX - NOC) {
                 pageOff7 += NOC;
                 ++pageIndex;
-                [L lock];
+                L.lock;
                 __PageCharacterCounts[pageIndex] = pageOff7;
                 __PageCharacterCounts[pageCount+1] = pageIndex;
-                [L unlock];
+                L.unlock;
             } else {
                 break;
             }
@@ -3733,7 +3730,7 @@ To Do List:
 		}
 		return;
 	} else {
-		[L unlock];
+		L.unlock;
 #warning THIS IS A BAD MANAGEMENT
 		LOG4iTM3(@"Memory management problem:no offest caching available...");
 		return;
@@ -5494,92 +5491,66 @@ startAgain:;
 	INIT_POOL4iTM3;
 //START4iTM3;
 	NSLock * L = [[NSLock alloc] init];
-	[L lock];
-	NSMutableArray * syncStack = [self.implementation metaValueForKey:@"_SynchronizationStack"];
-	if(syncStack.count>1)
-	{
-		NSDictionary * hint = [[syncStack.lastObject nonretainedObjectValue] autorelease];
-		[syncStack removeLastObject];
-		NSDictionary * destinations = [[syncStack.lastObject nonretainedObjectValue] autorelease];
-		[syncStack removeLastObject];
-		while(syncStack.count)
-		{
-			[[syncStack.lastObject nonretainedObjectValue] autorelease];
-			[syncStack removeLastObject];
-		}
+	L.lock;
+	NSMutableArray * syncStack = self.syncStack;
+	if (syncStack.count>1) {
+		NSDictionary * hint = syncStack.lastObject;
+		syncStack.removeLastObject;
+		NSDictionary * destinations = syncStack.lastObject;
+		syncStack.removeLastObject;
 		PDFDestination * oldDestination = self.syncDestinations.count?[self.syncDestinations objectAtIndex:0]:nil;
-		[L unlock];
-		[L release];
+		L.unlock;
 		L = nil;
 		NSString * S = [hint objectForKey:@"container"];
-		if(S)
-		{
+		if (S) {
 			// okay guyes, let's go to the party.
 			// if we are working on SyncTeX, things are a bit more comfortable,
 			// the switch occurred some time ago
 			// use the selected ranges to narrow the search
 			NSValue * V = [hint objectForKey:@"old selected range"];
-			if(V)
-			{
+			if (V) {
 				NSRange oldRange = [V rangeValue];
-				if(V = [hint objectForKey:@"new selected range"])
-				{
+				if (V = [hint objectForKey:@"new selected range"]) {
 					NSRange newRange = [V rangeValue];
 					newRange = iTM3UnionRange(oldRange,newRange);
-					if(newRange.length>1000)
-					{
+					if (newRange.length>1000) {
 						oldDestination = nil;
 					}
 				}
 			}
 			// we just use the hint to find words before and after the hint and switch to the appropriate _synchronize... method
 			NSUInteger hereIndex = [[hint objectForKey:@"character index"] unsignedIntegerValue];// The mousedown occurred here.
-			if(hereIndex < S.length)
-			{
-				NSString * beforeWord;
-				NSString * hereWord;
-				NSString * afterWord;
+			if (hereIndex < S.length) {
+				NSString * beforeWord = nil;
+				NSString * hereWord = nil;
+				NSString * afterWord = nil;
 				NSUInteger localHitIndex = [S getWordBefore4iTM3:&beforeWord here:&hereWord after:&afterWord atIndex:hereIndex
 					mode:[[[self.window.windowController document] synchronizer] isSyncTeX]];
-				if(iTM2DebugEnabled)
-				{
+				if (iTM2DebugEnabled) {
 					LOG4iTM3(@"####  hit sequence:%@ + %@ + %@, (index:%i)", beforeWord, hereWord, afterWord, hereIndex);
 				}
 				// using the hint to narrow the search
 				//
 				// branching code
-				if(localHitIndex == NSNotFound)
-				{
+				if(localHitIndex == NSNotFound) {
 					// It is a control
-				}
-				else if(beforeWord.length)
-				{
-					if(hereWord.length)
-					{
-						if(afterWord.length)
-						{
+				} else if(beforeWord.length) {
+					if(hereWord.length) {
+						if(afterWord.length) {
 							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord after:afterWord index:localHitIndex oldDestination:oldDestination];
-						}
-						else
-						{
+						} else {
 							result = [self _synchronizeWithDestinations:destinations before:beforeWord here:hereWord index:localHitIndex oldDestination:oldDestination];
 						}
 					}
 #if 0
-					else
-					{
+					else {
 						result = [self _synchronizeWithDestinations:destinations];
 					}
 #endif
-				}
-				else if(hereWord.length)
-				{
-					if(afterWord.length)
-					{
+				} else if (hereWord.length) {
+					if (afterWord.length) {
 						result = [self _synchronizeWithDestinations:destinations here:hereWord after:afterWord index:localHitIndex oldDestination:oldDestination];
-					}
-					else
-					{
+					} else {
 						result = [self _synchronizeWithDestinations:destinations here:hereWord index:localHitIndex oldDestination:oldDestination];
 					}
 				}
@@ -5593,8 +5564,8 @@ startAgain:;
 		goto startAgain;
 	}
 	[syncStack setArray:[NSArray array]];
-	[L unlock];
-	[L release];
+	L.unlock;
+	L.release;
 	L = nil;
 //END4iTM3;
 	RELEASE_POOL4iTM3;
@@ -5609,24 +5580,19 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(iTM2DebugEnabled>200)
-	{
+	if (iTM2DebugEnabled>200) {
 		LOG4iTM3(@"destinations:%@",destinations);
 		LOG4iTM3(@"hint:%@",hint);
 	}
 	NSLock * L = [[[NSLock alloc] init] autorelease];
-	[L lock];
-	NSMutableArray * syncStack = [self.implementation metaValueForKey:@"_SynchronizationStack"];
-	if(![syncStack isKindOfClass:[NSMutableArray class]])
-	{
-		syncStack = [NSMutableArray array];
-		[self.implementation takeMetaValue:syncStack forKey:@"_SynchronizationStack"];
+	L.lock;
+	NSMutableArray * syncStack = self.syncStack;
+	if (![syncStack isKindOfClass:[NSMutableArray class]]) {
+		syncStack = self.syncStack = [NSMutableArray array];
 	}
-	[destinations retain];
-	[syncStack addObject:[NSValue valueWithNonretainedObject:destinations]];
-	[hint retain];
-	[syncStack addObject:[NSValue valueWithNonretainedObject:hint]];
-	[L unlock];
+	[syncStack addObject:destinations];
+	[syncStack addObject:hint];
+	L.unlock;
 	#if 0
 	[NSThread detachNewThreadSelector:@selector(__threadedSynchronizeWithStoredDestinationsAndHints:)
 		toTarget:self withObject:nil];
@@ -5738,7 +5704,7 @@ To Do List:
 				}
 			}
 		} else if(hint) {
-			// okay guyes, ket's go to the party.
+			// okay guyes, let's go to the party.
 			NSUInteger charIndex = [[hint objectForKey:@"character index"] unsignedIntegerValue];
 			NSString * S = [hint objectForKey:@"container"];
 			if (charIndex < S.length) {
@@ -7569,16 +7535,13 @@ To Do List:
 		return result;
 	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)self.document;
 	NSString * string = [document stringForPage:self];
-	if([string characterAtIndex:result] == ' ')
-	{
-		if(result < string.length - 1)
-		{
+	if ([string characterAtIndex:result] == ' ') {
+		if (result < string.length - 1) {
 			NSInteger newResult = result + 1;
 			PDFSelection * SELECTION = [self selectionForRange:iTM3MakeRange(newResult, 1)];
-			if(SELECTION)
-			{
+			if (SELECTION) {
 				NSRect bounds = [SELECTION boundsForPage:self];
-				if(NSPointInRect(point, bounds))
+				if (NSPointInRect(point, bounds))
 					return newResult;
 			}
 		}
@@ -8922,25 +8885,52 @@ To Do List:
 }
 @end
 
+@interface PDFDocument(iTM2PDFKit)
++ (id)SWZ_iTM2_alloc;
++ (id)SWZ_iTM2_allocWithZone:(NSZone *)Z;
+@end
+
+@implementation PDFDocument(iTM2PDFKit)
+
++ (id)SWZ_iTM2_alloc;
+{
+    return [iTM2XtdPDFDocument SWZ_iTM2_alloc];
+}
++ (id)SWZ_iTM2_allocWithZone:(NSZone *)Z;
+{
+    return [iTM2XtdPDFDocument SWZ_iTM2_allocWithZone:Z];
+}
+
+@end
+
 @implementation iTM2MainInstaller(PDFKit)
 
 + (void)preparePDFKitCompleteInstallation4iTM3;
 {
-	if([PDFView swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_keyDown:) error:NULL])
-	{
+    NSError * ROR = nil;
+	if ([PDFDocument swizzleClassMethodSelector4iTM3:@selector(SWZ_iTM2_alloc) error:&ROR]
+            && [PDFDocument swizzleClassMethodSelector4iTM3:@selector(SWZ_iTM2_allocWithZone:) error:&ROR]) {
+		MILESTONE4iTM3((@"PDFDocument alloc(...:)"),(@"No patch available for PDFKit's alloc and allocWithZone:"));
+	} else if(ROR) {
+        LOG4iTM3(@"ERROR:%@",ROR);
+    }
+	if ([PDFView swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_keyDown:) error:&ROR]) {
 		MILESTONE4iTM3((@"PDFKit keyDown:"),(@"No patch available for PDFKit's keyDown:"));
-	}
-	if(![SUD boolForKey:@"iTM2NOPDFPageCharacterIndexAtPointFix"])
-	{
-		if([PDFPage swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_characterIndexAtPoint:) error:NULL])
-		{
+	} else if(ROR) {
+        LOG4iTM3(@"ERROR:%@",ROR);
+    }
+	if (![SUD boolForKey:@"iTM2NOPDFPageCharacterIndexAtPointFix"]) {
+		if ([PDFPage swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_characterIndexAtPoint:) error:&ROR]) {
 			MILESTONE4iTM3((@"PDFPage(iTM2SyncKit)"),(@"No patch available for PDFPage's characterIndexAtPoint:"));
-		}
+		} else if(ROR) {
+            LOG4iTM3(@"ERROR:%@",ROR);
+        }
 	}
-	if([iTM2PDFDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2PDFKit_init) error:NULL])
-	{
+	if ([iTM2PDFDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2PDFKit_init) error:&ROR]) {
 		MILESTONE4iTM3((@"iTM2PDFDocument(Cluster)"),(@"WARNING:No hook available to init Tiger aware PDF documents..."));
-	}
+	} else if(ROR) {
+        LOG4iTM3(@"ERROR:%@",ROR);
+    }
 }
 
 @end

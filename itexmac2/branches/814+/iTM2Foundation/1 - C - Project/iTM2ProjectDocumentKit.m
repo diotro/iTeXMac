@@ -2573,8 +2573,7 @@ absoluteFileNameIsChosen:
 			return [self openSubdocumentWithContentsOfURL:fileURL context:nil display:display error:outErrorPtr];
 		} else if ([DFM fileExistsAtPath:factoryURL.path]) {
 			//Problem: there are 2 different candidates,which one is the best
-			[SWS selectFile:factoryURL.path inFileViewerRootedAtPath:factoryURL.path.stringByDeletingLastPathComponent];
-			[SWS selectFile:fileURL.path inFileViewerRootedAtPath:fileURL.path.stringByDeletingLastPathComponent];
+			[SWS activateFileViewerSelectingURLs:[NSArray arrayWithObjects:factoryURL,fileURL,nil]];
 			[NSApp activateIgnoringOtherApps:YES];
 			NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"Which one do you want?",NSLocalizedDescriptionKey,
@@ -2901,7 +2900,7 @@ To Do List:
 	{
 		[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 			userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"The file at\n%@\nwas unexpected and will be recycled",fileName] forKey:NSLocalizedDescriptionKey]]];
-		[SWS selectFile:fileName inFileViewerRootedAtPath:fileName.stringByDeletingLastPathComponent];
+		[SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:[NSURL fileURLWithPath:fileName]]];
 		// it is not a directory: recycle it.
 		NSInteger tag;
 		if ([SWS performFileOperation:NSWorkspaceRecycleOperation source:fileName.stringByDeletingLastPathComponent destination:@"" files:[NSArray arrayWithObject:fileName.lastPathComponent] tag:&tag])
@@ -3487,7 +3486,7 @@ To Do List:
 		}
         NSURL * inAbsoluteURL = [PD URLForFileKey:key];
 		if ([tableColumn.identifier isEqualToString:iTM2PDTableViewTypeIdentifier]) {
-			return [SDC localizedTypeForContentsOfURL:inAbsoluteURL error:nil]?:@"";// retained by the SDC
+			return [SDC localizedTypeForContentsOfURL:inAbsoluteURL error4iTM3:nil]?:@"";// retained by the SDC
 		}
 		if ([DFM fileExistsAtPath:inAbsoluteURL.path]) {
 			return [SWS iconForFile:inAbsoluteURL.path];

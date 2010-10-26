@@ -3425,7 +3425,7 @@ To Do List:
         }
         else if (dict) {
             OUTERROR4iTM3(3,([NSString stringWithFormat:@"Something weird occurred to that folder\n%@.",absoluteURL]),nil);
-            [SWS selectFile:absoluteURL.path inFileViewerRootedAtPath:absoluteURL.URLByDeletingLastPathComponent.path];
+            [SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:absoluteURL]];
             return nil;
         }
     } else if (URLs.count > 0) {
@@ -3439,7 +3439,7 @@ To Do List:
                 return [self openDocumentWithContentsOfURL:url display:display error:outErrorPtr];
             }
             OUTERROR4iTM3(1,(@"Confusing situation:too many projects in that directory.\nSee what you can do from the Finder."),nil);
-            [SWS selectFile:url.path inFileViewerRootedAtPath:absoluteURL.path];
+            [SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:url]];
         }
         return nil;
     }
@@ -3477,7 +3477,7 @@ To Do List:
 	if ([components containsObject:@".Trash"] || [components containsObject:@".Trashes"]) {
 		if ([DFM fileExistsAtPath:absoluteURL.path]) {
 			REPORTERROR4iTM3(1,([NSString stringWithFormat:@"Please, get %@ back from the trash before opening it.",absoluteURL.lastPathComponent]),nil);
-			[SWS selectFile:absoluteURL.path inFileViewerRootedAtPath:absoluteURL.path.stringByDeletingLastPathComponent];
+			[SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:absoluteURL]];
 		}
 		return nil;
 	}
@@ -3486,7 +3486,7 @@ To Do List:
 	for(component in components) {
 		if ([component hasPrefix:TWSDotKey]) {
 			REPORTERROR4iTM3(1,([NSString stringWithFormat:@"Please, copy %@ to a visible location of the Finder before opening it.",absoluteURL.lastPathComponent]),nil);
-			[SWS selectFile:absoluteURL.path inFileViewerRootedAtPath:absoluteURL.URLByDeletingLastPathComponent.path];
+			[SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:absoluteURL]];
 			return nil;
 		}
 	}
