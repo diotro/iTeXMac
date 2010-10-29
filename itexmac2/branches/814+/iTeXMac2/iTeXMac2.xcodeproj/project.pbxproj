@@ -1223,6 +1223,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DC25E1D10990C4ED00545F27 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

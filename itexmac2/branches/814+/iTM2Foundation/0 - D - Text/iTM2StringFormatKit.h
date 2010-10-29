@@ -168,7 +168,7 @@ extern NSString * const TWSEOLFileKey;
 	@param		None
 	@result		0 for unspecified, 1 for UNIX (LF), 2 for Macintosh (CR), 3 for windows (CR+LF).
 */
-@property (assign) NSUInteger EOL;
+@property (assign, getter = EOL) NSUInteger EOL;
 
 /*!
 	@property	stringEncoding
@@ -201,64 +201,64 @@ extern NSString * const TWSEOLFileKey;
 @interface NSString(iTM2StringFormatController)
 
 /*!
-	@method		nameOfStringEncoding:
+	@method		nameOfStringEncoding4iTM3:
 	@abstract	The IANA name of the given given cocoa string encoding...
 	@discussion Description forthcoming.
 	@param		A cocoa string encoding, not a cor foundation one
 	@result		None
 */
-+ (NSString *)nameOfStringEncoding:(NSStringEncoding)encoding;
++ (NSString *)nameOfStringEncoding4iTM3:(NSStringEncoding)encoding;
 
 /*!
-	@method		stringEncodingWithName:
+	@method		stringEncodingWithName4iTM3:
 	@abstract	The cocoa string encoding given its name
 	@discussion Description forthcoming.
 	@param		A IANA string encoding name
 	@result		a cocoa string encoding not a core foundation one.
 */
-+ (NSStringEncoding)stringEncodingWithName:(NSString *)name;
++ (NSStringEncoding)stringEncodingWithName4iTM3:(NSString *)name;
 
 /*!
-	@method		localizedNameOfEOL:
+	@method		localizedNameOfEOL4iTM3:
 	@abstract	The localized name of the given lene ending...
 	@discussion Description forthcoming.
 	@param		None
 	@result		None
 */
-+ (NSString *)localizedNameOfEOL:(iTM2EOL)LE;
++ (NSString *)localizedNameOfEOL4iTM3:(iTM2EOL)LE;
 
 /*!
-	@method		stringByUsingEOL:
+	@method		stringByUsingEOL4iTM3:
 	@abstract	Converts the receiver to use the given line endings.
 	@discussion Description forthcoming.
 	@param		None
 	@result		None
 */
-- (NSString *)stringByUsingEOL:(iTM2EOL)EOL;
+- (NSString *)stringByUsingEOL4iTM3:(iTM2EOL)EOL;
 
 /*!
-	@method		EOLUsed
+	@method		EOLUsed4iTM3
 	@abstract	The line endings used.
 	@discussion The first line ending found, and iTM2UnchangedLienEnding when there is some problem.
 	@param		None
 	@result		None
 */
-- (iTM2EOL)EOLUsed;
+- (iTM2EOL)EOLUsed4iTM3;
 
 /*!
-	@method		getHardCodedStringEncoding:range:
+	@method		getHardCodedStringEncoding4iTM3:range:
 	@abstract	The string encoding.
 	@discussion This value is guessed from the contents of the receiver and the context.
 	@param		None
 	@result		None
 */
-- (void)getHardCodedStringEncoding:(NSStringEncoding *)stringEncodingRef range:(NSRangePointer)rangeRef;
+- (void)getHardCodedStringEncoding4iTM3:(NSStringEncoding *)stringEncodingRef range:(NSRangePointer)rangeRef;
 
 @end
 
 @interface NSDocument(iTM2StringFormatController)
 
-- (id)stringFormatter;
+- (id)stringFormatter4iTM3;
 
 @end
 

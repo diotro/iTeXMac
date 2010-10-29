@@ -85,7 +85,7 @@ To Do List:
 	NSString * documentString = [[self textStorage] string];
 	if (!documentString)
 	{
-		documentString = [self stringRepresentation];
+		documentString = self.stringRepresentation;
 	}
 	if (line && (line <= [documentString numberOfLines4iTM3]))
 	{
@@ -874,9 +874,9 @@ To Do List: implement other actions
 //START4iTM3;
     return [self isDocumentEdited] && self.fileURL.isFileURL && [DFM isReadableFileAtPath:self.fileURL.path];
 }
-#pragma mark =-=-=-=-=-  CODESET & EOL
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringFormatter
-- (id)stringFormatter;
+#pragma mark =-=-=-=-=-  CODESET (Encoding) & EOL
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringFormatter4iTM3
+- (id)stringFormatter4iTM3;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -886,7 +886,7 @@ To Do List:
 //START4iTM3;
     return iVarStringFormatter4iTM3?:(iVarStringFormatter4iTM3 = self.lazyStringFormatter);
 }
-@synthesize stringFormatter = iVarStringFormatter4iTM3;
+@synthesize stringFormatter4iTM3 = iVarStringFormatter4iTM3;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyStringFormatter
 - (id)lazyStringFormatter;
 /*"Description Forthcoming.
@@ -907,7 +907,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self stringFormatter] EOL];
+    return self.stringFormatter4iTM3.EOL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEOL:
 - (void)setEOL:(NSUInteger)argument;
@@ -918,11 +918,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSUInteger old = [self EOL];
-    if ([self stringFormatter] && (argument != old))
+    NSUInteger old = self.EOL;
+    if (self.stringFormatter4iTM3 && (argument != old))
     {
         [[self.undoManager prepareWithInvocationTarget:self] setEOL:old];
-        [[self stringFormatter] setEOL:argument];
+        self.stringFormatter4iTM3.EOL=argument;
         [self.undoManager setActionName:
             NSLocalizedStringFromTableInBundle(@"Change line endings", TABLE, BUNDLE, "Undo manager action name")];
     }
@@ -937,7 +937,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self stringFormatter] stringEncoding];
+    return [self.stringFormatter4iTM3 stringEncoding];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncoding:
 - (void)setStringEncoding:(NSStringEncoding)argument;
@@ -949,11 +949,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 #warning FAILED: -setStringEncoding: IS NEVER CALLED
-    NSUInteger old = [self stringEncoding];
+    NSUInteger old = self.stringEncoding;
     if (argument != old)
     {
         [[self.undoManager prepareWithInvocationTarget:self] setStringEncoding:old];
-        [[self stringFormatter] setStringEncoding:argument];
+        [self.stringFormatter4iTM3 setStringEncoding:argument];
         [self.undoManager setActionName:([self.undoManager isUndoing]?
             NSLocalizedStringFromTableInBundle(@"Revert string encoding", TABLE, BUNDLE, "Undo manager action name"):
             NSLocalizedStringFromTableInBundle(@"Change string encoding", TABLE, BUNDLE, "Undo manager action name"))];
@@ -969,7 +969,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self stringFormatter] isStringEncodingHardCoded];
+    return [self.stringFormatter4iTM3 isStringEncodingHardCoded];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncodingHardCoded:
 - (void)setStringEncodingHardCoded:(BOOL)yorn;
@@ -980,7 +980,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[self stringFormatter] setStringEncodingHardCoded:(BOOL)yorn];
+	[self.stringFormatter4iTM3 setStringEncodingHardCoded:(BOOL)yorn];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
@@ -992,8 +992,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (iTM2DebugEnabled)
-	{
+	if (iTM2DebugEnabled) {
 		LOG4iTM3(@"iTM2TextDocument fileURL: %@", absoluteURL);
 		LOG4iTM3(@"iTM2TextDocument type: %@", typeName);
 	}
@@ -1027,7 +1026,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {
-    return [[self stringFormatter] readFromURL:absoluteURL error:outErrorPtr];
+    return [self.stringFormatter4iTM3 readFromURL:absoluteURL error:outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteWriteToURL4iTM3:ofType:error:
 - (BOOL)stringRepresentationCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
@@ -1037,10 +1036,9 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {
-	NSStringEncoding saveEncoding = [self stringEncoding];
-	NSString * S = [self stringRepresentation];
-    if ([S writeToURL:absoluteURL atomically:YES encoding:saveEncoding error:outErrorPtr])
-	{
+	NSStringEncoding saveEncoding = self.stringEncoding;
+	NSString * S = self.stringRepresentation;
+    if ([S writeToURL:absoluteURL atomically:YES encoding:saveEncoding error:outErrorPtr]) {
 		LOG4iTM3(@"Data saved with encoding: %@", [NSString localizedNameOfStringEncoding:saveEncoding]);
 		return YES;
 	}
@@ -1051,8 +1049,7 @@ NSLocalizedStringFromTableInBundle(@"Ignore", TABLE, BUNDLE, "Ignore"),
 nil,
 NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms"),
 [NSString localizedNameOfStringEncoding:saveEncoding]);
-	if (NSAlertDefaultReturn == result)
-	{
+	if (NSAlertDefaultReturn == result) {
 		return NO;// abort
 	} else if (NSAlertOtherReturn == result) {
 		NSMutableArray * MRA = [NSMutableArray array];
@@ -1060,10 +1057,10 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 		NSUInteger length = 0;
 		NSRange R;
 		NSUInteger firewall = 256;
-		id RP = [[NSAutoreleasePool alloc] init];
+		NSAutoreleasePool * RP = [[NSAutoreleasePool alloc] init];
 		while (idx < top) {
 			if (--firewall == 0) {
-				[RP drain];
+				RP.drain;
 				RP = [[NSAutoreleasePool alloc] init];
 				firewall = 256;
 			}
@@ -1087,29 +1084,20 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 			}
 			idx = iTM3MaxRange(R);
 		}
-		[RP drain];
+		RP.drain;
 		RP = nil;
 		// clean the pending stuff
-		if (length)
-		{
-			if (idx>=length)
-			{
+		if (length) {
+			if (idx>=length) {
 				[MRA addObject:[NSValue valueWithRange:iTM3MakeRange(idx-length, length)]];
-			}
-			else
-			{
+			} else {
 				LOG4iTM3(@"WARNING: Character problem 4");
 			}
 		}
-		if (MRA.count)
-		{
-			NSEnumerator * E = [[self windowControllers] objectEnumerator];
-			id WC;
-			while(WC = [E nextObject])
-			{
-				if ([WC isKindOfClass:[iTM2TextInspector class]])
-				{
-					NSTextView * TV = [WC textView];
+		if (MRA.count) {
+			for (iTM2TextInspector * WC in self.windowControllers) {
+				if ([WC isKindOfClass:[iTM2TextInspector class]]) {
+					NSTextView * TV = WC.textView;
 					[TV secondaryHighlightInRanges:MRA];
 					[TV scrollRangeToVisible:[[MRA objectAtIndex:0] rangeValue]];
 				}
@@ -1117,7 +1105,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 		}
 		[self postNotificationWithStatus4iTM3:
 			[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The highlighted characters can not be properly encoded using %@.", TABLE, BUNDLE, ""), [NSString localizedNameOfStringEncoding:saveEncoding]]
-				object: [self frontWindow]];
+				object: self.frontWindow];
 		return NO;
 	}
 	return NO;
@@ -1130,7 +1118,7 @@ To do list: ASK!!!
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [[self stringFormatter] setStringEncoding:encoding];
+    [self.stringFormatter4iTM3 setStringEncoding:encoding];
 	if ([self stringRepresentationCompleteReadFromURL4iTM3:self.fileURL ofType:[self fileType] error:outErrorPtr])
 	{
 		[[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeWithDocument)];
@@ -1146,7 +1134,7 @@ To do list: ASK!!!
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([self stringEncoding] != encoding)
+    if (self.stringEncoding != encoding)
     {
         if ([self isDocumentEdited])
         {

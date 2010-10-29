@@ -67,8 +67,8 @@ NSString * iTM2EOLDefaultFormat = nil;
 @end
 
 @implementation NSString(iTM2StringFormatController)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameOfStringEncoding:
-+ (NSString *)nameOfStringEncoding:(NSStringEncoding)encoding;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  nameOfStringEncoding4iTM3:
++ (NSString *)nameOfStringEncoding4iTM3:(NSStringEncoding)encoding;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -79,8 +79,8 @@ To do list:
 //END4iTM3;
 	return (NSString *)CFStringConvertEncodingToIANACharSetName(encoding);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingWithName:
-+ (NSStringEncoding)stringEncodingWithName:(NSString *)name;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingWithName4iTM3:
++ (NSStringEncoding)stringEncodingWithName4iTM3:(NSString *)name;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -91,8 +91,8 @@ To do list:
 //END4iTM3;
 	return CFStringConvertEncodingToNSStringEncoding(encoding);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedNameOfEOL:
-+ (NSString *)localizedNameOfEOL:(iTM2EOL)LE;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedNameOfEOL4iTM3:
++ (NSString *)localizedNameOfEOL4iTM3:(iTM2EOL)LE;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (11/10/2001).
 To do list:
@@ -112,8 +112,8 @@ To do list:
             BUNDLE, "Title of line endings menu item");
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringByUsingEOL:
-- (NSString *)stringByUsingEOL:(iTM2EOL)EOL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringByUsingEOL4iTM3:
+- (NSString *)stringByUsingEOL4iTM3:(iTM2EOL)EOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -148,8 +148,8 @@ To Do List:
         [MS appendString:[self substringWithRange:iTM3MakeRange(nextStart, ceiling - nextStart)]];
     return MS;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= EOLUsed
-- (iTM2EOL)EOLUsed;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= EOLUsed4iTM3
+- (iTM2EOL)EOLUsed4iTM3;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -185,8 +185,8 @@ To Do List:
     }
     return iTM2UnchangedEOL;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getHardCodedStringEncoding:range:
-- (void)getHardCodedStringEncoding:(NSStringEncoding *)stringEncodingRef range:(NSRangePointer)rangeRef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getHardCodedStringEncoding4iTM3:range:
+- (void)getHardCodedStringEncoding4iTM3:(NSStringEncoding *)stringEncodingRef range:(NSRangePointer)rangeRef;
 /*"Designated initializer.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -214,7 +214,7 @@ To Do List: Nothing
     NS_ENDHANDLER
 //NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
 	if (stringEncodingRef) {
-		* stringEncodingRef = [NSString stringEncodingWithName:headerStringEncodingString];
+		* stringEncodingRef = [NSString stringEncodingWithName4iTM3:headerStringEncodingString];
 	}
 	if (rangeRef)
 		* rangeRef = R;
@@ -1295,7 +1295,7 @@ To Do List:
         string = [[[NSString alloc] initWithData:headerData encoding:preferredStringEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange;
-		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
+		[string getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
         canStringEncoding = (hardCodedStringEncoding == 0 || hardCodedRange.length == 0);
         if (hardCodedStringEncoding && [[NSString localizedNameOfStringEncoding:hardCodedStringEncoding] length] &&
                 (hardCodedStringEncoding != preferredStringEncoding)) {
@@ -1332,7 +1332,7 @@ To Do List:
         string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange = iTM3MakeRange(0,0);
-		[string getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
+		[string getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
 		if (hardCodedRange.length > 0)
 			hardStringEncodingString = [string substringWithRange:hardCodedRange];
 		else
@@ -1367,122 +1367,92 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
 - (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
 {
-	if (outErrorPtr)
-	{
+	if (outErrorPtr) {
 		*outErrorPtr = nil;
 	}
 	NSString * S = nil;
-	if ([NSString respondsToSelector:@selector(stringWithContentsOfURL:usedEncoding:error:)])
-	{
-		// if we are on leopard, at least, go for the new approach
-		NSStringEncoding usedEncoding; 
-		BOOL canStringEncoding = YES;
-		NSString * hardStringEncodingString = @"";
-		BOOL result = YES;
-		if (S = [NSString stringWithContentsOfURL:absoluteURL usedEncoding:&usedEncoding error:outErrorPtr])
-		{
-			NSStringEncoding hardCodedStringEncoding;
-			NSStringEncoding preferredStringEncoding;
-			NSRange hardCodedRange;
-			NSString * SS;
-			if ([self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask])
-			{
-				[S getHardCodedStringEncoding:&hardCodedStringEncoding range:&hardCodedRange];
-				if ((hardCodedRange.length > 0) && (hardCodedStringEncoding > 0))
-				{
-					// there was an hard coded string encoding
-					hardStringEncodingString = [S substringWithRange:hardCodedRange];
-					canStringEncoding = NO;
-					if (hardCodedStringEncoding == usedEncoding)
-					{
-						// everything is alright
+    NSStringEncoding usedEncoding; 
+    BOOL canStringEncoding = YES;
+    NSString * hardStringEncodingString = @"";
+    BOOL result = YES;
+    if (S = [NSString stringWithContentsOfURL:absoluteURL usedEncoding:&usedEncoding error:outErrorPtr]) {
+        NSStringEncoding hardCodedStringEncoding;
+        NSStringEncoding preferredStringEncoding;
+        NSRange hardCodedRange;
+        NSString * SS = nil;
+        if ([self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask]) {
+            [S getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
+            if ((hardCodedRange.length > 0) && (hardCodedStringEncoding > 0)) {
+                // there was an hard coded string encoding
+                hardStringEncodingString = [S substringWithRange:hardCodedRange];
+                canStringEncoding = NO;
+                if (hardCodedStringEncoding == usedEncoding) {
+                    // everything is alright
 terminate:
-						[self setStringEncoding:usedEncoding];
-						[self setStringEncodingHardCoded:!canStringEncoding];
-						[self setHardStringEncodingString:hardStringEncodingString];
-						[self.document setStringRepresentation:S];
-						if (iTM2DebugEnabled)
-						{
-							LOG4iTM3(@"usedEncoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
-						}
-						return result;
-					}
-					// the system did not guess the correct encoding
-					// reread with the correct encoding
-					if (SS = [NSString stringWithContentsOfURL:absoluteURL encoding:hardCodedStringEncoding error:outErrorPtr])
-					{
-						usedEncoding = hardCodedStringEncoding;
-						S = SS;
-						goto terminate;
-					}
-					result = NO;
-					canStringEncoding = YES;
-					LOG4iTM3(@"The hard coded string encoding %@ could not be honoured:%@, using %@ instead",
-						hardStringEncodingString,
-						[NSString localizedNameOfStringEncoding:hardCodedStringEncoding],
-						[NSString localizedNameOfStringEncoding:usedEncoding],
-						absoluteURL);
+                    self.stringEncoding = usedEncoding;
+                    self.isStringEncodingHardCoded = !canStringEncoding;
+                    self.hardStringEncodingString = hardStringEncodingString;
+                    [self.document setStringRepresentation:S];
+                    if (iTM2DebugEnabled) {
+                        LOG4iTM3(@"usedEncoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
+                    }
+                    return result;
+                }
+                // the system did not guess the correct encoding
+                // reread with the correct encoding
+                if (SS = [NSString stringWithContentsOfURL:absoluteURL encoding:hardCodedStringEncoding error:outErrorPtr]) {
+                    usedEncoding = hardCodedStringEncoding;
+                    S = SS;
+                    goto terminate;
+                }
+                result = NO;
+                canStringEncoding = YES;
+                LOG4iTM3(@"The hard coded string encoding %@ could not be honoured:%@, using %@ instead",
+                    hardStringEncodingString,
+                    [NSString localizedNameOfStringEncoding:hardCodedStringEncoding],
+                    [NSString localizedNameOfStringEncoding:usedEncoding],
+                    absoluteURL);
 try_another_encoding:
-					preferredStringEncoding = self.stringEncoding;
-					if (preferredStringEncoding == usedEncoding)
-					{
-						goto terminate;
-					}
-					if ((0 == preferredStringEncoding)
-						|| (0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length]))
-					{
-						preferredStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
-						[SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
-						if (preferredStringEncoding == usedEncoding)
-						{
-							goto terminate;
-						}
-					}
-					else
-					{
-						SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:outErrorPtr];
-						if (nil != SS)
-						{
-							usedEncoding = preferredStringEncoding;
-							S = SS;
-							goto terminate;
-						}
-						preferredStringEncoding = [SUD integerForKey:iTM2StringEncodingPreferredKey];
-						if (preferredStringEncoding == usedEncoding)
-						{
-							goto terminate;
-						}
-						if ((0 == preferredStringEncoding)
-							|| (0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length]))
-						{
-							preferredStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
-							[SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
-							if (preferredStringEncoding == usedEncoding)
-							{
-								goto terminate;
-							}
-						}
-					}
-					SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:outErrorPtr];
-					if (nil != SS)
-					{
-						usedEncoding = preferredStringEncoding;
-						S = SS;
-					}
-					goto terminate;
-				}
-				// there is no hard coded string encoding
-			}
-		}
-		goto try_another_encoding;
-	}
-	else// before leopard
-	{
-		S = [self stringWithData:[NSData dataWithContentsOfURL:absoluteURL options:0 error:outErrorPtr]];
-		// User is using some version of Mac OS X greater than 10.1.x
-		[self.document setStringRepresentation:S];
-	}
-	return YES;
+                preferredStringEncoding = self.stringEncoding;
+                if (preferredStringEncoding == usedEncoding) {
+                    goto terminate;
+                }
+                if ((0 == preferredStringEncoding)
+                        || (0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length])) {
+                    preferredStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
+                    [SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
+                    if (preferredStringEncoding == usedEncoding) {
+                        goto terminate;
+                    }
+                } else {
+                    if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:outErrorPtr])) {
+                        usedEncoding = preferredStringEncoding;
+                        S = SS;
+                        goto terminate;
+                    }
+                    preferredStringEncoding = [SUD integerForKey:iTM2StringEncodingPreferredKey];
+                    if (preferredStringEncoding == usedEncoding) {
+                        goto terminate;
+                    }
+                    if ((0 == preferredStringEncoding)
+                            || (0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length])) {
+                        preferredStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
+                        [SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
+                        if (preferredStringEncoding == usedEncoding) {
+                            goto terminate;
+                        }
+                    }
+                }
+                if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:outErrorPtr])) {
+                    usedEncoding = preferredStringEncoding;
+                    S = SS;
+                }
+                goto terminate;
+            }
+            // there is no hard coded string encoding
+        }
+    }
+    goto try_another_encoding;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyEOL
 - (NSUInteger)lazyEOL;
@@ -1757,7 +1727,7 @@ To Do List:
 @end
 
 @implementation NSDocument(iTM2StringFormatController)
-- (id)stringFormatter;
+- (id)stringFormatter4iTM3;
 {DIAGNOSTIC4iTM3;
 	return nil;
 }
@@ -2417,7 +2387,7 @@ To Do List:
     }
     else if ([obj isKindOfClass:[NSString class]] && [(NSString *)obj length])
     {
-		NSUInteger encoding = [NSString stringEncodingWithName:obj];
+		NSUInteger encoding = [NSString stringEncodingWithName4iTM3:obj];
 		result = [NSString localizedNameOfStringEncoding:encoding];
     }
     if (!result.length)
@@ -2461,7 +2431,7 @@ To Do List:
 		NSString * S = [TS mutableString];
 		NSStringEncoding encoding;
 		NSRange R;
-		[S getHardCodedStringEncoding:&encoding range:&R];
+		[S getHardCodedStringEncoding4iTM3:&encoding range:&R];
 		if (R.length)
 		{
 			[self setStringEncoding:encoding];

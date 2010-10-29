@@ -31,8 +31,6 @@ extern NSString * const TWSFactoryExtension;
 
 extern NSString * const iTM2SubdocumentsInspectorMode;
 
-extern NSString * const iTM2ProjectPlistPathExtension;
-
 extern NSString * const iTM2ProjectTable;
 
 extern NSString * const TWSFrontendComponent;
@@ -121,60 +119,6 @@ typedef enum
     @result     An \p iTM2ProjectController instance.
 */
 + (void)setSharedProjectController:(id)argument;
-
-/*!
-    @method			mainInfoURLFromURL:create:error:
-    @abstract		The URL of the main Info property list storage.
-    @discussion		The main info property list contains the base project name, the source directory name,
-					all the file keys and their relative names.
-					It also .
-    @param			fileURL is an URL.
-	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
-    @result			An URL.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSURL *)mainInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-
-/*!
-    @method			otherInfoURLFromURL:create:error:
-    @abstract		The URL of the other Infos property list storage.
-    @discussion		Discussion forthcoming.
-    @param			fileURL is an URL.
-	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
-    @result			An URL.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSURL *)otherInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-
-/*!
-    @method			metaInfoURLFromURL:create:error:
-    @abstract		The URL of the meta Info property list storage.
-    @discussion		Discussion forthcoming.
-    @param			fileURL is an URL.
-	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
-    @result			An URL.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSURL *)metaInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-
-/*!
-    @method			customInfoURLFromURL:create:error:
-    @abstract		The URL of the custom Info property list storage.
-    @discussion		Discussion forthcoming.
-    @param			fileURL is an URL.
-	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
-    @result			An URL.
-	@availability	iTM2.
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSURL *)customInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*!
     @method			normalizedURLWithURL:inProjectWithURL:

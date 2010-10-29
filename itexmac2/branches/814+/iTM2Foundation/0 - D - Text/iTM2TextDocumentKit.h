@@ -64,13 +64,13 @@ extern NSString * const iTM2TextInspectorType;
 @property (assign) NSString * stringRepresentation;
 
 /*!
-	@method		stringFormatter
+	@method		stringFormatter4iTM3
 	@abstract	A string formatter.
 	@discussion	The default implementation returns nil.
 	@param		None
 	@result		A string formatter.
 */
-@property (assign) iTM2StringFormatController * stringFormatter;
+@property (assign) iTM2StringFormatController * stringFormatter4iTM3;
 @property (readonly) id lazyStringFormatter;
 
 /*!

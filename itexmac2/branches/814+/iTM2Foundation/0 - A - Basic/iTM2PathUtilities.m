@@ -732,6 +732,11 @@ NSString * const iTM2PathFactoryComponent = @"Factory.localized";
     return [NSURL fileURLWithPath4iTM3:nil];
 }
 - (NSString *)path4iTM3;
+/*"The only difference with the original method is that the path of a directory will contain a trailing slash.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Latest Revision: Wed Mar 17 19:33:04 UTC 2010
+To Do List:
+"*/
 {//DIAGNOSTIC4iTM3;
 	//START4iTM3;
     if (self.isFileURL) {

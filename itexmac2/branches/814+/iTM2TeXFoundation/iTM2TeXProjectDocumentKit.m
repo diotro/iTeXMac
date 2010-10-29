@@ -806,7 +806,7 @@ To Do List:
 		NSString * title = nil;
 		SEL takeStringEncodingFromDefaults = @selector(takeStringEncodingFromDefaults:);
 		stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
-		encoding = [NSString stringEncodingWithName:stringEncodingName];
+		encoding = [NSString stringEncodingWithName4iTM3:stringEncodingName];
 		title = [NSString localizedNameOfStringEncoding:encoding];
 		title = [NSString stringWithFormat:iTM2StringEncodingDefaultFormat, title];
 		if(!(MI = [M itemWithAction4iTM3:takeStringEncodingFromDefaults]))
@@ -850,7 +850,7 @@ To Do List:
 		BOOL defaultIsAutoStringEncoding = [N boolValue];// beware, contextBoolForKey should be preferred, once it is well implemented
 		NSString * defaultStringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
-		NSStringEncoding defaultStringEncoding = [NSString stringEncodingWithName:defaultStringEncodingName];
+		NSStringEncoding defaultStringEncoding = [NSString stringEncodingWithName4iTM3:defaultStringEncodingName];
 		NSUInteger row = [selectedRowIndexes firstIndex];
 		if(row == 0)
         {
@@ -917,7 +917,7 @@ selectOneItem:
 				N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 				if([N boolValue])
 				{
-					iTM2StringFormatController * SFC = [document stringFormatter];
+					iTM2StringFormatController * SFC = [document stringFormatter4iTM3];
 					encoding = [SFC stringEncoding];
 					enabled = NO;
 					goto selectOneItem;
@@ -945,7 +945,7 @@ selectOneItem:
 bibiche:
 					if(stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask])
 					{
-						encoding = [NSString stringEncodingWithName:stringEncodingName];
+						encoding = [NSString stringEncodingWithName4iTM3:stringEncodingName];
 						enabled = YES;
 						goto selectOneItem;
 					}
@@ -1049,7 +1049,7 @@ To Do List:
 //START4iTM3;
 	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)self.document;
 	NSString * stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
-	NSStringEncoding stringEncoding = [NSString stringEncodingWithName:stringEncodingName];
+	NSStringEncoding stringEncoding = [NSString stringEncodingWithName4iTM3:stringEncodingName];
 	NSUInteger new = CFStringConvertNSStringEncodingToEncoding(stringEncoding);
 	NSArray * fileKeys = self.orderedFileKeys;
 	NSTableView * documentsView = self.documentsView;

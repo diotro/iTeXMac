@@ -496,13 +496,13 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)removeFileKey:(NSString *)key;
 
 /*! 
-    @method     relativeFileNamesForKeys:
+    @method     namesForFileKeys:
     @abstract   The relative file names for the given keys.
     @discussion Discussion forthcoming
     @param      an array of keys
     @result     an NSString
 */
-- (NSArray *)relativeFileNamesForKeys:(NSArray *)keys;
+- (NSArray *)namesForFileKeys:(NSArray *)keys;
 
 /*! 
     @method     URLForFileKey:

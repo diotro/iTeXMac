@@ -1108,9 +1108,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSEnumerator * E = [self.subdocuments objectEnumerator];
-	id subdocument;
-	while(subdocument = E.nextObject)
+	for (id subdocument in self.subdocuments)
 		if (subdocument == document)
 			return YES;
 //END4iTM3;
@@ -1125,8 +1123,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([self.mutableSubdocuments4iTM3 containsObject:document])
-    {
+	if ([self.mutableSubdocuments4iTM3 containsObject:document]) {
 		[[document retain] autorelease];
         [self.mutableSubdocuments4iTM3 removeObject:document];
 		[SPC setProject:nil forDocument:document];
@@ -1144,8 +1141,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([self.mutableSubdocuments4iTM3 containsObject:document])
-    {
+	if ([self.mutableSubdocuments4iTM3 containsObject:document]) {
 		[document saveContext:nil];
 		[self forgetSubdocument:document];
 		self.closeIfNeeded;
@@ -1526,36 +1522,13 @@ To Do List:
 	[self updateChangeCount:NSChangeDone];
 	[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
 	
-	NSEnumerator * E = [self.windowControllers objectEnumerator];
-	id WC;
-	while(WC = E.nextObject)
-	{
-		if ([WC respondsToSelector:@selector(updateOrderedFileKeys)])
-		{
-			[WC updateOrderedFileKeys];
+	for (iTM2SubdocumentsInspector * WC in self.windowControllers) {
+		if ([WC respondsToSelector:@selector(updateOrderedFileKeys)]) {
+			WC.updateOrderedFileKeys;
 		}
 	}
 //END4iTM3;
     return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  relativeFileNamesForKeys:
-- (NSArray *)relativeFileNamesForKeys:(NSArray *)keys;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Wed Mar 17 13:29:51 UTC 2010
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	NSMutableArray * result = [NSMutableArray array];
-	for (NSString * key in keys) {
-		NSString * name = [self nameForFileKey:key];
-		if (name.length) {
-			[result addObject:name];
-		}
-	}
-//END4iTM3;
-    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contentsURL
 - (NSURL *)contentsURL;
@@ -1615,7 +1588,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [SPC URLForFileKey:key filter:iTM2PCFilterRegular inProjectWithURL:self.fileURL];
+	return [self.mainInfos URLForFileKey:key];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  URLsForFileKeys:
 - (NSArray *)URLsForFileKeys:(NSArray *)keys;
@@ -1626,15 +1599,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSMutableArray * result = [NSMutableArray array];
-	for (NSString * key in keys) {
-		NSURL * URL = [self URLForFileKey:key];
-		if (URL) {
-			[result addObject:URL];
-		}
-	}
 //END4iTM3;
-    return result;
+	return [self.mainInfos URLsForFileKeys:keys];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setURL:forFileKey:
 - (NSURL *)setURL:(NSURL *)fileURL forFileKey:(NSString *)key;
@@ -1774,6 +1740,18 @@ To Do List:
 //START4iTM3;
 //END4iTM3;
 	return [self.mainInfos nameForFileKey:key];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  namesForFileKeys:
+- (NSArray *)namesForFileKeys:(NSArray *)keys;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+Latest Revision: Wed Mar 17 13:29:51 UTC 2010
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+//END4iTM3;
+	return [self.mainInfos namesForFileKeys:keys];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setName:forFileKey:
 - (void)setName:(NSString *)name forFileKey:(NSString *)key;
@@ -2431,7 +2409,7 @@ To Do List:
 #pragma mark =-=-=-=-=-  OPEN SUBDOCUMENT
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openSubdocumentWithContentsOfURL:context:display:outErrorPtr:
 - (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outErrorPtr;
-/*"Returns the contextInfo of its document.
+/*"Designated creator.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Fri Mar 26 14:57:38 UTC 2010
 To Do List:
@@ -2461,7 +2439,7 @@ To Do List:
 		return self;// we should not get there!
 	}
 	// is it an already open document?
-	// beware of the faraway project support
+	// beware of the faraway project support (once implemented incompletely)
     NSDocument * doc = nil;
     for (doc in self.subdocuments) {
 		NSURL * url = doc.fileURL;

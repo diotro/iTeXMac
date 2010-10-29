@@ -48,7 +48,6 @@
 #import "iTM2DocumentControllerKit.h"
 
 NSString * const iTM2ProjectComponent = @"Project";
-NSString * const iTM2ProjectPlistPathExtension = @"plist";
 NSString * const iTM2ProjectDefaultName = @"Default";
 NSString * const TWSFactoryExtension = @"iTM2-Factory";
 
@@ -179,8 +178,6 @@ To Do List:
 
 NSString * const iTM2ProjectIsDirectoryWrapperKey = @"iTM2ProjectIsDirectoryWrapper";
 
-NSString * const iTM2ProjectCustomInfoComponent = @"CustomInfo";
-
 @interface iTM2ProjectController()
 @property (readwrite,retain) NSHashTable * projects;
 @property (readwrite,retain) id baseProjects;
@@ -257,106 +254,6 @@ To Do List:
         self.flushCaches;
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mainInfoURLFromURL:create:error:
-- (NSURL *)mainInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Thu Jan 28 22:03:17 UTC 2010
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	if (fileURL.isFileURL) {
-		NSString * path = fileURL.path;
-		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
-		}
-		NSString * component = [iTM2ProjectInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-		return [NSURL URLWithPath4iTM3:component relativeToURL:fileURL];
-	} else {
-		OUTERROR4iTM3(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-//END4iTM3;
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  otherInfoURLFromURL:create:error:
-- (NSURL *)otherInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Thu Jan 28 22:06:35 UTC 2010
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	if (fileURL.isFileURL) {
-		NSString * fileName = fileURL.path;
-		NSString * path = [[NSBundle mainBundle] bundleIdentifier];
-		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
-		path = [fileName stringByAppendingPathComponent:path];
-		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
-		}
-		NSString * component = [iTM2ProjectInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-		path = [path stringByAppendingPathComponent:component];
-		return [NSURL URLWithPath4iTM3:path relativeToURL:fileURL];
-	} else {
-		OUTERROR4iTM3(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-//END4iTM3;
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaInfoURLFromURL:create:error:
-- (NSURL *)metaInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Thu Jan 28 22:06:23 UTC 2010
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	if (fileURL.isFileURL) {
-		NSString * fileName = fileURL.path;
-		NSString * path = [[NSBundle mainBundle] bundleIdentifier];
-		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
-		path = [fileName stringByAppendingPathComponent:path];
-		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
-		}
-		NSString * component = [iTM2ProjectInfoMetaComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-		path = [path stringByAppendingPathComponent:component];
-		return [NSURL URLWithPath4iTM3:path relativeToURL:fileURL];
-	} else {
-		OUTERROR4iTM3(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-//END4iTM3;
-    return nil;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  customInfoURLFromURL:create:error:
-- (NSURL *)customInfoURLFromURL:(NSURL *)fileURL create:(BOOL)yorn error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Thu Jan 28 22:07:11 UTC 2010
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	if (fileURL.isFileURL) {
-		NSString * fileName = fileURL.path;
-		NSString * path = [[NSBundle mainBundle] bundleIdentifier];
-		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
-		path = [fileName stringByAppendingPathComponent:path];
-		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
-		}
-		NSString * component = [iTM2ProjectCustomInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
-		path = [path stringByAppendingPathComponent:component];
-		return [NSURL URLWithPath4iTM3:path relativeToURL:fileURL];
-	} else {
-		OUTERROR4iTM3(1,([NSString stringWithFormat:@"File URL expected, instead of\n%@",fileURL]),nil);
-	}
-//END4iTM3;
-    return nil;
 }
 #pragma mark =-=-=-=-=-  FILE KEY ACCESSORS
 static NSArray * _iTM2PCReservedKeys = nil;
@@ -568,7 +465,6 @@ ready_to_go:;
 - (NSString *)fileKeyForURL:(NSURL *)fileURL filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 Latest Revision: Wed Mar 17 17:35:46 UTC 2010
 To Do List:
 "*/
@@ -1040,7 +936,6 @@ To Do List:
 - (NSString*)finderAliasesSubdirectory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1052,7 +947,6 @@ To Do List:
 - (NSString*)bookmarksSubdirectory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1064,7 +958,6 @@ To Do List:
 - (NSString*)absoluteSoftLinksSubdirectory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1076,7 +969,6 @@ To Do List:
 - (NSString*)relativeSoftLinksSubdirectory;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1091,7 +983,6 @@ To Do List:
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1120,7 +1011,6 @@ To Do List:
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1644,7 +1534,6 @@ theEnd:
 - (Class)createNewProjectPanelControllerClass;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1773,7 +1662,6 @@ createWrapper:
 - (id)getProjectFromPanelForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1948,7 +1836,6 @@ newWritableProject:;
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1965,7 +1852,6 @@ To Do List:
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2007,7 +1893,6 @@ To Do List:
 Developer note:all the docs open here are .texp files.
 Those files are filtered out and won't be open by the posed as class document controller.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 Latest Revision: Thu Oct  7 07:15:09 UTC 2010
 To Do List:
 "*/
@@ -2232,7 +2117,6 @@ Latest Revision: Sat May 15 06:17:59 UTC 2010
 - (void)updateBaseProjectsNotified:(NSNotification *) irrelevant;
 /*"Description forthcoming. startup time used 1883/4233=0,44483817623, 0,23483309144
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2353,7 +2237,6 @@ Latest Revision: Sat May 15 21:15:32 UTC 2010
 - (BOOL)isBaseProject:(id)argument;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 Latest Revision: Sat Jan 30 10:15:45 UTC 2010
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2570,7 +2453,6 @@ To Do List:
 - (void)windowWillLoad;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2598,7 +2480,6 @@ To Do List:
 - (void)windowDidLoad;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2612,7 +2493,6 @@ To Do List:
 - (void)OK:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2628,7 +2508,6 @@ To Do List:
 - (IBAction)noProject:(NSControl *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2643,7 +2522,6 @@ To Do List:
 - (BOOL)validateNoProject:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2655,7 +2533,6 @@ To Do List:
 - (IBAction)toggleNewProject:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2669,7 +2546,6 @@ To Do List:
 - (BOOL)validateToggleNewProject:(NSButton *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2682,7 +2558,6 @@ To Do List:
 - (IBAction)toggleDirectoryWrapper:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2696,7 +2571,6 @@ To Do List:
 - (BOOL)validateToggleDirectoryWrapper:(NSButton *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2714,7 +2588,6 @@ To Do List:
 - (IBAction)newProjectNameEdited:(NSTextField *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2734,7 +2607,6 @@ To Do List:
 - (BOOL)validateNewProjectNameEdited:(NSTextField *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2769,7 +2641,6 @@ To Do List:
 - (IBAction)toggleOldProject:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2783,7 +2654,6 @@ To Do List:
 - (BOOL)validateToggleOldProject:(NSMenuItem *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2828,7 +2698,6 @@ To Do List:
 - (IBAction)tableViewAction:(NSTableView *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2848,7 +2717,6 @@ To Do List:
 - (BOOL)validateTableViewAction:(NSTableView *)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2870,7 +2738,6 @@ To Do List:
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2882,7 +2749,6 @@ To Do List:
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2901,7 +2767,6 @@ To Do List:
 - (void)cancel:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2914,7 +2779,6 @@ To Do List:
 - (BOOL)canCreateNewProject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -2926,7 +2790,6 @@ To Do List:
 - (BOOL)canInsertInProject;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-SPC metaInfoURLFromFileURL
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -3405,7 +3268,7 @@ To Do List:
     NSURL * url = nil;
     if (URLs.count == 1) {
         return [self openDocumentWithContentsOfURL:URLs.lastObject display:display error:outErrorPtr];
-    } else if ((url = [SPC mainInfoURLFromURL:absoluteURL create:NO error:outErrorPtr])) {
+    } else if ((url = [absoluteURL mainInfoURL4iTM3WithCreate:NO error:outErrorPtr])) {
         // it does not contain any project document
         // it may be itself a project wrapper!
         // is it still a project wrapper?
@@ -3557,8 +3420,7 @@ To Do List:
 - (id)documentForURL:(NSURL *)absoluteURL;
 /*"Description forthcoming.
  Version History: jlaurens AT users DOT sourceforge DOT net
- SPC metaInfoURLFromFileURL
- NOT YET VERIFIED
+  NOT YET VERIFIED
  To Do List:
  "*/
 {DIAGNOSTIC4iTM3;

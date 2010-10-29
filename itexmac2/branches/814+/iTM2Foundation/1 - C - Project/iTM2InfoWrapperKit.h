@@ -40,8 +40,11 @@ extern NSString * const iTM2SoftLinksKey;
 extern NSString * const iTM2ProjectLastKeyKey;
 extern NSString * const iTM2ProjectFrontDocumentKey;
 
+extern NSString * const iTM2ProjectPlistPathExtension;
 extern NSString * const iTM2ProjectInfoComponent;
 extern NSString * const iTM2ProjectInfoMetaComponent;
+extern NSString * const iTM2ProjectCustomInfoComponent;
+
 
 extern NSString * const iTM2ProjectInfoMainType;
 
@@ -699,5 +702,65 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (BOOL)restoreCustomForKeyPaths:(NSString *)first,...;
+
+@end
+
+
+
+@interface NSURL(iTM2InfoWrapper)
+
+/*!
+    @method			mainInfoURL4iTM3WithCreate:create:error:
+    @abstract		The URL of the main Info property list storage.
+    @discussion		The main info property list contains the base project name, the source directory name,
+					all the file keys and their relative names.
+					It also contains meta info like string encoding, line ending (but this should not be the case).
+    @param			fileURL is an URL.
+	@param			yorn is a flag.
+	@param			outErrorPtr a pointer to an error.
+    @result			An URL.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSURL *)mainInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+
+/*!
+    @method			otherInfoURL4iTM3WithCreate:error:
+    @abstract		The URL of the other Infos property list storage.
+    @discussion		Discussion forthcoming.
+    @param			fileURL is an URL.
+	@param			yorn is a flag.
+	@param			outErrorPtr a pointer to an error.
+    @result			An URL.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSURL *)otherInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+
+/*!
+    @method			metaInfoURL4iTM3WithCreate:error:
+    @abstract		The URL of the meta Info property list storage.
+    @discussion		Discussion forthcoming.
+    @param			fileURL is an URL.
+	@param			yorn is a flag.
+	@param			outErrorPtr a pointer to an error.
+    @result			An URL.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSURL *)metaInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+
+/*!
+    @method			customInfoURL4iTM3WithCreate:error:
+    @abstract		The URL of the custom Info property list storage.
+    @discussion		Discussion forthcoming.
+    @param			fileURL is an URL.
+	@param			yorn is a flag.
+	@param			outErrorPtr a pointer to an error.
+    @result			An URL.
+	@availability	iTM2.
+	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSURL *)customInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 @end

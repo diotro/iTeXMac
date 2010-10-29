@@ -11,12 +11,21 @@ function find_and_replace {
     find . \( -name "*i*T*M*2*.h" -or -name "*i*T*M*2*.m" \) -exec egrep -q "$1" "{}" \; -print -exec open -a xcode "{}" \;
 }
 
+find_and_replace  'relativeFileNamesForKeys' 's/(\brelativeFileNamesForKeys\b)/namesForFileKeys/g'
 
 exit 0
 
 
 
 
+find_and_replace ' masterFileKey]' 's/\[ *([_\w.]*) *(masterFileKey) *\]/${1}.${2}/g'
+find_and_replace  'stringFormatter' 's/(\bstringFormatter\b)/${1}4iTM3/g'
+find_and_replace  'getHardCodedStringEncoding' 's/(getHardCodedStringEncoding)/${1}4iTM3/g'
+find_and_replace  'EOLUsed' 's/(EOLUsed)/${1}4iTM3/g'
+find_and_replace  'stringByUsingEOL' 's/(stringByUsingEOL)/${1}4iTM3/g'
+find_and_replace  'localizedNameOfEOL' 's/(localizedNameOfEOL)/${1}4iTM3/g'
+find_and_replace  'stringEncodingWithName' 's/(stringEncodingWithName)/${1}4iTM3/g'
+find_and_replace  'nameOfStringEncoding' 's/(nameOfStringEncoding)/${1}4iTM3/g'
 find_and_replace  '(c|localToGlobalC|globalToLocalC)haracterIndex(?:NearPoint)?:' 's/((c|localToGlobalC|globalToLocalC)haracterIndex(?:NearPoint)?):/${1}4iTM3:/g'
 find_and_replace  'getIntegerTrailer' 's/(getIntegerTrailer)/${1}4iTM3/g'
 find_and_replace  'stringForCommentedKey' 's/(stringForCommentedKey)/${1}4iTM3/g'
