@@ -1099,7 +1099,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
 	if(!old)
 	{
 		NSBundle * B = [NSBundle bundleForClass:[iTM2TeXEditor class]];
@@ -1124,16 +1124,16 @@ To Do List:
 		nil,//alt
 	NSLocalizedStringFromTableInBundle( @"Cancel", iTM2TeXProjectFrontendTable, B, "Button title")))
 		{
-			[self takeContextBool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+			[self takeContext4iTM3Bool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
 		}
 	}
 	else if([self respondsToSelector:@selector(window)])
 	{
-		[self takeContextBool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Bool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextPrivateMask];
 	}
 	else
 	{
-		[self takeContextBool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Bool:!old forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
 	}
 //END4iTM3;
 	return;
@@ -1149,7 +1149,7 @@ To Do List:
 //LOG4iTM3;
 	if(returnCode == NSAlertDefaultReturn)
 	{
-		[self takeContextBool:YES forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Bool:YES forKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextPrivateMask];
 	}
     return;
 }
@@ -1163,7 +1163,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask];
 	sender.state = (old?NSOnState:NSOffState);
 //END4iTM3;
 	return YES;
@@ -1269,7 +1269,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if([C contextBoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask])
+	if([C context4iTM3BoolForKey:iTM2TeX7bitsAccentsKey domain:iTM2ContextAllDomainsMask])
 	{
 		id keyNode = [[self.class the7bitsAccentsList] objectInChildrenWithKeyStroke:keyStroke];
 		if(keyNode && [C respondsToSelector:@selector(insertMacro_ROUGH:)])
@@ -1772,7 +1772,7 @@ To Do List: implement some kind of balance range for range
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSRange R = [self contextBoolForKey:iTM2TeXSmartSelectionKey domain:iTM2ContextAllDomainsMask] && ![iTM2EventObserver isAlternateKeyDown]?
+    NSRange R = [self context4iTM3BoolForKey:iTM2TeXSmartSelectionKey domain:iTM2ContextAllDomainsMask] && ![iTM2EventObserver isAlternateKeyDown]?
         [self smartDoubleClickAtIndex:index]:[super doubleClickAtIndex:index];
 //END4iTM3;
     return R;

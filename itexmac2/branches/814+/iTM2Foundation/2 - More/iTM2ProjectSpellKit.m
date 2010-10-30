@@ -96,7 +96,7 @@ To Do List:
 		[self setSpellContextController:[[[iTM2SpellContextController alloc] init] autorelease]];
 	}
 //LOG4iTM3(@"self.spellContextController:%@", self.spellContextController);
-	id O = [self metaInfoForKeyPaths:@"SpellContextModes",nil];
+	id O = [self metaInfo4iTM3ForKeyPaths:@"SpellContextModes",nil];
 //LOG4iTM3(@"SPELL KIT MODEL TO BE LOADED:%@", O);
 	if ([O isKindOfClass:[NSDictionary class]])
 		[self.spellContextController loadPropertyListRepresentation:O];
@@ -115,7 +115,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	id O = [self metaInfoForKeyPaths:@"SpellContextModes",nil];
+	id O = [self metaInfo4iTM3ForKeyPaths:@"SpellContextModes",nil];
 //LOG4iTM3(@"SPELL KIT MODEL TO BE LOADED:%@", O);
 	if ([O isKindOfClass:[NSDictionary class]]) {
 		[self.spellContextController loadPropertyListRepresentation:O];
@@ -139,7 +139,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //LOG4iTM3(@"SPELL KIT MODEL TO BE SAVED:%@", [self.spellContextController propertyListRepresentation]);
-	[self setMetaInfo:[self.spellContextController propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
+	[self setMetaInfo4iTM3:[self.spellContextController propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
     return YES;
 }
 #endif

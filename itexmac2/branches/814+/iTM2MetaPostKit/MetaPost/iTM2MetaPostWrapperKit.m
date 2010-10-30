@@ -113,7 +113,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MetaPostFormatKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MetaPostFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -125,8 +125,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostFormatKey,nil]?:@"")];
-    return ![[self editInfoForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
+    [sender setStringValue: ([self editInfo4iTM3ForKeyPaths:iTM2MetaPostFormatKey,nil]?:@"")];
+    return ![[self editInfo4iTM3ForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseFormat:
 - (IBAction)chooseFormat:(id)sender;
@@ -137,7 +137,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostFormatKey,nil];
+    [self setInfo4TM3:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseFormat:
@@ -178,7 +178,7 @@ To Do List:
 				}
 			}
 		}
-		return ![[self editInfoForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
+		return ![[self editInfo4iTM3ForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
 	}
     else
         return NO;
@@ -192,7 +192,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostParseFirstLineKey,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostParseFirstLineKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -204,11 +204,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL flag = [[self editInfoForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
+	BOOL flag = [[self editInfo4iTM3ForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
     [sender selectCellWithTag: (flag? 1:0)];
-	if([[self editInfoForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue] != flag)
+	if([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue] != flag)
 	{
-		[self setInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MetaPostPARSETranslationKey,nil];
+		[self setInfo4TM3:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MetaPostPARSETranslationKey,nil];
 	}
     return YES;
 }
@@ -221,7 +221,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MetaPostUSEProgNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleProgName:
@@ -233,7 +233,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue]? NSOnState:NSOffState);
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editProgName:
@@ -245,7 +245,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MetaPostProgNameKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MetaPostProgNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditProgName:
@@ -257,20 +257,20 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if([[self editInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue])
+    if([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue])
     {
-        NSString * v = [self editInfoForKeyPaths:iTM2MetaPostProgNameKey,nil];
+        NSString * v = [self editInfo4iTM3ForKeyPaths:iTM2MetaPostProgNameKey,nil];
         if(!v.length)
         {
-            v = [self editInfoForKeyPaths:iTM2MetaPostFormatKey,nil];
-            [self setInfo:v forKeyPaths:iTM2MetaPostProgNameKey,nil];
+            v = [self editInfo4iTM3ForKeyPaths:iTM2MetaPostFormatKey,nil];
+            [self setInfo4TM3:v forKeyPaths:iTM2MetaPostProgNameKey,nil];
         }
         [sender setStringValue: (v?:@"")];
         return YES;
     }
     else
     {
-        [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostFormatKey,nil]?:@"")];
+        [sender setStringValue: ([self editInfo4iTM3ForKeyPaths:iTM2MetaPostFormatKey,nil]?:@"")];
         return NO;
     }
 }
@@ -283,7 +283,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostProgNameKey,nil];
+    [self setInfo4TM3:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostProgNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseProgName:
@@ -314,7 +314,7 @@ To Do List:
 				}
 			}
 		}
-		return [[self editInfoForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue];
+		return [[self editInfo4iTM3ForKeyPaths:iTM2MetaPostUSEProgNameKey,nil] boolValue];
 	}
     else
         return NO;
@@ -328,7 +328,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MetaPostTeXFormatKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MetaPostTeXFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditFormat:
@@ -340,8 +340,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostTeXFormatKey,nil]?:@"")];
-    return ![[self editInfoForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue];
+    [sender setStringValue: ([self editInfo4iTM3ForKeyPaths:iTM2MetaPostTeXFormatKey,nil]?:@"")];
+    return ![[self editInfo4iTM3ForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseTeXFormat:
 - (IBAction)chooseTeXFormat:(id)sender;
@@ -352,7 +352,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostTeXFormatKey,nil];
+    [self setInfo4TM3:[[sender selectedItem] representedObject] forKeyPaths:iTM2MetaPostTeXFormatKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXFormat:
@@ -393,7 +393,7 @@ To Do List:
 				}
 			}
 		}
-		return ![[self editInfoForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue];
+		return ![[self editInfo4iTM3ForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue];
 	}
     else
         return NO;
@@ -407,7 +407,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchTeXFormat:
@@ -419,7 +419,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender selectCellWithTag: ([[self editInfoForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue]? 1:0)];
+    [sender selectCellWithTag: ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue]? 1:0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleConvertToPDF:
@@ -431,7 +431,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue]] forKeyPaths:iTM2MetaPostConvertToPDFKey,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool: ![[self editInfo4iTM3ForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue]] forKeyPaths:iTM2MetaPostConvertToPDFKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleConvertToPDF:
@@ -443,7 +443,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue]? NSOnState:NSOffState);
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchPDFConverter:
@@ -455,7 +455,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[NSNumber numberWithInteger:[[sender selectedCell] tag]] forKeyPaths:iTM2MetaPostPDFConverterKey,nil];
+    [self setInfo4TM3:[NSNumber numberWithInteger:[[sender selectedCell] tag]] forKeyPaths:iTM2MetaPostPDFConverterKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchPDFConverter:
@@ -467,7 +467,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [sender selectCellWithTag:[[self editInfoForKeyPaths:iTM2MetaPostPDFConverterKey,nil] integerValue]] && [[self editInfoForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue];
+    return [sender selectCellWithTag:[[self editInfo4iTM3ForKeyPaths:iTM2MetaPostPDFConverterKey,nil] integerValue]] && [[self editInfo4iTM3ForKeyPaths:iTM2MetaPostConvertToPDFKey,nil] boolValue];
 }
 #pragma mark =-=-=-=-=-  Translate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editTable:
@@ -479,7 +479,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MetaPostTranslationKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MetaPostTranslationKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditTable:
@@ -491,8 +491,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostTranslationKey,nil]?:@"")];
-    return ![[self editInfoForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue];
+    [sender setStringValue: ([self editInfo4iTM3ForKeyPaths:iTM2MetaPostTranslationKey,nil]?:@"")];
+    return ![[self editInfo4iTM3ForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  switchTable:
 - (IBAction)switchTable:(id)sender;
@@ -515,7 +515,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender selectCellWithTag: ([[self editInfoForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue]? 1:0)];
+    [sender selectCellWithTag: ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue]? 1:0)];
     return NO;
 }
 #pragma mark =-=-=-=-=-  Advanced
@@ -528,7 +528,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MetaPostTroffKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MetaPostTroffKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTROFF:
@@ -540,7 +540,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostTroffKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostTroffKey,nil] boolValue]? NSOnState:NSOffState);
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleIni:
@@ -552,7 +552,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MetaPostIniKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MetaPostIniKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleIni:
@@ -564,7 +564,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostIniKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostIniKey,nil] boolValue]? NSOnState:NSOffState);
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editJobName:
@@ -576,7 +576,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MetaPostJobNameKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MetaPostJobNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateEditJobName:
@@ -588,8 +588,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MetaPostJobNameKey,nil]?:@"")];
-    return [[self editInfoForKeyPaths:iTM2MetaPostUSEJobNameKey,nil] boolValue];
+    [sender setStringValue: ([self editInfo4iTM3ForKeyPaths:iTM2MetaPostJobNameKey,nil]?:@"")];
+    return [[self editInfo4iTM3ForKeyPaths:iTM2MetaPostUSEJobNameKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleJobName:
 - (IBAction)toggleJobName:(id)sender;
@@ -600,7 +600,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MetaPostUSEJobNameKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MetaPostUSEJobNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleJobName:
@@ -612,7 +612,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostUSEJobNameKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostUSEJobNameKey,nil] boolValue]? NSOnState:NSOffState);
     return YES;
 }
 #pragma mark =-=-=-=-=-  Output directory
@@ -625,7 +625,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil];
 //END4iTM3;
     return;
 }
@@ -638,7 +638,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil] boolValue]? NSOnState:NSOffState);
 //END4iTM3;
     return YES;
 }
@@ -651,7 +651,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MetaPostOutputDirectoryKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MetaPostOutputDirectoryKey,nil];
 //END4iTM3;
     return;
 }
@@ -664,8 +664,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL enabled = [[self editInfoForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil] boolValue];
-    [sender setStringValue: (enabled? ([self editInfoForKeyPaths:iTM2MetaPostOutputDirectoryKey,nil]?:@""):
+	BOOL enabled = [[self editInfo4iTM3ForKeyPaths:iTM2MetaPostUSEOutputDirectoryKey,nil] boolValue];
+    [sender setStringValue: (enabled? ([self editInfo4iTM3ForKeyPaths:iTM2MetaPostOutputDirectoryKey,nil]?:@""):
 		[(iTM2TeXProjectDocument*)self.document commonCommandOutputDirectory])];
 //END4iTM3;
     return enabled;
@@ -689,7 +689,7 @@ To Do List:
         default:
         case 3: v = @"errorstopmode"; break;
     }
-    [self setInfo:v forKeyPaths:iTM2MetaPostInteractionName,nil];
+    [self setInfo4TM3:v forKeyPaths:iTM2MetaPostInteractionName,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchInteraction:
@@ -703,7 +703,7 @@ To Do List:
 //START4iTM3;
     static NSArray * modes = nil;
     if(!modes) modes = [[NSArray arrayWithObjects:@"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode", nil] retain];
-    [sender selectCellWithTag:[modes indexOfObject:[self editInfoForKeyPaths:iTM2MetaPostInteractionName,nil]]];
+    [sender selectCellWithTag:[modes indexOfObject:[self editInfo4iTM3ForKeyPaths:iTM2MetaPostInteractionName,nil]]];
     return YES;
 }
 #pragma mark =-=-=-=-=-  DEBUG
@@ -716,7 +716,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MetaPostFileLineErrorStyleKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MetaPostFileLineErrorStyleKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleFileLineErrorStyle:
@@ -728,7 +728,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostFileLineErrorStyleKey,nil] boolValue]? NSOffState:NSOnState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostFileLineErrorStyleKey,nil] boolValue]? NSOffState:NSOnState);
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleRecorder:
@@ -740,7 +740,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MetaPostRecorderKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MetaPostRecorderKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleRecorder:
@@ -752,7 +752,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MetaPostRecorderKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostRecorderKey,nil] boolValue]? NSOnState:NSOffState);
     return YES;
 }
 @end
@@ -829,7 +829,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self editInfoForKeyPaths:iTM2MPtoPDFIsLaTeXKey,nil] boolValue];
+    return [[self editInfo4iTM3ForKeyPaths:iTM2MPtoPDFIsLaTeXKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setIsLaTeX:
 - (void)setIsLaTeX:(BOOL)flag;
@@ -840,7 +840,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFIsLaTeXKey,nil];
+	[self setInfo4TM3:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFIsLaTeXKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isRawMP
@@ -852,7 +852,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self editInfoForKeyPaths:iTM2MPtoPDFIsRawMPKey,nil] boolValue];
+    return [[self editInfo4iTM3ForKeyPaths:iTM2MPtoPDFIsRawMPKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setIsRawMP:
 - (void)setIsRawMP:(BOOL)flag;
@@ -863,7 +863,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFIsRawMPKey,nil];
+	[self setInfo4TM3:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFIsRawMPKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  usePassOn
@@ -875,7 +875,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self editInfoForKeyPaths:iTM2MPtoPDFUSEPassOnKey,nil] boolValue];
+    return [[self editInfo4iTM3ForKeyPaths:iTM2MPtoPDFUSEPassOnKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsePassOn:
 - (void)setUsePassOn:(BOOL)flag;
@@ -886,7 +886,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setInfo:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFUSEPassOnKey,nil];
+	[self setInfo4TM3:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MPtoPDFUSEPassOnKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  passOn
@@ -898,7 +898,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self editInfoForKeyPaths:iTM2MPtoPDFPassOnKey,nil];
+    return [self editInfo4iTM3ForKeyPaths:iTM2MPtoPDFPassOnKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPassOn:
 - (void)setPassOn:(NSString *)argument;
@@ -909,7 +909,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setInfo:argument forKeyPaths:iTM2MPtoPDFPassOnKey,nil];
+	[self setInfo4TM3:argument forKeyPaths:iTM2MPtoPDFPassOnKey,nil];
     return;
 }
 @end
@@ -967,7 +967,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MPS2PDFDviPSOptionsKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MPS2PDFDviPSOptionsKey,nil];
 //END4iTM3;
     return;
 }
@@ -980,7 +980,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MPS2PDFDviPSOptionsKey,nil]?:@"")];
+    [sender setStringValue: ([self editInfo4iTM3ForKeyPaths:iTM2MPS2PDFDviPSOptionsKey,nil]?:@"")];
 //END4iTM3;
     return YES;
 }
@@ -993,7 +993,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:[sender stringValue] forKeyPaths:iTM2MPS2PDFTeXOptionsKey,nil];
+    [self setInfo4TM3:[sender stringValue] forKeyPaths:iTM2MPS2PDFTeXOptionsKey,nil];
 //END4iTM3;
     return;
 }
@@ -1006,7 +1006,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender setStringValue: ([self editInfoForKeyPaths:iTM2MPS2PDFTeXOptionsKey,nil]?:@"")];
+    [sender setStringValue: ([self editInfo4iTM3ForKeyPaths:iTM2MPS2PDFTeXOptionsKey,nil]?:@"")];
 //END4iTM3;
     return YES;
 }
@@ -1019,7 +1019,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MPS2PDFUseDviPSOptionsKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MPS2PDFUseDviPSOptionsKey,nil];
 //END4iTM3;
     return;
 }
@@ -1032,7 +1032,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MPS2PDFUseDviPSOptionsKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MPS2PDFUseDviPSOptionsKey,nil] boolValue]? NSOnState:NSOffState);
 //END4iTM3;
     return YES;
 }
@@ -1045,7 +1045,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self toggleInfoForKeyPaths:iTM2MPS2PDFUseTeXOptionsKey,nil];
+    [self toggleInfo4iTM3ForKeyPaths:iTM2MPS2PDFUseTeXOptionsKey,nil];
 //END4iTM3;
     return;
 }
@@ -1058,7 +1058,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self editInfoForKeyPaths:iTM2MPS2PDFUseTeXOptionsKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2MPS2PDFUseTeXOptionsKey,nil] boolValue]? NSOnState:NSOffState);
 //END4iTM3;
     return YES;
 }

@@ -369,7 +369,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextStringForKey:iTM2TextTabAnchorStringKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3StringForKey:iTM2TextTabAnchorStringKey domain:iTM2ContextAllDomainsMask];
 }
 - (unichar)standaloneCharacterAtIndex:(NSUInteger)index inString:(NSString *)aString;
 {
@@ -406,21 +406,21 @@ To Do List:
 }
 -(BOOL)usesTabs;
 {
-    return [self contextBoolForKey:iTM2TextIndentationUsesTabsKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:iTM2TextIndentationUsesTabsKey domain:iTM2ContextAllDomainsMask];
 }
 -(void)setUsesTabs:(BOOL)new;
 {
-    return [self takeContextBool:new forKey:iTM2TextIndentationUsesTabsKey domain:iTM2ContextStandardMask];
+    return [self takeContext4iTM3Bool:new forKey:iTM2TextIndentationUsesTabsKey domain:iTM2ContextStandardMask];
 }
 -(NSUInteger)numberOfSpacesPerTab;
 {
-    return [self contextUnsignedIntegerForKey:iTM2TextNumberOfSpacesPerTabKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3UnsignedIntegerForKey:iTM2TextNumberOfSpacesPerTabKey domain:iTM2ContextAllDomainsMask];
 }
 -(void)setNumberOfSpacesPerTab:(NSUInteger)new;
 {
-    return [self takeContextUnsignedInteger:new forKey:iTM2TextNumberOfSpacesPerTabKey domain:iTM2ContextStandardMask];
+    return [self takeContext4iTM3UnsignedInteger:new forKey:iTM2TextNumberOfSpacesPerTabKey domain:iTM2ContextStandardMask];
 }
-- (id)currentContextManager;
+- (id)currentContext4iTM3Manager;
 {
     return self.delegate;
 }

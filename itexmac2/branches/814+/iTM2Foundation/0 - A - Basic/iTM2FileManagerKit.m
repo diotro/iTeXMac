@@ -213,8 +213,7 @@ To Do List:
 	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
 	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"IsPrivateFileAtPath4iTM3:" signature:[I methodSignature] inherited:YES];
 	NSUInteger i = PA.count;
-	while(i--)
-	{
+	while (i--) {
         [I setSelector:(SEL)[PA pointerAtIndex:i]];
         [I invoke];
         BOOL R = NO;

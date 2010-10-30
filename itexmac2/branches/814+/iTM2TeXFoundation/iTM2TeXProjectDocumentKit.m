@@ -847,7 +847,7 @@ To Do List:
 		}
 		fileKey = iTM2ProjectDefaultsKey;
 		NSNumber * N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
-		BOOL defaultIsAutoStringEncoding = [N boolValue];// beware, contextBoolForKey should be preferred, once it is well implemented
+		BOOL defaultIsAutoStringEncoding = [N boolValue];// beware, context4iTM3BoolForKey should be preferred, once it is well implemented
 		NSString * defaultStringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
 		NSStringEncoding defaultStringEncoding = [NSString stringEncodingWithName4iTM3:defaultStringEncodingName];
@@ -1609,7 +1609,7 @@ To Do List:
 	NSDrawer * drawer = [notification object];
     [drawer validateContent4iTM3];
 	NSSize contentSize = [drawer contentSize];
-	NSString * string = [self contextStringForKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
+	NSString * string = [self context4iTM3StringForKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
 	if(string)
 	{
 		NSRectEdge edge = [drawer preferredEdge];

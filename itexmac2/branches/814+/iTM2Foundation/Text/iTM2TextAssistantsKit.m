@@ -229,7 +229,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    [IMPLEMENTATION takeMetaValue: ([self contextBoolForKey: iTM2UDMatchDelimiterKey]? [iTM2DelimiterWatcher class]: nil) forKey: @"DW"];
+    [IMPLEMENTATION takeMetaValue: ([self context4iTM3BoolForKey: iTM2UDMatchDelimiterKey]? [iTM2DelimiterWatcher class]: nil) forKey: @"DW"];
     return;
 }
 @end
@@ -262,7 +262,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-//    [self takeContextBool: ![self contextBoolForKey: iTM2UDMatchDelimiterKey] forKey: iTM2UDMatchDelimiterKey];
+//    [self takeContext4iTM3Bool: ![self context4iTM3BoolForKey: iTM2UDMatchDelimiterKey] forKey: iTM2UDMatchDelimiterKey];
 //    self.watchDelimitersIfNeeded;
 #warning WATCHING THE DELIMITER IS NOT IMPLEMENTED
     return;
@@ -301,7 +301,7 @@ To Do List: implement some kind of balance range for range
 "*/
 {
 //START4iTM3;
-    NSRange R = [self contextBoolForKey: iTM2UDSmartSelectionKey]?
+    NSRange R = [self context4iTM3BoolForKey: iTM2UDSmartSelectionKey]?
         [self smartDoubleClickAtIndex: index]: [super doubleClickAtIndex: index];
     return R;
 }

@@ -24,8 +24,8 @@
 #import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
 
 @interface iTM2TeXProjectDocument(PRIVATE)
-- (id)otherInfos;
-- (id)mainInfos;
+- (id)otherInfos4iTM3;
+- (id)mainInfos4iTM3;
 @end
 
 @implementation iTM2TeXProjectDocument(Infos)
@@ -42,7 +42,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self.mainInfos infoForKeyPaths:TWSMasterFileKey,nil];
+    return [self.mainInfos4iTM3 info4iTM3ForKeyPaths:TWSMasterFileKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  masterFileKey
 - (NSString *)masterFileKey;
@@ -53,7 +53,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * key = [self.mainInfos infoForKeyPaths:TWSMasterFileKey,nil];
+	NSString * key = [self.mainInfos4iTM3 info4iTM3ForKeyPaths:TWSMasterFileKey,nil];
 	if([key isEqualToString:iTM2ProjectFrontDocumentKey])
 	{
 		// get the front most document of the project
@@ -94,15 +94,15 @@ To Do List:
 //START4iTM3;
 	if([fileKey isEqualToString:iTM2ProjectFrontDocumentKey] || [self nameForFileKey:fileKey])
 	{
-		[self.mainInfos setInfo:fileKey forKeyPaths:TWSMasterFileKey,nil];
+		[self.mainInfos4iTM3 setInfo4TM3:fileKey forKeyPaths:TWSMasterFileKey,nil];
 		return;
 	}
 	LOG4iTM3(@"Only file name keys are authorized here, got %@ not in %@", fileKey, self.fileKeys);
     return;
 }
 #pragma mark =-=-=-=-=-  INFO
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commandInfos
-- (id)commandInfos;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commandInfos4iTM3
+- (id)commandInfos4iTM3;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -111,7 +111,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return self.otherInfos;
+    return self.otherInfos4iTM3;
 }
 
 @end

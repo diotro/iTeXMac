@@ -338,7 +338,7 @@ To Do List:
     if (old != flag)
 	{
         [self SWZ_iTM2Spell_setContinuousSpellCheckingEnabled:flag];
-		[self takeContextBool:self.isContinuousSpellCheckingEnabled forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Bool:self.isContinuousSpellCheckingEnabled forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
 	}
 //END4iTM3;
     return;
@@ -354,7 +354,7 @@ To Do List:
 //START4iTM3;
     [self SWZ_iTM2Spell_toggleContinuousSpellChecking:sender];
 	BOOL yorn = self.isContinuousSpellCheckingEnabled;
-	[self takeContextBool:yorn forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:yorn forKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
     return;
 }
@@ -367,7 +367,7 @@ To Do List: ...
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL yorn = [self contextBoolForKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
+	BOOL yorn = [self context4iTM3BoolForKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
     [self setContinuousSpellCheckingEnabled:yorn];
 	[super contextDidChange];
 	self.contextDidChangeComplete;
@@ -1326,9 +1326,9 @@ To Do List:
     [iVarIgnoredWords sortUsingSelector:@selector(compare:)];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager:
-- (id)contextManager;
-/*"Returns the contextManager of its window controller.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager:
+- (id)context4iTM3Manager;
+/*"Returns the context4iTM3Manager of its window controller.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
@@ -1336,7 +1336,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3
 	NSText * source = self.currentText;
-    return source.window.windowController != self? source.contextManager:nil;
+    return source.window.windowController != self? source.context4iTM3Manager:nil;
 }
 @synthesize currentText=iVarCurrentText;
 @synthesize tableView=iVarTableView;

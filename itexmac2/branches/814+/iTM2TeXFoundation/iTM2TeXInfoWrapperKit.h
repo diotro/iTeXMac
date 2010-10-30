@@ -26,13 +26,13 @@
 @interface iTM2TeXProjectDocument(Infos)
 
 /*! 
-    @method     commandInfos
+    @method     commandInfos4iTM3
     @abstract   The command info document.
     @discussion It is an alias for the inherited frontendInfo (for a better name).
     @param      None
     @result     an Info document
 */
-- (id)commandInfos;
+- (id)commandInfos4iTM3;
 
 /*! 
     @method     masterFileKey

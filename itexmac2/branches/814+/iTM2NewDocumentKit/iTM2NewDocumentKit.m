@@ -148,7 +148,7 @@ To Do List:
 @interface iTM2NewDocumentAssistant()
 @property (readwrite,assign) BOOL preferWrapper;
 @property (readwrite,assign) NSURL * panelDirectoryURL;
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withDictionary:(NSDictionary *)filter;
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withDictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
 @end
 
 @implementation iTM2NewDocumentAssistant
@@ -877,7 +877,7 @@ To Do List:
 			return;
 		}
 	}
-	newDirectory = [self contextStringForKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	newDirectory = [self context4iTM3StringForKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	newDirectory = newDirectory.stringByResolvingSymlinksAndFinderAliasesInPath4iTM3;
 	if (![DFM fileExistsAtPath:newDirectory isDirectory:&isDirectory] || !isDirectory) {
 		newDirectory = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectEnumerator] nextObject];	
@@ -932,13 +932,13 @@ To Do List:
 //START4iTM3;
 	NSCalendarDate * CD = [NSCalendarDate calendarDate];
 	NSMutableDictionary * filter = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2DateCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDDATEKey,
-		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2TimeCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDTIMEKey,
-		[CD descriptionWithCalendarFormat:[self contextStringForKey:@"iTM2YearCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDYEARKey,
+		[CD descriptionWithCalendarFormat:[self context4iTM3StringForKey:@"iTM2DateCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDDATEKey,
+		[CD descriptionWithCalendarFormat:[self context4iTM3StringForKey:@"iTM2TimeCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDTIMEKey,
+		[CD descriptionWithCalendarFormat:[self context4iTM3StringForKey:@"iTM2YearCalendarFormat" domain:iTM2ContextAllDomainsMask]], iTM2NewDYEARKey,
 		(projectName.length?projectName:@""), iTM2NewDPROJECTNAMEKey,
 		NSFullUserName(), iTM2NewDFULLUSERNAMEKey,
-		[self contextStringForKey:@"iTM2AuthorName" domain:iTM2ContextAllDomainsMask], iTM2NewDAUTHORNAMEKey,
-		[self contextStringForKey:@"iTM2OrganizationName" domain:iTM2ContextAllDomainsMask], iTM2NewDORGANIZATIONNAMEKey,
+		[self context4iTM3StringForKey:@"iTM2AuthorName" domain:iTM2ContextAllDomainsMask], iTM2NewDAUTHORNAMEKey,
+		[self context4iTM3StringForKey:@"iTM2OrganizationName" domain:iTM2ContextAllDomainsMask], iTM2NewDORGANIZATIONNAMEKey,
 			nil];
 //END4iTM3;
     return filter;
@@ -1123,7 +1123,7 @@ To Do List:
 	BOOL isDirectory;
 	if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
         //  Hide the extension if required by the user
-		[DFM setExtensionHidden4iTM3:[self contextBoolForKey:NSFileExtensionHidden domain:iTM2ContextAllDomainsMask] atURL:targetURL];
+		[DFM setExtensionHidden4iTM3:[self context4iTM3BoolForKey:NSFileExtensionHidden domain:iTM2ContextAllDomainsMask] atURL:targetURL];
 		if (isDirectory) {
 			// remove any "Contents" directory;
 			NSString * deeper = [targetURL.path stringByAppendingPathComponent:iTM2BundleContentsComponent];
@@ -1159,7 +1159,7 @@ To Do List:
 			NSString * key = [PD createNewFileKeyForURL:convertedURL];
 			[PD setMasterFileKey:key];
 			
-			NSDictionary * context = [NSDocument contextDictionaryFromURL:convertedURL];
+			NSDictionary * context = [NSDocument context4iTM3DictionaryFromURL:convertedURL];
 			NSNumber * N = [context objectForKey:iTM2StringEncodingOpenKey];
 			NSUInteger encoding = [N integerValue];
 			NSString * S = nil;
@@ -1260,7 +1260,7 @@ To Do List:
                     PD = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:outErrorPtr];// first registerProject
     //LOG4iTM3(@"[SDC documents]:%@",[SDC documents]);
                     // filter out the declared files
-                    for (NSString * key in [PD.mainInfos fileKeys]) {
+                    for (NSString * key in [PD.mainInfos4iTM3 fileKeys]) {
     //LOG4iTM3(@"key is: %@", key);
     //LOG4iTM3(@"document is: %@", document);
                         iTM2TextDocument * document = nil;
@@ -1366,15 +1366,24 @@ To Do List:
     //  finally save the result
     //  We start by opening all the available projects
     //  Then we convert all the projects
-    //  Then all the documents owned by the project
+    //  Then all the documents owned by each project
     //  Then all the other documents
+    //  There is a big problem when there are different projects
+    //  because a file can be owned by different projects
+    //  in which case the meta data are in the different projects
+    //  If all the metadata are the same, it's OK
+    //  If the metadata are different from one project to the other
+    //  there is something wrong that we cannot solve simply
+    //  We choose the metadata coming from the "main" project.
+    //  Only one project is used.
     NSMutableArray * alreadyURLs = [NSMutableArray array];
     for (NSURL * projectURL in sourceURL.enclosedProjectURLs4iTM3) {
         NSString * type = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
         Class C = [SDC documentClassForType:type];
-        iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL error:outErrorPtr];
-        
+        iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL ofType:type error:outErrorPtr];
+        ;
     }
+    //  
     NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:sourceURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
     if (!FW) {
         return YES;//   returns YES BUT there was an error
@@ -1400,7 +1409,7 @@ To Do List:
 		LOG4iTM3(@"There is already a project at\n%@",targetURL);
 	}
 	NSDictionary * filter = [self filterForProjectName:projectName];
-    [self convertedFileWrapper:FW withDictionary:filter];
+    [self convertedFileWrapper:FW withDictionary:filter error:outErrorPtr];
     
     if (FW.isDirectory) {
         
@@ -1575,6 +1584,8 @@ To Do List:
 		return NO;
 	}
 	NSURL * oldProjectURL = self.oldProjectURL;
+    //  Create the info wrapper
+    
 	if (!oldProjectURL) {
 		LOG4iTM3(@"*** ERROR: I have been asked to create a document in an old project, but Ii was not given an old project...");
 		return NO;//<< this is a bug
@@ -1626,7 +1637,7 @@ To Do List:
 					}
 				}
 				[oldProject saveDocument:self];
-				[[oldProject undoManager] removeAllActions];
+				[oldProject.undoManager removeAllActions];
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				document.undoManager.removeAllActions;
 			} else {
@@ -1642,7 +1653,7 @@ To Do List:
 					[TS endEditing];
 				}
 				[oldProject saveDocument:self];
-				[[oldProject undoManager] removeAllActions];
+				[oldProject.undoManager removeAllActions];
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				document.undoManager.removeAllActions;
 			}
@@ -1656,8 +1667,8 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withDictionary:
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withDictionary:(NSDictionary *)filter;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withDictionary:error:
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withDictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 12:47:31 UTC 2010
@@ -1667,7 +1678,7 @@ To Do List:
 //START4iTM3;
     if (FW.isDirectory) {
         for (NSFileWrapper * fw in FW.fileWrappers.copy) {
-            NSFileWrapper * newFW = [self convertedFileWrapper:fw withDictionary:filter];
+            NSFileWrapper * newFW = [self convertedFileWrapper:fw withDictionary:filter error:outErrorPtr];
             if (![fw isEqual:newFW]) {
                 [FW removeFileWrapper:fw];
                 [FW addFileWrapper:newFW];

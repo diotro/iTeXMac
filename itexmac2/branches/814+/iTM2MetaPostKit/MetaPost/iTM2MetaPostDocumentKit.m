@@ -1191,7 +1191,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSInteger n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [self.window.keyStrokes4iTM3 getIntegerTrailer4iTM3: &n];
 	if(n>0)
 		self.scaleFactor *= n / 100.0;
@@ -1208,7 +1208,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSInteger n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3: &n];
 	if(n>0)
 		self.scaleFactor *= 100.0 / n;

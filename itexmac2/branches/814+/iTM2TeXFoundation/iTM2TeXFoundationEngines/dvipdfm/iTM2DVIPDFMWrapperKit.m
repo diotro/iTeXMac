@@ -111,18 +111,18 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  PAGE SETUP
 #define MODEL_BOOL(GETTER, SETTER, KEY)\
-- (BOOL)GETTER;{return [[self infoForKeyPaths:KEY,nil] boolValue];}\
-- (void)SETTER:(BOOL)yorn;{[self setInfo:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
+- (BOOL)GETTER;{return [[self info4iTM3ForKeyPaths:KEY,nil] boolValue];}\
+- (void)SETTER:(BOOL)yorn;{[self setInfo4TM3:[NSNumber numberWithBool:yorn] forKeyPaths:KEY,nil];return;}
 MODEL_BOOL(landscape, setLandscape, iTM2Dvipdfm_landscape);
 MODEL_BOOL(usePaper, setUsePaper, iTM2Dvipdfm_USE_paper);
 #define MODEL_OBJECT(GETTER, SETTER, KEY)\
-- (id)GETTER;{return [self infoForKeyPaths:KEY,nil];}\
-- (void)SETTER:(id)argument;{[self setInfo:argument forKeyPaths:KEY,nil];return;}
+- (id)GETTER;{return [self info4iTM3ForKeyPaths:KEY,nil];}\
+- (void)SETTER:(id)argument;{[self setInfo4TM3:argument forKeyPaths:KEY,nil];return;}
 MODEL_OBJECT(paper, setPaper, iTM2Dvipdfm_paper);
 MODEL_BOOL(useOffset, setUseOffset, iTM2Dvipdfm_USE_offset);
 #define MODEL_FLOAT(GETTER, SETTER, KEY)\
-- (CGFloat)GETTER;{return [[self infoForKeyPaths:KEY,nil] floatValue];}\
-- (void)SETTER:(CGFloat)argument;{[self setInfo:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
+- (CGFloat)GETTER;{return [[self info4iTM3ForKeyPaths:KEY,nil] floatValue];}\
+- (void)SETTER:(CGFloat)argument;{[self setInfo4TM3:[NSNumber numberWithFloat:argument] forKeyPaths:KEY,nil];return;}
 MODEL_FLOAT(xOffset, setXOffset, iTM2Dvipdfm_x_offset);
 MODEL_FLOAT(yOffset, setYOffset, iTM2Dvipdfm_y_offset);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  xOffsetUnit
@@ -134,7 +134,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * unit = [self infoForKeyPaths:iTM2Dvipdfm_x_offset_unit,nil];
+	NSString * unit = [self info4iTM3ForKeyPaths:iTM2Dvipdfm_x_offset_unit,nil];
 	if([unit isEqualToString:@"bp"])
 		return 0;
 	else if([unit isEqualToString:@"pt"])
@@ -156,10 +156,10 @@ To Do List:
 //START4iTM3;
 	switch(argument)
 	{
-		case 0: [self setInfo:@"bp" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
-		case 1: [self setInfo:@"pt" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
-		case 3: [self setInfo:@"cm" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
-		default: [self setInfo:@"in" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 0: [self setInfo4TM3:@"bp" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 1: [self setInfo4TM3:@"pt" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		case 3: [self setInfo4TM3:@"cm" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
+		default: [self setInfo4TM3:@"in" forKeyPaths:iTM2Dvipdfm_x_offset_unit,nil]; return;
 	}
 //END4iTM3;
     return;
@@ -173,7 +173,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * unit = [self infoForKeyPaths:iTM2Dvipdfm_y_offset_unit,nil];
+	NSString * unit = [self info4iTM3ForKeyPaths:iTM2Dvipdfm_y_offset_unit,nil];
 	if([unit isEqualToString:@"bp"])
 		return 0;
 	else if([unit isEqualToString:@"pt"])
@@ -195,10 +195,10 @@ To Do List:
 //START4iTM3;
 	switch(argument)
 	{
-		case 0: [self setInfo:@"bp" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
-		case 1: [self setInfo:@"pt" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
-		case 3: [self setInfo:@"cm" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
-		default: [self setInfo:@"in" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 0: [self setInfo4TM3:@"bp" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 1: [self setInfo4TM3:@"pt" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		case 3: [self setInfo4TM3:@"cm" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
+		default: [self setInfo4TM3:@"in" forKeyPaths:iTM2Dvipdfm_y_offset_unit,nil]; return;
 	}
 //END4iTM3;
     return;
@@ -218,8 +218,8 @@ MODEL_OBJECT(pageSpecifications, setPageSpecifications, iTM2Dvipdfm_page_specifi
 MODEL_BOOL(useOutputName, setUseOutputName, iTM2Dvipdfm_USE_output_name);
 MODEL_OBJECT(outputName, setOutputName, iTM2Dvipdfm_output_name);
 #define MODEL_INT(GETTER, SETTER, KEY)\
-- (NSInteger)GETTER;{return [[self infoForKeyPaths:KEY,nil] integerValue];}\
-- (void)SETTER:(NSInteger)argument;{[self setInfo:[NSNumber numberWithInteger:argument] forKeyPaths:KEY,nil];return;}
+- (NSInteger)GETTER;{return [[self info4iTM3ForKeyPaths:KEY,nil] integerValue];}\
+- (void)SETTER:(NSInteger)argument;{[self setInfo4TM3:[NSNumber numberWithInteger:argument] forKeyPaths:KEY,nil];return;}
 MODEL_INT(compressionLevel, setCompressionLevel, iTM2Dvipdfm_compression_level);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  verbosityLevel
 - (NSInteger)verbosityLevel;
@@ -230,7 +230,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * level = [self infoForKeyPaths:iTM2Dvipdfm_verbosity_level,nil];
+	NSString * level = [self info4iTM3ForKeyPaths:iTM2Dvipdfm_verbosity_level,nil];
 	if([level isEqualToString:@"v"])
 		return 1;
 	else if([level isEqualToString:@"vv"])
@@ -249,9 +249,9 @@ To Do List:
 //END4iTM3;
 	switch(argument)
 	{
-		case 0: [self setInfo:@"" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
-		case 1: [self setInfo:@"v" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
-		default: [self setInfo:@"vv" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		case 0: [self setInfo4TM3:@"" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		case 1: [self setInfo4TM3:@"v" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
+		default: [self setInfo4TM3:@"vv" forKeyPaths:iTM2Dvipdfm_verbosity_level,nil]; return;
 	}
     return;
 }

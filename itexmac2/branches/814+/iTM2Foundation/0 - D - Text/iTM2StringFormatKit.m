@@ -1282,7 +1282,7 @@ To Do List:
     } else if (!strncmp(byteOrder, "EFBBBF", 6)) {
         usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF8);
         string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
-    } else if ([self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask]) {
+    } else if ([self context4iTM3BoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask]) {
 		// guess the string from the file contents
         NSStringEncoding preferredStringEncoding = self.stringEncoding;
         if (![[NSString localizedNameOfStringEncoding:preferredStringEncoding] length]) {
@@ -1349,7 +1349,7 @@ To Do List:
 			string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 		}
         canStringEncoding = YES;
-		[self takeContextBool:NO forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Bool:NO forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
 	}
 	if (iTM2DebugEnabled) {
 		LOG4iTM3(@"usedEncoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
@@ -1380,7 +1380,7 @@ To Do List:
         NSStringEncoding preferredStringEncoding;
         NSRange hardCodedRange;
         NSString * SS = nil;
-        if ([self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask]) {
+        if ([self context4iTM3BoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask]) {
             [S getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
             if ((hardCodedRange.length > 0) && (hardCodedStringEncoding > 0)) {
                 // there was an hard coded string encoding
@@ -1463,7 +1463,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextIntegerForKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3IntegerForKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  EOL
 - (NSUInteger)EOL;
@@ -1498,8 +1498,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextIntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask|iTM2ContextProjectMask]?:
-		([self contextIntegerForKey:iTM2StringEncodingOpenKey domain:iTM2ContextAllDomainsMask]?:[self contextIntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask]);
+    return [self context4iTM3IntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask|iTM2ContextProjectMask]?:
+		([self context4iTM3IntegerForKey:iTM2StringEncodingOpenKey domain:iTM2ContextAllDomainsMask]?:[self context4iTM3IntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncoding
 - (NSStringEncoding)stringEncoding;
@@ -1535,7 +1535,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self takeContextBool:(iVarStringEncodingIsHardCoded4iTM3 = yorn) forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+	[self takeContext4iTM3Bool:(iVarStringEncodingIsHardCoded4iTM3 = yorn) forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 	return;
 }
 @synthesize isStringEncodingHardCoded = iVarStringEncodingIsHardCoded4iTM3;
@@ -1686,8 +1686,8 @@ abacab:;
                     [NSNumber numberWithUnsignedInteger:NSNonLossyASCIIStringEncoding],
                                 nil];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2423,8 +2423,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 	if (!old)
 	{
 		NSTextStorage * TS = self.textStorage;
@@ -2449,11 +2449,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL isAuto = [self contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	BOOL isAuto = [self context4iTM3BoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
     sender.state = (isAuto? NSOnState:NSOffState);
 	// now validating all the menu items
 	BOOL enabled = !isAuto;
-	NSInteger tag = [self contextIntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask];
+	NSInteger tag = [self context4iTM3IntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask];
 	BOOL stringEncodingNotAvailable = YES;
 	NSMenu * menu = sender.menu;
 	for (sender in menu.itemArray) {
@@ -2547,7 +2547,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSInteger expectedTag = [SUD contextIntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask];
+	NSInteger expectedTag = [SUD context4iTM3IntegerForKey:iTM2StringEncodingPreferredKey domain:iTM2ContextAllDomainsMask];
     sender.state = (expectedTag == sender.tag? NSOnState:NSOffState);
     return;
 }
@@ -2561,8 +2561,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [SUD contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
-	[SUD takeContextBool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [SUD context4iTM3BoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	[SUD takeContext4iTM3Bool:!old forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
@@ -2574,10 +2574,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL isAuto = [SUD contextBoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
+	BOOL isAuto = [SUD context4iTM3BoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask];
     sender.state = (isAuto? NSOnState:NSOffState);
 	BOOL enabled = !isAuto;
-	NSInteger tag = [SUD contextIntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask];
+	NSInteger tag = [SUD context4iTM3IntegerForKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask];
 	BOOL stringEncodingNotAvailable = YES;
 	NSMenu * menu = sender.menu;
 	for (sender in menu.itemArray) {
@@ -2657,7 +2657,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self takeContextInteger:sender.tag forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Integer:sender.tag forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
@@ -2669,7 +2669,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSInteger tag = [self contextIntegerForKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
+	NSInteger tag = [self context4iTM3IntegerForKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask];
 	sender.state = (sender.tag == tag? NSOnState:NSOffState);
 	return YES;
 }

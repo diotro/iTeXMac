@@ -1331,6 +1331,7 @@ As a convenience, volume properties can be requested from any file system URL. T
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsCasePreservedNamesKey] error:errorRef] objectForKey:NSURLVolumeSupportsCasePreservedNamesKey] boolValue];
 }
 #endif
+
 @end
 
 @implementation NSArray(iTM2PathUtilities)

@@ -322,7 +322,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 @interface iTM2ProjectDocument(Infos)
 
 /*!
-	@method			mainInfos
+	@method			mainInfos4iTM3
 	@abstract		The main Info wrapper, containing the various file keys and properties.
 	@discussion		The main infos contains something the project won't inherit from ancestors.
 					No inheritance here yet.
@@ -331,10 +331,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)mainInfos;
+- (id)mainInfos4iTM3;
 
 /*! 
-    @method			infosController
+    @method			infosController4iTM3
     @abstract		The infos controller.
     @discussion		This controller controls all the infos of the receiver, except the main one.
     @param			None
@@ -342,7 +342,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)infosController;
+- (id)infosController4iTM3;
 
 
 /*! 
@@ -397,7 +397,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 - (id)initWithProject:(id)project atomic:(BOOL)yorn prefixWithKeyPaths:(NSString *)prefix,...;
 
 /*!
-	@method			inheritedInfoForKeys:
+	@method			inheritedInfo4iTM3ForKeys:
 	@abstract		Inherited info for the given keys.
 	@discussion		Inherited infos are retrieved from the infos controller of the base project of the owning project.
 	@param			an array of keys.
@@ -405,10 +405,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)inheritedInfoForKeys:(NSArray *)keys;
+- (id)inheritedInfo4iTM3ForKeys:(NSArray *)keys;
 
 /*!
-	@method			isInfoInheritedForKeys:
+	@method			isInfoInherited4iTM3ForKeys:
 	@abstract		Inherited info for the given keys.
 	@discussion		Inherited infos are retrieved from the infos controller of the base project of the owning project.
 	@param			an array of keys.
@@ -416,27 +416,27 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.
 	@copyright		2010 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)isInfoInheritedForKeys:(NSArray *)keys;
+- (BOOL)isInfoInherited4iTM3ForKeys:(NSArray *)keys;
 
 /*!
 	@method			infoForKeys:
 	@abstract		The designated local model accessor unless a more specific one exists.
 	@discussion		If the info is not retrieved from the owning project, the inherited info will be returned.
 					If the receiver was created with a YES atomic flag, the info is first taken from the mutableProjectInfos dictionary of the owner.
-					Otherwise it is taken from the otherInfos dictionary of the owner.
+					Otherwise it is taken from the otherInfos4iTM3 dictionary of the owner.
 	@param			an array of keys.
 	@result			an object from a property list.
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (id)infoForKeys:(NSArray *)keys;
-- (id)infoInherited:(BOOL)yorn forKeys:(NSArray *)keys;
+- (id)infoInherited4iTM3:(BOOL)yorn forKeys:(NSArray *)keys;
 
 /*!
 	@method			setInfo:forKeys:
 	@abstract		The designated "immutable" model editor.
 	@discussion		If the receiver was created with a YES atomic flag, the mutableProjectInfos dictionary of the owner will take the new info for the given keys.
-					Otherwise it is the otherInfos dictionary of the owner which will take the modification.
+					Otherwise it is the otherInfos4iTM3 dictionary of the owner which will take the modification.
 	@param			a value
 	@param			an array of keys.
 	@result			YES if the replacement is different from the replaced object.
@@ -462,7 +462,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@abstract		The designated "mutable" model editor.
 	@discussion		It returns the contents of the mutableProjectInfos dictionary of the owning project,
 					if the receiver was created with a YES atomic flag.
-					It returns the contents of the otherInfos dictionary of the receiver otherwise.
+					It returns the contents of the otherInfos4iTM3 dictionary of the receiver otherwise.
 	@param			an array of keys.
 	@result			an object from a property list.
 	@availability	iTM2.
@@ -474,7 +474,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@method			saveChangesForKeys:
 	@abstract		Save the changes.
 	@discussion		Does nothing if the receiver is not "atomic",
-					otherwise all the edited values migrate from the mutableProjectInfos to the otherInfos of the receiver's owning project.
+					otherwise all the edited values migrate from the mutableProjectInfos to the otherInfos4iTM3 of the receiver's owning project.
 	@param			an array of keys.
 	@result			YES if the replacement is different from the replaced object.
 	@availability	iTM2.
@@ -486,7 +486,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@method			revertChangesForKeys:
 	@abstract		Cancel the changes.
 	@discussion		Does nothing if the receiver is not "atomic",
-					otherwise all the unedited values migrate from the otherInfos to the mutableProjectInfos of the receiver's owning project.
+					otherwise all the unedited values migrate from the otherInfos4iTM3 to the mutableProjectInfos of the receiver's owning project.
 	@param			an array of keys.
 	@result			YES if the replacement is different from the replaced object.
 	@availability	iTM2.
@@ -495,21 +495,21 @@ extern NSString * const iTM2ProjectInfoMainType;
 - (BOOL)revertChangesForKeys:(NSArray *)keys;
 
 /*!
-	@method			customInfoForKeys:
+	@method			customInfo4iTM3ForKeys:
 	@abstract		The designated "custom" model getter.
-	@discussion		Retrieves the information from the customInfos of the owning project, for the given keys.
-					The customInfos is the repository of changes not yet edited.
+	@discussion		Retrieves the information from the customInfos4iTM3 of the owning project, for the given keys.
+					The customInfos4iTM3 is the repository of changes not yet edited.
 	@param			an array of keys.
 	@result			an object from a property list.
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)customInfoForKeys:(NSArray *)keys;
+- (id)customInfo4iTM3ForKeys:(NSArray *)keys;
 
 /*!
 	@method			backupCustomForKeys:
 	@abstract		Make a copy of the edited values as custom.
-	@discussion		All the edited values migrate to the customInfos of the receiver's owning project.
+	@discussion		All the edited values migrate to the customInfos4iTM3 of the receiver's owning project.
 	@param			an array of keys.
 	@result			YES if the replacement is different from the replaced object.
 	@availability	iTM2.
@@ -520,7 +520,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 /*!
 	@method			restoreCustomForKeys:
 	@abstract		Make a copy of the custom values for the given keys, for editing.
-	@discussion		All the values migrate from the customInfos of the receiver's owning project to its edited model,
+	@discussion		All the values migrate from the customInfos4iTM3 of the receiver's owning project to its edited model,
 					id est the otheInfos when non atomic and the mutableProjectInfos otherwise.
 	@param			an array of keys.
 	@result			YES if the replacement is different from the replaced object.
@@ -541,7 +541,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 @interface NSObject(Infos)
 
 /*!
-	@method			infosController
+	@method			infosController4iTM3
 	@abstract		The infos controller.
 	@discussion		Discussion forthcoming.
 	@param			None
@@ -549,10 +549,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)infosController;
+- (id)infosController4iTM3;
 
 /*!
-	@method			setInfosController:
+	@method			setInfosController4iTM3:
 	@abstract		Set the infos controller to the given object.
 	@discussion		This is manly for frontend private use.
 					Not inherited.
@@ -561,10 +561,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void)setInfosController:(id)controller;
+- (void)setInfosController4iTM3:(id)controller;
 
 /*!
-	@method			metaInfoForKeyPaths:
+	@method			metaInfo4iTM3ForKeyPaths:
 	@abstract		The meta information for the given key paths.
 	@discussion		This is manly for frontend private use.
 					Not inherited.
@@ -573,11 +573,11 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)metaInfoForKeyPaths:(NSString *)first,...;
-- (BOOL)setMetaInfo:(id)info forKeyPaths:(NSString *)first,...;
+- (id)metaInfo4iTM3ForKeyPaths:(NSString *)first,...;
+- (BOOL)setMetaInfo4iTM3:(id)info forKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			inheritedInfoForKeyPaths:
+	@method			inheritedInfo4iTM3ForKeyPaths:
 	@abstract		The inherited information for the given key paths.
 	@discussion		This is another kind of inheritancy concerning data.
 	@param			a non void list of key paths
@@ -585,10 +585,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)inheritedInfoForKeyPaths:(NSString *)first,...;
+- (id)inheritedInfo4iTM3ForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			inheritedInfoForKeyPaths:
+	@method			inheritedInfo4iTM3ForKeyPaths:
 	@abstract		The inherited information for the given key paths.
 	@discussion		This is another kind of inheritancy concerning data.
 	@param			a non void list of key paths
@@ -596,10 +596,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)isInfoInheritedForKeyPaths:(NSString *)first,...;
+- (BOOL)isInfoInherited4iTM3ForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			infoForKeyPaths:
+	@method			info4iTM3ForKeyPaths:
 	@abstract		The information for the given key paths.
 	@discussion		This is either a local information or an inherited one if the local information is null.
 	@param			a non void list of key paths
@@ -607,10 +607,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)infoForKeyPaths:(NSString *)first,...;
-- (id)infoInherited:(BOOL)yorn forKeyPaths:(NSString *)first,...;
+- (id)info4iTM3ForKeyPaths:(NSString *)first,...;
+- (id)infoInherited4iTM3:(BOOL)yorn forKeyPaths:(NSString *)first,...;
 /*!
-	@method			setInfo:forKeyPaths:
+	@method			setInfo4TM3:forKeyPaths:
 	@abstract		Set the information for the given key paths.
 	@discussion		Setting this info to nil means "remove the local info"
 					which in turns mean "use the inherited info".
@@ -621,9 +621,9 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)setInfo:(id)info forKeyPaths:(NSString *)first,...;
+- (BOOL)setInfo4TM3:(id)info forKeyPaths:(NSString *)first,...;
 /*!
-	@method			isInfoEditedForKeyPaths:
+	@method			isInfo4iTM3EditedForKeyPaths:
 	@abstract		Whether the information is edited for the given key paths.
 	@discussion		.
 	@param			a non void list of key paths
@@ -631,10 +631,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)isInfoEditedForKeyPaths:(NSString *)first,...;
+- (BOOL)isInfo4iTM3EditedForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			saveChangesForKeyPaths:
+	@method			saveChanges4iTM3ForKeyPaths:
 	@abstract		Save the changes.
 	@discussion		Description forthcoming.
 	@param			a non void list of key paths
@@ -642,10 +642,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)saveChangesForKeyPaths:(NSString *)first,...;
+- (BOOL)saveChanges4iTM3ForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			revertChangesForKeyPaths:
+	@method			revertChanges4iTM3ForKeyPaths:
 	@abstract		Revert the changes.
 	@discussion		Description forthcoming.
 	@param			a non void list of key paths
@@ -653,10 +653,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)revertChangesForKeyPaths:(NSString *)first,...;
+- (BOOL)revertChanges4iTM3ForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			localInfoForKeyPaths:
+	@method			localInfo4iTM3ForKeyPaths:
 	@abstract		The information for the given key paths.
 	@discussion		This is either a local information or an inherited one if the local information is null.
 	@param			a non void list of key paths
@@ -664,14 +664,14 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)localInfoForKeyPaths:(NSString *)first,...;
+- (id)localInfo4iTM3ForKeyPaths:(NSString *)first,...;
 
-- (id)editInfoForKeyPaths:(NSString *)first,...;
+- (id)editInfo4iTM3ForKeyPaths:(NSString *)first,...;
 
-- (id)customInfoForKeyPaths:(NSString *)first,...;
+- (id)customInfo4iTM3ForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			toggleInfoForKeyPaths:
+	@method			toggleInfo4iTM3ForKeyPaths:
 	@abstract		Toggle the information at the given path if it represents a bool.
 	@discussion		It will cut out inheritancy if applied twice.
 	@param			a non void list of key paths
@@ -679,10 +679,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)toggleInfoForKeyPaths:(NSString *)first,...;
+- (BOOL)toggleInfo4iTM3ForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			backupCustomForKeyPaths:
+	@method			backupCustomInfo4iTM3ForKeyPaths:
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			a non void list of key paths
@@ -690,10 +690,10 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)backupCustomForKeyPaths:(NSString *)first,...;
+- (BOOL)backupCustomInfo4iTM3ForKeyPaths:(NSString *)first,...;
 
 /*!
-	@method			restoreCustomForKeyPaths:
+	@method			restoreCustomInfo4iTM3ForKeyPaths:
 	@abstract		Abstract forthcoming.
 	@discussion		Discussion forthcoming.
 	@param			a non void list of key paths
@@ -701,7 +701,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)restoreCustomForKeyPaths:(NSString *)first,...;
+- (BOOL)restoreCustomInfo4iTM3ForKeyPaths:(NSString *)first,...;
 
 @end
 

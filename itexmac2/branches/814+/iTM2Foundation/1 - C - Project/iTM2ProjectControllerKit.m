@@ -330,7 +330,7 @@ To Do List:
 				if (url = [PD contentsURL]) {
 					return url;
 				}
-				MIW = [PD mainInfos];
+				MIW = [PD mainInfos4iTM3];
 			}
 			if (!MIW) {
 				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
@@ -348,7 +348,7 @@ To Do List:
 				if (url = [PD factoryURL]) {
 					return url;
 				}
-				MIW = [PD mainInfos];
+				MIW = [PD mainInfos4iTM3];
 			}
 			if (!MIW) {
 				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
@@ -400,7 +400,7 @@ To Do List:
 		case iTM2PCFilterRegular:
 		default:
 			if (PD = [self projectForURL:projectURL]) {
-				MIW = [PD mainInfos];
+				MIW = [PD mainInfos4iTM3];
 			}
 			if (!MIW) {
 				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
@@ -448,7 +448,7 @@ ready_to_go:;
 		case iTM2PCFilterRegular:
 		default:
 		{
-			iTM2MainInfoWrapper * MIW = [[self projectForURL:projectURL] mainInfos];
+			iTM2MainInfoWrapper * MIW = [[self projectForURL:projectURL] mainInfos4iTM3];
 			if (MIW == nil) {
 				NSError * outError = nil;
 				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
@@ -731,7 +731,7 @@ To Do List:
 		return PD;
 	}
 	[self setProject:nil forDocument:document];
-	[document takeContextBool:YES forKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask];// still used?
+	[document takeContext4iTM3Bool:YES forKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask];// still used?
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:forDocument:
@@ -771,9 +771,9 @@ To Do List:
 //START4iTM3;
 	for(iTM2ProjectDocument * projectDocument in self.projects) {
 		if ([[projectDocument fileKeyForURL:fileURL] length]
-			|| [projectDocument.fileURL isEquivalentToURL4iTM3:fileURL]
-			|| [fileURL isRelativeToURL4iTM3:projectDocument.contentsURL]
-			|| [fileURL isRelativeToURL4iTM3:projectDocument.factoryURL]) {
+                || [projectDocument.fileURL isEquivalentToURL4iTM3:fileURL]
+                || [fileURL isRelativeToURL4iTM3:projectDocument.contentsURL]
+                || [fileURL isRelativeToURL4iTM3:projectDocument.factoryURL]) {
 			[projectDocument createNewFileKeyForURL:fileURL];
 theEnd:
 			[self setProject:projectDocument forURL:fileURL];
@@ -785,7 +785,7 @@ theEnd:
 		else if ([projectDocument.wrapperURL isEquivalentToURL4iTM3:fileURL])
 			goto theEnd;
 		else if (iTM2DebugEnabled>10) {
-			LOG4iTM3(@"The project:\n%@ does not know\n%@",projectDocument.fileURL,fileURL);
+			LOG4iTM3(@"The project at URL:\n%@ does not know\n%@",projectDocument.fileURL,fileURL);
 		}
 	}
 //END4iTM3;
@@ -885,7 +885,7 @@ To Do List:
 		}
 		// testing consistency
 		// we are not authorized to register a project document with the same name as a previously registered project document
-		NSURL * projectURL = [projectDocument.fileURL URLByStandardizingPath];
+		NSURL * projectURL = projectDocument.fileURL.URLByStandardizingPath;
 		for(iTM2ProjectDocument * P in self.projects) {
 //LOG4iTM3(@"PROBLEM");if ([P.fileURL.path pathIsEqual4iTM3:FN]){
 //LOG4iTM3(@"PROBLEM");}
@@ -1026,7 +1026,7 @@ To Do List:
 /*"Description forthcoming.
 fileURLRef changes when it is a wrapper URL.
 Version History: jlaurens AT users DOT sourceforge DOT net
-NOT YET VERIFIED
+Révisé par itexmac2: 2010/10/29
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1371,8 +1371,8 @@ To Do List:
 		return nil;// no fileURL given, no project
 	}
 	NSMutableArray * projectURLs = [NSMutableArray array];// possible project URL's candidates
-	NSDictionary * contextDictionary = [iTM2Document contextDictionaryFromURL:fileURL];// retrieve the project from the context dictionary
-	NSString * S = [contextDictionary objectForKey:iTM2ProjectURLKey];// S is expected to be properly escaped!
+	NSDictionary * context4iTM3Dictionary = [iTM2Document context4iTM3DictionaryFromURL:fileURL];// retrieve the project from the context dictionary
+	NSString * S = [context4iTM3Dictionary objectForKey:iTM2ProjectURLKey];// S is expected to be properly escaped!
 	NSURL * projectURL = nil;
 	NSURL * url = nil;
 	NSString * theKey = nil;
@@ -1380,7 +1380,7 @@ To Do List:
 	if ([S isKindOfClass:[NSString class]]) {
 		projectURL = [NSURL URLWithString:S];// S is exactly the string that would appear in the browser search field
 newProjectURLCandidate:
-		theKey = [contextDictionary objectForKey:iTM2ProjectFileKeyKey];
+		theKey = [context4iTM3Dictionary objectForKey:iTM2ProjectFileKeyKey];
 		if ([SWS isProjectPackageAtURL4iTM3:projectURL]) {
 			url = [self URLForFileKey:theKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
 			if ([url isEquivalentToURL4iTM3:fileURL]) {
@@ -1402,7 +1402,7 @@ theEnd:
 			}
 		}
 	} else {
-		S = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey];// Old Absolute Project File Name, support for version prior to 689
+		S = [context4iTM3Dictionary objectForKey:iTM2ProjectAbsolutePathKey];// Old Absolute Project File Name, support for version prior to 689
 		if ([S isKindOfClass:[NSString class]]) {
 			projectURL = [NSURL fileURLWithPath:S];
 			goto newProjectURLCandidate;
@@ -1412,7 +1412,7 @@ theEnd:
 	// now we have a new candidate
 	// we try to find other candidates
 	// we create a project URL relative to the receiver
-	S = [contextDictionary objectForKey:iTM2ProjectRelativePathKey];
+	S = [context4iTM3Dictionary objectForKey:iTM2ProjectRelativePathKey];
 	if ([S isKindOfClass:[NSString class]]) {
 		projectURL = [fileURL.URLByDeletingLastPathComponent URLByAppendingPathComponent:S].URLByStandardizingPath;
 		#define ABSOLUTE_FILE_NAME_FOR_KEY\
@@ -1429,7 +1429,7 @@ theEnd:
 		ABSOLUTE_FILE_NAME_FOR_KEY;
 	}
     S = nil;
-	NSData * aliasData = [contextDictionary objectForKey:iTM2ProjectOwnAliasKey];
+	NSData * aliasData = [context4iTM3Dictionary objectForKey:iTM2ProjectOwnAliasKey];
 	if ([aliasData isKindOfClass:[NSData class]]
 		&& (projectURL = [NSURL URLByResolvingBookmarkData:aliasData options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:NULL error:outErrorPtr])) {
 		ABSOLUTE_FILE_NAME_FOR_KEY;
@@ -1493,7 +1493,7 @@ theEnd:
 		goto theEnd;
 	}
     NSURL * oldFileURL = nil;
-	if ((S = [contextDictionary objectForKey:iTM2ProjectAbsolutePathKey])) {
+	if ((S = [context4iTM3Dictionary objectForKey:iTM2ProjectAbsolutePathKey])) {
         oldFileURL = [NSURL URLWithString:S];
         if (!oldFileURL.scheme.length) {
             oldFileURL = [NSURL fileURLWithPath:S];
@@ -1507,7 +1507,7 @@ theEnd:
         }
     }
 	NSURL * resolvedFileURL = nil;
-	if ((aliasData = [contextDictionary objectForKey:iTM2ProjectOwnAliasKey])
+	if ((aliasData = [context4iTM3Dictionary objectForKey:iTM2ProjectOwnAliasKey])
 		&& [aliasData isKindOfClass:[NSData class]]) {
 		resolvedFileURL = [NSURL URLByResolvingBookmarkData:aliasData options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:NULL error:outErrorPtr];
 		if (![resolvedFileURL isEqualToFileURL4iTM3:fileURL]
@@ -3003,8 +3003,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (absoluteURL.isFileURL) {
-		NSURL * enclosingURL = [absoluteURL enclosingProjectURL4iTM3];
-		if (enclosingURL && ![[absoluteURL URLByStandardizingPath] isEqual:[enclosingURL URLByStandardizingPath]]) {
+		NSURL * enclosingURL = absoluteURL.enclosingProjectURL4iTM3;
+		if (enclosingURL && ![absoluteURL.URLByStandardizingPath isEqual:enclosingURL.URLByStandardizingPath]) {
 			[super noteNewRecentDocumentURL:enclosingURL];// we replace the file by its enclosing project
 			return;
 		}
@@ -3111,7 +3111,7 @@ To Do List:
 	if (!MRA) {
 		MRA = [NSMutableArray array];
 	}
-	NSString * fileName = [[absoluteURL URLByStandardizingPath] path];// not a link!
+	NSString * fileName = [absoluteURL.URLByStandardizingPath path];// not a link!
 	if (![MRA containsObject:fileName]) {
 		[MRA addObject:fileName];
 		[SUD registerDefaults:[NSDictionary dictionaryWithObject:MRA forKey:@"_iTM2DocumentFileURLsOpenedFromFinder"]];
@@ -3189,7 +3189,7 @@ To Do List:
             //  This is a situation we are going to avoid by asking the user not to typeset files that are in a read only folder
             //  preferably... which means that we connot absolutely prevent that.
             //  We will try to move the factory project to the normal location
-            absoluteURL = [self contextBoolForKey:iTM3ProjectPreferWrappers domain:iTM2ContextAllDomainsMask]?projectURL1:projectURL2;
+            absoluteURL = [self context4iTM3BoolForKey:iTM3ProjectPreferWrappers domain:iTM2ContextAllDomainsMask]?projectURL1:projectURL2;
             //  We are going to move factoryURL to absoluteURL, the latter one does not exist due to the tests above
             folderURL = absoluteURL.URLByDeletingLastPathComponent;
             //  I would like, if necesary, to create the intermediate folder at folderURL and place the factory project package inside

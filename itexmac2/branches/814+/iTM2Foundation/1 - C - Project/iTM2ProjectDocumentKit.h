@@ -23,7 +23,7 @@
 
 #import "iTM2ProjectControllerKit.h"
 
-#define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
+#define iTM2WindowsMenuItemIndentationLevel [self context4iTM3IntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
 extern NSString * const iTM2ProjectContextDidChangeNotification;
 extern NSString * const iTM2ProjectCurrentDidChangeNotification;
@@ -700,10 +700,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)exposeWindows;
 
 /*! 
-    @method     saveContext:
+    @method     saveContext4iTM3:
     @abstract   Abstract forthcoming.
     @discussion Overriding the inherited message.
-				First of all, the documents of the receiver are sent a -saveContext: message.
+				First of all, the documents of the receiver are sent a -saveContext4iTM3: message.
 				Then the inherited method is performed.
 				Finally, the receiver sends itself all the messages -...MetaWriteToFile:ofType:
 				with the receiver's file name and file type as arguments.
@@ -711,7 +711,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (void)saveContext:(id)irrelevant;
+- (void)saveContext4iTM3:(id)irrelevant;
 
 /*! 
     @method     contextValueForKey:fileKey:domain:
@@ -936,7 +936,7 @@ extern NSString * const iTM2ProjectURLKey;
 /*!
 	@method			documentProjectCompleteSaveContext4iTM3:
 	@abstract		Save the project related information.
-	@discussion		Automatically called by the -saveContext: message.
+	@discussion		Automatically called by the -saveContext4iTM3: message.
 					Save some info about the project. This overrides the standard behaviour declared in the iTM2ContextKit
 	@result			None.
 	@availability	iTM2.

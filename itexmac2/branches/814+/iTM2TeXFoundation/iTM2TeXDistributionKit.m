@@ -253,20 +253,20 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	return [[self metaInfoForKeyPaths:iTM2DistributionKey,iTM2DistributionUseOutputDirectoryKey,nil] boolValue]?
-	([self metaInfoForKeyPaths:iTM2DistributionKey,iTM2DistributionOutputDirectoryKey,nil]?:@"")
+	return [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionKey,iTM2DistributionUseOutputDirectoryKey,nil] boolValue]?
+	([self metaInfo4iTM3ForKeyPaths:iTM2DistributionKey,iTM2DistributionOutputDirectoryKey,nil]?:@"")
 	:([self.fileURL.path stringByAppendingPathComponent:[[self nameForFileKey:self.masterFileKey] stringByDeletingLastPathComponent]]?: @"");
 }
 #pragma mark =-=-=-=-=-=-  DISTRIBUTIONS
 #define DISTRIBUTION(getter, setter)\
 - (NSString *)getter;\
 {\
-	NSString * result = [self metaInfoForKeyPaths:iTM2DistributionKey,iTM2KeyFromSelector(_cmd),nil];\
+	NSString * result = [self metaInfo4iTM3ForKeyPaths:iTM2DistributionKey,iTM2KeyFromSelector(_cmd),nil];\
 	return result.length? result: iTM2DistributionDefault;\
 }\
 - (void)setter:(NSString *)argument;\
 {\
-	[self setMetaInfo:argument forKeyPaths:iTM2DistributionKey,iTM2KeyFromSelector(_cmd),nil];\
+	[self setMetaInfo4iTM3:argument forKeyPaths:iTM2DistributionKey,iTM2KeyFromSelector(_cmd),nil];\
 	return;\
 }
 DISTRIBUTION(TeXMFDistribution, setTeXMFDistribution)
@@ -505,7 +505,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSNumber * N = [self metaInfoForKeyPaths:iTM2DistributionKey,iTM2DistributionUsePATHLoginShellKey,nil];
+	NSNumber * N = [self metaInfo4iTM3ForKeyPaths:iTM2DistributionKey,iTM2DistributionUsePATHLoginShellKey,nil];
 	return N? [N boolValue]:[SUD boolForKey:iTM2DistributionUsePATHLoginShellKey];
 //END4iTM3;
 }
@@ -519,7 +519,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [[self metaInfoForKeyPaths:iTM2DistributionKey,iTM2DistributionUsePATHPrefixKey,nil] boolValue];
+    return [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionKey,iTM2DistributionUsePATHPrefixKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesPATHPrefix:
 - (void)setUsesPATHPrefix:(BOOL)new;
@@ -530,11 +530,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUsePATHPrefixKey,nil] boolValue];
+    BOOL old = [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUsePATHPrefixKey,nil] boolValue];
 	if(old != new)
 	{
 		[self willChangeValueForKey:@"usesPATHPrefix"];
-		if([self setMetaInfo:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUsePATHPrefixKey,nil])
+		if([self setMetaInfo4iTM3:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUsePATHPrefixKey,nil])
 		{
 			[self updateChangeCount:NSChangeDone];
 		}
@@ -553,7 +553,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self metaInfoForKeyPaths:iTM2DistributionPATHPrefixKey,nil];
+	return [self metaInfo4iTM3ForKeyPaths:iTM2DistributionPATHPrefixKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPATHPrefix:
 - (void)setPATHPrefix:(NSString *)new;
@@ -564,11 +564,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * old = [self metaInfoForKeyPaths:iTM2DistributionPATHPrefixKey,nil];
+	NSString * old = [self metaInfo4iTM3ForKeyPaths:iTM2DistributionPATHPrefixKey,nil];
 	if(![old pathIsEqual4iTM3:new])
 	{
 		[self willChangeValueForKey:@"PATHPrefix"];
-		if([self setMetaInfo:new forKeyPaths:iTM2DistributionPATHPrefixKey,nil])
+		if([self setMetaInfo4iTM3:new forKeyPaths:iTM2DistributionPATHPrefixKey,nil])
 		{
 			[self updateChangeCount:NSChangeDone];
 		}
@@ -623,7 +623,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [[self metaInfoForKeyPaths:iTM2DistributionUsePATHSuffixKey,nil] boolValue];
+    return [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUsePATHSuffixKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesPATHSuffix:
 - (void)setUsesPATHSuffix:(BOOL)new;
@@ -634,11 +634,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUsePATHSuffixKey,nil] boolValue];
+    BOOL old = [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUsePATHSuffixKey,nil] boolValue];
 	if(old != new)
 	{
 		[self willChangeValueForKey:@"usesPATHSuffix"];
-		if([self setMetaInfo:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUsePATHSuffixKey,nil])
+		if([self setMetaInfo4iTM3:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUsePATHSuffixKey,nil])
 		{
 			[self updateChangeCount:NSChangeDone];
 		}
@@ -656,7 +656,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	return [self metaInfoForKeyPaths:iTM2DistributionPATHSuffixKey,nil];
+	return [self metaInfo4iTM3ForKeyPaths:iTM2DistributionPATHSuffixKey,nil];
 //END4iTM3;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPATHSuffix:
@@ -668,11 +668,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * old = [self metaInfoForKeyPaths:iTM2DistributionPATHSuffixKey,nil];
+	NSString * old = [self metaInfo4iTM3ForKeyPaths:iTM2DistributionPATHSuffixKey,nil];
 	if(![old pathIsEqual4iTM3:new])
 	{
 		[self willChangeValueForKey:@"PATHSuffix"];
-		if([self setMetaInfo:new forKeyPaths:iTM2DistributionPATHSuffixKey,nil])
+		if([self setMetaInfo4iTM3:new forKeyPaths:iTM2DistributionPATHSuffixKey,nil])
 		{
 			[self updateChangeCount:NSChangeDone];
 		}
@@ -728,7 +728,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [[self metaInfoForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue];
+    return [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setUsesTEXMFOUTPUT:
 - (void)setUsesTEXMFOUTPUT:(BOOL)new;
@@ -739,11 +739,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue];
+    BOOL old = [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue];
 	if(old != new)
 	{
 		[self willChangeValueForKey:@"usesTEXMFOUTPUT"];
-		if([self setMetaInfo:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil])
+		if([self setMetaInfo4iTM3:[NSNumber numberWithBool: new] forKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil])
 		{
 			[self updateChangeCount:NSChangeDone];
 		}
@@ -762,7 +762,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self metaInfoForKeyPaths:iTM2DistributionOutputDirectoryKey,nil];
+    return [self metaInfo4iTM3ForKeyPaths:iTM2DistributionOutputDirectoryKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTEXMFOUTPUT:
 - (void)setTEXMFOUTPUT:(id)new;
@@ -773,11 +773,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * old = [self metaInfoForKeyPaths:iTM2DistributionOutputDirectoryKey,nil];
+	NSString * old = [self metaInfo4iTM3ForKeyPaths:iTM2DistributionOutputDirectoryKey,nil];
 	if(![old pathIsEqual4iTM3:new])
 	{
 		[self willChangeValueForKey:@"TEXMFOUTPUT"];
-		if([self setMetaInfo:new forKeyPaths:iTM2DistributionOutputDirectoryKey,nil])
+		if([self setMetaInfo4iTM3:new forKeyPaths:iTM2DistributionOutputDirectoryKey,nil])
 		{
 			[self updateChangeCount:NSChangeDone];
 		}
@@ -795,8 +795,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if([[self metaInfoForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue])
-		return [self metaInfoForKeyPaths:iTM2DistributionOutputDirectoryKey,nil]?: @"";
+	if([[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUseOutputDirectoryKey,nil] boolValue])
+		return [self metaInfo4iTM3ForKeyPaths:iTM2DistributionOutputDirectoryKey,nil]?: @"";
 	if([SUD boolForKey:iTM2DistributionUseOutputDirectoryKey])
 		return [SUD objectForKey:iTM2DistributionOutputDirectoryKey]?: @"";
 	return @"";
@@ -1139,8 +1139,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL old = [[self metaInfoForKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil] boolValue];
-    [self setMetaInfo:[NSNumber numberWithBool:!old] forKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil];
+    BOOL old = [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil] boolValue];
+    [self setMetaInfo4iTM3:[NSNumber numberWithBool:!old] forKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil];
 	[self.document updateChangeCount:NSChangeDone];
     [sender validateWindowContent4iTM3];
 //END4iTM3;
@@ -1155,7 +1155,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = ([[self metaInfoForKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil] boolValue]? NSOnState:NSOffState);
+    sender.state = ([[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil] boolValue]? NSOnState:NSOffState);
 //END4iTM3;
     return YES;
 }

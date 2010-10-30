@@ -922,7 +922,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if (([self handlesKeyBindings4iTM3] || [self handlesKeyStrokes4iTM3])
-        && ![self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask])
+        && ![self context4iTM3BoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask])
     {
 LOG4iTM3(@"KBM:%@",[self valueForKeyPath:@"implementation.metaValues.KeyBindingsManager4iTM3"]);
 		id KBM = metaGETTER;
@@ -1726,8 +1726,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2Inspector(iTM2KeyBindingsKitSupport)
 /*"Description forthcoming."*/
 @implementation iTM2KeyBindingsResponder
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  contextManager
-- (id)contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  context4iTM3Manager
+- (id)context4iTM3Manager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
@@ -1735,7 +1735,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSWindow * W = [NSApp keyWindow];
-    return W.firstResponder? [W.firstResponder contextManager]:[W contextManager];
+    return W.firstResponder? [W.firstResponder context4iTM3Manager]:[W context4iTM3Manager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  toggleNoKeyBindings:
 - (IBAction)toggleNoKeyBindings:(id)irrelevant;
@@ -1745,7 +1745,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:![self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask] forKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:![self context4iTM3BoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask] forKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask];
     [self flushKeyBindings:nil];
     return;
 }
@@ -1757,7 +1757,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = [self contextBoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask]? NSOffState:NSOnState;
+    sender.state = [self context4iTM3BoolForKey:iTM2NoKeyBindingsIdentifier domain:iTM2ContextAllDomainsMask]? NSOffState:NSOnState;
     return YES;
 }
 @end

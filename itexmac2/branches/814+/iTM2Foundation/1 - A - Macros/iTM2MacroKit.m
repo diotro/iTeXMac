@@ -58,7 +58,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 	NSString * key = [self macroDomainKey];
 	if (key.length)
 	{
-		result = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+		result = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 		if (result.length)
 		{
 			return result;
@@ -66,7 +66,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 		result = [self inheritedValueForKey:@"defaultMacroDomain"];
 		if (!result.length)
 		{
-			result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask]?:@"";
+			result = [self context4iTM3StringForKey:key domain:iTM2ContextAllDomainsMask]?:@"";
 		}
 		[self setMacroDomain:result];
 	}
@@ -77,7 +77,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 {
 	argument = [argument description];
 	NSString * key = [self macroDomainKey];
-	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * old = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if (![old isEqual:argument])
 	{
 		[self willChangeValueForKey:@"macroDomain"];
@@ -102,7 +102,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 	NSString * key = [self macroCategoryKey];
 	if (key.length)
 	{
-		result = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+		result = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 		if (result.length)
 		{
 			return result;
@@ -110,7 +110,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 		result = [self inheritedValueForKey:@"defaultMacroCategory"];
 		if (!result.length)
 		{
-			result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask]?:@"";
+			result = [self context4iTM3StringForKey:key domain:iTM2ContextAllDomainsMask]?:@"";
 		}
 		if (!result.length)
 		{
@@ -125,7 +125,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 {
 	NSString * key = [self macroCategoryKey];
 	argument = [argument description];
-	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * old = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if ([old isEqual:argument])
 	{
 		return;
@@ -152,7 +152,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 	NSString * key = [self macroContextKey];
 	if (key.length)
 	{
-		result = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+		result = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 		if (result.length)
 		{
 			return result;
@@ -160,7 +160,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 		result = [self inheritedValueForKey:@"defaultMacroContext"];
 		if (!result.length)
 		{
-			result = [self contextStringForKey:key domain:iTM2ContextAllDomainsMask]?:@"";
+			result = [self context4iTM3StringForKey:key domain:iTM2ContextAllDomainsMask]?:@"";
 		}
 		[self setMacroContext:result];
 	}
@@ -171,7 +171,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 {
 	argument = [argument description];
 	NSString * key = [self macroContextKey];
-	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * old = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if (![old isEqual:argument])
 	{
 		[self willChangeValueForKey:@"macroEditor"];
@@ -206,7 +206,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 - (void)setMacroCategory:(NSString *)argument;
 {
 	NSString * key = [self macroCategoryKey];
-	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * old = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if ([old isEqual:argument])
 	{
 		return;
@@ -249,7 +249,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 - (void)setMacroCategory:(NSString *)argument;
 {
 	NSString * key = [self macroCategoryKey];
-	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * old = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if ([old isEqual:argument])
 	{
 		return;
@@ -289,7 +289,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 - (void)setMacroCategory:(NSString *)argument;
 {
 	NSString * key = [self macroCategoryKey];
-	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * old = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if ([old isEqual:argument])
 	{
 		return;
@@ -325,7 +325,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self toggleContextBoolForKey:iTM2DontUseSmartMacrosKey];
+	[self toggleContext4iTM3BoolForKey:iTM2DontUseSmartMacrosKey];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartMacros:
@@ -382,7 +382,7 @@ To Do List:
 - (void)setMacroCategory:(NSString *)argument;
 {
 	NSString * key = [self macroCategoryKey];
-	NSString * old = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * old = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if ([old isEqual:argument])
 	{
 		return;
@@ -394,7 +394,7 @@ To Do List:
 	}
 	[super setMacroCategory:argument];
 	// reentrant management
-	id new = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	id new = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if ([old isEqual:new])
 	{
 		return;
@@ -857,21 +857,21 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
 	NSString * key = [self macroDomainKey];
-	NSString * macroDomain = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * macroDomain = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if (!macroDomain.length)
 	{
 		macroDomain = [self defaultMacroDomain];
 		[self setMacroDomain:macroDomain];
 	}
 	key = [self macroCategoryKey];
-	NSString * macroCategory = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * macroCategory = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if (!macroCategory.length)
 	{
 		macroCategory = [self defaultMacroCategory];
 		[self setMacroCategory:macroCategory];
 	}
 	key = [self macroContextKey];
-	NSString * macroContext = [self contextStringForKey:key domain:iTM2ContextPrivateMask];
+	NSString * macroContext = [self context4iTM3StringForKey:key domain:iTM2ContextPrivateMask];
 	if (!macroContext)
 	{
 		macroContext = [self defaultMacroContext];

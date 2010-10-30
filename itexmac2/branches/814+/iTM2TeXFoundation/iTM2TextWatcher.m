@@ -159,7 +159,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 	{
 		D = [NSMutableDictionary dictionary];
 		[_iTM2TextWatcherMapTable setObject:D forKey:TV];
-		[D setObject:[NSNumber numberWithBool:[TV contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask]] forKey:iTM2UDMatchDelimiterKey];
+		[D setObject:[NSNumber numberWithBool:[TV context4iTM3BoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask]] forKey:iTM2UDMatchDelimiterKey];
 	}
 	if([[D objectForKey:iTM2UDMatchDelimiterKey] boolValue])
 	{
@@ -181,8 +181,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:!old forKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
     return;
 }
@@ -195,7 +195,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL flag = [self contextBoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
+	BOOL flag = [self context4iTM3BoolForKey:iTM2UDMatchDelimiterKey domain:iTM2ContextAllDomainsMask];
 	sender.state = (flag? NSOnState:NSOffState);
 //END4iTM3;
     return YES;

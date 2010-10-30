@@ -27,36 +27,36 @@
 #import <iTM2ConTeXtKit/iTM2ConTeXtKit.h>
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(NSMenuItem *)sender;{[self setInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
-- (BOOL)VALIDATE:(NSMenuItem *)sender;{sender.state = ([[self editInfoForKeyPaths:KEY,nil] boolValue]? NSOnState:NSOffState);return YES;}
+- (void)ACTION:(NSMenuItem *)sender;{[self setInfo4TM3:[NSNumber numberWithBool: ![[self editInfo4iTM3ForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
+- (BOOL)VALIDATE:(NSMenuItem *)sender;{sender.state = ([[self editInfo4iTM3ForKeyPaths:KEY,nil] boolValue]? NSOnState:NSOffState);return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
-- (void)ACTION:(NSControl *)sender;{[self setInfo:[NSNumber numberWithFloat:sender.floatValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
-- (BOOL)VALIDATE:(NSControl *)sender;{[sender setFloatValue:[[self editInfoForKeyPaths:KEY,nil] floatValue]];\
-return [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
-//return ![self editInfoForKeyPaths:USE_KEY,nil] || [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
+- (void)ACTION:(NSControl *)sender;{[self setInfo4TM3:[NSNumber numberWithFloat:sender.floatValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
+- (BOOL)VALIDATE:(NSControl *)sender;{[sender setFloatValue:[[self editInfo4iTM3ForKeyPaths:KEY,nil] floatValue]];\
+return [[self editInfo4iTM3ForKeyPaths:USE_KEY,nil] boolValue];}
+//return ![self editInfo4iTM3ForKeyPaths:USE_KEY,nil] || [[self editInfo4iTM3ForKeyPaths:USE_KEY,nil] boolValue];}
 #define IEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
-- (void)ACTION:(NSControl *)sender;{[self setInfo:[NSNumber numberWithInteger:[sender integerValue]] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
-- (BOOL)VALIDATE:(NSControl *)sender;{[sender setIntegerValue:[[self editInfoForKeyPaths:KEY,nil] integerValue]];\
-return [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
+- (void)ACTION:(NSControl *)sender;{[self setInfo4TM3:[NSNumber numberWithInteger:[sender integerValue]] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
+- (BOOL)VALIDATE:(NSControl *)sender;{[sender setIntegerValue:[[self editInfo4iTM3ForKeyPaths:KEY,nil] integerValue]];\
+return [[self editInfo4iTM3ForKeyPaths:USE_KEY,nil] boolValue];}
 #define SEDIT(ACTION, VALIDATE, KEY, USE_KEY)\
-- (void)ACTION:(NSControl *)sender;{[self setInfo:[sender stringValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
-- (BOOL)VALIDATE:(NSControl *)sender;{[sender setStringValue:[self editInfoForKeyPaths:KEY,nil]];\
-return [[self editInfoForKeyPaths:USE_KEY,nil] boolValue];}
+- (void)ACTION:(NSControl *)sender;{[self setInfo4TM3:[sender stringValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
+- (BOOL)VALIDATE:(NSControl *)sender;{[sender setStringValue:[self editInfo4iTM3ForKeyPaths:KEY,nil]];\
+return [[self editInfo4iTM3ForKeyPaths:USE_KEY,nil] boolValue];}
 #define UNIT(ACTION, VALIDATE, KEY)\
 - (void)ACTION:(NSControl *)sender;\
 {\
 	switch([[sender selectedItem] tag])\
 	{\
-		case 0: [self setInfo:@"bp" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
-		case 1: [self setInfo:@"pt" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
-		case 2: [self setInfo:@"in" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
-		default: [self setInfo:@"cm" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		case 0: [self setInfo4TM3:@"bp" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		case 1: [self setInfo4TM3:@"pt" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		case 2: [self setInfo4TM3:@"in" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		default: [self setInfo4TM3:@"cm" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
 	}\
     return;\
 }\
 - (BOOL)VALIDATE:(NSControl *)sender;\
 {\
-	NSString * unit = [self editInfoForKeyPaths:KEY,nil];\
+	NSString * unit = [self editInfo4iTM3ForKeyPaths:KEY,nil];\
 	if([unit isEqual:@"bp"])\
 		[sender selectItemWithTag:0];\
 	else if([unit isEqual:@"pt"])\
@@ -430,7 +430,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setInfo:sender.stringValue forKeyPaths:iTM2TeXExecResult,nil];
+	[self setInfo4TM3:sender.stringValue forKeyPaths:iTM2TeXExecResult,nil];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
 	return;
@@ -447,8 +447,8 @@ To Do List:
 	NSString * extension = @"pdf";
 	iTM2TeXProjectDocument * myTPD = self.document;
 	NSString * FN = [[myTPD nameForFileKey:[myTPD masterFileKey]] stringByDeletingPathExtension];
-	NSString * mode = [self editInfoForKeyPaths:iTM2TeXExecMode,nil];
-	if ([[self editInfoForKeyPaths:iTM2TeXExecUseMode,nil] boolValue] && mode.length) {
+	NSString * mode = [self editInfo4iTM3ForKeyPaths:iTM2TeXExecMode,nil];
+	if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseMode,nil] boolValue] && mode.length) {
 		// if the result has a length, it is a custom output and I should use it
 		// if not, 
 		
@@ -459,9 +459,9 @@ To Do List:
 		[[sender formatter] setStringForNilObjectValue:
 			[FN stringByAppendingPathExtension:extension]];
 	}
-	sender.stringValue = ([[self editInfoForKeyPaths:iTM2TeXExecUseResult,nil] boolValue]? [self editInfoForKeyPaths:iTM2TeXExecResult,nil]:@"");
+	sender.stringValue = ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseResult,nil] boolValue]? [self editInfo4iTM3ForKeyPaths:iTM2TeXExecResult,nil]:@"");
 //END4iTM3;
-	return [[self editInfoForKeyPaths:iTM2TeXExecUseResult,nil] boolValue];
+	return [[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseResult,nil] boolValue];
 }
 TOGGLE(useMode, validateUseMode, iTM2TeXExecUseMode);
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mode:
@@ -478,7 +478,7 @@ To Do List:
 	[MS replaceOccurrencesOfString:@" " withString:@"," options:0 range:iTM3MakeRange(0, MS.length)];
 	[MS replaceOccurrencesOfString:@",," withString:@"," options:0 range:iTM3MakeRange(0, MS.length)];
 	string = [[MS copy] autorelease];
-	[self setInfo:string forKeyPaths:iTM2TeXExecMode,nil];
+	[self setInfo4TM3:string forKeyPaths:iTM2TeXExecMode,nil];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
 	return;
@@ -492,9 +492,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	sender.stringValue = [self editInfoForKeyPaths:iTM2TeXExecMode,nil];
+	sender.stringValue = [self editInfo4iTM3ForKeyPaths:iTM2TeXExecMode,nil];
 //END4iTM3;
-	return ![self editInfoForKeyPaths:iTM2TeXExecUseMode,nil] || [[self editInfoForKeyPaths:iTM2TeXExecUseMode,nil] boolValue];
+	return ![self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseMode,nil] || [[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseMode,nil] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3:
 - (BOOL)validateWindowContent4iTM3;
@@ -507,12 +507,12 @@ To Do List:
 //START4iTM3;
 	if (![self.implementation metaValueForKey:@"iTM2 unknown output"]) {
 		[self.implementation takeMetaValue:@"" forKey:@"iTM2 unknown output"];
-		NSString * output = [self editInfoForKeyPaths:iTM2TeXExecOutput,nil];
+		NSString * output = [self editInfo4iTM3ForKeyPaths:iTM2TeXExecOutput,nil];
 		if (![[NSArray arrayWithObjects:@"", @"dvips", @"pdftex", nil] containsObject:output]) {
-			[self setInfo:output forKeyPaths:iTM2TeXExecUnknownOutput,nil];
+			[self setInfo4TM3:output forKeyPaths:iTM2TeXExecUnknownOutput,nil];
 		}
-		if ([[self editInfoForKeyPaths:iTM2TeXExecBatch,nil] boolValue]) {
-			[self setInfo:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecNonStop,nil];
+		if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecBatch,nil] boolValue]) {
+			[self setInfo4TM3:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecNonStop,nil];
 		}
 	}
 //END4iTM3;
@@ -527,7 +527,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue]] forKeyPaths:iTM2TeXExecUseXeTeX,nil];
+	[self setInfo4TM3:[NSNumber numberWithBool: ![[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue]] forKeyPaths:iTM2TeXExecUseXeTeX,nil];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
 	return;
@@ -541,12 +541,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([[self editInfoForKeyPaths:iTM2TeXExecOutput,nil] isEqual:[self editInfoForKeyPaths:iTM2TeXExecUnknownOutput,nil]]) {
+	if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecOutput,nil] isEqual:[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUnknownOutput,nil]]) {
 		sender.state = NSMixedState;
 //END4iTM3;
 		return NO;
 	} else {
-		sender.state = ([[self editInfoForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue]? NSOnState:NSOffState);
+		sender.state = ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue]? NSOnState:NSOffState);
 //END4iTM3;
 		return YES;
 	}
@@ -562,16 +562,16 @@ To Do List:
 //START4iTM3;
     switch ([sender.selectedCell tag]) {
         case 0:
-			[self setInfo:[NSNumber numberWithBool:YES] forKeyPaths:iTM2TeXExecBatch,nil];
-			[self setInfo:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecNonStop,nil];
+			[self setInfo4TM3:[NSNumber numberWithBool:YES] forKeyPaths:iTM2TeXExecBatch,nil];
+			[self setInfo4TM3:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecNonStop,nil];
 		break;// batchmode
         case 1:
-			[self setInfo:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecBatch,nil];
-			[self setInfo:[NSNumber numberWithBool:YES] forKeyPaths:iTM2TeXExecNonStop,nil];
+			[self setInfo4TM3:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecBatch,nil];
+			[self setInfo4TM3:[NSNumber numberWithBool:YES] forKeyPaths:iTM2TeXExecNonStop,nil];
 		break;// nonstopmode
         default:
-			[self setInfo:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecBatch,nil];
-			[self setInfo:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecNonStop,nil];
+			[self setInfo4TM3:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecBatch,nil];
+			[self setInfo4TM3:[NSNumber numberWithBool:NO] forKeyPaths:iTM2TeXExecNonStop,nil];
 		break;// errorstopmode
     }
     return;
@@ -585,10 +585,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([[self editInfoForKeyPaths:iTM2TeXExecBatch,nil] boolValue]) {
+	if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecBatch,nil] boolValue]) {
 		// @"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode"
 		[sender selectCellWithTag:0];
-	} else if ([[self editInfoForKeyPaths:iTM2TeXExecNonStop,nil] boolValue]) {
+	} else if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecNonStop,nil] boolValue]) {
 		// @"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode"
 		[sender selectCellWithTag:1];
 	} else {
@@ -606,30 +606,30 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([[self editInfoForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue]) {
+	if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue]) {
 		switch (sender.selectedItem.tag) {
 			case 0:// dvi
 			case 1:// xdv
-				[self setInfo:@"" forKeyPaths:iTM2TeXExecOutput,nil];	
+				[self setInfo4TM3:@"" forKeyPaths:iTM2TeXExecOutput,nil];	
 				break;
 			default:
-				[self setInfo:@"pdftex" forKeyPaths:iTM2TeXExecOutput,nil];	
+				[self setInfo4TM3:@"pdftex" forKeyPaths:iTM2TeXExecOutput,nil];	
 				break;
 		}
 	} else {
 		switch (sender.selectedItem.tag) {
 			case 0:// dvi
 			case 1:// xdv
-				[self setInfo:@"" forKeyPaths:iTM2TeXExecOutput,nil];	
+				[self setInfo4TM3:@"" forKeyPaths:iTM2TeXExecOutput,nil];	
 				break;
 			case 2:// ps
-				[self setInfo:@"dvips" forKeyPaths:iTM2TeXExecOutput,nil];	
+				[self setInfo4TM3:@"dvips" forKeyPaths:iTM2TeXExecOutput,nil];	
 				break;
 			case -1:// unknown
 				break;
 			case 3:// pdf
 			default:
-				[self setInfo:@"pdftex" forKeyPaths:iTM2TeXExecOutput,nil];	
+				[self setInfo4TM3:@"pdftex" forKeyPaths:iTM2TeXExecOutput,nil];	
 				break;
 		}
 	}
@@ -646,9 +646,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL useXeTeX = [[self editInfoForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue];
+	BOOL useXeTeX = [[self editInfo4iTM3ForKeyPaths:iTM2TeXExecUseXeTeX,nil] boolValue];
 	if ([sender isKindOfClass:[NSPopUpButton class]]) {
-		NSString * output = [self editInfoForKeyPaths:iTM2TeXExecOutput,nil];
+		NSString * output = [self editInfo4iTM3ForKeyPaths:iTM2TeXExecOutput,nil];
         NSMenuItem * MI = nil;
 		if ([output isEqual:@""]) {
 			[sender selectItemWithTag: (useXeTeX? 1:0)];
@@ -657,7 +657,7 @@ To Do List:
 		} else if ([output isEqual:@"pdftex"]) {
 			[sender selectItemWithTag:3];
 		} else {
-			[self setInfo:output forKeyPaths:iTM2TeXExecUnknownOutput,nil];
+			[self setInfo4TM3:output forKeyPaths:iTM2TeXExecUnknownOutput,nil];
 			if (!(MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]])) {
 				[sender addItemWithTitle:output];
 				MI = sender.lastItem;
@@ -666,7 +666,7 @@ To Do List:
 				MI.title = output;
 			[sender selectItemWithTag: -1];
 		}
-		NSString * unknownOutput = [self editInfoForKeyPaths:iTM2TeXExecUnknownOutput,nil];
+		NSString * unknownOutput = [self editInfo4iTM3ForKeyPaths:iTM2TeXExecUnknownOutput,nil];
 		if (unknownOutput.length) {
 			if(!(MI = [sender itemAtIndex:[sender indexOfItemWithTag: -1]])) {
 				[sender addItemWithTitle:unknownOutput];

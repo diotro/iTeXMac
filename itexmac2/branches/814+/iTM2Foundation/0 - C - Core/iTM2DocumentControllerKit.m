@@ -981,6 +981,53 @@ To Do List:
 
 @end
 
+@implementation NSURL(iTM2DocumentController)
+
+- (NSURL *)enclosingURLOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+//  Révisé par itexmac2: 2010/10/30-06:25:09(UTC)
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+    if (outErrorPtr) *outErrorPtr = nil;
+	NSURL * url = [self.baseURL enclosingURLOfType4iTM3:type error:outErrorPtr];
+	if (url) {
+		return url;
+	}
+	url = self;
+    while (url.path.length>1) {
+        if ([[SDC typeForContentsOfURL:url error:outErrorPtr] conformsToUTType4iTM3:type]) {
+//END4iTM3;
+            return url;
+        }
+        url = url.URLByDeletingLastPathComponent;
+    };
+//END4iTM3;
+    return nil;
+}
+
+- (NSArray *)enclosedURLsOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+//  Révisé par itexmac2: 2010/10/30-06:24:37(UTC)
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+    if (outErrorPtr) *outErrorPtr = nil;
+	if (!self.isFileURL) {
+		return nil;
+	}
+	NSMutableArray * result = [NSMutableArray array];
+	NSDirectoryEnumerator * DE = [DFM enumeratorAtURL:self
+        includingPropertiesForKeys:[NSArray array]
+            options:NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsHiddenFiles
+                errorHandler:NULL];
+	for (NSURL * theURL in DE) {
+		if ([[SDC typeForContentsOfURL:theURL error:outErrorPtr] conformsToUTType4iTM3:type]) {
+			[result addObject:theURL];
+		}
+	}
+//END4iTM3;
+	return result;
+}
+
+@end
+
 #if 0
 
 /*! UTI's and pasteboard types... */

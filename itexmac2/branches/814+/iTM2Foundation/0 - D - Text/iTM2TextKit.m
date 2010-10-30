@@ -330,7 +330,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    CGFloat f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
+    CGFloat f = [self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
  	if (f>0)
 		[self setScaleFactor:f * self.scaleFactor];
 //END4iTM3;
@@ -345,7 +345,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    CGFloat f = [self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
+    CGFloat f = [self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895;
 	if (f>0)
 		[self setScaleFactor:self.scaleFactor / f];
 //END4iTM3;
@@ -412,7 +412,7 @@ To Do List:
 		[self setFrameSize: oldSize];
 		[self.enclosingScrollView setNeedsDisplay:YES];
 	}
-	[self takeContextFloat:aMagnification forKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Float:aMagnification forKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  willChangeSelectedRanges

@@ -153,8 +153,8 @@ To Do List:
 #import "iTM2ResponderKit.h"
 
 @implementation iTM2AutoResponder
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id)contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager
+- (id)context4iTM3Manager;
 /*"Toggles the display mode between iTM2StickMode and iTM2LastMode.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -162,7 +162,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"contextManager is:%@", ([NSApp keyWindow]?:(id)SUD));
+//LOG4iTM3(@"context4iTM3Manager is:%@", ([NSApp keyWindow]?:(id)SUD));
     return [NSApp keyWindow]?:(id)SUD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleAutoUpdate:
@@ -174,7 +174,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:([sender state] == NSOffState) forKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:([sender state] == NSOffState) forKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleAutoUpdate:
@@ -186,7 +186,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = [self contextBoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
+    sender.state = [self context4iTM3BoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSmartUpdate:
@@ -199,9 +199,9 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     BOOL wasOnState = ([sender state] != NSOffState);
-    [self takeContextBool:!wasOnState forKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:!wasOnState forKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
     if (!wasOnState)
-        [self takeContextBool:YES forKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
+        [self takeContext4iTM3Bool:YES forKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSmartUpdate:
@@ -213,8 +213,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = [self contextBoolForKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
-    return [self contextBoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
+    sender.state = [self context4iTM3BoolForKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
+    return [self context4iTM3BoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask];
 }
 @end
 
@@ -276,12 +276,12 @@ To Do List:
         _iTM2_AutoSave_TimeInterval = newTimeInterval;
         [_iTM2_AutoSave_Timer invalidate];
         [_iTM2_AutoSave_Timer autorelease];
-        _iTM2_AutoSave_Timer = [([self contextBoolForKey:iTM2AutoSaveDocumentsEnabledKey domain:iTM2ContextAllDomainsMask]?
+        _iTM2_AutoSave_Timer = [([self context4iTM3BoolForKey:iTM2AutoSaveDocumentsEnabledKey domain:iTM2ContextAllDomainsMask]?
             [NSTimer scheduledTimerWithTimeInterval:_iTM2_AutoSave_TimeInterval
                 target:self selector:@selector(_TimedSaveAllDocuments:) userInfo:nil repeats:YES]
             :nil) retain];
     }
-    else if ([self contextBoolForKey:iTM2AutoSaveDocumentsEnabledKey domain:iTM2ContextAllDomainsMask])
+    else if ([self context4iTM3BoolForKey:iTM2AutoSaveDocumentsEnabledKey domain:iTM2ContextAllDomainsMask])
     {
         if (!_iTM2_AutoSave_Timer)
             _iTM2_AutoSave_Timer = [[NSTimer scheduledTimerWithTimeInterval:_iTM2_AutoSave_TimeInterval
@@ -327,10 +327,10 @@ To Do List:
     NSWindow * W = [aNotification object];
     NSDocument * D = [W.windowController document];
     if ([D canAutoUpdate4iTM3]
-            && [D contextBoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]
+            && [D context4iTM3BoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]
                 && [D needsToUpdate])
     {
-        if ([D contextBoolForKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask])
+        if ([D context4iTM3BoolForKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask])
         {
             // finding the front most window
             NSMutableArray * windows = [NSMutableArray array];

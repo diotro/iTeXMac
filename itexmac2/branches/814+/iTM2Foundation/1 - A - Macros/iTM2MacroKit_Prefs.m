@@ -1573,7 +1573,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	NSString * key = @".";
 	id result = [MD objectForKey:key];
 //END4iTM3;
@@ -1624,7 +1624,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * key = [self selectedDomain];// side effect: the selected domain should be safe before anything else is used
-	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	id result = [MD objectForKey:key];
 //END4iTM3;
     return result?:@"";
@@ -1711,7 +1711,7 @@ To Do List:
 	NSString * domain = [self selectedDomain];
 	NSString * oldMode = [self selectedMode];
 	[[oldMode retain] autorelease];// why should I retain this? the observer is notified that there will be a change
-	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newMode forKey:domain];
 	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
@@ -1755,7 +1755,7 @@ To Do List:
 	[self setSelectedMode:nil];
 	[self willChangeValueForKey:@"availableModes"];
 	NSString * key = @".";
-	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newDomain forKey:key];
 	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
@@ -1956,7 +1956,7 @@ To Do List:
 		[NSValueTransformer setValueTransformer:transformer forName:@"iTM2TabViewItemIdentifierForAction"];
 	}
 	// initialize the domains and modes
-	id MD = [self contextDictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	if (!MD)
 	{
 		MD = [NSMutableDictionary dictionary];

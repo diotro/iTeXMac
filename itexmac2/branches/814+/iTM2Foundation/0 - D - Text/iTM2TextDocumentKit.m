@@ -1274,7 +1274,7 @@ To Do List:
 				[[self textEditors] addObject:view];
 				[[view layoutManager] replaceTextStorage:[self textStorage]];
 				[view setUsesFindPanel:![SUD boolForKey:iTM2TextViewsDontUseStandardFindPanelKey]];
-				[view awakeFromContext];
+				[view awakeFromContext4iTM3];
 			}
 		}
 		return;
@@ -1432,13 +1432,13 @@ To Do List:
 	[self setupTextEditorScrollers];
     [super windowDidLoad];
 	#if 0
-	BOOL flag = [self contextBoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];
+	BOOL flag = [self context4iTM3BoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];
 //LOG4iTM3(@"flag is: %@", (flag? @"Y": @"N"));
 //LOG4iTM3(@"NSApp is: %@", NSApp);
 //LOG4iTM3(@"[NSApp keyWindow] is:%@", [NSApp keyWindow]);
     NS_DURING
 	NSWindow * W = self.window;
-    if ([self contextBoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask])
+    if ([self context4iTM3BoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask])
 	{
         [W makeKeyAndOrderFront:self];
 	}
@@ -1611,7 +1611,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NS_DURING;
-	[self.textView awakeFromContext];
+	[self.textView awakeFromContext4iTM3];
     NS_HANDLER
     LOG4iTM3(@"*** Exception catched: %@", [localException reason]);
     NS_ENDHANDLER
@@ -1627,7 +1627,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:self.window.isKeyWindow forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy?
+    [self takeContext4iTM3Bool:self.window.isKeyWindow forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy?
     [self takeContextValue:NSStringFromRange(self.textView.selectedRange) forKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask];
     NS_DURING
     NSRect visibleRect = self.textView.visibleRect;
@@ -1953,7 +1953,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[view saveContext:self];
+	[view saveContext4iTM3:self];
 	iTM2TextInspector * inspector = [[[self.class alloc] initWithWindowNibName:NSStringFromClass(self.class)] autorelease];
 	NSDocument * document = self.document;
 	[document addWindowController:inspector];
@@ -1973,7 +1973,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[view awakeFromContext];
+	[view awakeFromContext4iTM3];
 	[super didAddSplittingView:view];
 	[self setupTextEditorsForView:[view enclosingSplitView]];
 	[self setupTextEditorScrollers];
@@ -2110,8 +2110,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:!old forKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOverwrite:
@@ -2123,7 +2123,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
 	sender.state = old?NSOnState:NSOffState;
     return YES;
 }
@@ -2143,8 +2143,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:iTM2TextViewsOverwriteKey domain:iTM2ContextPrivateMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:!old forKey:iTM2TextViewsOverwriteKey domain:iTM2ContextPrivateMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleOverwrite:
@@ -2156,7 +2156,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask];
 	sender.state = old?NSOnState:NSOffState;
     return YES;
 }
@@ -2175,7 +2175,7 @@ To Do List:
 		return;
 	}
 	NSRange selectedRange = self.selectedRange;
-	if (selectedRange.length||![self contextBoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask]) {
+	if (selectedRange.length||![self context4iTM3BoolForKey:iTM2TextViewsOverwriteKey domain:iTM2ContextAllDomainsMask]) {
 //END4iTM3;
 		[super insertText:aString];
 		return;
@@ -2319,8 +2319,8 @@ To Do List:
 	}
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromContext
-- (void)awakeFromContext;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromContext4iTM3
+- (void)awakeFromContext4iTM3;
 /*Description Forthcomping.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Mon Jan 10 21:45:41 GMT 2005
@@ -2328,8 +2328,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super awakeFromContext];
-	CGFloat scale = [self contextFloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
+	[super awakeFromContext4iTM3];
+	CGFloat scale = [self context4iTM3FloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
     NSRange R = iTM3MakeRange(0,self.string.length);
     NSRange r = NSRangeFromString([self contextValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);

@@ -879,13 +879,13 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self setInfo:[[properties mutableCopy] autorelease] forKeyPaths:TWSKeyedPropertiesKey,key,nil];
+    return [self setInfo:[properties mutableCopy] forKeyPaths:TWSKeyedPropertiesKey,key,nil];
 }
 - (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey;
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self infoForKeyPaths:TWSKeyedPropertiesKey,fileKey,key,nil];
+    return [self info4iTM3ForKeyPaths:TWSKeyedPropertiesKey,fileKey,key,nil];
 }
 - (BOOL)setPropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey;
 {DIAGNOSTIC4iTM3;
@@ -906,7 +906,7 @@ To Do List:
 	NSMutableIndexSet * set = [NSMutableIndexSet indexSet];
 	NSString * key;
 	for (key in keyedNames.keyEnumerator) {
-		[set addIndex:[key integerValue]];
+		[set addIndex:key.integerValue];
 	}
 	NSUInteger last = 0;
 	if (key = [keyedNames objectForKey:iTM2ProjectLastKeyKey]) {
@@ -927,7 +927,7 @@ To Do List:
 @interface NSObject(Infos_Private)
 
 /*! 
-    @method			metaInfos
+    @method			metaInfos4iTM3
     @abstract		The meta infos.
     @discussion		The default implementation raises an exception. Subclassers must provide the model.
     @param			None
@@ -935,14 +935,14 @@ To Do List:
 	@availability	iTM2.
 	@copyright		2007 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)metaInfos;
+- (id)metaInfos4iTM3;
 
 @end
 
 
 @implementation iTM2ProjectDocument(Infos)
 #pragma mark =-=-=-=-=-  INFOS
-- (id)mainInfos;
+- (id)mainInfos4iTM3;
 {
 	id result = metaGETTER;
 	if (!result) {
@@ -953,13 +953,13 @@ To Do List:
 	return result;
 }
 /*	The project infos will store everything about the engines  */
-- (id)otherInfos;
+- (id)otherInfos4iTM3;
 {
 	id result = metaGETTER;
 	if (!result) {
 		result = [[[iTM2InfoWrapper alloc] init] autorelease];
 		metaSETTER(result);
-		[IMPLEMENTATION takeMetaValue:nil forKey:@"MutableInfos"];// next time mutableProjectInfos is called, it will make a mutable copy of otherInfos
+		[IMPLEMENTATION takeMetaValue:nil forKey:@"MutableInfos"];// next time mutableProjectInfos is called, it will make a mutable copy of otherInfos4iTM3
 		NSError * outError;
 		NSURL * url = [self.fileURL otherInfoURL4iTM3WithCreate:NO error:&outError];
 		if (url) {
@@ -980,7 +980,7 @@ To Do List:
 	}
 	return result;
 }
-- (id)customInfos;
+- (id)customInfos4iTM3;
 {
 	id result = metaGETTER;
 	if (!result)
@@ -1014,12 +1014,12 @@ To Do List:
 	if (!result)
 	{
 		result = [[[iTM2InfoWrapper alloc] init] autorelease];
-		[result setModel:[self.otherInfos model]];// a mutable deep copy is done
+		[result setModel:[self.otherInfos4iTM3 model]];// a mutable deep copy is done
 		metaSETTER(result);
 	}
 	return result;
 }
-- (id)metaInfos;
+- (id)metaInfos4iTM3;
 {
 	id result = metaGETTER;
 	if (!result)
@@ -1047,7 +1047,7 @@ To Do List:
 	}
 	return result;
 }
-- (id)infosController;
+- (id)infosController4iTM3;
 {
 	id result = metaGETTER;
 	if (!result)
@@ -1061,9 +1061,9 @@ To Do List:
 - (BOOL)infoCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)outErrorPtr;
 {
 	BOOL result = NO;
-	iTM2MainInfoWrapper * info = self.mainInfos;
+	iTM2MainInfoWrapper * info = self.mainInfos4iTM3;
 	if (info.changeCount) {
-		[info setInfo:iTM2ProjectInfoMainType forKeyPaths:@"self.class",nil];
+		[info setInfo4TM3:iTM2ProjectInfoMainType forKeyPaths:@"self.class",nil];
 		NSURL * url;
 		if ((url = [absoluteURL mainInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
 			[info updateChangeCount:NSChangeCleared];
@@ -1071,24 +1071,24 @@ To Do List:
 				result = YES;
 				[info updateChangeCount:NSChangeCleared];
 project:
-				info = self.otherInfos;
+				info = self.otherInfos4iTM3;
 				if (info.changeCount) {
-					[info setInfo:iTM2ProjectInfoProjectType forKeyPaths:@"self.class",nil];
+					[info setInfo4TM3:iTM2ProjectInfoProjectType forKeyPaths:@"self.class",nil];
 					if ((url = [absoluteURL otherInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
 						if ([info.model writeToURL:url atomically:YES]) {
 							result = YES;
 							[info updateChangeCount:NSChangeCleared];
 meta:
-							info = self.metaInfos;
+							info = self.metaInfos4iTM3;
 							if (info.changeCount) {
-								[info setInfo:iTM2ProjectInfoMetaComponent forKeyPaths:@"self.class",nil];
+								[info setInfo4TM3:iTM2ProjectInfoMetaComponent forKeyPaths:@"self.class",nil];
 								if ((url = [absoluteURL metaInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
 									if ([info.model writeToURL:url atomically:YES]) {
 										[info updateChangeCount:NSChangeCleared];
 custom:
-										info = self.customInfos;
+										info = self.customInfos4iTM3;
 										if (info.changeCount) {
-											[info setInfo:iTM2ProjectInfoCustomType forKeyPaths:@"self.class",nil];
+											[info setInfo4TM3:iTM2ProjectInfoCustomType forKeyPaths:@"self.class",nil];
 											if ((url = [absoluteURL customInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
 												if ([info.model writeToURL:url atomically:YES]) {
 													[info updateChangeCount:NSChangeCleared];
@@ -1118,9 +1118,9 @@ custom:
 - (BOOL)infoCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)outErrorPtr;
 {
 	[[self implementation] takeMetaValue:nil forKey:@"MainInfos"];
-	[[self implementation] takeMetaValue:nil forKey:@"MetaInfos"];
-	[[self implementation] takeMetaValue:nil forKey:@"OtherInfos"];
-	[[self implementation] takeMetaValue:nil forKey:@"CustomInfos"];
+	[[self implementation] takeMetaValue:nil forKey:@"MetaInfos4iTM3"];
+	[[self implementation] takeMetaValue:nil forKey:@"OtherInfo4iTM3s"];
+	[[self implementation] takeMetaValue:nil forKey:@"CustomInfo4iTM3s"];
 	return YES;
 }
 #pragma mark =-=-=-=-=-  URL
@@ -1150,7 +1150,7 @@ To Do List:
 
 @interface iTM2Inspector(Infos)
 - (NSString *)infosKeyPathPrefix;
-- (id)infosController;
+- (id)infosController4iTM3;
 @end
 
 @implementation iTM2Inspector(Infos)
@@ -1158,7 +1158,7 @@ To Do List:
 {
 	return nil;
 }
-- (id)infosController;// lazy intializer, for the projects, it will break if the inspector changes its project
+- (id)infosController4iTM3;// lazy intializer, for the projects, it will break if the inspector changes its project
 {
 	id result = metaGETTER;
 	if (!result)
@@ -1182,7 +1182,7 @@ To Do List:
  *  the model of the receiver may correspond to only a subtree. */
 @property (readwrite,copy) NSArray * prefix;
 /*  If the receiver is atomic, project infos edition takes place on the real model,
- *  otherwise it takes place in a mutable copy. */
+ *  otherwise it takes place in a mutable copy of the model. */
 @property (readwrite) BOOL isAtomic;
 @end
 
@@ -1201,7 +1201,7 @@ To Do List:
 /*  The correct infos object to edit, whether the receiver is atomic or not */
 - (id)infos;
 {
-	return self.isAtomic? [self.project mutableProjectInfos]:[self.project otherInfos];
+	return self.isAtomic? [self.project mutableProjectInfos]:[self.project otherInfos4iTM3];
 }
 #pragma mark =-=-=-=-=-  GET/SET
 /*  Whether the receiver is atomic or not does not make any difference here.
@@ -1210,7 +1210,7 @@ To Do List:
 {
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:self.prefix];
 	[Ks addObjectsFromArray:keys];
-	return [[self.project otherInfos] infoForKeys:keys];
+	return [[self.project otherInfos4iTM3] infoForKeys:keys];
 }
 /*  If the receiver is not atomic, this is exactly [self localInfoForKeys:keys].
  *  Otherwise this is the lastly edited value. */
@@ -1224,7 +1224,7 @@ To Do List:
  *  If the result is a dictionary, it was obtained by merging all the dictionaries of the ancestors.
  *  Latest Revision: Sat Jan 30 09:25:17 UTC 2010
  */
-- (id)inheritedInfoForKeys:(NSArray *)keys;
+- (id)inheritedInfo4iTM3ForKeys:(NSArray *)keys;
 {
 	NSString * name;
 	NSEnumerator * E;
@@ -1241,15 +1241,15 @@ To Do List:
 		name = P.baseProjectName;
 		E = [[SPC baseNamesOfAncestorsForBaseProjectName:name] objectEnumerator];
 	}
-    while (name = E.nextObject) {
+    while ((name = E.nextObject)) {
 		P = [SPC baseProjectWithName:name];
-		id result = [P.otherInfos infoForKeys:keys];
+		id result = [P.otherInfos4iTM3 infoForKeys:keys];
 		/* if result is a dictionary, it should be merged with the dictionaries of other ancestors, if any */
 		if ([result isKindOfClass:[NSDictionary class]]) {
 			result = [[result mutableCopy] autorelease];
-			while (name = E.nextObject) {
+			while ((name = E.nextObject)) {
 				P = [SPC baseProjectWithName:name];
-				NSDictionary * r = [P.otherInfos infoForKeys:keys];
+				NSDictionary * r = [P.otherInfos4iTM3 infoForKeys:keys];
 				if ([r isKindOfClass:[NSDictionary class]]) {
 					[result mergeEntriesFromDictionary4iTM3:r];
 				} else if (r) {
@@ -1264,7 +1264,7 @@ To Do List:
 	}
 	return nil;
 }
-- (BOOL)isInfoInheritedForKeys:(NSArray *)keys;
+- (BOOL)isInfoInherited4iTM3ForKeys:(NSArray *)keys;
 {
     return NO;
 }
@@ -1274,7 +1274,7 @@ To Do List:
 	[Ks addObjectsFromArray:keys];
 	id result = [self.infos infoForKeys:Ks];// different behaviour depending on isAtomic.
 	if ([result isKindOfClass:[NSDictionary class]]) {
-		NSMutableDictionary * inherited = [self inheritedInfoForKeys:Ks];
+		NSMutableDictionary * inherited = [self inheritedInfo4iTM3ForKeys:Ks];
 		if ([inherited isKindOfClass:[NSDictionary class]]) {
 			inherited = [[inherited deepMutableCopy4iTM3] autorelease];
 			[inherited mergeEntriesFromDictionary4iTM3:result];
@@ -1289,10 +1289,10 @@ To Do List:
 	} else if (result) {
 		return result;
 	} else {
-		return [self inheritedInfoForKeys:Ks];
+		return [self inheritedInfo4iTM3ForKeys:Ks];
 	}
 }
-- (id)infoInherited:(BOOL)yorn forKeys:(NSArray *)keys;
+- (id)infoInherited4iTM3:(BOOL)yorn forKeys:(NSArray *)keys;
 {
     if (yorn) {
         return [self infoForKeys:keys];
@@ -1325,14 +1325,14 @@ To Do List:
 	id lhs, rhs;
 	iTM2ProjectDocument * P = self.project;
 	if (self.isAtomic) {
-		lhs = [P.otherInfos infoForKeys:Ks];
+		lhs = [P.otherInfos4iTM3 infoForKeys:Ks];
 		if (!lhs) {
-			lhs = [self inheritedInfoForKeys:Ks];
+			lhs = [self inheritedInfo4iTM3ForKeys:Ks];
 		}
 		rhs = [P.mutableProjectInfos infoForKeys:Ks];
 	} else {
-		lhs = [self inheritedInfoForKeys:Ks];
-		rhs = [P.otherInfos infoForKeys:Ks];
+		lhs = [self inheritedInfo4iTM3ForKeys:Ks];
+		rhs = [P.otherInfos4iTM3 infoForKeys:Ks];
 	}
 	return ![lhs isEqual:rhs] || (rhs != lhs);
 }
@@ -1340,11 +1340,11 @@ To Do List:
 /*  The purpose of the custom info is to keep track of what is edited.
  *  Typically, one can edit the values in some panel but does not want to save the changes.
  *  When he reopens the same panel, he would be happy to recover the previously edited values. */
-- (id)customInfoForKeys:(NSArray *)keys;
+- (id)customInfo4iTM3ForKeys:(NSArray *)keys;
 {
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:self.prefix];
 	[Ks addObjectsFromArray:keys];
-	return [[self.project customInfos] infoForKeys:keys];
+	return [[self.project customInfos4iTM3] infoForKeys:keys];
 }
 /*  Backup the edited info.
  *  The user has started to edit the information but the change is not yet registered.
@@ -1354,7 +1354,7 @@ To Do List:
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:self.prefix];
 	[Ks addObjectsFromArray:keys];
 	id edit = [self.infos editInfoForKeys:Ks];
-	return [[self.project customInfos] setInfo:edit forKeys:Ks];
+	return [[self.project customInfos4iTM3] setInfo:edit forKeys:Ks];
 }
 /*  The user want to continue edition.
  *  We start from the last value edited. */
@@ -1362,7 +1362,7 @@ To Do List:
 {
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:self.prefix];
 	[Ks addObjectsFromArray:keys];
-	id custom = [[self.project customInfos] infoForKeys:Ks];
+	id custom = [[self.project customInfos4iTM3] infoForKeys:Ks];
 	if (custom)
 	{
 		[self.infos setInfo:custom forKeys:Ks];
@@ -1384,7 +1384,7 @@ To Do List:
 	[self backupCustomForKeys:Ks];
 	iTM2ProjectDocument * P = self.project;
 	id edit = [P.mutableProjectInfos infoForKeys:Ks];
-	return [P.otherInfos setInfo:edit forKeys:Ks];
+	return [P.otherInfos4iTM3 setInfo:edit forKeys:Ks];
 }
 /*  If the user has made some changes, but do not want to use them anymore,
  *  He can revert to the original value.
@@ -1398,7 +1398,7 @@ To Do List:
 	[Ks addObjectsFromArray:keys];
 	[self backupCustomForKeys:Ks];// not really well designed, why?
 	iTM2ProjectDocument * P = self.project;
-	id edit = [P.otherInfos infoForKeys:Ks];
+	id edit = [P.otherInfos4iTM3 infoForKeys:Ks];
 	return [P.mutableProjectInfos setInfo:edit forKeys:Ks];
 }
 @synthesize project = iVarProject4iTM3;
@@ -1407,100 +1407,100 @@ To Do List:
 @end
 
 @implementation NSObject(Infos)
-- (id)infosController;// lazy intializer, for the projects
+- (id)infosController4iTM3;// lazy intializer, for the projects
 {
 	id result = metaGETTER;
 	return result;
 }
-- (void)setInfosController:(id)controller;
+- (void)setInfosController4iTM3:(id)controller;
 {
 	metaSETTER(controller);
 	return;
 }
-- (id)metaInfos;
+- (id)metaInfos4iTM3;
 {
-	NSAssert(NO,@"! ERROR: Unsupported metaInfos, report bug");
+	NSAssert(NO,@"! ERROR: Unsupported metaInfos4iTM3, report bug");
 	return nil;
 }
-- (id)metaInfoForKeyPaths:(NSString *)first,...;
+- (id)metaInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [self.metaInfos infoForKeys:keys];
+	return [self.metaInfos4iTM3 infoForKeys:keys];
 }
-- (BOOL)setMetaInfo:(id)info forKeyPaths:(NSString *)first,...;
+- (BOOL)setMetaInfo4iTM3:(id)info forKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [self.metaInfos setInfo:info forKeys:keys];
+	return [self.metaInfos4iTM3 setInfo:info forKeys:keys];
 }
-- (id)infoInherited:(BOOL)yorn forKeyPaths:(NSString *)first,...;
+- (id)infoInherited4iTM3:(BOOL)yorn forKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] infoInherited:yorn forKeys:keys];
+	return [[self infosController4iTM3] infoInherited4iTM3:yorn forKeys:keys];
 }
-- (id)infoForKeyPaths:(NSString *)first,...;
+- (id)info4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] infoForKeys:keys];
+	return [[self infosController4iTM3] infoForKeys:keys];
 }
-- (BOOL)setInfo:(id)info forKeyPaths:(NSString *)first,...;
+- (BOOL)setInfo4TM3:(id)info forKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] setInfo:info forKeys:keys];
+	return [[self infosController4iTM3] setInfo:info forKeys:keys];
 }
-- (BOOL)isInfoEditedForKeyPaths:(NSString *)first,...;
+- (BOOL)isInfo4iTM3EditedForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] isInfoEditedForKeys:keys];
+	return [[self infosController4iTM3] isInfoEditedForKeys:keys];
 }
-- (id)inheritedInfoForKeyPaths:(NSString *)first,...;
+- (id)inheritedInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] inheritedInfoForKeys:keys];
+	return [[self infosController4iTM3] inheritedInfo4iTM3ForKeys:keys];
 }
-- (BOOL)isInfoInheritedForKeyPaths:(NSString *)first,...;
+- (BOOL)isInfoInherited4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] isInfoInheritedForKeys:keys];
+	return [[self infosController4iTM3] isInfoInherited4iTM3ForKeys:keys];
 }
-- (id)localInfoForKeyPaths:(NSString *)first,...;
+- (id)localInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] localInfoForKeys:keys];
+	return [[self infosController4iTM3] localInfoForKeys:keys];
 }
-- (id)customInfoForKeyPaths:(NSString *)first,...;
+- (id)customInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] customInfoForKeys:keys];
+	return [[self infosController4iTM3] customInfo4iTM3ForKeys:keys];
 }
-- (id)editInfoForKeyPaths:(NSString *)first,...;
+- (id)editInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] editInfoForKeys:keys];
+	return [[self infosController4iTM3] editInfoForKeys:keys];
 }
-- (BOOL)toggleInfoForKeyPaths:(NSString *)first,...;
+- (BOOL)toggleInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	BOOL old = [[[self infosController] infoForKeys:keys] boolValue];
-	return [[self infosController] setInfo:[NSNumber numberWithBool:!old] forKeys:keys];
+	BOOL old = [[[self infosController4iTM3] infoForKeys:keys] boolValue];
+	return [[self infosController4iTM3] setInfo:[NSNumber numberWithBool:!old] forKeys:keys];
 }
-- (BOOL)backupCustomForKeyPaths:(NSString *)first,...;
+- (BOOL)backupCustomInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] backupCustomForKeys:keys];
+	return [[self infosController4iTM3] backupCustomForKeys:keys];
 }
-- (BOOL)restoreCustomForKeyPaths:(NSString *)first,...;
+- (BOOL)restoreCustomInfo4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] restoreCustomForKeys:keys];
+	return [[self infosController4iTM3] restoreCustomForKeys:keys];
 }
-- (BOOL)saveChangesForKeyPaths:(NSString *)first,...;
+- (BOOL)saveChanges4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] saveChangesForKeys:keys];
+	return [[self infosController4iTM3] saveChangesForKeys:keys];
 }
-- (BOOL)revertChangesForKeyPaths:(NSString *)first,...;
+- (BOOL)revertChanges4iTM3ForKeyPaths:(NSString *)first,...;
 {
 	VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,keys);
-	return [[self infosController] revertChangesForKeys:keys];
+	return [[self infosController4iTM3] revertChangesForKeys:keys];
 }
 @end

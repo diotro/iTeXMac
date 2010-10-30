@@ -24,28 +24,28 @@
 */
 
 #define TOGGLE(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(NSMenuItem *)sender;{[self setInfo:[NSNumber numberWithBool: ![[self editInfoForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
-- (BOOL)VALIDATE:(NSMenuItem *)sender;{sender.state = ([[self editInfoForKeyPaths:KEY,nil] boolValue]? NSOnState:NSOffState);return YES;}
+- (void)ACTION:(NSMenuItem *)sender;{[self setInfo4TM3:[NSNumber numberWithBool: ![[self editInfo4iTM3ForKeyPaths:KEY,nil] boolValue]] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
+- (BOOL)VALIDATE:(NSMenuItem *)sender;{sender.state = ([[self editInfo4iTM3ForKeyPaths:KEY,nil] boolValue]? NSOnState:NSOffState);return YES;}
 #define FEDIT(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(NSControl *)sender;{[self setInfo:[NSNumber numberWithFloat:sender.floatValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
-- (BOOL)VALIDATE:(NSControl *)sender;{[sender setFloatValue:[[self editInfoForKeyPaths:KEY,nil] floatValue]];return YES;}
+- (void)ACTION:(NSControl *)sender;{[self setInfo4TM3:[NSNumber numberWithFloat:sender.floatValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
+- (BOOL)VALIDATE:(NSControl *)sender;{[sender setFloatValue:[[self editInfo4iTM3ForKeyPaths:KEY,nil] floatValue]];return YES;}
 #define SEDIT(ACTION, VALIDATE, KEY)\
-- (void)ACTION:(NSControl *)sender;{[self setInfo:[sender stringValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
-- (BOOL)VALIDATE:(NSControl *)sender;{[sender setStringValue:[self editInfoForKeyPaths:KEY,nil]];return YES;}
+- (void)ACTION:(NSControl *)sender;{[self setInfo4TM3:[sender stringValue] forKeyPaths:KEY,nil];self.validateWindowContent4iTM3;return;}\
+- (BOOL)VALIDATE:(NSControl *)sender;{[sender setStringValue:[self editInfo4iTM3ForKeyPaths:KEY,nil]];return YES;}
 #define UNIT(ACTION, VALIDATE, KEY)\
 - (void)ACTION:(NSPopUpButton *)sender;\
 {\
 	switch (sender.selectedItem.tag) {\
-		case 0: [self setInfo:@"bp" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
-		case 1: [self setInfo:@"pt" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
-		case 2: [self setInfo:@"in" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
-		default: [self setInfo:@"cm" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		case 0: [self setInfo4TM3:@"bp" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		case 1: [self setInfo4TM3:@"pt" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		case 2: [self setInfo4TM3:@"in" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
+		default: [self setInfo4TM3:@"cm" forKeyPaths:KEY,nil]; self.validateWindowContent4iTM3; return;\
 	}\
     return;\
 }\
 - (BOOL)VALIDATE:(NSPopUpButton *)sender;\
 {\
-	NSString * unit = [self editInfoForKeyPaths:KEY,nil];\
+	NSString * unit = [self editInfo4iTM3ForKeyPaths:KEY,nil];\
 	if([unit isEqual:@"bp"])\
 		[sender selectItemWithTag:0];\
 	else if([unit isEqual:@"pt"])\

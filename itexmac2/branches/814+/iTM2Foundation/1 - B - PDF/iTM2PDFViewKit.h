@@ -36,7 +36,7 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
     NSPoint iVarAbsoluteFocusPoint;
     NSColor * iVarBackgroundColor;
     NSPDFImageRep * iVarRepresentation;
-    id iVarContextManager;
+    id iVarContext4iTM3Manager;
     NSPoint iVarSynchronizationPoint;
 }
 @property (readonly) NSSize inset;
@@ -49,7 +49,7 @@ extern NSString * const iTM2PDFImageRepresentationDidChangeNotification;
 @property NSPoint synchronizationPoint;
 @property (retain) NSColor * backgroundColor;
 @property (assign) NSPDFImageRep * imageRepresentation;
-@property (assign) id contextManager;
+@property (assign) id context4iTM3Manager;
 @end
 
 extern NSString * const iTM2PDFViewerBackgroundColorKey;

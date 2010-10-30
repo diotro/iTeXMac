@@ -50,7 +50,7 @@ NSString * const iTM2TeXProjectNoTerminalBehindKey = @"iTM2TeXProjectNoTerminalB
 NSString * const iTM2TeXPCommandPropertiesKey = @"Properties";
 
 #ifndef iTM2WindowsMenuItemIndentationLevel
-#define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
+#define iTM2WindowsMenuItemIndentationLevel [self context4iTM3IntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 #endif
 
 @implementation NSDocumentController(iTM2TeXProjectFrontend)
@@ -118,7 +118,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self infoForKeyPaths:iTM2TPFEOutputFileExtensionKey,nil]?:@"pdf";
+    return [self info4iTM3ForKeyPaths:iTM2TPFEOutputFileExtensionKey,nil]?:@"pdf";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOutputFileExtension:
 - (void)setOutputFileExtension:(NSString *) extension;
@@ -129,7 +129,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setInfo:extension forKeyPaths:iTM2TPFEOutputFileExtensionKey,nil];
+	[self setInfo4TM3:extension forKeyPaths:iTM2TPFEOutputFileExtensionKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editCommands:
@@ -246,7 +246,7 @@ To Do List:
 		window = [[self inspectorAddedWithMode:[iTM2TeXPTaskInspector inspectorMode]] window];
     }
 	if(mainWindow && ![window isEqual:mainWindow] 
-		&& ![self contextBoolForKey:iTM2TeXProjectNoTerminalBehindKey domain:iTM2ContextAllDomainsMask]) {
+		&& ![self context4iTM3BoolForKey:iTM2TeXProjectNoTerminalBehindKey domain:iTM2ContextAllDomainsMask]) {
 		[window orderBelowFront4iTM3:self];
 	} else {
 		[window orderFront:self];
@@ -278,7 +278,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextBoolForKey:@"iTM2TeXProjectKeepBackup" domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:@"iTM2TeXProjectKeepBackup" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= template_isValidCommandEnvironmentMode:forScriptMode:
 - (BOOL)template_isValidCommandEnvironmentMode:(NSString *) environmentMode forScriptMode:(NSString *) scriptMode;
@@ -1150,7 +1150,7 @@ To Do List:
 	{
 		return NO;
 	}
-	NSURL * enclosing = [fileURL enclosingProjectURL4iTM3];
+	NSURL * enclosing = fileURL.enclosingProjectURL4iTM3;
 	if(enclosing)
 	{
 		return NO;
@@ -1176,7 +1176,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSURL * fileURL = self.fileURL;
-	NSURL * enclosing = [fileURL enclosingProjectURL4iTM3];
+	NSURL * enclosing = fileURL.enclosingProjectURL4iTM3;
 	if(enclosing)
 	{
 		return NO;
@@ -2229,7 +2229,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     //  This must not be inherited because of reentrant management
-    return [self infoInherited:NO forKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
+    return [self infoInherited4iTM3:NO forKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBaseProjectName:
 - (void)setBaseProjectName:(NSString *) baseProjectName;
@@ -2240,7 +2240,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo:baseProjectName forKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
+    [self setInfo4TM3:baseProjectName forKeyPaths:iTM2TPFEBaseProjectNameKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProject

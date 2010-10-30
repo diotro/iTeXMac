@@ -250,3 +250,28 @@ extern NSString * const iTM2AutosavingDelayKey;
 
 @end
 
+@interface NSURL(iTM2DocumentController)
+
+/*!
+    @method		enclosingURLOfType4iTM3:error:
+    @abstract	Find the enclosing URL conforming to the given type.
+    @discussion	In case of an error, the error pointer will point to an NSError instance
+                otherwise it will point to nil.
+    @param      an UTI type
+    @param      an error pointer
+    @result     an URL
+*/
+- (NSURL *)enclosingURLOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+
+/*!
+    @method		enclosedURLsOfType4iTM3:error:
+    @abstract	Find the enclosed URLs conforming to the given type.
+    @discussion	In case of an error, the error pointer will point to an NSError instance
+                otherwise it will point to nil.
+    @param      an UTI type
+    @param      an error pointer
+    @result     an URL
+*/
+- (NSArray *)enclosedURLsOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+
+@end

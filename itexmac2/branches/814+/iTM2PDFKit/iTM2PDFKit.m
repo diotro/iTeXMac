@@ -1745,7 +1745,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"self.contextDictionary is:%@", self.contextDictionary);
+//LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
 	NSView * documentView = [self.pdfView documentView];
 	NSRect visibleRect = [documentView visibleRect];
 	visibleRect = [documentView absoluteRectWithRect:visibleRect];
@@ -1756,8 +1756,8 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
 - (void)contextDidChange;
-/*"This message is sent each time the contextManager have changed.
-The receiver will take appropriate actions to synchronize its state with its contextManager.
+/*"This message is sent each time the context4iTM3Manager have changed.
+The receiver will take appropriate actions to synchronize its state with its context4iTM3Manager.
 Subclasses will most certainly override this method because the default implementation does nothing.
 Version history:jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sun Mar 14 08:50:45 UTC 2010
@@ -1843,12 +1843,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
  	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
-	id value = [TPD infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
+	id value = [TPD info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
 	if (value) {
 		return [value boolValue];
 	}
 	// from the SUD
-	NSDictionary * D = [self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
+	NSDictionary * D = [self context4iTM3DictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
 	value = [D objectForKey:@"SyncTeXDisabled"];
     return [value boolValue];
 }
@@ -1862,7 +1862,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
  	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
-	[TPD setInfo:(yorn?[NSNumber numberWithBool:yorn]:nil) forKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
+	[TPD setInfo4TM3:(yorn?[NSNumber numberWithBool:yorn]:nil) forKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
 //END4iTM3;
 	return;
 }
@@ -1872,12 +1872,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
  	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
-	id value = [TPD infoForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
+	id value = [TPD info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXDisabled",nil];
 	if (value) {
 		return [value boolValue];
 	}
 	// from the SUD
-	NSDictionary * D = [self contextDictionaryForKey:@"SyncTeXUncompressed" domain:iTM2ContextAllDomainsMask];
+	NSDictionary * D = [self context4iTM3DictionaryForKey:@"SyncTeXUncompressed" domain:iTM2ContextAllDomainsMask];
 	value = [D objectForKey:@"SyncTeXUncompressed"];
     return [value boolValue];
 }
@@ -1886,12 +1886,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
  	iTM2TeXProjectDocument * TPD = (iTM2TeXProjectDocument *)[SPC projectForSource:self];
-	[TPD setInfo:(yorn?[NSNumber numberWithBool:yorn]:nil) forKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXUncompressed",nil];
+	[TPD setInfo4TM3:(yorn?[NSNumber numberWithBool:yorn]:nil) forKeyPaths:iTM2TPFEEnginesKey,iTM2ProjectDefaultsKey,@"SyncTeXUncompressed",nil];
 //END4iTM3;
 	return;
 }
 #define GETTER [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
-#define SETTER(argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
+#define SETTER(argument) id __D = [[[self context4iTM3DictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
 [self takeContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
@@ -2069,7 +2069,7 @@ To Do List:
 #undef GETTER
 #undef SETTER
 #define GETTER [[self contextValueForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
-#define SETTER(argument) id __D = [[[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
+#define SETTER(argument) id __D = [[[self context4iTM3DictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
 [self takeContextValue:__D forKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
@@ -2320,7 +2320,7 @@ To Do List:
 //LOG4iTM3(@"Setting up the toolbar:1");
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2PDFKitToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
-	if ([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]) {
+	if ([self context4iTM3BoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]) {
 //LOG4iTM3(@"Setting up the toolbar:1-a");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if (configDictionary.count) {
@@ -2334,7 +2334,7 @@ To Do List:
 //LOG4iTM3(@"Setting up the toolbar:1-b");
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //LOG4iTM3(@"configDictionary:%@", configDictionary);
-		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
+		configDictionary = [self context4iTM3DictionaryForKey:key domain:iTM2ContextAllDomainsMask];
 //LOG4iTM3(@"configDictionary:%@", configDictionary);
 		if (configDictionary.count)
 			[toolbar setConfigurationFromDictionary:configDictionary];
@@ -2369,8 +2369,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:!old forKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
 	return;
@@ -2384,7 +2384,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	sender.state = ([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
+	sender.state = ([self context4iTM3BoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
 //END4iTM3;
 	return YES;
 }
@@ -2397,7 +2397,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([self contextBoolForKey:@"iTM2PDFKitToolbarAutosavesConfiguration" domain:iTM2ContextAllDomainsMask]) {
+	if ([self context4iTM3BoolForKey:@"iTM2PDFKitToolbarAutosavesConfiguration" domain:iTM2ContextAllDomainsMask]) {
 		NSToolbar * toolbar = self.window.toolbar;
 		NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", toolbar.identifier];
 		[self takeContextValue:toolbar.configurationDictionary forKey:key domain:iTM2ContextAllDomainsMask];
@@ -2947,7 +2947,7 @@ To Do List:
 - (void)drawRect:(NSRect)aRect;
 {
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
-	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
+	[cd addEntriesFromDictionary:[self context4iTM3DictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
 	if (![N respondsToSelector:@selector(boolValue)] || ![N boolValue]) {
 		return;
@@ -3116,7 +3116,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super awakeFromNib];
-	[self setToolMode4iTM3:[self contextIntegerForKey:@"iTM2PDFKitToolMode" domain:iTM2ContextAllDomainsMask]];
+	[self setToolMode4iTM3:[self context4iTM3IntegerForKey:@"iTM2PDFKitToolMode" domain:iTM2ContextAllDomainsMask]];
 //END4iTM3;
     return;
 }
@@ -3184,7 +3184,7 @@ To Do List:
 	iTM2SynchronizationLocationRecord locationRecord;
 	NSUInteger displayBulletsMode;
 	NSMutableDictionary * cd = [[[SUD dictionaryForKey:@"iTM2PDFKitSync"] mutableCopy] autorelease];
-	[cd addEntriesFromDictionary:[self contextDictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
+	[cd addEntriesFromDictionary:[self context4iTM3DictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask]];
 	NSNumber * N = [cd objectForKey:@"EnableSynchronization"];
     if ([N respondsToSelector:@selector(boolValue)]? [N boolValue]:NO) {
   		iTM2PDFKitDocument * D = [self.window.windowController document];
@@ -3617,7 +3617,7 @@ next:
 //STOP4iTM3;
 		return;
 	}
-	[self takeContextInteger:argument forKey:@"iTM2PDFKitToolMode" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Integer:argument forKey:@"iTM2PDFKitToolMode" domain:iTM2ContextAllDomainsMask];
 	NSArray * selectViews = [self subviewsWhichClassInheritsFromClass:[__iTM2PDFKitSelectView class]];
 	for (NSView * subview in selectViews) {
         [subview setHidden:kiTM2SelectToolMode != argument];
@@ -5880,7 +5880,7 @@ To Do List:
 				CGFloat timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
 				NSEvent * otherEvent = nil;
 				if ((otherEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES])) {
-					NSInteger n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+					NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
 					if (n>0) {
 						CGFloat zoom = (modifierFlags & NSShiftKeyMask)?n/100.0:100.0/n;
 						NSView * docView = self.documentView;
@@ -7794,7 +7794,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setAutoScales:NO];
-    NSInteger n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
 	if(n>0) {
 		self.pdfView.scaleFactor *= n / 100.0;
@@ -7814,7 +7814,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setAutoScales:NO];
-    NSInteger n = 100 * ([self contextFloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
 	if(n>0) {
 		self.pdfView.scaleFactor *= 100 / n;
@@ -8258,11 +8258,11 @@ To Do List:
 #undef GETTER
 #undef SETTER
 #define GETTER(KEY) [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:KEY]
-#define SETTER(KEY, argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
+#define SETTER(KEY, argument) id __D = [[[self context4iTM3DictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:KEY];\
 [self takeContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];\
-[self.contextManager notifyContextChange];
+[self.context4iTM3Manager notifyContextChange];
 
 @implementation NSApplication(iTM2PDFKitResponder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFKitResponderCompleteDidFinishLaunching4iTM3
@@ -8283,8 +8283,8 @@ To Do List:
 @end
 
 @implementation iTM2PDFKitResponder
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id)contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager
+- (id)context4iTM3Manager;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sun Mar 14 11:29:27 UTC 2010
@@ -8293,7 +8293,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [NSApp targetForAction:@selector(messageCatcher_iTM2PDFKitInspector:)]?:[super contextManager];
+    return [NSApp targetForAction:@selector(messageCatcher_iTM2PDFKitInspector:)]?:[super context4iTM3Manager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSinglePages:
 - (IBAction)setSinglePages:(id)sender;
@@ -8559,8 +8559,8 @@ To Do List:
 }
 #undef GETTER
 #undef SETTER
-#define GETTER [[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
-#define SETTER(argument) id __D = [[[self contextDictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
+#define GETTER [[self context4iTM3DictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define SETTER(argument) id __D = [[[self context4iTM3DictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
 [self setContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];

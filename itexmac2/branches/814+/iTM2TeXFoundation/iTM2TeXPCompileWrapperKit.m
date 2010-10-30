@@ -105,44 +105,44 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSTabView * TV = self.tabView;
-    NSString * identifier = [self contextStringForKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
+    NSString * identifier = [self context4iTM3StringForKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
     NSUInteger index = [TV indexOfTabViewItemWithIdentifier:identifier];
     if(index !=  NSNotFound)
         [TV selectTabViewItemAtIndex:index];
     [super windowDidLoad];
 	// changes since 536
 	// get all the possible engines
-	NSEnumerator * E = [[self infoForKeyPaths:iTM2TPFECommandsKey,nil] keyEnumerator];
+	NSEnumerator * E = [[self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,nil] keyEnumerator];
 	NSString * K;
 	while(K = E.nextObject)
 	{
-		NSString * mode = [self infoForKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEScriptModeKey,nil];
+		NSString * mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEScriptModeKey,nil];
 		if([mode isEqualToString:iTM2TPFEBaseMode])
 		{
-			[self setInfo:nil forKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEScriptModeKey,nil];
+			[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEScriptModeKey,nil];
 		}
-		mode = [self infoForKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEEnvironmentModeKey,nil];
+		mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEEnvironmentModeKey,nil];
 		if([mode isEqualToString:iTM2TPFEBaseMode])
 		{
-			[self setInfo:nil forKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEEnvironmentModeKey,nil];
+			[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEEnvironmentModeKey,nil];
 		}
 	}
-	[self saveChangesForKeyPaths:iTM2TPFECommandsKey, nil];
-	E = [[self infoForKeyPaths:iTM2TPFEEnginesKey,nil] keyEnumerator];
+	[self saveChanges4iTM3ForKeyPaths:iTM2TPFECommandsKey, nil];
+	E = [[self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,nil] keyEnumerator];
 	while(K = E.nextObject)
 	{
-		NSString * mode = [self infoForKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEScriptModeKey,nil];
+		NSString * mode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEScriptModeKey,nil];
 		if([mode isEqualToString:iTM2TPFEBaseMode])
 		{
-			[self setInfo:nil forKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEScriptModeKey,nil];
+			[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEScriptModeKey,nil];
 		}
-		mode = [self infoForKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEEnvironmentModeKey,nil];
+		mode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEEnvironmentModeKey,nil];
 		if([mode isEqualToString:iTM2TPFEBaseMode])
 		{
-			[self setInfo:nil forKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEEnvironmentModeKey,nil];
+			[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEEnvironmentModeKey,nil];
 		}
 	}
-	[self saveChangesForKeyPaths:iTM2TPFEEnginesKey, nil];
+	[self saveChanges4iTM3ForKeyPaths:iTM2TPFEEnginesKey, nil];
 //END4iTM3;
     return;
 }
@@ -159,10 +159,10 @@ To Do List:
 //START4iTM3;
 	NSString * name = [self.class commandName];
 	// saving the Compile environment
-	BOOL yorn = [self saveChangesForKeyPaths:iTM2TPFECommandEnvironmentsKey,name,nil];
-	yorn = [self saveChangesForKeyPaths:iTM2TPFEEnginesKey,nil] || yorn;
-	yorn = [self saveChangesForKeyPaths:iTM2TPFEEngineScriptsKey,nil] || yorn;
-	yorn = [self saveChangesForKeyPaths:iTM2TPFEEngineEnvironmentsKey,nil] || yorn;
+	BOOL yorn = [self saveChanges4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey,name,nil];
+	yorn = [self saveChanges4iTM3ForKeyPaths:iTM2TPFEEnginesKey,nil] || yorn;
+	yorn = [self saveChanges4iTM3ForKeyPaths:iTM2TPFEEngineScriptsKey,nil] || yorn;
+	yorn = [self saveChanges4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,nil] || yorn;
 	if(yorn)
 	{
 		[self.document updateChangeCount:NSChangeDone];
@@ -181,7 +181,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextStringForKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3StringForKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setEditedEngine:
 - (void)setEditedEngine:(NSString *)argument;
@@ -277,9 +277,9 @@ To Do List:
 	NSString * editedEngine = self.editedEngine;
 	id bins = [NSMutableDictionary dictionary];
     ICURegEx * RE = [ICURegEx regExForKey:iTM2TeXPEngineRegexKey inBundle:myBUNDLE error:NULL];
-	for (NSString * engineName in [[self inheritedInfoForKeyPaths:iTM2TPFEEnginesKey,nil] keyEnumerator]) {
+	for (NSString * engineName in [[self inheritedInfo4iTM3ForKeyPaths:iTM2TPFEEnginesKey,nil] keyEnumerator]) {
 		if ([RE matchString:engineName.lastPathComponent.stringByDeletingPathExtension]
-                && [[self inheritedInfoForKeyPaths:iTM2TPFEEngineEnvironmentsKey,engineName,@"Input",nil] isEqual:editedEngine]) {
+                && [[self inheritedInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,engineName,@"Input",nil] isEqual:editedEngine]) {
 			[bins setObject:engineName forKey:[RE substringOfCaptureGroupWithName:iTM2TeXPEngineRegexName]];
         }
 	}
@@ -302,10 +302,10 @@ To Do List:
 {
 	NSString * editedEngine = self.editedEngine;
 	NSString * commandName = [self.class commandName];
-	NSString * mode = [self infoForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
+	NSString * mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
 	if([mode isEqual:iTM2TPFEBaseMode]) {
-		[self setInfo:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
-		mode = [self infoForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
+		[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
+		mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
 		if([mode isEqual:iTM2TPFEBaseMode]) {
 			mode = nil;
 		}
@@ -328,9 +328,9 @@ To Do List:
 	{
 		newMode = nil;
 	}
-	if([self setInfo:newMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil])
+	if([self setInfo4TM3:newMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil])
 	{
-		[self setInfo:newMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+		[self setInfo4TM3:newMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 //		[self.document updateChangeCount:NSChangeDone];
 		self.validateWindowContent4iTM3;
 	}
@@ -397,13 +397,13 @@ To Do List:
 		title = NSLocalizedStringFromTableInBundle(@"Project Scripts", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming");
 		[sender addItemWithTitle:title];
 		sender.lastItem.representedObject = @"Disabled";
-		engines = [self editInfoForKeyPaths:iTM2TPFEEngineScriptsKey,nil];
+		engines = [self editInfo4iTM3ForKeyPaths:iTM2TPFEEngineScriptsKey,nil];
 		if(engines.count)
 		{
 			E = [[[engines allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
 			while(engineName = E.nextObject)
 			{
-				NSString * label = [self editInfoForKeyPaths:iTM2TPFEEngineScriptsKey,engineName,iTM2TPFELabelKey,nil];
+				NSString * label = [self editInfo4iTM3ForKeyPaths:iTM2TPFEEngineScriptsKey,engineName,iTM2TPFELabelKey,nil];
 				title = label.length? label:
 					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Script %@", iTM2TeXProjectFrontendTable, myBUNDLE, "Description Forthcoming"), engineName];
 				[sender addItemWithTitle:title];
@@ -464,14 +464,14 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSArray * allEngineModes = [[self infoForKeyPaths:iTM2TPFEEngineScriptsKey,nil] allKeys];
+    NSArray * allEngineModes = [[self info4iTM3ForKeyPaths:iTM2TPFEEngineScriptsKey,nil] allKeys];
     NSInteger idx = 0;
     NSString * engineMode;
     while((engineMode = [NSString stringWithFormat:@"%i", idx++]), [allEngineModes containsObject:engineMode]);
 	NSString * editedEngine = self.editedEngine;
 	NSString * commandName = [self.class commandName];
-	[self setInfo:engineMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
-	[self setInfo:@"" forKeyPaths:iTM2TPFEEngineScriptsKey,engineMode,iTM2TPFELabelKey,nil];
+	[self setInfo4TM3:engineMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
+	[self setInfo4TM3:@"" forKeyPaths:iTM2TPFEEngineScriptsKey,engineMode,iTM2TPFELabelKey,nil];
 //	[self.document updateChangeCount:NSChangeDone];
     self.validateWindowContent4iTM3;
 //END4iTM3;
@@ -487,17 +487,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * scriptMode = [(id)sender representedString];
-    if([self setInfo:nil forKeyPaths:iTM2TPFEEngineScriptsKey, scriptMode, nil])
+    if([self setInfo4TM3:nil forKeyPaths:iTM2TPFEEngineScriptsKey, scriptMode, nil])
     {
 // remove the script reference for all the commands that used it
 		NSString * commandName = [self.class commandName];
-		NSEnumerator * E = [[self infoForKeyPaths:iTM2TPFECommandEnvironmentsKey, commandName, nil] keyEnumerator];
+		NSEnumerator * E = [[self info4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey, commandName, nil] keyEnumerator];
 		NSString * name;
 		while(name = E.nextObject)
 		{
-			if([scriptMode isEqual:[self infoForKeyPaths:iTM2TPFECommandEnvironmentsKey, commandName,name,iTM2TPFEScriptModeKey,nil]])
+			if([scriptMode isEqual:[self info4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey, commandName,name,iTM2TPFEScriptModeKey,nil]])
 			{
-				[self setInfo:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey, commandName,name,iTM2TPFEScriptModeKey,nil];
+				[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey, commandName,name,iTM2TPFEScriptModeKey,nil];
 			}
 		}
 //		[self.document updateChangeCount:NSChangeDone];
@@ -524,7 +524,7 @@ To Do List:
         iTM2TeXPShellScriptInspector * WC = [[[iTM2TeXPShellScriptInspector alloc]
 			initWithWindowNibName: @"iTM2TeXPShellScriptInspector"] autorelease];
 		iTM2InfosController * IC = [[[iTM2InfosController alloc] initWithProject:TPD atomic:YES prefixWithKeyPaths:iTM2TPFEEngineScriptsKey,scriptMode,nil] autorelease];
-		[WC setInfosController:IC];
+		[WC setInfosController4iTM3:IC];
 		NSWindow * W = WC.window;
 		if(W)
 		{
@@ -558,7 +558,7 @@ To Do List:
 	if([SPC isBaseProject:self.document])
 		return NO;
 //END4iTM3;
-	return [[[self infoForKeyPaths: iTM2TPFEEngineScriptsKey,nil] allKeys] containsObject:self.editedScriptMode];
+	return [[[self info4iTM3ForKeyPaths: iTM2TPFEEngineScriptsKey,nil] allKeys] containsObject:self.editedScriptMode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editScriptSheetDidEnd:returnCode:context:
 - (void)editScriptSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode context:(id)irrelevant;
@@ -581,11 +581,11 @@ To Do List:
 {
 	NSString * editedEngine = self.editedEngine;
 	NSString * commandName = [self.class commandName];
-	NSString * mode = [self infoForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+	NSString * mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 	if([mode isEqual:iTM2TPFEBaseMode])
 	{
-		[self setInfo:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
-		mode = [self infoForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+		[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+		mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 		if([mode isEqual:iTM2TPFEBaseMode])
 		{
 			mode = nil;
@@ -599,7 +599,7 @@ To Do List:
 }
 - (BOOL)isCustomEnvironmentMode;
 {
-	return [self editInfoForKeyPaths:iTM2TPFEEngineEnvironmentsKey,self.editedEnvironmentMode,nil]!=nil;
+	return [self editInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,self.editedEnvironmentMode,nil]!=nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  chooseOptions:
 - (IBAction)chooseOptions:(id)sender;
@@ -616,8 +616,8 @@ To Do List:
 	{
 		environmentMode = self.editedEnvironmentMode;
 		// if there were something already customized, retrieve it
-		if([self restoreCustomForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil]
-			|| [self setInfo:[NSMutableDictionary dictionary] forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil])
+		if([self restoreCustomInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil]
+			|| [self setInfo4TM3:[NSMutableDictionary dictionary] forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil])
 		{
 			NSAssert(self.isCustomEnvironmentMode,@"Custom environment mode expected");
 //				[self.document updateChangeCount:NSChangeDone];
@@ -627,8 +627,8 @@ To Do List:
 	else if([environmentMode isEqual:iTM2TPFEBaseMode])
 	{
 		environmentMode = self.editedEnvironmentMode;
-		[self backupCustomForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
-		[self setInfo:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
+		[self backupCustomInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
+		[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 //			[self.document updateChangeCount:NSChangeDone];
 		self.validateWindowContent4iTM3;
 	}
@@ -648,7 +648,7 @@ To Do List:
     if([sender isKindOfClass:[NSMenuItem class]])
 	{
 		if([scriptMode isEqual:iTM2TPFEVoidMode]
-			|| [[[self editInfoForKeyPaths:iTM2TPFEEngineScriptsKey,nil] allKeys] containsObject:scriptMode])
+			|| [[[self editInfo4iTM3ForKeyPaths:iTM2TPFEEngineScriptsKey,nil] allKeys] containsObject:scriptMode])
 		{
 			return NO;
 		}
@@ -662,14 +662,14 @@ To Do List:
 		// the environment must be eponym, when it exists
 		// either we have base options or we have custom ones
 		// there are only two possibilities
-		if([self inheritedInfoForKeyPaths:iTM2TPFEEngineEnvironmentsKey,scriptMode,nil])
+		if([self inheritedInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,scriptMode,nil])
 		{
 			[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Base", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
 			sender.lastItem.representedObject = iTM2TPFEBaseMode;
 			[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"Custom", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
 			sender.lastItem.representedObject = iTM2TPFECustomMode;
 			// it is base if there is not edit environment
-			if([self editInfoForKeyPaths:iTM2TPFEEngineEnvironmentsKey,scriptMode,nil])
+			if([self editInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,scriptMode,nil])
 			{
 				[sender selectItemAtIndex:[sender indexOfItemWithRepresentedObject:iTM2TPFECustomMode]];
 			}
@@ -700,12 +700,12 @@ To Do List:
     {
 		NSString * editedEngine = self.editedEngine;
         iTM2TeXProjectDocument * TPD = self.document;
-		NSString * environmentMode = [self infoForKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+		NSString * environmentMode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 		Class C = [iTM2TeXPEngineInspector classForMode:environmentMode];
         iTM2TeXPCommandInspector * WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
 		[TPD addWindowController:WC];// now WC.document == TPD, and WC is retained, the WC document is the project
 		iTM2InfosController * IC = [[[iTM2InfosController alloc] initWithProject:TPD atomic:YES prefixWithKeyPaths:iTM2TPFEEngineEnvironmentsKey, environmentMode, nil] autorelease];
-		[WC setInfosController:IC];
+		[WC setInfosController4iTM3:IC];
 		NSWindow * W = WC.window;// may validate the window content as side effect
         if(W)
         {
@@ -766,11 +766,11 @@ To Do List:
 //	if([SPC isBaseProject:TPD])
 //		return NO;
 	NSString * editedEngine = self.editedEngine;
-	NSString * environmentMode = [self infoForKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+	NSString * environmentMode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 	if([environmentMode isEqualToString:iTM2TPFEBaseMode])
 	{
-		[self setInfo:nil forKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
-		environmentMode = [self infoForKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+		[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
+		environmentMode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 	}
 	if(!environmentMode.length || [environmentMode isEqualToString:iTM2TPFEVoidMode] || [environmentMode isEqualToString:iTM2TPFEBaseMode])
 	{
@@ -800,12 +800,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * editedEngine = self.editedEngine;
-	[self setInfo:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,[self.class commandName],editedEngine,nil];
+	[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,[self.class commandName],editedEngine,nil];
 	NSString * scriptMode = self.editedScriptMode;
-	NSString * environmentMode = [self infoForKeyPaths:iTM2TPFEEnginesKey,scriptMode,iTM2TPFEEnvironmentModeKey,nil];
-	// if there is a customized stuff here, we backup in the customInfos
-	[self backupCustomForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
-	[self setInfo:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
+	NSString * environmentMode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,scriptMode,iTM2TPFEEnvironmentModeKey,nil];
+	// if there is a customized stuff here, we backup in the customInfos4iTM3
+	[self backupCustomInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
+	[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 	// the scripts are not removed because it is difficult to have them back
 	// removing scripts should be made by hand.
 	self.validateWindowContent4iTM3;
@@ -821,15 +821,15 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if([self editInfoForKeyPaths:iTM2TPFECommandEnvironmentsKey,[self.class commandName],self.editedEngine,nil] != nil)
+	if([self editInfo4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey,[self.class commandName],self.editedEngine,nil] != nil)
 		return YES;
 	NSString * scriptMode = self.editedScriptMode;
-	NSString * environmentMode = [self infoForKeyPaths:iTM2TPFEEnginesKey,scriptMode,iTM2TPFEEnvironmentModeKey,nil];
+	NSString * environmentMode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,scriptMode,iTM2TPFEEnvironmentModeKey,nil];
 	if([environmentMode isKindOfClass:[NSDictionary class]])
 	{
 		LOG4iTM3(@"! ERROR");
 	}
-	if(	[self editInfoForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil])
+	if(	[self editInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil])
 		return YES;
 //END4iTM3;
     return NO;
@@ -1048,7 +1048,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:nil];
-	[TPD takeContextBool: ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] forKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
+	[TPD takeContext4iTM3Bool: ![TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] forKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
 	[TPD updateChangeCount:NSChangeDone];
     return;
 //END4iTM3;
@@ -1063,7 +1063,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	iTM2TeXProjectDocument * TPD = [SPC TeXProjectForSource:nil];
-	sender.state = ([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
+	sender.state = ([TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
     return TPD != nil;
 //END4iTM3;
 }
@@ -1181,9 +1181,9 @@ To Do List:
 	iTM2TeXProjectDocument * TPD = [[userInfo objectForKey:@"ProjectRef"] nonretainedObjectValue];
 	if([SPC isProject:TPD])
 	{
-		if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
+		if([TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		{
-			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
+			[NSTimer scheduledTimerWithTimeInterval:[self context4iTM3FloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
 				selector: @selector(_delayedPerformCommand:) userInfo: userInfo repeats: NO];
 		}
 	}
@@ -1218,9 +1218,9 @@ To Do List:
 //				[self performCommandForProject:TPD];
 				return;
 			}
-		if([TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
+		if([TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask])
 		{
-			[NSTimer scheduledTimerWithTimeInterval:[self contextFloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
+			[NSTimer scheduledTimerWithTimeInterval:[self context4iTM3FloatForKey:iTM2ContinuousCompileDelay domain:iTM2ContextAllDomainsMask] target: self
 				selector: @selector(_delayedPerformCommand:) userInfo: [timer userInfo] repeats:NO];
 		}
 	}
@@ -1236,21 +1236,21 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * commandName = self.commandName;
-	NSString * scriptMode = [self infoForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
+	NSString * scriptMode = [self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
 	
 	if([scriptMode isEqual:iTM2TPFEBaseMode])
 	{
-		[self setInfo:nil forKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
-		scriptMode = [self infoForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
+		[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
+		scriptMode = [self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
 		if([scriptMode isEqual:iTM2TPFEBaseMode])
 		{
-			[self setInfo:iTM2TPFEVoidMode forKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
-			scriptMode = [self infoForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
+			[self setInfo4TM3:iTM2TPFEVoidMode forKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
+			scriptMode = [self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,commandName,iTM2TPFEScriptModeKey,nil];
 		}
 	}
 	if(scriptMode.length)
 	{
-		NSString * label = [self infoForKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,iTM2TPFELabelKey,nil];
+		NSString * label = [self info4iTM3ForKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,iTM2TPFELabelKey,nil];
 		if(label.length)
 			return [NSString stringWithFormat: @"%@ (%@)",
 				[super menuItemTitleForProject:project], label];
@@ -1294,7 +1294,7 @@ To do list:
 //START4iTM3;
 	id TPD = [SPC projectForSource:self];
 //END4iTM3;
-    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] && [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+    return ![TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] && [self context4iTM3BoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canToggleSmartUndo
 - (BOOL)canToggleSmartUndo;
@@ -1306,7 +1306,7 @@ To do list:
 //START4iTM3;
 	id TPD = [SPC projectForSource:self];
 //END4iTM3;
-    return ![TPD contextBoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
+    return ![TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
 }
 @end
 

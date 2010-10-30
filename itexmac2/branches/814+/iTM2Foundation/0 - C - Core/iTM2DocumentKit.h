@@ -182,13 +182,13 @@ extern NSString * const iTM2InspectorTable;
 - (BOOL)cannotCloseWithNoFileImage;
 
 /*! 
-    @method     contextDictionaryFromURL:
+    @method     context4iTM3DictionaryFromURL:
     @abstract   the context dictionary from the given file
     @discussion Load the context dictionary from the resources at that path.
     @param      fileURL is a file URL.
     @result     A dictionary.
 */
-+ (id)contextDictionaryFromURL:(NSURL *)fileURL;
++ (id)context4iTM3DictionaryFromURL:(NSURL *)fileURL;
 
 - (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
 - (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
@@ -418,12 +418,12 @@ extern NSString * const iTM2InspectorTable;
 - (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSString **)errorStringRef;
 
 /*!
-    @method		contextDictionary
+    @method		context4iTM3Dictionary
     @abstract	The context dictionary.
     @discussion	Discussion forthcoming.
     @result		an NSDictionary instance.
 */
-- (id)contextDictionary;
+- (id)context4iTM3Dictionary;
 
 /*!
     @method		userDefaultsDidChange:

@@ -700,7 +700,7 @@ To Do List:
 }
 @end
 
-#define iTM2TSSMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
+#define iTM2TSSMenuItemIndentationLevel [self context4iTM3IntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
 static NSHashTable * _gVarTextSyntaxMenus4iTM3;
 static NSMenu * _gVarTextSyntaxMenu4iTM3;
@@ -996,9 +996,9 @@ To Do List: Nothing
 - (IBAction)textStyleToggleEnable:(id)sender;
 @end
 @implementation iTM2TextStyleResponder
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager:
-- (id)contextManager;
-/*"Returns the contextManager of the first text view of its first layout manager.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager:
+- (id)context4iTM3Manager;
+/*"Returns the context4iTM3Manager of the first text view of its first layout manager.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.b0: 04/17/2002
 To Do List:
@@ -1006,7 +1006,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3
     NSTextStorage * TS = self.textStorageTarget;
-    return TS?  [TS contextManager]:([NSApp keyWindow]?:[super contextManager]);
+    return TS?  [TS context4iTM3Manager]:([NSApp keyWindow]?:[super context4iTM3Manager]);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= textStyleToggleEnabled:
 - (IBAction)textStyleToggleEnabled:(id)sender;
@@ -1017,8 +1017,8 @@ To Do List: Nothing
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask];
-    [self takeContextBool:!old forKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:!old forKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask];
 	id TS = self.textStorageTarget;
 	iTM2TextInspector * WC = [[[[[[[TS layoutManagers] lastObject] textContainers] lastObject] textView] window] windowController];
 	if ([WC isKindOfClass:[iTM2TextInspector class]]) {
@@ -1040,7 +1040,7 @@ To Do List: Nothing
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //LOG4iTM3(@"self.textStorageTarget is:%@", self.textStorageTarget);
-	[sender setState:([self contextBoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask]?
+	[sender setState:([self context4iTM3BoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask]?
 		NSOnState: NSOffState)];
 //END4iTM3;
     return YES;

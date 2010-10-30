@@ -73,7 +73,7 @@ To Do List:
 //START4iTM3;
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2TeXToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
-	if([self contextBoolForKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
+	if([self context4iTM3BoolForKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if(configDictionary.count)
@@ -90,7 +90,7 @@ To Do List:
 	{
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //LOG4iTM3(@"configDictionary: %@", configDictionary);
-		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
+		configDictionary = [self context4iTM3DictionaryForKey:key domain:iTM2ContextAllDomainsMask];
 //LOG4iTM3(@"configDictionary: %@", configDictionary);
 		if(configDictionary.count)
 			[toolbar setConfigurationFromDictionary:configDictionary];
@@ -126,8 +126,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool: !old forKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool: !old forKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
 	return;
@@ -141,7 +141,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	sender.state = ([self contextBoolForKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
+	sender.state = ([self context4iTM3BoolForKey:@"iTM2TeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
 //END4iTM3;
 	return YES;
 }
@@ -154,7 +154,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if([self contextBoolForKey:@"iTM2TeXToolbarAutosavesConfiguration" domain:iTM2ContextAllDomainsMask])
+	if([self context4iTM3BoolForKey:@"iTM2TeXToolbarAutosavesConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
 		NSToolbar * toolbar = [self.window toolbar];
 		NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];

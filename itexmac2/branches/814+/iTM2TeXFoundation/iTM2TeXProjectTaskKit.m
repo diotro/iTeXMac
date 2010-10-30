@@ -219,7 +219,7 @@ To Do List:
 //START4iTM3;
     [self fontOrColorDidChangeNotified:nil];
     // Adjusting the size of the split view
-    NSEnumerator * E = [[[self contextStringForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]
+    NSEnumerator * E = [[[self context4iTM3StringForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]
                                 componentsSeparatedByString: @":"] objectEnumerator];
     CGFloat f = [E.nextObject floatValue];
     CGFloat f1 = f<0.05? 0: (f>0.95? 1: f);
@@ -840,7 +840,7 @@ To Do List:
 	NSMutableAttributedString * MAS = [[[NSMutableAttributedString alloc] initWithAttributedString:[sender attributedTitle]] autorelease];
 	if(MAS.length)
 	{
-		NSString * key = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+		NSString * key = [self context4iTM3StringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 		id LP = [iTM2LogParser logParserForKey:key];// get the cached log parser
 		[MAS addAttribute: NSForegroundColorAttributeName
 			value: ([[self.errorView string] length]>0?
@@ -868,7 +868,7 @@ To Do List:
     [TS beginEditing];
     [[TS mutableString] appendString:argument];
     R.length = TS.length - R.location;
-	NSString * key = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+	NSString * key = [self context4iTM3StringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 	id LP = [iTM2LogParser logParserForKey:key];// get the cached log parser
 	NSColor * color = [LP logColorForType:@"iTeXMac2 Error"];
     [TS addAttribute:NSForegroundColorAttributeName value:color range:R];
@@ -899,19 +899,19 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 #warning DEBUGGG: the settings must be revisited too
-    id contextManager = [aNotification object];
-    if(!contextManager) contextManager = self;
+    id context4iTM3Manager = [aNotification object];
+    if(!context4iTM3Manager) context4iTM3Manager = self;
 
     NSTextView * TV = self.outputView;
-    [TV setFont:[contextManager contextFontForKey:iTM2UDLogStandardFontKey domain:iTM2ContextAllDomainsMask]];
-    [TV setDrawsBackground:[contextManager contextBoolForKey:iTM2UDLogDrawsTextBackgroundKey domain:iTM2ContextAllDomainsMask]];
+    [TV setFont:[context4iTM3Manager context4iTM3FontForKey:iTM2UDLogStandardFontKey domain:iTM2ContextAllDomainsMask]];
+    [TV setDrawsBackground:[context4iTM3Manager context4iTM3BoolForKey:iTM2UDLogDrawsTextBackgroundKey domain:iTM2ContextAllDomainsMask]];
     if([TV drawsBackground])
     {
-        [TV setBackgroundColor:[contextManager contextColorForKey:iTM2UDLogTextBackgroundColorKey domain:iTM2ContextAllDomainsMask]];
-        [TV setInsertionPointColor:[contextManager contextColorForKey:iTM2UDLogInsertionPointColorKey domain:iTM2ContextAllDomainsMask]];
+        [TV setBackgroundColor:[context4iTM3Manager context4iTM3ColorForKey:iTM2UDLogTextBackgroundColorKey domain:iTM2ContextAllDomainsMask]];
+        [TV setInsertionPointColor:[context4iTM3Manager context4iTM3ColorForKey:iTM2UDLogInsertionPointColorKey domain:iTM2ContextAllDomainsMask]];
         [TV setSelectedTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                [contextManager contextColorForKey:iTM2UDLogSelectedTextColorKey domain:iTM2ContextAllDomainsMask], NSForegroundColorAttributeName,
-                [contextManager contextColorForKey:iTM2UDLogSelectedTextBackgroundColorKey domain:iTM2ContextAllDomainsMask], NSBackgroundColorAttributeName,
+                [context4iTM3Manager context4iTM3ColorForKey:iTM2UDLogSelectedTextColorKey domain:iTM2ContextAllDomainsMask], NSForegroundColorAttributeName,
+                [context4iTM3Manager context4iTM3ColorForKey:iTM2UDLogSelectedTextBackgroundColorKey domain:iTM2ContextAllDomainsMask], NSBackgroundColorAttributeName,
                     nil]];
     }
     else
@@ -966,7 +966,7 @@ To Do List:
     NSMutableArray * lines = [IMPLEMENTATION metaValueForKey:@"_lines"];
     NSMutableArray * messages = [IMPLEMENTATION metaValueForKey:@"_messages"];
     NSInteger oldNORs = [[IMPLEMENTATION metaValueForKey:@"_numberOfLines4iTM3"] integerValue];
-	NSString * key = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+	NSString * key = [self context4iTM3StringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
     id LP = [iTM2LogParser logParserForKey:key];// get the cached log parser
     NSTextView * TV = self.outputView;
 	NSRange visibleRange = [TV visibleRange];
@@ -1021,7 +1021,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * newStyle = [[sender selectedItem] representedObject];
-	NSString * oldStyle = [self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+	NSString * oldStyle = [self context4iTM3StringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 	if(![newStyle isEqualToString:oldStyle])
 	{
 		[self takeContextValue:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
@@ -1061,10 +1061,10 @@ To Do List:
 				[sender removeItemAtIndex:0];
 			}
 		}
-		NSUInteger compatibility = [self contextIntegerForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];// old implementation
+		NSUInteger compatibility = [self context4iTM3IntegerForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];// old implementation
         NSString * style = compatibility == 1?
 			@"LaTeX":
-			[self contextStringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+			[self context4iTM3StringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 		NSUInteger idx = [sender indexOfItemWithRepresentedObject:style];
 		if(idx == NSNotFound)
 		{
@@ -1138,7 +1138,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextBoolForKey:iTM2TaskTerminalIsHiddenKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:iTM2TaskTerminalIsHiddenKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setHidden:
 - (void)setHidden:(BOOL)yorn;
@@ -1149,7 +1149,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:yorn forKey:iTM2TaskTerminalIsHiddenKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:yorn forKey:iTM2TaskTerminalIsHiddenKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= taskDidTerminate
@@ -1390,7 +1390,7 @@ To Do List:
 @implementation iTM2MainInstaller(TeXProjectTaskKit)
 + (void)prepareTeXProjectTaskKitCompleteInstallation4iTM3;
 {
-	if([iTM2TaskController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2TeXProject_contextManager) error:NULL])
+	if([iTM2TaskController swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2TeXProject_context4iTM3Manager) error:NULL])
 	{
 		MILESTONE4iTM3((@"iTM2TaskController(TeXProject)"),(@"The context manager of TeX projects is not the good one"));
 	}
@@ -1398,8 +1398,8 @@ To Do List:
 @end
 
 @implementation iTM2TaskController(TeXProject)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXProject_contextManager
-- (id)SWZ_iTM2TeXProject_contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2TeXProject_context4iTM3Manager
+- (id)SWZ_iTM2TeXProject_context4iTM3Manager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1410,7 +1410,7 @@ To Do List:
     id inspector, TPD;
     return (inspector = self.allInspectors.lastObject)
                 && (TPD = [SPC TeXProjectForSource:inspector])?
-                    [TPD contextManager]:[self SWZ_iTM2TeXProject_contextManager];
+                    [TPD context4iTM3Manager]:[self SWZ_iTM2TeXProject_context4iTM3Manager];
 }
 @end
 

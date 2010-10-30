@@ -22,7 +22,7 @@
 */
 
 #define SPC [iTM2ProjectController sharedProjectController]
-#define iTM2WindowsMenuItemIndentationLevel [self contextIntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
+#define iTM2WindowsMenuItemIndentationLevel [self context4iTM3IntegerForKey:@"iTM2WindowsMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 
 extern NSString * const iTM2ProjectContextDidChangeNotification;
 extern NSString * const iTM2ProjectCurrentDidChangeNotification;
@@ -223,8 +223,7 @@ typedef enum
 /*! 
     @method     projectForURL:
     @abstract   The project for the given URL.
-    @discussion It just returns a project associate to the given file.
-				At startup, this method allways returns nil and set the yornRef target to NO if relevant.
+    @discussion It just returns a project associate to the given URL.
 				While the program runs, projects are associate to file URLs (mainly by the -setProject:forURL: method).
 				Once a project has been bound to a file URL, the subsequent calls to the present method will return that project.
 				It is possible that a URL is explicitly bound to no project.

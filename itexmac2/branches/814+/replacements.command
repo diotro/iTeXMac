@@ -11,13 +11,53 @@ function find_and_replace {
     find . \( -name "*i*T*M*2*.h" -or -name "*i*T*M*2*.m" \) -exec egrep -q "$1" "{}" \; -print -exec open -a xcode "{}" \;
 }
 
-find_and_replace  'relativeFileNamesForKeys' 's/(\brelativeFileNamesForKeys\b)/namesForFileKeys/g'
+find_and_replace  'saveContext|loadContext|awakeFromContext' 's/(saveContext|awakeFromContext|loadContext)(?!4)/${1}4iTM3/g'
 
 exit 0
 
+- (id)inheritedInfoForKeyPaths:(NSString *)first,...;
+- (BOOL)isInfoInheritedForKeyPaths:(NSString *)first,...;
+- (id)infoForKeyPaths:(NSString *)first,...;
+- (id)infoInherited:(BOOL)yorn forKeyPaths:(NSString *)first,...;
+
+- (BOOL)setInfo:(id)info forKeyPaths:(NSString *)first,...;
+- (BOOL):(NSString *)first,...;
+- (BOOL):(NSString *)first,...;
+- (BOOL):(NSString *)first,...;
+- (id):(NSString *)first,...;
+- (id):(NSString *)first,...;
+- (id):(NSString *)first,...;
+- (BOOL):(NSString *)first,...;
+- (BOOL)ForKeyPaths:(NSString *)first,...;
+- (BOOL)ForKeyPaths:(NSString *)first,...;
 
 
 
+find_and_replace  'ontext(Manager|Dictionary|Value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool)' 's/(ontext)(Manager|Dictionary|value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool)/${1}4iTM3${2}/g'
+
+find_and_replace ' enclosingProjectURL4iTM3]' 's/\[ *([_\w.]*) *(enclosingProjectURL4iTM3) *\]/${1}.${2}/g'
+find_and_replace ' URLByStandardizingPath]' 's/\[ *([_\w.]*) *(URLByStandardizingPath) *\]/${1}.${2}/g'
+find_and_replace  'mainInfos' 's/mainInfos/mainInfos4iTM3/g'
+find_and_replace  'infoForKeyPaths4iTM3' 's/infoForKeyPaths4iTM3/info4iTM3ForKeyPaths/g'
+find_and_replace  'nheritedInfo' 's/(nheritedInfo)(?!4)/${1}4iTM3/g'
+find_and_replace  'nfoInherited' 's/(nfoInherited)(?!4)/${1}4iTM3/g'
+find_and_replace  'infoForKeyPaths' 's/(infoForKeyPaths)(?!4)/${1}4iTM3/g'
+find_and_replace  'isInfoEditedForKeyPaths' 's/(isInfo)(?!4)(EditedForKeyPaths)/${1}4iTM3${2}/g'
+find_and_replace  'saveChangesForKeyPaths' 's/(saveChanges)(?!4)(ForKeyPaths)/${1}4iTM3${2}/g'
+find_and_replace  'revertChangesForKeyPaths' 's/(revertChanges)(?!4)(ForKeyPaths)/${1}4iTM3${2}/g'
+find_and_replace  'localInfoForKeyPaths' 's/(localInfo)(?!4)(ForKeyPaths)/${1}4iTM3${2}/g'
+find_and_replace  'editInfoForKeyPaths' 's/(editInfo)(?!4)(ForKeyPaths)/${1}4iTM3${2}/g'
+find_and_replace  'customInfoForKeyPaths' 's/(customInfo)(?!4)(ForKeyPaths)/${1}4iTM3${2}/g'
+find_and_replace  'toggleInfoForKeyPaths' 's/(toggleInfo)(?!4)(ForKeyPaths)/${1}4iTM3${2}/g'
+find_and_replace  'backupCustomForKeyPaths' 's/(backupCustom)(?!4)(ForKeyPaths)/${1}Info4iTM3${2}/g'
+find_and_replace  'restoreCustomForKeyPaths' 's/(restoreCustom)(?!4)(ForKeyPaths)/${1}Info4iTM3${2}/g'
+find_and_replace  'therInfo' 's/(therInfos?)(?!"|4)/${1}4iTM3/g'
+find_and_replace  'ustomInfo' 's/(ustomInfos?)(?!"|4)/${1}4iTM3/g'
+find_and_replace  'etaInfo' 's/(etaInfos?)(?!"|4)/${1}4iTM3/g'
+find_and_replace  '4iTM3URL4iTM3' 's/4iTM3URL4iTM3/URL4iTM3/g'
+find_and_replace  'nfosController' 's/(nfosController\b)/${1}4iTM3/g'
+find_and_replace  'iTM2InfosController4iTM3' 's/iTM2InfosController4iTM3/iTM2InfosController/g'
+find_and_replace  'relativeFileNamesForKeys' 's/(\brelativeFileNamesForKeys\b)/namesForFileKeys/g'
 find_and_replace ' masterFileKey]' 's/\[ *([_\w.]*) *(masterFileKey) *\]/${1}.${2}/g'
 find_and_replace  'stringFormatter' 's/(\bstringFormatter\b)/${1}4iTM3/g'
 find_and_replace  'getHardCodedStringEncoding' 's/(getHardCodedStringEncoding)/${1}4iTM3/g'

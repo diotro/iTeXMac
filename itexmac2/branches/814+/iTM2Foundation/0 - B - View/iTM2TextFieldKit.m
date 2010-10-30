@@ -814,7 +814,7 @@ To Do List:
 
 #if 0
 #warning FOLLOW FOCUS
-        if ([self contextBoolForKey:iTM2UDSyncFollowFocusKey domain:iTM2ContextAllDomainsMask])
+        if ([self context4iTM3BoolForKey:iTM2UDSyncFollowFocusKey domain:iTM2ContextAllDomainsMask])
         {
             id P = [self.document project4iTM3];
             id D = [SDC documentForFileName:[P absoluteOutput]];

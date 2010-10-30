@@ -435,7 +435,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return ![self contextBoolForKey:iTM2PDFNoAutoUpdateKey domain:iTM2ContextAllDomainsMask];
+    return ![self context4iTM3BoolForKey:iTM2PDFNoAutoUpdateKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= windowPositionShouldBeObserved4iTM3
 - (BOOL)windowPositionShouldBeObserved4iTM3;
@@ -487,7 +487,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.album setCurrentPhysicalPage:aCurrentPhysicalPage];
-    [self takeContextInteger:[self currentPhysicalPage] forKey:@"iTM2PDFCurrentPhysicalPage" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Integer:[self currentPhysicalPage] forKey:@"iTM2PDFCurrentPhysicalPage" domain:iTM2ContextAllDomainsMask];
     [self.window flushKeyStrokeEvents4iTM3:self];
     return;
 }
@@ -538,8 +538,8 @@ To Do List:
 	if (magnification <= 0)
 		magnification = 1;
     [self.album setMagnification:magnification];
-    [self takeContextFloat:[self.album magnification] forKey:iTM2PDFCurrentMagnificationKey domain:iTM2ContextAllDomainsMask];
-    [self takeContextInteger:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Float:[self.album magnification] forKey:iTM2PDFCurrentMagnificationKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Integer:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
     [self.window flushKeyStrokeEvents4iTM3:self];
     return;
 }
@@ -575,7 +575,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.album loadContext:irrelevant];
+	[self.album loadContext4iTM3:irrelevant];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentCompleteSaveContext4iTM3:
@@ -587,8 +587,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:[self.window isKeyWindow] forKey:@"iTM2PDFKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy
-	[self.album saveContext:sender];
+    [self takeContext4iTM3Bool:[self.window isKeyWindow] forKey:@"iTM2PDFKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy
+	[self.album saveContext4iTM3:sender];
 //END4iTM3;
     return;
 }
@@ -1128,7 +1128,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSInteger n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
 	if (n>0)
 		[self setMagnification:n / 100.0 * [self magnification]];
@@ -1144,7 +1144,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSInteger n = 100 * ([self contextFloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
 	if (n>0)
 		[self setMagnification:100.0 * [self magnification] / n];
@@ -1333,8 +1333,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super awakeFromNib];
-    [self setMagnificationWithDisplayMode:[self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
-            stickMode: [self contextIntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
+    [self setMagnificationWithDisplayMode:[self context4iTM3IntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
+            stickMode: [self context4iTM3IntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
     [self setNeedsDisplay:YES];
     self->_CanStick = YES;
     [self setParametersHaveChanged:YES];
@@ -1367,7 +1367,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL old = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
+    BOOL old = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
     [self takeContextValue:[NSNumber numberWithBool:!old] forKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
     [self setParametersHaveChanged:YES];
     return;
@@ -1384,7 +1384,7 @@ To Do List:
     SEL action = sender.action;
     if (action == @selector(togglePDFSlidesLandscapeMode:))
     {
-        sender.state = ([self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
+        sender.state = ([self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
         return YES;
     }
     return YES;
@@ -1495,7 +1495,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextIntegerForKey:@"iTM2PDFLayoutMode" domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3IntegerForKey:@"iTM2PDFLayoutMode" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setPageLayout:
 - (void)setPageLayout:(NSUInteger)PL;
@@ -1506,9 +1506,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([self contextIntegerForKey:@"iTM2PDFLayoutMode" domain:iTM2ContextAllDomainsMask] != PL)
+    if ([self context4iTM3IntegerForKey:@"iTM2PDFLayoutMode" domain:iTM2ContextAllDomainsMask] != PL)
     {
-        [self takeContextInteger:PL forKey:@"iTM2PDFLayoutMode" domain:iTM2ContextAllDomainsMask];
+        [self takeContext4iTM3Integer:PL forKey:@"iTM2PDFLayoutMode" domain:iTM2ContextAllDomainsMask];
         [self setParametersHaveChanged:YES];
     }
     return;
@@ -1522,7 +1522,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextIntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3IntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPDFOrientation:
 - (void)setPDFOrientation:(NSInteger)argument;
@@ -1535,10 +1535,10 @@ To Do List:
 //START4iTM3;
     argument %= 3;
     if (argument == 3) argument = -1;
-    NSInteger _OrientationMode = [self contextIntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
+    NSInteger _OrientationMode = [self context4iTM3IntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
     if (argument != _OrientationMode)
     {
-        [self takeContextInteger:argument forKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
+        [self takeContext4iTM3Integer:argument forKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
         [self setParametersHaveChanged:YES];
         [[self centeredSubview] setNeedsUpdateGeometry:YES];
     }
@@ -1553,7 +1553,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextIntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3IntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSlidesLandscape:
 - (void)setSlidesLandscape:(BOOL)argument;
@@ -1566,10 +1566,10 @@ To Do List:
 //START4iTM3;
     argument %= 3;
     if (argument == 3) argument = -1;
-    NSInteger _OrientationMode = [self contextIntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
+    NSInteger _OrientationMode = [self context4iTM3IntegerForKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
     if (argument != _OrientationMode)
     {
-        [self takeContextInteger:argument forKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
+        [self takeContext4iTM3Integer:argument forKey:@"iTM2PDFOrientation" domain:iTM2ContextAllDomainsMask];
         [self setParametersHaveChanged:YES];
         [[self centeredSubview] setNeedsUpdateGeometry:YES];
     }
@@ -1585,7 +1585,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextFloatForKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3FloatForKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMagnification:
 - (void)setMagnification:(CGFloat)aMagnification;
@@ -1619,7 +1619,7 @@ To Do List:
     CGFloat old = [self magnification];
     if (old != newMagnification)
     {
-        [self takeContextFloat:newMagnification forKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask];
+        [self takeContext4iTM3Float:newMagnification forKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask];
         [INC postNotificationName:iTM2PDFMagnificationDidChangeNotification
                 object: self
                     userInfo: [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:newMagnification], iTM2PDFLastMagnificationKey, nil]];
@@ -1645,11 +1645,11 @@ To Do List:
     switch(displayMode)
     {
         case iTM2PDFDisplayModeFixed:
-            [self setMagnification:[self contextFloatForKey:iTM2PDFFixedMagnificationKey domain:iTM2ContextAllDomainsMask]];
+            [self setMagnification:[self context4iTM3FloatForKey:iTM2PDFFixedMagnificationKey domain:iTM2ContextAllDomainsMask]];
             _CanStick = NO;
             break;
         case iTM2PDFDisplayModeLast:
-            [self setMagnification:[self contextFloatForKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask]];
+            [self setMagnification:[self context4iTM3FloatForKey:iTM2PDFLastMagnificationKey domain:iTM2ContextAllDomainsMask]];
             _CanStick = NO;
             break;
         case iTM2PDFDisplayModeStick:
@@ -1713,13 +1713,13 @@ To Do List:
         {
             NSSize S = [[self imageRepresentation] size];
             BOOL rotated = [self PDFOrientation] != 0;
-            BOOL slideMode = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
+            BOOL slideMode = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
             CGFloat width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
             if (width>0)
             {
                 NSView * contentView=self.enclosingScrollView.contentView;
                 if (contentView != nil)
-                    return (contentView.frame.size.width -2*[self contextFloatForKey:iTM2PDFAlbumMarginKey domain:iTM2ContextAllDomainsMask])/width;
+                    return (contentView.frame.size.width -2*[self context4iTM3FloatForKey:iTM2PDFAlbumMarginKey domain:iTM2ContextAllDomainsMask])/width;
             }
             return 1;
         }
@@ -1730,14 +1730,14 @@ To Do List:
         {
             NSSize S = [[self imageRepresentation] size];
             BOOL rotated = [self PDFOrientation] != 0;
-            BOOL slideMode = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
+            BOOL slideMode = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
             CGFloat width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
             if (width>0)
             {
                 NSView * contentView=self.enclosingScrollView.contentView;
                 if (contentView != nil)
                     return (contentView.frame.size.width
-                    -2*[self contextFloatForKey:iTM2PDFAlbumMarginKey domain:iTM2ContextAllDomainsMask]-2*iTM2PDFAlbumViewMargin)/2/width;
+                    -2*[self context4iTM3FloatForKey:iTM2PDFAlbumMarginKey domain:iTM2ContextAllDomainsMask]-2*iTM2PDFAlbumViewMargin)/2/width;
             }
             return 1;
         }
@@ -1754,13 +1754,13 @@ To Do List:
 //START4iTM3;
     NSSize S = [[self imageRepresentation] size];
     BOOL rotated = [self PDFOrientation] != 0;
-    BOOL slideMode = [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
+    BOOL slideMode = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
     CGFloat height = slideMode? (rotated? S.height: S.width): (rotated? S.width: S.height);
     if (height>0)
     {
         NSView * contentView = self.enclosingScrollView.contentView;
         if (contentView != nil)
-            return (contentView.frame.size.height -2*[self contextFloatForKey:iTM2PDFAlbumMarginKey domain:iTM2ContextAllDomainsMask])/height;
+            return (contentView.frame.size.height -2*[self context4iTM3FloatForKey:iTM2PDFAlbumMarginKey domain:iTM2ContextAllDomainsMask])/height;
     }
     return 1;
 }
@@ -1833,11 +1833,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//NSLog(@"%f", [self contextFloatForKey:iTM2PDFMixedButtonDelayKey domain:iTM2ContextAllDomainsMask]);
+//NSLog(@"%f", [self context4iTM3FloatForKey:iTM2PDFMixedButtonDelayKey domain:iTM2ContextAllDomainsMask]);
 //    [self tryToPerform:@selector(doZoomIn:) with:self];
 //    return;
     if ([NSApp nextEventMatchingMask:NSLeftMouseUpMask
-        untilDate: [NSDate dateWithTimeIntervalSinceNow:[self contextFloatForKey:iTM2UDMixedButtonDelayKey domain:iTM2ContextAllDomainsMask]]
+        untilDate: [NSDate dateWithTimeIntervalSinceNow:[self context4iTM3FloatForKey:iTM2UDMixedButtonDelayKey domain:iTM2ContextAllDomainsMask]]
             inMode: NSEventTrackingRunLoopMode dequeue: NO])
     {
         [self tryToPerform:@selector(doZoomIn:) with:self];
@@ -1857,7 +1857,7 @@ To Do List:
     
     NSSize magSize = NSMakeSize(240, 180);
     
-    CGFloat zoomFactor = 1.0/([self contextFloatForKey:iTM2PDFZoomInMagnificationScaleKey domain:iTM2ContextAllDomainsMask]?:1);
+    CGFloat zoomFactor = 1.0/([self context4iTM3FloatForKey:iTM2PDFZoomInMagnificationScaleKey domain:iTM2ContextAllDomainsMask]?:1);
 
     NSPoint locationInWindow, locationInView;
     NSRect nextRect;
@@ -2077,8 +2077,8 @@ To Do List:
     if (aFlag)
     {
         if (_CanStick)
-            [self setMagnificationWithDisplayMode:[self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
-                stickMode: [self contextIntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
+            [self setMagnificationWithDisplayMode:[self context4iTM3IntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
+                stickMode: [self context4iTM3IntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
 //LOG4iTM3(@"[self magnification] is:%f", [self magnification]);
         if ([self parametersHaveChanged])
         {
@@ -2136,7 +2136,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return ([self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask] == iTM2PDFDisplayModeStick);
+    return ([self context4iTM3IntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask] == iTM2PDFDisplayModeStick);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parametersHaveChanged
 - (BOOL)parametersHaveChanged;
@@ -2247,7 +2247,7 @@ To Do List:
 /*"YES."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[self centeredSubview] saveContext:irrelevant];
+	[[self centeredSubview] saveContext4iTM3:irrelevant];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  albumViewCompleteLoadContext4iTM3:
@@ -2259,11 +2259,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setMagnificationWithDisplayMode:[self contextIntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
-            stickMode: [self contextIntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
+    [self setMagnificationWithDisplayMode:[self context4iTM3IntegerForKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask]
+            stickMode: [self context4iTM3IntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
 //    self->_CanStick = YES;
-    [self setCurrentPhysicalPage:[self contextIntegerForKey:@"iTM2PDFCurrentPhysicalPage" domain:iTM2ContextAllDomainsMask]];
-	[[self centeredSubview] loadContext:irrelevant];
+    [self setCurrentPhysicalPage:[self context4iTM3IntegerForKey:@"iTM2PDFCurrentPhysicalPage" domain:iTM2ContextAllDomainsMask]];
+	[[self centeredSubview] loadContext4iTM3:irrelevant];
     [self setParametersHaveChanged:YES];// of course!!!
 	[self setNeedsDisplay:YES];// Bug side effect too.	
 //RETURN4iTM3;
@@ -2304,7 +2304,7 @@ To Do List:
 //START4iTM3;
     if (flag)
     {
-        if ([self contextBoolForKey:iTM2PDFSetUpPageWhenBadPaperSizeKey domain:iTM2ContextAllDomainsMask])
+        if ([self context4iTM3BoolForKey:iTM2PDFSetUpPageWhenBadPaperSizeKey domain:iTM2ContextAllDomainsMask])
         {
             BOOL setupPage = NO;
             NSPrintInfo * PI = [self printInfo];
@@ -2351,7 +2351,7 @@ To Do List:
 //START4iTM3;
     NSPrintInfo * PI = [self printInfo];
     iTM2PDFPrintView * V = [[[iTM2PDFPrintView alloc] initWithRepresentation:[self imageRepresentation]
-        slidesLandscape: [self contextBoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask]
+        slidesLandscape: [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask]
             scale: [[[PI dictionary] objectForKey:NSPrintScalingFactor] floatValue]] autorelease];
     NSPrintOperation * PO = [NSPrintOperation printOperationWithView:V printInfo:PI];
     [PO setShowsPrintPanel:flag];
@@ -2412,7 +2412,7 @@ To Do List:
 //START4iTM3;
     NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:iTM2PDFToolbarIdentifier] autorelease];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
-	if ([self contextBoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
+	if ([self context4iTM3BoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask])
 	{
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 		if (configDictionary.count)
@@ -2429,7 +2429,7 @@ To Do List:
 	{
 		NSDictionary * configDictionary = [SUD dictionaryForKey:key];
 //LOG4iTM3(@"configDictionary: %@", configDictionary);
-		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
+		configDictionary = [self context4iTM3DictionaryForKey:key domain:iTM2ContextAllDomainsMask];
 //LOG4iTM3(@"configDictionary: %@", configDictionary);
 		if (configDictionary.count)
 			[toolbar setConfigurationFromDictionary:configDictionary];
@@ -2466,8 +2466,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:@"iTM2PDFToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:@"iTM2PDFToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:@"iTM2PDFToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:!old forKey:@"iTM2PDFToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
 	return;
 }
@@ -2480,7 +2480,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	sender.state = [self contextBoolForKey:@"iTM2PDFToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
+	sender.state = [self context4iTM3BoolForKey:@"iTM2PDFToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
 //END4iTM3;
 	return YES;
 }

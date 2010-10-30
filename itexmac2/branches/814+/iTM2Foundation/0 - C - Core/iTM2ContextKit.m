@@ -36,14 +36,14 @@
 NSString * const iTM2ContextDidChangeNotification = @"iTM2ContextDidChange";
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKit
-/*"This object is used to store contextManager that might override some contextManager in a basic set of contextManager, typically the user defaults data base. It implements all the setters and getters of the NSUserDefaults instances. Beware when categories are created. All the setters really fill the contextManager, even if afterwards the values are the same in the contextManager and the base contextManager. This might be implemented in a different way driven by a flag. It is consistent now because the base contextManager are the user defaults data base: if those defaults are changed, the local contextManager are not.
+/*"This object is used to store context4iTM3Manager that might override some context4iTM3Manager in a basic set of context4iTM3Manager, typically the user defaults data base. It implements all the setters and getters of the NSUserDefaults instances. Beware when categories are created. All the setters really fill the context4iTM3Manager, even if afterwards the values are the same in the context4iTM3Manager and the base context4iTM3Manager. This might be implemented in a different way driven by a flag. It is consistent now because the base context4iTM3Manager are the user defaults data base: if those defaults are changed, the local context4iTM3Manager are not.
 
-When no basic contextManager are given on initialization time, the user defaults data base is used instead. The NSUserDefaults shared instance is cached.
+When no basic context4iTM3Manager are given on initialization time, the user defaults data base is used instead. The NSUserDefaults shared instance is cached.
 
-Various categories are declared here, the NSDocument instances are the only object where contextManager are really stored, if ever."*/
+Various categories are declared here, the NSDocument instances are the only object where context4iTM3Manager are really stored, if ever."*/
 @implementation NSObject(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -54,8 +54,8 @@ To Do List:
 //START4iTM3;
     return SUD;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id)contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager
+- (id)context4iTM3Manager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -64,10 +64,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return self.currentContextManager;
+    return self.currentContext4iTM3Manager;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextManager:
-- (void)setContextManager:(id)manager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContext4iTM3Manager:
+- (void)setContext4iTM3Manager:(id)manager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -79,8 +79,8 @@ To Do List:
 	NSAssert(NO, @"The default implementation does not set any context manager...");
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateContextManager
-- (void)updateContextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateContext4iTM3Manager
+- (void)updateContext4iTM3Manager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -91,8 +91,8 @@ To Do List:
 //START4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionary
-- (id)contextDictionary;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Dictionary
+- (id)context4iTM3Dictionary;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -103,8 +103,8 @@ To Do List:
 //START4iTM3;
     return nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextDictionary:
-- (void)setContextDictionary:(id)dictionary;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContext4iTM3Dictionary:
+- (void)setContext4iTM3Dictionary:(id)dictionary;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -140,13 +140,13 @@ To Do List:
 	id result = nil;
 	if (mask & iTM2ContextStandardLocalMask)
 	{
-		NSDictionary * D = self.contextDictionary;
+		NSDictionary * D = self.context4iTM3Dictionary;
 		if (result = [D valueForKey:aKey])
 		{
 			return result;
 		}
-		id contextManager = self.contextManager;
-		if ((self != contextManager && SUD != contextManager) && (result = [contextManager contextValueForKey:aKey domain:mask]))
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((self != context4iTM3Manager && SUD != context4iTM3Manager) && (result = [context4iTM3Manager contextValueForKey:aKey domain:mask]))
 		{
 			return result;
 		}
@@ -166,7 +166,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"self.contextDictionary is:%@", self.contextDictionary);
+//LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
 	NSUInteger didChange = [self setContextValue:object forKey:aKey domain:mask];
 	if (didChange) {
 		id afterObject = [self contextValueForKey:aKey domain:mask];
@@ -192,8 +192,8 @@ To Do List:
 	NSAssert(aKey != nil, @"Unexpected nil aKey");
 	NSUInteger didChange = iTM2ContextNoContextMask;
 	if (mask & iTM2ContextStandardLocalMask) {
-		NSDictionary * D = self.contextDictionary;
-		id contextManager = self.contextManager;
+		NSDictionary * D = self.context4iTM3Dictionary;
+		id context4iTM3Manager = self.context4iTM3Manager;
 		if (D) {
 			didChange = 0;
 			id old = [D valueForKey:aKey];
@@ -203,9 +203,9 @@ To Do List:
 				didChange |= iTM2ContextStandardLocalMask;
 			}
 		}
-		if (contextManager && self != contextManager && SUD != contextManager) {
+		if (context4iTM3Manager && self != context4iTM3Manager && SUD != context4iTM3Manager) {
 			didChange &= ~iTM2ContextNoContextMask;
-			didChange |= [contextManager takeContextValue:object forKey:aKey domain:mask];
+			didChange |= [context4iTM3Manager takeContextValue:object forKey:aKey domain:mask];
 		}
 	}
 	if (mask & iTM2ContextDefaultsMask) {
@@ -215,11 +215,11 @@ To Do List:
 	if (didChange &= ~iTM2ContextNoContextMask) {
 		self.notifyContextChange;
 	}
-//LOG4iTM3(@"self.contextDictionary is:%@", self.contextDictionary);
+//LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
     return didChange;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextFontForKey:domain:
-- (NSFont *)contextFontForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= context4iTM3FontForKey:domain:
+- (NSFont *)context4iTM3FontForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -231,8 +231,8 @@ To Do List:
 //END4iTM3;
     return [NSFont fontWithNameSizeDictionary:D];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextFont:forKey:domain:
-- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContext4iTM3Font:forKey:domain:
+- (void)takeContext4iTM3Font:(NSFont *)aFont forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -245,8 +245,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextColorForKey:domain:
-- (NSColor *)contextColorForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= context4iTM3ColorForKey:domain:
+- (NSColor *)context4iTM3ColorForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -258,8 +258,8 @@ To Do List:
 //END4iTM3;
     return [NSColor colorWithRGBADictionary:D];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContextColor:forKey:domain:
-- (void)takeContextColor:(NSColor *)aColor forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeContext4iTM3Color:forKey:domain:
+- (void)takeContext4iTM3Color:(NSColor *)aColor forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -272,8 +272,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:domain:
-- (NSString *)contextStringForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StringForKey:domain:
+- (NSString *)context4iTM3StringForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -283,7 +283,7 @@ To Do List:
 //START4iTM3;
 	id result = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		NSDictionary * D = self.contextDictionary;
+		NSDictionary * D = self.context4iTM3Dictionary;
 		if ((result = [D valueForKey:aKey])) {
 			if ([result isKindOfClass:[NSString class]]) {
 				return result;
@@ -292,17 +292,17 @@ To Do List:
 				return [result stringValue];
 			}
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-                && (result = [contextManager contextStringForKey:aKey domain:mask])) {
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+                && (result = [context4iTM3Manager context4iTM3StringForKey:aKey domain:mask])) {
 			return result;
 		}
 	}
-	result = [SUD contextStringForKey:aKey domain:mask];
+	result = [SUD context4iTM3StringForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextArrayForKey:domain:
-- (NSArray *)contextArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3ArrayForKey:domain:
+- (NSArray *)context4iTM3ArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -312,22 +312,22 @@ To Do List:
 //START4iTM3;
 	id result = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if (result = [self.contextDictionary valueForKey:aKey]) {
+		if (result = [self.context4iTM3Dictionary valueForKey:aKey]) {
 			if ([result isKindOfClass:[NSArray class]]) {
 				return result;
 			}
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-                && (result = [contextManager contextArrayForKey:aKey domain:mask])) {
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+                && (result = [context4iTM3Manager context4iTM3ArrayForKey:aKey domain:mask])) {
 			return result;
 		}
 	}
-	result = [SUD contextArrayForKey:aKey domain:mask];
+	result = [SUD context4iTM3ArrayForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionaryForKey:domain:
-- (NSDictionary *)contextDictionaryForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DictionaryForKey:domain:
+- (NSDictionary *)context4iTM3DictionaryForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -337,22 +337,22 @@ To Do List:
 //START4iTM3;
 	id result = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if ((result = [self.contextDictionary valueForKey:aKey])) {
+		if ((result = [self.context4iTM3Dictionary valueForKey:aKey])) {
 			if ([result isKindOfClass:[NSDictionary class]]) {
 				return result;
 			}
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-                && (result = [contextManager contextDictionaryForKey:aKey domain:mask])) {
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+                && (result = [context4iTM3Manager context4iTM3DictionaryForKey:aKey domain:mask])) {
 			return result;
 		}
 	}
-	result = [SUD contextDictionaryForKey:aKey domain:mask];
+	result = [SUD context4iTM3DictionaryForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDataForKey:domain:
-- (NSData *)contextDataForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DataForKey:domain:
+- (NSData *)context4iTM3DataForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -362,22 +362,22 @@ To Do List:
 //START4iTM3;
 	id result = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if ((result = [self.contextDictionary valueForKey:aKey])) {
+		if ((result = [self.context4iTM3Dictionary valueForKey:aKey])) {
 			if ([result isKindOfClass:[NSData class]]) {
 				return result;
 			}
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-                && (result = [contextManager contextDataForKey:aKey domain:mask])) {
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+                && (result = [context4iTM3Manager context4iTM3DataForKey:aKey domain:mask])) {
 			return result;
 		}
 	}
-	result = [SUD contextDataForKey:aKey domain:mask];
+	result = [SUD context4iTM3DataForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringArrayForKey:domain:
-- (NSArray *)contextStringArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StringArrayForKey:domain:
+- (NSArray *)context4iTM3StringArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -387,7 +387,7 @@ To Do List:
 //START4iTM3;
 	NSArray * result = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if (result = [self.contextDictionary valueForKey:aKey]) {
+		if (result = [self.context4iTM3Dictionary valueForKey:aKey]) {
 			if ([result isKindOfClass:[NSArray class]]) {
 				if (result.count) {
 					for (NSString * S in result) {
@@ -401,17 +401,17 @@ To Do List:
 			}
 		}
 next:;
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-                && (result = [contextManager contextStringArrayForKey:aKey domain:mask])) {
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+                && (result = [context4iTM3Manager context4iTM3StringArrayForKey:aKey domain:mask])) {
 			return result;
 		}
 	}
-	result = [SUD contextStringArrayForKey:aKey domain:mask];
+	result = [SUD context4iTM3StringArrayForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:domain:
-- (CGFloat)contextFloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3FloatForKey:domain:
+- (CGFloat)context4iTM3FloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -421,23 +421,23 @@ next:;
 	//START4iTM3;
 	NSNumber * value = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if ((value = [self.contextDictionary valueForKey:aKey])) {
+		if ((value = [self.context4iTM3Dictionary valueForKey:aKey])) {
 			if ([value respondsToSelector:@selector(floatValue)]) {
 				return value.floatValue;
 			}
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-		   && ((value = [contextManager contextValueForKey:aKey domain:mask]))
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+		   && ((value = [context4iTM3Manager contextValueForKey:aKey domain:mask]))
                 && [value respondsToSelector:@selector(floatValue)]) {
 			return value.floatValue;
 		}
 	}
-	CGFloat result = [SUD contextFloatForKey:aKey domain:mask];
+	CGFloat result = [SUD context4iTM3FloatForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:domain:
-- (NSInteger)contextIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3IntegerForKey:domain:
+- (NSInteger)context4iTM3IntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -447,23 +447,23 @@ next:;
 	//START4iTM3;
 	id value = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if ((value = [self.contextDictionary valueForKey:aKey])) {
+		if ((value = [self.context4iTM3Dictionary valueForKey:aKey])) {
 			if (([value respondsToSelector:@selector(integerValue)])) {
 				return [value integerValue];
 			}
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-            && (value = [contextManager contextValueForKey:aKey domain:mask])
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+            && (value = [context4iTM3Manager contextValueForKey:aKey domain:mask])
                 &&([value respondsToSelector:@selector(integerValue)])) {
 			return [value integerValue];
 		}
 	}
-	NSInteger result = [SUD contextIntegerForKey:aKey domain:mask];
+	NSInteger result = [SUD context4iTM3IntegerForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:domain:
-- (NSUInteger)contextUnsignedIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3IntegerForKey:domain:
+- (NSUInteger)context4iTM3UnsignedIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -473,23 +473,23 @@ next:;
 	//START4iTM3;
 	id value = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if ((value = [self.contextDictionary valueForKey:aKey])) {
+		if ((value = [self.context4iTM3Dictionary valueForKey:aKey])) {
 			if ([value respondsToSelector:@selector(unsignedIntegerValue)]) {
 				return [value unsignedIntegerValue];
 			}
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-            && (value = [contextManager contextValueForKey:aKey domain:mask])
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+            && (value = [context4iTM3Manager contextValueForKey:aKey domain:mask])
                 &&([value respondsToSelector:@selector(unsignedIntegerValue)])) {
 			return [value unsignedIntegerValue];
 		}
 	}
-	NSUInteger result = [SUD contextUnsignedIntegerForKey:aKey domain:mask];
+	NSUInteger result = [SUD context4iTM3UnsignedIntegerForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextBoolForKey:domain:
-- (BOOL)contextBoolForKey:(NSString *)aKey domain:(NSUInteger)mask;  
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3BoolForKey:domain:
+- (BOOL)context4iTM3BoolForKey:(NSString *)aKey domain:(NSUInteger)mask;  
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -499,23 +499,23 @@ To Do List:
 //START4iTM3;
 	id value = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		NSDictionary * D = self.contextDictionary;
+		NSDictionary * D = self.context4iTM3Dictionary;
 		if ((value = [D valueForKey:aKey])
 			&& [value respondsToSelector:@selector(boolValue)]) {
 			return [value boolValue];
 		}
-		id contextManager = self.contextManager;
-		if ((contextManager != self) && (contextManager != SUD)
-			&& ((value = [contextManager contextValueForKey:aKey domain:mask]))
+		id context4iTM3Manager = self.context4iTM3Manager;
+		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
+			&& ((value = [context4iTM3Manager contextValueForKey:aKey domain:mask]))
 				&& [value respondsToSelector:@selector(boolValue)]) {
 			return [value boolValue];
 		}
 	}
-	BOOL result = [SUD contextBoolForKey:aKey domain:mask];
+	BOOL result = [SUD context4iTM3BoolForKey:aKey domain:mask];
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextInteger:forKey:domain:
-- (void)takeContextInteger:(NSInteger)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3Integer:forKey:domain:
+- (void)takeContext4iTM3Integer:(NSInteger)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -526,8 +526,8 @@ To Do List:
     [self takeContextValue:[NSNumber numberWithInteger:value] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextUnsignedInteger:forKey:domain:
-- (void)takeContextUnsignedInteger:(NSUInteger)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3UnsignedInteger:forKey:domain:
+- (void)takeContext4iTM3UnsignedInteger:(NSUInteger)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -538,8 +538,8 @@ To Do List:
     [self takeContextValue:[NSNumber numberWithUnsignedInteger:value] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextFloat:forKey:domain:
-- (void)takeContextFloat:(CGFloat)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3Float:forKey:domain:
+- (void)takeContext4iTM3Float:(CGFloat)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -550,8 +550,8 @@ To Do List:
     [self takeContextValue:[NSNumber numberWithFloat:value] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextBool:forKey:domain:
-- (void)takeContextBool:(BOOL)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3Bool:forKey:domain:
+- (void)takeContext4iTM3Bool:(BOOL)value forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -562,8 +562,8 @@ To Do List:
     [self takeContextValue:[NSNumber numberWithBool:value] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext:
-- (void)saveContext:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3:
+- (void)saveContext4iTM3:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -572,7 +572,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSInvocation * I;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] saveContext:sender];
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] saveContext4iTM3:sender];
     for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteSaveContext4iTM3:" signature:[I methodSignature] inherited:YES]) {
         [I setSelector:(SEL)selector];
         [I invoke];
@@ -581,8 +581,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromContext:
-- (void)awakeFromContext;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  awakeFromContext4iTM3:
+- (void)awakeFromContext4iTM3;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -593,8 +593,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadContext:
-- (void)loadContext:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadContext4iTM3:
+- (void)loadContext4iTM3:(id)sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -603,7 +603,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInvocation * I;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] loadContext:sender];
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] loadContext4iTM3:sender];
     for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteLoadContext4iTM3:" signature:[I methodSignature] inherited:YES]) {
         [I setSelector:(SEL)selector];
         [I invoke];
@@ -642,8 +642,8 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
 - (void)contextDidChange;
-/*"This message is sent each time the contextManager have changed on the next loop after the change.
-The receiver will take appropriate actions to synchronize its state with its contextManager.
+/*"This message is sent each time the context4iTM3Manager have changed on the next loop after the change.
+The receiver will take appropriate actions to synchronize its state with its context4iTM3Manager.
 Subclasses will most certainly override this method because the default implementation does nothing.
 You must send a - contextDidChangeComplete just before returning. This addresses reentrant code problems.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -656,8 +656,8 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextRegistrationNeeded
 - (BOOL)contextRegistrationNeeded;
-/*"This message is sent each time the contextManager have changed.
-The receiver will take appropriate actions to synchronize its state with its contextManager.
+/*"This message is sent each time the context4iTM3Manager have changed.
+The receiver will take appropriate actions to synchronize its state with its context4iTM3Manager.
 Subclasses will most certainly override this method because the default implementation does nothing.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -676,7 +676,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([self contextBoolForKey:aKey domain:iTM2ContextPrivateMask])
+	if ([self context4iTM3BoolForKey:aKey domain:iTM2ContextPrivateMask])
 	{
 		return NSOnState;
 	}
@@ -684,14 +684,14 @@ To Do List:
 	{
 		return NSOffState;
 	}
-	if ([self contextBoolForKey:aKey domain:iTM2ContextAllDomainsMask])
+	if ([self context4iTM3BoolForKey:aKey domain:iTM2ContextAllDomainsMask])
 	{
 		return NSMixedState;
 	}
 	return NSOffState;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContextBoolForKey:
-- (void)toggleContextBoolForKey:(NSString *)aKey;  
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleContext4iTM3BoolForKey:
+- (void)toggleContext4iTM3BoolForKey:(NSString *)aKey;  
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -699,34 +699,34 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([self contextBoolForKey:aKey domain:iTM2ContextPrivateMask]) {
-		if ([self contextBoolForKey:aKey domain:iTM2ContextAllDomainsMask&~iTM2ContextPrivateMask]) {
-			[self takeContextBool:NO forKey:aKey domain:iTM2ContextPrivateMask];
+	if ([self context4iTM3BoolForKey:aKey domain:iTM2ContextPrivateMask]) {
+		if ([self context4iTM3BoolForKey:aKey domain:iTM2ContextAllDomainsMask&~iTM2ContextPrivateMask]) {
+			[self takeContext4iTM3Bool:NO forKey:aKey domain:iTM2ContextPrivateMask];
 			return;
 		}
 		[self takeContextValue:nil forKey:aKey domain:iTM2ContextPrivateMask];
 		return;
 	}
-	if ([self contextBoolForKey:aKey domain:iTM2ContextAllDomainsMask&~iTM2ContextPrivateMask]) {
+	if ([self context4iTM3BoolForKey:aKey domain:iTM2ContextAllDomainsMask&~iTM2ContextPrivateMask]) {
 		[self takeContextValue:nil forKey:aKey domain:iTM2ContextPrivateMask];
 		return;
 	}
-	[self takeContextBool:YES forKey:aKey domain:iTM2ContextPrivateMask];
+	[self takeContext4iTM3Bool:YES forKey:aKey domain:iTM2ContextPrivateMask];
 	return;
 }
 @end
 
 @implementation NSWindowController(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
-/*"Returns the contextManager of its document.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
+/*"Returns the context4iTM3Manager of its document.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3
-    return self.document?:[super currentContextManager];
+    return self.document?:[super currentContext4iTM3Manager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerCompleteSaveContext4iTM3:
 - (void)windowControllerCompleteSaveContext4iTM3:(id)sender;
@@ -737,16 +737,16 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.window saveContext:sender];
+    [self.window saveContext4iTM3:sender];
 //END4iTM3;
     return;
 }
 @end
 
 @implementation NSWindow(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
-/*"Returns the contextManager of its window controller.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
+/*"Returns the context4iTM3Manager of its window controller.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
@@ -765,28 +765,28 @@ To Do List:
 	if (parentWindow) {
 		return parentWindow;
 	}
-    return [super currentContextManager];
+    return [super currentContext4iTM3Manager];
 }
 @end
 
 @implementation NSResponder(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
-/*"Returns the contextManager of its window.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
+/*"Returns the context4iTM3Manager of its window.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3
-    return (id)self.nextResponder?:[super currentContextManager];
+    return (id)self.nextResponder?:[super currentContext4iTM3Manager];
 }
 @end
 
 @implementation NSView(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
-/*"Returns the contextManager of its window.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
+/*"Returns the context4iTM3Manager of its window.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
@@ -798,9 +798,9 @@ To Do List:
 @end
 
 @implementation NSTextStorage(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
-/*"Returns the contextManager of the first text view of its first layout manager.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
+/*"Returns the context4iTM3Manager of the first text view of its first layout manager.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.b0: 04/17/2002
 To Do List:
@@ -812,9 +812,9 @@ To Do List:
 @end
 
 @implementation NSLayoutManager(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
-/*"Returns the contextManager of the first text view of its first layout manager.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
+/*"Returns the context4iTM3Manager of the first text view of its first layout manager.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.b0: 04/17/2002
 To Do List:
@@ -826,9 +826,9 @@ To Do List:
 @end
 
 @implementation NSUserDefaults(iTM2ContextKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager:
-- (id)contextManager;
-/*"Returns the contextManager of the first text view of its first layout manager.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager:
+- (id)context4iTM3Manager;
+/*"Returns the context4iTM3Manager of the first text view of its first layout manager.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.b0: 04/17/2002
 To Do List:
@@ -872,8 +872,8 @@ To Do List:
 	}
     return 0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringForKey:domain:
-- (NSString *)contextStringForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StringForKey:domain:
+- (NSString *)context4iTM3StringForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -884,8 +884,8 @@ To Do List:
 //END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?[self stringForKey:aKey]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextArrayForKey:domain:
-- (NSArray *)contextArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3ArrayForKey:domain:
+- (NSArray *)context4iTM3ArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -896,8 +896,8 @@ To Do List:
 //END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?[self arrayForKey:aKey]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionaryForKey:domain:
-- (NSDictionary *)contextDictionaryForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DictionaryForKey:domain:
+- (NSDictionary *)context4iTM3DictionaryForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -908,8 +908,8 @@ To Do List:
 //END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?[self dictionaryForKey:aKey]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDataForKey:domain:
-- (NSData *)contextDataForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DataForKey:domain:
+- (NSData *)context4iTM3DataForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -920,8 +920,8 @@ To Do List:
 //END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?[self dataForKey:aKey]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStringArrayForKey:domain:
-- (NSArray *)contextStringArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StringArrayForKey:domain:
+- (NSArray *)context4iTM3StringArrayForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -932,8 +932,8 @@ To Do List:
 //END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?[self stringArrayForKey:aKey]:nil;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextIntegerForKey:domain:
-- (NSInteger)contextIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3IntegerForKey:domain:
+- (NSInteger)context4iTM3IntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -944,8 +944,8 @@ To Do List:
 	//END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?[self integerForKey:aKey]:0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextUnsignedIntegerForKey:domain:
-- (NSUInteger)contextUnsignedIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3UnsignedIntegerForKey:domain:
+- (NSUInteger)context4iTM3UnsignedIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
  Version history: jlaurens AT users DOT sourceforge DOT net
  - 1.1.a6: 03/26/2002
@@ -956,8 +956,8 @@ To Do List:
 	//END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?(NSUInteger)[self integerForKey:aKey]:0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextFloatForKey:domain:
-- (CGFloat)contextFloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3FloatForKey:domain:
+- (CGFloat)context4iTM3FloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -968,8 +968,8 @@ To Do List:
 //END4iTM3;
     return mask & iTM2ContextStandardDefaultsMask?[self floatForKey:aKey]:0.0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextBoolForKey:domain:
-- (BOOL)contextBoolForKey:(NSString *)aKey domain:(NSUInteger)mask;  
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3BoolForKey:domain:
+- (BOOL)context4iTM3BoolForKey:(NSString *)aKey domain:(NSUInteger)mask;  
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -1031,7 +1031,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [[SDC documents] makeObjectsPerformSelector:@selector(saveContext:) withObject:nil];
+    [[SDC documents] makeObjectsPerformSelector:@selector(saveContext4iTM3:) withObject:nil];
 //END4iTM3;
     return;
 }
@@ -1072,11 +1072,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"doc.fileURL.path is:%@, contextDictionary is:%#x", doc.fileURL.path, contextDictionary);
+//LOG4iTM3(@"doc.fileURL.path is:%@, context4iTM3Dictionary is:%#x", doc.fileURL.path, context4iTM3Dictionary);
 	[invocation autorelease];
 	if (shouldClose)
 	{
-		[doc saveContext:self];
+		[doc saveContext4iTM3:self];
     }
 	[invocation setArgument:&shouldClose atIndex:3];
 	[invocation invoke];
@@ -1170,7 +1170,7 @@ To Do List:
 	{
 		self.notifyContextChange;
 	}
-//LOG4iTM3(@"self.contextDictionary is:%@", self.contextDictionary);
+//LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
     return didChange;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentCompleteSaveContext4iTM3:
@@ -1182,7 +1182,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.windowControllers makeObjectsPerformSelector:@selector(saveContext:) withObject:sender];
+    [self.windowControllers makeObjectsPerformSelector:@selector(saveContext4iTM3:) withObject:sender];
 //END4iTM3;
     return;
 }
@@ -1195,7 +1195,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.windowControllers makeObjectsPerformSelector:@selector(loadContext:) withObject:sender];
+    [self.windowControllers makeObjectsPerformSelector:@selector(loadContext4iTM3:) withObject:sender];
 //END4iTM3;
     return;
 }
@@ -1210,7 +1210,7 @@ To Do List:
  To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
-	if ([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask]
+	if ([self context4iTM3BoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask]
 	   && !iTM2DebugEnabled)
 	{
 		return NO;

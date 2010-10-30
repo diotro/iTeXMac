@@ -172,7 +172,7 @@ To Do List:
     [[NSGraphicsContext currentContext] restoreGraphicsState];
     if (self.backgroundColor) {
         [self.backgroundColor set];
-    } else if ([self contextBoolForKey:iTM2PDFUseSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]) {
+    } else if ([self context4iTM3BoolForKey:iTM2PDFUseSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]) {
         [[NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]] set];
     } else {
         [[NSColor whiteColor] set];
@@ -221,8 +221,8 @@ To Do List:
 //START4iTM3;
     return NSMakeSize(10, 10);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id)contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager
+- (id)context4iTM3Manager;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: Fri Jul 25 2003
@@ -230,7 +230,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return iVarContextManager?: [super contextManager];
+    return iVarContext4iTM3Manager?: [super context4iTM3Manager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  acceptsFirstResponder
 - (BOOL)acceptsFirstResponder;
@@ -252,7 +252,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([self contextBoolForKey:[NSString stringWithFormat:@"%#x", self.window] domain:iTM2ContextAllDomainsMask])
+    if ([self context4iTM3BoolForKey:[NSString stringWithFormat:@"%#x", self.window] domain:iTM2ContextAllDomainsMask])
     {
         if ([[NSApp currentEvent] modifierFlags] & [self.class grabKeyMask])
             [self addCursorRect:self.visibleRect cursor:[NSCursor arrowCursor]];
@@ -326,7 +326,7 @@ To Do List:
 @synthesize drawsBoundary = iVarDrawsBoundary;
 @synthesize backgroundColor = iVarBackgroundColor;
 @synthesize imageRepresentation = iVarRepresentation;
-@synthesize contextManager = iVarContextManager;
+@synthesize context4iTM3Manager = iVarContext4iTM3Manager;
 @synthesize synchronizationPoint = iVarSynchronizationPoint;
 @end
 
@@ -603,7 +603,7 @@ To Do List:
 		NSPoint focusPoint = [V focusPoint];
 		if (!NSPointInRect(focusPoint, [V bounds])) {
 			NSRect DB = [V drawingBounds];
-			switch([self contextIntegerForKey:iTM2PDFNewPageModeKey domain:iTM2ContextAllDomainsMask]) {
+			switch([self context4iTM3IntegerForKey:iTM2PDFNewPageModeKey domain:iTM2ContextAllDomainsMask]) {
 				case iTM2TopLeft:
 					focusPoint = NSMakePoint(NSMinX(DB), NSMaxY(DB));
                     break;
@@ -755,7 +755,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextBoolForKey:iTM2PDFUseViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]?
+    return [self context4iTM3BoolForKey:iTM2PDFUseViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]?
         [NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]]:
             [NSColor windowBackgroundColor];
 }
@@ -1074,7 +1074,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.focusView loadContext:irrelevant];
+	[self.focusView loadContext4iTM3:irrelevant];
 	self.placeFocusPointInVisibleArea;// scroll to the page as side effect should be a wrapper for stuff below
     return;
 }
@@ -1083,7 +1083,7 @@ To Do List:
 /*"YES."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.focusView saveContext:irrelevant];
+	[self.focusView saveContext4iTM3:irrelevant];
     return;
 }
 @synthesize imageRepresentation = iVarImageRepresentation;

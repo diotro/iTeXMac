@@ -332,7 +332,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {
-	[self takeContextBool:NO forKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:NO forKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask];
 	[super orderOut:sender];
     return;
 }
@@ -346,7 +346,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {
-	if ([self contextBoolForKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask]) {
+	if ([self context4iTM3BoolForKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask]) {
 		[[iTM2LaTeXSymbolsPanel sharedPanel] makeKeyAndOrderFront:nil];
 	}
     return;
@@ -362,7 +362,7 @@ To Do List:
 "*/
 {
     [[iTM2LaTeXSymbolsPanel sharedPanel] makeKeyAndOrderFront:sender];
-	[self takeContextBool:YES forKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:YES forKey:@"iTM2OrderFrontLaTeXSymbolsPanel" domain:iTM2ContextAllDomainsMask];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateOrderFrontLaTeXSymbolsPanel:

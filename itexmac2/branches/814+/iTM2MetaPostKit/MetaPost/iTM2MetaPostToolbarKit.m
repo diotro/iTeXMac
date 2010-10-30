@@ -47,8 +47,8 @@ To Do List:
     NSToolbar * toolbar = [[NSToolbar alloc] initWithIdentifier:iTM2MetaPostToolbarIdentifier];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", toolbar.identifier];
     NSDictionary * configDictionary = nil;
-	if (![self contextBoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]) {
-		configDictionary = [self contextDictionaryForKey:key domain:iTM2ContextAllDomainsMask];
+	if (![self context4iTM3BoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]) {
+		configDictionary = [self context4iTM3DictionaryForKey:key domain:iTM2ContextAllDomainsMask];
         [toolbar setConfigurationFromDictionary:configDictionary];
     }
     if (!toolbar.items.count) {
@@ -76,8 +76,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool: !old forKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool: !old forKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
 	return;
@@ -91,7 +91,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	sender.state = ([self contextBoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
+	sender.state = ([self context4iTM3BoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState);
 //END4iTM3;
 	return YES;
 }

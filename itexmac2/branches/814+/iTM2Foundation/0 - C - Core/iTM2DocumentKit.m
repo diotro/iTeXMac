@@ -367,8 +367,8 @@ To Do List:
     return nil;
 }
 #pragma mark =-=-=-=-=-   CONTEXT
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContextManager
-- (id)currentContextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -379,8 +379,8 @@ To Do List:
 //START4iTM3;
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= contextDictionaryFromURL:
-+ (id)contextDictionaryFromURL:(NSURL *) fileURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= context4iTM3DictionaryFromURL:
++ (id)context4iTM3DictionaryFromURL:(NSURL *) fileURL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -495,8 +495,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext:
-- (void)saveContext:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3:
+- (void)saveContext4iTM3:(id) sender;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -504,8 +504,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super saveContext:sender];
-	if (self.contextManager == self)
+	[super saveContext4iTM3:sender];
+	if (self.context4iTM3Manager == self)
 	{
 		NSURL * url = self.fileURL;
 		NSString * type = self.fileType;
@@ -531,7 +531,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self.contextManager == self)
+	if (self.context4iTM3Manager == self)
 	{
 		NSDictionary * attributes = [DFM extendedFileAttributesInSpace4iTM3:[NSNumber numberWithUnsignedInteger:'iTM2'] atPath:absoluteURL.path error:nil];
 		NSEnumerator * E = attributes.keyEnumerator;
@@ -541,14 +541,14 @@ To Do List:
 			NS_DURING
 			id O = [NSUnarchiver unarchiveObjectWithData:[attributes objectForKey:key]];
 			if (O)
-				[self.contextDictionary setObject:O forKey:key];
+				[self.context4iTM3Dictionary setObject:O forKey:key];
 			else
-				[self.contextDictionary removeObjectForKey:key];
+				[self.context4iTM3Dictionary removeObjectForKey:key];
 			NS_HANDLER
 			[NSApp reportException:localException];
 			NS_ENDHANDLER
 		}
-//LOG4iTM3(@"self.contextDictionary is:%@", self.contextDictionary);
+//LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
 	}
 //END4iTM3;
     return YES;
@@ -566,17 +566,17 @@ To Do List:
 	{
 		return NO;
 	}
-	NSDictionary * contextDictionary = self.contextDictionary;
-//LOG4iTM3(@"contextDictionary is:%@", contextDictionary);
-	if (contextDictionary.count)
+	NSDictionary * context4iTM3Dictionary = self.context4iTM3Dictionary;
+//LOG4iTM3(@"context4iTM3Dictionary is:%@", context4iTM3Dictionary);
+	if (context4iTM3Dictionary.count)
 	{
 		NSMutableDictionary * attributes = [NSMutableDictionary dictionary];
-		NSEnumerator * E = contextDictionary.keyEnumerator;
+		NSEnumerator * E = context4iTM3Dictionary.keyEnumerator;
 		NSString * key;
 		while(key = E.nextObject)
 		{
 			NS_DURING
-			[attributes setObject:[NSArchiver archivedDataWithRootObject:[contextDictionary objectForKey:key]] forKey:key];
+			[attributes setObject:[NSArchiver archivedDataWithRootObject:[context4iTM3Dictionary objectForKey:key]] forKey:key];
 			NS_HANDLER
 			[NSApp reportException:localException];
 			NS_ENDHANDLER
@@ -640,7 +640,7 @@ To Do List:
 @property (readwrite,assign) id implementation;
 @end
 @interface NSObject(PRIVATE)
-- (NSString *)contextDictionaryPath;
+- (NSString *)context4iTM3DictionaryPath;
 @end
 @interface iTM2ExternalInspectorServer:iTM2ObjectServer
 @end
@@ -724,7 +724,7 @@ To Do List:
 	if (iTM2DebugEnabled) {
 		LOG4iTM3(@"The new file url is:%@", url);
 	}
-	self.updateContextManager;
+	self.updateContext4iTM3Manager;
     for (NSWindowController * WC in self.windowControllers) {
         WC.window.validateContent4iTM3;
     }
@@ -812,7 +812,7 @@ To Do List:
             return WC;
 		}
 	}
-    NSMutableDictionary * MD = (NSMutableDictionary *)[[[self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];
+    NSMutableDictionary * MD = (NSMutableDictionary *)[[[self context4iTM3DictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];
     if (!MD)
     {
         MD = [NSMutableDictionary dictionary];
@@ -1014,7 +1014,7 @@ To Do List:
     [super addWindowController:WC];
 	NSString * inspectorVariant = [C inspectorVariant];
 	if (![inspectorVariant hasPrefix:@"."]) {
-		NSDictionary * D = [self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+		NSDictionary * D = [self context4iTM3DictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
 		if (!D)
 			D = [NSDictionary dictionary];
 		NSMutableDictionary * MD = [[D mutableCopy] autorelease];
@@ -1151,7 +1151,7 @@ To Do List:
     if (!self.windowControllers.count)
     {
         NSString * documentType = self.fileURL.pathExtension.lowercaseString;
-        NSDictionary * contextVariants = [self contextDictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+        NSDictionary * contextVariants = [self context4iTM3DictionaryForKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
         NSDictionary * D = [contextVariants objectForKey:documentType];
 		NSString * inspectorMode = [D objectForKey:@"mode"];
 		if (!inspectorMode)
@@ -1751,7 +1751,7 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-	if ([self contextBoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask]
+	if ([self context4iTM3BoolForKey:@"iTM2NoAlertAfterFileOperationError" domain:iTM2ContextAllDomainsMask]
 		&& !iTM2DebugEnabled)
 	{
 		return NO;
@@ -2144,7 +2144,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextBoolForKey:@"iTM2KeepBackup" domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:@"iTM2KeepBackup" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:error:
 - (BOOL)writeToDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
@@ -2203,8 +2203,8 @@ To Do List:
         return NO;
 }
 #pragma mark =-=-=-=-=-   CONTEXT
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDictionary
-- (id)contextDictionary;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Dictionary
+- (id)context4iTM3Dictionary;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2220,8 +2220,8 @@ To Do List:
     }
     return CD;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextDictionary:
-- (void)setContextDictionary:(NSDictionary *) dictionary;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContext4iTM3Dictionary:
+- (void)setContext4iTM3Dictionary:(NSDictionary *) dictionary;
 /*"Subclasses will most certainly override this method.
 Default implementation returns the NSUserDefaults shared instance.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -2245,7 +2245,7 @@ To Do List:
 //START4iTM3;
 	if (self.needsToUpdate)
 	{
-		[self saveContext:nil];
+		[self saveContext4iTM3:nil];
 		[self readFromURL:self.fileURL ofType:self.fileType error:nil];
 	}
     return;
@@ -2673,7 +2673,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setDocumentEdited:NO];
-	[self saveContext:self];
+	[self saveContext4iTM3:self];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument
@@ -2685,7 +2685,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self loadContext:self];
+	[self loadContext4iTM3:self];
     [self updateChangeCount:NSChangeCleared];
     self.validateWindowContent4iTM3;
     return;
@@ -2748,7 +2748,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self SWZ_iTM2_windowWillLoad];
-	[self setShouldCascadeWindows:[self contextBoolForKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask]];
+	[self setShouldCascadeWindows:[self context4iTM3BoolForKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask]];
 //LOG4iTM3(@"should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] windowWillLoad];
@@ -2921,7 +2921,7 @@ To Do List:
 //    self.synchronizeWithDocument; the inspector has already been synchronized when added to the document
     [self setDocumentEdited:NO];// validate the user interface as side effect
 	self.backupModel;
-    [self loadContext:self];
+    [self loadContext4iTM3:self];
 //	self.validateWindowContent4iTM3; too early?
 //LOG4iTM3(@"should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
     return;
@@ -3269,7 +3269,7 @@ To Do List:
 	id doc = [[[NSApp mainWindow] windowController] document];
 	if ([doc isKindOfClass:[iTM2Document class]])
 	{
-		[doc saveContext:self];
+		[doc saveContext4iTM3:self];
 		[doc replaceInspectorMode:iTM2ExternalInspectorMode variant:sender.title];
 	}
     return;
@@ -3322,8 +3322,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL old = [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
-	[self takeContextBool:!old forKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+	BOOL old = [self context4iTM3BoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Bool:!old forKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
     return;
 }
@@ -3360,7 +3360,7 @@ To do list:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self contextBoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
 }
 @end
 

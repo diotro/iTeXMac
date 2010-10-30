@@ -760,7 +760,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,		previousModifie
 CAS0(kiTM2TeXWhitePrefixSyntaxMode,				kiTM2TeXRegularSyntaxMode);
 CAS0(kiTM2TeXRegularSyntaxMode,					kiTM2TeXRegularSyntaxMode);
 case kiTM2TeXCommandStartSyntaxMode:
-newMode = [self contextBoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask]?
+newMode = [self context4iTM3BoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask]?
 	kiTM2TeXCommandContinueSyntaxMode:kiTM2TeXCommandEscapedCharacterSyntaxMode;
 newModifier = newModifier | kiTM2TeXCommandSyntaxMask;
 status = kiTM2TeXNoErrorSyntaxStatus;
@@ -768,7 +768,7 @@ break;
 //CAS(kiTM2TeXCommandStartSyntaxMode,			kiTM2TeXCommandEscapedCharacterSyntaxMode,	previousModifier, kiTM2TeXNoErrorSyntaxStatus);
 CAS0(kiTM2TeXCommandEscapedCharacterSyntaxMode,	kiTM2TeXRegularSyntaxMode);
 case kiTM2TeXCommandContinueSyntaxMode:
-if([self contextBoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask])
+if([self context4iTM3BoolForKey:@"iTM2MakeAtLetter" domain:iTM2ContextExtendedProjectMask|iTM2ContextPrivateMask])
 {
 	newMode = kiTM2TeXCommandContinueSyntaxMode;
 	newModifier = previousModifier;

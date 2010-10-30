@@ -1195,7 +1195,7 @@ To Do List:
 //START4iTM3;
     iTM2StringController * SC = self.stringController4iTM3;
     //  Check if the placeholders must be ignored (prefs)
-    if ([self contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextPrivateMask|iTM2ContextExtendedMask]) {
+    if ([self context4iTM3BoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextPrivateMask|iTM2ContextExtendedMask]) {
         macro = [SC stringByRemovingPlaceholderMarksInString:macro];
     }
     //  Where do I insert the macro? in affectedCharRange or in the pasteboard.

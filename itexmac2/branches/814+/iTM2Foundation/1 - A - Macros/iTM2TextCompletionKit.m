@@ -810,7 +810,7 @@ grosbois:
 //LOG4iTM3(@"still disableUndoRegistration");
 	}
 	NSString * replacementString = _LongCompletionString;
-	if ([_TextView contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask])
+	if ([_TextView context4iTM3BoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask])
 	{
 		replacementString = _ShortCompletionString;
 	}
@@ -822,7 +822,7 @@ grosbois:
 	replacementString = [_TextView concreteReplacementStringForMacro4iTM3:replacementString inRange:selectedRange];
 	[_TextView insertCompletion:replacementString forPartialWordRange:_RangeForUserCompletion movement:NSReturnTextMovement isFinal:YES];
 	// always select placeholders from the start
-	if (![_TextView contextBoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask])
+	if (![_TextView context4iTM3BoolForKey:iTM2DontUseSmartMacrosKey domain:iTM2ContextAllDomainsMask])
 	{
 		[_TextView select1stPlaceholder:self];
 	}
@@ -1097,7 +1097,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (![self contextBoolForKey:@"iTM2NoExtendedCompletion" domain:iTM2ContextAllDomainsMask] && [[iTM2CompletionServer completionServer] runCompletionForTextView:self] != 0)
+	if (![self context4iTM3BoolForKey:@"iTM2NoExtendedCompletion" domain:iTM2ContextAllDomainsMask] && [[iTM2CompletionServer completionServer] runCompletionForTextView:self] != 0)
 	{
 		[super complete:sender];
 	}

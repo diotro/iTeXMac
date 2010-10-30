@@ -402,7 +402,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextBoolForKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDeaf:
 - (void)setDeaf:(BOOL)yorn;
@@ -413,7 +413,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:yorn forKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:yorn forKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isMute
@@ -425,7 +425,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextBoolForKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setMute:
 - (void)setMute:(BOOL)yorn;
@@ -436,7 +436,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:yorn forKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:yorn forKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isBlind
@@ -448,7 +448,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self contextBoolForKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask];
+    return [self context4iTM3BoolForKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setBlind:
 - (void)setBlind:(BOOL)yorn;
@@ -459,7 +459,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:yorn forKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:yorn forKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addInspector:
@@ -1938,8 +1938,8 @@ To Do List:
     [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:argument] forKey:iTM2TaskTerminationStatusKey];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextManager
-- (id)contextManager;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3Manager
+- (id)context4iTM3Manager;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -1947,7 +1947,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return self.delegate?:[super contextManager];
+    return self.delegate?:[super context4iTM3Manager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  taskWillLaunch:
 - (void)taskWillLaunch:(iTM2TaskController *)sender;
@@ -1966,10 +1966,10 @@ To Do List:
 		LOG4iTM3(@"[self contextValueForKey:iTM2PATHDomainX11BinariesKey]:%@", [self contextValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask]);
 	}
 //LOG4iTM3(@"complete self.environment:%@", self.environment);
-	id contextManager = ((id)self.delegate?:((id)sender?:(id)SUD));
-    [self prependPATHComponent:[contextManager contextValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask]];
-    [self appendPATHComponent:[contextManager contextValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask]];
-    [self appendPATHComponent:[contextManager contextValueForKey:iTM2PATHSuffixKey domain:iTM2ContextAllDomainsMask]];
+	id context4iTM3Manager = ((id)self.delegate?:((id)sender?:(id)SUD));
+    [self prependPATHComponent:[context4iTM3Manager contextValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask]];
+    [self appendPATHComponent:[context4iTM3Manager contextValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask]];
+    [self appendPATHComponent:[context4iTM3Manager contextValueForKey:iTM2PATHSuffixKey domain:iTM2ContextAllDomainsMask]];
     [self setEnvironmentString:NSBundle.mainBundle.defaultWritableFolderURL4iTM3.path forKey:@"iTM2WritableFolderPATH"];
     id truc = self;
     NSInvocation * I = [self.implementation metaValueForKey:iTM2TaskLaunchInvocationKey];
@@ -2127,7 +2127,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:![self contextBoolForKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask] forKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:![self context4iTM3BoolForKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask] forKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTaskControllerDeaf:
@@ -2139,7 +2139,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state=[self contextBoolForKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
+    sender.state=[self context4iTM3BoolForKey:iTM2TaskControllerIsDeafKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTaskControllerMute:
@@ -2151,7 +2151,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:![self contextBoolForKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask] forKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:![self context4iTM3BoolForKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask] forKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTaskControllerMute:
@@ -2163,7 +2163,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = [self contextBoolForKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
+    sender.state = [self context4iTM3BoolForKey:iTM2TaskControllerIsMuteKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleTaskControllerBlind:
@@ -2175,7 +2175,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextBool:![self contextBoolForKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask] forKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:![self context4iTM3BoolForKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask] forKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTaskControllerBlind:
@@ -2187,7 +2187,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    sender.state = [self contextBoolForKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
+    sender.state = [self context4iTM3BoolForKey:iTM2TaskControllerIsBlindKey domain:iTM2ContextAllDomainsMask]? NSOnState:NSOffState;
 	return YES;
 }
 @end

@@ -57,7 +57,7 @@ enum
 				Instead of asking the standardUserDefaults object, any object can ask itself for a context*ForKey
 				where * is one of the common encontered types.
 				If the receiver as an object for the given key in its own context dictionary, this will be used as return value.
-				On the contrary, if the receiver has a contextManager, this manager will be asked for the same question.
+				On the contrary, if the receiver has a context4iTM3Manager, this manager will be asked for the same question.
 				Finally, if no context manager is available, the user defaults data base is used.
 				All the set methods follow the same management.
 				It is the responsibility of the object to store and retrieve its own context metadata.
@@ -66,33 +66,33 @@ enum
 @interface NSObject(iTM2ContextKit)
 
 /*! 
-    @method		contextManager
+    @method		context4iTM3Manager
     @abstract	the context manager is responsible of the management of some data describing the context...
     @discussion	See the class description above. The default implementation just returns the current context manager.
                 If no value is found in the receiver's context dictionary, the request is forwarded to the context manager.
     @param		None
     @result		A context manager
 */
-- (id)contextManager;
+- (id)context4iTM3Manager;
 
 /*! 
-    @method		currentContextManager
+    @method		currentContext4iTM3Manager
     @abstract	the current context manager.
     @discussion	When no context manager is known at compile time, the current context manager is used.
 				The default implementation just returns the standard user defaults database.
 				Different objects might want to have different notions of current context manager such that
 				there is no rule for current context management and storage.
 				Subclassers can override this message as a whole and let peculiar object have the last word
-				by overriding the currentContextManager message. Moreover, subclassers can choose a different strategy
+				by overriding the currentContext4iTM3Manager message. Moreover, subclassers can choose a different strategy
 				and return something different from the SUD.
 				Beware of recursive calls.
     @param		None
     @result		A context manager
 */
-- (id)currentContextManager;
+- (id)currentContext4iTM3Manager;
 
 /*! 
-    @method		setContextManager:
+    @method		setContext4iTM3Manager:
     @abstract	setting the context manager.
     @discussion	The default implementation does nothing and must be overriden.
 				The context manager is not retained by the receiver:
@@ -100,10 +100,10 @@ enum
     @param		A new context manager
     @result		None
 */
-- (void)setContextManager:(id)manager;
+- (void)setContext4iTM3Manager:(id)manager;
 
 /*! 
-    @method		updateContextManager
+    @method		updateContext4iTM3Manager
     @abstract	Update the context manager...
     @discussion	The default implementation does nothing. This is a design to let subclassers change the context manager.
 				When something changes that should cause the context manager to change accordingly, this message should be sent.
@@ -117,10 +117,10 @@ enum
     @param		None
     @result		A context manager
 */
-- (void)updateContextManager;
+- (void)updateContext4iTM3Manager;
 
 /*! 
-    @method		contextDictionary
+    @method		context4iTM3Dictionary
     @abstract	the context dictionary where local context meta data are stored...
     @discussion	The default implementation returns nil.
                 This causes all the take... request to be forwarded to the receiver's context manager.
@@ -128,16 +128,16 @@ enum
     @param		None
     @result		A NSDictionary
 */
-- (id)contextDictionary;
+- (id)context4iTM3Dictionary;
 
 /*! 
-    @method		setContextDictionary:
+    @method		setContext4iTM3Dictionary:
     @abstract	setting the context dictionary.
     @discussion	The default implementation raises an exception and must be overriden.
     @param		A new NSDictionary
     @result		None
 */
-- (void)setContextDictionary:(id)dictionary;
+- (void)setContext4iTM3Dictionary:(id)dictionary;
 
 /*! 
     @method		contextValueForKey:domain:
@@ -176,7 +176,7 @@ enum
     @method		setContextValue:forKey:domain:
     @abstract	Records the given context value for the given key.
     @discussion	It forwards the request to the context manager,
-                unless subclassers have overriden the contextDictionary to return a valid mutable dictionary.
+                unless subclassers have overriden the context4iTM3Dictionary to return a valid mutable dictionary.
 				Use the -takeContextValue:forKey:domain: above, except when overiding the method.
     @param		value
     @param		key
@@ -186,163 +186,163 @@ enum
 - (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
-    @method		contextFontForKey:domain:domain:
+    @method		context4iTM3FontForKey:domain:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
     @result		None
 */
-- (NSFont *)contextFontForKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (NSFont *)context4iTM3FontForKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
-    @method		takeContextFont:forKey:domain:
+    @method		takeContext4iTM3Font:forKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		value
     @param		key
     @result		None
 */
-- (void)takeContextFont:(NSFont *)aFont forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (void)takeContext4iTM3Font:(NSFont *)aFont forKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
-    @method		contextColorForKey:domain:
+    @method		context4iTM3ColorForKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
     @result		None
 */
-- (NSColor *)contextColorForKey:(NSString *)key domain:(NSUInteger)mask;
+- (NSColor *)context4iTM3ColorForKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
-    @method		takeContextColor:forKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		value
-    @param		key
-    @result		None
-*/
-- (void)takeContextColor:(NSColor *)value forKey:(NSString *)key domain:(NSUInteger)mask;
-
-/*! 
-    @method		contextStringForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (NSString *)contextStringForKey:(NSString *)key domain:(NSUInteger)mask;
-
-/*! 
-    @method		contextArrayForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (NSArray *)contextArrayForKey:(NSString *)key domain:(NSUInteger)mask;
-
-/*! 
-    @method		contextDictionaryForKey:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (NSDictionary *)contextDictionaryForKey:(NSString *)key domain:(NSUInteger)mask;
-
-/*! 
-    @method		contextDataForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (NSData *)contextDataForKey:(NSString *)key domain:(NSUInteger)mask;
-
-/*! 
-    @method		contextStringArrayForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (NSArray *)contextStringArrayForKey:(NSString *)key domain:(NSUInteger)mask;
-
-/*! 
-    @method		contextIntegerForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (NSInteger)contextIntegerForKey:(NSString *)key domain:(NSUInteger)mask; 
-
-/*! 
-    @method		contextUnsignedIntegerForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (NSUInteger)contextUnsignedIntegerForKey:(NSString *)key domain:(NSUInteger)mask; 
-
-/*! 
-    @method		contextFloatForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (CGFloat)contextFloatForKey:(NSString *)key domain:(NSUInteger)mask; 
-
-/*! 
-    @method		contextBoolForKey:domain:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		key
-    @result		None
-*/
-- (BOOL)contextBoolForKey:(NSString *)key domain:(NSUInteger)mask;  
-
-/*! 
-    @method		takeContextInteger:forKey:
+    @method		takeContext4iTM3Color:forKey:domain:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		value
     @param		key
     @result		None
 */
-- (void)takeContextInteger:(NSInteger)value forKey:(NSString *)key domain:(NSUInteger)mask;
+- (void)takeContext4iTM3Color:(NSColor *)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
-    @method		takeContextUnsignedInteger:forKey:
+    @method		context4iTM3StringForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSString *)context4iTM3StringForKey:(NSString *)key domain:(NSUInteger)mask;
+
+/*! 
+    @method		context4iTM3ArrayForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSArray *)context4iTM3ArrayForKey:(NSString *)key domain:(NSUInteger)mask;
+
+/*! 
+    @method		context4iTM3DictionaryForKey:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSDictionary *)context4iTM3DictionaryForKey:(NSString *)key domain:(NSUInteger)mask;
+
+/*! 
+    @method		context4iTM3DataForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSData *)context4iTM3DataForKey:(NSString *)key domain:(NSUInteger)mask;
+
+/*! 
+    @method		context4iTM3StringArrayForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSArray *)context4iTM3StringArrayForKey:(NSString *)key domain:(NSUInteger)mask;
+
+/*! 
+    @method		context4iTM3IntegerForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSInteger)context4iTM3IntegerForKey:(NSString *)key domain:(NSUInteger)mask; 
+
+/*! 
+    @method		context4iTM3UnsignedIntegerForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (NSUInteger)context4iTM3UnsignedIntegerForKey:(NSString *)key domain:(NSUInteger)mask; 
+
+/*! 
+    @method		context4iTM3FloatForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (CGFloat)context4iTM3FloatForKey:(NSString *)key domain:(NSUInteger)mask; 
+
+/*! 
+    @method		context4iTM3BoolForKey:domain:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		key
+    @result		None
+*/
+- (BOOL)context4iTM3BoolForKey:(NSString *)key domain:(NSUInteger)mask;  
+
+/*! 
+    @method		takeContext4iTM3Integer:forKey:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		value
     @param		key
     @result		None
 */
-- (void)takeContextUnsignedInteger:(NSUInteger)value forKey:(NSString *)key domain:(NSUInteger)mask;
+- (void)takeContext4iTM3Integer:(NSInteger)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
-    @method		takeContextFloat:forKey:
+    @method		takeContext4iTM3UnsignedInteger:forKey:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		value
     @param		key
     @result		None
 */
-- (void)takeContextFloat:(CGFloat)value forKey:(NSString *)key domain:(NSUInteger)mask;
+- (void)takeContext4iTM3UnsignedInteger:(NSUInteger)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
-    @method		takeContextBool:forKey:
+    @method		takeContext4iTM3Float:forKey:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		value
     @param		key
     @result		None
 */
-- (void)takeContextBool:(BOOL)value forKey:(NSString *)key domain:(NSUInteger)mask;
+- (void)takeContext4iTM3Float:(CGFloat)value forKey:(NSString *)key domain:(NSUInteger)mask;
+
+/*! 
+    @method		takeContext4iTM3Bool:forKey:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		value
+    @param		key
+    @result		None
+*/
+- (void)takeContext4iTM3Bool:(BOOL)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
     @method		contextStateForKey:
@@ -354,16 +354,16 @@ enum
 - (NSUInteger)contextStateForKey:(NSString *)aKey;  
 
 /*! 
-    @method		toggleContextBoolForKey:
+    @method		toggleContext4iTM3BoolForKey:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
     @result		State
 */
-- (void)toggleContextBoolForKey:(NSString *)aKey;  
+- (void)toggleContext4iTM3BoolForKey:(NSString *)aKey;  
 
 /*! 
-    @method     saveContext:
+    @method     saveContext4iTM3:
     @abstract	Abstract forthcoming.
     @discussion	Will send any message of the form ...CompleteSaveContext4iTM3:.
 				You should not subclass this method unless you really know what you are doing...
@@ -377,30 +377,30 @@ enum
                 Subclassers will be able to override the inherited behaviour and implement its own patch independently from the other stuff.
                 Saving the context should be made before closing the documents.
                 Thus a document sends this message just before the canClose.... is called.
-                You should not call the saveContext: method yourself
+                You should not call the saveContext4iTM3: method yourself
                 but you are free to call your blablablaCompleteSaveContext... of course!
     @param      None
     @result     None
 */
-- (void)saveContext:(id)sender;
+- (void)saveContext4iTM3:(id)sender;
 
 /*! 
-    @method     loadContext
+    @method     loadContext4iTM3
     @abstract	Abstract forthcoming.
-    @discussion	Reverse saveContext: operation.
+    @discussion	Reverse saveContext4iTM3: operation.
 	@param      None
     @result     None
 */
-- (void)loadContext:(id)sender;
+- (void)loadContext4iTM3:(id)sender;
 
 /*! 
-    @method     awakeFromContext
+    @method     awakeFromContext4iTM3
     @abstract	Abstract forthcoming.
     @discussion	Default implementation does quite nothing.
 	@param      None
     @result     None
 */
-- (void)awakeFromContext;
+- (void)awakeFromContext4iTM3;
 
 /*! 
     @method     contextDidChange
@@ -436,9 +436,9 @@ enum
     @method     contextRegistrationNeeded
     @abstract	Abstract forthcoming.
     @discussion	Whether the coontext needs registration.
-				The saveContext: method always forwards the message as ...SaveContext: submessages,
+				The saveContext4iTM3: method always forwards the message as ...SaveContext: submessages,
 				whatever contextRegistrationNeeded returns. It is up to the ...SaveContext: to decide what to do
-				according to this flag, possibly ignoring the return value. When saveContext: returns,
+				according to this flag, possibly ignoring the return value. When saveContext4iTM3: returns,
 				contextRegistrationNeeded returns NO until a contextDidChange is sent.
 				The default implementation always return NO unless the receiver has an implementation.
 				(see iTM2Implementation.h)
@@ -496,7 +496,7 @@ enum
 /*! 
     @method     documentCompleteSaveContext4iTM3:
     @abstract	Abstract forthcoming.
-    @discussion	Sends a saveContext: message to each window controller.
+    @discussion	Sends a saveContext4iTM3: message to each window controller.
     @param      sender
     @result     None
 */
@@ -505,7 +505,7 @@ enum
 /*! 
     @method     documentCompleteLoadContext4iTM3:
     @abstract	Abstract forthcoming.
-    @discussion	Sends a loadContext: message to each window controller.
+    @discussion	Sends a loadContext4iTM3: message to each window controller.
     @param      sender
     @result     None
 */
