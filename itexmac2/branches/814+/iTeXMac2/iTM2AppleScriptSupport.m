@@ -111,7 +111,7 @@ To Do List:
         if([self.orderedTeXDocuments indexOfObject:document] == NSNotFound)
             [SDC addDocument:document];
         
-        if (index == 0)  {
+        if (index == ZER0)  {
             [document makeWindowControllers];
             for (NSWindowController * WC in document.windowControllers) {
                 [WC.window orderFront:self];

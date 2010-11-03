@@ -89,7 +89,7 @@ To Do List:
 //START4iTM3;
     NSString * name = @"Release Notes";
     NSString * path = [[NSBundle mainBundle] pathForResource:name ofType:@"rtf"];
-    NSAttributedString * AS = path.length>0? [[[NSAttributedString alloc]
+    NSAttributedString * AS = path.length>ZER0? [[[NSAttributedString alloc]
         initWithPath: path documentAttributes: nil]
             autorelease]: nil;
     if (!AS)
@@ -97,10 +97,10 @@ To Do List:
     NSTextView * TV = [self infoTextView];
     NSString * S = [TV string];
     NSInteger L = S.length;
-    NSRange R = iTM3MakeRange(0, L);
+    NSRange R = iTM3MakeRange(ZER0, L);
     [TV setSelectedRange:R];
-    [TV insertText:(AS.length>0? (NSString *)AS:@"No news today, my heart has gone away...")];
-    [TV scrollRangeToVisible:iTM3MakeRange(0, 0)];
+    [TV insertText:(AS.length>ZER0? (NSString *)AS:@"No news today, my heart has gone away...")];
+    [TV scrollRangeToVisible:iTM3MakeRange(ZER0, ZER0)];
     [TV setEditable:NO];
     if ([TV respondsToSelector:@selector(validateWindowContent4iTM3)])
         [TV performSelector:@selector(validateWindowContent4iTM3)];
@@ -118,7 +118,7 @@ To Do List:
 //START4iTM3;
     NSString * name = @"Welcome";
     NSString * path = [[NSBundle mainBundle] pathForResource:name ofType:@"rtf"];
-    NSAttributedString * AS = path.length>0? [[[NSAttributedString alloc]
+    NSAttributedString * AS = path.length>ZER0? [[[NSAttributedString alloc]
         initWithPath: path documentAttributes: nil]
             autorelease]: nil;
     if (!AS)
@@ -126,10 +126,10 @@ To Do List:
     NSTextView * TV = [self infoTextView];
     NSString * S = [TV string];
     NSInteger L = S.length;
-    NSRange R = iTM3MakeRange(0, L);
+    NSRange R = iTM3MakeRange(ZER0, L);
     [TV setSelectedRange:R];
-    [TV insertText:(AS.length>0? (NSString *)AS:@"You are not welcome today, this is unexpected result...")];
-    [TV scrollRangeToVisible:iTM3MakeRange(0, 0)];
+    [TV insertText:(AS.length>ZER0? (NSString *)AS:@"You are not welcome today, this is unexpected result...")];
+    [TV scrollRangeToVisible:iTM3MakeRange(ZER0, ZER0)];
     [TV setEditable:NO];
     if ([TV respondsToSelector:@selector(validateWindowContent4iTM3)])
         [TV performSelector:@selector(validateWindowContent4iTM3)];

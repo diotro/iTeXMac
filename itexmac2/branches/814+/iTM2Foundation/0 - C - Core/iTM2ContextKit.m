@@ -195,7 +195,7 @@ To Do List:
 		NSDictionary * D = self.context4iTM3Dictionary;
 		id context4iTM3Manager = self.context4iTM3Manager;
 		if (D) {
-			didChange = 0;
+			didChange = ZER0;
 			id old = [D valueForKey:aKey];
 			if (![old isEqual:object]) {
 				[[old retain] autorelease];
@@ -637,7 +637,7 @@ To Do List:
 //START4iTM3;
 	[self.implementation takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"iTM2ContextRegistrationNeeded"];
 	[self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(contextDidChange) object:nil];
-	[self performSelector:@selector(contextDidChange) withObject:nil afterDelay:0];
+	[self performSelector:@selector(contextDidChange) withObject:nil afterDelay:ZER0];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
@@ -870,7 +870,7 @@ To Do List:
 			return iTM2ContextDefaultsMask;
 		}
 	}
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StringForKey:domain:
 - (NSString *)context4iTM3StringForKey:(NSString *)aKey domain:(NSUInteger)mask;
@@ -942,7 +942,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
 	//END4iTM3;
-    return mask & iTM2ContextStandardDefaultsMask?[self integerForKey:aKey]:0;
+    return mask & iTM2ContextStandardDefaultsMask?[self integerForKey:aKey]:ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3UnsignedIntegerForKey:domain:
 - (NSUInteger)context4iTM3UnsignedIntegerForKey:(NSString *)aKey domain:(NSUInteger)mask; 
@@ -954,7 +954,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
 	//END4iTM3;
-    return mask & iTM2ContextStandardDefaultsMask?(NSUInteger)[self integerForKey:aKey]:0;
+    return mask & iTM2ContextStandardDefaultsMask?(NSUInteger)[self integerForKey:aKey]:ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3FloatForKey:domain:
 - (CGFloat)context4iTM3FloatForKey:(NSString *)aKey domain:(NSUInteger)mask; 

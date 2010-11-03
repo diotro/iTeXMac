@@ -65,7 +65,7 @@
 @"PS:    Paragraph Separator,          U+2029%C",
             0x0085,0x2028,0x2029];
         ICURegEx * RE = nil;
-        NSUInteger i = 0;
+        NSUInteger i = ZER0;
         //  trying some shortcut for EOL:
         //  next re is expected to match for each character preceding a start of line
         //  it can match new line characters
@@ -79,7 +79,7 @@
         NSLog(@"====================================");
         RE = [ICURegEx regExWithSearchPattern:@"(?ms:$(.))" error:NULL];// proper regex for EOL
         RE.inputString = inputString;
-        i = 0;
+        i = ZER0;
         while (RE.nextMatch) {
             ++i;
         }
@@ -87,7 +87,7 @@
         NSLog(@"====================================");
         RE = [ICURegEx regExForKey:iTM2RegExpEOLKey error:NULL];// proper regex for EOL
         RE.inputString = inputString;
-        i = 0;
+        i = ZER0;
         while (RE.nextMatch) {
             ++i;
         }
@@ -164,7 +164,7 @@
         TEST(@"end",@"");
         TEST(@"-index",@"");
         TEST(@"index",@"0");
-        TEST(@"Default",@" defaut valeur0  ");
+        TEST(@"Default",@" defaut valeurZERO  ");
         TEST(@"TYPE",@"");
         TEST(@"EOL",@"");
 
@@ -233,7 +233,7 @@
         STAssertTrue(RE.nextMatch,OUPS,NULL);\
         RE.displayMatchResult;\
         STAssertTrue((NSEqualRanges(NSMakeRange(F1RST,LAST-F1RST+1),RE.rangeOfMatch) || (NSLog(@"R:%@",NSStringFromRange(RE.rangeOfMatch)),NO)),OUPS,NULL)
-#define TEST(NAME,RIGHT) STAssertTrue([[RE substringOfCaptureGroupWithName:NAME] isEqual:RIGHT],OUPS,NULL)
+#define TEST(NAME,RIGHT) STAssertTrue(([[RE substringOfCaptureGroupWithName:NAME] isEqual:RIGHT]),OUPS,NULL)
 #define FULL_TEST(END,INDEXFROMEND,INDEX,DEFAULT,COMMENT,TYPE,EOL)\
         TEST(iTM2RegExpMKEndName,         END);\
         TEST(iTM2RegExpMKIndexFromEndName,INDEXFROMEND);\
@@ -250,7 +250,7 @@
         RE.inputString =
         //0123456789-012345678-9012-3456789012345678901234567890123456789
         @"00 __(T:D\\%C'D)__ \n320\n";
-        NEXT_MATCH(0,16);
+        NEXT_MATCH(ZER0,16);
         FULL_TEST(@"",@"",@"",@"D\\%C'D",@"",@"T",@"");
         if (RE.nextMatch) {
             NSLog(@"=> 1 EOL found");
@@ -260,7 +260,7 @@
         RE.inputString =
         //0123456789-012345678-9012-3456789012345678901234567890123456789
         @"00 __(T:D\\%C'D)__ \n320\n";
-        NEXT_MATCH(0,16);
+        NEXT_MATCH(ZER0,16);
         FULL_TEST(@"",@"",@"",@"D\\%C'D",@"",@"T",@"");
         if (RE.nextMatch) {
             NSLog(@"=> 2 EOL found");
@@ -271,7 +271,7 @@
         RE.inputString =
         //0123456789-012345678-9012-3456789012345678901234567890123456789
         @"00 __(T:D\\%C'D)__ \n320\n";
-        NEXT_MATCH(0,16);
+        NEXT_MATCH(ZER0,16);
         FULL_TEST(@"",@"",@"",@"D\\%C'D",@"",@"T",@"");
         NEXT_MATCH(18,18);
         FULL_TEST(@"",@"",@"",@"",@"",@"",@"\n");
@@ -282,16 +282,16 @@
          RE.inputString =
         //0123456789-01234567890123456789012345678901234567890123456789
         @"000 one  \n"
-        //0         0         0         0         0         0         -
+        //ZER0         ZER0         ZER0         ZER0         ZER0         ZER0         -
         //1         2         3         4         5         6         -
         //012345678901234567890123456789012345678901234567890123456789-
         @"010 two __(TYPE:DEFAULT%COMMENT'D)__ twotwotw __(TYPE:DEFA-\n"
-        //0         0         0         -1         1         1         
-        //7         8         9         -0         1         2         
+        //ZER0         ZER0         ZER0         -1         1         1         
+        //7         8         9         -ZER0         1         2         
         //012345678901234567890123456789-012345678901234567890123456789
         @"070 ULT%COMMENT'D)__ twotwot \n"
         //1         1         1         -1         1         1         
-        //0         1         2         -3         4         5         
+        //ZER0         1         2         -3         4         5         
         //012345678901234567890123456789-012345678901234567890123456789
         @"100 three__(TYPE:DEFAULT%COM-\n"
         //1         1         -1         1         1         1         
@@ -299,11 +299,11 @@
         //01234567890123456789-0123456789012345678901234567890123456789
         @"130 MENT'D)__ twot \n"
         //1         1         1         1         1         -2         
-        //5         6         7         8         9         -0         
+        //5         6         7         8         9         -ZER0         
         //01234567890123456789012345678901234567890123456789-0123456789
         @"150 three __(TYPE%COMMENT'D)__ three __(TYPE%COM-\n"
         //2         2         -2         2         2         2         
-        //0         1         -2         3         4         5         
+        //ZER0         1         -2         3         4         5         
         //01234567890123456789-0123456789012345678901234567890123456789
         @"200 MENT'D)__ twot \n"
         //2         2         2      -   2         2         -2         
@@ -311,7 +311,7 @@
         //012345678901234567890123456-78901234567890123456789-0123456789
         @"220 threethreethre __(TYPE\\:DEFAULT%COMMENT'D)__ \n"
         //2         2         2         3    -     3         -3         
-        //7         8         9         0    -     1         -2         
+        //7         8         9         ZER0    -     1         -2         
         //01234567890123456789012345678901234-567890123456789-0123456789
         @"270 fourfourfourfo __(TYPE:DEFAULT\\XCOMMENT'D)__ \n"
         //3   -      3         3         3         3         3         
@@ -321,6 +321,16 @@
         NEXT_MATCH(9,9);
         FULL_TEST(@"",@"",@"",@"",@"",@"",@"\n");
         NEXT_MATCH(10,45);
+        TEST(iTM2RegExpMKEndName,         @"");
+        TEST(iTM2RegExpMKIndexFromEndName,@"");
+        TEST(iTM2RegExpMKIndexName,       @"");
+        NSLog(@"[RE substringOfCaptureGroupWithName:\"%@\"]=%@",iTM2RegExpMKDefaultName,[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName]);
+STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEqual:@"DEFAULT"]),OUPS,NULL);
+        TEST(iTM2RegExpMKDefaultName,     @"DEFAULT");
+        TEST(iTM2RegExpMKCommentName,     @"COMMENT'D");
+        TEST(iTM2RegExpMKTypeName,        @"TYPE");
+        TEST(iTM2RegExpMKEOLName,         @"");
+
         FULL_TEST(@"",@"",@"",@"DEFAULT",@"COMMENT'D",@"TYPE",@"");
         NEXT_MATCH(46,89);
         FULL_TEST(@"",@"",@"",@"DEFA-\n070 ULT",@"COMMENT'D",@"TYPE",@"");
@@ -332,7 +342,7 @@
         FULL_TEST(@"",@"",@"",@"",@"",@"",@"\n");
         NEXT_MATCH(150,179);
         FULL_TEST(@"",@"",@"",@"",@"COMMENT'D",@"TYPE",@"");
-        NEXT_MATCH(180,212);
+        NEXT_MATCH(180,212);// FAILED Révisé par itexmac2: 2010-11-02 12:08:18 +0100
         FULL_TEST(@"",@"",@"",@"",@"COM-\n200 MENT'D",@"TYPE",@"");
         NEXT_MATCH(219,219);
         FULL_TEST(@"",@"",@"",@"",@"",@"",@"\n");
@@ -348,7 +358,7 @@
         FULL_TEST(@"",@"",@"",@"",@"",@"",@"\n");
         STAssertFalse(RE.nextMatch,OUPS,NULL);
 #endif       
-        NSUInteger i = 0;
+        NSUInteger i = ZER0;
         //  trying some shortcut for EOL:
         //  next re is expected to match for each character preceding a start of line
         //  it can match new line characters
@@ -362,7 +372,7 @@
         NSLog(@"====================================");
         RE = [ICURegEx regExWithSearchPattern:@"(?ms:$(.))" error:NULL];// proper regex for EOL
         RE.inputString = inputString;
-        i = 0;
+        i = ZER0;
         while (RE.nextMatch) {
             ++i;
         }
@@ -442,7 +452,7 @@
         STAssertTrue(!ROR,@"MISSED",nil);
         NSLog(@"__(SEL|TYPE...)__|EOL:%@",RE.searchPattern);
         RE.inputString =
-            @"start __( SEL[0] : defaut valeur0  )__ after \n"
+            @"start __( SEL[0] : defaut valeurZERO  )__ after \n"
             @"middle __( TYPE : defaut valeur1  )__ after \n"
             @"middle __( SEL[1]: defaut valeur2  )__ after \n"
             ;
@@ -452,7 +462,7 @@
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"0");
-        TEST(iTM2RegExpMKDefaultName,@" defaut valeur0  ");
+        TEST(iTM2RegExpMKDefaultName,@" defaut valeurZERO  ");
         TEST(iTM2RegExpMKTypeName,@"");
         TEST(iTM2RegExpMKEOLName,@"");
 
@@ -518,24 +528,24 @@
 	ICURegEx * RE;
     NSLog(@"A create ----------------------------");
 	NSError * localError = nil;
-	RE = [[[ICURegEx alloc] initWithSearchPattern:@"abc+" options:0 error:&localError] autorelease];
+	RE = [[[ICURegEx alloc] initWithSearchPattern:@"abc+" options:ZER0 error:&localError] autorelease];
     STAssertNotNil(RE,@"MISSED: %@",localError);
 	NSLog(@"B match ----------------------------");
 	[RE setInputString:@"abccccc"];
-    STAssertTrue([RE matchesAtIndex:0 extendToTheEnd:YES],@"MISSED 1, error:%@", [RE error]);
+    STAssertTrue([RE matchesAtIndex:ZER0 extendToTheEnd:YES],@"MISSED 1, error:%@", [RE error]);
 	[RE setInputString:@"xabccccc"];
-    STAssertFalse([RE matchesAtIndex:0 extendToTheEnd:YES],@"MISSED 2, error:%@", [RE error]);
+    STAssertFalse([RE matchesAtIndex:ZER0 extendToTheEnd:YES],@"MISSED 2, error:%@", [RE error]);
     STAssertTrue([RE matchesAtIndex:1 extendToTheEnd:YES],@"MISSED 3, error:%@", [RE error]);
 #pragma mark C
 	NSLog(@"C look ----------------------------");
 	[RE setInputString:@"abccccd"];
-    STAssertTrue([RE matchesAtIndex:0 extendToTheEnd:NO],@"MISSED 4, error:%@", [RE error]);
+    STAssertTrue([RE matchesAtIndex:ZER0 extendToTheEnd:NO],@"MISSED 4, error:%@", [RE error]);
 	[RE setInputString:@"xabccccd"];
-    STAssertFalse([RE matchesAtIndex:0 extendToTheEnd:NO],@"MISSED 5, error:%@", [RE error]);
+    STAssertFalse([RE matchesAtIndex:ZER0 extendToTheEnd:NO],@"MISSED 5, error:%@", [RE error]);
     STAssertTrue([RE matchesAtIndex:1 extendToTheEnd:NO],@"MISSED 6, error:%@", [RE error]);
 #pragma mark D
 	NSLog(@"D find ----------------------------");
-	RE = [[[ICURegEx alloc] initWithSearchPattern:@"a(b*)(c+)" options:0 error:&localError] autorelease];
+	RE = [[[ICURegEx alloc] initWithSearchPattern:@"a(b*)(c+)" options:ZER0 error:&localError] autorelease];
     STAssertNotNil(RE,@"MISSED: %@",localError);
 	[RE setInputString:@"xacccyyabbczzabbeeee"];
     STAssertTrue([RE nextMatch],@"MISSED 7, error:%@", [RE error]);
@@ -551,10 +561,10 @@
     STAssertFalse([RE nextMatch],@"MISSED 9, error:%@", [RE error]);
 	STAssertTrue([RE nextMatchAfterIndex:2],@"MISSED 10, error:%@", [RE error]);
     [RE displayMatchResult];
-	[RE setReplacementPattern:@"0:/$0/\n1:/$1/\n2:/$2/"];
+	[RE setReplacementPattern:@"ZER0:/$ZER0/\n1:/$1/\n2:/$2/"];
 	NSLog(@"[RE replacementString]:%@",[RE replacementString]);
     STAssertNil([RE error],@"MISSED 10",NULL);
-	STAssertTrue([[RE replacementString] isEqual:@"0:/abbc/\n1:/bb/\n2:/c/"],@"MISSED 11, error:%@", [RE error]);
+	STAssertTrue([[RE replacementString] isEqual:@"ZER0:/abbc/\n1:/bb/\n2:/c/"],@"MISSED 11, error:%@", [RE error]);
 #pragma mark E
 	NSLog(@"E find ----------------------------");
 	NSString * input = [NSString stringWithUTF8String:"ઔકખਅਆਦਤઔકખਅਆਦਤઔકખਅਆਦਤઔકખਅਆਦਤ"];
@@ -563,29 +573,29 @@
 	MS = [NSMutableString stringWithString:input];
 	NSLog(@"Avant:%@",MS);
 	NSString * pattern = [NSString stringWithUTF8String:"(ખ..).*(ਆ+)"];
-	[MS replaceOccurrencesOfICUREPattern:pattern withPattern:@"$2$1$2$1" options:0 range:iTM3MakeRange(0,MS.length) error:&error];
+	[MS replaceOccurrencesOfICUREPattern:pattern withPattern:@"$2$1$2$1" options:ZER0 range:iTM3MakeRange(ZER0,MS.length) error:&error];
 	NSLog(@"Apres:%@",MS);
 	MS = [NSMutableString stringWithString:input];
 	NSLog(@"Avant:%@",MS);
-	[MS replaceOccurrencesOfICUREPattern:pattern withPattern:@"$2$1$2$1" options:0 range:iTM3MakeRange(2,MS.length-3) error:&error];
+	[MS replaceOccurrencesOfICUREPattern:pattern withPattern:@"$2$1$2$1" options:ZER0 range:iTM3MakeRange(2,MS.length-3) error:&error];
 	NSLog(@"Apres:%@",MS);
     STAssertTrue([MS isEqual:[NSString stringWithUTF8String:"ઔકਆખਅਆਆખਅਆਦਤ"]],@"MISSED 11, found:%@", MS);
 #pragma mark F
 	NSLog(@"F find ----------------------------");
-	RE = [[[ICURegEx alloc] initWithSearchPattern:@"a(b*)(c+)" options:0 error:&localError] autorelease];
+	RE = [[[ICURegEx alloc] initWithSearchPattern:@"a(b*)(c+)" options:ZER0 error:&localError] autorelease];
     STAssertFalse([RE nextMatch],@"MISSED 10, error:%@", [RE error]);
     STAssertNotNil([RE error],@"MISSED 10, error:%@", [RE error]);
 #pragma mark G
 //	NSString * S = [NSString * stringWithUTF8String:"“‘ÁØå’”"];
 	
 
-    RE = [[[ICURegEx alloc] initWithSearchPattern:@"N(OO)P" options:0 error:&error] autorelease];
+    RE = [[[ICURegEx alloc] initWithSearchPattern:@"N(OO)P" options:ZER0 error:&error] autorelease];
     [RE displayMatchResult];
     [RE setInputString:@"0123456789NOOP0123456789"];
     STAssertTrue([RE nextMatch],@"MISSED 1",NULL);
     STAssertTrue([RE numberOfCaptureGroups]==1,@"MISSED 2",NULL);
     STAssertTrue([[RE substringOfMatch] isEqual:@"NOOP"],@"MISSED 3",NULL);
-    STAssertTrue([[RE substringOfCaptureGroupAtIndex:0] isEqual:@"NOOP"],@"MISSED 4",NULL);
+    STAssertTrue([[RE substringOfCaptureGroupAtIndex:ZER0] isEqual:@"NOOP"],@"MISSED 4",NULL);
     STAssertTrue([[RE substringOfCaptureGroupAtIndex:1] isEqual:@"OO"],@"MISSED 5",NULL);
     [RE setInputString:@"0123456789NOOP0123456789" range:iTM3MakeRange(10,4)];
     STAssertTrue([RE nextMatch],@"MISSED 6",NULL);

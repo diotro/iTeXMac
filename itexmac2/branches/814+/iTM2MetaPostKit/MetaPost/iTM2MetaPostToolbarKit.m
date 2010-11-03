@@ -461,7 +461,7 @@ To Do List:
 		}
 	}
 //END4iTM3;
-    return sender.integerValue > 0;
+    return sender.integerValue > ZER0;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeScaleFrom:
 - (IBAction)takeScaleFrom:(NSControl *)sender;

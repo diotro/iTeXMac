@@ -129,7 +129,7 @@ To Do List:
         if ((self.lastMagnificationITII!=nil)&&![self.lastMagnificationITII isEqualToString:anItemIdentifier]) {
             BOOL removeFlag=NO;
             NSUInteger index;
-            for(index=0; index<aToolbar.items.count; ++index) {
+            for(index=ZER0; index<aToolbar.items.count; ++index) {
                 if ([[[aToolbar.items objectAtIndex:index] itemIdentifier] isEqualToString:self.lastMagnificationITII]) {
                     removeFlag=YES;
                     break;
@@ -331,8 +331,8 @@ To Do List:
         [_MagStepper setIncrement:1];
         [_MagStepper setMinValue:-1];
         [_MagStepper setMaxValue:1];
-        [_MagStepper setIntegerValue:0];
-        [_MagStepper setValueWraps:0];
+        [_MagStepper setIntegerValue:ZER0];
+        [_MagStepper setValueWraps:ZER0];
         _MagStepper.action = @selector(takeMagnificationFromStepper:);
         _MagStepper.target = nil;
     }

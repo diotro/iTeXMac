@@ -136,7 +136,7 @@ To Do List:
 //START4iTM3;
 	int cpu_type;
 	size_t length = sizeof(cpu_type);
-	sysctlbyname("hw.cputype", &cpu_type, &length, NULL, 0);
+	sysctlbyname("hw.cputype", &cpu_type, &length, NULL, ZER0);
 //END4iTM3;
 	return cpu_type == CPU_TYPE_I386;
 }
@@ -385,7 +385,7 @@ To Do List:
 	NSURL * directoryURL = [self.temporaryDirectoryURL4iTM3 URLByAppendingPathComponent:@"Unique"];
 	NSURL * url;
     NSString * path;
-	NSUInteger i = 0;
+	NSUInteger i = ZER0;
 	do {
 		NSString * component = [NSString stringWithFormat:@"%lu", i++];
 		url = [directoryURL URLByAppendingPathComponent:component];
@@ -678,7 +678,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return *(OSType *)[[[self.infoDictionary objectForKey:@"CFBundlePackageType"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding];
+    return *(OSType *)[[[self.infoDictionary objectForKey:@"CFBundlePackageType"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:ZER0] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bundleHFSCreatorCode4iTM3
 - (OSType) bundleHFSCreatorCode4iTM3;
@@ -690,7 +690,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return *(OSType *)[[[self.infoDictionary objectForKey:@"CFBundleSignature"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:0] cStringUsingEncoding:NSUTF8StringEncoding];
+    return *(OSType *)[[[self.infoDictionary objectForKey:@"CFBundleSignature"] stringByPaddingToLength:4 withString:@"\0" startingAtIndex:ZER0] cStringUsingEncoding:NSUTF8StringEncoding];
 }
 #pragma mark -
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= addBundlesAtURL4iTM3:inMutableArray:
@@ -720,7 +720,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= allBundlesAtURL4iTM3:
 + (NSArray *)allBundlesAtURL4iTM3:(NSURL *)URL;
-/*"Description forthcoming. startup fraction 0,25561067801
+/*"Description forthcoming. startup fraction ZER0,25561067801
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
 Latest Revision: Fri Jan 29 21:44:51 UTC 2010
@@ -1201,7 +1201,7 @@ To Do List:
 	NSString * executable = [mainBundle objectForInfoDictionaryKey:(NSString *)kCFBundleExecutableKey];
 #elif 1
 	NSProcessInfo * PI = [NSProcessInfo processInfo];
-	NSString * bundlePath = [PI.arguments objectAtIndex:0];
+	NSString * bundlePath = [PI.arguments objectAtIndex:ZER0];
 	NSMutableArray * components = [[[bundlePath pathComponents] mutableCopy] autorelease];
 	while(![components.lastObject isEqual:@"Contents"]) {
 		[components removeLastObject];
@@ -1215,7 +1215,7 @@ To Do List:
 #else
 	NSProcessInfo * PI = [NSProcessInfo processInfo];
 	NSArray * arguments = [PI arguments];
-	NSString * infoPListPath = [arguments objectAtIndex:0];
+	NSString * infoPListPath = [arguments objectAtIndex:ZER0];
 	infoPListPath = infoPListPath.stringByDeletingLastPathComponent;
 	infoPListPath = infoPListPath.stringByDeletingLastPathComponent;
 	infoPListPath = [infoPListPath stringByAppendingPathComponent:@"Info"];
@@ -1268,7 +1268,7 @@ To Do List:
 				}
 			}
 		}
-		NSUInteger index = 0;
+		NSUInteger index = ZER0;
 		do
 		{
 			component = [NSString stringWithFormat:@"%u",index++];
@@ -1302,7 +1302,7 @@ end:
 #if 0
 	else
     {
-		NSLog(@"RUNNING IN 0 DEBUG LEVEL. To have more comments available for debugging purpose");
+		NSLog(@"RUNNING IN ZER0 DEBUG LEVEL. To have more comments available for debugging purpose");
         NSLog(@"Please, set the iTM2DebugEnabled defaults value to some positive (the higher the more precise):");
         NSLog(@"terminal%% defaults write %@ iTM2DebugEnabled '10000'",identifier);
 	}
@@ -1350,9 +1350,9 @@ static int sysctlbyname_with_pid (const char *name, pid_t pid,
                             void *oldp, size_t *oldlenp, 
                             void *newp, size_t newlen)
 {
-    if (pid == 0) {
+    if (pid == ZER0) {
         if (sysctlbyname(name, oldp, oldlenp, newp, newlen) == -1)  {
-            fprintf(stderr, "sysctlbyname_with_pid(0): sysctlbyname  failed:"
+            fprintf(stderr, "sysctlbyname_with_pid(ZER0): sysctlbyname  failed:"
                      "%s\n", strerror(errno));
             return -1;
         }
@@ -1372,15 +1372,15 @@ static int sysctlbyname_with_pid (const char *name, pid_t pid,
             return -1;
         }
     }
-    return 0;
+    return ZER0;
 }
 int is_pid_native (pid_t pid)
 {
-    int ret = 0;
+    int ret = ZER0;
     size_t sz = sizeof(ret);
  
     if (sysctlbyname_with_pid("sysctl.proc_native", pid, 
-                &ret, &sz, NULL, 0) == -1) {
+                &ret, &sz, NULL, ZER0) == -1) {
          if (errno == ENOENT) {
             // sysctl doesn't exist, which means that this version of Mac OS 
             // pre-dates Rosetta, so the application must be native.

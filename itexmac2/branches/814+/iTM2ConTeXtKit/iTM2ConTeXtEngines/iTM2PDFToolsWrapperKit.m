@@ -47,7 +47,7 @@
 {\
 	NSString * unit = [self editInfo4iTM3ForKeyPaths:KEY,nil];\
 	if([unit isEqual:@"bp"])\
-		[sender selectItemWithTag:0];\
+		[sender selectItemWithTag:ZER0];\
 	else if([unit isEqual:@"pt"])\
 		[sender selectItemWithTag:1];\
 	else if([unit isEqual:@"in"])\

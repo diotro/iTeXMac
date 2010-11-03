@@ -272,10 +272,10 @@ To Do List:
 //START4iTM3;
 	NSTableView * myTableView = self.manualsTableView;
 	[myTableView deselectAll:nil];
-	[self insertObject:[NSMutableDictionary dictionary] inConTeXtManualsAtIndex:0];
+	[self insertObject:[NSMutableDictionary dictionary] inConTeXtManualsAtIndex:ZER0];
 	[myTableView reloadData];
-	[myTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-	[myTableView editColumn:0 row:0 withEvent:nil select:YES];
+	[myTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:ZER0] byExtendingSelection:NO];
+	[myTableView editColumn:ZER0 row:ZER0 withEvent:nil select:YES];
 //END4iTM3;
 	return;
 }

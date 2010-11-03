@@ -64,16 +64,16 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 //START4iTM3;
     NSRange selectedRange = [TV selectedRange];
 //LOG4iTM3(@"oldSelectedRange: %@ -> selectedRange: %@", NSStringFromRange(oldSelectedRange), NSStringFromRange(selectedRange));
-    if ((selectedRange.length == 0) && ([[NSApp currentEvent] type] == NSKeyDown))
+    if ((selectedRange.length == ZER0) && ([[NSApp currentEvent] type] == NSKeyDown))
     {
         if((oldSelectedRange.location == selectedRange.location - 1) ||
                 (oldSelectedRange.location == selectedRange.location + 1)) {
             NSInteger index = MIN(selectedRange.location, oldSelectedRange.location);
             NSString * string = [TV string];
-            NSRange range = iTM3MakeRange(0, string.length);
+            NSRange range = iTM3MakeRange(ZER0, string.length);
             BOOL isInRange = iTM3LocationInRange(index, range);
-            unichar delimiter = isInRange? [string characterAtIndex:index]: 0;
-            unichar left = 0, right = 0;
+            unichar delimiter = isInRange? [string characterAtIndex:index]: ZER0;
+            unichar left = ZER0, right = ZER0;
             BOOL isDelimiter = NO;
             BOOL isLeft = NO;
             switch(delimiter)
@@ -100,7 +100,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
                     isDelimiter = YES;
                     break;
             }
-            if(isDelimiter && (index>0))
+            if(isDelimiter && (index>ZER0))
             {
                 BOOL isEscaped = NO;
                 isDelimiter = ![string isControlAtIndex:index-1 escaped: &isEscaped] || isEscaped; 

@@ -49,13 +49,13 @@ To Do List:
         if (self.backwardsFlag)
         {
             if (findRangeValue)
-                [target setSelectedRange: iTM3MakeRange(iTM3MaxRange([findRangeValue rangeValue]), 0)];
+                [target setSelectedRange: iTM3MakeRange(iTM3MaxRange([findRangeValue rangeValue]), ZER0)];
             [TF findPrevious: nil];
         }
         else
         {
             if (findRangeValue)
-                [target setSelectedRange: iTM3MakeRange([findRangeValue rangeValue].location, 0)];
+                [target setSelectedRange: iTM3MakeRange([findRangeValue rangeValue].location, ZER0)];
             [TF findNext: nil];
         }
         return [NSNumber numberWithBool: [TF lastFindWasSuccessful]];
@@ -145,7 +145,7 @@ To Do List:
                     NSRange R;
                     if (self.backwardsFlag)
                     {
-                        R.location = 0;
+                        R.location = ZER0;
                         R.length = index;
                     }
                     else
@@ -182,7 +182,7 @@ To Do List:
                 if ([container isKindOfClass: [NSTextStorage class]])
                 {
                     [findRangeValue autorelease];
-                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], 0)] retain];
+                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], ZER0)] retain];
                     return findTarget = [container retain];
                 }
                 else
@@ -393,7 +393,7 @@ To Do List:
                     else
                     {
                         [insertionRangeValue autorelease];
-                        insertionRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], 0)] retain];
+                        insertionRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], ZER0)] retain];
                         return insertionTarget = [container retain];
                     }
                 }
@@ -653,28 +653,28 @@ To Do List:
         if (self.changeAllFlag)
         {
             if (findRangeValue)
-                [target setSelectedRange: iTM3MakeRange(iTM3MaxRange([findRangeValue rangeValue]), 0)];
+                [target setSelectedRange: iTM3MakeRange(iTM3MaxRange([findRangeValue rangeValue]), ZER0)];
             [TF replaceAll: nil];
             return [NSNumber numberWithInteger: [TF numberOfOps]];
         }
         else if (self.backwardsFlag)
         {
             if (findRangeValue)
-                [target setSelectedRange: iTM3MakeRange(iTM3MaxRange([findRangeValue rangeValue]), 0)];
+                [target setSelectedRange: iTM3MakeRange(iTM3MaxRange([findRangeValue rangeValue]), ZER0)];
             [TF findPrevious: nil];
         }
         else
         {
             if (findRangeValue)
-                [target setSelectedRange: iTM3MakeRange([findRangeValue rangeValue].location, 0)];
+                [target setSelectedRange: iTM3MakeRange([findRangeValue rangeValue].location, ZER0)];
             [TF findNext: nil];
         }
         if ([TF lastFindWasSuccessful])
             [TF replace: nil];
-        return [NSNumber numberWithInteger: ([TF lastFindWasSuccessful]? 1: 0)];
+        return [NSNumber numberWithInteger: ([TF lastFindWasSuccessful]? 1: ZER0)];
     }
     else
-        return [NSNumber numberWithInteger: 0];
+        return [NSNumber numberWithInteger: ZER0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  backwardsFlag
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  caseInsensitiveFlag
@@ -762,7 +762,7 @@ To Do List:
                     NSRange R;
                     if (self.backwardsFlag)
                     {
-                        R.location = 0;
+                        R.location = ZER0;
                         R.length = index;
                     }
                     else
@@ -799,7 +799,7 @@ To Do List:
                 if ([container isKindOfClass: [NSTextStorage class]])
                 {
                     [findRangeValue autorelease];
-                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], 0)] retain];
+                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], ZER0)] retain];
                     return findTarget = [container retain];
                 }
                 else
@@ -926,7 +926,7 @@ To Do List:
                     NSRange R;
                     if (self.backwardsFlag)
                     {
-                        R.location = 0;
+                        R.location = ZER0;
                         R.length = index;
                     }
                     else
@@ -963,7 +963,7 @@ To Do List:
                 if ([container isKindOfClass: [NSTextStorage class]])
                 {
                     [findRangeValue autorelease];
-                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], 0)] retain];
+                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], ZER0)] retain];
                     return findString = [container retain];
                 }
                 else
@@ -1074,7 +1074,7 @@ To Do List:
                     NSRange R;
                     if (self.backwardsFlag)
                     {
-                        R.location = 0;
+                        R.location = ZER0;
                         R.length = index;
                     }
                     else
@@ -1111,7 +1111,7 @@ To Do List:
                 if ([container isKindOfClass: [NSTextStorage class]])
                 {
                     [findRangeValue autorelease];
-                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], 0)] retain];
+                    findRangeValue = [[NSValue valueWithRange: iTM3MakeRange([O insertionIndex], ZER0)] retain];
                     return replaceString = [container retain];
                 }
                 else
@@ -1199,7 +1199,7 @@ To Do List:
             {
                 if ([[PS insertionKey] isEqualToString: @"characters"])
                     [O setSelectedRangeValue:
-                        [NSValue valueWithRange: iTM3MakeRange(MIN([PS insertionIndex], (NSUInteger)[(NSString *)O length]), 0)]];
+                        [NSValue valueWithRange: iTM3MakeRange(MIN([PS insertionIndex], (NSUInteger)[(NSString *)O length]), ZER0)]];
                 else
                 {
                     [self setScriptErrorNumber: 4];
@@ -1305,7 +1305,7 @@ To Do List:
         return [(NSValue *)self rangeValue];
     }
     else
-        return iTM3MakeRange(NSNotFound, 0);
+        return iTM3MakeRange(NSNotFound, ZER0);
 }
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  NSObject(iTeXMac2)
@@ -1404,7 +1404,7 @@ To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
-    return self.selectedRange.location + 1;// beware of 0 ves 1 based numeration
+    return self.selectedRange.location + 1;// beware of ZER0 ves 1 based numeration
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  lastSelectedIndex
 - (NSUInteger)lastSelectedIndex;
@@ -1414,7 +1414,7 @@ To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
-    return iTM3MaxRange(self.selectedRange);// beware of 0 versus 1 based numeration
+    return iTM3MaxRange(self.selectedRange);// beware of ZER0 versus 1 based numeration
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  selectedRangeSpecifier
 - (NSRangeSpecifier *)selectedRangeSpecifier;
@@ -1443,7 +1443,7 @@ To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
-    NSRange R = argument? [argument evaluatedRange]:iTM3MakeRange(NSNotFound, 0);
+    NSRange R = argument? [argument evaluatedRange]:iTM3MakeRange(NSNotFound, ZER0);
     if (R.location != NSNotFound)
     {
         NSUInteger length = self.length;
@@ -1470,7 +1470,7 @@ To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
-    [self setSelectedRangeValue:[NSValue valueWithRange:iTM3MakeRange(0, self.length)]];
+    [self setSelectedRangeValue:[NSValue valueWithRange:iTM3MakeRange(ZER0, self.length)]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertText:inRangeValue:

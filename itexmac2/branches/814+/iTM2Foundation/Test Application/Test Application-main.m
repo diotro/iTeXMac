@@ -26,7 +26,7 @@ int main (int argc, const char * argv[]) {
 int main (int argc, const char * argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSString * path = @"/Users/itexmac2/Desktop/test.plist";
-	NSXMLDocument * doc = [[[myXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:0 error:nil] autorelease];
+	NSXMLDocument * doc = [[[myXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] options:ZERO error:nil] autorelease];
 	if (doc)
 	{
 		NSLog(@"root element:%@,1,FIN",[[doc rootElement] class]);

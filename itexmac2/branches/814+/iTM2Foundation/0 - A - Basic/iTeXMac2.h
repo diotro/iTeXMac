@@ -233,10 +233,11 @@ FOUNDATION_EXPORT NSRange iTM3ShiftRange(NSRange range, NSInteger off7);
 
 FOUNDATION_EXPORT NSRange iTM3ScaleRange(NSRange range, NSInteger delta);
 
+#define ZER0 ((NSUInteger)0)
 #define iTM3UIntegerUndefined NSUIntegerMax
-#define iTM3VoidRange iTM3MakeRange(iTM3UIntegerUndefined,0)
-#define iTM3FullRange iTM3MakeRange(0,NSUIntegerMax)
-#define iTM3NotFoundRange iTM3MakeRange(NSNotFound,0)
+#define iTM3VoidRange iTM3MakeRange(iTM3UIntegerUndefined,ZER0)
+#define iTM3FullRange iTM3MakeRange(ZER0,NSUIntegerMax)
+#define iTM3NotFoundRange iTM3MakeRange(NSNotFound,ZER0)
 
 /*
 (@header|@param|@method|@class|@result|@abstract|@discussion|@protocol) 

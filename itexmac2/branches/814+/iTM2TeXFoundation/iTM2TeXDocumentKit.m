@@ -236,7 +236,7 @@ To Do List:
 	BOOL escaped;
 	if(components.count == 2)
 	{
-		s = [components objectAtIndex:0];
+		s = [components objectAtIndex:ZER0];
 		if(!s.length || ![s isControlAtIndex:s.length-1 escaped:&escaped] || escaped)
 		{
 			s = [NSString stringWithFormat:@"{__(%@)__}",selectedString];
@@ -246,7 +246,7 @@ To Do List:
 	else
 	{
 		components = [macro componentsSeparatedByString:@"[]"];
-        s = [components objectAtIndex:0];
+        s = [components objectAtIndex:ZER0];
 		if((components.count == 2) && (!s.length || ![s isControlAtIndex:s.length-1 escaped:&escaped] || escaped))
 		{
 			s = [NSString stringWithFormat:@"[__(%@)__]",selectedString];
@@ -338,7 +338,7 @@ To Do List:
         NSUInteger start, end;
         [S getLineStart: &start end: &end contentsEnd:nil forRange:SR];
         end -= start;
-        NSRange PR = (end>SR.length)? iTM3MakeRange(start, end): iTM3MakeRange(0, S.length);
+        NSRange PR = (end>SR.length)? iTM3MakeRange(start, end): iTM3MakeRange(ZER0, S.length);
         [self setSelectedRange:PR];
 		return;
     }
@@ -488,7 +488,7 @@ To Do List: Nothing at first glance.
 					//select to the next $
 					NSRange range = selectedRange;
 					range.length = myString.length - range.location;
-					range = [myString rangeOfString:@"$" options:0 range:range];
+					range = [myString rangeOfString:@"$" options:ZER0 range:range];
 					--selectedRange.location;
 					selectedRange.length = range.location+1-selectedRange.location;
 					[self setSelectedRange:selectedRange];
@@ -563,7 +563,7 @@ To Do List: Nothing at first glance.
     }
     else if(escaped)// this is a dimension after a "\\"
     {
-		[S getLineStart:nil end:nil contentsEnd:&contentsEnd forRange:iTM3MakeRange(R.location, 0)];
+		[S getLineStart:nil end:nil contentsEnd:&contentsEnd forRange:iTM3MakeRange(R.location, ZER0)];
 		macro = R.location == contentsEnd? @"[__()__]":@"[__()__]\n";
 		[self insertMacro:macro];
     }
@@ -572,7 +572,7 @@ To Do List: Nothing at first glance.
         [self.undoManager beginUndoGrouping];
 //NSLog(@"GLS");
 		[S getLineStart:&start end:nil contentsEnd:&contentsEnd
-			forRange: iTM3MakeRange(R.location-1, 0)];
+			forRange: iTM3MakeRange(R.location-1, ZER0)];
 		EOL = (R.location == contentsEnd);
 		BOL = (start == R.location-1);
 		if(!BOL)
@@ -607,7 +607,7 @@ To Do List: Nothing at first glance.
 		NSRange R = [V rangeValue];
 		NSUInteger nextStart,top;
 		top = iTM3MaxRange(R);
-		R.length = 0;
+		R.length = ZER0;
 		[S getLineStart:&R.location end:&nextStart contentsEnd:nil forRange:R];
 		V = [NSValue valueWithRange:R];
 		if(![affectedRanges containsObject:V])
@@ -630,7 +630,7 @@ To Do List: Nothing at first glance.
 	self.willChangeSelectedRanges;
 	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
 	{
-		NSUInteger shift = 0;
+		NSUInteger shift = ZER0;
 		NSEnumerator * E = affectedRanges.objectEnumerator;// no reverse enumerator to properly manage the selection
 		affectedRanges = [NSMutableArray array];
 		// no need to enumerate the replacementStrings
@@ -787,16 +787,16 @@ To Do List:
 		// reentrant code management
 		V = nil;
 	}
-	else if((affectedRanges.count == 1) && (replacementStrings.count > 0))
+	else if((affectedRanges.count == 1) && (replacementStrings.count > ZER0))
 	{
-		NSString * replacementString = [replacementStrings objectAtIndex:0];
+		NSString * replacementString = [replacementStrings objectAtIndex:ZER0];
 		if([replacementString hasSuffix:[NSString backslashString]])
 		{
 			V = affectedRanges.lastObject;
 			NSRange R = [V rangeValue];
 			R.length = replacementString.length;
 			R.location = iTM3MaxRange(R);
-			R.length = 0;
+			R.length = ZER0;
 			V = [NSValue valueWithRange:R];
 		}
 	}
@@ -868,10 +868,10 @@ To Do List:
 	NSValue * V;
 	while((before = E.nextObject) && (after = E.nextObject))
 	{
-		NSRange searchRange = iTM3MakeRange(0,S.length);
+		NSRange searchRange = iTM3MakeRange(ZER0,S.length);
 		while(searchRange.length>=before.length)
 		{
-			NSRange R = [S rangeOfString:before options:0L range:searchRange];
+			NSRange R = [S rangeOfString:before options:ZER0 range:searchRange];
 			if(R.length)
 			{
 				V = [NSValue valueWithRange:R];
@@ -882,7 +882,7 @@ To Do List:
 			}
 			else
 			{
-				searchRange.length = 0;
+				searchRange.length = ZER0;
 			}
 		}
 	}
@@ -918,10 +918,10 @@ To Do List:
 	while(before = E.nextObject)
 	{
 		after = [gnippam objectForKey:before];
-		NSRange searchRange = iTM3MakeRange(0,S.length);
+		NSRange searchRange = iTM3MakeRange(ZER0,S.length);
 		while(searchRange.length>=before.length)
 		{
-			R = [S rangeOfString:before options:0L range:searchRange];
+			R = [S rangeOfString:before options:ZER0 range:searchRange];
 			if(R.length)
 			{
 				V = [NSValue valueWithRange:R];
@@ -932,7 +932,7 @@ To Do List:
 			}
 			else
 			{
-				searchRange.length = 0;
+				searchRange.length = ZER0;
 			}
 		}
 	}
@@ -1012,7 +1012,7 @@ To Do List:
 //START4iTM3;
 	NSRange range = [super rangeForUserCompletion];
 	NSString * string = self.string;
-	if(range.location>0)
+	if(range.location>ZER0)
 	{
 		BOOL escaped = NO;
 		if([string isControlAtIndex:range.location-1 escaped:&escaped] && !escaped)
@@ -1054,7 +1054,7 @@ To Do List:
 				unichar theChar = [macro characterAtIndex:index];
 				if([[NSCharacterSet TeXLetterCharacterSet4iTM3] characterIsMember:theChar])
 				{
-					R.location = 0;
+					R.location = ZER0;
 					R.length = index+1;
 					macro = [macro substringWithRange:R];
 					macro = [macro stringByAppendingString:@" __()__"];// mind the space before the placeholder
@@ -1073,7 +1073,7 @@ To Do List:
 			unichar theChar = [macro characterAtIndex:index];
 			if([[NSCharacterSet TeXLetterCharacterSet4iTM3] characterIsMember:theChar])
 			{
-				R.location = 0;
+				R.location = ZER0;
 				R.length = index+1;
 				macro = [macro stringByAppendingString:@" "];// mind the space before the placeholder
 			}
@@ -1301,9 +1301,9 @@ To Do List:
 //START4iTM3;
 	NSInteger tag = sender.tag;
 	NSString * S = self.textStorage.string;
-	if(tag>=0 && tag<S.length) {
+	if(tag>=ZER0 && tag<S.length) {
 		NSUInteger begin, end;
-		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, 0)];
+		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, ZER0)];
 		[self highlightAndScrollToVisibleRange:iTM3MakeRange(begin, end-begin)];
 	}
 //END4iTM3;
@@ -1350,7 +1350,7 @@ To Do List:
 	else if(start<selectedRange.location)
 	{
 		selectedRange.location = start;
-		selectedRange.length = 0;
+		selectedRange.length = ZER0;
 		suffix = @"\n";
 		[self setSelectedRange:selectedRange];
 	}
@@ -1462,7 +1462,7 @@ next:
 						}
 					}
 				}
-				[[M itemAtIndex:0] setTitle:title];
+				[[M itemAtIndex:ZER0] setTitle:title];
 				self.title = title;// will raise if the menu is void
 				[self setMenu:M];
 			}
@@ -1576,7 +1576,7 @@ next:
 						}
 					}
 				}
-				[[M itemAtIndex:0] setTitle:title];
+				[[M itemAtIndex:ZER0] setTitle:title];
 				self.title = title;// will raise if the menu is void
 				[self setMenu:M];
 			}
@@ -1619,7 +1619,7 @@ To Do List:
 	
     NSString * S = self.string;
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-    NSUInteger scanLocation = 0, end = S.length;
+    NSUInteger scanLocation = ZER0, end = S.length;
     unichar theChar;
     while(scanLocation < end)
     {
@@ -1652,13 +1652,13 @@ To Do List:
                             NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                             title = (title.length > 48)?
                                             [NSString stringWithFormat:@"%@[...]",
-                                                    [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                    [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                             if(title.length)
                             {
                                 NSMenuItem * MI = [markMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
                                 MI.representedObject = object;
 								MI.tag = scanLocation;
-                                [MI setEnabled: (markMenu.title.length > 0)];
+                                [MI setEnabled: (markMenu.title.length > ZER0)];
                             }
                         }
                     }
@@ -1683,7 +1683,7 @@ To Do List:
                                 NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                 title = (title.length > 48)?
                                                 [NSString stringWithFormat:@"%@[...]",
-                                                        [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                        [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                 if(title.length)
                                 {
                                     NSMenuItem * MI = [markMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
@@ -1725,7 +1725,7 @@ To Do List:
                     object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     NSString * title = (object.length > 48)?
                                             [NSString stringWithFormat:@"%@[...]",
-                                                [object substringWithRange:iTM3MakeRange(0,43)]]: object;
+                                                [object substringWithRange:iTM3MakeRange(ZER0,43)]]: object;
                     if(title.length)
                     {
                         NSMenuItem * MI = [markMenu addItemWithTitle: title
@@ -1788,7 +1788,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * string = self.string;
-    if(iTM3LocationInRange(index, iTM3MakeRange(0, string.length)))
+    if(iTM3LocationInRange(index, iTM3MakeRange(ZER0, string.length)))
     {
         BOOL escaped = YES;
         if([string isControlAtIndex:index escaped: &escaped])
@@ -1805,23 +1805,23 @@ To Do List:
             NSRange R;
             case '{':
             case '}':
-                if(R = [string groupRangeAtIndex:index beginDelimiter: '{' endDelimiter: '}'], R.length>0)
+                if(R = [string groupRangeAtIndex:index beginDelimiter: '{' endDelimiter: '}'], R.length>ZER0)
                     return R;
                 break;
             case '(':
             case ')':
-                if (R = [string groupRangeAtIndex:index beginDelimiter: '(' endDelimiter: ')'], R.length>0)
+                if (R = [string groupRangeAtIndex:index beginDelimiter: '(' endDelimiter: ')'], R.length>ZER0)
                     return R;
                 break;
             case '[':
             case ']':
-                if (R = [string groupRangeAtIndex:index beginDelimiter: '[' endDelimiter: ']'], R.length>0)
+                if (R = [string groupRangeAtIndex:index beginDelimiter: '[' endDelimiter: ']'], R.length>ZER0)
                     return R;
                 break;
             case '%':
             {
                 BOOL escaped;
-                if((index>0) && [string isControlAtIndex:index-1 escaped: &escaped] && !escaped)
+                if((index>ZER0) && [string isControlAtIndex:index-1 escaped: &escaped] && !escaped)
                     return iTM3MakeRange(index-1, 2);
                 else
                 {
@@ -1829,7 +1829,7 @@ To Do List:
                     NSUInteger end;
                     NSUInteger contentsEnd;
 //NSLog(@"GLS");
-                    [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:iTM3MakeRange(index, 0)];
+                    [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange:iTM3MakeRange(index, ZER0)];
 //NSLog(@"GLS");
                     return (start<index)? iTM3MakeRange(index, contentsEnd - index): iTM3MakeRange(start, end - start);
                 }
@@ -1853,13 +1853,13 @@ To Do List:
             }
             case '.':
             {
-                NSInteger rightBlackChars = 0;
-                NSInteger leftBlackChars = 0;
+                NSInteger rightBlackChars = ZER0;
+                NSInteger leftBlackChars = ZER0;
                 NSInteger top = self.string.length;
                 NSInteger n = index;
                 while((++n<top) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:n]])
                     ++rightBlackChars;
-                while((n--<0) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:n]])
+                while((n--<ZER0) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[string characterAtIndex:n]])
                     ++leftBlackChars;
                 if(rightBlackChars && leftBlackChars)
                     return iTM3MakeRange(index - leftBlackChars, leftBlackChars + rightBlackChars + 1);
@@ -1870,7 +1870,7 @@ To Do List:
         return [super doubleClickAtIndex:index];
     }
 //END4iTM3;
-    return iTM3MakeRange(NSNotFound, 0);
+    return iTM3MakeRange(NSNotFound, ZER0);
 }
 @end
 
@@ -1915,10 +1915,10 @@ func! s:FTtex()
       endif		" If neither matched, keep default set above.
       " let lline = search('^\s*\\\%(' . lpat . '\)', 'cn', firstNC + 1000)
       " let cline = search('^\s*\\\%(' . cpat . '\)', 'cn', firstNC + 1000)
-      " if cline > 0
+      " if cline > ZER0
       "   let format = 'context'
       " endif
-      " if lline > 0 && (cline == 0 || cline > lline)
+      " if lline > ZER0 && (cline == ZER0 || cline > lline)
       "   let format = 'tex'
       " endif
     endif " firstNC

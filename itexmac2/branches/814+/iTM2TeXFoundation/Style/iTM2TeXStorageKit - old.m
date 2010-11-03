@@ -754,13 +754,13 @@ To Do List:
 				}
 			}
 			if(nextModeRef)
-				* nextModeRef = 0;
+				* nextModeRef = ZER0;
 			return nextMode;
 		}
 		else
 		{
 			if(nextModeRef)
-				* nextModeRef = 0;
+				* nextModeRef = ZER0;
 			NSUInteger nextMode = [self syntaxModeForCharacter: [S characterAtIndex: location] previousMode: previousMode];
 //NSLog(@"nextMode: %u, previousMode: %u", nextMode, previousMode);
 			return nextMode;
@@ -770,7 +770,7 @@ To Do List:
     {
 //LOG4iTM3(@"location: %i <=  S.length %i", location, S.length);
         if(lengthRef)
-            * lengthRef = 0;
+            * lengthRef = ZER0;
         return [self EOLModeForPreviousMode: previousMode];
     }
 }
@@ -809,13 +809,13 @@ To Do List:
                 }
             }
             if(nextModeRef)
-                * nextModeRef = 0;
+                * nextModeRef = ZER0;
             return nextMode;
         }
         else
         {
             if(nextModeRef)
-                * nextModeRef = 0;
+                * nextModeRef = ZER0;
             NSUInteger nextMode = [self syntaxModeForCharacter: [[_TextStorage string] characterAtIndex: location] previousMode: previousMode];
 //NSLog(@"nextMode: %u, previousMode: %u", nextMode, previousMode);
             return nextMode;
@@ -825,7 +825,7 @@ To Do List:
     {
 //LOG4iTM3(@"location: %i <=  S.length %i", location, S.length);
         if(lengthRef)
-            * lengthRef = 0;
+            * lengthRef = ZER0;
         return [self EOLModeForPreviousMode: previousMode];
     }
 }

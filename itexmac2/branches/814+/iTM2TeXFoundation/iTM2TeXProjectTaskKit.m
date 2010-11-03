@@ -627,11 +627,11 @@ resolved:
 		path = clickedPath;
 	}
 	id N = [TS attribute:iTM2LogLinkLineAttributeName atIndex:charIndex effectiveRange:nil];
-	if([N unsignedIntegerValue]>0)
+	if([N unsignedIntegerValue]>ZER0)
 	{
 		NSUInteger line = [N unsignedIntegerValue]-1;
 		N = [TS attribute:iTM2LogLinkColumnAttributeName atIndex:charIndex effectiveRange:nil];
-		NSUInteger column = ([N integerValue]>0? [N integerValue]: -1);
+		NSUInteger column = ([N integerValue]>ZER0? [N integerValue]: -1);
 		N = [TS attribute:iTM2LogLinkLengthAttributeName atIndex:charIndex effectiveRange:nil];
 		NSUInteger length = (N? [N integerValue]: -1);
 		[[SDC openDocumentWithContentsOfURL:[NSURL fileURLWithPath:path] display:NO error:nil]
@@ -715,7 +715,7 @@ To Do List:
     // We parse the argument
     argument = [buffer stringByAppendingString:argument];
     NSMutableArray * lines = [IMPLEMENTATION metaValueForKey:@"_lines"];
-    NSRange R = iTM3MakeRange(0, 0);
+    NSRange R = iTM3MakeRange(ZER0, ZER0);
     while(R.location<argument.length)
     {
         NSUInteger contentsEnd;
@@ -948,7 +948,7 @@ To Do List:
     [IMPLEMENTATION takeMetaValue:[NSMutableArray array] forKey:@"_lines"];
     [IMPLEMENTATION takeMetaValue:[NSMutableArray array] forKey:@"_messages"];
     [IMPLEMENTATION takeMetaValue:@"" forKey:@"_currentOutputBuffer"];
-    [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:0] forKey:@"_numberOfLines4iTM3"];
+    [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:ZER0] forKey:@"_numberOfLines4iTM3"];
     [self.outputView setString:@""];
     [self.errorView setString:@""];
     [self.customView setString:@""];
@@ -973,8 +973,8 @@ To Do List:
     NSTextStorage * TS = [TV textStorage];
 //LOG4iTM3(@"WILL SCROLL:%@,%i",NSStringFromRange(visibleRange),TS.length);
     [TS beginEditing];
-    NSUInteger begin = 0;
-    [[TS mutableString] getLineStart: &begin end:nil contentsEnd:nil forRange:iTM3MakeRange(TS.length, 0)];
+    NSUInteger begin = ZER0;
+    [[TS mutableString] getLineStart: &begin end:nil contentsEnd:nil forRange:iTM3MakeRange(TS.length, ZER0)];
     [TS deleteCharactersInRange:iTM3MakeRange(begin, [[TV string] length] - begin)];
     NSAttributedString * AS = messages.lastObject;
     while(oldNORs < lines.count)
@@ -999,7 +999,7 @@ To Do List:
     [self.smartView reloadData];
 	if(iTM3MaxRange(visibleRange)+1>=begin)
 	{
-		[TV scrollRangeToVisible:iTM3MakeRange(TS.length, 0)];
+		[TV scrollRangeToVisible:iTM3MakeRange(TS.length, ZER0)];
 		visibleRange = [TV visibleRange];
 //LOG4iTM3(@"DID SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,TS.length);
 	}
@@ -1058,7 +1058,7 @@ To Do List:
 			}
 			while(oldCount--)
 			{
-				[sender removeItemAtIndex:0];
+				[sender removeItemAtIndex:ZER0];
 			}
 		}
 		NSUInteger compatibility = [self context4iTM3IntegerForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];// old implementation
@@ -1316,7 +1316,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSArray * RA = [IMPLEMENTATION metaValueForKey:@"_errors"];
-    return (row >= 0 && row < RA.count)? [[RA objectAtIndex:row] valueForKey:[tableColumn identifier]]: nil;
+    return (row >= ZER0 && row < RA.count)? [[RA objectAtIndex:row] valueForKey:[tableColumn identifier]]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)smartView;

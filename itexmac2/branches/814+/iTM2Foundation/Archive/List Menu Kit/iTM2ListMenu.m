@@ -109,7 +109,7 @@ Just prepare the menu view size using iTM2ListMenuSmallSizeKey keyed BOOL in the
 {
 //START4iTM3;
     if(([aMenu numberOfItems]<1))
-        [aMenu insertItemsAtIndex: 0];
+        [aMenu insertItemsAtIndex: ZER0];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= update
@@ -159,7 +159,7 @@ Just prepare the menu view size using iTM2ListMenuSmallSizeKey keyed BOOL in the
                     [self.menuRepresentation setFont: [NSFont menuFontOfSize: [NSFont systemFontSize]]];
             }
             {
-                BOOL isAlternateKeyDown = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0);//[iTM2EventObserver isAlternateKeyDown];
+                BOOL isAlternateKeyDown = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > ZER0);//[iTM2EventObserver isAlternateKeyDown];
                 if(isAlternateKeyDown != self.isAlternate)
                 {
                     [self setAlternate: isAlternateKeyDown];
@@ -203,7 +203,7 @@ To Do List:
 //START4iTM3;
     if(aMenuItem)
     {
-        anIndex = MIN(MAX(anIndex, 0),self.numberOfItems);
+        anIndex = MIN(MAX(anIndex, ZER0),self.numberOfItems);
         [super insertItem: aMenuItem atIndex: anIndex];
         if([[self.menuRepresentation font] pointSize] != [NSFont systemFontSize])
         {
@@ -240,7 +240,7 @@ The return value is the number of items of the sender, once a separator item has
             if(![[self.itemArray lastObject] isSeparatorItem])
                 [self addItem: [NSMenuItem separatorItem]];
         }
-        else if(itemIndex > 0)
+        else if(itemIndex > ZER0)
         {
             if(![[self itemAtIndex: itemIndex] isSeparatorItem] && ![[self itemAtIndex: itemIndex-1] isSeparatorItem])
                 [self insertItem: [NSMenuItem separatorItem] atIndex: itemIndex];
@@ -257,8 +257,8 @@ To Do List:
 {
 //START4iTM3;
     [self.menuRepresentation detachSubmenu];
-    while(self.numberOfItems>0)
-        [self removeItemAtIndex: 0];
+    while(self.numberOfItems>ZER0)
+        [self removeItemAtIndex: ZER0];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= insertItemsAtIndex:
@@ -515,7 +515,7 @@ To Do List:
 {
 //START4iTM3;
     if(self.acceptsAlternate)
-        return _iTM2LMFlags.isAlternate>0;
+        return _iTM2LMFlags.isAlternate>ZER0;
     else
         return NO;
 }
@@ -530,7 +530,7 @@ To Do List:
 //START4iTM3;
     if(self.isAlternate != (aFlag != NO))
     {
-        _iTM2LMFlags.isAlternate = aFlag ? 1: 0;
+        _iTM2LMFlags.isAlternate = aFlag ? 1: ZER0;
     }
     return;
 }
@@ -544,7 +544,7 @@ To Do List:
 {
 //START4iTM3;
     if(self.acceptsAlternate)
-        return _iTM2LMFlags.isAlternate>0;
+        return _iTM2LMFlags.isAlternate>ZER0;
     else
         return NO;
 }
@@ -559,7 +559,7 @@ To Do List:
 //START4iTM3;
     if(self.isAlternate != (aFlag != NO))
     {
-        _iTM2LMFlags.isAlternate = aFlag ? 1: 0;
+        _iTM2LMFlags.isAlternate = aFlag ? 1: ZER0;
     }
     return;
 }
@@ -568,7 +568,7 @@ To Do List:
 /*"Default is NO."*/
 {
 //START4iTM3;
-    return _iTM2LMFlags.acceptsAlternate>0;
+    return _iTM2LMFlags.acceptsAlternate>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setAcceptsAlternate:
 - (void) setAcceptsAlternate: (BOOL) aFlag;
@@ -581,7 +581,7 @@ To Do List:
 //START4iTM3;
     if(self.acceptsAlternate != (aFlag != NO))
     {
-        _iTM2LMFlags.acceptsAlternate = aFlag ? 1: 0;
+        _iTM2LMFlags.acceptsAlternate = aFlag ? 1: ZER0;
     }
     return;
 }

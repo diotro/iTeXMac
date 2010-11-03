@@ -48,8 +48,8 @@ NSString *getScalarDescription(NSValue *left)
     NSInvocation * I = nil;
     [[NSInvocation getInvocation4iTM3:&I withTarget:self] setUp];
     NSPointerArray * PAs = [iTM2Runtime instanceSelectorsOfClass:self.class matchedBy:RE signature:I.methodSignature inherited:NO];
-    NSUInteger i = 0;
-    for (i=0;i<PAs.count;++i) {
+    NSUInteger i = ZER0;
+    for (i=ZER0;i<PAs.count;++i) {
         I.selector = (SEL)[PAs pointerAtIndex:i];
         I.invoke;
     }

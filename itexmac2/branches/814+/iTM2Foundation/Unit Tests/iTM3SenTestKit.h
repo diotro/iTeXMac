@@ -9,6 +9,7 @@
 //
 
 #ifdef __iTM2_LIVE_TEST__
+#warning LIVE TEST
 #import <SenTestingKit/NSException_SenTestFailure.h>
 #import <SenTestingKit/SenTestCase_Macros.h>
 #import <SenTestingKit/SenTestingUtilities.h>

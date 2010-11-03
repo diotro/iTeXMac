@@ -293,7 +293,7 @@ To Do List:
     NSMenu * MM = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     path = [[B pathEnumeratorForSupportName:@"Scripts" ofType:nil inDirectory:subPath domains:NSLocalDomainMask] nextObject];
 //NSLog(@"path:%@", path);
-    if([self menu:MM insertItemsAtPath:path atIndex:0])
+    if([self menu:MM insertItemsAtPath:path atIndex:ZER0])
     {
         separatorNeeded = YES;
         [[M insertItemWithTitle:
@@ -303,7 +303,7 @@ To Do List:
     }
     path = [[B pathEnumeratorForSupportName:@"Scripts" ofType:nil inDirectory:subPath domains:NSNetworkDomainMask] nextObject];
 //NSLog(@"path:%@", path);
-    if([self menu:MM insertItemsAtPath:path atIndex:0])
+    if([self menu:MM insertItemsAtPath:path atIndex:ZER0])
     {
         separatorNeeded = YES;
         [[M insertItemWithTitle:
@@ -313,7 +313,7 @@ To Do List:
     }
     path = [myBUNDLE pathForResource:mode ofType:nil inDirectory:subPath];
 //NSLog(@"path:%@", path);
-    if([self menu:MM insertItemsAtPath:path atIndex:0])
+    if([self menu:MM insertItemsAtPath:path atIndex:ZER0])
     {
         separatorNeeded = YES;
         [[M insertItemWithTitle:
@@ -339,7 +339,7 @@ To Do List:...
 //NSLog(@"path:%@", path);
     NSMenu * templateMenu = [[M copy] autorelease];
     while([templateMenu numberOfItems])
-        [templateMenu removeItemAtIndex:0];
+        [templateMenu removeItemAtIndex:ZER0];
 //    NSFileManager * DFM = DFM;
     NSMutableArray * dirMenus = [NSMutableArray array];
     for(NSString * subpath in [DFM contentsOfDirectoryAtPath:path error:NULL])
@@ -355,7 +355,7 @@ To Do List:...
                 {
                     NSMenu * menu = [[templateMenu copy] autorelease];
                     menu.title = subpath.stringByDeletingPathExtension;
-                    if([self menu:menu insertItemsAtPath:RO atIndex:0])
+                    if([self menu:menu insertItemsAtPath:RO atIndex:ZER0])
                         [dirMenus addObject:menu];
                 }
                 else
@@ -385,7 +385,7 @@ To Do List:...
     [iTM2AppleScriptLauncher
         performSelector:@selector(executeAppleScriptAtPath:)
             withObject:[sender representedString]
-                afterDelay:0];
+                afterDelay:ZER0];
     return;
 }
 @end

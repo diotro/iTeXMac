@@ -82,7 +82,7 @@ To Do List:
 	if (!target)
 	{
 		NSUInteger MRL = [[invocation methodSignature] methodReturnLength];
-		void * returnValue = NSAllocateCollectable(MRL,0);
+		void * returnValue = NSAllocateCollectable(MRL,ZER0);
 		NSAssert(returnValue, @"Memory problem, could not malloc... 02133120");
 		[invocation setReturnValue:&returnValue];
 		return;
@@ -141,7 +141,7 @@ To Do List:
 		const char * argumentType = [MS getArgumentTypeAtIndex:2];
 		// either an object or a pointer to a struct: very weak
 		if (!strcmp("@", argumentType)
-			|| ((strlen(argumentType)>2) && (argumentType[0]=='^') && (argumentType[1]=='{')))
+			|| ((strlen(argumentType)>2) && (argumentType[ZER0]=='^') && (argumentType[1]=='{')))
 		{
 			result = [C performSelector:aSelector withObject:object1];
 		}
@@ -174,7 +174,7 @@ To Do List:
 		const char * argumentType = [MS getArgumentTypeAtIndex:2];
 		// either an object or a pointer to a struct: very weak
 		if (!strcmp("@", argumentType)
-			|| ((strlen(argumentType)>2) && (argumentType[0]=='^') && (argumentType[1]=='{')))
+			|| ((strlen(argumentType)>2) && (argumentType[ZER0]=='^') && (argumentType[1]=='{')))
 		{
 			result = [C performSelector:aSelector withObject:object1];
 		}
@@ -184,12 +184,12 @@ To Do List:
 		const char * argumentType = [MS getArgumentTypeAtIndex:2];
 		// either an object or a pointer to a struct: very weak
 		if (!strcmp("@", argumentType)
-			|| ((strlen(argumentType)>2) && (argumentType[0]=='^') && (argumentType[1]=='{')))
+			|| ((strlen(argumentType)>2) && (argumentType[ZER0]=='^') && (argumentType[1]=='{')))
 		{
 			const char * argumentType = [MS getArgumentTypeAtIndex:3];
 			// either an object or a pointer to a struct: very weak
 			if (!strcmp("@", argumentType)
-				|| ((strlen(argumentType)>2) && (argumentType[0]=='^') && (argumentType[1]=='{')))
+				|| ((strlen(argumentType)>2) && (argumentType[ZER0]=='^') && (argumentType[1]=='{')))
 			{
 				result = [C performSelector:aSelector withObject:object1 withObject:object2];
 			}

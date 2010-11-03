@@ -473,9 +473,9 @@ Latest Revision: Sat Jan 30 09:40:05 UTC 2010
 		keyCodesForNames = [[NSMutableDictionary dictionary] retain];
 		NSArray * RA = [[NSBundle mainBundle] allURLsForResource4iTM3:@"iTM2KeyCodes" withExtension:@"xml"];
 		if (RA.count) {
-			NSURL * url = [RA objectAtIndex:0];
+			NSURL * url = [RA objectAtIndex:ZER0];
 			NSError * localError = nil;
-			NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
+			NSXMLDocument * doc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:ZER0 error:&localError] autorelease];
 			if (localError) {
 				[SDC presentError:localError];
 			} else {
@@ -491,7 +491,7 @@ Latest Revision: Sat Jan 30 09:40:05 UTC 2010
                                 //  O is an element
 								NSString * stringCode = [O stringValue];
 								NSScanner * scanner = [NSScanner scannerWithString:stringCode];
-								unsigned int code = 0;
+								unsigned int code = ZER0;
 								if ([scanner scanHexInt:&code]) {
 									NSString * codeValue = [NSString stringWithFormat:@"%C",code];
 									[keyCodesForNames setObject:codeValue forKey:KEY];
@@ -604,7 +604,7 @@ To Do List:
 			NSMenu * M = [SMC macroMenuForContext:context ofCategory:category inDomain:domain error:nil];
 			M = [[M deepCopy4iTM3] autorelease];
 			// insert a void item for the title
-			[M insertItem:[[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease] atIndex:0];// for the title
+			[M insertItem:[[[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent:@""] autorelease] atIndex:ZER0];// for the title
 			return M;
 		}
 	}
@@ -717,7 +717,7 @@ To Do List:
             [self scrollRangeToVisible:R];
             return;
         }
-    } else if (![placeholder nextMatchAfterIndex:0]) {
+    } else if (![placeholder nextMatchAfterIndex:ZER0]) {
         return;
     }
     //  This was the selected placeholder, find another one

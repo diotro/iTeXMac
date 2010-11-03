@@ -348,7 +348,7 @@ next:
 						}
 					}
 				}
-				[[M itemAtIndex:0] setTitle:title];
+				[[M itemAtIndex:ZER0] setTitle:title];
 				self.title = title;// will raise if the menu is void
 				[self setMenu:M];
 			}
@@ -441,7 +441,7 @@ next:
 						}
 					}
 				}
-				[[M itemAtIndex:0] setTitle:title];
+				[[M itemAtIndex:ZER0] setTitle:title];
 				self.title = title;// will raise if the menu is void
 				[self setMenu:M];
 			}
@@ -847,9 +847,9 @@ To Do List:
 //START4iTM3;
 	NSInteger tag = sender.tag;
 	NSString * S = [self.textStorage string];
-	if (tag>=0 && tag<S.length) {
+	if (tag>=ZER0 && tag<S.length) {
 		NSUInteger begin, end;
-		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, 0)];
+		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, ZER0)];
 		[self highlightAndScrollToVisibleRange:iTM3MakeRange(begin, end-begin)];
 	}
 //END4iTM3;
@@ -996,9 +996,9 @@ To Do List:
 //START4iTM3;
 	NSInteger tag = sender.tag;
 	NSString * S = [self.textStorage string];
-	if (tag>=0 && tag<S.length) {
+	if (tag>=ZER0 && tag<S.length) {
 		NSUInteger begin, end;
-		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, 0)];
+		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, ZER0)];
 		[self highlightAndScrollToVisibleRange:iTM3MakeRange(begin, end-begin)];
 	}
 //END4iTM3;
@@ -1373,7 +1373,7 @@ To Do List:
         NSUInteger start, end;
         [S getLineStart: &start end: &end contentsEnd:nil forRange:CR];
         end -= start;
-        NSRange PR = (end>SR.length)? iTM3MakeRange(start, end): iTM3MakeRange(0, S.length);
+        NSRange PR = (end>SR.length)? iTM3MakeRange(start, end): iTM3MakeRange(ZER0, S.length);
         if(GR.location == NSNotFound)
         {
             if(ER.location == NSNotFound)
@@ -1621,7 +1621,7 @@ taiao:
     }
     bail:
     if(rangePtr)
-        *rangePtr = iTM3MakeRange(NSNotFound, 0);
+        *rangePtr = iTM3MakeRange(NSNotFound, ZER0);
     return [NSString string];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lossyLaTeXEnvironmentNameAtIndex:
@@ -1755,7 +1755,7 @@ To Do List:
     faaa:
     if(index < self.length)
     {
-        R = [self rangeOfString:[NSString backslashString] options:0L range:iTM3MakeRange(index, self.length-index)];
+        R = [self rangeOfString:[NSString backslashString] options:ZER0 range:iTM3MakeRange(index, self.length-index)];
         if(R.location == NSNotFound)
             goto bail;
         BOOL escaped = NO;
@@ -1826,7 +1826,7 @@ To Do List:
         *namePtr = @"";
     if(flagPtr)
         *flagPtr = NO;// irrelevant!!!
-    return iTM3MakeRange(NSNotFound, 0);
+    return iTM3MakeRange(NSNotFound, ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _previousLaTeXEnvironmentDelimiterRangeBeforeIndex:effectiveName:isOpening:
 - (NSRange)_previousLaTeXEnvironmentDelimiterRangeBeforeIndex:(NSUInteger)index effectiveName:(NSString **)namePtr isOpening:(BOOL *)flagPtr;
@@ -1842,7 +1842,7 @@ To Do List:
     faaa:
     if(index <= self.length)
     {
-        NSRange R = [self rangeOfString:[NSString backslashString] options:NSBackwardsSearch range:iTM3MakeRange(0, index)];
+        NSRange R = [self rangeOfString:[NSString backslashString] options:NSBackwardsSearch range:iTM3MakeRange(ZER0, index)];
         if(R.location == NSNotFound)
             goto bail;
         BOOL escaped = NO;
@@ -1916,7 +1916,7 @@ To Do List:
     if(flagPtr)
         *flagPtr = NO;// irrelevant!!!
 //LOG4iTM3(@"NO environment");
-    return iTM3MakeRange(NSNotFound, 0);
+    return iTM3MakeRange(NSNotFound, ZER0);
 }
 @end
 
@@ -2007,7 +2007,7 @@ To Do List:
 				{
 					[replacementString appendString:@"__([__("];
 					argument = E.nextObject;
-					if(argument.length == 0)
+					if(argument.length == ZER0)
 					{
 						argument = selectedString;
 					}
@@ -2018,14 +2018,14 @@ To Do List:
 				{
 					[replacementString appendString:@"__((__("];
 					argument = E.nextObject;
-					if(argument.length == 0)
+					if(argument.length == ZER0)
 					{
 						argument = selectedString;
 					}
 					[replacementString appendString:argument];			
 					[replacementString appendString:@")__,__("];
 					argument = E.nextObject;
-					if(argument.length == 0)
+					if(argument.length == ZER0)
 					{
 						argument = selectedString;
 					}
@@ -2034,7 +2034,7 @@ To Do List:
 				}
 			}
 		}
-		NSRange R = [macro doubleClickAtIndex:0];
+		NSRange R = [macro doubleClickAtIndex:ZER0];
 		if(R.length == macro.length)
 		{
 			[replacementString appendString:@" "];
@@ -2080,8 +2080,8 @@ To Do List:
 		NSMutableString * argument = [macro mutableCopy];
 		for (NSString * old in substitutions.keyEnumerator) {
 			NSString * new = [substitutions objectForKey:old];
-			NSRange searchRange = iTM3MakeRange(0,argument.length);
-			[argument replaceOccurrencesOfString:old withString:new options:0L range:searchRange];
+			NSRange searchRange = iTM3MakeRange(ZER0,argument.length);
+			[argument replaceOccurrencesOfString:old withString:new options:ZER0 range:searchRange];
 		}
 		macro = [NSString stringWithString:argument];
 	}
@@ -2113,23 +2113,23 @@ To Do List:
 		// where
 		// find the last usepackage used
 		NSString * S = self.string;
-		NSRange searchRange = iTM3MakeRange(0,S.length);
+		NSRange searchRange = iTM3MakeRange(ZER0,S.length);
 		NSRange R;
 mordor:
-		R = [S rangeOfString:@"usepackage" options:0L range:searchRange];
+		R = [S rangeOfString:@"usepackage" options:ZER0 range:searchRange];
 		if (R.length) {
-			if ((R.location>0) && [S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped) {
+			if ((R.location>ZER0) && [S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped) {
 next_usepackage:
 				searchRange.location = iTM3MaxRange(R);
 				searchRange.length = S.length - searchRange.location;
-				NSRange nextR = [S rangeOfString:@"usepackage" options:0L range:searchRange];
+				NSRange nextR = [S rangeOfString:@"usepackage" options:ZER0 range:searchRange];
 				if(nextR.length) {
 					R = nextR;
 					goto next_usepackage;
 				} else {
 conclude:
 					[S getLineStart:nil end:&end contentsEnd:nil forRange:R];
-					[self setSelectedRange:iTM3MakeRange(end,0)];
+					[self setSelectedRange:iTM3MakeRange(end,ZER0)];
 					[self insertMacro:what];
 					return;
 				}
@@ -2140,9 +2140,9 @@ conclude:
 		}
 		// No usepackage found, this is the first
 next_documentclass:
-		R = [S rangeOfString:@"documentclass" options:0L range:R];
+		R = [S rangeOfString:@"documentclass" options:ZER0 range:R];
 		if(R.length) {
-			if((R.location>0) &&[S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped) {
+			if((R.location>ZER0) &&[S isControlAtIndex:R.location-1 escaped:&escaped] && !escaped) {
 				goto conclude;
 			}
 			goto next_documentclass;
@@ -2165,16 +2165,16 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    BOOL withGraphics = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=0;
+    BOOL withGraphics = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=ZER0;
     NSMenu * sectionMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     NSString * S = self.string;
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-    NSUInteger scanLocation = 0, end = S.length;
-    NSUInteger sectionCount = 0, subsectionCount = 0, subsubsectionCount = 0;
+    NSUInteger scanLocation = ZER0, end = S.length;
+    NSUInteger sectionCount = ZER0, subsectionCount = ZER0, subsubsectionCount = ZER0;
     next:
     if(scanLocation < end)//postN
     {
-        NSUInteger depth = 0;
+        NSUInteger depth = ZER0;
         #define partDepth 1
         #define chapterDepth 2
         #define sectionDepth 3
@@ -2195,7 +2195,7 @@ To Do List:
             if(++scanLocation < end)
             {
                 theChar = [S characterAtIndex:scanLocation];
-                NSRange R1 = iTM3MakeRange(0, 0);
+                NSRange R1 = iTM3MakeRange(ZER0, ZER0);
                 if(theChar == 's')
                 {
                     if(++scanLocation < end)
@@ -2309,14 +2309,14 @@ To Do List:
                                     NSString * title = [NSString stringWithFormat:@"input: %@", object];
                                     title = (title.length > 48)?
                                                     [NSString stringWithFormat:@"%@[...]",
-                                                            [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                            [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                     if(title.length)
                                     {
                                         NSMenuItem * MI = [sectionMenu addItemWithTitle: title
                                                                 action: @selector(scrollInputToVisible:)
                                                                     keyEquivalent: [NSString string]];
                                         MI.representedObject = object;
-                                        [MI setEnabled: (sectionMenu.title.length > 0)];
+                                        [MI setEnabled: (sectionMenu.title.length > ZER0)];
                                     }
                                 }
                             }
@@ -2378,14 +2378,14 @@ To Do List:
                                             NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                             title = (title.length > 48)?
                                                             [NSString stringWithFormat:@"%@[...]",
-                                                                    [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                                    [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                             if(!title.length)
                                                 title = @"?";
                                             NSMenuItem * MI = [sectionMenu addItemWithTitle: title
                                                                     action: selector keyEquivalent: [NSString string]];
                                             MI.tag = scanLocation;
                                             MI.representedObject = object;
-                                            [MI setEnabled: (sectionMenu.title.length > 0)];
+                                            [MI setEnabled: (sectionMenu.title.length > ZER0)];
                                             goto manihi;
                                         }
                                     }
@@ -2473,22 +2473,22 @@ To Do List:
                         {
                             case partDepth:
                                 prefix = @"Part: ";
-                                sectionCount = subsectionCount = subsubsectionCount = 0;
+                                sectionCount = subsectionCount = subsubsectionCount = ZER0;
                                 break;
                             case chapterDepth:
                                 prefix = @"Chap: ";
-                                sectionCount = subsectionCount = subsubsectionCount = 0;
+                                sectionCount = subsectionCount = subsubsectionCount = ZER0;
                                 break;
                             default:
                                 prefix = @"";
                                 break;
                             case sectionDepth:
                                 prefix = [NSString stringWithFormat:@"%d. ", ++sectionCount];
-                                subsectionCount = subsubsectionCount = 0;
+                                subsectionCount = subsubsectionCount = ZER0;
                                 break;
                             case subsectionDepth:
                                 prefix = [NSString stringWithFormat:@"%d.%c. ", sectionCount, ++subsectionCount+'a'-1];
-                                subsubsectionCount = 0;
+                                subsubsectionCount = ZER0;
                                 break;
                             case subsubsectionDepth:
                                 prefix = [NSString stringWithFormat:@"%d.%c.%d. ", sectionCount, subsectionCount+'a'-1, ++subsubsectionCount];
@@ -2523,14 +2523,14 @@ To Do List:
                         title = [NSString stringWithFormat:@"%@%@", prefix, object];
                         title = (title.length > 48)?
                                         [NSString stringWithFormat:@"%@[...]",
-                                                [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                         if(!title.length)
                             title = @"?";
                         NSMenuItem * MI = [sectionMenu addItemWithTitle: title
                                                 action: @selector(scrollTaggedToVisible:) keyEquivalent: [NSString string]];
                         MI.tag = scanLocation;
                         MI.representedObject = object;
-                        [MI setEnabled: (sectionMenu.title.length > 0)];
+                        [MI setEnabled: (sectionMenu.title.length > ZER0)];
                         scanLocation = [scan scanLocation];
                         goto next;
                     }
@@ -2564,21 +2564,21 @@ To Do List:
                     [S getLineStart:nil end:nil contentsEnd: &contentsEnd forRange:R1];
     //NSLog(@"3");
                     [scan setScanLocation:scanLocation];
-                    NSInteger numero = 0;
+                    NSInteger numero = ZER0;
                     if([scan scanString:@"(" intoString:nil] && [scan scanInteger: &numero] && [scan scanString:@")" intoString:nil])
                     {
                         NSString * title;
                         title = [NSString stringWithFormat:@"figure: %i", numero];
                         title = (title.length > 48)?
                                         [NSString stringWithFormat:@"%@[...]",
-                                                [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                         if(!title.length)
                             title = @"?";
                         NSMenuItem * MI = [sectionMenu addItemWithTitle: title
                                                 action: @selector(scrollTaggedToVisible:) keyEquivalent: [NSString string]];
                         MI.tag = scanLocation;
                         //MI.representedObject = object;
-                        [MI setEnabled: (sectionMenu.title.length > 0)];
+                        [MI setEnabled: (sectionMenu.title.length > ZER0)];
                         scanLocation = [scan scanLocation];
                     }
                 }
@@ -2613,7 +2613,7 @@ To Do List: ...
 
     NSString * S = self.string;
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-    NSUInteger scanLocation = 0, end = S.length;
+    NSUInteger scanLocation = ZER0, end = S.length;
     unichar theChar;
     while(scanLocation < end)
     {
@@ -2643,7 +2643,7 @@ To Do List: ...
                                 object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                                 NSString * title = (object.length > 48)?
                                                         [NSString stringWithFormat:@"%@[...]",
-                                                            [object substringWithRange:iTM3MakeRange(0,43)]]: object;
+                                                            [object substringWithRange:iTM3MakeRange(ZER0,43)]]: object;
                                 if(title.length)
                                 {
                                     NSMenuItem * MI = [labelMenu addItemWithTitle: title
@@ -2651,7 +2651,7 @@ To Do List: ...
                                                                 keyEquivalent: [NSString string]];
                                     MI.tag = R2.location;
                                     MI.representedObject = object;
-                                    [MI setEnabled: (labelMenu.title.length > 0)];
+                                    [MI setEnabled: (labelMenu.title.length > ZER0)];
                                 }
                             }
                         }
@@ -2677,7 +2677,7 @@ To Do List: ...
                                 object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                                 NSString * title = (object.length > 48)?
                                                         [NSString stringWithFormat:@"%@[...]",
-                                                            [object substringWithRange:iTM3MakeRange(0,43)]]: object;
+                                                            [object substringWithRange:iTM3MakeRange(ZER0,43)]]: object;
                                 if(title.length)
                                 {
                                     NSMenuItem * MI = [refMenu addItemWithTitle: title
@@ -2685,7 +2685,7 @@ To Do List: ...
                                                                 keyEquivalent: [NSString string]];
                                     MI.tag = R2.location;
                                     MI.representedObject = object;
-                                    [MI setEnabled: (refMenu.title.length > 0)];
+                                    [MI setEnabled: (refMenu.title.length > ZER0)];
                                 }
                             }
                         }
@@ -2713,12 +2713,12 @@ To Do List: ...
                                 NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                 title = (title.length > 48)?
                                                 [NSString stringWithFormat:@"%@[...]",
-                                                        [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                        [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                 if(title.length)
                                 {
                                     NSMenuItem * MI = [labelMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
                                     MI.representedObject = object;
-                                    [MI setEnabled: (labelMenu.title.length > 0)];
+                                    [MI setEnabled: (labelMenu.title.length > ZER0)];
                                 }
                             }
                         }
@@ -2743,12 +2743,12 @@ To Do List: ...
                                     NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                     title = (title.length > 48)?
                                                     [NSString stringWithFormat:@"%@[...]",
-                                                            [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                            [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                     if(title.length)
                                     {
                                         NSMenuItem * MI = [labelMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
                                         MI.representedObject = object;
-                                        [MI setEnabled: (labelMenu.title.length > 0)];
+                                        [MI setEnabled: (labelMenu.title.length > ZER0)];
                                     }
                                 }
                             }
@@ -3386,7 +3386,7 @@ To Do List:
             nil;
     // looking for the last page number previously parsed (problem with non continuous page numbers...)
     // WHAT WAS PREVIOUSLY THERE?
-    NSNumber * oldPageNumber = [attributes objectForKey:iTM2LogPageNumberAttributeName]?:[NSNumber numberWithInteger:0];
+    NSNumber * oldPageNumber = [attributes objectForKey:iTM2LogPageNumberAttributeName]?:[NSNumber numberWithInteger:ZER0];
     NSString * type = [attributes objectForKey:iTM2LogLineTypeAttributeName]?: @"Normal";
     // what kind of info will be passed through?
     // 1 - the current physical page number
@@ -3414,8 +3414,8 @@ To Do List:
     [MAS beginEditing];
     NSMutableString * MS = [MAS mutableString];
     [MS appendString:string];
-    NSRange R = iTM3MakeRange(0, MS.length);
-    NSRange lineRange = iTM3MakeRange(0, 0);
+    NSRange R = iTM3MakeRange(ZER0, MS.length);
+    NSRange lineRange = iTM3MakeRange(ZER0, ZER0);
     iTM2LiteScanner * scanner = [iTM2LiteScanner scannerWithString:string charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
     [MAS addAttribute:iTM2LogPageNumberAttributeName value:oldPageNumber range:R];
     BOOL dontIgnoreFilesAndPages = NO;
@@ -3549,7 +3549,7 @@ To Do List:
     }
     else if([scanner scanString:@"Output written on " intoString:nil])
     {
-		NSRange fileRange = iTM3MakeRange(0, 0);
+		NSRange fileRange = iTM3MakeRange(ZER0, ZER0);
 		fileRange.location = [scanner scanLocation];
 		NSString * file;
 		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet4iTM3] intoString: &file])
@@ -3562,7 +3562,7 @@ To Do List:
 	}
     else if([scanner scanString:@"Transcript written on " intoString:nil])
     {
-		NSRange fileRange = iTM3MakeRange(0, 0);
+		NSRange fileRange = iTM3MakeRange(ZER0, ZER0);
 		fileRange.location = [scanner scanLocation];
 		NSString * file;
 		if([scanner scanCharactersFromSet:[NSCharacterSet TeXFileNameLetterCharacterSet4iTM3] intoString: &file])
@@ -3571,7 +3571,7 @@ To Do List:
 			if([file hasSuffix:@"."])// there is a final "." unwanted
 			{
 				--fileRange.length;
-				file = [file substringWithRange:iTM3MakeRange(0, file.length - 1)];
+				file = [file substringWithRange:iTM3MakeRange(ZER0, file.length - 1)];
 			}
 			[MAS addAttribute:NSLinkAttributeName value:[NSNull null] range:fileRange];
 			[MAS addAttribute:iTM2LogLinkFileAttributeName value:file range:fileRange];
@@ -3639,7 +3639,7 @@ To Do List:
 //NSLog(@"****  The type is: %@", type);
     if(dontIgnoreFilesAndPages)
     {
-        NSRange attributeRange = iTM3MakeRange(0, string.length);
+        NSRange attributeRange = iTM3MakeRange(ZER0, string.length);
         NSUInteger contentsEnd;
         [string getLineStart:nil end:nil contentsEnd: &contentsEnd forRange:attributeRange];
 //NSLog(@"File or pages? %@", string);
@@ -3657,8 +3657,8 @@ To Do List:
         // when a file is closed, the stack array is duplicated and the last entry is deleted
         // The difficulty is to understand when files are opened or closed
         NSRange searchRange = attributeRange;
-        NSRange openRange = [string rangeOfString:@"(" options:0L range:searchRange];
-        NSRange closeRange = [string rangeOfString:@")" options:0L range:searchRange];
+        NSRange openRange = [string rangeOfString:@"(" options:ZER0 range:searchRange];
+        NSRange closeRange = [string rangeOfString:@")" options:ZER0 range:searchRange];
         openingOrClosingAFile:
 //NSLog(@"Scanning: %@ (open is %@, close is: %@)", files, NSStringFromRange(openRange), NSStringFromRange(closeRange));
         if(openRange.location<closeRange.location)
@@ -3670,7 +3670,7 @@ To Do List:
             attributeRange.length = string.length - attributeRange.location;
             // opening first
             NSString * prefix;
-            NSRange fileRange = iTM3MakeRange(0, 0);
+            NSRange fileRange = iTM3MakeRange(ZER0, ZER0);
             fileRange.location = openRange.location + 1;
             [scanner setScanLocation:fileRange.location];
             if([scanner scanString:@"/" intoString: &prefix]
@@ -3687,7 +3687,7 @@ To Do List:
 //NSLog(@"file name added: %@", file);
                     searchRange.location = iTM3MaxRange(openRange);
                     searchRange.length = string.length - searchRange.location;
-                    openRange = [string rangeOfString:@"(" options:0L range:searchRange];
+                    openRange = [string rangeOfString:@"(" options:ZER0 range:searchRange];
                     goto openingOrClosingAFile;
                 }
                 else
@@ -3725,7 +3725,7 @@ To Do List:
                 attributeRange.length = string.length - attributeRange.location;
                 searchRange.location = iTM3MaxRange(closeRange);
                 searchRange.length = string.length - searchRange.location;
-                closeRange = [string rangeOfString:@")" options:0L range:searchRange];
+                closeRange = [string rangeOfString:@")" options:ZER0 range:searchRange];
                 files = [NSArray arrayWithArray:MRA];
                 goto openingOrClosingAFile;
             }
@@ -3749,7 +3749,7 @@ To Do List:
     else
     {
         NSArray * files = [attributes objectForKey:iTM2LogFilesStackAttributeName]?:[NSArray array];
-        [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:iTM3MakeRange(0, string.length)];
+        [MAS addAttribute:iTM2LogFilesStackAttributeName value:files range:iTM3MakeRange(ZER0, string.length)];
     }
     finishEnd:
     [MAS addAttribute:iTM2LogLineTypeAttributeName value:type range:R];
@@ -3760,18 +3760,18 @@ To Do List:
     #endif
     #if 0
     NSUInteger scanLocation, oldScanLocation;
-    NSRange aRange = iTM3MakeRange(0, string.length);
+    NSRange aRange = iTM3MakeRange(ZER0, string.length);
     NSRange attributeRange = aRange;
     NSUInteger maxRange = string.length;
-//NSLog(@"P: 0<=%d<%d", aRange.location, string.length);
-    scanLocation = 0;
+//NSLog(@"P: ZER0<=%d<%d", aRange.location, string.length);
+    scanLocation = ZER0;
 //NSLog(@"<%@>(%u -> %u)", [[NSCalendarDate date] description], scanLocation, maxRange);
     while(scanLocation < maxRange)
     {
 //NSLog(@"NEW LOOP: scanLocation: %i <%@>", scanLocation, [string substringWithRange:iTM3MakeRange(scanLocation, 1)]);
         [scanner setScanLocation:scanLocation];
         // leading whites
-        attributeRange = iTM3MakeRange(scanLocation, 0);
+        attributeRange = iTM3MakeRange(scanLocation, ZER0);
         [scanner scanCharactersFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] intoString:nil];
         scanLocation = [scanner scanLocation];
         if(scanLocation > attributeRange.location)
@@ -3785,7 +3785,7 @@ To Do List:
 //NSLog(@"0-Setting P attribute: %@ in range %@", currentPhysicalPageNumber, NSStringFromRange(attributeRange));
             if(scanLocation >= maxRange)
                 break;
-            attributeRange = iTM3MakeRange(scanLocation, 0);
+            attributeRange = iTM3MakeRange(scanLocation, ZER0);
         }
         oldScanLocation = scanLocation;
         // now scanLocation points to the first black character
@@ -3796,21 +3796,21 @@ To Do List:
 //NSLog(@"not whitespaceAndNewlineCharacterSet");
         if([scanner scanString:@"!" intoString:nil])
         {
-            NSUInteger end = 0;
-            NSUInteger nextEnd = 0;
-            NSUInteger nextStart = 0;
-            NSUInteger lineNumber = 0;
+            NSUInteger end = ZER0;
+            NSUInteger nextEnd = ZER0;
+            NSUInteger nextStart = ZER0;
+            NSUInteger lineNumber = ZER0;
             NSInteger counter;
             NSRange lineKeyRange;
             iTM2LiteScanner * subScanner;
             NSString * line;
 //NSLog(@"GLS");
-            [string getLineStart:nil end: &end contentsEnd:nil forRange:iTM3MakeRange(scanLocation, 0)];
+            [string getLineStart:nil end: &end contentsEnd:nil forRange:iTM3MakeRange(scanLocation, ZER0)];
             nextStart = end;
 //NSLog(@"GLS");
-            for(counter = 0; counter < 10; ++counter)
+            for(counter = ZER0; counter < 10; ++counter)
             {
-                [string getLineStart:nil end: &nextEnd contentsEnd:nil forRange:iTM3MakeRange(nextStart, 0)];
+                [string getLineStart:nil end: &nextEnd contentsEnd:nil forRange:iTM3MakeRange(nextStart, ZER0)];
                 line = [string substringWithRange:iTM3MakeRange(nextStart, nextEnd - nextStart)];
                 subScanner = [iTM2LiteScanner scannerWithString:line charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
                 [subScanner scanUpToString:@"l." intoString:nil];
@@ -3845,9 +3845,9 @@ To Do List:
         #if 1
         else if([scanner scanString:@"Package:" intoString:nil])
         {// two lines parsing
-            NSUInteger end = 0;
+            NSUInteger end = ZER0;
 //NSLog(@"GLS");
-            [string getLineStart:nil end: &end contentsEnd:nil forRange:iTM3MakeRange([scanner scanLocation], 0)];
+            [string getLineStart:nil end: &end contentsEnd:nil forRange:iTM3MakeRange([scanner scanLocation], ZER0)];
             attributeRange = iTM3MakeRange(scanLocation, end - scanLocation);
             [MAS addAttribute:diTM2IAN value:iTM2InfoInput range:attributeRange];
             if(currentPhysicalPageNumber)
@@ -3862,14 +3862,14 @@ To Do List:
         else if([scanner scanString:@"LaTeX Info:" intoString:nil] ||
                     [scanner scanString:@"LaTeX Font Info:" intoString:nil])
         {// two lines parsing
-            NSUInteger end = 0;
-            NSUInteger line = 0;
+            NSUInteger end = ZER0;
+            NSUInteger line = ZER0;
             NSRange lineKeyRange;
             NSString * substring;
             iTM2LiteScanner * subScanner;
 //NSLog(@"GLS");
             [string getLineStart: nil end: &end contentsEnd: nil
-                                                forRange: iTM3MakeRange([scanner scanLocation], 0)];
+                                                forRange: iTM3MakeRange([scanner scanLocation], ZER0)];
             attributeRange = iTM3MakeRange(scanLocation, end - scanLocation);
             substring = [string substringWithRange:attributeRange];
             subScanner = [iTM2LiteScanner scannerWithString:substring charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
@@ -3902,15 +3902,15 @@ To Do List:
         #endif
         else if([scanner scanString:@"l." intoString:nil])
         {
-            NSUInteger end = 0;
-            NSUInteger line = 0;
-            NSRange lineKeyRange = iTM3MakeRange([scanner scanLocation], 0);
+            NSUInteger end = ZER0;
+            NSUInteger line = ZER0;
+            NSRange lineKeyRange = iTM3MakeRange([scanner scanLocation], ZER0);
             NSString * substring;
             iTM2LiteScanner * subScanner;
             NSUInteger tmpAnchor = oldScanLocation;
 //NSLog(@"GLS");
             [string getLineStart: nil end: &end contentsEnd: nil
-                                                forRange: iTM3MakeRange([scanner scanLocation], 0)];
+                                                forRange: iTM3MakeRange([scanner scanLocation], ZER0)];
             attributeRange = iTM3MakeRange(scanLocation, end - scanLocation);
             substring = [string substringWithRange:attributeRange];
             subScanner = [iTM2LiteScanner scannerWithString:substring charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
@@ -3933,9 +3933,9 @@ To Do List:
         }
         else if([scanner scanString:@"?" intoString:nil])
         {
-            NSUInteger end = 0;
+            NSUInteger end = ZER0;
             [string getLineStart: nil end: &end contentsEnd: nil
-                                                forRange: iTM3MakeRange([scanner scanLocation], 0)];
+                                                forRange: iTM3MakeRange([scanner scanLocation], ZER0)];
             attributeRange = iTM3MakeRange(scanLocation, end - scanLocation);
             [MAS addAttribute:diTM2IAN value:iTM2ErrorInput range:attributeRange];
             if(currentPhysicalPageNumber)
@@ -3947,12 +3947,12 @@ To Do List:
         }
         else
         {
-            NSUInteger end = 0;
+            NSUInteger end = ZER0;
             NSUInteger scanAnchor = [scanner scanLocation];
             NSUInteger tmpAnchor = [scanner scanUpToString:@"on input line" intoString:nil beforeIndex:end]?
                 [scanner scanLocation]: scanAnchor;
 //NSLog(@"GLS");
-            [string getLineStart:nil end: &end contentsEnd:nil forRange:iTM3MakeRange(scanAnchor, 0)];
+            [string getLineStart:nil end: &end contentsEnd:nil forRange:iTM3MakeRange(scanAnchor, ZER0)];
 //NSLog(@"CTHER\n<%@>", [string substringWithRange:  iTM3MakeRange(scanAnchor, end - scanAnchor)]);
             if([scanner scanString:@"on input line" intoString:nil beforeIndex:end])
             {

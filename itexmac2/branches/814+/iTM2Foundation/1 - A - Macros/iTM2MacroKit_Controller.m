@@ -524,7 +524,7 @@ To Do List:
 		if ([element childCount])
 		{
 			NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
-			id child = [element childAtIndex:0];
+			id child = [element childAtIndex:ZER0];
 			do {
 				NSMenuItem * MI = [self macroMenuItemWithXMLElement:child forContext:context ofCategory:category inDomain:domain error:outErrorPtr];
 				if (MI)
@@ -560,7 +560,7 @@ To Do List:
 		if (url)
 		{
 			NSError * localError = nil;
-			NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&localError] autorelease];
+			NSXMLDocument * xmlDoc = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:ZER0 error:&localError] autorelease];
 			if (localError)
 			{
 				[SDC presentError:localError];

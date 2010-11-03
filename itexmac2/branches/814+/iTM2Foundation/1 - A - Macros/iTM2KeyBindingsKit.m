@@ -436,8 +436,8 @@ To Do List:
     {
         _SM = [[[self class] selectorMapForIdentifier:identifier] retain];
         _KBS = [NSMutableArray array];
-		_iTM2IMFlags.handlesKeyStrokes = handleKeyStrokes? 1: 0;
-		_iTM2IMFlags.handlesKeyBindings = handleKeyBindings? 1: 0;
+		_iTM2IMFlags.handlesKeyStrokes = handleKeyStrokes? 1: ZER0;
+		_iTM2IMFlags.handlesKeyBindings = handleKeyBindings? 1: ZER0;
 		if (iTM2DebugEnabled)
 		{
 			LOG4iTM3(@"Identifier is: %@", identifier);
@@ -485,11 +485,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
- //NSLog(@"setCurrentKey: %@ %x", argument, (argument.length? [argument characterAtIndex:argument.length-1]:0));
+ //NSLog(@"setCurrentKey: %@ %x", argument, (argument.length? [argument characterAtIndex:argument.length-1]:ZER0));
     _CK = [argument copy];
 	if (iTM2DebugEnabled)
 	{
-		LOG4iTM3(@"The current key is: %@ (%#x)", _CK, (_CK.length? [_CK characterAtIndex:0]:0));
+		LOG4iTM3(@"The current key is: %@ (%#x)", _CK, (_CK.length? [_CK characterAtIndex:ZER0]:ZER0));
 	}
     return;
 }
@@ -519,10 +519,10 @@ To Do List:
 #if 0
         {
             id V = [keyBindings objectForKey:@"permanent"];
-            _iTM2IMFlags.isPermanent = [V respondsToSelector:@selector(boolValue)] && [V boolValue]? 1:0;
+            _iTM2IMFlags.isPermanent = [V respondsToSelector:@selector(boolValue)] && [V boolValue]? 1:ZER0;
         }
 #endif
-        _iTM2IMFlags.canEscape = 0;
+        _iTM2IMFlags.canEscape = ZER0;
 #if 0
         {
             NSString * toolTip = [keyBindings objectForKey:@"toolTip"];
@@ -568,13 +568,13 @@ To Do List:
  //NSLog(@"escapeCurrentKeyBindingsIfAllowed");
     if (_iTM2IMFlags.canEscape)
     {
-        while((_KBS.count > 0) && (!_iTM2IMFlags.isPermanent))
+        while((_KBS.count > ZER0) && (!_iTM2IMFlags.isPermanent))
         {
             [_KBS removeLastObject];
 #if 0
             {
                 id V = [[_KBS lastObject] objectForKey:@"permanent"];
-                _iTM2IMFlags.isPermanent = [V respondsToSelector:@selector(boolValue)] && [V boolValue]? 1:0;
+                _iTM2IMFlags.isPermanent = [V respondsToSelector:@selector(boolValue)] && [V boolValue]? 1:ZER0;
             }
 #endif
         }
@@ -641,7 +641,7 @@ To Do List:
     if (theString.length)
     {
         NSUInteger flags = [[NSApp currentEvent] modifierFlags];
-        unichar U = [theString characterAtIndex:0];
+        unichar U = [theString characterAtIndex:ZER0];
 		NSString * unmodifiedCharacters = [NSString stringWithCharacters:&U length:1];
         NSString * key = [NSString stringWithFormat:@"%@%@%@%@%@",
                     (flags & NSCommandKeyMask? @"@": @""),
@@ -659,7 +659,7 @@ To Do List:
             [self toggleEscape:self];
             return YES;
         }
-        U = [theString characterAtIndex:0];
+        U = [theString characterAtIndex:ZER0];
         key = [NSString stringWithFormat:@"%@%@%@",
                     (flags & NSCommandKeyMask? @"@": @""),
                     (flags & NSControlKeyMask? @"^": @""),
@@ -721,7 +721,7 @@ To Do List:
 			}
 			id CKB = [self currentKeyBindingsOfClient:C];
 			id keyBinding = [CKB objectInChildrenWithKeyStroke:KS];
-			if ([keyBinding countOfChildren]>0)
+			if ([keyBinding countOfChildren]>ZER0)
 			{
 				// down a level
 				[self setCurrentKeyBindings:keyBinding];// this is where we wait for a further key stroke
@@ -733,7 +733,7 @@ To Do List:
 			}
 			else if (keyBinding)
 			{
-				_iTM2IMFlags.isEscaped = 0;
+				_iTM2IMFlags.isEscaped = ZER0;
 				_iTM2IMFlags.canEscape = 1;
 				iTM2MacroNode * macro = [C macroWithID:[keyBinding macroID]];
 				if (macro)
@@ -754,7 +754,7 @@ To Do List:
 			}
 			[self setCurrentKeyBindings:nil];
 		}
-		_iTM2IMFlags.isEscaped = 0;
+		_iTM2IMFlags.isEscaped = ZER0;
 		_iTM2IMFlags.canEscape = 1;
 		if ([C isKindOfClass:[NSResponder class]])
 //                    else if (_iTM2IMFlags.handlesKeyStrokes && [C isKindOfClass:[NSResponder class]])
@@ -767,7 +767,7 @@ To Do List:
 			return NO;
 		}
 	}
-    _iTM2IMFlags.isEscaped = 0;
+    _iTM2IMFlags.isEscaped = ZER0;
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleEscape:
@@ -779,12 +779,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (_iTM2IMFlags.isDeepEscaped == 0)
+    if (_iTM2IMFlags.isDeepEscaped == ZER0)
     {
-        if (_iTM2IMFlags.isEscaped != 0)
+        if (_iTM2IMFlags.isEscaped != ZER0)
         {
             [self postNotificationWithStatus4iTM3:nil];
-            _iTM2IMFlags.isEscaped = 0;
+            _iTM2IMFlags.isEscaped = ZER0;
         }
         else if (_KBS.count)
         {
@@ -810,10 +810,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (_iTM2IMFlags.isDeepEscaped != 0)
+    if (_iTM2IMFlags.isDeepEscaped != ZER0)
     {
         [self postNotificationWithStatus4iTM3:nil];
-        _iTM2IMFlags.isDeepEscaped = 0;
+        _iTM2IMFlags.isDeepEscaped = ZER0;
     }
     else if (_KBS.count)
     {
@@ -874,7 +874,7 @@ To Do List:
     [self postNotificationWithStatus4iTM3:
         [NSString stringWithFormat:NSLocalizedStringFromTableInBundle
             (@"Flushing Key Bindings.", TABLE, myBUNDLE, "status info format, no object placeholder"), nil]];
-    _iTM2IMFlags.canEscape = 0;
+    _iTM2IMFlags.canEscape = ZER0;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  postNotificationWithStatus4iTM3:
@@ -1106,7 +1106,7 @@ To Do List:
 		{
 			return NULL;
 		}
-        unichar U = [key characterAtIndex:0];
+        unichar U = [key characterAtIndex:ZER0];
 //LOG4iTM3(@"unichar is: %#x(%u)", U, U);
         NSString * base = [KeyStroke_Bases4iTM3 objectForKey:[NSString stringWithFormat:@"%x", U]];
 //LOG4iTM3(@"base is: %@", base);
@@ -1296,7 +1296,7 @@ To Do List:
                     default:
 						if (iTM2DebugEnabled>999)
 						{
-							LOG4iTM3(@"unmapped key stroke is: %@(%#x)", key, [key characterAtIndex:0]);
+							LOG4iTM3(@"unmapped key stroke is: %@(%#x)", key, [key characterAtIndex:ZER0]);
 						}
 						[KeyStroke_Unmapped4iTM3 addObject:[key copy]];
 						return NULL;
@@ -1641,7 +1641,7 @@ To Do List: Nothing at first glance.
         if (![KBM client:self interpretKeyEvent:event])
             [self SWZ_iTM2KeyBindings_interpretKeyEvents:[NSArray arrayWithObject:event]];
     }
-//if ([[self string] length]>0) NSLog(@"My last character code is:%i, %#x", [[self string] characterAtIndex:[[self string] length]-1], [[self string] characterAtIndex:[[self string] length]-1]);
+//if ([[self string] length]>ZER0) NSLog(@"My last character code is:%i, %#x", [[self string] characterAtIndex:[[self string] length]-1], [[self string] characterAtIndex:[[self string] length]-1]);
     return;
 }
 @end

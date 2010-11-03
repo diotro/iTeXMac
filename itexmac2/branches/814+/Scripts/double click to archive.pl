@@ -2,6 +2,8 @@
 # run this script to compress some resource folders before archiving to CVS or so.
 # You can put a soft link to this script in someResource folder with a .terminal name
 # such that double click will automatically compress the Macros and New Documents folders below
+# The tar command does preserve the extended attributes and resource forks since Mac OS 10.6.3
+# It means that the resources compressed up to that time are not complete.
 #
 use Cwd;
 use Getopt::Long;

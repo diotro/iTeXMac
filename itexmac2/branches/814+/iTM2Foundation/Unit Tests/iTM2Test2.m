@@ -1306,8 +1306,8 @@ scheme:myScheme
     //  testing path4iTM3
     //  against the url of a directory
     NSArray * RA = NSSearchPathForDirectoriesInDomains(NSUserDirectory, NSAllDomainsMask, NO);
-    STAssertTrue(RA.count>0,@"MISSED",nil);
-    NSString * path = [RA objectAtIndex:0];
+    STAssertTrue(RA.count>ZER0,@"MISSED",nil);
+    NSString * path = [RA objectAtIndex:ZER0];
     NSURL * URL = [NSURL fileURLWithPath:path];
     STAssertEqualObjects(path,URL.path,@"MISSED",nil);
     STAssertEqualObjects([path stringByAppendingString:iTM2PathComponentsSeparator],URL.path4iTM3,@"MISSED",nil);

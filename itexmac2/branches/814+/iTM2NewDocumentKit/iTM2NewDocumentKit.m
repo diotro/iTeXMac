@@ -148,7 +148,7 @@ To Do List:
 @interface iTM2NewDocumentAssistant()
 @property (readwrite,assign) BOOL preferWrapper;
 @property (readwrite,assign) NSURL * panelDirectoryURL;
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withDictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withURL:(NSURL *)URL dDictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
 @end
 
 @implementation iTM2NewDocumentAssistant
@@ -188,7 +188,7 @@ To Do List:
 	// expand the first level items
 	NSInteger row = [OLV numberOfRows];
 	while (row--) {
-		if ([OLV levelForRow:row] == 0) {
+		if ([OLV levelForRow:row] == ZER0) {
 			[OLV expandItem:[OLV itemAtRow:row]];
 		}
 	}
@@ -263,13 +263,13 @@ To Do List:
 		NSString * replacement= @"\n";
 		unichar U = 0x000A;
 		NSString * target = [NSString stringWithCharacters:&U length:1];
-		[hidden replaceOccurrencesOfString:target withString:replacement options:0L range:iTM3MakeRange(0, hidden.length)];
+		[hidden replaceOccurrencesOfString:target withString:replacement options:ZER0 range:iTM3MakeRange(ZER0, hidden.length)];
 		U = 0x000D;
 		target = [NSString stringWithCharacters:&U length:1];
-		[hidden replaceOccurrencesOfString:target withString:replacement options:0L range:iTM3MakeRange(0, hidden.length)];
+		[hidden replaceOccurrencesOfString:target withString:replacement options:ZER0 range:iTM3MakeRange(ZER0, hidden.length)];
 		U = 0x0085;
 		target = [NSString stringWithCharacters:&U length:1];
-		[hidden replaceOccurrencesOfString:target withString:replacement options:0L range:iTM3MakeRange(0, hidden.length)];
+		[hidden replaceOccurrencesOfString:target withString:replacement options:ZER0 range:iTM3MakeRange(ZER0, hidden.length)];
 	}
 	NSArray * hiddenFiles = [hidden componentsSeparatedByString:@"\n"];
 //- (id) _MutableDictionaryFromArray: (id) array;
@@ -380,7 +380,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([self outlineView:self.outlineView numberOfChildrenOfItem:nil] != 0) {
+	if ([self outlineView:self.outlineView numberOfChildrenOfItem:nil] != ZER0) {
 		[self.window makeKeyAndOrderFront:self];
 	} else {
 		[SDC newDocument:object];
@@ -406,7 +406,7 @@ To Do List:
 	if (![OLV isKindOfClass:[NSOutlineView class]]) {
 		NSArray * subviews = [OLV subviews];
 		if (subviews.count) {
-			OLV = [subviews objectAtIndex:0];
+			OLV = [subviews objectAtIndex:ZER0];
 			goto onceAgain;
 		} else {
 			onceUp:;
@@ -505,13 +505,13 @@ To Do List:
 		if (!AS.length) {
 			return;
         }
-		NSFont * F = [[AS attributesAtIndex:0 effectiveRange:nil] objectForKey:NSFontAttributeName];
+		NSFont * F = [[AS attributesAtIndex:ZER0 effectiveRange:nil] objectForKey:NSFontAttributeName];
 		if (F) {
 			F = [SFM convertFont:F toHaveTrait:NSBoldFontMask];
 		} else {
 			F = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
 		}
-		[AS addAttribute:NSFontAttributeName value:F range:iTM3MakeRange(0, AS.length)];
+		[AS addAttribute:NSFontAttributeName value:F range:iTM3MakeRange(ZER0, AS.length)];
 		[cell setAttributedStringValue:AS];
 	} else if([self outlineView:outlineView shouldSelectItem:item]) {
 		return;
@@ -520,14 +520,14 @@ To Do List:
 		if(!AS.length) {
 			return;
         }
-		NSFont * F = [[AS attributesAtIndex:0 effectiveRange:nil] objectForKey:NSFontAttributeName];
+		NSFont * F = [[AS attributesAtIndex:ZER0 effectiveRange:nil] objectForKey:NSFontAttributeName];
 		if(F) {
 			F = [SFM convertFont:F toHaveTrait:NSItalicFontMask];
 		} else {
 			F = [NSFont boldSystemFontOfSize:[NSFont systemFontSize]];
 		}
-		[AS addAttribute:NSFontAttributeName value:F range:iTM3MakeRange(0, AS.length)];
-		[AS addAttribute:NSForegroundColorAttributeName value:[NSColor disabledControlTextColor] range:iTM3MakeRange(0, AS.length)];
+		[AS addAttribute:NSFontAttributeName value:F range:iTM3MakeRange(ZER0, AS.length)];
+		[AS addAttribute:NSForegroundColorAttributeName value:[NSColor disabledControlTextColor] range:iTM3MakeRange(ZER0, AS.length)];
 		[cell setAttributedStringValue:AS];
 	}
 	
@@ -569,7 +569,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [(item?:_iTM2NewDocumentsTree) countOfChildren]>0;
+    return [(item?:_iTM2NewDocumentsTree) countOfChildren]>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:numberOfChildrenOfItem:
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item;
@@ -650,7 +650,7 @@ To Do List:
 				if(![olv isItemExpanded:item]) {
 					[olv expandItem:item];
                 }
-				[olv setDropItem:item dropChildIndex:0];
+				[olv setDropItem:item dropChildIndex:ZER0];
 			} else {
 				// finding the ancestor...
 				NSInteger row = [olv rowForItem:item];
@@ -658,7 +658,7 @@ To Do List:
 					NSInteger level = [olv levelForRow:row];
 					if (level) {
 						NSInteger R = row;
-						index = 0;
+						index = ZER0;
 						while (R--) {
 							NSInteger L = [olv levelForRow:R];
 							if (L == level - 1) {
@@ -672,9 +672,9 @@ To Do List:
 						// if things are consistent, the above loop really breaks. 
 					} else {
 						NSInteger R = row;
-						index = 0;
+						index = ZER0;
 						while(R--) {
-							if([olv levelForRow:R] == 0) {
+							if([olv levelForRow:R] == ZER0) {
 								++index;
                             }
                         }
@@ -682,13 +682,13 @@ To Do List:
 						[olv setDropItem:item dropChildIndex:index];
 					}
 				} else {
-					index = 0;
+					index = ZER0;
 					item = nil;
 					[olv setDropItem:nil dropChildIndex:index];
 				}
 			}
 		} else {
-			index = 0;
+			index = ZER0;
 			[olv setDropItem:item dropChildIndex:index];
 		}
 	}
@@ -1057,7 +1057,7 @@ To Do List:
 		if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
 			NSMutableArray * urls = [NSMutableArray array];
 			if (isDirectory) {
-                [urls setArray:[[DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL] allObjects]];
+                [urls setArray:[[DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL] allObjects]];
 			} else {
 				[urls addObject:targetURL];
 			}
@@ -1069,7 +1069,7 @@ To Do List:
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					NSTextStorage * TS = [document textStorage];
 					[TS beginEditing];
-					[TS replaceCharactersInRange:iTM3MakeRange(0, TS.length)
+					[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length)
                             withString:[self convertedString:TS.string withDictionary:filter]];
                     [TS endEditing];
 				}//if([document isKindOfClass:[iTM2TextDocument class]])
@@ -1104,7 +1104,7 @@ To Do List:
 	}
 	NSURL * sourceURL = self.selectedTemplate.URLValue;
 	NSArray * enclosedProjects = sourceURL.enclosedProjectURLs4iTM3;
-	if(enclosedProjects.count!=0) {
+	if(enclosedProjects.count!=ZER0) {
 		return NO;
 	}
 	[self takeContextValue:fileURL.path.stringByDeletingLastPathComponent forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
@@ -1206,8 +1206,8 @@ To Do List:
 	}
 	NSURL * sourceURL = self.selectedTemplate.URLValue;
 	NSArray * enclosedProjects = sourceURL.enclosedProjectURLs4iTM3;
-	if (enclosedProjects.count==0) {
-		return NO;
+	if (enclosedProjects.count==ZER0) {
+		return NO; // see createNewWrapperAndProjectWithURL
 	}
 	[self takeContextValue:sourceURL.URLByDeletingLastPathComponent.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	// No extension for fileName, the extension will be borrowed from the project
@@ -1242,7 +1242,7 @@ To Do List:
                 // changing the name of all the files included in the newly created directory according to the filter above
                 NSURL * originalURL = nil;
                 NSURL * convertedURL = nil;
-                for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
+                for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
                         if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:outErrorPtr]) {
@@ -1277,7 +1277,7 @@ To Do List:
                                 NSTextStorage * TS = [document textStorage];
                                 NSString * new = [self convertedString:TS.string withDictionary:filter];
                                 [TS beginEditing];
-                                [TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:new];
+                                [TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:new];
                                 [TS endEditing];
                                 [document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
                                 document.undoManager.removeAllActions;
@@ -1295,7 +1295,7 @@ To Do List:
                                 NSString * old = [TS string];
                                 NSString * new = [self convertedString:old withDictionary:filter];
                                 [TS beginEditing];
-                                [TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:new];
+                                [TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:new];
                                 [TS endEditing];
                             }
     //LOG4iTM3(@"originalPath is: %@", originalPath);
@@ -1313,7 +1313,7 @@ To Do List:
                     [PD showWindows];
                 }
                 // changing the name of all the files included in the newly created directory according to the filter above
-                for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
+                for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
                         if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:outErrorPtr]) {
@@ -1377,6 +1377,10 @@ To Do List:
     //  We choose the metadata coming from the "main" project.
     //  Only one project is used.
     NSMutableArray * alreadyURLs = [NSMutableArray array];
+    //  Intermediate projects are created
+    //  They will be removed at the end
+    //  In the meanwhile, files 
+    NSMutableSet * intermediateProjects = [NSMutableSet set];
     for (NSURL * projectURL in sourceURL.enclosedProjectURLs4iTM3) {
         NSString * type = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
         Class C = [SDC documentClassForType:type];
@@ -1409,7 +1413,7 @@ To Do List:
 		LOG4iTM3(@"There is already a project at\n%@",targetURL);
 	}
 	NSDictionary * filter = [self filterForProjectName:projectName];
-    [self convertedFileWrapper:FW withDictionary:filter error:outErrorPtr];
+    FW = [self convertedFileWrapper:FW withDictionary:filter error:outErrorPtr];
     
     if (FW.isDirectory) {
         
@@ -1462,7 +1466,7 @@ To Do List:
 							NSString * old = TS.string;
 							NSString * new = [self convertedString:old withDictionary:filter];
 							TS.beginEditing;
-							[TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:new];
+							[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:new];
 							TS.endEditing;
 							// then change the file name:
 							originalURL = document.fileURL;
@@ -1540,7 +1544,7 @@ LOG4iTM3(@"Document saved and closed");
 				}
 				// changing the name of all the files included in the newly created directory according to the filter above
                 
-                for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
+                for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
                         if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:outErrorPtr]) {
@@ -1620,7 +1624,7 @@ To Do List:
 				[DFM makeFileWritableAtPath4iTM3:targetURL.path recursive:YES];
 				// If necessary, the project will be created as expected side effect
 				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
-				for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:0 errorHandler:NULL]) {
+				for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
                     originalURL = originalURL.URLByStandardizingPath;
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
@@ -1632,7 +1636,7 @@ To Do List:
 						iTM2TeXDocument * document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:outErrorPtr];
 						NSTextStorage * TS = document.textStorage;
 						TS.beginEditing;
-						[TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
+						[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
                         TS.endEditing;
 					}
 				}
@@ -1649,7 +1653,7 @@ To Do List:
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					NSTextStorage * TS = [document textStorage];
 					[TS beginEditing];
-					[TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
+					[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
 					[TS endEditing];
 				}
 				[oldProject saveDocument:self];
@@ -1667,8 +1671,8 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withDictionary:error:
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withDictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withURL:dictionary:error:
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withURL:(NSURL *)URL dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 12:47:31 UTC 2010
@@ -1676,23 +1680,31 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
+    if (outErrorPtr) *outErrorPtr = nil;
     if (FW.isDirectory) {
         for (NSFileWrapper * fw in FW.fileWrappers.copy) {
-            NSFileWrapper * newFW = [self convertedFileWrapper:fw withDictionary:filter error:outErrorPtr];
+            NSURL * url = [URL URLByAppendingPathComponent:fw.filename];
+            NSFileWrapper * newFW = [self convertedFileWrapper:fw withURL:url dictionary:filter error:outErrorPtr];
+            if (outErrorPtr) return nil;
             if (![fw isEqual:newFW]) {
                 [FW removeFileWrapper:fw];
-                [FW addFileWrapper:newFW];
+                if (newFW) [FW addFileWrapper:newFW];
             }
         }
     } else if (FW.isRegularFile) {
         //  How can I retrieve the file encoding ?
         //  The old method was based on the text document class
-        if ([[SDC documentClassForType:[SDC typeForContentsOfURL:originalURL error:NULL]] isSubclassOfClass:[iTM2TextDocument class]]) {
-            iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:outErrorPtr];
+        if ([[SDC documentClassForType:[SDC typeForContentsOfURL:URL error:outErrorPtr]] isSubclassOfClass:[iTM2TextDocument class]]) {
+            //  Change the file wrapper
+            iTM2TextDocument * document = [[iTM2TextDocument alloc] initWithContentsOfURL:URL error:outErrorPtr];
             NSTextStorage * TS = document.textStorage;
             TS.beginEditing;
-            [TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
+            [TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
             TS.endEditing;
+            NSData * data = [document.stringRepresentation dataUsingEncoding:document.stringEncoding allowLossyConversion:YES];
+            NSDictionary * FAs = [FW fileAttributes]; // including extended attributes since 10.6.3
+            FW = [[NSFileWrapper alloc] initRegularFileWithContents:data];
+            FW.fileAttributes = FAs;
         }
     }
     FW.preferredFilename = [self convertedString:FW.filename withDictionary:filter];
@@ -1727,7 +1739,7 @@ To Do List:
 	for (NSString * target in filter.keyEnumerator) {
 		if(target.length) {
 			NSString * replacement = [filter objectForKey:target];
-			[MS replaceOccurrencesOfString:target withString:replacement options:0L range:iTM3MakeRange(0, MS.length)];
+			[MS replaceOccurrencesOfString:target withString:replacement options:ZER0 range:iTM3MakeRange(ZER0, MS.length)];
 		}
 	}
 //END4iTM3;
@@ -2038,12 +2050,12 @@ To Do List:
 	if ([SWS isTeXProjectPackageAtURL4iTM3:standalone]) {
 		enclosing = directoryURL.enclosingWrapperURL4iTM3;
 		if (enclosing) {
-			return enclosing.enclosedProjectURLs4iTM3.count == 0;
+			return enclosing.enclosedProjectURLs4iTM3.count == ZER0;
 		}
 		NSDictionary * available = [SPC availableProjectsForURL:standalone];
 		for (enclosing in available.keyEnumerator) {
 			if ([SWS isWrapperPackageAtURL4iTM3:enclosing]) {
-                if (enclosing.enclosedProjectURLs4iTM3.count == 0) {
+                if (enclosing.enclosedProjectURLs4iTM3.count == ZER0) {
 					return YES;
 				}
 			}
@@ -2051,7 +2063,7 @@ To Do List:
 		return NO;
 	}
 //END4iTM3;
-	return [[SPC availableProjectsForURL:directoryURL] count]>0;
+	return [[SPC availableProjectsForURL:directoryURL] count]>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanInsertInOldProject
 - (BOOL)selectedTemplateCanInsertInOldProject;
@@ -2234,7 +2246,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	metaSETTER([NSNumber numberWithInteger:tag]);
-	if(tag>=0)
+	if(tag>=ZER0)
 	{
 		[SUD setInteger:tag forKey:iTM2NewProjectCreationModeKey];
 	}
@@ -2339,7 +2351,7 @@ To Do List:
 			item.representedObject = url;
             NSImage * icon = [SWS iconForFile:url.path];
 			NSSize iconSize = [icon size];
-			if (iconSize.height > 0) {
+			if (iconSize.height > ZER0) {
 				CGFloat height = sender.frame.size.height;
 				height -= 8;
 				iconSize.width *= height/iconSize.height;
@@ -2349,16 +2361,16 @@ To Do List:
 			}
 			item.image = icon;
 		}
-		if ([sender numberOfItems]>0) {
-			NSInteger index = 0;
+		if ([sender numberOfItems]>ZER0) {
+			NSInteger index = ZER0;
 			if(!oldProjectURL) {
 				oldProjectURL = [[sender itemAtIndex:index] representedObject];
 				[self setOldProjectURL:oldProjectURL];
 			} else {
 				index = [sender indexOfItemWithRepresentedObject:oldProjectURL];
-				if (index<0) {
+				if (index<ZER0) {
 					// the old project oldProjectURL, if any, is not listed in the available projects
-					index = 0;// a better choice?
+					index = ZER0;// a better choice?
 					oldProjectURL = [[sender itemAtIndex:index] representedObject];
 					[self setOldProjectURL:oldProjectURL];
 				}
@@ -2493,7 +2505,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  comboBox:completedString:
 - (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string;
@@ -2531,7 +2543,7 @@ To Do List:
 		NSArray * original = [self.values valueForKey:@"iTM2KnownAuthorsList"];
 		NSMutableArray * authors = [NSMutableArray arrayWithArray:([original isKindOfClass:[NSArray class]]? original:nil)];
 		[authors removeObject:author];
-		[authors insertObject:author atIndex:0];
+		[authors insertObject:author atIndex:ZER0];
 		[self.values setValue:authors forKey:@"iTM2KnownAuthorsList"];
 	}
 //END4iTM3;
@@ -2553,7 +2565,7 @@ To Do List:
 		NSArray * original = [self.values valueForKey:@"iTM2KnownOrganizationsList"];
 		NSMutableArray * organizations = [NSMutableArray arrayWithArray:([original isKindOfClass:[NSArray class]]? original:nil)];
 		[organizations removeObject:organization];
-		[organizations insertObject:organization atIndex:0];
+		[organizations insertObject:organization atIndex:ZER0];
 		[self.values setValue:organizations forKey:@"iTM2KnownOrganizationsList"];
 	}
 //END4iTM3;
@@ -2572,7 +2584,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[iTM2NewDocumentAssistant loadTemplates];
-    if ([[iTM2NewDocumentAssistant newDocumentDataSource] countOfChildren]>0) {
+    if ([[iTM2NewDocumentAssistant newDocumentDataSource] countOfChildren]>ZER0) {
 		MILESTONE4iTM3((@"iTM2NewDocumentKit"),(@"No New Documents templates available"));
 	}
 //END4iTM3;

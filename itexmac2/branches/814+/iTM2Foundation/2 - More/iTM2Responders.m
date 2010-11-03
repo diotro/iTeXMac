@@ -124,7 +124,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self takeContext4iTM3Integer:iTM2PDFDisplayModeLast forKey:iTM2PDFDisplayModeKey domain:iTM2ContextAllDomainsMask];
-	[self.album setMagnificationWithDisplayMode:iTM2PDFDisplayModeFixed stickMode:0];// unused stick mode
+	[self.album setMagnificationWithDisplayMode:iTM2PDFDisplayModeFixed stickMode:ZER0];// unused stick mode
     [self takeContext4iTM3Float:self.album.magnification forKey:iTM2PDFCurrentMagnificationKey domain:iTM2ContextAllDomainsMask];
     return;
 }
@@ -191,12 +191,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (sender.integerValue > 0) {
+    if (sender.integerValue > ZER0) {
         [self.PDFInspector doZoomIn:sender];
     } else {
         [self.PDFInspector doZoomOut:sender];
     }
-    sender.integerValue = 0;
+    sender.integerValue = ZER0;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayPDFAtMagnificationFromField:

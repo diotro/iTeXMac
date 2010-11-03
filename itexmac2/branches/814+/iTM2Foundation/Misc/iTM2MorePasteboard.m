@@ -41,10 +41,10 @@ To Do List:
     {
         names = [[NSMutableArray alloc] initWithCapacity: self.morePasteboardCount];
         NSInteger idx;
-        for(idx = 0; idx<self.morePasteboardCount;++idx)
+        for(idx = ZER0; idx<self.morePasteboardCount;++idx)
             [names addObject: [NSString stringWithFormat: @"iTeXMac2#%iPBoard", idx]];
     }
-    if((index>=0) && (index<names.count))
+    if((index>=ZER0) && (index<names.count))
         return [self pasteboardWithName: [names objectAtIndex: index]];
     else
         return nil;
@@ -146,14 +146,14 @@ To Do List:
             NSPasteboard * P = [NSPasteboard morePasteboardWithIndex: MI.tag];
             NSString * S = [P stringForType: NSStringPboardType];
             if(S.length > 64)
-                S = [NSString stringWithFormat: @"%@...", [S substringWithRange: iTM3MakeRange(0, 60)]];
+                S = [NSString stringWithFormat: @"%@...", [S substringWithRange: iTM3MakeRange(ZER0, 60)]];
             [MI setTitle: [NSString stringWithFormat: @"  %i: %@", MI.tag, S]];
         }
         else if(selector == @selector(moreCopyMenuItem:))
         {
             NSInteger index = [self indexOfItem: MI] + 1;
             NSInteger tag = [NSPasteboard morePasteboardCount];
-            while(tag>0)
+            while(tag>ZER0)
                 [[self insertItemWithTitle: @"" action: @selector(moreCopy:) keyEquivalent: @"" atIndex: index] setTag: --tag];
             MI.action = NULL;
             self.update;
@@ -162,7 +162,7 @@ To Do List:
         {
             NSInteger index = [self indexOfItem: MI] + 1;
             NSInteger tag = [NSPasteboard morePasteboardCount];
-            while(tag>0)
+            while(tag>ZER0)
                 [[self insertItemWithTitle: @"" action: @selector(moreCut:) keyEquivalent: @"" atIndex: index] setTag: --tag];
             MI.action = NULL;
             self.update;
@@ -171,7 +171,7 @@ To Do List:
         {
             NSInteger index = [self indexOfItem: MI] + 1;
             NSInteger tag = [NSPasteboard morePasteboardCount];
-            while(tag>0)
+            while(tag>ZER0)
                 [[self insertItemWithTitle: @"" action: @selector(morePaste:) keyEquivalent: @"" atIndex: index] setTag: --tag];
             MI.action = NULL;
             self.update;

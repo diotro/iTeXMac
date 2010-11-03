@@ -21,7 +21,7 @@
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
 */
-#define __iTM2_BUG_TRACKING__ 0
+#define __iTM2_BUG_TRACKING__ ZER0
 #ifdef __iTM2_BUG_TRACKING__
 	#warning DEBUGGGGGGGGGGGGGGGG
 #endif
@@ -103,7 +103,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSData * D = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
+    NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
     if (D.length) {
         NSString * errorString = nil;
         id DM = [NSPropertyListSerialization propertyListFromData:D
@@ -312,7 +312,7 @@ To Do List:
     if (!stillSelectingFlag && self.window && ([self.window level] < [[SSC spellingPanel] level]))// avoid recursion when no window
     {
         NSString * S = self.string;
-        NSRange R = iTM3MakeRange(0,S.length);
+        NSRange R = iTM3MakeRange(ZER0,S.length);
         R = iTM3ProjectionRange(R,self.selectedRange);// do not assume that the selected range lays between the text limits
         if (R.length)
         {
@@ -766,7 +766,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self.implementation metaValueForKey:@"ChangeCount"] integerValue] != 0;
+    return [[self.implementation metaValueForKey:@"ChangeCount"] integerValue] != ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  updateChangeCount
 - (void)updateChangeCount:(NSDocumentChangeType)change;
@@ -783,7 +783,7 @@ To Do List:
     else if (change == NSChangeUndone)
         --changeCount;
     else
-        changeCount = 0;
+        changeCount = ZER0;
 	[self.implementation takeMetaValue:[NSNumber numberWithInteger:changeCount] forKey:@"ChangeCount"];
 //END4iTM3;
     return;
@@ -797,7 +797,7 @@ To Do List:
 @implementation iTM2IgnoredWordsWindow 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= frameIdentifier4iTM3
 - (NSString *)frameIdentifier4iTM3;
-/*"Subclasses should override this method. The default implementation returns a 0 length string, and deactivates the 'register current frame' process.
+/*"Subclasses should override this method. The default implementation returns a ZER0 length string, and deactivates the 'register current frame' process.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri May 21 07:52:07 GMT 2004
 To Do List:
@@ -915,11 +915,11 @@ To Do List:
 		self.tableView.reloadData;
 		self.tableView.display;
         NSUInteger row = [self.ignoredWords indexOfObject:newArgument];
-        if (row>=0) {
+        if (row>=ZER0) {
             [self.tableView deselectAll:self];
             [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 //            [iVarTableView scrollRowToVisible:row];
-            [self.tableView editColumn:0 row:self.tableView.selectedRow withEvent:nil select:YES];
+            [self.tableView editColumn:ZER0 row:self.tableView.selectedRow withEvent:nil select:YES];
             return;
         }
     }
@@ -1137,7 +1137,7 @@ To Do List:
 	NSIndexSet * IS = TV.selectedRowIndexes;
 	NSInteger idx = IS.lastIndex;
 	while(idx != NSNotFound) {
-        if ((idx>=0) && (idx<self.ignoredWords.count))
+        if ((idx>=ZER0) && (idx<self.ignoredWords.count))
             [self.ignoredWords removeObjectAtIndex:idx];
 		idx = [IS indexLessThanIndex:idx];
 	}
@@ -1224,7 +1224,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSRange R = [SSC checkSpellingOfString:argument
-        startingAt: 0
+        startingAt: ZER0
             language: [SSC language]
                 wrap: NO
                     inSpellDocumentWithTag: [self.currentText spellCheckerDocumentTag]
@@ -1252,7 +1252,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     // finding where to insert the word:
-    NSUInteger index = 0;
+    NSUInteger index = ZER0;
     while(index < self.ignoredWords.count) {
         NSComparisonResult CR = [argument compare:[self.ignoredWords objectAtIndex:index]];
         if (CR == NSOrderedSame)
@@ -1609,7 +1609,7 @@ To Do List:
 		if (newW)// avoid recursivity
 		{
             NSString * S = newText.string;
-            NSRange R = iTM3MakeRange(0,S.length);
+            NSRange R = iTM3MakeRange(ZER0,S.length);
             R = iTM3ProjectionRange(R,newText.selectedRange);// do not assume that the selected range lays between the text limits
             if (R.length)
             {
@@ -1673,7 +1673,7 @@ To Do List:
 			if (newW)// avoid recursivity
 			{
                 NSString * S = newText.string;
-				NSRange R = iTM3MakeRange(0,S.length);
+				NSRange R = iTM3MakeRange(ZER0,S.length);
                 R = iTM3ProjectionRange(R,newText.selectedRange);// do not assume that the selected range lays between the text limits
 				if (R.length)
 				{
@@ -1769,7 +1769,7 @@ To Do List:
 			if (newW)// avoid recursivity
 			{
                 NSString * S = newText.string;
-                NSRange R = iTM3MakeRange(0,S.length);
+                NSRange R = iTM3MakeRange(ZER0,S.length);
                 R = iTM3ProjectionRange(R,newText.selectedRange);// do not assume that the selected range lays between the text limits
                 if (R.length)
                 {
@@ -1823,7 +1823,7 @@ To Do List:
 	if (text.window)// avoid recursivity
 	{
         NSString * S = text.string;
-        NSRange R = iTM3MakeRange(0,S.length);
+        NSRange R = iTM3MakeRange(ZER0,S.length);
         R = iTM3ProjectionRange(R,text.selectedRange);// do not assume that the selected range lays between the text limits
         if (R.length)
         {
@@ -1935,7 +1935,7 @@ To Do List:
 		NSString * S = self.currentText.window.title;
         if (S.length && AS.length)
         {
-            NSMutableDictionary * attributes = [[AS attributesAtIndex:0 effectiveRange:nil] mutableCopy];
+            NSMutableDictionary * attributes = [[AS attributesAtIndex:ZER0 effectiveRange:nil] mutableCopy];
             NSFont * F = [attributes objectForKey:NSFontAttributeName];
             if (!F)
                 F = [NSFont userFontOfSize:[NSFont systemFontSize]];
@@ -1997,7 +1997,7 @@ To Do List:
         #if 0
         if (currentController == [iTM2SpellContextController defaultSpellContextController]) 
         {
-            [sender selectItemAtIndex:0];
+            [sender selectItemAtIndex:ZER0];
             [sender setEnabled:NO];
             return;
         }
@@ -2257,7 +2257,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([[theEvent charactersIgnoringModifiers] characterAtIndex:0] == 0x7F)
+    if ([[theEvent charactersIgnoringModifiers] characterAtIndex:ZER0] == 0x7F)
     {
         id DS = self.dataSource;
         if ([DS respondsToSelector:@selector(removeSelectedRowsInTableView:)])

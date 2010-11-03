@@ -7,7 +7,7 @@ int main (int argc, const char * argv[]) {
 	NSString * TARGET = [environment objectForKey:@"Target"];
 	NSString * DTD = [environment objectForKey:@"DTD"];
 	NSString * SOURCE_ROOT = [environment objectForKey:@"SOURCE_ROOT"];
-	int index = 0;
+	int index = ZER0;
 	while(++index < argc)
 	{
 		if(!strncmp(argv[index], "-s", 2)  || !strncmp(argv[index], "--source", 8))
@@ -43,7 +43,7 @@ int main (int argc, const char * argv[]) {
 		SOURCE = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:SOURCE];
 		if(![[NSFileManager defaultManager] isReadableFileAtPath:SOURCE]) 
 		{
-			NSLog(@"%s ERROR: no readable file at %@", argv[0], SOURCE);
+			NSLog(@"%s ERROR: no readable file at %@", argv[ZER0], SOURCE);
 			goto ERROR;
 		}
 		goto ERROR;
@@ -60,7 +60,7 @@ int main (int argc, const char * argv[]) {
 							stringByAppendingPathExtension:@"DTD"];
 			if(![[NSFileManager defaultManager] isReadableFileAtPath:DTD]) 
 			{
-				NSLog(@"%s ERROR: no readable file at %@", argv[0], DTD);
+				NSLog(@"%s ERROR: no readable file at %@", argv[ZER0], DTD);
 				goto ERROR;
 			}
 		}
@@ -73,7 +73,7 @@ int main (int argc, const char * argv[]) {
 			TARGET = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:TARGET];
 			if(![[NSFileManager defaultManager] fileExistsAtPath:TARGET.stringByDeletingLastPathComponent isDirectory:&isDirectory] && isDirectory) 
 			{
-				NSLog(@"%s ERROR: no readable file at %@", argv[0], TARGET);
+				NSLog(@"%s ERROR: no readable file at %@", argv[ZER0], TARGET);
 				goto ERROR;
 			}
 			goto ERROR;
@@ -85,11 +85,11 @@ int main (int argc, const char * argv[]) {
 					stringByAppendingPathComponent: @"Summary"]
 						stringByAppendingPathExtension: @"xml"];
 	}
-	NSLog(@"%s\nConverting\n%@\ninto\n%@", argv[0], SOURCE, TARGET);
+	NSLog(@"%s\nConverting\n%@\ninto\n%@", argv[ZER0], SOURCE, TARGET);
     // insert code here...
 	NSURL * sourceURL = [NSURL fileURLWithPath:SOURCE];
 	NSError * localError = nil;
-	NSXMLDocument * source = [[[NSXMLDocument alloc] initWithContentsOfURL:sourceURL options:0 error:&localError] autorelease];
+	NSXMLDocument * source = [[[NSXMLDocument alloc] initWithContentsOfURL:sourceURL options:ZER0 error:&localError] autorelease];
 	if(localError)
 	{
 		NSLog(@"There was an error while creating the document: %@", localError);
@@ -148,7 +148,7 @@ int main (int argc, const char * argv[]) {
 	E = [[[CUTS allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
 	while(KEY = E.nextObject)
 	{
-		id cut = [KEY substringWithRange:iTM3MakeRange(0,3)];
+		id cut = [KEY substringWithRange:iTM3MakeRange(ZER0,3)];
 		cut = [NSXMLNode attributeWithName:@"CUT" stringValue:cut];
 		KEY = [CUTS objectForKey:KEY];
 		id attribute = [NSXMLNode attributeWithName:@"KEY" stringValue:KEY];
@@ -163,10 +163,10 @@ int main (int argc, const char * argv[]) {
 	[xmlDoc setRootElement:root];
 	[xmlDoc setStandalone:YES];
 	// add the embedded DTD
-	[xmlDoc setDTD:[[[NSXMLDTD alloc] initWithContentsOfURL:[NSURL fileURLWithPath:DTD] options:0 error:&localError] autorelease]];
+	[xmlDoc setDTD:[[[NSXMLDTD alloc] initWithContentsOfURL:[NSURL fileURLWithPath:DTD] options:ZER0 error:&localError] autorelease]];
 	NSMutableString * MS = [[[xmlDoc XMLStringWithOptions:NSXMLNodePrettyPrint|NSXMLDocumentIncludeContentTypeDeclaration] mutableCopy] autorelease];
-	[MS replaceOccurrencesOfString:@"></ITEM>" withString:@"/>" options:0 range:iTM3MakeRange(0,MS.length)];
-	[MS replaceOccurrencesOfString:@"></CUT>" withString:@"/>" options:0 range:iTM3MakeRange(0,MS.length)];
+	[MS replaceOccurrencesOfString:@"></ITEM>" withString:@"/>" options:ZER0 range:iTM3MakeRange(ZER0,MS.length)];
+	[MS replaceOccurrencesOfString:@"></CUT>" withString:@"/>" options:ZER0 range:iTM3MakeRange(ZER0,MS.length)];
 	if([MS writeToURL:[NSURL fileURLWithPath:TARGET] atomically:YES encoding:NSUTF8StringEncoding error:&localError])
 	{
 		NSLog(@"OKAY");
@@ -177,9 +177,9 @@ int main (int argc, const char * argv[]) {
 		goto ERROR;
 	}
     [pool release];
-    return 0;
+    return ZER0;
 ERROR:
-	NSLog(@"Usage: %s --source SOURCE --dtd DTD [--target TARGET]\n", argv[0]);
+	NSLog(@"Usage: %s --source SOURCE --dtd DTD [--target TARGET]\n", argv[ZER0]);
     [pool release];
     return -1;
 }

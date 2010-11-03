@@ -92,12 +92,12 @@
 	[[NSInvocation  getInvocation4iTM3:&I withTarget:myObject retainArguments:NO] action1Suffix:10];
 	NSPointerArray * selectors = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	[I invokeWithSelectors4iTM3:selectors];
-	STAssertEquals(myObject.tag,(NSUInteger)0,@"iTM2InvocationKit test 1: ",nil);
-	myObject.tag = 0;
+	STAssertEquals(myObject.tag,(NSUInteger)ZER0,@"iTM2InvocationKit test 1: ",nil);
+	myObject.tag = ZER0;
 	[selectors addPointer:@selector(action1Suffix:)];
 	[I invokeWithSelectors4iTM3:selectors];
 	STAssertEquals(myObject.tag,(NSUInteger)10,@"iTM2InvocationKit test 2: ",nil);
-	myObject.tag = 0;
+	myObject.tag = ZER0;
 	[selectors addPointer:@selector(action2Suffix:)];
 	[I invokeWithSelectors4iTM3:selectors];
 	STAssertEquals(myObject.tag,(NSUInteger)30,@"iTM2InvocationKit test 3: ",nil);
@@ -109,17 +109,17 @@
 	NSUInteger i;
 	NSMethodSignature * MS = [MyParent instanceMethodSignatureForSelector:@selector(action1Suffix:)];
 	NSPointerArray * ans = [iTM2Runtime instanceSelectorsOfClass:[MyParent class] withSuffix:@"Suffix:" signature:MS inherited:NO];
-	for(i = 0;i<ans.count;++i) {
+	for(i = ZER0;i<ans.count;++i) {
 		[set1 addObject:NSStringFromSelector((SEL)[ans pointerAtIndex:i])];
 	}
 	NSPointerArray * selectors = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	[selectors addPointer:@selector(action1Suffix:)];
 	[selectors addPointer:@selector(action2Suffix:)];
-	for(i = 0;i<selectors.count;++i) {
+	for(i = ZER0;i<selectors.count;++i) {
 		[set2 addObject:NSStringFromSelector((SEL)[selectors pointerAtIndex:i])];
 	}
 	STAssertEqualObjects(set1,set2,@"instance selectors",nil);
-	[selectors setCount:0];
+	[selectors setCount:ZER0];
 	set1 = [NSMutableSet set];
 	set2 = [NSMutableSet set];
 	ans = [iTM2Runtime instanceSelectorsOfClass:[MySon class] withSuffix:@"Suffix:" signature:MS inherited:NO];
@@ -127,12 +127,12 @@
 	[selectors addPointer:@selector(action4Suffix:)];
 	STAssertEqualObjects(ans,selectors,@"instance selectors",nil);
 	ans = [iTM2Runtime instanceSelectorsOfClass:[MySon class] withSuffix:@"Suffix:" signature:MS inherited:YES];
-	for(i = 0;i<ans.count;++i) {
+	for(i = ZER0;i<ans.count;++i) {
 		[set1 addObject:NSStringFromSelector((SEL)[ans pointerAtIndex:i])];
 	}
 	[selectors addPointer:@selector(action1Suffix:)];
 	[selectors addPointer:@selector(action2Suffix:)];
-	for(i = 0;i<selectors.count;++i) {
+	for(i = ZER0;i<selectors.count;++i) {
 		[set2 addObject:NSStringFromSelector((SEL)[selectors pointerAtIndex:i])];
 	}
 	STAssertEqualObjects(set1,set2,@"instance selectors",nil);
@@ -144,17 +144,17 @@
 	NSUInteger i;
 	NSMethodSignature * MS = [MyParent methodSignatureForSelector:@selector(action1Suffix:)];
 	NSPointerArray * ans = [iTM2Runtime classSelectorsOfClass:[MyParent class] withSuffix:@"Suffix:" signature:MS inherited:NO];
-	for(i = 0;i<ans.count;++i) {
+	for(i = ZER0;i<ans.count;++i) {
 		[set1 addObject:NSStringFromSelector((SEL)[ans pointerAtIndex:i])];
 	}
 	NSPointerArray * selectors = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 	[selectors addPointer:@selector(action11Suffix:)];
 	[selectors addPointer:@selector(action12Suffix:)];
-	for(i = 0;i<selectors.count;++i) {
+	for(i = ZER0;i<selectors.count;++i) {
 		[set2 addObject:NSStringFromSelector((SEL)[selectors pointerAtIndex:i])];
 	}
 	STAssertEqualObjects(set1,set2,@"instance selectors",nil);
-	[selectors setCount:0];
+	[selectors setCount:ZER0];
 	set1 = [NSMutableSet set];
 	set2 = [NSMutableSet set];
 	ans = [iTM2Runtime classSelectorsOfClass:[MySon class] withSuffix:@"Suffix:" signature:MS inherited:NO];
@@ -162,12 +162,12 @@
 	[selectors addPointer:@selector(action14Suffix:)];
 	STAssertEqualObjects(ans,selectors,@"instance selectors",nil);
 	ans = [iTM2Runtime classSelectorsOfClass:[MySon class] withSuffix:@"Suffix:" signature:MS inherited:YES];
-	for(i = 0;i<ans.count;++i) {
+	for(i = ZER0;i<ans.count;++i) {
 		[set1 addObject:NSStringFromSelector((SEL)[ans pointerAtIndex:i])];
 	}
 	[selectors addPointer:@selector(action11Suffix:)];
 	[selectors addPointer:@selector(action12Suffix:)];
-	for(i = 0;i<selectors.count;++i) {
+	for(i = ZER0;i<selectors.count;++i) {
 		[set2 addObject:NSStringFromSelector((SEL)[selectors pointerAtIndex:i])];
 	}
 	STAssertEqualObjects(set1,set2,@"instance selectors",nil);
@@ -176,53 +176,53 @@
 {
 	MyParent * myParent = [MyParent new];
 	
-	STAssertEqualObjects([myParent action1Suffix:0],@"action1Suffix:=action1Suffix:",@"swizzling 1-a",nil);
-	STAssertEqualObjects([myParent action2Suffix:0],@"action2Suffix:=action2Suffix:",@"swizzling 1-b",nil);
+	STAssertEqualObjects([myParent action1Suffix:ZER0],@"action1Suffix:=action1Suffix:",@"swizzling 1-a",nil);
+	STAssertEqualObjects([myParent action2Suffix:ZER0],@"action2Suffix:=action2Suffix:",@"swizzling 1-b",nil);
 	STAssertTrue([iTM2Runtime swizzleInstanceMethodSelector:@selector(action1Suffix:) replacement:@selector(action2Suffix:) forClass:[MyParent class] error:NULL],@"swizzling 1-c",nil);
-	STAssertEqualObjects([myParent action1Suffix:0],@"action2Suffix:=action1Suffix:",@"swizzling 1-d",nil);
-	STAssertEqualObjects([myParent action2Suffix:0],@"action1Suffix:=action2Suffix:",@"swizzling 1-e",nil);
+	STAssertEqualObjects([myParent action1Suffix:ZER0],@"action2Suffix:=action1Suffix:",@"swizzling 1-d",nil);
+	STAssertEqualObjects([myParent action2Suffix:ZER0],@"action1Suffix:=action2Suffix:",@"swizzling 1-e",nil);
 	STAssertTrue([iTM2Runtime swizzleInstanceMethodSelector:@selector(action2Suffix:) replacement:@selector(action1Suffix:) forClass:[MyParent class] error:NULL],@"swizzling 1-c",nil);
-	STAssertEqualObjects([myParent action1Suffix:0],@"action1Suffix:=action1Suffix:",@"swizzling 1-a",nil);
-	STAssertEqualObjects([myParent action2Suffix:0],@"action2Suffix:=action2Suffix:",@"swizzling 1-b",nil);
+	STAssertEqualObjects([myParent action1Suffix:ZER0],@"action1Suffix:=action1Suffix:",@"swizzling 1-a",nil);
+	STAssertEqualObjects([myParent action2Suffix:ZER0],@"action2Suffix:=action2Suffix:",@"swizzling 1-b",nil);
 
-	STAssertEqualObjects([MyParent action11Suffix:0],@"action11Suffix:=action11Suffix:",@"swizzling 2-a",nil);
-	STAssertEqualObjects([MyParent action12Suffix:0],@"action12Suffix:=action12Suffix:",@"swizzling 2-b",nil);
+	STAssertEqualObjects([MyParent action11Suffix:ZER0],@"action11Suffix:=action11Suffix:",@"swizzling 2-a",nil);
+	STAssertEqualObjects([MyParent action12Suffix:ZER0],@"action12Suffix:=action12Suffix:",@"swizzling 2-b",nil);
 	STAssertTrue([iTM2Runtime swizzleClassMethodSelector:@selector(action11Suffix:) replacement:@selector(action12Suffix:) forClass:[MyParent class] error:NULL],@"swizzling 2-c",nil);
-	STAssertEqualObjects([MyParent action11Suffix:0],@"action12Suffix:=action11Suffix:",@"swizzling 2-d",nil);
-	STAssertEqualObjects([MyParent action12Suffix:0],@"action11Suffix:=action12Suffix:",@"swizzling 2-e",nil);
+	STAssertEqualObjects([MyParent action11Suffix:ZER0],@"action12Suffix:=action11Suffix:",@"swizzling 2-d",nil);
+	STAssertEqualObjects([MyParent action12Suffix:ZER0],@"action11Suffix:=action12Suffix:",@"swizzling 2-e",nil);
 	STAssertTrue([iTM2Runtime swizzleClassMethodSelector:@selector(action12Suffix:) replacement:@selector(action11Suffix:) forClass:[MyParent class] error:NULL],@"swizzling 2-c",nil);
-	STAssertEqualObjects([MyParent action11Suffix:0],@"action11Suffix:=action11Suffix:",@"swizzling 2-a",nil);
-	STAssertEqualObjects([MyParent action12Suffix:0],@"action12Suffix:=action12Suffix:",@"swizzling 2-b",nil);
+	STAssertEqualObjects([MyParent action11Suffix:ZER0],@"action11Suffix:=action11Suffix:",@"swizzling 2-a",nil);
+	STAssertEqualObjects([MyParent action12Suffix:ZER0],@"action12Suffix:=action12Suffix:",@"swizzling 2-b",nil);
 
 	MySon * mySon = [MySon new];
 
-	STAssertEqualObjects([mySon action1Suffix:0],@"action1Suffix:=action1Suffix:",@"swizzling 3-a",nil);
-	STAssertEqualObjects([mySon action3Suffix:0],@"action3Suffix:=action3Suffix:",@"swizzling 3-b",nil);
+	STAssertEqualObjects([mySon action1Suffix:ZER0],@"action1Suffix:=action1Suffix:",@"swizzling 3-a",nil);
+	STAssertEqualObjects([mySon action3Suffix:ZER0],@"action3Suffix:=action3Suffix:",@"swizzling 3-b",nil);
 	STAssertTrue([iTM2Runtime swizzleInstanceMethodSelector:@selector(action1Suffix:) replacement:@selector(action3Suffix:) forClass:[MySon class] error:NULL],@"swizzling 3-c",nil);
-	STAssertEqualObjects([mySon action1Suffix:0],@"action3Suffix:=action1Suffix:",@"swizzling 3-d",nil);
-	STAssertEqualObjects([myParent action1Suffix:0],@"action1Suffix:=action1Suffix:",@"swizzling 3-d'",nil);
-	STAssertEqualObjects([mySon action3Suffix:0],@"action1Suffix:=action3Suffix:",@"swizzling 3-e",nil);
+	STAssertEqualObjects([mySon action1Suffix:ZER0],@"action3Suffix:=action1Suffix:",@"swizzling 3-d",nil);
+	STAssertEqualObjects([myParent action1Suffix:ZER0],@"action1Suffix:=action1Suffix:",@"swizzling 3-d'",nil);
+	STAssertEqualObjects([mySon action3Suffix:ZER0],@"action1Suffix:=action3Suffix:",@"swizzling 3-e",nil);
 	
-	STAssertEqualObjects([MySon action11Suffix:0],@"action11Suffix:=action11Suffix:",@"swizzling 4-a",nil);
-	STAssertEqualObjects([MySon action13Suffix:0],@"action13Suffix:=action13Suffix:",@"swizzling 4-b",nil);
+	STAssertEqualObjects([MySon action11Suffix:ZER0],@"action11Suffix:=action11Suffix:",@"swizzling 4-a",nil);
+	STAssertEqualObjects([MySon action13Suffix:ZER0],@"action13Suffix:=action13Suffix:",@"swizzling 4-b",nil);
 	STAssertTrue([iTM2Runtime swizzleClassMethodSelector:@selector(action11Suffix:) replacement:@selector(action13Suffix:) forClass:[MySon class] error:NULL],@"swizzling 4-c",nil);
-	STAssertEqualObjects([MySon action11Suffix:0],@"action13Suffix:=action11Suffix:",@"swizzling 4-d",nil);
-	STAssertEqualObjects([MyParent action11Suffix:0],@"action11Suffix:=action11Suffix:",@"swizzling 4-d'",nil);
-	STAssertEqualObjects([MySon action13Suffix:0],@"action11Suffix:=action13Suffix:",@"swizzling 4-e",nil);
+	STAssertEqualObjects([MySon action11Suffix:ZER0],@"action13Suffix:=action11Suffix:",@"swizzling 4-d",nil);
+	STAssertEqualObjects([MyParent action11Suffix:ZER0],@"action11Suffix:=action11Suffix:",@"swizzling 4-d'",nil);
+	STAssertEqualObjects([MySon action13Suffix:ZER0],@"action11Suffix:=action13Suffix:",@"swizzling 4-e",nil);
 }
 - (void) testCase_iTM2CommentedKeyValuePairs
 {
 	NSString * testString = @"First line\nSecond %  ! iTeXMac2 (  KEY ) :  VALUE1 line\nThird line%  ! iTeXMac2 (  KEY ) :  VaLuE-2\nAnd so on";
 	NSLog(@"testString:%@",testString);
 	NSError * error = nil;
-	ICURegEx * RE = [[ICURegEx alloc] initWithSearchPattern:@"%\\s*?!\\s*?(?i-:itexmac2)\\s*?\\(\\s*?KEY\\s*?\\)\\s*?:\\s*?(\\S+)" options:0 error:&error];
-	[RE setInputString:testString range:iTM3MakeRange(0,testString.length)];
+	ICURegEx * RE = [[ICURegEx alloc] initWithSearchPattern:@"%\\s*?!\\s*?(?i-:itexmac2)\\s*?\\(\\s*?KEY\\s*?\\)\\s*?:\\s*?(\\S+)" options:ZER0 error:&error];
+	[RE setInputString:testString range:iTM3MakeRange(ZER0,testString.length)];
 	STAssertTrue([RE nextMatch],@"Missed match 1",nil);
 	STAssertTrue([RE numberOfCaptureGroups]==1,@"Missed match 2",nil);
 	NSString * S = [RE substringOfCaptureGroupAtIndex:1];
 	NSLog(@"S:<%@>",S);
 	STAssertEqualObjects(S,@"VALUE1",@"Missed match 3",nil);
-	NSRange R = [RE rangeOfCaptureGroupAtIndex:0];
+	NSRange R = [RE rangeOfCaptureGroupAtIndex:ZER0];
 	STAssertTrue([RE nextMatchAfterIndex:R.location+1],@"Missed match 11",nil);
 	STAssertTrue([RE numberOfCaptureGroups]==1,@"Missed match 12",nil);
 	S = [RE substringOfCaptureGroupAtIndex:1];
@@ -236,8 +236,8 @@
 	NSString * testString = @"#!/usr/bin/env/lua -h \nSecond line\nThird line\nAnd so on";
 	NSLog(@"testString:%@",testString);
 	NSError * error = nil;
-	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"^#!\\S*/([^/\\s]+)" options:0 error:&error] autorelease];
-	[RE setInputString:testString range:iTM3MakeRange(0,testString.length)];
+	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"^#!\\S*/([^/\\s]+)" options:ZER0 error:&error] autorelease];
+	[RE setInputString:testString range:iTM3MakeRange(ZER0,testString.length)];
 	STAssertTrue([RE nextMatch],@"Missed match 1",nil);
 	STAssertTrue([RE numberOfCaptureGroups] == 1,@"Missed match 2",nil);
 	NSString * S = [RE substringOfCaptureGroupAtIndex:1];
@@ -245,7 +245,52 @@
 	STAssertEqualObjects(S,@"lua",@"Missed match 3",nil);
 	return;
 }
-- (void) testCase_URLsForSupportResource4iTM3;
+- (void) testCase_URLsForSupportResource4iTM3_A;
+{
+    // create a bundle form scratch
+    NSURL * U = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    NSURL * URL_B = [U URLByAppendingPathComponent:@"BUNDLE.iTM2"];
+    NSError * ROR = nil;
+    [DFM removeItemAtURL:URL_B error:&ROR];
+    STAssertFalse(([DFM fileExistsAtPath:URL_B.path]),@"MISSED",NULL);
+    NSURL * URL_C = [URL_B URLByAppendingPathComponent:@"Contents"];
+    NSURL * URL_R = [URL_C URLByAppendingPathComponent:@"Resources"];
+    [DFM createDirectoryAtPath:URL_R.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR];
+    BOOL yorn = NO;
+    STAssertTrue(([DFM fileExistsAtPath:URL_B.path isDirectory:&yorn] && yorn),@"MISSED",NULL);
+#   define NAME @"NAME"
+#   define EXT  @"EXT"
+    NSURL * URL_D = [URL_R URLByAppendingPathComponent:NAME@"."EXT];
+    NSData * D = [@"ﬁºÌ∂ÂÂ" dataUsingEncoding:NSUTF8StringEncoding];
+    ROR = nil;
+    STAssertTrue(([D writeToURL:URL_D options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+#   define SUBDIR @"COUCOU"
+    NSURL * URL_S = [URL_R URLByAppendingPathComponent:SUBDIR];
+    [DFM createDirectoryAtPath:URL_S.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR];
+    NSURL * URL_SD = [URL_S URLByAppendingPathComponent:NAME@"."EXT];
+    ROR = nil;
+    STAssertTrue(([D writeToURL:URL_SD options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    STAssertTrue(([DFM fileExistsAtPath:URL_SD.path]),@"MISSED",NULL);
+    NSBundle * B = [NSBundle bundleWithURL:URL_B];
+    NSURL * URL_x = [B URLForResource:NAME withExtension:EXT];
+    NSURL * URL_y = [B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR];
+    if (!URL_x) {
+        NSLog(@"FAILUREx");
+    }
+    if (!URL_y) {
+        NSLog(@"FAILUREx");
+    }
+    STAssertNotNil([B URLForResource:NAME withExtension:EXT],@"MISSED",NULL);
+    STAssertNotNil([B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR],@"MISSED",NULL);
+    STAssertTrue([[B URLsForResourcesWithExtension:EXT subdirectory:nil] count] == 1,@"MISSED",NULL);
+    STAssertTrue([[B URLsForResourcesWithExtension:EXT subdirectory:SUBDIR] count] == 1,@"MISSED",NULL);
+#   undef NAME
+#   undef EXT
+    return;
+}
+- (void) NOtestCase_URLsForSupportResource4iTM3;
 {
     // create a bundle form scratch
     NSBundle * MB = [NSBundle mainBundle];
@@ -253,19 +298,36 @@
     NSURL * URL_B = [U URLByAppendingPathComponent:@"BUNDLE.iTM2"];
     NSError * ROR = nil;
     [DFM removeItemAtURL:URL_B error:&ROR];
+    STAssertFalse(([DFM fileExistsAtPath:URL_B.path]),@"MISSED",NULL);
     NSURL * URL_C = [URL_B URLByAppendingPathComponent:@"Contents"];
     NSURL * URL_R = [URL_C URLByAppendingPathComponent:@"Resources"];
     [DFM createDirectoryAtPath:URL_R.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR];
+    BOOL yorn = NO;
+    STAssertTrue(([DFM fileExistsAtPath:URL_B.path isDirectory:&yorn] && yorn),@"MISSED",NULL);
 #   define NAME @"NAME"
 #   define EXT  @"EXT"
     NSURL * URL_D = [URL_R URLByAppendingPathComponent:NAME@"."EXT];
-    [[NSData data] writeToURL:URL_D options:0 error:&ROR];
+    NSData * D = [@"ﬁºÌ∂ÂÂ" dataUsingEncoding:NSUTF8StringEncoding];
+    ROR = nil;
+    STAssertTrue(([D writeToURL:URL_D options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
 #   define SUBDIR @"COUCOU"
     NSURL * URL_S = [URL_R URLByAppendingPathComponent:SUBDIR];
     [DFM createDirectoryAtPath:URL_S.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR];
     NSURL * URL_SD = [URL_S URLByAppendingPathComponent:NAME@"."EXT];
-    [[NSData data] writeToURL:URL_SD options:0 error:&ROR];
+    ROR = nil;
+    STAssertTrue(([D writeToURL:URL_SD options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    STAssertTrue(([DFM fileExistsAtPath:URL_SD.path]),@"MISSED",NULL);
     NSBundle * B = [NSBundle bundleWithURL:URL_B];
+    NSURL * URL_x = [B URLForResource:NAME withExtension:EXT];
+    NSURL * URL_y = [B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR];
+    if (!URL_x) {
+        NSLog(@"FAILUREx");
+    }
+    if (!URL_y) {
+        NSLog(@"FAILUREx");
+    }
     STAssertNotNil([B URLForResource:NAME withExtension:EXT],@"MISSED",NULL);
     STAssertNotNil([B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR],@"MISSED",NULL);
     STAssertTrue([[B URLsForResourcesWithExtension:EXT subdirectory:nil] count] == 1,@"MISSED",NULL);
@@ -275,6 +337,7 @@
     RA = [MB URLsForSupportResource4iTM3:NAME withExtension:EXT subdirectory:SUBDIR];
 	STAssertTrue(RA.count == 1 && [RA.lastObject isEqualToFileURL4iTM3:URL_SD],@"MISSED",nil);
     [DFM removeItemAtURL:URL_B error:&ROR];
+    STAssertFalse(([DFM fileExistsAtPath:URL_B.path]),@"MISSED",NULL);
 #   undef NAME
 #   undef EXT
     return;
@@ -471,6 +534,58 @@
     STAssertEqualObjects([RE substringOfCaptureGroupWithName:iTM2RegExpURLQueryName], @"que;ry",@"MISSED",NULL);
     STAssertEqualObjects([RE substringOfCaptureGroupWithName:iTM2RegExpURLFragmentName], @"frag/me?nt",@"MISSED",NULL);
     #endif
+    return;
+}
+- (void) testCase_URLXtdAttributes
+{
+    NSString * path = [[NSProcessInfo processInfo] globallyUniqueString];
+    path = [NSTemporaryDirectory() stringByAppendingPathComponent:path];
+    NSURL * URL = [NSURL fileURLWithPath:path];
+    NSError * ROR = nil;
+    NSArray * RA = [URL getXtdAttributeNames4iTM3WithOptions:ZER0 error:&ROR];
+    STAssertNil(RA,@"MISSED",NULL);
+    STAssertNotNil(ROR,@"MISSED",NULL);
+    ROR = nil;
+    STAssertTrue(([[NSFileManager defaultManager] createDirectoryAtPath:path.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR]),@"MISSED",NULL);
+    NSString * aName = @"Attribute.name";
+    NSData * aValue = [@"coucou" dataUsingEncoding:NSUTF8StringEncoding];
+    STAssertFalse(([URL setXtdAttribute4iTM3:aValue forName:aName options:ZER0 error:&ROR]),@"MISSED",NULL);
+    NSFileWrapper * FW = [[NSFileWrapper alloc] initRegularFileWithContents:aValue];
+    STAssertTrue(([FW writeToURL:URL options:ZER0 originalContentsURL:nil error:&ROR]),@"MISSED",NULL);
+    RA = [URL getXtdAttributeNames4iTM3WithOptions:ZER0 error:&ROR];
+    STAssertNotNil(RA,@"MISSED",NULL);
+    STAssertTrue((RA.count==ZER0),@"MISSED",NULL);
+    STAssertNotNil(ROR,@"MISSED",NULL);
+    ROR = nil;
+    STAssertTrue(([URL setXtdAttribute4iTM3:aValue forName:aName options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    RA = [URL getXtdAttributeNames4iTM3WithOptions:ZER0 error:&ROR];
+    STAssertNotNil(RA,@"MISSED",NULL);
+    STAssertTrue((RA.count==1),@"MISSED",NULL);
+    STAssertEqualObjects(RA.lastObject,aName,@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    STAssertEqualObjects(aValue,([URL getXtdAttribute4iTM3ForName:aName options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    aValue = [@"coucou rou coucou" dataUsingEncoding:NSUTF8StringEncoding];
+    STAssertTrue(([URL setXtdAttribute4iTM3:aValue forName:aName options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    RA = [URL getXtdAttributeNames4iTM3WithOptions:ZER0 error:&ROR];
+    STAssertNotNil(RA,@"MISSED",NULL);
+    STAssertTrue((RA.count==1),@"MISSED",NULL);
+    STAssertEqualObjects(RA.lastObject,aName,@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    STAssertEqualObjects(aValue,([URL getXtdAttribute4iTM3ForName:aName options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    STAssertFalse(([URL removeXtdAttribute4iTM3ForName:@"" options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNotNil(ROR,@"MISSED",NULL);
+    ROR = nil;
+    STAssertTrue(([URL removeXtdAttribute4iTM3ForName:aName options:ZER0 error:&ROR]),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    RA = [URL getXtdAttributeNames4iTM3WithOptions:ZER0 error:&ROR];
+    STAssertNotNil(RA,@"MISSED",NULL);
+    STAssertTrue((RA.count==ZER0),@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    
     return;
 }
 @end

@@ -122,7 +122,7 @@ To Do List:
         NSMenu * backMenu = self.backMenu;
         NSMenu * forwardMenu = self.forwardMenu;
 
-        if (oldPage && (OP>=0) && (OP != NP))
+        if (oldPage && (OP>=ZER0) && (OP != NP))
         {
             NSInteger OPIndex;
             
@@ -130,50 +130,50 @@ To Do List:
             {
                 // jump to the correct item in the forward menu
                 [[backMenu insertItemWithTitle:[[NSNumber numberWithInteger:OP] stringValue]
-                    action: @selector(displayPageFromItem:) keyEquivalent: @"" atIndex: 0] setTag: OP];
-                while(OPIndex>0)
+                    action: @selector(displayPageFromItem:) keyEquivalent: @"" atIndex: ZER0] setTag: OP];
+                while(OPIndex>ZER0)
                 {
-                    NSMenuItem * MI = [[[forwardMenu itemAtIndex:0] retain] autorelease];
-                    [forwardMenu removeItemAtIndex:0];
+                    NSMenuItem * MI = [[[forwardMenu itemAtIndex:ZER0] retain] autorelease];
+                    [forwardMenu removeItemAtIndex:ZER0];
                     // Do not insert successive menu items with the same tag
-                    if ([[backMenu itemAtIndex:0] tag]!=MI.tag)
-                        [backMenu insertItem:MI atIndex:0];
+                    if ([[backMenu itemAtIndex:ZER0] tag]!=MI.tag)
+                        [backMenu insertItem:MI atIndex:ZER0];
                     --OPIndex;
                 }
-                [forwardMenu removeItemAtIndex:0];
+                [forwardMenu removeItemAtIndex:ZER0];
             }
             else if ((OPIndex = [backMenu indexOfItemWithTag:NP]) > -1)
             {
                 [[forwardMenu insertItemWithTitle:[[NSNumber numberWithInteger:OP] stringValue]
-                    action: @selector(displayPageFromItem:) keyEquivalent: @"" atIndex: 0] setTag: OP];
+                    action: @selector(displayPageFromItem:) keyEquivalent: @"" atIndex: ZER0] setTag: OP];
                 // jump to the correct item in the back menu
-                while(OPIndex>0)
+                while(OPIndex>ZER0)
                 {
-                    NSMenuItem * MI = [[[backMenu itemAtIndex:0] retain] autorelease];
-                    [backMenu removeItemAtIndex:0];
+                    NSMenuItem * MI = [[[backMenu itemAtIndex:ZER0] retain] autorelease];
+                    [backMenu removeItemAtIndex:ZER0];
                     // Do not insert successive menu items with the same tag
-                    if ([forwardMenu numberOfItems] == 0 || ([[forwardMenu itemAtIndex:0] tag]!=MI.tag))
-                        [forwardMenu insertItem:MI atIndex:0];
+                    if ([forwardMenu numberOfItems] == ZER0 || ([[forwardMenu itemAtIndex:ZER0] tag]!=MI.tag))
+                        [forwardMenu insertItem:MI atIndex:ZER0];
                         --OPIndex;
                 }
-                [backMenu removeItemAtIndex:0];
+                [backMenu removeItemAtIndex:ZER0];
             }
             else
             {
                 // remove all forward items
-                while([forwardMenu numberOfItems]>0)
-                    [forwardMenu removeItemAtIndex:0];
+                while([forwardMenu numberOfItems]>ZER0)
+                    [forwardMenu removeItemAtIndex:ZER0];
                 [[backMenu insertItemWithTitle:[[NSNumber numberWithInteger:OP] stringValue]
-                    action: @selector(displayPageFromItem:) keyEquivalent: @"" atIndex: 0] setTag: OP];
+                    action: @selector(displayPageFromItem:) keyEquivalent: @"" atIndex: ZER0] setTag: OP];
             }
         }
         NSInteger MP = [pageCount integerValue];
         NSInteger index = [self.backMenu numberOfItems];
-        while(index-- > 0)
+        while(index-- > ZER0)
             if ([[self.backMenu itemAtIndex:index] tag] > MP)
                 [self.backMenu removeItemAtIndex:index];
         index = [self.forwardMenu numberOfItems];
-        while(index-- > 0)
+        while(index-- > ZER0)
             if ([[self.forwardMenu itemAtIndex:index] tag] > MP)
                 [self.forwardMenu removeItemAtIndex:index];
     }
@@ -302,7 +302,7 @@ To Do List:
         {
             BOOL removeFlag=NO;
             NSInteger index;
-            for (index=0; index<aToolbar.items.count; ++index) {
+            for (index=ZER0; index<aToolbar.items.count; ++index) {
                 if ([[[aToolbar.items objectAtIndex:index] itemIdentifier] isEqualToString:__LastNavigationITII]) {
                     removeFlag=YES;
                     break;
@@ -420,7 +420,7 @@ SET(previousSet, buttonFirst, buttonPreviousPrevious, buttonPrevious);
     NSButton * button = self.one;\
     id result = [[iTM2FlagsChangedView alloc] initWithFrame:button.frame];\
     [result addSubview:button];\
-    button.tag = 0;\
+    button.tag = ZER0;\
     button = self.two;\
     [result addSubview:button];\
     [button setTag:[result tagFromMask:NSShiftKeyMask]];\

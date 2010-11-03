@@ -911,7 +911,7 @@ Quite nice, isn't it?
 	NSView * subview;
     NSInteger tag, partialTag;
 	// finding the first index of the view with a partial tag 0
-    NSInteger idx = 0;
+    NSInteger idx = ZER0;
 	if (idx < self.subviews.count) {
 loop1:
 		subview = [self.subviews objectAtIndex:idx];
@@ -923,11 +923,11 @@ loop2:
 			} else if (++idx < self.subviews.count) {
 				goto loop1;
 			} else {
-				for (partialTag=0; partialTag<16; ++partialTag)
-					iVarIndexFromTag4iTM3[partialTag] = 0;
+				for (partialTag=ZER0; partialTag<16; ++partialTag)
+					iVarIndexFromTag4iTM3[partialTag] = ZER0;
 			}
 		} else {
-			for (partialTag=0; partialTag<16; ++partialTag)
+			for (partialTag=ZER0; partialTag<16; ++partialTag)
 				iVarIndexFromTag4iTM3[partialTag] = idx;
 		}
 	} else {
@@ -935,7 +935,7 @@ loop2:
 	}
 
     NSMutableArray * frames = [NSMutableArray array];
-	idx = 0;
+	idx = ZER0;
 loop3:
 	subview = [self.subviews objectAtIndex:idx];
 	[frames addObject:[NSValue valueWithRect:subview.frame]];
@@ -956,8 +956,8 @@ loop3:
 	for (subview in self.subviews) {
 		[subview setFrameOrigin: NSMakePoint(10000, 10000)];
     }
-	[self moveCloserSubviewAtIndex:iVarIndexFromTag4iTM3[0]];
-	iVarVisibleSubviewIndex4iTM3 = iVarIndexFromTag4iTM3[0];
+	[self moveCloserSubviewAtIndex:iVarIndexFromTag4iTM3[ZER0]];
+	iVarVisibleSubviewIndex4iTM3 = iVarIndexFromTag4iTM3[ZER0];
 	// observing the notification
     [INC addObserver:self
             selector: @selector(flagsDidChangeNotified:)
@@ -994,7 +994,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSInteger idx;
-	for(idx = 0; idx < self.subviews.count; ++idx)
+	for(idx = ZER0; idx < self.subviews.count; ++idx)
 		[self moveCloserSubviewAtIndex:idx];
 	[super encodeWithCoder:aCoder];
 	[aCoder encodeValueOfObjCType:@encode(NSUInteger) at:&iVarVisibleSubviewIndex4iTM3];
@@ -1042,14 +1042,14 @@ Version History: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-    NSUInteger result = 0;
-    result += aMask & NSCommandKeyMask ? 1: 0;
+    NSUInteger result = ZER0;
+    result += aMask & NSCommandKeyMask ? 1: ZER0;
     result <<=1;
-    result += aMask & NSAlternateKeyMask ? 1: 0;
+    result += aMask & NSAlternateKeyMask ? 1: ZER0;
     result <<=1;
-    result += aMask & NSControlKeyMask ? 1: 0;
+    result += aMask & NSControlKeyMask ? 1: ZER0;
     result <<=1;
-    result += aMask & NSShiftKeyMask ? 1: 0;
+    result += aMask & NSShiftKeyMask ? 1: ZER0;
 //NSLog(@"tagFromMask: %d -> %d", aMask, result);
     return result;
 }
@@ -1239,7 +1239,7 @@ To Do List:
 			[self didRemoveSplittingView:view];
 			if ((self.window == self.window.firstResponder) || (nil == self.window.firstResponder))
 			{
-				FR = [[ESV subviews] objectAtIndex:(idx>0? idx-1:idx)];
+				FR = [[ESV subviews] objectAtIndex:(idx>ZER0? idx-1:idx)];
 				if ([FR acceptsFirstResponder])
 				{
 					[self.window makeFirstResponder:FR];
@@ -1258,7 +1258,7 @@ To Do List:
 			[self didRemoveSplittingView:ESV];
 			if ((self.window == self.window.firstResponder) || (nil == self.window.firstResponder))
 			{
-				FR = [[ESV subviews] objectAtIndex:(idx>0? idx-1:idx)];
+				FR = [[ESV subviews] objectAtIndex:(idx>ZER0? idx-1:idx)];
 				if ([FR acceptsFirstResponder])
 				{
 					[self.window makeFirstResponder:FR];
@@ -1707,7 +1707,7 @@ To Do List:
 		NSView * V;
 		if (index == NSNotFound)
 		{
-			index = 0;
+			index = ZER0;
 		}
 		else if (index)
 		{

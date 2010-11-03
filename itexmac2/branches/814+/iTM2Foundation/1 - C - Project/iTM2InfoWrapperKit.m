@@ -213,7 +213,7 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 		case  NSChangeDone: ++self.changeCount;return;
 		case  NSChangeUndone: --self.changeCount;return;
 		case  NSChangeCleared:
-		default: self.changeCount = 0;return;
+		default: self.changeCount = ZER0;return;
 	}
 }
 - (id)infoForKeys:(NSArray *)keys;
@@ -363,7 +363,7 @@ const char * iTM2InfoWrapper_get_prefix = "infoForPaths:";
 	// the 
 	size_t size = 4;//"c@:@" for the setter or "@@:@" for the getter
 	char * signature = NULL;
-	if (0 == strncmp(sel_name,iTM2InfoWrapper_set_prefix,strlen(iTM2InfoWrapper_set_prefix)))
+	if (ZER0 == strncmp(sel_name,iTM2InfoWrapper_set_prefix,strlen(iTM2InfoWrapper_set_prefix)))
 	{
 		sel_name += strlen(iTM2InfoWrapper_set_prefix);
 		while(*sel_name == ':')// each time a new ':' appears, a new object argument is required
@@ -371,10 +371,10 @@ const char * iTM2InfoWrapper_get_prefix = "infoForPaths:";
 			++sel_name;
 			++size;
 		}
-		if ((*sel_name == '\0')&&(signature = NSAllocateCollectable(size+1,0)))// + termination
+		if ((*sel_name == '\0')&&(signature = NSAllocateCollectable(size+1,ZER0)))// + termination
 		{
 			memset(signature+1,'@',size-1);
-			signature[0]='c';
+			signature[ZER0]='c';
 finish:
 			signature[size]='\0';
 			signature[2]=':';
@@ -382,7 +382,7 @@ finish:
 			return result;
 		}
 	}
-	else if (0 == strncmp(sel_name,iTM2InfoWrapper_get_prefix,strlen(iTM2InfoWrapper_get_prefix)))
+	else if (ZER0 == strncmp(sel_name,iTM2InfoWrapper_get_prefix,strlen(iTM2InfoWrapper_get_prefix)))
 	{
 		sel_name += strlen(iTM2InfoWrapper_get_prefix);
 		while(*sel_name == ':')
@@ -390,7 +390,7 @@ finish:
 			++sel_name;
 			++size;
 		}
-		if ((*sel_name == '\0')&&(signature = NSAllocateCollectable(size+1,0)))
+		if ((*sel_name == '\0')&&(signature = NSAllocateCollectable(size+1,ZER0)))
 		{
 			memset(signature,'@',size);
 			goto finish;
@@ -721,7 +721,7 @@ To Do List:
 	} else if ([key isEqual:TWSFactoryKey]) {
 		if (url = [PD factoryURL]) return url;
 		name = [self nameForFileKey:key];
-		return name.length?[NSURL URLWithPath4iTM3:name relativeToURL:projectURL]:projectURL;// we should always have name.length>0
+		return name.length?[NSURL URLWithPath4iTM3:name relativeToURL:projectURL]:projectURL;// we should always have name.length>ZER0
 	} else if ([SPC isReservedFileKey:key]) {
 		return nil;
 	} else if (key.length) {
@@ -908,7 +908,7 @@ To Do List:
 	for (key in keyedNames.keyEnumerator) {
 		[set addIndex:key.integerValue];
 	}
-	NSUInteger last = 0;
+	NSUInteger last = ZER0;
 	if (key = [keyedNames objectForKey:iTM2ProjectLastKeyKey]) {
 		[set addIndex:[key integerValue]];
 		last = [set lastIndex];

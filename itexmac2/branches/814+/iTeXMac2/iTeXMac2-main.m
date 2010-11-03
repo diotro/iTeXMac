@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-	NSLog(@"This is %s speaking... soon entering main", argv[0]);
+	NSLog(@"This is %s speaking... soon entering main", argv[ZER0]);
     return NSApplicationMain(argc, (const char **) argv);
 }
 
@@ -198,7 +198,7 @@ To Do List:
 	NSInteger frequency = [SUD integerForKey:SUScheduledCheckIntervalKey4iTM3];
 	if (frequency<2) {
 		[SUD setInteger:1 forKey:SUScheduledCheckIntervalKey4iTM3];
-		return 0;
+		return ZER0;
 	}
 	if (frequency<86401) {
 		[SUD setInteger:86400 forKey:SUScheduledCheckIntervalKey4iTM3];

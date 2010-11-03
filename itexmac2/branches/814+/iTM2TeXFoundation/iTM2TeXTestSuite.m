@@ -15,7 +15,7 @@
 
 - (void)testTEST1;
 {
-//	STAssertTrue([[SPC TeXBaseProjectsProperties] count]>0, @"There must be some base projects");
+//	STAssertTrue([[SPC TeXBaseProjectsProperties] count]>ZER0, @"There must be some base projects");
 	NSLog(@"This is perfectly OK");
 }
 @end

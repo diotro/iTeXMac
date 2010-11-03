@@ -32,7 +32,7 @@ typedef struct
 		return nil;
 	}
 	// then get private implementation
-	iTM2LuaInterpreter_Implementation * imp = NSAllocateCollectable(sizeof(iTM2LuaInterpreter_Implementation *),0);// Collected
+	iTM2LuaInterpreter_Implementation * imp = NSAllocateCollectable(sizeof(iTM2LuaInterpreter_Implementation *),ZER0);// Collected
 	if (!imp)
 	{
 		return nil;
@@ -87,7 +87,7 @@ typedef struct
 	@try
 	{
 		NSRange subRange;
-		NSRange searchRange = iTM3MakeRange(0,0);
+		NSRange searchRange = iTM3MakeRange(ZER0,ZER0);
 		NSUInteger contentsEnd;
 		while(searchRange.location<luaScript.length)
 		{

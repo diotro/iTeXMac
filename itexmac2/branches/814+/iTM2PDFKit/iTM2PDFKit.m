@@ -245,7 +245,7 @@ To Do List:
 //START4iTM3;
 	if(outErrorPtr)
 		*outErrorPtr = nil;
-	NSData * D = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
+	NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
 //END4iTM3;
 	if ([self loadDataRepresentation:D ofType:type]) {
 		self.PDFDocumentStatus = iTM2PDFDocumentPendingStatus;
@@ -278,7 +278,7 @@ To Do List:
 //START4iTM3;
     NSString * sourceBefore = @"";
     NSString * sourceAfter = @"";
-    NSUInteger line = 0;
+    NSUInteger line = ZER0;
     NSUInteger column = -1;
 	NSUInteger length = 1;
 	NSURL * url = nil;
@@ -336,7 +336,7 @@ To Do List:
 			}
 		}
 		if ([document isKindOfClass:[iTM2TextDocument class]]) {
-			NSUInteger testLine = 0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
+			NSUInteger testLine = ZER0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
 			NSUInteger testMatch = [document getLine:&testLine column:&testColumn length:&testLength forHint:hint];
 			if (testMatch<matchLevel) {
 				matchLevel = testMatch;
@@ -354,7 +354,7 @@ To Do List:
 	url = [self.fileURL.URLByDeletingPathExtension URLByAppendingPathExtension:@"tex"];
 	matchDocument = [SDC openDocumentWithContentsOfURL:url display:NO error:nil];
 	if ([matchDocument isKindOfClass:[iTM2TextDocument class]]) {
-		NSUInteger testLine = 0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
+		NSUInteger testLine = ZER0, testColumn = -1, testLength = 1;// THESE MUST BE INITIALIZED THAT WAY
 		[matchDocument getLine:&testLine column:&testColumn length:&testLength forHint:hint];
 		d = [NSDictionary dictionaryWithObjectsAndKeys:
 			url,@"current source URL",
@@ -476,8 +476,8 @@ To Do List:
 				PDFDocument * doc = [[PDFDocument alloc] initWithURL:url];
 				if (doc.pageCount) {
 					[MRA addObject:component];
-					PDFPage * P = [doc pageAtIndex:0];
-					[doc removePageAtIndex:0];
+					PDFPage * P = [doc pageAtIndex:ZER0];
+					[doc removePageAtIndex:ZER0];
 //LOG4iTM3(@"P.document is:%@", P.document);
 					[self insertPage:P atIndex:self.pageCount];
 //LOG4iTM3(@"P.document is:%@", P.document);
@@ -490,7 +490,7 @@ To Do List:
 			[__OrderedFileNames setArray:MRA];
 			if(NO && __OrderedFileNames.count)
 				while(oldCount--)
-					[self removePageAtIndex:0];
+					[self removePageAtIndex:ZER0];
 		}
 	}
 //END4iTM3;
@@ -675,7 +675,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"Setting up the pdf inspector:0");
+//LOG4iTM3(@"Setting up the pdf inspector:ZER0");
 	NSAssert(_pdfTabView, @"Missing _pdfTabView connection...");
 	NSAssert(_tabViewControl, @"Missing _tabViewControl connection...");
 	[DNC addObserver:self selector:@selector(PDFViewPageChangedNotified:)  name:PDFViewPageChangedNotification  object:self.pdfView];
@@ -685,7 +685,7 @@ To Do List:
 	[self setPDFOutlines:nil];
 	_outlinesView.target = self;
 	_outlinesView.action = @selector(takeDestinationFromSelectedItemRepresentedObject:);
-	[_tabViewControl setEnabled:([self.PDFOutlines countOfChildren]>0) forSegment:1];
+	[_tabViewControl setEnabled:([self.PDFOutlines countOfChildren]>ZER0) forSegment:1];
 //LOG4iTM3(@"Setting up the pdf inspector:2");
 	// thumbnails
 	[self.PDFThumbnails setArray:[NSArray array]];
@@ -905,12 +905,12 @@ To Do List:
 	NSString * identifier = _pdfTabView.selectedTabViewItem.identifier;
 	if ([identifier isEqual:@"1"]) {
 		self.updateThumbnailTable;
-		[_tabViewControl setSelected:YES forSegment:0];
+		[_tabViewControl setSelected:YES forSegment:ZER0];
 	} else if([identifier isEqual:@"2"]) {
 		self.updateOutlineTable;
 		[_tabViewControl setSelected:YES forSegment:1];
 	} else {
-		[_tabViewControl setSelected:NO forSegment:0];
+		[_tabViewControl setSelected:NO forSegment:ZER0];
 		[_tabViewControl setSelected:NO forSegment:1];
 		self.updateSearchTable;
 	}
@@ -1132,7 +1132,7 @@ To Do List:
 	if (!selectionPages.count) {
 		return;
 	}
-	PDFPage * page = [selectionPages objectAtIndex:0];
+	PDFPage * page = [selectionPages objectAtIndex:ZER0];
 	NSUInteger physicalPageIndex = [page.document indexForPage:page] + 1;
 	NSString * label = page.label;
 	NSUInteger logicalPageIndex = [label integerValue];
@@ -1169,7 +1169,7 @@ To Do List:
 		// Handle found first search result.
 		if (count == 1) {
 			// Select first item (search result) in table view.
-			[_searchTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+			[_searchTable selectRowIndexes:[NSIndexSet indexSetWithIndex:ZER0] byExtendingSelection:NO];
 		}
 	}
 //END4iTM3;
@@ -1232,7 +1232,7 @@ To Do List:
 	[sample setString:[NSString stringWithCharacters:&ellipse length:1]];
 	
 	// Keep all characters except <LF>.
-	for (i = 0; i < count; i++)
+	for (i = ZER0; i < count; i++)
 	{
 		unichar		oneChar;
 		
@@ -1250,7 +1250,7 @@ To Do List:
  	attributedSample = [[NSMutableAttributedString alloc] initWithString:sample];
 	
 	// Find instances of search string and "bold" them.
-	searchRange.location = 0;
+	searchRange.location = ZER0;
 	searchRange.length = sample.length;
 	do
 	{
@@ -1277,7 +1277,7 @@ To Do List:
 	
 	// Add paragraph style.
     [attributedSample addAttributes:[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-			paragraphStyle, NSParagraphStyleAttributeName, NULL] range:iTM3MakeRange(0, attributedSample.length)];
+			paragraphStyle, NSParagraphStyleAttributeName, NULL] range:iTM3MakeRange(ZER0, attributedSample.length)];
 	
 	// Clean.
 	[paragraphStyle release];
@@ -1349,7 +1349,7 @@ To Do List:
 //END4iTM3;
 	NSTableView * TV = (NSTableView *)[notification object];
     NSInteger rowIndex = TV.selectedRow;
-    if (rowIndex >= 0) {
+    if (rowIndex >= ZER0) {
 		PDFView * V = self.pdfView;
 		if (TV == _searchTable) {
 			NSArray * results = self.PDFSearchResults;
@@ -1447,7 +1447,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self outlineView:(NSOutlineView *) outlineView numberOfChildrenOfItem:(id) item] > 0;
+    return [self outlineView:(NSOutlineView *) outlineView numberOfChildrenOfItem:(id) item] > ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  outlineView:objectValueForTableColumn:byItem:
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
@@ -1516,7 +1516,7 @@ To Do List:
 		PDFOutline * OLR = self.pdfView.document.outlineRoot;
 		[self setPDFOutlines:[[[iTM2TreeNode alloc] initWithParent:nil value:OLR] autorelease]];
 		[self.PDFOutlines setCountOfChildren:OLR.numberOfChildren];
-		[_tabViewControl setEnabled:([self.PDFOutlines countOfChildren]>0) forSegment:1];
+		[_tabViewControl setEnabled:([self.PDFOutlines countOfChildren]>ZER0) forSegment:1];
 	}
 	[_outlinesView reloadData];
 //END4iTM3;
@@ -1803,7 +1803,7 @@ LOG4iTM3(@"view      scale:%f",.);
 			[docView scrollRectToVisible:visibleRect];
 			[V display];
 			[self.window enableFlushWindow];
-			[NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(timedSynchronizeDocumentView:) userInfo:[NSValue valueWithRect:visibleRect] repeats:NO];
+			[NSTimer scheduledTimerWithTimeInterval:ZER0 target:self selector:@selector(timedSynchronizeDocumentView:) userInfo:[NSValue valueWithRect:visibleRect] repeats:NO];
 		}
 	}
 	else
@@ -1985,7 +1985,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 - (CGFloat)scaleFactor;
 {
 	CGFloat result = [GETTER floatValue];
-	return result>0?result:1.0;
+	return result>ZER0?result:1.0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setScaleFactor:
 - (void)setScaleFactor:(CGFloat)argument;
@@ -2111,7 +2111,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayFocus
 - (BOOL)displayFocus;
 {
-	return (self.displayBullets&kiTM2PDFSYNCDisplayFocusBullets)>0;
+	return (self.displayBullets&kiTM2PDFSYNCDisplayFocusBullets)>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayFocus:
 - (void)setDisplayFocus:(BOOL)yorn;
@@ -2126,7 +2126,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayUserBullets
 - (BOOL)displayUserBullets;
 {
-	return (self.displayBullets&kiTM2PDFSYNCDisplayUserBullets)>0;
+	return (self.displayBullets&kiTM2PDFSYNCDisplayUserBullets)>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayUserBullets:
 - (void)setDisplayUserBullets:(BOOL)yorn;
@@ -2141,7 +2141,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBuiltInBullets
 - (BOOL)displayBuiltInBullets;
 {
-	return (self.displayBullets&kiTM2PDFSYNCDisplayBuiltInBullets)>0;
+	return (self.displayBullets&kiTM2PDFSYNCDisplayBuiltInBullets)>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayBuiltInBullets:
 - (void)setDisplayBuiltInBullets:(BOOL)yorn;
@@ -2295,7 +2295,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"Setting up the toolbar:0");
+//LOG4iTM3(@"Setting up the toolbar:ZER0");
 	NSAssert(_toolbarBackForwardView, @"Missing _toolbarBackForwardView connection...");
 	NSSegmentedCell * segmentedCell = _toolbarBackForwardView.cell;
 	segmentedCell.action = @selector(goBackForward:);
@@ -2715,7 +2715,7 @@ To Do List:
 //START4iTM3;
     NSUInteger n = (NSUInteger)sender.integerValue;
 	if(n<1)
-		n = 0;
+		n = ZER0;
 	else
 		--n;
 	PDFPage * page = self.pdfView.currentPage;
@@ -2774,7 +2774,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 START4iTM3;
-    self.pdfView.scaleFactor = sender.floatValue>0?sender.floatValue:1;
+    self.pdfView.scaleFactor = sender.floatValue>ZER0?sender.floatValue:1;
 	self.validateWindowContent4iTM3;
 END4iTM3;
     return;
@@ -2843,10 +2843,10 @@ To Do List:
 		return YES;
 	BOOL isEnabled = NO;
 	if([self.pdfView canGoBack]) {
-		[sender setEnabled:YES forSegment:0];
+		[sender setEnabled:YES forSegment:ZER0];
 		isEnabled = YES;
 	} else {
-		[sender setEnabled:NO forSegment:0];
+		[sender setEnabled:NO forSegment:ZER0];
     }
 	if([self.pdfView canGoForward]) {
 		[sender setEnabled:YES forSegment:1];
@@ -2953,7 +2953,7 @@ To Do List:
 		return;
 	}
 	N = [cd objectForKey:@"DisplayBullets"];
-	NSUInteger displayBulletsMode = [N respondsToSelector:@selector(unsignedIntegerValue)]? N.unsignedIntegerValue:0;
+	NSUInteger displayBulletsMode = [N respondsToSelector:@selector(unsignedIntegerValue)]? N.unsignedIntegerValue:ZER0;
 	if ((displayBulletsMode & kiTM2PDFSYNCDisplayFocusBullets)) {
 		NSRect inRect = NSZeroRect;
 		NSImage * syncDimple = [NSImage imageNERedArrow4iTM3];
@@ -3242,18 +3242,18 @@ To Do List:
 			inRect.size.height = inRect.size.width;
 			NSPoint origin = NSMakePoint(-inRect.size.width/2, -inRect.size.height/2);
 			BOOL testForCharacter = YES;
-			[theShadow setShadowOffset:NSMakeSize(0,-inRect.size.height*0.25)]; 
+			[theShadow setShadowOffset:NSMakeSize(ZER0,-inRect.size.height*0.25)]; 
 			[theShadow setShadowBlurRadius:inRect.size.height*0.15]; 
 			[NSGraphicsContext saveGraphicsState]; 
 			[theShadow set];
 			N = [cd objectForKey:@"DisplayBullets"];
-			displayBulletsMode = [N respondsToSelector:@selector(unsignedIntegerValue)]? N.unsignedIntegerValue:0;
+			displayBulletsMode = [N respondsToSelector:@selector(unsignedIntegerValue)]? N.unsignedIntegerValue:ZER0;
 			SLs = (NSMutableDictionary *)[syncer synchronizationLocationsForPageIndex:pageIndex];
 //				[starDimple setScalesWhenResized:YES];
 			for (V in SLs.objectEnumerator) {
 				[V getValue:&locationRecord];
 				NSPoint P = NSMakePoint(locationRecord.x, locationRecord.y);
-				if (testForCharacter && !locationRecord.plus && ([page characterIndexNearPoint4iTM3:P]<0)) {
+				if (testForCharacter && !locationRecord.plus && ([page characterIndexNearPoint4iTM3:P]<ZER0)) {
 					// don't draw;
 //LOG4iTM3(@"$$$$  This point does not seem to point to a character:%@", NSStringFromPoint(P));
 					goto nextWhile;
@@ -3457,11 +3457,11 @@ To Do List:
 //START4iTM3;
 	NSUInteger modifierFlags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
 	NSView * documentView = self.documentView;
-	if(NSIsEmptyRect([documentView bounds]) || ([theEvent clickCount] != 1) || (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask) == 0))
+	if(NSIsEmptyRect([documentView bounds]) || ([theEvent clickCount] != 1) || (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask) == ZER0))
 	{
 		return NO;
 	}
-	[NSEvent startPeriodicEventsAfterDelay:0 withPeriod:0.1];/* Force a refresh */
+	[NSEvent startPeriodicEventsAfterDelay:ZER0 withPeriod:0.1];/* Force a refresh */
 	NSView * rootView = [[[NSView alloc] initWithFrame:self.frame] autorelease];
 	[self.superview replaceSubview:self with:rootView];
 	[rootView addSubview:self];
@@ -3525,14 +3525,14 @@ next:
 	}
 	if(NSMinX(R1)<NSMinX(boundsInWindow)) {
 		R1.origin.x=NSMinX(boundsInWindow);
-		R1.size.width += MIN(0,NSWidth(boundsInWindow)-NSWidth(R1));
+		R1.size.width += MIN(ZER0,NSWidth(boundsInWindow)-NSWidth(R1));
 	}
 	if(NSMaxY(R1)>NSMaxY(boundsInWindow)) {
 		R1.origin.y-=NSMaxY(R1)-NSMaxY(boundsInWindow);
 	}
 	if(NSMinY(R1)<NSMinY(boundsInWindow)) {
 		R1.origin.y=NSMinY(boundsInWindow);
-		R1.size.height += MIN(0,NSHeight(boundsInWindow)-NSHeight(R1));
+		R1.size.height += MIN(ZER0,NSHeight(boundsInWindow)-NSHeight(R1));
 	}
 	R1 = [rootView convertRect:R1 fromView:nil];
 	R2 = NSInsetRect(R1,-10,-10);
@@ -3689,20 +3689,20 @@ To Do List:
 	NSLock * L = [[[NSLock alloc] init] autorelease];
 	L.lock;
 	NSInteger pageCount = self.pageCount;
-    // __PageCharacterCounts[0] is the total number of pages, in other words pageCount
+    // __PageCharacterCounts[ZER0] is the total number of pages, in other words pageCount
     // __PageCharacterCounts[1] is the total amount of characters in page 1
     // __PageCharacterCounts[2] is the total amount of characters in pages 1 and 2
-    // __PageCharacterCounts[i] is the total amount of characters in the i leading pages, from index 0 to i-1
+    // __PageCharacterCounts[i] is the total amount of characters in the i leading pages, from index ZER0 to i-1
     // __PageCharacterCounts[pageCount] is also the total amount of characters in that document.
     // __PageCharacterCounts[pageCount+1] is the last page index for which the character count is valid.
     // this last index can have the value pageCount at most
     // The size of __PageCharacterCounts is pageCount+2
 	if (__PageCharacterCounts = NSAllocateCollectable(sizeof(NSUInteger),pageCount+2)) {
-		__PageCharacterCounts[pageCount + 1] = 0;
-		__PageCharacterCounts[0] = pageCount;
+		__PageCharacterCounts[pageCount + 1] = ZER0;
+		__PageCharacterCounts[ZER0] = pageCount;
 		L.unlock;
-		NSUInteger pageOff7 = 0;
-		NSUInteger pageIndex = 0;
+		NSUInteger pageOff7 = ZER0;
+		NSUInteger pageIndex = ZER0;
         while (pageIndex < pageCount) {
             PDFPage * page = [self pageAtIndex:pageIndex];
             NSUInteger NOC = [page numberOfCharacters];
@@ -3720,7 +3720,7 @@ To Do List:
 		// it is for safety reasons due to multi threading, this whole method can take time
 		// because the PDFKit has to parse the whole pdf file before it known the real offsets
 		if (iTM2DebugEnabled) {
-			pageIndex = 0;
+			pageIndex = ZER0;
 			LOG4iTM3(@"<-><-><->  Number of pages(%u) is:%u", pageIndex, __PageCharacterCounts[pageIndex]);
 			++pageCount;
 			while (++pageIndex<pageCount) {
@@ -3748,7 +3748,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.__SetupPageStringOffsets;
-	NSUInteger pageCount = __PageCharacterCounts[0];
+	NSUInteger pageCount = __PageCharacterCounts[ZER0];
     if (pageCount) {
         //  very simple loop, no dichotomy
         NSUInteger min = 1;
@@ -3771,13 +3771,13 @@ To Do List:
 //START4iTM3;
     if (pageIndex) {
         self.__SetupPageStringOffsets;
-        NSUInteger pageCount = __PageCharacterCounts[0];
+        NSUInteger pageCount = __PageCharacterCounts[ZER0];
         // what is the max valid offset?
         NSUInteger maxValidIndex = __PageCharacterCounts[pageCount+1];
 //END4iTM3;
         return pageIndex <= maxValidIndex? __PageCharacterCounts[pageIndex]:NSNotFound;
     }
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionOfWord:options:range:
 - (iTM2Position)positionOfWord:(NSString *)aWord options:(NSUInteger)mask range:(NSRange)searchRange;
@@ -3789,7 +3789,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if(!aWord.length)
-		iTM3MakeRange(NSNotFound, 0);
+		iTM3MakeRange(NSNotFound, ZER0);
 	NSRange localSearchRange, result;
 	PDFPage * page;
 	NSString * pageString;
@@ -3799,15 +3799,15 @@ To Do List:
 	pageIndex = [self pageIndexForCharacterIndex:searchRange.location];
 	if (pageIndex == NSNotFound) {
 		iTM2Position position;
-		position.range = iTM3MakeRange(iTM3MaxRange(searchRange), 0);
-		position.pageIndex = 0;
+		position.range = iTM3MakeRange(iTM3MaxRange(searchRange), ZER0);
+		position.pageIndex = ZER0;
 		return position;
 	}
 	characterOffset = [self characterOffsetForPageAtIndex:pageIndex];
 	if (characterOffset == NSNotFound) {
 		iTM2Position position;
-		position.range = iTM3MakeRange(iTM3MaxRange(searchRange), 0);
-		position.pageIndex = 0;
+		position.range = iTM3MakeRange(iTM3MaxRange(searchRange), ZER0);
+		position.pageIndex = ZER0;
 		return position;
 	}
 	searchRange.location -= characterOffset;
@@ -3816,10 +3816,10 @@ nextPage:
 	page = [self pageAtIndex:pageIndex];
 	pageString = [self stringForPage:page];
 	numberOfCharacters = pageString.length;
-	if (numberOfCharacters>0) {
-		localSearchRange = iTM3ProjectionRange(iTM3MakeRange(0, numberOfCharacters),searchRange);
+	if (numberOfCharacters>ZER0) {
+		localSearchRange = iTM3ProjectionRange(iTM3MakeRange(ZER0, numberOfCharacters),searchRange);
 nextOccurrence:
-		if (localSearchRange.length>0) {
+		if (localSearchRange.length>ZER0) {
 			result = [pageString rangeOfString:aWord options:mask range:localSearchRange];
 			if (result.length) {
 				NSRange wordRange = [pageString rangeOfWordAtIndex4iTM3:result.location];
@@ -3844,7 +3844,7 @@ nextOccurrence:
 			// all characters before characterOffset + iTM3MaxRange(localSearchRange) are already tested
 			temp = iTM3MaxRange(localSearchRange);
 			if (temp < iTM3MaxRange(searchRange)) {
-				searchRange.location = 0;// we will search from the beginning of the next page
+				searchRange.location = ZER0;// we will search from the beginning of the next page
 				searchRange.length -= localSearchRange.length;
 				characterOffset += numberOfCharacters;
 				if(++pageIndex < self.pageCount)
@@ -3856,15 +3856,15 @@ nextOccurrence:
 	else if(++pageIndex < self.pageCount)
 		goto nextPage;
 	iTM2Position position;
-	position.range = iTM3MakeRange(iTM3MaxRange(searchRange), 0);
-	position.pageIndex = 0;
+	position.range = iTM3MakeRange(iTM3MaxRange(searchRange), ZER0);
+	position.pageIndex = ZER0;
 	return position;
 backwards:
 	pageIndex = [self pageIndexForCharacterIndex:iTM3MaxRange(searchRange)];
 	if (pageIndex == NSNotFound) {
 		iTM2Position position;
-		position.range = iTM3MakeRange(searchRange.location, 0);
-		position.pageIndex = 0;
+		position.range = iTM3MakeRange(searchRange.location, ZER0);
+		position.pageIndex = ZER0;
 		return position;
 	}
 	page = [self pageAtIndex:pageIndex];
@@ -3873,8 +3873,8 @@ backwards:
 	characterOffset = [self characterOffsetForPageAtIndex:pageIndex];
 	if (characterOffset == NSNotFound) {
 		iTM2Position position;
-		position.range = iTM3MakeRange(searchRange.location, 0);
-		position.pageIndex = 0;
+		position.range = iTM3MakeRange(searchRange.location, ZER0);
+		position.pageIndex = ZER0;
 		return position;
 	}
 previousPage:
@@ -3930,8 +3930,8 @@ previousOccurrence:
 		}
 	}
 //END4iTM3;
-	position.range = iTM3MakeRange(searchRange.location, 0);
-	position.pageIndex = 0;
+	position.range = iTM3MakeRange(searchRange.location, ZER0);
+	position.pageIndex = ZER0;
 	return position;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionsOfWordBefore:before:here:after:index:
@@ -3949,12 +3949,12 @@ To Do List:
 	hitIndex = MIN(hitIndex, hit.length - 1);
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	self.__SetupPageStringOffsets;
-	NSUInteger pageCount = __PageCharacterCounts[0];
+	NSUInteger pageCount = __PageCharacterCounts[ZER0];
 	NSUInteger maxValidIndex = __PageCharacterCounts[pageCount+1];
 	NSUInteger totalNumberOfCharacters = __PageCharacterCounts[maxValidIndex];
 //END4iTM3;
 	return totalNumberOfCharacters?
-		[self positionsOfWordBefore:before here:hit after:after index:hitIndex inRange:iTM3MakeRange(0, totalNumberOfCharacters)]:nil;
+		[self positionsOfWordBefore:before here:hit after:after index:hitIndex inRange:iTM3MakeRange(ZER0, totalNumberOfCharacters)]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= positionsOfWordBefore:before:here:after:index:inRange:
 - (NSDictionary *)positionsOfWordBefore:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(NSUInteger)hitIndex inRange:(NSRange)searchRange;
@@ -3973,28 +3973,28 @@ To Do List:
 	hitIndex = MIN(hitIndex, hit.length - 1);
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	//	NSUInteger totalNumberOfCharacters = [self characterOffsetForPageAtIndex:self.pageCount];
-	//	NSRange searchRange = iTM3MakeRange(0, totalNumberOfCharacters);
+	//	NSRange searchRange = iTM3MakeRange(ZER0, totalNumberOfCharacters);
 	self.__SetupPageStringOffsets;
-	NSUInteger pageCount = __PageCharacterCounts[0];
+	NSUInteger pageCount = __PageCharacterCounts[ZER0];
 	NSUInteger maxValidIndex = __PageCharacterCounts[pageCount+1];
 	NSUInteger totalNumberOfCharacters = __PageCharacterCounts[maxValidIndex];
-	searchRange = iTM3IntersectionRange(iTM3MakeRange(0, totalNumberOfCharacters),searchRange);
+	searchRange = iTM3IntersectionRange(iTM3MakeRange(ZER0, totalNumberOfCharacters),searchRange);
 	if (!searchRange.length) {
 		return nil;
 	}
-	iTM2Position beforePosition = [self positionOfWord:before options:0L range:searchRange];
+	iTM2Position beforePosition = [self positionOfWord:before options:ZER0 range:searchRange];
 	if (beforePosition.range.length) {
 		searchRange.location = iTM3MaxRange(beforePosition.range);
 		searchRange.length = totalNumberOfCharacters - searchRange.location;
-		iTM2Position hitPosition = [self positionOfWord:hit options:0L range:searchRange];
+		iTM2Position hitPosition = [self positionOfWord:hit options:ZER0 range:searchRange];
 		if (hitPosition.range.length) {
 			searchRange.location = iTM3MaxRange(hitPosition.range);
 			searchRange.length = totalNumberOfCharacters - searchRange.location;
-			iTM2Position afterPosition = [self positionOfWord:after options:0L range:searchRange];
+			iTM2Position afterPosition = [self positionOfWord:after options:ZER0 range:searchRange];
 			if (afterPosition.range.length) {
 				// in the document all 3 words are available
 				NSInteger weightCorrection = before.length + hit.length + 2;
-				NSInteger weight = 0;
+				NSInteger weight = ZER0;
 				NSNumber * key = nil;
 				// the purpose is to gather the positions according to their weight
 				// the min weight is meant to be used
@@ -4023,7 +4023,7 @@ nextOccurrence:
 				if(weight>weightCorrection)
 					weight = (weight - weightCorrection)/3;
 				else
-					weight = 0;
+					weight = ZER0;
 				key = [NSNumber numberWithInteger:weight];
 				currentDestinations = [positions objectForKey:key];
 				if (!currentDestinations) {
@@ -4056,15 +4056,15 @@ previousHere:
 				// we prepare for the next occurrence:
 				searchRange.location = iTM3MaxRange(afterPosition.range);
 				searchRange.length = totalNumberOfCharacters - searchRange.location;
-				beforePosition = [self positionOfWord:before options:0L range:searchRange];
+				beforePosition = [self positionOfWord:before options:ZER0 range:searchRange];
 				if (beforePosition.range.length) {
 					searchRange.location = iTM3MaxRange(beforePosition.range);
 					searchRange.length = totalNumberOfCharacters - searchRange.location;
-					hitPosition = [self positionOfWord:hit options:0L range:searchRange];
+					hitPosition = [self positionOfWord:hit options:ZER0 range:searchRange];
 					if (hitPosition.range.length) {
 						searchRange.location = iTM3MaxRange(hitPosition.range);
 						searchRange.length = totalNumberOfCharacters - searchRange.location;
-						afterPosition = [self positionOfWord:after options:0L range:searchRange];
+						afterPosition = [self positionOfWord:after options:ZER0 range:searchRange];
 						if (afterPosition.range.length)
 							goto nextOccurrence;
 					}
@@ -4257,14 +4257,14 @@ setUpMax:
 					}
 				}
 			} else {
-				min = 0;
+				min = ZER0;
 				goto setUpMax;
 			}
 		} else {
 			positions = [document positionsOfWordBefore:before here:hit after:after index:hitIndex];
 		}
 	} else if(beforeRecords.count) {
-		min = 0;
+		min = ZER0;
 		for (N in beforeRecords.keyEnumerator) {
 			pageIndex = N.unsignedIntegerValue;
 			if (pageIndex>min) {
@@ -4294,17 +4294,17 @@ setUpMax:
 			if(lastOff7 == NSNotFound)
 				lastOff7 = maxOff7;
 			NSArray * points = minN? [beforeRecords objectForKey:minN]:nil;
-			if (points.count > 0) {
-				NSPoint point = [[points objectAtIndex:0] pointValue];
+			if (points.count > ZER0) {
+				NSPoint point = [[points objectAtIndex:ZER0] pointValue];
 				NSUInteger charIndex = [page characterIndexNearPoint4iTM3:point];
-				if(charIndex >= 0)
+				if(charIndex >= ZER0)
 					minOff7 += charIndex;
 	//LOG4iTM3(@"????    $$$$????    $$$$????    $$$$????    $$$$  charIndex is:%i", charIndex);
 				NSUInteger correction = before.length + hit.length + after.length + 2;
 				if(minOff7>correction)
 					minOff7 -= correction;
 				else
-					minOff7 = 0;
+					minOff7 = ZER0;
 				if(correction < lastOff7 - maxOff7)
 					maxOff7 += correction;
 				else
@@ -4346,7 +4346,7 @@ quelquepart:
 	}
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	if (positions) {
-		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
 		self.syncDestinations = [[positions objectForKey:key] mutableCopy];
 //LOG4iTM3(@"****  self.syncDestinations are now:%@", self.syncDestinations);
 		// then what shall we do?
@@ -4381,7 +4381,7 @@ quelquepart:
 					PDFPage * page = [doc pageAtIndex:pageIndex];
 					for (NSValue *  V in [hereRecords objectForKey:N]) {
 						NSUInteger localIndex = [page characterIndexNearPoint4iTM3:[V pointValue]];
-                        if(localIndex>=0)
+                        if(localIndex>=ZER0)
 							[globalIndexes addObject:
 								[NSNumber numberWithInteger:[page localToGlobalCharacterIndex4iTM3:localIndex]]];
 					}
@@ -4427,7 +4427,7 @@ quelquepart:
 						PDFPage * page = [self.document pageAtIndex:pageIndex];
 						for (NSValue *  V in [beforeRecords objectForKey:N]) {
 							NSUInteger localIndex = [page characterIndexNearPoint4iTM3:[V pointValue]];
-							if(localIndex>=0)
+							if(localIndex>=ZER0)
 								[globalBeforeIndexes addObject:
 									[NSNumber numberWithUnsignedInteger:[page localToGlobalCharacterIndex4iTM3:localIndex]]];
 						}
@@ -4446,7 +4446,7 @@ quelquepart:
 						PDFPage * page = [self.document pageAtIndex:pageIndex];
 						for (NSValue * V in [afterRecords objectForKey:N]) {
 							NSUInteger localIndex = [page characterIndexNearPoint4iTM3:[V pointValue]];
-							if(localIndex>=0)
+							if(localIndex>=ZER0)
 								[globalAfterIndexes addObject:
 									[NSNumber numberWithUnsignedInteger:[page localToGlobalCharacterIndex4iTM3:localIndex]]];
 						}
@@ -4487,7 +4487,7 @@ nextAfterIndexLabel:
 					PDFPage * page = destination.page;
 					NSUInteger globalIdx = [page localToGlobalCharacterIndex4iTM3:
 						[page characterIndexNearPoint4iTM3:destination.point]];
-					if(globalIdx<0) {
+					if(globalIdx<ZER0) {
 						[oldSyncDestinations removeObject:destination];
 					} else if(iTM3LocationInRange(globalIdx, R)) {
 						[oldSyncDestinations removeObject:destination];
@@ -4502,7 +4502,7 @@ nextAfterIndexLabel:
 			} else
 				goto nextAfterIndexLabel;
 			if (newSyncDestinations.count) {
-				PDFDestination * hitDestination = [self.syncDestinations objectAtIndex:0];
+				PDFDestination * hitDestination = [self.syncDestinations objectAtIndex:ZER0];
 				[self.syncDestinations setArray:[NSArray arrayWithObject:hitDestination]];
 				//[self scrollDestinationToVisible:hitDestination];// no go to, it does not work well...
 				if ([NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSKeyDownMask|NSFlagsChangedMask untilDate:nil inMode:NSEventTrackingRunLoopMode dequeue:NO]) {
@@ -4528,7 +4528,7 @@ nextAfterIndexLabel:
 	}
 //END4iTM3;
 	[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
-	return self.syncDestinations.count != 0;
+	return self.syncDestinations.count != ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _synchronizeWithDestinations:before:here:after:index:
 - (BOOL)_synchronizeWithDestinations:(NSDictionary *)destinations before:(NSString *)before here:(NSString *)hit after:(NSString *)after index:(NSUInteger)hitIndex;
@@ -4588,14 +4588,14 @@ setUpMax:
 					}
 				}
 			} else {
-				min = 0;
+				min = ZER0;
 				goto setUpMax;
 			}
 		} else {
 			positions = [document positionsOfWordBefore:before here:hit after:after index:hitIndex];
 		}
 	} else if (beforeRecords.count) {
-		min = 0;
+		min = ZER0;
 		for (N in beforeRecords.keyEnumerator) {
 			pageIndex = N.unsignedIntegerValue;
 			if (pageIndex>min) {
@@ -4625,17 +4625,17 @@ setUpMax:
 			if(lastOff7 == NSNotFound)
 				lastOff7 = maxOff7;
 			NSArray * points = minN? [beforeRecords objectForKey:minN]:nil;
-			if (points.count > 0) {
-				NSPoint point = [[points objectAtIndex:0] pointValue];
+			if (points.count > ZER0) {
+				NSPoint point = [[points objectAtIndex:ZER0] pointValue];
 				NSUInteger charIndex = [page characterIndexNearPoint4iTM3:point];
-				if (charIndex >= 0)
+				if (charIndex >= ZER0)
 					minOff7 += charIndex;
 	//LOG4iTM3(@"????    $$$$????    $$$$????    $$$$????    $$$$  charIndex is:%i", charIndex);
 				NSUInteger correction = before.length + hit.length + after.length + 2;
 				if (minOff7>correction)
 					minOff7 -= correction;
 				else
-					minOff7 = 0;
+					minOff7 = ZER0;
 				if (correction < lastOff7 - maxOff7)
 					maxOff7 += correction;
 				else
@@ -4675,7 +4675,7 @@ quelquepart:
 	}
 	// we are trying to find the best location fitting the sequence of the 3 words, before, hit and after
 	if (positions) {
-		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
+		NSString * key = [[[positions allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
 		self.syncDestinations = [[positions objectForKey:key] mutableCopy];
 //LOG4iTM3(@"****  self.syncDestinations are now:%@", self.syncDestinations);
 		// then what shall we do?
@@ -4708,7 +4708,7 @@ quelquepart:
 					PDFPage * page = [doc pageAtIndex:pageIndex];
 					for (NSValue * V in [hereRecords objectForKey:N]) {
 						NSInteger localIndex = [page characterIndexNearPoint4iTM3:V.pointValue];
-						if(localIndex>=0)
+						if(localIndex>=ZER0)
 							[globalIndexes addObject:
 								[NSNumber numberWithInteger:[page localToGlobalCharacterIndex4iTM3:localIndex]]];
 					}
@@ -4760,7 +4760,7 @@ quelquepart:
 						PDFPage * page = [self.document pageAtIndex:pageIndex];
 						for (NSValue * V in [beforeRecords objectForKey:N]) {
 							NSInteger localIndex = [page characterIndexNearPoint4iTM3:V.pointValue];
-							if(localIndex>=0)
+							if(localIndex>=ZER0)
 								[globalBeforeIndexes addObject:
 									[NSNumber numberWithInteger:[page localToGlobalCharacterIndex4iTM3:localIndex]]];
 						}
@@ -4776,7 +4776,7 @@ quelquepart:
 						PDFPage * page = [self.document pageAtIndex:pageIndex];
 						for (NSValue * V in [afterRecords objectForKey:N]) {
 							NSInteger localIndex = [page characterIndexNearPoint4iTM3:[V pointValue]];
-							if(localIndex>=0)
+							if(localIndex>=ZER0)
 								[globalAfterIndexes addObject:
 									[NSNumber numberWithInteger:[page localToGlobalCharacterIndex4iTM3:localIndex]]];
 						}
@@ -4815,7 +4815,7 @@ quelquepart:
 					PDFPage * page = destination.page;
 					NSInteger globalIdx = [page localToGlobalCharacterIndex4iTM3:
 						[page characterIndexNearPoint4iTM3:destination.point]];
-					if(globalIdx<0) {
+					if(globalIdx<ZER0) {
 						[oldSyncDestinations removeObject:destination];
 					} else if(iTM3LocationInRange(globalIdx, R)) {
 						[oldSyncDestinations removeObject:destination];
@@ -4830,7 +4830,7 @@ quelquepart:
 			} else
 				goto nextAfterIndexLabel;
 			if (newSyncDestinations.count) {
-				PDFDestination * hitDestination = [self.syncDestinations objectAtIndex:0];
+				PDFDestination * hitDestination = [self.syncDestinations objectAtIndex:ZER0];
 				[self.syncDestinations setArray: [NSArray arrayWithObject:hitDestination]];
 				//[self.syncDestinations setArray:[NSArray arrayWithObject:hitDestination]];
 			}
@@ -4850,7 +4850,7 @@ quelquepart:
 	}
 //END4iTM3;
 	[self scrollSynchronizationPointToVisible:self];// no go to, it does not work well...
-	return self.syncDestinations.count!=0;
+	return self.syncDestinations.count!=ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= __threadedSynchronizeWithStoredDestinationsAndHints:
 - (void)__threadedSynchronizeWithStoredDestinationsAndHints:(id)irrelevant;
@@ -4883,7 +4883,7 @@ To Do List:
 		return NO;
 	}
 	synctex_scanner_t scanner = [synchronizer scanner];
-	if (synctex_display_query(scanner,[source fileSystemRepresentation],l+1,c)>0) {
+	if (synctex_display_query(scanner,[source fileSystemRepresentation],l+1,c)>ZER0) {
 		synctex_node_t first_node = NULL;
 		synctex_node_t node = NULL;
 		NSUInteger pageIndex = UINT_MAX;
@@ -4947,7 +4947,7 @@ To Do List:
 			do
 			{
 				NSInteger pageIndex = synctex_node_page(node)-1;
-				if(pageIndex<0 || pageIndex>=[document pageCount])
+				if(pageIndex<ZER0 || pageIndex>=[document pageCount])
 				{
 					continue;
 				}
@@ -4984,7 +4984,7 @@ To Do List:
 					NSPoint PP;
 next_attempt:
 					tmp = synctex_node_box_visible_width(node);
-					if(tmp<0)
+					if(tmp<ZER0)
 					{
 						top = synctex_node_box_visible_h(node);
 						PP.x = top+tmp;
@@ -5022,7 +5022,7 @@ next_attempt:
 					NSRect bounds = [destination boundsForPage:page];
 					bounds.origin.y += 1;
 					lineRange.location = [page characterIndexAtPoint:bounds.origin];
-					lineRange.length = 0;
+					lineRange.length = ZER0;
 					[pageString getLineStart:(NSUInteger *)&(lineRange.location) end:nil contentsEnd:(NSUInteger *)&(lineRange.length) forRange:lineRange];
 					lineRange.length -= lineRange.location;
 					V = [NSValue valueWithRange:lineRange];
@@ -5034,7 +5034,7 @@ next_chance:;
 				}
 				if(nodesMRA.count)
 				{
-					[nodesMRA insertObject:page atIndex:0];
+					[nodesMRA insertObject:page atIndex:ZER0];
 					[nodesMRA insertObject:pageString atIndex:1];
 				}
 				else
@@ -5070,7 +5070,7 @@ next_chance:;
 					//  create a dictionary for which keys are the edit distance and the values are mutable arrays of word ranges
 					//  for that edit distance
 					NSMutableDictionary * keyedEditDistances = [NSMutableDictionary dictionary];
-					NSUInteger wordRangeIndex = 0;
+					NSUInteger wordRangeIndex = ZER0;
 					while((V = [nodesE nextObject]))
 					{
 						lineRange = [V rangeValue];//  V is unused now
@@ -5079,7 +5079,7 @@ next_chance:;
 						charIndex = lineRange.location;
 next_word_in_line:
 						wordRange = [pageString doubleClickAtIndex:charIndex];
-						if(wordRange.length>0)
+						if(wordRange.length>ZER0)
 						{
 							if(wordRange.length>1 || [[NSCharacterSet letterCharacterSet] characterIsMember:[pageString characterAtIndex:charIndex]])
 							{
@@ -5114,7 +5114,7 @@ next_word_in_line:
 					{
 						NSNumber * bestEditDistanceN = [[[keyedEditDistances allKeys]
 							sortedArrayUsingSelector:@selector(compare:)]
-								objectAtIndex:0];
+								objectAtIndex:ZER0];
 						// if the smallest distance is small enough, it will be retained for synchronization
 						if ([bestEditDistanceN unsignedIntegerValue] <= here.length/3) {
 							[self.syncDestinations removeAllObjects];
@@ -5134,7 +5134,7 @@ next_word_in_line:
 									for (NSNumber * N in mra) {
 										rangeIndex = N.unsignedIntegerValue;
 previousRangeIndex:
-										if (rangeIndex>0) {
+										if (rangeIndex>ZER0) {
 											NSRange R = [[wordRanges objectAtIndex:rangeIndex-1] rangeValue];
 											if (R.length>2) {
 												NSString * beforeCandidate = [pageString substringWithRange:R];
@@ -5157,7 +5157,7 @@ previousRangeIndex:
 									}
 									if (md.allKeys.count) {
                                         NSArray * RA = [md.allKeys sortedArrayUsingSelector:@selector(compare:)];
-										NSNumber * smallestDistanceN = [RA objectAtIndex:0];
+										NSNumber * smallestDistanceN = [RA objectAtIndex:ZER0];
 										[mra setArray:[md objectForKey:smallestDistanceN]];
 									}
 								}
@@ -5172,7 +5172,7 @@ previousRangeIndex:
 									NSMutableDictionary * md = [NSMutableDictionary dictionary];
 									//  the keys are the edit distances
 									//  the values are mutable arrays containing the candidates for that edit distance
-									NSUInteger rangeIndex = 0;
+									NSUInteger rangeIndex = ZER0;
 									for(NSNumber * N in mra) {
 										rangeIndex = N.unsignedIntegerValue;
 nextRangeIndex:
@@ -5199,7 +5199,7 @@ nextRangeIndex:
 									}
 									if (md.allKeys.count) {
 										NSArray * RA = [[md allKeys] sortedArrayUsingSelector:@selector(compare:)];
-                                        NSNumber * smallestDistanceN = [RA objectAtIndex:0];
+                                        NSNumber * smallestDistanceN = [RA objectAtIndex:ZER0];
 										[mra setArray:[md objectForKey:smallestDistanceN]];
 									}
 								}
@@ -5217,7 +5217,7 @@ nextRangeIndex:
 								// just add something for the line, and that is all
 								CGFloat tmp = synctex_node_box_visible_width(first_node);
 								NSPoint PP;
-								if(tmp<0) {
+								if(tmp<ZER0) {
 									PP.x = synctex_node_box_visible_h(first_node)+tmp;
 								} else {
 									PP.x = synctex_node_box_visible_h(first_node);
@@ -5288,7 +5288,7 @@ nextRangeIndex:
 					NSPoint PP;
 next_attempt:
 					tmp = synctex_node_box_visible_width(node);
-					if (tmp<0) {
+					if (tmp<ZER0) {
 						top = synctex_node_box_visible_h(node);
 						PP.x = top+tmp;
 					} else {
@@ -5317,7 +5317,7 @@ next_attempt:
 					NSRect bounds = [destination boundsForPage:page];
 					bounds.origin.y += 1;
 					lineRange.location = [page characterIndexAtPoint:bounds.origin];
-					lineRange.length = 0;
+					lineRange.length = ZER0;
 					[pageString getLineStart:(NSUInteger *)&(lineRange.location) end:nil contentsEnd:(NSUInteger *)&(lineRange.length) forRange:lineRange];
 					lineRange.length -= lineRange.location;
 					V = [NSValue valueWithRange:lineRange];
@@ -5333,7 +5333,7 @@ next_chance:;
 					lineRange = [V rangeValue];
 					NSString * lineString = [pageString substringWithRange:lineRange];
 					// Is the hit character in this line?
-					NSUInteger charIndex = 0;
+					NSUInteger charIndex = ZER0;
 					while (charIndex<lineString.length) {
 						if ([lineString characterAtIndex:charIndex]==[container characterAtIndex:hereIndex]) {
 							[MRA addObject:[NSValue valueWithRange:iTM3MakeRange(charIndex+lineRange.location,1)]];
@@ -5399,7 +5399,7 @@ last_chance:
 			CGFloat tmp = synctex_node_box_visible_width(node);
 			CGFloat top;
 			NSPoint PP;
-			if (tmp<0) {
+			if (tmp<ZER0) {
 				top = synctex_node_box_visible_h(node);
 				PP.x = top+tmp;
 			} else {
@@ -5424,7 +5424,7 @@ last_chance:
 			bounds.origin.y += 1;
 			NSRange lineRange;
 			lineRange.location = [page characterIndexAtPoint:bounds.origin];
-			lineRange.length = 0;
+			lineRange.length = ZER0;
 			NSString * SS = [page string];
 			[SS getLineStart:(NSUInteger *)&(lineRange.location) end:nil contentsEnd:(NSUInteger *)&(lineRange.length) forRange:lineRange];
 			lineRange.length -= lineRange.location;
@@ -5432,11 +5432,11 @@ last_chance:
 			// Is the here word in this line?
 			NSMutableArray * matchRanges = [NSMutableArray array];
 			NSRange searchRange,findRange;
-			findRange = iTM3MakeRange(0,0);
+			findRange = iTM3MakeRange(ZER0;
             while (YES) {
                 searchRange.location = iTM3MaxRange(findRange);
                 searchRange.length = lineString.length - searchRange.location;
-                findRange = [lineString rangeOfString:here options:0L range:searchRange];
+                findRange = [lineString rangeOfString:here options:ZER0 range:searchRange];
                 if (!findRange.length) {
                     break;
                 }
@@ -5498,7 +5498,7 @@ startAgain:;
 		syncStack.removeLastObject;
 		NSDictionary * destinations = syncStack.lastObject;
 		syncStack.removeLastObject;
-		PDFDestination * oldDestination = self.syncDestinations.count?[self.syncDestinations objectAtIndex:0]:nil;
+		PDFDestination * oldDestination = self.syncDestinations.count?[self.syncDestinations objectAtIndex:ZER0]:nil;
 		L.unlock;
 		L = nil;
 		NSString * S = [hint objectForKey:@"container"];
@@ -5614,7 +5614,7 @@ To Do List:
 //START4iTM3;
 	self.syncDestination = nil;
 	self.syncPointValues = nil;
-	if(aCurrentPhysicalPage<0)
+	if(aCurrentPhysicalPage<ZER0)
 		return NO;// no hint for the page, I do not synchronize yet
 	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)self.document;
 	if (aCurrentPhysicalPage < document.pageCount) {
@@ -5636,7 +5636,7 @@ To Do List:
 					NSRange wordRange = [S doubleClickAtIndex:charIndex];
 					if (wordRange.length) {
 						word = [S substringWithRange:wordRange];
-						NSRange previousWordRange = iTM3MakeRange(0, 0);
+						NSRange previousWordRange = iTM3MakeRange(ZER0, ZER0);
 						NSUInteger clickIndex = wordRange.location;
 						if (clickIndex>2) {
 							clickIndex -= 2;
@@ -5650,7 +5650,7 @@ To Do List:
 						}
 						NSString * previousWord = [S substringWithRange:previousWordRange];
 //LOG4iTM3(@"previous word:%@", previousWord);
-						NSRange nextWordRange = iTM3MakeRange(0, 0);
+						NSRange nextWordRange = iTM3MakeRange(ZER0, ZER0);
 						clickIndex = iTM3MaxRange(wordRange);
 						if (clickIndex < S.length - 2) {
 							clickIndex += 2;
@@ -5664,11 +5664,11 @@ To Do List:
 						}
 						NSString * targetString = [document stringForPage:page];
 //LOG4iTM3(@"targetString:%@", targetString);
-						NSRange R = iTM3MakeRange(0, targetString.length);
+						NSRange R = iTM3MakeRange(ZER0, targetString.length);
 						NSMutableArray * pointValues   = [NSMutableArray array];// matching word
 						NSMutableArray * pointValues10 = [NSMutableArray array];// matching previous word too
                         while (YES) {
-                            R = [targetString rangeOfString:word options:0L range:R];
+                            R = [targetString rangeOfString:word options:ZER0 range:R];
                             if (R.length) {
     //LOG4iTM3(@"a string was found:%@ range:%@", [targetString substringWithRange:R], NSStringFromRange(R));
                                 if (iTM3EqualRanges([targetString doubleClickAtIndex:R.location], R)) {
@@ -5712,10 +5712,10 @@ To Do List:
 				if (wordRange.length) {
 					NSString * word = [S substringWithRange:wordRange];
 					NSString * targetString = [document stringForPage:page];
-					NSRange R = iTM3MakeRange(0, targetString.length);
+					NSRange R = iTM3MakeRange(ZER0, targetString.length);
 					NSMutableArray * rangeValues = [NSMutableArray array];
 					while (YES) {
-						R = [targetString rangeOfString:word options:0L range:R];
+						R = [targetString rangeOfString:word options:ZER0 range:R];
                         if (R.length) {
                             [rangeValues addObject:[NSValue valueWithRange:R]];
                             R.length = targetString.length - R.location;
@@ -5739,7 +5739,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (self.syncDestinations.count) {
-		PDFDestination * hitDestination = [self.syncDestinations objectAtIndex:0];
+		PDFDestination * hitDestination = [self.syncDestinations objectAtIndex:ZER0];
 		[self scrollDestinationToVisible:hitDestination];// no go to, it does not work well...
 	}
 //END4iTM3;
@@ -5790,7 +5790,7 @@ mainLoop:
 	NSPoint location = [documentView convertPoint:newHit fromView:nil];
 	NSPoint point = NSZeroPoint;
 	CGFloat f,g;
-	if ((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect)))) {
+	if ((ZER0<(g=location.x-NSMaxX(dontScrollRect))) && (ZER0<(f=NSMaxX(bounds)-NSMaxX(visibleRect)))) {
 		point = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
@@ -5798,7 +5798,7 @@ mainLoop:
 		g/=point.x;
 		scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.x>oldHit.x || (scroll && newHit.x==oldHit.x);
-	} else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds)))) {
+	} else if((ZER0<(g=NSMinX(dontScrollRect)-location.x)) && (ZER0<(f=NSMinX(visibleRect)-NSMinX(bounds)))) {
 		point = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
@@ -5807,7 +5807,7 @@ mainLoop:
 		scrollOffset.x=-MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.x<oldHit.x || (scroll && newHit.x==oldHit.x);
 	}
-	if ((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect)))) {
+	if ((ZER0<(g=location.y-NSMaxY(dontScrollRect))) && (ZER0<(f=NSMaxY(bounds)-NSMaxY(visibleRect)))) {
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
@@ -5815,7 +5815,7 @@ mainLoop:
 		g/=point.y;
 		scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 		scroll = newHit.y>oldHit.y || (scroll && newHit.y==oldHit.y);
-	} else if ((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds)))) {
+	} else if ((ZER0<(g=NSMinY(dontScrollRect)-location.y)) && (ZER0<(f=NSMinY(visibleRect)-NSMinY(bounds)))) {
 		point = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 		point = [window convertScreenToBase:point];
 		point = [documentView convertPoint:point fromView:nil];
@@ -5831,13 +5831,13 @@ mainLoop:
 		oldHit.y-=scrollOffset.y;
 		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
 						location:newHit
-							modifierFlags:0
-								timestamp:0
+							modifierFlags:ZER0
+								timestamp:ZER0
 									windowNumber:[window windowNumber]
 										context:nil
-											subtype:0
-												data1:0
-													data2:0];
+											subtype:ZER0
+												data1:ZER0
+													data2:ZER0];
 		[window postEvent:theEvent atStart:NO];
 	}
 //
@@ -5864,15 +5864,15 @@ task1---task2---task3...
 If we don't know exactly when tasks should be performed, we have at least informations
 about a partial order.
 We must think of a tree/graph more seriously.
-If a node is splitted into more branches, the ones with slope>=0 are ordered from slope 0 to slope +∞
-and the ones with slope < 0 are not ordered.
+If a node is splitted into more branches, the ones with slope>=ZER0 are ordered from slope ZER0 to slope +∞
+and the ones with slope < ZER0 are not ordered.
 Version history:jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sun Mar 14 14:22:51 UTC 2010
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([theEvent clickCount] > 0) {
+    if ([theEvent clickCount] > ZER0) {
 		NSUInteger modifierFlags = theEvent.modifierFlags;
 		if (modifierFlags & NSCommandKeyMask) {
 			if (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask)) {
@@ -5880,8 +5880,8 @@ To Do List:
 				CGFloat timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];
 				NSEvent * otherEvent = nil;
 				if ((otherEvent = [window nextEventMatchingMask:NSLeftMouseUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:timeInterval] inMode:NSEventTrackingRunLoopMode dequeue:YES])) {
-					NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
-					if (n>0) {
+					NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>ZER0?:1.259921049895);
+					if (n>ZER0) {
 						CGFloat zoom = (modifierFlags & NSShiftKeyMask)?n/100.0:100.0/n;
 						NSView * docView = self.documentView;
 						NSPoint oldHit = [theEvent locationInWindow];
@@ -5973,12 +5973,12 @@ To Do List:
 	NSRect frame = [self convertRect:bounds fromPage:P];
 	CGFloat expectedWidth = self.frame.size.width;
 	CGFloat actualWidth = frame.size.width;
-	if(actualWidth == 0)
+	if(actualWidth == ZER0)
 		return;
 	CGFloat widthCorrection = expectedWidth/actualWidth;
 	CGFloat expectedHeight = self.frame.size.height;
 	CGFloat actualHeight = frame.size.height;
-	if(actualHeight == 0)
+	if(actualHeight == ZER0)
 		return;
 	CGFloat heightCorrection = expectedHeight/actualHeight;
 	[self setScaleFactor:MIN(widthCorrection, heightCorrection) * self.scaleFactor * 0.85];
@@ -6014,12 +6014,12 @@ To Do List:
 	NSUInteger characterIndex = [page characterIndexNearPoint4iTM3:[destination point]];
 	NSRect characterBounds = NSZeroRect;
 	characterBounds.origin = [destination point];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 	NSView * V = self.documentView;
 	characterBounds = [self convertRect:[self convertRect:characterBounds fromPage:page] toView:V];
 	NSPoint destinationPoint = [self convertPoint:[self convertPoint:[destination point] fromPage:page] toView:V];
-	PDFSelection * selection = [page selectionForRange:iTM3MakeRange(0, [page numberOfCharacters])];
+	PDFSelection * selection = [page selectionForRange:iTM3MakeRange(ZER0, [page numberOfCharacters])];
 	NSRect pageBounds = NSZeroRect;
 	if(selection)
 		pageBounds = [self convertRect:[self convertRect:[selection boundsForPage:page] fromPage:page] toView:V];
@@ -6058,24 +6058,24 @@ To Do List:
 	PDFPage * page = [destination page];
 	NSPoint P1 = [destination point];
 	NSInteger index = [page characterIndexAtPoint:P1];
-	if(index < 0)
+	if(index < ZER0)
 	{
 		P1.x += 5;
 		P1.y += 5;
 		index = [page characterIndexAtPoint:P1];
-		if(index < 0)
+		if(index < ZER0)
 		{
 			P1.x -= 10;
 			index = [page characterIndexAtPoint:P1];
-			if(index < 0)
+			if(index < ZER0)
 			{
 				P1.y -= 10;
 				index = [page characterIndexAtPoint:P1];
-				if(index < 0)
+				if(index < ZER0)
 				{
 					P1.x += 10;
 					index = [page characterIndexAtPoint:P1];
-					if(index < 0)
+					if(index < ZER0)
 					{
 						return;
 					}
@@ -6143,7 +6143,7 @@ To Do List:
 				[NSValue valueWithRect:[page boundsForBox:kPDFDisplayBoxMediaBox]],@"page bounds",
 				[NSNumber numberWithBool:[self.window.windowController strongerSynchronization]],@"StrongerSynchronization",
 					nil];
-		if (charIndex >= 0) {
+		if (charIndex >= ZER0) {
 			[hint setObject:[NSNumber numberWithUnsignedInteger:charIndex] forKey:@"character index"];
 		}
 		NSUInteger pageIndex = [page.document indexForPage:page];
@@ -6198,7 +6198,7 @@ To Do List:
 	[path addClip];
 	[[NSColor blueColor] set];
 	NSShadow* theShadow = [[NSShadow alloc] init];
-	[theShadow setShadowOffset:NSMakeSize(0,(self.isFlipped?2:-2))]; 
+	[theShadow setShadowOffset:NSMakeSize(ZER0,(self.isFlipped?2:-2))]; 
 	[theShadow setShadowBlurRadius:8.0]; 
 	[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:1]]; 
 	[theShadow set];
@@ -6306,7 +6306,7 @@ To Do List:
 		[path fill];
 		path = [NSBezierPath bezierPathWithRect:selectionRect];
 		NSShadow* theShadow = [[NSShadow alloc] init]; 
-		[theShadow setShadowOffset:NSMakeSize(0, (self.isFlipped?2:-2))]; 
+		[theShadow setShadowOffset:NSMakeSize(ZER0, (self.isFlipped?2:-2))]; 
 		[theShadow setShadowBlurRadius:8.0]; 
 		[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:1]]; 
 		[theShadow set];
@@ -6322,7 +6322,7 @@ To Do List:
 		}
 		_cachedShadow
 		NSShadow* theShadow = [[NSShadow alloc] init]; 
-		[theShadow setShadowOffset:NSMakeSize(0, (self.isFlipped?2:-2))]; 
+		[theShadow setShadowOffset:NSMakeSize(ZER0, (self.isFlipped?2:-2))]; 
 		[theShadow setShadowBlurRadius:8.0]; 
 		[theShadow setShadowColor:[[NSColor blackColor] colorWithAlphaComponent:1]]; 
 		[theShadow set];
@@ -6563,7 +6563,7 @@ To Do List:
 	NSPoint currentPoint = selectionRect.origin;
 leftSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6585,7 +6585,7 @@ leftSide:
 	currentPoint.y = NSMaxY(selectionRect);
 topSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6607,7 +6607,7 @@ topSide:
 	currentPoint.x = NSMaxX(selectionRect);
 rightSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6629,7 +6629,7 @@ rightSide:
 	currentPoint.y = NSMinY(selectionRect);
 bottomSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6671,7 +6671,7 @@ theEnd:
 	NSPoint currentPoint = selectionRect.origin;
 leftSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6699,7 +6699,7 @@ leftSide:
 	currentPoint.y = NSMaxY(selectionRect)-0.1;
 topSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6728,7 +6728,7 @@ topSide:
 	currentPoint.x = NSMaxX(selectionRect);
 rightSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6758,7 +6758,7 @@ rightSide:
 	currentPoint.y = NSMinY(selectionRect);
 bottomSide:
 	characterIndex = [page characterIndexAtPoint:currentPoint];
-	if(characterIndex>=0)
+	if(characterIndex>=ZER0)
 	{
 		characterBounds = [page characterBoundsAtIndex:characterIndex];
 		characterBounds = NSIntersectionRect(characterBounds,bounds);
@@ -6804,13 +6804,13 @@ theEnd:
 	if(mask & LEFT)
 	{
 		pointBounds.origin.x = NSMinX(bounds);
-		pointBounds.size.width = MAX(0,NSMaxX(selectionRect) - NSMinX(pointBounds));
+		pointBounds.size.width = MAX(ZER0,NSMaxX(selectionRect) - NSMinX(pointBounds));
 		selectionAnchor.x = NSMinX(selectionRect);// left point
 	}
 	else if(mask & RIGHT)
 	{
 		pointBounds.origin.x = NSMinX(selectionRect);
-		pointBounds.size.width = MAX(0,NSMaxX(bounds) - NSMinX(pointBounds));
+		pointBounds.size.width = MAX(ZER0,NSMaxX(bounds) - NSMinX(pointBounds));
 		selectionAnchor.x = NSMaxX(selectionRect);// right point
 	}
 	else
@@ -6822,13 +6822,13 @@ theEnd:
 	if(mask & BOTTOM)
 	{
 		pointBounds.origin.y = NSMinY(bounds);
-		pointBounds.size.height = MAX(0,NSMaxY(selectionRect) - NSMinY(pointBounds));
+		pointBounds.size.height = MAX(ZER0,NSMaxY(selectionRect) - NSMinY(pointBounds));
 		selectionAnchor.y = NSMinY(selectionRect);// bottom point
 	}
 	else if(mask & TOP)
 	{
 		pointBounds.origin.y = NSMinY(selectionRect);
-		pointBounds.size.height = MAX(0,NSMaxY(bounds) - NSMinY(pointBounds));
+		pointBounds.size.height = MAX(ZER0,NSMaxY(bounds) - NSMinY(pointBounds));
 		selectionAnchor.y = NSMaxY(selectionRect);// top point
 	}
 	else
@@ -6859,9 +6859,9 @@ mainLoop:
 	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
-	if(selectionRect.size.width>0)
+	if(selectionRect.size.width>ZER0)
 	{
-		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((ZER0<(g=location.x-NSMaxX(dontScrollRect))) && (ZER0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -6871,7 +6871,7 @@ mainLoop:
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((ZER0<(g=NSMinX(dontScrollRect)-location.x)) && (ZER0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -6882,9 +6882,9 @@ mainLoop:
 			scroll = YES;
 		}
 	}
-	if(selectionRect.size.height>0)
+	if(selectionRect.size.height>ZER0)
 	{
-		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((ZER0<(g=location.y-NSMaxY(dontScrollRect))) && (ZER0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -6894,7 +6894,7 @@ mainLoop:
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((ZER0<(g=NSMinY(dontScrollRect)-location.y)) && (ZER0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -6944,21 +6944,21 @@ mainLoop:
 	}
 	if(mask & LEFT)
 	{
-		selectionRect.size.width = MAX(0,NSMaxX(selectionRect) - newPoint.x);
+		selectionRect.size.width = MAX(ZER0,NSMaxX(selectionRect) - newPoint.x);
 		selectionRect.origin.x = newPoint.x;
 	}
 	else if(mask & RIGHT)
 	{
-		selectionRect.size.width = MAX(0,newPoint.x - NSMinX(selectionRect));
+		selectionRect.size.width = MAX(ZER0,newPoint.x - NSMinX(selectionRect));
 	}
 	if(mask & BOTTOM)
 	{
-		selectionRect.size.height = MAX(0,NSMaxY(selectionRect) - newPoint.y);
+		selectionRect.size.height = MAX(ZER0,NSMaxY(selectionRect) - newPoint.y);
 		selectionRect.origin.y = newPoint.y;
 	}
 	else if(mask & TOP)
 	{
-		selectionRect.size.height = MAX(0,newPoint.y - NSMinY(selectionRect));
+		selectionRect.size.height = MAX(ZER0,newPoint.y - NSMinY(selectionRect));
 	}
 	[self setSelectionRect:selectionRect];
 	if(scroll)
@@ -6966,13 +6966,13 @@ mainLoop:
 		location = [window mouseLocationOutsideOfEventStream];
 		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
 						location:location
-							modifierFlags:0
-								timestamp:0
+							modifierFlags:ZER0
+								timestamp:ZER0
 									windowNumber:[window windowNumber]
 										context:nil
-											subtype:0
-												data1:0
-													data2:0];
+											subtype:ZER0
+												data1:ZER0
+													data2:ZER0];
 		[window postEvent:theEvent atStart:NO];
 	}
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
@@ -7010,9 +7010,9 @@ mainLoop:
 	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
-	if(selectionRect.size.width>0)
+	if(selectionRect.size.width>ZER0)
 	{
-		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((ZER0<(g=location.x-NSMaxX(dontScrollRect))) && (ZER0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7022,7 +7022,7 @@ mainLoop:
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((ZER0<(g=NSMinX(dontScrollRect)-location.x)) && (ZER0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7033,9 +7033,9 @@ mainLoop:
 			scroll = YES;
 		}
 	}
-	if(selectionRect.size.height>0)
+	if(selectionRect.size.height>ZER0)
 	{
-		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((ZER0<(g=location.y-NSMaxY(dontScrollRect))) && (ZER0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7045,7 +7045,7 @@ mainLoop:
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((ZER0<(g=NSMinY(dontScrollRect)-location.y)) && (ZER0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7103,13 +7103,13 @@ mainLoop:
 		location = [window mouseLocationOutsideOfEventStream];
 		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
 						location:location
-							modifierFlags:0
-								timestamp:0
+							modifierFlags:ZER0
+								timestamp:ZER0
 									windowNumber:[window windowNumber]
 										context:nil
-											subtype:0
-												data1:0
-													data2:0];
+											subtype:ZER0
+												data1:ZER0
+													data2:ZER0];
 		[window postEvent:theEvent atStart:NO];
 	}
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
@@ -7124,8 +7124,8 @@ mainLoop:
 	NSRect selectionRect = self.selectionRect;
 	NSPoint selectionAnchor = selectionRect.origin;
 	NSRect pointBounds = bounds;
-	pointBounds.size.width = MAX(0,NSWidth(bounds) - NSWidth(selectionRect));
-	pointBounds.size.height = MAX(0,NSHeight(bounds) - NSHeight(selectionRect));
+	pointBounds.size.width = MAX(ZER0,NSWidth(bounds) - NSWidth(selectionRect));
+	pointBounds.size.height = MAX(ZER0,NSHeight(bounds) - NSHeight(selectionRect));
 	NSWindow * window = self.window;
 	NSRect visibleRect, dontScrollRect;
 	NSPoint scrollOffset = NSMakePoint(10,10);
@@ -7144,9 +7144,9 @@ mainLoop:
 	dontScrollRect = NSInsetRect(visibleRect,SCROLL_LAYER,SCROLL_LAYER);
 	scroll = NO;
 	scrollOffset = NSZeroPoint;
-	if(selectionRect.size.width>0)
+	if(selectionRect.size.width>ZER0)
 	{
-		if((0<(g=location.x-NSMaxX(dontScrollRect))) && (0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
+		if((ZER0<(g=location.x-NSMaxX(dontScrollRect))) && (ZER0<(f=NSMaxX(bounds)-NSMaxX(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMaxX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7156,7 +7156,7 @@ mainLoop:
 			scrollOffset.x=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinX(dontScrollRect)-location.x)) && (0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
+		else if((ZER0<(g=NSMinX(dontScrollRect)-location.x)) && (ZER0<(f=NSMinX(visibleRect)-NSMinX(bounds))))
 		{
 			newPoint = NSMakePoint(NSMinX(mainScreenFrame),NSMidY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7167,9 +7167,9 @@ mainLoop:
 			scroll = YES;
 		}
 	}
-	if(selectionRect.size.height>0)
+	if(selectionRect.size.height>ZER0)
 	{
-		if((0<(g=location.y-NSMaxY(dontScrollRect))) && (0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
+		if((ZER0<(g=location.y-NSMaxY(dontScrollRect))) && (ZER0<(f=NSMaxY(bounds)-NSMaxY(visibleRect))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMaxY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7179,7 +7179,7 @@ mainLoop:
 			scrollOffset.y=MIN(f+10,SCROLL_DIMEN*powf(g,SCROLL_COEFF));
 			scroll = YES;
 		}
-		else if((0<(g=NSMinY(dontScrollRect)-location.y)) && (0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
+		else if((ZER0<(g=NSMinY(dontScrollRect)-location.y)) && (ZER0<(f=NSMinY(visibleRect)-NSMinY(bounds))))
 		{
 			newPoint = NSMakePoint(NSMidX(mainScreenFrame),NSMinY(mainScreenFrame));
 			newPoint = [window convertScreenToBase:newPoint];
@@ -7234,13 +7234,13 @@ mainLoop:
 		location = [window mouseLocationOutsideOfEventStream];
 		theEvent = [NSEvent otherEventWithType:NSApplicationDefined
 						location:location
-							modifierFlags:0
-								timestamp:0
+							modifierFlags:ZER0
+								timestamp:ZER0
 									windowNumber:[window windowNumber]
 										context:nil
-											subtype:0
-												data1:0
-													data2:0];
+											subtype:ZER0
+												data1:ZER0
+													data2:ZER0];
 		[window postEvent:theEvent atStart:NO];
 	}
 	theEvent = [window nextEventMatchingMask:NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSScrollWheelMask | NSApplicationDefinedMask];
@@ -7500,7 +7500,7 @@ mainLoop:
 	coreName = coreName.lastPathComponent;
 	coreName = coreName.stringByDeletingPathExtension;
 	// this is he core name
-	NSUInteger index = 0;
+	NSUInteger index = ZER0;
 	while(YES)
 	{
 		NSString * name = [coreName stringByAppendingFormat:@"[%@-%i].pdf",_label,++index];
@@ -7531,7 +7531,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSInteger result = [self SWZ_iTM2_characterIndexAtPoint:point];
-	if(result < 0)
+	if(result < ZER0)
 		return result;
 	iTM2XtdPDFDocument * document = (iTM2XtdPDFDocument *)self.document;
 	NSString * string = [document stringForPage:self];
@@ -7604,7 +7604,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(localIndex < 0)
+	if(localIndex < ZER0)
 		return localIndex;
 	NSUInteger offset = [(iTM2XtdPDFDocument *)self.document characterOffsetForPageAtIndex:[self.document indexForPage:self]];
 	if(offset == NSNotFound)
@@ -7622,17 +7622,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSInteger result = [self characterIndexAtPoint:point];
-	if(result >= 0) return result;
+	if(result >= ZER0) return result;
 	point.x += 5;
 	point.y += 5;
 	result = [self characterIndexAtPoint:point];
-	if(result >= 0) return result;
+	if(result >= ZER0) return result;
 	point.x -= 10;
 	result = [self characterIndexAtPoint:point];
-	if(result >= 0) return result;
+	if(result >= ZER0) return result;
 	point.y -= 10;
 	result = [self characterIndexAtPoint:point];
-	if(result >= 0) return result;
+	if(result >= ZER0) return result;
 	point.x += 10;
 //END4iTM3;
 	return [self characterIndexAtPoint:point];
@@ -7725,7 +7725,7 @@ To Do List:
         return result;
     if (instruction.length) {
 //LOG4iTM3(@"instruction is:%@", instruction);
-		[self.window pushKeyStroke:[instruction substringWithRange:iTM3MakeRange(0, 1)]];
+		[self.window pushKeyStroke:[instruction substringWithRange:iTM3MakeRange(ZER0, 1)]];
 		return YES;
     }
     return result;
@@ -7794,9 +7794,9 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setAutoScales:NO];
-    NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>ZER0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
-	if(n>0) {
+	if(n>ZER0) {
 		self.pdfView.scaleFactor *= n / 100.0;
     }
     [self.window flushKeyStrokeEvents4iTM3:self];
@@ -7814,9 +7814,9 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setAutoScales:NO];
-    NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
+    NSInteger n = 100 * ([self context4iTM3FloatForKey:iTM2PDFKitZoomFactorKey domain:iTM2ContextAllDomainsMask]>ZER0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
-	if(n>0) {
+	if(n>ZER0) {
 		self.pdfView.scaleFactor *= 100 / n;
     }
     [self.window flushKeyStrokeEvents4iTM3:self];
@@ -7870,7 +7870,7 @@ To Do List:
 	PDFDocument * document = page.document;
 	NSUInteger index = [document indexForPage:page];
 	if(n>index)
-		index = 0;
+		index = ZER0;
 	else
 		index -= n;
 	[self.pdfView goToPage:[document pageAtIndex:index]];
@@ -8023,9 +8023,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	CGFloat totalSize = 0;
-	CGFloat totalWidth = 0;
-	NSInteger segment = 0;
+	CGFloat totalSize = ZER0;
+	CGFloat totalWidth = ZER0;
+	NSInteger segment = ZER0;
 	while (segment < self.segmentCount) {
 		CGFloat imageWidth = [[self imageForSegment:segment] size].width;
 		CGFloat segmentSize = [self widthForSegment:segment];
@@ -8749,7 +8749,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayFocus
 - (BOOL)displayFocus;
 {
-	return (self.displayBullets&kiTM2PDFSYNCDisplayFocusBullets)>0;
+	return (self.displayBullets&kiTM2PDFSYNCDisplayFocusBullets)>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayFocus:
 - (void)setDisplayFocus:(BOOL)yorn;
@@ -8764,7 +8764,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayUserBullets
 - (BOOL)displayUserBullets;
 {
-	return (self.displayBullets&kiTM2PDFSYNCDisplayUserBullets)>0;
+	return (self.displayBullets&kiTM2PDFSYNCDisplayUserBullets)>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayUserBullets:
 - (void)setDisplayUserBullets:(BOOL)yorn;
@@ -8779,7 +8779,7 @@ if(!__D) __D = [NSMutableDictionary dictionary];\
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  displayBuiltInBullets
 - (BOOL)displayBuiltInBullets;
 {
-	return (self.displayBullets&kiTM2PDFSYNCDisplayBuiltInBullets)>0;
+	return (self.displayBullets&kiTM2PDFSYNCDisplayBuiltInBullets)>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setDisplayBuiltInBullets:
 - (void)setDisplayBuiltInBullets:(BOOL)yorn;
@@ -8872,9 +8872,9 @@ To Do List:
 //START4iTM3;
 	NSShadow * shadow = [[[NSShadow alloc] init] autorelease];
    	[NSGraphicsContext saveGraphicsState];
-	[shadow setShadowOffset:NSMakeSize(0,-4)];
+	[shadow setShadowOffset:NSMakeSize(ZER0,-4)];
 	[shadow setShadowBlurRadius:10];
-	[shadow setShadowColor:[NSColor colorWithCalibratedWhite:0 alpha:0.8]];
+	[shadow setShadowColor:[NSColor colorWithCalibratedWhite:ZER0 alpha:0.8]];
 	[shadow set];
 	[[NSColor whiteColor] set];
 	[NSBezierPath fillRect:cellFrame];

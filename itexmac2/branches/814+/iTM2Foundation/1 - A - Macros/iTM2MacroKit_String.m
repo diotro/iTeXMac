@@ -117,7 +117,7 @@ NSString * const iTM2RegExpMKCommentName = @"Comment";
             return RE.rangeOfMatch;
         }
     }
-    return iTM3MakeRange(aGlobalLocation,0);
+    return iTM3MakeRange(aGlobalLocation,ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfMacroTypeAtIndex:inString:
 - (NSRange)rangeOfMacroTypeAtIndex:(NSUInteger)index inString:(NSString *)aString;
@@ -137,7 +137,7 @@ To Do List:
             return R;
         }
 	}
-	return iTM3MakeRange(NSNotFound, 0);
+	return iTM3MakeRange(NSNotFound, ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderMarkAfterIndex:getType:ignoreComment:inString:
 - (NSRange)rangeOfNextPlaceholderMarkAfterIndex:(NSUInteger)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore inString:(NSString *)aString;
@@ -157,15 +157,15 @@ To Do List:
 	const NSUInteger length = aString.length;
 	if (index>=length)
 	{
-		return iTM3MakeRange(NSNotFound,0);
+		return iTM3MakeRange(NSNotFound,ZER0);
 	}
 	NSRange searchRange,markRange,wordRange;
 	searchRange.location = index;
 	searchRange.length = length - searchRange.location;
-	markRange = [aString rangeOfString:@"__" options:0L range:searchRange];
+	markRange = [aString rangeOfString:@"__" options:ZER0 range:searchRange];
 	if (!markRange.length)
 	{
-		return iTM3MakeRange(NSNotFound,0);
+		return iTM3MakeRange(NSNotFound,ZER0);
 	}
 	// There might be a problem if the "__" found belongs to a bigger ")__..."
 	// for which the placeholder mark starts strictly before the found index
@@ -183,10 +183,10 @@ To Do List:
                     searchRange.location = markRange.location+1;
 nextMark:
                     searchRange.length = length - searchRange.location;
-                    markRange = [aString rangeOfString:@"__" options:0 range:searchRange];
+                    markRange = [aString rangeOfString:@"__" options:ZER0 range:searchRange];
                     if (!markRange.length)
                     {
-                        return iTM3MakeRange(NSNotFound,0);
+                        return iTM3MakeRange(NSNotFound,ZER0);
                     }
 noProblemo:
                     if (markRange.location)
@@ -248,7 +248,7 @@ nextChar:
                         goto nextMark;
                     }
                     // else we reached the end of the string: no room for a supplemental '(' character
-                    return iTM3MakeRange(NSNotFound,0);
+                    return iTM3MakeRange(NSNotFound,ZER0);
                 }
                 else if (theChar == ')')
 				{
@@ -291,7 +291,7 @@ To Do List:
 	NSUInteger length = aString.length;
 	if (length<4)
 	{
-		return iTM3MakeRange(NSNotFound,0);
+		return iTM3MakeRange(NSNotFound,ZER0);
 	}
 	unichar theChar = 0;
 	NSRange markRange;
@@ -442,7 +442,7 @@ previousStart:
 		goto previousEnd;
 	}
 //END4iTM3;
-	return iTM3MakeRange(NSNotFound,0);
+	return iTM3MakeRange(NSNotFound,ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPlaceholderAtIndex:getType:ignoreComment:inString:
 - (NSRange)rangeOfPlaceholderAtIndex:(NSUInteger)index getType:(NSString **)typeRef ignoreComment:(BOOL)ignore inString:(NSString *)aString;
@@ -492,7 +492,7 @@ otherNextStop:
 						return startRange;
 					}
 				}
-				return iTM3MakeRange(NSNotFound,0);
+				return iTM3MakeRange(NSNotFound,ZER0);
 			}
 			else
 			{
@@ -550,11 +550,11 @@ otherPreviousStart:
 							}
 						}
 						// no balancing mark available
-						return iTM3MakeRange(NSNotFound,0);
+						return iTM3MakeRange(NSNotFound,ZER0);
 					}
 				}
 				// no balancing mark available
-				return iTM3MakeRange(NSNotFound,0);
+				return iTM3MakeRange(NSNotFound,ZER0);
 			}
 		}
 		else
@@ -563,7 +563,7 @@ otherPreviousStart:
 		}
 	}
 //END4iTM3;
-	return iTM3MakeRange(NSNotFound, 0);
+	return iTM3MakeRange(NSNotFound, ZER0);
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderAfterIndex:cycle:ignoreComment:inString:
@@ -578,7 +578,7 @@ To Do List: implement some kind of balance range for range
 	NSRange markRange = [self rangeOfNextPlaceholderMarkAfterIndex:index getType:nil ignoreComment:YES inString:aString];
 	NSRange range;
 	NSRange smallerRange;
-	NSUInteger idx = 0;
+	NSUInteger idx = ZER0;
 	if (markRange.length)
 	{
 		range = [self rangeOfPlaceholderAtIndex:markRange.location getType:nil ignoreComment:YES inString:aString];
@@ -604,7 +604,7 @@ nextRange1:
 	}
 	if (cycle)
 	{
-		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil ignoreComment:YES inString:aString];
+		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:ZER0 getType:nil ignoreComment:YES inString:aString];
 		if (markRange.length)
 		{
 			if (iTM3MaxRange(markRange)<=index)
@@ -640,7 +640,7 @@ nextRange2:
 	}
 	if (cycle)
 	{
-		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil ignoreComment:YES inString:aString];
+		markRange = [self rangeOfNextPlaceholderMarkAfterIndex:ZER0 getType:nil ignoreComment:YES inString:aString];
 		if (markRange.length)
 		{
 			if (iTM3MaxRange(markRange)<=index)
@@ -654,22 +654,22 @@ nextRange2:
 	{
 		NSUInteger length = aString.length;
 		NSRange searchRange = iTM3MakeRange(index, length - index);
-		range = [aString rangeOfString:self.tabAnchor options:0L range:searchRange];
+		range = [aString rangeOfString:self.tabAnchor options:ZER0 range:searchRange];
 		if (range.length)
 		{
 			return range;
 		}
 		if (cycle)
 		{
-			searchRange = iTM3MakeRange(0,MIN(length,index+self.tabAnchor.length-1));
-			range = [aString rangeOfString:self.tabAnchor options:0L range:searchRange];
+			searchRange = iTM3MakeRange(ZER0,MIN(length,index+self.tabAnchor.length-1));
+			range = [aString rangeOfString:self.tabAnchor options:ZER0 range:searchRange];
 			if (range.length)
 			{
 				return range;
 			}
 		}
 	}
-	return iTM3MakeRange(NSNotFound,0);
+	return iTM3MakeRange(NSNotFound,ZER0);
 }
 #else
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfNextPlaceholderAfterIndex:cycle:inString:
@@ -684,7 +684,7 @@ To Do List: implement some kind of balance range for range
 	NSRange markRange = [aString rangeOfNextPlaceholderMarkAfterIndex:index getType:nil];
 	NSRange range;
 	NSRange smallerRange;
-	NSUInteger idx = 0;
+	NSUInteger idx = ZER0;
 	if (markRange.length)
 	{
 		range = [aString rangeOfPlaceholderAtIndex:markRange.location getType:nil];
@@ -710,7 +710,7 @@ nextRange1:
 	}
 	if (cycle)
 	{
-		markRange = [aString rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil];
+		markRange = [aString rangeOfNextPlaceholderMarkAfterIndex:ZER0 getType:nil];
 		if (markRange.length)
 		{
 			if (iTM3MaxRange(markRange)<=index)
@@ -746,7 +746,7 @@ nextRange2:
 	}
 	if (cycle)
 	{
-		markRange = [aString rangeOfNextPlaceholderMarkAfterIndex:0 getType:nil];
+		markRange = [aString rangeOfNextPlaceholderMarkAfterIndex:ZER0 getType:nil];
 		if (markRange.length)
 		{
 			if (iTM3MaxRange(markRange)<=index)
@@ -767,7 +767,7 @@ nextRange2:
 		}
 		if (cycle)
 		{
-			searchRange = iTM3MakeRange(0,MIN(length,index+self.tabAnchor.length-1));
+			searchRange = iTM3MakeRange(ZER0,MIN(length,index+self.tabAnchor.length-1));
 			range = [aString rangeOfString:self.tabAnchor options:nil range:searchRange];
 			if (range.length)
 			{
@@ -775,7 +775,7 @@ nextRange2:
 			}
 		}
 	}
-	return iTM3MakeRange(NSNotFound,0);
+	return iTM3MakeRange(NSNotFound,ZER0);
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= rangeOfPreviousPlaceholderBeforeIndex:cycle:ignoreComment:inString:
@@ -833,7 +833,7 @@ To Do List: implement NSBackwardsSearch
 	// self.tabAnchor only
 	if (self.tabAnchor.length)
 	{
-		NSRange searchRange = iTM3MakeRange(0, index);
+		NSRange searchRange = iTM3MakeRange(ZER0, index);
 		range = [aString rangeOfString:self.tabAnchor options:NSBackwardsSearch range:searchRange];
 		if (range.length)
 		{
@@ -849,7 +849,7 @@ To Do List: implement NSBackwardsSearch
 			}
 		}
 	}
-	return iTM3MakeRange(NSNotFound,0);
+	return iTM3MakeRange(NSNotFound,ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingPlaceholderMarksInString:
 - (NSString *)stringByRemovingPlaceholderMarksInString:(NSString *)aString;
@@ -861,7 +861,7 @@ To Do List: ?
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSMutableArray * MRA = [NSMutableArray array];
-	NSRange R = iTM3MakeRange(0,0);
+	NSRange R = iTM3MakeRange(ZER0,ZER0);
     ICURegEx * RE = self.placeholderICURegEx;
     RE.inputString = aString;
     while (RE.nextMatch) {

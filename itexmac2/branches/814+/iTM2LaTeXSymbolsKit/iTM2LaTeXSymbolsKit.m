@@ -51,15 +51,15 @@ NSString * const kiTM2TrackerKey = @"kiTM2TrackerKey";
 		NSTrackingActiveInActiveApp |
 		NSTrackingActiveAlways;
 		self.trackingAreas = [NSMutableArray array];	// keep all tracking areas in an array
-		NSInteger index = 0;
-		NSInteger row = 0;
-		NSInteger column = 0;
+		NSInteger index = ZER0;
+		NSInteger row = ZER0;
+		NSInteger column = ZER0;
 		NSRect frame = self.bounds;
 		frame.size.width/=self.numberOfColumns;
 		frame.size.height/=self.numberOfRows;
-		for(row=0;row<self.numberOfRows;++row) {
+		for(row=ZER0;row<self.numberOfRows;++row) {
 			frame.origin.y = row*frame.size.height;
-			for(column=0;column<self.numberOfColumns;++column) {
+			for(column=ZER0;column<self.numberOfColumns;++column) {
 				if(index<self.items.count) {
 					frame.origin.x = column*frame.size.width;
 					NSDictionary* trackerData = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInteger: index], kiTM2TrackerKey, nil];
@@ -171,8 +171,8 @@ To Do List:
 "*/
 {
     [super awakeFromNib];
-    while(self.numberOfItems>0)
-        [self removeItemAtIndex:0];
+    while(self.numberOfItems>ZER0)
+        [self removeItemAtIndex:ZER0];
 	NSMenuItem * MI = [[NSMenuItem alloc] initWithTitle:@"" action:NULL keyEquivalent: @""];
 	[self addItem:MI];
 	[MI release];

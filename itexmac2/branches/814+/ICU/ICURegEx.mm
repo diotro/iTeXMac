@@ -137,8 +137,8 @@ InlineBuffer_charAt(int32_t offset, void *context) {
 @implementation NSMutableString(_ICURegEx)
 - (void)prependPathComponent4ICURegEx:(NSString *)aString;
 {
-    [self insertString:@"/" atIndex:0];
-    [self insertString:aString atIndex:0];
+    [self insertString:@"/" atIndex:ZER0];
+    [self insertString:aString atIndex:ZER0];
 }
 @end
 
@@ -257,11 +257,11 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
             }
         }
         placeholderRE.inputString = [infos objectForKey:@"format"];
-        ASSERT_INCONSISTENCY4iTM3(placeholderRE.inputString.length>0);
-        NSRange copyR = iTM3MakeRange(0,0);
-        NSRange R = iTM3MakeRange(0,0);
+        ASSERT_INCONSISTENCY4iTM3(placeholderRE.inputString.length>ZER0);
+        NSRange copyR = iTM3MakeRange(ZER0,ZER0);
+        NSRange R = iTM3MakeRange(ZER0,ZER0);
         NSMutableArray * MRA = [NSMutableArray array];
-        NSUInteger count = 0;// for the count of RE placeholders ('⌘' but not '⌘⌘')
+        NSUInteger count = ZER0;// for the count of RE placeholders ('⌘' but not '⌘⌘')
         NSString * S = nil;
         while (placeholderRE.nextMatch) {
             R = placeholderRE.rangeOfMatch;
@@ -271,9 +271,9 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
             S = placeholderRE.replacementString;
             [MRA addObject:S];
             //  If this is a RE placeholder, increment the count
-            count += S.length?0:1;
+            count += S.length?ZER0:1;
             copyR.location = iTM3MaxRange(R);
-            copyR.length = 0;
+            copyR.length = ZER0;
         }
         copyR.length = placeholderRE.inputString.length - copyR.location;
         S = [placeholderRE.inputString substringWithRange:copyR];
@@ -288,7 +288,7 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
             NSMutableArray * longGNs = [NSMutableArray array];
             MIS = [NSMutableIndexSet indexSet];
             NSMutableIndexSet * mis = [NSMutableIndexSet indexSet];
-            NSUInteger groupCommentOff7 = 0;
+            NSUInteger groupCommentOff7 = ZER0;
             NSString * SS = nil;
             while ((S = E.nextObject)) {
                 [MRA addObject:S];
@@ -328,7 +328,7 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
                 }
             }
             search = [MRA componentsJoinedByString:@""];
-            if ([ICURegEx isValidPattern:search options:0 error:errorRef]) {
+            if ([ICURegEx isValidPattern:search options:ZER0 error:errorRef]) {
                 NSUInteger flags = [[infos objectForKey:@"flags"] unsignedIntegerValue];
                 if (result = [[self alloc] initWithSearchPattern:search options:flags error:errorRef]) {
                     [ICURegEx_by_key_cache setObject:result forKey:patternKey];
@@ -372,7 +372,7 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 }
 + (id)regExWithSearchPattern:(NSString *)pattern error:(NSError **)errorRef;
 {
-	return [self regExWithSearchPattern:pattern option:0 error:errorRef];
+	return [self regExWithSearchPattern:pattern option:ZER0 error:errorRef];
 }
 + (id)regExWithSearchPattern:(NSString *)pattern option:(NSUInteger)flags error:(NSError **)errorRef;
 {
@@ -422,13 +422,13 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 				[[self class] errorDescriptionForStatus:status],NSLocalizedDescriptionKey,
 					nil];
 			NSNumber * N;
-			if (pe.line>0) {
+			if (pe.line>ZER0) {
 				N = [NSNumber numberWithInt:pe.line-1];
 				[dict setObject:N forKey:@"line"];
 			}
-			if (pe.offset>=0) {
+			if (pe.offset>=ZER0) {
 				N = [NSNumber numberWithInt:pe.offset];
-				[dict setObject:N forKey:(pe.line>0?@"column":@"offset")];
+				[dict setObject:N forKey:(pe.line>ZER0?@"column":@"offset")];
 			}
 			NSString * context;
 			UnicodeString unicodeString;
@@ -491,13 +491,13 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 				[[self class] errorDescriptionForStatus:iVars.status],NSLocalizedDescriptionKey,
 					nil];
 			NSNumber * N;
-			if (pe.line>0) {
+			if (pe.line>ZER0) {
 				N = [NSNumber numberWithInt:pe.line-1];
 				[dict setObject:N forKey:@"line"];
 			}
-			if (pe.offset>=0) {
+			if (pe.offset>=ZER0) {
 				N = [NSNumber numberWithInt:pe.offset];
-				[dict setObject:N forKey:(pe.line>0?@"column":@"offset")];
+				[dict setObject:N forKey:(pe.line>ZER0?@"column":@"offset")];
 			}
 			NSString * context;
 			UnicodeString unicodeString;
@@ -911,9 +911,9 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 - (void)setInputString:(NSString *)argument;
 {
     if(!argument || [argument isKindOfClass:[NSString class]]) {
-        [self setInputString:argument range:iTM3MakeRange(0,argument.length)];
+        [self setInputString:argument range:iTM3MakeRange(ZER0,argument.length)];
     } else {
-        [self setInputString:@"" range:iTM3MakeRange(0,0)];
+        [self setInputString:@"" range:iTM3MakeRange(ZER0,ZER0)];
     }
 }
 - (BOOL)setInputString:(NSString *)argument range:(NSRange)range;
@@ -1005,7 +1005,7 @@ U_CDECL_END
 	}
     int32_t  replLen = [_IVARS.replacement length];
     CFStringInlineBuffer inlineBuffer;
-    CFStringInitInlineBuffer((CFStringRef)(_IVARS.replacement),&inlineBuffer,CFRangeMake(0,replLen));
+    CFStringInitInlineBuffer((CFStringRef)(_IVARS.replacement),&inlineBuffer,CFRangeMake(ZER0,replLen));
 	UnicodeString dest = UnicodeString();
 	#define fPattern _IVARS.regexPattern
     UErrorCode status = U_ZERO_ERROR;
@@ -1014,7 +1014,7 @@ U_CDECL_END
 	// scan the replacement text, looking for substitutions ($n) and \escapes.
     //  TODO:  optimize this loop by efficiently scanning for '$' or '\',
     //         move entire ranges not containing substitutions.
-    int32_t  replIdx = 0;
+    int32_t  replIdx = ZER0;
     while (replIdx<replLen) {
         UChar  c = ICURegEx_charAt(replIdx++,&inlineBuffer);
         if (c == BACKSLASH) {
@@ -1056,9 +1056,9 @@ U_CDECL_END
         // number that is valid for this pattern.
 
         if (replIdx < replLen) {
-            int32_t numDigits = 0;
+            int32_t numDigits = ZER0;
             int32_t digitIdx = replIdx;
-            int32_t groupNum  = 0;
+            int32_t groupNum  = ZER0;
             uint16_t __c2;
             UChar32 digitC = 0xffff;
             if(digitIdx < replLen) {
@@ -1097,7 +1097,7 @@ U_CDECL_END
                         for (;;) {
                             if (digitIdx >= replLen) {
                                 //  no chance to have either a digit or a EGROUP
-                                numDigits = 0;
+                                numDigits = ZER0;
                                 break;
                             }
                             digitC=ICURegEx_charAt(digitIdx,&inlineBuffer);
@@ -1116,13 +1116,13 @@ U_CDECL_END
                             } else if (numDigits >= fPattern->fMaxCaptureDigits) {
                                 //  if digitC is really a digit, it is too big
                                 //  if not, the group is not closed
-                                numDigits = 0;
+                                numDigits = ZER0;
                             } else if (u_isdigit(digitC)) {
                                 groupNum=groupNum*10 + u_charDigitValue(digitC);
                                 ++numDigits;
                                 continue;
                             } else {
-                                numDigits = 0;
+                                numDigits = ZER0;
                             }
                             break;
                         }
@@ -1148,7 +1148,7 @@ U_CDECL_END
                     if (u_isdigit(digitC)) {
                         if ( ++numDigits > fPattern->fMaxCaptureDigits) {
                             //  too big
-                            numDigits = 0;
+                            numDigits = ZER0;
                             break;
                         }
                         groupNum=groupNum*10 + u_charDigitValue(digitC);
@@ -1157,7 +1157,7 @@ U_CDECL_END
                     break;
                 }
             }
-            if (numDigits == 0) {
+            if (numDigits == ZER0) {
                 // The $ didn't introduce a group number at all.
                 // Treat it as just part of the substitution text.
                 dest.append(DOLLARSIGN);
@@ -1265,7 +1265,7 @@ NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
     RegexMatcher * regexMatcher = NULL;
 	_IVARS.error = nil;
 	_IVARS.status = U_ZERO_ERROR;
-    return (regexMatcher = self.regexMatcher) && regexMatcher->find() && [self rangeOfCaptureGroupAtIndex:0].length>0;// should the second part be necessary?
+    return (regexMatcher = self.regexMatcher) && regexMatcher->find() && [self rangeOfCaptureGroupAtIndex:ZER0].length>ZER0;// should the second part be necessary?
 }
 - (BOOL)nextMatchAfterIndex:(NSInteger)idx;
 {
@@ -1276,7 +1276,7 @@ NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
     UErrorCode status = U_ZERO_ERROR;
     if ((regexMatcher = self.regexMatcher)) {
         if (_IVARS.regexMatcher->find(index,status)) {
-            return [self rangeOfCaptureGroupAtIndex:0].length>0;
+            return [self rangeOfCaptureGroupAtIndex:ZER0].length>ZER0;
         }
         _IVARS.status = status;
         if (U_FAILURE(_IVARS.status)) {
@@ -1291,11 +1291,11 @@ NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
 }
 - (NSRange)rangeOfMatch;
 {
-	return [self rangeOfCaptureGroupAtIndex:0];
+	return [self rangeOfCaptureGroupAtIndex:ZER0];
 }
 - (NSString *)substringOfMatch;
 {
-	return [self substringOfCaptureGroupAtIndex:0];
+	return [self substringOfCaptureGroupAtIndex:ZER0];
 }
 - (NSUInteger)numberOfCaptureGroups;
 {
@@ -1305,7 +1305,7 @@ NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
 				[NSNumber numberWithInt:_IVARS.status],@"status",
 					nil];
 		_IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return 0;
+		return ZER0;
 	}
 	return _IVARS.regexMatcher->groupCount();
 }
@@ -1321,7 +1321,7 @@ NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
 				[NSNumber numberWithInt:_IVARS.status],@"status",
 					nil];
 		_IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return iTM3MakeRange(NSNotFound,0);
+		return iTM3MakeRange(NSNotFound,ZER0);
 	}
 	int start = _IVARS.regexMatcher->start(index,status);
     _IVARS.status = status;
@@ -1331,7 +1331,7 @@ NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
 				[NSNumber numberWithInt:_IVARS.status],@"status",
 					nil];
 		_IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return iTM3MakeRange(NSNotFound,0);
+		return iTM3MakeRange(NSNotFound,ZER0);
 	}
 	int end = _IVARS.regexMatcher->end(index,status);
     _IVARS.status = status;
@@ -1341,7 +1341,7 @@ NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
 				[NSNumber numberWithInt:_IVARS.status],@"status",
 					nil];
 		_IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
-		return iTM3MakeRange(NSNotFound,0);
+		return iTM3MakeRange(NSNotFound,ZER0);
 	}
 	return iTM3MakeRange(start + _IVARS.stringOffset, end-start);
 }
@@ -1373,7 +1373,7 @@ groupName_found: {
                     return R;
                 }
             }
-            return iTM3MakeRange(NSNotFound,0);
+            return iTM3MakeRange(NSNotFound,ZER0);
         }
     }
     //  No group was found with the given name, try to relax to the last path component only.
@@ -1384,7 +1384,7 @@ groupName_found: {
             goto groupName_found;
         }
     }
-    return iTM3MakeRange(NSNotFound,0);
+    return iTM3MakeRange(NSNotFound,ZER0);
 }
 - (NSString *)substringOfCaptureGroupWithName:(NSString *)name;
 {
@@ -1426,7 +1426,7 @@ groupName_found: {
 	NSMutableArray * result = [NSMutableArray array];
 #   define input (_IVARS.uString)
 #   define maxNumberOfComponents UINT_MAX
-	unsigned firstUnrecorded = 0;
+	unsigned firstUnrecorded = ZER0;
 	const UChar * buffer = input->getBuffer();// read only buffer
 	CFStringRef component = nil;
     //
@@ -1445,7 +1445,7 @@ groupName_found: {
 		// If the delimiter pattern has capturing parentheses, the captured
 		//  text goes out into the next n destination strings.
 		unsigned numberOfGroups = self.numberOfCaptureGroups;
-		unsigned groupNum = 0;
+		unsigned groupNum = ZER0;
 		while (groupNum++ < numberOfGroups) {
 			NSRange groupRange = [self rangeOfCaptureGroupAtIndex:groupNum];
 			component = CFStringCreateWithCharacters(kCFAllocatorDefault,buffer+groupRange.location, groupRange.length);
@@ -1455,7 +1455,7 @@ groupName_found: {
 		}
 	}
 	unsigned remainingLength = input->length()-firstUnrecorded;
-	if (remainingLength > 0) {
+	if (remainingLength > ZER0) {
 		component = CFStringCreateWithCharacters(kCFAllocatorDefault,buffer+firstUnrecorded,remainingLength);
 		[result addObject:(NSString *)component];
 		CFRelease(component);
@@ -1517,11 +1517,11 @@ groupName_found: {
 	NSLog(@"search pattern:<%@>",self.searchPattern);
 	NSLog(@"input string:<%@>",self.inputString);
 	NSLog(@"input range:(%u,%u)",_IVARS.stringOffset,_IVARS.stringLength);
-	unsigned i = 0;
+	unsigned i = ZER0;
     NSLog(@"match %i:<%@>(%@)",i,[self substringOfCaptureGroupAtIndex:i],NSStringFromRange([self rangeOfCaptureGroupAtIndex:i]));
     while (++i<=self.numberOfCaptureGroups) {
         if (i <= self.groupNames.count ) {
-            NSLog(@"group %@,%i:<%@>",[self.groupNames objectAtIndex:i-1],i,[self substringOfCaptureGroupAtIndex:i]);
+            NSLog(@"group %i \"%@\" :<%@>",i,[self.groupNames objectAtIndex:i-1],[self substringOfCaptureGroupAtIndex:i]);
         } else {
             NSLog(@"group %i:<%@>",i,[self substringOfCaptureGroupAtIndex:i]);
         }
@@ -1589,26 +1589,26 @@ groupName_found: {
 	// see http://www.icu-project.org/userguide/regexp.html
 	// "Characters that must be quoted to be treated as literals are * ? + [ ( ) { } ^ $ | \ . /"
 	NSMutableString * MS = [NSMutableString stringWithString:self];
-	[MS replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"*" withString:@"\\*" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"?" withString:@"\\?" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"+" withString:@"\\+" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"[" withString:@"\\[" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"(" withString:@"\\(" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@")" withString:@"\\)" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"{" withString:@"\\{" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"}" withString:@"\\}" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"^" withString:@"\\^" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"$" withString:@"\\$" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"|" withString:@"\\|" options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"." withString:@"\\." options:NULL range:iTM3MakeRange(0,[MS length])];
-	[MS replaceOccurrencesOfString:@"/" withString:@"\\/" options:NULL range:iTM3MakeRange(0,[MS length])];
+	[MS replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"*" withString:@"\\*" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"?" withString:@"\\?" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"+" withString:@"\\+" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"[" withString:@"\\[" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"(" withString:@"\\(" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@")" withString:@"\\)" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"{" withString:@"\\{" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"}" withString:@"\\}" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"^" withString:@"\\^" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"$" withString:@"\\$" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"|" withString:@"\\|" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"." withString:@"\\." options:NULL range:iTM3MakeRange(ZER0,[MS length])];
+	[MS replaceOccurrencesOfString:@"/" withString:@"\\/" options:NULL range:iTM3MakeRange(ZER0,[MS length])];
 	return MS;
 }
 
 - (NSRange)rangeOfICUREPattern:(NSString *)aPattern error:(NSError **)errorRef;
 {
-	return [self rangeOfICUREPattern:aPattern options:0 error:errorRef];
+	return [self rangeOfICUREPattern:aPattern options:ZER0 error:errorRef];
 }
 
 - (NSRange)rangeOfICUREPattern:(NSString *)aPattern options:(NSUInteger)mask error:(NSError **)errorRef;
@@ -1616,7 +1616,7 @@ groupName_found: {
 	NSUInteger theMask = mask;
 	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:aPattern options:theMask error:errorRef] autorelease];
 	if (!RE) {
-		return iTM3MakeRange(NSNotFound,0);
+		return iTM3MakeRange(NSNotFound,ZER0);
 	}
 	[RE setInputString:self];
 	[RE nextMatch];
@@ -1655,7 +1655,7 @@ groupName_found: {
 {
 	NSUInteger theOpts = opts;
 	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:aPattern options:theOpts error:errorRef] autorelease];
-	return RE?[self replaceOccurrencesOfICURegEx:RE error:errorRef]:0;
+	return RE?[self replaceOccurrencesOfICURegEx:RE error:errorRef]:ZER0;
 }
 
 - (NSUInteger)replaceOccurrencesOfICURegEx:(ICURegEx *)RE error:(NSError **)errorRef;
@@ -1676,7 +1676,7 @@ groupName_found: {
 				*errorRef = RE.error;
 			}
             RE.forget;
-			return 0;
+			return ZER0;
 		}
 	}
 	if (RE.error) {
@@ -1684,7 +1684,7 @@ groupName_found: {
 			*errorRef = RE.error;
 		}
         RE.forget;
-		return 0;
+		return ZER0;
 	}
 	NSEnumerator * E = [rangesAndReplacements reverseObjectEnumerator];
 	while((replacement = [E nextObject]) && (value = [E nextObject])) {

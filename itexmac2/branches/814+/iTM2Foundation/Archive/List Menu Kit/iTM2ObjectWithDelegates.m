@@ -143,10 +143,10 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- isValidKey:
 - (BOOL) isValidKey: (NSString *) aKey;
-/*"If there are required keys, test if aKey lies amongst them. If there are no required keys (either nil or 0) the result is YES."*/
+/*"If there are required keys, test if aKey lies amongst them. If there are no required keys (either nil or ZER0) the result is YES."*/
 {
     return (self.authorizedKeys==nil)||
-                (self.authorizedKeys.count==0)||
+                (self.authorizedKeys.count==ZER0)||
                     [[self.class defaultKey] isEqualToString: aKey]||
                         ([self.authorizedKeys indexOfObject: aKey]!=NSNotFound);
 }

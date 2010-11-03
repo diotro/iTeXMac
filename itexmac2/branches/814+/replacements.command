@@ -12,6 +12,8 @@ function find_and_replace {
 }
 
 find_and_replace  'saveContext|loadContext|awakeFromContext' 's/(saveContext|awakeFromContext|loadContext)(?!4)/${1}4iTM3/g'
+find_and_replace  'ontext(Manager|Dictionary|Value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool|DidChange|Change|Registration|State)' 's/(ontext)(Manager|Dictionary|value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool|DidChange|Change|Registration|State)/${1}4iTM3${2}/g'
+
 
 exit 0
 
@@ -32,8 +34,6 @@ exit 0
 - (BOOL)ForKeyPaths:(NSString *)first,...;
 
 
-
-find_and_replace  'ontext(Manager|Dictionary|Value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool)' 's/(ontext)(Manager|Dictionary|value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool)/${1}4iTM3${2}/g'
 
 find_and_replace ' enclosingProjectURL4iTM3]' 's/\[ *([_\w.]*) *(enclosingProjectURL4iTM3) *\]/${1}.${2}/g'
 find_and_replace ' URLByStandardizingPath]' 's/\[ *([_\w.]*) *(URLByStandardizingPath) *\]/${1}.${2}/g'

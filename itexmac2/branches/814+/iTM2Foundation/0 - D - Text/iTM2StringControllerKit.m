@@ -51,13 +51,7 @@ NSString * const iTM2TextTabAnchorStringKey = @"iTM2TextTabAnchorString";
         && rhs.depth == self.depth
         && rhs.endsWithTab == self.endsWithTab
         : (rhs?NO:
-            self.location == 0
-            && self.contentLength == 0
-            && self.commentLength == 0
-            && self.afterLength == 0
-            && self.blackLength == 0
-            && self.depth == 0
-            && !self.endsWithTab
+            self.location ==ZER0            && self.contentLength ==ZER0            && self.commentLength ==ZER0            && self.afterLength ==ZER0            && self.blackLength ==ZER0            && self.depth ==ZER0            && !self.endsWithTab
         );
 }
 - (NSUInteger)length;
@@ -79,11 +73,11 @@ NSString * const iTM2TextTabAnchorStringKey = @"iTM2TextTabAnchorString";
     //  whiteDepth means only ' ' or '\t'
     //  components with black characters are ignored
     //  this is used in unindentation
-    return self.commentLength?0:self.depth;
+    return self.commentLength?ZER0:self.depth;
 }
 - (NSUInteger)location;
 {
-    return 0;
+    return ZER0;
 }
 - (NSUInteger)commentLocation;
 {
@@ -91,23 +85,23 @@ NSString * const iTM2TextTabAnchorStringKey = @"iTM2TextTabAnchorString";
 }
 - (NSUInteger)contentLength;
 {
-    return 0;
+    return ZER0;
 }
 - (NSUInteger)commentLength;
 {
-    return 0;
+    return ZER0;
 }
 - (NSUInteger)blackLength;
 {
-    return 0;
+    return ZER0;
 }
 - (NSUInteger)afterLength;
 {
-    return 0;
+    return ZER0;
 }
 - (NSUInteger)depth;
 {
-    return 0;
+    return ZER0;
 }
 - (BOOL) endsWithTab;
 {
@@ -196,12 +190,12 @@ DECLARE4iTM3(11110,commentLength,blackLength,afterLength,contentLength)
 }
 - (void)reset;
 {
-    self.location = 0;
-    self.depth = 0;
-    self.contentLength = 0;
-    self.commentLength = 0;
-    self.blackLength = 0;
-    self.afterLength = 0;
+    self.location = ZER0;
+    self.depth = ZER0;
+    self.contentLength = ZER0;
+    self.commentLength = ZER0;
+    self.blackLength = ZER0;
+    self.afterLength = ZER0;
     self.endsWithTab = NO;
 }
 - (id)clone;
@@ -375,12 +369,12 @@ To Do List:
 {
     NSRange R = [aString rangeOfComposedCharacterSequenceAtIndex:index];
     if (R.length!=1 || [self isEscapedCharacterAtIndex:index inString:aString])
-        return 0;
+        return ZER0;
     return [aString characterAtIndex:index];
 }
 - (BOOL)isEscapedCharacterAtIndex:(NSUInteger)index inString:(NSString *)aString;
 {
-    return index>0 && [self isControlCharacterAtIndex:index-1 inString:aString];
+    return index > ZER0 && [self isControlCharacterAtIndex:index-1 inString:aString];
 }
 - (BOOL)isControlCharacterAtIndex:(NSUInteger)index inString:(NSString *)aString;
 {
@@ -476,7 +470,7 @@ To Do List:
     IC.reset;
     IC.location = LS.scanLocation - offset;
     while (IC.depth < maxDepth) {
-        NSUInteger index = 0;
+        NSUInteger index = ZER0;
         if ([LS scanCharacter:'\t'])
         {
             IC.endsWithTab = YES;
@@ -633,10 +627,10 @@ continue_after_comment:
         else
         {
             //  no space, no tab, no comment, stop here
-            return IC.length>0;
+            return IC.length > ZER0;
         }
     }
-    return IC.length>0;
+    return IC.length > ZER0;
 }
 - (NSMutableArray *)_indentationComponentsInString:(NSString *)aString atIndex:(NSUInteger)index beforeIndex:(NSUInteger)before uncommentedOnly:(BOOL)yorn;
 /*! Description forthcoming.
@@ -649,14 +643,14 @@ continue_after_comment:
         return result;// nothing to do
 
     const NSUInteger numberOfSpacesPerTab = self.numberOfSpacesPerTab;
-    NSAssert2(numberOfSpacesPerTab>0,@"What the hell? This is a HUUUUUGE bug %s:%lu",__FILE__,__LINE__);
+    NSAssert2(numberOfSpacesPerTab>ZER0,@"What the hell? This is a HUUUUUGE bug %s:%lu",__FILE__,__LINE__);
 
     _iTM2IndentationComponent * IC = [_iTM2IndentationComponent indentationComponent];
     IC.location = index;
     iTM2LiteScanner * LS = [self liteScannerWithString:aString];
     LS.scanLocation = index;
     LS.scanLimit = before;
-    while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:0 maxDepth:NSUIntegerMax]) {
+    while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:ZER0 maxDepth:NSUIntegerMax]) {
         if (yorn && IC.commentLength) {
             return result;
         }
@@ -685,11 +679,11 @@ continue_after_comment:
         *ICsAfterRef = [NSMutableArray array];
     }
     _iTM2IndentationComponent * IC  = [_iTM2IndentationComponent indentationComponent];
-    while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:0 maxDepth:NSUIntegerMax]) {
+    while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:ZER0 maxDepth:NSUIntegerMax]) {
         if (IC.commentLength) {
             if (ICsAfterRef) {
                 [*ICsAfterRef addObject:IC.clone];
-                while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:0 maxDepth:NSUIntegerMax]) {
+                while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:ZER0 maxDepth:NSUIntegerMax]) {
                     [*ICsAfterRef addObject:IC.clone];
                 }
             }
@@ -709,10 +703,10 @@ continue_after_comment:
 {
     if (self.usesTabs) {
         //  Complete with simple components with tabs
-        return [@"" stringByPaddingToLength:depth withString:@"\t" startingAtIndex:0];
+        return [@"" stringByPaddingToLength:depth withString:@"\t" startingAtIndex:ZER0];
     } else {
         //  Complete with simple components with spaces
-        return [@"" stringByPaddingToLength:depth*self.numberOfSpacesPerTab withString:@" " startingAtIndex:0];
+        return [@"" stringByPaddingToLength:depth*self.numberOfSpacesPerTab withString:@" " startingAtIndex:ZER0];
     }
 }
 - (NSString *)stringComplementForLength:(NSUInteger)length;
@@ -720,7 +714,7 @@ continue_after_comment:
     if (self.usesTabs) {
         return @"\t";
     } else {
-        return [@"" stringByPaddingToLength:self.numberOfSpacesPerTab-length % self.numberOfSpacesPerTab withString:@" " startingAtIndex:0];
+        return [@"" stringByPaddingToLength:self.numberOfSpacesPerTab-length % self.numberOfSpacesPerTab withString:@" " startingAtIndex:ZER0];
     }
     return @"";
 }
@@ -734,9 +728,9 @@ continue_after_comment:
 - (void)getIndentationPrefix:(NSString **)stringRef:(NSRangePointer)affectedRangeRef change:(NSUInteger)changeInDepth inString:(NSString *)actualS:(NSUInteger)actualIndex availablePrefix:(NSString *)availableS:(NSUInteger)availableIndex;
 {
     NSParameterAssert(stringRef);
-    if (changeInDepth == 0) {
+    if (changeInDepth == ZER0) {
         if (affectedRangeRef) {
-            *affectedRangeRef = iTM3MakeRange(0,0);
+            *affectedRangeRef = iTM3MakeRange(ZER0,ZER0);
         }
         *stringRef = @"";
         return;
@@ -746,7 +740,7 @@ continue_after_comment:
     LS.scanLimit = actualS.length;
     LS.scanLocation = actualIndex;
     NSMutableArray * actualICs = [NSMutableArray array];
-    while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:0 maxDepth:NSUIntegerMax]) {
+    while ([self _getNextIndentationComponent:IC withScanner:LS alreadyScanned:ZER0 maxDepth:NSUIntegerMax]) {
         [actualICs addObject:IC.clone];
     }
     if (affectedRangeRef) {
@@ -855,7 +849,7 @@ continue_after_comment:
             if (reminder > R.length) {
                 //  rightmost part of the prefix: uncomplete indentation component
                 //  The length does not change modulo self.numberOfSpacesPerTab
-                S2 = [@"" stringByPaddingToLength:reminder withString:@" " startingAtIndex:0];
+                S2 = [@"" stringByPaddingToLength:reminder withString:@" " startingAtIndex:ZER0];
                 if (--changeInDepth) {
                     //  whole components, except the first one
                     S1 = [self indentationStringWithDepth:changeInDepth];
@@ -872,7 +866,7 @@ continue_after_comment:
             //  reminder <= R.length
             //  We insert indentation components
             R.location += R.length - reminder;
-            R.length = 0;
+            R.length = ZER0;
             *stringRef = [self indentationStringWithDepth:changeInDepth];
             if (affectedRangeRef) {
                 *affectedRangeRef = R;
@@ -903,7 +897,7 @@ continue_after_comment:
                 R.length = IC.length - IC.contentLength;
                 R.length += [[E allObjects] indentationLength4iTM3];
                 availableS = [availableS substringWithRange:R];
-                [self getIndentationPrefix:&S2:nil change:changeInDepth inString:@"":0 availablePrefix:availableS:0];
+                [self getIndentationPrefix:&S2:nil change:changeInDepth inString:@"":ZER0 availablePrefix:availableS:ZER0];
                 *stringRef = [*stringRef stringByAppendingString:S2];
                 return;
             } else {
@@ -912,7 +906,7 @@ continue_after_comment:
                 R.location = IC.location;
                 R.length = IC.commentLength;
                 changeInDepth -= R.length / self.numberOfSpacesPerTab;
-                if (changeInDepth > 0) {
+                if (changeInDepth > ZER0) {
                     S2 = [availableS substringWithRange:R];
                     //  Complete R to an indentation component
                     //  Only spaces or tab
@@ -922,18 +916,18 @@ continue_after_comment:
                         //  remove one depth level
                         --changeInDepth;
                         //  Add missing components
-                        if (changeInDepth > 0) {
+                        if (changeInDepth > ZER0) {
                             S1 = [self indentationStringWithDepth:changeInDepth];
                             S2 = [S2 stringByAppendingString:S1];//S1 = @"";
                         }
-                    } else if (changeInDepth > 0) {
+                    } else if (changeInDepth > ZER0) {
                         S1 = [self indentationStringWithDepth:changeInDepth];
                         S2 = [S2 stringByAppendingString:S1];//S1 = @"";
                     } else {
                         S1 = @" ";
                         S2 = [S2 stringByAppendingString:S1];//S1 = @"";
                     }
-                } else if (changeInDepth == 0) {
+                } else if (changeInDepth == ZER0) {
                     S2 = [availableS substringWithRange:R];
                     //  add a space?
                 }
@@ -963,7 +957,7 @@ continue_after_comment:
     NSParameterAssert(affectedRangeRef);
     
     const NSUInteger numberOfSpacesPerTab = self.numberOfSpacesPerTab;
-    NSAssert2(numberOfSpacesPerTab>0,@"What the hell? This is a HUUUUUGE bug %s:%lu",__FILE__,__LINE__);
+    NSAssert2(numberOfSpacesPerTab>ZER0,@"What the hell? This is a HUUUUUGE bug %s:%lu",__FILE__,__LINE__);
 
     __iTM2IndentationComponent * IC = nil;
     __iTM2IndentationComponent * firstCommentedIC = nil;
@@ -976,11 +970,11 @@ continue_after_comment:
     NSMutableArray * ICsBefore = [NSMutableArray array];
     NSMutableArray * ICsAfter  = [NSMutableArray array];
     [self getIndentationComponents:&ICsBefore:&ICsAfter withScanner:LS];
-    firstCommentedIC = ICsAfter.count?[ICsAfter objectAtIndex:0]:nil;
+    firstCommentedIC = ICsAfter.count?[ICsAfter objectAtIndex:ZER0]:nil;
     lastIC = ICsAfter.lastObject?:ICsBefore.lastObject;
 
     if (ICsBefore.count) {
-        IC = [ICsBefore objectAtIndex:0];
+        IC = [ICsBefore objectAtIndex:ZER0];
         affectedRangeRef->location = IC.location;
         affectedRangeRef->length = lastIC.nextLocation - affectedRangeRef->location;
     } else if (firstCommentedIC) {
@@ -989,28 +983,28 @@ continue_after_comment:
     } else {
         //  No indentation prefix at all
         affectedRangeRef->location = actualIndex;
-        affectedRangeRef->length = 0;
-        *stringRef = 0;
+        affectedRangeRef->length = ZER0;
+        *stringRef = ZER0;
         return;
     }
-    if (changeInDepth == 0) {
+    if (changeInDepth == ZER0) {
         * stringRef = affectedRangeRef->length?[actualS substringWithRange:*affectedRangeRef]:@"";
         return;
     }
-    NSUInteger expectedReminder = lastIC.endsWithTab? 0: lastIC.length%self.numberOfSpacesPerTab;
-    NSUInteger actualReminder = 0;
+    NSUInteger expectedReminder = lastIC.endsWithTab? ZER0: lastIC.length%self.numberOfSpacesPerTab;
+    NSUInteger actualReminder = ZER0;
     //  We will try to keep the expected reminder
     NSUInteger depth = [ICsAfter indentationDepth4iTM3];
     NSString * S1 = @"";
     NSString * S2 = @"";
-    NSUInteger lastBreak = 0;
-    NSUInteger expectedDepth = 0;
-    NSUInteger expectedLength = 0;
-    NSUInteger expectedLocation = 0;
-    NSUInteger idx = 0;
-    NSRange R = iTM3MakeRange(actualIndex,0);
+    NSUInteger lastBreak = ZER0;
+    NSUInteger expectedDepth = ZER0;
+    NSUInteger expectedLength = ZER0;
+    NSUInteger expectedLocation = ZER0;
+    NSUInteger idx = ZER0;
+    NSRange R = iTM3MakeRange(actualIndex,ZER0);
     if (depth - firstCommentedIC.depth >= changeInDepth) {
-        //  firstCommentedIC.depth > 0 (easy to proove)
+        //  firstCommentedIC.depth >ZER0(easy to proove)
         expectedDepth = depth - changeInDepth;
         //  expectedDepth is related to the expected depth once the unindentation is complete
         //  What will be removed comes from this part which is
@@ -1022,32 +1016,29 @@ continue_after_comment:
         expectedDepth -= firstCommentedIC.depth;
         idx = 1;
         while (idx < ICsAfter.count) {
-            //  expectedDepth >= 0 => ICsAfter.count > 0
-            IC = [ICsAfter objectAtIndex:idx++];
+            //  expectedDepth >=ZER0=> ICsAfter.count >ZER0            IC = [ICsAfter objectAtIndex:idx++];
             R.length = IC.location - R.location;
             if (IC.depth <= expectedDepth) {
                 //  we can safely keep this component
                 expectedDepth -= IC.depth;
-                //  we still have depth >= 0
-                continue;
+                //  we still have depth >=ZER0                continue;
             } else if (expectedDepth) {
                 S1 = [actualS substringWithRange:R];// what has been registered so far
                 //  We will return the method from this block
-                //  IC is too big because IC.depth > expectedDepth > 0
-                //  We have IC.depth
+                //  IC is too big because IC.depth > expectedDepth >ZER0                //  We have IC.depth
                 //  We want instead expectedDepth
                 //  The expected length is exactly (no tab):
                 expectedLength = expectedDepth * self.numberOfSpacesPerTab;
                 //  Can I break IC just before the expected length?
                 R.location = LS.scanLocation = IC.location;
                 expectedLocation = R.location + expectedLength;
-                actualReminder = 0;
-                depth = 0;
+                actualReminder = ZER0;
+                depth = ZER0;
                 while (LS.scanLocation < expectedLocation) {
                     if ([LS scanCharacter:'\t']) {
                         ++R.length;
                         ++depth;
-                        actualReminder = 0;
+                        actualReminder = ZER0;
                         break;
                     } else if ([LS scanCommentCharacter] || [LS scanCharacter:' ']) {
                         ++R.length;
@@ -1065,7 +1056,7 @@ continue_after_comment:
                 if (depth < expectedDepth) {
                     S2 = [self stringComplementForLength:lastBreak];
                     S1 = [S1 stringByAppendingString:S2];
-                    actualReminder = 0;
+                    actualReminder = ZER0;
                     if (S1.length) {
                         --depth;
                     }
@@ -1074,13 +1065,13 @@ continue_after_comment:
                     //  actualReminder is still 0
                     //  Should I complete partially ?
                     if ([S1 hasSuffix:@"\t"]) {
-                        actualReminder = 0;
+                        actualReminder = ZER0;
                     }
                 }
             }
             //  try to keep the same reminder
             if (expectedReminder > actualReminder) {
-                S2 = [@"" stringByPaddingToLength:expectedReminder-actualReminder withString:@" " startingAtIndex:0];
+                S2 = [@"" stringByPaddingToLength:expectedReminder-actualReminder withString:@" " startingAtIndex:ZER0];
                 S1 = [S1 stringByAppendingString:S2];
             }
             *stringRef = S1;
@@ -1093,7 +1084,7 @@ continue_after_comment:
     //  all the components following firstUncommentedIC in ICsAfter are removed
     //  depth - firstCommentedIC.depth < changeInDepth
     changeInDepth -= depth - firstCommentedIC.depth;
-    //  depth = 0;
+    //  depth = ZER0;
     //  changeInDepth is now what we have to remove from either firstCommentedIC or what is before
     //  S1 = @"";
     //  We build the replacement string finally stored in *stringRef from the rhs
@@ -1102,14 +1093,14 @@ continue_after_comment:
         //  If this is not sufficient we will also remove stuff from what is before in ICsBefore
         R.location = LS.scanLocation = firstCommentedIC.location;
         //  scan leading spaces
-        NSUInteger leading = 0;
+        NSUInteger leading = ZER0;
         while ([LS scanCharacter:' ']) {
             ++leading;
         }
         //  scan a comment to keep in afterwards
         [LS scanCommentSequence] || [LS scanCommentCharacter];
         R.length = LS.scanLocation - R.location;
-        expectedDepth = firstCommentedIC.depth >= changeInDepth? firstCommentedIC.depth - changeInDepth:0;
+        expectedDepth = firstCommentedIC.depth >= changeInDepth? firstCommentedIC.depth - changeInDepth:ZER0;
         expectedLength = expectedDepth * self.numberOfSpacesPerTab + expectedReminder;// this will be the trailer
         if (!expectedLength) {
             expectedDepth = 1;
@@ -1122,7 +1113,7 @@ continue_after_comment:
             if ([LS scanCharacter:'\t']) {
                 ++R.length;
                 ++depth;
-                actualReminder = 0;
+                actualReminder = ZER0;
                 break;
             } else if ([LS scanCommentCharacter] || [LS scanCharacter:' ']) {
                 ++R.length;
@@ -1142,7 +1133,7 @@ continue_after_comment:
             LS.scanLocation = R.location;
             [LS scanCommentSequence] || [LS scanCommentCharacter];
             R.length = LS.scanLocation - R.location;
-            expectedDepth = firstCommentedIC.depth >= changeInDepth? firstCommentedIC.depth - changeInDepth:0;
+            expectedDepth = firstCommentedIC.depth >= changeInDepth? firstCommentedIC.depth - changeInDepth:ZER0;
             expectedLength = expectedDepth * self.numberOfSpacesPerTab + expectedReminder;
             if (!expectedLength) {
                 expectedDepth = 1;
@@ -1155,7 +1146,7 @@ continue_after_comment:
                 if ([LS scanCharacter:'\t']) {
                     ++R.length;
                     ++depth;
-                    actualReminder = 0;
+                    actualReminder = ZER0;
                     break;
                 } else if ([LS scanCommentCharacter] || [LS scanCharacter:' ']) {
                     ++R.length;
@@ -1178,13 +1169,13 @@ continue_after_comment:
                 S1 = [S1 stringByAppendingString:S2];
                 ++depth;
             }
-            actualReminder = 0;
+            actualReminder = ZER0;
             if (depth < expectedDepth) {
                 S2 = [self indentationStringWithDepth:expectedDepth - depth];
                 S1 = [S1 stringByAppendingString:S2];
             }
             //  How many uncommented components should be removed from ICsBefore:
-            changeInDepth = 0;
+            changeInDepth = ZER0;
         } else {
             // depth >= expectedDepth
             //  How many uncommented components should be removed from ICsBefore:
@@ -1193,7 +1184,7 @@ continue_after_comment:
             if (changeInDepth > depth) {
                 changeInDepth -= depth;
             } else {
-                changeInDepth = 0;
+                changeInDepth = ZER0;
             }
         }
         if (actualReminder > expectedReminder) {
@@ -1201,16 +1192,16 @@ continue_after_comment:
                 ++changeInDepth;
                 S2 = [self stringComplementForLength:S1.length];
                 S1 = [S1 stringByAppendingString:S2];
-                S2 = [@"" stringByPaddingToLength:expectedReminder withString:@" " startingAtIndex:0];
+                S2 = [@"" stringByPaddingToLength:expectedReminder withString:@" " startingAtIndex:ZER0];
                 S1 = [S1 stringByAppendingString:S2];
             }
         } else if (expectedReminder > actualReminder) {
             S2 = [@"" stringByPaddingToLength:expectedReminder-actualReminder
-                withString:@" " startingAtIndex:0];
+                withString:@" " startingAtIndex:ZER0];
             S1 = [S1 stringByAppendingString:S2];
         }
     } else if (expectedReminder) {
-        S2 = [@"" stringByPaddingToLength:expectedReminder withString:@" " startingAtIndex:0];
+        S2 = [@"" stringByPaddingToLength:expectedReminder withString:@" " startingAtIndex:ZER0];
         S1 = [S1 stringByAppendingString:S2];
     }
     //  Finally, recover the uncommented indentation components
@@ -1230,7 +1221,7 @@ continue_after_comment:
 - (NSString *)_stringByUnindentingString:(NSString *)aString;
 {
     iTM2LiteScanner * S = [self liteScannerWithString:aString];
-    S.scanLocation = 0;
+    S.scanLocation = ZER0;
     NSMutableString * result = [NSMutableString string];
     NSUInteger index;
 next_character:
@@ -1274,7 +1265,7 @@ next_character:
         return aString;
     }
     iTM2LiteScanner * LS = [self liteScannerWithString:aString];
-    LS.scanLocation = 0;
+    LS.scanLocation = ZER0;
     NSMutableString * result = [NSMutableString string];
     NSUInteger index;
     index = LS.scanLocation;
@@ -1294,7 +1285,7 @@ terminate:
                 }
                 else
                 {
-                    return [result stringByPaddingToLength:self.numberOfSpacesPerTab withString:@" " startingAtIndex:0];
+                    return [result stringByPaddingToLength:self.numberOfSpacesPerTab withString:@" " startingAtIndex:ZER0];
                 }
             }
             else if ([LS scanCharacter:' ']||[LS scanCommentSequence])
@@ -1336,10 +1327,10 @@ terminate:
                 {
                     // yes it is.
                     ic = ic.clone;// don't mess up with the originals
-                    ic.depth=0;
+                    ic.depth = ZER0;
                     if (level==depth)
                     {
-                        ic.contentLength=0;
+                        ic.contentLength = ZER0;
                     }
                     [ICs addObject:ic];
                     break;
@@ -1347,7 +1338,7 @@ terminate:
                 // there is a comment here
                 // we keep this component but set its depth as 0
                 // the client will take the appropriate actions
-                IC.depth = 0;
+                IC.depth = ZER0;
                 [ICs addObject:IC];
                 break;
             }
@@ -1368,7 +1359,7 @@ terminate:
     // the fist index corresponds to the first component which is not commented
     if (level)
     {
-        NSUInteger idx = 0;
+        NSUInteger idx = ZER0;
         while(idx<ICs.count)
         {
             IC = [ICs objectAtIndex:idx];
@@ -1409,7 +1400,7 @@ terminate:
                 if (IC.depth>level)
                 {
                     IC.depth -= level;
-                    IC.contentLength = 0;
+                    IC.contentLength = ZER0;
                     [ICs removeObjectsAtIndexes:MIS];
                     return YES;                        
                 }
@@ -1418,7 +1409,7 @@ terminate:
                     // if the last component is a 0 depth commented component, remove object at index track
                     // but keep the last object
                     ic = ICs.lastObject;
-                    if (ic.depth==0)
+                    if (ic.depth==ZER0)
                     {
                         if (ic.commentLength)
                         {
@@ -1429,11 +1420,11 @@ terminate:
                         else
                         {
                             // remove the last indentation component
-                            [MIS addIndex:ICs.count-1];// ICs.count>0 here!
+                            [MIS addIndex:ICs.count-1];// ICs.count 0 here!
                         }
                     }
-                    IC.depth = 0;
-                    IC.contentLength = 0;
+                    IC.depth = ZER0;
+                    IC.contentLength = ZER0;
                     [ICs removeObjectsAtIndexes:MIS];
                     return YES;                        
                 }
@@ -1460,7 +1451,7 @@ terminate:
         // the only acceptable situation where the return value is YES is level == 1 and one component left
         if ((level == 1) && ((IC = ICs.lastObject),!IC.depth))
         {
-            IC.contentLength = 0;
+            IC.contentLength = ZER0;
             [ICs removeObjectsAtIndexes:MIS];
             return YES;                        
         }
@@ -1482,11 +1473,11 @@ terminate:
 	NSMutableArray * normalizedComponents = [NSMutableArray arrayWithCapacity:lineComponents.count];
 	for(NSString * line in lineComponents)
 	{
-        NSArray * indentationComponents = [self _indentationComponentsInString:line atIndex:0 uncommentedOnly:NO];
+        NSArray * indentationComponents = [self _indentationComponentsInString:line atIndex:ZER0 uncommentedOnly:NO];
         NSEnumerator * E = indentationComponents.objectEnumerator;
         NSNumber * N = nil;
         NSString * IC = nil;
-        NSUInteger charIndex = 0;
+        NSUInteger charIndex = ZER0;
         while((N = E.nextObject) && (IC = E.nextObject))
         {
             charIndex += [N unsignedIntegerValue];
@@ -1512,14 +1503,14 @@ terminate:
 	//START4iTM3;
     NSUInteger numberOfSpacesPerTab = self.numberOfSpacesPerTab;
 	NSMutableString * result = [NSMutableString string];
-	NSRange lineRange = iTM3MakeRange(index,0);
+	NSRange lineRange = iTM3MakeRange(index,ZER0);
 	lineRange = [aString lineRangeForRange:lineRange];// the line range containing the given index
 	NSString * string = [aString substringToIndex:lineRange.location];// everything before the line
 	[result appendString:string];// copied as is
 	// now append the expected indentation for the line containing index
 	NSString * tabString = nil;
 	NSUInteger idx = numberOfSpacesPerTab;
-	if (idx<=0)
+	if (idx<ZER0)
 	{
 		tabString = @"\t";
 	}
@@ -1583,31 +1574,31 @@ we can activate the end of the line and change the meaning of the input text.
 This first problem is even more difficult because indentation components can have a depth greater than one.
 */
 {
-    NSInteger changeInLength = 0;
-    if (idx>S.length || depthChange <= 0)
+    NSInteger changeInLength = ZER0;
+    if (idx>S.length || depthChange <= ZER0)
     {
         return changeInLength;
     }
-    NSRange affected = iTM3MakeRange(idx,0);
+    NSRange affected = iTM3MakeRange(idx,ZER0);
     NSString * replacement = @"";
     [S getLineStart:&affected.location end:nil contentsEnd:nil forRange:affected];
     iTM2LiteScanner * LS = [self liteScannerWithString:S];
     LS.scanLocation = affected.location;
-    NSUInteger numberOfPendingChars = 0;
+    NSUInteger numberOfPendingChars = ZER0;
 #pragma mark 1 - scan leading uncommented ICs
     while(YES) {
         if ([LS scanCharacter:' ']) {
             ++numberOfPendingChars;
             if (numberOfPendingChars < self.numberOfSpacesPerTab
-                    || ((numberOfPendingChars = 0),--depthChange)) {
+                    || ((numberOfPendingChars = ZER0),--depthChange)) {
                 continue;
             }
             affected.length = LS.scanLocation - affected.location;
-            // 0 == depthChange
+            //ZER0== depthChange
             // we remove the full indentation components that are just before the last comment.
             // this is not for the case with comments
         } else if ([LS scanCharacter:'\t']) {
-            numberOfPendingChars = 0;
+            numberOfPendingChars = ZER0;
             if (--depthChange) {
                 continue;
             }
@@ -1617,7 +1608,7 @@ This first problem is even more difficult because indentation components can hav
         } else {
             // we have reached the end of the head part of the line
             // with no comment
-            // depthChange is still > 0, the requested modification cannot be honored
+            // depthChange is still >ZER0 the requested modification cannot be honored
             // we remove everything
         }
         affected.length = LS.scanLocation - affected.location;
@@ -1628,7 +1619,7 @@ This first problem is even more difficult because indentation components can hav
             [affectedRanges addObject:[NSValue valueWithRange:affected]];\
             changeInLength -= affected.length - replacement.length;\
             affected.location += affected.length;\
-            affected.length = 0;\
+            affected.length = ZER0;\
         }
 register_and_terminate:
         REGISTER(replacement);
@@ -1653,19 +1644,19 @@ did_start_last_commented_IC_candidate:
     ICsComment = nil;// record the possible break point
     uncommentedICsAfter = nil;
     numberOfPendingChars += LS.scanLocation-idx;
-    numberOfTrailingWhites = 0;
+    numberOfTrailingWhites = ZER0;
     breakLocation = LS.scanLocation-idx;// same as numberOfPendingChars but ignores previous spaces
     while(YES) {
         if ([LS scanCharacter:' ']) {
             // record the composition of the IC
             ++ numberOfTrailingWhites;
-            if (++breakLocation % self.numberOfSpacesPerTab == 0) {
+            if (++breakLocation % self.numberOfSpacesPerTab == ZER0) {
                 ICsComment = ICsComment?
                     [ICsComment indexPathByAddingIndex:LS.scanLocation]:
                     [NSIndexPath indexPathWithIndex:LS.scanLocation];
                 ICsComment = [ICsComment indexPathByAddingIndex:1];            
                 // reset breakLocation
-                breakLocation = 0;
+                breakLocation = ZER0;
             }
             if (newNumberOfPendingChars = ++numberOfPendingChars % self.numberOfSpacesPerTab) {
                 // this is not the end of the component
@@ -1676,7 +1667,7 @@ did_start_last_commented_IC_candidate:
 #pragma mark 3 - Scan uncommented ICs
 scan_uncommented_ICs:
             commentDepth = numberOfPendingChars / self.numberOfSpacesPerTab;
-            numberOfPendingChars = 0;
+            numberOfPendingChars = ZER0;
             uncommentedICsAfter = [NSIndexPath indexPathWithIndex:LS.scanLocation];
             while(YES) {
                 // in this loop, only spaces and tabs
@@ -1685,11 +1676,11 @@ scan_uncommented_ICs:
                         continue;
                     }
                     uncommentedICsAfter = [uncommentedICsAfter indexPathByAddingIndex:LS.scanLocation];
-                    numberOfPendingChars = 0;
+                    numberOfPendingChars = ZER0;
                     continue;
                 } else if ([LS scanCharacter:'\t']) {
                     uncommentedICsAfter = [uncommentedICsAfter indexPathByAddingIndex:LS.scanLocation];
-                    numberOfPendingChars = 0;
+                    numberOfPendingChars = ZER0;
                     continue;
                 } else if ((idx = LS.scanLocation), [LS scanCommentSequence]) {
                     // I found a new comment
@@ -1710,7 +1701,7 @@ scan_uncommented_ICs:
                     // Removing the comment will remove too much
                     // we must compensation and insert as many indentation strings as necessary
                     affected.location = lastCommentedICLocation;
-                    affected.length = [uncommentedICsAfter indexAtPosition:0] - affected.location;
+                    affected.length = [uncommentedICsAfter indexAtPosition:ZER0] - affected.location;
                     commentDepth -= depthChange;
                     NSMutableArray * MRA = [NSMutableArray arrayWithCapacity:commentDepth];
                     while(commentDepth--) {
@@ -1725,7 +1716,7 @@ scan_uncommented_ICs:
                     if (uncommentedICsAfter.length - 1 >= depthChange) {
                         // leave the commented IC as is
                         // remove what comes next
-                        affected.location = [uncommentedICsAfter indexAtPosition:0];
+                        affected.location = [uncommentedICsAfter indexAtPosition:ZER0];
                         affected.length = [uncommentedICsAfter indexAtPosition:depthChange] - affected.location;
                         goto register_and_terminate;
                     }
@@ -1734,20 +1725,20 @@ scan_uncommented_ICs:
                     depthChange -= uncommentedICsAfter.length - 1;
                     // now I must remove depthChange from the commented IC
                     // The actual length of the comment is
-                    // [uncommentedICsAfter indexAtPosition:0] - lastCommentedICLocation
+                    // [uncommentedICsAfter indexAtPosition:ZER0] - lastCommentedICLocation
                     // the comment depth is therefore
 edit_commented_IC:
                     affected.location = lastCommentedICLocation;
                     affected.length = LS.scanLocation - affected.location;
-                    commentDepth = 1 + ([uncommentedICsAfter indexAtPosition:0] - lastCommentedICLocation - 1)
+                    commentDepth = 1 + ([uncommentedICsAfter indexAtPosition:ZER0] - lastCommentedICLocation - 1)
                         / self.numberOfSpacesPerTab; // true whether the commented IC ends with a tab or not
                     // if the commented IC starts with a series of spaces, it is possible that removing these leading spaces
                     // changes the depth of the whole IC.
                     // the expected depth is commentDepth - depthChange
                     if (commentDepth>depthChange) {
-                        NSUInteger alreadySpace = 0;
+                        NSUInteger alreadySpace = ZER0;
                         commentDepth -= depthChange;
-                        for(idx = 0;idx<ICsComment.length;++idx) {
+                        for(idx = ZER0; idx<ICsComment.length;++idx) {
                             commentRange.length = [ICsComment indexAtPosition:idx] - commentRange.location;
                             alreadySpace = [ICsComment indexAtPosition:++idx];
                             if (1+(commentRange.length - 1)/self.numberOfSpacesPerTab >= commentDepth) {
@@ -1778,16 +1769,16 @@ edit_commented_IC:
                 [NSIndexPath indexPathWithIndex:LS.scanLocation];
             ICsComment = [ICsComment indexPathByAddingIndex:1];            
             // reset breakLocation
-            breakLocation = 0;
+            breakLocation = ZER0;
             goto scan_uncommented_ICs;
         } else if ((idx = LS.scanLocation), [LS scanCommentSequence]) {
             // record the composition of the IC
-            numberOfTrailingWhites = 0;
-            if ((breakLocation += LS.scanLocation - idx) % self.numberOfSpacesPerTab == 0) {
+            numberOfTrailingWhites = ZER0;
+            if ((breakLocation += LS.scanLocation - idx) % self.numberOfSpacesPerTab == ZER0) {
                 ICsComment = [ICsComment indexPathByAddingIndex:LS.scanLocation];
-                ICsComment = [ICsComment indexPathByAddingIndex:0];            
+                ICsComment = [ICsComment indexPathByAddingIndex:ZER0];            
                 // reset breakLocation
-                breakLocation = 0;
+                breakLocation = ZER0;
             }
             if (newNumberOfPendingChars = (numberOfPendingChars += LS.scanLocation - idx) % self.numberOfSpacesPerTab) {
                 // this is not the end of the component
@@ -1808,9 +1799,9 @@ edit_commented_IC:
     NSArray * ICs = [self _indentationComponentsInString:S atIndex:start uncommentedOnly:NO];
     iTM2IndentationComponent * IC = nil;
     NSRange R = iTM3VoidRange;
-    NSInteger changeInLength = 0;
-    NSUInteger length = 0;
-    NSUInteger idx = 0;
+    NSInteger changeInLength = ZER0;
+    NSUInteger length = ZER0;
+    NSUInteger idx = ZER0;
     NSString * replacement = @"";
 #define REGISTER(STRING)\
     if (R.length || STRING.length)\
@@ -1822,7 +1813,7 @@ edit_commented_IC:
     NSUInteger totalDepth = [[ICs valueForKeyPath:@"self.@sum.depth"] unsignedIntegerValue];
     NSUInteger totalCommentLength = [[ICs valueForKeyPath:@"self.@sum.commentLength"] unsignedIntegerValue];
     NSInteger excedent = change;
-    R.location = [[ICs objectAtIndex:0] location];
+    R.location = [[ICs objectAtIndex:ZER0] location];
     NSEnumerator * E = ICs.objectEnumerator;
     BOOL addWhiteAfterReplacement = NO;
     iTM2LiteScanner * LS = nil;
@@ -1831,13 +1822,12 @@ edit_commented_IC:
         totalCommentLength -= IC.commentLength;
         if (IC.depth < excedent)
         {
-            excedent -= IC.depth; // still > 0
-            totalDepth -= IC.depth;
+            excedent -= IC.depth; // still >ZER0            totalDepth -= IC.depth;
             if (!totalCommentLength)
             {
                 // this is the last commented component
                 replacement = [S substringWithRange:iTM3MakeRange(IC.location+IC.contentLength,IC.commentLength+IC.blackLength)];
-                addWhiteAfterReplacement = IC.afterLength > 0;
+                addWhiteAfterReplacement = IC.afterLength > ZER0;
                 R.length = IC.nextLocation - R.location;
                 // all the forthcoming components are not commented and of depth 1, except the last one eventually
                 while(totalDepth)
@@ -1860,13 +1850,13 @@ edit_commented_IC:
                             }
                             else
                             {
-                                replacement = [replacement stringByPaddingToLength:self.numberOfSpacesPerTab withString:@" " startingAtIndex:0];
+                                replacement = [replacement stringByPaddingToLength:self.numberOfSpacesPerTab withString:@" " startingAtIndex:ZER0];
                             }
                         }
                     }
                     else if (IC.length>replacement.length || addWhiteAfterReplacement)
                     {
-                        replacement = [replacement stringByPaddingToLength:IC.length withString:@" " startingAtIndex:0];
+                        replacement = [replacement stringByPaddingToLength:IC.length withString:@" " startingAtIndex:ZER0];
                     }
                 }
                 else if (IC.length>replacement.length || addWhiteAfterReplacement)
@@ -1929,7 +1919,7 @@ edit_commented_IC:
                     }
                     else
                     {
-                        replacement = [replacement stringByPaddingToLength:replacement.length+length withString:@" " startingAtIndex:0];
+                        replacement = [replacement stringByPaddingToLength:replacement.length+length withString:@" " startingAtIndex:ZER0];
                     }
                 }
             }
@@ -1956,7 +1946,7 @@ edit_commented_IC:
                         replacement = [replacement stringByAppendingString:@"\t"];
                         if (self.numberOfSpacesPerTab > replacement.length)
                         {
-                            replacement = [[@"" stringByPaddingToLength:MIN(IC.contentLength,self.numberOfSpacesPerTab - replacement.length) withString:@" " startingAtIndex:0]
+                            replacement = [[@"" stringByPaddingToLength:MIN(IC.contentLength,self.numberOfSpacesPerTab - replacement.length) withString:@" " startingAtIndex:ZER0]
                                 stringByAppendingString:replacement];
                         }
                     }
@@ -1968,10 +1958,10 @@ edit_commented_IC:
                         }
                         if (self.numberOfSpacesPerTab > replacement.length)
                         {
-                            replacement = [[@"" stringByPaddingToLength:MIN(IC.contentLength,self.numberOfSpacesPerTab - replacement.length) withString:@" " startingAtIndex:0]
+                            replacement = [[@"" stringByPaddingToLength:MIN(IC.contentLength,self.numberOfSpacesPerTab - replacement.length) withString:@" " startingAtIndex:ZER0]
                                 stringByAppendingString:replacement];
                         }
-                        replacement = [replacement stringByPaddingToLength:self.numberOfSpacesPerTab withString:@" " startingAtIndex:0];
+                        replacement = [replacement stringByPaddingToLength:self.numberOfSpacesPerTab withString:@" " startingAtIndex:ZER0];
                     }
                     IC = ic;
                 }
@@ -1983,7 +1973,7 @@ edit_commented_IC:
                     }
                     if (ic)
                     {
-                        replacement = [replacement stringByPaddingToLength:ic.length withString:@" " startingAtIndex:0];
+                        replacement = [replacement stringByPaddingToLength:ic.length withString:@" " startingAtIndex:ZER0];
                         IC = ic;
                     }
                 }
@@ -1997,18 +1987,18 @@ edit_commented_IC:
 }
 - (NSInteger)_prepareIndentationChange:(NSInteger)change atIndex:(NSUInteger)start inString:(NSString *)S withReplacementString:(NSMutableArray *)replacementStrings affectedRanges:(NSMutableArray *)affectedRanges indentations:(NSArray *)theICs inString:(NSString *)theReference;
 {
-    if (change==0)
+    if (change==ZER0)
     {
-        return 0;
+        return ZER0;
     }
-    if (change<0)
+    if (change<ZER0)
     {
         return [self __prepareIndentationChange:-change atIndex:start inString:S withReplacementString:replacementStrings affectedRanges:affectedRanges];
     }
     // the string to insert, in general
     NSMutableArray * MRA = [NSMutableArray array];
     NSInteger i = change;
-    NSRange R = iTM3MakeRange(NSNotFound,0);
+    NSRange R = iTM3MakeRange(NSNotFound,ZER0);
     NSString * replacement = @"";
     iTM2IndentationComponent * theIC = nil;
     //  When you insert indentation components from a reference string, leading comments are treated separately.
@@ -2020,15 +2010,15 @@ edit_commented_IC:
     if (theICs.count) {
         //  indentation components come from the reference string
         if (ICs.count) {
-            IC = [ICs objectAtIndex:0];
+            IC = [ICs objectAtIndex:ZER0];
             if (!IC.commentLength) {
                 //  manage the first commented indentation component
                 //  insert this component, and recursively call the same method
-                theIC = [theICs objectAtIndex:0];
+                theIC = [theICs objectAtIndex:ZER0];
                 if (!theIC.contentLength && theIC.commentLength) {
                     R = iTM3MakeRange(theIC.location,theIC.length);
                     replacement = [theReference substringWithRange:R];
-                    R = iTM3MakeRange(IC.location,0);
+                    R = iTM3MakeRange(IC.location,ZER0);
                     [affectedRanges addObject:[NSValue valueWithRange:R]];
                     [replacementStrings addObject:replacement];
                     i = replacement.length - R.length;
@@ -2063,7 +2053,7 @@ edit_commented_IC:
     }
     replacement = [MRA componentsJoinedByString:@""];
     ICs = [self _indentationComponentsInString:S atIndex:start uncommentedOnly:NO];
-    R = iTM3MakeRange(start,0);
+    R = iTM3MakeRange(start,ZER0);
     if (ICs.count)
     {
         // In general insert at the end, after the last full indentation component
@@ -2098,7 +2088,7 @@ edit_commented_IC:
                 if (!self.usesTabs)
                 {
                     NSInteger changeInLength = change*self.indentationString.length-IC.length % self.numberOfSpacesPerTab;
-                    replacement = [@"" stringByPaddingToLength:changeInLength withString:@" " startingAtIndex:0];
+                    replacement = [@"" stringByPaddingToLength:changeInLength withString:@" " startingAtIndex:ZER0];
                 }
                 break;
             case '\t':
@@ -2127,7 +2117,7 @@ terminate:
         {
             //IC starts with spaces or a tab
             //indent before
-            [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,0)]];
+            [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,ZER0)]];
             [replacementStrings addObject:self.indentationString];
             return self.indentationString.length;                
         }
@@ -2137,7 +2127,7 @@ terminate:
             switch([S characterAtIndex:IC.nextLocation-1])
             {
                 case ' ':
-                    [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.nextLocation,0)]];
+                    [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.nextLocation,ZER0)]];
                     if (self.usesTabs)
                     {
                         [replacementStrings addObject:self.indentationString];
@@ -2147,15 +2137,15 @@ terminate:
                     {
                         NSInteger changeInLength = IC.length % self.numberOfSpacesPerTab;
                         changeInLength = self.indentationString.length-changeInLength;
-                        [replacementStrings addObject:[@"" stringByPaddingToLength:changeInLength withString:@" " startingAtIndex:0]];
+                        [replacementStrings addObject:[@"" stringByPaddingToLength:changeInLength withString:@" " startingAtIndex:ZER0]];
                         return changeInLength;                
                     }
                 case '\t':
-                    [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.nextLocation,0)]];
+                    [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.nextLocation,ZER0)]];
                     [replacementStrings addObject:self.indentationString];
                     return self.indentationString.length;                
                 default:
-                    [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,0)]];
+                    [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,ZER0)]];
                     [replacementStrings addObject:self.indentationString];
                     return self.indentationString.length;                
             }
@@ -2163,11 +2153,11 @@ terminate:
     }
     else
     {
-        [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(start,0)]];
+        [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(start,ZER0)]];
         [replacementStrings addObject:self.indentationString];
         return self.indentationString.length;
     }
-    return 0;
+    return ZER0;
 }
 @synthesize macroTypes=_macroTypes;
 @synthesize delegate=_delegate;
@@ -2200,8 +2190,8 @@ To Do List: Nothing at first glance.
     
 	iTM2StringController * SC = self.stringController4iTM3;
 	
-	NSInteger off7 = 0;
-	NSInteger changeInLength = 0;
+	NSInteger off7 = ZER0;
+	NSInteger changeInLength = ZER0;
     NSUInteger start, end;
 	NSString * S = self.string;
 
@@ -2212,7 +2202,7 @@ To Do List: Nothing at first glance.
 	{
         // the first iteration of the loop is very different from the other ones
 		R = V.rangeValue;
-		R.length = 0;
+		R.length = ZER0;
         // get the indexes for the first line of the selection
 		[S getLineStart:&start end:&end contentsEnd:nil forRange:R];
         // get the indentation for this line
@@ -2225,7 +2215,7 @@ To Do List: Nothing at first glance.
             R = V.rangeValue;
             if (R.location>=end)
             {
-                R.length = 0;
+                R.length = ZER0;
                 // get the indexes for the first line of the selection
                 [S getLineStart:&start end:&end contentsEnd:nil forRange:R];
                 changeInLength = [SC _prepareIndentationAtIndex:start inString:S withReplacementString:replacementStrings affectedRanges:affectedRanges];
@@ -2284,8 +2274,8 @@ To Do List: Nothing at first glance.
 
 	iTM2StringController * SC = self.stringController4iTM3;
 	
-	NSInteger off7 = 0;
-	NSInteger changeInLength = 0;
+	NSInteger off7 = ZER0;
+	NSInteger changeInLength = ZER0;
     NSUInteger start, end;
 	NSString * S = self.string;
 
@@ -2295,7 +2285,7 @@ To Do List: Nothing at first glance.
 	{
         // the first iteration of the loop is very different from the other ones
         NSRange R = V.rangeValue;
-		R.length = 0;
+		R.length = ZER0;
         // get the indexes for the first line of the selection
 		[S getLineStart:&start end:&end contentsEnd:nil forRange:R];
         // get the indentation for this line
@@ -2308,7 +2298,7 @@ To Do List: Nothing at first glance.
             // if the line does not start with a comment
             // delete the first indentation component
             // otherwise, insert at the end, after the last full indentation component
-            IC = [ICs objectAtIndex:0];
+            IC = [ICs objectAtIndex:ZER0];
             if (IC.commentLength == NSNotFound)
             {
                 [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,IC.length)]];
@@ -2359,7 +2349,7 @@ To Do List: Nothing at first glance.
             R = V.rangeValue;
             if (R.location>=end)// this is where things change compared with the first iteration above
             {
-                R.length = 0;
+                R.length = ZER0;
                 // get the indexes for the first line of the selection
                 [S getLineStart:&start end:&end contentsEnd:nil forRange:R];
                 // get the indentation for this line
@@ -2370,7 +2360,7 @@ To Do List: Nothing at first glance.
                     // if the line does not start with a comment
                     // delete the first indentation component
                     // otherwise, insert at the end, after the last full indentation component
-                    IC = [ICs objectAtIndex:0];
+                    IC = [ICs objectAtIndex:ZER0];
                     if (IC.commentLength == NSNotFound)
                     {
                         [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,IC.length)]];
@@ -2466,17 +2456,17 @@ To Do List: Nothing at first glance.
 - (NSRange)indentationRange4iTM3;
 {
     if (self.count) {
-        iTM2IndentationComponent * IC = [self objectAtIndex:0];
+        iTM2IndentationComponent * IC = [self objectAtIndex:ZER0];
         if ([IC isKindOfClass:[iTM2IndentationComponent class]]) {
             return iTM3MakeRange(IC.location,self.indentationLength4iTM3);
         }
     }
-    return iTM3MakeRange(0, 0);
+    return iTM3MakeRange(ZER0,ZER0);
 }
 - (iTM2IndentationComponent *)firstCommentedIndentationComponent4iTM3;
 {
     for (iTM2IndentationComponent * IC in self) {
-        if ([IC isKindOfClass:[iTM2IndentationComponent class]] && IC.commentLength > 0) {
+        if ([IC isKindOfClass:[iTM2IndentationComponent class]] && IC.commentLength > ZER0) {
             return IC;
         }
     }

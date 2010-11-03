@@ -136,7 +136,7 @@ To Do List:
 //START4iTM3;
 	NSString * unit = [self info4iTM3ForKeyPaths:iTM2Dvipdfm_x_offset_unit,nil];
 	if([unit isEqualToString:@"bp"])
-		return 0;
+		return ZER0;
 	else if([unit isEqualToString:@"pt"])
 		return 1;
 	else if([unit isEqualToString:@"in"])
@@ -175,7 +175,7 @@ To Do List:
 //START4iTM3;
 	NSString * unit = [self info4iTM3ForKeyPaths:iTM2Dvipdfm_y_offset_unit,nil];
 	if([unit isEqualToString:@"bp"])
-		return 0;
+		return ZER0;
 	else if([unit isEqualToString:@"pt"])
 		return 1;
 	else if([unit isEqualToString:@"in"])
@@ -235,7 +235,7 @@ To Do List:
 		return 1;
 	else if([level isEqualToString:@"vv"])
 		return 2;
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setVerbosityLevel:
 - (void)setVerbosityLevel:(NSInteger)argument;
@@ -419,8 +419,8 @@ To Do List:
 	NSMutableDictionary * MD = [[[super defaultShellEnvironment] mutableCopy] autorelease];
 	[MD addEntriesFromDictionary:
 			[NSDictionary dictionaryWithObjectsAndKeys:
-				[NSNumber numberWithInteger:0], iTM2Dvipdfm_open_bookmark_depth,
-				[NSNumber numberWithInteger:0], iTM2Dvipdfm_option_flags,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvipdfm_open_bookmark_depth,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvipdfm_option_flags,
 				[NSNumber numberWithInteger:0x003C], iTM2Dvipdfm_permission_flags,
 				[NSNumber numberWithBool:NO], iTM2Dvipdfm_enable_encryption,
 				[NSNumber numberWithBool:NO], iTM2Dvipdfm_include_thumbnails,

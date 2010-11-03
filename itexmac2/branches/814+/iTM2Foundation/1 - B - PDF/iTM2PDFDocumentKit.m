@@ -269,7 +269,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSData * data = [NSData dataWithContentsOfURL:fileURL options:0 error:outErrorPtr];
+    NSData * data = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
     [self setDataRepresentation:data];
     Class C = [NSImageRep imageRepClassForData:data];
     if (C)
@@ -286,7 +286,7 @@ To Do List:
                 // s points to the char after the last one
                 s+=length;
                 hawai:
-                if (length>0)
+                if (length>ZER0)
                 {
                     --s;
                     if ((*s=='\r') || (*s=='\n'))
@@ -308,7 +308,7 @@ To Do List:
         {
             LOG4iTM3(@"***  Due to an error, the old image representation is not updated...");
         }
-        [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:0] forKey:@" _FW"];//
+        [IMPLEMENTATION takeMetaValue:[NSNumber numberWithInteger:ZER0] forKey:@" _FW"];//
         return [self imageRepresentation] != nil;
     }
     else
@@ -319,8 +319,8 @@ To Do List:
     bail:
     {
         LOG4iTM3(@"Problem with PDF file format...");
-        NSInteger _FW = MAX(0, [[IMPLEMENTATION metaValueForKey:@" _FW"] integerValue]);
-        NSInteger retryCount = MAX([SUD integerForKey:iTM2PDFDocumentReadDataRetryCountKey], 0);
+        NSInteger _FW = MAX(ZER0, [[IMPLEMENTATION metaValueForKey:@" _FW"] integerValue]);
+        NSInteger retryCount = MAX([SUD integerForKey:iTM2PDFDocumentReadDataRetryCountKey], ZER0);
         CGFloat retryInterval = [SUD floatForKey:iTM2PDFDocumentReadDataRetryIntervalKey] > 0?:1;
         if (_FW<retryCount)
         {
@@ -453,7 +453,7 @@ To Do List:
 /*"Description forthcoming."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lastPhysicalPage
 - (NSInteger)lastPhysicalPage;
@@ -535,7 +535,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (magnification <= 0)
+	if (magnification <= ZER0)
 		magnification = 1;
     [self.album setMagnification:magnification];
     [self takeContext4iTM3Float:[self.album magnification] forKey:iTM2PDFCurrentMagnificationKey domain:iTM2ContextAllDomainsMask];
@@ -824,12 +824,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([sender integerValue]<0)
+	if ([sender integerValue]<ZER0)
 		[self doZoomOut:nil];
 	else
 		[self doZoomIn:nil];
 //NSLog(@"dfp");
-    [sender setIntegerValue:0];
+    [sender setIntegerValue:ZER0];
 	[self validateWindowContent4iTM3];
 //END4iTM3;
     return;
@@ -843,7 +843,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender setIntegerValue:0];
+    [sender setIntegerValue:ZER0];
 //END4iTM3;
     return YES;
 }
@@ -886,7 +886,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"dfp");
-    [self setCurrentPhysicalPage:0];
+    [self setCurrentPhysicalPage:ZER0];
 	[self validateWindowContent4iTM3];
     return;
 }
@@ -1084,7 +1084,7 @@ To Do List:
     if (instruction.length)
     {
 //LOG4iTM3(@"instruction is: %@", instruction);
-		[self.window pushKeyStroke:[instruction substringWithRange:iTM3MakeRange(0, 1)]];
+		[self.window pushKeyStroke:[instruction substringWithRange:iTM3MakeRange(ZER0, 1)]];
 		return YES;
     }
     return result;
@@ -1130,7 +1130,7 @@ To Do List:
 //START4iTM3;
     NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
-	if (n>0)
+	if (n>ZER0)
 		[self setMagnification:n / 100.0 * [self magnification]];
 //END4iTM3;
     return;
@@ -1146,7 +1146,7 @@ To Do List:
 //START4iTM3;
     NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?:1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
-	if (n>0)
+	if (n>ZER0)
 		[self setMagnification:100.0 * [self magnification] / n];
 //END4iTM3;
     return;
@@ -1450,7 +1450,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lastPhysicalPage
 - (NSInteger)lastPhysicalPage;
@@ -1472,7 +1472,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backPhysicalPage
 - (NSInteger)backPhysicalPage;
@@ -1712,7 +1712,7 @@ To Do List:
         case iTM2PDFOneColumnLayout:
         {
             NSSize S = [[self imageRepresentation] size];
-            BOOL rotated = [self PDFOrientation] != 0;
+            BOOL rotated = [self PDFOrientation] != ZER0;
             BOOL slideMode = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
             CGFloat width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
             if (width>0)
@@ -1729,7 +1729,7 @@ To Do List:
         default:
         {
             NSSize S = [[self imageRepresentation] size];
-            BOOL rotated = [self PDFOrientation] != 0;
+            BOOL rotated = [self PDFOrientation] != ZER0;
             BOOL slideMode = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
             CGFloat width = slideMode? (rotated? S.width: S.height): (rotated? S.height: S.width);
             if (width>0)
@@ -1753,7 +1753,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSSize S = [[self imageRepresentation] size];
-    BOOL rotated = [self PDFOrientation] != 0;
+    BOOL rotated = [self PDFOrientation] != ZER0;
     BOOL slideMode = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
     CGFloat height = slideMode? (rotated? S.height: S.width): (rotated? S.width: S.height);
     if (height>0)
@@ -2236,8 +2236,8 @@ To Do List:
 //NSLog(@"%@ = %@", self.window.firstResponder, subview);
         }
         else
-            while([[self subviews] count]>0)
-                [[[self subviews] objectAtIndex:0] removeFromSuperviewWithoutNeedingDisplay];
+            while([[self subviews] count]>ZER0)
+                [[[self subviews] objectAtIndex:ZER0] removeFromSuperviewWithoutNeedingDisplay];
     }
     return;
 }
@@ -2834,7 +2834,7 @@ To Do List:
 //START4iTM3;
     NSUInteger n = sender.integerValue;
 	if (n<1)
-		n = 0;
+		n = ZER0;
 	else
 		--n;
 	PDFDocument * document = self.PDFView.currentPage.document;
@@ -2959,10 +2959,10 @@ To Do List:
 //START4iTM3;
 	BOOL isEnabled = NO;
 	if ([self.PDFView canGoBack]) {
-		[sender setEnabled:YES forSegment:0];
+		[sender setEnabled:YES forSegment:ZER0];
 		isEnabled = YES;
 	} else
-		[sender setEnabled:NO forSegment:0];
+		[sender setEnabled:NO forSegment:ZER0];
 	if ([self.PDFView canGoForward]) {
 		[sender setEnabled:YES forSegment:1];
 		isEnabled = YES;

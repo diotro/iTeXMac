@@ -157,7 +157,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * S = self.string;
-    aRange = iTM3ProjectionRange(iTM3MakeRange(0, S.length),aRange);
+    aRange = iTM3ProjectionRange(iTM3MakeRange(ZER0, S.length),aRange);
     [self scrollRangeToVisible:aRange];
     [self highlightRange:aRange cleanBefore:YES];
 	[self setNeedsDisplay:YES];
@@ -191,7 +191,7 @@ To Do List:
     NSLayoutManager * LM;
     NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
             [NSColor secondarySelectedControlColor], NSBackgroundColorAttributeName, nil];
-	NSRange R = iTM3MakeRange(0, TS.length);
+	NSRange R = iTM3MakeRange(ZER0, TS.length);
     while (LM = [E1 nextObject])
     {
 		[LM removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:R];
@@ -239,9 +239,9 @@ To Do List:
     NSLayoutManager * LM = self.layoutManager;
     NSString * S = self.string;
 	NSUInteger length = S.length;
-    NSRange effectiveRange = iTM3MakeRange(0,length);
+    NSRange effectiveRange = iTM3MakeRange(ZER0,length);
     aRange = iTM3ProjectionRange(effectiveRange,aRange);
-	NSUInteger index = 0;
+	NSUInteger index = ZER0;
 	NSDictionary * attributes;
 	if (aFlag && index<length)
 	{
@@ -275,7 +275,7 @@ next:
 @implementation NSTextView(iTM2TextKitHighlight)
 - (void)SWZ_iTM2TextKitHighlight_didChangeText;
 {
-	[self highlightRange:iTM3MakeRange(0, 0) cleanBefore:YES];
+	[self highlightRange:iTM3MakeRange(ZER0, ZER0) cleanBefore:YES];
 	[self SWZ_iTM2TextKitHighlight_didChangeText];
 	return;
 }

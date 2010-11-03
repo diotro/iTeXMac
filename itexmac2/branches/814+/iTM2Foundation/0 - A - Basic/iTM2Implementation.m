@@ -66,7 +66,7 @@ To Do List:
 //START4iTM3;
 	if ([key hasSuffix:@"_meta"])
 	{
-		NSRange range = iTM3MakeRange(0,key.length-5);
+		NSRange range = iTM3MakeRange(ZER0,key.length-5);
 		if (range.length)
 		{
 			NSString * path = [key substringWithRange:range];
@@ -94,7 +94,7 @@ To Do List:
 //START4iTM3;
 	if ([key hasSuffix:@"_meta"])
 	{
-		NSRange range = iTM3MakeRange(0,key.length-5);
+		NSRange range = iTM3MakeRange(ZER0,key.length-5);
 		if (range.length)
 		{
 			NSString * path = [key substringWithRange:range];
@@ -171,7 +171,7 @@ To Do List:
 		NSString * S = NSStringFromSelector(selector);
 		[IMPNC addObserver:self
 			selector: selector
-				name: [S substringWithRange:iTM3MakeRange(0, S.length - suffix.length)]
+				name: [S substringWithRange:iTM3MakeRange(ZER0, S.length - suffix.length)]
 					object: self.implementation];
     }
 }
@@ -305,7 +305,7 @@ To Do List:
 }
 #if 0
 static NSMutableDictionary * tracker;
-static NSUInteger trackerTag = 0;
+static NSUInteger trackerTag = ZER0;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOwner:
 - (id)initWithOwner:(id)owner;
 /*"Description forthcoming.
@@ -752,7 +752,7 @@ To Do List:
     {
         NSFileWrapper * fw = [[DW fileWrappers] objectForKey:iTM2DataRepresentationsName];
         NSUInteger fireWall = 128;
-        while((--fireWall > 0) && [fw isSymbolicLink])
+        while((--fireWall > ZER0) && [fw isSymbolicLink])
             fw = [[[NSFileWrapper alloc] initWithPath:[fw symbolicLinkDestination]] autorelease];
         if ([fw isRegularFile])
         {
@@ -1159,7 +1159,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSAssert(type.length>0, @"The type key must be non void");
+	NSAssert(type.length>ZER0, @"The type key must be non void");
     return [self._PropertyLists valueForKey:type];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModel:ofType:
@@ -1171,7 +1171,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSAssert(type.length>0, @"The type key must be non void");
+	NSAssert(type.length>ZER0, @"The type key must be non void");
 //LOG4iTM3(@"Model is: %@", model);
 //LOG4iTM3(@"Type is: %@", type);
     [self._PropertyLists setValue:model forKey:type];
@@ -1248,7 +1248,7 @@ To Do List:
 		return nil;
 	char * _selname = (char *)sel_getName(selector);
 	size_t n = strlen(_selname);
-	char * selname = NSAllocateCollectable(n+1,0);// + 1 for the \0 termination character
+	char * selname = NSAllocateCollectable(n+1,ZER0);// + 1 for the \0 termination character
 	if (!selname)
 	{
 		NSLog(@"*** iTM2KeyFromSelector: MISSING MEMORY, report problem");
@@ -1288,8 +1288,8 @@ To Do List:
         }
         if (strlen(_selname)) {
             static const char * capitals = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            if ((_selname[0]>='a') && (_selname[0]<='z'))
-                _selname[0] = capitals[_selname[0]-'a'];
+            if ((_selname[ZER0]>='a') && (_selname[ZER0]<='z'))
+                _selname[ZER0] = capitals[_selname[ZER0]-'a'];
             NSString * K = [NSString stringWithCString:_selname encoding:NSASCIIStringEncoding];
             return K;	
         }
@@ -1484,7 +1484,7 @@ To Do List:
     	NSString * S = NSStringFromSelector(selector);
 		[IMPNC addObserver:self
 			selector: selector
-				name: [S substringWithRange:iTM3MakeRange(0, S.length - suffix.length)]
+				name: [S substringWithRange:iTM3MakeRange(ZER0, S.length - suffix.length)]
 					object: self.implementation];
     }
 }

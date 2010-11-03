@@ -1353,7 +1353,7 @@ To Do List:
 			forKey:@"There are edited project documents"];
     NSMutableArray * MRA = [context4iTM3Dictionary objectForKey:@"Should close documents"];
     [MRA removeObject:doc];
-    if (MRA.count == 0)
+    if (MRA.count == ZER0)
     {
         NSInvocation * I = [[context4iTM3Dictionary objectForKey:@"Invocation"] retain];
     //LOG4iTM3(@"PURE RETAIN? %i",self.retainCount);
@@ -2476,8 +2476,8 @@ tahiti:
 				if (display) {
 					NSString * bundleIdentifier = [self propertyValueForKey:@"Bundle Identifier" fileKey:key contextDomain:iTM2ContextAllDomainsMask];
 					if (bundleIdentifier && (
-						[SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:bundleIdentifier options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil]
-                            || [SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:nil options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil])) {
+						[SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:bundleIdentifier options:ZER0 additionalEventParamDescriptor:nil launchIdentifiers:nil]
+                            || [SWS openURLs:[NSArray arrayWithObject:fileURL] withAppBundleIdentifier:nil options:ZER0 additionalEventParamDescriptor:nil launchIdentifiers:nil])) {
 						[SDC noteNewRecentDocument:doc];
 						return doc;
 					}
@@ -3256,7 +3256,7 @@ To Do List:
 	if (!fileName.length && ![fileKey isEqual:iTM2ProjectDefaultsKey] && ![fileKey isEqual:@"."]) {
 		return NO;
 	}
-	NSUInteger didChange = 0;
+	NSUInteger didChange = ZER0;
 	if (mask & iTM2ContextStandardLocalMask) {
 		if ([self setMetaInfo4iTM3:object forKeyPaths:iTM2ProjectContextKeyedFilesKey,fileKey,aKey,nil]) {
 			didChange |= iTM2ContextStandardProjectMask;
@@ -3456,7 +3456,7 @@ To Do List:
     NSUInteger top = fileKeys.count;
     if (!row) {
         return [tableColumn.identifier isEqualToString:@"icon"]? nil:NSLocalizedStringFromTableInBundle(@"Default",iTM2ProjectTable,myBUNDLE,"");  
-    } else if (row>0 && row<top) {
+    } else if (row>ZER0&& row<top) {
         iTM2ProjectDocument * PD = (iTM2ProjectDocument *)self.document;
 		NSString * key = [fileKeys objectAtIndex:row];
 		if ([tableColumn.identifier isEqualToString:iTM2PDTableViewPathIdentifier]) {
@@ -3489,7 +3489,7 @@ To Do List:
 		return;
     NSArray * fileKeys = self.orderedFileKeys;
     NSUInteger top = fileKeys.count;
-    if (row>0 && row<top) {
+    if (row>ZER0&& row<top) {
         iTM2ProjectDocument * PD = (iTM2ProjectDocument *)self.document;
 		NSString * otherKey = [PD fileKeyForName:name];
 		if (otherKey.length) {
@@ -3566,7 +3566,7 @@ To Do List:
 			NSAttributedString * AS = [aCell attributedStringValue];
 			if (AS.length)
 			{
-				NSMutableDictionary * attributes = [[[AS attributesAtIndex:0 effectiveRange:nil] mutableCopy] autorelease];
+				NSMutableDictionary * attributes = [[[AS attributesAtIndex:ZER0 effectiveRange:nil] mutableCopy] autorelease];
 				NSFont * actualFont = [attributes objectForKey:NSFontAttributeName];
 				NSFont * txtFont = [NSFont boldSystemFontOfSize:[actualFont pointSize]];
 				if (txtFont)
@@ -3593,7 +3593,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [iTM2EventObserver isAlternateKeyDown] && [tableColumn.identifier isEqualToString:iTM2PDTableViewPathIdentifier] && (row>0);
+	return [iTM2EventObserver isAlternateKeyDown] && [tableColumn.identifier isEqualToString:iTM2PDTableViewPathIdentifier] && (row>ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _tableViewDoubleAction:
 - (IBAction)_tableViewDoubleAction:(NSTableView *)sender;
@@ -3607,7 +3607,7 @@ To Do List:
     NSArray * fileKeys = self.orderedFileKeys;
     NSInteger row = sender.selectedRow;
     iTM2ProjectDocument * PD = (iTM2ProjectDocument *)self.document;
-    if ((row>=0)&& (row<fileKeys.count)) {
+    if ((row>=ZER0)&& (row<fileKeys.count)) {
         NSString * K = [fileKeys objectAtIndex:row];
 		if ([K isEqual:iTM2ProjectDefaultsKey]) {
 			return;
@@ -3641,7 +3641,7 @@ To Do List:
 //START4iTM3;
 	if ([tc.identifier isEqual:iTM2PDTableViewPathIdentifier]) {
 		NSArray * fileKeys = self.orderedFileKeys;
-		if (row>0 && row<fileKeys.count) {
+		if (row>ZER0&& row<fileKeys.count) {
 			iTM2ProjectDocument * PD = (iTM2ProjectDocument *)self.document;
 			NSString * key = [fileKeys objectAtIndex:row];
 			return [PD URLForFileKey:key].path;
@@ -3675,7 +3675,7 @@ To Do List:
 		row = [rowIndexes indexGreaterThanIndex:row];
 	}
 //END4iTM3;
-    return array.count>0 && ([pboard clearContents],[pboard writeObjects:array]);
+    return array.count>ZER0&& ([pboard clearContents],[pboard writeObjects:array]);
 }
 - (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op
 {
@@ -3913,7 +3913,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSArray * fileKeys = self.orderedFileKeys;
-    NSRange R = iTM3MakeRange(0,fileKeys.count);
+    NSRange R = iTM3MakeRange(ZER0,fileKeys.count);
     iTM2ProjectDocument * PD = (iTM2ProjectDocument *)self.document;
     NSURL * dirURL = PD.fileURL.URLByRemovingFactoryBaseURL4iTM3.parentDirectoryURL4iTM3;
 	NSMutableArray * recyclable = [NSMutableArray array];
@@ -3968,7 +3968,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return self.documentsView.numberOfSelectedRows > 0;
+	return self.documentsView.numberOfSelectedRows > ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSubdocumentSheetDidDismiss:returnCode:recyclable:
 - (void)removeSubdocumentSheetDidDismiss:(NSWindow *)sheet returnCode:(NSInteger)returnCode recyclable:(NSMutableArray *)recyclable;
@@ -4099,7 +4099,7 @@ To Do List:
 		return NO;
 	}
 //END4iTM3;
-    return [PD fileKeyForURL:fileURL].length == 0;
+    return [PD fileKeyForURL:fileURL].length == ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  help:
 - (IBAction)help:(id)sender;
@@ -4148,7 +4148,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInteger row = self.documentsView.selectedRow;
-    if (row < 0 || row >= self.documentsView.numberOfRows) {
+    if (row < ZER0 || row >= self.documentsView.numberOfRows) {
         return;
 	} else if (row) {
         NSString * oldRelative = [self.documentsView.dataSource
@@ -4170,7 +4170,7 @@ To Do List:
 			}
 			NSURL * old = [dirURL URLByAppendingPathComponent:oldRelative];
 			key = [PD fileKeyForURL:old];
-			if (0 == key.length) {
+			if (ZER0 == key.length) {
 				return;
 			}
 			NSError * localError = nil;
@@ -4221,7 +4221,7 @@ To Do List:
 	NSTableView * documentsView = self.documentsView;
 	NSIndexSet * selectedRowIndexes = documentsView.selectedRowIndexes;
     NSString * p = nil;
-	if (selectedRowIndexes.count == 0) {
+	if (selectedRowIndexes.count == ZER0) {
         p = NSLocalizedStringFromTableInBundle(@"No selection",iTM2ProjectTable,myBUNDLE,"Description Forthcoming");
 	} else if (selectedRowIndexes.count == 1) {
 		NSUInteger row = selectedRowIndexes.firstIndex;
@@ -4440,7 +4440,7 @@ To Do List:
 	{
 		// encapsulate the inherited display method to change the alpha channel
 		CGFloat otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
-		if (otherAlpha<0)
+		if (otherAlpha<ZER0)
 		{
 			otherAlpha = 0.0;
 			[SUD setFloat:otherAlpha forKey:iTM2OtherProjectWindowsAlphaValue];
@@ -4482,7 +4482,7 @@ To Do List:
 	{
 		// encapsulate the inherited display method to change the alpha channel
 		CGFloat otherAlpha = [SUD floatForKey:iTM2OtherProjectWindowsAlphaValue];
-		if (otherAlpha<0)
+		if (otherAlpha<ZER0)
 		{
 			otherAlpha = 0.0;
 			[SUD setFloat:otherAlpha forKey:iTM2OtherProjectWindowsAlphaValue];
@@ -5207,7 +5207,7 @@ To Do List:
         }
         self.followsProject = YES;
         self.value = self.children.copy;// keep track of the children
-        self.countOfChildren = 0;// remove the children from the hierarchy
+        self.countOfChildren = ZER0;// remove the children from the hierarchy
     }
 }
 - (void)setupFollowsProject;
@@ -6201,7 +6201,7 @@ To Do List:
 		[sender setEnabled:NO];
 		sender.tag = tag;
 		sender.state = NSOnState;
-		[menu insertItem:sender atIndex:0];
+		[menu insertItem:sender atIndex:ZER0];
 	}
 	return YES;
 }

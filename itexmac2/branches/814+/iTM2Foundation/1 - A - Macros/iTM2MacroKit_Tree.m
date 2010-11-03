@@ -66,9 +66,9 @@ DEFINE(codeName,setCodeName)
 		{
 			altCandidate = nil;
 		}
-		if (((modifiers & (NSShiftKeyMask)) == 0) && (candidate.length == 1))
+		if (((modifiers & (NSShiftKeyMask)) == ZER0) && (candidate.length == 1))
 		{
-			unichar c = [candidate characterAtIndex:0];
+			unichar c = [candidate characterAtIndex:ZER0];
 			if (c>='a' && c<='z')
 			{
 				candidate = [candidate uppercaseString];
@@ -102,7 +102,7 @@ DEFINE(codeName,setCodeName)
 }
 - (NSString *)altKey;
 {
-	if ((modifierFlags & NSAlternateKeyMask > 0)
+	if ((modifierFlags & NSAlternateKeyMask > ZER0)
 		&& altCodeName.length
 			&& ![altCodeName isEqual:codeName])
 	{
@@ -123,7 +123,7 @@ DEFINE(codeName,setCodeName)
 + (NSUInteger)getModifierFlags:(NSString *)modifiers;
 {
 	NSUInteger index = modifiers.length;
-	NSUInteger result = 0;
+	NSUInteger result = ZER0;
 	while(index--)
 	{
 		switch([modifiers characterAtIndex:index])
@@ -215,7 +215,7 @@ DEFINE(codeName,setCodeName)
 				unichar c;
 				if (codeName.length == 1)
 				{
-					c = [codeName characterAtIndex:0];
+					c = [codeName characterAtIndex:ZER0];
 					if ((c>='a') && (c<='z'))
 					{
 						codeName = [codeName uppercaseString];
@@ -226,9 +226,9 @@ DEFINE(codeName,setCodeName)
 				if ([self uniqueKey] && (KB = [current objectInChildrenWithCodeName:codeName modifierFlags:modifierFlags]))
 				{
 					[KB setMacroID:[attributeDict objectForKey:@"ID"]];
-					if (((modifierFlags & (NSShiftKeyMask|NSAlphaShiftKeyMask)) == 0) && (codeName.length == 1))
+					if (((modifierFlags & (NSShiftKeyMask|NSAlphaShiftKeyMask)) == ZER0) && (codeName.length == 1))
 					{
-						c = [codeName characterAtIndex:0];
+						c = [codeName characterAtIndex:ZER0];
 						if (c>='a' && c<='z')
 						{
 							codeName = [codeName uppercaseString];
@@ -241,9 +241,9 @@ DEFINE(codeName,setCodeName)
 				else
 				{
 					KB = [[[[current class] alloc] init] autorelease];
-					if (((modifierFlags & (NSShiftKeyMask|NSAlphaShiftKeyMask)) == 0) && (codeName.length == 1))
+					if (((modifierFlags & (NSShiftKeyMask|NSAlphaShiftKeyMask)) == ZER0) && (codeName.length == 1))
 					{
-						c = [codeName characterAtIndex:0];
+						c = [codeName characterAtIndex:ZER0];
 						if (c>='a' && c<='z')
 						{
 							codeName = [codeName uppercaseString];
@@ -404,8 +404,8 @@ To Do List:
 	}
 	// third chance, remove the shift if the code is not a letter
 	if (([[keyStroke codeName] length] == 1) 
-		&& (([keyStroke modifierFlags]&NSShiftKeyMask)>0)
-			&& ![[NSCharacterSet letterCharacterSet] characterIsMember:[[keyStroke codeName] characterAtIndex:0]])
+		&& (([keyStroke modifierFlags]&NSShiftKeyMask)>ZER0)
+			&& ![[NSCharacterSet letterCharacterSet] characterIsMember:[[keyStroke codeName] characterAtIndex:ZER0]])
 	{
 		KS = [[[iTM2KeyStroke alloc] init] autorelease];
 		[KS setCodeName:[keyStroke codeName]];
@@ -581,7 +581,7 @@ DEFINE(tooltip,setTooltip)
 			// create a new macro
 			// get the ID:
 			NSString * ID = [attributeDict objectForKey:@"ID"];
-			status.where = 0;// the top of a macro, if any
+			status.where = ZER0;// the top of a macro, if any
 			if (ID.length)
 			{
 				[self setCurrent:[[[macroClass alloc] init] autorelease]];
@@ -592,7 +592,7 @@ DEFINE(tooltip,setTooltip)
 			}
 			else
 			{
-				[self setCurrent:nil];// 0 lengthed ID are ignored
+				[self setCurrent:nil];// ZER0 lengthed ID are ignored
 			}
 		}
 		else if ([elementName isEqual:@"INS"])
@@ -628,7 +628,7 @@ DEFINE(tooltip,setTooltip)
 	status.where = -1;
 	if ([elementName isEqual:@"MACROS"])
 	{
-		status.started = 0;
+		status.started = ZER0;
 	}
 }
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string;
@@ -914,7 +914,7 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 				{
 					LOG4iTM3(@"Reading Macros at URL:%@",url);
 				}
-				data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
+				data = [NSData dataWithContentsOfURL:url options:ZER0 error:&localError];
 				if (localError)
 				{
 					LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
@@ -930,7 +930,7 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 				}
 			}
 		}
-		data = [NSData dataWithContentsOfURL:personalUrl options:0 error:&localError];
+		data = [NSData dataWithContentsOfURL:personalUrl options:ZER0 error:&localError];
 		if (localError)
 		{
 			LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
@@ -982,7 +982,7 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 	{
 		if (![url isEqual:personalURL])
 		{
-			data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
+			data = [NSData dataWithContentsOfURL:url options:ZER0 error:&localError];
 			if (localError)
 			{
 				LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
@@ -994,7 +994,7 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 	BOOL isDirectory;
 	if (personalURL.isFileURL && [DFM fileExistsAtPath:personalURL.path isDirectory:&isDirectory] && !isDirectory)
 	{
-		data = [NSData dataWithContentsOfURL:personalURL options:0 error:&localError];
+		data = [NSData dataWithContentsOfURL:personalURL options:ZER0 error:&localError];
 		if (localError)
 		{
 			LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalURL,localError);

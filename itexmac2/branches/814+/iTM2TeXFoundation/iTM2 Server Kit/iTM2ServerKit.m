@@ -452,7 +452,7 @@ To Do List: see the warning below
 		{
 			argument = E.nextObject;
 //END4iTM3;
-			return argument>0?[argument integerValue]-1:NSNotFound;
+			return argument>ZER0?[argument integerValue]-1:NSNotFound;
 		}
 	}
 //END4iTM3;
@@ -477,7 +477,7 @@ To Do List: see the warning below
 		{
 			argument = E.nextObject;
 //END4iTM3;
-			return argument>0?[argument integerValue]-1:NSNotFound;
+			return argument>ZER0?[argument integerValue]-1:NSNotFound;
 		}
 	}
 //END4iTM3;
@@ -1349,7 +1349,7 @@ To Do List:
 		NSArray * RA = [S componentsSeparatedByString:@"="];
 		if(RA.count>1)
 		{
-			NSString * key = [RA objectAtIndex:0];
+			NSString * key = [RA objectAtIndex:ZER0];
 			key = [key stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			NSString * value = [RA objectAtIndex:1];
 			value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -1357,7 +1357,7 @@ To Do List:
 		}
 		else if(RA.count)
 		{
-			NSString * value = [RA objectAtIndex:0];
+			NSString * value = [RA objectAtIndex:ZER0];
 			value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			[arguments addObject:value];
 		}

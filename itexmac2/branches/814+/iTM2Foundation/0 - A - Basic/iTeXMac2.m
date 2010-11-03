@@ -31,7 +31,7 @@ NSString * const iTM2DebugEnabledKey = @"iTM2DebugEnabled";
 NSString * const iTM2CurrentVersionNumberKey = @"iTM2CurrentVersionNumber";
 NSString * const iTM2FoundationErrorDomain = @"iTM2 Foundation Error Domain";
 
-NSInteger iTM2DebugEnabled_FLAGS = 0;
+NSInteger iTM2DebugEnabled_FLAGS = ZER0;
 
 void iTM2Beep(void);
 
@@ -44,7 +44,7 @@ void iTM2Beep(void)
 	NSBeep();
 }
 
-NSInteger iTM2DebugEnabled = 0;
+NSInteger iTM2DebugEnabled = ZER0;
 
 @implementation NSApplication(iTMFoundationVersion)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= createDocumentController4iTM3
@@ -156,11 +156,11 @@ To Do List:
 		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:1] forKey:@"NSScriptingDebugLogLevel"]];
 	}
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithInteger:0], iTM2CurrentVersionNumberKey,
+                    [NSNumber numberWithInteger:ZER0], iTM2CurrentVersionNumberKey,
                                 nil]];
 	self.createDocumentController4iTM3;
 	const char * name = "sendApplicationDefinedEventOfSubtypeXX:";
-	iTM2Application_sendApplicationDefinedEvent = (char *)NSAllocateCollectable(strlen(name)+1, 0);
+	iTM2Application_sendApplicationDefinedEvent = (char *)NSAllocateCollectable(strlen(name)+1, ZER0);
 	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
 	iTM2Application_sendApplicationDefinedEvent[strlen(name)+1]='\0';
 //END4iTM3;
@@ -373,11 +373,11 @@ NSRange iTM3IntersectionRange(NSRange range1, NSRange range2)
     NSRange r;
     if ((r.location = iTM3MaxRange(range1))<(r.length = iTM3MaxRange(range2))) r.length = r.location;
     r.location = range1.location>range2.location?range1.location:range2.location;
-    if (r.length >= r.location) {// Do not change this! [0 10] \cap [11 20] = [11 0]
+    if (r.length >= r.location) {// Do not change this! [ZER0 10] \cap [11 20] = [11 ZER0]
         r.length -= r.location;
     } else {
-        r.location = NSNotFound;// Do not change this! [0 10] \cap [12 20] = [NSNotFound 0]
-        r.length = 0;
+        r.location = NSNotFound;// Do not change this! [ZER0 10] \cap [12 20] = [NSNotFound ZER0]
+        r.length = ZER0;
     }
     return r;
 }
@@ -388,9 +388,9 @@ NSRange iTM3ProjectionRange(NSRange destinationRange, NSRange range)
     NSUInteger maxRange = iTM3MaxRange(range);
     //  compute the min of the max ranges
     if(maxDestinationRange<=range.location) {
-        return NSMakeRange(maxDestinationRange,0);
+        return NSMakeRange(maxDestinationRange,ZER0);
     } else if(maxRange<=destinationRange.location){
-        return NSMakeRange(destinationRange.location,0);
+        return NSMakeRange(destinationRange.location,ZER0);
     } else if (/*maxDestinationRange>*/range.location>=destinationRange.location) {
         if(maxDestinationRange<=maxRange) {
             return NSMakeRange(range.location,maxDestinationRange-range.location);
@@ -405,12 +405,12 @@ NSRange iTM3ProjectionRange(NSRange destinationRange, NSRange range)
 }
 
 NSRange iTM3ShiftRange(NSRange range, NSInteger off7) {
-    if (off7 < 0) {
+    if (off7 < ZER0) {
         off7 *= -1;
         if (range.location >= off7) {
             range.location -= off7;
         } else {
-            range.location = 0;
+            range.location = ZER0;
         }
     } else if (range.location < NSUIntegerMax - off7) {
         range.location += off7;
@@ -419,18 +419,18 @@ NSRange iTM3ShiftRange(NSRange range, NSInteger off7) {
         }
     } else {
         range.location = NSUIntegerMax;
-        range.length = 0;
+        range.length = ZER0;
     }
     return range;
 }
 
 NSRange iTM3ScaleRange(NSRange range, NSInteger delta) {
-    if (delta < 0) {
+    if (delta < ZER0) {
         delta *= -1;
         if (delta < range.length) {
             range.length -= delta;
         } else {
-            range.length = 0;
+            range.length = ZER0;
         }
     } else if (range.length < NSUIntegerMax - delta) {
         range.length += delta;

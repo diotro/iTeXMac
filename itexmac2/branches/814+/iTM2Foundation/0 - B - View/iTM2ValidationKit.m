@@ -271,7 +271,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self indexOfTabViewItem:self.selectedTabViewItem]>0;
+	return [self indexOfTabViewItem:self.selectedTabViewItem]>ZER0;
 }
 @end
 
@@ -543,7 +543,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self.class target4iTM3:self validateUserInterfaceItem:(id) sender]>0;
+	return [self.class target4iTM3:self validateUserInterfaceItem:(id) sender]>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= target4iTM3:validateUserInterfaceItem:
 + (iTM2ValidationStatus)target4iTM3:(id)validatorTarget validateUserInterfaceItem:(NSControl *)sender;

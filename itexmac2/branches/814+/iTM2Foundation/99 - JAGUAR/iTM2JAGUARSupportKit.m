@@ -23,7 +23,7 @@
 
 #import "iTM2JAGUARSupportKit.h"
 #import "iTM2Foundation.h"
-NSUInteger iTM2DebugEnabled_FLAGS = 0;
+NSUInteger iTM2DebugEnabled_FLAGS = ZER0;
 
 // this will be loaded only if they are not defined (the user runs OS X < 10.3)
 @implementation NSMenuItem(iTM2JAGUARSupportKit)
@@ -130,10 +130,10 @@ To Do List:
 		case iTM2FindPanelActionPrevious:
 		case iTM2FindPanelActionReplaceAndFind:
 		case iTM2FindPanelActionReplaceAll:
-			return ([[[iTM2TextFinder sharedTextFinder] findString] length]>0) &&([[[[iTM2TextFinder sharedTextFinder] textViewToSearchIn] string] length]>0);
+			return ([[[iTM2TextFinder sharedTextFinder] findString] length]>ZER0) &&([[[[iTM2TextFinder sharedTextFinder] textViewToSearchIn] string] length]>ZER0);
 		case iTM2FindPanelActionReplace:
 		case iTM2FindPanelActionSetFindString:
-			return ([[[iTM2TextFinder sharedTextFinder] textViewToSearchIn] selectedRange].length>0);
+			return ([[[iTM2TextFinder sharedTextFinder] textViewToSearchIn] selectedRange].length>ZER0);
 		case iTM2FindPanelActionReplaceAllInSelection:
 			return NO;
 		default:

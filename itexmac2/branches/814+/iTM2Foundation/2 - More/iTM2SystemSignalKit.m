@@ -27,7 +27,7 @@
 NSString * const iTM2SystemSignalSIGUSR1Notification = @"SIGUSR1";
 NSString * const iTM2SystemSignalSIGUSR2Notification = @"SIGUSR2";
 
-NSInteger iTM2SystemSignalKit_PendingSignal = 0;
+NSInteger iTM2SystemSignalKit_PendingSignal = ZER0;
 
 @interface iTM2SystemSignalNotificationCenter(PRIVATE)
 - (BOOL)catchSystemSignal:(NSInteger)signal;

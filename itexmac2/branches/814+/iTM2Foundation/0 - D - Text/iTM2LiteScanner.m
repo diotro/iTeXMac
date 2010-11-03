@@ -114,7 +114,7 @@ To Do List:
 //START4iTM3;
     [self->string autorelease];
     self->string = [aString retain];
-    self.scanLocation = 0;
+    self.scanLocation = ZER0;
     self.scanLimit = aString.length;
 //    CAI = (iTM2CharacterAtIndexIMP) [aString methodForSelector:@selector(characterAtIndex:)];
     return;
@@ -261,7 +261,7 @@ To Do List:
                 if (value)
                     *value = [self.string substringWithRange:iTM3MakeRange(searchRange.location, L)];
                 self.scanLocation = r.location;
-                return L != 0;
+                return L != ZER0;
             }
         }
         else
@@ -328,7 +328,7 @@ To Do List:
             if (value)
                 *value = [self.string substringWithRange:iTM3MakeRange(self.scanLocation, L)];
             self.scanLocation = r.location;
-            return L != 0;
+            return L != ZER0;
         }
     }
     else
@@ -386,7 +386,7 @@ To Do List:
         if (value)
             *value = [self.string substringWithRange:iTM3MakeRange(self.scanLocation, L)];
         self.scanLocation = r.location;
-        return L != 0;
+        return L != ZER0;
     }
     else
         return NO;
@@ -438,10 +438,10 @@ To Do List: Use characters to be skipped...
     if (self.scanLimit)
     {
 		//NSLog(@"GLS");
-        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, 0)];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, ZER0)];
         S = [NSScanner scannerWithString:[self.string substringWithRange:
 										  iTM3ProjectionRange(iTM3MakeRange(self.scanLocation, end - self.scanLocation),
-                                                iTM3MakeRange(0, self.scanLimit))]];
+                                                iTM3MakeRange(ZER0, self.scanLimit))]];
         result = [S scanInt:value];
         self.scanLocation += [S scanLocation];
     }
@@ -464,10 +464,10 @@ To Do List: Use characters to be skipped...
     if (self.scanLimit)
     {
 		//NSLog(@"GLS");
-        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, 0)];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, ZER0)];
         S = [NSScanner scannerWithString:[self.string substringWithRange:
 										  iTM3ProjectionRange(iTM3MakeRange(self.scanLocation, end - self.scanLocation),
-															  iTM3MakeRange(0, self.scanLimit))]];
+															  iTM3MakeRange(ZER0, self.scanLimit))]];
         result = [S scanInteger:value];
         self.scanLocation += [S scanLocation];
     }
@@ -490,10 +490,10 @@ To Do List:
     if (self.scanLimit)
     {
 //NSLog(@"GLS");
-        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, 0)];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, ZER0)];
         S = [NSScanner scannerWithString:[self.string substringWithRange:
             iTM3ProjectionRange(iTM3MakeRange(self.scanLocation, end - self.scanLocation),
-                iTM3MakeRange(0, self.scanLimit))]];
+                iTM3MakeRange(ZER0, self.scanLimit))]];
 		unsigned int value;
         result = [S scanHexInt:&value];
 		if (valueRef)*valueRef=value;
@@ -518,10 +518,10 @@ To Do List:
     if (self.scanLimit)
     {
 //NSLog(@"GLS");
-        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, 0)];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, ZER0)];
         S = [NSScanner scannerWithString:[self.string substringWithRange:
             iTM3ProjectionRange(iTM3MakeRange(self.scanLocation, end - self.scanLocation),
-                iTM3MakeRange(0, self.scanLimit))]];
+                iTM3MakeRange(ZER0, self.scanLimit))]];
         result = [S scanLongLong:value];
         self.scanLocation += [S scanLocation];
     }
@@ -544,11 +544,11 @@ To Do List:
     if (self.scanLimit)
     {
 //NSLog(@"GLS");
-        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, 0)];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, ZER0)];
         S = [NSScanner scannerWithString:[self.string substringWithRange:
             iTM3ProjectionRange(iTM3MakeRange(self.scanLocation, end - self.scanLocation),
-                iTM3MakeRange(0, self.scanLimit))]];
-		float f = 0;
+                iTM3MakeRange(ZER0, self.scanLimit))]];
+		float f = ZER0;
         if ((result = [S scanFloat:&f]) && valueRef) {
 			*valueRef = f;
 		}
@@ -573,10 +573,10 @@ To Do List:
     if (self.scanLimit)
     {
 //NSLog(@"GLS");
-        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, 0)];
+        [self.string getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(self.scanLocation, ZER0)];
         S = [NSScanner scannerWithString:[self.string substringWithRange:
             iTM3ProjectionRange(iTM3MakeRange(self.scanLocation, end - self.scanLocation),
-                iTM3MakeRange(0, self.scanLimit))]];
+                iTM3MakeRange(ZER0, self.scanLimit))]];
         result = [S scanDouble:value];
         self.scanLocation += [S scanLocation];
     }

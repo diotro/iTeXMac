@@ -365,7 +365,7 @@ To Do List:
 		NSString * option = [self info4iTM3ForKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
 		NSInteger index = 3;
 		if([option isEqualToString:@"any"])
-			index = 0;
+			index = ZER0;
 		else if([option isEqualToString:@"odd"])
 			index = 1;
 		else if([option isEqualToString:@"even"])
@@ -790,7 +790,7 @@ To Do List:
 		NSString * option = [self info4iTM3ForKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
 		NSInteger index = 3;
 		if([option isEqualToString:@"any"])
-			index = 0;
+			index = ZER0;
 		else if([option isEqualToString:@"odd"])
 			index = 1;
 		else if([option isEqualToString:@"even"])
@@ -1066,7 +1066,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInteger tag = [[sender selectedCell] tag];
-    [self setInfo4TM3:[_iTM2TeXProjectTypesetModes objectAtIndex: (tag>3? 0:tag)] forKeyPaths:iTM2TeXPTypesetModeKey,nil];
+    [self setInfo4TM3:[_iTM2TeXProjectTypesetModes objectAtIndex: (tag>3? ZER0:tag)] forKeyPaths:iTM2TeXPTypesetModeKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchMode:
@@ -1137,7 +1137,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInteger tag = [[sender selectedCell] tag];
-    [self setInfo4TM3:[_iTM2TeXProjectCleanModes objectAtIndex: (tag>1? 0:tag)] forKeyPaths:iTM2TeXPCleanModeKey,nil];
+    [self setInfo4TM3:[_iTM2TeXProjectCleanModes objectAtIndex: (tag>1? ZER0:tag)] forKeyPaths:iTM2TeXPCleanModeKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchMode:
@@ -1179,7 +1179,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [sender setStringValue: ([[self info4iTM3ForKeyPaths:iTM2TeXPCleanExtensionsKey,nil] componentsJoinedByString:@", "] ?:@"")];
-    return [_iTM2TeXProjectCleanModes indexOfObject:[[self info4iTM3ForKeyPaths:iTM2TeXPCleanModeKey,nil] lowercaseString]]>0;
+    return [_iTM2TeXProjectCleanModes indexOfObject:[[self info4iTM3ForKeyPaths:iTM2TeXPCleanModeKey,nil] lowercaseString]]>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  foldersEdited:
 - (IBAction)foldersEdited:(id)sender;
@@ -1208,7 +1208,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [sender setStringValue: ([[self info4iTM3ForKeyPaths:iTM2TeXPCleanFoldersKey,nil] componentsJoinedByString:@", "] ?:@"")];
-    return ([_iTM2TeXProjectCleanModes indexOfObject:[[self info4iTM3ForKeyPaths:iTM2TeXPCleanModeKey,nil] lowercaseString]]>0);
+    return ([_iTM2TeXProjectCleanModes indexOfObject:[[self info4iTM3ForKeyPaths:iTM2TeXPCleanModeKey,nil] lowercaseString]]>ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  levelEdited:
 - (IBAction)levelEdited:(id)sender;
@@ -1219,7 +1219,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo4TM3:[NSNumber numberWithInteger:MAX(0, MIN([sender integerValue], 5))] forKeyPaths:iTM2TeXPCleanLevelKey,nil];
+    [self setInfo4TM3:[NSNumber numberWithInteger:MAX(ZER0, MIN([sender integerValue], 5))] forKeyPaths:iTM2TeXPCleanLevelKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateLevelEdited:
@@ -1232,7 +1232,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [sender setIntegerValue:[[self info4iTM3ForKeyPaths:iTM2TeXPCleanLevelKey,nil] integerValue]];
-    return ([_iTM2TeXProjectCleanModes indexOfObject:[[self info4iTM3ForKeyPaths:iTM2TeXPCleanModeKey,nil] lowercaseString]]>0);
+    return ([_iTM2TeXProjectCleanModes indexOfObject:[[self info4iTM3ForKeyPaths:iTM2TeXPCleanModeKey,nil] lowercaseString]]>ZER0);
 }
 @end
 
@@ -1281,7 +1281,7 @@ To Do List:
 @end
 @implementation iTM2TeXPRenderPerformer
 + (NSInteger)commandGroup;{return 30;}
-+ (NSInteger)commandLevel;{return 0;}
++ (NSInteger)commandLevel;{return ZER0;}
 @end
 
 #warning %%%%%%%%%%%%%%%  ALL THE CLASSES HAVE BEEN DEFINED
@@ -1495,7 +1495,7 @@ next:
 	}
 	NSPopUpButton * PB = [[[NSPopUpButton alloc] initWithFrame:NSZeroRect] autorelease];
 	[PB setMenu:M];
-	[PB insertItemWithTitle:@"" atIndex:0];// the title is the first item
+	[PB insertItemWithTitle:@"" atIndex:ZER0];// the title is the first item
 	[PB setPullsDown:YES];
 	[PB selectItem:nil];
 	[B.cell setPopUpCell:PB.cell];

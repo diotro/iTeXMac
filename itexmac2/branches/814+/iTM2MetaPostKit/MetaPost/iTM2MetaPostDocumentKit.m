@@ -250,7 +250,7 @@ To Do List:
 	iTM2MetaPostInspector * inspector = self.windowControllers.lastObject;
 	NSUInteger index = [inspector.outputFigureNumbers indexOfObject:inspector.currentOutputFigure];
 	NSArray * ODFNs = self.orderedPDFDocumentURLs;
-	if ((index>=0) && (index<ODFNs.count)) {
+	if ((index>=ZER0) && (index<ODFNs.count)) {
 		return [NSArray arrayWithObject:[self PDFKitDocumentForFileURL:[ODFNs objectAtIndex:index]]];
 	}
 //END4iTM3;
@@ -369,7 +369,7 @@ To Do List:
 	if (result == NSOrderedSame) {
         NSString * left = self.path;
 		NSString * right = fileURL.path;
-		NSUInteger commonPrefixLength = [[left commonPrefixWithString:right options:0] length];
+		NSUInteger commonPrefixLength = [[left commonPrefixWithString:right options:ZER0] length];
 		left = [[left substringWithRange:iTM3MakeRange(commonPrefixLength, left.length - commonPrefixLength)] stringByDeletingPathExtension];
 		right = [[right substringWithRange:iTM3MakeRange(commonPrefixLength, right.length - commonPrefixLength)] stringByDeletingPathExtension];
         ICURegEx * RE = [ICURegEx regExForKey:iTM2MetaPostRENumberedNameKey inBundle:myBUNDLE error:NULL];
@@ -549,7 +549,7 @@ To Do List:
 //START4iTM3;
 	NSUInteger index = [self.outputFigureNumbers indexOfObject:self.currentOutputFigure];
 	NSArray * ODFUs = [self.document orderedPDFDocumentURLs];
-	if ((index>=0) && (index<ODFUs.count)) {
+	if ((index>=ZER0) && (index<ODFUs.count)) {
 		NSURL * url = [ODFUs objectAtIndex:index];
 		return [self.document PDFKitDocumentForFileURL:url];
 	}
@@ -565,7 +565,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return 2*log2f(MAX(0, self.pdfView.scaleFactor));
+    return 2*log2f(MAX(ZER0, self.pdfView.scaleFactor));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setLogarithmScaleFactor:
 - (void)setLogarithmScaleFactor:(CGFloat)argument;
@@ -592,7 +592,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self setLogarithmScaleFactor:2*log2f(MAX(0, [(PDFView *)[notification object] scaleFactor]))];
+	[self setLogarithmScaleFactor:2*log2f(MAX(ZER0, [(PDFView *)[notification object] scaleFactor]))];
 	[self.window.toolbar validateVisibleItems];
 //END4iTM3;
     return;
@@ -811,7 +811,7 @@ loop:
 						NSArray * RA = document.orderedPDFDocumentURLs;
 						if ((pageIndex < RA.count) && (pageIndex < inspector.PDFThumbnails.count)) {
 							[L lock];
-							PDFPage * page = [[[document PDFKitDocumentForFileURL:[RA objectAtIndex:pageIndex]] PDFDocument] pageAtIndex:0];
+							PDFPage * page = [[[document PDFKitDocumentForFileURL:[RA objectAtIndex:pageIndex]] PDFDocument] pageAtIndex:ZER0];
 							NSData * D = [[page.dataRepresentation copy] autorelease];// there was a crash here (bad access)
 							[L unlock];
 							NSImage * tmpI = [[[NSImage alloc] initWithData:D] autorelease];// tiff?
@@ -895,7 +895,7 @@ To Do List:
 	NSTableView * TV = (NSTableView *)[notification object];
 	if (TV == self.thumbnailTable) {
 		NSInteger rowIndex = [TV selectedRow];
-		if (rowIndex >= 0) {
+		if (rowIndex >= ZER0) {
 			[self setCurrentOutputFigure:[self.outputFigureNumbers objectAtIndex:rowIndex]];
 		}
     }
@@ -925,7 +925,7 @@ To Do List:
 //START4iTM3;
 	if (sender == self.thumbnailTable) {
 		NSInteger rowIndex = self.thumbnailTable.selectedRow;
-		if (rowIndex >= 0) {
+		if (rowIndex >= ZER0) {
 			[self.textView highlightAndScrollMetaPostFigureToVisible4iTM3:[[self.outputFigureNumbers objectAtIndex:rowIndex] integerValue]];
 		}
     }
@@ -1124,7 +1124,7 @@ To Do List:
         return result;
     if (instruction.length) {
 //LOG4iTM3(@"instruction is: %@", instruction);
-		[self.window pushKeyStroke:[instruction substringWithRange:iTM3MakeRange(0, 1)]];
+		[self.window pushKeyStroke:[instruction substringWithRange:iTM3MakeRange(ZER0, 1)]];
 		return YES;
     }
     return result;
@@ -1193,7 +1193,7 @@ To Do List:
 //START4iTM3;
     NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [self.window.keyStrokes4iTM3 getIntegerTrailer4iTM3: &n];
-	if(n>0)
+	if(n>ZER0)
 		self.scaleFactor *= n / 100.0;
     [self.window flushKeyStrokeEvents4iTM3:self];
 //END4iTM3;
@@ -1210,7 +1210,7 @@ To Do List:
 //START4iTM3;
     NSInteger n = 100 * ([self context4iTM3FloatForKey:@"iTM2ZoomFactor" domain:iTM2ContextAllDomainsMask]>0?: 1.259921049895);
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3: &n];
-	if(n>0)
+	if(n>ZER0)
 		self.scaleFactor *= 100.0 / n;
     [self.window flushKeyStrokeEvents4iTM3:self];
 //END4iTM3;
@@ -1265,7 +1265,7 @@ To Do List:
 	if(pageIndex > n)
 		 pageIndex -= n;
 	else
-		pageIndex = 0;
+		pageIndex = ZER0;
 	inspector.currentOutputFigure = [inspector.outputFigureNumbers objectAtIndex:pageIndex];
     [self.window flushKeyStrokeEvents4iTM3:self];
 	self.validateWindowContent4iTM3;
@@ -1291,7 +1291,7 @@ To Do List:
 	if(pageIndex > n)
 		 pageIndex -= n;
 	else
-		pageIndex = 0;
+		pageIndex = ZER0;
 	inspector.currentOutputFigure = [inspector.outputFigureNumbers objectAtIndex:pageIndex];
 	self.validateWindowContent4iTM3;
 //END4iTM3;
@@ -1370,7 +1370,7 @@ To Do List:
     if(![self.window.keyStrokes4iTM3 getIntegerTrailer4iTM3: &n])
 		return;
 	if(n<1)
-		n = 0;
+		n = ZER0;
 	else
 		--n;
 	[self.window.windowController setCurrentOutputFigure:[NSString stringWithFormat:@"%i", n]];
@@ -1436,7 +1436,7 @@ To Do List:
 		[self setSelectedRange:selectedRange];
 	} else if(start<selectedRange.location) {
 		selectedRange.location = start;
-		selectedRange.length = 0;
+		selectedRange.length = ZER0;
 		suffix = @"\n";
 		[self setSelectedRange:selectedRange];
 	}
@@ -1459,7 +1459,7 @@ To Do List:
 	NSTextContainer * TC = self.textContainer;
 	NSUInteger charIndex = [LM glyphIndexForPoint:P inTextContainer:TC];
 	charIndex = [LM characterIndexForGlyphAtIndex:charIndex];
-    [RE setInputString:self.string range:iTM3MakeRange(0, charIndex)];
+    [RE setInputString:self.string range:iTM3MakeRange(ZER0, charIndex)];
     NSString * S = nil;
     while (RE.nextMatch) {
         S = [RE substringOfCaptureGroupWithName:iTM2MetaPostREBeginFigNumberGroupName];
@@ -1522,7 +1522,7 @@ To Do List:
 			insert = [M numberOfItems];
 	}
 	NSMenuItem * MI = nil;
-	NSUInteger index = 0;
+	NSUInteger index = ZER0;
 	while (index < M.numberOfItems) {
 		MI = [M itemAtIndex:index];
 		if ([MI.representedObject isEqual:@"MetaPost Figure Menu"]) {
@@ -1534,8 +1534,8 @@ To Do List:
 	NSMenu * figureMenu = [[self.window.windowController textStorage] MetaPostFigureMenu4iTM3];
 	NSAssert(figureMenu, @"Missing MetaPost figure menu: inconsistency");
 	while (figureMenu.numberOfItems) {
-		MI = [figureMenu itemAtIndex:0];
-		[figureMenu removeItemAtIndex:0];
+		MI = [figureMenu itemAtIndex:ZER0];
+		[figureMenu removeItemAtIndex:ZER0];
 		[M insertItem:MI atIndex:insert++];
 		MI.representedObject = @"MetaPost Figure Menu";
 	}
@@ -1567,7 +1567,7 @@ To Do List:
                         if(action && [NSStringFromSelector(action) hasPrefix:@"insert"] && !MI.indentationLevel)
                             MI.indentationLevel = 1;
                     }
-                    [[M itemAtIndex:0] setTitle:title];
+                    [[M itemAtIndex:ZER0] setTitle:title];
                     self.title = title;// will raise if the menu is void
                     [self setMenu:M];
                 } else {
@@ -1617,18 +1617,18 @@ To Do List:
     NSMenu * figureMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     [figureMenu setAutoenablesItems:YES];
     NSEnumerator * E = [[MD.allKeys sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-	NSUInteger index = 0;
+	NSUInteger index = ZER0;
 	NSUInteger top = 20;
     for (K in E) {
 		NSMenu * submenu = [[NSMenu alloc] initWithTitle:@""];
         NSArray * figures = [[MD objectForKey:K] sortedArrayUsingSelector:@selector(compare:)];
         NSValue * figure = nil;
         NSMenu * subsubmenu = nil;
-        NSUInteger idx = 0;
+        NSUInteger idx = ZER0;
         NSMenuItem * MI = nil;
         if (figures.count>1) {
             subsubmenu = [[NSMenu alloc] initWithTitle:@""];
-            idx = 0;
+            idx = ZER0;
             for (figure in figures) {
                 MI = [subsubmenu addItemWithTitle:[NSString stringWithFormat:@"(%i)", ++idx] action:@selector(scrollTaggedToVisible:) keyEquivalent:@""];
                 MI.tag = figure.rangeValue.location;
@@ -1645,7 +1645,7 @@ To Do List:
 		if (++index<top) {
             continue;
         }
-		MI = [figureMenu addItemWithTitle:[NSString stringWithFormat:@"%@→%@", [[submenu itemAtIndex:0] title], [[submenu itemAtIndex:[submenu numberOfItems] - 1] title]]
+		MI = [figureMenu addItemWithTitle:[NSString stringWithFormat:@"%@→%@", [[submenu itemAtIndex:ZER0] title], [[submenu itemAtIndex:[submenu numberOfItems] - 1] title]]
 			action: NULL keyEquivalent: @""];
 		MI.representedObject = @"MetaPost Figure Menu";
 		[figureMenu setSubmenu:submenu forItem:MI];
@@ -1653,7 +1653,7 @@ To Do List:
             figures = [[MD objectForKey:K] sortedArrayUsingSelector:@selector(compare:)];
             if (figures.count>1) {
                 subsubmenu = [[NSMenu alloc] initWithTitle:@""];
-                idx = 0;
+                idx = ZER0;
                 for (figure in figures) {
                     MI = [subsubmenu addItemWithTitle:[NSString stringWithFormat:@"(%i)", ++idx] action:@selector(scrollTaggedToVisible:) keyEquivalent:@""];
                     MI.tag = figure.rangeValue.location;

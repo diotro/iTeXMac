@@ -96,7 +96,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	switch(sender.tag) {
-		case 0: iTM2DebugEnabled = 0; break;
+		case 0: iTM2DebugEnabled = ZER0; break;
 		case 1: iTM2DebugEnabled = 1; break;
 		case 2: iTM2DebugEnabled = 100; break;
 		case 3: iTM2DebugEnabled = 10000; break;
@@ -107,7 +107,7 @@ To Do List:
 	}
 	else
 	{
-		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:0] forKey:@"NSScriptingDebugLogLevel"]];
+		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ZER0] forKey:@"NSScriptingDebugLogLevel"]];
 	}
 //END4iTM3;
     return;
@@ -124,7 +124,7 @@ To Do List:
 	NSUInteger tag;
 	if (iTM2DebugEnabled<1)
 	{
-		tag = 0;// Off
+		tag = ZER0;// Off
 	}
 	else if (iTM2DebugEnabled<100)
 	{
@@ -166,7 +166,7 @@ To Do List:
     NSRange visibleGlyphRange = [self.layoutManager glyphRangeForBoundingRect:visRect inTextContainer:self.textContainer];
     NSRange visibleCharRange = [self.layoutManager characterRangeForGlyphRange:visibleGlyphRange actualGlyphRange:nil];
     //	Prime for the loop
-    NSRange attrsRange = iTM3MakeRange (visibleCharRange.location, 0);
+    NSRange attrsRange = iTM3MakeRange (visibleCharRange.location, ZER0);
     //	Loop until we reach the end of the visible range of characters
     while (iTM3MaxRange(attrsRange) < iTM3MaxRange(visibleCharRange)) // find all visible URLs and set up cursor rects
     {
@@ -178,13 +178,13 @@ To Do List:
             //	but that gives a single rectangle, which might be overly large when a link runs
             //	through more than one line.)
             NSRectArray rects = [self.layoutManager rectArrayForCharacterRange:attrsRange
-                withinSelectedCharacterRange: iTM3MakeRange (NSNotFound, 0)
+                withinSelectedCharacterRange: iTM3MakeRange (NSNotFound, ZER0)
                 inTextContainer: self.textContainer
                 rectCount: &rectCount];
 
             //	For each rectangle, find its visible portion and ask for the cursor to appear
             //	when they're over that rectangle.
-            for (rectIndex = 0; rectIndex < rectCount; ++rectIndex)
+            for (rectIndex = ZER0; rectIndex < rectCount; ++rectIndex)
             {
                 [self addCursorRect:NSIntersectionRect (rects[rectIndex], self.visibleRect) cursor:[NSCursor pointingHandCursor]];
             }
@@ -255,27 +255,27 @@ To Do List:
 		NSInteger tag = sender.tag;
 		id FR = [[NSApp mainWindow] firstResponder];
 		BOOL done = NO;
-		if (((NSItalicFontMask & tag) > 0) && [FR respondsToSelector:@selector(italic4iTM3:)])
+		if (((NSItalicFontMask & tag) > ZER0) && [FR respondsToSelector:@selector(italic4iTM3:)])
 		{
 			[FR italic4iTM3:sender];
 			done = YES;
 		}
-		if (((NSBoldFontMask & tag) > 0) && [FR respondsToSelector:@selector(bold4iTM3:)])
+		if (((NSBoldFontMask & tag) > ZER0) && [FR respondsToSelector:@selector(bold4iTM3:)])
 		{
 			[FR bold4iTM3:sender];
 			done = YES;
 		}
-		if (((NSUnitalicFontMask & tag) > 0) && [FR respondsToSelector:@selector(unitalic4iTM3:)])
+		if (((NSUnitalicFontMask & tag) > ZER0) && [FR respondsToSelector:@selector(unitalic4iTM3:)])
 		{
 			[FR unitalic4iTM3:sender];
 			done = YES;
 		}
-		if (((NSUnboldFontMask & tag) > 0) && [FR respondsToSelector:@selector(unbold4iTM3:)])
+		if (((NSUnboldFontMask & tag) > ZER0) && [FR respondsToSelector:@selector(unbold4iTM3:)])
 		{
 			[FR unbold4iTM3:sender];
 			done = YES;
 		}
-		if (((NSSmallCapsFontMask & tag) > 0) && [FR respondsToSelector:@selector(smallCaps4iTM3:)])
+		if (((NSSmallCapsFontMask & tag) > ZER0) && [FR respondsToSelector:@selector(smallCaps4iTM3:)])
 		{
 			[FR smallCaps4iTM3:sender];
 			done = YES;
@@ -462,7 +462,7 @@ DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
 		return I;
 	}
 	if ([name hasSuffix:@"(small)"]) {
-		imageName = [name substringWithRange:iTM3MakeRange(0,name.length-7)];
+		imageName = [name substringWithRange:iTM3MakeRange(ZER0,name.length-7)];
 		if ((I = [self findImageNamed4iTM3:imageName])) {
 			I = [[I copy] autorelease];
 			imageName = [name hasPrefix:@"iTM2:"]?name:[NSString stringWithFormat:@"iTM2:%@",name];

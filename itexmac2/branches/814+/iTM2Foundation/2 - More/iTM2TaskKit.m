@@ -138,7 +138,7 @@ To Do List:
     [[TS mutableString] appendString:argument];
     [TS endEditing];
 	if (old>=1.0) {
-		[TV scrollRangeToVisible:iTM3MakeRange(TS.length, 0)];
+		[TV scrollRangeToVisible:iTM3MakeRange(TS.length, ZER0)];
     }
     return;
 }
@@ -629,8 +629,8 @@ To Do List:
 
     NSLock * L = [[[NSLock alloc] init] autorelease];
     [L lock];
-    _CurrentWrapper = [[self.wrappers objectAtIndex:0] retain];
-    [self.wrappers removeObjectAtIndex:0];
+    _CurrentWrapper = [[self.wrappers objectAtIndex:ZER0] retain];
+    [self.wrappers removeObjectAtIndex:ZER0];
     [L unlock];
 
     _CurrentTask = [[NSTask alloc] init];
@@ -680,21 +680,21 @@ To Do List:
     static char	ptyhexa[] = "0123456789abcdef";
 
     int i;
-    for (i = 0; i < strlen(ptychar); i++)
+    for (i = ZER0; i < strlen(ptychar); i++)
     {
         strcpy(name, "/dev/ptyXY");
         name[8] = ptychar[i];
         int j;
-        for (j = 0; j < strlen(ptyhexa); j++)
+        for (j = ZER0; j < strlen(ptyhexa); j++)
         {
             name[9] = ptyhexa[j];
 //LOG4iTM3(@"Trying to open file: %s", name);
             int master_fd = open(name, O_RDWR);
-            if (master_fd >= 0)
+            if (master_fd >= ZER0)
             {
                 name[5] = 't';	/* change "/dev/pty??" to "/dev/tty??" */
                 int slave_fd  = open(name, O_RDWR);
-                if (slave_fd<0)
+                if (slave_fd<ZER0)
                     close(master_fd);
                 else
                 {
@@ -972,7 +972,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (string.length>0)
+    if (string.length>ZER0)
     {
         [_Output appendString:string];
 //NSLog(@"self.allInspectors:%@", self.allInspectors);
@@ -1002,7 +1002,7 @@ To Do List:
 This message is usually caused by running out of virtual memory and can be easily remedied by adding more swap space. This must be done while in multiuser mode. When executed as root, these commands add approximately 30MB of virtual memory: 
 
 touch /swap 
-swap -a /swap 0 60000
+swap -a /swap ZER0 60000
 
 The /swap file will only grow according to the actual swap requirements and may not actually consume 30MB of disk space. To avoid reissuing this command every time the system is rebooted, simply add the above commands to the /etc/rc.d/8/userdef file.
 
@@ -1066,11 +1066,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (string.length>0)
+    if (string.length>ZER0)
     {
         NSMutableString * buffer = [self.implementation metaValueForKey:@"_CustomBuffer"];
 //LOG4iTM3(@"buffer: <%@>", buffer);
-        NSRange R = iTM3MakeRange(_Custom.length, 0);
+        NSRange R = iTM3MakeRange(_Custom.length, ZER0);
         [_Custom getLineStart:&R.location end:nil contentsEnd:nil forRange:R];
         // R.location points to the beginning of the line where we are looking for iTM2 directives.
 //LOG4iTM3(@"_Custom: %@", _Custom);
@@ -1204,7 +1204,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (string.length>0)
+    if (string.length>ZER0)
     {
 //NSLog(@"error string: %@", string);
         [_Error appendString:string];
@@ -1358,7 +1358,7 @@ To Do List:
 	[[NSCursor cancelCursor] push];
 	NSString * string = nil;
 	NSTimeInterval timeInterval = [SUD floatForKey:@"iTM2TaskInterruptDelay"]?:0.25;
-	timeInterval = MAX(timeInterval,0);
+	timeInterval = MAX(timeInterval,ZER0);
 start:
 	if ([_CurrentWrapper canInterruptTask])
 	{
@@ -1369,7 +1369,7 @@ start:
 			if (E)
 			{
 				string = [E characters];
-				if (string.length && ([string characterAtIndex:0] == '.'))
+				if (string.length && ([string characterAtIndex:ZER0] == '.'))
 				{
 					NSUInteger modifierFlags = [E modifierFlags];
 					modifierFlags &= NSDeviceIndependentModifierFlagsMask;
@@ -2233,7 +2233,7 @@ To Do List:
 	if ([RE matchString:script]) {
 		NSString * shell = [RE substringOfCaptureGroupAtIndex:1];// the length is at least 1 but we force it
         RE.forget;
-		NSAssert(shell.length>0,@"Bad programing, a regular expression does not gove the expected result, report BUG or FIX ME (code 78355)");
+		NSAssert(shell.length>ZER0,@"Bad programing, a regular expression does not gove the expected result, report BUG or FIX ME (code 78355)");
 		NSString * selName = [NSString stringWithFormat:@"executeAs%@Script:",shell.capitalizedString];
 		SEL selector = NSSelectorFromString(selName);
 		if ([self respondsToSelector:selector]) {

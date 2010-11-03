@@ -78,10 +78,10 @@ To Do List:
     if (!aKey.length)
     {
 no_match:
-		if (aRangePtr) * aRangePtr = iTM3MakeRange(NSNotFound, 0);
+		if (aRangePtr) * aRangePtr = iTM3MakeRange(NSNotFound, ZER0);
 		return [NSString string];
 	}
-	NSRange r =  iTM3MakeRange(0, self.length);
+	NSRange r =  iTM3MakeRange(ZER0, self.length);
 	aRange = aFlag? r: iTM3ProjectionRange(aRange, r);
 	ICURegEx * RE = [ICURegEx regExForKey:@"%!iTeXMac2..." error:NULL];
 	[RE setInputString:self range:aRange];
@@ -102,25 +102,25 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if ((aLine == NSNotFound)|| (!aLine))
-        return iTM3MakeRange(NSNotFound, 0);
+        return iTM3MakeRange(NSNotFound, ZER0);
     NSUInteger end;
     NSUInteger top = self.length;
-    NSRange range = iTM3MakeRange(0, 0);
+    NSRange range = iTM3MakeRange(ZER0, ZER0);
     typedef void (*GetLineStartIMP) (id, SEL, NSUInteger *, NSUInteger *, NSUInteger *, NSRange);
     GetLineStartIMP GLS = (GetLineStartIMP)
         [self methodForSelector:@selector(getLineStart:end:contentsEnd:forRange:)];
     while (YES) {
         GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &end, nil, range);
-        if (--aLine == 0) {
+        if (--aLine == ZER0) {
             range.length=end-range.location;
             return range;
         }
         else if (end<top) {
             range.location = end;
-            range.length = 0;
+            range.length = ZER0;
             continue;
         }
-        return iTM3MakeRange(NSNotFound, 0);
+        return iTM3MakeRange(NSNotFound, ZER0);
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getRangeForLine4iTM3Range:
@@ -133,17 +133,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSUInteger start;
-    NSRange range = iTM3MakeRange(0, 0);
+    NSRange range = iTM3MakeRange(ZER0, ZER0);
     typedef void (*GetLineStartIMP) (id, SEL, NSUInteger *, NSUInteger *, NSUInteger *, NSRange);
     GetLineStartIMP GLS = (GetLineStartIMP)
         [self methodForSelector:@selector(getLineStart:end:contentsEnd:forRange:)];
-    while (aLineRange.location-->0)
+    while (aLineRange.location-->ZER0)
     {
 //NSLog(@"GLS");
         GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &range.location, nil, range);
     }
 	GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), &start, nil, nil, range);
-    while (--aLineRange.length>0)
+    while (--aLineRange.length>ZER0)
     {
 //NSLog(@"GLS");
         GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &range.location, nil, range);
@@ -159,10 +159,10 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSUInteger result = 0;
-    NSUInteger contentsEnd = 0;
+    NSUInteger result = ZER0;
+    NSUInteger contentsEnd = ZER0;
     NSUInteger ceiling = MIN(index + 1, self.length);
-    NSRange range = iTM3MakeRange(0, 0);
+    NSRange range = iTM3MakeRange(ZER0, ZER0);
     typedef void (*GetLineStartIMP) (id, SEL, NSUInteger *, NSUInteger *, NSUInteger *, NSRange);
     GetLineStartIMP GLS = (GetLineStartIMP)
         [self methodForSelector:@selector(getLineStart:end:contentsEnd:forRange:)];
@@ -172,7 +172,7 @@ To Do List: improve the search avoiding the whole scan of the string, refer to t
 //NSLog(@"GLS");
         GLS(self, @selector(getLineStart:end:contentsEnd:forRange:), nil, &range.location, &contentsEnd, range);
     }
-    if ((index > contentsEnd) || (self.length == 0))
+    if ((index > contentsEnd) || (self.length == ZER0))
         ++result;
     return result;
 }
@@ -204,8 +204,8 @@ To Do List:
         return [NSString string];
     else
     {
-        while((index>0) && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[self characterAtIndex:--index]]);
-        return [self substringWithRange:iTM3MakeRange(0, ++index)];
+        while((index>ZER0) && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[self characterAtIndex:--index]]);
+        return [self substringWithRange:iTM3MakeRange(ZER0, ++index)];
     }
 }
 //=-=-=-=-=-=  stringWithSubstring4iTM3:replacedByString:
@@ -220,17 +220,17 @@ To Do List:
     if (oldString.length)
     {
         NSMutableString * result = [self.mutableCopy autorelease];
-        NSRange searchRange = iTM3MakeRange(0,self.length);
+        NSRange searchRange = iTM3MakeRange(ZER0,self.length);
         if (!newString) newString = [NSString string];
         while(YES)
         {
-            NSRange range = [result rangeOfString:oldString options:0 range:searchRange];
+            NSRange range = [result rangeOfString:oldString options:ZER0 range:searchRange];
             if (range.length)
             {
                 [result replaceCharactersInRange:range withString:newString];
                 range.location+=newString.length;//no recursive change
                 range.length=searchRange.length=result.length;
-                searchRange.location=0;
+                searchRange.location=ZER0;
                 searchRange=iTM3IntersectionRange(range, searchRange);
             }
             else
@@ -249,7 +249,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    range = iTM3ProjectionRange(iTM3MakeRange(0, self.length),range);
+    range = iTM3ProjectionRange(iTM3MakeRange(ZER0, self.length),range);
 	NSRange biggerRange = range;
 	NSCharacterSet * set = [NSCharacterSet whitespaceCharacterSet];
 	while(biggerRange.location && [set characterIsMember:[self characterAtIndex:biggerRange.location-1]])
@@ -308,7 +308,7 @@ To Do List:
 	if (index<self.length)
 	{
 		NSCharacterSet * set = [NSCharacterSet alphanumericCharacterSet];
-		NSRange result = iTM3MakeRange(index, 0);
+		NSRange result = iTM3MakeRange(index, ZER0);
 		if ([set characterIsMember:[self characterAtIndex:index]])
 		{
 			++result.length;
@@ -320,7 +320,7 @@ To Do List:
 		}
 		return result;
 	}
-	return iTM3MakeRange(NSNotFound, 0);
+	return iTM3MakeRange(NSNotFound, ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= wordRangeForRange4iTM3:
 - (NSRange)wordRangeForRange4iTM3:(NSRange)wordRange;
@@ -335,7 +335,7 @@ To Do List:
 	{
 		NSCharacterSet * whiteSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 		if ([whiteSet characterIsMember:[self characterAtIndex:wordRange.location]])
-			return iTM3MakeRange(NSNotFound, 0);
+			return iTM3MakeRange(NSNotFound, ZER0);
 		return wordRange;
 	}
 	NSRange result = wordRange;
@@ -365,7 +365,7 @@ To Do List:
 		if (wordRange.length == result.length)
 			return result;
 		else
-			return iTM3MakeRange(NSNotFound, 0);
+			return iTM3MakeRange(NSNotFound, ZER0);
 	}
 	else if (mask & NSBackwardsSearch)
 	{
@@ -401,7 +401,7 @@ To Do List:
 			}
 		}
 	}
-    return iTM3MakeRange(NSNotFound, 0);
+    return iTM3MakeRange(NSNotFound, ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= componentsSeparatedByStrings4iTM3:
 - (NSArray *)componentsSeparatedByStrings4iTM3:(NSString *)separator, ...;
@@ -490,7 +490,7 @@ To Do List:
 		return UINT_MAX;
 	}
 
-	p[0] = 0;
+	p[ZER0] = ZER0;
 	
 	for( j = 1; j <= n2; ++j )
 		p[j] = p[j-1] + cost_ins;
@@ -499,13 +499,13 @@ To Do List:
 	for( i = 1; i <= n1; ++i )
 	{
 		unichar uchar1 = [S1 characterAtIndex:i-1];
-		q[0] = p[0] + cost_del;
+		q[ZER0] = p[ZER0] + cost_del;
 		for( j = 1; j <= n2; ++j )
 		{
 			unichar uchar2 = [S2 characterAtIndex:j-1];
 			NSUInteger d_del = p[j] + cost_del;
 			NSUInteger d_ins = q[j-1] + cost_ins;
-			NSUInteger d_sub = p[j-1] + ( uchar1 == uchar2 ? 0 : cost_sub );
+			NSUInteger d_sub = p[j-1] + ( uchar1 == uchar2 ? ZER0 : cost_sub );
 			q[j] = MIN(MIN( d_del, d_ins ), d_sub );
 		}
 		NSUInteger* r = p;
@@ -530,7 +530,7 @@ To Do List:
  To Do List: ?
  "*/
 {DIAGNOSTIC4iTM3;
-    return self.length? [self characterAtIndex:self.length-1]:0;
+    return self.length? [self characterAtIndex:self.length-1]:ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= lineComponents4iTM3
 - (NSArray *)lineComponents4iTM3;
@@ -542,17 +542,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
 	NSMutableArray * lines = [NSMutableArray array];
-	NSRange R = iTM3MakeRange(0,0);
-	NSUInteger contentsEnd = 0, end = 0;
+	NSRange R = iTM3MakeRange(ZER0,ZER0);
+	NSUInteger contentsEnd = ZER0, end = ZER0;
 	while(R.location < self.length)
 	{
-		R.length = 0;
+		R.length = ZER0;
 		[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 		R.length = end - R.location;
 		NSString * S = [self substringWithRange:R];
 		[lines addObject:S];
 		R.location = end;
-		R.length = 0;
+		R.length = ZER0;
 	}
 	if (contentsEnd<end)
 	{
@@ -573,14 +573,14 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
 	NSMutableString * result = [self.mutableCopy autorelease];
-	NSRange searchRange = iTM3MakeRange(0,result.length);
-	[result replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:0 range:searchRange];
+	NSRange searchRange = iTM3MakeRange(ZER0,result.length);
+	[result replaceOccurrencesOfString:@"\\" withString:@"\\\\" options:ZER0 range:searchRange];
 	searchRange.length = result.length;
-	[result replaceOccurrencesOfString:@"$" withString:@"\\$" options:0 range:searchRange];
+	[result replaceOccurrencesOfString:@"$" withString:@"\\$" options:ZER0 range:searchRange];
 	searchRange.length = result.length;
-	[result replaceOccurrencesOfString:@"@" withString:@"\\@" options:0 range:searchRange];
+	[result replaceOccurrencesOfString:@"@" withString:@"\\@" options:ZER0 range:searchRange];
 	searchRange.length = result.length;
-	[result replaceOccurrencesOfString:@"[" withString:@"\\[" options:0 range:searchRange];
+	[result replaceOccurrencesOfString:@"[" withString:@"\\[" options:ZER0 range:searchRange];
 	//END4iTM3;
 	return result;
 }
@@ -595,7 +595,7 @@ Latest Revision: Thu Mar 18 11:24:34 UTC 2010
  To Do List: improve the search avoiding the whole scan of the string, refer to the midle of the string or to the first visible character.
  "*/
 {DIAGNOSTIC4iTM3;
-	[self insertString:aString atIndex:0];
+	[self insertString:aString atIndex:ZER0];
 }
 @end
 

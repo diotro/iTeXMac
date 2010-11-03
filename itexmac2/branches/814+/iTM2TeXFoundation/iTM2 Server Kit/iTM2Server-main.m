@@ -26,6 +26,8 @@
 
 #include "iTM2ServerKeys.m"
 
+#define ZER0 ((NSUInteger)0)
+
 BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[]);
 void iTeXMac2Usage(int argc, const char *argv[]);
 
@@ -55,7 +57,7 @@ int main(int argc, const char *argv[])
 			{
 				NSLog(@"Build Test fullfilled");
 				iTeXMac2Usage(argc, argv);
-				return 0;
+				return ZER0;
 			}
 		}
 	}
@@ -66,7 +68,7 @@ int main(int argc, const char *argv[])
 //NSLog(@"rootProxy is: %@", rootProxy);
 		[rootProxy setProtocolForProxy:@protocol(iTM2Connection)];
 		[rootProxy performProjectActionWithContext:context];
-		return 0;
+		return ZER0;
 	}
 	else if(!connectionID.length && LaunchiTeXMac2IfNeeded(argc, argv))
 	{
@@ -76,7 +78,7 @@ int main(int argc, const char *argv[])
 				object: nil
 					userInfo: context
 						deliverImmediately: YES];
-		return 0;
+		return ZER0;
 	}
     iTeXMac2Usage(argc, argv);
     return 1;
@@ -149,45 +151,45 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
 }
 void iTeXMac2Usage(int argc, const char *argv[])
 {
-    NSLog(@"Using %s as server (as 06/21/2006)", argv[0]);
+    NSLog(@"Using %s as server (as 06/21/2006)", argv[ZER0]);
     NSLog(@"");
     NSLog(@"To let iTeXMac2 edit one particular file:");
     NSLog(@"========================================");
-    NSLog(@"  %s -conversation conversationID edit -file fileName [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[0]);
+    NSLog(@"  %s -conversation conversationID edit -file fileName [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[ZER0]);
     NSLog(@"  When not absolute, path are relative to the current directory.");
     NSLog(@"");
     NSLog(@"To let iTeXMac2 display one particular file:");
     NSLog(@"===========================================");
-    NSLog(@"  %s -conversation conversationID display -file fileName [-source sourceName] [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[0]);
+    NSLog(@"  %s -conversation conversationID display -file fileName [-source sourceName] [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[ZER0]);
     NSLog(@"  When not absolute, fileName is relative to the current directory.");
     NSLog(@"  When not absolute, sourceName is relative to the directory of fileName.");
     NSLog(@"");
     NSLog(@"To let iTeXMac2 update one particular file:");
     NSLog(@"==========================================");
-    NSLog(@"  %s -conversation conversationID update -file fileName", argv[0]);
+    NSLog(@"  %s -conversation conversationID update -file fileName", argv[ZER0]);
     NSLog(@"  When not absolute, fileName is relative to the current directory.");
     NSLog(@"");
 #if 0
     NSLog(@"To let iTeXMac2 update all its files:");
     NSLog(@"====================================");
-    NSLog(@"  %s -conversation conversationID update -all", argv[0]);
+    NSLog(@"  %s -conversation conversationID update -all", argv[ZER0]);
     NSLog(@"");
     NSLog(@"To notify iTeXMac2 of a comment:");
     NSLog(@"====================================");
-    NSLog(@"  %s -conversation conversationID notify -comment \"The comment\"", argv[0]);
+    NSLog(@"  %s -conversation conversationID notify -comment \"The comment\"", argv[ZER0]);
     NSLog(@"");
     NSLog(@"To notify iTeXMac2 of a warning:");
     NSLog(@"====================================");
-    NSLog(@"  %s -conversation conversationID notify -warning \"The warning message\"", argv[0]);
+    NSLog(@"  %s -conversation conversationID notify -warning \"The warning message\"", argv[ZER0]);
     NSLog(@"");
     NSLog(@"To notify iTeXMac2 of an error:");
     NSLog(@"====================================");
-    NSLog(@"  %s -conversation conversationID notify -error \"The error message\"", argv[0]);
+    NSLog(@"  %s -conversation conversationID notify -error \"The error message\"", argv[ZER0]);
     NSLog(@"");
     NSLog(@"");
     NSLog(@"To ask iTeXMac2 to execute an applescript:");
     NSLog(@"====================================");
-    NSLog(@"  %s -conversation conversationID applescript -source \"The applescript source\"", argv[0]);
+    NSLog(@"  %s -conversation conversationID applescript -source \"The applescript source\"", argv[ZER0]);
 #endif
     NSLog(@"In all the previous commands, the optional conversationID is given by the $Conversation4iTM3 environment variable.");
     NSLog(@"This variable is set up by iTeXMac2 when launching tasks.");

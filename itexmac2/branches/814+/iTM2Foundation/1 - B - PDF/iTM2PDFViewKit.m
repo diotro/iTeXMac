@@ -396,8 +396,8 @@ To Do List:
     if (self = [super initWithFrame:rect]) {
         self.pageLayout = [SUD integerForKey:iTM2PDFPageLayoutModeKey];// preferred? last
 		self.newPage = YES;
-        iVarCurrentLogicalPage = 0;// improbable: this will force initialization
-//        [self setCurrentPhysicalPage:0];
+        iVarCurrentLogicalPage = ZER0;// improbable: this will force initialization
+//        [self setCurrentPhysicalPage:ZER0];
         iVarAbsoluteFocus = NSMakePoint(0,0);
     }
     return self;
@@ -657,7 +657,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return MAX(0, MIN(self.currentPhysicalPage, self.subviews.count));
+    return MAX(ZER0, MIN(self.currentPhysicalPage, self.subviews.count));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= currentPhysicalPage
 - (NSInteger)currentPhysicalPage;
@@ -927,9 +927,9 @@ To Do List:
         ++numberOfRows;
     }
     // 3 placing the subviews
-    NSInteger logicalPage = (self.pageLayout == iTM2PDFTwoColumnRightLayout)? 0:1;
+    NSInteger logicalPage = (self.pageLayout == iTM2PDFTwoColumnRightLayout)? ZER0:1;
     NSInteger columnIndex, rowIndex;
-    for(rowIndex = 0; rowIndex < numberOfRows; ++rowIndex) {
+    for(rowIndex = ZER0; rowIndex < numberOfRows; ++rowIndex) {
         NSPoint origin = NSMakePoint(0, rowIndex * maxSubviewHeight);
         for(columnIndex = 0; columnIndex < numberOfColumns; ++columnIndex) {
             IRV = [self viewWithTag:logicalPage];

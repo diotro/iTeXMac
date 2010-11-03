@@ -245,7 +245,7 @@ To Do List:
     {
         self.willPopUp;
         if (self.isEnabled)
-            if ([self.menu numberOfItems] > 0)
+            if ([self.menu numberOfItems] > ZER0)
             {
                 [self highlight:YES];
                 self.state = NSOnState;
@@ -347,7 +347,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super drawRect:aRect];
-    if (([self.menu numberOfItems] > 0) && ((self.action == NULL) || ([self.cell state]==NSOnState)))
+    if (([self.menu numberOfItems] > ZER0) && ((self.action == NULL) || ([self.cell state]==NSOnState)))
     {
         NSBezierPath * path = [NSBezierPath bezierPath];
         if (self.isCenteredArrow)
@@ -383,7 +383,7 @@ To do list: problem when more than one key is pressed.
         if (self.window.firstResponder == self)
         {
             NSString * CIM = [theEvent charactersIgnoringModifiers];
-            if (CIM.length && [CIM characterAtIndex:0] == ' ')
+            if (CIM.length && [CIM characterAtIndex:ZER0] == ' ')
             {
                 [self mouseDown:[NSEvent mouseEventWithType:NSLeftMouseDown
                                     location: [self convertPoint:self.frameCenter toView:nil]
@@ -446,7 +446,7 @@ To Do List:
     size_t length = strlen(selectorName);
     if (!length)
         return NO;
-    char * name = NSAllocateCollectable(strlen(selectorName)+9,0);
+    char * name = NSAllocateCollectable(strlen(selectorName)+9,ZER0);
     if (name)
 	{
 		strcpy(name, selectorName);
@@ -460,7 +460,7 @@ To Do List:
 			}
 		}
 	}
-	[self setEnabled:(self.isValid4iTM3 || !self.isMixedEnabled || ([self.menu numberOfItems] > 0))];
+	[self setEnabled:(self.isValid4iTM3 || !self.isMixedEnabled || ([self.menu numberOfItems] > ZER0))];
 	[self.menu update];
 //END4iTM3;
     return YES;

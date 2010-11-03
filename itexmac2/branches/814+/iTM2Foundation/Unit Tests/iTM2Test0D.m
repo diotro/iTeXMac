@@ -55,7 +55,7 @@
     // Create data structures here.
     ICsA = [[NSArray arrayWithObjects:
     /*
-    0 : IC component
+    ZER0 : IC component
 	1 : IC component
 	2 : IC component
 	3 : IC component
@@ -64,75 +64,75 @@
 	6 : result with tab
 	7 : result with no tab
 */
-        @"0,1,0,1,"
+        @"0,1,ZER0,1,"
             @"seed,%\t,"
             @"change1,1,%\t\t,%\t   ,"
             @"change2,-1,%\t,%\t,FIN",
-        @"0,1,0,2,"
+        @"0,1,ZER0,2,"
             @"seed,%  ,"
             @"change1,1,%  \t,%     ,"
 			@"change2,-1,%  ,%  ,FIN",
-        @"0,1,0,2,"
+        @"0,1,ZER0,2,"
             @"seed,% \t,"
             @"change1,1,% \t\t,% \t   ,"
 			@"change2,-1,% \t,% \t,FIN",
-        @"0,1,0,2,"
+        @"0,1,ZER0,2,"
             @"seed,% %,"
             @"change1,1,% %\t,% %   ,"
 			@"change2,-1,% %,% %,FIN",
-        @"0,2,0,1,"
+        @"0,2,ZER0,1,"
             @"seed,%%\t,"
             @"change1,1,%%\t\t,%%\t   ,"
 			@"change2,-1,%%\t,%%\t,FIN",
-        @"0,2,0,1,"
+        @"0,2,ZER0,1,"
             @"seed,%% ,"
             @"change1,1,%% \t,%%    ,"
 			@"change2,-1,%% ,%% ,FIN",
-        @"0,3,0,0,"
+        @"0,3,ZER0,ZER0,"
             @"seed,%%%,"
             @"change1,1,%%%\t,%%%   ,"
 			@"change2,-1,%%%,%%%,FIN",
-        @"0,1,2,0,"
+        @"0,1,2,ZER0,"
             @"seed,%%!,"
             @"change1,1,%%!\t,%%!   ,"
 			@"change2,-1,%%!,%%!,FIN",
-        @"0,2,0,1,"
+        @"0,2,ZER0,1,"
             @"seed,%! ,"
             @"change1,1,%! \t,%!    ,"
 			@"change2,-1,%! ,%! ,FIN",
-        @"0,2,1,0,"
+        @"0,2,1,ZER0,"
             @"seed,%!%,"
             @"change1,1,%!%\t,%!%   ,"
 			@"change2,-1,%!%,%!%,FIN",
-        @"0,2,0,1,"
+        @"0,2,ZER0,1,"
             @"seed,%!\t,"
             @"change1,1,%!\t\t,%!\t   ,"
 			@"change2,-1,%!\t,%!\t,FIN",
-        @"1,0,0,0,"
+        @"1,ZER0,ZER0,ZER0,"
             @"seed,\t,"
             @"change1,1,\t\t,\t   ,"
 			@"change2,-1,,more,,FIN",
-        @"1,1,0,1,"
+        @"1,1,ZER0,1,"
             @"seed, % ,"
             @"change1,1, % \t, %    ,"
 			@"change2,-1, % , % ,FIN",
-        @"1,2,0,0,"
+        @"1,2,ZER0,ZER0,"
             @"seed, %%,"
             @"change1,1, %%\t, %%   ,"
 			@"change2,-1, %%, %%,FIN",
-        @"1,1,0,1,"
+        @"1,1,ZER0,1,"
             @"seed, %\t,"
             @"change1,1, %\t\t, %\t   ,"
 			@"change2,-1, %\t, %\t,FIN",
-        @"1,2,0,0,"
+        @"1,2,ZER0,ZER0,"
             @"seed, %!,"
             @"change1,1, %!\t, %!   ,"
 			@"change2,-1, %!, %!,FIN",
-        @"3,0,0,0,"
+        @"3,ZER0,ZER0,ZER0,"
             @"seed,   ,"
             @"change1,1,   \t,      ,"
 			@"change2,-1,,more,,FIN",
-        @"2,2,0,2,"
+        @"2,2,ZER0,2,"
             @"seed,  %!  ,"
             @"change1,1,  %!  \t,  %!     ,"
 			@"change2,-1,%! ,%! ,FIN",
@@ -140,19 +140,19 @@
             @"seed,  %!% ,"
             @"change1,1,  %!% \t,  %!%    ,"
 			@"change2,-1,%!%,%!%,FIN",
-        @"2,2,0,2,"
+        @"2,2,ZER0,2,"
             @"seed,  %! %,"
             @"change1,1,  %! %\t,  %! %   ,"
 			@"change2,-1,%! ,%! ,FIN",
-        @"2,2,2,0,"
+        @"2,2,2,ZER0,"
             @"seed,  %!%%,"
             @"change1,1,  %!%%\t,  %!%%   ,"
 			@"change2,-1,%!%,%!%,FIN",
-        @"2,2,2,0,"
+        @"2,2,2,ZER0,"
             @"seed,  %!%!,"
             @"change1,1,  %!%!\t,  %!%!   ,"
 			@"change2,-1,%!\t,%! ,FIN",
-        @"2,2,0,2,"
+        @"2,2,ZER0,2,"
             @"seed,  %! \t,"
             @"change1,1,  %! \t\t,  %! \t   ,"
 			@"change2,-1,%! ,%! ,FIN",
@@ -160,73 +160,73 @@
             @"seed,  %!%\t,"
             @"change1,1,  %!%\t\t,  %!%\t   ,"
 			@"change2,-1,%!%,%!%,FIN",
-        @"2,2,0,4,"
+        @"2,2,ZER0,4,"
             @"seed,  %! %!\t,"
             @"change1,1,  %! %!\t\t,  %! %!\t   ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
-        @"2,2,0,5,"
+        @"2,2,ZER0,5,"
             @"seed,  %! %! \t,"
             @"change1,1,  %! %! \t\t,  %! %! \t   ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
-        @"2,2,0,5,"
+        @"2,2,ZER0,5,"
             @"seed,  %! %!%\t,"
             @"change1,1,  %! %!%\t\t,  %! %!%\t   ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
-        @"2,2,0,5,"
+        @"2,2,ZER0,5,"
             @"seed,  %! %!  ,"
             @"change1,1,  %! %!  \t,  %! %!     ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
-        @"2,2,0,5,"
+        @"2,2,ZER0,5,"
             @"seed,  %! %!% ,"
             @"change1,1,  %! %!% \t,  %! %!%    ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
-        @"2,2,0,5,"
+        @"2,2,ZER0,5,"
             @"seed,  %! %! %,"
             @"change1,1,  %! %! %\t,  %! %! %   ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
-        @"2,2,0,5,"
+        @"2,2,ZER0,5,"
             @"seed,  %! %!%%,"
             @"change1,1,  %! %!%%\t,  %! %!%%   ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
-        @"2,2,0,5,"
+        @"2,2,ZER0,5,"
             @"seed,  %! %!%!,"
             @"change1,1,  %! %!%!\t,  %! %!%!   ,"
 			@"change2,-1,  %! \t,  %!  ,FIN",
             nil] retain];
     ICsB = [[NSArray arrayWithObjects:
-        @"0,1,0,0,"
+        @"0,1,ZER0,ZER0,"
             @"seed,%,"
             @"change1,1,%\t ,%   ,"
 			@"change2,-1,%,%,FIN",
-        @"0,1,0,1,"
+        @"0,1,ZER0,1,"
             @"seed,% ,"
             @"change1,1,%\t  ,%    ,"
 			@"change2,-1,% ,% ,FIN",
-        @"0,2,0,0,"
+        @"0,2,ZER0,ZER0,"
             @"seed,%%,"
             @"change1,1,%%\t  ,%%   ,"
 			@"change2,-1,%%,%%,FIN",
-        @"0,2,0,0,"
+        @"0,2,ZER0,ZER0,"
             @"seed,%!,"
             @"change1,1,%!\t  ,%!   ,"
 			@"change2,-1,%!,%!,FIN",
-        @"1,0,0,0,"
+        @"1,ZER0,ZER0,ZER0,"
             @"seed, ,"
             @"change1,1,\t ,    ,"
 			@"change2,-1, ,more, ,FIN",
-        @"1,1,0,0,"
+        @"1,1,ZER0,ZER0,"
             @"seed, %,"
             @"change1,1, %\t  , %   ,"
 			@"change2,-1, %, %,FIN",
-        @"2,0,0,0,"
+        @"2,ZER0,ZER0,ZER0,"
             @"seed,  ,"
             @"change1,1,\t  ,     ,"
 			@"change2,-1,  ,more,  ,FIN",
-        @"2,2,0,1,"
+        @"2,2,ZER0,1,"
             @"seed,  %! ,"
             @"change1,1,  %!\t  ,  %!    ,"
 			@"change2,-1,%!,%!,FIN",
-        @"2,2,1,0,"
+        @"2,2,1,ZER0,"
             @"seed,  %!%,"
             @"change1,1,  %!%\t  ,  %!%   ,"
 			@"change2,-1,%!,%!,FIN",
@@ -250,7 +250,7 @@
 /*!
 	@method		isEscapedCharacterAtIndex:inString:
 	@abstract	Abstract forthcoming.
-	@discussion	YES iff index>0 and there is an unescaped control sequence at index-1.
+	@discussion	YES iff index>ZER0 and there is an unescaped control sequence at index-1.
                 Subclassers will use there own definition.
 	@param		index.
 	@param		aString.
@@ -278,16 +278,16 @@
     iTM2StringController * SC = [iTM2StringController defaultController];
     STAssertNotNil(SC,@"Lost",NULL);
     NSString * aString = @"\\\\\\\\";
-    STAssertFalse([SC isEscapedCharacterAtIndex:0 inString:aString],@"Missed 3a",NULL);
+    STAssertFalse([SC isEscapedCharacterAtIndex:ZER0 inString:aString],@"Missed 3a",NULL);
     STAssertTrue([SC isEscapedCharacterAtIndex:1 inString:aString],@"Missed 3b",NULL);
     STAssertFalse([SC isEscapedCharacterAtIndex:2 inString:aString],@"Missed 3c",NULL);
     STAssertTrue([SC isEscapedCharacterAtIndex:3 inString:aString],@"Missed 3d",NULL);
-    STAssertTrue([SC isControlCharacterAtIndex:0 inString:aString],@"Missed 3xd",NULL);
+    STAssertTrue([SC isControlCharacterAtIndex:ZER0 inString:aString],@"Missed 3xd",NULL);
     STAssertFalse([SC isControlCharacterAtIndex:1 inString:aString],@"Missed 3xa",NULL);
     STAssertTrue([SC isControlCharacterAtIndex:2 inString:aString],@"Missed 3xb",NULL);
     STAssertFalse([SC isControlCharacterAtIndex:3 inString:aString],@"Missed 3xc",NULL);
     aString = @"\\%%\\\\\\%%\\\\%";
-    STAssertFalse([SC isCommentCharacterAtIndex:0 inString:aString],@"Missed 3ya",NULL);
+    STAssertFalse([SC isCommentCharacterAtIndex:ZER0 inString:aString],@"Missed 3ya",NULL);
     STAssertFalse([SC isCommentCharacterAtIndex:1 inString:aString],@"Missed 3yz",NULL);
     STAssertTrue ([SC isCommentCharacterAtIndex:2 inString:aString],@"Missed 3ye",NULL);
     STAssertFalse([SC isCommentCharacterAtIndex:3 inString:aString],@"Missed 3yr",NULL);
@@ -311,18 +311,18 @@
     NSMutableArray * strings = [NSMutableArray array];
     [strings addObject:@""];// see below
     NSMutableArray * ICs = [NSMutableArray array];
-    __iTM2IndentationComponent * IC = nil;
-    NSUInteger location = 0;
+    _iTM2IndentationComponent * IC = nil;
+    NSUInteger location = ZER0;
     NSMutableArray * Ns = [NSMutableArray array];
-    NSUInteger i = 0;
+    NSUInteger i = ZER0;
     while(YES)
     {
         while(strings.count<level)// beware, the first string does not count
         {
             RA = [[ICsA objectAtIndex:i] componentsSeparatedByString:@","];
-            IC = [__iTM2IndentationComponent indentationComponent];
+            IC = [_iTM2IndentationComponent indentationComponent];
             IC.location = location;
-            IC.contentLength = [[RA objectAtIndex:0] integerValue];
+            IC.contentLength = [[RA objectAtIndex:ZER0] integerValue];
             IC.commentLength = [[RA objectAtIndex:1] integerValue];
             IC.blackLength = [[RA objectAtIndex:2] integerValue];
             IC.afterLength = [[RA objectAtIndex:3] integerValue];
@@ -336,7 +336,7 @@
             [ICs addObject:IC];
             [Ns addObject:[NSNumber numberWithUnsignedInteger:i]];
             location = IC.nextLocation;
-            i = 0;
+            i = ZER0;
         }
         // At the end of the loop: strings.count==level-1
         // Add an ultimate index
@@ -347,16 +347,16 @@
             {
                 RA = [S componentsSeparatedByString:@","];
                 S = nil;
-                IC = [__iTM2IndentationComponent indentationComponent];
+                IC = [_iTM2IndentationComponent indentationComponent];
                 IC.location = location;
-                IC.contentLength = [[RA objectAtIndex:0] integerValue];
+                IC.contentLength = [[RA objectAtIndex:ZER0] integerValue];
                 IC.commentLength = [[RA objectAtIndex:1] integerValue];
                 IC.blackLength = [[RA objectAtIndex:2] integerValue];
                 IC.afterLength = [[RA objectAtIndex:3] integerValue];
                 IC.depth = [[RA objectAtIndex:4] integerValue];
                 [ICs addObject:IC];
                 S = [strings.lastObject stringByAppendingString:[RA objectAtIndex:5]];
-                RA = [SC _indentationComponentsInString:S atIndex:0];// this is also where the first @"" of strings is used
+                RA = [SC _indentationComponentsInString:S atIndex:ZER0];// this is also where the first @"" of strings is used
                 //LOG4iTM3(@"Testing <%@>\nICs:%@\nRA:%@",S,ICs,RA);
                 STAssertTrue([RA isEqual:ICs],@"Missed: unexpected %@",[[RA description] stringByAppendingFormat:@"<>%@, for string:%@",ICs,S]);
                 [ICs removeLastObject];
@@ -378,7 +378,7 @@
                 }
                 else
                 {
-                    i = 0;
+                    i = ZER0;
                     --level;
                 }
                 break;
@@ -400,11 +400,11 @@
     NSArray * RA = nil;
     NSMutableString * MS;
     NSRange R;
-    NSUInteger change = 0;
+    NSUInteger change = ZER0;
     NSString * prefix;
     ICURegEx * RE = [ICURegEx regExWithSearchPattern:@",(?:[^,]*(?:change|seed|more)[^,]*,)?" error:NULL];
     for(S in ICs) {
-        S = [ICsB objectAtIndex:0];
+        S = [ICsB objectAtIndex:ZER0];
         [RE setInputString:S];
         RA = [RE componentsBySplitting];
         NSLog(@"TEST:\"%@\",\n%@,FIN",S,RA);
@@ -416,23 +416,23 @@
         change = 5;
         SC.usesTabs = YES;
         MS = [NSMutableString stringWithString:seed4iTM3];
-        [SC getIndentationPrefix:&prefix:&R change:change4iTM3 inString:MS:0 availablePrefix:nil:0];
+        [SC getIndentationPrefix:&prefix:&R change:change4iTM3 inString:MS:ZER0 availablePrefix:nil:ZER0];
         [MS replaceCharactersInRange:R withString:prefix];
         STAssertEqualObjects(result14iTM3,MS,@"MISSED FIN",nil);
         SC.usesTabs = NO;
         MS = [NSMutableString stringWithString:seed4iTM3];
-        [SC getIndentationPrefix:&prefix:&R change:change4iTM3 inString:MS:0 availablePrefix:nil:0];
+        [SC getIndentationPrefix:&prefix:&R change:change4iTM3 inString:MS:ZER0 availablePrefix:nil:ZER0];
         [MS replaceCharactersInRange:R withString:prefix];
         STAssertEqualObjects(result24iTM3,MS,@"MISSED FIN",nil);
         change = 8;
         SC.usesTabs = YES;
         MS = [NSMutableString stringWithString:seed4iTM3];
-        [SC getUnindentationPrefix:&prefix:&R change:-1*change4iTM3 inString:MS:0];
+        [SC getUnindentationPrefix:&prefix:&R change:-1*change4iTM3 inString:MS:ZER0];
         [MS replaceCharactersInRange:R withString:prefix];
         STAssertEqualObjects(result14iTM3,MS,@"MISSED FIN",nil);
         SC.usesTabs = NO;
         MS = [NSMutableString stringWithString:seed4iTM3];
-        [SC getUnindentationPrefix:&prefix:&R change:-1*change4iTM3 inString:MS:0];
+        [SC getUnindentationPrefix:&prefix:&R change:-1*change4iTM3 inString:MS:ZER0];
         [MS replaceCharactersInRange:R withString:prefix];
         STAssertEqualObjects(result24iTM3,MS,@"MISSED FIN",nil);
     }

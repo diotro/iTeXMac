@@ -114,7 +114,7 @@ To Do List:
         while(([S scanUpToString:STOP intoString:nil], ![S isAtEnd]))  {
             NSUInteger begin, end;
 //NSLog(@"GLS");
-            [[S string] getLineStart:&begin end:nil contentsEnd:&end forRange:iTM3MakeRange([S scanLocation], 0)];
+            [[S string] getLineStart:&begin end:nil contentsEnd:&end forRange:iTM3MakeRange([S scanLocation], ZER0)];
             NSLog([[S string] substringWithRange:iTM3MakeRange(begin, end-begin)]);
             [S scanString:STOP intoString:nil];
         }

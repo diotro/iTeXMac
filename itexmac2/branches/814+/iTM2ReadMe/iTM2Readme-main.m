@@ -7,7 +7,7 @@ int main (int argc, const char * argv[]) {
 	NSArray * arguments = [PI arguments];
 	if(arguments.count)
 	{
-		NSString * path = [arguments objectAtIndex:0];// bundlePath/Contents/MacOS/GetVersion
+		NSString * path = [arguments objectAtIndex:ZER0];// bundlePath/Contents/MacOS/GetVersion
 		path = path.stringByDeletingLastPathComponent;// bundlePath/Contents/MacOS
 		path = path.stringByDeletingLastPathComponent;// bundlePath/Contents
 		path = path.stringByDeletingLastPathComponent;// bundlePath

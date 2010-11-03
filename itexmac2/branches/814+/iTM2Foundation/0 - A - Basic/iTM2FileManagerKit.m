@@ -103,7 +103,7 @@ To Do List:
 //START4iTM3;
 	if ([self fileExistsAtPath:path])//traverse links
 	{
-		FSRef ref = {0};
+		FSRef ref = {ZER0};
 		OSStatus status = FSPathMakeRef((UInt8 *)[path UTF8String], &ref, NULL);
 		if (status)
 		{
@@ -390,8 +390,8 @@ To Do List:
 			OUTERROR4iTM3(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"7 - Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
 		}
 		Str255 dst;
-		memcpy(dst, resourceName+1, resourceName[0]);
-		dst[resourceName[0]]='\0';
+		memcpy(dst, resourceName+1, resourceName[ZER0]);
+		dst[resourceName[ZER0]]='\0';
 		NSString * key = [NSString stringWithUTF8String:(void *)dst];
 		if (key.length)
 			[MD setObject:D forKey:key];
@@ -496,7 +496,7 @@ To Do List:
 	}
 	Str255 resourceName;
 	memcpy(resourceName+1, src, strlen(src));
-	resourceName[0]=strlen(src);
+	resourceName[ZER0]=strlen(src);
 	Handle H = Get1NamedResource(resourceType, resourceName);
 	if ((resError = ResError())|| !H)
 	{
@@ -652,7 +652,7 @@ terminate:
 	}
 	Str255 resourceName;
 	memcpy(resourceName+1, src, strlen(src));
-	resourceName[0]=strlen(src);
+	resourceName[ZER0]=strlen(src);
 	Handle H = Get1NamedResource(resourceType, resourceName);
 	if (resError = ResError())
 	{
@@ -804,7 +804,7 @@ To Do List:
 	}
 	Str255 resourceName;
 	memcpy(resourceName+1, src, strlen(src));
-	resourceName[0]=strlen(src);
+	resourceName[ZER0]=strlen(src);
 	Handle H = Get1NamedResource(resourceType, resourceName);
 	if (resError = ResError())
 	{
@@ -1007,8 +1007,8 @@ To Do List:
 			LOG4iTM3(@"6 - Could use GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
 		}
 		Str255 dst;
-		memcpy(dst, resourceName+1, resourceName[0]);
-		dst[resourceName[0]]='\0';
+		memcpy(dst, resourceName+1, resourceName[ZER0]);
+		dst[resourceName[ZER0]]='\0';
 		key = [NSString stringWithUTF8String:(void*)dst];
 		if (key.length)
 		{
@@ -1070,7 +1070,7 @@ To Do List:
 		if (strlen(src)<256)
 		{
 			memcpy(resourceName+1, src, strlen(src));
-			resourceName[0]=strlen(src);
+			resourceName[ZER0]=strlen(src);
 			if ([D isKindOfClass:[NSData class]])
 			{
 				if (resError = PtrToHand([D bytes], &H, D.length))
@@ -1371,7 +1371,7 @@ createSrc:
 		}
 		Str255 resourceName;
 		memcpy(resourceName+1, src, strlen(src));
-		resourceName[0]=strlen(src);
+		resourceName[ZER0]=strlen(src);
 		HLock(H);
 		AddResource(H, resourceType, resourceID, resourceName);
 		HUnlock(H);
@@ -1403,4 +1403,6 @@ createSrc:
     return result;// even if the resources could not be saved...
 }
 @end
+
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSFileManager(iTeXMac2)

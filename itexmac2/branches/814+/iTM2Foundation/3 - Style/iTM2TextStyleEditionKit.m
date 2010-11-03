@@ -278,7 +278,7 @@ NSString * const iTM2TextStyleInspectorType = @"TextStyle";
     @abstract	Apstract forthcoming.
     @discussion	Discussion forthcoming.
                 Both self.currentStyle and self.currentVariant are respectively set in the popUpStyle:and popUpVariant:methods.
-                In the corresponding validate methods, if these instance variables are not set (0 length or nil)
+                In the corresponding validate methods, if these instance variables are not set (ZER0 length or nil)
                 the popUp's menu items are removed and the menus populated with new up to date stuff.
                 This is useful when you add a new variant or remove an old one.
 */
@@ -561,7 +561,7 @@ To Do List:
                 sender.lastItem.representedObject = [[C syntaxParserStyle] lowercaseString];
             }
             if (sender.numberOfItems) {
-                [sender selectItemAtIndex:0];
+                [sender selectItemAtIndex:ZER0];
                 [self popUpStyle:sender];// beware, possible recursion here if no represented object is available
             }
         }
@@ -602,8 +602,8 @@ To Do List:
         if (variant.length) {
 			variant = [variant lowercaseString];
 			NSInteger index = [sender indexOfItemWithRepresentedObject:variant];
-			if (index<0) {
-                [sender selectItemAtIndex:0];
+			if (index<ZER0) {
+                [sender selectItemAtIndex:ZER0];
                 [self popUpVariant:sender];
 			} else {
                 [sender selectItemAtIndex:index];
@@ -616,7 +616,7 @@ To Do List:
                 sender.lastItem.representedObject = variant;
             }
             if (sender.numberOfItems) {
-                [sender selectItemAtIndex:0];
+                [sender selectItemAtIndex:ZER0];
                 [self popUpVariant:sender];
             }
         }
@@ -830,7 +830,7 @@ To Do List: NYI
 //START4iTM3;
     for(NSMenu * M in _gVarTextSyntaxMenus4iTM3)
         while([M numberOfItems])
-            [M removeItemAtIndex:0];
+            [M removeItemAtIndex:ZER0];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initWithTitle:
@@ -857,7 +857,7 @@ To Do List: Nothing
 //START4iTM3;
     if (self = [super initWithCoder:aDecoder]) {
         [_gVarTextSyntaxMenus4iTM3 addObject:self];
-        while (self.numberOfItems) [self removeItemAtIndex:0];
+        while (self.numberOfItems) [self removeItemAtIndex:ZER0];
     }
 //END4iTM3;
     return self;
@@ -1131,7 +1131,7 @@ To Do List: Nothing
 @end
 
 enum {
-	iTM2TSPTextAttributesMode=0,
+	iTM2TSPTextAttributesMode=ZER0,
 	iTM2TSPTextBackgroundColorMode,
 	iTM2TSPSelectionForegroundColorMode,
 	iTM2TSPSelectionBackgroundColorMode,
@@ -1193,10 +1193,10 @@ To Do List:
 		iTM2TextSyntaxParser * SP = TS.syntaxParser;
 		[SP setUpAllTextViews];
 	}
-	NSRange range = iTM3MakeRange(0, TS.length);
+	NSRange range = iTM3MakeRange(ZER0, TS.length);
 	for (NSLayoutManager * LM in TS.layoutManagers) {
 		range.length = [LM firstUnlaidCharacterIndex];
-		[LM invalidateGlyphsForCharacterRange:range changeInLength:0 actualCharacterRange:nil];
+		[LM invalidateGlyphsForCharacterRange:range changeInLength:ZER0 actualCharacterRange:nil];
 		[LM invalidateLayoutForCharacterRange:range isSoft:NO actualCharacterRange:nil];
 	}
 	NSWindowController * WC = self.window.windowController;
@@ -1222,7 +1222,7 @@ To Do List:
 		NSString * mode = [oldD objectForKey:iTM2TextModeAttributeName];
 		[newD setValue:mode forKey:iTM2TextModeAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		[self performSelector:@selector(syntaxParserAttributesDidChange) withObject:nil afterDelay:0];
+		[self performSelector:@selector(syntaxParserAttributesDidChange) withObject:nil afterDelay:ZER0];
 	}	
 //END4iTM3;
     return;
@@ -1245,7 +1245,7 @@ To Do List:
 		[newD setValue:value forKey:name];
 		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		[self performSelector:@selector(syntaxParserAttributesDidChange) withObject:nil afterDelay:0];
+		[self performSelector:@selector(syntaxParserAttributesDidChange) withObject:nil afterDelay:ZER0];
 	}	
 //END4iTM3;
     return;
@@ -1388,7 +1388,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [SCP setColor:[[NSColor whiteColor] colorWithAlphaComponent:0]];
+    [SCP setColor:[[NSColor whiteColor] colorWithAlphaComponent:ZER0]];
     [self.window.windowController validateWindowContent4iTM3];
 //END4iTM3;
     return;
@@ -1690,7 +1690,7 @@ To Do List:
     if (charRange.location <= TS.length)
     {
         NSColor * c = [TS attribute:NSForegroundColorAttributeName atIndex:charRange.location effectiveRange:nil];
-        if (c && [c alphaComponent])// BEWARE [C alphaComponent] != 0 even if C==nil
+        if (c && [c alphaComponent])// BEWARE [C alphaComponent] != ZER0 even if C==nil
             C = c;
     }
     if (![[sender color] isEqual:C])
@@ -1750,7 +1750,7 @@ To Do List:
     if (charRange.location <= TS.length)
     {
         NSColor * c = [TS attribute:NSBackgroundColorAttributeName atIndex:charRange.location effectiveRange:nil];
-        if (c && [c alphaComponent])// BEWARE [C alphaComponent] != 0 even if C==nil
+        if (c && [c alphaComponent])// BEWARE [C alphaComponent] != ZER0 even if C==nil
             C = c;
     }
     if (![[sender color] isEqual:C])
@@ -2129,27 +2129,27 @@ To Do List:
 APPKIT_EXTERN NSString *NSFontAttributeName;                // NSFont, default Helvetica 12
 APPKIT_EXTERN NSString *NSParagraphStyleAttributeName;      // NSParagraphStyle, default defaultParagraphStyle
 APPKIT_EXTERN NSString *NSForegroundColorAttributeName;     // NSColor, default blackColor
-APPKIT_EXTERN NSString *NSUnderlineStyleAttributeName;      // NSNumber containing integer, default 0: no underline
-APPKIT_EXTERN NSString *NSSuperscriptAttributeName;         // NSNumber containing integer, default 0
+APPKIT_EXTERN NSString *NSUnderlineStyleAttributeName;      // NSNumber containing integer, default ZER0: no underline
+APPKIT_EXTERN NSString *NSSuperscriptAttributeName;         // NSNumber containing integer, default ZER0
 APPKIT_EXTERN NSString *NSBackgroundColorAttributeName;     // NSColor, default nil: no background
 APPKIT_EXTERN NSString *NSAttachmentAttributeName;          // NSTextAttachment, default nil
-APPKIT_EXTERN NSString *NSLigatureAttributeName;            // NSNumber containing integer, default 1: default ligatures, 0: no ligatures, 2: all ligatures
-APPKIT_EXTERN NSString *NSBaselineOffsetAttributeName;      // NSNumber containing floating point value, in points; offset from baseline, default 0
-APPKIT_EXTERN NSString *NSKernAttributeName;                // NSNumber containing floating point value, in points; amount to modify default kerning, if 0, kerning off
+APPKIT_EXTERN NSString *NSLigatureAttributeName;            // NSNumber containing integer, default 1: default ligatures, ZER0: no ligatures, 2: all ligatures
+APPKIT_EXTERN NSString *NSBaselineOffsetAttributeName;      // NSNumber containing floating point value, in points; offset from baseline, default ZER0
+APPKIT_EXTERN NSString *NSKernAttributeName;                // NSNumber containing floating point value, in points; amount to modify default kerning, if ZER0, kerning off
 APPKIT_EXTERN NSString *NSLinkAttributeName;                // NSURL (preferred) or NSString
 
-APPKIT_EXTERN NSString *NSStrokeWidthAttributeName          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing floating point value, in percent of font point size, default 0: no stroke; positive for stroke alone, negative for stroke and fill (a typical value for outlined text would be 3.0)
+APPKIT_EXTERN NSString *NSStrokeWidthAttributeName          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing floating point value, in percent of font point size, default ZER0: no stroke; positive for stroke alone, negative for stroke and fill (a typical value for outlined text would be 3.0)
 APPKIT_EXTERN NSString *NSStrokeColorAttributeName          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSColor, default nil: same as foreground color
 APPKIT_EXTERN NSString *NSUnderlineColorAttributeName       AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSColor, default nil: same as foreground color
-APPKIT_EXTERN NSString *NSStrikethroughStyleAttributeName   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing integer, default 0: no strikethrough
+APPKIT_EXTERN NSString *NSStrikethroughStyleAttributeName   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing integer, default ZER0: no strikethrough
 APPKIT_EXTERN NSString *NSStrikethroughColorAttributeName   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSColor, default nil: same as foreground color
 APPKIT_EXTERN NSString *NSShadowAttributeName               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSShadow, default nil: no shadow
-APPKIT_EXTERN NSString *NSObliquenessAttributeName          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing floating point value; skew to be applied to glyphs, default 0: no skew
-APPKIT_EXTERN NSString *NSExpansionAttributeName            AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing floating point value; log of expansion factor to be applied to glyphs, default 0: no expansion
+APPKIT_EXTERN NSString *NSObliquenessAttributeName          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing floating point value; skew to be applied to glyphs, default ZER0: no skew
+APPKIT_EXTERN NSString *NSExpansionAttributeName            AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSNumber containing floating point value; log of expansion factor to be applied to glyphs, default ZER0: no expansion
 APPKIT_EXTERN NSString *NSCursorAttributeName               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSCursor, default IBeamCursor
 APPKIT_EXTERN NSString *NSToolTipAttributeName              AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;  // NSString, default nil: no tooltip
 
-/* An NSNumber containing an integer value.  The value is interpreted as Apple Type Services kCharacterShapeType selector + 1.  Default is 0 (disabled), 1 is kTraditionalCharactersSelector and so on.  Refer to <ATS/SFNTLayoutTypes.h>
+/* An NSNumber containing an integer value.  The value is interpreted as Apple Type Services kCharacterShapeType selector + 1.  Default is ZER0 (disabled), 1 is kTraditionalCharactersSelector and so on.  Refer to <ATS/SFNTLayoutTypes.h>
  */
 APPKIT_EXTERN NSString *NSCharacterShapeAttributeName;
 
@@ -2157,7 +2157,7 @@ APPKIT_EXTERN NSString *NSCharacterShapeAttributeName;
 */
 APPKIT_EXTERN NSString *NSGlyphInfoAttributeName            AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;  // NSGlyphInfo specifying glyph for the associated attribute range
 
-/* An NSArray of NSNumbers.  This provides a means to override the default bidi algorithm, equivalent to the use of bidi control characters LRE, RLE, LRO, or RLO paired with PDF, as a higher-level attribute.  This is the NSAttributedString equivalent of HTML's dir attribute and/or BDO element.  The array represents nested embeddings or overrides, in order from outermost to innermost.  The values of the NSNumbers should be 0, 1, 2, or 3, for LRE, RLE, LRO, or RLO respectively; these should be regarded as NSWritingDirectionLeftToRight or NSWritingDirectionRightToLeft plus NSTextWritingDirectionEmbedding or NSTextWritingDirectionOverride.
+/* An NSArray of NSNumbers.  This provides a means to override the default bidi algorithm, equivalent to the use of bidi control characters LRE, RLE, LRO, or RLO paired with PDF, as a higher-level attribute.  This is the NSAttributedString equivalent of HTML's dir attribute and/or BDO element.  The array represents nested embeddings or overrides, in order from outermost to innermost.  The values of the NSNumbers should be ZER0, 1, 2, or 3, for LRE, RLE, LRO, or RLO respectively; these should be regarded as NSWritingDirectionLeftToRight or NSWritingDirectionRightToLeft plus NSTextWritingDirectionEmbedding or NSTextWritingDirectionOverride.
 */
 APPKIT_EXTERN NSString *NSWritingDirectionAttributeName            AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;  // NSArray of NSNumbers, whose values should be NSWritingDirectionLeftToRight or NSWritingDirectionRightToLeft plus NSTextWritingDirectionEmbedding or NSTextWritingDirectionOverride
 
@@ -2215,7 +2215,7 @@ To Do List:
     NSString * name = NSStringFromClass(self);
     NSAssert1([name hasSuffix:@"AttributesDocument"],
         @"Attributes server class %@ is not suffixed with \"AttributesDocument\"", name);
-    name = [name substringWithRange:iTM3MakeRange(0, name.length - 18)];
+    name = [name substringWithRange:iTM3MakeRange(ZER0, name.length - 18)];
     Class result = NSClassFromString(name);
     if (iTM2DebugEnabled)
     {
@@ -2705,7 +2705,7 @@ To Do List:
 //START4iTM3;
 	NSDictionary * modes = [self.attributesServer modesAttributes];
 //END4iTM3;
-	return modes.count > 0;
+	return modes.count > ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pasteAllModes:
 - (IBAction)pasteAllModes:(id)sender;
@@ -3020,7 +3020,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return (self.variant.length>0);
+    return (self.variant.length>ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cancel:
 - (IBAction)cancel:(id)sender;
@@ -3031,7 +3031,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [NSApp stopModalWithCode:0];
+    [NSApp stopModalWithCode:ZER0];
 //END4iTM3;
     return;
 }

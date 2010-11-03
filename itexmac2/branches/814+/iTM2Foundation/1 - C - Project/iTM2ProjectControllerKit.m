@@ -396,7 +396,7 @@ To Do List:
 			projectURL = [NSURL URLWithPath4iTM3:base relativeToURL:projectURL];
 			bookmarkData = [NSURL bookmarkDataWithContentsOfURL:projectURL error:NULL];
 		//END4iTM3;
-			return [NSURL URLByResolvingBookmarkData:bookmarkData options:0 relativeToURL:nil bookmarkDataIsStale:NULL error:NULL];
+			return [NSURL URLByResolvingBookmarkData:bookmarkData options:ZER0 relativeToURL:nil bookmarkDataIsStale:NULL error:NULL];
 		case iTM2PCFilterRegular:
 		default:
 			if (PD = [self projectForURL:projectURL]) {
@@ -628,7 +628,7 @@ To Do List:
         }
         theURL = theURL.parentDirectoryURL4iTM3;
         theURLInTheFactory = theURLInTheFactory.parentDirectoryURL4iTM3;
-    } while((URLs.count==0) && (path = path.stringByDeletingLastPathComponent,(path.length>1)));
+    } while((URLs.count==ZER0) && (path = path.stringByDeletingLastPathComponent,(path.length>1)));
     // now adding the library projects if relevant
     [URLs sortedArrayUsingSelector:@selector(compare:)];
     NSMutableDictionary * first = [NSMutableDictionary dictionary];
@@ -1064,7 +1064,7 @@ To Do List:
 				component = [component stringByAppendingPathExtension:[SDC projectPathExtension4iTM3]];
 				projectURL = [NSURL URLWithPath4iTM3:component relativeToURL:wrapperURL];
 				if ([DFM fileExistsAtPath:projectURL.path]) {
-					NSInteger tag = 0;
+					NSInteger tag = ZER0;
 					if (![SWS performFileOperation:NSWorkspaceRecycleOperation source:wrapperURL.path
 							destination:@"" files:[NSArray arrayWithObject:component] tag:&tag]) {
 						[SDC presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:tag
@@ -1227,7 +1227,7 @@ scanDirectoryContent:
 			}
 		}
 	}
-	if (candidates.count > 0) {
+	if (candidates.count > ZER0) {
 		return candidates;
 	}
 	for(component in [DFM contentsOfDirectoryAtPath:theURL.path error:NULL]) {
@@ -1240,7 +1240,7 @@ scanDirectoryContent:
 			}
 		}
 	}
-	if ((0 == candidates.count) && !finished) {
+	if ((ZER0 == candidates.count) && !finished) {
 		theURL = [theURL parentDirectoryURL4iTM3];
 		if (theURL.path.length>1) {
 			goto scanDirectoryContent;
@@ -1638,7 +1638,7 @@ createWrapper:
 			NSString * dirName = linkName.stringByDeletingLastPathComponent;
 			NSString * component = linkName.lastPathComponent;
 			NSArray * RA = [NSArray arrayWithObject:component];
-			NSInteger tag = 0;
+			NSInteger tag = ZER0;
 			if (![SWS performFileOperation:NSWorkspaceRecycleOperation source:dirName destination:@"" files:RA tag:&tag]) {
 				OUTERROR4iTM3(tag,([NSString stringWithFormat:@"Could not recycle synchronously file at %@",linkName]),nil);
 			}
@@ -1707,7 +1707,7 @@ newWritableProject:;
 //LOG4iTM3(@"fileName is:%@",fileName);
 	controller = [[controllerClass alloc] initWithWindowNibName:NSStringFromClass(controllerClass)];
 	[controller setFileURL:fileURL];
-	NSInteger returnCode = 0;
+	NSInteger returnCode = ZER0;
 	if (W = controller.window) {
 		returnCode = [NSApp runModalForWindow:W];
 		[W orderOut:self];
@@ -2010,7 +2010,7 @@ Latest Revision: Sat May 15 06:09:27 UTC 2010
 //START4iTM3;
 	NSArray * URLs = [self.baseURLs4ProjectName objectForKey:projectName];
 //END4iTM3;
-	return URLs.count? [self baseProjectForURL:[URLs objectAtIndex:0]]:nil;
+	return URLs.count? [self baseProjectForURL:[URLs objectAtIndex:ZER0]]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  orderedBaseProjectNames
 - (NSArray *)orderedBaseProjectNames;
@@ -2051,7 +2051,7 @@ Latest Revision: Sat May 15 06:17:21 UTC 2010
                     continue;
                 }
             } else {
-                [MRA insertObject:path atIndex:0];
+                [MRA insertObject:path atIndex:ZER0];
             }
         }
         break;
@@ -2104,7 +2104,7 @@ Latest Revision: Sat May 15 06:17:59 UTC 2010
 //START4iTM3;
 	NSURL * url = NSBundle.mainBundle.temporaryBaseProjectsDirectoryURL4iTM3;
 	NSMutableArray * MRA = [NSMutableArray array];
-	for (url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:0 error:nil]) {
+	for (url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:nil]) {
         url = url.URLByResolvingSymlinksInPath;
         if ([expectedName pathIsEqual4iTM3:url.lastPathComponent.stringByDeletingPathExtension]) {
 			[MRA addObject:url.standardizedURL4iTM3];
@@ -2150,7 +2150,7 @@ To Do List:
             } else {
                 //  Now there is a symbolic link "index".texps -> P
                 //  Explore now the contents of the project folders
-                for (url in [DFM contentsOfDirectoryAtURL:P includingPropertiesForKeys:[NSArray array] options:0 error:NULL]) {
+                for (url in [DFM contentsOfDirectoryAtURL:P includingPropertiesForKeys:[NSArray array] options:ZER0 error:NULL]) {
                     url = url.URLByResolvingSymlinksInPath;// don't miss that!
                     //  get the base name
                     if ([SWS isProjectPackageAtURL4iTM3:url]) {
@@ -2262,7 +2262,7 @@ Latest Revision: Sat May 15 21:15:58 UTC 2010
 		[INC performSelector:@selector(postNotification:) withObject:
 			[NSNotification notificationWithName:iTM2ProjectCurrentDidChangeNotification
 				object:self userInfo:([self isProject:currentProject4iTM3]? [NSDictionary dictionaryWithObjectsAndKeys:old,@"oldProject",nil]:nil)]
-			afterDelay:0];// notice the isProject:that ensures old is consistent
+			afterDelay:ZER0];// notice the isProject:that ensures old is consistent
 		for (iTM2ProjectDocument * projectDocument in self.projects) {
 			if (projectDocument == result) {
 				[projectDocument exposeWindows];
@@ -2339,7 +2339,7 @@ Latest Revision: Sat May 15 21:19:40 UTC 2010
 - (IBAction)refuse:(id)sender;
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[NSApp stopModalWithCode:0];
+	[NSApp stopModalWithCode:ZER0];
 //END4iTM3;
 	return;
 }
@@ -2419,7 +2419,7 @@ To Do List:
 	if (self.toggleProjectMode == iTM2ToggleNewProjectMode) {
 		return [[NSURL URLWithPath4iTM3:self.newProjectName relativeToURL:self.projectDirURL] URLByStandardizingPath];
 	} else if (self.toggleProjectMode == iTM2ToggleOldProjectMode) {
-		return self.selectedRow >= 0 && self.selectedRow < self.projects.count ?
+		return self.selectedRow >= ZER0 && self.selectedRow < self.projects.count ?
 			[NSURL fileURLWithPath:[[self.projects objectAtIndex:self.selectedRow] objectForKey:@"path"]]:nil;
 	} else {
 		return nil;
@@ -2458,7 +2458,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	//Preparing the projects for the table view
-	self.selectedRow = 0;
+	self.selectedRow = ZER0;
 	self.projects = [NSMutableArray array];
 	NSDictionary * availableProjects = [SPC availableProjectsForURL:[self.fileURL directoryURL4iTM3]];
 	NSEnumerator * E = [[[availableProjects allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
@@ -2470,8 +2470,8 @@ To Do List:
 			nil]];
 	}
 //LOG4iTM3(@"self.projects:%@",self.projects);
-	self.toggleProjectMode = self.projects.count>0? iTM2ToggleOldProjectMode:iTM2ToggleNewProjectMode;
-	self.isDirectoryWrapper = (self.projects.count>0)|| [SUD boolForKey:iTM2ProjectIsDirectoryWrapperKey];
+	self.toggleProjectMode = self.projects.count>ZER0? iTM2ToggleOldProjectMode:iTM2ToggleNewProjectMode;
+	self.isDirectoryWrapper = (self.projects.count>ZER0)|| [SUD boolForKey:iTM2ProjectIsDirectoryWrapperKey];
     [super windowWillLoad];
 //END4iTM3;
 	return;
@@ -2552,7 +2552,7 @@ To Do List:
 //START4iTM3;
 	sender.state = self.toggleProjectMode == iTM2ToggleNewProjectMode? NSOnState:NSOffState;
 //END4iTM3;
-	return !self.isAlreadyDirectoryWrapper && (self.projects.count>0);
+	return !self.isAlreadyDirectoryWrapper && (self.projects.count>ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleDirectoryWrapper:
 - (IBAction)toggleDirectoryWrapper:(id)sender;
@@ -2721,8 +2721,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self.selectedRow<0) {
-		self.selectedRow = 0;
+	if (self.selectedRow<ZER0) {
+		self.selectedRow = ZER0;
         }
 	if (self.selectedRow < self.projects.count) {
 		[sender deselectAll:self];
@@ -2755,7 +2755,7 @@ To Do List:
 //START4iTM3;
 
 //END4iTM3;
-	if (row<0)
+	if (row<ZER0)
 		return nil;
 	else if (row<self.projects.count) {
 		return [[self.projects objectAtIndex:row] objectForKey:@"displayName"];
@@ -2795,7 +2795,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return self.projects.count>0;
+	return self.projects.count>ZER0;
 }
 @synthesize fileURL = _FileURL4iTM3;
 @synthesize newProjectName = _NewProjectName4iTM3;
@@ -3291,7 +3291,7 @@ To Do List:
             [SWS activateFileViewerSelectingURLs:[NSArray arrayWithObject:absoluteURL]];
             return nil;
         }
-    } else if (URLs.count > 0) {
+    } else if (URLs.count > ZER0) {
         NSString * pattern = [NSString stringWithFormat:@".*\\Q%@\\E.*",absoluteURL.lastPathComponent.stringByDeletingPathExtension];
         ICURegEx * RE = [ICURegEx regExWithSearchPattern:pattern error:outErrorPtr];
         NSArray * RA = [DFM contentsOfDirectoryAtPath:absoluteURL.path error:outErrorPtr];

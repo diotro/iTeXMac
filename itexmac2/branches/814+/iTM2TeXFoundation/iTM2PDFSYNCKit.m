@@ -50,7 +50,7 @@ NSString * const iTM2PDFSYNCTimeKey = @"iTM2PDFSYNCTime";
 
 typedef enum
 {
-    sleepingState = 0,// no thread
+    sleepingState = ZER0,// no thread
     updatingState = 1,// maybe a thread is already running
     parsingState = 2,// a thread is certainly running
     releaseState = -1// all should end
@@ -69,7 +69,7 @@ To Do List:
 //START4iTM3;
 	[super initialize];
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-			NSStringFromPoint(NSMakePoint(0, 0)), iTM2PDFSyncOffsetKey,
+			NSStringFromPoint(NSMakePoint(ZER0, ZER0)), iTM2PDFSyncOffsetKey,
 			[NSNumber numberWithBool:YES], @"iTM2PDFSYNCOrderFrontOutput",
 			[NSNumber numberWithBool:YES], iTM2PDFSyncFollowFocusKey,
 			[NSNumber numberWithFloat:0.5], iTM2PDFSyncPriorityKey,
@@ -221,9 +221,9 @@ To Do List:
     // each time a page is shipped out, a new array is created.
     // the objects of that array are just iTM2SynchronizationLineRecord encapsulated in values
     NSMutableArray * lines = [NSMutableArray array];
-    [lines addObject:[NSNumber numberWithInteger:0]];
+    [lines addObject:[NSNumber numberWithInteger:ZER0]];
     [lines addObject:[NSMutableDictionary dictionary]];
-    NSInteger folio = 0;// the \@@folio?
+    NSInteger folio = ZER0;// the \@@folio?
     
     NSUInteger recordIndex;
     iTM2SynchronizationLineRecord lineRecord;
@@ -321,8 +321,8 @@ To Do List:
         while(O = E.nextObject)
             [allRecordIndices addObjectsFromArray:[O allKeys]];
         E = lines.objectEnumerator;
-        NSUInteger saved = 0;
-        NSUInteger total = 0;
+        NSUInteger saved = ZER0;
+        NSUInteger total = ZER0;
         while(E.nextObject && (O = E.nextObject))
         {
             NSEnumerator * e = [[O allKeys] objectEnumerator];
@@ -436,9 +436,9 @@ To Do List:
     // each time a page is shipped out, a new array is created.
     // the objects of that array are just iTM2SynchronizationLineRecord encapsulated in values
     NSMutableArray * lines = [NSMutableArray array];
-    [lines addObject:[NSNumber numberWithInteger:0]];
+    [lines addObject:[NSNumber numberWithInteger:ZER0]];
     [lines addObject:[NSMutableDictionary dictionary]];
-    NSInteger folio = 0;// the \@@folio?
+    NSInteger folio = ZER0;// the \@@folio?
     
     NSInteger recordIndex;
     iTM2SynchronizationLineRecord lineRecord;
@@ -541,8 +541,8 @@ To Do List:
         for(O in pages)
             [allRecordIndices addObjectsFromArray:[O allKeys]];// EXC_BAD_ACCESS Here?
         E = lines.objectEnumerator;
-        NSUInteger saved = 0;
-        NSUInteger total = 0;
+        NSUInteger saved = ZER0;
+        NSUInteger total = ZER0;
         while(E.nextObject && (O = E.nextObject))
         {
             NSEnumerator * e = [[O allKeys] objectEnumerator];
@@ -612,7 +612,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if((pageIndex<0) || (pageIndex>=_PageSyncLocations.count))
+    if((pageIndex<ZER0) || (pageIndex>=_PageSyncLocations.count))
         return NO;
 
     NSValue * V = nil;
@@ -662,15 +662,15 @@ To Do List:
 //NSLog(@"record index:%u (%@)", (resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntegerValue]:NSNotFound), resultObject);
 		if(above.count)
 		{
-			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-			NSNumber * recordNumber = [[above objectForKey:weightNumber] objectAtIndex:0];
+			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
+			NSNumber * recordNumber = [[above objectForKey:weightNumber] objectAtIndex:ZER0];
 			return [self getLine:linePtr column:columnPtr source:sourcePtr
 							forRecordIndex:[recordNumber unsignedIntegerValue]];
 		}
 		else if(below.count)
 		{
-			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-			NSNumber * recordNumber = [[below objectForKey:weightNumber] objectAtIndex:0];
+			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
+			NSNumber * recordNumber = [[below objectForKey:weightNumber] objectAtIndex:ZER0];
 			return [self getLine:linePtr column:columnPtr source:sourcePtr
 							forRecordIndex:[recordNumber unsignedIntegerValue]];
 		}
@@ -682,7 +682,7 @@ To Do List:
 		}
 		else if(right.count)
 		{
-			NSNumber * recordNumber = [right objectAtIndex:0];
+			NSNumber * recordNumber = [right objectAtIndex:ZER0];
 			return [self getLine:linePtr column:columnPtr source:sourcePtr
 							forRecordIndex:[recordNumber unsignedIntegerValue]];
 		}
@@ -699,7 +699,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if((pageIndex<0) || (pageIndex>=_PageSyncLocations.count))
+    if((pageIndex<ZER0) || (pageIndex>=_PageSyncLocations.count))
         return NO;
 
     NSValue * V = nil;
@@ -749,15 +749,15 @@ To Do List:
 //NSLog(@"record index:%u (%@)", (resultObject? [[[D allKeysForObject:resultObject] lastObject] unsignedIntegerValue]:NSNotFound), resultObject);
 		if(above.count)
 		{
-			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-			NSNumber * recordNumber = [[above objectForKey:weightNumber] objectAtIndex:0];
+			NSNumber * weightNumber = [[[above allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
+			NSNumber * recordNumber = [[above objectForKey:weightNumber] objectAtIndex:ZER0];
 			return [self getLine:linePtr column:columnPtr source:sourceBeforeRef
 							forRecordIndex:[recordNumber unsignedIntegerValue]];
 		}
 		else if(below.count)
 		{
-			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-			NSNumber * recordNumber = [[below objectForKey:weightNumber] objectAtIndex:0];
+			NSNumber * weightNumber = [[[below allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
+			NSNumber * recordNumber = [[below objectForKey:weightNumber] objectAtIndex:ZER0];
 			return [self getLine:linePtr column:columnPtr source:sourceAfterRef
 							forRecordIndex:[recordNumber unsignedIntegerValue]];
 		}
@@ -769,7 +769,7 @@ To Do List:
 		}
 		else if(right.count)
 		{
-			NSNumber * recordNumber = [right objectAtIndex:0];
+			NSNumber * recordNumber = [right objectAtIndex:ZER0];
 			return [self getLine:linePtr column:columnPtr source:sourceAfterRef
 							forRecordIndex:[recordNumber unsignedIntegerValue]];
 		}
@@ -797,7 +797,7 @@ To Do List:
         return;
 	}
     if(!source.length && _Files.count)
-        source = [_Files objectAtIndex:0];
+        source = [_Files objectAtIndex:ZER0];
     if(![source hasPrefix:@"/"])
         source = [[_FileName.stringByDeletingLastPathComponent
 			stringByAppendingPathComponent:source] stringByStandardizingPath];
@@ -884,7 +884,7 @@ To Do List:
 //START4iTM3;
     if(index == NSNotFound)
         return NO;
-    NSUInteger page = 0;
+    NSUInteger page = ZER0;
     NSNumber * K = [NSNumber numberWithUnsignedInteger:index];
     while(page<_PageSyncLocations.count)
     {
@@ -925,7 +925,7 @@ To Do List:
 	NSPoint point;
 	NSUInteger pageIndex;
 	NSNumber * N = nil;
-	NSUInteger recordIndex = 0;
+	NSUInteger recordIndex = ZER0;
 	NSNumber * key = nil;
 	NSValue * V = nil;
 	NSMutableArray * MRA = nil;
@@ -1005,7 +1005,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"recordIndexForLocation:%@ inPageAtIndex:%u", NSStringFromPoint(point), pageIndex);
-    if((pageIndex<0) || (pageIndex>=_PageSyncLocations.count))
+    if((pageIndex<ZER0) || (pageIndex>=_PageSyncLocations.count))
         return NSNotFound;
     NSDictionary * D = [_PageSyncLocations objectAtIndex:pageIndex];
     NSEnumerator * E = D.objectEnumerator;
@@ -1078,7 +1078,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //LOG4iTM3(@"recordIndexForLocation:%@ inPageAtIndex:%u", NSStringFromPoint(point), pageIndex);
-    if((pageIndex<0) || (pageIndex>=_PageSyncLocations.count))
+    if((pageIndex<ZER0) || (pageIndex>=_PageSyncLocations.count))
         return nil;
 	NSMutableSet * result = [NSMutableSet set];// to be converted to an array on return
     NSEnumerator * E = [[_PageSyncLocations objectAtIndex:pageIndex] keyEnumerator];
@@ -1103,7 +1103,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return (page >= 0) && (page < _PageSyncLocations.count)? [_PageSyncLocations objectAtIndex:page]:nil;
+    return (page >= ZER0) && (page < _PageSyncLocations.count)? [_PageSyncLocations objectAtIndex:page]:nil;
 }
 @synthesize _FileName;
 @synthesize _Files;
@@ -1137,7 +1137,7 @@ To Do List:
 //START4iTM3;
 	[super initialize];
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-			NSStringFromPoint(NSMakePoint(0, 0)), iTM2PDFSyncOffsetKey,
+			NSStringFromPoint(NSMakePoint(ZER0, ZER0)), iTM2PDFSyncOffsetKey,
 				nil]];
     return;
 }
@@ -1249,12 +1249,12 @@ To Do List:
 	}
 	NSRect bounds = [V rectValue];
 	point.y = NSMaxY(bounds)-point.y;
-	if(synctex_edit_query(scanner,pageIndex+1,point.x,point.y)>0) {
+	if(synctex_edit_query(scanner,pageIndex+1,point.x,point.y)>ZER0) {
 		synctex_node_t node;
 		if(node = synctex_next_result(scanner)) {
 			if(linePtr) *linePtr = synctex_node_line(node);
 			if(columnPtr) *columnPtr = synctex_node_column(node);
-			if(lengthPtr) *lengthPtr = 0;
+			if(lengthPtr) *lengthPtr = ZER0;
 			
 			if(sourcePtr) {
 				const char * rep = synctex_scanner_get_name(scanner,synctex_node_tag(node));
@@ -1330,7 +1330,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(synctex_display_query(scanner,[source fileSystemRepresentation],line+1,column)>0) {
+	if(synctex_display_query(scanner,[source fileSystemRepresentation],line+1,column)>ZER0) {
 		NSMutableDictionary * result = [NSMutableDictionary dictionary];
 		NSMutableDictionary * hereResult = [NSMutableDictionary dictionary];
 		synctex_node_t node;
@@ -1356,7 +1356,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return 0;
+	return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getLine:column:source:forRecordIndex:
 - (BOOL)getLine:(NSUInteger *)linePtr column:(NSUInteger *)columnPtr source:(NSString **)sourcePtr forRecordIndex:(NSUInteger)index;
@@ -1480,7 +1480,7 @@ To Do List:
 //START4iTM3;
     NSWindow * W = [NSApp mainWindow];
     id R = W.firstResponder;
-    [R takeContext4iTM3Integer:0 forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
+    [R takeContext4iTM3Integer:ZER0 forKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
     [[W.windowController document] updateSynchronizer:self];//update the views
     return;
 }
@@ -1495,7 +1495,7 @@ To Do List:
 //START4iTM3;
 	NSWindow * W = [NSApp mainWindow];
 	NSInteger mode = [W.firstResponder context4iTM3IntegerForKey:iTM2PDFSYNCDisplayBulletsKey domain:iTM2ContextAllDomainsMask];
-	sender.state = (mode == 0? NSOnState:NSOffState);
+	sender.state = (mode == ZER0? NSOnState:NSOffState);
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSyncAllBullets:
@@ -2019,7 +2019,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * source = @"";
-    NSUInteger line = 0;
+    NSUInteger line = ZER0;
     NSUInteger column = -1;
     NSUInteger length = 1;
     [self.synchronizer getLine:&line column:&column length:&length source:&source forLocation:thePoint withHint:hint inPageAtIndex:thePage];
@@ -2133,9 +2133,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if(page<0)
+    if(page<ZER0)
     {
-        page = 0;
+        page = ZER0;
         P = NSMakePoint(1e100, 1e100);
     }
     [self.album takeCurrentPhysicalPage:page synchronizationPoint:P withHint:hint];
@@ -2215,7 +2215,7 @@ To Do List:
 		if(synchPoints.count)
 		{
 			[self takeCurrentPhysicalPage:[N unsignedIntegerValue]
-				synchronizationPoint:[[synchPoints objectAtIndex:0] pointValue]
+				synchronizationPoint:[[synchPoints objectAtIndex:ZER0] pointValue]
 					withHint:hint];
 			[self scrollSynchronizationPointToVisible:self];
 			return YES;
@@ -2242,7 +2242,7 @@ To Do List:
 		if(synchPoints.count)
 		{
 			[self takeCurrentPhysicalPage:[N unsignedIntegerValue]
-				synchronizationPoint:[[synchPoints objectAtIndex:0] pointValue]
+				synchronizationPoint:[[synchPoints objectAtIndex:ZER0] pointValue]
 					withHint:hint];
 			[self scrollSynchronizationPointToVisible:self];
 			return YES;
@@ -2426,7 +2426,7 @@ To Do List:
 				synchronizeWithLocation:[self convertPoint:[theEvent locationInWindow] fromView:nil]
 					inPageAtIndex:self.tag-1
 						withHint:nil
-							orderFront:(([theEvent modifierFlags] & NSAlternateKeyMask) == 0)];
+							orderFront:(([theEvent modifierFlags] & NSAlternateKeyMask) == ZER0)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizationCompleteDrawRect4iTM3:
 - (void)synchronizationCompleteDrawRect4iTM3:(NSRect)rect;
@@ -2440,7 +2440,7 @@ To Do List:
     if(![self context4iTM3BoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask])
     {
         NSColor * C = [[NSColor blueColor] colorWithAlphaComponent:0.3];
-        NSColor * CStar = [NSColor colorWithCalibratedRed:0 green:0.5 blue:0 alpha:0.3];
+        NSColor * CStar = [NSColor colorWithCalibratedRed:ZER0 green:0.5 blue:ZER0 alpha:0.3];
 		iTM2PDFDocument * D = [self.window.windowController document];
 		iTM2PDFSynchronizer * syncer = [D synchronizer];
 		if(!syncer)
@@ -2578,7 +2578,7 @@ To Do List:
 //START4iTM3;
     // this is where the support for poor man synchronicity begins
     NSUInteger modifierFlags = [event modifierFlags];
-    if((modifierFlags & NSCommandKeyMask)>0)
+    if((modifierFlags & NSCommandKeyMask)>ZER0)
 	{
 		if(([event clickCount]==1) && [self pdfSynchronizeMouseDown:event])
 		{
@@ -2611,7 +2611,7 @@ To Do List:
 //START4iTM3;
     // this is where the support for poor man synchronicity begins
 	NSWindow * window = self.window;
-	if(self.selectedRange.length>0)
+	if(self.selectedRange.length>ZER0)
 	{
 		CGFloat timeInterval = [SUD floatForKey:@"com.apple.mouse.doubleClickThreshold"];//rather big
 		NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
@@ -2640,7 +2640,7 @@ To Do List:
 	NSDictionary * hint = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInteger:charIndex], @"character index", S, @"container", nil];
 	BOOL result = [SDC displayPageForLine:line column:column source:D.fileURL withHint:hint
-			orderFront:(([event modifierFlags] & NSAlternateKeyMask) != 0) force:YES];
+			orderFront:(([event modifierFlags] & NSAlternateKeyMask) != ZER0) force:YES];
 //END4iTM3;
     return result;
 }
@@ -2682,7 +2682,7 @@ To Do List:
 		NSRange selectedRange = [TV selectedRange];
 		NSUInteger charIndex = selectedRange.location;
 		NSUInteger start, contentsEnd;
-		[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:iTM3MakeRange(charIndex, 0)];
+		[TS getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:iTM3MakeRange(charIndex, ZER0)];
 		NSUInteger line = [TS lineIndexForLocation4iTM3:charIndex];
 		NSUInteger column = charIndex - start;
 		NSValue * oldValue = [[notification userInfo] objectForKey:@"NSOldSelectedCharacterRange"];

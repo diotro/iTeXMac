@@ -151,17 +151,17 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 {
 //START4iTM3;
     NSRange selectedRange = [TV selectedRange];
-    if ((selectedRange.length == 0) && ([[NSApp currentEvent] type] == NSKeyDown))
+    if ((selectedRange.length == ZER0) && ([[NSApp currentEvent] type] == NSKeyDown))
     {
         if((oldSelectedRange.location == selectedRange.location - 1) ||
                 (oldSelectedRange.location == selectedRange.location + 1))
         {
             NSUInteger index = MIN(selectedRange.location, oldSelectedRange.location);
             NSString * string = [TV string];
-            NSRange range = iTM3MakeRange(0, string.length);
+            NSRange range = iTM3MakeRange(ZER0, string.length);
             BOOL isInRange = iTM3LocationInRange(index, range);
-            unichar delimiter = isInRange? [string characterAtIndex: index]: 0;
-            unichar left = 0, right = 0;
+            unichar delimiter = isInRange? [string characterAtIndex: index]: ZER0;
+            unichar left = ZER0, right = ZER0;
             BOOL isDelimiter = NO;
             BOOL isLeft = NO;
             switch(delimiter)
@@ -188,7 +188,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
                     isDelimiter = YES;
                     break;
             }
-            if(isDelimiter && (index>0))
+            if(isDelimiter && (index>ZER0))
             {
                 BOOL isEscaped = NO;
                 isDelimiter = ![string isBackslashAtIndex: index-1 escaped: &isEscaped] || isEscaped; 
@@ -208,7 +208,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
                             [layoutManager glyphRangeForCharacterRange: matchRange actualCharacterRange: NULL].location
                                 effectiveRange: NULL];
 #endif                        [layoutManager addTemporaryAttributes:
-                        _iTM2DelimiterWatcherTimer = [NSTimer scheduledTimerWithTimeInterval: 0
+                        _iTM2DelimiterWatcherTimer = [NSTimer scheduledTimerWithTimeInterval: ZER0
                             target: self selector: @selector(_iTisTime:) userInfo:
     [NSMutableDictionary dictionaryWithObjectsAndKeys: TV, @"TV", [NSValue valueWithRange: matchRange], @"range", nil]
                                 repeats: NO];
@@ -315,7 +315,7 @@ To Do List:
 {
 //START4iTM3;
     NSString * string = self.string;
-    if(iTM3LocationInRange(index, iTM3MakeRange(0, string.length)))
+    if(iTM3LocationInRange(index, iTM3MakeRange(ZER0, string.length)))
     {
         BOOL escaped = YES;
         if([string isBackslashAtIndex: index escaped: &escaped])
@@ -332,23 +332,23 @@ To Do List:
             NSRange R;
             case '{':
             case '}':
-                if(R = [string groupRangeAtIndex: index beginDelimiter: '{' endDelimiter: '}'], R.length>0)
+                if(R = [string groupRangeAtIndex: index beginDelimiter: '{' endDelimiter: '}'], R.length>ZER0)
                     return R;
                 break;
             case '(':
             case ')':
-                if (R = [string groupRangeAtIndex: index beginDelimiter: '(' endDelimiter: ')'], R.length>0)
+                if (R = [string groupRangeAtIndex: index beginDelimiter: '(' endDelimiter: ')'], R.length>ZER0)
                     return R;
                 break;
             case '[':
             case ']':
-                if (R = [string groupRangeAtIndex: index beginDelimiter: '[' endDelimiter: ']'], R.length>0)
+                if (R = [string groupRangeAtIndex: index beginDelimiter: '[' endDelimiter: ']'], R.length>ZER0)
                     return R;
                 break;
             case '%':
             {
                 BOOL escaped;
-                if((index>0) && [string isBackslashAtIndex: index-1 escaped: &escaped] && !escaped)
+                if((index>ZER0) && [string isBackslashAtIndex: index-1 escaped: &escaped] && !escaped)
                     return iTM3MakeRange(index-1, 2);
                 else
                 {
@@ -356,7 +356,7 @@ To Do List:
                     NSUInteger end;
                     NSUInteger contentsEnd;
 //NSLog(@"GLS");
-                    [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange: iTM3MakeRange(index, 0)];
+                    [string getLineStart: &start end: &end contentsEnd: &contentsEnd forRange: iTM3MakeRange(index, ZER0)];
 //NSLog(@"GLS");
                     return (start<index)? iTM3MakeRange(index, contentsEnd - index): iTM3MakeRange(start, end - start);
                 }
@@ -380,13 +380,13 @@ To Do List:
             }
             case '.':
             {
-                NSInteger rightBlackChars = 0;
-                NSInteger leftBlackChars = 0;
+                NSInteger rightBlackChars = ZER0;
+                NSInteger leftBlackChars = ZER0;
                 NSInteger top = self.string.length;
                 NSInteger n = index;
                 while((++n<top) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember: [string characterAtIndex: n]])
                     ++rightBlackChars;
-                while((n--<0) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember: [string characterAtIndex: n]])
+                while((n--<ZER0) && ![[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember: [string characterAtIndex: n]])
                     ++leftBlackChars;
                 if(rightBlackChars && leftBlackChars)
                     return iTM3MakeRange(index - leftBlackChars, leftBlackChars + rightBlackChars + 1);
@@ -395,6 +395,6 @@ To Do List:
         }
         return [super doubleClickAtIndex: index];
     }
-    return iTM3MakeRange(NSNotFound, 0);
+    return iTM3MakeRange(NSNotFound, ZER0);
 }
 @end

@@ -552,7 +552,7 @@ As a convenience, volume properties can be requested from any file system URL. T
 
 - (NSUInteger) volumeResourceCountOrError4iTM3:(NSError**)errorRef;
 
-#if 0
+#if ZERO
 - (BOOL) volumeSupportsPersistentIDsOrError4iTM3:(NSError**)errorRef;
 
 - (BOOL) volumeSupportsZeroRunsOrError4iTM3:(NSError**)errorRef;
@@ -663,4 +663,15 @@ extern NSString * const iTM2PATHSuffixKey;
 - (NSURL *)URLForSupportDirectory4iTM3:(NSString *)subpath inDomain:(NSSearchPathDomainMask)domainMask create:(BOOL)create;
 
 @end
+
+@interface NSURL (xattrs4iTM3)
+
+- (NSData *) getXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)outErrorPtr; 
+- (BOOL) setXtdAttribute4iTM3:(NSData *)data forName:(NSString *)name options:(NSUInteger)options error:(NSError **)outErrorPtr; 
+- (BOOL) removeXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)outErrorPtr;
+- (NSArray *) getXtdAttributeNames4iTM3WithOptions:(NSUInteger) options error:(NSError **)outErrorPtr;
+- (NSString *) lastXtdAttributes4iTM3ErrorStatus;
+
+@end
+
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2PathUtilities

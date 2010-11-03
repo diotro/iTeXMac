@@ -864,7 +864,7 @@ To Do List:
 		}
     }
 	NSArray * inspectorClasses = [NSWindowController inspectorClassesForType:type mode:mode];
-    if (inspectorClasses.count && (C = [inspectorClasses objectAtIndex:0]))
+    if (inspectorClasses.count && (C = [inspectorClasses objectAtIndex:ZER0]))
     {
         WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
         [self addWindowController:WC];
@@ -1024,7 +1024,7 @@ To Do List:
 		}
 		NSMutableArray * MRA = [[RA mutableCopy] autorelease];
 		[MRA removeObject:inspectorVariant];
-		[MRA insertObject:inspectorVariant atIndex:0];
+		[MRA insertObject:inspectorVariant atIndex:ZER0];
 		[MD setObject:MRA forKey:[C inspectorMode]];
 		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
 	}
@@ -1230,7 +1230,7 @@ To Do List:
 //START4iTM3;
     [self.windowControllers makeObjectsPerformSelector:@selector(synchronizeWithDocument)];
 //END4iTM3;
-    return self.windowControllers.count>0;
+    return self.windowControllers.count>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithWindowControllers
 - (void)synchronizeWithWindowControllers;
@@ -1332,7 +1332,7 @@ To Do List:
 	NSString * fullDocumentPath = absoluteURL.path;
 	if ([DFM fileExistsAtPath:fullDocumentPath isDirectory:&isDirectory] && isDirectory)
 		return YES;
-	NSData * D = [NSData dataWithContentsOfURL:absoluteURL options:0 error:outErrorPtr];
+	NSData * D = [NSData dataWithContentsOfURL:absoluteURL options:ZER0 error:outErrorPtr];
     return [self loadDataRepresentation:D ofType:typeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resourcesCompleteReadFromURL4iTM3:ofType:error:
@@ -1578,7 +1578,7 @@ To Do List:
 #if 0
 	Be confident in cocoa otherwise things are broken with continuous typesetting
 	NSArray * files;
-	NSInteger tag = 0;
+	NSInteger tag = ZER0;
 	if ([DFM fileExistsAtPath:fullDocumentPath] || [DFM destinationOfSymbolicLinkAtPath:fullDocumentPath error:NULL])
 	{
 		// try to recycle it
@@ -2726,7 +2726,7 @@ To Do List:
     switch(change) {
         case NSChangeCleared:
 		default:
-            old = 0;
+            old = ZER0;
             break;
         case NSChangeDone:
             ++old;
@@ -2958,7 +2958,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setDocumentEdited:([[IMPLEMENTATION metaValueForKey:@"changeCount"] integerValue] != 0)];
+    [self setDocumentEdited:([[IMPLEMENTATION metaValueForKey:@"changeCount"] integerValue] != ZER0)];
     return [super validateWindowContent4iTM3];
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CANCEL management
@@ -3053,7 +3053,7 @@ To Do List:
 //LOG4iTM3(@"UPDATING THE SUBMENU (%@)", NSStringFromSelector(sender.action));
 //LOG4iTM3(@"UPDATING THE SUBMENU (%@)", sender.submenu);
 //END4iTM3;
-        return submenu.numberOfItems>0;
+        return submenu.numberOfItems>ZER0;
     }
     else
     {
@@ -3117,7 +3117,7 @@ To Do List:
         self.title = @"";
         NSMenu * M = self.supermenu;
         NSInteger index = [M indexOfItemWithSubmenu:self];
-        if (index >= 0) {
+        if (index >= ZER0) {
             NSMenuItem * MI = [M itemAtIndex:index];
 //LOG4iTM3(@"REMOVING THE SUBMENU HERE TOO");
 			[self.retain autorelease];
@@ -3134,7 +3134,7 @@ To Do List:
 	BOOL old = self.menuChangedMessagesEnabled;
 	[self setMenuChangedMessagesEnabled:NO];
 	while(self.numberOfItems) {
-		[self removeItemAtIndex:0];
+		[self removeItemAtIndex:ZER0];
     }
 	NSString * type = [D.class inspectorType4iTM3];
 	for (NSString * inspectorMode in [NSWindowController inspectorModesForType:type]) {
@@ -3143,7 +3143,7 @@ To Do List:
 			Class C = Nil;
 			NSString * title = @"";
 			if (inspectorClasses.count) {
-				C = [inspectorClasses objectAtIndex:0];
+				C = [inspectorClasses objectAtIndex:ZER0];
 				title = [C prettyInspectorMode];
 			}
 			NSMenuItem * MI = [self addItemWithTitle:(title.length? title:NSLocalizedStringFromTableInBundle(iTM2DefaultInspectorMode, iTM2InspectorTable, BUNDLE, "DF"))
@@ -3188,9 +3188,9 @@ if (set.count<variants.count)
 			}
 			if (M.numberOfItems > 1) {
 				[self setSubmenu:M forItem:MI];
-			} else if (M.numberOfItems > 0) {
+			} else if (M.numberOfItems > ZER0) {
 				[self removeItem:MI];
-				MI = [[[M itemAtIndex:0] retain] autorelease];
+				MI = [[[M itemAtIndex:ZER0] retain] autorelease];
 				[M removeItem:MI];
 				[self addItem:MI];
 				MI.title = title;
@@ -3378,7 +3378,7 @@ To do list:
 //START4iTM3;
     [super initialize];
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithUnsignedInteger:0], iTM2UDLevelsOfUndoKey,// nothing else!
+            [NSNumber numberWithUnsignedInteger:ZER0], iTM2UDLevelsOfUndoKey,// nothing else!
             [NSNumber numberWithBool:YES], iTM2UDSmartUndoKey,
                 nil]];
 //END4iTM3;

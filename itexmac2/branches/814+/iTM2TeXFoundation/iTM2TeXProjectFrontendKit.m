@@ -305,7 +305,7 @@ To Do List:
 		return NO;
 	const char * command = [commandName cStringUsingEncoding:NSUTF8StringEncoding];
 	size_t size = (37+strlen(command));
-	char * selName = NSAllocateCollectable(size,0);
+	char * selName = NSAllocateCollectable(size,ZER0);
 	if(!selName)
 	{
 		LOG4iTM3(@"*** ERROR:Memory management problem.");
@@ -321,14 +321,14 @@ To Do List:
 	size = strlen(command);
 	strncpy(dest, command, size);
 	static const char * CAPITALS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    if((dest[0]>='a') && (dest[0]<='z'))
-        dest[0] = CAPITALS[dest[0]-'a'];
+    if((dest[ZER0]>='a') && (dest[ZER0]<='z'))
+        dest[ZER0] = CAPITALS[dest[ZER0]-'a'];
 	dest += size;
 	source="EnvironmentMode:forScriptMode:";
 	size = strlen(source);
 	strncpy(dest, source, size);
 	dest += size;
-	dest[0] = '\0';// terminate the string
+	dest[ZER0] = '\0';// terminate the string
 #warning OBJC_EXPORT SEL sel_getUid(const char *str);
 	SEL selector = sel_getUid(selName);
     if([I.methodSignature isEqual:[self methodSignatureForSelector:selector]]) {
@@ -567,7 +567,7 @@ To Do List:
     if(!shellScript.length)
         shellScript = @"#!/bin/sh\n";
     NSUInteger end;
-    [shellScript getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(0, 0)];
+    [shellScript getLineStart:nil end:&end contentsEnd:nil forRange:iTM3MakeRange(ZER0, ZER0)];
     [self.textView setString:[shellScript substringWithRange:iTM3MakeRange(end, shellScript.length - end)]];
     [IMPLEMENTATION takeMetaValue:(end>2? [shellScript substringWithRange:iTM3MakeRange(2, end-3)]:@"") forKey:iTM2TPFEShellKey];
     [IMPLEMENTATION takeMetaValue:[scriptDescriptor iVarLabel] forKey:iTM2TPFELabelKey];
@@ -772,16 +772,16 @@ To Do List:
 	NSArray * components = [name componentsSeparatedByString:@"+"];
 	if(components.count>1)
 	{
-		mode = [components objectAtIndex:0];
+		mode = [components objectAtIndex:ZER0];
 		components = [[components objectAtIndex:1] componentsSeparatedByString:@"-"];
 		if(components.count>1)
 		{
-			output = [components objectAtIndex:0];
+			output = [components objectAtIndex:ZER0];
 			variant = [components objectAtIndex:1];
 		}
 		else if(components.count)
 		{
-			output = [components objectAtIndex:0];
+			output = [components objectAtIndex:ZER0];
 		}
 		else
 		{
@@ -791,9 +791,9 @@ To Do List:
 	else if(components.count)
 	{
 		output = iTM2TPFEPDFOutput;
-		components = [[components objectAtIndex:0] componentsSeparatedByString:@"-"];
+		components = [[components objectAtIndex:ZER0] componentsSeparatedByString:@"-"];
 		if(components.count)
-			mode = [components objectAtIndex:0];
+			mode = [components objectAtIndex:ZER0];
 		if(components.count>1)
 			variant = [components objectAtIndex:1];
 	}
@@ -943,7 +943,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * result = metaGETTER;
-	if(result.length>0)
+	if(result.length>ZER0)
 	{
 		return result;
 	}
@@ -1128,11 +1128,11 @@ To Do List:
 		if([SWS isWrapperPackageAtURL4iTM3:url])
 		{
 			NSArray * enclosed = [url enclosedProjectURLs4iTM3];
-			return enclosed.count > 0;
+			return enclosed.count > ZER0;
 		}
 	}
 //END4iTM3;
-    return count > 0;
+    return count > ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canCreateNewProject
 - (BOOL)canCreateNewProject;
@@ -1499,9 +1499,9 @@ To Do List:
 			[sender addItemWithTitle:displayName];
 			sender.lastItem.representedObject = path;
 		}
-		if([sender numberOfItems]>0)
+		if([sender numberOfItems]>ZER0)
 		{
-			NSInteger index = 0;
+			NSInteger index = ZER0;
 			if(!oldProjectName.length)
 			{
 				oldProjectName = [[sender itemAtIndex:index] representedObject];
@@ -1510,10 +1510,10 @@ To Do List:
 			else
 			{
 				index = [sender indexOfItemWithRepresentedObject:oldProjectName];
-				if(index<0)
+				if(index<ZER0)
 				{
 					// the preferred project oldProjectName, if any, is not listed in the available projects
-					index = 0;// a better choice?
+					index = ZER0;// a better choice?
 					oldProjectName = [[sender itemAtIndex:index] representedObject];
 					[self setOldProjectName:oldProjectName];
 				}
@@ -1528,7 +1528,7 @@ To Do List:
 		return availableProjects.count>1;
 	}
 //END4iTM3;
-    return oldProjectName.length>0;
+    return oldProjectName.length>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleWrapper:
 - (IBAction)toggleWrapper:(id) sender;
@@ -2298,7 +2298,7 @@ To Do List:
 //LOG4iTM3(@"self.title is:%@", self.title);
 //LOG4iTM3(@"self.numberOfItems is:%i", self.numberOfItems);
     NSInteger i;
-    for(i=0;i<self.numberOfItems;++i)
+    for(i=ZER0;i<self.numberOfItems;++i)
     {
         LOG4iTM3(@"[self itemAtIndex:%i] is:%@", i, [self itemAtIndex:i]);
     }

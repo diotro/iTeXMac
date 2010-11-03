@@ -152,7 +152,7 @@ To Do List:
 		keyWindow = parentWindow;
 	}
 	NSArray * orderedWindows = [NSApp orderedWindows];
-	NSInteger WN = 0;
+	NSInteger WN = ZER0;
 	if (mainWindow) {
 		if (keyWindow) {
 			if ([orderedWindows indexOfObject:keyWindow] > [orderedWindows indexOfObject:mainWindow]) {
@@ -414,7 +414,7 @@ To Do List:
 //START4iTM3;
 	NSWindow * W = [aNotification object];
     NSString * frameIdentifier = [W frameIdentifier4iTM3];
-    if (frameIdentifier.length>0) 
+    if (frameIdentifier.length>ZER0) 
     {
         [[W class] removeFrameUsingName:frameIdentifier];
     }

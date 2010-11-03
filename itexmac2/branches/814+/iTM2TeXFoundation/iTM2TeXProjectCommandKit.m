@@ -297,7 +297,7 @@ To Do List:
 	NSArray * TPPs = [[SPC baseProjectNames] valueForKey:@"TeXProjectProperties4iTM3"];
 	// filter out with newMode, case sensitive
 	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newMode forKey:iTM2TPDKModeKey];
-	NSAssert(RA.count>0,@"Internal inconsistency, the new mode should exist!");
+	NSAssert(RA.count>ZER0,@"Internal inconsistency, the new mode should exist!");
 	// try to keep the extension
 	NSArray * nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKExtensionKey] forKey:iTM2TPDKExtensionKey];
 	if(nextRA.count)
@@ -308,7 +308,7 @@ To Do List:
 	{
 		NSString * newBPN = nil;
 the_end:
-		newBPN = [[RA objectAtIndex:0] TeXBaseProjectName4iTM3];
+		newBPN = [[RA objectAtIndex:ZER0] TeXBaseProjectName4iTM3];
 		if(![[TPD baseProjectName] pathIsEqual4iTM3:newBPN])
 		{
 			[TPD setBaseProjectName:newBPN];
@@ -424,7 +424,7 @@ To Do List:
 	// filter out with newExtension, case sensitive
 	NSString * newExtension = [(id)[sender selectedItem] representedObject];
 	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newExtension forKey:iTM2TPDKExtensionKey];
-	NSAssert(RA.count>0,@"Internal inconsistency, the new mode should exist!");
+	NSAssert(RA.count>ZER0,@"Internal inconsistency, the new mode should exist!");
 	// try to keep the variant
 	NSArray * nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKVariantKey] forKey:iTM2TPDKVariantKey];
 	if(nextRA.count)
@@ -435,7 +435,7 @@ To Do List:
 	{
 		NSString * newBPN;
 the_end:
-		newBPN = [[RA objectAtIndex:0] TeXBaseProjectName4iTM3];
+		newBPN = [[RA objectAtIndex:ZER0] TeXBaseProjectName4iTM3];
 		if(![[TPD baseProjectName] pathIsEqual4iTM3:newBPN])
 		{
 			[TPD setBaseProjectName:newBPN];
@@ -548,14 +548,14 @@ To Do List:
 	// filter out with newVariant, case sensitive
 	NSString * newVariant = [(id)[sender selectedItem] representedObject];
 	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newVariant forKey:iTM2TPDKVariantKey];
-	NSAssert(RA.count>0,@"Internal inconsistency, the new mode should exist!");
+	NSAssert(RA.count>ZER0,@"Internal inconsistency, the new mode should exist!");
 	// try to keep the output
 	NSArray * nextRA = [RA filteredArrayUsingPredicateValue:[oldTPPs valueForKey:iTM2TPDKOutputKey] forKey:iTM2TPDKOutputKey];
 	if(nextRA.count)
 	{
 		RA = nextRA;
 	}
-	NSString * newBPN = [[RA objectAtIndex:0] TeXBaseProjectName4iTM3];
+	NSString * newBPN = [[RA objectAtIndex:ZER0] TeXBaseProjectName4iTM3];
 	if(![[TPD baseProjectName] pathIsEqual4iTM3:newBPN])
 	{
 		[TPD setBaseProjectName:newBPN];
@@ -662,8 +662,8 @@ To Do List:
 	// filter out with newVariant, case sensitive
 	NSString * newOutput = [(id)[sender selectedItem] representedObject];
 	NSArray * RA = [TPPs filteredArrayUsingPredicateValue:newOutput forKey:iTM2TPDKOutputKey];
-	NSAssert(RA.count>0,@"Internal inconsistency, the new mode should exist!");
-	NSString * newBPN = [[RA objectAtIndex:0] TeXBaseProjectName4iTM3];
+	NSAssert(RA.count>ZER0,@"Internal inconsistency, the new mode should exist!");
+	NSString * newBPN = [[RA objectAtIndex:ZER0] TeXBaseProjectName4iTM3];
 	if(![[TPD baseProjectName] pathIsEqual4iTM3:newBPN])
 	{
 		[TPD setBaseProjectName:newBPN];
@@ -820,7 +820,7 @@ To Do List:
 			}
         }
         NSInteger index = [sender indexOfItemWithRepresentedObject:self.editedCommand];
-        if(index < 0)
+        if(index < ZER0)
         {
             [self setEditedCommand:[[[[[iTM2TeXPCommandManager orderedBuiltInCommandNames] objectEnumerator] nextObject] objectEnumerator] nextObject]];
             index = [sender indexOfItemWithRepresentedObject:self.editedCommand];
@@ -981,7 +981,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSArray * allActionModes = [[self info4iTM3ForKeyPaths:iTM2TPFECommandScriptsKey,nil] allKeys];
-    NSInteger idx = 0;
+    NSInteger idx = ZER0;
     NSString * scriptMode;
     while((scriptMode = [NSString stringWithFormat:@"%i", idx++]), [allActionModes containsObject:scriptMode]);
 	[self setInfo4TM3:scriptMode forKeyPaths:iTM2TPFECommandsKey,self.editedCommand,iTM2TPFEScriptModeKey,nil];
@@ -1206,11 +1206,11 @@ To Do List:
 		sender.lastItem.representedObject = iTM2TPFECustomMode;
 		if([environmentMode isEqual:iTM2TPFEVoidMode])
 		{
-			[sender selectItemAtIndex:0];
+			[sender selectItemAtIndex:ZER0];
 		}
 		else if(self.isCustomEnvironmentMode)
 		{
-			[sender selectItemAtIndex:[sender indexOfItemWithRepresentedObject:iTM2TPFECustomMode]];// index is 0 or 1
+			[sender selectItemAtIndex:[sender indexOfItemWithRepresentedObject:iTM2TPFECustomMode]];// index is ZER0 or 1
 		}
 		else
 		{
@@ -1436,7 +1436,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"iTM2TeXP(.*)Inspector" options:0 error:nil] autorelease];
+	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"iTM2TeXP(.*)Inspector" options:ZER0 error:nil] autorelease];
 	NSString * result = [RE matchString:NSStringFromClass(self)]? [RE substringOfCaptureGroupAtIndex:1]:@"";
     RE.forget;
     return result;
@@ -1526,7 +1526,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_setupTeXMenu) object:nil];
-	[self performSelector:@selector(_setupTeXMenu) withObject:nil afterDelay:0];
+	[self performSelector:@selector(_setupTeXMenu) withObject:nil afterDelay:ZER0];
 //END4iTM3;
     return;
 }
@@ -1696,7 +1696,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	static NSInteger oldNumberOfClasses = 0;
+	static NSInteger oldNumberOfClasses = ZER0;
 	NSInteger newNumberOfClasses = [iTM2Runtime numberOfClasses];
     if(oldNumberOfClasses != newNumberOfClasses)
 	{
@@ -1872,7 +1872,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandLevel
 + (NSInteger)_commandLevel;
@@ -1898,7 +1898,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return 0;
+    return ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _commandGroup
 + (NSInteger)_commandGroup;
@@ -1925,7 +1925,7 @@ To Do List:
 //START4iTM3;
 	NSString * result = NSLocalizedStringFromTableInBundle([name stringByAppendingPathExtension:@"keyEquivalent"],
 				iTM2TeXPCommandTableName, myBUNDLE, "");
-    return result.length != 1? @"":[result substringWithRange:iTM3MakeRange(0, 1)];
+    return result.length != 1? @"":[result substringWithRange:iTM3MakeRange(ZER0, 1)];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  keyEquivalentModifierMaskForName;
 + (NSUInteger)keyEquivalentModifierMaskForName:(NSString *)name;
@@ -1938,7 +1938,7 @@ To Do List:
 //START4iTM3;
 	NSString * stringResult = NSLocalizedStringWithDefaultValue([name stringByAppendingPathExtension:@"modifierMask"],
 				iTM2TeXPCommandTableName, myBUNDLE, @"NONE", "");
-	NSUInteger result = 0;
+	NSUInteger result = ZER0;
 	if([stringResult rangeOfString:@"^"].location != NSNotFound)
 		result = result | NSControlKeyMask;
 	if([stringResult rangeOfString:@"$"].location != NSNotFound)

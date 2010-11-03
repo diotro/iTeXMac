@@ -151,7 +151,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * findString = self.findString;
-    if(findString.length>0)
+    if(findString.length>ZER0)
     {
         NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSFindPboard];
         [pasteboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
@@ -206,7 +206,7 @@ To Do List:
         findStringChangedSinceLastPasteboardUpdate = YES;
         [_FindString autorelease];
         _FindString = [aString copy];
-        _NumberOfOps = 0;
+        _NumberOfOps = ZER0;
     }
 //END4iTM3;
     return;
@@ -233,7 +233,7 @@ To Do List:
 //START4iTM3;
     [_ReplaceString autorelease];
     _ReplaceString = [aString copy];
-    _NumberOfOps = 0;
+    _NumberOfOps = ZER0;
 //END4iTM3;
     return;
 }
@@ -430,7 +430,7 @@ To Do List:
     [findTextField selectText:nil];
     [replaceTextField selectText:nil];
     if(ignoreCaseButton) [self setCaseInsensitiveFlag:([ignoreCaseButton state] != NSOffState)];
-    if(replaceAllScopeMatrix) [self setEntireFileFlag:([replaceAllScopeMatrix selectedTag] == 0)];
+    if(replaceAllScopeMatrix) [self setEntireFileFlag:([replaceAllScopeMatrix selectedTag] == ZER0)];
 //END4iTM3;
     return;
 }
@@ -447,13 +447,13 @@ To Do List:
     NSTextView * textView = self.textViewToSearchIn;
     NSString * textString = [textView string];
     NSString * findString = self.findString;
-    _NumberOfOps = 0;
-    if (textString.length > 0)
+    _NumberOfOps = ZER0;
+    if (textString.length > ZER0)
     {
-        if (findString.length > 0)
+        if (findString.length > ZER0)
         {
             NSRange range;
-            NSUInteger options = 0;
+            NSUInteger options = ZER0;
             if (direction == Backward)
                 options |= NSBackwardsSearch;
             if (_CaseInsensitiveFlag)
@@ -630,7 +630,7 @@ To Do List: rewrite this to replace all in range...
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSTextView * textView = self.textViewToSearchIn;
-    _NumberOfOps = 0;
+    _NumberOfOps = ZER0;
     if (!textView)
     {
         if (!self.isMute) NSBeep();
@@ -644,13 +644,13 @@ To Do List: rewrite this to replace all in range...
     {
         NSTextStorage *textStorage = [textView textStorage];
         NSString *textString = [textView string];
-        NSRange replaceRange = self.entireFileFlag ? iTM3MakeRange(0, textStorage.length) :[textView selectedRange];
-        NSUInteger searchOption = (self.caseInsensitiveFlag ? NSCaseInsensitiveSearch :0);
+        NSRange replaceRange = self.entireFileFlag ? iTM3MakeRange(ZER0, textStorage.length) :[textView selectedRange];
+        NSUInteger searchOption = (self.caseInsensitiveFlag ? NSCaseInsensitiveSearch :ZER0);
         NSRange firstOccurence;
         
         // Find the first occurence of the string being replaced; if not found, we're done!
         firstOccurence = [textString rangeOfString:findString options:searchOption range:replaceRange];
-        if (firstOccurence.length > 0)
+        if (firstOccurence.length > ZER0)
         {
 	    NSAutoreleasePool *pool;
 	    NSString *targetString = findString;
@@ -672,7 +672,7 @@ To Do List: rewrite this to replace all in range...
 
     	    pool = [[NSAutoreleasePool alloc] init];
 
-            while (rangeInOriginalString.length > 0) {
+            while (rangeInOriginalString.length > ZER0) {
                 NSRange foundRange = [textString rangeOfString:targetString options:searchOption range:rangeInOriginalString];
 		// Because we computed the tightest range above, foundRange should always be valid.
 		NSRange rangeToCopy = iTM3MakeRange(rangeInOriginalString.location, foundRange.location - rangeInOriginalString.location + 1);	// Copy upto the start of the found range plus one char (to maintain attributes with the overlap)...
@@ -681,7 +681,7 @@ To Do List: rewrite this to replace all in range...
                 rangeInOriginalString.length -= iTM3MaxRange(foundRange) - rangeInOriginalString.location;
                 rangeInOriginalString.location = iTM3MaxRange(foundRange);
                 _NumberOfOps++;
-	  	if (_NumberOfOps % 100 == 0) {	// Refresh the pool... See warning above!
+	  	if (_NumberOfOps % 100 == ZER0) {	// Refresh the pool... See warning above!
 		    [pool drain];
 		    pool = [[NSAutoreleasePool alloc] init];
 		}
@@ -697,7 +697,7 @@ To Do List: rewrite this to replace all in range...
                 [textView didChangeText];
 //                [textView replaceCharactersInRange:replaceRange withAttributedString:temp];
             } else {	// For some reason the string didn't want to be modified. Bizarre...
-                _NumberOfOps = 0;
+                _NumberOfOps = ZER0;
             }
 
             [temp autorelease];
@@ -745,7 +745,7 @@ To Do List:
 //START4iTM3;
     NSTextView * textView = [NSApp targetForAction:@selector(selectedRange)];
     NSRange selectedRange = [textView selectedRange];
-    if((selectedRange.length > 0) && [textView respondsToSelector:@selector(string)])
+    if((selectedRange.length > ZER0) && [textView respondsToSelector:@selector(string)])
     {
         NSString * S = [[textView string] substringWithRange:[textView selectedRange]];
         [self setFindString:S];
@@ -763,7 +763,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return _NumberOfOps > 0;
+    return _NumberOfOps > ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfOps
 - (NSUInteger)numberOfOps;
@@ -829,7 +829,7 @@ To Do List:
 //NSLog(@"selectedRange: %@", NSStringFromRange(aSelectedRange));
 //NSLog(@"options: %i", options);
 //NSLog(@"wrap: %@", (wrap? @"Y": @"N"));
-    BOOL forwards = (options & NSBackwardsSearch) == 0;
+    BOOL forwards = (options & NSBackwardsSearch) == ZER0;
     NSUInteger length = self.length;
     NSRange searchRange, range;
     if (forwards)
@@ -837,21 +837,21 @@ To Do List:
 	searchRange.location = iTM3MaxRange(aSelectedRange);
 	searchRange.length = length - searchRange.location;
 	range = [self rangeOfString:aString options:options range:searchRange];
-        if ((range.length == 0) && wrap)
+        if ((range.length == ZER0) && wrap)
         {	/* If not found look at the first part of the string */
-	    searchRange.location = 0;
+	    searchRange.location = ZER0;
             searchRange.length = aSelectedRange.location;
             range = [self rangeOfString:aString options:options range:searchRange];
         }
     }
     else
     {
-	searchRange.location = 0;
+	searchRange.location = ZER0;
 	searchRange.length = aSelectedRange.location;
         range = [self rangeOfString:aString options:options range:searchRange];
 //NSLog(NSStringFromRange(searchRange));
 //NSLog(NSStringFromRange(range));
-        if ((range.length == 0) && wrap)
+        if ((range.length == ZER0) && wrap)
         {
             searchRange.location = iTM3MaxRange(aSelectedRange);
             searchRange.length = length - searchRange.location;

@@ -134,7 +134,7 @@ NSLocalizedStringFromTableInBundle(@"Bad TEXMFOUTPUT provided\n%@", @"Project", 
     if (!isDirectory)/* twice... */ {
         NSArray * RA = [DFM URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         if (RA.count) {
-            NSURL * url = [[[RA objectAtIndex:0] URLByAppendingPathComponent:@"TeX"] URLByStandardizingPath];
+            NSURL * url = [[[RA objectAtIndex:ZER0] URLByAppendingPathComponent:@"TeX"] URLByStandardizingPath];
             if(![DFM fileExistsAtPath:url.path isDirectory:&isDirectory])
                 isDirectory = [DFM createDirectoryAtPath:url.path withIntermediateDirectories:YES attributes:nil error:NULL];
             if (isDirectory) {
@@ -239,7 +239,7 @@ To Do List:
 	if (absoluteURL.isFileURL) {
 		ICURegEx * RE = [[[ICURegEx alloc]
 			initWithSearchPattern:[NSString stringWithFormat:@"/Library/.*/\\Q%@\\E(?:$|/)",iTM2ProjectBaseComponent]
-				options:0 error:nil] autorelease];
+				options:ZER0 error:nil] autorelease];
 		if ([RE matchString:absoluteURL.path]) {
 			[SPC updateTeXBaseProjectsNotified:nil];
 		}
@@ -521,7 +521,7 @@ To Do List:
 //	[[sender lastItem] setAction:@selector(takeMainFileFromRepresentedObject:)];
 //	[[sender lastItem] setTarget:self];
     NSArray * fileKeys = self.orderedFileKeys;
-    NSInteger row = 0;
+    NSInteger row = ZER0;
     iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)self.document;
 	NSString * fileKey = nil;
     while(row<fileKeys.count)
@@ -541,7 +541,7 @@ To Do List:
         }
         ++row;
     }
-    if([sender numberOfItems] > 0)
+    if([sender numberOfItems] > ZER0)
 	{
 		[senderMenu addItem:[NSMenuItem separatorItem]];
 	}
@@ -556,7 +556,7 @@ To Do List:
 	}
 	fileKey = [project realMasterFileKey];
 	NSInteger idx = [sender indexOfItemWithRepresentedObject:fileKey];
-	if(idx < 0)
+	if(idx < ZER0)
 	{
 		;
 	}
@@ -601,7 +601,7 @@ To Do List:
 //START4iTM3;
     NSInteger row = [self.documentsView selectedRow];
 	NSArray * orderedFileKeys = self.orderedFileKeys;
-    if(row < 0 || row >= orderedFileKeys.count)
+    if(row < ZER0 || row >= orderedFileKeys.count)
 	{
         return;
 	}
@@ -717,7 +717,7 @@ To Do List:
     NSInteger row = [DV selectedRow];
     NSString * title = nil;
 	NSBundle * B = [iTM2ProjectDocument classBundle4iTM3];
-    if(row < 0 || row >= [DV numberOfRows])
+    if(row < ZER0 || row >= [DV numberOfRows])
 	{
         title = NSLocalizedStringFromTableInBundle(@"No selection", iTM2ProjectTable, B, "Description Forthcoming");
 	}
@@ -800,9 +800,9 @@ To Do List:
 		// updating the Defaults menu
         iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)self.document;
         NSArray * fileKeys = self.orderedFileKeys;
-		NSString * fileKey = [fileKeys objectAtIndex:0];
+		NSString * fileKey = [fileKeys objectAtIndex:ZER0];
 		NSString * stringEncodingName = nil;
-		NSStringEncoding encoding = 0;
+		NSStringEncoding encoding = ZER0;
 		NSString * title = nil;
 		SEL takeStringEncodingFromDefaults = @selector(takeStringEncodingFromDefaults:);
 		stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
@@ -815,8 +815,8 @@ To Do List:
 						action:takeStringEncodingFromDefaults keyEquivalent:[NSString string]] autorelease];
 			MI.target = self;// MI belongs to the receiver's window
 			[MI setEnabled:YES];
-			[M insertItem:[NSMenuItem separatorItem] atIndex:0];
-			[M insertItem:MI atIndex:0];
+			[M insertItem:[NSMenuItem separatorItem] atIndex:ZER0];
+			[M insertItem:MI atIndex:ZER0];
 		}
 		else
 		{
@@ -839,9 +839,9 @@ To Do List:
 			MI = [[[NSMenuItem alloc] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
 			MI.target = nil;
 			[MI setEnabled:NO];
-			[M insertItem:[NSMenuItem separatorItem] atIndex:0];
-			[M insertItem:MI atIndex:0];
-			[sender selectItemAtIndex:0];
+			[M insertItem:[NSMenuItem separatorItem] atIndex:ZER0];
+			[M insertItem:MI atIndex:ZER0];
+			[sender selectItemAtIndex:ZER0];
 //END4iTM3;
 			return enabled;
 		}
@@ -852,13 +852,13 @@ To Do List:
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
 		NSStringEncoding defaultStringEncoding = [NSString stringEncodingWithName4iTM3:defaultStringEncodingName];
 		NSUInteger row = [selectedRowIndexes firstIndex];
-		if(row == 0)
+		if(row == ZER0)
         {
 			enabled = YES;
 			encoding = defaultStringEncoding;
 selectOneItem:
 			row = [sender indexOfItemWithTag:encoding];
-			if(row<0)
+			if(row<ZER0)
 			{
 				// no item found, one should be created
 				title = [NSString localizedNameOfStringEncoding:encoding];
@@ -951,7 +951,7 @@ bibiche:
 					}
 					else
 					{
-						[sender selectItemAtIndex:0];
+						[sender selectItemAtIndex:ZER0];
 //END4iTM3;
 						return YES;
 					}
@@ -1172,7 +1172,7 @@ To Do List:
 	// updating the Defaults menu
 	iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)self.document;
 	NSArray * fileKeys = self.orderedFileKeys;
-	NSString * fileKey = [fileKeys objectAtIndex:0];
+	NSString * fileKey = [fileKeys objectAtIndex:ZER0];
 	NSTableView * documentsView = self.documentsView;
 	NSIndexSet * selectedRowIndexes = [documentsView selectedRowIndexes];
 	if(!selectedRowIndexes.count)// no item selected
@@ -1195,10 +1195,10 @@ To Do List:
 	BOOL isDefaults = NO;
 	NSString * keyWithAutoDefault = nil;// the last file key having a default string encoding
 	NSUInteger row = [selectedRowIndexes firstIndex];
-	if(row == 0)
+	if(row == ZER0)
 	{
 		isDefaults = YES;
-		keyWithAutoDefault = [fileKeys objectAtIndex:0];
+		keyWithAutoDefault = [fileKeys objectAtIndex:ZER0];
 		fileKey = keyWithAutoDefault;
 		row = [selectedRowIndexes indexGreaterThanIndex:row];
 	}
@@ -1360,7 +1360,7 @@ To Do List:
 		// updating the Defaults menu
         iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)self.document;
         NSArray * fileKeys = self.orderedFileKeys;
-		NSString * fileKey = [fileKeys objectAtIndex:0];
+		NSString * fileKey = [fileKeys objectAtIndex:ZER0];
 		SEL takeEOLFromDefaults = @selector(takeEOLFromDefaults:);
 		NSString * EOLName = [project propertyValueForKey:TWSEOLFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
 		NSInteger EOL = [iTM2StringFormatController EOLForName:EOLName];
@@ -1373,8 +1373,8 @@ To Do List:
 						action:takeEOLFromDefaults keyEquivalent:[NSString string]] autorelease];
 			MI.target = self;// MI belongs to the receiver's window
 			[MI setEnabled:YES];
-			[M insertItem:[NSMenuItem separatorItem] atIndex:0];
-			[M insertItem:MI atIndex:0];
+			[M insertItem:[NSMenuItem separatorItem] atIndex:ZER0];
+			[M insertItem:MI atIndex:ZER0];
 		}
 		else
 		{
@@ -1402,10 +1402,10 @@ To Do List:
 		BOOL enabled = NO;
 		NSString * keyWithDefault = nil;// the last file key having a default string encoding
         row = [selectedRowIndexes firstIndex];
-		if(row == 0)
+		if(row == ZER0)
         {
 			isDefaults = YES;
-            keyWithDefault = [fileKeys objectAtIndex:0];
+            keyWithDefault = [fileKeys objectAtIndex:ZER0];
 			fileKey = keyWithDefault;
 		}
 		else
@@ -1441,7 +1441,7 @@ To Do List:
 //END4iTM3;
 			return NO;
 		}
-		if(EOLNames.count == 0)
+		if(EOLNames.count == ZER0)
 		{
 			if(keyWithDefault)
 			{
@@ -1454,7 +1454,7 @@ To Do List:
 					enabled = YES;
 selectOneItem:
 					row = [sender indexOfItemWithTag:EOL];
-					if(row<0)
+					if(row<ZER0)
 					{
 						// no item found, one should be created
 						title = [iTM2StringFormatController nameOfEOL:EOL];
@@ -1505,13 +1505,13 @@ multipleSelection:
 					MI = [[[NSMenuItem alloc] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
 					MI.target = nil;
 					[MI setEnabled:NO];
-					[M insertItem:[NSMenuItem separatorItem] atIndex:0];
-					[M insertItem:MI atIndex:0];
-					[sender selectItemAtIndex:0];
+					[M insertItem:[NSMenuItem separatorItem] atIndex:ZER0];
+					[M insertItem:MI atIndex:ZER0];
+					[sender selectItemAtIndex:ZER0];
 //END4iTM3;
 					return enabled;
 				}
-				[sender selectItemAtIndex:0];
+				[sender selectItemAtIndex:ZER0];
 	//END4iTM3;
 				return YES;
 			}

@@ -124,7 +124,7 @@ To Do List:
 	while(index--)
 	{
 		id child = [self objectInChildrenAtIndex:index];
-		[result insertObject:[child copy] inChildrenAtIndex:0];
+		[result insertObject:[child copy] inChildrenAtIndex:ZER0];
 	}
 	//END4iTM3;
 	return result;
@@ -218,7 +218,7 @@ To Do List:
 {
 //START4iTM3;
 	// reentrant management
-	if (iVarFlags4iTM3&1>0)
+	if (iVarFlags4iTM3&1>ZER0)
 	{
 		return;
 	}
@@ -567,7 +567,7 @@ To Do List:
 - (id <iTM2TreeNode>)nextNode;
 {
 	if (self.countOfChildren) {
-		return [self objectInChildrenAtIndex:0];
+		return [self objectInChildrenAtIndex:ZER0];
 	}
 	return self.nextSibling?:self.nextParentSibling;
 }
@@ -632,9 +632,9 @@ To Do List:
 - (id)init;
 {
 	if ((self = [super init])) {
-		countOfCharacters = 0;
+		countOfCharacters = ZER0;
 		characters = nil;
-		countOfChildren = 0;
+		countOfChildren = ZER0;
 		children = nil;
 	}
 	return self;
@@ -644,7 +644,7 @@ To Do List:
 	if ((self = self.init)) {
 		NSXMLNode * child = nil;
 		NSString * s = nil;
-		NSUInteger index = 0;
+		NSUInteger index = ZER0;
 		if ([[element name] isEqual:@"L"]) {
 			object_setClass(self,[iTM2PatriciaLeafNode class]);
         }
@@ -660,7 +660,7 @@ To Do List:
 //NSLog(@"%@:%@",[element name],s);
 				}
 				--countOfChildren;
-				children = NSAllocateCollectable(countOfChildren*sizeof(id),0);
+				children = NSAllocateCollectable(countOfChildren*sizeof(id),ZER0);
 				while (index<countOfChildren) {
 //NSLog(@"index:%u",index);
 					child = [element childAtIndex:index+1];
@@ -668,7 +668,7 @@ To Do List:
 					++index;
 				}
 			} else {
-				children = NSAllocateCollectable(countOfChildren*sizeof(id),0);
+				children = NSAllocateCollectable(countOfChildren*sizeof(id),ZER0);
 				do
 				{
 //NSLog(@"index:%u",index);
@@ -684,8 +684,8 @@ To Do List:
 
 - (void)finalize;
 {
-	countOfCharacters = 0;
-	countOfChildren = 0;
+	countOfCharacters = ZER0;
+	countOfChildren = ZER0;
 	[super finalize];
 	return;
 }
@@ -694,7 +694,7 @@ To Do List:
 	NSString * S = [NSString stringWithCharacters:self->characters length:self->countOfCharacters];
 	NSXMLElement * element = [NSXMLNode elementWithName:@"N" stringValue:S];
 	NSUInteger index;
-	for(index=0;index<countOfChildren;++index)
+	for(index=ZER0;index<countOfChildren;++index)
 	{
 		NSXMLElement * child = [children[index] XMLElement];
 		[element addChild:child];
@@ -2787,7 +2787,7 @@ To Do List:
 		{
 			LOG4iTM3(@"Failure");
 		}
-#elif 0
+#elif ZER0
 		LOG4iTM3(@"%@",[PC stringList]);
 		LOG4iTM3(@"%@",[PC stringListForPrefix:@"s"]);
 		LOG4iTM3(@"%@",[PC stringListForPrefix:@"sp"]);
@@ -2804,7 +2804,7 @@ To Do List:
 		LOG4iTM3(@"%@",[PC stringListForPrefix:@"specification"]);
 		LOG4iTM3(@"%@",[PC stringListForPrefix:@"specifications"]);
 		LOG4iTM3(@"%@",[PC stringListForPrefix:@"specifications "]);
-#elif 0
+#elif ZER0
 		[PC stringList];
 		[PC stringListForPrefix:@"s"];
 		[PC stringListForPrefix:@"sp"];
@@ -2913,7 +2913,7 @@ To Do List:
 	if (self = self.init)
 	{
 		NSError * error = nil;
-		NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:&error] autorelease];
+		NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:ZER0 error:&error] autorelease];
 		if (document)
 		{
 			NSXMLElement * rootElement = [document rootElement];
@@ -2959,7 +2959,7 @@ nextNode:
 		if (maxChildIndex = node->countOfChildren) {
 			// there are children at this level level
 			// compare the characters of the children with the characters of the prefix for each child
-			NSUInteger minChildIndex = 0;
+			NSUInteger minChildIndex = ZER0;
 			NSUInteger delta = maxChildIndex;
 			delta>>=1;
 			NSUInteger childIndex = delta;
@@ -2968,23 +2968,23 @@ nextChild:
 			child = node->children[childIndex];
 			unichar * childCharsPtr = child->characters;// the first character has already been tested
 			NSUInteger countOfChildCharsFromPtr = child->countOfCharacters;
-			if (prefixCharsPtr[0]>childCharsPtr[0]) {
+			if (prefixCharsPtr[ZER0]>childCharsPtr[ZER0]) {
 				// index is too short
 				if (delta) {
 					minChildIndex = ++childIndex;
 					delta = maxChildIndex - minChildIndex;
 					delta>>=1;
 					childIndex += delta;
-					// if delta > 0
+					// if delta > ZER0
 					// minChildIndex < childIndex < maxChildIndex
-					// if delta == 0
+					// if delta == ZER0
 					// minChildIndex == childIndex < maxChildIndex
 					goto nextChild;
 				} else {
 					// no node will fit
 					return NO;
 				}
-			} else if (prefixCharsPtr[0]<childCharsPtr[0]) {
+			} else if (prefixCharsPtr[ZER0]<childCharsPtr[ZER0]) {
 				// index is too large
 				if (delta) {
 					delta >>= 1;
@@ -3003,7 +3003,7 @@ nextCharacter:
 					++prefixCharsPtr;
 					if (--countOfChildCharsFromPtr) {
 						++childCharsPtr;					
-						if (prefixCharsPtr[0]==childCharsPtr[0]) {
+						if (prefixCharsPtr[ZER0]==childCharsPtr[ZER0]) {
 							goto nextCharacter;
 						} else {
 							// No match
@@ -3025,7 +3025,7 @@ nextCharacter:
 						// remove child from node
 						if (node->countOfChildren) {
 							id * newChildren;
-							if (newChildren = NSAllocateCollectable((node->countOfChildren-1)*sizeof(id),0)) {
+							if (newChildren = NSAllocateCollectable((node->countOfChildren-1)*sizeof(id),ZER0)) {
 								if (childIndex && !memmove(newChildren,node->children,childIndex*sizeof(id))) {
 									LOG4iTM3(@"memmove problem  1");
 									return NO;
@@ -3044,7 +3044,7 @@ nextCharacter:
 								return NO;
 							}
 						} else {
-							node->children = 0;
+							node->children = ZER0;
 							return YES;
 						}
 					}
@@ -3066,7 +3066,7 @@ nextCharacter:
 	if (countOfPrefixCharsFromPtr) {
 		// there are characters to be tested
 		// we need an access to prefix characters and we choose to compare unichars
-		unichar * const prefixCharacters = (unichar *)NSAllocateCollectable(countOfPrefixCharsFromPtr*sizeof(unichar),0);
+		unichar * const prefixCharacters = (unichar *)NSAllocateCollectable(countOfPrefixCharsFromPtr*sizeof(unichar),ZER0);
 		[prefix getCharacters:prefixCharacters];
 		// we need to compare characters one at a time, for that we use a pointer
 		// prefixCharacters is left untouched because it will be freed later
@@ -3083,17 +3083,17 @@ nextNode:
 #pragma mark + root node has children
 			// there are children at this level level
 			// compare the characters of the children with the characters of the prefix for each child
-			NSUInteger minChildIndex = 0;
+			NSUInteger minChildIndex = ZER0;
 			NSUInteger delta = maxChildIndex;
 			delta>>=1;
 			NSUInteger childIndex = delta;
 			iTM2PatriciaNode * child;
 #pragma mark > nextChild:
 nextChild:
-			child = node->children[childIndex];// it seems that children is node set despite countOfChildren>0, hence the problem below
+			child = node->children[childIndex];// it seems that children is node set despite countOfChildren>ZER0, hence the problem below
 			unichar * childCharsPtr = child->characters;// EXC_BADiVarACCESS4iTM3 03/18/2007
 			NSUInteger countOfChildCharsFromPtr = child->countOfCharacters;// the number of remaining characters to be tested
-			if (prefixCharsPtr[0]>childCharsPtr[0]) {
+			if (prefixCharsPtr[ZER0]>childCharsPtr[ZER0]) {
 #pragma mark -+ node is too small
 				// index is too short
 				if (delta) {
@@ -3102,16 +3102,16 @@ nextChild:
 					delta = maxChildIndex - minChildIndex;
 					delta>>=1;
 					childIndex += delta;
-					// if delta > 0
+					// if delta > ZER0
 					// minChildIndex < childIndex < maxChildIndex
-					// if delta == 0
+					// if delta == ZER0
 					// minChildIndex == childIndex < maxChildIndex
 					goto nextChild;
 				} else {
 					// no node will fit
 					return [NSArray array];
 				}
-			} else if (prefixCharsPtr[0]<childCharsPtr[0]) {
+			} else if (prefixCharsPtr[ZER0]<childCharsPtr[ZER0]) {
 #pragma mark -+ node is too big
 				// index is too large
 				if (delta) {
@@ -3135,7 +3135,7 @@ nextCharacter:
 					++prefixCharsPtr;
 					if (--countOfChildCharsFromPtr) {
 						++childCharsPtr;					
-						if (prefixCharsPtr[0]==childCharsPtr[0]) {
+						if (prefixCharsPtr[ZER0]==childCharsPtr[ZER0]) {
 							goto nextCharacter;
 						} else {
 							// No match
@@ -3182,7 +3182,7 @@ nextCharacter:
 	NSMutableArray * indexStack = [NSMutableArray array];
 	NSMutableArray * prefixStack = [NSMutableArray array];
 	iTM2PatriciaNode * child;
-	NSUInteger index = 0;
+	NSUInteger index = ZER0;
 nextNode:
 	if ([node isKindOfClass:[iTM2PatriciaLeafNode class]]) {
 		[list addObject: prefix];
@@ -3193,7 +3193,7 @@ nextChild:
 		[indexStack addObject:[NSNumber numberWithUnsignedInteger:index]];
 		[prefixStack addObject:prefix];
 		node = node->children[index];
-		index = 0;
+		index = ZER0;
 		prefix = [prefix stringByAppendingString:[NSString stringWithCharacters:node->characters length:node->countOfCharacters]];
 		goto nextNode;
 	} else if ((node = [nodeStack.lastObject pointerValue])) {
@@ -3215,14 +3215,14 @@ nextChild:
 	NSMutableArray * indexStack = [NSMutableArray array];
 	NSMutableArray * prefixStack = [NSMutableArray array];
 	iTM2PatriciaNode * child;
-	NSUInteger index = 0;
+	NSUInteger index = ZER0;
 loop:
 	if (index<node->countOfChildren) {
 		[nodeStack addObject:[NSValue valueWithPointer:node]];
 		[indexStack addObject:[NSNumber numberWithUnsignedInteger:index]];
 		[prefixStack addObject:prefix];
 		node = node->children[index];
-		index = 0;
+		index = ZER0;
 		prefix = [prefix stringByAppendingString:[NSString stringWithCharacters:node->characters length:node->countOfCharacters]];
 		if ([node isKindOfClass:[iTM2PatriciaLeafNode class]])
 		{
@@ -3262,7 +3262,7 @@ loop:
 	if (countOfStringCharsFromPtr) {
 		// we have something to add, otherwise we will do nothing (this will not be the same later)
 		// we need an access to aString characters and we choose to compare unichars
-		unichar * const aStringCharacters = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0);
+		unichar * const aStringCharacters = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0);
 		[aString getCharacters:aStringCharacters];
 		// we need to compare characters one at a time, for that we use a pointer
 		unichar * stringCharsPtr = aStringCharacters;
@@ -3289,16 +3289,16 @@ nextNode:
 			NSUInteger childIndex = node->countOfChildren - 1;
 			iTM2PatriciaNode * child = node->children[childIndex];
 			// this is the first level so we should not have child == (id)-1
-			// moreover we always have at this level child->countOfCharacters>0
+			// moreover we always have at this level child->countOfCharacters>ZER0
 			
-			if (stringCharsPtr[0]>child->characters[0]) {
+			if (stringCharsPtr[ZER0]>child->characters[ZER0]) {
 #pragma mark -+ "];: first character of aSpring is after first character of last child: append a leaf node
 				// this is the most frequent situation, at least when adding a list of lexically ordered words
 				// I must add the string after the last node
-				if (newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0)) {
+				if (newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),ZER0)) {
 					if (memmove(newChildren,node->children,node->countOfChildren*sizeof(id))) {
 						if (newChild = [[iTM2PatriciaLeafNode alloc] init]) {
-							if (newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0)) {
+							if (newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0)) {
 								if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 									newChild->countOfCharacters = countOfStringCharsFromPtr;
 									newChild->characters = newChars;
@@ -3327,7 +3327,7 @@ nextNode:
 					LOG4iTM3(@"There was a memory problem 1 (NSAllocateCollectable children)");
 				}
 				return NO;
-			} else if (stringCharsPtr[0]==child->characters[0]) {
+			} else if (stringCharsPtr[ZER0]==child->characters[ZER0]) {
 				// this is the second most frequent situation, at least when adding a list of lexically ordered words
 #pragma mark >+ IveFoundACandidateChild current character of aSpring equals first character of last child
 IveFoundACandidateChild:
@@ -3343,7 +3343,7 @@ IveFoundACandidateChild:
 nextTest1:
 					if (countOfChildCharsFromPtr) {
 #pragma mark ---+ if there are still characters in the node
-						if (stringCharsPtr[0]>childCharsPtr[0]) {
+						if (stringCharsPtr[ZER0]>childCharsPtr[ZER0]) {
 #pragma mark >--- "];: splitNodeAndInsertAfter if the first remaining char is bigger than the next node char
 splitNodeAndInsertAfter:
 							// I must split the node and insert a new node after child
@@ -3354,14 +3354,14 @@ splitNodeAndInsertAfter:
 								// copy the characters that have already been tested
 								// how many characters have been tested so far: countOfCharacters - countOfChildCharsFromPtr
 								countOfCommonChars = child->countOfCharacters - countOfChildCharsFromPtr;
-								if ((commonChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),0))) {
+								if ((commonChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),ZER0))) {
 									if ((memmove(commonChars,child->characters,countOfCommonChars*sizeof(unichar)))) {
 										// 2 children
-										if ((newChildren = (id *)NSAllocateCollectable(2*sizeof(id),0))) {
-											if ((newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),0))) {
+										if ((newChildren = (id *)NSAllocateCollectable(2*sizeof(id),ZER0))) {
+											if ((newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),ZER0))) {
 												if ((memmove(newChildCharsAfterSplit,childCharsPtr,countOfChildCharsFromPtr*sizeof(unichar)))) {
 													if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
-														if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))) {
+														if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0))) {
 															if ((memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar)))) {
 																// every memory allocation has succeeded
 																// I can now piece all the things together
@@ -3370,7 +3370,7 @@ splitNodeAndInsertAfter:
 																commonChild->characters = commonChars;
 																commonChild->children = newChildren;
 																commonChild->countOfChildren = 2;
-																commonChild->children[0] = child;// the children are good but the characters are not
+																commonChild->children[ZER0] = child;// the children are good but the characters are not
 																child->characters = newChildCharsAfterSplit;
 																child->countOfCharacters = countOfChildCharsFromPtr;
 																commonChild->children[1] = newChild;// the end of the string
@@ -3413,7 +3413,7 @@ splitNodeAndInsertAfter:
 								// report error?
 								LOG4iTM3(@"There was a memory problem 2 (iTM2PatriciaLeafNode)");
 							}
-						} else if (stringCharsPtr[0]==childCharsPtr[0]) {
+						} else if (stringCharsPtr[ZER0]==childCharsPtr[ZER0]) {
 #pragma mark ---> nextTest1: else if both characters are the same
 							++stringCharsPtr;// test the next character in the string
 							--countOfStringCharsFromPtr;
@@ -3424,19 +3424,19 @@ splitNodeAndInsertAfter:
 #pragma mark >--- "];: splitNodeAndInsertBefore if the first remaining char is bigger than the next node char
 splitNodeAndInsertBefore:
 							// I must split the node and insert a new node before child
-							// just like above, except for swapped [0] and [1]
+							// just like above, except for swapped [ZER0] and [1]
 							if ((commonChild = [[iTM2PatriciaNode alloc] init])) {
 								// copy the characters that have already been tested
 								// how many characters have been tested so far: countOfCharacters - countOfChildCharsFromPtr
 								countOfCommonChars = child->countOfCharacters - countOfChildCharsFromPtr;
-								if ((commonChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),0))) {
+								if ((commonChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),ZER0))) {
 									if (memmove(commonChars,child->characters,countOfCommonChars*sizeof(unichar))) {
 										// 2 children
-										if ((newChildren = (id *)NSAllocateCollectable(2*sizeof(id),0))) {
-											if ((newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),0))) {
+										if ((newChildren = (id *)NSAllocateCollectable(2*sizeof(id),ZER0))) {
+											if ((newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),ZER0))) {
 												if (memmove(newChildCharsAfterSplit,childCharsPtr,countOfChildCharsFromPtr*sizeof(unichar))) {
 													if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
-														if (newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0)) {
+														if (newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0)) {
 															if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 																// every memory allocation has succeeded
 																// I can now piece all the things together
@@ -3448,7 +3448,7 @@ splitNodeAndInsertBefore:
 																commonChild->children[1] = child;// the children are good but the characters are not
 																child->characters = newChildCharsAfterSplit;
 																child->countOfCharacters = countOfChildCharsFromPtr;
-																commonChild->children[0] = newChild;// the end of the string
+																commonChild->children[ZER0] = newChild;// the end of the string
 																newChild->countOfCharacters = countOfStringCharsFromPtr;
 																newChild->characters = newChars;
 																return YES;
@@ -3504,10 +3504,10 @@ splitNodeAndInsertBefore:
 nextTest2:
 					if (countOfStringCharsFromPtr) {
 #pragma mark ---+ there are remaining characters in aString to be tested
-						if (stringCharsPtr[0]>childCharsPtr[0]) {
+						if (stringCharsPtr[ZER0]>childCharsPtr[ZER0]) {
 #pragma mark ----> splitNodeAndInsertAfter: if the next remaining character is too big
 							goto splitNodeAndInsertAfter;
-						} else if (stringCharsPtr[0]==childCharsPtr[0]) {
+						} else if (stringCharsPtr[ZER0]==childCharsPtr[ZER0]) {
 #pragma mark ----> nextTest2: if the next remaining character is the same
 							++stringCharsPtr;// test the next character in the string
 							--countOfStringCharsFromPtr;
@@ -3527,19 +3527,19 @@ nextTest2:
 							// all the characters of stringCharsPtr are common
 							// newChild is the child before the split
 							// its string will be the common part
-							if ((newChildren = (id *)NSAllocateCollectable(sizeof(id),0))) {
+							if ((newChildren = (id *)NSAllocateCollectable(sizeof(id),ZER0))) {
 								if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
 									countOfCommonChars = child->countOfCharacters - countOfChildCharsFromPtr;
-									if ((newChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),0))) {
+									if ((newChars = (unichar *)NSAllocateCollectable(countOfCommonChars*sizeof(unichar),ZER0))) {
 										if (memmove(newChars,child->characters,countOfCommonChars*sizeof(unichar))) {
-											if ((newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),0))) {
+											if ((newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),ZER0))) {
 												if (memmove(newChildCharsAfterSplit,childCharsPtr,countOfChildCharsFromPtr*sizeof(unichar))) {
 													node->children[childIndex] = newChild;
 													newChild->countOfCharacters = countOfCommonChars;
 													newChild->characters = newChars;
 													newChild->countOfChildren = 1;
 													newChild->children = newChildren;
-													newChildren[0] = child;
+													newChildren[ZER0] = child;
 													// the children are good but the characters are not
 													// now I have to update the characters in child
 													child->countOfCharacters = countOfChildCharsFromPtr;
@@ -3583,10 +3583,10 @@ nextTest2:
 			else if (childIndex) {
 #pragma mark --+ 2 children or more
 				// the childIndex we are looking for is such that
-				// (node->children[childIndex])->characters[0] == stringCharsPtr[0]
-				// 0 <= childIndex < lastChildIndex
+				// (node->children[childIndex])->characters[ZER0] == stringCharsPtr[ZER0]
+				// ZER0 <= childIndex < lastChildIndex
 				// dichotomy
-				NSUInteger minChildIndex = 0;
+				NSUInteger minChildIndex = ZER0;
 				NSUInteger maxChildIndex = childIndex;
 				NSUInteger delta = childIndex;
 				delta>>=1;
@@ -3594,7 +3594,7 @@ nextTest2:
 #pragma mark >-- nextChild:
 nextChild:
 				child = node->children[childIndex];
-				if (stringCharsPtr[0]>child->characters[0]) {
+				if (stringCharsPtr[ZER0]>child->characters[ZER0]) {
 #pragma mark ---+ node is too small
 					// index is too short
 					if (delta) {
@@ -3603,20 +3603,20 @@ nextChild:
 						delta = maxChildIndex - minChildIndex;
 						delta>>=1;
 						childIndex += delta;
-						// if delta > 0
+						// if delta > ZER0
 						// minChildIndex < childIndex < maxChildIndex
-						// if delta == 0
+						// if delta == ZER0
 						// minChildIndex == childIndex < maxChildIndex
 						goto nextChild;
 					} else {
 #pragma mark ----+ "];: else insert a new leaf node after this one.
 						// I must insert a new node after this one (at index childIndex + 1)
 						++ childIndex;
-						if ((newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0))) {
+						if ((newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),ZER0))) {
 							if (memmove(newChildren,node->children,sizeof(id) * childIndex)) {
 								if (memmove(newChildren + childIndex + 1,node->children + childIndex,sizeof(id) * (node->countOfChildren - childIndex))) {
 									if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
-										if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))) {
+										if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0))) {
 											if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 												newChild->countOfCharacters = countOfStringCharsFromPtr;
 												newChild->characters = newChars;
@@ -3650,7 +3650,7 @@ nextChild:
 						}
 						return NO;
 					}
-				} else if (stringCharsPtr[0]<child->characters[0]) {
+				} else if (stringCharsPtr[ZER0]<child->characters[ZER0]) {
 #pragma mark ---+ node is too big
 					// index is too large
 					if (delta) {
@@ -3662,11 +3662,11 @@ nextChild:
 					} else {
 #pragma mark ----+ "];: else insert a new leaf node before this one.
 						// I must insert a new node before this one (at childIndex exactly)
-						if ((newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0))) {
+						if ((newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),ZER0))) {
 							if (memmove(newChildren,node->children,sizeof(id) * childIndex)) {
 								if (memmove(newChildren + childIndex + 1,node->children + childIndex,sizeof(id) * (node->countOfChildren - childIndex))) {
 									if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
-										if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))) {
+										if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0))) {
 											if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 												newChild->countOfCharacters = countOfStringCharsFromPtr;
 												newChild->characters = newChars;
@@ -3707,14 +3707,14 @@ nextChild:
 			} else {
 #pragma mark --+ "];: 1 child only, add a new leaf node at the beginning or the list
 				// no other nodes: I must add the node at the beginning of the list
-				if ((newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),0))) {
+				if ((newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),ZER0))) {
 					if (memmove(newChildren+1,node->children,sizeof(id) * node->countOfChildren)) {
 						if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
-							if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))) {
+							if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0))) {
 								if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 									newChild->countOfCharacters = countOfStringCharsFromPtr;
 									newChild->characters = newChars;
-									newChildren[0] = newChild;
+									newChildren[ZER0] = newChild;
 									node->children = newChildren;
 									++(node->countOfChildren);
 									return YES;
@@ -3744,13 +3744,13 @@ nextChild:
 #pragma mark + "];: node has no children, just add a child
 			// the root node has no children yet
 			// just add a node with that string
-			if ((newChildren = (id *)NSAllocateCollectable(sizeof(id),0)))  {
+			if ((newChildren = (id *)NSAllocateCollectable(sizeof(id),ZER0)))  {
 				if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
-					if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),0))) {
+					if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0))) {
 						if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 							newChild->countOfCharacters = countOfStringCharsFromPtr;
 							newChild->characters = newChars;
-							newChildren[0] = newChild;
+							newChildren[ZER0] = newChild;
 							node->countOfChildren = 1;
 							node->children = newChildren;
 							return YES;
@@ -3973,7 +3973,7 @@ nextChild:
 }
 - (void)updateCountOfObjectsInChildNodes;
 {
-	iVarCountOfObjectsInChildNodes4iTM3 = 0;
+	iVarCountOfObjectsInChildNodes4iTM3 = ZER0;
 	if (iVarFirstChild4iTM3) {
 		++iVarCountOfObjectsInChildNodes4iTM3;
 		id <iTM2LinkedNode> child = self.firstChild;

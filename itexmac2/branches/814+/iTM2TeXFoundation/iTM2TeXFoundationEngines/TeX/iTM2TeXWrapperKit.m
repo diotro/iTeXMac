@@ -232,7 +232,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2TeX_PARSE_first_line,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != ZER0] forKeyPaths:iTM2TeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -244,7 +244,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2TeX_PARSE_first_line,nil] boolValue]? 1:0)];
+    [sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2TeX_PARSE_first_line,nil] boolValue]? 1:ZER0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleProgName:
@@ -516,7 +516,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[sender cellWithTag:0] setState: ([[self info4iTM3ForKeyPaths:iTM2TeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:ZER0] setState: ([[self info4iTM3ForKeyPaths:iTM2TeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:1] setState: ([[self info4iTM3ForKeyPaths:iTM2TeX_src_specials_where_no_display,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:2] setState: ([[self info4iTM3ForKeyPaths:iTM2TeX_src_specials_where_no_hbox,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:3] setState: ([[self info4iTM3ForKeyPaths:iTM2TeX_src_specials_where_no_parent,nil] boolValue]? NSOnState:NSOffState)];
@@ -1078,7 +1078,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2PDFTeX_PARSE_first_line,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != ZER0] forKeyPaths:iTM2PDFTeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -1090,7 +1090,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_PARSE_first_line,nil] boolValue]? 1:0)];
+    [sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_PARSE_first_line,nil] boolValue]? 1:ZER0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleProgName:
@@ -1328,7 +1328,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"pdf"]? 0:1)];
+	[sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_output_format,nil] isEqualToString:@"pdf"]? ZER0:1)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleSrcSpecials:
@@ -1387,7 +1387,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[sender cellWithTag:0] setState: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:ZER0] setState: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:1] setState: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_src_specials_where_no_display,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:2] setState: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_src_specials_where_no_hbox,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:3] setState: ([[self info4iTM3ForKeyPaths:iTM2PDFTeX_src_specials_where_no_parent,nil] boolValue]? NSOnState:NSOffState)];
@@ -2004,7 +2004,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2XeTeX_PARSE_first_line,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != ZER0] forKeyPaths:iTM2XeTeX_PARSE_first_line,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -2016,7 +2016,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2XeTeX_PARSE_first_line,nil] boolValue]? 1:0)];
+    [sender selectCellWithTag: ([[self info4iTM3ForKeyPaths:iTM2XeTeX_PARSE_first_line,nil] boolValue]? 1:ZER0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleProgName:
@@ -2288,7 +2288,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[sender cellWithTag:0] setState: ([[self info4iTM3ForKeyPaths:iTM2XeTeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
+	[[sender cellWithTag:ZER0] setState: ([[self info4iTM3ForKeyPaths:iTM2XeTeX_src_specials_where_no_cr,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:1] setState: ([[self info4iTM3ForKeyPaths:iTM2XeTeX_src_specials_where_no_display,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:2] setState: ([[self info4iTM3ForKeyPaths:iTM2XeTeX_src_specials_where_no_hbox,nil] boolValue]? NSOnState:NSOffState)];
 	[[sender cellWithTag:3] setState: ([[self info4iTM3ForKeyPaths:iTM2XeTeX_src_specials_where_no_parent,nil] boolValue]? NSOnState:NSOffState)];

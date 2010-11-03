@@ -57,10 +57,10 @@
 {
 	if (aSelector == @selector(setup_044755320489327443212891840535))
 	{
-		iVarForwardingAddress = (NSUInteger)__builtin_return_address(0);
+		iVarForwardingAddress = (NSUInteger)__builtin_return_address(ZER0);
 		return [NSObject methodSignatureForSelector:@selector(finalize)];
 	}
-	NSUInteger forwardingAddress = (NSUInteger)__builtin_return_address(0);
+	NSUInteger forwardingAddress = (NSUInteger)__builtin_return_address(ZER0);
 	if (iVarForwardingAddress != forwardingAddress)
 	{
 		//
@@ -157,7 +157,7 @@
 }
 - (void)invokeWithSelectors4iTM3:(NSPointerArray *)selectors;
 {
-	NSUInteger i = 0;
+	NSUInteger i = ZER0;
 	while(i<selectors.count) {
 		SEL selector = (SEL)[selectors pointerAtIndex:i++];
 		if ([self.target respondsToSelector:selector]) {

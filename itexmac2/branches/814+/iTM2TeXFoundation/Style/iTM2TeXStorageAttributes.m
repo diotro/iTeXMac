@@ -1174,13 +1174,13 @@ To Do List:
                 }
             }
             if(nextModeRef)
-                * nextModeRef = 0;
+                * nextModeRef = ZER0;
             return nextMode;
         }
         else
         {
             if(nextModeRef)
-                * nextModeRef = 0;
+                * nextModeRef = ZER0;
 			theChar = [S characterAtIndex:location];
             NSUInteger nextMode = [self getSyntaxMode:&newMode forCharacter:theChar previousMode:previousMode];
 //NSLog(@"nextMode: %u, previousMode: %u", nextMode, previousMode);
@@ -1191,7 +1191,7 @@ To Do List:
     {
 //LOG4iTM3(@"location: %i <=  S.length %i", location, S.length);
         if(lengthRef)
-            * lengthRef = 0;
+            * lengthRef = ZER0;
         return [self EOLModeForPreviousMode:previousMode];
     }
 }

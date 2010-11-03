@@ -39,12 +39,12 @@ To Do List:
     NSString * path;
 
     while(path = enumerator.nextObject)
-        if(([result indexOfObject: path] == NSNotFound) || (path.length==0))
+        if(([result indexOfObject: path] == NSNotFound) || (path.length==ZER0))
             [result addObject: path];
         else
             NSLog(@"-[iTM2FilePathFilter listMenuArrayAtPath:] refused path: %@", path);
 
-    if(result.count>0)
+    if(result.count>ZER0)
         return result;
     else
         return nil;
@@ -95,7 +95,7 @@ To Do List:
 - (void) setOpen: (BOOL) aFlag;
 /*"Description forthcoming."*/
 {
-    _iTM2FPFFlags.isOpen = aFlag? 1: 0;
+    _iTM2FPFFlags.isOpen = aFlag? 1: ZER0;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= hiddenFileNames
@@ -111,7 +111,7 @@ To Do List:
     if(![_HiddenFileNames isEqual: hiddenFileNames])
     {
         [_HiddenFileNames autorelease];
-        if (hiddenFileNames.count > 0)
+        if (hiddenFileNames.count > ZER0)
             _HiddenFileNames = [hiddenFileNames retain];
         else
             _HiddenFileNames = nil;
@@ -122,7 +122,7 @@ To Do List:
 - (BOOL) isHiddenFileName: (NSString *) aLastPathComponent;
 /*"Description forthcoming."*/
 {
-    return ((self.hiddenFileNames.count>0) &&
+    return ((self.hiddenFileNames.count>ZER0) &&
                     ([self.hiddenFileNames indexOfObject: aLastPathComponent] != NSNotFound));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isDotFileName:

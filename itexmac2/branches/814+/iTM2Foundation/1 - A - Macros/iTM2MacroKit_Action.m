@@ -152,7 +152,7 @@ To Do List:
 	NSArray * RA = [sender representedObject];
 	if ([RA isKindOfClass:[NSArray class]] && RA.count)
 	{
-		NSString * ID = [RA objectAtIndex:0];
+		NSString * ID = [RA objectAtIndex:ZER0];
 		NSString * context;
 		NSString * category;
 		NSString * domain;
@@ -199,7 +199,7 @@ To Do List:
 				MI.representedObject = RA;
 				[recentMenu insertItem:MI atIndex:1];
 				NSMutableDictionary * MD = [NSMutableDictionary dictionary];
-				index = 0;
+				index = ZER0;
 				NSInteger max = [SUD integerForKey:@"iTM2NumberOfRecentMacros"];
 				while([recentMenu numberOfItems] > max)
 				{
@@ -237,7 +237,7 @@ To Do List:
 	NSArray * RA = [sender representedObject];
 	if ([RA isKindOfClass:[NSArray class]] && (RA.count > 2))
 	{
-		NSString * ID = [RA objectAtIndex:0];
+		NSString * ID = [RA objectAtIndex:ZER0];
 		if (ID.length)
 			return YES;
 	}
@@ -366,7 +366,7 @@ To Do List:
 	if (R.length)
 	{
 		R.length = R.location + 1;
-		R.location = 0;
+		R.location = ZER0;
 		NSString * selectorName = [macro substringWithRange:R];
 		SEL action = NSSelectorFromString(selectorName);
 		if ([self respondsToSelector:action])
@@ -399,8 +399,8 @@ To Do List:
 		NSMutableString * MS = [NSMutableString stringWithString:result];
 		for (NSString * string1 in theSubstitutions.keyEnumerator) {
 			NSString * string2 = [theSubstitutions objectForKey:string1];
-			NSRange range = iTM3MakeRange(0,result.length);
-			[MS replaceOccurrencesOfString:string1 withString:string2 options:0L range:range];
+			NSRange range = iTM3MakeRange(ZER0,result.length);
+			[MS replaceOccurrencesOfString:string1 withString:string2 options:ZER0 range:range];
 		}
         result = [MS.copy autorelease];
 	}
@@ -477,8 +477,8 @@ To Do List:
 //  When a line uses different SEL and the selection spans over different lines
 //  the second SEL must take into account what comes from the first SEL
 //  
-    NSRange R = iTM3MakeRange(0,0);
-    NSInteger i = 0;
+    NSRange R = iTM3MakeRange(ZER0,ZER0);
+    NSInteger i = ZER0;
     NSString * S;
     NSMutableArray * macroComponents = [NSMutableArray array];
     ICURegEx * RE = self.placeholderOrEOLICURegEx;
@@ -486,9 +486,9 @@ To Do List:
     // find the first line that contains a SEL
     NSMutableArray * ICsBefore = nil;
     NSMutableArray * ICsAfter = nil;
-    NSUInteger location = 0;
+    NSUInteger location = ZER0;
     iTM2LiteScanner * LS = [iTM2LiteScanner scannerWithString:macro charactersToBeSkipped:nil];
-    LS.scanLocation = 0;
+    LS.scanLocation = ZER0;
     LS.scanLimit = LS.scanLocation+macro.length;
     while (YES) {
         [self getIndentationComponents:&ICsBefore:&ICsAfter withScanner:LS];
@@ -516,7 +516,7 @@ To Do List:
                     continue;//    continue on the main loop
                 }
                 //  this is a SEL placeholder
-                i = 0;
+                i = ZER0;
                 NSScanner * SC = nil;
                 S = [RE substringOfCaptureGroupWithName:iTM2RegExpMKIndexName];
                 if (S.length) {
@@ -535,7 +535,7 @@ To Do List:
                     R = [RE rangeOfCaptureGroupWithName:iTM2RegExpMKEndName];
                     if (R.length) {
                         i = - 1 - i;// a 'last' or 'end' was scanned
-                    } else if (i>0) {
+                    } else if (i>ZER0) {
                         i = - i;
                     }
                 }
@@ -575,36 +575,36 @@ To Do List:
     const NSUInteger selection1stDepth = selection1stICsBefore.indentationDepthBefore4iTM3 + selection1stICsAfter.indentationDepth4iTM3;
     const NSInteger changeInDepth = macroDepth - macro1stDepth + selectionDepth - selection1stDepth;
     const NSInteger expectedDepth = globalDepth + changeInDepth;
-    //  Maybe it is < 0
-    if (expectedDepth < 0) {
-        *(NSInteger *)(&changeInDepth) = 0;
-        *(NSInteger *)(&expectedDepth) = 0;
+    //  Maybe it is < ZER0
+    if (expectedDepth < ZER0) {
+        *(NSInteger *)(&changeInDepth) = ZER0;
+        *(NSInteger *)(&expectedDepth) = ZER0;
     }
     //  Managing the comment
-    iTM2IndentationComponent * globalCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:0]:nil;
-    iTM2IndentationComponent * macroCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:0]:nil;
-    iTM2IndentationComponent * selectionCommentIC = selectionICsAfter.count?[selectionICsAfter objectAtIndex:0]:nil;
+    iTM2IndentationComponent * globalCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:ZER0]:nil;
+    iTM2IndentationComponent * macroCommentIC = macroICsAfter.count?[macroICsAfter objectAtIndex:ZER0]:nil;
+    iTM2IndentationComponent * selectionCommentIC = selectionICsAfter.count?[selectionICsAfter objectAtIndex:ZER0]:nil;
     //  Switchers:
     //  The discussion is basically organized with 2 switches
-    //  0 - the sign of the change in depth
+    //  ZER0 - the sign of the change in depth
     //  1 - the header starts with a comment or a comment sequence
-    NSUInteger globalHeaderCommentLength = globalICsBefore.count || globalCommentIC.contentLength ? 0: globalCommentIC.commentLength;
-    NSUInteger macroHeaderCommentLength = macroICsBefore.count || macroCommentIC.contentLength ? 0: macroCommentIC.commentLength;
-    NSUInteger selectionHeaderCommentLength = selectionICsBefore.count || selectionCommentIC.contentLength ? 0: selectionCommentIC.commentLength;
+    NSUInteger globalHeaderCommentLength = globalICsBefore.count || globalCommentIC.contentLength ? ZER0: globalCommentIC.commentLength;
+    NSUInteger macroHeaderCommentLength = macroICsBefore.count || macroCommentIC.contentLength ? ZER0: macroCommentIC.commentLength;
+    NSUInteger selectionHeaderCommentLength = selectionICsBefore.count || selectionCommentIC.contentLength ? ZER0: selectionCommentIC.commentLength;
     //  which ...HeaderCommentLength is larger correponds to the switcher
     //  First stage:
     //  - set the comment header if necessary
     //  - prepare for further management
     iTM2IndentationComponent * IC = nil;
     NSEnumerator * E = nil;
-    NSUInteger depth = 0;
-    NSUInteger length = 0;
+    NSUInteger depth = ZER0;
+    NSUInteger length = ZER0;
     iTM2LiteScanner * LS = nil;
-#   define isSelectionHeaderComment (macroHeaderCommentLength <= selectionHeaderCommentLength && globalHeaderCommentLength <= macroHeaderCommentLength && selectionHeaderCommentLength > 0)
+#   define isSelectionHeaderComment (macroHeaderCommentLength <= selectionHeaderCommentLength && globalHeaderCommentLength <= macroHeaderCommentLength && selectionHeaderCommentLength > ZER0)
     if (isSelectionHeaderComment) {
         //  First copy the selection comment sequence as heading of currentPrefix 
         R.location = selectionCommentIC.location;
-        R.length = selectionCommentIC.commentLength;//  selectionCommentIC.contentLength == 0
+        R.length = selectionCommentIC.commentLength;//  selectionCommentIC.contentLength == ZER0
         S = [selection substringWithRange:R];
         [currentPrefix appendString:S];
         //  May be this is all
@@ -620,7 +620,7 @@ To Do List:
             if (!IC.endsWithTab && (length = IC.length % self.numberOfSpacesPerTab) > (R.length %= self.numberOfSpacesPerTab)) {
                 //  length is what we expect
                 //  R.length is what we have
-                S = [@"" stringByPaddingToLength:length-R.length withString:@" " startingAtIndex:0];
+                S = [@"" stringByPaddingToLength:length-R.length withString:@" " startingAtIndex:ZER0];
                 [currentPrefix appendString:S];
             } else {
                 S = [self whiteTrailerForComponentString:S];
@@ -639,21 +639,21 @@ To Do List:
             S = [self indentationStringWithDepth:expectedDepth-depth];
             [currentPrefix appendString:S];
             //  Keep the extra space of the last indentation component
-            if (changeInDepth < 0) {
+            if (changeInDepth < ZER0) {
                 //  No extra space allowed
                 IC = nil;
-            } else if (changeInDepth == 0) {
+            } else if (changeInDepth == ZER0) {
                 //  Manage the last component
                 //  We take the extra white space from the global indentation to preserve global alignment
                 IC = globalICsAfter.lastObject?:globalICsBefore.lastObject;
-            } else /* if (changeInDepth > 0) */ {
+            } else /* if (changeInDepth > ZER0) */ {
                 //  Manage the last component
                 //  Here it comes from selection
                 IC = selectionICsAfter.lastObject?:selectionICsBefore.lastObject;
             }
             //  Append either an alignment string computed from IC or a separating space
             if (!IC.endsWithTab && (length = IC.length % self.numberOfSpacesPerTab)) {
-                S = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
+                S = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:ZER0];
             } else {
                 S = [self whiteTrailerForComponentString:S];
             }
@@ -661,7 +661,7 @@ To Do List:
 //          goto terminate_and_return_currentPrefix;
         }
     } else /* if (!isSelectionHeaderComment) and */
-#   define isMacroHeaderComment (globalHeaderCommentLength <= macroHeaderCommentLength && macroHeaderCommentLength > 0)
+#   define isMacroHeaderComment (globalHeaderCommentLength <= macroHeaderCommentLength && macroHeaderCommentLength > ZER0)
     if (isMacroHeaderComment) {
         //  The comment sequence comes from the macro, quite every other comment sequence is ignored
         //  First copy the macro comment sequence as heading of currentPrefix
@@ -683,7 +683,7 @@ To Do List:
             if (!IC.endsWithTab && (length = IC.length % self.numberOfSpacesPerTab) > (R.length %= self.numberOfSpacesPerTab)) {
                 //  length is what we expect
                 //  R.length is what we have
-                S = [@"" stringByPaddingToLength:length-R.length withString:@" " startingAtIndex:0];
+                S = [@"" stringByPaddingToLength:length-R.length withString:@" " startingAtIndex:ZER0];
                 [currentPrefix appendString:S];
             } else {
                 S = [self whiteTrailerForComponentString:S];
@@ -700,19 +700,19 @@ To Do List:
             //  complete to the expectedDepth
             S = [self indentationStringWithDepth:expectedDepth-depth];
             [currentPrefix appendString:S];
-            if (changeInDepth < 0) {
+            if (changeInDepth < ZER0) {
                 //  No extra space allowed
                 IC = nil;
-            } else if (changeInDepth == 0) {
+            } else if (changeInDepth == ZER0) {
                 //  Manage the last component
                 //  We take the extra white space from the global indentation to preserve global alignment
                 IC = globalICsAfter.lastObject?:globalICsBefore.lastObject;
-            } else /* if (changeInDepth > 0) */ {
+            } else /* if (changeInDepth > ZER0) */ {
                 //  Manage the last component
                 IC = macroICsAfter.lastObject?:macroICsBefore.lastObject;
             }
             if (!IC.endsWithTab && (length = IC.length % self.numberOfSpacesPerTab)) {
-                S = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
+                S = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:ZER0];
             } else {
                 S = [self whiteTrailerForComponentString:S];
             }
@@ -744,7 +744,7 @@ To Do List:
         [currentPrefix appendString:S];
 //        goto terminate_and_return_currentPrefix;
     } else /* we can ignore comments from the selection */
-    if (changeInDepth < 0) {
+    if (changeInDepth < ZER0) {
         //  Keep from globalS only what is necessary
         //  Simplest situation
         //  Things behave differently whether I must keep the comment or not
@@ -788,7 +788,7 @@ add_the_comment_sequence_and_white_header:
                     //  Before the comment, all the indentation components have depth 1
                     //  The cumulative depth is just the index
                     depth = expectedDepth - depth;
-                    IC = [globalICsBefore objectAtIndex:0];
+                    IC = [globalICsBefore objectAtIndex:ZER0];
                     R.location = IC.location;
                     IC = [globalICsBefore objectAtIndex:depth-1];
                     R.length = IC.nextLocation - R.location;
@@ -798,7 +798,7 @@ add_the_comment_sequence_and_white_header:
                 } else /* (depth + globalICsBefore.indentationDepthBefore4iTM3) < expectedDepth */ {
                     //  Everything from globalICsBefore is kept
                     if (globalICsBefore.count) {
-                        IC = [globalICsBefore objectAtIndex:0];
+                        IC = [globalICsBefore objectAtIndex:ZER0];
                         R.location = IC.location;
                     } else {
                         //  there is nothing in globalICsBefore
@@ -847,8 +847,8 @@ break_and_return:
                             }
                         } 
                         //  end of the while loop when
-                        //  either depth == 0 or no more objects available
-                        //  as changeInDepth<0, the only possibility is depth = 0
+                        //  either depth == ZER0 or no more objects available
+                        //  as changeInDepth<ZER0, the only possibility is depth = ZER0
                         R.length = IC.nextLocation - R.location;
                         S = [globalS substringWithRange:R];
                         [currentPrefix appendString:S];
@@ -876,7 +876,7 @@ add_macro_comment:
                 //  due to the fact that globalICsActer is void
                 //  globalICsBefore.indentationDepthBefore4iTM3 >= expectedDepth > depth
                 //  as a consequence, globalICsBefore is not void
-                IC = [globalICsBefore objectAtIndex:0];
+                IC = [globalICsBefore objectAtIndex:ZER0];
                 R.location = IC.location;
                 IC = [globalICsBefore objectAtIndex:expectedDepth-depth-1];
                 R.length = IC.nextLocation - R.location;
@@ -890,7 +890,7 @@ add_macro_comment:
             goto terminate_and_return_currentPrefix;
         } else /* !keepComment && expectedDepth */
         if (expectedDepth <= globalICsBefore.indentationDepthBefore4iTM3) {
-            IC = [globalICsBefore objectAtIndex:0];
+            IC = [globalICsBefore objectAtIndex:ZER0];
             R.location = IC.location;
             IC = [globalICsBefore objectAtIndex:expectedDepth-1];
             R.length = IC.nextLocation - R.location;
@@ -899,7 +899,7 @@ add_macro_comment:
             goto terminate_and_return_currentPrefix;
         } else /* expectedDepth > globalICsBefore.indentationDepthBefore4iTM3 */ {
             //  the indentation components before any comment are kept
-            IC = globalICsBefore.indentationDepthBefore4iTM3? [globalICsBefore objectAtIndex:0]:globalCommentIC;
+            IC = globalICsBefore.indentationDepthBefore4iTM3? [globalICsBefore objectAtIndex:ZER0]:globalCommentIC;
             R.location = IC.location;
             //  missing depth:
             depth = expectedDepth - globalICsBefore.indentationDepthBefore4iTM3;
@@ -946,7 +946,7 @@ add_macro_comment:
             UNREACHABLE_CODE4iTM3;
             goto terminate_and_return_currentPrefix;
         }
-    } else /* if (changeInDepth >= 0) */ 
+    } else /* if (changeInDepth >= ZER0) */ 
     if (!macroDepth || !changeInDepth) {
         //  nothing to add
         //  Keep the indentation as is
@@ -966,7 +966,7 @@ add_macro_comment:
         //  How Do I manage the last global indentation component
         //  If this last component is uncomplete, I should skip its last part.
         //  The problem is whether this component has a depth or not
-        if (IC = globalICsBefore.count? [globalICsBefore objectAtIndex:0]:globalCommentIC) {
+        if (IC = globalICsBefore.count? [globalICsBefore objectAtIndex:ZER0]:globalCommentIC) {
             //  There is a last object
             R.location = IC.location;
             IC = globalICsAfter.lastObject?:globalICsBefore.lastObject;
@@ -1011,7 +1011,7 @@ add_macro_comment:
             } else {
                 depth = changeInDepth;
             }
-        } else /* if (!(globalICsBefore.count? [globalICsBefore objectAtIndex:0]:globalCommentIC)) */ {
+        } else /* if (!(globalICsBefore.count? [globalICsBefore objectAtIndex:ZER0]:globalCommentIC)) */ {
             //  Nothing in the global indentation
             depth = changeInDepth;
         }
@@ -1020,7 +1020,7 @@ add_macro_comment:
         //  Preserve the remainder
         IC = macroICsAfter.lastObject?:macroICsBefore.lastObject;
         if (length = IC.length % self.numberOfSpacesPerTab) {
-            S = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
+            S = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:ZER0];
             [currentPrefix appendString:S];
         }
     }
@@ -1067,11 +1067,11 @@ To Do List:
     NSString * reference = [LS string];
     NSMutableArray * mra;
     iTM2StringController * SC = self.stringController4iTM3;
-    if (i+selections.count<0) {
+    if (i+selections.count<ZER0) {
         i = NSNotFound;// default value
     } else if (i>=selections.count) {
         i = NSNotFound;// default value
-    } else if (i<0) {
+    } else if (i<ZER0) {
         i = selections.count+i;
     }
     NSMutableArray * ICsBefore = nil;
@@ -1093,7 +1093,7 @@ To Do List:
                 [mra addObject:@""];
             }
             lineRange = selectedRange;
-            lineRange.length = 0;
+            lineRange.length = ZER0;
             //  get the first indentation components:
             //  start with the full range of the first line
             [reference getLineStart:&lineRange.location end:NULL contentsEnd:NULL forRange:lineRange];
@@ -1138,7 +1138,7 @@ To Do List:
         //  we duplicate what is done above adapting to the local context
         reference = [defaultValue substringWithRange:[rangeValue rangeValue]];
         if ([reference isKindOfClass:[NSString class]]) {
-            selectedRange = iTM3MakeRange(0,reference.length);
+            selectedRange = iTM3MakeRange(ZER0,reference.length);
             // this is the first time we use this selection
             // we build the selection as an array of components
             // and we replace the range with that array
@@ -1200,11 +1200,11 @@ To Do List:
     }
     //  Where do I insert the macro? in affectedCharRange or in the pasteboard.
     //  This affects the indentation.
-    //  We assume that the given inserted macro corresponds to a 0 indentation level
-    //  so we must edit it if the actual indentation level at the insertiong point is > 0
+    //  We assume that the given inserted macro corresponds to a ZER0 indentation level
+    //  so we must edit it if the actual indentation level at the insertiong point is > ZER0
     NSString * globalS = self.string;
     iTM2LiteScanner * LS = [iTM2LiteScanner scannerWithString:globalS charactersToBeSkipped:nil];
-    NSRange R = iTM3MakeRange(0,0);
+    NSRange R = iTM3MakeRange(ZER0,ZER0);
     NSMutableArray * globalICsBefore = nil;
     NSMutableArray * globalICsAfter = nil;
     if (affectedCharRange.location<globalS.length) {// paste in the text
@@ -1216,7 +1216,7 @@ To Do List:
         LS.scanLocation = R.location;
         LS.scanLimit = affectedCharRange.location;
         [SC getIndentationComponents:&globalICsBefore:&globalICsAfter withScanner:LS];
-        R = iTM3MakeRange(0,0);
+        R = iTM3MakeRange(ZER0,ZER0);
     }
     //  How do we insert the macro?
     //  1 - prepare the macro for further management
@@ -1274,7 +1274,7 @@ NSLog(@"components:<%@>",macroComponents);
         //  This is the beginning of macro: copy as is
         NSRange macroRange = [V rangeValue];
         macroRange.length = iTM3MaxRange(macroRange);
-        macroRange.location = 0;
+        macroRange.location = ZER0;
         NSString * S = [macro substringWithRange:macroRange];
         [MRA addObject:S];//    S = nil
         NSRange RR = [globalICsBefore indentationRange4iTM3];
@@ -1492,7 +1492,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSRange range = iTM3MakeRange(0,0);
+	NSRange range = iTM3MakeRange(ZER0,ZER0);
 	range.location = self.string.length;
     [self insertMacro4iTM3:argument inRange:range];
     return;
@@ -1506,7 +1506,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSRange range = iTM3MakeRange(0,0);
+	NSRange range = iTM3MakeRange(ZER0,ZER0);
 	range.length = self.string.length;
     [self insertMacro4iTM3:argument inRange:range];
     return;
@@ -1520,7 +1520,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSRange range = iTM3MakeRange(0,0);
+	NSRange range = iTM3MakeRange(ZER0,ZER0);
     [self insertMacro4iTM3:argument inRange:range];
     return;
 }
@@ -1535,7 +1535,7 @@ To Do List:
 //START4iTM3;
 	NSRange range = self.selectedRange;
 	range.location = iTM3MaxRange(range);
-	range.length = 0;
+	range.length = ZER0;
     [self insertMacro4iTM3:argument inRange:range];
     return;
 }
@@ -1561,7 +1561,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSRange range = self.selectedRange;
-	range.length = 0;
+	range.length = ZER0;
     [self insertMacro4iTM3:argument inRange:range];
     return;
 }
@@ -1575,7 +1575,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSRange range = self.selectedRange;
-	range.length = 0;
+	range.length = ZER0;
 	NSTextStorage * TS = self.textStorage;
 	[TS getLineStart:&range.location end:nil contentsEnd:nil forRange:range];
     [self insertMacro4iTM3:argument inRange:range];
@@ -1591,7 +1591,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSRange range = self.selectedRange;
-	range.length = 0;
+	range.length = ZER0;
 	NSTextStorage * TS = self.textStorage;
 	[TS getLineStart:&range.location end:&range.length contentsEnd:nil forRange:range];
 	range.length -= range.location;
@@ -1608,7 +1608,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSRange range = self.selectedRange;
-	range.length = 0;
+	range.length = ZER0;
 	NSTextStorage * TS = self.textStorage;
 	[TS getLineStart:nil end:nil contentsEnd:&range.location forRange:range];
     [self insertMacro4iTM3:argument inRange:range];
@@ -1623,7 +1623,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSRange range = iTM3MakeRange(NSNotFound,0);
+	NSRange range = iTM3MakeRange(NSNotFound,ZER0);
     [self insertMacro4iTM3:argument inRange:range];
     return;
 }
@@ -1646,9 +1646,9 @@ To Do List:
 	NSString * startType = nil;
 	NSString * stopType = nil;
 	NSString * copyString = nil;
-	NSRange startRange = iTM3MakeRange(0,0);
-	NSRange stopRange = iTM3MakeRange(0,0);
-	NSRange copyRange = iTM3MakeRange(0,0);
+	NSRange startRange = iTM3MakeRange(ZER0,ZER0);
+	NSRange stopRange = iTM3MakeRange(ZER0,ZER0);
+	NSRange copyRange = iTM3MakeRange(ZER0,ZER0);
 	NSString * perlEscapedSelection = nil;
 	NSString * perlEscapedLine = nil;
 	NSString * perlEscapedAll = nil;
@@ -2061,7 +2061,7 @@ nextStopRange:
 		if (![replacementString hasPrefix:@"#!/usr/bin/env perl"]
 			&& ![replacementString hasPrefix:@"#!/usr/bin/perl"])
 		{
-			[replacementString insertString:@"#!/usr/bin/env perl -w\n" atIndex:0];
+			[replacementString insertString:@"#!/usr/bin/env perl -w\n" atIndex:ZER0];
 		}
 	}
 	else if (RUBY)
@@ -2069,7 +2069,7 @@ nextStopRange:
 		if (![replacementString hasPrefix:@"#!/usr/bin/env ruby"]
 			&& ![replacementString hasPrefix:@"#!/usr/bin/ruby"])
 		{
-			[replacementString insertString:@"#!/usr/bin/env ruby\n" atIndex:0];
+			[replacementString insertString:@"#!/usr/bin/env ruby\n" atIndex:ZER0];
 		}
 	}
 //END4iTM3;
@@ -2094,9 +2094,9 @@ To Do List:
 	NSString * startType = nil;
 	NSString * stopType = nil;
 	NSString * copyString = nil;
-	NSRange startRange = iTM3MakeRange(0,0);
-	NSRange stopRange = iTM3MakeRange(0,0);
-	NSRange copyRange = iTM3MakeRange(0,0);
+	NSRange startRange = iTM3MakeRange(ZER0,ZER0);
+	NSRange stopRange = iTM3MakeRange(ZER0,ZER0);
+	NSRange copyRange = iTM3MakeRange(ZER0,ZER0);
 	NSString * perlEscapedSelection = nil;
 	NSString * perlEscapedLine = nil;
 	NSString * perlEscapedAll = nil;
@@ -2508,7 +2508,7 @@ nextStopRange:
 		if (![replacementString hasPrefix:@"#!/usr/bin/env perl"]
 			&& ![replacementString hasPrefix:@"#!/usr/bin/perl"])
 		{
-			[replacementString insertString:@"#!/usr/bin/env perl -w\n" atIndex:0];
+			[replacementString insertString:@"#!/usr/bin/env perl -w\n" atIndex:ZER0];
 		}
 	}
 	else if (RUBY)
@@ -2516,7 +2516,7 @@ nextStopRange:
 		if (![replacementString hasPrefix:@"#!/usr/bin/env ruby"]
 			&& ![replacementString hasPrefix:@"#!/usr/bin/ruby"])
 		{
-			[replacementString insertString:@"#!/usr/bin/env ruby\n" atIndex:0];
+			[replacementString insertString:@"#!/usr/bin/env ruby\n" atIndex:ZER0];
 		}
 	}
 //END4iTM3;

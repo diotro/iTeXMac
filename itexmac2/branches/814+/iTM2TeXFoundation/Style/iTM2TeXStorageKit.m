@@ -512,8 +512,8 @@ To Do List:
 		[TS addLayoutManager:LM]; 
 		NSMutableDictionary * result = [NSMutableDictionary dictionary];
 		NSString * S = [TS string];
-		NSUInteger start = 0, contentsEnd;
-		NSRange R = iTM3MakeRange(0,0);
+		NSUInteger start = ZER0, contentsEnd;
+		NSRange R = iTM3MakeRange(ZER0,ZER0);
 		while (start<S.length) {
 			[S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
 			if((contentsEnd-start>2) && ([S characterAtIndex:start+1]=='=')) {
@@ -567,8 +567,8 @@ To Do List:
 		[TS addLayoutManager:LM]; 
 		NSMutableDictionary * result = [NSMutableDictionary dictionary];
 		NSString * S = [TS string];
-		NSUInteger start = 0, contentsEnd;
-		NSRange R = iTM3MakeRange(0,0);
+		NSUInteger start = ZER0, contentsEnd;
+		NSRange R = iTM3MakeRange(ZER0,ZER0);
 		while (start<S.length) {
 			[S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
 			if ((contentsEnd-start>2) && ([S characterAtIndex:start+1]=='=')) {
@@ -603,7 +603,7 @@ To Do List: NYI
 //START4iTM3;
 //LOG4iTM3(@"stylePath: %@", stylePath);
     NSParameterAssert(styleURL);
-    for(NSURL * url in [DFM contentsOfDirectoryAtURL:styleURL includingPropertiesForKeys:[NSArray array] options:0 error:NULL]) {
+    for(NSURL * url in [DFM contentsOfDirectoryAtURL:styleURL includingPropertiesForKeys:[NSArray array] options:ZER0 error:NULL]) {
         if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
             NSDictionary * attributes = nil;
 			if([url.lastPathComponent isEqualToFileName4iTM3:[iTM2TextAttributesModesComponent stringByAppendingPathExtension:iTM2TextAttributesPathExtension]]) {
@@ -656,7 +656,7 @@ To Do List:
 		AS = [[[NSAttributedString alloc] initWithString:S] autorelease];
 		[MAS appendAttributedString:AS];
 	}
-	NSData * data = [MAS dataFromRange:iTM3MakeRange(0,MAS.length) documentAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+	NSData * data = [MAS dataFromRange:iTM3MakeRange(ZER0,MAS.length) documentAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
 		NSRTFTextDocumentType, NSDocumentTypeDocumentAttribute, nil] error:nil];
 //END4iTM3;
 	return [data writeToURL:fileURL options:NSAtomicWrite error:nil];

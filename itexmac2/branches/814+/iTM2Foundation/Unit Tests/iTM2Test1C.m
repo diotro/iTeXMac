@@ -60,9 +60,9 @@
     //  then test if those projects are known by the shared project controller
     iTM2ProjectController * PC = nil;
     PC = [[iTM2ProjectController alloc] init];
-    STAssertTrue(PC.projects.count == 0,@"MISSED",nil);
+    STAssertTrue(PC.projects.count == ZER0,@"MISSED",nil);
     //  As default value, the various locations where we look for project are:
-    STAssertTrue(PC.orderedBaseProjectNames.count == 0,@"MISSED",nil);
+    STAssertTrue(PC.orderedBaseProjectNames.count == ZER0,@"MISSED",nil);
     [PC performSelector:@selector(updateBaseProjectsNotified:) withObject:nil];
     
     return;
@@ -75,7 +75,7 @@
     //  then test if those projects are known by the shared project controller
     iTM2ProjectController * PC = nil;
     PC = [[iTM2ProjectController alloc] init];
-    STAssertTrue(PC.projects.count == 0,@"MISSED",nil);
+    STAssertTrue(PC.projects.count == ZER0,@"MISSED",nil);
     //  As default value, the various locations where we look for project are:
     
     return;

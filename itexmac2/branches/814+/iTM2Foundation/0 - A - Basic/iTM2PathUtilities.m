@@ -55,7 +55,7 @@ NSString * const iTM2RegExpURLFragmentName = @"fragment";
  "*/
 {//DIAGNOSTIC4iTM3;
 	//START4iTM3;
-	NSParameterAssert(appName.length>0);
+	NSParameterAssert(appName.length>ZER0);
     NSMutableArray * MRA = [NSMutableArray array];
 #define ADD_OBJECT(DOMAIN)\
 if (domainMask&DOMAIN)\
@@ -80,9 +80,9 @@ stringByResolvingSymlinksAndFinderAliasesInPath4iTM3] stringByAppendingPathCompo
         if (PCs.count>count) {
             NSMutableArray * MRA = [[PCs mutableCopy] autorelease];
             while (count--) {
-                [MRA removeObjectAtIndex:0];
+                [MRA removeObjectAtIndex:ZER0];
             }
-            [MRA insertObject:iTM2PathComponentDot atIndex:0];
+            [MRA insertObject:iTM2PathComponentDot atIndex:ZER0];
             [MRA addObject:iTM2PathComponentDot];
             supportDirectoryRelativePath4iTM3 = [NSString pathWithComponents: MRA];
         } else {
@@ -107,7 +107,7 @@ stringByResolvingSymlinksAndFinderAliasesInPath4iTM3] stringByAppendingPathCompo
  "*/
 {//DIAGNOSTIC4iTM3;
 	//START4iTM3;
-	NSParameterAssert(appName.length>0);
+	NSParameterAssert(appName.length>ZER0);
     NSMutableArray * MRA = [NSMutableArray array];
     if (domainMask) {
         NSURL * url = nil;
@@ -338,7 +338,7 @@ To Do List:
         result = temp.stringByResolvingSymlinksInPath;
         result = [result stringByStandardizingPath];
         result = [result stringByResolvingFinderAliasesInPath4iTM3];
-    } while ((--firewall>0) && ![result pathIsEqual4iTM3:temp]);
+    } while ((--firewall>ZER0) && ![result pathIsEqual4iTM3:temp]);
 	[lazyStringByResolvingSymlinksAndFinderAliasesInPath_cache setObject:result forKey:self];
     return result;
 }
@@ -356,7 +356,7 @@ To Do List:
         NSArray * myComponents = self.pathComponents;
         NSArray * pathComponents = aPath.pathComponents;
         // common part
-        NSUInteger commonIdx = 0, index = 0;
+        NSUInteger commonIdx = ZER0, index = ZER0;
         NSUInteger bound = MIN(myComponents.count, pathComponents.count);
         while ((commonIdx < bound) &&
             [[myComponents objectAtIndex:commonIdx] pathIsEqual4iTM3:[pathComponents objectAtIndex:commonIdx]])
@@ -416,14 +416,14 @@ To Do List:
         }
     }
     if (components.count>1) {
-        component = [components objectAtIndex:0];
-        if ([[components objectAtIndex:0] isEqualToString:iTM2PathComponentDot]
+        component = [components objectAtIndex:ZER0];
+        if ([[components objectAtIndex:ZER0] isEqualToString:iTM2PathComponentDot]
                 && ![[components objectAtIndex:1] isEqualToString:iTM2PathComponentsSeparator]) {
-            [components removeObjectAtIndex:0];
+            [components removeObjectAtIndex:ZER0];
         }
     }
     if (components.count == 1) {
-        component = [components objectAtIndex:0];
+        component = [components objectAtIndex:ZER0];
         if ([component isEqualToString:iTM2PathComponentDot] || [component isEqualToString:iTM2PathComponentDoubleDot]) {
             [components addObject:@""];
         }
@@ -439,7 +439,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {//DIAGNOSTIC4iTM3;
-    NSUInteger newLength = self.length, length = 0;
+    NSUInteger newLength = self.length, length = ZER0;
     do
     {
         length = newLength;
@@ -535,7 +535,7 @@ Latest Revision: Thu Mar 18 08:51:42 UTC 2010
             && !result.isDirectoryPath4iTM3) {
 		result = [result stringByAppendingString:iTM2PathComponentsSeparator];
 	}
-	if (components.count>1 && [[components objectAtIndex:0] isEqual:@""]) {
+	if (components.count>1 && [[components objectAtIndex:ZER0] isEqual:@""]) {
 		result = [iTM2PathComponentsSeparator stringByAppendingString:result];
 	}
 	//END4iTM3;
@@ -1389,3 +1389,118 @@ To Do List:
 }
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PATHServer
+#include <sys/xattr.h>
+#if 0
+/* Options for pathname based xattr calls */
+#define XATTR_NOFOLLOW   0x0001     /* Don't follow symbolic links */
+
+/* Options for setxattr calls */
+#define XATTR_CREATE     0x0002     /* set the value, fail if attr already exists */
+#define XATTR_REPLACE    0x0004     /* set the value, fail if attr does not exist */
+
+/* Set this to bypass authorization checking (eg. if doing auth-related work) */
+#define XATTR_NOSECURITY 0x0008
+
+/* Set this to bypass the default extended attribute file (dot-underscore file) */
+#define XATTR_NODEFAULT  0x0010
+
+/* option for f/getxattr() and f/listxattr() to expose the HFS Compression extended attributes */
+#define XATTR_SHOWCOMPRESSION 0x0020
+
+#define	XATTR_MAXNAMELEN   127
+
+#define	XATTR_FINDERINFO_NAME	  "com.apple.FinderInfo"
+
+#define	XATTR_RESOURCEFORK_NAME	  "com.apple.ResourceFork"
+#endif
+@implementation NSURL (xattrs4iTM3)
+
+- (NSData *) getXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)outErrorPtr;
+{
+    if (self.isFileURL) {
+        const char * path = self.path.UTF8String;
+        const char * N = name.UTF8String;
+        int Os = options;
+        ssize_t S = getxattr(path, N, nil, 0, 0, Os);
+        if (S == ZER0) return [NSData data];
+        if (S > ZER0) {
+            NSMutableData * MD = [NSMutableData dataWithLength:S];
+            if (S == getxattr(path, N, MD.mutableBytes, MD.length, 0, Os)) return MD.copy;
+        } 
+        OUTERROR4iTM3(errno,self.lastXtdAttributes4iTM3ErrorStatus,NULL);
+    }
+    return nil;
+} 
+- (BOOL) setXtdAttribute4iTM3:(NSData *)data forName:(NSString *)name options:(NSUInteger)options error:(NSError **)outErrorPtr;
+{
+    if (self.isFileURL) {
+        const char * path = self.path.UTF8String;
+        const char * N = name.UTF8String;
+        int Os = options;
+        int anError = setxattr(path, N, data.bytes, data.length,0, Os);
+        if (!anError) return YES;
+        OUTERROR4iTM3(errno,self.lastXtdAttributes4iTM3ErrorStatus,NULL);
+    }
+    return NO;
+} 
+- (BOOL) removeXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)outErrorPtr;
+{
+    if (self.isFileURL) {
+        const char * path = self.path.UTF8String;
+        const char * N = name.UTF8String;
+        int Os = options;
+        int anError = removexattr(path, N, Os);
+        if (!anError) return YES;
+        OUTERROR4iTM3(errno,self.lastXtdAttributes4iTM3ErrorStatus,NULL);
+    }
+    return NO;
+}
+- (NSArray *) getXtdAttributeNames4iTM3WithOptions:(NSUInteger) options error:(NSError **)outErrorPtr
+{
+    if (self.isFileURL) {
+        const char * path = self.path.UTF8String;
+        int Os = options;
+        ssize_t S =  listxattr(path, NULL,0, Os);
+        if (S == ZER0) return [NSArray array];
+        if (S>ZER0) {
+            NSMutableData * MD = [NSMutableData dataWithLength:S];
+            if (S == listxattr(path, MD.mutableBytes, S, Os)) {
+                NSMutableArray * MRA = [NSMutableArray array];
+                char * ptr = MD.mutableBytes;
+                char * end = ptr + MD.length;
+                while(ptr < end) {
+                    NSString * name = [NSString stringWithUTF8String:ptr];
+                    ptr += name.length+1; // +1 for the null terminating character
+                    [MRA addObject:name];
+                }
+                return MRA.copy;
+            }
+        }
+        OUTERROR4iTM3(errno,self.lastXtdAttributes4iTM3ErrorStatus,NULL);
+    }
+    return nil;
+}
+- (NSString *) lastXtdAttributes4iTM3ErrorStatus;
+{
+    switch (errno) {
+        case ENOENT:  return [NSString stringWithFormat:@"No such file or directory.\n%@.",self];
+        case EEXIST:  return [NSString stringWithFormat:@"options contains XATTR_CREATE and the named attribute already exists.\n%@.",self];
+        case ENOATTR: return [NSString stringWithFormat:@"The extended attribute does not exist.\n%@",self];
+        case ENOTSUP: return [NSString stringWithFormat:@"The file system does not support extended attributes or has the feature disabled.\n%@",self];
+        case EROFS:   return [NSString stringWithFormat:@"The file system is mounted read-only.\n%@",self];
+        case ERANGE:  return [NSString stringWithFormat:@"value (as indicated by size) is too small to hold the extended attribute data.\n%@",self];
+        case EPERM:   return [NSString stringWithFormat:@"The named attribute is not permitted for this type of object.\n%@",self];
+        case EINVAL:  return [NSString stringWithFormat:@"name is invalid or options has an unsupported bit set.\n%@",self];
+        case EISDIR:  return [NSString stringWithFormat:@"path or fd do not refer to a regular file and the attribute in question is only applicable to files. Similar to EPERM.\n%@",self];
+        case ENOTDIR: return [NSString stringWithFormat:@"A component of path 's prefix is not a directory.\n%@",self];
+        case ENAMETOOLONG: return [NSString stringWithFormat:@"The length of name exceeds XATTR_MAXNAMELEN UTF-8 bytes, or a component of path exceeds NAME_MAX characters, or the entire path exceeds PATH_MAX characters.\n%@",self];
+        case EACCES:  return [NSString stringWithFormat:@"Search permission is denied for a component of path or the attribute is not allowed to be read (e.g. an ACL prohibits reading the attributes of this file).\n%@",self];
+        case ELOOP:   return [NSString stringWithFormat:@"Too many symbolic links were encountered in translating the pathname.\n%@",self];
+        case EFAULT:  return [NSString stringWithFormat:@"path or name points to an invalid address.\n%@",self];
+        case EIO:     return [NSString stringWithFormat:@"An I/O error occurred while reading from or writing to the file system.\n%@",self];
+        case E2BIG:   return [NSString stringWithFormat:@"The data size of the extended attribute is too large.\n%@",self];
+        case ENOSPC:  return [NSString stringWithFormat:@"Not enough space left on the file system.\n%@",self];
+        default:      return [NSString stringWithFormat:@"Other error.\n%@",self];
+    }
+}
+@end

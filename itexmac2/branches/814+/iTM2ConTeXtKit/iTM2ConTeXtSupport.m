@@ -171,7 +171,7 @@ DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
 + (NSToolbarItem *)ConTeXtAtGardenToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier4iTM3:[self identifierFromSelector4iTM3:_cmd] inBundle:[iTM2ConTeXtInspector classBundle4iTM3]];
-	NSRect frame = NSMakeRect(0, 0, 32, 32);
+	NSRect frame = NSMakeRect(ZER0, ZER0, 32, 32);
 	iTM2MixedButton * B = [[[iTM2MixedButton alloc] initWithFrame:frame] autorelease];
 	[B setButtonType:NSMomentaryChangeButton];
 //	[B setButtonType:NSOnOffButton];
@@ -187,9 +187,9 @@ DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
 	[B.cell setBackgroundColor:[NSColor clearColor]];
 	NSURL * url = [[[[NSBundle mainBundle] allURLsForResource4iTM3:@"iTM2ConTeXtGardenMainPageAbstract" withExtension:@"xml"] objectEnumerator] nextObject];
 	if (url.isFileURL) {
-		NSXMLDocument * document = [[NSXMLDocument alloc] initWithContentsOfURL:url options:0 error:nil];
+		NSXMLDocument * document = [[NSXMLDocument alloc] initWithContentsOfURL:url options:ZER0 error:nil];
 		NSMenu * M = [NSMenu menuWithConTeXtGardenXMLElements:[[document rootElement] children]];
-		[M insertItem:[[NSMenuItem alloc] initWithTitle:@"COUCOU" action:NULL keyEquivalent:@""] atIndex:0];
+		[M insertItem:[[NSMenuItem alloc] initWithTitle:@"COUCOU" action:NULL keyEquivalent:@""] atIndex:ZER0];
 		NSPopUpButton * PB = [[NSPopUpButton alloc] initWithFrame:NSZeroRect];
 		[PB setMenu:M];
 		[PB setPullsDown:YES];
@@ -202,7 +202,7 @@ DEFINE_TOOLBAR_ITEM(ConTeXtPragmaADEToolbarItem)
 + (NSToolbarItem *)ConTeXtManualsToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier4iTM3:[self identifierFromSelector4iTM3:_cmd] inBundle:[iTM2ConTeXtInspector classBundle4iTM3]];
-	NSRect frame = NSMakeRect(0, 0, 32, 32);
+	NSRect frame = NSMakeRect(ZER0, ZER0, 32, 32);
 	iTM2MixedButton * B = [[[iTM2MixedButton alloc] initWithFrame:frame] autorelease];
 	[B setButtonType:NSMomentaryChangeButton];
 //	[B setButtonType:NSOnOffButton];
@@ -570,7 +570,7 @@ To Do List:
                             }
                         }
                     }
-                    [[M itemAtIndex:0] setTitle:title];
+                    [[M itemAtIndex:ZER0] setTitle:title];
                     self.title = title;// will raise if the menu is void
                     [self setMenu:M];
                 } else {
@@ -649,7 +649,7 @@ To Do List:
                             }
                         }
                     }
-                    [[M itemAtIndex:0] setTitle:title];
+                    [[M itemAtIndex:ZER0] setTitle:title];
                     self.title = title;// will raise if the menu is void
                     [self setMenu:M];
                 } else {
@@ -879,9 +879,9 @@ To Do List:
 //START4iTM3;
 	NSInteger tag = sender.tag;
 	NSString * S = [self.textStorage string];
-	if (tag>=0 && tag<S.length) {
+	if (tag>=ZER0 && tag<S.length) {
 		NSUInteger begin, end;
-		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, 0)];
+		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, ZER0)];
 		[self highlightAndScrollToVisibleRange:iTM3MakeRange(begin, end-begin)];
 	}
 //END4iTM3;
@@ -1025,10 +1025,10 @@ To Do List:
 //START4iTM3;
 	NSInteger tag = sender.tag;
 	NSString * S = [self.textStorage string];
-	if(tag>=0 && tag<S.length)
+	if(tag>ZER0&& tag<S.length)
 	{
 		NSUInteger begin, end;
-		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag, 0)];
+		[S getLineStart: &begin end: &end contentsEnd:nil forRange:iTM3MakeRange(tag,ZER0)];
 		[self highlightAndScrollToVisibleRange:iTM3MakeRange(begin, end-begin)];
 	}
 //END4iTM3;
@@ -1379,15 +1379,15 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    BOOL withGraphics = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=0;
+    BOOL withGraphics = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=ZER0;
     NSMenu * sectionMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     NSString * S = self.string;
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-    NSUInteger scanLocation = 0, end = S.length;
-    NSUInteger sectionCount = 0, subsectionCount = 0, subsubsectionCount = 0;
+    NSUInteger scanLocation = ZER0, end = S.length;
+    NSUInteger sectionCount = ZER0, subsectionCount = ZER0, subsubsectionCount = ZER0;
     next:
     if (scanLocation < end) {
-        NSInteger depth = 0;
+        NSInteger depth = ZER0;
         #define partDepth 1
         #define chapterDepth 2
         #define sectionDepth 3
@@ -1403,7 +1403,7 @@ To Do List:
             if(++scanLocation < end)
             {
                 theChar = [S characterAtIndex:scanLocation];
-                NSRange R1 = iTM3MakeRange(0, 0);
+                NSRange R1 = iTM3MakeRange(ZER0,ZER0);
                 if(theChar == 's')
                 {
                     if(++scanLocation < end)
@@ -1493,14 +1493,14 @@ To Do List:
                                     NSString * title = [NSString stringWithFormat:@"input: %@", object];
                                     title = (title.length > 48)?
                                                     [NSString stringWithFormat:@"%@[...]",
-                                                            [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                            [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                     if(title.length)
                                     {
                                         NSMenuItem * MI = [sectionMenu addItemWithTitle: title
                                                                 action: @selector(scrollInputToVisible:)
                                                                     keyEquivalent: [NSString string]];
                                         MI.representedObject = object;
-                                        [MI setEnabled: (sectionMenu.title.length > 0)];
+                                        [MI setEnabled: (sectionMenu.title.length > ZER0)];
                                     }
                                 }
                             }
@@ -1562,14 +1562,14 @@ To Do List:
                                             NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                             title = (title.length > 48)?
                                                             [NSString stringWithFormat:@"%@[...]",
-                                                                    [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                                    [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                             if(!title.length)
                                                 title = @"?";
                                             NSMenuItem * MI = [sectionMenu addItemWithTitle: title
                                                                     action: selector keyEquivalent: [NSString string]];
                                             MI.tag = scanLocation;
                                             MI.representedObject = object;
-                                            [MI setEnabled: (sectionMenu.title.length > 0)];
+                                            [MI setEnabled: (sectionMenu.title.length > ZER0)];
                                             goto manihi;
                                         }
                                     }
@@ -1633,22 +1633,22 @@ manihi:
                         {
                             case partDepth:
                                 prefix = @"Part: ";
-                                sectionCount = subsectionCount = subsubsectionCount = 0;
+                                sectionCount = subsectionCount = subsubsectionCount = ZER0;
                                 break;
                             case chapterDepth:
                                 prefix = @"Chap: ";
-                                sectionCount = subsectionCount = subsubsectionCount = 0;
+                                sectionCount = subsectionCount = subsubsectionCount = ZER0;
                                 break;
                             default:
                                 prefix = @"";
                                 break;
                             case sectionDepth:
                                 prefix = [NSString stringWithFormat:@"%d. ", ++sectionCount];
-                                subsectionCount = subsubsectionCount = 0;
+                                subsectionCount = subsubsectionCount = ZER0;
                                 break;
                             case subsectionDepth:
                                 prefix = [NSString stringWithFormat:@"%d.%c. ", sectionCount, ++subsectionCount+'a'-1];
-                                subsubsectionCount = 0;
+                                subsubsectionCount = ZER0;
                                 break;
                             case subsubsectionDepth:
                                 prefix = [NSString stringWithFormat:@"%d.%c.%d. ", sectionCount, subsectionCount+'a'-1, ++subsubsectionCount];
@@ -1671,14 +1671,14 @@ manihi:
                         title = [NSString stringWithFormat:@"%@%@", prefix, object];
                         title = (title.length > 48)?
                                         [NSString stringWithFormat:@"%@[...]",
-                                                [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                         if(!title.length)
                             title = @"?";
                         NSMenuItem * MI = [sectionMenu addItemWithTitle: title
                                                 action: @selector(scrollTaggedToVisible:) keyEquivalent: [NSString string]];
                         MI.tag = scanLocation;
                         MI.representedObject = object;
-                        [MI setEnabled: (sectionMenu.title.length > 0)];
+                        [MI setEnabled: (sectionMenu.title.length > ZER0)];
                         scanLocation = [scan scanLocation];
                         goto next;
                     }
@@ -1723,7 +1723,7 @@ To Do List: ...
 
     NSString * S = self.string;
     iTM2LiteScanner * scan = [iTM2LiteScanner scannerWithString:S charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-    NSUInteger scanLocation = 0, end = S.length;
+    NSUInteger scanLocation = ZER0, end = S.length;
     unichar theChar;
     while(scanLocation < end)
     {
@@ -1753,7 +1753,7 @@ To Do List: ...
                                 object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];                            
                                 NSString * title = (object.length > 48)?
                                                         [NSString stringWithFormat:@"%@[...]",
-                                                            [object substringWithRange:iTM3MakeRange(0,43)]]: object;
+                                                            [object substringWithRange:iTM3MakeRange(ZER0,43)]]: object;
                                 if(title.length)
                                 {
                                     NSMenuItem * MI = [labelMenu addItemWithTitle: title
@@ -1761,7 +1761,7 @@ To Do List: ...
                                                                 keyEquivalent: [NSString string]];
                                     MI.tag = R2.location;
                                     MI.representedObject = object;
-                                    [MI setEnabled: (labelMenu.title.length > 0)];
+                                    [MI setEnabled: (labelMenu.title.length > ZER0)];
                                 }
                             }
                         }
@@ -1787,7 +1787,7 @@ To Do List: ...
                                 object = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];                            
                                 NSString * title = (object.length > 48)?
                                                         [NSString stringWithFormat:@"%@[...]",
-                                                            [object substringWithRange:iTM3MakeRange(0,43)]]: object;
+                                                            [object substringWithRange:iTM3MakeRange(ZER0,43)]]: object;
                                 if(title.length)
                                 {
                                     NSMenuItem * MI = [refMenu addItemWithTitle: title
@@ -1795,7 +1795,7 @@ To Do List: ...
                                                                 keyEquivalent: [NSString string]];
                                     MI.tag = R2.location;
                                     MI.representedObject = object;
-                                    [MI setEnabled: (refMenu.title.length > 0)];
+                                    [MI setEnabled: (refMenu.title.length > ZER0)];
                                 }
                             }
                         }
@@ -1823,12 +1823,12 @@ To Do List: ...
                                 NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                 title = (title.length > 48)?
                                                 [NSString stringWithFormat:@"%@[...]",
-                                                        [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                        [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                 if(title.length)
                                 {
                                     NSMenuItem * MI = [labelMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
                                     MI.representedObject = object;
-                                    [MI setEnabled: (labelMenu.title.length > 0)];
+                                    [MI setEnabled: (labelMenu.title.length > ZER0)];
                                 }
                             }
                         }
@@ -1853,12 +1853,12 @@ To Do List: ...
                                     NSString * title = [NSString stringWithFormat:@"%@: %@", prefix, object];
                                     title = (title.length > 48)?
                                                     [NSString stringWithFormat:@"%@[...]",
-                                                            [title substringWithRange:iTM3MakeRange(0,43)]]: title;
+                                                            [title substringWithRange:iTM3MakeRange(ZER0,43)]]: title;
                                     if(title.length)
                                     {
                                         NSMenuItem * MI = [labelMenu addItemWithTitle:title action:selector keyEquivalent:[NSString string]];
                                         MI.representedObject = object;
-                                        [MI setEnabled: (labelMenu.title.length > 0)];
+                                        [MI setEnabled: (labelMenu.title.length > ZER0)];
                                     }
                                 }
                             }
@@ -2362,7 +2362,7 @@ To Do List:
 		}
 	}
 //END4iTM3;
-	return result.numberOfItems > 0? result: nil;
+	return result.numberOfItems > ZER0? result: nil;
 }  
 @end
 
@@ -2376,7 +2376,7 @@ To Do List:
 + (NSToolbarItem *)ConTeXtLabelToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier4iTM3:[self identifierFromSelector4iTM3:_cmd] inBundle:[iTM2TeXProjectInspector classBundle4iTM3]];
-	NSRect frame = NSMakeRect(0, 0, 32, 32);
+	NSRect frame = NSMakeRectZEROZERO 32, 32);
 	iTM2MixedButton * B = [[[iTM2MixedButton alloc] initWithFrame:frame] autorelease];
 	[B setButtonType:NSMomentaryChangeButton];
 //	[B setButtonType:NSOnOffButton];
@@ -2400,7 +2400,7 @@ To Do List:
 + (NSToolbarItem *)ConTeXtSectionToolbarItem;
 {
 	NSToolbarItem * toolbarItem = [self toolbarItemWithIdentifier4iTM3:[self identifierFromSelector4iTM3:_cmd] inBundle:[iTM2TeXProjectInspector classBundle4iTM3]];
-	NSRect frame = NSMakeRect(0, 0, 32, 32);
+	NSRect frame = NSMakeRectZEROZERO 32, 32);
 	iTM2MixedButton * B = [[[iTM2MixedButton alloc] initWithFrame:frame] autorelease];
 	[B setButtonType:NSMomentaryChangeButton];
 //	[B setButtonType:NSOnOffButton];

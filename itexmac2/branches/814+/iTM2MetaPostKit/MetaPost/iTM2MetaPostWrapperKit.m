@@ -100,7 +100,7 @@ To Do List:
                 [NSNumber numberWithBool:NO], iTM2MetaPostUSEOutputDirectoryKey,
                 @"", iTM2MetaPostOutputDirectoryKey,
                 [NSNumber numberWithBool:YES], iTM2MetaPostConvertToPDFKey,
-                [NSNumber numberWithInteger:0], iTM2MetaPostPDFConverterKey,
+                [NSNumber numberWithInteger:ZER0], iTM2MetaPostPDFConverterKey,
 					nil];
 }
 #pragma mark =-=-=-=-=- FORMAT
@@ -192,7 +192,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostParseFirstLineKey,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != ZER0] forKeyPaths:iTM2MetaPostParseFirstLineKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchFormat:
@@ -205,7 +205,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	BOOL flag = [[self editInfo4iTM3ForKeyPaths:iTM2MetaPostParseFirstLineKey,nil] boolValue];
-    [sender selectCellWithTag: (flag? 1:0)];
+    [sender selectCellWithTag: (flag? 1:ZER0)];
 	if([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue] != flag)
 	{
 		[self setInfo4TM3:[NSNumber numberWithBool:flag] forKeyPaths:iTM2MetaPostPARSETranslationKey,nil];
@@ -407,7 +407,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != 0] forKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil];
+    [self setInfo4TM3:[NSNumber numberWithBool:[[sender selectedCell] tag] != ZER0] forKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateSwitchTeXFormat:
@@ -419,7 +419,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender selectCellWithTag: ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue]? 1:0)];
+    [sender selectCellWithTag: ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostTeXParseFirstLineKey,nil] boolValue]? 1:ZER0)];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleConvertToPDF:
@@ -515,7 +515,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [sender selectCellWithTag: ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue]? 1:0)];
+    [sender selectCellWithTag: ([[self editInfo4iTM3ForKeyPaths:iTM2MetaPostPARSETranslationKey,nil] boolValue]? 1:ZER0)];
     return NO;
 }
 #pragma mark =-=-=-=-=-  Advanced

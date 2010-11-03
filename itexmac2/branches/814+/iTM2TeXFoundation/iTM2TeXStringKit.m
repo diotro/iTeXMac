@@ -41,7 +41,7 @@ To Do List:implement some kind of balance range for range
 //START4iTM3;
 	NSString * itsString = [theAttributedString string];
 	unichar theChar = [itsString characterAtIndex:index];
-	NSRange R = iTM3MakeRange(NSNotFound,0);
+	NSRange R = iTM3MakeRange(NSNotFound,ZER0);
 	if([theSet characterIsMember:theChar])
 	{
 		R.location = index;
@@ -109,7 +109,7 @@ To Do List:implement some kind of balance range for range
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return iTM3MakeRange(NSNotFound,0);
+	return iTM3MakeRange(NSNotFound,ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareWordRangeInAttributedString:atIndex:
 - (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
@@ -156,7 +156,7 @@ expandToTheLeftAsLetters:
 				{
 					s = [itsString substringWithRange:r];
 					[iTM2StringController_TeX_RE setInputString:s];
-					if([iTM2StringController_TeX_RE matchesAtIndex:0 extendToTheEnd:YES])
+					if([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
 					{
 						R.location -= 5;
 						R.length += 5;
@@ -175,7 +175,7 @@ expandToTheLeftAsLetters:
 				commandIndex = R.location;
 				goto expandToTheLeftAsLetters;
 			}
-			if((R.location>0)
+			if((R.location>ZER0)
 				&& [itsString isControlAtIndex:R.location-1 escaped:&escaped]
 					&& !escaped)
 			{
@@ -208,7 +208,7 @@ expandToTheLeftAsLetters:
 			{
 				s = [itsString substringWithRange:r];
 				[iTM2StringController_TeX_RE setInputString:s];
-				if([iTM2StringController_TeX_RE matchesAtIndex:0 extendToTheEnd:YES])
+				if([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
 				{
 					R = r;
 					return R;
@@ -227,7 +227,7 @@ expandToTheRightAsLetters:
 			r = iTM3MakeRange(loc,5);
 			s = [itsString substringWithRange:r];
 			[iTM2StringController_TeX_RE setInputString:s];
-			if([iTM2StringController_TeX_RE matchesAtIndex:0 extendToTheEnd:YES])
+			if([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
 			{
 				R.length += 5;
 				goto expandToTheRightAsLetters;
@@ -304,7 +304,7 @@ expandToTheRightAsLetters:
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
-				r = [itsString rangeOfString:@"\\)" options:0 range:r];
+				r = [itsString rangeOfString:@"\\)" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -323,7 +323,7 @@ expandToTheRightAsLetters:
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
-				r = [itsString rangeOfString:@"\\]" options:0 range:r];
+				r = [itsString rangeOfString:@"\\]" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -341,8 +341,8 @@ expandToTheRightAsLetters:
 			else if(theChar==')')
 			{
 				//select the balancing stuff
-				r = iTM3MakeRange(0,index);
-				r = [itsString rangeOfString:@"\\(" options:0 range:r];
+				r = iTM3MakeRange(ZER0,index);
+				r = [itsString rangeOfString:@"\\(" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -359,8 +359,8 @@ expandToTheRightAsLetters:
 			else if(theChar==']')
 			{
 				//select the balancing stuff
-				r = iTM3MakeRange(0,index);
-				r = [itsString rangeOfString:@"\\[" options:0 range:r];
+				r = iTM3MakeRange(ZER0,index);
+				r = [itsString rangeOfString:@"\\[" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -414,7 +414,7 @@ expandToTheRightAsLetters:
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
-				r = [itsString rangeOfString:@"\\)" options:0 range:r];
+				r = [itsString rangeOfString:@"\\)" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -432,7 +432,7 @@ expandToTheRightAsLetters:
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
-				r = [itsString rangeOfString:@"\\]" options:0 range:r];
+				r = [itsString rangeOfString:@"\\]" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -449,8 +449,8 @@ expandToTheRightAsLetters:
 			else if(theChar==')')
 			{
 				//select the balancing stuff
-				r = iTM3MakeRange(0,index);
-				r = [itsString rangeOfString:@"\\(" options:0 range:r];
+				r = iTM3MakeRange(ZER0,index);
+				r = [itsString rangeOfString:@"\\(" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -466,8 +466,8 @@ expandToTheRightAsLetters:
 			else if(theChar==']')
 			{
 				//select the balancing stuff
-				r = iTM3MakeRange(0,index);
-				r = [itsString rangeOfString:@"\\[" options:0 range:r];
+				r = iTM3MakeRange(ZER0,index);
+				r = [itsString rangeOfString:@"\\[" options:ZER0 range:r];
 				while(r.length)
 				{
 					if([itsString isControlAtIndex:r.location escaped:&escaped]&&!escaped)
@@ -553,7 +553,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self.backslashString characterAtIndex:0];
+	return [self.backslashString characterAtIndex:ZER0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= commentString
 + (NSString *)commentString;
@@ -577,7 +577,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self.commentString characterAtIndex:0];
+	return [self.commentString characterAtIndex:ZER0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupCharacter
 + (unichar)bgroupCharacter;
@@ -589,7 +589,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self.bgroupString characterAtIndex:0];
+	return [self.bgroupString characterAtIndex:ZER0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= egroupCharacter
 + (unichar)egroupCharacter;
@@ -601,7 +601,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self.egroupString characterAtIndex:0];
+	return [self.egroupString characterAtIndex:ZER0];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= bgroupString
 + (NSString *)bgroupString;
@@ -630,7 +630,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= isControlAtIndex:escaped:
 - (BOOL)isControlAtIndex:(NSUInteger)index escaped:(BOOL *)aFlagPtr;
 /*" Returns YES if there is a '\' at index index. For example "\\ " is a 3 length string.
-For index = 0, 1 and 2, the aFlagPtr* is NO, YES, NO.
+For index = ZER0, 1 and 2, the aFlagPtr* is NO, YES, NO.
 If there is no backslash, aFlagPtr will point to NO, if it is not nil.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - < 1.1:03/10/2002
@@ -639,17 +639,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	unichar backslash = [NSString backslashCharacter];
-    if(iTM3LocationInRange(index, iTM3MakeRange(0, self.length)) && [self characterAtIndex:index]==backslash)
+    if(iTM3LocationInRange(index, iTM3MakeRange(ZER0, self.length)) && [self characterAtIndex:index]==backslash)
     {
         if(aFlagPtr)
         {
-            NSUInteger level = 0;
-            while(index-->0)
+            NSUInteger level = ZER0;
+            while(index-->ZER0)
                 if([self characterAtIndex:index]==backslash)
                     ++level;
                 else
                     break;
-            * aFlagPtr = (level%2 > 0);
+            * aFlagPtr = (level%2 > ZER0);
         }
         return YES;
     }
@@ -670,10 +670,10 @@ To Do List:
     {
         NSUInteger start, contentsEnd;
 //NSLog(@"GLS");
-        [self getLineStart:&start end:lineEndPtr contentsEnd:&contentsEnd forRange:iTM3MakeRange(index, 0)];
+        [self getLineStart:&start end:lineEndPtr contentsEnd:&contentsEnd forRange:iTM3MakeRange(index, ZER0)];
         if(startPtr) *startPtr = start;
         if(contentsEndPtr) *contentsEndPtr = contentsEnd;
-        NSRange R = [self rangeOfString:@"%" options:0 range:iTM3MakeRange(start, contentsEnd-start)];
+        NSRange R = [self rangeOfString:@"%" options:ZER0 range:iTM3MakeRange(start, contentsEnd-start)];
         BOOL escaped;
         if(R.length && ((R.location==start)||![self isControlAtIndex:R.location-1 escaped:&escaped]||escaped))
             *commentPtr = R.location;
@@ -681,7 +681,7 @@ To Do List:
             *commentPtr = NSNotFound;
     }
     else
-        [self getLineStart:startPtr end:lineEndPtr contentsEnd:contentsEndPtr forRange:iTM3MakeRange(index, 0)];
+        [self getLineStart:startPtr end:lineEndPtr contentsEnd:contentsEndPtr forRange:iTM3MakeRange(index, ZER0)];
 //NSLog(@"GLS");
     return;
 }
@@ -696,10 +696,10 @@ To Do List:
 //START4iTM3;
     NSUInteger anchor;
 //NSLog(@"GLS");
-    [self getLineStart:&anchor end:nil contentsEnd:nil forRange:iTM3MakeRange(index, 0)];
+    [self getLineStart:&anchor end:nil contentsEnd:nil forRange:iTM3MakeRange(index, ZER0)];
     while(anchor<index)
     {
-        NSRange R = [self rangeOfString:@"%" options:0 range:iTM3MakeRange(anchor, index-anchor)];
+        NSRange R = [self rangeOfString:@"%" options:ZER0 range:iTM3MakeRange(anchor, index-anchor)];
         if(R.length)
         {
             if(R.location>anchor)
@@ -765,7 +765,7 @@ To Do List:
                     else if (uchar==egroup)
                     {
                         --groupLevel;
-                        if (groupLevel==0)
+                        if (groupLevel==ZER0)
                             return iTM3MakeRange(index, scanLocation-index + 1);
                     }
                 }
@@ -773,13 +773,13 @@ To Do List:
         }
         else if(uchar==egroup)
         {
-            while (scanLocation-- > 0)
+            while (scanLocation-- > ZER0)
             {
                 uchar = NextCharacter;
                 if (uchar==egroup)
                 {
                     if(!scanLocation)
-                        return iTM3MakeRange(NSNotFound, 0);
+                        return iTM3MakeRange(NSNotFound, ZER0);
                     else if([self isControlAtIndex:scanLocation-1 escaped:&escaped])
                     {
                         if(escaped)
@@ -809,19 +809,19 @@ To Do List:
                     }
                     else
                         --groupLevel;
-                    if (groupLevel==0)
+                    if (groupLevel==ZER0)
                         return (scanLocation < index)?
                             iTM3MakeRange(scanLocation, index-scanLocation + 1):
-                                iTM3MakeRange(NSNotFound, 0);
+                                iTM3MakeRange(NSNotFound, ZER0);
                 }
             }
         }
         else
         {
-            return [self groupRangeForRange:iTM3MakeRange(index, 0) beginDelimiter:bgroup endDelimiter:egroup];
+            return [self groupRangeForRange:iTM3MakeRange(index, ZER0) beginDelimiter:bgroup endDelimiter:egroup];
         }
     }
-    return  iTM3MakeRange(NSNotFound, 0);
+    return  iTM3MakeRange(NSNotFound, ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= groupRangeForRange:
 - (NSRange)groupRangeForRange:(NSRange)range;
@@ -860,13 +860,13 @@ To Do List:
     NSInteger groupLevel;
     kahuei:
     groupLevel = 1;
-    while(left-->0)
+    while(left-->ZER0)
     {
         unichar uchar = PreviousCharacter;
         if(uchar==egroup)
         {
-            if(left==0)
-                return iTM3MakeRange(NSNotFound, 0);
+            if(left==ZER0)
+                return iTM3MakeRange(NSNotFound, ZER0);
             NSUInteger previous = left-1;
             if([self isControlAtIndex:previous escaped:&escaped])
             {
@@ -885,7 +885,7 @@ To Do List:
         {
             if(!left||![self isControlAtIndex:left-1 escaped:&escaped]||escaped)
                 --groupLevel;                        
-            if(groupLevel==0)
+            if(groupLevel==ZER0)
             {
                 // now expanding to the right
                 groupLevel = 1;
@@ -904,7 +904,7 @@ To Do List:
                         else if (uchar==egroup)
                         {
                             --groupLevel;
-                            if (groupLevel==0)
+                            if (groupLevel==ZER0)
                             {
                                 if(right>=max)
                                     return iTM3MakeRange(left, right-left+1);
@@ -918,7 +918,7 @@ To Do List:
             }
         }
     }
-    return iTM3MakeRange(NSNotFound, 0);
+    return iTM3MakeRange(NSNotFound, ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByStrippingTeXTagsInString:
 + (NSString *)stringByStrippingTeXTagsInString:(NSString *)string;
@@ -937,14 +937,14 @@ To Do List:
 	for(string in components)
 	{
 		NSUInteger length = string.length;
-		if(length>0)
+		if(length>ZER0)
 		{
 			BOOL escaped;
 			if([string isControlAtIndex:--length escaped:&escaped] && !escaped)
 			{
-				if(length>0)
+				if(length>ZER0)
 				{
-					S = [string substringWithRange:iTM3MakeRange(0, length)];
+					S = [string substringWithRange:iTM3MakeRange(ZER0, length)];
 					[MRA addObject:S];
 				}
 			}
@@ -971,7 +971,7 @@ To Do List:
 			{
 				if(escaped)
 				{
-					NSRange R = iTM3MakeRange(0, 0);
+					NSRange R = iTM3MakeRange(ZER0, ZER0);
 					iTM2LiteScanner * scanner = [iTM2LiteScanner scannerWithString:component charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
 					if(([scanner scanString:@"begin" intoString:nil]
 								||[scanner scanString:@"end" intoString:nil])// latex aware
@@ -992,7 +992,7 @@ To Do List:
 					}
 					else
 					{
-						R = [component doubleClickAtIndex:0];
+						R = [component doubleClickAtIndex:ZER0];
 						if(R.length > 1)
 						{
 							// The beginning of this component is a 2 chars csname
@@ -1055,7 +1055,7 @@ To Do List:
 	if(herePtr) * herePtr = nil;
 	if(afterPtr) * afterPtr = nil;
 	NSUInteger TeXCommentIndex, start, end, contentsEnd;
-	NSUInteger afterAnchor = 0;// the after word is expected after this anchor
+	NSUInteger afterAnchor = ZER0;// the after word is expected after this anchor
 	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
 startAgain:
 	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
@@ -1080,7 +1080,7 @@ startAgain:
 			else if(hitIndex >= self.length)
 			{
 				// No chance to do anything:the source is just one TeX comment or command!!!
-				return 0;
+				return ZER0;
 			}
 			else//if(TeXCommentIndex <= start) &&...
 			{
@@ -1089,7 +1089,7 @@ startAgain:
 					goto startAgain;
 				else
 					// no chance to find a word
-					return 0;
+					return ZER0;
 			}
 		}
 	}
@@ -1119,7 +1119,7 @@ point1:;
 					goto startAgain;
 				}
 				else
-					return 0;
+					return ZER0;
 			}
 		}
 	}
@@ -1140,7 +1140,7 @@ point1:;
 	while(before.length < limit && R.location)
 	{
 		--R.location;
-		R.length = 0;
+		R.length = ZER0;
 		[self getLineStart:&R.location end:nil contentsEnd:&contentsEnd forRange:R];
 		if(R.length = contentsEnd-R.location)
 			before = [[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]
@@ -1149,7 +1149,7 @@ point1:;
 	if(!afterAnchor)
 		afterAnchor = iTM3MaxRange(hereRange);
 	R.location = afterAnchor;
-	R.length = 0;
+	R.length = ZER0;
 	[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 	NSString * after = [NSString stringByStrippingTeXTagsInString:
 				[self substringWithRange:iTM3MakeRange(afterAnchor, contentsEnd-afterAnchor)]];
@@ -1157,7 +1157,7 @@ mamita:
 	if(after.length < limit && (end < self.length))
 	{
 		R.location = end;
-		R.length = 0;
+		R.length = ZER0;
 		[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 		if(R.length = contentsEnd-R.location)
 			after = [after stringByAppendingFormat:@" %@",
@@ -1208,7 +1208,7 @@ nextAfterWord:
 	NSString * beforeWord = nil;
 	if(before.length > 1)
 	{
-		R = iTM3MakeRange(before.length, 0);
+		R = iTM3MakeRange(before.length, ZER0);
 		NSString * beforeWord0 = nil;
 		NSString * beforeWord1 = nil;
 		NSString * beforeWord2 = nil;
@@ -1223,7 +1223,7 @@ nextBeforeWord:
 			else
 			{
 				beforeWord1 = [before substringWithRange:R];
-				if(R.location>0)
+				if(R.location>ZER0)
 					goto nextBeforeWord;
 			}
 		}
@@ -1231,7 +1231,7 @@ nextBeforeWord:
 		{
 			if(!beforeWord0 && R.length)
 				beforeWord0 = [before substringWithRange:R];
-			if(R.location>0)
+			if(R.location>ZER0)
 				goto nextBeforeWord;
 		}
 		if(beforeWord0.length > 2)
@@ -1272,7 +1272,7 @@ To Do List:
 	if(herePtr) * herePtr = nil;
 	if(afterPtr) * afterPtr = nil;
 	NSUInteger TeXCommentIndex, start, end, contentsEnd;
-	NSUInteger afterAnchor = 0;// the after word is expected after this anchor
+	NSUInteger afterAnchor = ZER0;// the after word is expected after this anchor
 	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
 startAgain:
 	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
@@ -1297,7 +1297,7 @@ startAgain:
 			else if(hitIndex >= self.length)
 			{
 				// No chance to do anything:the source is just one TeX comment or command!!!
-				return 0;
+				return ZER0;
 			}
 			else//if(TeXCommentIndex <= start) &&...
 			{
@@ -1306,7 +1306,7 @@ startAgain:
 					goto startAgain;
 				else
 					// no chance to find a word
-					return 0;
+					return ZER0;
 			}
 		}
 	}
@@ -1318,7 +1318,7 @@ point1:;
 		if(hereRange.length == 1)
 		{
 			if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:hitIndex]]
-					&& (hitIndex>0))
+					&& (hitIndex>ZER0))
 			{
 				return [self getWordBefore4iTM3:beforePtr here:herePtr after:afterPtr atIndex:hitIndex-1 mode:isSyncTeX];
 			}
@@ -1355,7 +1355,7 @@ point1:;
 				goto startAgain;
 			}
 			else
-				return 0;
+				return ZER0;
 		}
 	}
 	// now hitIndex does not point to any part of a control sequence nor a % comment
@@ -1370,7 +1370,7 @@ point1:;
 	while(before.length < limit && R.location)
 	{
 		--R.location;
-		R.length = 0;
+		R.length = ZER0;
 		[self getLineStart:&R.location end:nil contentsEnd:&contentsEnd forRange:R];
 		if(R.length = contentsEnd-R.location)
 			before = [[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]
@@ -1379,7 +1379,7 @@ point1:;
 	if(!afterAnchor)
 		afterAnchor = iTM3MaxRange(hereRange);
 	R.location = afterAnchor;
-	R.length = 0;
+	R.length = ZER0;
 	[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 	NSString * after = [NSString stringByStrippingTeXTagsInString:
 				[self substringWithRange:iTM3MakeRange(afterAnchor, contentsEnd-afterAnchor)]];
@@ -1387,7 +1387,7 @@ mamita:
 	if(after.length < limit && (end < self.length))
 	{
 		R.location = end;
-		R.length = 0;
+		R.length = ZER0;
 		[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
 		if(R.length = contentsEnd-R.location)
 			after = [after stringByAppendingFormat:@" %@",
@@ -1449,7 +1449,7 @@ nextAfterWord:
 	NSString * beforeWord = nil;
 	if(before.length > 1)
 	{
-		R = iTM3MakeRange(before.length, 0);
+		R = iTM3MakeRange(before.length, ZER0);
 		NSString * beforeWord0 = nil;
 		NSString * beforeWord1 = nil;
 		NSString * beforeWord2 = nil;
@@ -1462,7 +1462,7 @@ nextBeforeWord:
                 if(R.length == 1)
                 {
                     if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
-                            && (R.location>0))
+                            && (R.location>ZER0))
                     {
                         goto nextBeforeWord;
                     }
@@ -1478,7 +1478,7 @@ nextBeforeWord:
 			else
 			{
 				beforeWord1 = [before substringWithRange:R];
-				if(R.location>0)
+				if(R.location>ZER0)
 					goto nextBeforeWord;
 			}
 		}
@@ -1486,7 +1486,7 @@ nextBeforeWord:
 		{
 			if(!beforeWord0 && R.length)
 				beforeWord0 = [before substringWithRange:R];
-			if(R.location>0)
+			if(R.location>ZER0)
 				goto nextBeforeWord;
 		}
 		if(beforeWord2.length > beforeWord1.length)
@@ -1518,7 +1518,7 @@ nextBeforeWord:
 	{
 		NSError * localError = nil;
 //		iTM2StringController_TeX_RE = [[ICURegEx alloc] initWithSearchPattern:@"(?!\\(?:\\{2})*)\\[`'\\^\"~=.]\\{.\\}" options:nil error:&localError];
-		iTM2StringController_TeX_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:0L error:&localError];
+		iTM2StringController_TeX_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:ZER0 error:&localError];
 		if(!iTM2StringController_TeX_RE)
 		{
 			LOG4iTM3(@"RE unavailable");

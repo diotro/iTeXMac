@@ -37,8 +37,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	// clean heading separators
-	while(self.numberOfItems && [[self itemAtIndex:0] isSeparatorItem]) {
-        [self removeItemAtIndex:0];
+	while(self.numberOfItems && [[self itemAtIndex:ZER0] isSeparatorItem]) {
+        [self removeItemAtIndex:ZER0];
     }
     //  The first item is not a separator
 	//  Clean successive separators
@@ -59,7 +59,7 @@ To Do List:
     }
 	//  clean trailing separators
 	index = self.numberOfItems;
-	while((index-- > 0) && [[self itemAtIndex:index] isSeparatorItem]) {
+	while((index-- > ZER0) && [[self itemAtIndex:index] isSeparatorItem]) {
 		[self removeItemAtIndex:index];
     }
 	return;
@@ -131,7 +131,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
     NSInteger index = self.numberOfItems;
-    while(--index >=0) if ([[self itemAtIndex:index] action] == aSelector) break;
+    while(--index >=ZER0) if ([[self itemAtIndex:index] action] == aSelector) break;
     return index;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= indexOfItemWithTarget4iTM3:
@@ -143,7 +143,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
     NSInteger index = self.numberOfItems;
-    while(--index >=0) if ([[[self itemAtIndex:index] target] isEqual:aTarget]) break;
+    while(--index >=ZER0) if ([[[self itemAtIndex:index] target] isEqual:aTarget]) break;
     return index;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= deepItemWithAction4iTM3:maxDepth:
@@ -243,7 +243,7 @@ To Do List: Better management of the nil arg
 "*/
 {DIAGNOSTIC4iTM3;
     NSMenuItem * item = nil;
-    if (depth>0) {
+    if (depth>ZER0) {
 		--depth;
         for (item in self.itemArray) {
             if (item.hasSubmenu) {
@@ -369,7 +369,7 @@ The cell is not copied. Better should be done.
 "*/
 {DIAGNOSTIC4iTM3;
     NSMenu * result = [[self.class alloc] initWithTitle:self.title];
-    NSInteger index = 0;
+    NSInteger index = ZER0;
     while(index < self.numberOfItems) {
         NSMenuItem * MI5 = [self itemAtIndex:index];
         NSMenuItem * MI6 = [[MI5.class alloc] initWithTitle:MI5.title
@@ -503,7 +503,7 @@ To Do List: retain?
             if ((![menuItemTitle hasPrefix:@"."]) && ([hiddenFiles indexOfObject:menuItemTitle] == NSNotFound))
             {
                 NSInteger recursionFireWall = 32;
-                while([FW isSymbolicLink] && (recursionFireWall-->0))
+                while([FW isSymbolicLink] && (recursionFireWall-->ZER0))
                     FW = [[[NSFileWrapper alloc] initWithPath:[FW symbolicLinkDestination]] autorelease];
                 NSString * P = [aFullPath stringByAppendingPathComponent:[FW preferredFilename]];
                 if ([FW isRegularFile])

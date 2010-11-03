@@ -260,7 +260,7 @@ To Do List:
 //LOG4iTM3(@"Reading built in symbols at path %@", stylePath);
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory:&isDir] && isDir) {
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:0 error:outErrorPtr])
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr])
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -283,7 +283,7 @@ To Do List:
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory: &isDir] && isDir)
 		{
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:0 error:outErrorPtr]) {
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr]) {
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -306,7 +306,7 @@ To Do List:
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory: &isDir] && isDir)
 		{
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:0 error:outErrorPtr]) {
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr]) {
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -330,7 +330,7 @@ To Do List:
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory: &isDir] && isDir)
 		{
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:0 error:outErrorPtr]) {
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr]) {
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -398,18 +398,18 @@ To Do List:
                 NSAttributedString * AS = [_EOs objectForKey:command]?:[_Os objectForKey:command];
                 if(AS.length)
                 {
-                    id As = [AS attributesAtIndex:0 effectiveRange:nil];
+                    id As = [AS attributesAtIndex:ZER0 effectiveRange:nil];
                     NSFont * F = [As objectForKey:NSFontAttributeName]?:[NSFont systemFontOfSize:[NSFont systemFontSize]];
                     [TS beginEditing];
                     [TS setAttributedString:AS];
                     [TS endEditing];
-                    NSGlyphInfo * GI = [NSGlyphInfo glyphInfoWithGlyph:[LM glyphAtIndex:0] forFont:F baseString:command];
+                    NSGlyphInfo * GI = [NSGlyphInfo glyphInfoWithGlyph:[LM glyphAtIndex:ZER0] forFont:F baseString:command];
                     if (GI) {
                         id attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 					F, NSFontAttributeName,
 				GI, NSGlyphInfoAttributeName,
 			[AS string], iTM2TextAttributesCharacterAttributeName,
-		[AS attribute:iTM2Text2ndSymbolColorAttributeName atIndex:0 effectiveRange:nil], iTM2Text2ndSymbolColorAttributeName,
+		[AS attribute:iTM2Text2ndSymbolColorAttributeName atIndex:ZER0 effectiveRange:NULL], iTM2Text2ndSymbolColorAttributeName,
                             nil];
                         NSColor * C = [As objectForKey:NSForegroundColorAttributeName];
                         if(![[NSColor controlTextColor] isEqual:C]) {
@@ -508,12 +508,12 @@ To Do List:
                                 initWithString: S attributes: symbolAttributes] autorelease];
                 rowHeight = MAX(rowHeight, [MAS size].height);
                 NSColor * symbolColor = [symbolAttributes objectForKey:iTM2Text2ndSymbolColorAttributeName];
-                NSColor * replacementColor = symbolColor && [symbolColor alphaComponent]>0?
+                NSColor * replacementColor = symbolColor && [symbolColor alphaComponent]?
                     [[symbolColor colorWithAlphaComponent:1] blendedColorWithFraction:1 - [symbolColor alphaComponent]
                                         ofColor: [NSColor textColor]]:
                         [NSColor textColor];
-                [MAS addAttribute: NSForegroundColorAttributeName value: replacementColor
-                    range: iTM3MakeRange(0, MAS.length)];
+                [MAS addAttribute:NSForegroundColorAttributeName value:replacementColor
+                    range:iTM3MakeRange(ZER0,MAS.length)];
                 [_Os setObject:MAS forKey:K];
             }
         }
@@ -525,7 +525,7 @@ To Do List:
         NSMutableAttributedString * MAS = [self symbolAtRow:[tableView selectedRow]];
         if(MAS.length)
         {
-            NSFont * oldF = [MAS attribute:NSFontAttributeName atIndex:0 effectiveRange:nil];
+            NSFont * oldF = [MAS attribute:NSFontAttributeName atIndex:ZER0 effectiveRange:nil];
             NSFont * F = [[NSFontManager sharedFontManager] convertFont:oldF];
             [[NSFontManager sharedFontManager] setSelectedFont:F isMultiple:NO];
         }
@@ -628,7 +628,7 @@ To Do List:
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
             }
             else
-                indentationLevel = 0;
+                indentationLevel = ZER0;
             for (NSString * key in [[_BuiltInSymbolsSets allKeys]
                 sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)]) {
                 NSMenuItem * lastItem = [[[NSMenuItem alloc] initWithTitle: key
@@ -661,12 +661,9 @@ To Do List:
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
             }
             else
-                indentationLevel = 0;
-            NSEnumerator * E = [[[_NetworkSymbolsSets allKeys]
-                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
-            NSString * key;
-            while(key = E.nextObject)
-            {
+                indentationLevel = ZER0;
+            for(NSString * key in [[_NetworkSymbolsSets allKeys]
+                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)]) {
                 NSMenuItem * lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 lastItem.representedObject = [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _NetworkSymbolsSets, @"S", nil];
@@ -697,12 +694,9 @@ To Do List:
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
             }
             else
-                indentationLevel = 0;
-            NSEnumerator * E = [[[_LocalSymbolsSets allKeys]
-                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
-            NSString * key;
-            while(key = E.nextObject)
-            {
+                indentationLevel = ZER0;
+            for (NSString * key in [[_LocalSymbolsSets allKeys]
+                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)]) {
                 NSMenuItem * lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 lastItem.representedObject = [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _LocalSymbolsSets, @"S", nil];
@@ -730,12 +724,9 @@ To Do List:
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
             }
             else
-                indentationLevel = 0;
-            NSEnumerator * E = [[[_CustomSymbolsSets allKeys]
-                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
-            NSString * key;
-            while(key = E.nextObject)
-            {
+                indentationLevel = ZER0;
+            for (NSString * key in [[_CustomSymbolsSets allKeys]
+                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)]) {
                 NSMenuItem * lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 lastItem.representedObject = [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _CustomSymbolsSets, @"S", nil];
@@ -763,12 +754,9 @@ To Do List:
                 indentationLevel = iTM2TSSMenuItemIndentationLevel;
             }
             else
-                indentationLevel = 0;
-            NSEnumerator * E = [[[_RecycleSymbolsSets allKeys]
-                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)] objectEnumerator];
-            NSString * key;
-            while(key = E.nextObject)
-            {
+                indentationLevel = ZER0;
+            for (NSString * key in [[_RecycleSymbolsSets allKeys]
+                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)]) {
                 NSMenuItem * lastItem = [[[NSMenuItem alloc] initWithTitle: key
                     action: @selector(chooseSet:) keyEquivalent: @""] autorelease];
                 lastItem.representedObject = [NSDictionary dictionaryWithObjectsAndKeys:key, @"K", _RecycleSymbolsSets, @"S", nil];
@@ -828,7 +816,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self performSelector:@selector(_addSet:) withObject:sender afterDelay:0];
+    [self performSelector:@selector(_addSet:) withObject:sender afterDelay:0.0];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSet:
@@ -840,7 +828,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self performSelector:@selector(_addSet:) withObject:sender afterDelay:0];
+    [self performSelector:@selector(_addSet:) withObject:sender afterDelay:0.0];
     return;
 }
 #if 0
@@ -1068,7 +1056,7 @@ To Do List:
     NSArray * _Ks = [_CustomKeysSets objectForKey:CSK];
     NSMutableDictionary * _Os = [_CustomObjectsSets objectForKey:CSK];
     NSMutableDictionary * _EOs = [_EditedObjectsSets objectForKey:CSK];
-    if((row >= 0) && (row < _Ks.count))
+    if((row >= ZER0) && (row < _Ks.count))
     {
         NSString * K = [_Ks objectAtIndex:row];
         id result = [_EOs objectForKey:K];
@@ -1112,7 +1100,7 @@ To Do List:
     id identifier = [tableColumn identifier];
     if([identifier isEqualToString:iTM2TextAttributesCommandIdentifier])
     {
-        return ((row >= 0) && (row < [self numberOfRowsInTableView:tv]))?
+        return ((row >= ZER0) && (row < [self numberOfRowsInTableView:tv]))?
             [[_CustomKeysSets objectForKey:self.currentSetKey] objectAtIndex:row]: nil;
     }
     else
@@ -1148,7 +1136,7 @@ To Do List:
         NSMutableAttributedString * AS = [self symbolAtRow:row];
         if(AS.length)
         {
-            NSColor * C = [[AS attributesAtIndex:0 effectiveRange:nil] objectForKey:NSForegroundColorAttributeName];
+            NSColor * C = [[AS attributesAtIndex:ZER0 effectiveRange:NULL] objectForKey:NSForegroundColorAttributeName];
             if(C)
                 [[tableColumn dataCell] setTextColor:C];
         }
@@ -1194,7 +1182,7 @@ To Do List:
     {
         row = [tv selectedRow];
         if((row<0) || (row >= _Ks.count))
-            row = 0;
+            row = ZER0;
         [_Ks insertObject:@"?" atIndex:row];
 		id O = [self symbolAtRow:row];
 		if(O)
@@ -1220,7 +1208,7 @@ To Do List:
 		[invocation setArgument: &argument atIndex:4];
 		BOOL flag = YES;
 		[invocation setArgument: &flag atIndex:5];
-		[NSTimer scheduledTimerWithTimeInterval:0 invocation:invocation repeats:NO];
+		[NSTimer scheduledTimerWithTimeInterval:0.0 invocation:invocation repeats:NO];
 #else
         [tv editColumn:[tv columnWithIdentifier:iTM2TextAttributesCommandIdentifier] row:row withEvent:nil select:YES];
 #endif
@@ -1260,7 +1248,7 @@ To Do List:
 	NSInteger row = [indexes lastIndex];
 	while(row!=NSNotFound)
 	{
-        if((row >= 0) && (row < _Ks.count))
+        if((row >= ZER0) && (row < _Ks.count))
         {
             NSString * K = [_Ks objectAtIndex:row];
             [_Os removeObjectForKey:K];
@@ -1303,7 +1291,7 @@ To Do List:
 	NSIndexSet * set = [tableView selectedRowIndexes];
 	NSInteger row = [set firstIndex];
 	while(row != NSNotFound) {
-		if([[self symbolAtRow:row] attribute:iTM2Text2ndSymbolColorAttributeName atIndex:0 effectiveRange:nil])
+		if([[self symbolAtRow:row] attribute:iTM2Text2ndSymbolColorAttributeName atIndex:ZER0 effectiveRange:NULL])
             return YES;
 		row = [set indexGreaterThanIndex:row];
 	}
@@ -1351,7 +1339,7 @@ To Do List:
     NSMutableArray * _Ks = [_CustomKeysSets objectForKey:CSK];
     NSMutableDictionary * _Os = [_CustomObjectsSets objectForKey:CSK];
     NSMutableDictionary * _EOs = [_EditedObjectsSets objectForKey:CSK];
-    if((row >= 0) && (row < _Ks.count))
+    if((row >= ZER0) && (row < _Ks.count))
     {
         NSString * K = [_Ks objectAtIndex:row];
 //LOG4iTM3(@"K: %@", K);
@@ -1385,8 +1373,8 @@ To Do List:
             {
                 NSAttributedString * old = [_Os objectForKey:K];
 //LOG4iTM3(@"old: %@", old);
-                NSDictionary * oldAttributes = old.length? [old attributesAtIndex:0 effectiveRange:nil]: nil;
-                NSDictionary * attributes = [object attributesAtIndex:0 effectiveRange:nil];
+                NSDictionary * oldAttributes = old.length? [old attributesAtIndex:ZER0 effectiveRange:NULL]: nil;
+                NSDictionary * attributes = [object attributesAtIndex:ZER0 effectiveRange:NULL];
                 if([[object string] isEqualToString:[old string]]
                     && [[oldAttributes objectForKey:NSFontAttributeName] isEqual:[attributes objectForKey:NSFontAttributeName]]
                         && [[oldAttributes objectForKey:NSForegroundColorAttributeName] isEqual:[attributes objectForKey:NSForegroundColorAttributeName]])
@@ -1401,8 +1389,8 @@ To Do List:
                         [TV setRowHeight:rowHeight];
                     [self.document updateChangeCount:NSChangeDone];
 					self.validateWindowContent4iTM3;
-//LOG4iTM3(@"The character? %x", [[object string] characterAtIndex:0]);
-//LOG4iTM3(@"attributes? %@", [object attributesAtIndex:0 effectiveRange:nil]);
+//LOG4iTM3(@"The character? %x", [[object string] characterAtIndex);
+//LOG4iTM3(@"attributes? %@", [object attributesAtIndexeffectiveRange:nil]);
                 }
             }
             else
@@ -1432,11 +1420,11 @@ To Do List:
         NSMutableAttributedString * MAS = [self symbolAtRow:row];
         if(MAS.length)
         {
-            NSFont * oldF = [MAS attribute:NSFontAttributeName atIndex:0 effectiveRange:nil];
+            NSFont * oldF = [MAS attribute:NSFontAttributeName atIndex:ZER0 effectiveRange:nil];
             NSFont * F = [sender convertFont:oldF];
-            if([[F coveredCharacterSet] characterIsMember:[[MAS string] characterAtIndex:0]])
+            if([[F coveredCharacterSet] characterIsMember:[[MAS string] characterAtIndex:ZER0]])
             {
-                [MAS addAttribute:NSFontAttributeName value:F range:iTM3MakeRange(0, MAS.length)];
+                [MAS addAttribute:NSFontAttributeName value:F range:iTM3MakeRange(ZER0,MAS.length)];
                 rowHeight = MAX(rowHeight, [MAS size].height);
                 isDocumentEdited = YES;
             }
@@ -1444,7 +1432,7 @@ To Do List:
             {
                 [MAS addAttribute: NSFontAttributeName
                     value: [NSFont fontWithName:[oldF fontName] size:[F pointSize]]
-                        range: iTM3MakeRange(0, MAS.length)];
+                        range: iTM3MakeRange(ZER0,MAS.length)];
                 rowHeight = MAX(rowHeight, [MAS size].height);
                 isDocumentEdited = YES;
             }
@@ -1483,10 +1471,10 @@ To Do List:
     {
 		while(row != NSNotFound) {
             NSMutableAttributedString * MAS = [self symbolAtRow:row];
-            NSColor * oldC = [MAS attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:nil];
+            NSColor * oldC = [MAS attribute:NSBackgroundColorAttributeName atIndex:ZER0 effectiveRange:nil];
             if(![oldC isEqual:newC] && (oldC || newC))
             {
-                NSRange R = iTM3MakeRange(0, MAS.length);
+                NSRange R = iTM3MakeRange(ZER0,MAS.length);
                 [MAS addAttribute:NSBackgroundColorAttributeName value:newC range:R];
                 isDocumentEdited = YES;
             }
@@ -1497,10 +1485,10 @@ To Do List:
     {
 		while(row != NSNotFound) {
             NSMutableAttributedString * MAS = [self symbolAtRow:row];
-            NSColor * oldC = [MAS attribute:iTM2Text2ndSymbolColorAttributeName atIndex:0 effectiveRange:nil];
+            NSColor * oldC = [MAS attribute:iTM2Text2ndSymbolColorAttributeName atIndex:ZER0 effectiveRange:nil];
             if(![oldC isEqual:newC] && (oldC || newC))
             {
-                NSRange R = iTM3MakeRange(0, MAS.length);
+                NSRange R = iTM3MakeRange(ZER0,MAS.length);
                 if(newC && [newC alphaComponent]>0)
                     [MAS addAttribute:iTM2Text2ndSymbolColorAttributeName value:newC range:R];
                 else
@@ -1537,7 +1525,7 @@ To Do List:
 	NSInteger row = [rowIndexes firstIndex];
 	while(row != NSNotFound)
 	{
-        if((row>=0) && (row<_Ks.count))
+        if((row>=ZER0) && (row<_Ks.count))
         {
             id O = [self symbolAtRow:row];
             if(O)
@@ -1615,7 +1603,7 @@ To Do List:
         while((K = E.nextObject) && (O = E.nextObject))
         {
 			NSString * key = K;
-			NSUInteger index = 0;
+			NSUInteger index = ZER0;
 			while([_Ks containsObject:key])
 			{
 				key = [K stringByAppendingFormat:@"-%u",++index];
@@ -1647,7 +1635,7 @@ To Do List:
                 if(s.length)
                 {
 					NSString * key = s;
-					NSUInteger index = 0;
+					NSUInteger index = ZER0;
 					while([_Ks containsObject:key])
 					{
 						key = [s stringByAppendingFormat:@"-%u",++index];
@@ -1776,7 +1764,7 @@ To Do List:
         NSInteger row = [tableView selectedRow];
         NSInteger max = [self numberOfRowsInTableView:tableView];
         if((row<0) || (row >= max - 1))
-            row = 0;
+            row = ZER0;
         else
             ++row;
         if(row == [tableView selectedRow])
@@ -1791,16 +1779,16 @@ To Do List:
         NSInteger row = [tableView selectedRow];
         NSInteger max = [self numberOfRowsInTableView:tableView];
         if((row<0) || (row >= max))
-            row = 0;
+            row = ZER0;
         [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
         row = [tableView selectedRow];
-        NSInteger column = 0;
+        NSInteger column = ZER0;
         if([self tableView:tableView shouldEditTableColumn:[[tableView tableColumns] objectAtIndex:column] row:row])
         {
 			NSInvocation * I;
 			[[NSInvocation getInvocation4iTM3:&I withTarget:tableView retainArguments:NO]
 				editColumn:column row:row withEvent:nil select:YES];
-            [NSTimer scheduledTimerWithTimeInterval:0 invocation:I repeats:NO];
+            [NSTimer scheduledTimerWithTimeInterval:0.0 invocation:I repeats:NO];
         }
         return YES;
     }
@@ -1928,7 +1916,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	return self.numberOfSelectedRows > 0;
+	return self.numberOfSelectedRows > ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  paste:
 - (IBAction)paste:(id)sender;
@@ -1951,7 +1939,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	return [[[NSPasteboard generalPasteboard] availableTypeFromArray:[NSArray arrayWithObjects:iTM2StyleSymbolsPboardType, NSStringPboardType, nil]] length] > 0;
+	return [[[NSPasteboard generalPasteboard] availableTypeFromArray:[NSArray arrayWithObjects:iTM2StyleSymbolsPboardType, NSStringPboardType, nil]] length] > ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  delete:
 - (IBAction)delete:(id)sender;
@@ -1974,7 +1962,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return (self.numberOfSelectedRows>0);
+    return (self.numberOfSelectedRows>ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  cut:
 - (IBAction)cut:(id)sender;
@@ -1998,6 +1986,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	return self.numberOfSelectedRows > 0;
+	return self.numberOfSelectedRows > ZER0;
 }
 @end

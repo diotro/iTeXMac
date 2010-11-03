@@ -738,11 +738,11 @@ To Do List: retain?
         [DFM changeCurrentDirectoryPath:cdp];
     }
     while(old--)
-        [self removeItemAtIndex:0];
+        [self removeItemAtIndex:ZER0];
 	// title menu item
-	[self insertItem:[NSMenuItem separatorItem] atIndex:0];
+	[self insertItem:[NSMenuItem separatorItem] atIndex:ZER0];
 	[self insertItemWithTitle:[@"..." stringByAppendingPathComponent:aFullPath.lastPathComponent]
-		action: NULL keyEquivalent: @"" atIndex: 0];
+		action: NULL keyEquivalent: @"" atIndex: ZER0];
 	self.cleanSeparators4iTM3;
     [super update];
 //END4iTM3;
@@ -773,8 +773,8 @@ To Do List: retain?
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (depth == 0) return 0;
-    if (limit == 0) return 0;
+    if (depth == ZER0) return ZER0;
+    if (limit == ZER0) return ZER0;
     NSFileManager * dfm = DFM;
     NSMutableArray * hiddenFiles = [NSMutableArray array];
     NSEnumerator * E = [[[NSString stringWithContentsOfFile:@".hidden" usedEncoding:nil error:nil] componentsSeparatedByString:@"\n"] objectEnumerator];
@@ -854,7 +854,7 @@ oneMoreTime:
 				MI.representedObject = [cdp stringByAppendingPathComponent:O];
 			}
 			if (limit < textFiles.count)
-				return 0;
+				return ZER0;
 			else
 				limit -= textFiles.count;
 		}
@@ -886,7 +886,7 @@ oneMoreTime:
 				MI.representedObject = [cdp stringByAppendingPathComponent:O];
 			}
 			if (limit < gfxFiles.count)
-				return 0;
+				return ZER0;
 			else
 				limit -= gfxFiles.count;
 		}
@@ -894,7 +894,7 @@ oneMoreTime:
 	if (otherFiles.count)
 	{
 		E = otherFiles.objectEnumerator;
-		if (textFiles.count + gfxFiles.count > 0)
+		if (textFiles.count + gfxFiles.count > ZER0)
 		{
 			NSMenuItem * MI = [[_iTM2OpenQuicklyOtherMenuItem copy] autorelease];
 			[self addItem:MI];
@@ -925,7 +925,7 @@ oneMoreTime:
 		NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 		[self setSubmenu:M forItem:MI];
         NSString * P = [cdp stringByAppendingPathComponent:O];
-		if (limit > 0)
+		if (limit > ZER0)
 		{
 			limit = [M _completeWithDirectoryContentsAtPath:P forDepth:depth-1 limit:limit];
 			if (![M numberOfItems])

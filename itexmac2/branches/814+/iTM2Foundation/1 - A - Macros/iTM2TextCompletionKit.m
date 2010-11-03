@@ -219,7 +219,7 @@ To Do List:
 		{
 			id object = [[[iTM2MacroNode alloc] init] autorelease];
 			[object setMacroID:substring];
-			[node insertObject:object inAvailableMacrosAtIndex:0];
+			[node insertObject:object inAvailableMacrosAtIndex:ZER0];
 			[stringList addObject:substring];
 		}
 	}
@@ -241,7 +241,7 @@ To Do List:
 	iTM2PatriciaController * patriciaController2 = [self patriciaControllerForTextView:nil];
 	if (indexPtr)
 	{
-		*indexPtr = 0;
+		*indexPtr = ZER0;
 	}
 	if ([patriciaController1 isEqual:patriciaController2])
 	{
@@ -322,7 +322,7 @@ grosbois:
 		return 3;
 	}
 	_TextView = [aTextView retain];
-	NSInteger selectedRow = 0;
+	NSInteger selectedRow = ZER0;
 	_LongCandidates = [_TextView completionsForPartialWordRange:_RangeForUserCompletion indexOfSelectedItem:&selectedRow];
 	NSUInteger numberOfRows = _LongCandidates.count;
 	if (!numberOfRows)
@@ -334,7 +334,7 @@ grosbois:
 //LOG4iTM3(@"%@:_LongCandidates",_LongCandidates);
 	NSUInteger numberOfSpacesPerTab = [[_TextView stringController4iTM3] numberOfSpacesPerTab]?:4;
 	NSUInteger idx = numberOfSpacesPerTab;
-	if (idx<=0)
+	if (idx<=ZER0)
 	{
 		_Tab = @"\t";
 	}
@@ -354,10 +354,10 @@ grosbois:
 	// Get the indentation level at the line where we are going to insert things
 	NSUInteger start, contentsEnd;
 	NSRange R = _RangeForUserCompletion;
-	R.length = 0;
+	R.length = ZER0;
 	[S getLineStart:&start end:nil contentsEnd:&contentsEnd forRange:R];
-	_IndentationLevel = 0;
-	NSUInteger currentLength = 0;
+	_IndentationLevel = ZER0;
+	NSUInteger currentLength = ZER0;
 	while(start<contentsEnd)
 	{
 		unichar theChar = [S characterAtIndex:start++];
@@ -369,7 +369,7 @@ grosbois:
 		{
 			++_IndentationLevel;
 			_IndentationLevel += (2*currentLength)/numberOfSpacesPerTab;
-			currentLength = 0;
+			currentLength = ZER0;
 		}
 		else
 		{
@@ -382,23 +382,23 @@ grosbois:
 	// then split the selection into lines in order to manage the indentation
 	// ensuring that the white prefix is of the apropriate format
 	NSMutableArray * replacementLines = [NSMutableArray array];
-	R = iTM3MakeRange(0,0);
+	R = iTM3MakeRange(ZER0,ZER0);
 	[_OriginalSelectedString getLineStart:nil end:&R.location contentsEnd:nil forRange:R];
-	NSString * blackString = [_OriginalSelectedString substringWithRange:iTM3MakeRange(0,R.location)];
+	NSString * blackString = [_OriginalSelectedString substringWithRange:iTM3MakeRange(ZER0,R.location)];
 	[replacementLines addObject:blackString];
 	NSMutableArray * whitePrefixes = [NSMutableArray array];
 	NSMutableArray * blackStrings = [NSMutableArray array];
-	NSUInteger indentationOfTheSelectedString = 0;
+	NSUInteger indentationOfTheSelectedString = ZER0;
 	NSNumber * N;
 	NSUInteger end;
-	NSUInteger lineIndentation = 0;
+	NSUInteger lineIndentation = ZER0;
 	if (R.location < _OriginalSelectedString.length)
 	{
 		indentationOfTheSelectedString = UINT_MAX;
 		do
 		{
 			[_OriginalSelectedString getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-			lineIndentation = 0;
+			lineIndentation = ZER0;
 			while(R.location<contentsEnd)
 			{
 				unichar theChar = [_OriginalSelectedString characterAtIndex:R.location++];
@@ -410,7 +410,7 @@ grosbois:
 				{
 					++lineIndentation;
 					lineIndentation += (2*currentLength)/numberOfSpacesPerTab;
-					currentLength = 0;
+					currentLength = ZER0;
 				}
 				else
 				{
@@ -474,7 +474,7 @@ grosbois:
 	[_TableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];
 	self.updateCompletion;
 	self.showCompletionWindow;
-	return 0;
+	return ZER0;
 }
 - (void)updateCompletion;
 {
@@ -496,7 +496,7 @@ grosbois:
 	return;
 #if 0
 	NSString * string = [_TextView string];
-	NSRange charRange = iTM3MakeRange(0,string.length);
+	NSRange charRange = iTM3MakeRange(ZER0,string.length);
 	_RangeForUserCompletion = iTM3ProjectionRange(charRange,_RangeForUserCompletion);
 	_EditedRangeForUserCompletion = iTM3ProjectionRange(charRange,_EditedRangeForUserCompletion);
 	NSLayoutManager * layoutManager = [_TextView layoutManager];
@@ -505,7 +505,7 @@ grosbois:
 	[layoutManager addTemporaryAttributes:attrs forCharacterRange:charRange];
 	#if 0
 	enum 3
-   NSIllegalTextMovement = 0,
+   NSIllegalTextMovement = ZER0,
    NSReturnTextMovement  = 0x10,
    NSTabTextMovement     = 0x11,
    NSBacktabTextMovement = 0x12,
@@ -514,7 +514,7 @@ grosbois:
    NSUpTextMovement      = 0x15,
    NSDownTextMovement    = 0x16,
    NSCancelTextMovement  = 0x17,
-   NSOtherTextMovement    = 0
+   NSOtherTextMovement    = ZER0
 	#endif
 #endif
 	return;
@@ -562,13 +562,13 @@ grosbois:
 	NSRect documentRect = [_TableView bounds];
 	// compute the minimal rect containing the table view
 	// only the documentRect's size will be used
-	documentRect.size.width = 0;
+	documentRect.size.width = ZER0;
 	NSArray * tableColumns = [_TableView tableColumns];
 	NSTableColumn * tableColumn;
 	NSUInteger numberOfRows = _LongCandidates.count;
 	for(tableColumn in tableColumns)
 	{
-		NSUInteger row = 0;
+		NSUInteger row = ZER0;
 		NSSize size = NSZeroSize;
 		CGFloat maxWidth = 0;
 		CGFloat maxHeight = 0;
@@ -676,7 +676,7 @@ grosbois:
 	NSUInteger numberOfRows = _LongCandidates.count;
 	for(tableColumn in tableColumns)
 	{
-		NSUInteger row = 0;
+		NSUInteger row = ZER0;
 		NSSize size = NSZeroSize;
 		CGFloat maxWidth = 0;
 		CGFloat maxHeight = 0;
@@ -754,9 +754,9 @@ grosbois:
 			[_TextView replaceCharactersInRange:_RangeForUserCompletion withString:_EditedString];
 			[_TextView didChangeText];
 		}
-		if (_SelectedRange.length>0)
+		if (_SelectedRange.length>ZER0)
 		{
-			_SelectedRange.length = 0;
+			_SelectedRange.length = ZER0;
 			[_TextView replaceCharactersInRange:_SelectedRange withString:_OriginalSelectedString];			
 		}
 		[_TextView autorelease];
@@ -840,7 +840,7 @@ grosbois:
 }
 - (void)forwardKeyEvent:(NSEvent *)theEvent;
 {
-	if (_RangeForUserCompletion.length == 0)
+	if (_RangeForUserCompletion.length == ZER0)
 	{
 		return;
 	}
@@ -853,7 +853,7 @@ grosbois:
 	NSRange range = [_TextView rangeForUserCompletion];
 	if (!iTM3EqualRanges(range,_RangeForUserCompletion))
 	{
-		NSInteger selectedRow = 0;
+		NSInteger selectedRow = ZER0;
 		_LongCandidates = [[_TextView completionsForPartialWordRange:range indexOfSelectedItem:&selectedRow] retain];
 		NSUInteger numberOfRows = _LongCandidates.count;
 		if (!numberOfRows)
@@ -898,7 +898,7 @@ grosbois:
 }
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row;
 {
-	id result = row>=0?[_LongCandidates objectAtIndex:row]:nil;
+	id result = row>=ZER0?[_LongCandidates objectAtIndex:row]:nil;
 	return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableViewSelectionDidChange:
@@ -935,7 +935,7 @@ To Do List:
 	{
 		if (completion.length > 2)
 		{
-			NSRange R = iTM3MakeRange(0,2);
+			NSRange R = iTM3MakeRange(ZER0,2);
 			NSString * prefix = [completion substringWithRange:R];
 			NSMutableArray * ra = [allCompletions objectForKey:prefix];
 			if (!ra)
@@ -944,7 +944,7 @@ To Do List:
 				[allCompletions setObject:ra forKey:prefix];
 			}
 			// insert it at the right location
-			NSInteger index = 0;
+			NSInteger index = ZER0;
 once_more_joe:
 			if (index < ra.count)
 			{
@@ -1006,7 +1006,7 @@ To Do List:
 	}
 	NSMutableDictionary * MD = [self storageForContext:context ofCategory:category];
 	NSMutableDictionary * allCompletions = [MD objectForKey:@"Completions"];
-	NSRange R = iTM3MakeRange(0, 2);
+	NSRange R = iTM3MakeRange(ZER0, 2);
 	NSString * substring = [partialWord substringWithRange:R];
 	NSArray * ra = [allCompletions objectForKey:substring];	
 	NSUInteger partialWordLength = partialWord.length;
@@ -1097,7 +1097,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (![self context4iTM3BoolForKey:@"iTM2NoExtendedCompletion" domain:iTM2ContextAllDomainsMask] && [[iTM2CompletionServer completionServer] runCompletionForTextView:self] != 0)
+	if (![self context4iTM3BoolForKey:@"iTM2NoExtendedCompletion" domain:iTM2ContextAllDomainsMask] && [[iTM2CompletionServer completionServer] runCompletionForTextView:self] != ZER0)
 	{
 		[super complete:sender];
 	}
@@ -1127,7 +1127,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return self.selectedRange.length>0;
+	return self.selectedRange.length>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= completionsForPartialWordRange:indexOfSelectedItem:
 - (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)indexPtr;
@@ -1148,7 +1148,7 @@ To Do List:
 		{
 			preferred1 = [result1 objectAtIndex:*indexPtr];
 		}
-		NSInteger index2 = 0;
+		NSInteger index2 = ZER0;
 		NSArray * result2 = [[iTM2CompletionServer completionServer] completionsForTextView:self partialWordRange:charRange indexOfSelectedItem:&index2];// THIS SHOULD CHANGE, IT HAS NO SENSE
 		if (result2.count)
 		{
@@ -1222,7 +1222,7 @@ To Do List:
 //START4iTM3;
 	NSArray * RA = [super completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index];
 	// RA contains words no longer that charRange, which is a mess for completion...
-	if (charRange.length>0)
+	if (charRange.length>ZER0)
 	{
 		NSString * context = @"";
 		NSString * category = @"";
@@ -1234,7 +1234,7 @@ To Do List:
 		{
 			if (index)
 			{
-				*index = 0;
+				*index = ZER0;
 			}
 			return [ra arrayByAddingObjectsFromArray:RA];
 		}
@@ -1312,7 +1312,7 @@ To Do List:
 		[self.windowController forwardKeyEvent:theEvent];//dead key
 		return;
 	}
-	unichar aCharacter = [characters characterAtIndex:0];
+	unichar aCharacter = [characters characterAtIndex:ZER0];
 	if ([[NSCharacterSet letterCharacterSet] characterIsMember:aCharacter])
 	{
 		[self.windowController forwardKeyEvent:theEvent];

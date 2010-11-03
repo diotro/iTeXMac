@@ -159,7 +159,7 @@ To Do List:
     NSUInteger begin, end;
 //NSLog(@"GLS");
 	id TV = [self.window.windowController textView];
-    [[TV string] getLineStart: &begin end: &end contentsEnd: nil forRange: iTM3MakeRange(sender.tag, 0)];
+    [[TV string] getLineStart: &begin end: &end contentsEnd: nil forRange: iTM3MakeRange(sender.tag, ZER0)];
     [TV highlightAndScrollToVisibleRange: iTM3MakeRange(begin, end-begin)];
     return;
 }
@@ -173,17 +173,17 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    NSInteger location = 0;
+    NSInteger location = ZER0;
     NSMenu * menu = sender.menu;
     NSInteger ceiling = [menu indexOfItem: sender];
-    NSInteger index = 0;
+    NSInteger index = ZER0;
     for(; index<=ceiling ; ++index)
         location += [[menu itemAtIndex: index] tag];
 
     NSUInteger begin, end;
 //NSLog(@"GLS");
 	id TV = [self.window.windowController textView]
-    [[textView string] getLineStart: &begin end: &end contentsEnd: nil forRange: iTM3MakeRange(location, 0)];
+    [[textView string] getLineStart: &begin end: &end contentsEnd: nil forRange: iTM3MakeRange(location, ZER0)];
     [textView highlightAndScrollToVisibleRange: iTM3MakeRange(begin, end-begin)];
 
     return;
@@ -214,7 +214,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    NSInteger tagNumber = 0;
+    NSInteger tagNumber = ZER0;
     BOOL isCommand;
     /*" Here again we use C strings: UTF8 are not aligned..."*/
     const char * stringPtr = [[[self.window.windowController textView] string] lossyCString];
@@ -303,7 +303,7 @@ To Do List:
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = (object.length > 48)?
                                                     [NSString stringWithFormat: @"%@[...]",
-                                                            [object substringWithRange: iTM3MakeRange(0,43)]]: object;
+                                                            [object substringWithRange: iTM3MakeRange(ZER0,43)]]: object;
                             if(title.length)
                             {
                                 NSMenuItem * MI = [markMenu addItemWithTitle: title
@@ -311,7 +311,7 @@ To Do List:
                                                             keyEquivalent: [NSString string]];
                                 MI.target = self;
                                 MI.representedObject = object;
-                                [MI setEnabled: (markMenu.title.length > 0)];
+                                [MI setEnabled: (markMenu.title.length > ZER0)];
                             }
                         }
                     }
@@ -333,7 +333,7 @@ To Do List:
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = (object.length > 48)?
                                                     [NSString stringWithFormat: @"%@[...]",
-                                                        [object substringWithRange: iTM3MakeRange(0,43)]]: object;
+                                                        [object substringWithRange: iTM3MakeRange(ZER0,43)]]: object;
                             if(title.length)
                             {
                                 NSMenuItem * MI = [markMenu addItemWithTitle: title
@@ -341,7 +341,7 @@ To Do List:
                                                             keyEquivalent: [NSString string]];
                                 MI.target = self;
                                 MI.representedObject = object;
-                                [MI setEnabled: (markMenu.title.length > 0)];
+                                [MI setEnabled: (markMenu.title.length > ZER0)];
                             }
                         }
                     }
@@ -390,8 +390,8 @@ To Do List:
                                             stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                                                 NSString * title = (object.length > 48)?
                                                         [NSString stringWithFormat: @"%@[...]",
-                                                            [object substringWithRange: iTM3MakeRange(0,43)]]: object;
-                                                if(title.length == 0)
+                                                            [object substringWithRange: iTM3MakeRange(ZER0,43)]]: object;
+                                                if(title.length == ZER0)
                                                     title = @"...";
                                                 {
                                                     NSMenuItem * MI = [markMenu addItemWithTitle: title
@@ -469,7 +469,7 @@ To Do List:
     #define subsubparagraphDepth 8
     #define includeDepth 9
     #define inputDepth 10
-    NSUInteger sectionCount = 0, subsectionCount = 0, subsubsectionCount = 0;
+    NSUInteger sectionCount = ZER0, subsectionCount = ZER0, subsubsectionCount = ZER0;
     NSString * fileName = [[self.window.windowController document] fileName];
     NSString * title = fileName? fileName.stringByDeletingLastPathComponent: [NSString string];
     NSMenu * sectionMenu = [[[NSMenu alloc] initWithTitle: title] autorelease];
@@ -482,7 +482,7 @@ To Do List:
 //    NSLog(@"validateSectionButton: index error = %d", indexError);
     while(backslashPtr = strchr(scanPtr, '\\'))
     {
-        NSInteger depth = 0;
+        NSInteger depth = ZER0;
         scanPtr = backslashPtr + 1;
         if(*scanPtr == 's')
         {
@@ -576,14 +576,14 @@ To Do List:
                 l1 = l3? (l2? MIN(l3, l2): l3): (l2? l2: strchr(scanPtr, '\0'));
                 object = [NSString stringWithCString: scanPtr length:(NSUInteger)(l1-scanPtr)];
                 MI.action = @selector(scrollInputToVisible:);
-                [MI setEnabled: (sectionMenu.title.length > 0)];
+                [MI setEnabled: (sectionMenu.title.length > ZER0)];
             }
             else if((bgroupPtr = strchr(scanPtr, bgroup)) && (egroupPtr = strchr(bgroupPtr, egroup)))
             {
                 object = [NSString stringWithCString: bgroupPtr length:(NSUInteger)(egroupPtr-bgroupPtr)];
                 MI.action = (depth == includeDepth? @selector(scrollIncludeToVisible:):
                     @selector(scrollTaggedToVisible:));
-                [MI setEnabled: (sectionMenu.title.length > 0)];
+                [MI setEnabled: (sectionMenu.title.length > ZER0)];
             }
             object = [[object stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]
                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
@@ -593,17 +593,17 @@ To Do List:
                 {
                     case partDepth:
                     case chapterDepth:
-                        sectionCount = subsectionCount = subsubsectionCount = 0;
+                        sectionCount = subsectionCount = subsubsectionCount = ZER0;
                     default:
                         title = object;
                         break;
                     case sectionDepth:
                         title = [NSString stringWithFormat: @"%d. %@", ++sectionCount, object];
-                        subsectionCount = subsubsectionCount = 0;
+                        subsectionCount = subsubsectionCount = ZER0;
                         break;
                     case subsectionDepth:
                         title = [NSString stringWithFormat: @"%d.%c. %@", sectionCount, ++subsectionCount+'a'-1, object];
-                        subsubsectionCount = 0;
+                        subsubsectionCount = ZER0;
                         break;
                     case subsubsectionDepth:
                         title = [NSString stringWithFormat: @"%d.%c.%d. %@",
@@ -620,7 +620,7 @@ To Do List:
                         break;
                 }
                 if(title.length > 48)
-                    title = [NSString stringWithFormat: @"%@[...]", [title substringWithRange: iTM3MakeRange(0,43)]];
+                    title = [NSString stringWithFormat: @"%@[...]", [title substringWithRange: iTM3MakeRange(ZER0,43)]];
                 if(title.length)
                 {
                     MI.title = title;
@@ -690,8 +690,8 @@ To Do List:
 {
 //START4iTM3;
 //START4iTM3;
-    NSInteger countL = 0;
-    NSInteger countR = 0;
+    NSInteger countL = ZER0;
+    NSInteger countR = ZER0;
     BOOL isCommand;
     /*" We use C strings. With UTF8 strings, we should manage shifts. "*/
     const char * stringPtr = [[[self.window.windowController textView] string] lossyCString];
@@ -779,7 +779,7 @@ To Do List:
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = (object.length > 48)?
                                                     [NSString stringWithFormat: @"%@[...]",
-                                                            [object substringWithRange: iTM3MakeRange(0,43)]]: object;
+                                                            [object substringWithRange: iTM3MakeRange(ZER0,43)]]: object;
                             if(title.length)
                             {
                                 NSMenuItem * MI = [labelMenu addItemWithTitle: title
@@ -787,7 +787,7 @@ To Do List:
                                                             keyEquivalent: [NSString string]];
                                 MI.target = self;
                                 MI.representedObject = object;
-                                [MI setEnabled: (labelMenu.title.length > 0)];
+                                [MI setEnabled: (labelMenu.title.length > ZER0)];
                             }
                         }
                     }
@@ -808,7 +808,7 @@ To Do List:
                         // scanPtr points to the first non white char
                         char * end = (char *)scanPtr;
                         // end will point to the first white char
-                        // the min between SPACE and CR, excluding 0!!!
+                        // the min between SPACE and CR, excluding ZER0!!!
                         end = (char *)(SPACE? (CR? MIN(SPACE, CR): SPACE): CR);
                         end = (char *)(end? (LF? MIN(LF, end): end): (LF? LF: strchr(scanPtr, '\0')));
                         {
@@ -817,7 +817,7 @@ To Do List:
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                             NSString * title = (object.length > 48)?
                                                     [NSString stringWithFormat: @"%@[...]",
-                                                        [object substringWithRange: iTM3MakeRange(0,43)]]: object;
+                                                        [object substringWithRange: iTM3MakeRange(ZER0,43)]]: object;
                             if(title.length)
                             {
                                 NSMenuItem * MI = [labelMenu addItemWithTitle: title
@@ -825,7 +825,7 @@ To Do List:
                                                             keyEquivalent: [NSString string]];
                                 MI.target = self;
                                 MI.representedObject = object;
-                                [MI setEnabled: (labelMenu.title.length > 0)];
+                                [MI setEnabled: (labelMenu.title.length > ZER0)];
                             }
                         }
                     }
@@ -851,7 +851,7 @@ To Do List:
                                     stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                         NSString * title = (object.length > 41)?
                                                 [NSString stringWithFormat: @"%@[...]",
-                                                        [object substringWithRange: iTM3MakeRange(0,36)]]: object;
+                                                        [object substringWithRange: iTM3MakeRange(ZER0,36)]]: object;
                         if(title.length)
                         {
                             NSMenuItem * MI = [labelMenu addItemWithTitle:
@@ -861,7 +861,7 @@ To Do List:
                             MI.target = self;
                             MI.tag = (tag - stringPtr);
                             MI.representedObject = object;
-                            [MI setEnabled: (labelMenu.title.length > 0)];
+                            [MI setEnabled: (labelMenu.title.length > ZER0)];
                         }
                     }
                 }
@@ -885,7 +885,7 @@ To Do List:
                                     stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                         NSString * title = (object.length > 43)?
                                                 [NSString stringWithFormat: @"%@[...]",
-                                                        [object substringWithRange: iTM3MakeRange(0,38)]]: object;
+                                                        [object substringWithRange: iTM3MakeRange(ZER0,38)]]: object;
                         if(title.length)
                         {
                             NSMenuItem * MI = [refMenu addItemWithTitle:
@@ -895,7 +895,7 @@ To Do List:
                             MI.target = self;
                             MI.tag = scanBackslash - stringPtr;
                             MI.representedObject = object;
-                            [MI setEnabled: (labelMenu.title.length > 0)];
+                            [MI setEnabled: (labelMenu.title.length > ZER0)];
                         }
                     }
                 }
@@ -919,7 +919,7 @@ To Do List:
                                         stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString: @"{}"]];
                         NSString * title = (object.length > 41)?
                                                 [NSString stringWithFormat: @"%@[...]",
-                                                        [object substringWithRange: iTM3MakeRange(0,36)]]: object;
+                                                        [object substringWithRange: iTM3MakeRange(ZER0,36)]]: object;
                         if(title.length)
                         {
                             NSMenuItem * MI = [refMenu addItemWithTitle:
@@ -929,7 +929,7 @@ To Do List:
                             MI.target = self;
                             MI.tag = scanBackslash - stringPtr;
                             MI.representedObject = object;
-                            [MI setEnabled: (labelMenu.title.length > 0)];
+                            [MI setEnabled: (labelMenu.title.length > ZER0)];
                         }
                     }
                 }

@@ -219,14 +219,14 @@ To Do List:
 	// We find all the occurrences of the here word in the given line.
 	// if we find such words, this is satisfying
 	// if we do not find such words, things will be more complicated
-	NSRange foundR = [S rangeOfString:hereW options:0L range:searchR];
+	NSRange foundR = [S rangeOfString:hereW options:ZER0 range:searchR];
 	if (foundR.length) {
 		do {
 			[hereRanges addObject:[NSValue valueWithRange:foundR]];
 			searchR.length = iTM3MaxRange(searchR);
 			searchR.location = iTM3MaxRange(foundR);
 			searchR.length -= searchR.location;
-			foundR = [S rangeOfString:hereW options:0L range:searchR];
+			foundR = [S rangeOfString:hereW options:ZER0 range:searchR];
 		} while(foundR.length);
 		// searchR is free
 		if (hereRanges.count == 1) {
@@ -262,7 +262,7 @@ before:
 				// the try to find the hereW closest to otherW
 				// set up a search range, with limited length 256
 				if (foundR.location<256) {
-					searchR = iTM3MakeRange(0,foundR.location);
+					searchR = iTM3MakeRange(ZER0,foundR.location);
 				} else {
 					searchR = iTM3MakeRange(foundR.location-256,256);
 				}
@@ -291,7 +291,7 @@ after:
 			if (otherR.length) {
 				otherW = [pageString substringWithRange:otherR];
 				// otherR is free now
-				foundR = [[hereRanges objectAtIndex:0] rangeValue];
+				foundR = [[hereRanges objectAtIndex:ZER0] rangeValue];
 				// start form the last occurence of hereW, try to find out otherW before
 				// then try to find the hereW closest to otherW
 				// set up a search range, with limited length 256
@@ -300,7 +300,7 @@ after:
 				} else {
 					searchR = iTM3MakeRange(iTM3MaxRange(foundR),256);
 				}
-				otherR = [S rangeOfString:otherW options:0L range:searchR];
+				otherR = [S rangeOfString:otherW options:ZER0 range:searchR];
 				if (otherR.length) {
 					// we found it!
 					// now we try the first hereW range after otherR
@@ -478,9 +478,9 @@ bolbite:
 						}
 					}
 //LOG4iTM3(@"Search words: %@+%@+%@+%@+%@", prevW2, prevW1, hereWord, nextW1, nextW2);
-					NSRange charRange = [TS getRangeForLine4iTM3:(lineRef? * lineRef:0)];
+					NSRange charRange = [TS getRangeForLine4iTM3:(lineRef? * lineRef:ZER0)];
 					if (!charRange.length)
-						charRange = iTM3MakeRange(0, documentString.length);
+						charRange = iTM3MakeRange(ZER0, documentString.length);
 					NSUInteger charAnchor = charRange.location + charRange.length / 2;
 					NSRange searchR = charRange;
 					if (searchR.location > pageString.length) {
@@ -488,10 +488,10 @@ bolbite:
 						searchR.location -= pageString.length;
 					} else {
 						searchR.length += searchR.location;
-						searchR.location = 0;
+						searchR.location = ZER0;
 					}
 					#if 0
-					if (iTM3MaxRange(searchR) + 20*pageString.length < documentString.length)
+                    if (iTM3MaxRange(searchR) + 20*pageString.length < documentString.length)
 					{
 						searchR.length += 20*pageString.length;
 					}
@@ -510,31 +510,31 @@ bolbite:
 					// keys are the weight of the ranges
 					NSUInteger topSearchRange = iTM3MaxRange(searchR);
 					if (prevW2.length) {
-						NSRange prevR2 = [documentString rangeOfWord:prevW2 options:0L range:searchR];
+						NSRange prevR2 = [documentString rangeOfWord:prevW2 options:ZER0 range:searchR];
 						if (prevR2.length) {
 							if (prevW1.length) {
 								searchR.location = iTM3MaxRange(prevR2);
 								searchR.length = topSearchRange - searchR.location;
 								if (searchR.length >= prevW1.length) {
-									NSRange prevR1 = [documentString rangeOfWord:prevW1 options:0L range:searchR];
+									NSRange prevR1 = [documentString rangeOfWord:prevW1 options:ZER0 range:searchR];
 									if (prevR1.length) {
 										if (hereWord.length) {
 											searchR.location = iTM3MaxRange(prevR1);
 											searchR.length = topSearchRange - searchR.location;
 											if (searchR.length >= hereWord.length) {
-												NSRange hereR = [documentString rangeOfWord:hereWord options:0L range:searchR];
+												NSRange hereR = [documentString rangeOfWord:hereWord options:ZER0 range:searchR];
 												if (hereR.length) {
 													if (nextW1.length) {
 														searchR.location = iTM3MaxRange(hereR);
 														searchR.length = topSearchRange - searchR.location;
 														if (searchR.length >= nextW1.length) {
-															NSRange nextR1 = [documentString rangeOfWord:nextW1 options:0L range:searchR];
+															NSRange nextR1 = [documentString rangeOfWord:nextW1 options:ZER0 range:searchR];
 															if (nextR1.length) {
 																if (nextW2.length) {
 																	searchR.location = iTM3MaxRange(nextR1);
 																	searchR.length = topSearchRange - searchR.location;
 																	if (searchR.length >= nextW2.length) {
-																		NSRange nextR2 = [documentString rangeOfWord:nextW2 options:0L range:searchR];
+																		NSRange nextR2 = [documentString rangeOfWord:nextW2 options:ZER0 range:searchR];
 																		if (nextR2.length) {
 match12345:
 	// backwards search
@@ -578,7 +578,7 @@ match12345:
 	NSUInteger hereAnchor = hereR.location + hereR.length / 2;
 	if (hereAnchor < charAnchor) {
 		NSMutableDictionary * afterMatches = [RA objectAtIndex:1];
-		N = [NSNumber numberWithUnsignedInteger:((lineRef? * lineRef:0)? charAnchor - hereAnchor:0)];
+		N = [NSNumber numberWithUnsignedInteger:((lineRef? * lineRef:ZER0)? charAnchor - hereAnchor:ZER0)];
 		NSMutableArray * mra = [afterMatches objectForKey:N];
 		if (!mra) {
 			mra = [NSMutableArray array];
@@ -586,8 +586,8 @@ match12345:
 		}
 		[mra addObject:[NSValue valueWithRange:hereR]];
 	} else {
-		NSMutableDictionary * beforeMatches = [RA objectAtIndex:0];
-		N = [NSNumber numberWithUnsignedInteger:((lineRef? * lineRef:0)? hereAnchor - charAnchor:0)];
+		NSMutableDictionary * beforeMatches = [RA objectAtIndex:ZER0];
+		N = [NSNumber numberWithUnsignedInteger:((lineRef? * lineRef:ZER0)? hereAnchor - charAnchor:ZER0)];
 		NSMutableArray * mra = [beforeMatches objectForKey:N];
 		if (!mra) {
 			mra = [NSMutableArray array];
@@ -600,27 +600,27 @@ match12345:
 	if (searchR.location < topSearchRange) {
 		searchR.length = topSearchRange - searchR.location;
 		// finding all the other stuff...
-		prevR2 = [documentString rangeOfWord:prevW2 options:0L range:searchR];
+		prevR2 = [documentString rangeOfWord:prevW2 options:ZER0 range:searchR];
 		if (prevR2.length) {
 			searchR.location = iTM3MaxRange(prevR2);
 			searchR.length = topSearchRange - searchR.location;
 			if (searchR.length) {
-				prevR1 = [documentString rangeOfWord:prevW1 options:0L range:searchR];
+				prevR1 = [documentString rangeOfWord:prevW1 options:ZER0 range:searchR];
 				if (prevR1.length) {
 					searchR.location = iTM3MaxRange(prevR1);
 					searchR.length = topSearchRange - searchR.location;
 					if (searchR.length) {
-						hereR = [documentString rangeOfWord:hereWord options:0L range:searchR];
+						hereR = [documentString rangeOfWord:hereWord options:ZER0 range:searchR];
 						if (hereR.length) {
 							searchR.location = iTM3MaxRange(hereR);
 							searchR.length = topSearchRange - searchR.location;
 							if (searchR.length) {
-								nextR1 = [documentString rangeOfWord:nextW1 options:0L range:searchR];
+								nextR1 = [documentString rangeOfWord:nextW1 options:ZER0 range:searchR];
 								if (nextR1.length) {
 									searchR.location = iTM3MaxRange(nextR1);
 									searchR.length = topSearchRange - searchR.location;
 									if (searchR.length) {
-										nextR2 = [documentString rangeOfWord:nextW2 options:0L range:searchR];
+										nextR2 = [documentString rangeOfWord:nextW2 options:ZER0 range:searchR];
 										if (nextR2.length) {
 											goto match12345;
 										}
@@ -652,7 +652,7 @@ match12345:
 	while(N = [E nextObject]) {
 		if ([N unsignedIntegerValue] < top) {
 			RA = [matches objectForKey:N];
-			NSMutableDictionary * MD = [RA objectAtIndex:0];
+			NSMutableDictionary * MD = [RA objectAtIndex:ZER0];
 			[MD addEntriesFromDictionary:beforeMatches];
 			beforeMatches = MD;
 			MD = [RA objectAtIndex:1];
@@ -661,8 +661,8 @@ match12345:
 		}
 	}
 	if (beforeMatches.count) {
-		N = [[[beforeMatches allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-		hereR = [[[beforeMatches objectForKey:N] objectAtIndex:0] rangeValue];
+		N = [[[beforeMatches allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
+		hereR = [[[beforeMatches objectForKey:N] objectAtIndex:ZER0] rangeValue];
 		if (lineRef) {
 			* lineRef = [TS lineIndexForLocation4iTM3:hereR.location];
 			charRange = [TS getRangeForLine4iTM3:* lineRef];
@@ -672,8 +672,8 @@ match12345:
 			* columnRef = NSNotFound;
 		return [N unsignedIntegerValue] + top - 5;
 	} else if (afterMatches.count) {
-		N = [[[afterMatches allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:0];
-		hereR = [[[afterMatches objectForKey:N] objectAtIndex:0] rangeValue];
+		N = [[[afterMatches allKeys] sortedArrayUsingSelector:@selector(compare:)] objectAtIndex:ZER0];
+		hereR = [[[afterMatches objectForKey:N] objectAtIndex:ZER0] rangeValue];
 		if (lineRef) {
 			* lineRef = [TS lineIndexForLocation4iTM3:hereR.location];
 			charRange = [TS getRangeForLine4iTM3:* lineRef];
@@ -861,7 +861,7 @@ To Do List: implement other actions
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[[[[self frontWindow] windowController] textView] string] length]>0;
+    return [[[[[self frontWindow] windowController] textView] string] length]>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateRevertDocumentToSaved:
 - (BOOL)validateRevertDocumentToSaved:(id)sender;
@@ -943,8 +943,7 @@ To Do List:
 - (void)setStringEncoding:(NSStringEncoding)argument;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
+//  Révisé par itexmac2: To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
@@ -1053,13 +1052,13 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 		return NO;// abort
 	} else if (NSAlertOtherReturn == result) {
 		NSMutableArray * MRA = [NSMutableArray array];
-		NSUInteger idx = 0, top = S.length;
-		NSUInteger length = 0;
+		NSUInteger idx = ZER0, top = S.length;
+		NSUInteger length = ZER0;
 		NSRange R;
 		NSUInteger firewall = 256;
 		NSAutoreleasePool * RP = [[NSAutoreleasePool alloc] init];
 		while (idx < top) {
-			if (--firewall == 0) {
+			if (--firewall == ZER0) {
 				RP.drain;
 				RP = [[NSAutoreleasePool alloc] init];
 				firewall = 256;
@@ -1076,7 +1075,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 					}
 				}
 				// no more pending problems
-				length = 0;
+				length = ZER0;
 			} else {
 				// this character is problematic
 				LOG4iTM3(@"Warning: Character problem 3");
@@ -1099,7 +1098,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 				if ([WC isKindOfClass:[iTM2TextInspector class]]) {
 					NSTextView * TV = WC.textView;
 					[TV secondaryHighlightInRanges:MRA];
-					[TV scrollRangeToVisible:[[MRA objectAtIndex:0] rangeValue]];
+					[TV scrollRangeToVisible:[[MRA objectAtIndex:ZER0] rangeValue]];
 				}
 			}
 		}
@@ -1342,7 +1341,7 @@ To Do List:
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
 					[B setButtonType:NSMomentaryPushInButton];
 					[B setAction:@selector(splitHorizontal:)];
-					B.tag = 0;
+					B.tag = ZER0;
 					[FCV addSubview:B];
 					B = [[[NSButton alloc] initWithFrame:R] autorelease];
 					[B setImage:[NSImage imageSplitVertical4iTM3]];
@@ -1392,7 +1391,7 @@ To Do List:
 					[B setBezelStyle:NSShadowlessSquareBezelStyle];
 					[B setButtonType:NSMomentaryPushInButton];
 					[B setAction:@selector(splitHorizontal:)];
-					B.tag = 0;
+					B.tag = ZER0;
 					[FCV addSubview:B];
 					B = [[[NSButton alloc] initWithFrame:R] autorelease];
 					[B setImage:[NSImage imageSplitVertical4iTM3]];
@@ -1432,7 +1431,7 @@ To Do List:
 	[self setupTextEditorScrollers];
     [super windowDidLoad];
 	#if 0
-	BOOL flag = [self context4iTM3BoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];
+    BOOL flag = [self context4iTM3BoolForKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];
 //LOG4iTM3(@"flag is: %@", (flag? @"Y": @"N"));
 //LOG4iTM3(@"NSApp is: %@", NSApp);
 //LOG4iTM3(@"[NSApp keyWindow] is:%@", [NSApp keyWindow]);
@@ -1499,13 +1498,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * argument = [self.document stringRepresentation];
-    if (!argument)
-        argument = [NSString string];
+    if (!argument) argument = [NSString string];
     NSTextStorage * TS = self.textStorage;
-	[TS beginEditing];
+	TS.beginEditing;
 //LOG4iTM3(@"**** **** ****  ALL THE CHARACTERS ARE REPLACED");
-	[TS replaceCharactersInRange:iTM3MakeRange(0, TS.length) withString:argument];
-	[TS endEditing];
+	[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:argument];
+	TS.endEditing;
 	[super synchronizeWithDocument];
     return;
 }
@@ -1823,13 +1821,13 @@ To Do List:
 	NSMutableArray * MRA = [NSMutableArray array];
 	NSString * S = [self.textStorage string];
 	NSUInteger encoding = [stringEncodingInfo unsignedIntegerValue];
-	NSUInteger idx = 0, top = S.length;
+	NSUInteger idx = ZER0, top = S.length;
 	NSRange R;
-	NSUInteger length = 0;
+	NSUInteger length = ZER0;
 	NSUInteger firewall = 256;
 	while (idx < top)
 	{
-		if (--firewall == 0) {
+		if (--firewall == ZER0) {
 			[[NSGarbageCollector defaultCollector] collectIfNeeded];
 			firewall = 256;
 		}
@@ -1845,7 +1843,7 @@ To Do List:
 				}
 			}
 			// no more pending problems
-			length = 0;
+			length = ZER0;
 		} else {
 			// this character is problematic
 			LOG4iTM3(@"Warning: Character problem 3");
@@ -1864,7 +1862,7 @@ To Do List:
 	NSTextView * TV = self.textView;
 	if (MRA.count) {
 		[TV secondaryHighlightInRanges:MRA];
-		[TV scrollRangeToVisible:[[MRA objectAtIndex:0] rangeValue]];
+		[TV scrollRangeToVisible:[[MRA objectAtIndex:ZER0] rangeValue]];
 	} else {
 		[TV secondaryHighlightInRanges:nil];
 	}
@@ -2084,7 +2082,7 @@ To Do List:
     } else {
         [self.textStorage replaceCharactersInRange:range withString:string];
 		NSRange _FocusRange = [[IMPLEMENTATION metaValueForKey:@"_FocusRange"] rangeValue];
-        [IMPLEMENTATION takeMetaValue:[NSValue valueWithRange:iTM3MakeRange(_FocusRange.location + string.length, 0)] forKey:@"_FocusRange"];
+        [IMPLEMENTATION takeMetaValue:[NSValue valueWithRange:iTM3MakeRange(_FocusRange.location + string.length,ZER0)] forKey:@"_FocusRange"];
     }
     return;
 }
@@ -2202,7 +2200,7 @@ To Do List:
 //START4iTM3;
 //END4iTM3;
 	NSRange R = self.selectedRange;
-	if (R.length == 0) {
+	if (R.length == ZER0) {
 		NSTextStorage * TS = self.textStorage;
 		NSString * S = TS.string;
 		if (R.location<S.length) {
@@ -2227,9 +2225,9 @@ To Do List:
 //START4iTM3;
 //END4iTM3;
 	NSRange R = self.selectedRange;
-	if (R.length == 0) {
+	if (R.length == ZER0) {
 		NSTextStorage * TS = self.textStorage;
-		if (R.location>0) {
+		if (R.location > ZER0) {
 			NSRange attrRange;
 			NSDictionary * attrs = [TS attributesAtIndex:R.location-1 effectiveRange:&attrRange];
 			if ([attrs objectForKey:NSGlyphInfoAttributeName]) {
@@ -2331,7 +2329,7 @@ To Do List:
 	[super awakeFromContext4iTM3];
 	CGFloat scale = [self context4iTM3FloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
-    NSRange R = iTM3MakeRange(0,self.string.length);
+    NSRange R = iTM3MakeRange(ZER0,self.string.length);
     NSRange r = NSRangeFromString([self contextValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);
     [self setSelectedRange:iTM3ProjectionRange(R, r)];
     r = NSRangeFromString([self contextValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask]);
@@ -2352,7 +2350,7 @@ To Do List:
 	NSUInteger location = sender.tag;
 	if (location < S.length) {
 		NSUInteger begin, end;
-		[S getLineStart:&begin end:&end contentsEnd:nil forRange:iTM3MakeRange(location, 0)];
+		[S getLineStart:&begin end:&end contentsEnd:nil forRange:iTM3MakeRange(location,ZER0)];
 		[self highlightAndScrollToVisibleRange:iTM3MakeRange(begin, end-begin)];
 	}
 //END4iTM3;
@@ -2371,9 +2369,9 @@ To Do List:
 	NSUInteger location = sender.tag;
 	if (location < S.length) {
 		NSUInteger begin, end;
-		[S getLineStart:&begin end:&end contentsEnd:nil forRange:iTM3MakeRange(location, 0)];
+		[S getLineStart:&begin end:&end contentsEnd:nil forRange:iTM3MakeRange(location,ZER0)];
 		NSRange searchRange = iTM3MakeRange(begin, end-begin);
-		NSRange range = [S rangeOfString:sender.representedObject options:0L range:searchRange];
+		NSRange range = [S rangeOfString:sender.representedObject options:ZER0 range:searchRange];
 		if (!range.length) {
 			range = searchRange;
         }
@@ -2402,12 +2400,12 @@ To Do List:
 	NSRange attrsRange;
 	if (ranges.count == 1) {
 		R = [ranges.lastObject rangeValue];
-		if (R.length == 0) {
+		if (R.length == ZER0) {
 			NSEvent * E = self.window.currentEvent;
 			NSUInteger type = [E type];
 			if (type == NSLeftMouseUp && R.location<self.string.length) {
 				// select the edge closest to the hit point
-				attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(0,[[self string] length])];
+				attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(ZER0,self.string.length)];
 				if ([attrs objectForKey:NSGlyphInfoAttributeName]) {
 					R.location=R.location<=attrsRange.location + attrsRange.length/2?
 						attrsRange.location:iTM3MaxRange(attrsRange);
@@ -2417,7 +2415,7 @@ To Do List:
 			} else if (type == NSKeyDown) {
 				NSString * K = [E charactersIgnoringModifiers];
 				if (K.length) {
-					switch([K characterAtIndex:0])
+					switch([K characterAtIndex:ZER0])
 					{
 						case NSUpArrowFunctionKey:
 						case NSDownArrowFunctionKey:
@@ -2429,7 +2427,7 @@ To Do List:
 								// we assume we are selecting up stream
 								if (R.location<TS.length)
 								{
-									attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(0,[[self string] length])];
+									attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(ZER0,self.string.length)];
 									if ([attrs objectForKey:NSGlyphInfoAttributeName]) {
 										R.location = attrsRange.location;
 										[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
@@ -2440,7 +2438,7 @@ To Do List:
 								// we assume we are selecting down stream
 								if (R.location) {
 									if (R.location<=TS.length) {
-										attrs = [TS attributesAtIndex:R.location-1 longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(0,[[self string] length])];
+										attrs = [TS attributesAtIndex:R.location-1 longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(ZER0,self.string.length)];
 										if ([attrs objectForKey:NSGlyphInfoAttributeName]) {
 											R.location = iTM3MaxRange(attrsRange);
 											[super setSelectedRanges:[NSArray arrayWithObject:[NSValue valueWithRange:R]] affinity:affinity stillSelecting:stillSelectingFlag];
@@ -2461,12 +2459,12 @@ To Do List:
 		NSRange R = [V rangeValue];
 		if (R.length)
 		{
-			attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(0,[[self string] length])];
+			attrs = [TS attributesAtIndex:R.location longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(ZER0,self.string.length)];
 			if ([attrs objectForKey:NSGlyphInfoAttributeName])
 			{
 				R = iTM3UnionRange(R,attrsRange);
 			}
-			attrs = [TS attributesAtIndex:iTM3MaxRange(R)-1 longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(0,[[self string] length])];
+			attrs = [TS attributesAtIndex:iTM3MaxRange(R)-1 longestEffectiveRange:&attrsRange inRange:iTM3MakeRange(ZER0,self.string.length)];
 			if ([attrs objectForKey:NSGlyphInfoAttributeName])
 			{
 				R = iTM3UnionRange(R,attrsRange);
@@ -2502,7 +2500,7 @@ To Do List:
 		if (clickCount > 2)
 		{
 			clickCount -= 2;
-//LOG4iTM3(@"0 itsProposedSelRange:%@",NSStringFromRange(itsProposedSelRange));
+//LOG4iTM3(@"ZER0 itsProposedSelRange:%@",NSStringFromRange(itsProposedSelRange));
 			if (granularity>NSSelectByWord)
 			{
 				NSTextStorage * TS = [self textStorage];
@@ -2532,7 +2530,7 @@ To Do List:
 	if ((itsProposedSelRange.location <= myProposedSelRange.location)
 		&& (iTM3MaxRange(myProposedSelRange)<=iTM3MaxRange(itsProposedSelRange)))
 	{
-//LOG4iTM3(@"0 myProposedSelRange:%@",NSStringFromRange(myProposedSelRange));
+//LOG4iTM3(@"ZER0 myProposedSelRange:%@",NSStringFromRange(myProposedSelRange));
 		return myProposedSelRange;
 	}
 //END4iTM3;

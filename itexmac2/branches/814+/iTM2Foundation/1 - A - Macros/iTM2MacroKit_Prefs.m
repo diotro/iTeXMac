@@ -107,7 +107,7 @@
 }
 - (BOOL)mustShowArgument;
 {
-	return [[self insertion] length] != 0;
+	return [[self insertion] length] != ZER0;
 }
 - (BOOL)hiddenArgument;
 {
@@ -315,7 +315,7 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 		NSDictionary * D;
 		if (personalUrl.isFileURL && [DFM fileExistsAtPath:personalUrl.path])
 		{
-			data = [NSData dataWithContentsOfURL:personalUrl options:0 error:&localError];
+			data = [NSData dataWithContentsOfURL:personalUrl options:ZER0 error:&localError];
 			if (localError)
 			{
 				LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
@@ -334,7 +334,7 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 			if (![url isEqual:personalUrl])
 			{
 				localError = nil;
-				data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
+				data = [NSData dataWithContentsOfURL:url options:ZER0 error:&localError];
 				if (localError)
 				{
 					LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
@@ -610,7 +610,7 @@ To Do List:
 		ID = @"macro";
 		if ([IDs containsObject:ID])
 		{
-			NSUInteger idx = 0;
+			NSUInteger idx = ZER0;
 			do
 			{
 				ID = [NSString stringWithFormat:@"macro %i",++idx];
@@ -752,9 +752,9 @@ To Do List:
 
 @implementation iTM2KeyStroke(Preferences)
 #define DEFINE(GETTER,SETTER,CAN,FLAG)\
-- (BOOL)GETTER;{return (modifierFlags & FLAG) > 0;}\
+- (BOOL)GETTER;{return (modifierFlags & FLAG) > ZER0;}\
 - (void)SETTER:(BOOL)yorn;{modifierFlags = (yorn?modifierFlags | FLAG:modifierFlags &~ FLAG);}\
-- (BOOL)CAN;{return codeName.length>0;}
+- (BOOL)CAN;{return codeName.length>ZER0;}
 DEFINE(isShift,setIsShift,canShift,NSShiftKeyMask)
 DEFINE(isControl,setIsControl,canControl,NSControlKeyMask)
 DEFINE(isCommand,setIsCommand,canCommand,NSCommandKeyMask)
@@ -956,7 +956,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSUInteger length = indexPath.length;
-	NSUInteger position = 0;
+	NSUInteger position = ZER0;
 	id result = self;
 	while(position < length)
 	{
@@ -977,7 +977,7 @@ To Do List:
 		[self willChangeValueForKey:@"macro"];
 		[old removeObserver:self forKeyPath:@"isMutable"];
 		[self setValue:new forKeyPath:@"value.macro"];
-		[new addObserver:self forKeyPath:@"isMutable" options:0 context:self];
+		[new addObserver:self forKeyPath:@"isMutable" options:ZER0 context:self];
 		[self didChangeValueForKey:@"macro"];
 	}
 }
@@ -1051,11 +1051,11 @@ COPY(altCodeName,setAltCodeName)
 COPY(codeName,setCodeName)
 COPY(modifierFlags,setModifierFlags)
 #undef COPY
-			if ([[KS children] count] == 0)
+			if ([[KS children] count] == ZER0)
 			{
 				[copy setMacroID:[KS macroID]];
 			}
-			[parent insertObject:copy inAvailableKeyBindingsAtIndex:0];
+			[parent insertObject:copy inAvailableKeyBindingsAtIndex:ZER0];
 			parent = copy;
 		}
 		else
@@ -1197,7 +1197,7 @@ To Do List:
 }
 - (void)feedXMLElement:(NSXMLElement *)element;// element is the parent
 {
-	if (([[self codeName] length] == 0) && ([self parent] != nil))// only the root is allowed not to have a KEY attribute
+	if (([[self codeName] length] == ZER0) && ([self parent] != nil))// only the root is allowed not to have a KEY attribute
 	{
 		return;
 	}
@@ -1320,7 +1320,7 @@ To Do List:
 		// it should be selected
 		return;
 	}
-	[self insertObject:object inChildrenAtIndex:0];
+	[self insertObject:object inChildrenAtIndex:ZER0];
 	id already = [[self otherNode] objectInChildrenWithKeyStroke:object];
 	if (already)
 	{
@@ -1403,7 +1403,7 @@ To Do List:
 		NSData * data;
 		if (personalUrl.isFileURL && [DFM fileExistsAtPath:personalUrl.path])
 		{
-			data = [NSData dataWithContentsOfURL:personalUrl options:0 error:&localError];
+			data = [NSData dataWithContentsOfURL:personalUrl options:ZER0 error:&localError];
 			if (localError)
 			{
 				LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
@@ -1418,7 +1418,7 @@ To Do List:
 			if (![url isEqual:personalUrl])
 			{
 				localError = nil;
-				data = [NSData dataWithContentsOfURL:url options:0 error:&localError];
+				data = [NSData dataWithContentsOfURL:url options:ZER0 error:&localError];
 				if (localError)
 				{
 					LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
@@ -1462,7 +1462,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self countOfAvailableKeyBindings]>0;
+    return [self countOfAvailableKeyBindings]>ZER0;
 }
 @synthesize selectionIndexPaths;
 @end
@@ -1659,7 +1659,7 @@ To Do List:
 		[old removeObserver:self forKeyPath:@"macroSelectionIndexes"];
 		[[old retain] autorelease];
 		[self setValue:new forKey:@"macroEditor_meta"];
-		[new addObserver:self forKeyPath:@"macroSelectionIndexes" options:0 context:self];
+		[new addObserver:self forKeyPath:@"macroSelectionIndexes" options:ZER0 context:self];
 	}
 //END4iTM3;
     return;
@@ -1694,7 +1694,7 @@ To Do List:
 		[old removeObserver:self forKeyPath:@"keyBindingSelectionIndexPaths"];
 		[[old retain] autorelease];
 		[self setValue:new forKey:@"keyBindingEditor_meta"];
-		[new addObserver:self forKeyPath:@"keyBindingSelectionIndexPaths" options:0 context:self];
+		[new addObserver:self forKeyPath:@"keyBindingSelectionIndexPaths" options:ZER0 context:self];
 	}
 //END4iTM3;
     return;
@@ -1893,7 +1893,7 @@ To Do List:
 		return NO;
 	}
 	iTM2KeyBindingNode * node = nil;
-	if (SOs.count == 0)
+	if (SOs.count == ZER0)
 	{
 		// can I add at the topmost level?
 		node = [self keyBindingEditor];
@@ -1918,7 +1918,7 @@ To Do List:
 		return NO;
 	}
 	iTM2KeyBindingNode * node = nil;
-	if (SOs.count == 0)
+	if (SOs.count == ZER0)
 	{
 		// can I add at the topmost level?
 		node = [self keyBindingEditor];
@@ -2035,7 +2035,7 @@ here:
 #pragma mark =-=-=-=-=-  Completion
 - (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)indexRef;
 {
-	if (control.tag == 0)
+	if (control.tag == ZER0)
 	{
 		return nil;
 	}
@@ -2052,7 +2052,7 @@ here:
 //END4iTM3;
 	if (indexRef)
 	{
-		*indexRef = 0;
+		*indexRef = ZER0;
 	}
 	return RA;
 }
@@ -2067,7 +2067,7 @@ here:
 - (void)copy:(id)sender;
 {
 	NSArray *columns = [self tableColumns];
-	NSUInteger columnIndex = 0, columnCount = columns.count;
+	NSUInteger columnIndex = ZER0, columnCount = columns.count;
 	NSDictionary *valueBindingDict = nil;
 	for (; !valueBindingDict && columnIndex < columnCount; ++columnIndex) {
 		valueBindingDict = [[columns objectAtIndex:columnIndex] infoForBinding:@"value"];
@@ -2110,7 +2110,7 @@ here:
 - (BOOL)validateCopy:(id)sender;
 {
 	NSArray *columns = [self tableColumns];
-	NSUInteger columnIndex = 0, columnCount = columns.count;
+	NSUInteger columnIndex = ZER0, columnCount = columns.count;
 	NSDictionary *valueBindingDict = nil;
 	for (; !valueBindingDict && columnIndex < columnCount; ++columnIndex) {
 		valueBindingDict = [[columns objectAtIndex:columnIndex] infoForBinding:@"value"];
@@ -2192,7 +2192,7 @@ here:
 			}
 			else
 			{
-				[targetTree insertObject:node inAvailableMacrosAtIndex:0];
+				[targetTree insertObject:node inAvailableMacrosAtIndex:ZER0];
 			}
 		}
 		else
@@ -2222,9 +2222,9 @@ here:
 {
 	NSUInteger modifierFlags = [theEvent modifierFlags];
 	modifierFlags = modifierFlags & NSDeviceIndependentModifierFlagsMask;
-	if (((modifierFlags&NSFunctionKeyMask)==0) && [self numberOfSelectedRows]==1)
+	if (((modifierFlags&NSFunctionKeyMask)==ZER0) && [self numberOfSelectedRows]==1)
 	{
-//		if ((modifierFlags&NSFunctionKeyMask)==0)
+//		if ((modifierFlags&NSFunctionKeyMask)==ZER0)
 		{
 #if 0
 			// this does not work
@@ -2234,7 +2234,7 @@ here:
 #endif
 			// see http://svn.sourceforge.net/viewvc/redshed/trunk/cocoa/NSTableView%2BCocoaBindingsDeleteKey/NSTableView%2BCocoaBindingsDeleteKey.m?view=markup
 			NSArray *columns = [self tableColumns];
-			NSUInteger columnIndex = 0, columnCount = columns.count;
+			NSUInteger columnIndex = ZER0, columnCount = columns.count;
 			NSDictionary *valueBindingDict = nil;
 			for (; !valueBindingDict && columnIndex < columnCount; ++columnIndex) {
 				valueBindingDict = [[columns objectAtIndex:columnIndex] infoForBinding:@"value"];
@@ -2449,7 +2449,7 @@ To Do List:
 //END4iTM3;
 	if (indexRef)
 	{
-		*indexRef = 0;
+		*indexRef = ZER0;
 	}
 	return RA.count?RA:[super completionsForPartialWordRange:charRange indexOfSelectedItem:indexRef];
 }

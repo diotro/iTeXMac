@@ -170,31 +170,31 @@ To Do List:
 				@"cm", iTM2Dvips_paper_width_unit,
 				[NSNumber numberWithFloat:29.7], iTM2Dvips_paper_height,
 				@"cm", iTM2Dvips_paper_height_unit,
-				[NSNumber numberWithInteger:0], iTM2Dvips_generate_epsf,
-				[NSNumber numberWithInteger:0], iTM2Dvips_print_crop_mark,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_generate_epsf,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_print_crop_mark,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_header,
 				@"", iTM2Dvips_header,
-				[NSNumber numberWithInteger:0], iTM2Dvips_remove_included_comments,
-				[NSNumber numberWithInteger:0], iTM2Dvips_no_structured_comments,
-				[NSNumber numberWithInteger:0], iTM2Dvips_download_only_needed_characters,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_remove_included_comments,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_no_structured_comments,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_download_only_needed_characters,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_metafont_mode,
 				@"", iTM2Dvips_metafont_mode,
-				[NSNumber numberWithInteger:0], iTM2Dvips_no_automatic_font_generation,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_no_automatic_font_generation,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_psmap_files,
 				@"", iTM2Dvips_psmap_files,
-				[NSNumber numberWithInteger:0], iTM2Dvips_download_non_resident_fonts,
-				[NSNumber numberWithInteger:0], iTM2Dvips_compress_bitmap_fonts,
-				[NSNumber numberWithInteger:0], iTM2Dvips_maximum_drift,
-				[NSNumber numberWithInteger:0], iTM2Dvips_shift_non_printing_characters,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_download_non_resident_fonts,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_compress_bitmap_fonts,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_maximum_drift,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_shift_non_printing_characters,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_printer,
 				@"", iTM2Dvips_printer,
-				[NSNumber numberWithInteger:0], iTM2Dvips_no_virtual_memory_saving,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_no_virtual_memory_saving,
 				[NSNumber numberWithInteger:1], iTM2Dvips_pass_html,
 				[NSNumber numberWithBool:NO], iTM2Dvips_debug,
 				[NSNumber numberWithInteger: -1 ], iTM2Dvips_debug_level,
-				[NSNumber numberWithInteger:0], iTM2Dvips_conserve_memory,
-				[NSNumber numberWithInteger:0], iTM2Dvips_separate_sections,
-				[NSNumber numberWithInteger:0], iTM2Dvips_section_num_pages,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_conserve_memory,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_separate_sections,
+				[NSNumber numberWithInteger:ZER0], iTM2Dvips_section_num_pages,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_output,
 				@"", iTM2Dvips_output,
 				[NSNumber numberWithBool:NO], iTM2Dvips_USE_more_arguments,
@@ -234,7 +234,7 @@ To Do List:
 	{
 		if(self.oddTeXPages)
 		{
-			return 0;// all
+			return ZER0;// all
 		}
 		else
 			return 1;// even
@@ -297,7 +297,7 @@ To Do List:
 //START4iTM3;
 	NSString * unit = self.xOffsetUnitModel;
 	if([unit isEqualToString:@"bp"])
-		return 0;
+		return ZER0;
 	else if([unit isEqualToString:@"pt"])
 		return 1;
 	else if([unit isEqualToString:@"in"])
@@ -336,7 +336,7 @@ To Do List:
 //START4iTM3;
 	NSString * unit = self.yOffsetUnitModel;
 	if([unit isEqualToString:@"bp"])
-		return 0;
+		return ZER0;
 	else if([unit isEqualToString:@"pt"])
 		return 1;
 	else if([unit isEqualToString:@"in"])
@@ -387,7 +387,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return self.usePaper? 1: (self.customPaper?2: 0);
+    return self.usePaper? 1: (self.customPaper?2: ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPaperType:
 - (void)setPaperType:(NSInteger)argument;
@@ -418,7 +418,7 @@ To Do List:
 //START4iTM3;
 	NSString * unit = self.paperWidthUnitModel;
 	if([unit isEqualToString:@"bp"])
-		return 0;
+		return ZER0;
 	else if([unit isEqualToString:@"pt"])
 		return 1;
 	else if([unit isEqualToString:@"in"])
@@ -457,7 +457,7 @@ To Do List:
 //START4iTM3;
 	NSString * unit = self.paperHeightUnitModel;
 	if([unit isEqualToString:@"bp"])
-		return 0;
+		return ZER0;
 	else if([unit isEqualToString:@"pt"])
 		return 1;
 	else if([unit isEqualToString:@"in"])

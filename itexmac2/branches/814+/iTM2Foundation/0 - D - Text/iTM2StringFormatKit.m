@@ -123,9 +123,9 @@ To Do List:
 //START4iTM3;
     NSString * EOLString = [iTM2StringFormatController terminationStringForEOL:EOL];
     NSMutableString * MS = [NSMutableString string];
-    NSRange r = iTM3MakeRange(0, 0);
-    NSUInteger end = 0, contentsEnd = 0, ceiling = self.length, nextStart = 0;
-    NSUInteger corrected = 0, total = 0;
+    NSRange r = iTM3MakeRange(ZER0,ZER0);
+    NSUInteger end = ZER0, contentsEnd = ZER0, ceiling = self.length, nextStart = ZER0;
+    NSUInteger corrected = ZER0, total = ZER0;
 //NSLog(@"GLS");
     while(end < ceiling)
     {
@@ -161,7 +161,7 @@ To Do List:
     if (self.length)
     {
         NSUInteger contentsEnd, end;
-        [self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:iTM3MakeRange(0, 0)];
+        [self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:iTM3MakeRange(ZER0,ZER0)];
         if (end > contentsEnd)
         {
             NSString * EOL = [self substringWithRange:iTM3MakeRange(contentsEnd, end - contentsEnd)];
@@ -174,7 +174,7 @@ To Do List:
 #if 0
             else if (EOL.length == 1)
             {
-                unichar theChar = [EOL characterAtIndex:0];
+                unichar theChar = [EOL characterAtIndex:ZER0];
                 if ((theChar == 0x2028) || (theChar == 0x2029))
                     return iTM2UTF16EOL;
             }
@@ -194,7 +194,7 @@ To Do List: Nothing
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSRange R = iTM3MakeRange(NSNotFound, 0);
+	NSRange R = iTM3MakeRange(NSNotFound,ZER0);
     NSString * headerStringEncodingString = @"";
 	ICURegEx * RE = nil;
 //NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
@@ -202,7 +202,7 @@ To Do List: Nothing
     RE = [ICURegEx regExForKey:@"encoding" inBundle:BUNDLE error:NULL];
     [RE setInputString:self];
 //NSLog(@"ARE: %@", ARE);
-    if ([RE matchString:self] && ([RE numberOfCaptureGroups] > 0)) {
+    if ([RE matchString:self] && ([RE numberOfCaptureGroups] > ZER0)) {
         R = [RE rangeOfCaptureGroupAtIndex:1];
         headerStringEncodingString = [RE substringOfCaptureGroupWithName:@"encoding"];
     }
@@ -389,7 +389,7 @@ To do list:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     name = [name lowercaseString];
-    if ([name isEqualToString:@"unchanged"]) return 0;
+    if ([name isEqualToString:@"unchanged"]) return ZER0;
     if ([name isEqualToString:@"unix"]) return iTM2UNIXEOL;
     if ([name isEqualToString:@"macintosh"]) return iTM2MacintoshEOL;
     if ([name isEqualToString:@"mac"]) return iTM2MacintoshEOL;
@@ -1191,12 +1191,12 @@ To Do List:
         NSLock * L = [[[NSLock alloc] init] autorelease];
         [L lock];
         const CFStringEncoding * CFSGLOAEs = CFStringGetListOfAvailableEncodings();
-        NSUInteger count = 0;
+        NSUInteger count = ZER0;
         while (CFSGLOAEs[count] != kCFStringEncodingInvalidId)
             count++;
         NSMutableArray * MRA = [NSMutableArray array];
-        NSUInteger index = 0;
-        for (index = 0; index < count; index++) {
+        NSUInteger index = ZER0;
+        for (index = ZER0; index < count; index++) {
             NSStringEncoding NSSE = CFStringConvertEncodingToNSStringEncoding(CFSGLOAEs[index]);
             if (NSSE && [NSString localizedNameOfStringEncoding:NSSE])
                 [MRA addObject:[NSNumber numberWithUnsignedInteger:NSSE]];
@@ -1256,7 +1256,7 @@ To Do List:
 	if (!docData.length) {
 		return string;
 	}
-    NSStringEncoding usedEncoding = 0;
+    NSStringEncoding usedEncoding = ZER0;
     BOOL canStringEncoding = NO;
     NSString * hardStringEncodingString = @"";
     // testing for UTF32, UTF16 and UTF8 encodings, see http://unicode.org/faq/utf_bom.html#22
@@ -1290,13 +1290,13 @@ To Do List:
             [SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
         }
 		#define HEADER_LIMIT 8*125
-		NSRange range = iTM3MakeRange(0,MIN(HEADER_LIMIT,docData.length));
+		NSRange range = iTM3MakeRange(ZER0,MIN(HEADER_LIMIT,docData.length));
 		NSData * headerData = [docData subdataWithRange:range];
         string = [[[NSString alloc] initWithData:headerData encoding:preferredStringEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
 		NSRange hardCodedRange;
 		[string getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
-        canStringEncoding = (hardCodedStringEncoding == 0 || hardCodedRange.length == 0);
+        canStringEncoding = (hardCodedStringEncoding == ZER0 || hardCodedRange.length == ZER0);
         if (hardCodedStringEncoding && [[NSString localizedNameOfStringEncoding:hardCodedStringEncoding] length] &&
                 (hardCodedStringEncoding != preferredStringEncoding)) {
             usedEncoding = hardCodedStringEncoding;
@@ -1331,9 +1331,9 @@ To Do List:
         }
         string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
         NSStringEncoding hardCodedStringEncoding;
-		NSRange hardCodedRange = iTM3MakeRange(0,0);
+		NSRange hardCodedRange = iTM3MakeRange(ZER0,ZER0);
 		[string getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
-		if (hardCodedRange.length > 0)
+		if (hardCodedRange.length > ZER0)
 			hardStringEncodingString = [string substringWithRange:hardCodedRange];
 		else
 			hardStringEncodingString = @"";
@@ -1382,7 +1382,7 @@ To Do List:
         NSString * SS = nil;
         if ([self context4iTM3BoolForKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextAllDomainsMask]) {
             [S getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
-            if ((hardCodedRange.length > 0) && (hardCodedStringEncoding > 0)) {
+            if ((hardCodedRange.length > ZER0) && (hardCodedStringEncoding > ZER0)) {
                 // there was an hard coded string encoding
                 hardStringEncodingString = [S substringWithRange:hardCodedRange];
                 canStringEncoding = NO;
@@ -1417,8 +1417,8 @@ try_another_encoding:
                 if (preferredStringEncoding == usedEncoding) {
                     goto terminate;
                 }
-                if ((0 == preferredStringEncoding)
-                        || (0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length])) {
+                if ((ZER0 == preferredStringEncoding)
+                        || (ZER0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length])) {
                     preferredStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
                     [SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
                     if (preferredStringEncoding == usedEncoding) {
@@ -1434,8 +1434,8 @@ try_another_encoding:
                     if (preferredStringEncoding == usedEncoding) {
                         goto terminate;
                     }
-                    if ((0 == preferredStringEncoding)
-                            || (0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length])) {
+                    if ((ZER0 == preferredStringEncoding)
+                            || (ZER0 == [[NSString localizedNameOfStringEncoding:preferredStringEncoding] length])) {
                         preferredStringEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
                         [SUD setInteger:preferredStringEncoding forKey:iTM2StringEncodingPreferredKey];
                         if (preferredStringEncoding == usedEncoding) {
@@ -1549,7 +1549,7 @@ To do list:
 //START4iTM3;
 	NSMenu * menu = [[[[[NSApp mainMenu] deepItemWithAction4iTM3:@selector(takeEOLFromTag:)] menu] copy] autorelease];
 	if (menu) {
-		NSInteger index = 0;
+		NSInteger index = ZER0;
 		while(index < [menu numberOfItems])
 		{
 			NSMenuItem * MI = [menu itemAtIndex:index];
@@ -1738,7 +1738,7 @@ To Do List:
 #if 0
 typedef enum {
     kCFStringEncodingInvalidId = 0xffffffffU,
-    kCFStringEncodingMacRoman = 0,
+    kCFStringEncodingMacRoman = ZER0,
     kCFStringEncodingWindowsLatin1 = 0x0500, /* ANSI codepage 1252 */
     kCFStringEncodingISOLatin1 = 0x0201, /* ISO 8859-1 */
     kCFStringEncodingNextStepLatin = 0x0B01, /* NextStep encoding*/
@@ -1748,7 +1748,7 @@ typedef enum {
     kCFStringEncodingNonLossyASCII = 0x0BFF /* 7bit Unicode variants used by YellowBox & Java */
 } CFStringBuiltInEncodings;
 typedef enum {
-/*  kCFStringEncodingMacRoman = 0L, defined in CoreFoundation/CFString.h */
+/*  kCFStringEncodingMacRoman = ZEROL, defined in CoreFoundation/CFString.h */
     kCFStringEncodingMacJapanese = 1,
     kCFStringEncodingMacChineseTrad = 2,
     kCFStringEncodingMacKorean = 3,
@@ -1779,7 +1779,7 @@ typedef enum {
     kCFStringEncodingMacCentralEurRoman = 29,
     kCFStringEncodingMacVietnamese = 30,
     kCFStringEncodingMacExtArabic = 31,
-    /* The following use script code 0, smRoman */
+    /* The following use script code ZER0, smRoman */
     kCFStringEncodingMacSymbol = 33,
     kCFStringEncodingMacDingbats = 34,
     kCFStringEncodingMacTurkish = 35,
@@ -2067,13 +2067,13 @@ To Do List:
         [_ActualStringEncodings replaceObjectAtIndex:row withObject:@"REMOVE"];
 		row = [IS indexGreaterThanIndex:row];
 	}
-    NSInteger index = 0;
+    NSInteger index = ZER0;
     row = -1;
     while(index<_ActualStringEncodings.count)
         if ([[_ActualStringEncodings objectAtIndex:index] isEqual:@"REMOVE"])
         {
             [_ActualStringEncodings removeObjectAtIndex:index];
-            if (row<0)
+            if (row<ZER0)
                 row = index;
         }
         else
@@ -2100,7 +2100,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return ([actualTableView numberOfSelectedRows]>0);
+    return ([actualTableView numberOfSelectedRows]>ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSelection:
 - (IBAction)addSelection:(id)sender;
@@ -2117,7 +2117,7 @@ To Do List:
                             row: [availableTableView selectedRow]];
     if (O) {
         NSInteger targetRow = [actualTableView selectedRow];
-        if (targetRow<0)
+        if (targetRow<ZER0)
             targetRow = [actualTableView numberOfRows];
         else if (targetRow<[actualTableView numberOfRows])
             ++targetRow;
@@ -2139,7 +2139,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //STARTNSTableView4iTM3
     NSInteger SR = [actualTableView selectedRow];
-    if (SR<0)
+    if (SR<ZER0)
         SR = _ActualStringEncodings.count;
     else if (SR < _ActualStringEncodings.count)
         ++SR;
@@ -2199,12 +2199,12 @@ To Do List:
 //START4iTM3;
     if ([tableView isEqual:actualTableView])
     {
-        if ((row>=0) && (row < _ActualStringEncodings.count))
+        if ((row>=ZER0) && (row < _ActualStringEncodings.count))
             return [_ActualStringEncodings objectAtIndex:row];
     }
     else
     {
-        if ((row>=0) && (row < [[iTM2StringFormatController availableStringEncodings] count]))
+        if ((row>=ZER0) && (row < [[iTM2StringFormatController availableStringEncodings] count]))
             return [[iTM2StringFormatController availableStringEncodings] objectAtIndex:row];
     }
     return nil;
@@ -2240,7 +2240,7 @@ To Do List:
     if ([tv isEqual:actualTableView])
     {
 //NSLog(@"Move or copy %x = %x = %x", tv, actualTableView, [info draggingSource]);
-        if ((0<=row) && (row < [tv numberOfRows]))
+        if ((ZER0<=row) && (row < [tv numberOfRows]))
             [tv setDropRow:row dropOperation:NSTableViewDropAbove];
         else
             [tv setDropRow:[tv numberOfRows] dropOperation:NSTableViewDropAbove];
@@ -2279,7 +2279,7 @@ To Do List:
             }
             for(NSNumber * N in [MRA reverseObjectEnumerator])
                 [_ActualStringEncodings insertObject:N atIndex:row];
-            index = 0;
+            index = ZER0;
             while(index<_ActualStringEncodings.count)
             {
                 if ([[_ActualStringEncodings objectAtIndex:index] isEqual:@"REPLACE"])
@@ -2307,7 +2307,7 @@ To Do List:
         {
 			NSIndexSet * anIS = [NSUnarchiver unarchiveObjectWithData:[[info draggingPasteboard] dataForType:iTM2DraggingStringEncodingPboardType]];
             NSInteger idx = [anIS lastIndex];
-            NSInteger length = 0;
+            NSInteger length = ZER0;
             id draggingS = [info draggingSource];
             id dataS = [draggingS dataSource];
             while(idx != NSNotFound)
@@ -2489,7 +2489,7 @@ To Do List:
 //		sender.target = self; NO!
 		sender.tag = tag;
 		sender.state = NSOnState;
-		[menu insertItem:sender atIndex:0];
+		[menu insertItem:sender atIndex:ZER0];
 	}
 	return YES;
 }
@@ -2609,7 +2609,7 @@ To Do List:
 //		sender.target = self; NO !
 		sender.tag = tag;
 		sender.state = NSOnState;
-		[menu insertItem:sender atIndex:0];
+		[menu insertItem:sender atIndex:ZER0];
 	}
 	return YES;
 }

@@ -171,7 +171,7 @@ To Do List:
 		NSNumberFormatter * F = self.formatter;
 		id maximum = [F maximum];
 		NSDecimalNumber * NaN = [NSDecimalNumber notANumber];
-		NSUInteger new = 0;
+		NSUInteger new = ZER0;
 		if ([maximum isEqual:NaN])
 		{
 			// the maximum has not yet been set
@@ -354,7 +354,7 @@ To Do List:
 		LOG4iTM3(@"How does it happen?");
 	}
 	id result = [NSString stringWithFormat:self.navigationFormat,
-        [super stringForObjectValue:(anObject?:[NSNumber numberWithInteger:0])],
+        [super stringForObjectValue:(anObject?:[NSNumber numberWithInteger:ZER0])],
         [super stringForObjectValue:self.maximum]];
 	LOG4iTM3(@"result is: %@", result);
 #endif
@@ -819,12 +819,12 @@ To Do List:
             id P = [self.document project4iTM3];
             id D = [SDC documentForFileName:[P absoluteOutput]];
 //NSLog(@"D: %@", D);
-            if ((new>=0) && [D respondsToSelector:@selector(showOutputForLine:column:source:)])
+            if ((new>=ZER0) && [D respondsToSelector:@selector(showOutputForLine:column:source:)])
             {
                 NSString * source = [[self.document fileName]
                                         stringByAbbreviatingWithDotsRelativeToDirectory4iTM3:
                                             [[D fileName] stringByDeletingLastPathComponent]];
-                [D showOutputForLine:new column:0 source:source];
+                [D showOutputForLine:new column:ZER0 source:source];
             }
         }
 #endif

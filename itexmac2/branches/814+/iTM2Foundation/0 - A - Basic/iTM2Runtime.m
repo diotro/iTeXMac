@@ -289,7 +289,7 @@ To Do List:
 //START4iTM3;
 	// all the cached results are cleaned
 	int oldNumClasses = self.numberOfClasses;
-	int newNumClasses = objc_getClassList(NULL, 0);
+	int newNumClasses = objc_getClassList(NULL, ZER0);
 	if (oldNumClasses != newNumClasses)
 	{
 //LOG4iTM3(@"New classes are available: old %i, new %i", oldNumClasses, newNumClasses);
@@ -317,11 +317,11 @@ To Do List:
 	if (!result.count)
 	{
 		result = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
-		int numClasses = objc_getClassList(NULL, 0);
+		int numClasses = objc_getClassList(NULL, ZER0);
 		Class * classes = NULL;
-		if (numClasses > 0)
+		if (numClasses > ZER0)
 		{
-			classes = NSAllocateCollectable(sizeof(Class) * numClasses,0);
+			classes = NSAllocateCollectable(sizeof(Class) * numClasses,ZER0);
 			(void) objc_getClassList(classes, numClasses);
 			Class * ptr = classes;
 //LOG4iTM3(@"CLASS number %i IS: %@", numClasses, NSStringFromClass(* ptr));
@@ -355,10 +355,10 @@ To Do List:
 	{
 		result = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsOpaqueMemory|NSPointerFunctionsOpaquePersonality];
 		Class * classes = NULL;
-		int numClasses = objc_getClassList(NULL, 0);
-		if (numClasses > 0 )
+		int numClasses = objc_getClassList(NULL, ZER0);
+		if (numClasses > ZER0 )
 		{
-			if (classes = NSAllocateCollectable(sizeof(Class) * numClasses,0))
+			if (classes = NSAllocateCollectable(sizeof(Class) * numClasses,ZER0))
 			{
 				(void)objc_getClassList(classes, numClasses);
 				Class * ptr = classes;
@@ -431,7 +431,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	return objc_getClassList(NULL, 0);
+	return objc_getClassList(NULL, ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  instanceSelectorsOfClass:matchedBy:signature:inherited:
 + (NSPointerArray *)instanceSelectorsOfClass:(Class)theClass matchedBy:(ICURegEx *)RE signature:(NSMethodSignature *)signature inherited:(BOOL)yorn;
@@ -1172,11 +1172,11 @@ BOOL _MyPluginTemplate_PerformSwizzle(Class klass, SEL origSel, SEL altSel, BOOL
 		
 		// Next, look for the methods
 		Class iterKlass = (forInstance ? klass : klass->isa);
-		unsigned int * methodCount = 0;
+		unsigned int * methodCount = ZER0;
 		Method *mlist = class_copyMethodList(iterKlass, &methodCount);
 		if (mlist != NULL) {
 			unsigned int i;
-			for (i = 0; i < methodCount; ++i) {
+			for (i = ZER0; i < methodCount; ++i) {
 				
 				if (method_getName(mlist[i]) == origSel) {
 					origMethod = mlist[i];

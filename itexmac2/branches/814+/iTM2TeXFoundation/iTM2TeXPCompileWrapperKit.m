@@ -263,7 +263,7 @@ To Do List:
 //            sender.lastItem.representedObject = @"unknown";
         }
 		NSInteger index = [sender indexOfItemWithRepresentedObject:self.editedEngine];
-		if(index>=0 && index < [sender numberOfItems])
+		if(index>=ZER0 && index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
 		else
 			[sender selectItem:sender.lastItem];
@@ -465,7 +465,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSArray * allEngineModes = [[self info4iTM3ForKeyPaths:iTM2TPFEEngineScriptsKey,nil] allKeys];
-    NSInteger idx = 0;
+    NSInteger idx = ZER0;
     NSString * engineMode;
     while((engineMode = [NSString stringWithFormat:@"%i", idx++]), [allEngineModes containsObject:engineMode]);
 	NSString * editedEngine = self.editedEngine;
@@ -681,7 +681,7 @@ To Do List:
 		}
 		[sender addItemWithTitle:NSLocalizedStringFromTableInBundle(@"No options", iTM2TeXProjectFrontendTable, myBUNDLE, "...")];
 		sender.lastItem.representedObject = iTM2TPFEVoidMode;
-		[sender selectItemAtIndex:0];
+		[sender selectItemAtIndex:ZER0];
 		return NO;
 	}
 //END4iTM3;

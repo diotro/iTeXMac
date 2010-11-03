@@ -59,7 +59,7 @@ To Do List:
 			NSArray * inspectorClasses = [NSWindowController inspectorClassesForType:type mode:mode];
 			if(inspectorClasses.count)
 			{
-				inspectorClass = [inspectorClasses objectAtIndex:0];
+				inspectorClass = [inspectorClasses objectAtIndex:ZER0];
 			}
 //LOG4iTM3(@"[C inspectorType4iTM3] is: %@(%@)", [C inspectorType4iTM3], type);
 //LOG4iTM3(@"[C inspectorMode] is: %@(%@)", [C inspectorMode], mode);
@@ -200,7 +200,7 @@ To Do List:
 			object: nil];
 	[self performSelector: @selector(updateWindowsMenu:)
 		withObject: nil
-			afterDelay: 0];// not too long please
+			afterDelay: ZER0];// not too long please
 //END4iTM3;
     return;
 }
@@ -218,7 +218,7 @@ To Do List:
 			object: nil];
 	[self performSelector: @selector(updateWindowsMenu:)
 		withObject: nil
-			afterDelay: 0];// not too long please
+			afterDelay: ZER0];// not too long please
 //END4iTM3;
     return;
 }
@@ -361,8 +361,8 @@ To Do List:
 //LOG4iTM3(@"projectRefsToProjectWindowsMenuItems:%@:",projectRefsToProjectWindowsMenuItems);
 	// updating with 
 //LOG4iTM3(@"=-=-=-=-=-  INSERTING OTHERS %i", windowsMenu.numberOfItems);
-	if(insertIndex < 0)
-	    insertIndex = 0;// just in case no item was previously added...
+	if(insertIndex < ZER0)
+	    insertIndex = ZER0;// just in case no item was previously added...
 	if(insertIndex > windowsMenu.numberOfItems)
 	    insertIndex = windowsMenu.numberOfItems;// just in case no item was previously added...
 	NSSortDescriptor * SD = [[[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES] autorelease];
@@ -371,7 +371,7 @@ To Do List:
 		RA = [otherMenuItems sortedArrayUsingDescriptors:sortDescriptors];
 		for (MI in RA.reverseObjectEnumerator) {
 	//LOG4iTM3(@"=-=-=-=-=-  inserted document MI is: %@", MI);
-			MI.indentationLevel = 0;
+			MI.indentationLevel = ZER0;
 			[windowsMenu insertItem:MI atIndex:insertIndex];
 		}
 		[windowsMenu insertItem:[NSMenuItem separatorItem] atIndex:insertIndex];
@@ -397,7 +397,7 @@ To Do List:
 				node = [[[iTM2TreeNode alloc] initWithParent:nil value:path] autorelease];
 				[roots addObject:node];
 				RA = [roots filteredArrayUsingPredicate:predicate];
-				NSAssert(RA.count>0,@"Aie");
+				NSAssert(RA.count>ZER0,@"Aie");
 			}
 			[MRA removeLastObject];
 			while (component = MRA.lastObject) {
@@ -413,14 +413,14 @@ To Do List:
 			[node setNonretainedValue:PD];
 		}
 	}
-	NSUInteger index = 0;
-	NSUInteger count = 0;
+	NSUInteger index = ZER0;
+	NSUInteger count = ZER0;
 	for (root in roots) {
 		node = root;
 		child = node;
 down:
 		while (child.countOfChildren) {
-			child = [child objectInChildrenAtIndex:0];
+			child = [child objectInChildrenAtIndex:ZER0];
 		}
 up:
 		if ((node = child.parent)) {
@@ -456,7 +456,7 @@ otherUp:
 		child = node;
 down1:
 		while (child.countOfChildren) {
-			child = [child objectInChildrenAtIndex:0];
+			child = [child objectInChildrenAtIndex:ZER0];
 		}
 		if (PD = child.nonretainedValue) {
 			component = child.value;
@@ -485,10 +485,10 @@ up1:
 		dirName = path.stringByDeletingLastPathComponent;
 		RA = dirName.pathComponents;
 		if (RA.count>1) {
-			component = [RA objectAtIndex:0];
+			component = [RA objectAtIndex:ZER0];
 			component = [NSString stringWithFormat:@"%@ (...%@/...)",lastPathComponent,component];
 		} else if(RA.count) {
-			component = [RA objectAtIndex:0];
+			component = [RA objectAtIndex:ZER0];
 			component = [NSString stringWithFormat:@"%@ (...%@/)",lastPathComponent,component];
 		} else {
 			component = lastPathComponent;
@@ -503,13 +503,13 @@ up1:
 		dirName = path.stringByDeletingLastPathComponent;
 		RA = dirName.pathComponents;
 		if (RA.count>1) {
-			component = [RA objectAtIndex:0];
+			component = [RA objectAtIndex:ZER0];
 			component = [NSString stringWithFormat:@"%@ - ...%@/...",lastPathComponent,component];
 			if ([shortProjectNamesSet countForObject:path]<2) {
 				[shortProjectNames setObject:component forKey:PD];
 			}
 		} else if (RA.count) {
-			component = [RA objectAtIndex:0];
+			component = [RA objectAtIndex:ZER0];
 			component = [NSString stringWithFormat:@"%@ - ...%@/",lastPathComponent,component];
 			if ([shortProjectNamesSet countForObject:path]<2) {
 				[shortProjectNames setObject:component forKey:PD];
@@ -535,7 +535,7 @@ up1:
 		if (dirName.length) {
 			path = PD.displayName;
 			RA = dirName.pathComponents;
-			component = [RA objectAtIndex:0];
+			component = [RA objectAtIndex:ZER0];
 			if (RA.count>1) {
 				path = [NSString stringWithFormat:@"%@ (.../%@/...)",path,component];
 			} else {

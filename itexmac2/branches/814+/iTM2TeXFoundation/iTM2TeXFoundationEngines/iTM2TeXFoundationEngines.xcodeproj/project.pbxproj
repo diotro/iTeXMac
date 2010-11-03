@@ -627,7 +627,6 @@
 			isa = PBXProject;
 			buildConfigurationList = DC9DC47B094840B10079E1B3 /* Build configuration list for PBXProject "iTM2TeXFoundationEngines" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
@@ -714,6 +713,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ../../Scripts/iTM2InstallEnginesInParent.sh;
+			showEnvVarsInLog = 0;
 		};
 		DC3865930948B04000352215 /* Really build iTeXMac2 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -728,6 +728,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../Scripts/iTM2BuildiTeXMac2.sh\n";
+			showEnvVarsInLog = 0;
 		};
 		DC5899EB09D53F0B00E8F33C /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -742,6 +743,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DC5899EF09D53F4200E8F33C /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -756,6 +758,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DC5899F309D53F5E00E8F33C /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -770,6 +773,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DC5899F709D53F7000E8F33C /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -784,6 +788,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DC5D6D140949A97E00EBA96C /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -798,6 +803,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../Scripts/iTM2SynchronizeFramework.sh iTM2TeXFoundation\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

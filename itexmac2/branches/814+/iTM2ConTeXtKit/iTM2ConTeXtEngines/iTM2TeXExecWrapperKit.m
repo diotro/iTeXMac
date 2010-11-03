@@ -58,7 +58,7 @@ return [[self editInfo4iTM3ForKeyPaths:USE_KEY,nil] boolValue];}
 {\
 	NSString * unit = [self editInfo4iTM3ForKeyPaths:KEY,nil];\
 	if([unit isEqual:@"bp"])\
-		[sender selectItemWithTag:0];\
+		[sender selectItemWithTag:ZER0];\
 	else if([unit isEqual:@"pt"])\
 		[sender selectItemWithTag:1];\
 	else if([unit isEqual:@"in"])\
@@ -292,7 +292,7 @@ To Do List:
 				[NSNumber numberWithBool:NO], iTM2TeXExecAlone,
 				[NSNumber numberWithBool:NO], iTM2TeXExecFast,
 				[NSNumber numberWithBool:NO], iTM2TeXExecFinal,
-				[NSNumber numberWithInteger:0], iTM2TeXExecRuns,
+				[NSNumber numberWithInteger:ZER0], iTM2TeXExecRuns,
 				[NSNumber numberWithBool:NO], iTM2TeXExecArrange,
 				[NSNumber numberWithBool:NO], iTM2TeXExecAutoMPRun,
 				[NSNumber numberWithBool:NO], iTM2TeXExecNoMP,
@@ -475,8 +475,8 @@ To Do List:
 //START4iTM3;
 	NSString * string = sender.stringValue;
 	NSMutableString * MS = [[string mutableCopy] autorelease];
-	[MS replaceOccurrencesOfString:@" " withString:@"," options:0 range:iTM3MakeRange(0, MS.length)];
-	[MS replaceOccurrencesOfString:@",," withString:@"," options:0 range:iTM3MakeRange(0, MS.length)];
+	[MS replaceOccurrencesOfString:@" " withString:@"," options:ZER0 range:iTM3MakeRange(ZER0, MS.length)];
+	[MS replaceOccurrencesOfString:@",," withString:@"," options:ZER0 range:iTM3MakeRange(ZER0, MS.length)];
 	string = [[MS copy] autorelease];
 	[self setInfo4TM3:string forKeyPaths:iTM2TeXExecMode,nil];
 	self.validateWindowContent4iTM3;
@@ -587,7 +587,7 @@ To Do List:
 //START4iTM3;
 	if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecBatch,nil] boolValue]) {
 		// @"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode"
-		[sender selectCellWithTag:0];
+		[sender selectCellWithTag:ZER0];
 	} else if ([[self editInfo4iTM3ForKeyPaths:iTM2TeXExecNonStop,nil] boolValue]) {
 		// @"batchmode", @"nonstopmode", @"scrollmode", @"errorstopmode"
 		[sender selectCellWithTag:1];
@@ -651,7 +651,7 @@ To Do List:
 		NSString * output = [self editInfo4iTM3ForKeyPaths:iTM2TeXExecOutput,nil];
         NSMenuItem * MI = nil;
 		if ([output isEqual:@""]) {
-			[sender selectItemWithTag: (useXeTeX? 1:0)];
+			[sender selectItemWithTag: (useXeTeX? 1:ZER0)];
 		} else if ([output isEqual:@"dvips"]) {
 			[sender selectItemWithTag:2];
 		} else if ([output isEqual:@"pdftex"]) {

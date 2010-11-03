@@ -76,9 +76,9 @@ NSString * const iTM2RegExpTestsName = @"iTM2RegExTests";
         [NSArray array],
             nil] retain];
     endsOfLine = [[NSArray arrayWithObjects:@"\n",@"END OF LINE\n",nil] retain];
-    SELPlaceholders = [[NSArray arrayWithObjects:@"__(SEL:ZERO)__",@"__(SEL[1]:ONE)__",nil] retain];
+    SELPlaceholders = [[NSArray arrayWithObjects:@"__(SEL:ZER0)__",@"__(SEL[1]:ONE)__",nil] retain];
     XPCTD_SELPlaceholders = [[NSArray arrayWithObjects:
-        [NSArray arrayWithObjects:[NSNumber numberWithInteger:0],@"ZERO",nil],
+        [NSArray arrayWithObjects:[NSNumber numberWithInteger:ZER0],@"ZER0",nil],
         [NSArray arrayWithObjects:[NSNumber numberWithInteger:1],@"ONE",nil],
             nil] retain];
 }
@@ -111,8 +111,10 @@ NSString * const iTM2RegExpTestsName = @"iTM2RegExTests";
             if (d.count) {
                 STAssertTrue([RE matchString:search],@"MISSED matching %@",search);
                 [RE displayMatchResult];
+                NSLog(@"Expected: %@",d);
                 for (NSString * name in d.allKeys) {
-                    STAssertEqualObjects([RE substringOfCaptureGroupWithName:name],[d objectForKey:name],
+                    NSLog(@"TESTING %@: %@<?>%@",name,[RE substringOfCaptureGroupWithName:name],[d objectForKey:name]);
+                    STAssertTrue([[RE substringOfCaptureGroupWithName:name] isEqual: [d objectForKey:name]],
                         @"MISSED %@: %@<!>%@",name,[RE substringOfCaptureGroupWithName:name],[d objectForKey:name]);
                 }
             } else {
@@ -251,7 +253,7 @@ NSString * const iTM2RegExpMKPlaceholderOrEOLKey = @"__(SEL|TYPE...)__|EOL";
 }
 - (BOOL)test_iTM2_componentsOfMacroForInsertionWithIndexPath:(NSIndexPath *)IP;
 {
-    if (IP.length==0) {
+    if (IP.length==ZER0) {
         return NO;
     }
     //NSLog(@"Test:%@",IP);
@@ -264,8 +266,8 @@ NSString * const iTM2RegExpMKPlaceholderOrEOLKey = @"__(SEL|TYPE...)__|EOL";
     test_parts = [NSMutableArray array];
     XPCTD_test = [NSMutableArray array];
     expected = [NSMutableArray array];
-    NSUInteger i = 0;
-    NSUInteger n = 0;
+    NSUInteger i = ZER0;
+    NSUInteger n = ZER0;
     NSString * s = nil;
     NSEnumerator * E1;
     NSEnumerator * E2;
@@ -274,7 +276,7 @@ NSString * const iTM2RegExpMKPlaceholderOrEOLKey = @"__(SEL|TYPE...)__|EOL";
         // start with full lines
         n = [IP indexAtPosition:i];
         if (n>=fullLines.count) {
-            n = 0;
+            n = ZER0;
         }
 #       define OBJECT_n objectAtIndex:n
         s = [[fullLines OBJECT_n] componentsJoinedByString:@""];
@@ -296,7 +298,7 @@ NSString * const iTM2RegExpMKPlaceholderOrEOLKey = @"__(SEL|TYPE...)__|EOL";
         n = [IP indexAtPosition:i]
         NEXT_i_AND_n;
         if (n>=partsOfLine.count) {
-            n = 0;
+            n = ZER0;
         }
         [XPCTD_test addObject:[partsOfLinePrefix OBJECT_n]];
         [XPCTD_test addObject:[partsOfLine OBJECT_n]];
@@ -306,7 +308,7 @@ NSString * const iTM2RegExpMKPlaceholderOrEOLKey = @"__(SEL|TYPE...)__|EOL";
         [XPCTD_test addObject:MRA];
         while(YES) {
             if (n>=SELPlaceholders.count) {
-                n = 0;
+                n = ZER0;
             }
             [MRA addObjectsFromArray:[XPCTD_SELPlaceholders OBJECT_n]];
             [test_parts addObject:[SELPlaceholders OBJECT_n]];
@@ -372,12 +374,12 @@ make_the_test_and_return:
     // *---- ending line part
     // * ending full lines
     // * ending chars
-    NSUInteger indexes[]={0,0,0,0,0,0,0,0,0,0,
-                          0,0,0,0,0,0,0,0,0,0,
-                          0,0,0,0,0,0,0,0,0,0,
-                          0,0,0,0,0,0,0,0,0,0};
-    NSUInteger i = 0;
-    // 0, 0, 1, 2147483647, 1, 1, 3, 0, 3, 1, 2147483647, 2, 2147483647, 1, 0
+    NSUInteger indexes[]={ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,
+                          ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,
+                          ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,
+                          ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0,ZER0};
+    NSUInteger i = ZER0;
+    // ZER0, ZER0, 1, 2147483647, 1, 1, 3, ZER0, 3, 1, 2147483647, 2, 2147483647, 1, ZER0
     indexes[2]=1;
     indexes[3]=NSNotFound;
     indexes[4]=1;
@@ -392,42 +394,42 @@ make_the_test_and_return:
     NSIndexPath * IP = [NSIndexPath indexPathWithIndexes:indexes length:14];
     STAssertTrue([self test_iTM2_componentsOfMacroForInsertionWithIndexPath:IP],@"MISSED:%@",IP);
     // an example:
-    // indexes[  i]=0;// first block:  leading full line
-    // indexes[++i]=0;//               SEL line: 1st leading chars
-    // indexes[++i]=0;//                         placeholder
-    // indexes[++i]=0;//                         2nd leading chars
-    // indexes[++i]=0;//                         placeholder
+    // indexes[  i]=ZER0;// first block:  leading full line
+    // indexes[++i]=ZER0;//               SEL line: 1st leading chars
+    // indexes[++i]=ZER0;//                         placeholder
+    // indexes[++i]=ZER0;//                         2nd leading chars
+    // indexes[++i]=ZER0;//                         placeholder
     // indexes[++i]=NSNotFound;//                no more placeholders
     // indexes[++i]=1;//                         ending line chars, stop here if NSNotFound
-    // indexes[  i]=0;// second block: leading full line
-    // indexes[++i]=0;//               SEL line: 1st leading chars
-    // indexes[++i]=0;//                         placeholder
-    // indexes[++i]=0;//                         2nd leading chars
-    // indexes[++i]=0;//                         placeholder
-    // indexes[++i]=0;//                         3rd leading chars
-    // indexes[++i]=0;//                         placeholder
+    // indexes[  i]=ZER0;// second block: leading full line
+    // indexes[++i]=ZER0;//               SEL line: 1st leading chars
+    // indexes[++i]=ZER0;//                         placeholder
+    // indexes[++i]=ZER0;//                         2nd leading chars
+    // indexes[++i]=ZER0;//                         placeholder
+    // indexes[++i]=ZER0;//                         3rd leading chars
+    // indexes[++i]=ZER0;//                         placeholder
     // indexes[++i]=NSNotFound;//                no more placeholders
     // indexes[++i]=1;//                         ending line chars, stop here if NSNotFound
     // indexes[++i]=NSNotFound;// No more block
-    // indexes[++i]=0;// trailing full lines
-    // indexes[++i]=0;// trailing chars, stop here
+    // indexes[++i]=ZER0;// trailing full lines
+    // indexes[++i]=ZER0;// trailing chars, stop here
     // STAssertTrue(i<40,@"OUT OF BOUNDS",NULL);
     // simple sample
-    i = 0;
-    indexes[  i]=0;
-    indexes[++i]=0;
-    indexes[++i]=0;
+    i = ZER0;
+    indexes[  i]=ZER0;
+    indexes[++i]=ZER0;
+    indexes[++i]=ZER0;
     indexes[++i]=NSNotFound;
     indexes[++i]=NSNotFound;//stop here
     IP = [NSIndexPath indexPathWithIndexes:indexes length:++i];
     STAssertTrue([self test_iTM2_componentsOfMacroForInsertionWithIndexPath:IP],@"MISSED:%@",IP);
-#   define LOOP(LEVEL,MAX_LEVEL) for(indexes[LEVEL]=0;indexes[LEVEL]<MAX_LEVEL;++indexes[LEVEL])
+#   define LOOP(LEVEL,MAX_LEVEL) for(indexes[LEVEL]=ZER0;indexes[LEVEL]<MAX_LEVEL;++indexes[LEVEL])
 #   define NUMBER_OF_LINES fullLines.count
 #   define NUMBER_OF_PARTS partsOfLine.count
 #   define NUMBER_OF_SELS SELPlaceholders.count
 #   define NUMBER_OF_ENDS endsOfLine.count
     NSLog(@"Short Test 1");
-    LOOP(0,NUMBER_OF_LINES) {// full line
+    LOOP(ZER0,NUMBER_OF_LINES) {// full line
         LOOP(1,NUMBER_OF_PARTS) {// line header
             LOOP(2,NUMBER_OF_SELS) {// SEL
                 indexes[3]=NSNotFound;// no more SELs
@@ -438,7 +440,7 @@ make_the_test_and_return:
         }
     }
     NSLog(@"Less Short Test 2");
-    LOOP(0,NUMBER_OF_LINES) {// full line
+    LOOP(ZER0,NUMBER_OF_LINES) {// full line
         LOOP(1,NUMBER_OF_PARTS) {// line header
             LOOP(2,NUMBER_OF_SELS) {// SEL
                 indexes[3]=NSNotFound;// no more SELs
@@ -451,7 +453,7 @@ make_the_test_and_return:
         }
     }
     NSLog(@"Lesser Short Test 3");
-    LOOP(0,NUMBER_OF_LINES) {// full line
+    LOOP(ZER0,NUMBER_OF_LINES) {// full line
         LOOP(1,NUMBER_OF_PARTS) {// line header
             LOOP(2,NUMBER_OF_SELS) {// SEL
                 indexes[3]=NSNotFound;// no more SELs
@@ -467,7 +469,7 @@ make_the_test_and_return:
         }
     }
     NSLog(@"Even lesser Short Test 4");
-    LOOP(0,NUMBER_OF_LINES) {// full line
+    LOOP(ZER0,NUMBER_OF_LINES) {// full line
         LOOP(1,NUMBER_OF_PARTS) {// line header
             LOOP(2,NUMBER_OF_SELS) {// SEL
                 indexes[3]=NSNotFound;// no more SELs
@@ -484,7 +486,7 @@ make_the_test_and_return:
         }
     }
     NSLog(@"Medium Test 5");
-    LOOP(0,NUMBER_OF_LINES) {// full line
+    LOOP(ZER0,NUMBER_OF_LINES) {// full line
         LOOP(1,NUMBER_OF_PARTS) {// line header
             LOOP(2,NUMBER_OF_SELS) {// SEL
         LOOP(3,NUMBER_OF_PARTS) {// line header
@@ -499,7 +501,7 @@ make_the_test_and_return:
         }
     }
     NSLog(@"Huge Test 6");
-    LOOP(0,NUMBER_OF_LINES) {// full line
+    LOOP(ZER0,NUMBER_OF_LINES) {// full line
         LOOP(1,NUMBER_OF_PARTS) {// line header
             LOOP(2,NUMBER_OF_SELS) {// SEL
                 indexes[3]=NSNotFound;// no more SELs
