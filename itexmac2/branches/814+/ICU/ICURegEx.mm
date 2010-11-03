@@ -977,10 +977,10 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 	return;
 }
 
-static const UChar BACKSLASH  = 0x5c;
-static const UChar DOLLARSIGN = 0x24;
-static const UChar BGROUP  = 0x7b;
-static const UChar EGROUP = 0x7d;
+static const UChar BACKSLASH  = 0x005c;
+static const UChar DOLLARSIGN = 0x0024;
+static const UChar BGROUP     = 0x007b;
+static const UChar EGROUP     = 0x007d;
 
 U_CDECL_BEGIN
 static UChar U_CALLCONV
@@ -1003,36 +1003,36 @@ U_CDECL_END
 		_IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return nil;
 	}
-    int32_t  replLen = [_IVARS.replacement length];
-    CFStringInlineBuffer inlineBuffer;
-    CFStringInitInlineBuffer((CFStringRef)(_IVARS.replacement),&inlineBuffer,CFRangeMake(ZER0,replLen));
+    int32_t  patternLength = [_IVARS.replacement length];
+    CFStringInlineBuffer patternBuffer;
+    CFStringInitInlineBuffer((CFStringRef)(_IVARS.replacement),&patternBuffer,CFRangeMake(ZER0,patternLength));
 	UnicodeString dest = UnicodeString();
-	#define fPattern _IVARS.regexPattern
-    UErrorCode status = U_ZERO_ERROR;
+	UErrorCode status = U_ZERO_ERROR;
 	// stolen from rematch.cpp
 	// "CUT HERE"
 	// scan the replacement text, looking for substitutions ($n) and \escapes.
     //  TODO:  optimize this loop by efficiently scanning for '$' or '\',
     //         move entire ranges not containing substitutions.
-    int32_t  replIdx = ZER0;
-    while (replIdx<replLen) {
-        UChar  c = ICURegEx_charAt(replIdx++,&inlineBuffer);
+    int32_t  charIdx = ZER0;
+    while (charIdx<patternLength) {
+        UChar  c = ICURegEx_charAt(charIdx++,&patternBuffer);
+        UChar32 c32 = (UChar32)0xFFFFFFFF;
         if (c == BACKSLASH) {
             // Backslash Escape.  Copy the following char out without further checks.
             //                    Note:  Surrogate pairs don't need any special handling
             //                           The second half wont be a '$' or a '\', and
             //                           will move to the dest normally on the next
             //                           loop iteration.
-            if (replIdx >= replLen) {
+            if (charIdx >= patternLength) {
                 break;
             }
-            c = ICURegEx_charAt(replIdx++,&inlineBuffer);
+            c = ICURegEx_charAt(charIdx++,&patternBuffer);
 
             if (c==0x55/*U*/ || c==0x75/*u*/) {
                 // We have a \udddd or \Udddddddd escape sequence.
-                UChar32 escapedChar = u_unescapeAt(ICURegEx_charAt, &replIdx, replLen, (void*)(&inlineBuffer));
-                if (escapedChar != (UChar32)0xFFFFFFFF) {
-                    dest.append(escapedChar);
+                c32 = u_unescapeAt(ICURegEx_charAt, &charIdx, patternLength, (void*)(&patternBuffer));
+                if (c32 != (UChar32)0xFFFFFFFF) {
+                    dest.append(c32);
                     // TODO:  Report errors for mal-formed \u escapes?
                     //        As this is, the original sequence is output, which may be OK.
                     continue;
@@ -1041,7 +1041,6 @@ U_CDECL_END
 
             // Plain backslash escape.  Just put out the escaped character.
             dest.append(c);
-            replIdx++;
             continue;
         }
 
@@ -1055,109 +1054,56 @@ U_CDECL_END
         // Consume at most the number of digits necessary for the largest capture
         // number that is valid for this pattern.
 
-        if (replIdx < replLen) {
-            int32_t numDigits = ZER0;
-            int32_t digitIdx = replIdx;
-            int32_t groupNum  = ZER0;
-            uint16_t __c2;
-            UChar32 digitC = 0xffff;
-            if(digitIdx < replLen) {
-                digitC=ICURegEx_charAt(digitIdx,&inlineBuffer);
-                if (CFStringIsSurrogateHighCharacter(digitC)) {
-                    if ((digitIdx+1<replLen) && CFStringIsSurrogateLowCharacter(__c2=ICURegEx_charAt(digitIdx+1,&inlineBuffer))) {
-                        digitC=CFStringGetLongCharacterForSurrogatePair(digitC, __c2);
+
+        if (charIdx < patternLength) {
+            //  try to catch a capture group number
+            //  this is a sequence of digits possibly enclosed between group delimiters
+            int32_t idx = charIdx;
+            BOOL canBGROUP = YES;
+            BOOL mustEGROUP = NO;
+            int32_t groupNumber  = ZER0;
+            int32_t numberOfDigitsRead = ZER0;
+            int32_t max = _IVARS.regexPattern->fMaxCaptureDigits;
+            UChar c1 = 0xffff;
+            UChar c2 = 0xffff;
+            
+            do {
+                c1=ICURegEx_charAt(idx,&patternBuffer);
+                //  reading surrogate pairs
+                if (CFStringIsSurrogateHighCharacter(c1)) {
+                    if ((idx+1<patternLength) && CFStringIsSurrogateLowCharacter(c2=ICURegEx_charAt(idx+1,&patternBuffer))) {
+                        c32=CFStringGetLongCharacterForSurrogatePair(c1, c2);
+                        ++idx;
                     } else {
-                        digitC = 0xffff;
+                        numberOfDigitsRead = ZER0;
+                        break;
                     }
-                } else if (CFStringIsSurrogateLowCharacter(digitC)) {
-                    digitC = 0xffff;
-                }
-                digitIdx++;
-              }
-            if (digitC == BGROUP) {
-                //  scan digits until an EGROUP character is found
-                //  or no more digits
-                //  no replacement if the scanned number is too big
-                if (digitIdx < replLen) {
-                    //  no chance to have either a digit or a EGROUP
-                    digitC=ICURegEx_charAt(digitIdx,&inlineBuffer);
-                    if (CFStringIsSurrogateHighCharacter(digitC)) {
-                        if ((digitIdx+1<replLen) && CFStringIsSurrogateLowCharacter(__c2=ICURegEx_charAt(digitIdx+1,&inlineBuffer))) {
-                            digitC=CFStringGetLongCharacterForSurrogatePair(digitC, __c2);
-                        } else {
-                            digitC = 0xffff;
-                        }
-                    } else if (CFStringIsSurrogateLowCharacter(digitC)) {
-                        digitC = 0xffff;
-                    }
-                    digitIdx++;
-                    if (u_isdigit(digitC)) {
-                        groupNum = u_charDigitValue(digitC);
-                        ++numDigits;
-                        for (;;) {
-                            if (digitIdx >= replLen) {
-                                //  no chance to have either a digit or a EGROUP
-                                numDigits = ZER0;
-                                break;
-                            }
-                            digitC=ICURegEx_charAt(digitIdx,&inlineBuffer);
-                            if (CFStringIsSurrogateHighCharacter(digitC)) {
-                                if ((digitIdx+1<replLen) && CFStringIsSurrogateLowCharacter(__c2=ICURegEx_charAt(digitIdx+1,&inlineBuffer))) {
-                                    digitC=CFStringGetLongCharacterForSurrogatePair(digitC, __c2);
-                                } else {
-                                    digitC = 0xffff;
-                                }
-                            } else if (CFStringIsSurrogateLowCharacter(digitC)) {
-                                digitC = 0xffff;
-                            }
-                            digitIdx++;
-                            if (digitC == EGROUP) {
-                                replIdx = digitIdx;
-                            } else if (numDigits >= fPattern->fMaxCaptureDigits) {
-                                //  if digitC is really a digit, it is too big
-                                //  if not, the group is not closed
-                                numDigits = ZER0;
-                            } else if (u_isdigit(digitC)) {
-                                groupNum=groupNum*10 + u_charDigitValue(digitC);
-                                ++numDigits;
-                                continue;
-                            } else {
-                                numDigits = ZER0;
-                            }
-                            break;
-                        }
-                    }
-                }
-            } else if (u_isdigit(digitC)) {
-                groupNum = u_charDigitValue(digitC);
-                ++numDigits;
-                //  scan digit
-                //  no replacement if the scanned number is too big
-                while (digitIdx < replLen) {
-                    digitC=ICURegEx_charAt(digitIdx,&inlineBuffer);
-                    if (CFStringIsSurrogateHighCharacter(digitC)) {
-                        if ((digitIdx+1<replLen) && CFStringIsSurrogateLowCharacter(__c2=ICURegEx_charAt(digitIdx+1,&inlineBuffer))) {
-                            digitC=CFStringGetLongCharacterForSurrogatePair(digitC, __c2);
-                        } else {
-                            digitC = 0xffff;
-                        }
-                    } else if (CFStringIsSurrogateLowCharacter(digitC)) {
-                        digitC = 0xffff;
-                    }
-                    digitIdx++;
-                    if (u_isdigit(digitC)) {
-                        if ( ++numDigits > fPattern->fMaxCaptureDigits) {
-                            //  too big
-                            numDigits = ZER0;
-                            break;
-                        }
-                        groupNum=groupNum*10 + u_charDigitValue(digitC);
-                        continue;
-                    }
+                } else if (CFStringIsSurrogateLowCharacter(c1)) {
+                    numberOfDigitsRead = ZER0;
                     break;
                 }
-            }
-            if (numDigits == ZER0) {
+                if (canBGROUP && (c1==BGROUP)) {
+                    mustEGROUP = YES;
+                } else if (mustEGROUP && (c1==EGROUP)) {
+                    //  the group number is possibly found
+                    mustEGROUP = NO;
+                    ++idx;
+                    break;
+                } else if (u_isdigit(c1) && max--) {
+                    groupNumber = groupNumber*10 + u_charDigitValue(c1);
+                    ++numberOfDigitsRead;
+                } else if (mustEGROUP) {
+                    //  missing EGROUP
+                    numberOfDigitsRead = ZER0;
+                    break;
+                } else {
+                    //  We have enough digits
+                    break;
+                }
+                canBGROUP = NO;
+            } while (++idx<patternLength);
+            
+            if (mustEGROUP || (numberOfDigitsRead == ZER0)) {
                 // The $ didn't introduce a group number at all.
                 // Treat it as just part of the substitution text.
                 dest.append(DOLLARSIGN);
@@ -1166,14 +1112,14 @@ U_CDECL_END
 
             // Finally, append the capture group data to the destination.
 #if 0
-            dest.append(group(groupNum, status));
+            dest.append(group(groupNumber, status));
             _IVARS.status = status;
             if (U_FAILURE(status)) {
                 // Can fail if group number is out of range.
                 break;
             }
 #else
-            dest.append(_IVARS.regexMatcher->group(groupNum, status));
+            dest.append(_IVARS.regexMatcher->group(groupNumber, status));
             _IVARS.status = status;
             if (U_FAILURE(status)) {
                 // Can fail if group number is out of range.
@@ -1184,12 +1130,12 @@ U_CDECL_END
                 _IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
                 return nil;
             }
-NSLog(@"dest:%@",[NSString stringWithUnicodeString4ICURE:dest]);
+            //  advance the scanner location
+            charIdx = idx;
 #endif
-#undef fPattern
-#undef status
         } else {
             dest.append(DOLLARSIGN);
+            break;
         }
     }
 	return [NSString stringWithUnicodeString4ICURE:dest];
@@ -1445,9 +1391,9 @@ groupName_found: {
 		// If the delimiter pattern has capturing parentheses, the captured
 		//  text goes out into the next n destination strings.
 		unsigned numberOfGroups = self.numberOfCaptureGroups;
-		unsigned groupNum = ZER0;
-		while (groupNum++ < numberOfGroups) {
-			NSRange groupRange = [self rangeOfCaptureGroupAtIndex:groupNum];
+		unsigned groupNumber = ZER0;
+		while (groupNumber++ < numberOfGroups) {
+			NSRange groupRange = [self rangeOfCaptureGroupAtIndex:groupNumber];
 			component = CFStringCreateWithCharacters(kCFAllocatorDefault,buffer+groupRange.location, groupRange.length);
 			[result addObject:(NSString *)component];
 			CFRelease(component);
@@ -1655,7 +1601,11 @@ groupName_found: {
 {
 	NSUInteger theOpts = opts;
 	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:aPattern options:theOpts error:errorRef] autorelease];
-	return RE?[self replaceOccurrencesOfICURegEx:RE error:errorRef]:ZER0;
+    if (RE) {
+        RE.replacementPattern = replacement.length?replacement:@"";
+        return [self replaceOccurrencesOfICURegEx:RE error:errorRef];
+    }
+	return ZER0;
 }
 
 - (NSUInteger)replaceOccurrencesOfICURegEx:(ICURegEx *)RE error:(NSError **)errorRef;

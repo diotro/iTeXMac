@@ -1018,7 +1018,7 @@ extern NSString * const iTM2TextDefaultStyle;
 - (BOOL)appendCommentedSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
 - (BOOL)appendNormalSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
 - (BOOL)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
-- (BOOL)appendSyntaxModesAndLengths:(NSUInteger)firstMode,...;// convenient method for testing and debugging purposes only
+- (BOOL)appendSyntaxModesAndLengths:(NSUInteger)firstMode,...;// convenient method for testing and debugging purposes only, do not forget to use typecasting to NSUInteger
 - (BOOL)appendSyntaxModesFromModeLine:(iTM2ModeLine *)aModeLine error:(NSError **)errorRef;
 - (BOOL)removeLastMode;// NO if no storage for modes
 - (void)swapContentsWithModeLine:(iTM2ModeLine *)ML;

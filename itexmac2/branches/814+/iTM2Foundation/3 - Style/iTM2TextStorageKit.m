@@ -4221,9 +4221,8 @@ To Do List:
     NSUInteger length = ZER0;
     NSUInteger fireWall = 256;
     while((length = va_arg (list, NSUInteger)) && fireWall--) {
-        LOG4iTM3(@"Appending mode %lu(%u) length: %lu(%u)",firstMode,firstMode&0xFFFFFFFF,length,length&0xFFFFFFFF);
+        LOG4iTM3(@"===>   Appending mode %lu(%u) length: %lu(%u)",firstMode,firstMode&0xFFFFFFFF,length,length&0xFFFFFFFF);
         if(![self appendSyntaxMode:firstMode length:length error:NULL]) return NO;
-        self.describe;
         firstMode = va_arg (list, NSUInteger);
     }
     va_end(list);

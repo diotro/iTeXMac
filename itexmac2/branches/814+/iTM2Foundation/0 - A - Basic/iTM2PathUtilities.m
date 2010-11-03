@@ -1461,8 +1461,8 @@ To Do List:
         const char * path = self.path.UTF8String;
         int Os = options;
         ssize_t S =  listxattr(path, NULL,0, Os);
-        if (S == ZER0) return [NSArray array];
-        if (S>ZER0) {
+        if (S == 0) return [NSArray array];
+        if (S > 0) {
             NSMutableData * MD = [NSMutableData dataWithLength:S];
             if (S == listxattr(path, MD.mutableBytes, S, Os)) {
                 NSMutableArray * MRA = [NSMutableArray array];

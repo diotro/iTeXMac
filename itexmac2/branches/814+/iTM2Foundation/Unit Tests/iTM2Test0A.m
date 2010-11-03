@@ -290,7 +290,7 @@
 #   undef EXT
     return;
 }
-- (void) NOtestCase_URLsForSupportResource4iTM3;
+- (void) testCase_URLsForSupportResource4iTM3;
 {
     // create a bundle form scratch
     NSBundle * MB = [NSBundle mainBundle];

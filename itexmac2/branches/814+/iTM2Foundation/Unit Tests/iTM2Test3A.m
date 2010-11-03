@@ -97,7 +97,7 @@
 @property (readonly, nonatomic) NSUInteger * syntaxWordEnds;
 @property (readonly, nonatomic) NSUInteger * syntaxWordModes;
 #endif
-- (void) XXXXXXtestCase_init0
+- (void) testCase_init0
 {
     iTM2ModeLine * ML = [iTM2ModeLine modeLine];
     STAssertTrue(ML.startOff7==ZER0,@"MISSED",nil);
@@ -136,7 +136,7 @@
     NSLog(@"R:%@",NSStringFromRange(R));
     STAssertTrue(iTM3EqualRanges(R, iTM3MakeRange(NSNotFound,ZER0)),@"MISSED",nil);
 }
-- (void) XXXtestCase_initWithString;
+- (void) testCase_initWithString;
 {
     NSUInteger cursor = ZER0;
     iTM2ModeLine * MLZERO = [iTM2ModeLine modeLine];
@@ -185,7 +185,7 @@
     TEST(ML,5,8,8,9,1,kiTM2TextOuterDefaultSyntaxMode,kiTM2TextOuterDefaultSyntaxMode);
     
 }
-- (void) XXXtestCase_iTM3Range_methods;
+- (void) testCase_iTM3Range_methods;
 {
     //  There was a problem with cocoa implementation
     NSRange R1, R2, R3;
@@ -206,7 +206,7 @@
     R3 = iTM3IntersectionRange(R1,R2);
     STAssertTrue(iTM3EqualRanges(R1,R3),@"MISSED",nil);
 }
-- (void) XXXtestCase_NSRange_methods;
+- (void) testCase_NSRange_methods;
 {
     //  There was a problem with cocoa implementation
     NSRange R1, R2, R3, R4;
@@ -236,7 +236,7 @@
     R4 = R1;
     STAssertTrue(NSEqualRanges(R3,R4),@"MISSED",nil);
 }
-- (void) XXXtestCase_validate_range;
+- (void) testCase_validate_range;
 {
     NSError * ROR = nil;
     iTM2ModeLine * ML = [iTM2ModeLine modeLine];
@@ -360,7 +360,7 @@
     TEST_INVALID_GLOBAL_RANGE(ML,ML.startOff7+ZER0,1000);
     //  I am extremely lazy, no test for the global version of the validate method.
 }
-- (void) XXXtestCase_swapContentsWithModeLine
+- (void) testCase_swapContentsWithModeLine
 {
     NSError * ROR = nil;
     iTM2ModeLine * ML1 = [iTM2ModeLine modeLine];
@@ -380,27 +380,28 @@
     [ML1 swapContentsWithModeLine:ML3];
     STAssertTrue([ML3 isEqualToModeLine:ML2],@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML4],@"MISSED",nil);
-    [ML1 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML4 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML1 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML4 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML1 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML4 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML1 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML4 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML1 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML4 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML1 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML4 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML1 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
-    [ML4 appendSyntaxModesAndLengths:300,300,400,400,500,500,ZER0,ZER0];
+#define UI NSUInteger
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML4 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML4 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML4 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML4 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML4 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML4 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
+    [ML4 appendSyntaxModesAndLengths:(UI)300,(UI)300,(UI)400,(UI)400,(UI)500,(UI)500,ZER0,ZER0];
     STAssertTrue([ML3 isEqualToModeLine:ML2],@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML4],@"MISSED",nil);
     [ML1 swapContentsWithModeLine:ML3];
     STAssertTrue([ML1 isEqualToModeLine:ML2],@"MISSED",nil);
     STAssertTrue([ML3 isEqualToModeLine:ML4],@"MISSED",nil);
 }
-- (void) XXXtestCase_removeLastMode
+- (void) testCase_removeLastMode
 {
     NSError * ROR = nil;
     iTM2ModeLine * ML1 = [iTM2ModeLine modeLine];
@@ -421,7 +422,7 @@
     [ML1 removeLastMode];
     STAssertTrue([ML1 isEqualToModeLine:ML2],@"MISSED",nil);
 }
-- (void) XXXtestCase_deleteModes
+- (void) testCase_deleteModes
 {
     NSError * ROR = nil;
     iTM2ModeLine * ML1 = nil;
@@ -429,7 +430,7 @@
     ML1 = [iTM2ModeLine modeLine];
     ML2 = [iTM2ModeLine modeLine];
     STAssertTrue(([ML2 appendSyntaxMode:100 length:100 error:&ROR]),@"MISSED",NULL);// 100(100)
-    STAssertTrue(([ML1 appendSyntaxModesAndLengths:100,50,100,50,ZER0,ZER0]),@"MISSED",NULL);
+    STAssertTrue(([ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)100,(UI)50,ZER0,ZER0]),@"MISSED",NULL);
 #   define TEST_YES(CONTENTS,EOL)\
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil)
     TEST_YES(100,ZER0);
@@ -456,63 +457,63 @@
     [ML1 appendSyntaxMode:200 length:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:100:100 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,100,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:50:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:100:100 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,100,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:100:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:100:100 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,100,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:ZER0:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:100:100 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,100,200,200,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:100:200 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];ML1.describe;
     STAssertTrue(([ML1 appendSyntaxMode:100 length:50 error:&ROR]),@"MISSED",NULL);
-    //[ML1 appendSyntaxModesAndLengths:100,50,300,100,100,50,200,100,ZER0,ZER0];ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:300,100,100,50,200,100,ZER0,ZER0];ML1.describe;
+    //[ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)300,(UI)100,(UI)100,(UI)50,(UI)200,(UI)100,ZER0,ZER0];ML1.describe;
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)100,(UI)100,(UI)50,(UI)200,(UI)100,ZER0,ZER0];ML1.describe;
     [ML1 deleteModesInGlobalMakeRange:50:100 error:&ROR];ML1.describe;
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
     STAssertTrue(([ML1 appendSyntaxMode:100 length:51 error:&ROR]),@"MISSED",NULL);
-    //[ML1 appendSyntaxModesAndLengths:100,51,300,100,100,50,200,100,ZER0,ZER0];
-    [ML1 appendSyntaxModesAndLengths:300,100,100,50,200,100,ZER0,ZER0];ML1.describe;
+    //[ML1 appendSyntaxModesAndLengths:(UI)100,(UI)51,(UI)300,(UI)100,(UI)100,(UI)50,(UI)200,(UI)100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)300,(UI)100,(UI)100,(UI)50,(UI)200,(UI)100,ZER0,ZER0];ML1.describe;
     [ML1 deleteModesInGlobalMakeRange:50:101 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,50,300,99,100,51,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)300,(UI)99,(UI)100,(UI)51,(UI)200,100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:50:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,50,300,100,400,100,100,50,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)300,(UI)100,(UI)400,(UI)100,(UI)100,(UI)50,(UI)200,100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:50:200 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,51,300,100,400,100,100,50,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)51,(UI)300,(UI)100,(UI)400,(UI)100,(UI)100,(UI)50,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:50:201 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,50,300,100,400,100,100,51,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)300,(UI)100,(UI)400,(UI)100,(UI)100,(UI)51,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:50:201 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,50,300,50,100,100,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)300,(UI)50,(UI)100,(UI)100,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:ZER0:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,99,100,101,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)99,(UI)100,(UI)101,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:ZER0:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,50,300,49,100,101,200,100,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)300,(UI)49,(UI)100,(UI)101,(UI)200,(UI)100,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:ZER0:100 error:&ROR];
     TEST_YES(200,ZER0);
     [ML1 deleteModesInGlobalMakeRange:ZER0:200 error:&ROR];
-    [ML1 appendSyntaxModesAndLengths:100,100,300,99,200,101,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)300,(UI)99,(UI)200,(UI)101,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:100:100 error:&ROR];
     TEST_YES(200,ZER0);
     //  Tests with EOL
@@ -549,28 +550,28 @@
     [ML1 describe];
     [ML1 deleteModesInGlobalMakeRange:1:10 error:&ROR];
     TEST_YES(ZER0,ZER0);
-    [ML2 appendSyntaxModesAndLengths:100,100,200,100,ZER0,ZER0];
+    [ML2 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,ZER0,ZER0];
     ML1 = [[iTM2ModeLine alloc] initWithString:@"\r\n" atCursor:nil];
     ML1.EOLMode = 421;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,200,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:200:101 error:&ROR];
     TEST_YES(ZER0,ZER0);
     ML2 = [iTM2ModeLine modeLine];
-    [ML2 appendSyntaxModesAndLengths:100,100,200,100,ZER0,ZER0];
+    [ML2 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,ZER0,ZER0];
     ML1 = [[iTM2ModeLine alloc] initWithString:@"\r\n" atCursor:nil];
     ML1.EOLMode = 421;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,200,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:200:200 error:&ROR];
     TEST_YES(ZER0,ZER0);
     ML1 = [[iTM2ModeLine alloc] initWithString:@"\r\n" atCursor:nil];
     ML1.EOLMode = 421;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,200,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,ZER0,ZER0];
     [ML1 deleteModesInGlobalMakeRange:200:102 error:&ROR];
     TEST_YES(ZER0,ZER0);
 #   undef TEST_YES
     return;
 }
-- (void) XXXtestCase_enlargeSyntaxModeAtGlobalLocation
+- (void) testCase_enlargeSyntaxModeAtGlobalLocation
 {
     iTM2ModeLine * ML2 = [iTM2ModeLine modeLine];
     NSError * ROR = nil;
@@ -590,57 +591,57 @@
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     STAssertFalse([ML1 diagnostic] && ([ML1 describe],YES),@"MISSED",nil);
     ML2 = [iTM2ModeLine modeLine];
-    [ML2 appendSyntaxModesAndLengths:100,100,200,200,300,300,ZER0,ZER0];
+    [ML2 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,(UI)300,(UI)300,ZER0,ZER0];
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,50,200,200,300,300,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)200,(UI)200,(UI)300,(UI)300,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:ZER0 length:50 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,50,200,200,300,300,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)200,(UI)200,(UI)300,(UI)300,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:25 length:50 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,50,200,200,300,300,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)50,(UI)200,(UI)200,(UI)300,(UI)300,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:50 length:50 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,100,300,300,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,(UI)300,(UI)300,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:101 length:100 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,100,300,300,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,(UI)300,(UI)300,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:150 length:100 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,100,300,300,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)100,(UI)300,(UI)300,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:200 length:100 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,200,300,200,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,(UI)300,(UI)200,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:301 length:100 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,200,300,200,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,(UI)300,(UI)200,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:350 length:100 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
     ML1 = [iTM2ModeLine modeLine];
     ML1.describe;
-    [ML1 appendSyntaxModesAndLengths:100,100,200,200,300,200,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)100,(UI)100,(UI)200,(UI)200,(UI)300,(UI)200,ZER0,ZER0];
     STAssertTrue([ML1 enlargeSyntaxModeAtGlobalLocation:400 length:100 error:&ROR] || ([ML1 describe],NO),@"MISSED",nil);
     STAssertTrue([ML1 isEqualToModeLine:ML2]||([ML1 describe],[ML2 describe],NO),@"MISSED",nil);
 }
-- (void) XXXtestCase_getSyntaxModeAtIndex;
+- (void) testCase_getSyntaxModeAtIndex;
 {
     iTM2ModeLine * ML1 = [iTM2ModeLine modeLine];
-    [ML1 appendSyntaxModesAndLengths:1,10,2,20,3,30,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)1,(UI)10,(UI)2,(UI)20,(UI)3,(UI)30,ZER0,ZER0];
     NSUInteger mode, status;
     NSRange R;
 #   define TEST_S(WHERE,STATUS,MODE,LOCATION,LENGTH) \
@@ -665,11 +666,11 @@
     TEST_S(1060,kiTM2TextRangeExceededSyntaxStatus,ML1.EOLMode,1060,ZER0);
 #   undef TEST_S
 }
-- (void) XXXtestCase_longestRangeAtGlobalLocation;
+- (void) testCase_longestRangeAtGlobalLocation;
 {
 //- (NSRange)longestRangeAtGlobalLocation:(NSUInteger)aGlobalLocation mask:(NSUInteger)mask;
     iTM2ModeLine * ML1 = [iTM2ModeLine modeLine];
-    [ML1 appendSyntaxModesAndLengths:1,10,2,10,1,10,3,10,4,10,5,10,7,10,9,10,2,10,3,10,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)1,(UI)10,(UI)2,(UI)10,(UI)1,(UI)10,(UI)3,(UI)10,(UI)4,(UI)10,(UI)5,(UI)10,(UI)7,(UI)10,(UI)9,(UI)10,(UI)2,(UI)10,(UI)3,(UI)10,ZER0,ZER0];
     NSRange R = [ML1 longestRangeAtGlobalLocation:ZER0 mask:ZER0];
     STAssertTrue(R.length == ZER0,@"MISSED",nil);
 #   define TEST_R(WHERE,MASK,LOCATION,LENGTH) \
@@ -714,14 +715,14 @@
     STAssertTrue(R.length == ZER0 || (NSLog(@"R:%@",NSStringFromRange(R)),NO),@"MISSED",nil);
 #   undef TEST_R
 }
-- (void) XXXtestCase_syntaxModeAtIndex
+- (void) testCase_syntaxModeAtIndex
 {
     iTM2ModeLine * ML1 = [iTM2ModeLine modeLine];
 #   define TEST_K(INDEX,MODE,LENGTH)\
     STAssertTrue(MODE == [ML1 syntaxModeAtIndex:INDEX] && LENGTH == [ML1 syntaxLengthAtIndex:INDEX],@"MISSED",nil)
     ML1.EOLMode = 835526;
     TEST_K(10,ML1.EOLMode,ML1.contentsLength);
-    [ML1 appendSyntaxModesAndLengths:1,10,2,20,1,10,3,30,4,40,5,50,7,70,9,90,2,20,3,30,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)1,(UI)10,(UI)2,(UI)20,(UI)1,(UI)10,(UI)3,(UI)30,(UI)4,(UI)40,(UI)5,(UI)50,(UI)7,(UI)70,(UI)9,(UI)90,(UI)2,(UI)20,(UI)3,(UI)30,ZER0,ZER0];
     TEST_K(ZER0,1,10);
     TEST_K(1,2,20);
     TEST_K(2,1,10);
@@ -737,7 +738,7 @@
     ML1 = [[iTM2ModeLine alloc] initWithString:@"\r\n" atCursor:ZER0];
     ML1.EOLMode = 835526;
     TEST_K(10,ML1.EOLMode,ML1.contentsLength);
-    [ML1 appendSyntaxModesAndLengths:1,10,2,20,1,10,3,30,4,40,5,50,7,70,9,90,2,20,3,30,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)1,(UI)10,(UI)2,(UI)20,(UI)1,(UI)10,(UI)3,(UI)30,(UI)4,(UI)40,(UI)5,(UI)50,(UI)7,(UI)70,(UI)9,(UI)90,(UI)2,(UI)20,(UI)3,(UI)30,ZER0,ZER0];
     TEST_K(ZER0,1,10);
     TEST_K(1,2,20);
     TEST_K(2,1,10);
@@ -760,19 +761,19 @@
     STAssertTrue(([ML1 appendSyntaxMode:111 length:222 error:&ROR] && !ROR),@"MISSED",NULL);
     ML1.describe;
     iTM2ModeLine * ML2 = [iTM2ModeLine modeLine];
-    STAssertTrue(([ML2 appendSyntaxModesAndLengths:111,222,ZER0,0]),@"MISSED",NULL);
+    STAssertTrue(([ML2 appendSyntaxModesAndLengths:(UI)111,(UI)222,ZER0,ZER0]),@"MISSED",NULL);
     ML2.describe;
     STAssertTrue(([ML1 isEqualToModeLine:ML2]),@"MISSED",NULL);
     STAssertTrue(([ML1 appendSyntaxMode:333 length:111 error:&ROR] && !ROR),@"MISSED",NULL);
     ML1.describe;
     ML2 = [iTM2ModeLine modeLine];
-    STAssertTrue(([ML2 appendSyntaxModesAndLengths:111,222,333,111,ZER0,0]),@"MISSED",NULL);
+    STAssertTrue(([ML2 appendSyntaxModesAndLengths:(UI)111,(UI)222,(UI)333,(UI)111,ZER0,ZER0]),@"MISSED",NULL);
     ML2.describe;
     STAssertTrue(([ML1 isEqualToModeLine:ML2]),@"MISSED",NULL);
     STAssertTrue(([ML1 appendSyntaxMode:111 length:444 error:&ROR] && !ROR),@"MISSED",NULL);
     ML1.describe;
     ML2 = [iTM2ModeLine modeLine];
-    STAssertTrue(([ML2 appendSyntaxModesAndLengths:111,222,333,111,111,444,ZER0,0]),@"MISSED",NULL);
+    STAssertTrue(([ML2 appendSyntaxModesAndLengths:(UI)111,(UI)222,(UI)333,(UI)111,(UI)111,(UI)444,ZER0,ZER0]),@"MISSED",NULL);
     ML2.describe;
     STAssertTrue(([ML1 isEqualToModeLine:ML2]),@"MISSED",NULL);
     return;

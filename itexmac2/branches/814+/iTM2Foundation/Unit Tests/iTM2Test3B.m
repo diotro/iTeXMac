@@ -83,7 +83,8 @@
     iTM2ModeLine * ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
     [TSP replaceModeLineAtIndex:ZER0 withModeLine:ML];
-    [ML appendSyntaxModesAndLengths:10,10,89,89,ZER0,ZER0];
+#define UI NSUInteger
+    [ML appendSyntaxModesAndLengths:(UI)10,(UI)10,(UI)89,(UI)89,ZER0,ZER0];
     STAssertTrue([TSP lineIndexForLocation4iTM3:ZER0] == ZER0,@"MISSED",nil);
     STAssertTrue([TSP lineIndexForLocation4iTM3:1000] == ZER0,@"MISSED",nil);
     NSUInteger mode,status;
@@ -110,7 +111,7 @@
     TEST_Y(98,kiTM2TextNoErrorSyntaxStatus,89,10,89);
     TEST_Y(99,kiTM2TextNoErrorSyntaxStatus,[[TSP modeLineAtIndex:ZER0] EOLMode],99,1);
     TEST_Y(100,kiTM2TextNoErrorSyntaxStatus,ML.EOLMode,100,2);
-    [ML appendSyntaxModesAndLengths:8,8,20,20,70,70,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)8,(UI)8,(UI)20,(UI)20,(UI)70,(UI)70,ZER0,ZER0];
     TEST_Y(ZER0,kiTM2TextNoErrorSyntaxStatus,10,ZER0,10);
     TEST_Y(5,kiTM2TextNoErrorSyntaxStatus,10,ZER0,10);
     TEST_Y(9,kiTM2TextNoErrorSyntaxStatus,10,ZER0,10);
@@ -142,7 +143,7 @@
     STAssertTrue([TSP lineIndexForLocation4iTM3:ZER0] == ZER0,@"MISSED",nil);
     iTM2ModeLine * ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:10,10,89,89,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)10,(UI)10,(UI)89,(UI)89,ZER0,ZER0];
     NSMutableArray * MRA = [NSMutableArray array];
     [MRA addObject:ML];
     ML = nil;
@@ -155,17 +156,17 @@
     STAssertTrue([TSP lineIndexForLocation4iTM3:1000] == ZER0,@"MISSED",nil);
     ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:9,9,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];
     [MRA addObject:ML];
     ML = nil;
     ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:19,19,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)19,(UI)19,ZER0,ZER0];
     [MRA addObject:ML];
     ML = nil;
     ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:29,29,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)29,(UI)29,ZER0,ZER0];
     [MRA addObject:ML];
     ML = nil;
     R = NSMakeRange(ZER0,1);
@@ -183,17 +184,17 @@
     STAssertTrue([TSP lineIndexForLocation4iTM3:1000] == 2,@"MISSED",nil);
     ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:19,19,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)19,(UI)19,ZER0,ZER0];
     [MRA addObject:ML];
     ML = nil;
     ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:29,29,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)29,(UI)29,ZER0,ZER0];
     [MRA addObject:ML];
     ML = nil;
     ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:39,39,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)39,(UI)39,ZER0,ZER0];
     [MRA addObject:ML];
     ML = nil;
     R = NSMakeRange(1,2);
@@ -211,7 +212,7 @@
     STAssertTrue([TSP lineIndexForLocation4iTM3:1000] == 3,@"MISSED",nil);
     ML = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML appendSyntaxModesAndLengths:49,49,ZER0,ZER0];
+    [ML appendSyntaxModesAndLengths:(UI)49,(UI)49,ZER0,ZER0];
     [MRA addObject:ML];
     ML = nil;
     R = NSMakeRange(1,2);
@@ -265,8 +266,9 @@
 #   undef TEST_YES
 #   define TEST_YES(WHERE,LOCATION,LENGTH,EOL_LENGTH) \
     STAssertTrue([TSP textStorageDidDeleteCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
+    ML.describe;\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
-    STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH)),@"MISSED NSEqualRanges",NULL);\
+    STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH))||(NSLog(@"%@(R)<!>{%lu,%lu}(Expected)",NSStringFromRange(R),(LOCATION),(LENGTH)),NO),@"MISSED NSEqualRanges",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL)
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
     TEST_ML(ZER0,ZER0);
@@ -286,7 +288,7 @@
     TEST_NO(NSUIntegerMax);
     TEST_YES(1,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:9,9,ZER0,ZER0];// 10 chars (including EOL)
+    [ML appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];// 10 chars (including EOL)
     [ML validateLocalRange:iTM3FullRange];
     TEST_ML(9,1);
     TEST_NO(10);
@@ -311,13 +313,13 @@
     TEST_ML(1,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 12 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 12 chars (including EOL)
     [ML validateLocalRange:iTM3FullRange];
     TEST_NO(12);
     TEST_NO(NSUIntegerMax);
     TEST_YES(ZER0,ZER0,4,1);// 4,6
     TEST_YES(3,ZER0,9,1);// 3,6
-    TEST_YES(3,ZER0,8,1);// 3,5
+    TEST_YES(3,ZER0,9,1);// 3,5
     TEST_ML(8,1);
     TEST_YES(7,1,7,1);// 3,4
     TEST_ML(7,1);
@@ -329,30 +331,30 @@
     TEST_YES(2,ZER0,3,1);// 2
     TEST_YES(1,ZER0,2,1);// 1
     TEST_YES(ZER0,ZER0,1,1);// ZER0
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(1,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(2,ZER0,3,1);//2
     TEST_ML(2,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(ZER0,ZER0,1,1);
     TEST_ML(3,1);
     TEST_YES(ZER0,ZER0,2,1);
-    TEST_YES(ZER0,ZER0,1,1);
+    TEST_YES(ZER0,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
     
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 11 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_NO(11);
     TEST_NO(NSUIntegerMax);
@@ -369,27 +371,27 @@
     TEST_YES(2,ZER0,2,ZER0);
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(2,ZER0,2,ZER0);// 1,1
     TEST_YES(ZER0,ZER0,1,ZER0);// 1
     TEST_YES(ZER0,ZER0,ZER0,ZER0);// ZER0
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,2,ZER0);
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
     
-    [ML appendSyntaxModesAndLengths:5,5,6,1,5,5,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)1,(UI)5,(UI)5,ZER0,ZER0];// 11 chars
     [ML validateLocalRange:iTM3FullRange];
     TEST_NO(11);
     TEST_NO(NSUIntegerMax);
@@ -456,7 +458,7 @@
     TEST_NO(NSUIntegerMax);
     TEST_YES(1,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:9,9,ZER0,ZER0];// 10 chars (including EOL)
+    [ML appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];// 10 chars (including EOL)
     TEST_ML(9,1);
     TEST_NO(10);
     TEST_NO(NSUIntegerMax);
@@ -480,12 +482,12 @@
     TEST_ML(1,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 12 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 12 chars
     TEST_NO(12);
     TEST_NO(NSUIntegerMax);
     TEST_YES(ZER0,ZER0,4,1);// 4,6
     TEST_YES(3,ZER0,9,1);// 3,6
-    TEST_YES(3,ZER0,8,1);// 3,5
+    TEST_YES(3,ZER0,9,1);// 3,5
     TEST_ML(8,1);
     TEST_YES(7,1,7,1);// 3,4
     TEST_YES(5,1,6,1);// 3,3
@@ -496,27 +498,27 @@
     TEST_YES(2,ZER0,3,1);// 2
     TEST_YES(1,ZER0,2,1);// 1
     TEST_YES(ZER0,ZER0,1,1);// ZER0
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_YES(1,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_ML(2,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     TEST_YES(2,ZER0,3,1);//2
     TEST_ML(2,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     TEST_ML(4,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,2,1);
-    TEST_YES(ZER0,ZER0,1,1);
+    TEST_YES(ZER0,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
     
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 11 chars
     TEST_NO(11);
     TEST_NO(NSUIntegerMax);
     TEST_ML(11,ZER0);
@@ -533,23 +535,23 @@
     TEST_YES(2,ZER0,2,ZER0);
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     TEST_YES(2,ZER0,2,ZER0);// 1,1
     TEST_YES(ZER0,ZER0,1,ZER0);// 1
     TEST_YES(ZER0,ZER0,ZER0,ZER0);// ZER0
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,2,ZER0);
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
     
-    [ML appendSyntaxModesAndLengths:5,5,6,1,5,5,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)1,(UI)5,(UI)5,ZER0,ZER0];// 11 chars
     TEST_NO(11);
     TEST_NO(NSUIntegerMax);
     TEST_YES(5,ZER0,10,ZER0);// 5,1,5 -> 10
@@ -618,7 +620,7 @@
     TEST_NO(NSUIntegerMax-10);
     TEST_YES(1,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:9,9,ZER0,ZER0];// 10 chars (including EOL)
+    [ML appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];// 10 chars (including EOL)
     TEST_ML(9,1);
     TEST_NO(10);
     TEST_NO(NSUIntegerMax-10);
@@ -643,13 +645,13 @@
     TEST_ML(1,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 12 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 12 chars
     TEST_NO(12);
     TEST_NO(NSUIntegerMax-10);
     TEST_ML(11,1);
     TEST_YES(ZER0,ZER0,4,1);// 4,6
     TEST_YES(3,ZER0,9,1);// 3,6
-    TEST_YES(3,ZER0,8,1);// 3,5
+    TEST_YES(3,ZER0,9,1);// 3,5
     TEST_ML(8,1);
     TEST_YES(7,1,7,1);// 3,4
     TEST_YES(5,1,6,1);// 3,3
@@ -660,27 +662,27 @@
     TEST_YES(2,ZER0,3,1);// 2
     TEST_YES(1,ZER0,2,1);// 1
     TEST_YES(ZER0,ZER0,1,1);// ZER0
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_YES(1,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_ML(2,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     TEST_YES(2,ZER0,3,1);//2
     TEST_ML(2,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     TEST_ML(4,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,2,1);
-    TEST_YES(ZER0,ZER0,1,1);
+    TEST_YES(ZER0,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
     
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 11 chars
     TEST_NO(11);
     TEST_NO(NSUIntegerMax-10);
     TEST_ML(11,ZER0);
@@ -696,22 +698,22 @@
     TEST_YES(2,ZER0,2,ZER0);
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(2,ZER0);
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(2,ZER0);
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_YES(2,ZER0,2,ZER0);// 1,1
     TEST_YES(ZER0,ZER0,1,ZER0);// 1
     TEST_YES(ZER0,ZER0,ZER0,ZER0);// ZER0
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(4,ZER0);
     TEST_YES(ZER0,ZER0,1,ZER0);
@@ -719,7 +721,7 @@
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
     
-    [ML appendSyntaxModesAndLengths:5,5,6,1,5,5,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)1,(UI)5,(UI)5,ZER0,ZER0];// 11 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_NO(11);
     TEST_NO(NSUIntegerMax-10);
@@ -762,7 +764,7 @@
 #   define TEST_YES(WHERE,LOCATION,LENGTH,EOL_LENGTH) \
     STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(10+WHERE) count:1 editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
-    STAssertTrue(NSEqualRanges(R,NSMakeRange(10+LOCATION,LENGTH)),@"MISSED NSEqualRanges",NULL);\
+    STAssertTrue(NSEqualRanges(R,NSMakeRange(10+LOCATION,LENGTH))||(NSLog(@"%@<!>{%lu,%lu}(expected)",NSStringFromRange(R),10+LOCATION,LENGTH),NO),@"MISSED NSEqualRanges",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL)
 #   undef TEST_ML
 #   undef TEST_ML
@@ -789,7 +791,7 @@
     TEST_NO(NSUIntegerMax-10);
     TEST_YES(1,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:9,9,ZER0,ZER0];// 10 chars (including EOL)
+    [ML appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];// 10 chars (including EOL)
     TEST_ML(9,1);
     TEST_NO(10);
     TEST_NO(NSUIntegerMax-10);
@@ -814,13 +816,13 @@
     TEST_ML(1,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 12 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 12 chars
     TEST_NO(12);
     TEST_NO(NSUIntegerMax-10);
     TEST_ML(11,1);
     TEST_YES(ZER0,ZER0,4,1);// 4,6
     TEST_YES(3,ZER0,9,1);// 3,6
-    TEST_YES(3,ZER0,8,1);// 3,5
+    TEST_YES(3,ZER0,9,1);// 3,5
     TEST_ML(8,1);
     TEST_YES(7,1,7,1);// 3,4
     TEST_YES(5,1,6,1);// 3,3
@@ -830,29 +832,29 @@
     TEST_YES(2,ZER0,3,1);// 2
     TEST_YES(1,ZER0,2,1);// 1
     TEST_YES(ZER0,ZER0,1,1);// ZER0
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_ML(2,1);
     TEST_YES(1,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     TEST_ML(2,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     TEST_ML(3,1);
     TEST_YES(2,ZER0,3,1);//2
     TEST_ML(2,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,1,1);
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     TEST_ML(4,1);
     TEST_YES(ZER0,ZER0,1,1);
     TEST_YES(ZER0,ZER0,2,1);
-    TEST_YES(ZER0,ZER0,1,1);
+    TEST_YES(ZER0,ZER0,2,1);
     TEST_YES(ZER0,ZER0,1,1);
     
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,5,6,6,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)6,ZER0,ZER0];// 11 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_NO(11);
     TEST_NO(NSUIntegerMax-10);
@@ -869,23 +871,23 @@
     TEST_YES(2,ZER0,2,ZER0);
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(2,ZER0);
     TEST_YES(1,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,1,6,1,ZER0,ZER0];// 2 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)1,(UI)6,(UI)1,ZER0,ZER0];// 2 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(2,ZER0);
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
-    [ML appendSyntaxModesAndLengths:5,2,6,1,ZER0,ZER0];// 3 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)1,ZER0,ZER0];// 3 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(3,ZER0);
     TEST_YES(2,ZER0,2,ZER0);// 1,1
     TEST_YES(ZER0,ZER0,1,ZER0);// 1
     TEST_YES(ZER0,ZER0,ZER0,ZER0);// ZER0
-    [ML appendSyntaxModesAndLengths:5,2,6,2,ZER0,ZER0];// 4 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)2,(UI)6,(UI)2,ZER0,ZER0];// 4 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(4,ZER0);
     TEST_YES(ZER0,ZER0,1,ZER0);
@@ -893,7 +895,7 @@
     TEST_YES(ZER0,ZER0,1,ZER0);
     TEST_YES(ZER0,ZER0,ZER0,ZER0);
     
-    [ML appendSyntaxModesAndLengths:5,5,6,1,5,5,ZER0,ZER0];// 11 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)6,(UI)1,(UI)5,(UI)5,ZER0,ZER0];// 11 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_NO(11);
     TEST_NO(NSUIntegerMax-10);
@@ -985,85 +987,85 @@
     TEST_NO(NSUIntegerMax,NSUIntegerMax);
     TEST_YES(10+1,1,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:9,9,ZER0,ZER0];// 10 chars (including EOL)
+    [ML appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];// 10 chars (including EOL)
     TEST_YES(10+ZER0,9,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,ZER0,ZER0];// 10 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,ZER0,ZER0];// 10 chars
     TEST_YES(10+ZER0,9,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,ZER0,ZER0];// 10 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,ZER0,ZER0];// 10 chars
     TEST_ML(9,1);
     TEST_YES(10+1,7,10+ZER0,2,1);
     TEST_ML(2,1);
     TEST_YES(10+ZER0,2,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,ZER0,ZER0];// 10 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,ZER0,ZER0];// 10 chars
     TEST_YES(10+ZER0,7,10+ZER0,2,1);
     TEST_ML(2,1);
     TEST_YES(10+ZER0,2,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,ZER0,ZER0];// 10 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,ZER0,ZER0];// 10 chars
     TEST_YES(10+1,7,10+ZER0,2,1);
     TEST_ML(2,1);
     TEST_YES(10+ZER0,2,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,ZER0,ZER0];// 10 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,ZER0,ZER0];// 10 chars
     TEST_YES(10+2,7,10+ZER0,3,1);
     TEST_ML(2,1);
     TEST_YES(10+ZER0,2,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_YES(10+3,5,10+ZER0,4,1);// 5,4,7 -> 3,1,7
     TEST_ML(11,1);
     TEST_YES(10+ZER0,11,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_YES(10+4,5,10+ZER0,11,1);;// 5,4,7 -> 4+7
     TEST_ML(11,1);
     TEST_YES(10+ZER0,11,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_YES(10+5,5,10+ZER0,11,1);//  5,4,7 -> 5+6
     TEST_ML(11,1);
     TEST_YES(10+ZER0,11,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_ML(16,1);
     TEST_YES(10+6,5,10+3,8,1);//  5,4,7 -> 5,1,5
     TEST_ML(11,1);
     TEST_YES(10+ZER0,11,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_ML(16,1);
     TEST_YES(10+7,5,10+3,8,1);//  5,4,7 -> 5,2,4
     TEST_ML(11,1);
     TEST_YES(10+ZER0,11,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_ML(16,1);
     TEST_YES(10+8,5,10+3,8,1);//  5,4,7 -> 5,3,3
     TEST_ML(11,1);
     TEST_YES(10+ZER0,11,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_ML(16,1);
     TEST_YES(10+8,5,10+3,8,1);//  5,4,7 -> 5,4,2
     TEST_ML(11,1);
     TEST_YES(10+ZER0,11,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_ML(16,1);
     TEST_YES(10+7,9,10+3,5,1);//  5,4,7 -> 5,2
     TEST_ML(7,1);
     TEST_YES(10+ZER0,7,10+ZER0,1,1);
     TEST_ML(ZER0,1);
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     TEST_ML(16,1);
     TEST_YES(10+7,10,10+3,4,ZER0);//  5,4,7 -> 5,2
     TEST_ML(7,ZER0);
     TEST_YES(10+ZER0,7,10+ZER0,ZER0,ZER0);
     TEST_ML(ZER0,ZER0);// the ML will be removed
-    [ML appendSyntaxModesAndLengths:5,5,4,4,7,7,ZER0,ZER0];// 17 chars
+    [ML appendSyntaxModesAndLengths:(UI)5,(UI)5,(UI)4,(UI)4,(UI)7,(UI)7,ZER0,ZER0];// 17 chars
     [TSP insertModeLine:ML atIndex:1];
     TEST_ML(16,ZER0);
     TEST_YES(10+7,11,10+3,4,ZER0);//  5,4,7 -> 5,2
@@ -1087,7 +1089,7 @@
     iTM2ModeLine * ML1 = nil;
     ML1 = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML1.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
-    [ML1 appendSyntaxModesAndLengths:9,9,ZER0,ZER0];
+    [ML1 appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];
     [TSP replaceModeLineAtIndex:ZER0 withModeLine:ML1];
     NSRange R;
     NSError * ROR = nil;
@@ -1119,7 +1121,7 @@
 #   define TEST_YES(WHERE,COUNT,LOCATION,LENGTH) \
     STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:COUNT editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharactersAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
-    STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH)),@"MISSED NSEqualRanges",NULL)
+    STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH))||(NSLog(@"%@<!>{%lu,%lu}(Expected)",NSStringFromRange(R),LOCATION,LENGTH),NO),@"MISSED NSEqualRanges",NULL)
 #   undef TEST
 #   define TEST(_ML,CONTENTS_LENGTH,EOL_LENGTH)\
     STAssertFalse(_ML.diagnostic,@"MISSED diagnostic",NULL);\
@@ -1155,47 +1157,47 @@
     TEST_NO(NSUIntegerMax,NSUIntegerMax);
     TEST_YES(10+1,1,10+ZER0,1);
     TEST(ML2,ZER0,1);
-    [ML2 appendSyntaxModesAndLengths:9,9,ZER0,ZER0];// 11 chars (including EOL)
+    [ML2 appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];// 11 chars (including EOL)
     // remove EOL characters of the first ML
     TEST_YES(9,1,ZER0,18);
     TEST(ML1,18,1);
-    TEST_YES(ZER0,9,ZER0,9);
+    TEST_YES(ZER0,9,ZER0,10);
     TEST(ML1,9,1);// 9+1
     ML2 = [[iTM2ModeLine alloc] initWithString:@"\r\n" atCursor:NULL];
     ML2.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
     [TSP insertModeLine:ML2 atIndex:1];
-    [ML2 appendSyntaxModesAndLengths:8,8,ZER0,ZER0];// 10 chars (including EOL)
+    [ML2 appendSyntaxModesAndLengths:(UI)8,(UI)8,ZER0,ZER0];// 10 chars (including EOL)
     TEST(ML2,8,2);// 8+2
     TEST_YES(8,2,ZER0,16); // 8,8+2
     TEST(ML1,16,2);
-    TEST_YES(ZER0,8,ZER0,8); // 8+2
+    TEST_YES(ZER0,8,ZER0,10); // 8+2
     TEST(ML1,8,2);
     ML2 = [[iTM2ModeLine alloc] initWithString:@"\r" atCursor:NULL];
     ML2.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
     [TSP insertModeLine:ML2 atIndex:1];
-    [ML2 appendSyntaxModesAndLengths:9,9,ZER0,ZER0];// 11 chars (including EOL)
+    [ML2 appendSyntaxModesAndLengths:(UI)9,(UI)9,ZER0,ZER0];// 11 chars (including EOL)
     TEST(ML2,9,1);// 9+1
     TEST_YES(8,3,ZER0,16); // 8,8+1
     TEST(ML1,16,1);
-    TEST_YES(ZER0,8,ZER0,8); // 8+1
+    TEST_YES(ZER0,8,ZER0,9); // 8+1
     ML2 = [[iTM2ModeLine alloc] initWithString:@"\r\n" atCursor:NULL];
     ML2.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
     [TSP insertModeLine:ML2 atIndex:1];
-    [ML2 appendSyntaxModesAndLengths:8,8,ZER0,ZER0];// 10 chars (including EOL)
+    [ML2 appendSyntaxModesAndLengths:(UI)8,(UI)8,ZER0,ZER0];// 10 chars (including EOL)
     TEST(ML2,8,2);// 8+2
     TEST_YES(8,2,ZER0,15); // 8,7+2
     TEST(ML1,15,2);
-    TEST_YES(ZER0,8,ZER0,7); // 7+2
+    TEST_YES(ZER0,8,ZER0,9); // 7+2
     TEST(ML1,7,2);
     //  Tests with 3 MLs
     ML2 = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML2.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
     [TSP insertModeLine:ML2 atIndex:1];
-    [ML2 appendSyntaxModesAndLengths:6,6,ZER0,ZER0];// 7 chars (including EOL)
+    [ML2 appendSyntaxModesAndLengths:(UI)6,(UI)6,ZER0,ZER0];// 7 chars (including EOL)
     iTM2ModeLine * ML3 = [[iTM2ModeLine alloc] initWithString:@"\n" atCursor:NULL];
     ML3.EOLMode = [[[NSProcessInfo processInfo] globallyUniqueString] hash];
     [TSP insertModeLine:ML2 atIndex:2];
-    [ML3 appendSyntaxModesAndLengths:7,7,ZER0,ZER0];// 8 chars (including EOL)
+    [ML3 appendSyntaxModesAndLengths:(UI)7,(UI)7,ZER0,ZER0];// 8 chars (including EOL)
     //  actual state 7(8)+2,6(6)+1,7(7)+1
     TEST_YES(8,1,7,1); // 7(8)+1,6(6)+1,7(7)+1
     TEST(ML1,7,1);
@@ -1290,7 +1292,8 @@
     NSUInteger mode = 835526 | kiTM2TextEndOfLineSyntaxMask;
     NSUInteger off7 = ZER0;
     ML1.EOLMode = mode;
-    [ML1 appendSyntaxModesAndLengths:1,10,2,20,1,10,3,30,4,40,5,50,7,70,9,90,2,20,3,30,ZER0,ZER0];
+#define UI NSUInteger
+    [ML1 appendSyntaxModesAndLengths:(UI)(UI)1,(UI)10,(UI)2,(UI)20,(UI)1,(UI)10,(UI)3,(UI)30,(UI)4,(UI)40,(UI)5,(UI)50,(UI)7,(UI)70,(UI)9,(UI)90,(UI)2,(UI)20,(UI)3,(UI)30,ZER0,ZER0];
     TEST_K(ML1,ZER0,1,10);
     TEST_K(ML1,1,2,20);
     TEST_K(ML1,2,1,10);
@@ -1321,7 +1324,7 @@
         ML1 = [iTM2ModeLine modeLine];\
         ML1.EOLMode = mode;\
         ML1.startOff7 = off7;\
-        [ML1 appendSyntaxModesAndLengths:1,10,2,20,1,10,3,30,4,40,5,50,7,70,9,90,2,20,3,30,ZER0,ZER0];\
+        [ML1 appendSyntaxModesAndLengths:(UI)1,(UI)10,(UI)2,(UI)20,(UI)1,(UI)10,(UI)3,(UI)30,(UI)4,(UI)40,(UI)5,(UI)50,(UI)7,(UI)70,(UI)9,(UI)90,(UI)2,(UI)20,(UI)3,(UI)30,ZER0,ZER0];\
         ML2 = [ML1 modeLineBySplittingFromGlobalLocation:WHERE error:&ROR];\
         STAssertTrue(!ML2.EOLLength || (ML2.EOLMode == mode),@"MISSED EOLMode",nil);\
     } while (NO)
@@ -2145,7 +2148,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)
@@ -2397,7 +2400,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)
@@ -2653,7 +2656,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)
@@ -2897,7 +2900,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)
@@ -3140,7 +3143,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)
@@ -3404,7 +3407,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)
@@ -3673,7 +3676,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,contentsLength,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)
@@ -3946,7 +3949,7 @@
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
     [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
-    [ML0 appendSyntaxModesAndLengths:1,1,2,1,ZER0,ZER0]; \
+    [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,contentsLength,ZER0,2); \
     TEST_K(0,ZER0,1,1); \
     TEST_K(0,1,2,1)

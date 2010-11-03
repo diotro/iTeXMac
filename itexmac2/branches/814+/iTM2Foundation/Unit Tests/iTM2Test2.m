@@ -1188,7 +1188,7 @@ scheme:myScheme
         u);
 
 }
-- (void) XtestCase1
+- (void) testCase1
 {
     //  testing builtin path related methods of NSURL instances
     //  The problem is to decide whether the directory information is used or not
@@ -1301,7 +1301,7 @@ scheme:myScheme
         url);
    
 }
-- (void) XtestCase2
+- (void) testCase2
 {
     //  testing path4iTM3
     //  against the url of a directory

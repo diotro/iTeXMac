@@ -68,7 +68,7 @@ typedef unichar (* iTM2CharacterAtIndexIMP) (id, SEL, NSUInteger);
 - (BOOL)scanInteger:(NSInteger *)value;
 - (BOOL)scanHexInt:(NSUInteger *)value;		/* Optionally prefixed with "0x" or "0X" */
 - (BOOL)scanLongLong:(long long *)value;
-- (BOOL)scanFloat:(float *)value;
+- (BOOL)scanFloat:(CGFloat *)value;
 - (BOOL)scanDouble:(double *)value;
 - (BOOL)scanCharacter:(unichar)value;
 - (BOOL)scanCharacterBackwards:(unichar)value;

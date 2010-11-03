@@ -164,7 +164,7 @@
         TEST(@"end",@"");
         TEST(@"-index",@"");
         TEST(@"index",@"0");
-        TEST(@"Default",@" defaut valeurZERO  ");
+        TEST(@"Default",@" defaut valeur0  ");
         TEST(@"TYPE",@"");
         TEST(@"EOL",@"");
 
@@ -282,16 +282,16 @@
          RE.inputString =
         //0123456789-01234567890123456789012345678901234567890123456789
         @"000 one  \n"
-        //ZER0         ZER0         ZER0         ZER0         ZER0         ZER0         -
+        //0         0         0         0         0         0         -
         //1         2         3         4         5         6         -
         //012345678901234567890123456789012345678901234567890123456789-
         @"010 two __(TYPE:DEFAULT%COMMENT'D)__ twotwotw __(TYPE:DEFA-\n"
-        //ZER0         ZER0         ZER0         -1         1         1         
-        //7         8         9         -ZER0         1         2         
+        //0         0         0         -1         1         1         
+        //7         8         9         -0         1         2         
         //012345678901234567890123456789-012345678901234567890123456789
         @"070 ULT%COMMENT'D)__ twotwot \n"
         //1         1         1         -1         1         1         
-        //ZER0         1         2         -3         4         5         
+        //0         1         2         -3         4         5         
         //012345678901234567890123456789-012345678901234567890123456789
         @"100 three__(TYPE:DEFAULT%COM-\n"
         //1         1         -1         1         1         1         
@@ -299,11 +299,11 @@
         //01234567890123456789-0123456789012345678901234567890123456789
         @"130 MENT'D)__ twot \n"
         //1         1         1         1         1         -2         
-        //5         6         7         8         9         -ZER0         
+        //5         6         7         8         9         -0         
         //01234567890123456789012345678901234567890123456789-0123456789
         @"150 three __(TYPE%COMMENT'D)__ three __(TYPE%COM-\n"
         //2         2         -2         2         2         2         
-        //ZER0         1         -2         3         4         5         
+        //0         1         -2         3         4         5         
         //01234567890123456789-0123456789012345678901234567890123456789
         @"200 MENT'D)__ twot \n"
         //2         2         2      -   2         2         -2         
@@ -311,7 +311,7 @@
         //012345678901234567890123456-78901234567890123456789-0123456789
         @"220 threethreethre __(TYPE\\:DEFAULT%COMMENT'D)__ \n"
         //2         2         2         3    -     3         -3         
-        //7         8         9         ZER0    -     1         -2         
+        //7         8         9         0    -     1         -2         
         //01234567890123456789012345678901234-567890123456789-0123456789
         @"270 fourfourfourfo __(TYPE:DEFAULT\\XCOMMENT'D)__ \n"
         //3   -      3         3         3         3         3         
@@ -452,7 +452,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         STAssertTrue(!ROR,@"MISSED",nil);
         NSLog(@"__(SEL|TYPE...)__|EOL:%@",RE.searchPattern);
         RE.inputString =
-            @"start __( SEL[0] : defaut valeurZERO  )__ after \n"
+            @"start __( SEL[0] : defaut valeurO  )__ after \n"
             @"middle __( TYPE : defaut valeur1  )__ after \n"
             @"middle __( SEL[1]: defaut valeur2  )__ after \n"
             ;
@@ -462,7 +462,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"0");
-        TEST(iTM2RegExpMKDefaultName,@" defaut valeurZERO  ");
+        TEST(iTM2RegExpMKDefaultName,@" defaut valeurO  ");
         TEST(iTM2RegExpMKTypeName,@"");
         TEST(iTM2RegExpMKEOLName,@"");
 
@@ -521,7 +521,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
 #undef TEST
 #undef OUPS
 }
-- (void) XtestCase_C
+- (void) testCase_C
 {
 	NSString * testString = @"#!/usr/bin/env/lua -h \nSecond line\nThird line\nAnd so on";
 	NSLog(@"testString:%@",testString);
@@ -561,10 +561,10 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
     STAssertFalse([RE nextMatch],@"MISSED 9, error:%@", [RE error]);
 	STAssertTrue([RE nextMatchAfterIndex:2],@"MISSED 10, error:%@", [RE error]);
     [RE displayMatchResult];
-	[RE setReplacementPattern:@"ZER0:/$ZER0/\n1:/$1/\n2:/$2/"];
-	NSLog(@"[RE replacementString]:%@",[RE replacementString]);
+	[RE setReplacementPattern:@"0:/$0/\n1:/$1/\n2:/$2/"];
+	NSLog(@"RE.replacementString:%@",RE.replacementString);
     STAssertNil([RE error],@"MISSED 10",NULL);
-	STAssertTrue([[RE replacementString] isEqual:@"ZER0:/abbc/\n1:/bb/\n2:/c/"],@"MISSED 11, error:%@", [RE error]);
+	STAssertTrue([RE.replacementString isEqual:@"0:/abbc/\n1:/bb/\n2:/c/"]||(NSLog(@"%@<?>%@(expected)",RE.replacementString,@"0:/abbc/\n1:/bb/\n2:/c/"),NO),@"MISSED 11, error:%@", [RE error]);
 #pragma mark E
 	NSLog(@"E find ----------------------------");
 	NSString * input = [NSString stringWithUTF8String:"ઔકખਅਆਦਤઔકખਅਆਦਤઔકખਅਆਦਤઔકખਅਆਦਤ"];
