@@ -220,7 +220,7 @@ To Do List:
     Class result = NSClassFromString(name);
     if ([result isSubclassOfClass:[iTM2TextSyntaxParserAttributesDocument class]])
         return result;
-    else {
+    else
         DEBUGLOG4iTM3(0,@"WARNING: Missing subclass of %@ named %@", [iTM2TextSyntaxParserAttributesDocument class], name);
     return Nil;
 }

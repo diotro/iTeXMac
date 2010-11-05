@@ -195,26 +195,26 @@ To Do List: Nothing
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSRange R = iTM3MakeRange(NSNotFound,ZER0);
-    NSString * headerStringEncodingString = @"";
+    NSString * headerStringEncodingName = @"";
 	ICURegEx * RE = nil;
-//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
+//NSLog(@"headerStringEncodingName: %@", headerStringEncodingName);
     NS_DURING
     RE = [ICURegEx regExForKey:@"encoding" inBundle:BUNDLE error:NULL];
     [RE setInputString:self];
 //NSLog(@"ARE: %@", ARE);
     if ([RE matchString:self] && ([RE numberOfCaptureGroups] > ZER0)) {
         R = [RE rangeOfCaptureGroupAtIndex:1];
-        headerStringEncodingString = [RE substringOfCaptureGroupWithName:@"encoding"];
+        headerStringEncodingName = [RE substringOfCaptureGroupWithName:@"encoding"];
     }
-//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
+//NSLog(@"headerStringEncodingName: %@", headerStringEncodingName);
     NS_HANDLER
 //NSLog(@"EXCEPTION");
     LOG4iTM3(@"*** Exception catched (1): %@", [localException reason]);
-    headerStringEncodingString = @"";
+    headerStringEncodingName = @"";
     NS_ENDHANDLER
-//NSLog(@"headerStringEncodingString: %@", headerStringEncodingString);
+//NSLog(@"headerStringEncodingName: %@", headerStringEncodingName);
 	if (stringEncodingRef) {
-		* stringEncodingRef = [NSString stringEncodingWithName4iTM3:headerStringEncodingString];
+		* stringEncodingRef = [NSString stringEncodingWithName4iTM3:headerStringEncodingName];
 	}
 	if (rangeRef)
 		* rangeRef = R;
@@ -1258,7 +1258,7 @@ To Do List:
 	}
     NSStringEncoding usedEncoding = ZER0;
     BOOL canStringEncoding = NO;
-    NSString * hardStringEncodingString = @"";
+    NSString * hardStringEncodingName = @"";
     // testing for UTF32, UTF16 and UTF8 encodings, see http://unicode.org/faq/utf_bom.html#22
     char byteOrder [8] = {'0','0','0','0','0','0','0','0'};
     if (docData.length>=8)
@@ -1334,9 +1334,9 @@ To Do List:
 		NSRange hardCodedRange = iTM3MakeRange(ZER0,ZER0);
 		[string getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
 		if (hardCodedRange.length > ZER0)
-			hardStringEncodingString = [string substringWithRange:hardCodedRange];
+			hardStringEncodingName = [string substringWithRange:hardCodedRange];
 		else
-			hardStringEncodingString = @"";
+			hardStringEncodingName = @"";
         canStringEncoding = NO;
     }
 	if (docData.length && !string.length) {
@@ -1356,7 +1356,7 @@ To Do List:
 	}
 	self.stringEncoding = usedEncoding;
 	self.isStringEncodingHardCoded = !canStringEncoding;
-	[self setHardStringEncodingString:hardStringEncodingString];
+	[self setHardStringEncodingName:hardStringEncodingName];
 	if (self.document) {
 		NSString * defaultStringEncodingName = [self.document context4iTM3ValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
@@ -1366,6 +1366,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
 - (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
+//  Révisé par itexmac2: 2010-11-05 15:44:45 +0100
 {
 	if (outErrorPtr) {
 		*outErrorPtr = nil;
@@ -1373,7 +1374,7 @@ To Do List:
 	NSString * S = nil;
     NSStringEncoding usedEncoding; 
     BOOL canStringEncoding = YES;
-    NSString * hardStringEncodingString = @"";
+    NSString * hardStringEncodingName = @"";
     BOOL result = YES;
     if (S = [NSString stringWithContentsOfURL:absoluteURL usedEncoding:&usedEncoding error:outErrorPtr]) {
         NSStringEncoding hardCodedStringEncoding;
@@ -1384,14 +1385,14 @@ To Do List:
             [S getHardCodedStringEncoding4iTM3:&hardCodedStringEncoding range:&hardCodedRange];
             if ((hardCodedRange.length > ZER0) && (hardCodedStringEncoding > ZER0)) {
                 // there was an hard coded string encoding
-                hardStringEncodingString = [S substringWithRange:hardCodedRange];
+                hardStringEncodingName = [S substringWithRange:hardCodedRange];
                 canStringEncoding = NO;
                 if (hardCodedStringEncoding == usedEncoding) {
                     // everything is alright
 terminate:
                     self.stringEncoding = usedEncoding;
                     self.isStringEncodingHardCoded = !canStringEncoding;
-                    self.hardStringEncodingString = hardStringEncodingString;
+                    self.hardStringEncodingName = hardStringEncodingName;
                     [self.document setStringRepresentation:S];
                     DEBUGLOG4iTM3(0,@"usedEncoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
                     return result;
@@ -1406,7 +1407,7 @@ terminate:
                 result = NO;
                 canStringEncoding = YES;
                 LOG4iTM3(@"The hard coded string encoding %@ could not be honoured:%@, using %@ instead",
-                    hardStringEncodingString,
+                    hardStringEncodingName,
                     [NSString localizedNameOfStringEncoding:hardCodedStringEncoding],
                     [NSString localizedNameOfStringEncoding:usedEncoding],
                     absoluteURL);
@@ -1523,7 +1524,7 @@ To Do List:
 	[self takeContext4iTM3Value:iVarStringEncoding4iTM3 forKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
     return;
 }
-@synthesize hardStringEncodingString = iVarHardStringEncodingString4iTM3;
+@synthesize hardStringEncodingName = iVarHardStringEncodingName4iTM3;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setStringEncodingHardCoded:
 - (void)setStringEncodingHardCoded:(BOOL)yorn;
 /*"Description Forthcoming.

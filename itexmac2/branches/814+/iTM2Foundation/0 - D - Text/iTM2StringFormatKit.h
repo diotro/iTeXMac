@@ -74,7 +74,7 @@ extern NSString * const TWSEOLFileKey;
     NSNumber * iVarEOL4iTM3;
     NSNumber * iVarStringEncoding4iTM3;
     BOOL iVarStringEncodingIsHardCoded4iTM3;
-    NSString * iVarHardStringEncodingString4iTM3;
+    NSString * iVarHardStringEncodingName4iTM3;
 }
 
 /*!
@@ -194,7 +194,7 @@ extern NSString * const TWSEOLFileKey;
 */
 @property (assign, setter = setStringEncodingHardCoded) BOOL isStringEncodingHardCoded;
 
-@property (copy) NSString * hardStringEncodingString;
+@property (copy) NSString * hardStringEncodingName;
 
 @end
 

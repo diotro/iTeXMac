@@ -275,6 +275,8 @@ single system call, but I'm not sure about that.
 
 void iTM2SystemSignalKit_SigActionHandler(int signal)/* Don't change int to NSInteger*/
 {
-    DEBUGLOG4iTM3(0,@"iTM2: Signal received: %i.");
+    if (iTM2DebugEnabled) {
+        NSLog(@"iTM2: Signal received: %i.");
+    }
     iTM2SystemSignalKit_PendingSignal = iTM2SystemSignalKit_PendingSignal | (1 >> signal);
 }

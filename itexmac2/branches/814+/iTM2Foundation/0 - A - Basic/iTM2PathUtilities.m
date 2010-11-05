@@ -1460,7 +1460,7 @@ To Do List:
     if (self.isFileURL) {
         const char * path = self.path.UTF8String;
         int Os = options;
-        ssize_t S =  listxattr(path, NULL,0, Os);
+        ssize_t S = listxattr(path, NULL,0, Os);
         if (S == 0) return [NSArray array];
         if (S > 0) {
             NSMutableData * MD = [NSMutableData dataWithLength:S];
@@ -1469,9 +1469,9 @@ To Do List:
                 char * ptr = MD.mutableBytes;
                 char * end = ptr + MD.length;
                 while(ptr < end) {
-                    ptr += name.length+1; // +1 for the null terminating character
                     NSString * name = [NSString stringWithUTF8String:ptr];
                     [MRA addObject:name];
+                    ptr += name.length+1; // +1 for the null terminating character
                 }
                 return MRA.copy;
             }
