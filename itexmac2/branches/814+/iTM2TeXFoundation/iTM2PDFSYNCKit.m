@@ -2040,9 +2040,7 @@ To Do List:
 			return YES;
 		}
 	}
-	if(iTM2DebugEnabled) {
-        LOG4iTM3(@"Could not synchronize with:<%@>", source);
-    }
+	DEBUGOG4iTM3(0,@"Could not synchronize with:<%@>", source);
     return NO;
 }
 

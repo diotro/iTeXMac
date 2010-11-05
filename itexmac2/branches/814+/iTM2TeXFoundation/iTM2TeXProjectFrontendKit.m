@@ -2079,10 +2079,7 @@ To Do List:
     NSString * variable;
     while(variable = E.nextObject)
         [MD setValue:[self modelValueForKey:variable] forKey:variable];
-	if(iTM2DebugEnabled>100)
-	{
-		LOG4iTM3(@"shellEnvironment is:%@", MD);
-	}
+	DEBUGLOG4iTM3(100,@"shellEnvironment is:%@", MD);
 //END4iTM3;
     return MD;
 }
@@ -2095,14 +2092,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(iTM2DebugEnabled) {
-		LOG4iTM3(@"environment is:%@", environment);
-	}
-    for (NSString * variable in [self.class allShellEnvironmentVariables]) {
+	DEBUGLOG4iTM3(0,@"environment is:%@", environment);
+	for (NSString * variable in [self.class allShellEnvironmentVariables]) {
         [self takeModelValue:[environment valueForKey:variable] forKey:variable];
-		if(iTM2DebugEnabled) {
-			LOG4iTM3(@"environment variable name is:%@, contents:%@", variable, [self modelValueForKey:variable]);
-		}
+		DEBUGLOG4iTM3(0,@"environment variable name is:%@, contents:%@", variable, [self modelValueForKey:variable]);
 	}
 //END4iTM3;
     return;

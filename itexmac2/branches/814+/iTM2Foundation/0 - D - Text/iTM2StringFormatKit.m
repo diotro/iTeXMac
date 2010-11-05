@@ -1215,7 +1215,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super init]) {
+	if ((self = [super init]))  {
 		self.document=document;
 	}
 //END4iTM3;
@@ -1393,9 +1393,7 @@ terminate:
                     self.isStringEncodingHardCoded = !canStringEncoding;
                     self.hardStringEncodingString = hardStringEncodingString;
                     [self.document setStringRepresentation:S];
-                    if (iTM2DebugEnabled) {
-                        LOG4iTM3(@"usedEncoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
-                    }
+                    DEBUGLOG4iTM3(0,@"usedEncoding: %@", [NSString localizedNameOfStringEncoding:usedEncoding]);
                     return result;
                 }
                 // the system did not guess the correct encoding
@@ -1458,7 +1456,7 @@ try_another_encoding:
 - (NSUInteger)lazyEOL;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Révisé par itexmac2: 2010-11-05 14:10:12 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;

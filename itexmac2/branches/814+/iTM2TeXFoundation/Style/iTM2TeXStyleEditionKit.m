@@ -268,11 +268,11 @@ To Do List:
                         [MD setObject:symbolsAttributes forKey:url.lastPathComponent.stringByDeletingPathExtension];
 						[allSymbols addEntriesFromDictionary:symbolsAttributes];
 					}
-				} else if(iTM2DebugEnabled) {
-					LOG4iTM3(@"Ignoring path while reading symbols sets: %@", url);
+				} else {
+					DEBUGLOG4iTM3(0,@"Ignoring path while reading symbols sets: %@", url);
 				}            
 		} else {
-			NSLog(@"No symbols sets at path %@", url);
+			LOG4iTM3(@"No symbols sets at path %@", url);
 		}
 	}
 	[_BuiltInSymbolsSets setDictionary:MD];
@@ -291,12 +291,12 @@ To Do List:
 						[MD setObject:symbolsAttributes forKey:url.lastPathComponent.stringByDeletingPathExtension];
 						[allSymbols addEntriesFromDictionary:symbolsAttributes];
 					}
-				} else if(iTM2DebugEnabled) {
-					LOG4iTM3(@"Ignoring path while reading symbols sets: %@", url);
+				} else {
+					DEBUGLOG4iTM3(0,@"Ignoring path while reading symbols sets: %@", url);
 				}
 			}
 		} else {
-			NSLog(@"No symbols sets at path %@", url);
+			LOG4iTM3((@"No symbols sets at path %@", url);
 		}
 	}
     [_NetworkSymbolsSets setDictionary:MD];
@@ -314,12 +314,12 @@ To Do List:
 						[MD setObject:symbolsAttributes forKey:url.lastPathComponent.stringByDeletingPathExtension];
 						[allSymbols addEntriesFromDictionary:symbolsAttributes];
 					}
-				} else if(iTM2DebugEnabled) {
-					LOG4iTM3(@"Ignoring path while reading symbols sets: %@", url);
+				} else {
+					DEBUGLOG4iTM3(0,@"Ignoring path while reading symbols sets: %@", url);
 				}
 			}
 		} else {
-			NSLog(@"No symbols sets at path %@", url);
+			LOG4iTM3((@"No symbols sets at path %@", url);
 		}
 	}
     [_LocalSymbolsSets setDictionary:MD];
@@ -338,12 +338,12 @@ To Do List:
 						[MD setObject:symbolsAttributes forKey:url.lastPathComponent.stringByDeletingPathExtension];
 						[allSymbols addEntriesFromDictionary:symbolsAttributes];
 					}
-				} else if(iTM2DebugEnabled) {
-					LOG4iTM3(@"Ignoring path while reading symbols sets: %@", url);
+				} else {
+					DEBUGLOG4iTM3(0,@"Ignoring path while reading symbols sets: %@", url);
 				}
 			}
 		} else {
-			NSLog(@"No symbols sets at path %@", url);
+			LOG4iTM3((@"No symbols sets at path %@", url);
 		}
 	}
     [_CustomSymbolsSets setDictionary:MD];

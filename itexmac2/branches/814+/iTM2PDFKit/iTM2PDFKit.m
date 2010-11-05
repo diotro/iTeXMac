@@ -367,9 +367,7 @@ To Do List:
 			return YES;
 		[self.implementation takeMetaValue:nil forKey:@"current source synchronization location"];
 	}
-	if(iTM2DebugEnabled) {
-		LOG4iTM3(@"Could not synchronize (weakly) with hint:\n%@", hint);
-	}
+	DEBUGLOG4iTM3(0,@"Could not synchronize (weakly) with hint:\n%@", hint);
 	return NO;
 }
 - (BOOL)validateSaveDocument:(id)sender;
@@ -449,7 +447,7 @@ To Do List:
 			if ([C isSubclassOfClass:[iTM2PDFDocument class]] && [component hasPrefix:baseName]) {
 				[__OrderedFileNames addObject:component];
 			} else if(iTM2DebugEnabled) {
-                LOG4iTM3(@"Refused file:%@",url);
+                DEBUGLOG4iTM3(0,@"Refused file:%@",url);
                 break;
 			}
 		}
@@ -461,8 +459,8 @@ To Do List:
 				Class C = [SDC documentClassForType:[SDC typeForContentsOfURL:url error:NULL]];
 				if ([C isSubclassOfClass:[iTM2PDFDocument class]] && [component hasPrefix:baseName]) {
                     [__OrderedFileNames addObject:component];
-				} else if(iTM2DebugEnabled) {
-                    LOG4iTM3(@"Refused file:%@",url);
+				} else {
+                    DEBUGLOG4iTM3(0,@"Refused file:%@",url);
                 }
 			}
 		}	
@@ -5526,9 +5524,7 @@ startAgain:;
 				NSString * afterWord = nil;
 				NSUInteger localHitIndex = [S getWordBefore4iTM3:&beforeWord here:&hereWord after:&afterWord atIndex:hereIndex
 					mode:[[[self.window.windowController document] synchronizer] isSyncTeX]];
-				if (iTM2DebugEnabled) {
-					LOG4iTM3(@"####  hit sequence:%@ + %@ + %@, (index:%i)", beforeWord, hereWord, afterWord, hereIndex);
-				}
+				DEBUGLOG4iTM3(0,@"####  hit sequence:%@ + %@ + %@, (index:%i)", beforeWord, hereWord, afterWord, hereIndex);
 				// using the hint to narrow the search
 				//
 				// branching code
@@ -5580,10 +5576,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (iTM2DebugEnabled>200) {
-		LOG4iTM3(@"destinations:%@",destinations);
-		LOG4iTM3(@"hint:%@",hint);
-	}
+	DEBUGLOG4iTM3(200,@"destinations:%@",destinations);
+    DEBUGLOG4iTM3(200,@"hint:%@",hint);
 	NSLock * L = [[[NSLock alloc] init] autorelease];
 	L.lock;
 	NSMutableArray * syncStack = self.syncStack;
@@ -5681,11 +5675,11 @@ To Do List:
                                         [targetString substringWithRange:[targetString doubleClickAtIndex:clickIndex-2]]:@"";
                                     if ([previousW isEqualToString:previousWord]) {
                                         [pointValues10 addObject:pointValue];
-                                    } else if(iTM2DebugEnabled) {
-                                        LOG4iTM3(@"previous word match:%@", previousW);
+                                    } else {
+                                        DEBUGLOG4iTM3(0,@"previous word match:%@", previousW);
                                     }
-                                } else if(iTM2DebugEnabled) {
-                                    LOG4iTM3(@"No word match:%@", [targetString substringWithRange:[targetString doubleClickAtIndex:R.location]]);
+                                } else {
+                                    DEBUGLOG4iTM3(0,@"No word match:%@", [targetString substringWithRange:[targetString doubleClickAtIndex:R.location]]);
                                 }
                                 R.location += R.length;
                                 R.length = targetString.length - R.location;

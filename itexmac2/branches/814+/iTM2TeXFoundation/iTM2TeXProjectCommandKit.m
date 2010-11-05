@@ -1241,10 +1241,7 @@ To Do List:
         if(W)
         {
 //LOG4iTM3(@"The command inspector is: %@", WC);
-			if(iTM2DebugEnabled>100)
-			{
-				LOG4iTM3(@"Starting to edit environment mode: %@", environmentMode);
-			}
+			DEBUGLOG4iTM3(0,@"Starting to edit environment mode: %@", environmentMode);
 			[W setExcludedFromWindowsMenu:YES];
 			[W validateContent4iTM3];
 //LOG4iTM3(@"BEFORE validateWindowContent4iTM3, WC.document is: %@", WC.document);
@@ -1399,10 +1396,7 @@ To Do List:
     if([_iTM2TeXPCommandInspectors valueForKey:self.commandName] != self)
     {
         [_iTM2TeXPCommandInspectors setValue:self forKey:self.commandName];
-		if(iTM2DebugEnabled)
-		{
-			LOG4iTM3(@"Registering command inspector %@ for action key: %@\n%@", NSStringFromClass(self), self.commandName, _iTM2TeXPCommandInspectors);
-		}
+		DEBUGLOG4iTM3(0,@"Registering command inspector %@ for action key: %@\n%@", NSStringFromClass(self), self.commandName, _iTM2TeXPCommandInspectors);
 		// automatic initializing class "self"Responder if any.
 		NSString * className = [NSStringFromClass(self) stringByAppendingString:@"Performer"];
 		Class C = NSClassFromString(className);
@@ -1756,10 +1750,7 @@ To Do List:
 		if(mra.count)
 			[MRA addObject:mra];
 	}
-	if(iTM2DebugEnabled)
-	{
-		LOG4iTM3(@"ORDERED BUILT IN COMMAND NAMES are: %@", MRA);
-	}
+	DEBUGLOG4iTM3(0,@"ORDERED BUILT IN COMMAND NAMES are: %@", MRA);
     return MRA;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  commandPerformerForName:
@@ -2062,10 +2053,7 @@ To Do List: to be improved...
 #warning DEBUGGGGG: add a SUD default here, related to hidden and silent from the terminal window
 		[project takeContext4iTM3Value:commandName forKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 		[project showTerminalInBackGroundIfNeeded:self];
-		if(iTM2DebugEnabled>100)
-		{
-			LOG4iTM3(@"/\\/\\/\\/\\  performing action name: %@ for project: %@", commandName, project.fileURL);
-		}
+		DEBUGLOG4iTM3(100,@"/\\/\\/\\/\\  performing action name: %@ for project: %@", commandName, project.fileURL);
 		NSString * localizedCommand = [self localizedNameForName:commandName];
 
 		NSString * status = [NSString stringWithFormat:
@@ -2146,10 +2134,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[userInfo autorelease];
-	if(iTM2DebugEnabled>100)
-    {
-        LOG4iTM3(@"Command %@ performed. Default implementation should be overriden", self.commandName);
-    }
+	DEBUGLOG4iTM3(100,@"Command %@ performed. Default implementation should be overriden", self.commandName);
 	userInfo = nil;
     return;
 }

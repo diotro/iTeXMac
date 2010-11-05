@@ -649,10 +649,8 @@ To Do List:
 			[SC loadPropertyListRepresentation:[[SUD objectForKey:iTM2SpellContextsKey] objectForKey:TWSSpellDefaultContextMode]];
 			[self setSpellContext:SC forMode:TWSSpellDefaultContextMode];
 			result = SC;
-		}
-		else if (iTM2DebugEnabled)
-		{
-			LOG4iTM3(@"SORRY, self.spellContexts are:\n%@", self.spellContexts);
+		} else {
+			DEBUGLOG4iTM3(0,@"SORRY, self.spellContexts are:\n%@", self.spellContexts);
 		}
     }
 //END4iTM3;
@@ -1415,11 +1413,9 @@ To Do List:
 //NSLog(NSStringFromSize(P.minSize));
 //NSLog(NSStringFromRect(P.frame));
     }
-	if (iTM2DebugEnabled) {
-		LOG4iTM3(@"the accessory view is: %@", [SSC accessoryView]);
-		LOG4iTM3(@"the accessory view was: %@", V2);
-		LOG4iTM3(@"the accessory view should be: %@", V1);
-	}
+	DEBUGLOG4iTM3(0,@"the accessory view is: %@", [SSC accessoryView]);
+    DEBUGLOG4iTM3(0,@"the accessory view was: %@", V2);
+    DEBUGLOG4iTM3(0,@"the accessory view should be: %@", V1);
 //	START_TRACKING4iTM3;
     return;
 }

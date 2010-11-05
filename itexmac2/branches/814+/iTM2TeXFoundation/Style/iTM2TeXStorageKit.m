@@ -431,9 +431,9 @@ To Do List:
         if(commandColor)
         {
             NSColor * symbolColor = [symbolAttributes objectForKey:iTM2Text2ndSymbolColorAttributeName];
-            if(iTM2DebugEnabled > 999999 && !symbolColor)
+            if(!symbolColor)
             {
-                LOG4iTM3(@"no 2nd color for symbol: %@", symbol);
+                DEBUGLOG4iTM3(99999,@"no 2nd color for symbol: %@", symbol);
             }
             NSColor * replacementColor = symbolColor && [symbolColor alphaComponent]>0?
                 [[symbolColor colorWithAlphaComponent:1] blendedColorWithFraction:1-[symbolColor alphaComponent]

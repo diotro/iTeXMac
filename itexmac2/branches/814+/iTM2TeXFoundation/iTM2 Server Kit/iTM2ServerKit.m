@@ -204,9 +204,7 @@ To Do List: see the warning below
 #if __iTM2_Server_Test__
     LOG4iTM3(@"name: %@", [notification name]);
 #else
-    if (iTM2DebugEnabled>1000) {
-        LOG4iTM3(@"name: %@", [notification name]);
-    }
+    DEBUGLOG4iTM3(1000,@"name: %@", [notification name]);
     [[SDC documents] makeObjectsPerformSelector:@selector(revertToSaved:) withObject:nil];
 #endif
 //END4iTM3;

@@ -685,15 +685,9 @@ To Do List:
 			}
 			[subDocument setFileURL:newURL];// before the project is aware of a file change
 			[PD setURL:newURL forFileKey:key];// after the document name has changed
-			if(iTM2DebugEnabled)
-			{
-				LOG4iTM3(@"Name successfully changed from %@ to %@", oldURL.path, newURL.path);
-			}
-		}
-		else
-		{
-			if(localError)
-			{
+			DEBUGLOG4iTM3(0,@"Name successfully changed from %@ to %@", oldURL.path, newURL.path);
+		} else {
+			if(localError) {
 				[SDC presentError:localError];
 			}
 			return;

@@ -1345,10 +1345,7 @@ tryToConclude:
 								{
 									*aRangePtr=range;
 								}
-								if(iTM2DebugEnabled>9999)
-								{
-									LOG4iTM3(@"aLocation:%i, range:%@, symbolName:%@",aLocation,NSStringFromRange(range),symbolName);
-								}
+								DEBUGLOG4iTM3(9999,@"aLocation:%i, range:%@, symbolName:%@",aLocation,NSStringFromRange(range),symbolName);
 								return attributes;
 							}
 							// we could not conclude here
@@ -1832,20 +1829,13 @@ returnOutAttributes:
 		|| outMode == kiTM2TeXSuperShortSyntaxMode)
 	{
 		symbolName = [S substringWithRange:range];// out of range in the extended latex mode
-		if(attributes = [iVarAS4iTM3 attributesForSymbol:symbolName mode:outModeName])
-		{
-			if(iTM2DebugEnabled>9999)
-			{
-				LOG4iTM3(@"aLocation:%i, range:%@, symbolName:%@",aLocation,NSStringFromRange(range),symbolName);
-			}
+		if ((attributes = [iVarAS4iTM3 attributesForSymbol:symbolName mode:outModeName])) {
+			DEBUGLOG4iTM3(9999,@"aLocation:%i, range:%@, symbolName:%@",aLocation,NSStringFromRange(range),symbolName);
 			return attributes;
 		}
 	}
 #endif
-	if(iTM2DebugEnabled>9999)
-	{
-		LOG4iTM3(@"aLocation:%i, range:%@, outModeName:%@",aLocation,NSStringFromRange(range),outModeName);
-	}
+	DEBUGLOG4iTM3(9999,@"aLocation:%i, range:%@, outModeName:%@",aLocation,NSStringFromRange(range),outModeName);
 	return [iVarAS4iTM3 attributesForMode:outModeName];
 	
 returnERROR:

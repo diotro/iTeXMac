@@ -257,8 +257,8 @@ To Do List:
 			NSString * identifier = [pane prefPaneIdentifier];
 			if (identifier.length) {
 				[MD setObject:pane forKey:identifier];
-			} else if (iTM2DebugEnabled) {
-				LOG4iTM3(@"No identifier available for pane: %@", pane);
+			} else {
+				DEBUGLOG4iTM3(0,@"No identifier available for pane: %@", pane);
 			}
 		} else {
 			LOG4iTM3(@"No pane available for class: %@", NSStringFromClass(C));

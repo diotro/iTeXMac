@@ -707,13 +707,9 @@ To Do List:
 		iTM2InfosController * IC = [[[iTM2InfosController alloc] initWithProject:TPD atomic:YES prefixWithKeyPaths:iTM2TPFEEngineEnvironmentsKey, environmentMode, nil] autorelease];
 		[WC setInfosController4iTM3:IC];
 		NSWindow * W = WC.window;// may validate the window content as side effect
-        if(W)
-        {
+        if (W) {
 //LOG4iTM3(@"The inspector is: %@", WC);
-			if(iTM2DebugEnabled>100)
-			{
-				LOG4iTM3(@"Starting to edit environment mode: %@", environmentMode);
-			}
+			DEBUGLOG4iTM3(100,@"Starting to edit environment mode: %@", environmentMode);
 			[W setExcludedFromWindowsMenu:YES];
 //LOG4iTM3(@"BEFORE validateWindowContent4iTM3, WC.document is: %@ and W is: %@", WC.document, W);
             [NSApp beginSheet: W

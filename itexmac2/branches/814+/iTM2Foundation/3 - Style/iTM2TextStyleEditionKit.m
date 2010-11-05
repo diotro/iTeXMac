@@ -220,10 +220,8 @@ To Do List:
     Class result = NSClassFromString(name);
     if ([result isSubclassOfClass:[iTM2TextSyntaxParserAttributesDocument class]])
         return result;
-    else if (iTM2DebugEnabled)
-    {
-        LOG4iTM3(@"WARNING: Missing subclass of %@ named %@", [iTM2TextSyntaxParserAttributesDocument class], name);
-    }
+    else {
+        DEBUGLOG4iTM3(0,@"WARNING: Missing subclass of %@ named %@", [iTM2TextSyntaxParserAttributesDocument class], name);
     return Nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= sampleString
@@ -2217,8 +2215,7 @@ To Do List:
         @"Attributes server class %@ is not suffixed with \"AttributesDocument\"", name);
     name = [name substringWithRange:iTM3MakeRange(ZER0, name.length - 18)];
     Class result = NSClassFromString(name);
-    if (iTM2DebugEnabled)
-    {
+    if (iTM2DebugEnabled) {
         NSAssert1(result, @"Missing syntax parser class named %@", name);
     }
     return result;
@@ -2420,8 +2417,8 @@ save:
 		[self updateChangeCount:NSChangeCleared];
 		[INC postNotificationName:iTM2TextAttributesDidChangeNotification object:nil userInfo:
 			[NSDictionary dictionaryWithObjectsAndKeys:style, @"style", variant, @"variant", nil]];
-	} else if (iTM2DebugEnabled) {
-        LOG4iTM3(@"Problem in saving the document...");
+	} else {
+        DEBUGLOG4iTM3(0,@"Problem in saving the document...");
     }
 	return;
 }

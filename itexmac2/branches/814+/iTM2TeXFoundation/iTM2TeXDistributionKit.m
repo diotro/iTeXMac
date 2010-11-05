@@ -88,10 +88,7 @@ To do list:
 		}
     }
 	[SUD registerDefaults:_iTM2PathsDictionary];
-	if(iTM2DebugEnabled>100)
-	{
-		LOG4iTM3(@"_iTM2PathsDictionary is: %@", _iTM2PathsDictionary);
-	}
+	DEBUGLOG4iTM3(100,@"_iTM2PathsDictionary is: %@", _iTM2PathsDictionary);
 	// then I make some diagnostic... to be sure that the chosen distribution is available
 	// this is working at a SUD level
 	// we must make some diagnostic at a project level too
@@ -360,10 +357,8 @@ To Do List:
 	{
 		LOG4iTM3(@"...........  HUGE ERROR: Missing TeXMF binaries distribution reference in preferences, report bug");
 		return @"Missing TeXMF Programs ";
-	}
-	else if(iTM2DebugEnabled)
-	{
-		LOG4iTM3(@"distribution:%@",distribution);
+	} else {
+		DEBUGLOG4iTM3(0,@"distribution:%@",distribution);
 	}
 	NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
 	NSString * result = [SUD stringForKey:key];
@@ -394,10 +389,8 @@ To Do List:
 			LOG4iTM3(@"...........  HUGE ERROR: Missing Other binaries distribution reference in preferences, report bug");
 			return @"Missing Other Programs ";
 		}
-	}
-	else if(iTM2DebugEnabled)
-	{
-		LOG4iTM3(@"distribution:%@",distribution);
+	} else {
+		DEBUGLOG4iTM3(0,@"distribution:%@",distribution);
 	}
 	NSString * key = [iTM2DistributionDomainOtherPrograms stringByAppendingPathExtension:distribution];
 	NSString * result = [SUD stringForKey:key];

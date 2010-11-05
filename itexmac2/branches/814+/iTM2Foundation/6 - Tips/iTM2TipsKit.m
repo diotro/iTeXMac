@@ -236,8 +236,8 @@ To Do List:
 				}
 				else if(iTM2DebugEnabled)
 				{
-					LOG4iTM3(@"No principal class in bundle: %@", B);
-					[paths removeObject: path];
+					DEBUGLOG4iTM3(0,@"No principal class in bundle: %@", B);
+					[paths removeObject:path];
 				}
 			}
 			else
