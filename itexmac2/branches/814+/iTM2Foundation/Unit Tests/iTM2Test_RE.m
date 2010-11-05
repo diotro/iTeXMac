@@ -34,22 +34,22 @@
             0x0085,0x2028,0x2029];
     ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"\\r\\n|\\r|\\n|\\f|\\u0085|\\u2028|\\u2029" error:NULL];//[ICURegEx regExForKey:iTM2RegExpEOLKey];
     [RE setInputString:inputString];
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\n"],@"MISSED LF",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\r"],@"MISSED CR",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\r\n"],@"MISSED CR+LF",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x0085])],@"MISSED NEL",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\f"],@"MISSED FF",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2028])],@"MISSED LS",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2029])],@"MISSED PS",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\n"],@"MISSED LF",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\r"],@"MISSED CR",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\r\n"],@"MISSED CR+LF",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x0085])],@"MISSED NEL",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\f"],@"MISSED FF",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2028])],@"MISSED LS",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2029])],@"MISSED PS",NULL);
     RE = [ICURegEx regExForKey:iTM2RegExpEOLKey error:NULL];
     [RE setInputString:inputString];
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\n"],@"MISSED LF",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\r"],@"MISSED CR",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\r\n"],@"MISSED CR+LF",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x0085])],@"MISSED NEL",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:@"\f"],@"MISSED FF",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2028])],@"MISSED LS",NULL);
-    STAssertTrue([RE nextMatch]&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2029])],@"MISSED PS",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\n"],@"MISSED LF",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\r"],@"MISSED CR",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\r\n"],@"MISSED CR+LF",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x0085])],@"MISSED NEL",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:@"\f"],@"MISSED FF",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2028])],@"MISSED LS",NULL);
+    STAssertTrue(RE.nextMatch&&[[RE substringOfMatch] isEqual:([NSString stringWithFormat:@"%C",0x2029])],@"MISSED PS",NULL);
     return;
 }
 - (void) testCase_Placeholders
@@ -532,39 +532,39 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
     STAssertNotNil(RE,@"MISSED: %@",localError);
 	NSLog(@"B match ----------------------------");
 	[RE setInputString:@"abccccc"];
-    STAssertTrue([RE matchesAtIndex:ZER0 extendToTheEnd:YES],@"MISSED 1, error:%@", [RE error]);
+    STAssertTrue([RE matchesAtIndex:ZER0 extendToTheEnd:YES],@"MISSED 1, error:%@", RE.error);
 	[RE setInputString:@"xabccccc"];
-    STAssertFalse([RE matchesAtIndex:ZER0 extendToTheEnd:YES],@"MISSED 2, error:%@", [RE error]);
-    STAssertTrue([RE matchesAtIndex:1 extendToTheEnd:YES],@"MISSED 3, error:%@", [RE error]);
+    STAssertFalse([RE matchesAtIndex:ZER0 extendToTheEnd:YES],@"MISSED 2, error:%@", RE.error);
+    STAssertTrue([RE matchesAtIndex:1 extendToTheEnd:YES],@"MISSED 3, error:%@", RE.error);
 #pragma mark C
 	NSLog(@"C look ----------------------------");
 	[RE setInputString:@"abccccd"];
-    STAssertTrue([RE matchesAtIndex:ZER0 extendToTheEnd:NO],@"MISSED 4, error:%@", [RE error]);
+    STAssertTrue([RE matchesAtIndex:ZER0 extendToTheEnd:NO],@"MISSED 4, error:%@", RE.error);
 	[RE setInputString:@"xabccccd"];
-    STAssertFalse([RE matchesAtIndex:ZER0 extendToTheEnd:NO],@"MISSED 5, error:%@", [RE error]);
-    STAssertTrue([RE matchesAtIndex:1 extendToTheEnd:NO],@"MISSED 6, error:%@", [RE error]);
+    STAssertFalse([RE matchesAtIndex:ZER0 extendToTheEnd:NO],@"MISSED 5, error:%@", RE.error);
+    STAssertTrue([RE matchesAtIndex:1 extendToTheEnd:NO],@"MISSED 6, error:%@", RE.error);
 #pragma mark D
 	NSLog(@"D find ----------------------------");
 	RE = [[[ICURegEx alloc] initWithSearchPattern:@"a(b*)(c+)" options:ZER0 error:&localError] autorelease];
     STAssertNotNil(RE,@"MISSED: %@",localError);
 	[RE setInputString:@"xacccyyabbczzabbeeee"];
-    STAssertTrue([RE nextMatch],@"MISSED 7, error:%@", [RE error]);
-    STAssertTrue([[RE substringOfMatch] isEqual:@"accc"],@"MISSED 7a, error:%@", [RE error]);
-    STAssertTrue([[RE substringOfCaptureGroupAtIndex:1] isEqual:@""],@"MISSED 7b, error:%@", [RE error]);
-    STAssertTrue([[RE substringOfCaptureGroupAtIndex:2] isEqual:@"ccc"],@"MISSED 7c, error:%@", [RE error]);
-    STAssertFalse([[RE substringOfCaptureGroupAtIndex:3] isEqual:@"xxx"],@"MISSED 7d, error:%@", [RE error]);
-    STAssertTrue([RE nextMatch],@"MISSED 8, error:%@", [RE error]);
-    STAssertTrue([[RE substringOfMatch] isEqual:@"abbc"],@"MISSED 8a, error:%@", [RE error]);
-    STAssertTrue([[RE substringOfCaptureGroupAtIndex:1] isEqual:@"bb"],@"MISSED 8b, error:%@", [RE error]);
-    STAssertTrue([[RE substringOfCaptureGroupAtIndex:2] isEqual:@"c"],@"MISSED 8c, error:%@", [RE error]);
-    STAssertFalse([[RE substringOfCaptureGroupAtIndex:3] isEqual:@"xxx"],@"MISSED 8d, error:%@", [RE error]);
-    STAssertFalse([RE nextMatch],@"MISSED 9, error:%@", [RE error]);
-	STAssertTrue([RE nextMatchAfterIndex:2],@"MISSED 10, error:%@", [RE error]);
+    STAssertTrue(RE.nextMatch,@"MISSED 7, error:%@", RE.error);
+    STAssertTrue([[RE substringOfMatch] isEqual:@"accc"],@"MISSED 7a, error:%@", RE.error);
+    STAssertTrue([[RE substringOfCaptureGroupAtIndex:1] isEqual:@""],@"MISSED 7b, error:%@", RE.error);
+    STAssertTrue([[RE substringOfCaptureGroupAtIndex:2] isEqual:@"ccc"],@"MISSED 7c, error:%@", RE.error);
+    STAssertFalse([[RE substringOfCaptureGroupAtIndex:3] isEqual:@"xxx"],@"MISSED 7d, error:%@", RE.error);
+    STAssertTrue(RE.nextMatch,@"MISSED 8, error:%@", RE.error);
+    STAssertTrue([[RE substringOfMatch] isEqual:@"abbc"],@"MISSED 8a, error:%@", RE.error);
+    STAssertTrue([[RE substringOfCaptureGroupAtIndex:1] isEqual:@"bb"],@"MISSED 8b, error:%@", RE.error);
+    STAssertTrue([[RE substringOfCaptureGroupAtIndex:2] isEqual:@"c"],@"MISSED 8c, error:%@", RE.error);
+    STAssertFalse([[RE substringOfCaptureGroupAtIndex:3] isEqual:@"xxx"],@"MISSED 8d, error:%@", RE.error);
+    STAssertFalse(RE.nextMatch,@"MISSED 9, error:%@", RE.error);
+	STAssertTrue([RE nextMatchAfterIndex:2],@"MISSED 10, error:%@", RE.error);
     [RE displayMatchResult];
 	[RE setReplacementPattern:@"0:/$0/\n1:/$1/\n2:/$2/"];
 	NSLog(@"RE.replacementString:%@",RE.replacementString);
-    STAssertNil([RE error],@"MISSED 10",NULL);
-	STAssertTrue([RE.replacementString isEqual:@"0:/abbc/\n1:/bb/\n2:/c/"]||(NSLog(@"%@<?>%@(expected)",RE.replacementString,@"0:/abbc/\n1:/bb/\n2:/c/"),NO),@"MISSED 11, error:%@", [RE error]);
+    STAssertNil(RE.error,@"MISSED 10",NULL);
+	STAssertTrue([RE.replacementString isEqual:@"0:/abbc/\n1:/bb/\n2:/c/"]||(NSLog(@"%@<?>%@(expected)",RE.replacementString,@"0:/abbc/\n1:/bb/\n2:/c/"),NO),@"MISSED 11, error:%@", RE.error);
 #pragma mark E
 	NSLog(@"E find ----------------------------");
 	NSString * input = [NSString stringWithUTF8String:"ઔકખਅਆਦਤઔકખਅਆਦਤઔકખਅਆਦਤઔકખਅਆਦਤ"];
@@ -583,8 +583,8 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
 #pragma mark F
 	NSLog(@"F find ----------------------------");
 	RE = [[[ICURegEx alloc] initWithSearchPattern:@"a(b*)(c+)" options:ZER0 error:&localError] autorelease];
-    STAssertFalse([RE nextMatch],@"MISSED 10, error:%@", [RE error]);
-    STAssertNotNil([RE error],@"MISSED 10, error:%@", [RE error]);
+    STAssertFalse(RE.nextMatch,@"MISSED 10, error:%@", RE.error);
+    STAssertNotNil(RE.error,@"MISSED 10, error:%@", RE.error);
 #pragma mark G
 //	NSString * S = [NSString * stringWithUTF8String:"“‘ÁØå’”"];
 	
@@ -592,17 +592,17 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
     RE = [[[ICURegEx alloc] initWithSearchPattern:@"N(OO)P" options:ZER0 error:&error] autorelease];
     [RE displayMatchResult];
     [RE setInputString:@"0123456789NOOP0123456789"];
-    STAssertTrue([RE nextMatch],@"MISSED 1",NULL);
+    STAssertTrue(RE.nextMatch,@"MISSED 1",NULL);
     STAssertTrue([RE numberOfCaptureGroups]==1,@"MISSED 2",NULL);
     STAssertTrue([[RE substringOfMatch] isEqual:@"NOOP"],@"MISSED 3",NULL);
     STAssertTrue([[RE substringOfCaptureGroupAtIndex:ZER0] isEqual:@"NOOP"],@"MISSED 4",NULL);
     STAssertTrue([[RE substringOfCaptureGroupAtIndex:1] isEqual:@"OO"],@"MISSED 5",NULL);
     [RE setInputString:@"0123456789NOOP0123456789" range:iTM3MakeRange(10,4)];
-    STAssertTrue([RE nextMatch],@"MISSED 6",NULL);
+    STAssertTrue(RE.nextMatch,@"MISSED 6",NULL);
     [RE setInputString:@"0123456789NOOP0123456789" range:iTM3MakeRange(9,4)];
-    STAssertFalse([RE nextMatch],@"MISSED 7",NULL);
+    STAssertFalse(RE.nextMatch,@"MISSED 7",NULL);
     [RE setInputString:@"0123456789NOOP0123456789" range:iTM3MakeRange(11,4)];
-    STAssertFalse([RE nextMatch],@"MISSED 8",NULL);
+    STAssertFalse(RE.nextMatch,@"MISSED 8",NULL);
 	return;
 }
 - (void) testCase_B

@@ -714,7 +714,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)saveContext4iTM3:(id)irrelevant;
 
 /*! 
-    @method     contextValueForKey:fileKey:domain:
+    @method     context4iTM3ValueForKey:fileKey:domain:
     @abstract   Abstract forthcoming.
     @discussion The project is expected to manage the contexts of the files it owns.
 				The standard user defaults database is used in the end of the chain.
@@ -723,10 +723,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     An object.
 */
-- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (id)context4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
-    @method     getContextValueForKey:fileKey:domain:
+    @method     getContext4iTM3ValueForKey:fileKey:domain:
     @abstract   Abstract forthcoming.
     @discussion The project is expected to manage the contexts of the files it owns.
 				The standard user defaults database is used in the end of the chain.
@@ -736,24 +736,24 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     An object.
 */
-- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
-    @method     takeContextValue:forKey:fileKey:domain:
+    @method     takeContext4iTM3Value:forKey:fileKey:domain:
     @abstract   Abstract forthcoming.
-    @discussion See the \p -contextValueForKey:fileKey: comment.
+    @discussion See the \p -context4iTM3ValueForKey:fileKey: comment.
     @param      the value, possibly nil.
     @param      \p aKey is the context key
     @param      \p fileKey is the file key
 	@param		\p mask is a context domain mask
     @result     yorn whether something has changed.
 */
-- (NSUInteger)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (NSUInteger)takeContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
-    @method     setContextValue:forKey:fileKey:domain:
+    @method     setContext4iTM3Value:forKey:fileKey:domain:
     @abstract   Abstract forthcoming.
-    @discussion See the \p -contextValueForKey:fileKey: comment.
+    @discussion See the \p -context4iTM3ValueForKey:fileKey: comment.
 				This should only be used by subclassers.
     @param      the value, possibly nil.
     @param      \p aKey is the context key
@@ -761,7 +761,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 	@param		\p mask is a context domain mask
     @result     yorn whether something has changed.
 */
-- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 
 /*! 
     @method     allowsSubdocumentsInteraction
@@ -884,16 +884,16 @@ extern NSString * const iTM2ProjectURLKey;
 - (void)setHasProject4iTM3:(BOOL)yorn;
 
 /*! 
-    @method     contextValueForKey:domain:
+    @method     context4iTM3ValueForKey:domain:
     @abstract   Abstract forthcoming.
-    @discussion See the -takeContextValue:forKey: discussion below.
+    @discussion See the -takeContext4iTM3Value:forKey: discussion below.
     @param      key
     @result     A project
 */
-- (id)contextValueForKey:(NSString *)key domain:(NSUInteger)mask;
+- (id)context4iTM3ValueForKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
-    @method     takeContextValue:forKey:domain:
+    @method     takeContext4iTM3Value:forKey:domain:
     @abstract   Abstract forthcoming.
     @discussion This is the setter entry point for the context of documents owned by a project.
 				The project records the context of each document of it own.
@@ -931,7 +931,7 @@ extern NSString * const iTM2ProjectURLKey;
     @param      key is the context value key
     @result     yorn whether something has changed.
 */
-- (NSUInteger)takeContextValue:(id)value forKey:(NSString *)key domain:(NSUInteger)mask;
+- (NSUInteger)takeContext4iTM3Value:(id)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*!
 	@method			documentProjectCompleteSaveContext4iTM3:

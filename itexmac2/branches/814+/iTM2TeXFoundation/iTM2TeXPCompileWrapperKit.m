@@ -192,7 +192,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self takeContextValue:argument forKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:argument forKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
     return;
 }
@@ -886,7 +886,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContextValue:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
 //    self.validateWindowContent4iTM3; now in the validation kit
 //END4iTM3;
     return;

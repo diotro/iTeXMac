@@ -221,7 +221,7 @@ To Do List:
 		NSString * identifier = [self frameAutosaveIdentifierForMode4iTM3:mode];
 		if (identifier.length)
 		{
-			[self takeContextValue:self.stringWithSavedFrame forKey:[NSString stringWithFormat:@"Window Frame %@", identifier] domain:iTM2ContextAllDomainsMask];
+			[self takeContext4iTM3Value:self.stringWithSavedFrame forKey:[NSString stringWithFormat:@"Window Frame %@", identifier] domain:iTM2ContextAllDomainsMask];
 			[self takeContext4iTM3Bool:NO forKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask];
 		}
     }
@@ -295,7 +295,7 @@ To Do List:
 //START4iTM3;
     iTM2WindowFrameAutosaveMode mode = [self context4iTM3IntegerForKey:self.frameAutosaveModeKey4iTM3 domain:iTM2ContextAllDomainsMask];
     NSString * identifier = [self frameAutosaveIdentifierForMode4iTM3:mode];
-	[self takeContextValue:nil forKey:[NSString stringWithFormat:@"Window Frame %@:%@", identifier, NSStringFromSize([[NSScreen mainScreen] frame].size)] domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:nil forKey:[NSString stringWithFormat:@"Window Frame %@:%@", identifier, NSStringFromSize([[NSScreen mainScreen] frame].size)] domain:iTM2ContextAllDomainsMask];
 	[self.class removeFrameUsingName:name];
 //END4iTM3;
     return;

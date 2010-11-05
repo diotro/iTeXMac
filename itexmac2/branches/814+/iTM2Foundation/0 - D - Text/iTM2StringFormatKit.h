@@ -258,6 +258,13 @@ extern NSString * const TWSEOLFileKey;
 
 @interface NSDocument(iTM2StringFormatController)
 
+/*!
+	@method		stringFormatter4iTM3
+	@abstract	Only text documents have a string format controller.
+	@discussion Forthcoming.
+	@param		None
+	@result		nil in general
+*/
 - (id)stringFormatter4iTM3;
 
 @end

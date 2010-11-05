@@ -776,7 +776,7 @@ To Do List:
     if (![self context4iTM3BoolForKey:@"iTM2DontOpenSubdocumentsWindow" domain:iTM2ContextAllDomainsMask])
     {
         NS_DURING;
-        NSArray * previouslyOpenDocuments = [self contextValueForKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
+        NSArray * previouslyOpenDocuments = [self context4iTM3ValueForKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
         if (iTM2DebugEnabled>1000)
         {
             LOG4iTM3(@"The documents to be opened are:%@",previouslyOpenDocuments);
@@ -2674,7 +2674,7 @@ To Do List:
 	{
 		return result;
 	}
-    return [self contextValueForKey:key fileKey:fileKey domain:mask];
+    return [self context4iTM3ValueForKey:key fileKey:fileKey domain:mask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPropertyValue:forKey:fileKey:contextDomain:
 - (void)setPropertyValue:(id)property forKey:(NSString *)aKey fileKey:(NSString *)fileKey contextDomain:(NSUInteger)mask;
@@ -2687,7 +2687,7 @@ To Do List:
 //START4iTM3;
 	if ([self.mainInfos4iTM3 setPropertyValue:property forKey:aKey fileKey:fileKey])
 	{
-		[self takeContextValue:property forKey:aKey domain:mask];
+		[self takeContext4iTM3Value:property forKey:aKey domain:mask];
 		[self updateChangeCount:NSChangeDone];
 	}
     return;
@@ -2853,7 +2853,7 @@ To Do List:
 			}
 		}
 	}
-	[self takeContextValue:mra forKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:mra forKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
     return YES;
 }
@@ -2972,18 +2972,18 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	// this is where oui set up initial context values
-	id expected = [self contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
+	id expected = [self context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
 	if (![expected respondsToSelector:@selector(boolValue)])
 	{
-		expected = [self contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];
+		expected = [self context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];
 		if ([expected respondsToSelector:@selector(boolValue)])
 		{
-			[self takeContextValue:expected forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
+			[self takeContext4iTM3Value:expected forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
 		}
 	}
 	if (![self propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask])
 	{
-		expected = [self contextValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];//something should be returned because this registered as defaults in the string formatter kit
+		expected = [self context4iTM3ValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];//something should be returned because this registered as defaults in the string formatter kit
 		[self setPropertyValue:expected forKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
 	}
 //END4iTM3;
@@ -3132,8 +3132,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
-- (id)getContextValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContext4iTM3ValueForKey:domain:
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -3142,19 +3142,19 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	id result = nil;
-	if (result = [super getContextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
+	if (result = [super getContext4iTM3ValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])
 	{
 		return result;
 	}
 	NSString * fileKey = @".";
-	if (result = [self getContextValueForKey:aKey fileKey:fileKey domain:mask&iTM2ContextStandardLocalMask])
+	if (result = [self getContext4iTM3ValueForKey:aKey fileKey:fileKey domain:mask&iTM2ContextStandardLocalMask])
 	{
 		return result;
 	}
-    return [super getContextValueForKey:aKey domain:mask];
+    return [super getContext4iTM3ValueForKey:aKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
-- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContext4iTM3Value:forKey:domain:
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -3165,13 +3165,13 @@ To Do List:
 	iTM2ProjectDocument * project = self.project4iTM3;
 	id context4iTM3Manager = self.context4iTM3Manager;
 	NSAssert2(((project != context4iTM3Manager) || (!project && !context4iTM3Manager) || ((id)project == self)),@"*** %@ %#x The document's project must not be the context manager!",__iTM2_PRETTY_FUNCTION__, self);
-	NSUInteger didChange = [super setContextValue:object forKey:aKey domain:mask];
+	NSUInteger didChange = [super setContext4iTM3Value:object forKey:aKey domain:mask];
 	NSString * fileKey = @".";// weird...
 //LOG4iTM3(@"self.context4iTM3Dictionary is:%@",self.context4iTM3Dictionary);
-    return didChange | [self setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
+    return didChange | [self setContext4iTM3Value:object forKey:aKey fileKey:fileKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextValueForKey:fileKey:domain;
-- (id)contextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3ValueForKey:fileKey:domain;
+- (id)context4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -3181,10 +3181,10 @@ To Do List:
 //START4iTM3;
 //LOG4iTM3(@"self.context4iTM3Dictionary is:%@",self.context4iTM3Dictionary);
 //END4iTM3;
-    return [self getContextValueForKey:aKey fileKey:fileKey domain:mask];
+    return [self getContext4iTM3ValueForKey:aKey fileKey:fileKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:fileKey:domain;
-- (id)getContextValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContext4iTM3ValueForKey:fileKey:domain;
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -3228,10 +3228,10 @@ To Do List:
 			}
 		}
 	}
-    return [fileKey isEqual:@"."]?[super getContextValueForKey:aKey domain:mask]:nil;// not self, reentrant code management
+    return [fileKey isEqual:@"."]?[super getContext4iTM3ValueForKey:aKey domain:mask]:nil;// not self, reentrant code management
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContextValue:forKey:fileKey:domain:
-- (NSUInteger)takeContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3Value:forKey:fileKey:domain:
+- (NSUInteger)takeContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -3240,10 +3240,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return [self setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
+	return [self setContext4iTM3Value:object forKey:aKey fileKey:fileKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:fileKey:domain:
-- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContext4iTM3Value:forKey:fileKey:domain:
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6:03/26/2002
@@ -4343,24 +4343,24 @@ To Do List:
 	NSURL * projectURL = P.fileURL;
 	NSData * aliasData = nil;
 	if (projectURL) {
-		[self takeContextValue:[[projectURL.path copy] autorelease] forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextPrivateMask];
-		[self takeContextValue:[projectURL.path stringByAbbreviatingWithDotsRelativeToDirectory4iTM3:url.path.stringByDeletingLastPathComponent] forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
-		[self takeContextValue:[P fileKeyForURL:url] forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
-		[self takeContextValue:aliasData forKey:iTM2ProjectAliasKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Value:[[projectURL.path copy] autorelease] forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Value:[projectURL.path stringByAbbreviatingWithDotsRelativeToDirectory4iTM3:url.path.stringByDeletingLastPathComponent] forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Value:[P fileKeyForURL:url] forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Value:aliasData forKey:iTM2ProjectAliasKey domain:iTM2ContextPrivateMask];
 	}
 	else
 	{
-		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextPrivateMask];
-		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
-		[self takeContextValue:iTM2PathComponentsSeparator forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Value:iTM2PathComponentsSeparator forKey:iTM2ProjectAbsolutePathKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Value:iTM2PathComponentsSeparator forKey:iTM2ProjectRelativePathKey domain:iTM2ContextPrivateMask];
+		[self takeContext4iTM3Value:iTM2PathComponentsSeparator forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
 	}
-	[self takeContextValue:aliasData forKey:iTM2ProjectOwnAliasKey domain:iTM2ContextPrivateMask];
-	[self takeContextValue:url.absoluteString forKey:iTM2ProjectURLKey domain:iTM2ContextPrivateMask];
-	[self takeContextValue:[P fileKeyForSubdocument:self] forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
-	[self takeContextValue:url.path forKey:iTM2ProjectOwnAbsolutePathKey domain:iTM2ContextPrivateMask];
-	[self takeContextValue:[P nameForFileKey:[P fileKeyForURL:url]] forKey:iTM2ProjectOwnRelativePathKey domain:iTM2ContextPrivateMask];
+	[self takeContext4iTM3Value:aliasData forKey:iTM2ProjectOwnAliasKey domain:iTM2ContextPrivateMask];
+	[self takeContext4iTM3Value:url.absoluteString forKey:iTM2ProjectURLKey domain:iTM2ContextPrivateMask];
+	[self takeContext4iTM3Value:[P fileKeyForSubdocument:self] forKey:iTM2ProjectFileKeyKey domain:iTM2ContextPrivateMask];
+	[self takeContext4iTM3Value:url.path forKey:iTM2ProjectOwnAbsolutePathKey domain:iTM2ContextPrivateMask];
+	[self takeContext4iTM3Value:[P nameForFileKey:[P fileKeyForURL:url]] forKey:iTM2ProjectOwnRelativePathKey domain:iTM2ContextPrivateMask];
     NSData * D = [url bookmarkDataWithOptions:NSURLBookmarkCreationPreferFileIDResolution|NSURLBookmarkCreationSuitableForBookmarkFile includingResourceValuesForKeys:[NSArray array] relativeToURL:nil error:NULL];
-	[self takeContextValue:D forKey:iTM2ProjectBookmarkKey domain:iTM2ContextPrivateMask];
+	[self takeContext4iTM3Value:D forKey:iTM2ProjectBookmarkKey domain:iTM2ContextPrivateMask];
 //END4iTM3;
     return;
 }
@@ -4625,8 +4625,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContextValueForKey:domain:
-- (id)getContextValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getContext4iTM3ValueForKey:domain:
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 17 16:18:54 UTC 2010
@@ -4635,7 +4635,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	id result = nil;
-	if ((result = [super getContextValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])) {
+	if ((result = [super getContext4iTM3ValueForKey:aKey domain:mask&iTM2ContextStandardLocalMask])) {
 		return result;
 	}
 	iTM2ProjectDocument * project = self.project4iTM3;
@@ -4644,15 +4644,15 @@ To Do List:
 	if ((id)project != self)/* reentrant code management */ {
 		NSString * fileKey = [project fileKeyForURL:self.fileURL];
 		if (fileKey.length) {
-			if (result = [project getContextValueForKey:aKey fileKey:fileKey domain:mask]) {
+			if (result = [project getContext4iTM3ValueForKey:aKey fileKey:fileKey domain:mask]) {
 				return result;
 			}
 		}
 	}
-    return [super getContextValueForKey:aKey domain:mask];
+    return [super getContext4iTM3ValueForKey:aKey domain:mask];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContextValue:forKey:domain:
-- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setContext4iTM3Value:forKey:domain:
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 17 16:18:58 UTC 2010
@@ -4667,13 +4667,13 @@ To Do List:
 	if (fileURL) {
 		NSString * fileKey = [project fileKeyForURL:fileURL];
 		if (fileKey.length) {
-			[project setContextValue:object forKey:aKey fileKey:fileKey domain:mask];
+			[project setContext4iTM3Value:object forKey:aKey fileKey:fileKey domain:mask];
 		} else if (project) {
 			LOG4iTM3(@"*** ERROR:the project %@ does not seem to own the document %@ at %@.",project,self,fileURL);
 //LOG4iTM3([project fileKeyForURL:fileName]);
 		}
 	}
-	BOOL didChange = [super setContextValue:object forKey:aKey domain:mask];// last to be sure we have registered
+	BOOL didChange = [super setContext4iTM3Value:object forKey:aKey domain:mask];// last to be sure we have registered
 //LOG4iTM3(@"self.context4iTM3Dictionary is:%@",self.context4iTM3Dictionary);
     return didChange;
 }
@@ -5661,7 +5661,7 @@ To Do List:
 			// we cannot add project documents to project documents?
 			if ([SPC isProject:currentDocument])
 				return;
-			[currentDocument takeContextValue:nil forKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask];
+			[currentDocument takeContext4iTM3Value:nil forKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask];
 			[SDC removeDocument:currentDocument];
 			[PD addURL:currentDocument.fileURL];
 			[PD addSubdocument:currentDocument];

@@ -610,12 +610,12 @@ To Do List:
 			return NO;
 		}
 		NSString * key = [KS key];
-		if ([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
+		if ([key isEqualToString:[C context4iTM3ValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
 		{
 			[self toggleDeepEscape:self];
 			return YES;
 		}
-		else if ([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
+		else if ([key isEqualToString:[C context4iTM3ValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
 		{
 			[self toggleEscape:self];
 			return YES;
@@ -649,12 +649,12 @@ To Do List:
                     (flags & NSAlternateKeyMask? @"~": @""),
                     (flags & NSShiftKeyMask? @"$": @""),
                     unmodifiedCharacters];
-        if ([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
+        if ([key isEqualToString:[C context4iTM3ValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleDeepEscape:self];
             return YES;
         }
-        else if ([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
+        else if ([key isEqualToString:[C context4iTM3ValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleEscape:self];
             return YES;
@@ -664,12 +664,12 @@ To Do List:
                     (flags & NSCommandKeyMask? @"@": @""),
                     (flags & NSControlKeyMask? @"^": @""),
                     unmodifiedCharacters];
-        if ([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
+        if ([key isEqualToString:[C context4iTM3ValueForKey:@"iTM2KeyBindingsDeepEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleDeepEscape:self];
             return YES;
         }
-        else if ([key isEqualToString:[C contextValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
+        else if ([key isEqualToString:[C context4iTM3ValueForKey:@"iTM2KeyBindingsEscape" domain:iTM2ContextAllDomainsMask]])
         {
             [self toggleEscape:self];
             return YES;

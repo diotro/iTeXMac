@@ -106,7 +106,7 @@ To Do List:
 //START4iTM3;
     NSToolbar * toolbar = self.window.toolbar;
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", toolbar.identifier];
-	[self takeContextValue:toolbar.configurationDictionary forKey:key domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:toolbar.configurationDictionary forKey:key domain:iTM2ContextAllDomainsMask];
 //START4iTM3;
 	return;
 }

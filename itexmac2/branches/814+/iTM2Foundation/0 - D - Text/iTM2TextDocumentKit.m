@@ -1626,7 +1626,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self takeContext4iTM3Bool:self.window.isKeyWindow forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy?
-    [self takeContextValue:NSStringFromRange(self.textView.selectedRange) forKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:NSStringFromRange(self.textView.selectedRange) forKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask];
     NS_DURING
     NSRect visibleRect = self.textView.visibleRect;
     NSLayoutManager * LM = [self.textView layoutManager];
@@ -1639,10 +1639,10 @@ To Do List:
 			[LM glyphRangeForBoundingRectWithoutAdditionalLayout:visibleRect inTextContainer:container]);
     }
     NSRange characterRange = [LM characterRangeForGlyphRange:glyphRange actualGlyphRange:nil];
-    [self takeContextValue:NSStringFromRange(characterRange) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:NSStringFromRange(characterRange) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
     NS_HANDLER
     LOG4iTM3(@"*** Exception catched: %@", [localException reason]);
-    [self takeContextValue:NSStringFromRange([self.textView selectedRange]) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:NSStringFromRange([self.textView selectedRange]) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
     NS_ENDHANDLER
 //END4iTM3;
     return;
@@ -2330,9 +2330,9 @@ To Do List:
 	CGFloat scale = [self context4iTM3FloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
     NSRange R = iTM3MakeRange(ZER0,self.string.length);
-    NSRange r = NSRangeFromString([self contextValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);
+    NSRange r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);
     [self setSelectedRange:iTM3ProjectionRange(R, r)];
-    r = NSRangeFromString([self contextValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask]);
+    r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask]);
     [self scrollRangeToVisible:iTM3ProjectionRange(R, r)];
 //END4iTM3;
     return;

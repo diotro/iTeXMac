@@ -1469,8 +1469,8 @@ To Do List:
                 char * ptr = MD.mutableBytes;
                 char * end = ptr + MD.length;
                 while(ptr < end) {
-                    NSString * name = [NSString stringWithUTF8String:ptr];
                     ptr += name.length+1; // +1 for the null terminating character
+                    NSString * name = [NSString stringWithUTF8String:ptr];
                     [MRA addObject:name];
                 }
                 return MRA.copy;

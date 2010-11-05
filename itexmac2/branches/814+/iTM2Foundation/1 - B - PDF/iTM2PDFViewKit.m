@@ -173,7 +173,7 @@ To Do List:
     if (self.backgroundColor) {
         [self.backgroundColor set];
     } else if ([self context4iTM3BoolForKey:iTM2PDFUseSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]) {
-        [[NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]] set];
+        [[NSColor colorWithRGBADictionary:[self context4iTM3ValueForKey:iTM2PDFSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]] set];
     } else {
         [[NSColor whiteColor] set];
     }
@@ -307,9 +307,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iVarAbsoluteFocusPoint = NSPointFromString([self contextValueForKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask]);
+	iVarAbsoluteFocusPoint = NSPointFromString([self context4iTM3ValueForKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask]);
 	[(iTM2PDFView *)self.superview placeFocusPointInVisibleArea];// scroll to the page as side effect should be a wrapper for stuff below
- 	[self scrollRectToVisible:NSRectFromString([self contextValueForKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask])];
+ 	[self scrollRectToVisible:NSRectFromString([self context4iTM3ValueForKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask])];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFImageRepViewCompleteSaveContext4iTM3:
@@ -317,8 +317,8 @@ To Do List:
 /*"YES."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self takeContextValue:NSStringFromPoint(iVarAbsoluteFocusPoint) forKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask];
-	[self takeContextValue:NSStringFromRect(self.visibleRect) forKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:NSStringFromPoint(iVarAbsoluteFocusPoint) forKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:NSStringFromRect(self.visibleRect) forKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask];
     return;
 }
 @synthesize tag = iVarTag;
@@ -756,7 +756,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     return [self context4iTM3BoolForKey:iTM2PDFUseViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]?
-        [NSColor colorWithRGBADictionary:[self contextValueForKey:iTM2PDFViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]]:
+        [NSColor colorWithRGBADictionary:[self context4iTM3ValueForKey:iTM2PDFViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]]:
             [NSColor windowBackgroundColor];
 }
 #pragma mark =-=-=-=-=-  IMAGE REPRESENTATION

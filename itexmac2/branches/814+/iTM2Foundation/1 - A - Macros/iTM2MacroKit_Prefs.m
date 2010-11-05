@@ -1714,7 +1714,7 @@ To Do List:
 	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newMode forKey:domain];
-	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	// change the editors
 	if (newMode)
 	{
@@ -1758,7 +1758,7 @@ To Do List:
 	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newDomain forKey:key];
-	[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	[self didChangeValueForKey:@"availableModes"];
 	NSString * newMode = [MD objectForKey:newDomain];
 	NSArray * availableModes = [self availableModes];
@@ -1960,7 +1960,7 @@ To Do List:
 	if (!MD)
 	{
 		MD = [NSMutableDictionary dictionary];
-		[self setContextValue:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+		[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	}
 	NSString * selectedDomain = [self selectedDomain];
 	NSArray * availableDomains = [self availableDomains];

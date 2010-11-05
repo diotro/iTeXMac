@@ -846,7 +846,7 @@ To Do List:
 			return enabled;
 		}
 		fileKey = iTM2ProjectDefaultsKey;
-		NSNumber * N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+		NSNumber * N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 		BOOL defaultIsAutoStringEncoding = [N boolValue];// beware, context4iTM3BoolForKey should be preferred, once it is well implemented
 		NSString * defaultStringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
@@ -914,7 +914,7 @@ selectOneItem:
 		{
 			if([document isKindOfClass:[iTM2TextDocument class]])
 			{
-				N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 				if([N boolValue])
 				{
 					iTM2StringFormatController * SFC = [document stringFormatter4iTM3];
@@ -933,7 +933,7 @@ selectOneItem:
 			Class C = [SDC documentClassForType:type];
 			if([C isSubclassOfClass:[iTM2TextDocument class]])
 			{
-				N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 				if([N boolValue])
 				{
 					[sender selectItem:nil];
@@ -1019,7 +1019,7 @@ To Do List:
 				stringEncodingName = [iTM2StringFormatController nameOfCoreFoundationStringEncoding:new];
 				if(D)
 				{
-					[D takeContextValue:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+					[D takeContext4iTM3Value:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 				}
 				else
 				{
@@ -1070,13 +1070,13 @@ To Do List:
 			}
 			else if(D)
 			{
-				[D takeContextValue:nil forKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];
-				[D takeContextValue:nil forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+				[D takeContext4iTM3Value:nil forKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];
+				[D takeContext4iTM3Value:nil forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 			}
 			else
 			{
 				[project setPropertyValue:nil forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-				[project takeContextValue:nil forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				[project takeContext4iTM3Value:nil forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 			}
 			changed = YES;
 		}
@@ -1110,7 +1110,7 @@ To Do List:
 	while(row < top)
 	{
 		NSString * fileKey = [fileKeys objectAtIndex:row];
-		id isAuto = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+		id isAuto = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 		BOOL old = [isAuto boolValue];
 		// this is a 3 states switch: YES, NO, inherited
 		NSString * fileName = [project nameForFileKey:fileKey];
@@ -1124,11 +1124,11 @@ To Do List:
 			{
 				if(D = [project subdocumentForFileKey:fileKey])
 				{
-					[D takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+					[D takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 				}
 				else
 				{
-					[project takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+					[project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 				}
 				changed = YES;
 			}
@@ -1136,7 +1136,7 @@ To Do List:
 		else if([fileKey isEqual:iTM2ProjectDefaultsKey])
 		{
 			isAuto = [NSNumber numberWithBool:!old];
-			changed = [project takeContextValue:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+			changed = [project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 		}
 		row = [selectedRowIndexes indexGreaterThanIndex:row];
 	}
@@ -1213,7 +1213,7 @@ To Do List:
 			Class C = [SDC documentClassForType:type];
 			if([C isSubclassOfClass:[iTM2TextDocument class]])
 			{
-				if(N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask])
+				if(N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask])
 				{
 					if([N boolValue])
 					{
@@ -1241,7 +1241,7 @@ To Do List:
 	// mutliple case
 	// hasOn && hasOff
 	BOOL x = NO;
-	if(N = [project contextValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask])
+	if(N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask])
 	{
 		x = [N boolValue];
 	}
@@ -1566,7 +1566,7 @@ To Do List:
 			}
 			else if(D)
 			{
-				[D takeContextValue:new forKey:TWSEOLFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				[D takeContext4iTM3Value:new forKey:TWSEOLFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 			}
 			else
 			{
@@ -1593,7 +1593,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * string = NSStringFromSize(contentSize);
-	[self takeContextValue:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
 	return contentSize;
 }
@@ -1631,7 +1631,7 @@ To Do List:
 	else
 	{
 		string = NSStringFromSize(contentSize);
-		[self takeContextValue:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
 	}
     return;
 }

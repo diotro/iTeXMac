@@ -769,7 +769,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self willChangeValueForKey:@"editedCommand"];
-	[self takeContextValue:argument forKey:@"Commands Inspector:Edited Command" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:argument forKey:@"Commands Inspector:Edited Command" domain:iTM2ContextAllDomainsMask];
 	[self didChangeValueForKey:@"editedCommand"];
 //END4iTM3;
     return;
@@ -2060,7 +2060,7 @@ To Do List: to be improved...
 	{
 		iTM2TaskController * TC = [project taskController];
 #warning DEBUGGGGG: add a SUD default here, related to hidden and silent from the terminal window
-		[project takeContextValue:commandName forKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
+		[project takeContext4iTM3Value:commandName forKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 		[project showTerminalInBackGroundIfNeeded:self];
 		if(iTM2DebugEnabled>100)
 		{
@@ -2167,7 +2167,7 @@ To Do List:
 	if([SPC isBaseProject:TPD])
 		return NO;
 	// selector  names like projectXXXXX: are catched here
-	NSString * lastCommandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
+	NSString * lastCommandName = [TPD context4iTM3ValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 	NSString * commandName = self.commandName;
 	sender.state = ([lastCommandName isEqualToString:commandName]?NSMixedState:NSOffState);
 	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];

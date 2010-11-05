@@ -419,7 +419,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * fullDocumentPath = fileURL.path;
-	NSData * D = [self contextValueForKey:@"NSPrintInfo" domain:iTM2ContextAllDomainsMask];
+	NSData * D = [self context4iTM3ValueForKey:@"NSPrintInfo" domain:iTM2ContextAllDomainsMask];
 	if (!D)
 		D = [DFM extendedFileAttribute4iTM3:@"NSPrintInfo" inSpace:[NSNumber numberWithUnsignedInteger:'TUG0'] atPath:fullDocumentPath error:nil];
 //	if (!D)
@@ -455,7 +455,7 @@ To Do List:
 	NSData * D = [NSArchiver archivedDataWithRootObject:self.printInfo.dictionary];
 	if (D)
 	{
-		[self takeContextValue:D forKey:@"Print Info Data" domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:D forKey:@"Print Info Data" domain:iTM2ContextAllDomainsMask];
 		[DFM addExtendedFileAttribute4iTM3:@"NSPrintInfo" value:D inSpace:[NSNumber numberWithUnsignedInteger:'TUG0'] atPath:fileName error:nil];
 //		[DFM addExtendedFileAttribute4iTM3:@"NSPrintInfo" value:D atPath:fileName forNameSpace:@"org_tug_mac_cocoa" error:nil];
 	}
@@ -489,9 +489,9 @@ To Do List:
         }
 	if (openInspectors.count)
 	{
-		[self takeContextValue:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
+		[self takeContext4iTM3Value:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
 	}
-//LOG4iTM3(@"openInspectors (%@) are:%@ = %@", self.fileURL.path, openInspectors, [self contextValueForKey:iTM2ContextOpenInspectors]);
+//LOG4iTM3(@"openInspectors (%@) are:%@ = %@", self.fileURL.path, openInspectors, [self context4iTM3ValueForKey:iTM2ContextOpenInspectors]);
 //END4iTM3;
     return;
 }
@@ -816,7 +816,7 @@ To Do List:
     if (!MD)
     {
         MD = [NSMutableDictionary dictionary];
-        [self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+        [self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
     }
     NSString * type = [self.class inspectorType4iTM3];
     NSArray * variants = [MD objectForKey:mode];
@@ -848,7 +848,7 @@ To Do List:
         }
     }
     [MD removeObjectForKey:mode];
-    [self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
     if (C = [NSWindowController inspectorClassForType:type mode:mode variant:iTM2DefaultInspectorVariant])
     {
         WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
@@ -1026,7 +1026,7 @@ To Do List:
 		[MRA removeObject:inspectorVariant];
 		[MRA insertObject:inspectorVariant atIndex:ZER0];
 		[MD setObject:MRA forKey:[C inspectorMode]];
-		[self takeContextValue:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
+		[self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
 	}
 	if (![WC isKindOfClass:[iTM2ExternalInspector class]])
 		[self didAddWindowController:WC];
@@ -1089,7 +1089,7 @@ To Do List:
 			return;
 	}
 
-    NSArray * modes = [self contextValueForKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
+    NSArray * modes = [self context4iTM3ValueForKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
     if ([modes isKindOfClass:[NSArray class]]) {
         NSMutableArray * alreadyOpenModes = [NSMutableArray array];
 		NSString * inspectorType4iTM3 = [self.class inspectorType4iTM3];
@@ -3502,7 +3502,7 @@ To Do List:
 		[processEnvironment addEntriesFromDictionary:[self.document environmentForExternalHelper]];
 		[processEnvironment addEntriesFromDictionary:environment];
 		[processEnvironment setObject:[NSString stringWithFormat:@":%@:%@",
-                        [self contextValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask],
+                        [self context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask],
 							[processEnvironment objectForKey:@"PATH"]]  forKey:@"PATH"];
 		[processEnvironment setObject:[self.document fileName].lastPathComponent forKey:@"file"];
         [task setEnvironment:processEnvironment];

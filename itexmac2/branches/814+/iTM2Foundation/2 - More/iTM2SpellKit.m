@@ -597,11 +597,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    NSString * mode = [text contextValueForKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
+    NSString * mode = [text context4iTM3ValueForKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
     if (![self spellContextForMode:mode])
     {
         mode = TWSSpellDefaultContextMode;
-        [text takeContextValue:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
+        [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
     }
 //END4iTM3;
     return mode;
@@ -615,7 +615,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [text takeContextValue:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
+    [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
     return;
 }

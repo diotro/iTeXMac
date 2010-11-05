@@ -1375,7 +1375,7 @@ To Do List:
 		[[TPD taskController] stop];
 		I = [NSImage cachedImageNamed4iTM3:@"typesetCurrentProject"];
 	} else {
-		NSString * commandName = [TPD contextValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
+		NSString * commandName = [TPD context4iTM3ValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
 		Class performer = [iTM2TeXPCommandManager commandPerformerForName:(commandName?:@"Compile")];
 		[performer performCommandForProject: TPD];
 		I = [NSImage cachedImageNamed4iTM3:@"stopTypesetCurrentProject"];

@@ -257,7 +257,7 @@ To Do List:
 		if (!toolbar.items.count) {
 			configDictionary = [SUD dictionaryForKey:key];
 //LOG4iTM3(@"configDictionary: %@", configDictionary);
-			[self takeContextValue:nil forKey:key domain:iTM2ContextAllDomainsMask];
+			[self takeContext4iTM3Value:nil forKey:key domain:iTM2ContextAllDomainsMask];
 			if (configDictionary.count)
 				[toolbar setConfigurationFromDictionary:configDictionary];
 			if (!toolbar.items.count) {
@@ -314,7 +314,7 @@ To Do List:
 	if ([self context4iTM3BoolForKey:@"iTM2ConTeXtToolbarAutosavesConfiguration" domain:iTM2ContextAllDomainsMask]) {
 		NSToolbar * toolbar = self.window.toolbar;
 		NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", toolbar.identifier];
-		[self takeContextValue:toolbar.configurationDictionary forKey:key domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:toolbar.configurationDictionary forKey:key domain:iTM2ContextAllDomainsMask];
 	}
 //END4iTM3;
 	return;

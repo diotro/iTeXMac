@@ -428,7 +428,7 @@ To Do List:
 //START4iTM3;
 	[DNC addObserver:self selector:@selector(PDFViewScaleChangedNotified:) name:PDFViewScaleChangedNotification object:self.pdfView];
 	[self.PDFThumbnails setArray:[NSArray array]];
-	[self setCurrentOutputFigure: ([self contextValueForKey:@"CurrentOutputFigure" domain:iTM2ContextAllDomainsMask]?:[[self.outputFigureNumbers objectEnumerator] nextObject])];
+	[self setCurrentOutputFigure: ([self context4iTM3ValueForKey:@"CurrentOutputFigure" domain:iTM2ContextAllDomainsMask]?:[[self.outputFigureNumbers objectEnumerator] nextObject])];
 	self.thumbnailTable.target = self;
 	self.thumbnailTable.action = @selector(thumbnailTableAction:);
 	self.thumbnailTable.doubleAction = @selector(thumbnailTableDoubleAction:);
@@ -529,7 +529,7 @@ To Do List:
 		metaSETTER(argument);
 		doc = self.currentPDFKitDocument;
 	}
-	[self takeContextValue:metaGETTER forKey:@"CurrentOutputFigure" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:metaGETTER forKey:@"CurrentOutputFigure" domain:iTM2ContextAllDomainsMask];
 	self.pdfView.document = doc.PDFDocument;
 	NSNumber * N = [doc metaPostViewScaleNumber];
 	if(N)

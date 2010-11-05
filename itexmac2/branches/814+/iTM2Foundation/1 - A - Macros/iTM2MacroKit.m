@@ -81,7 +81,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 	if (![old isEqual:argument])
 	{
 		[self willChangeValueForKey:@"macroDomain"];
-		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
+		[self takeContext4iTM3Value:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
 		[self didChangeValueForKey:@"macroDomain"];
 	}
     return;
@@ -131,7 +131,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 		return;
 	}
 	[self willChangeValueForKey:@"macroCategory"];
-	[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
+	[self takeContext4iTM3Value:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
 	[self didChangeValueForKey:@"macroCategory"];
 	return;
 }
@@ -175,7 +175,7 @@ NSString * const iTM2MacroScriptsComponent = @"Scripts.localized";
 	if (![old isEqual:argument])
 	{
 		[self willChangeValueForKey:@"macroEditor"];
-		[self takeContextValue:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
+		[self takeContext4iTM3Value:argument forKey:key domain:iTM2ContextPrivateMask|iTM2ContextExtendedProjectMask];
 		[self setValue:nil forKey:@"macroEditor_meta"];
 		[self didChangeValueForKey:@"macroEditor"];
 	}

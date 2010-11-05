@@ -277,7 +277,7 @@ To Do List:
     if(!document)
         document = [SDC currentDocument];
 #warning ATTENTION, implementation missing
-    NSString * mode = [document contextValueForKey:@"textEditorMode"];
+    NSString * mode = [document context4iTM3ValueForKey:@"textEditorMode"];
     NSString * subPath = [@"Editor" stringByAppendingPathComponent:mode];
     NSString * path = [[B pathEnumeratorForSupportName:@"Scripts" ofType:nil inDirectory:subPath domains:NSUserDomainMask] nextObject];
     NSInteger before = MIN(1, [M numberOfItems]);

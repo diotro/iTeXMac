@@ -306,12 +306,12 @@ To Do List:
     CGFloat h2 = V2? V2.frame.size.height: 0;
     CGFloat h3 = V3? V3.frame.size.height: 0;
     CGFloat h4 = V4? V4.frame.size.height: 0;
-    [self takeContextValue: [NSString stringWithFormat: @"%f:%f:%f",
+    [self takeContext4iTM3Value: [NSString stringWithFormat: @"%f:%f:%f",
                 (h1+h2+h3+h4>0? h1/(h1+h2+h3+h4): 0),
                 (h2+h3+h4>0? h2/(h2+h3+h4): 0),
                 (h3+h4>0? h3/(h3+h4): 0)]
             forKey: iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask];
-//LOG4iTM3(@"[self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey] is: %@", [self contextValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]);
+//LOG4iTM3(@"[self context4iTM3ValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey] is: %@", [self context4iTM3ValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]);
     return [super validateWindowContent4iTM3];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowShouldClose:
@@ -1024,7 +1024,7 @@ To Do List:
 	NSString * oldStyle = [self context4iTM3StringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 	if(![newStyle isEqualToString:oldStyle])
 	{
-		[self takeContextValue:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 		[self.document updateChangeCount:NSChangeDone];
 	}
     self.validateWindowContent4iTM3;
@@ -1069,7 +1069,7 @@ To Do List:
 		if(idx == NSNotFound)
 		{
 			style = [iTM2TeXLogParser key];
-			[self takeContextValue:style forKey:iTM2TPFELogParserKey domain:iTM2ContextPrivateMask];
+			[self takeContext4iTM3Value:style forKey:iTM2TPFELogParserKey domain:iTM2ContextPrivateMask];
 			idx = [sender indexOfItemWithRepresentedObject:style];
 		}
         [sender selectItemAtIndex:idx];

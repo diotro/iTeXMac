@@ -326,7 +326,7 @@
         NSLog(@"FAILUREx");
     }
     if (!URL_y) {
-        NSLog(@"FAILUREx");
+        NSLog(@"FAILUREy");
     }
     STAssertNotNil([B URLForResource:NAME withExtension:EXT],@"MISSED",NULL);
     STAssertNotNil([B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR],@"MISSED",NULL);

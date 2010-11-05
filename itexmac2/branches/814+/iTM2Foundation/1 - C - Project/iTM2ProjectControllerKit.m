@@ -237,7 +237,7 @@ Latest Revision: Thu Jan 28 22:03:17 UTC 2010
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-    if (self = [super init]) {
+    if ((self = [super init])) {
         //  the receiver is the owner of the base projects
         //  base projects are owned during the whole lifetime
         self.baseProjects = [NSMutableDictionary dictionary];

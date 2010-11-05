@@ -833,11 +833,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * string = NSStringFromSize(contentSize);
-	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
+	NSDictionary * D = [self context4iTM3ValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	D = [D isKindOfClass:[NSDictionary class]]?[[D mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	string = NSStringFromSize(contentSize);
 	[(NSMutableDictionary *)D setValue:string forKey:@"Drawer Size"];
-	[self takeContextValue:D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 //END4iTM3;
 	return contentSize;
 }
@@ -853,10 +853,10 @@ To Do List:
 	NSDrawer * drawer = notification.object;
     drawer.validateContent4iTM3;
 	NSSize contentSize = drawer.contentSize;
-	NSDictionary * D = [self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
+	NSDictionary * D = [self context4iTM3ValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	NSString * string;
 	if ([D isKindOfClass:[NSDictionary class]]) {
-		string = [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:@"Drawer Size"];
+		string = [[self context4iTM3ValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:@"Drawer Size"];
 		if ([string isKindOfClass:[NSString class]]) {
 			NSRectEdge edge = [drawer preferredEdge];
 			NSSize maxContentSize = [drawer maxContentSize];
@@ -877,7 +877,7 @@ To Do List:
 	}
 	string = NSStringFromSize(contentSize);
 	[(NSMutableDictionary *)D setValue:string forKey:@"Drawer Size"];
-	[self takeContextValue:D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerDidOpen:
@@ -1890,11 +1890,11 @@ To Do List:
 //END4iTM3;
 	return;
 }
-#define GETTER [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define GETTER [[self context4iTM3ValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
 #define SETTER(argument) id __D = [[[self context4iTM3DictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
-[self takeContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
+[self takeContext4iTM3Value:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  strongerSynchronization
 - (BOOL)strongerSynchronization;
 {
@@ -2068,11 +2068,11 @@ To Do List:
 }
 #undef GETTER
 #undef SETTER
-#define GETTER [[self contextValueForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
+#define GETTER [[self context4iTM3ValueForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] valueForKey:iTM2KeyFromSelector(_cmd)]
 #define SETTER(argument) id __D = [[[self context4iTM3DictionaryForKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
-[self takeContextValue:__D forKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
+[self takeContext4iTM3Value:__D forKey:@"iTM2PDFKitSync" domain:iTM2ContextAllDomainsMask];
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  enableSynchronization
 - (BOOL)enableSynchronization;
 {
@@ -2341,7 +2341,7 @@ To Do List:
 		if (!toolbar.items.count) {
 			configDictionary = [SUD dictionaryForKey:key];
 //LOG4iTM3(@"configDictionary:%@", configDictionary);
-			[self takeContextValue:nil forKey:key domain:iTM2ContextAllDomainsMask];
+			[self takeContext4iTM3Value:nil forKey:key domain:iTM2ContextAllDomainsMask];
 			if(configDictionary.count)
 				[toolbar setConfigurationFromDictionary:configDictionary];
 			if (!toolbar.items.count) {
@@ -2400,7 +2400,7 @@ To Do List:
 	if ([self context4iTM3BoolForKey:@"iTM2PDFKitToolbarAutosavesConfiguration" domain:iTM2ContextAllDomainsMask]) {
 		NSToolbar * toolbar = self.window.toolbar;
 		NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", toolbar.identifier];
-		[self takeContextValue:toolbar.configurationDictionary forKey:key domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:toolbar.configurationDictionary forKey:key domain:iTM2ContextAllDomainsMask];
 	}
 //START4iTM3;
 	return;
@@ -8257,11 +8257,11 @@ To Do List:
 
 #undef GETTER
 #undef SETTER
-#define GETTER(KEY) [[self contextValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:KEY]
+#define GETTER(KEY) [[self context4iTM3ValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] valueForKey:KEY]
 #define SETTER(KEY, argument) id __D = [[[self context4iTM3DictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:KEY];\
-[self takeContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];\
+[self takeContext4iTM3Value:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];\
 [self.context4iTM3Manager notifyContextChange];
 
 @implementation NSApplication(iTM2PDFKitResponder)
@@ -8563,7 +8563,7 @@ To Do List:
 #define SETTER(argument) id __D = [[[self context4iTM3DictionaryForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask] mutableCopy] autorelease];\
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:iTM2KeyFromSelector(_cmd)];\
-[self setContextValue:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
+[self setContext4iTM3Value:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 #pragma mark =-=-=-=-=-  BACKGROUND COLOR
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backgroundColor
 - (NSColor *)backgroundColor;

@@ -1022,7 +1022,7 @@ To Do List:
 
 	NSString * originalExtension = sourceURL.pathExtension;
 	NSURL * targetDirectoryURL = mandatoryURL.URLByDeletingLastPathComponent;
-	[self takeContextValue:targetDirectoryURL.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:targetDirectoryURL.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	NSString * fileName = fileURL.path;
 	NSString * newCore = fileName;
 	NSArray * newCoreComponents = newCore.pathComponents;
@@ -1107,7 +1107,7 @@ To Do List:
 	if(enclosedProjects.count!=ZER0) {
 		return NO;
 	}
-	[self takeContextValue:fileURL.path.stringByDeletingLastPathComponent forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:fileURL.path.stringByDeletingLastPathComponent forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	// No extension for fileName, the extension will be borrowed from the project
 	NSString * projectName = fileURL.lastPathComponent.stringByDeletingPathExtension;
 	NSURL * targetURL = [fileURL.URLByDeletingPathExtension URLByAppendingPathExtension:[SDC wrapperPathExtension4iTM3]];
@@ -1209,7 +1209,7 @@ To Do List:
 	if (enclosedProjects.count==ZER0) {
 		return NO; // see createNewWrapperAndProjectWithURL
 	}
-	[self takeContextValue:sourceURL.URLByDeletingLastPathComponent.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:sourceURL.URLByDeletingLastPathComponent.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	// No extension for fileName, the extension will be borrowed from the project
 	fileURL = fileURL.URLByDeletingPathExtension;
 	NSURL * targetURL = [fileURL URLByAppendingPathExtension:[SDC wrapperPathExtension4iTM3]];
@@ -1345,7 +1345,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithURL:error:
-- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL error:(NSError **)outErrorPtr;
+- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 10:23:58 UTC 2010
@@ -1374,8 +1374,9 @@ To Do List:
     //  If all the metadata are the same, it's OK
     //  If the metadata are different from one project to the other
     //  there is something wrong that we cannot solve simply
-    //  We choose the metadata coming from the "main" project.
+    //  We choose the metadata coming from the "main" project when not coming from the file extended attributes.
     //  Only one project is used.
+    iTM2ProjectController * PC = [[iTM2ProjectController alloc] init];
     NSMutableArray * alreadyURLs = [NSMutableArray array];
     //  Intermediate projects are created
     //  They will be removed at the end
@@ -1385,7 +1386,7 @@ To Do List:
         NSString * type = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
         Class C = [SDC documentClassForType:type];
         iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL ofType:type error:outErrorPtr];
-        ;
+        [PC registerProject:PD];
     }
     //  
     NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:sourceURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
@@ -1407,173 +1408,18 @@ To Do List:
 	fileURL = fileURL.URLByDeletingPathExtension;
 	NSURL * targetURL = fileURL;
 	NSString * projectName = fileURL.lastPathComponent;
-	[self takeContextValue:targetURL.URLByDeletingLastPathComponent.path
+	[self takeContext4iTM3Value:targetURL.URLByDeletingLastPathComponent.path
 		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	if ([DFM fileExistsAtPath:targetURL.path]) {
 		LOG4iTM3(@"There is already a project at\n%@",targetURL);
 	}
 	NSDictionary * filter = [self filterForProjectName:projectName];
-    FW = [self convertedFileWrapper:FW withDictionary:filter error:outErrorPtr];
-    
-    if (FW.isDirectory) {
-        
+    if ((FW = [self convertedFileWrapper:FW withURL:targetURL projectController:PC dictionary:filter error:outErrorPtr])) {
+        [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:outErrorPtr];
     }
-    // UTTypeCreatePreferredIdentifierForTag
-	// No extension for fileName, the extension will be borrowed from the project
-	// we copy the whole directory at sourceURL
-	// add a project
-	// clean extra folders
-	// change the names
-	// what is the target name?
-    
-	if ([DFM copyItemAtPath:sourceURL.path toPath:fileURL.path error:outErrorPtr]) {
-		BOOL isDirectory = NO;
-		if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
-			if (isDirectory) {
-				// the original "file" might be either a project or a wrapper
-				// remove any "Contents" directory;
-				NSURL * deeperURL = [targetURL URLByAppendingPathComponent:iTM2BundleContentsComponent];
-				if ([DFM fileOrLinkExistsAtPath4iTM3:deeperURL.path]) {
-					NSInteger tag;
-					if ([SWS performFileOperation:NSWorkspaceRecycleOperation source:targetURL.path destination:nil
-                            files:[NSArray arrayWithObject:iTM2BundleContentsComponent] tag:&tag]) {
-						LOG4iTM3(@"Recycling the \"Contents\" of directory %@...", targetURL);
-					} else {
-						LOG4iTM3(@"........... ERROR: Could not recycle the \"Contents\" directory...");
-					}
-				}
-				// Modify the project files,
-				// finding the contained projects
-				NSURL * originalURL = nil;
-				NSURL * convertedURL = nil;
-				for (originalURL in targetURL.enclosedProjectURLs4iTM3) {
-					originalURL = originalURL.URLByStandardizingPath;
-					convertedURL = [self convertedURL:originalURL withDictionary:filter];
-					if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-						if (![DFM moveItemAtURL:originalURL toURL:convertedURL error:outErrorPtr]) {
-							LOG4iTM3(@"..........  ERROR: Could not change the project file name.");
-							convertedURL = originalURL;
-						}
-					}
-					// originalURL is no longer used
-					// open the project document
-					iTM2ProjectDocument * PD = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:outErrorPtr];
-					// filter out all the declared files
-					for (NSString * key in PD.fileKeys) {
-						iTM2TextDocument * document = [PD subdocumentForFileKey:key];
-						if ([document isKindOfClass:[iTM2TextDocument class]]) {
-							NSTextStorage * TS = document.textStorage;
-							NSString * old = TS.string;
-							NSString * new = [self convertedString:old withDictionary:filter];
-							TS.beginEditing;
-							[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:new];
-							TS.endEditing;
-							// then change the file name:
-							originalURL = document.fileURL;
-							convertedURL = [self convertedURL:originalURL withDictionary:filter];
-                            //  manage spaces in file names
-							if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-								if ([DFM moveItemAtPath:originalURL.path toPath:convertedURL.path error:outErrorPtr]) {
-									[PD setURL:convertedURL forFileKey:key];
-									document.fileURL = convertedURL;
-								} else {
-									LOG4iTM3(@"..........  ERROR: Could not change the project document file name -1.");
-								}
-							}
-							[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
-							document.undoManager.removeAllActions;
-//LOG4iTM3(@"Open document saved");
-						} else if (!document) {
-							originalURL = [PD URLForFileKey:key];
-//LOG4iTM3(@"originalPath is: %@", originalPath);
-							convertedURL = [self convertedURL:originalURL withDictionary:filter];
-//LOG4iTM3(@"convertedPath is: %@", convertedPath);
-							NSString * typeName = [SDC typeForContentsOfURL:originalURL error:outErrorPtr];
-							if (typeName.length) {
-								Class C = [SDC documentClassForType:typeName];
-								if ([C isSubclassOfClass:[iTM2TextDocument class]]) {
-									document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:outErrorPtr];
-									NSString * old = document.stringRepresentation;
-									iTM2StringFormatController * stringFormatter4iTM3 = document.stringFormatter4iTM3;
-									NSStringEncoding encoding = stringFormatter4iTM3.stringEncoding;
-									NSMutableDictionary * filteredFilter = filter.mutableCopy;
-									// convert the filter to the new encoding
-									// just in case this was not suitable, do not loose much.
-									for (NSString * key in filter.keyEnumerator) {
-										NSString * translation = [filter objectForKey:key];
-										NSData * data = [translation dataUsingEncoding:encoding allowLossyConversion:YES];
-										translation = [[NSString alloc] initWithData:data encoding:encoding];
-										[filteredFilter setObject:translation forKey:key];
-									}
-									document.stringRepresentation = [self convertedString:old withDictionary:filteredFilter];
-								}
-							}
-							if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-								if (document) {
-									// originalPath must exist
-									// convertedPath must not exist
-									#warning Links mngt?
-									if ([DFM fileExistsAtPath:originalURL.path])/* links? */ {
-										if ([DFM fileExistsAtPath:convertedURL.path]) {
-											LOG4iTM3(@"..........  ERROR: Already existing file at\n%@");
-										} else {
-											if ([DFM moveItemAtPath:originalURL.path toPath:convertedURL.path error:outErrorPtr]) {
-												[PD setURL:convertedURL forFileKey:key];
-												document.fileURL = convertedURL;
-											} else {
-												LOG4iTM3(@"..........  ERROR: Could not move\n%@ to\n%@", originalURL, convertedURL);
-											}
-										}
-									} else {
-										LOG4iTM3(@"..........  WARNING: Missing file at\n%@", originalURL);// should not go there because the doc is already existing!
-									}
-								} else {
-									[PD setURL:convertedURL forFileKey:key];
-								}
-							}
-							[document stringRepresentationCompleteWriteToURL4iTM3:document.fileURL ofType:document.fileType error:outErrorPtr];
-							document.close;
-LOG4iTM3(@"[PD subdocumentForFileKey:%@]:%@",key,[PD subdocumentForFileKey:key]);
-LOG4iTM3(@"Document saved and closed");
-						}
-					}
-					[PD saveDocument:self];
-					PD.undoManager.removeAllActions;
-					PD.makeWindowControllers;
-					PD.showWindows;
-				}
-				// changing the name of all the files included in the newly created directory according to the filter above
-                
-                for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
-                    convertedURL = [self convertedURL:originalURL withDictionary:filter];
-                    if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:outErrorPtr]) {
-                            LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
-                        }
-                    }
-                }
-				// changing the file permissions: it is relevant if the document was built in...
-				[DFM makeFileWritableAtPath4iTM3:targetURL.path recursive:YES];
-				if (![SWS isFilePackageAtPath:targetURL.path]) {
-					NSImage * I = [SWS iconForFile:sourceURL.path];
-					if (I) {
-						[SWS setIcon:I forFile:targetURL.path options:NSExclude10_4ElementsIconCreationOption];
-					}
-				}
-				// I must create a project here before calling the next stuff
-				[SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
-			} else {
-				LOG4iTM3(@"*** ERROR: Missing directory at %@", targetURL);
-			}
-		} else {
-			LOG4iTM3(@"*** ERROR: Missing file at %@", targetURL);
-		}
-	} else {
-		LOG4iTM3(@"*** ERROR: Could not copy %@ to %@", sourceURL, targetURL);
-	}
 	self.stopProgressIndication;
 //END4iTM3;
-    return YES;
+    return YES;// return YES even if there was an error
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInOldProjectNewDocumentWithURL:error:
 - (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)outErrorPtr;
@@ -1605,7 +1451,7 @@ To Do List:
 	}
 #warning **** ERROR: this MUST be revisited, together with the other similar methods above
 	//  remember the location where the new document should be stored
-	[self takeContextValue:oldProject.parentURL.path
+	[self takeContext4iTM3Value:oldProject.parentURL.path
 		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	
 	NSAssert(![DFM fileExistsAtPath:targetURL.path], @"***  My dear, you as a programmer are a big naze...");
@@ -1671,8 +1517,8 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withURL:dictionary:error:
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withURL:(NSURL *)URL dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withURL:projectController:dictionary:error:
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 12:47:31 UTC 2010
