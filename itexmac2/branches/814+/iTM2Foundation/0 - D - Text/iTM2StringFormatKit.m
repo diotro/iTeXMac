@@ -194,7 +194,7 @@ To Do List: Nothing
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSRange R = iTM3MakeRange(NSNotFound,ZER0);
+	NSRange R = iTM3NotFoundRange;
     NSString * headerStringEncodingName = @"";
 	ICURegEx * RE = nil;
 //NSLog(@"headerStringEncodingName: %@", headerStringEncodingName);
