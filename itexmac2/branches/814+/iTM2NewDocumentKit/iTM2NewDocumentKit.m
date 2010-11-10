@@ -100,7 +100,7 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (BOOL)createNewWrapperWithURL:(NSURL *) fileURL error:(NSError **)outErrorPtr;
 - (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 - (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL error:(NSError **)outErrorPtr;
-- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (BOOL)createInAlreadyExistingProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 - (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)outErrorPtr;
 @end
 
@@ -136,7 +136,7 @@ To Do List:
 		_iTM2NewDocumentAssistant = [[iTM2NewDocumentAssistant alloc]
 			initWithWindowNibName: @"iTM2NewDocumentAssistant"];
 	}
-	_iTM2NewDocumentAssistant.mandatoryProjectURL = project.fileURL;
+	_iTM2NewDocumentAssistant.alreadyExistingProjectURL = project.fileURL;
 	[_iTM2NewDocumentAssistant orderFrontPanelIfRelevant:self];
 //END4iTM3;
     return;
@@ -161,7 +161,7 @@ To Do List:
 @synthesize templateImageView = iVarTemplateImageView;
 @synthesize templateImage = iVarTemplateImage;
 @synthesize templatePDFView = iVarTemplatePDFView;
-@synthesize mandatoryProjectURL = iVarMandatoryProjectURL;
+@synthesize alreadyExistingProjectURL = iVarMandatoryProjectURL;
 @synthesize oldProjectURL = iVarOldProjectURL;
 
 static id _iTM2NewDocumentsTree = nil;
@@ -468,7 +468,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSURL * url = self.mandatoryProjectURL;
+	NSURL * url = self.alreadyExistingProjectURL;
 	if (url) {
 		return [self canInsertItem:item inOldProjectForDirectoryURL:[url parentDirectoryURL4iTM3]];
 	}
@@ -848,7 +848,7 @@ To Do List:
 	// seeding the creation mode: single document, already existing project, new project
 	// If the document can create a new project, we have the choice
 	// what mode?
-	// If there is a mandatory project, things are more constrained
+	// If there is a alreadyExisting project, things are more constrained
 	// one of the problems is the memory
 	// 
 	self.validateCreationMode;
@@ -860,10 +860,10 @@ To Do List:
 	[SP setCanSelectHiddenExtension:YES];
 	NSString * newDirectory = nil;
 	BOOL isDirectory = NO;
-	NSURL * url = self.mandatoryProjectURL;
+	NSURL * url = self.alreadyExistingProjectURL;
 	if (url) {
-		// the mandatory project is the one that asked for a new document
-		newDirectory = url.parentDirectoryURL4iTM3.path;// the directory containing the mandatory project
+		// the alreadyExisting project is the one that asked for a new document
+		newDirectory = url.parentDirectoryURL4iTM3.path;// the directory containing the alreadyExisting project
 		if ([DFM fileExistsAtPath:newDirectory isDirectory:&isDirectory] && isDirectory) {
 			[SP setTreatsFilePackagesAsDirectories:YES];
 			iTM2ProjectDocument * project = [SPC projectForURL:url];
@@ -982,7 +982,7 @@ To Do List:
 							tag:nil])
 		{
             NSError * ROR = nil;
-			[self createInMandatoryProjectNewDocumentWithURL:URL error:&ROR]
+			[self createInAlreadyExistingProjectNewDocumentWithURL:URL error:&ROR]
 			|| [self createNewWrapperAndProjectWithURL:URL error:&ROR]// create a new wrapper and the new included project, if relevant
 			|| [self createNewWrapperWithURL:URL error:&ROR]// create a new wrapper assuming that the included project will come for free
 			|| [self createInNewProjectNewDocumentWithURL:URL error:&ROR]// create a new project if relevant, but no wrapper
@@ -1000,8 +1000,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInMandatoryProjectNewDocumentWithURL:error:
-- (BOOL)createInMandatoryProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInAlreadyExistingProjectNewDocumentWithURL:error:
+- (BOOL)createInAlreadyExistingProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 19:40:10 UTC 2010
@@ -1009,25 +1009,25 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSURL * mandatoryURL = self.mandatoryProjectURL;
-	if (!mandatoryURL) {
+	NSURL * alreadyExistingURL = self.alreadyExistingProjectURL;
+	if (!alreadyExistingURL) {
 		return NO;
 	}
-	iTM2ProjectDocument * mandatoryProject = [SPC projectForURL:mandatoryURL];
-	if (!mandatoryProject) {
+	iTM2ProjectDocument * alreadyExistingProject = [SPC projectForURL:alreadyExistingURL];
+	if (!alreadyExistingProject) {
 		return NO;
 	}
 	// just insert a new document in an already existing project
 	NSURL * sourceURL = self.standaloneFileURL;// must be a file URL?
 
 	NSString * originalExtension = sourceURL.pathExtension;
-	NSURL * targetDirectoryURL = mandatoryURL.URLByDeletingLastPathComponent;
+	NSURL * targetDirectoryURL = alreadyExistingURL.URLByDeletingLastPathComponent;
 	[self takeContext4iTM3Value:targetDirectoryURL.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	NSString * fileName = fileURL.path;
 	NSString * newCore = fileName;
 	NSArray * newCoreComponents = newCore.pathComponents;
-	NSArray * mandatoryNameComponents = mandatoryURL.path.pathComponents;
-	NSRange R = iTM3MakeRange(mandatoryNameComponents.count, newCoreComponents.count);
+	NSArray * alreadyExistingNameComponents = alreadyExistingURL.path.pathComponents;
+	NSRange R = iTM3MakeRange(alreadyExistingNameComponents.count, newCoreComponents.count);
 	// if the document is added in a subdirectory...
 	if (R.length>R.location) {
 		R.length -= R.location;
@@ -1044,7 +1044,7 @@ To Do List:
 		NSDictionary * filter = [NSDictionary dictionaryWithObject:	@"-" forKey:@" "];
 		newCore = [self convertedString:newCore withDictionary:filter];
 	}
-	NSMutableDictionary * filter = [NSMutableDictionary dictionaryWithDictionary:[self filterForProjectName:mandatoryURL.path]];
+	NSMutableDictionary * filter = [NSMutableDictionary dictionaryWithDictionary:[self filterForProjectName:alreadyExistingURL.path]];
 	newCore = [self convertedString:newCore withDictionary:filter];
 
 	NSURL * targetURL = [targetDirectoryURL URLByAppendingPathComponent:newCore];
@@ -1062,9 +1062,9 @@ To Do List:
 				[urls addObject:targetURL];
 			}
             //  set the name of the project in the filter
-            [filter setObject:mandatoryURL.lastPathComponent.stringByDeletingPathExtension forKey:iTM2NewDPROJECTNAMEKey];
+            [filter setObject:alreadyExistingURL.lastPathComponent.stringByDeletingPathExtension forKey:iTM2NewDPROJECTNAMEKey];
 			for (NSURL * url in urls) {
-				[SPC setProject:mandatoryProject forURL:url];//
+				[SPC setProject:alreadyExistingProject forURL:url];//
 				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:url display:YES error:outErrorPtr];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					NSTextStorage * TS = [document textStorage];
@@ -1076,7 +1076,7 @@ To Do List:
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				document.undoManager.removeAllActions;
 			}
-			[mandatoryProject saveDocument:self];
+			[alreadyExistingProject saveDocument:self];
 		} else {
 			LOG4iTM3(@"*** ERROR: Missing file at %@", targetURL);
 		}
@@ -1793,11 +1793,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSInteger creationMode = self.creationMode;
-	NSURL * mandatoryURL = self.mandatoryProjectURL;
+	NSURL * alreadyExistingURL = self.alreadyExistingProjectURL;
 	if (creationMode == iTM2ToggleForbiddenProjectMode) {
-		if (mandatoryURL) {
-			mandatoryURL = mandatoryURL.parentDirectoryURL4iTM3.absoluteURL;
-			[sender setDirectoryURL:mandatoryURL];
+		if (alreadyExistingURL) {
+			alreadyExistingURL = alreadyExistingURL.parentDirectoryURL4iTM3.absoluteURL;
+			[sender setDirectoryURL:alreadyExistingURL];
 		}
 		return NO;
 	}
@@ -1805,12 +1805,12 @@ To Do List:
 		return NO;
 	}
 	BOOL result = NO;
-	if (mandatoryURL) {
-		mandatoryURL = mandatoryURL.parentDirectoryURL4iTM3.absoluteURL;
-		if ([url.path belongsToDirectory4iTM3:mandatoryURL.path]) {
+	if (alreadyExistingURL) {
+		alreadyExistingURL = alreadyExistingURL.parentDirectoryURL4iTM3.absoluteURL;
+		if ([url.path belongsToDirectory4iTM3:alreadyExistingURL.path]) {
 			return YES;
 		} else {
-			[sender setDirectoryURL:mandatoryURL];
+			[sender setDirectoryURL:alreadyExistingURL];
 			return NO;
 		}
 	} else {//
@@ -1830,12 +1830,12 @@ To Do List:
 	}
 	NSURL * enclosingURL = url.enclosingWrapperURL4iTM3;
 	if(enclosingURL) {
-		mandatoryURL = enclosingURL.parentDirectoryURL4iTM3;
+		alreadyExistingURL = enclosingURL.parentDirectoryURL4iTM3;
 	} else if (enclosingURL = url.enclosingProjectURL4iTM3) {
-		mandatoryURL = enclosingURL.parentDirectoryURL4iTM3;
+		alreadyExistingURL = enclosingURL.parentDirectoryURL4iTM3;
 	}
-	if (mandatoryURL) {
-		[sender setDirectoryURL:mandatoryURL];
+	if (alreadyExistingURL) {
+		[sender setDirectoryURL:alreadyExistingURL];
 	}
 //END4iTM3;
     return NO;
@@ -1851,7 +1851,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return self.standaloneFileURL.isFileURL? [SPC projectForURL:self.mandatoryProjectURL]:nil;
+    return self.standaloneFileURL.isFileURL? [SPC projectForURL:self.alreadyExistingProjectURL]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:inOldProjectForDirectoryURL:
 - (BOOL)canInsertItem:(iTM2NewDocumentTreeNode *)item inOldProjectForDirectoryURL:(NSURL *)directoryURL;
@@ -1881,13 +1881,13 @@ To Do List:
 	if ([SWS isWrapperPackageAtURL4iTM3:standalone]) {
 		return NO;
 	}
-	NSURL * mandatoryURL = self.mandatoryProjectURL;
-	if (mandatoryURL) {
-		if ([SWS isProjectPackageAtURL4iTM3:mandatoryURL]) {
+	NSURL * alreadyExistingURL = self.alreadyExistingProjectURL;
+	if (alreadyExistingURL) {
+		if ([SWS isProjectPackageAtURL4iTM3:alreadyExistingURL]) {
 			return NO;
 		}
-		mandatoryURL = mandatoryURL.parentDirectoryURL4iTM3;
-		NSString * relative = [directory stringByAbbreviatingWithDotsRelativeToDirectory4iTM3:mandatoryURL.path];
+		alreadyExistingURL = alreadyExistingURL.parentDirectoryURL4iTM3;
+		NSString * relative = [directory stringByAbbreviatingWithDotsRelativeToDirectory4iTM3:alreadyExistingURL.path];
 		if ([relative hasPrefix:@".."]) {
 			return NO;
 		}
@@ -1936,7 +1936,7 @@ To Do List:
 //END4iTM3;
 		return NO;
 	}
-	if (self.mandatoryProjectURL) {
+	if (self.alreadyExistingProjectURL) {
 //END4iTM3;
 		return NO;
 	}
@@ -1986,7 +1986,7 @@ To Do List:
 //END4iTM3;
 		return NO;
 	}
-	if (self.mandatoryProjectURL) {
+	if (self.alreadyExistingProjectURL) {
 //END4iTM3;
 		return NO;
 	}
