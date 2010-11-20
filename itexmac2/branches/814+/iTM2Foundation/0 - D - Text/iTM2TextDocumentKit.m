@@ -1268,18 +1268,17 @@ To Do List:
 		}
 		if ([view conformsToProtocol:@protocol(iTM2TextEditor)])
 		{
-			if (![[self textEditors] containsObject:view])
+			if (![self.textEditors containsObject:view])
 			{
-				[[self textEditors] addObject:view];
-				[[view layoutManager] replaceTextStorage:[self textStorage]];
+				[self.textEditors addObject:view];
+				[[view layoutManager] replaceTextStorage:self.textStorage];
 				[view setUsesFindPanel:![SUD boolForKey:iTM2TextViewsDontUseStandardFindPanelKey]];
 				[view awakeFromContext4iTM3];
 			}
 		}
 		return;
 	}
-	NSEnumerator * E = [[view subviews] objectEnumerator];
-	while(view = [E nextObject])
+	for (view in [[view subviews] copy])
 		[self setupTextEditorsForView:view];
 //END4iTM3;
     return;

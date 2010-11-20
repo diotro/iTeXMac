@@ -11,29 +11,22 @@ function find_and_replace {
     find . \( -name "*i*T*M*2*.h" -or -name "*i*T*M*2*.m" \) -exec egrep -q "$1" "{}" \; -print -exec open -a xcode "{}" \;
 }
 
-find_and_replace  'ontextValue' 's/(ontextValue)(?!4)/${1}4iTM3/g'
 
+find_and_replace  'contextStateForKey' 's/(context)(StateForKey)/${1}4iTM3${2}/g'
 
 exit 0
 
-- (id)inheritedInfoForKeyPaths:(NSString *)first,...;
-- (BOOL)isInfoInheritedForKeyPaths:(NSString *)first,...;
-- (id)infoForKeyPaths:(NSString *)first,...;
-- (id)infoInherited:(BOOL)yorn forKeyPaths:(NSString *)first,...;
-
-- (BOOL)setInfo:(id)info forKeyPaths:(NSString *)first,...;
-- (BOOL):(NSString *)first,...;
-- (BOOL):(NSString *)first,...;
-- (BOOL):(NSString *)first,...;
-- (id):(NSString *)first,...;
-- (id):(NSString *)first,...;
-- (id):(NSString *)first,...;
-- (BOOL):(NSString *)first,...;
-- (BOOL)ForKeyPaths:(NSString *)first,...;
-- (BOOL)ForKeyPaths:(NSString *)first,...;
+- (void)contextDidChange;
+- (void)contextDidChangeComplete;
+- (BOOL)notifyContextChange;
+- (BOOL)contextRegistrationNeeded;
+- (NSUInteger)contextStateForKey:(NSString *)aKey
 
 
-
+find_and_replace  'contextDidChange' 's/(context)(DidChange)/${1}4iTM3${2}/g'
+find_and_replace  'notifyContextChange' 's/(notifyContext)(Change)/${1}4iTM3${2}/g'
+find_and_replace  'contextRegistrationNeeded' 's/(context)(RegistrationNeeded)/${1}4iTM3${2}/g'
+find_and_replace  'ontextValue' 's/(ontextValue)(?!4)/${1}4iTM3/g'
 find_and_replace ' enclosingProjectURL4iTM3]' 's/\[ *([_\w.]*) *(enclosingProjectURL4iTM3) *\]/${1}.${2}/g'
 find_and_replace ' URLByStandardizingPath]' 's/\[ *([_\w.]*) *(URLByStandardizingPath) *\]/${1}.${2}/g'
 find_and_replace  'mainInfos' 's/mainInfos/mainInfos4iTM3/g'

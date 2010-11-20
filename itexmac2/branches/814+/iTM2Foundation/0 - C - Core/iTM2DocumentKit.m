@@ -199,7 +199,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[invocation autorelease];
-	[invocation setArgument:&shouldClose atIndex:3];
+	[invocation setArgument:&shouldClose atIndex:3];//EXC_BAD_ACCESS
 	if (shouldClose && !self.cannotCloseWithNoFileImage && self.fileURL.isFileURL && ![DFM fileExistsAtPath:self.fileURL.path]) {
 		NSBeginAlertSheet(
 			NSLocalizedStringFromTableInBundle(@"Warning", TABLE, BUNDLE, ""),

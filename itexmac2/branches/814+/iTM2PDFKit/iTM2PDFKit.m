@@ -636,7 +636,7 @@ To Do List:
 		doc.delegate = self;
 		if ([_drawer state] == NSDrawerOpenState)
 			self.updateTabView;
-		self.contextDidChange;
+		self.context4iTM3DidChange;
 	}
 	[INC addObserver:self selector:_cmd name:name object:nil];
 //END4iTM3;
@@ -709,7 +709,7 @@ To Do List:
 	[newCell setImageFrameStyle:[oldCell imageFrameStyle]];
 	[column setDataCell:newCell];
 	#endif
-	self.contextDidChange;
+	self.context4iTM3DidChange;
 //LOG4iTM3(@"Setting up the pdf inspector:DONE");
 //END4iTM3;
     return;
@@ -1547,7 +1547,7 @@ To Do List:
 		}
 		[self setDocumentViewVisibleRect:newRect];
 		self.updatePDFOutlineInformation;
-		self.contextDidChangeComplete;
+		self.context4iTM3DidChangeComplete;
 	}
 //END4iTM3;
     return;
@@ -1752,8 +1752,8 @@ To Do List:
 //START4iTM3;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void)contextDidChange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DidChange
+- (void)context4iTM3DidChange;
 /*"This message is sent each time the context4iTM3Manager have changed.
 The receiver will take appropriate actions to synchronize its state with its context4iTM3Manager.
 Subclasses will most certainly override this method because the default implementation does nothing.
@@ -1763,7 +1763,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super contextDidChange];
+	[super context4iTM3DidChange];
 	PDFView * V = self.pdfView;
 	[V setBackgroundColor:self.backgroundColor];
 #if 0
@@ -1808,7 +1808,7 @@ LOG4iTM3(@"view      scale:%f",.);
 	{
 		LOG4iTM3(@"NO VIEW...");
 	}
-	self.contextDidChangeComplete;
+	self.context4iTM3DidChangeComplete;
 //END4iTM3;
     return;
 }
@@ -2046,7 +2046,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = self.autoScales;
 	[self setAutoScales:!old];
-	self.contextDidChange;
+	self.context4iTM3DidChange;
 	self.validateWindowContent4iTM3;
 //END4iTM3;
     return;
@@ -8256,7 +8256,7 @@ To Do List:
 if(!__D) __D = [NSMutableDictionary dictionary];\
 [__D setValue:argument forKey:KEY];\
 [self takeContext4iTM3Value:__D forKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];\
-[self.context4iTM3Manager notifyContextChange];
+[self.context4iTM3Manager notifyContext4iTM3Change];
 
 @implementation NSApplication(iTM2PDFKitResponder)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2PDFKitResponderCompleteDidFinishLaunching4iTM3

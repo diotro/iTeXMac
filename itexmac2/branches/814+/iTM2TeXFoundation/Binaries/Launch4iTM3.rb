@@ -234,6 +234,10 @@ class Launcher
 
 end
 
+require 'pp'
+pp ENV
+pp ARGV
+
 # parsing arguments
 i = 0
 while i < ARGV.length
@@ -257,7 +261,7 @@ EOF
 				i+=1
 			else
 				system("#{$0}",'-h')
-				puts "Error: "+$me+" "+ARGV.join(' ')+"\n"
+				puts "! Error: "+$me+" "+ARGV.join(' ')+": Missing an action name, please report the problem.\n"
 				exit 0
 			end
 		when '-p', '--project'
@@ -267,7 +271,7 @@ EOF
 				i+=1
 			else
 				system("#{$0}",'-h')
-				puts "Error: "+$me+" "+ARGV.join(' ')+"\n"
+				puts "! Error: "+$me+" "+ARGV.join(' ')+": Missing a project path, please report the problem.\n"
 				exit 0
 			end
 		when '-m', '--master'
@@ -277,7 +281,7 @@ EOF
 				i+=1
 			else
 				system("#{$0}",'-h')
-				puts "Error: "+$me+" "+ARGV.join(' ')
+				puts "! Error: "+$me+" "+ARGV.join(' ')+": Did you specify a master file in the project documents window?\n"
 				exit 0
 			end
 		when '-e', '--engine'
@@ -288,13 +292,11 @@ EOF
 				i+=1
 			else
 				system("#{$0}",'-h')
-				puts "Error: "+$me+" "+ARGV.join(' ')
+				puts "! Error: "+$me+" "+ARGV.join(' ')+": Missing an engine name, please report the problem.\n"
 				exit 0
 			end
 	end
 end
-require 'pp'
-pp ENV
 $launcher = Launcher.new($project_name,$action,$master_name,$engine_mode)
 $launcher.do_execute
 $launcher.setup_bin_links

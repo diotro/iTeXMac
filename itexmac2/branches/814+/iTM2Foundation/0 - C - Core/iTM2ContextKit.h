@@ -345,13 +345,13 @@ enum
 - (void)takeContext4iTM3Bool:(BOOL)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*! 
-    @method		contextStateForKey:
+    @method		context4iTM3StateForKey:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		key
     @result		State
 */
-- (NSUInteger)contextStateForKey:(NSString *)aKey;  
+- (NSUInteger)context4iTM3StateForKey:(NSString *)aKey;  
 
 /*! 
     @method		toggleContext4iTM3BoolForKey:
@@ -403,7 +403,7 @@ enum
 - (void)awakeFromContext4iTM3;
 
 /*! 
-    @method     contextDidChange
+    @method     context4iTM3DidChange
     @abstract	Abstract forthcoming.
     @discussion	You should send this message whenever the context will need a registration at appropriate time.
 				The default implementation does nothing else unless the receiver has an implementation.
@@ -412,40 +412,40 @@ enum
     @param      None
     @result     None
 */
-- (void)contextDidChange;
+- (void)context4iTM3DidChange;
 
 /*! 
-    @method     contextDidChangeComplete
+    @method     context4iTM3DidChangeComplete
     @abstract	Abstract forthcoming.
-    @discussion	You should send this message just before returning your contextDidChange implementation.
+    @discussion	You should send this message just before returning your context4iTM3DidChange implementation.
     @param      None
     @result     None
 */
-- (void)contextDidChangeComplete;
+- (void)context4iTM3DidChangeComplete;
 
 /*! 
-    @method     notifyContextChange
+    @method     notifyContext4iTM3Change
     @abstract	Abstract forthcoming.
     @discussion	Force an update base on the context. This is automatically sent by the takeContexValue:forKey:domain:.
     @param      None
     @result     Always YES
 */
-- (BOOL)notifyContextChange;
+- (BOOL)notifyContext4iTM3Change;
 
 /*! 
-    @method     contextRegistrationNeeded
+    @method     context4iTM3RegistrationNeeded
     @abstract	Abstract forthcoming.
     @discussion	Whether the coontext needs registration.
 				The saveContext4iTM3: method always forwards the message as ...SaveContext: submessages,
-				whatever contextRegistrationNeeded returns. It is up to the ...SaveContext: to decide what to do
+				whatever context4iTM3RegistrationNeeded returns. It is up to the ...SaveContext: to decide what to do
 				according to this flag, possibly ignoring the return value. When saveContext4iTM3: returns,
-				contextRegistrationNeeded returns NO until a contextDidChange is sent.
+				context4iTM3RegistrationNeeded returns NO until a context4iTM3DidChange is sent.
 				The default implementation always return NO unless the receiver has an implementation.
 				(see iTM2Implementation.h)
     @param      None
     @result     yorn
 */
-- (BOOL)contextRegistrationNeeded;
+- (BOOL)context4iTM3RegistrationNeeded;
 
 @end
 

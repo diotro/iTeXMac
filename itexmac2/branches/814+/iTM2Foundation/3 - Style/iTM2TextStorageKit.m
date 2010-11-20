@@ -663,8 +663,8 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CONTEXT
 #warning THERE MUST BE SOMETHING DESIGNED TO CASCADE A CHANGE IN THE CONTEXT
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void)xcontextDidChange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DidChange
+- (void)xcontext4iTM3DidChange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Sun Oct  3 07:38:23 GMT 2004
@@ -672,10 +672,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super contextDidChange];
+	[super context4iTM3DidChange];
     [self setSyntaxParserStyle:[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask]
             variant: [self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask]];
-	self.contextDidChangeComplete;
+	self.context4iTM3DidChangeComplete;
 //END4iTM3;
     return;
 }

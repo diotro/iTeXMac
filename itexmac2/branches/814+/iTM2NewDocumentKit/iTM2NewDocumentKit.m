@@ -1028,6 +1028,84 @@ To Do List:
 //END4iTM3;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithURL:error:
+- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+/*"Description forthcoming.
+Version History: jlaurens AT users DOT sourceforge DOT net
+Révisé par itexmac2: 2010-11-20 21:31:43 +0100
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+	if (self.creationMode != iTM2ToggleNewProjectMode) {
+		return NO;
+	}
+	if (self.preferWrapper) {
+		return NO;
+	}
+	NSURL * sourceURL = self.selectedTemplate.URLValue;
+    //  create a file wrapper for that URL
+    //  remove all the unnecessary stuff
+    //  change the names and the contents
+    //  finally save the result
+    //  We start by opening all the available projects
+    //  Then we convert all the projects
+    //  Then all the documents owned by each project
+    //  Then all the other documents
+    //  There is a big problem when there are different projects
+    //  because a file can be owned by different projects
+    //  in which case the meta data are in the different projects
+    //  If all the metadata are the same, it's OK
+    //  If the metadata are different from one project to the other
+    //  there is something wrong that we cannot solve simply
+    //  We choose the metadata coming from the "main" project when not coming from the file extended attributes.
+    //  Only one project is used.
+    iTM2ProjectController * PC = [[iTM2ProjectController alloc] init];
+    NSMutableArray * alreadyURLs = [NSMutableArray array];
+    //  Intermediate projects are created
+    //  They will be removed at the end
+    NSMutableSet * intermediateProjects = [NSMutableSet set];
+    for (NSURL * projectURL in sourceURL.enclosedProjectURLs4iTM3) {
+        NSString * type = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
+        Class C = [SDC documentClassForType:type];
+        iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL ofType:type error:outErrorPtr];
+        [PC registerProject:PD];
+    }
+    //  
+    NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:sourceURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
+    if (!FW) {
+        return YES;//   returns YES BUT there was an error
+    }
+    //  resolve the symbolic links
+    NSUInteger firewall = 256;
+    while (FW.isSymbolicLink) {
+        sourceURL = FW.symbolicLinkDestinationURL;
+        FW = [[NSFileWrapper alloc] initWithURL:FW.symbolicLinkDestinationURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
+        if (--firewall) {
+            continue;
+        } else {
+            OUTERROR4iTM3((-1),(@"Too many links"),nil);
+            return YES;
+        }
+    }
+    NSURL * targetURL = fileURL.URLByDeletingPathExtension;
+	NSString * projectName = targetURL.lastPathComponent;
+	[self takeContext4iTM3Value:targetURL.URLByDeletingLastPathComponent.path
+		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	if ([DFM fileExistsAtPath:targetURL.path]) {
+		LOG4iTM3(@"There is already a project at\n%@",targetURL);
+	}
+	NSDictionary * filter = [self filterForProjectName:projectName];
+    if ((FW = [self convertedFileWrapper:FW withOriginalURL:sourceURL projectController:PC dictionary:filter error:outErrorPtr])) {
+        FW.preferredFilename = [self convertedString:FW.preferredFilename withDictionary:filter];// Only now, otherwise there is a problem with fast enumeration
+        [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:outErrorPtr]
+            && [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
+    }
+	self.stopProgressIndication;
+    //  Now I just have to open the project in the shaed project controller
+//END4iTM3;
+    return YES;// return YES even if there was an error
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInAlreadyExistingProjectNewDocumentWithURL:error:
 - (BOOL)createInAlreadyExistingProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
@@ -1358,84 +1436,6 @@ To Do List:
 	self.stopProgressIndication;
 //END4iTM3;
     return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithURL:error:
-- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Wed Mar 10 10:23:58 UTC 2010
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	if (self.creationMode != iTM2ToggleNewProjectMode) {
-		return NO;
-	}
-	if (self.preferWrapper) {
-		return NO;
-	}
-	NSURL * sourceURL = self.selectedTemplate.URLValue;
-    //  create a file wrapper for that URL
-    //  remove all the unnecessary stuff
-    //  change the names and the contents
-    //  finally save the result
-    //  We start by opening all the available projects
-    //  Then we convert all the projects
-    //  Then all the documents owned by each project
-    //  Then all the other documents
-    //  There is a big problem when there are different projects
-    //  because a file can be owned by different projects
-    //  in which case the meta data are in the different projects
-    //  If all the metadata are the same, it's OK
-    //  If the metadata are different from one project to the other
-    //  there is something wrong that we cannot solve simply
-    //  We choose the metadata coming from the "main" project when not coming from the file extended attributes.
-    //  Only one project is used.
-    iTM2ProjectController * PC = [[iTM2ProjectController alloc] init];
-    NSMutableArray * alreadyURLs = [NSMutableArray array];
-    //  Intermediate projects are created
-    //  They will be removed at the end
-    NSMutableSet * intermediateProjects = [NSMutableSet set];
-    for (NSURL * projectURL in sourceURL.enclosedProjectURLs4iTM3) {
-        NSString * type = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
-        Class C = [SDC documentClassForType:type];
-        iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL ofType:type error:outErrorPtr];
-        [PC registerProject:PD];
-    }
-    //  
-    NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:sourceURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
-    if (!FW) {
-        return YES;//   returns YES BUT there was an error
-    }
-    //  resolve the symbolic links
-    NSUInteger firewall = 256;
-    while (FW.isSymbolicLink) {
-        sourceURL = FW.symbolicLinkDestinationURL;
-        FW = [[NSFileWrapper alloc] initWithURL:FW.symbolicLinkDestinationURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
-        if (--firewall) {
-            continue;
-        } else {
-            OUTERROR4iTM3((-1),(@"Too many links"),nil);
-            return YES;
-        }
-    }
-    NSURL * targetURL = fileURL.URLByDeletingPathExtension;
-	NSString * projectName = targetURL.lastPathComponent;
-	[self takeContext4iTM3Value:targetURL.URLByDeletingLastPathComponent.path
-		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
-	if ([DFM fileExistsAtPath:targetURL.path]) {
-		LOG4iTM3(@"There is already a project at\n%@",targetURL);
-	}
-	NSDictionary * filter = [self filterForProjectName:projectName];
-    if ((FW = [self convertedFileWrapper:FW withOriginalURL:sourceURL projectController:PC dictionary:filter error:outErrorPtr])) {
-        FW.preferredFilename = [self convertedString:FW.preferredFilename withDictionary:filter];// Only now, otherwise there is a problem with fast enumeration
-        [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:outErrorPtr]
-            && [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
-    }
-	self.stopProgressIndication;
-    //  Now I just have to open the project in the shaed project controller
-//END4iTM3;
-    return YES;// return YES even if there was an error
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInOldProjectNewDocumentWithURL:error:
 - (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)outErrorPtr;

@@ -1114,21 +1114,15 @@ To Do List:
 			NSURL * fileURL = [project URLForFileKey:fileKey];
 			NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
 			Class C = [SDC documentClassForType:type];
-			if([C isSubclassOfClass:[iTM2TextDocument class]])
-			{
-				if(D = [project subdocumentForFileKey:fileKey])
-				{
+			if([C isSubclassOfClass:[iTM2TextDocument class]]) {
+				if((D = [project subdocumentForFileKey:fileKey])) {
 					[D takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
-				}
-				else
-				{
+				} else {
 					[project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 				}
 				changed = YES;
 			}
-		}
-		else if([fileKey isEqual:iTM2ProjectDefaultsKey])
-		{
+		} else if([fileKey isEqual:iTM2ProjectDefaultsKey]) {
 			isAuto = [NSNumber numberWithBool:!old];
 			changed = [project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 		}
@@ -1175,7 +1169,7 @@ To Do List:
 		sender.state = NSOffState;
 		return NO;
 	}
-	if(selectedRowIndexes.count>1)// no item selected
+	if(selectedRowIndexes.count>1)// more than one item selected
 	{
 //END4iTM3;
 		sender.state = NSMixedState;

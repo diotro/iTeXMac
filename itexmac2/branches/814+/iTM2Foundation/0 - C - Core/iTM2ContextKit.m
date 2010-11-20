@@ -213,7 +213,7 @@ To Do List:
 		didChange |= [SUD takeContext4iTM3Value:object forKey:aKey domain:mask];
 	}
 //LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
-    return (didChange &= ~iTM2ContextNoContextMask) && self.notifyContextChange;
+    return (didChange &= ~iTM2ContextNoContextMask) && self.notifyContext4iTM3Change;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= context4iTM3FontForKey:domain:
 - (NSFont *)context4iTM3FontForKey:(NSString *)aKey domain:(NSUInteger)mask;
@@ -608,22 +608,22 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChangeComplete
-- (void)contextDidChangeComplete;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DidChangeComplete
+- (void)context4iTM3DidChangeComplete;
 /*"This message discards any pending change in the context manager.
-Send this message just before you return from your -contextDidChange method
+Send this message just before you return from your -context4iTM3DidChange method
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 10/20/2006
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(contextDidChange) object:nil];
+	[self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(context4iTM3DidChange) object:nil];
 	[self.implementation takeMetaValue:nil forKey:@"iTM2ContextRegistrationNeeded"];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyContextChange
-- (BOOL)notifyContextChange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyContext4iTM3Change
+- (BOOL)notifyContext4iTM3Change;
 /*"This message should be sent each time the context have changed.
 It is automatically sent by the takeContext4iTM3Value:forKey:context: methods.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -633,16 +633,16 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self.implementation takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"iTM2ContextRegistrationNeeded"];
-	[self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(contextDidChange) object:nil];
-	[self performSelector:@selector(contextDidChange) withObject:nil afterDelay:ZER0];
+	[self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(context4iTM3DidChange) object:nil];
+	[self performSelector:@selector(context4iTM3DidChange) withObject:nil afterDelay:ZER0];
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void)contextDidChange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DidChange
+- (void)context4iTM3DidChange;
 /*"This message is sent each time the context4iTM3Manager have changed on the next loop after the change.
 The receiver will take appropriate actions to synchronize its state with its context4iTM3Manager.
 Subclasses will most certainly override this method because the default implementation does nothing.
-You must send a - contextDidChangeComplete just before returning. This addresses reentrant code problems.
+You must send a - context4iTM3DidChangeComplete just before returning. This addresses reentrant code problems.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
@@ -651,8 +651,8 @@ To Do List:
 //START4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextRegistrationNeeded
-- (BOOL)contextRegistrationNeeded;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3RegistrationNeeded
+- (BOOL)context4iTM3RegistrationNeeded;
 /*"This message is sent each time the context4iTM3Manager have changed.
 The receiver will take appropriate actions to synchronize its state with its context4iTM3Manager.
 Subclasses will most certainly override this method because the default implementation does nothing.
@@ -664,8 +664,8 @@ To Do List:
 //START4iTM3;
     return [[self.implementation metaValueForKey:@"iTM2ContextRegistrationNeeded"] boolValue];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextStateForKey:
-- (NSUInteger)contextStateForKey:(NSString *)aKey;  
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StateForKey:
+- (NSUInteger)context4iTM3StateForKey:(NSString *)aKey;  
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
@@ -1157,7 +1157,7 @@ To Do List:
 		}
 	}
 //LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
-    return didChange && self.notifyContextChange;
+    return didChange && self.notifyContext4iTM3Change;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentCompleteSaveContext4iTM3:
 - (void)documentCompleteSaveContext4iTM3:(id)sender;

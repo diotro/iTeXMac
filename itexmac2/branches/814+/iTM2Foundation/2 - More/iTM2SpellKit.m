@@ -358,8 +358,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void)contextDidChange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DidChange
+- (void)context4iTM3DidChange;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 04/04/2002
@@ -369,8 +369,8 @@ To Do List: ...
 //START4iTM3;
 	BOOL yorn = [self context4iTM3BoolForKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
     [self setContinuousSpellCheckingEnabled:yorn];
-	[super contextDidChange];
-	self.contextDidChangeComplete;
+	[super context4iTM3DidChange];
+	self.context4iTM3DidChangeComplete;
 //END4iTM3;
     return;
 }

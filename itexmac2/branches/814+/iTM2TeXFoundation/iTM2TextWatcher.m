@@ -200,8 +200,8 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
-- (void)contextDidChange;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DidChange
+- (void)context4iTM3DidChange;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -210,8 +210,8 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[_iTM2TextWatcherMapTable removeObjectForKey:self];
-	[super contextDidChange];
-	self.contextDidChangeComplete;
+	[super context4iTM3DidChange];
+	self.context4iTM3DidChangeComplete;
 //END4iTM3;
     return;
 }

@@ -2676,6 +2676,7 @@ To Do List:
 	if(([notification object] == TV) && [N respondsToSelector:@selector(boolValue)] && [N boolValue])
 	{
 		NSDocument * D = self.document;
+NSAssert(D,@"Insepctor with no document ???");
 		NSString * S = [TV string];
 		NSRange selectedRange = [TV selectedRange];
 		NSUInteger charIndex = selectedRange.location;

@@ -337,7 +337,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	sender.state = [self contextStateForKey:iTM2DontUseSmartMacrosKey];
+	sender.state = [self context4iTM3StateForKey:iTM2DontUseSmartMacrosKey];
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= takeMacroModeFromRepresentedObject:
