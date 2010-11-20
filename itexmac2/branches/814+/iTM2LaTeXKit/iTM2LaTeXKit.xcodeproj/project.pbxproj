@@ -500,6 +500,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"${PROJECT_DIR}\" \"${BUILD_ROOT}\"\nexit 0\n";
+			showEnvVarsInLog = 0;
 		};
 		DC2741F7090CE65800C2D1D2 /* Prepare public header */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -514,6 +515,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Change the write access because we will lock the access in the \"merge headers\" script below\necho \"warning: iTeXMac2 INFO, preparing the ${PRODUCT_NAME} public headers directory\"\nif [ -d \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\" ]\nthen\n\tcd \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\"\n\t\"${CHMOD}\" -R u+w .\n\tls -al .\nelse\n\techo \"warning: iTeXMac2 INFO, No public headers folder path\"\nfi\necho \"warning: iTeXMac2 INFO, preparing the ${PRODUCT_NAME} public headers directory... DONE\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DC568C0C0913D3DA00AB5747 /* Expand the compressed resource */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -529,6 +531,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DC5D6FF20949DFE100EBA96C /* Synchronize */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -543,6 +546,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2TeXFoundation\n";
+			showEnvVarsInLog = 0;
 		};
 		DC81AD320887164400943C99 /* Really build iTeXMac2 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -571,6 +575,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2LaTeXKit\n";
+			showEnvVarsInLog = 0;
 		};
 		DCE417D70AB61DEE00FB432D /* Install */ = {
 			isa = PBXShellScriptBuildPhase;

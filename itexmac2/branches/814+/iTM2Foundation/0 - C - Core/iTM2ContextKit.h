@@ -140,50 +140,50 @@ enum
 - (void)setContext4iTM3Dictionary:(id)dictionary;
 
 /*! 
-    @method		contextValueForKey:domain:
+    @method		context4iTM3ValueForKey:domain:
     @abstract	The context value for the given key.
-    @discussion	Wraps the getContextValue:forKey:domain: method below.
+    @discussion	Wraps the getContext4iTM3Value:forKey:domain: method below.
 				You are not expected to overide this method but the above mentioned one.
     @param		key
     @param		mask
     @result		None
 */
-- (id)contextValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (id)context4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
-    @method		getContextValueForKey:domain:
+    @method		getContext4iTM3ValueForKey:domain:
     @abstract	The context value for the given key.
     @discussion	Comes from the context dictionary if any, at least from the context manager.
     @param		key
     @param		mask
     @result		None
 */
-- (id)getContextValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
-    @method		takeContextValue:forKey:domain:
+    @method		takeContext4iTM3Value:forKey:domain:
     @abstract	Records the given context value for the given key.
-    @discussion	Wraps the setContextValue:forKey:domain: method below.
+    @discussion	Wraps the setContext4iTM3Value:forKey:domain: method below.
 				You are not expected to overide this method but the above mentioned one.
     @param		value
     @param		key
     @param		mask
     @result     yorn whether something has changed.
 */
-- (NSUInteger)takeContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (NSUInteger)takeContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
-    @method		setContextValue:forKey:domain:
+    @method		setContext4iTM3Value:forKey:domain:
     @abstract	Records the given context value for the given key.
     @discussion	It forwards the request to the context manager,
                 unless subclassers have overriden the context4iTM3Dictionary to return a valid mutable dictionary.
-				Use the -takeContextValue:forKey:domain: above, except when overiding the method.
+				Use the -takeContext4iTM3Value:forKey:domain: above, except when overiding the method.
     @param		value
     @param		key
     @param		mask
     @result     yorn whether something has changed.
 */
-- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
     @method		context4iTM3FontForKey:domain:domain:
@@ -428,9 +428,9 @@ enum
     @abstract	Abstract forthcoming.
     @discussion	Force an update base on the context. This is automatically sent by the takeContexValue:forKey:domain:.
     @param      None
-    @result     None
+    @result     Always YES
 */
-- (void)notifyContextChange;
+- (BOOL)notifyContextChange;
 
 /*! 
     @method     contextRegistrationNeeded
@@ -452,16 +452,16 @@ enum
 @interface NSDocument(iTM2ContextKit)
 
 /*! 
-    @method     contextValueForKey:
+    @method     context4iTM3ValueForKey:
     @abstract   Abstract forthcoming.
-    @discussion See the -takeContextValue:forKey: discussion below.
+    @discussion See the -takeContext4iTM3Value:forKey: discussion below.
     @param      key
     @result     A value
 */
-- (id)getContextValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
-    @method     takeContextValue:forKey:
+    @method     takeContext4iTM3Value:forKey:
     @abstract   Abstract forthcoming.
     @discussion This is the setter entry point for the context of documents.
 				It also maintains a copy of each context value based on the file extension.
@@ -491,7 +491,7 @@ enum
     @param      key is the context value key
     @result     yorn whether something has changed.
 */
-- (NSUInteger)setContextValue:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
 
 /*! 
     @method     documentCompleteSaveContext4iTM3:

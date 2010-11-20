@@ -91,7 +91,7 @@ enum
 	NSImage		*	iVarTemplateImage;
 	NSImageView	*	iVarTemplateImageView;
 	PDFView		*	iVarTemplatePDFView;
-	NSURL		*	iVarMandatoryProjectURL;
+	NSURL		*	iVarAlreadyExistingProjectURL;
 	NSURL		*	iVarOldProjectURL;
     NSURL       *   iVarPanelDirectoryURL4iTM3;
     NSDictionary * iVarAvailableProjects4iTM3;
@@ -105,7 +105,7 @@ enum
 @property (assign) IBOutlet NSImage		*	templateImage;
 @property (assign) IBOutlet NSImageView	*	templateImageView;
 @property (assign) IBOutlet PDFView		*	templatePDFView;
-@property (assign) NSURL * mandatoryProjectURL;
+@property (assign) NSURL * alreadyExistingProjectURL;
 @property (assign) NSURL * oldProjectURL;
 @property (assign) NSDictionary * availableProjects;
 /*!

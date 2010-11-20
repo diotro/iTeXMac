@@ -37,6 +37,34 @@ NSString * const iTM2NewDORGANIZATIONNAMEKey = @"__(ORGANIZATIONNAME)__";
 
 NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 
+@interface NSFileWrapper(more)
+- (void) displayLongDescription4iTM3;
+@end
+
+@implementation NSFileWrapper(more)
+
+- (void) _displayLongDescription4iTM3:(NSMutableArray *)MRA;
+{
+    NSLog(@"%@%@",[MRA componentsJoinedByString:@""],self.preferredFilename);
+    if (self.isDirectory) {
+        [MRA addObject:@"."];
+        for (NSFileWrapper * fw in self.fileWrappers.allValues) {
+            [fw _displayLongDescription4iTM3:MRA];
+        }
+        MRA.removeLastObject;
+    }
+    return;
+}
+
+- (void) displayLongDescription4iTM3;
+{
+    NSMutableArray * MRA = NSMutableArray.array;
+    [self _displayLongDescription4iTM3:MRA];
+    return;
+}
+
+@end
+
 @interface iTM2NewDocumentTreeNode:iTM2TreeNode
 {
 @private
@@ -148,7 +176,7 @@ To Do List:
 @interface iTM2NewDocumentAssistant()
 @property (readwrite,assign) BOOL preferWrapper;
 @property (readwrite,assign) NSURL * panelDirectoryURL;
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withURL:(NSURL *)URL dDictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withOriginalURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
 @end
 
 @implementation iTM2NewDocumentAssistant
@@ -161,7 +189,7 @@ To Do List:
 @synthesize templateImageView = iVarTemplateImageView;
 @synthesize templateImage = iVarTemplateImage;
 @synthesize templatePDFView = iVarTemplatePDFView;
-@synthesize alreadyExistingProjectURL = iVarMandatoryProjectURL;
+@synthesize alreadyExistingProjectURL = iVarAlreadyExistingProjectURL;
 @synthesize oldProjectURL = iVarOldProjectURL;
 
 static id _iTM2NewDocumentsTree = nil;
@@ -1067,11 +1095,7 @@ To Do List:
 				[SPC setProject:alreadyExistingProject forURL:url];//
 				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:url display:YES error:outErrorPtr];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
-					NSTextStorage * TS = [document textStorage];
-					[TS beginEditing];
-					[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length)
-                            withString:[self convertedString:TS.string withDictionary:filter]];
-                    [TS endEditing];
+					document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
 				}//if([document isKindOfClass:[iTM2TextDocument class]])
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				document.undoManager.removeAllActions;
@@ -1274,11 +1298,7 @@ To Do List:
                                 document.fileURL = convertedURL;
                             }
                             if ([document isKindOfClass:[iTM2TextDocument class]]) {
-                                NSTextStorage * TS = [document textStorage];
-                                NSString * new = [self convertedString:TS.string withDictionary:filter];
-                                [TS beginEditing];
-                                [TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:new];
-                                [TS endEditing];
+                                document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
                                 [document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
                                 document.undoManager.removeAllActions;
     //LOG4iTM3(@"Open document saved");
@@ -1291,12 +1311,7 @@ To Do List:
                             document = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:outErrorPtr];
     //LOG4iTM3(@"document is: %@", document);
                             if ([document isKindOfClass:[iTM2TextDocument class]]) {
-                                NSTextStorage * TS = [document textStorage];
-                                NSString * old = [TS string];
-                                NSString * new = [self convertedString:old withDictionary:filter];
-                                [TS beginEditing];
-                                [TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:new];
-                                [TS endEditing];
+                                document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
                             }
     //LOG4iTM3(@"originalPath is: %@", originalPath);
     //LOG4iTM3(@"convertedPath is: %@", convertedPath);
@@ -1380,7 +1395,6 @@ To Do List:
     NSMutableArray * alreadyURLs = [NSMutableArray array];
     //  Intermediate projects are created
     //  They will be removed at the end
-    //  In the meanwhile, files 
     NSMutableSet * intermediateProjects = [NSMutableSet set];
     for (NSURL * projectURL in sourceURL.enclosedProjectURLs4iTM3) {
         NSString * type = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
@@ -1405,19 +1419,21 @@ To Do List:
             return YES;
         }
     }
-	fileURL = fileURL.URLByDeletingPathExtension;
-	NSURL * targetURL = fileURL;
-	NSString * projectName = fileURL.lastPathComponent;
+    NSURL * targetURL = fileURL.URLByDeletingPathExtension;
+	NSString * projectName = targetURL.lastPathComponent;
 	[self takeContext4iTM3Value:targetURL.URLByDeletingLastPathComponent.path
 		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
 	if ([DFM fileExistsAtPath:targetURL.path]) {
 		LOG4iTM3(@"There is already a project at\n%@",targetURL);
 	}
 	NSDictionary * filter = [self filterForProjectName:projectName];
-    if ((FW = [self convertedFileWrapper:FW withURL:targetURL projectController:PC dictionary:filter error:outErrorPtr])) {
-        [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:outErrorPtr];
+    if ((FW = [self convertedFileWrapper:FW withOriginalURL:sourceURL projectController:PC dictionary:filter error:outErrorPtr])) {
+        FW.preferredFilename = [self convertedString:FW.preferredFilename withDictionary:filter];// Only now, otherwise there is a problem with fast enumeration
+        [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:outErrorPtr]
+            && [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
     }
 	self.stopProgressIndication;
+    //  Now I just have to open the project in the shaed project controller
 //END4iTM3;
     return YES;// return YES even if there was an error
 }
@@ -1437,7 +1453,7 @@ To Do List:
     //  Create the info wrapper
     
 	if (!oldProjectURL) {
-		LOG4iTM3(@"*** ERROR: I have been asked to create a document in an old project, but Ii was not given an old project...");
+		LOG4iTM3(@"*** ERROR: I have been asked to create a document in an old project, but I was not given an old project...");
 		return NO;//<< this is a bug
 	}
 	if ([SWS isWrapperPackageAtURL4iTM3:oldProjectURL])/* Crash Log Report */ {
@@ -1480,11 +1496,8 @@ To Do List:
                     }
 					if ([[SDC documentClassForType:[SDC typeForContentsOfURL:originalURL error:outErrorPtr]] isSubclassOfClass:[iTM2TeXDocument class]]) {
 						iTM2TeXDocument * document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:outErrorPtr];
-						NSTextStorage * TS = document.textStorage;
-						TS.beginEditing;
-						[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
-                        TS.endEditing;
-					}
+						document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
+                    }
 				}
 				[oldProject saveDocument:self];
 				[oldProject.undoManager removeAllActions];
@@ -1497,11 +1510,8 @@ To Do List:
 				// If necessary, the project will be created as expected side effect
 				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
-					NSTextStorage * TS = [document textStorage];
-					[TS beginEditing];
-					[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
-					[TS endEditing];
-				}
+					document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
+                }
 				[oldProject saveDocument:self];
 				[oldProject.undoManager removeAllActions];
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
@@ -1517,8 +1527,8 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withURL:projectController:dictionary:error:
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withOriginalURL:projectController:dictionary:error:
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withOriginalURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 12:47:31 UTC 2010
@@ -1528,33 +1538,59 @@ To Do List:
 //START4iTM3;
     if (outErrorPtr) *outErrorPtr = nil;
     if (FW.isDirectory) {
-        for (NSFileWrapper * fw in FW.fileWrappers.copy) {
+        for (NSFileWrapper * fw in FW.fileWrappers.allValues) {
             NSURL * url = [URL URLByAppendingPathComponent:fw.filename];
-            NSFileWrapper * newFW = [self convertedFileWrapper:fw withURL:url dictionary:filter error:outErrorPtr];
-            if (outErrorPtr) return nil;
-            if (![fw isEqual:newFW]) {
-                [FW removeFileWrapper:fw];
-                if (newFW) [FW addFileWrapper:newFW];
+            NSFileWrapper * newFW = [self convertedFileWrapper:fw withOriginalURL:url projectController:PC dictionary:filter error:outErrorPtr];
+            if (outErrorPtr && *outErrorPtr) return FW;
+            // We cannot rename the filewrapper when it belongs to a directory wrapper
+            // because an exception si thrown about a fast enumeration problem (10.6 SDK)
+            [FW removeFileWrapper:fw];
+            if (newFW) {
+                newFW.preferredFilename = [self convertedString:fw.filename withDictionary:filter];
+                [FW addFileWrapper:newFW];
             }
         }
-    } else if (FW.isRegularFile) {
+     } else if (FW.isRegularFile) {
         //  How can I retrieve the file encoding ?
         //  The old method was based on the text document class
-        if ([[SDC documentClassForType:[SDC typeForContentsOfURL:URL error:outErrorPtr]] isSubclassOfClass:[iTM2TextDocument class]]) {
+        NSString * theType = [SDC typeForContentsOfURL:URL error:outErrorPtr];
+        if (outErrorPtr && *outErrorPtr) return FW;
+        NSData * data = nil;
+        NSDictionary * FAs = nil;
+        if ([[SDC documentClassForType:theType] isSubclassOfClass:[iTM2TextDocument class]]) {
             //  Change the file wrapper
-            iTM2TextDocument * document = [[iTM2TextDocument alloc] initWithContentsOfURL:URL error:outErrorPtr];
-            NSTextStorage * TS = document.textStorage;
-            TS.beginEditing;
-            [TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:[self convertedString:TS.string withDictionary:filter]];
-            TS.endEditing;
-            NSData * data = [document.stringRepresentation dataUsingEncoding:document.stringEncoding allowLossyConversion:YES];
-            NSDictionary * FAs = [FW fileAttributes]; // including extended attributes since 10.6.3
-            FW = [[NSFileWrapper alloc] initRegularFileWithContents:data];
-            FW.fileAttributes = FAs;
+            iTM2TextDocument * document = [[iTM2TextDocument alloc] initWithContentsOfURL:URL ofType:theType error:outErrorPtr];
+            document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
+            data = [document.stringRepresentation dataUsingEncoding:document.stringEncoding allowLossyConversion:YES];
+        } else if ([iTM2ProjectPlistPathExtension pathIsEqual4iTM3:FW.preferredFilename.pathExtension]) {
+            iTM2MainInfoWrapper * MIF = [[iTM2MainInfoWrapper alloc] initWithData:FW.regularFileContents error:outErrorPtr];
+            BOOL changes = NO;
+            for (NSString * K in MIF.fileKeys) {
+                NSString * oldName = [MIF nameForFileKey:K];
+                NSString * newName = [self convertedString:oldName withDictionary:filter];
+                if (![oldName pathIsEqual4iTM3:newName]) {
+                    changes = YES;
+                    [MIF setName:newName forFileKey:K];
+                }
+            }
+            if (changes) {
+                if (!(data = [MIF dataWithFormat:NSPropertyListXMLFormat_v1_0 options:0 error:outErrorPtr])) {
+                    if (!outErrorPtr) {
+                        LOG4iTM3(@"! ERROR: could not edit the main info");
+                        return FW;
+                    }
+                }
+            } else {
+                return FW;
+            }
+        } else {
+            return FW;
         }
+
+        FAs = FW.fileAttributes; // including extended attributes since 10.6.3
+        FW = [[NSFileWrapper alloc] initRegularFileWithContents:data];
+        FW.fileAttributes = FAs;
     }
-    FW.preferredFilename = [self convertedString:FW.filename withDictionary:filter];
-    
 //END4iTM3;
     return FW;
 }

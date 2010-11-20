@@ -368,7 +368,7 @@ To Do List:
     NSData * bookmarkData = nil;
 	switch(filter) {
 		case iTM2PCFilterAbsoluteLink:
-			base = [SPC absoluteSoftLinksSubdirectory];
+			base = [self absoluteSoftLinksSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
 			base = [base stringByAppendingPathComponent:key];
 			base = [DFM pathContentOfSoftLinkAtPath4iTM3:base];
@@ -376,7 +376,7 @@ To Do List:
 		//END4iTM3;
 			return [NSURL fileURLWithPath:base];
 		case iTM2PCFilterRelativeLink:
-			base = [SPC relativeSoftLinksSubdirectory];
+			base = [self relativeSoftLinksSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
 			base = [base stringByAppendingPathComponent:key];
 			base = [DFM pathContentOfSoftLinkAtPath4iTM3:base];
@@ -384,7 +384,7 @@ To Do List:
 		//END4iTM3;
 			return [NSURL fileURLWithPath:base];
 		case iTM2PCFilterAlias:
-			base = [[SPC finderAliasesSubdirectory] stringByAppendingPathComponent:key];
+			base = [[self finderAliasesSubdirectory] stringByAppendingPathComponent:key];
 			projectURL = [NSURL URLWithPath4iTM3:base relativeToURL:projectURL];
 			bookmarkData = [NSURL bookmarkDataWithContentsOfURL:projectURL error:NULL];
 			projectURL = [NSURL URLWithPath4iTM3:base relativeToURL:projectURL];
@@ -392,7 +392,7 @@ To Do List:
 		//END4iTM3;
 			return [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:NULL error:NULL];
 		case iTM2PCFilterBookmark:
-			base = [[SPC bookmarksSubdirectory] stringByAppendingPathComponent:key];
+			base = [[self bookmarksSubdirectory] stringByAppendingPathComponent:key];
 			projectURL = [NSURL URLWithPath4iTM3:base relativeToURL:projectURL];
 			bookmarkData = [NSURL bookmarkDataWithContentsOfURL:projectURL error:NULL];
 		//END4iTM3;
@@ -430,20 +430,20 @@ To Do List:
 	NSArray * result = nil;
 	switch(filter) {
 		case iTM2PCFilterAbsoluteLink:
-			path = [projectName stringByAppendingPathComponent:[SPC absoluteSoftLinksSubdirectory]];
+			path = [projectName stringByAppendingPathComponent:[self absoluteSoftLinksSubdirectory]];
 ready_to_go:;
 			NSPredicate * predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"SELF ENDSWITH[c] '.%@'",iTM2SoftLinkExtension]];
 			result = [DFM contentsOfDirectoryAtPath:path error:NULL];
 			result = [result filteredArrayUsingPredicate:predicate];
 			return [result valueForKey:@"stringByDeletingPathExtension"];
 		case iTM2PCFilterRelativeLink:
-			path = [projectName stringByAppendingPathComponent:[SPC relativeSoftLinksSubdirectory]];
+			path = [projectName stringByAppendingPathComponent:[self relativeSoftLinksSubdirectory]];
 			goto ready_to_go;
 		case iTM2PCFilterAlias:
-			path = [projectName stringByAppendingPathComponent:[SPC finderAliasesSubdirectory]];
+			path = [projectName stringByAppendingPathComponent:[self finderAliasesSubdirectory]];
 			goto ready_to_go;
 		case iTM2PCFilterBookmark:
-			path = [projectName stringByAppendingPathComponent:[SPC bookmarksSubdirectory]];
+			path = [projectName stringByAppendingPathComponent:[self bookmarksSubdirectory]];
 			goto ready_to_go;        
 		case iTM2PCFilterRegular:
 		default:
@@ -521,7 +521,7 @@ To Do List:
 	// url was not normalized
 	NSString * K = [self fileKeyForURL:url filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
 	if (!K.length) return nil;
-	U = [SPC URLForFileKey:K filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
+	U = [self URLForFileKey:K filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
 //END4iTM3;
 	return [U isEqual:url]?url:U;
 }
@@ -703,13 +703,13 @@ To Do List:
 		LOG4iTM3(@"fileURL:%@",fileURL);
 	}
 	iTM2ProjectDocument * PD;
-	for (PD in [SPC projects]) {
+	for (PD in self.projects) {
 		if ([PD ownsSubdocument:document]) {
 			[self setProject:PD forDocument:document];
 			return PD;
 		}
 	}
-    if (PD = [self.cachedProjects objectForKey:fileURL.absoluteURL]) {
+    if ((PD = [self.cachedProjects objectForKey:fileURL.absoluteURL])) {
 		[self setProject:PD forDocument:document];
 		return PD;
 	} else {
@@ -725,7 +725,7 @@ To Do List:
 			[DFM createDirectoryAtPath:url.path.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:nil error:nil];
 		}
 		url = url.normalizedURL4iTM3;
-		[document setFileURL:url];
+		document.fileURL = url;
 		[PD addSubdocument:document];
 		[self setProject:PD forDocument:document];
 		return PD;
@@ -745,7 +745,7 @@ To Do List:
 //START4iTM3;
 	if (!document)
 		return;
-	NSParameterAssert((!projectDocument || [SPC isProject:projectDocument]));
+	NSParameterAssert((!projectDocument || [self isProject:projectDocument]));
 	[document setHasProject4iTM3:(projectDocument != nil)];
 	NSURL * fileURL = document.fileURL;
     if (![[self projectForURL:fileURL] isEqual:projectDocument]) {
@@ -802,12 +802,12 @@ To Do List:
 //START4iTM3;
 	NSParameterAssert(fileURL);
 	id projectDocument = [self.cachedProjects objectForKey:fileURL.URLByStandardizingPath];
-	if ([SPC isProject:projectDocument]) {
+	if ([self isProject:projectDocument]) {
 		return projectDocument;
 	}
 	NSURL * shortFileURL = fileURL.URLByDeletingPathExtension;
 	projectDocument = [self.cachedProjects objectForKey:shortFileURL.URLByStandardizingPath];
-	if ([SPC isProject:projectDocument]) {
+	if ([self isProject:projectDocument]) {
 		[self.cachedProjects setObject:projectDocument forKey:fileURL.URLByStandardizingPath];
 		[projectDocument createNewFileKeyForURL:fileURL];
 		return projectDocument;
@@ -833,7 +833,7 @@ To Do List:
 		LOG4iTM3(@"fileURL:%@",fileURL);
 	}
 	NSParameterAssert(fileURL);
-	NSParameterAssert((!projectDocument || [SPC isProject:projectDocument]));
+	NSParameterAssert((!projectDocument || [self isProject:projectDocument]));
 	[self.cachedProjects setObject:projectDocument forKey:fileURL.URLByStandardizingPath];
 	NSAssert1(!projectDocument || (projectDocument == [self projectForURL:fileURL]),
 		@"..........  INCONSISTENCY:unexpected behaviour,report bug 3131 in %@",__iTM2_PRETTY_FUNCTION__);
@@ -880,22 +880,21 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if ([projectDocument isKindOfClass:[iTM2ProjectDocument class]]) {
-		if (iTM2DebugEnabled) {
-			LOG4iTM3(@"project:%@",projectDocument);
-		}
+        DEBUGLOG4iTM3(0,@"project:%@",projectDocument);
 		// testing consistency
 		// we are not authorized to register a project document with the same name as a previously registered project document
 		NSURL * projectURL = projectDocument.fileURL.URLByStandardizingPath;
-		for(iTM2ProjectDocument * P in self.projects) {
+		for (iTM2ProjectDocument * P in self.projects) {
 //LOG4iTM3(@"PROBLEM");if ([P.fileURL.path pathIsEqual4iTM3:FN]){
 //LOG4iTM3(@"PROBLEM");}
 			NSAssert2(![P.fileURL isEquivalentToURL4iTM3:projectURL],@"You cannot register 2 different project documents with that URL:\n%@==%@",projectURL,P.fileURL);
 		}
+LOG4iTM3(@"self.projects:%@",self.projects);
 		[self.projects addObject:projectDocument];
+LOG4iTM3(@"self.projects:%@",self.projects);
+NSAssert([self.projects containsObject:projectDocument],@"MISSED");
 		[self setProject:projectDocument forDocument:projectDocument];
-		if (iTM2DebugEnabled) {
-			LOG4iTM3(@"project:%@",projectDocument);
-		}
+		DEBUGLOG4iTM3(0,@"project:%@",projectDocument);
 		[INC postNotificationName:iTM2ProjectContextDidChangeNotification object:nil];
 	}
 //END4iTM3;
@@ -1120,7 +1119,7 @@ To Do List:
 		iTM2ProjectDocument * projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:outErrorPtr];
 		[projectDocument fixProjectConsistency];
 		[projectDocument createNewFileKeyForURL:fileURL];
-		[SPC setProject:projectDocument forURL:fileURL];
+		[self setProject:projectDocument forURL:fileURL];
 		return projectDocument;
 	}
 //END4iTM3;
@@ -1171,7 +1170,7 @@ To Do List:
 			// This is definitely the one we would have opened
 			// Remember tha this method is just one of the components of the routine that
 			// maps a project to any given URL
-			return [SPC getProjectInHierarchyForURL:url display:display error:outErrorPtr];
+			return [self getProjectInHierarchyForURL:url display:display error:outErrorPtr];
 		}
 		if ([DFM isWritableFileAtPath:url.path.stringByDeletingLastPathComponent]) {
 			// normally there should not exist a valid project at that location
@@ -1685,7 +1684,7 @@ newWritableProject:;
         fileURL = [NSURL fileURLWithPath:fileName];
 		projectDocument = [self createNewWritableProjectForURL:fileURL display:NO error:outErrorPtr];// NO is required unless a ghost window controller is created
 		[projectDocument saveDocument:nil];
-		[SPC setProject:projectDocument forURL:fileURL];
+		[self setProject:projectDocument forURL:fileURL];
 		return projectDocument;
 	}
 	NSString * dirName = fileName.stringByDeletingLastPathComponent;
@@ -1776,7 +1775,7 @@ newWritableProject:;
 //LOG4iTM3(@">>>>>>>>>>>>>>>>>>>   I have a projectDocument:%@",projectDocument);
 //LOG4iTM3(@">>>>>>>>>>>>>>>>>>>   [SDC documents] are:%@",[SDC documents]);
 			[projectDocument createNewFileKeyForURL:fileURL];
-			[SPC setProject:projectDocument forURL:fileURL];
+			[self setProject:projectDocument forURL:fileURL];
 			if (display) {
 				[projectDocument makeWindowControllers];
 				[projectDocument showWindows];
@@ -1812,7 +1811,7 @@ newWritableProject:;
 			if ([projectDocument createNewFileKeyForURL:fileURL]) {
 				[projectDocument saveDocument:self];
 			}
-			[SPC setProject:projectDocument forURL:fileURL];
+			[self setProject:projectDocument forURL:fileURL];
 			if (display) {
 				[projectDocument makeWindowControllers];
 				[projectDocument showWindows];
@@ -2461,13 +2460,11 @@ To Do List:
 	self.selectedRow = ZER0;
 	self.projects = [NSMutableArray array];
 	NSDictionary * availableProjects = [SPC availableProjectsForURL:[self.fileURL directoryURL4iTM3]];
-	NSEnumerator * E = [[[availableProjects allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
-	NSString * path;
-	while(path = [E nextObject]) {
+	for (NSString * path in [availableProjects.allKeys sortedArrayUsingSelector:@selector(compare:)]) {
 		[self.projects addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 			path,@"path",
 			[availableProjects objectForKey:path],@"displayName",
-			nil]];
+                nil]];
 	}
 //LOG4iTM3(@"self.projects:%@",self.projects);
 	self.toggleProjectMode = self.projects.count>ZER0? iTM2ToggleOldProjectMode:iTM2ToggleNewProjectMode;

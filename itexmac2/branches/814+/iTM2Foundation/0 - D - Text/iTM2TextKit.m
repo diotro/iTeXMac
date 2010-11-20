@@ -553,6 +553,17 @@ To Do List:
 	//START4iTM3;
 	return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= range4iTM3
+- (NSRange)range4iTM3;
+/*"Description Forthcoming.
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - < 1.1: 03/10/2002
+ To Do List:
+ "*/
+{DIAGNOSTIC4iTM3;
+	//START4iTM3;
+	return NSMakeRange(0,self.length);
+}
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TextKit

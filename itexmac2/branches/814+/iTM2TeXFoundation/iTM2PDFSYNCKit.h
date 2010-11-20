@@ -90,8 +90,8 @@ typedef enum
 
 typedef struct
 {
-    float x;
-    float y;
+    CGFloat x;
+    CGFloat y;
     BOOL star;
     BOOL plus;
 } iTM2SynchronizationLocationRecord;

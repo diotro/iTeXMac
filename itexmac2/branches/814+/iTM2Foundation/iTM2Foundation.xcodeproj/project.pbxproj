@@ -4635,6 +4635,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "exit\nRELATIVE_PATH=\"Frameworks/Lua.framework/Versions/A/Lua\"\nABSOLUTE_PATH=\"${BUILD_DIR}/${CONTENTS_FOLDER_PATH}/${RELATIVE_PATH}\"\necho \"#warning Changing install name of ${ABSOLUTE_PATH}\"\nOLD_INSTALL_PATH=\"@executable_path/../${RELATIVE_PATH}\"\nNEW_INSTALL_PATH=\"$(echo ${OLD_INSTALL_PATH}|sed \"s/@executable_path/@loader_path/\")\"\necho \"install_name_tool -change \\\"${OLD_INSTALL_PATH}\\\" \\\"${NEW_INSTALL_PATH}\\\" \\\"${ABSOLUTE_PATH}\\\"\"\ninstall_name_tool -change \"${OLD_INSTALL_PATH}\" \"${NEW_INSTALL_PATH}\" \"${ABSOLUTE_PATH}\"\necho \"otool -L \\\"${ABSOLUTE_PATH}\\\"\"\notool -L \"${ABSOLUTE_PATH}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DC25E42C0991F5F000545F27 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4689,6 +4690,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2Foundation\n";
+			showEnvVarsInLog = 0;
 		};
 		DC81B222088810A600943C99 /* Prepare public header */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4703,6 +4705,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Change the write access because we will lock the access in the \"merge headers\" script below\necho \"warning: iTeXMac2 INFO, preparing the ${PRODUCT_NAME} public headers directory\"\nif [ -d \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\" ]\nthen\n\tcd \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\"\n\t\"${CHMOD}\" -R u+w .\n\tls -al .\nelse\n\techo \"warning: iTeXMac2 INFO, No public headers folder path\"\nfi\necho \"warning: iTeXMac2 INFO, preparing the ${PRODUCT_NAME} public headers directory... DONE\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DC830489086EB2EB004799EB /* translate sdef */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4717,6 +4720,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"warning: iTeXMac2 INFO, translate the sdef's\"\necho \"warning: iTeXMac2 INFO, translate the sdef's... SKIPPED, NOT AVAILABLE\"\nexit 0\ncd \"${PROJECT_DIR}/4 - Scripting\"\necho \"=-=-=-=-=-     CREATING THE SCRIPTING DEFINITIONS FILES\"\nsdp -f s -o \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" \"iTM2Foundation.sdef\"\nif ! [ -f \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iTM2Foundation.scriptSuite\" ]\nthen\n\texit -1\nfi\nsdp -f t -o \"${BUILT_PRODUCTS_DIR}/${LOCALIZED_RESOURCES_FOLDER_PATH}\" \"iTM2Foundation.sdef\"\nif ! [ -f \"${BUILT_PRODUCTS_DIR}/${LOCALIZED_RESOURCES_FOLDER_PATH}/iTM2Foundation.scriptSuite\" ]\nthen\n\texit -2\nfi\nexit 0";
+			showEnvVarsInLog = 0;
 		};
 		DC8304DA086EF3BE004799EB /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4731,6 +4735,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DC9517A1088DED5C0011E823 /* Really build iTeXMac2 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4800,6 +4805,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/iTM2MergeTheFrameworkHeaders.sh;
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

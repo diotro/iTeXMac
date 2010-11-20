@@ -82,7 +82,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateContext4iTM3Manager
 - (void)updateContext4iTM3Manager;
 /*"Subclasses will most certainly override this method.
-Default implementation returns the NSUserDefaults shared instance.
+Default implementation does nothing. It is never overriden so it is not used. maybe we can safey remove this.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002
 To Do List:
@@ -212,11 +212,8 @@ To Do List:
 		didChange &= ~iTM2ContextNoContextMask;
 		didChange |= [SUD takeContext4iTM3Value:object forKey:aKey domain:mask];
 	}
-	if (didChange &= ~iTM2ContextNoContextMask) {
-		self.notifyContextChange;
-	}
 //LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
-    return didChange;
+    return (didChange &= ~iTM2ContextNoContextMask) && self.notifyContextChange;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= context4iTM3FontForKey:domain:
 - (NSFont *)context4iTM3FontForKey:(NSString *)aKey domain:(NSUInteger)mask;
@@ -626,7 +623,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyContextChange
-- (void)notifyContextChange;
+- (BOOL)notifyContextChange;
 /*"This message should be sent each time the context have changed.
 It is automatically sent by the takeContext4iTM3Value:forKey:context: methods.
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -638,7 +635,7 @@ To Do List:
 	[self.implementation takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"iTM2ContextRegistrationNeeded"];
 	[self.class cancelPreviousPerformRequestsWithTarget:self selector:@selector(contextDidChange) object:nil];
 	[self performSelector:@selector(contextDidChange) withObject:nil afterDelay:ZER0];
-    return;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  contextDidChange
 - (void)contextDidChange;
@@ -1009,7 +1006,7 @@ NSString * const iTM2ContextTypesKey = @"iTM2ContextTypes";
 
 @implementation NSDocument(iTM2ContextKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ContextKitCompleteInstallation4iTM3
-+ (void)iTM2ContextKitCompleteInstallation4iTM3;// never called
++ (void)iTM2ContextKitCompleteInstallation4iTM3;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1017,7 +1014,13 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) error:NULL];
+    NSError * ROR = nil;
+	if ([NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) error:&ROR])
+	{
+		MILESTONE4iTM3((@"NSDocument(iTM2ContextKit)"),(@"WARNING: canCloseDocumentWithDelegate:... message could not be patched..."));
+	} else if (ROR) {
+        LOG4iTM3(@"ROR: %@",ROR);
+    }
     [DNC addObserver:self selector:@selector(iTM2ContextKit_ApplicationWillTerminateNotified:) name:NSApplicationWillTerminateNotification object:nil];
 //END4iTM3;
     return;
@@ -1046,8 +1049,7 @@ To Do List:
 //START4iTM3;
 //LOG4iTM3(@"delegate is: %@, shouldCloseSelector is: %@, contextInfo is: %#x", delegate, NSStringFromSelector(shouldCloseSelector), contextInfo);
  	NSMethodSignature * MS = [delegate methodSignatureForSelector:shouldCloseSelector];
-	if (MS)
-	{
+	if (MS) {
 		NSInvocation * I = [NSInvocation invocationWithMethodSignature:MS];
 		[I retainArguments];
 		[I setArgument:&self atIndex:2];
@@ -1074,8 +1076,7 @@ To Do List:
 //START4iTM3;
 //LOG4iTM3(@"doc.fileURL.path is:%@, context4iTM3Dictionary is:%#x", doc.fileURL.path, context4iTM3Dictionary);
 	[invocation autorelease];
-	if (shouldClose)
-	{
+	if (shouldClose) {
 		[doc saveContext4iTM3:self];
     }
 	[invocation setArgument:&shouldClose atIndex:3];
@@ -1094,32 +1095,26 @@ To Do List:
 //START4iTM3;
 	// if there is no context value, looking in the general stuff for the file extension
 	id result = nil;
-	if (result = [super getContext4iTM3ValueForKey:aKey domain:mask&~iTM2ContextStandardDefaultsMask])
-	{
+	if ((result = [super getContext4iTM3ValueForKey:aKey domain:mask&~iTM2ContextStandardDefaultsMask])) {
 		return result;
 	}
 
-	if (mask & iTM2ContextExtendedDefaultsMask)
-	{
+	if (mask & iTM2ContextExtendedDefaultsMask) {
 		NSString * contextKey = nil;
 		NSDictionary * D = nil;
 		NSString * type = self.fileType;
-		if (type.length)
-		{
+		if (type.length) {
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type];
 			D = [SUD dictionaryForKey:contextKey];
-			if (result = [D objectForKey:aKey])
-			{
+			if ((result = [D objectForKey:aKey])) {
 				return result;
 			}
 		}
 		NSString * type4URL = [SDC typeForContentsOfURL:self.fileURL error:NULL];
-		if (type4URL.length && ![type4URL isEqualToUTType4iTM3:type])
-		{
+		if (type4URL.length && ![type4URL isEqualToUTType4iTM3:type]) {
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [SUD dictionaryForKey:contextKey];
-			if (result = [D objectForKey:aKey])
-			{
+			if ((result = [D objectForKey:aKey])) {
 				return result;
 			}
 		}
@@ -1138,40 +1133,31 @@ To Do List:
 //START4iTM3;
 	NSUInteger didChange = [super setContext4iTM3Value:object forKey:aKey domain:mask];
 	// Set the value in the user defaults data base with the file extension and document type
-	if (mask & iTM2ContextExtendedDefaultsMask)
-	{
+	if (mask & iTM2ContextExtendedDefaultsMask) {
 		NSString * contextKey = nil;
 		NSMutableDictionary * D = nil;
 		NSString * type = self.fileType;
 		id old = nil;
-		if (type.length)
-		{
+		if (type.length) {
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type];
 			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];
-			if (![old isEqual:object] && (old != object))
-			{
+			if (![old isEqual:object] && (old != object)) {
 				[D setValue:object forKey:aKey];
 				[SUD setObject:D forKey:contextKey];
 			}
 		}
 		NSString * type4URL = [SDC typeForContentsOfURL:self.fileURL error:NULL];
-		if (type4URL.length && ![type4URL isEqualToUTType4iTM3:type])
-		{
+		if (type4URL.length && ![type4URL isEqualToUTType4iTM3:type]) {
 			contextKey = [iTM2ContextTypesKey stringByAppendingPathExtension:type4URL];
 			D = [[[SUD dictionaryForKey:contextKey] mutableCopy] autorelease]?:[NSMutableDictionary dictionary];
-			if (![old isEqual:object] && (old != object))
-			{
+			if (![old isEqual:object] && (old != object)) {
 				[D setValue:object forKey:aKey];
 				[SUD setObject:D forKey:contextKey];
 			}
 		}
 	}
-	if (didChange)
-	{
-		self.notifyContextChange;
-	}
 //LOG4iTM3(@"self.context4iTM3Dictionary is:%@", self.context4iTM3Dictionary);
-    return didChange;
+    return didChange && self.notifyContextChange;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentCompleteSaveContext4iTM3:
 - (void)documentCompleteSaveContext4iTM3:(id)sender;

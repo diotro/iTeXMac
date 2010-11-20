@@ -48,7 +48,6 @@
 				DC81D83508840CF60086F2EB /* ls iTeXMac2.app contents */,
 			);
 			dependencies = (
-				DC8A6101088D79940016FAA2 /* PBXTargetDependency */,
 				DC81B2A40888589800943C99 /* PBXTargetDependency */,
 			);
 			name = All;
@@ -290,13 +289,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = DC81B1260887DAD200943C99;
 			remoteInfo = "Install iTeXMac2";
-		};
-		DC8A6100088D79940016FAA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCFD96CE0858F4490034D83E;
-			remoteInfo = "TeX CM PlugIn";
 		};
 		DCB5305D0B59BBB500CD713D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1528,11 +1520,6 @@
 			isa = PBXTargetDependency;
 			target = DC81B1260887DAD200943C99 /* Install iTeXMac2 */;
 			targetProxy = DC81B2A30888589800943C99 /* PBXContainerItemProxy */;
-		};
-		DC8A6101088D79940016FAA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCFD96CE0858F4490034D83E /* TeX CM PlugIn */;
-			targetProxy = DC8A6100088D79940016FAA2 /* PBXContainerItemProxy */;
 		};
 		DCB5305E0B59BBB500CD713D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

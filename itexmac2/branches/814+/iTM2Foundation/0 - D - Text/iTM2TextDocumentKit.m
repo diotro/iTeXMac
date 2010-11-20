@@ -760,7 +760,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     //  The text storage may change from one window controller to the next
-	id result = [[self.frontWindow windowController] textStorage];
+    id result = [[self.frontWindow windowController] textStorage];
 	if (result) {
 		return result;
 	}

@@ -123,6 +123,8 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 */
 @property (readwrite,retain) NSMutableDictionary * model;
 
+- (void)setData:(NSData *)aData error:(NSError **)outErrorPtr;
+
 /*!
 	@method			changeCount
 	@abstract		Abstract forthcoming.
@@ -167,6 +169,17 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 	}
 	return self;
 }
+- (id)initWithData:(NSData *)aData error:(NSError **)outErrorPtr;
+{
+	if ((self = [super init])) {
+		[self setData:aData error:outErrorPtr];
+	} else if (outErrorPtr) {
+        OUTERROR4iTM3(1,([NSString stringWithFormat:@"Problem creating the main infos wrapper"]),nil);
+    } else {
+        LOG4iTM3(@"! ERROR: Problem creating the main infos wrapper");
+    }
+	return self;
+}
 #pragma mark =-=-=-=-=-  LOCAL MODEL
 - (void)setModel:(id)model;
 {
@@ -203,6 +216,32 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 	}
 	model4iTM3 = [model mutableCopy];
 	return;
+}
+- (NSData *) dataWithFormat:(NSPropertyListFormat)format options:(NSPropertyListWriteOptions)opt error:(NSError **)outErrorPtr;
+{
+    return [NSPropertyListSerialization dataWithPropertyList:self.model format:format options:opt error:outErrorPtr];
+}
+- (void)setData:(NSData *)aData error:(NSError **)outErrorPtr;
+{
+    if (outErrorPtr) *outErrorPtr = nil;
+	if (aData.length) {
+		// the model is a valid property list
+        id model = nil;
+		if ((model = [NSPropertyListSerialization propertyListWithData:aData
+			options:NSPropertyListMutableContainersAndLeaves
+				format:nil error:outErrorPtr])) {
+			if ([model isKindOfClass:[NSDictionary class]]) {
+                model4iTM3 = model;
+            } else {
+                OUTERROR4iTM3(1,(@"! The model must be a dictionary."),nil);
+            }
+			return;
+		}
+	} else {
+        model4iTM3 = [NSMutableDictionary dictionary];
+        return;
+	}
+    return;
 }
 @synthesize model = model4iTM3;
 @synthesize modelKeyPath = modelKeyPath4iTM3;

@@ -185,7 +185,7 @@ extern NSString * const TWSEOLFileKey;
 	@abstract	Returns whether the string encoding can be programatically set.
 	@discussion NO iff the string encoding is actually hardly coded in the data model itself.
 				This can lead to problems when editing, such that the rules must be clear and precise.
-				A string encoding is said to be hardy coded iff the data model contains some key strings such as
+				A string encoding is said to be hardly coded iff the data model contains some key strings such as
 				%!iTeXMac2(charset): ...
 				\usepackage[...]{inputenc}
 				\enableregime{...}
@@ -202,7 +202,7 @@ extern NSString * const TWSEOLFileKey;
 
 /*!
 	@method		nameOfStringEncoding4iTM3:
-	@abstract	The IANA name of the given given cocoa string encoding...
+	@abstract	The IANA name of the given cocoa string encoding...
 	@discussion Description forthcoming.
 	@param		A cocoa string encoding, not a cor foundation one
 	@result		None

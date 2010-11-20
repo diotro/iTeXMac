@@ -296,7 +296,7 @@ To Do List:
 				}
 			}
 		} else {
-			LOG4iTM3((@"No symbols sets at path %@", url);
+			LOG4iTM3(@"No symbols sets at path %@", url);
 		}
 	}
     [_NetworkSymbolsSets setDictionary:MD];
@@ -319,7 +319,7 @@ To Do List:
 				}
 			}
 		} else {
-			LOG4iTM3((@"No symbols sets at path %@", url);
+			LOG4iTM3(@"No symbols sets at path %@", url);
 		}
 	}
     [_LocalSymbolsSets setDictionary:MD];
@@ -343,7 +343,7 @@ To Do List:
 				}
 			}
 		} else {
-			LOG4iTM3((@"No symbols sets at path %@", url);
+			LOG4iTM3(@"No symbols sets at path %@", url);
 		}
 	}
     [_CustomSymbolsSets setDictionary:MD];
@@ -381,9 +381,9 @@ To Do List:
 	_RecycleSymbolsSets = [NSMutableDictionary dictionary];
 	// saving the other sets.
 	NSTextView * TV = [[[NSTextView alloc] initWithFrame:NSMakeRect(0,0,1e7,1e7)] autorelease];
-	NSLayoutManager * LM = [TV layoutManager];
-	NSTextStorage * TS = [LM textStorage];
-	for (CSK in [_CustomSymbolsSets keyEnumerator]) {
+	NSLayoutManager * LM = TV.layoutManager;
+	NSTextStorage * TS = LM.textStorage;
+	for (CSK in _CustomSymbolsSets.keyEnumerator) {
 //LOG4iTM3(@"CSK: %@", CSK);
 		NSEnumerator * EE = [[_CustomKeysSets objectForKey:CSK] objectEnumerator];
         // if no EE is available, it means that the set has not been edited:
@@ -400,9 +400,9 @@ To Do List:
                 {
                     id As = [AS attributesAtIndex:ZER0 effectiveRange:nil];
                     NSFont * F = [As objectForKey:NSFontAttributeName]?:[NSFont systemFontOfSize:[NSFont systemFontSize]];
-                    [TS beginEditing];
+                    TS.beginEditing;
                     [TS setAttributedString:AS];
-                    [TS endEditing];
+                    TS.endEditing;
                     NSGlyphInfo * GI = [NSGlyphInfo glyphInfoWithGlyph:[LM glyphAtIndex:ZER0] forFont:F baseString:command];
                     if (GI) {
                         id attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -862,9 +862,7 @@ To Do List:
                 modalDelegate:self
                 didEndSelector:@selector(addSetSheetDidEnd:returnCode:contextInfo:)
                 contextInfo:nil];
-    }
-    else
-    {
+    } else {
         LOG4iTM3(@"There is already a sheet attached to this window...");
     }
     return;
@@ -1901,8 +1899,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if(![self.dataSource tableView:self writeRowsWithIndexes:self.selectedRowIndexes toPasteboard:[NSPasteboard generalPasteboard]])
-    {
+    if (![self.dataSource tableView:self writeRowsWithIndexes:self.selectedRowIndexes toPasteboard:[NSPasteboard generalPasteboard]]) {
         LOG4iTM3(@"Could not write to the general paste board");
     }
     return;

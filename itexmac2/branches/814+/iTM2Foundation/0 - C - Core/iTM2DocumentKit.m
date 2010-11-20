@@ -931,9 +931,7 @@ To Do List:
 	{
 		// no change
 		return;
-	}
-	else if (C)
-	{
+	} else if (C) {
 		//  first add a new window controller to prevent closeIfNeeded to close the project document
 #warning BUG, the closeIfNeeded does not seem to close all the windows of the project, more...
         //  when I first removed the old WC, closeIfNeeded was called and the project document was closed
@@ -943,39 +941,28 @@ To Do List:
 		[WC setInspectorVariant:variant];
         [self addWindowController:WC];
 		NSWindow * W;
-        if (W = WC.window)
-        {
+        if ((W = WC.window)) {
             [W makeKeyAndOrderFront:self];
             //  now there is a visible window,
             //  the closeIfNeeded (sent when removing a window controller) will not close the project document
 			//  then remove the old WC
-			if (iTM2DebugEnabled)
-			{
-				LOG4iTM3(@"Removing the window controller:%@", currentWC);
-			}
+			DEBUGLOG4iTM3(0,@"Removing the window controller:%@", currentWC);
 			[self removeWindowController:currentWC];
 			// remove the external inspectors... if necessary, WHY?
-			for (WC in self.windowControllers)
-			{
-				if ([WC isKindOfClass:[iTM2ExternalInspector class]])
-				{
+			for (WC in self.windowControllers) {
+				if ([WC isKindOfClass:[iTM2ExternalInspector class]]) {
 					[self removeWindowController:WC];
 				}
 			}
-        }
-        else
-		{
+        } else {
 			LOG4iTM3(@"No window for mode %@, and variant %@", mode, variant);
             [self removeWindowController:WC];
 		}
-    }
-	else
-	{
+    } else {
 		LOG4iTM3(@"No inspector class found for mode %@, and variant %@", mode, variant);
 	}
 	// just in case, things did not work properly
-	if (!self.windowControllers.count && currentWC)
-	{
+	if (!self.windowControllers.count && currentWC) {
 		[self addWindowController:currentWC];
 		[currentWC.window orderFront:self];
 	}

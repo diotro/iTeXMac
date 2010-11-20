@@ -11,8 +11,7 @@ function find_and_replace {
     find . \( -name "*i*T*M*2*.h" -or -name "*i*T*M*2*.m" \) -exec egrep -q "$1" "{}" \; -print -exec open -a xcode "{}" \;
 }
 
-find_and_replace  'saveContext|loadContext|awakeFromContext' 's/(saveContext|awakeFromContext|loadContext)(?!4)/${1}4iTM3/g'
-find_and_replace  'ontext(Manager|Dictionary|Value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool|DidChange|Change|Registration|State)' 's/(ontext)(Manager|Dictionary|value|Font|Color|String|Array|Data|Float|Integer|Unsigned|Bool|DidChange|Change|Registration|State)/${1}4iTM3${2}/g'
+find_and_replace  'ontextValue' 's/(ontextValue)(?!4)/${1}4iTM3/g'
 
 
 exit 0

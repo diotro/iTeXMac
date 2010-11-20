@@ -1146,6 +1146,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}\"\nexit 0\n";
+			showEnvVarsInLog = 0;
 		};
 		DC4E16D30CCD04FF00F5CE3E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1174,6 +1175,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2Foundation\n";
+			showEnvVarsInLog = 0;
 		};
 		DC7477450886C8FD00C264BB /* Prepare public headers directory */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1188,6 +1190,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# the write access will be refused in the forthcoming \"merger headers\" script\necho \"warning: iTeXMac2 INFO, preparing ${PRODUCT_NAME} public headers directory\"\nif [ -d \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\" ]\nthen\n\tcd \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}\"\n\tchmod u+w .\nfi\necho \"warning: iTeXMac2 INFO, preparing ${PRODUCT_NAME} public headers directory... DONE\"\n";
+			showEnvVarsInLog = 0;
 		};
 		DC81AE7308871B5400943C99 /* Really build iTeXMac2 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1202,6 +1205,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
+			showEnvVarsInLog = 0;
 		};
 		DC81B1BF0887F7C300943C99 /* Make the header documentation */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1216,6 +1220,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2TeXFoundation\n";
+			showEnvVarsInLog = 0;
 		};
 		DC892C1A08FB10E9007A4673 /* Build & Install */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1230,6 +1235,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FULL_PRODUCT_NAME=\"${PRODUCT_NAME}Engines\"\necho \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed\"\nif [ ${#BUILD_STYLE} -eq 0 ]\nthen\n\tBUILD_STYLE=\"Development\"\n\techo \"warning: iTeXMac2 INFO, default ${BUILD_STYLE} build style used\"\nfi\nxcodebuild -project \"${FULL_PRODUCT_NAME}/${FULL_PRODUCT_NAME}.xcodeproj\" -target \"All\" -configuration \"${CONFIGURATION}\" clean build\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... FAILED with error $?\"\n\texit 1\nelse\n\techo \"warning: iTeXMac2 INFO, building ${FULL_PRODUCT_NAME} if needed... DONE\"\n\texit 0\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 		DC892DA508FB951F007A4673 /* Install */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1244,6 +1250,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeEngines.sh iTM2TeXFoundation iTM2TeXFoundationEngines\n";
+			showEnvVarsInLog = 0;
 		};
 		DCBE56970BC3D04200899B35 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1272,6 +1279,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/iTM2MergeTheFrameworkHeaders.sh;
+			showEnvVarsInLog = 0;
 		};
 		DCEAF94D09A3E99300AB577D /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1286,6 +1294,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+			showEnvVarsInLog = 0;
 		};
 		DCF2E58D0952411D00EE54E2 /* TEST for universal binaries */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1300,6 +1309,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?) ${BUILD_DIR}/${FULL_PRODUCT_NAME}\"\n\"${BUILD_DIR}/${FULL_PRODUCT_NAME}\" -debug\nif [ $? -gt 0 ]\nthen\n\techo \"warning: iTeXMac2 ERROR: testing iTeXMac2 Server (universal binary?)... FAILED\"\n    exit 1\nfi\necho \"warning: iTeXMac2 INFO: testing iTeXMac2 Server (universal binary?)... DONE\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -392,6 +392,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2TeXFoundation\n";
+			showEnvVarsInLog = 0;
 		};
 		DC81AD860887192600943C99 /* Really build iTeXMac2 */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -640,6 +641,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41890A4ADD2400E83ABA /* Development.xcconfig */;
 			buildSettings = {
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 			};
 			name = Development;
 		};
@@ -647,6 +649,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 			};
 			name = Deployment;
 		};

@@ -81,7 +81,7 @@ To Do List:
 			NSDictionary * D = [NSDictionary dictionaryWithContentsOfURL:URL];
 			NSString * string = [D objectForKey:NSStringFromSelector(_cmd)];
 			if (string) {
-				return URL;
+				return [NSURL URLWithString:string];
 			}
 		}
 	}
@@ -103,7 +103,7 @@ To Do List:
 			NSDictionary * D = [NSDictionary dictionaryWithContentsOfURL:URL];
 			NSString * string = [D objectForKey:NSStringFromSelector(_cmd)];
 			if (string) {
-				return URL;
+				return [NSURL URLWithString:string];
 			}
 		}
 	}
@@ -124,7 +124,7 @@ To Do List:
 		NSString * string = [D objectForKey:@"ConTeXtGardenURL"];
 		if (string) {
 			string = [string stringByAppendingPathComponent:ref];
-			return [[[NSURL alloc] initWithString:string] autorelease];
+			return [NSURL URLWithString:string];
 		}
 	}
 //END4iTM3;

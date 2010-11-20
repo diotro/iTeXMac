@@ -195,6 +195,7 @@
 - (void)invalidateCursorRects;
 - (BOOL)didClickOnLink4iTM3:(id)link atIndex:(NSUInteger)charIndex;
 /*"Overriden methods"*/
+- (NSRange)range4iTM3;
 @end
 
 

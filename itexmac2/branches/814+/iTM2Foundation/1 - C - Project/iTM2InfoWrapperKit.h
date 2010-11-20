@@ -126,6 +126,31 @@ extern NSString * const iTM2ProjectInfoMainType;
 */
 - (void)updateChangeCount:(NSDocumentChangeType)change;
 
+/*!
+	@method			initWithData:error:
+	@abstract		init is the designated initializer.
+	@discussion		Forthcoming.
+	@param			aData
+	@param			outErrorPtr
+	@result			an info wrapper object.
+	@availability	iTM3
+	@copyright		2010 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (id)initWithData:(NSData *)aData error:(NSError **)outErrorPtr;
+
+/*!
+	@method			dataWithFormat:options:error:
+	@abstract		The serialized model of the receiver.
+	@discussion		Forthcoming.
+	@param			format
+	@param			opt
+	@param			outErrorPtr
+	@result			a data object.
+	@availability	iTM3
+	@copyright		2010 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSData *) dataWithFormat:(NSPropertyListFormat)format options:(NSPropertyListWriteOptions)opt error:(NSError **)outErrorPtr;
+
 @end
 
 /*
@@ -187,6 +212,11 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
 @property (readonly,retain) NSArray * fileKeys;
+
+- (NSString *)nameForFileKey:(NSString *)key;
+- (NSArray *)namesForFileKeys:(NSArray *)keys;
+- (NSString *)fileKeyForName:(NSString *)name;
+- (BOOL)setName:(NSString *)name forFileKey:(NSString *)key;
 
 /*! 
     @method			fileKeyForURL:
@@ -302,7 +332,7 @@ extern NSString * const iTM2ProjectInfoMainType;
 					The keys are quite anything, however, the dotted keys are reserved for private use,
 					and should not be assigned to any file.
 					iTeXMac2 uses the @".extension" key to store default values on an extension based scheme.
-					See the -takeContextValue:forKey:fileKey: discussion.
+					See the -takeContext4iTM3Value:forKey:fileKey: discussion.
     @param			fileName is a full path name
     @result			a unique key identifier
 	@availability	iTM2.1
