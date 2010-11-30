@@ -292,10 +292,27 @@
 }
 - (void) testCase_URLsForSupportResource4iTM3;
 {
+    //  Test an already exiting bundle
+    NSURL * URL_B = [NSURL fileURLWithPath:@"/Users/itexmac2/Library/Application Support/Test Application/PlugIns.localized/bundle.extension"];
+#   define NAME @"NAME"
+#   define EXT  @"EXT"
+#   define SUBDIR @"COUCOU"
+    NSBundle * B = [NSBundle bundleWithURL:URL_B];
+    NSURL * URL_x = [B URLForResource:NAME withExtension:EXT];
+    NSURL * URL_y = [B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR];
+    if (!B) {
+        NSLog(@"NO TEST for an already existing bundle");
+    }
+    if (B && !URL_x) {
+        NSLog(@"FAILUREx");
+    }
+    if (B && !URL_y) {
+        NSLog(@"FAILUREy");
+    }
     // create a bundle form scratch
     NSBundle * MB = [NSBundle mainBundle];
     NSURL * U = [MB URLForSupportDirectory4iTM3:iTM2SupportPluginsComponent inDomain:NSUserDomainMask create:YES];
-    NSURL * URL_B = [U URLByAppendingPathComponent:@"BUNDLE.iTM2"];
+    URL_B = [U URLByAppendingPathComponent:@"BUNDLE.iTM2"];
     NSError * ROR = nil;
     [DFM removeItemAtURL:URL_B error:&ROR];
     STAssertFalse(([DFM fileExistsAtPath:URL_B.path]),@"MISSED",NULL);
@@ -304,14 +321,12 @@
     [DFM createDirectoryAtPath:URL_R.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR];
     BOOL yorn = NO;
     STAssertTrue(([DFM fileExistsAtPath:URL_B.path isDirectory:&yorn] && yorn),@"MISSED",NULL);
-#   define NAME @"NAME"
-#   define EXT  @"EXT"
     NSURL * URL_D = [URL_R URLByAppendingPathComponent:NAME@"."EXT];
     NSData * D = [@"ﬁºÌ∂ÂÂ" dataUsingEncoding:NSUTF8StringEncoding];
     ROR = nil;
     STAssertTrue(([D writeToURL:URL_D options:ZER0 error:&ROR]),@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
-#   define SUBDIR @"COUCOU"
+    STAssertTrue(([DFM fileExistsAtPath:URL_D.path]),@"MISSED",NULL);
     NSURL * URL_S = [URL_R URLByAppendingPathComponent:SUBDIR];
     [DFM createDirectoryAtPath:URL_S.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR];
     NSURL * URL_SD = [URL_S URLByAppendingPathComponent:NAME@"."EXT];
@@ -319,11 +334,17 @@
     STAssertTrue(([D writeToURL:URL_SD options:ZER0 error:&ROR]),@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue(([DFM fileExistsAtPath:URL_SD.path]),@"MISSED",NULL);
-    NSBundle * B = [NSBundle bundleWithURL:URL_B];
-    NSURL * URL_x = [B URLForResource:NAME withExtension:EXT];
-    NSURL * URL_y = [B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR];
+    [SWS noteFileSystemChanged:URL_S.path];
+    [SWS noteFileSystemChanged:URL_SD.path];
+    B = [NSBundle bundleWithURL:URL_B];
+    NSURL * url = [B.resourceURL URLByAppendingPathComponent:NAME@"."EXT];
+    STAssertTrue((url.path.length && [DFM fileExistsAtPath:url.path]),@"MISSED",NULL);
+    url = [B.resourceURL URLByAppendingPathComponent:SUBDIR@"/"NAME@"."EXT];
+    STAssertTrue((url.path.length && [DFM fileExistsAtPath:url.path]),@"MISSED",NULL);
+    URL_x = [B URLForResource:NAME withExtension:EXT];
+    URL_y = [B URLForResource:NAME withExtension:EXT subdirectory:SUBDIR];
     if (!URL_x) {
-        NSLog(@"FAILUREx");
+        NSLog(@"FAILUREx");// please restart, there is an unsolved bug
     }
     if (!URL_y) {
         NSLog(@"FAILUREy");
@@ -338,6 +359,7 @@
 	STAssertTrue(RA.count == 1 && [RA.lastObject isEqualToFileURL4iTM3:URL_SD],@"MISSED",nil);
     [DFM removeItemAtURL:URL_B error:&ROR];
     STAssertFalse(([DFM fileExistsAtPath:URL_B.path]),@"MISSED",NULL);
+#   undef SUBDIR
 #   undef NAME
 #   undef EXT
     return;

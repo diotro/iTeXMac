@@ -413,119 +413,6 @@ To Do List:
 //END4iTM3;
     return D;
 }
-#if 0
-#warning THIS WAS A BUG CATCHER!!! What bug man? Sometimes the document is not opened with the expected class...
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentClassForType:
-- (Class)documentClassForType:(NSString *)documentTypeName;
-/*"On n'est jamais si bien servi qua par soi-meme
-Version History: jlaurens AT users DOT sourceforge DOT net (today)
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	id result = NSClassFromString([self.documentClassNameForTypeDictionary objectForKey:documentTypeName]);
-	if (result)
-		return result;
-	result = [super documentClassForType:documentTypeName];// this verbose style is usefull for debugging purpose
-//END4iTM3;
-	return result;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  typeFromFileExtensionDictionary
-- (NSDictionary *)typeFromFileExtensionDictionary;
-/*"On n'est jamais si bien servi que par soi-meme
-Version History: jlaurens AT users DOT sourceforge DOT net (today)
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	NSMutableDictionary * D = metaGETTER;
-	if (!D)
-	{
-		D = [NSMutableDictionary dictionary];
-		NSDictionary * DCNFTD = self.documentClassNameForTypeDictionary;
-		NSMutableArray * DCNs = [NSMutableArray arrayWithArray:[DCNFTD allKeys]];
-		NSEnumerator * E = DCNFTD.keyEnumerator;
-		NSString * documentType;
-		while(documentType = [E nextObject])
-		{
-			NSArray * FEs = [super fileExtensionsFromType:documentType];
-			NSEnumerator * e = FEs.objectEnumerator;
-			NSString * FE;
-			if (FE = [e nextObject])
-			{
-				[DCNs removeObject:documentType];
-				do
-				{
-					[D setObject:documentType forKey:[FE lowercaseString]];
-				}
-				while(FE = [e nextObject]);
-			}
-		}
-		for(documentType in DCNs)
-		{
-			NSString * className = [DCNFTD objectForKey:documentType];
-			Class C = NSClassFromString(className);
-			NSBundle * B = [C classBundle4iTM3];
-			if (B)
-			{
-				NSEnumerator * e = [[B objectForInfoDictionaryKey:@"CFBundleDocumentTypes"] objectEnumerator];
-				NSDictionary * d;
-				while(d = [e nextObject])
-				{
-					if ([[d objectForKey:@"CFBundleTypeName"] isEqual:documentType]
-						&& [[d objectForKey:@"NSDocumentClass"] isEqual:className])
-					{
-						NSEnumerator * ee = [[d objectForKey:@"CFBundleTypeExtensions"] objectEnumerator];
-						NSString * component;
-						while(component = [ee nextObject])
-						{
-							[D setObject:documentType forKey:[component lowercaseString]];
-						}
-						ee = [[d objectForKey:@"CFBundleTypeOSTypes"] objectEnumerator];
-						while(component = [ee nextObject])
-						{
-							[D setObject:documentType forKey:component];
-						}
-					}
-				}
-			}
-			else
-			{
-				LOG4iTM3(@".....  ERROR: No document class named: %@", className);
-			}
-		}
-		metaSETTER(D);
-		D = metaGETTER;
-		if (iTM2DebugEnabled)
-		{
-			E = D.keyEnumerator;
-			while(documentType = [E nextObject])
-			{
-				NSString * className = [D objectForKey:documentType];
-				LOG4iTM3(@"%@ -> %@", documentType, className);
-			}
-		}
-	}
-//END4iTM3;
-    return D;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  typeFromFileExtension:
-- (NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType;
-/*"On n'est jamais si bien servi que par soi-meme
-Version History: jlaurens AT users DOT sourceforge DOT net (today)
-- 2.0: 03/10/2002
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-//LOG4iTM3(@"fileNameExtension is: %@", fileNameExtension);
-	return [self.typeFromFileExtensionDictionary objectForKey:[fileNameExtensionOrHFSFileType lowercaseString]]?:
-		([self.typeFromFileExtensionDictionary objectForKey:fileNameExtensionOrHFSFileType]?:
-			[super typeFromFileExtension:fileNameExtensionOrHFSFileType]);
-}
-#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedDocumentTypesDictionary
 - (NSDictionary *)localizedDocumentTypesDictionary;
 /*"On n'est jamais si bien servi que par soi-meme
@@ -536,13 +423,9 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSMutableDictionary * D = metaGETTER;
-	if (!D)
-	{
-		D = [NSMutableDictionary dictionary];
-		metaSETTER(D);
-		D = metaGETTER;
-		if (D)
-		{
+	if (!D) {
+		metaSETTER((D = [NSMutableDictionary dictionary]));
+		if ((D = metaGETTER)) {
 			self.documentClassNameForTypeDictionary;// initialize as side effect
 //LOG4iTM3(@"localizedDocumentTypesDictionary:%@",D);
 		}

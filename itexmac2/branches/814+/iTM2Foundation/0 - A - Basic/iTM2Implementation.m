@@ -26,6 +26,7 @@
 #import "iTM2Runtime.h"
 #import "iTM2BundleKit.h"
 #import "iTM2Invocation.h"
+#import "iTM2DocumentControllerKit.h"
 
 NSString * const iTM2ItemPropertyListXMLFormatKey = @"iTM2ItemPropertyListXMLFormat";
 NSString * const iTM2MainType = @"main";
@@ -653,7 +654,7 @@ To Do List:
     return [self._DataRepresentations allKeys];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataOfType:error:
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError;
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -662,26 +663,15 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"data: %@", result);
-	if (outError)
-	{
-		* outError = nil;
-	}
-    return [self dataRepresentationOfType:typeName];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
-- (NSData *)dataRepresentationOfType:(NSString *)type;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed 05 mar 03
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-//NSLog(@"data: %@", result);
-    return [self._DataRepresentations valueForKey:type];
+	if (outErrorPtr) * outErrorPtr = nil;
+    if ([typeName conformsToUTType4iTM3:kUTTypeData]) {
+        return [self._DataRepresentations valueForKey:typeName];
+    }
+    OUTERROR4iTM3(1,@"! ERROR: the type does not conform to public.data",NULL);
+    return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromData:ofType:error:
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -689,9 +679,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (outError)
+	if (outErrorPtr)
 	{
-		* outError = nil;
+		* outErrorPtr = nil;
 	}
     return [self loadDataRepresentation:data ofType:typeName];
 }
@@ -719,17 +709,14 @@ To Do List:
 //START4iTM3;
     // if there is already a directory wrapper for the receiver.
     BOOL result = NO;
-    if ([DW isDirectory])
-    {
+    if ([DW isDirectory]) {
         [self.children makeObjectsPerformSelector:_cmd withObject:DW];
-        NSData * D = [_Owner respondsToSelector:@selector(dataRepresentationOfType:)]
+        NSData * D = [_Owner respondsToSelector:@selector(dataOfType:error:)]
                             && [_Owner respondsToSelector:@selector(modelType)]?
-                [_Owner dataRepresentationOfType:[_Owner modelType]]:
-                [self dataRepresentationOfType:self.modelType];
-        if (D)
-        {
-            if ([[DW fileWrappers] count])
-            {
+                [_Owner dataOfType:[_Owner modelType] error:NULL]:
+                [self dataOfType:self.modelType error:NULL];
+        if (D) {
+            if ([[DW fileWrappers] count]) {
                 [DW removeFileWrapper:[[DW fileWrappers] objectForKey:iTM2DataRepresentationsName]];
                 [DW addRegularFileWithContents:D preferredFilename:iTM2DataRepresentationsName];
                 result = YES;

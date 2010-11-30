@@ -258,14 +258,6 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 */
 - (void)setWrapper:(id)argument;
 
-/*! 
-    @method     setWrapper:
-    @abstract   Set the wrapper of the receiver.
-    @discussion Discussion forthcoming.
-    @param      The new wrapper document
-    @result     None
-*/
-- (void)setWrapper:(id)argument;
 
 /*! 
  @method     subdocuments
@@ -290,7 +282,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)saveSubdocuments:(id)sender;
 
 /*! 
-    @method     addSubdocument:
+    @method     addSubdocument:error:
     @abstract   add a document
     @discussion Does nothing if the document is the project, the wrapper or nothing.
 				Does nothing if the document already belongs to the project.
@@ -298,9 +290,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				The document is then remove from the list of documents owned by the shared document controller.
 				That way, a document cannot be owned at the same time by a project and the share document controller.
     @param      document to be added.
-    @result     None.
+    @param      outErrorPtr
+    @result     yorn.
 */
-- (void)addSubdocument:(NSDocument *)document;
+- (BOOL)addSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
 
 /*! 
     @method     forgetSubdocument:
@@ -365,7 +358,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 /*! 
     @method     showSubdocuments:
     @abstract   Show the files of the receiver.
-    @discussion Discussion forthcoming.
+    @discussion Discussion forthcoming. Convenient method.
     @param      irrelevant sender
     @result     None
 */
@@ -435,9 +428,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @discussion This method is obsolete, use the -(NSURL *)createNewFileKeyForURL:save: instead.
 				It just forwards to the above mentionned method, not asking to save.
     @param      fileName is a full path name, or relative to the project directory
+    @param      outErrorPtr
     @result     a unique key identifier
 */
-- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL;
+- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 
 /*! 
     @method     createNewFileKeyForURL:save:
@@ -448,9 +442,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				The .. refers to a directory outside the Wrapper and is likely not to be used.
     @param      fileName is a full path name, or relative to the project directory
     @param      yorn is a flag indicating whether the project should save if a new key is really created
+    @param      outErrorPtr
     @result     a unique key identifier
 */
-- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL save:(BOOL)yorn;
+- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL save:(BOOL)yorn error:(NSError **)outErrorPtr;
 
 /*! 
     @method     saveAllSubdocumentsWithDelegate:didSaveAllSelector:contextInfo:
@@ -565,7 +560,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)subdocumentForURL:(NSURL *)url;
 
 /*! 
-    @method     fileKeyForSubdocument:
+    @method     fileKeyForSubdocument:error:
     @abstract   The key for the given project document.
     @discussion If no key is returned, the given document is not part of the receiver as a project.
 				This message is a central node that links documents with their projects.
@@ -576,9 +571,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				Besides this is a weird situation, we can imagine that two different projects can act differently on the same document.
 				Then it would be difficult to link the document to both projects.
     @param      \p subdocument is a document
+    @param      outErrorPtr...
     @result     a key identifier.
 */
-- (NSString *)fileKeyForSubdocument:(NSDocument *)subdocument;
+- (NSString *)fileKeyForSubdocument:(NSDocument *)subdocument error:(NSError **)outErrorPtr;
 
 /*! 
     @method     subdocumentForFileKey:
@@ -608,13 +604,14 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (id)propertyValueForKey:(NSString *)key fileKey:(NSString *)fileKey contextDomain:(NSUInteger)mask;
 
 /*! 
-    @method     fileKeyForRecordedURL:
+    @method     fileKeyForRecordedURL:error:
     @abstract   Only use the links or finder aliases.
     @discussion Discussion forthcoming.
     @param      (NSURL *) is a file URL
+    @param      outErrorPtr a pointer to an NSError instance in case of an error
     @result     a key.
 */
-- (NSString *)fileKeyForRecordedURL:(NSURL *)fileURL;// only use the links or finder aliases
+- (NSString *)fileKeyForRecordedURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;// only use the links or finder aliases
 
 /*! 
     @method     setPropertyValue:forKey:fileKey:contextDomain:
@@ -639,13 +636,14 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)addGhostWindowController;
 
 /*! 
-    @method     addURL:
+    @method     addURL:error:
     @abstract   Abstract forthcoming.
     @discussion Description forthcoming.
-    @param      fileName
+    @param      fileURL
+    @param      outErrorPtr
     @result     None.
 */
-- (void)addURL:(NSURL *)fileURL;
+- (BOOL)addURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 
 /*! 
     @method     openSubdocumentWithContentsOfURL:context:display:error:
@@ -655,7 +653,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError**)outErrorPtr;
+- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError **)outErrorPtr;
 
 /*! 
     @method     openSubdocumentForKey:display:error:
@@ -688,13 +686,13 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)setShouldCloseWhenLastSubdocumentClosed:(BOOL)yorn;
 
 /*! 
-    @method     fixProjectConsistency
+    @method     fixProjectConsistencyWithError4iTM3:
     @abstract   Fix the consistency of the receiver.
     @discussion Just in case someone has moved files around.
-    @param      None
+    @param      outErrorPtr
     @result     yorn
 */
-- (BOOL)fixProjectConsistency;
+- (BOOL)fixProjectConsistencyWithError4iTM3:(NSError **)outErrorPtr;
 
 - (void)dissimulateWindows;
 - (void)exposeWindows;
@@ -1018,53 +1016,6 @@ extern NSString * const iTM2WrapperInspectorType;
     @discussion	Description forthcoming. No public API yet.
 */
 @interface iTM2ProjectDocumentResponder: iTM2AutoInstallResponder
-@end
-
-@interface NSWorkspace(iTM2ProjectDocumentKit)
-
-/*!
-    @method		isFilePackageAtURL4iTM3:
-    @abstract	Abstract forthcoming
-    @discussion	Whether the given url points to a file package.
-    @param      The url
-    @result     yorn
-*/
-- (BOOL)isFilePackageAtURL4iTM3:(NSURL *)url;
-
-/*!
-    @method		isProjectPackageAtURL4iTM3:
-    @abstract	Abstract forthcoming
-    @discussion	Whether the given url points to a project.
-				If the receiver returns YES to a method named fooProjectPackageAtURL4iTM3:
-				except this one of course, the answer is YES.
-				For example, a TeX project manager can implement in a category a method named isTeXProjectPackageAtURL4iTM3:
-				Otherwise it's NO
-    @param      The url
-    @result     yorn
-*/
-- (BOOL)isProjectPackageAtURL4iTM3:(NSURL *)url;
-
-/*!
-    @method		isBackupAtURL4iTM3:
-    @abstract	Abstract forthcoming
-    @discussion	Whether the given url points to a backup.
-    @param      The url
-    @result     yorn
-*/
-- (BOOL)isBackupAtURL4iTM3:(NSURL *)url;
-
-/*!
-    @method		isWrapperPackageAtURL4iTM3:
-    @abstract	Abstract forthcoming
-    @discussion	Whether the given url points to a wrapper.
-				If the receiver returns YES to a method named fooWrapperPackageAtURL4iTM3:
-				except this one of course, the answer is YES.
-				Otherwise it's NO
-    @param      The url
-    @result     yorn
-*/
-- (BOOL)isWrapperPackageAtURL4iTM3:(NSURL *)url;
-
 @end
 
 /*!

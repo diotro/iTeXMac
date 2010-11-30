@@ -560,9 +560,9 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
     STAssertFalse([[RE substringOfCaptureGroupAtIndex:3] isEqual:@"xxx"],@"MISSED 8d, error:%@", RE.error);
     STAssertFalse(RE.nextMatch,@"MISSED 9, error:%@", RE.error);
 	STAssertTrue([RE nextMatchAfterIndex:2],@"MISSED 10, error:%@", RE.error);
-    [RE displayMatchResult];
-	[RE setReplacementPattern:@"0:/$0/\n1:/$1/\n2:/$2/"];
-	NSLog(@"RE.replacementString:%@",RE.replacementString);
+    RE.displayMatchResult;
+	RE.replacementPattern = @"0:/$0/\n1:/$1/\n2:/$2/";
+	NSLog(@"RE.replacementString:<%@>XXXXX\n",RE.replacementString);
     STAssertNil(RE.error,@"MISSED 10",NULL);
 	STAssertTrue([RE.replacementString isEqual:@"0:/abbc/\n1:/bb/\n2:/c/"]||(NSLog(@"%@<?>%@(expected)",RE.replacementString,@"0:/abbc/\n1:/bb/\n2:/c/"),NO),@"MISSED 11, error:%@", RE.error);
 #pragma mark E

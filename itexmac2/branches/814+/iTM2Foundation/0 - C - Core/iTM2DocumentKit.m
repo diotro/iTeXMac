@@ -136,8 +136,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (shouldClose)
-	{
+	if (shouldClose) {
 		self.documentWillClose4iTM3;
 		self.close;
 		self.documentDidClose4iTM3;
@@ -721,9 +720,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super setFileURL:url];
-	if (iTM2DebugEnabled) {
-		LOG4iTM3(@"The new file url is:%@", url);
-	}
+	DEBUGLOG4iTM3(0,@"The new file url is:%@", url);
 	self.updateContext4iTM3Manager;
     for (NSWindowController * WC in self.windowControllers) {
         WC.window.validateContent4iTM3;
@@ -1601,7 +1598,7 @@ To Do List:
     if (![fullDocumentPath pathIsEqual4iTM3:fullOriginalDocumentPath])
     {
 		// only copy original contents if this is a directory and the expected destination is a wrapper package
-		if ([typeName conformsToUTType4iTM3:@"com.apple.package"])
+		if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypePackage])
 		{
 			// I must create a directory at the expected location, either by copying a directory or not...
 			fullOriginalDocumentPath = [fullOriginalDocumentPath stringByResolvingSymlinksAndFinderAliasesInPath4iTM3];
@@ -1761,25 +1758,22 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL superResult = [type conformsToUTType4iTM3:@"com.apple.package"] || [super writeToURL:absoluteURL ofType:type error:outErrorPtr];
+	BOOL superResult = [type conformsToUTType4iTM3:(NSString *)kUTTypePackage] || [super writeToURL:absoluteURL ofType:type error:outErrorPtr];
 	BOOL result = YES;
-	if (iTM2DebugEnabled>99)
-	{
-		LOG4iTM3(@"DID WRITE? %@", (result? @"YES":@"NO"));
-	}
-	NSInvocation * I;
+	DEBUGLOG4iTM3(99,@"DID WRITE? %@", (result? @"YES":@"NO"));
+	NSInvocation * I = nil;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:type error:outErrorPtr];
 	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWriteToURL4iTM3:ofType:error:" signature:I.methodSignature inherited:YES];
-	NSUInteger i = PA.count;
-	while(i--)
-	{
-		[I setSelector:(SEL)[PA pointerAtIndex:i]];
-        I.invoke;
+	NSUInteger i = 0;
+	while (i < PA.count) {
+		I.selector=(SEL)[PA pointerAtIndex:i++];
+NSLog(@"%@",NSStringFromSelector(I.selector));
+        I.invoke;//(gdb) po NSStringFromSelector((SEL)[I selector])
         BOOL R = NO;
         [I getReturnValue:&R];
         result = result && R;
         if (!R) {
-            LOG4iTM3(@"FALSE:%@",I);
+            LOG4iTM3(@"FALSE:%@",NSStringFromSelector(I.selector));
         }
     }
 	[self writeContextToURL:absoluteURL ofType:type error:outErrorPtr];
@@ -1796,13 +1790,18 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    NSData * D = [self dataRepresentationOfType:typeName];
-	if (iTM2DebugEnabled>99)
-	{
-		LOG4iTM3(@"is there any data to save? %@", (D? @"Y":@"N"));
-		LOG4iTM3(@"Currently saving data with length:%i", D.length);
-	}
-    return [(D? D:[NSData data]) writeToURL:absoluteURL options:NSAtomicWrite error:outErrorPtr];
+    if (outErrorPtr) *outErrorPtr = nil;
+    if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypeData]) {
+        NSError * ROR = nil;
+        NSData * D = [self dataOfType:typeName error:&ROR];
+        DEBUGLOG4iTM3(99,@"is there any data to save? %@\nCurrently saving data with length:%i", (D? @"Y":@"N"),D.length);
+        if (!D && ROR) {
+            if (outErrorPtr) *outErrorPtr = ROR;
+            return NO;
+        } 
+        return [(D? D:[NSData data]) writeToURL:absoluteURL options:NSAtomicWrite error:outErrorPtr];
+    }
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getIDResourceTemplate:
 - (void)getIDResourceTemplate:(id *) resourceContentPtr;
@@ -2017,22 +2016,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"data: %@", result);
-	if (outError)
-	{
+	if (outError) {
 		* outError = nil;
 	}
-    return [self dataRepresentationOfType:typeName];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfType:
-- (NSData *)dataRepresentationOfType:(NSString *) type;
-/*"Returns YES.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.1:05/04/2002
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    return [IMPLEMENTATION dataRepresentationOfType:type];
+    return [IMPLEMENTATION dataOfType:typeName error:outError];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
 - (BOOL)loadDataRepresentation:(NSData *) data ofType:(NSString *) type;
@@ -2055,10 +2042,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (outError)
-	{
-		* outError = nil;
-	}
+	if (outError) * outError = nil;
     return [self loadDataRepresentation:data ofType:typeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataRepresentation
@@ -2070,7 +2054,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self dataRepresentationOfType:self.modelType];
+    return [self dataOfType:self.modelType error:NULL];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setDataRepresentation:
 - (void)setDataRepresentation:(NSData *) data;

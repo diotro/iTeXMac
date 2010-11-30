@@ -141,7 +141,8 @@ if ([STRING length] || UNDERLYING) {\
 [NSApp presentError:[NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:(NSInteger)TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@\n%@",(STRING),[(NSError *)UNDERLYING localizedDescription]],NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
-				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])]];LOG4iTM3(@"Reporting error:%i,%@,%@",TAG,(STRING),(UNDERLYING));}
+				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])]];LOG4iTM3(@"Reporting error:%i,%@,%@",TAG,(STRING),(UNDERLYING));\
+}
 
 #define REPORTERRORINMAINTHREAD4iTM3(TAG, STRING, UNDERLYING)\
 if ([STRING length] || UNDERLYING)\

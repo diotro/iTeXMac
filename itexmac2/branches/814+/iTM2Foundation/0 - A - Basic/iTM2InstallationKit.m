@@ -385,7 +385,7 @@ To Do List:
 + (void)completeInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Révisé par itexmac2: 2010-11-29 21:58:25 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -393,31 +393,76 @@ To Do List:
 //START4iTM3;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallation];
-	NSPointerArray * PA = [iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation4iTM3" signature:[I methodSignature] inherited:YES];
-	NSUInteger i = PA.count;
-	while(i--)
-	{
-		SEL selector = (SEL)[PA pointerAtIndex:i];
-        [I setSelector:selector];
-        [I invoke];
-		[iTM2Runtime disableClassMethodSelector:selector forClass:self];
-    }
+	[I invokeWithSelectors4iTM3:[iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation4iTM3" signature:I.methodSignature inherited:YES]];
 //END4iTM3;
-	RELEASE_POOL4iTM3;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallation
 - (void)completeInstallation;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Révisé par itexmac2: 2010-11-29 22:02:48 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallation];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteInstallation4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteInstallation4iTM3" signature:I.methodSignature inherited:YES]];
+//END4iTM3;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallationWithError:
++ (void)completeInstallationWithError:(NSError **)outErrorPtr;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Révisé par itexmac2: 2010-11-29 22:02:48 +0100
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+    NSInvocation * I;
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallationWithError:outErrorPtr];
+	NSPointerArray * PA = [iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation4iTM3WithError:" signature:I.methodSignature inherited:YES];
+	NSUInteger i = PA.count;
+	while (i--) {
+		I.selector=(SEL)[PA pointerAtIndex:i];
+        I.invoke;
+		[iTM2Runtime disableClassMethodSelector:I.selector forClass:self];
+        if (outErrorPtr) {
+            [I getArgument:&outErrorPtr atIndex:2];
+            if  (*outErrorPtr) {
+                LOG4iTM3(@"iTM2Installation error in %@\n%@",NSStringFromSelector(I.selector),*outErrorPtr);
+            }
+        }
+    }
+//END4iTM3;
+    return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallationWithError:
+- (void)completeInstallationWithError:(NSError **)outErrorPtr;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Révisé par itexmac2: 2010-11-29 22:02:48 +0100
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+    NSInvocation * I;
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallationWithError:outErrorPtr];
+	NSPointerArray * PA = [iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteInstallation4iTM3WithError:" signature:I.methodSignature inherited:YES];
+	NSUInteger i = PA.count;
+	while (i--) {
+		I.selector=(SEL)[PA pointerAtIndex:i];
+        I.invoke;
+		[iTM2Runtime disableClassMethodSelector:[I selector] forClass:self];
+        if (outErrorPtr) {
+            [I getArgument:&outErrorPtr atIndex:2];
+            if  (*outErrorPtr) {
+                LOG4iTM3(@"iTM2Installation error in %@\n%@",NSStringFromSelector(I.selector),*outErrorPtr);
+            }
+        }
+    }
 //END4iTM3;
     return;
 }
@@ -444,6 +489,8 @@ To Do List:
 - (void)finishLaunching;
 {
 	[iTM2Installer completeInstallation];
+    NSError * ROR = nil;
+	[iTM2Installer completeInstallationWithError:&ROR];
 	NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] finishLaunching];
 	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteWillFinishLaunching4iTM3" signature:[I methodSignature] inherited:YES]];

@@ -219,18 +219,19 @@ extern NSString * const iTM2ProjectInfoMainType;
 - (BOOL)setName:(NSString *)name forFileKey:(NSString *)key;
 
 /*! 
-    @method			fileKeyForURL:
+    @method			fileKeyForURL:error:
     @abstract		The file key for the given URL.
     @discussion		Discussion forthcoming.
     @param			a name
+    @param          outErrorPtr
     @result			an NSString
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *)fileKeyForURL:(NSURL *)url;
+- (NSString *)fileKeyForURL:(NSURL *)url error:(NSError **)outErrorPtr;
 
 /*! 
-    @method			URLForFileKey:
+    @method			URLForFileKey:error:
     @abstract		The URL for the given key.
     @discussion		nil is returned if the key is not covered by the fileKeys list,
 					or if key is reserved.
@@ -248,14 +249,15 @@ extern NSString * const iTM2ProjectInfoMainType;
 					and the shared project controller will in turn ask a main infos wrapper.
 					The only exception concerns cached project related URLs for the contents, factory and parent.
     @param			a key
+    @param          outErrorPtr
     @result			an NSURL
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)URLForFileKey:(NSString *)key;
+- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)outErrorPtr;
 
 /*! 
-    @method			setURL:forFileKey:
+    @method			setURL:forFileKey:error:
     @abstract		Set the file name for the given key and base URL.
     @discussion		Records the given URL.
 					
@@ -275,13 +277,14 @@ extern NSString * const iTM2ProjectInfoMainType;
 					
 	@param			a file URL
 	@param			a key
+    @param          outErrorPtr...
     @result			nil if the change failed or the no file URL was given
 					otherwise an NSURL instance equivalent to the given one,
 					but conforming to the project conventions.
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)setURL:(NSURL *)url forFileKey:(NSString *)key;
+- (NSURL *)setURL:(NSURL *)url forFileKey:(NSString *)key error:(NSError **)outErrorPtr;
 
 /*! 
     @method			propertiesForFileKey:
@@ -319,26 +322,6 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (BOOL)setPropertyValue:(id)property forKey:(NSString *)key fileKey:(NSString *)fileKey;
-
-/*! 
-    @method			nextAvailableKey
-    @abstract		The next available key.
-    @discussion		A key is given only once. If it is removed, it won't be attributed another time.
-					To ensure this, we store the next key to be used with a @".." file name.
-					The .. refers to a directory outside the Wrapper and is likely not to be used.
-					Controllers will look at this key to see if the attributes they store does refer to anything still in the project.
-					If the key is not one of the keys of the project, the corresponding attributes should be removed.
-					No Undo management planned.
-					The keys are quite anything, however, the dotted keys are reserved for private use,
-					and should not be assigned to any file.
-					iTeXMac2 uses the @".extension" key to store default values on an extension based scheme.
-					See the -takeContext4iTM3Value:forKey:fileKey: discussion.
-    @param			fileName is a full path name
-    @result			a unique key identifier
-	@availability	iTM2.1
-	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSString *)nextAvailableKey;
 
 @end
 

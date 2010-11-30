@@ -23,7 +23,7 @@
 
 #import "iTM2DocumentKit.h"
 
-extern NSString * const iTM2TextDocumentType;
+extern NSString * const iTM3TextDocumentType;
 extern NSString * const iTM2WildcardDocumentType;
 extern NSString * const iTM2SupportTextComponent;
 extern NSString * const iTM2TextInspectorType;
@@ -109,17 +109,6 @@ extern NSString * const iTM2TextInspectorType;
 	@result		yorn
 */
 - (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
-
-/*!
-	@method		stringRepresentationCompleteWriteToURL4iTM3:ofType:error:
-	@abstract	Abstract forthcoming.
-	@discussion Description forthcoming.
-	@param		an URL
-	@param		a type
-	@param		outErrorPtr a pointer to an NSError instance.
-	@result		yorn
-*/
-- (BOOL)stringRepresentationCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
 
 /*!
 	@method			getLine:column:length:forHint:

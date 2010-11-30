@@ -65,7 +65,8 @@ NSString *getScalarDescription(NSValue *left)
     // 4 subclassers
 }
 - (void) failWithException:(NSException *) anException;
-{    [anException raise];
+{
+    [anException raise];
     return;
 }
 @end

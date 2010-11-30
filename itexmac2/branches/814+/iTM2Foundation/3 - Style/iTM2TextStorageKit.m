@@ -1876,6 +1876,13 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     _iTM2InternalAssert(!self.diagnostic, @"BIG PROBLEM BEFORE VALIDATING THE MODE");
+#ifdef __ELEPHANT_MODELINE__
+	{
+        NSUInteger start, end;
+		[[self.textStorage string] getLineStart:&start end:&end contentsEnd:nil forRange:iTM3MakeRange(originalModeLine.startOff7, ZER0)];
+		_iTM2InternalAssert([originalModeLine.originalString isEqualToString:[[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]], ([NSString stringWithFormat:@"original is\n<%@> != expected string is:\n<%@>", originalModeLine.originalString, [[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]]));
+    }
+#endif
 	// the previous mode is in general the mode of the last EOL character of the previous line
 	// The default value is kiTM2TextUnknownSyntaxMode, such that a zero value is an error and bypasses the whole method.
     if (!previousMode || (previousMode == kiTM2TextUnknownSyntaxMode))
@@ -2075,10 +2082,8 @@ skipOldSyntaxWords:
     }
 theEnd:
 //NSLog(@"END OK: %u", previousLength);
-    if (![workingML appendSyntaxMode:previousMode length:previousLength error:&ROR]
-        && ROR
-            || [workingML appendSyntaxMode:previousMode length:previousLength error:&ROR]
-                && ROR) {
+    ROR = nil;
+    if (![workingML appendSyntaxMode:previousMode length:previousLength error:&ROR]) {
         REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
         return kiTM2TextErrorSyntaxMode;
     }
@@ -3087,6 +3092,9 @@ diagnostic_and_return:
                 }
                 return NO;
             }
+#ifdef __ELEPHANT_MODELINE__
+            firstML->originalString = [S substringWithRange:firstML.completeRange];
+#endif
             return YES;
         }
         return NO;

@@ -26,6 +26,13 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSString(iTeXMac2)
 /*"Description forthcoming."*/
 @implementation NSString(iTeXMac2)
++ (NSString*)stringWithUUID4iTM3
+{
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+    NSString * string = (NSString*)CFMakeCollectable(CFUUIDCreateString(kCFAllocatorDefault, uuid));
+    CFRelease(uuid);
+    return [string autorelease];    
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= getIntegerTrailer4iTM3:
 - (BOOL)getIntegerTrailer4iTM3:(NSInteger *)intPtr;
 /*"YES.
@@ -38,21 +45,16 @@ To Do List:
     static NSCharacterSet * nonDecimalDigitCharacterSet = nil;
     if (!nonDecimalDigitCharacterSet)
         nonDecimalDigitCharacterSet = [[[NSCharacterSet decimalDigitCharacterSet] invertedSet] retain];
-    if (intPtr && self.length)
-    {
+    if (intPtr && self.length) {
         NSRange R = [self rangeOfCharacterFromSet:nonDecimalDigitCharacterSet options:NSBackwardsSearch];
-        if (R.length)
-        {
+        if (R.length) {
             R.location = iTM3MaxRange(R);
-            if (R.location < self.length)
-            {
+            if (R.location < self.length) {
                 R.length = self.length - R.location;
                 * intPtr = [[self substringWithRange:R] integerValue];
                 return YES;
             }
-        }
-        else
-        {
+        } else {
             * intPtr = self.integerValue;
             return YES;
         }

@@ -169,7 +169,7 @@ To Do List:
 		}
 	}
 	NSString * type = self.fileType;
-	NSData * PDFData = [self dataRepresentationOfType:type];
+	NSData * PDFData = [self dataOfType:type error:NULL];
 	if (result = [[[iTM2XtdPDFDocument alloc] initWithData:PDFData] autorelease]) {
 		self.PDFDocument = result;
 		self.PDFDocumentStatus = iTM2PDFDocumentNoErrorStatus;

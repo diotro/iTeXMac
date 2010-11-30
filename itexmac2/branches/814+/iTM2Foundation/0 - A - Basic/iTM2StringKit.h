@@ -24,6 +24,17 @@
 
 @interface NSString(iTeXMac2)
 /*"Class methods"*/
+
+/*!
+    @method     stringWithUUID4iTM3
+    @abstract   Unique string
+    @discussion Better than process info globally unique string.
+                See https://gist.github.com/486765
+    @param		None
+    @result     a string
+*/
++ (NSString*)stringWithUUID4iTM3;
+
 /*"Setters and Getters"*/
 - (BOOL)getIntegerTrailer4iTM3:(NSInteger *)intPtr;
 - (NSRange)getRangeForLine4iTM3:(NSUInteger)aLine;

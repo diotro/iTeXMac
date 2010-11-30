@@ -230,14 +230,16 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (void)takeMetaFlag:(BOOL)yorn forKey:(NSString *)key;
 
 /*!
-	@method		dataRepresentationOfType:
+	@method		dataOfType:error:
 	@abstract	The receiver's representation with the given key.
 	@discussion	This default implementation returns the object contained in the data representation dictionary of
 				the receiver which key is the given type.
+                nil is returned in case of an error.
 	@param		type is a key dictionary type
+	@param		outErrorPtr is a reference to an error object
 	@result		a data object.
 */
-- (NSData *)dataRepresentationOfType:(NSString *)type;
+- (NSData *)dataOfType:(NSString *)type error:(NSError **)outErrorPtr;
 
 /*!
 	@method		willSave

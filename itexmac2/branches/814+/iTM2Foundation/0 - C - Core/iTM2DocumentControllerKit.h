@@ -47,30 +47,14 @@ extern NSString * const iTM2AutosavingDelayKey;
 /*!
     @method		documentClassNameForTypeDictionary
     @abstract	A type to document class name map.
-    @discussion	Plug-ins support. The extension <-> document type <-> document class relationship is managed by the main bundle and can be overriden by the plug-ins.
+    @discussion	Plug-ins support. The extension <-> document type <-> document class relationship is managed
+                by the main bundle and can be overriden by the plug-ins.
 				All information coming from the main bundle Info.plist is not always managed by the standard cocoa methods as default.
 				This method will manage what comes from all the other bundles.
     @param		None.
     @result		A dictionary of class names for document types.
 */
 - (NSDictionary *)documentClassNameForTypeDictionary;
-
-#if 0
-/*!
-    @method		typeFromFileExtensionDictionary
-    @abstract	A type to file extensions (or HSF file types) map.
-    @discussion	Plug-ins support. The extension <-> document type <-> document class relationship is managed by the main bundle and can be overriden by the plug-ins.
-				All information coming from the main bundle Info.plist is still managed by the standard cocoa methods as default.
-				This method will manage what comes from all the other bundles.
-				The values are arrays of case insensitive file extensions, case sensitive HFS file types (4 chars)
-				This is limited because the parsing of the Info.plist is not very strong,
-				so the inherited method is first used to populate the base dictionary.
-    @param		None.
-    @result		A dictionary of file extension for document types.
-	@status		Strongly deprecated in 2.1
-*/
-- (NSDictionary *)typeFromFileExtensionDictionary;
-#endif
 
 /*!
     @method		localizedTypeForContentsOfURL:error4iTM3:

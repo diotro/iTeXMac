@@ -29,6 +29,7 @@
 #import "iTM2BundleKit.h"
 #import "iTM2ImageKit.h"
 #import "iTM2ViewKit.h"
+#import "iTM2DocumentControllerKit.h"
 
 #import "iTM2StringFormatKit.h"
 #import "iTM2StringKit.h"
@@ -38,10 +39,10 @@
 #define TABLE @"iTM2TextKit"
 #define BUNDLE [iTM2TextDocument classBundle4iTM3]
 
-NSString * const iTM2WildcardDocumentType = @"Wildcard Document";// beware, this MUST appear in the target file...
-NSString * const iTM2TextDocumentType = @"Text Document";// beware, this MUST appear in the target file...
+NSString * const iTM2WildcardDocumentType = @"Wildcard.Document";// beware, this MUST appear in the target file...
+NSString * const iTM3TextDocumentType = @"iTM3.text.document";// beware, this MUST appear in the target file...
 NSString * const iTM2TextInspectorType = @"text";
-NSString * const iTM2StringEncodingKey = @"StringEncoding";
+NSString * const iTM3StringEncodingKey = @"com.apple.TextEncoding";
 NSString * const iTM2TextViewsDontUseStandardFindPanelKey = @"iTM2TextViewsDontUseStandardFinePanel";
 NSString * const iTM2TextViewsOverwriteKey = @"iTM2TextViewsOverwrite";
 
@@ -991,10 +992,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (iTM2DebugEnabled) {
-		LOG4iTM3(@"iTM2TextDocument fileURL: %@", absoluteURL);
-		LOG4iTM3(@"iTM2TextDocument type: %@", typeName);
-	}
+	DEBUGLOG4iTM3(0,@"iTM2TextDocument fileURL: %@", absoluteURL);
+	DEBUGLOG4iTM3(0,@"iTM2TextDocument type: %@", typeName);
     return [super readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteReadFromURL4iTM3:ofType:error:
@@ -1011,43 +1010,31 @@ To Do List:
 - (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
 /*"Now using direct NSString methods to manage the encoding properly.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Révisé par itexmac2: 2010-11-22 22:48:12 +0100
 To Do List:
 "*/
 {
-    return YES;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)stringRepresentationCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
-/*"Now using direct NSString methods to manage the encoding properly.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{
-    return [self.stringFormatter4iTM3 readFromURL:absoluteURL error:outErrorPtr];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteWriteToURL4iTM3:ofType:error:
-- (BOOL)stringRepresentationCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
-/*"Now using direct NSString methods to manage the encoding properly.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{
+    if (![typeName conformsToUTType4iTM3:(NSString *)kUTTypePlainText]) {
+        return NO;
+    }
 	NSStringEncoding saveEncoding = self.stringEncoding;
 	NSString * S = self.stringRepresentation;
     if ([S writeToURL:absoluteURL atomically:YES encoding:saveEncoding error:outErrorPtr]) {
 		LOG4iTM3(@"Data saved with encoding: %@", [NSString localizedNameOfStringEncoding:saveEncoding]);
 		return YES;
 	}
-	NSUInteger result = NSRunCriticalAlertPanel(
+	NSUInteger result = ZER0;
+    if (!S) {
+        OUTERROR4iTM3(1,@"Nothing to save, it might be a bug.",NULL);
+        return NO;
+    }
+    result = NSRunCriticalAlertPanel(
 NSLocalizedStringFromTableInBundle(@"Saving.", TABLE, BUNDLE, "Critical Alert Panel Title"),
 NSLocalizedStringFromTableInBundle(@"Information may be lost while saving with encoding %@.", TABLE, BUNDLE, "unsaved"),
 NSLocalizedStringFromTableInBundle(@"Ignore", TABLE, BUNDLE, "Ignore"),
 nil,
 NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms"),
-[NSString localizedNameOfStringEncoding:saveEncoding]);
+ [NSString localizedNameOfStringEncoding:saveEncoding]);
 	if (NSAlertDefaultReturn == result) {
 		return NO;// abort
 	} else if (NSAlertOtherReturn == result) {
@@ -1109,6 +1096,17 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 	}
 	return NO;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteReadFromURL4iTM3:ofType:error:
+- (BOOL)stringRepresentationCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+/*"Now using direct NSString methods to manage the encoding properly.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Fri Sep 05 2003
+To Do List:
+"*/
+{
+    //  if the receiver belongs to a project, this project must be set beforehand
+    return [self.stringFormatter4iTM3 readFromURL:absoluteURL error:outErrorPtr];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
 - (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
@@ -1142,7 +1140,7 @@ To do list: ASK!!!
             if (self != [docWindow.windowController document])
                 docWindow = nil;
             NSDictionary * D = [NSDictionary dictionaryWithObjectsAndKeys:
-                    [NSNumber numberWithUnsignedInteger:encoding],iTM2StringEncodingKey,
+                    [NSNumber numberWithUnsignedInteger:encoding],iTM3StringEncodingKey,
 					[NSValue valueWithPointer:outErrorPtr],@"outErrorPtr",
 					[NSValue valueWithPointer:&success],@"successPtr",
 						nil];
@@ -1178,7 +1176,7 @@ To do list: ASK!!!
     [contextInfo autorelease];// was retained before
 	NSError ** outErrorPtr = [(NSValue *)[contextInfo objectForKey:@"outErrorPtr"] pointerValue];
 	BOOL * successPtr = [(NSValue *)[contextInfo objectForKey:@"successPtr"] pointerValue];
-	NSUInteger encoding = [(NSNumber *)[contextInfo objectForKey:iTM2StringEncodingKey] unsignedIntegerValue];
+	NSUInteger encoding = [(NSNumber *)[contextInfo objectForKey:iTM3StringEncodingKey] unsignedIntegerValue];
     if (returnCode == NSAlertDefaultReturn)
 	{
 		BOOL success = [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
@@ -1250,7 +1248,7 @@ To Do List:
 - (void)setupTextEditorsForView:(id)view;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
+Révisé par itexmac2: 2010-11-22 23:18:09 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;

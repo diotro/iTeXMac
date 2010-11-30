@@ -558,7 +558,7 @@ extern NSString * const iTM2InspectorTable;
 /*! 
     @method     dataCompleteWriteToURL4iTM3:ofType:error:
     @abstract   write the data to the given url
-    @discussion The receiver's dataRepresentation with the given type will be saved at the given path.
+    @discussion The receiver's data with the given type will be saved at the given path.
     @param      absoluteURL is the document url.
     @param      typeName is the document type.
     @param      outputError.
@@ -608,8 +608,8 @@ extern NSString * const iTM2InspectorTable;
 /*! 
     @method     dataRepresentation
     @abstract   The data representation of the receiver
-    @discussion It is the dataRepresentationOfType: the receiver's file type.
-                So never use this method from a dataRepresentationOfType: unless you want an infinite loop.
+    @discussion It is the dataOfType:error: the receiver's file type.
+                So never use this method from a dataOfType:error: unless you want an infinite loop.
     @param      None.
     @result     A data.
 */
@@ -624,15 +624,6 @@ extern NSString * const iTM2InspectorTable;
     @result     A flag.
 */
 - (void)setDataRepresentation:(NSData *)data;
-
-/*! 
-    @method     dataRepresentationOfType:
-    @abstract   the data representation of the receiver for the given type
-    @discussion Just asks the implementation to do the job.
-    @param      The document type.
-    @result     A flag.
-*/
-- (NSData *)dataRepresentationOfType:(NSString *)type;
 
 /*! 
     @method     loadDataRepresentation:ofType:

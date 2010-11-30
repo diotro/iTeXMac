@@ -27,6 +27,8 @@
 				514218C0109885FC00A01853 /* PBXTargetDependency */,
 				514218BE109885FC00A01853 /* PBXTargetDependency */,
 				514218BC109885FC00A01853 /* PBXTargetDependency */,
+				51D7FE1E12987901009C0707 /* PBXTargetDependency */,
+				51D7FE1C12987901009C0707 /* PBXTargetDependency */,
 			);
 			name = "All Tests";
 			productName = "All Tests";
@@ -224,6 +226,94 @@
 		51D1D19D1195247600BC8256 /* iTM2Test5.m in Sources */ = {isa = PBXBuildFile; fileRef = 5338F212108F5A9000842A70 /* iTM2Test5.m */; };
 		51D1D5B91196F2C700BC8256 /* iTM2RegExTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D1D5B81196F2C700BC8256 /* iTM2RegExTests.plist */; };
 		51D1D5BA1196F2C700BC8256 /* iTM2RegExTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D1D5B81196F2C700BC8256 /* iTM2RegExTests.plist */; };
+		51D7FD80129877C6009C0707 /* iTM2Test7.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D7FD7F129877C6009C0707 /* iTM2Test7.m */; };
+		51D7FD81129877C6009C0707 /* iTM2Test7.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D7FD7F129877C6009C0707 /* iTM2Test7.m */; };
+		51D7FDAA12987886009C0707 /* iTM2DocumentPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC2B477A0AD2EED70039FCBA /* iTM2DocumentPrefPane.strings */; };
+		51D7FDAB12987886009C0707 /* iTM2MacroPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B6810AA8DDA50042AA60 /* iTM2MacroPrefPane.strings */; };
+		51D7FDAC12987886009C0707 /* iTM2MacroKeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */; };
+		51D7FDAD12987886009C0707 /* iTM2MacroPrefPane.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD7B6780AA8DD260042AA60 /* iTM2MacroPrefPane.png */; };
+		51D7FDAE12987886009C0707 /* iTM2DocumentPrefPane.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2B48440AD3054E0039FCBA /* iTM2DocumentPrefPane.png */; };
+		51D7FDAF12987886009C0707 /* iTM2DocumentPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C24020106940030000990A /* iTM2DocumentPrefPane.xib */; };
+		51D7FDB012987886009C0707 /* iTM2MacroPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C24022106940030000990A /* iTM2MacroPrefPane.xib */; };
+		51D7FDB112987886009C0707 /* iTM2PrefsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C24024106940030000990A /* iTM2PrefsController.xib */; };
+		51D7FDB212987886009C0707 /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCDC067E09E696440038845F /* Styles.resources.tgz */; };
+		51D7FDB312987886009C0707 /* iTM2TextSyntaxParserAttributesInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C2403D1069407D0000990A /* iTM2TextSyntaxParserAttributesInspector.xib */; };
+		51D7FDB412987886009C0707 /* iTM2TextStyleInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C2403B1069407D0000990A /* iTM2TextStyleInspector.xib */; };
+		51D7FDB512987886009C0707 /* iTM2TextStyle_default.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDC063109E690310038845F /* iTM2TextStyle_default.strings */; };
+		51D7FDB612987886009C0707 /* iTM2TextStyle.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCDC062F09E690310038845F /* iTM2TextStyle.strings */; };
+		51D7FDB712987886009C0707 /* iTM2TextNewSyntaxParserVariantController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C240391069407D0000990A /* iTM2TextNewSyntaxParserVariantController.xib */; };
+		51D7FDB812987886009C0707 /* iTM2FontsAndColors.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC7051C00B6061E9009FD188 /* iTM2FontsAndColors.tiff */; };
+		51D7FDBA12987886009C0707 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C252621089E84D002312DA /* RegexKitLite.m */; };
+		51D7FDBB12987886009C0707 /* ICURegEx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 53C2525E1089E836002312DA /* ICURegEx.mm */; };
+		51D7FDBC12987886009C0707 /* iTM2StringKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB38D108E6808001B3F81 /* iTM2StringKit.m */; };
+		51D7FDBD12987886009C0707 /* iTM2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251DC1089E80F002312DA /* iTM2Runtime.m */; };
+		51D7FDBE12987886009C0707 /* iTeXMac2.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251C81089E80F002312DA /* iTeXMac2.m */; };
+		51D7FDBF12987886009C0707 /* iTM2BundleKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251CA1089E80F002312DA /* iTM2BundleKit.m */; };
+		51D7FDC012987886009C0707 /* iTM2DistributedObjectKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251CC1089E80F002312DA /* iTM2DistributedObjectKit.m */; };
+		51D7FDC112987886009C0707 /* iTM2FileManagerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251CE1089E80F002312DA /* iTM2FileManagerKit.m */; };
+		51D7FDC212987886009C0707 /* iTM2Implementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251D01089E80F002312DA /* iTM2Implementation.m */; };
+		51D7FDC312987886009C0707 /* iTM2InstallationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251D21089E80F002312DA /* iTM2InstallationKit.m */; };
+		51D7FDC412987886009C0707 /* iTM2Invocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251D41089E80F002312DA /* iTM2Invocation.m */; };
+		51D7FDC512987886009C0707 /* iTM2NotificationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251D61089E80F002312DA /* iTM2NotificationKit.m */; };
+		51D7FDC612987886009C0707 /* iTM2ObjectServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251D81089E80F002312DA /* iTM2ObjectServer.m */; };
+		51D7FDC712987886009C0707 /* iTM2PathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251DA1089E80F002312DA /* iTM2PathUtilities.m */; };
+		51D7FDC812987886009C0707 /* iTM2TreeKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251DE1089E80F002312DA /* iTM2TreeKit.m */; };
+		51D7FDC912987886009C0707 /* iTM2ButtonKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251E11089E80F002312DA /* iTM2ButtonKit.m */; };
+		51D7FDCA12987886009C0707 /* iTM2CursorKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251E31089E80F002312DA /* iTM2CursorKit.m */; };
+		51D7FDCB12987886009C0707 /* iTM2EventKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251E51089E80F002312DA /* iTM2EventKit.m */; };
+		51D7FDCC12987886009C0707 /* iTM2ImageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251E71089E80F002312DA /* iTM2ImageKit.m */; };
+		51D7FDCD12987886009C0707 /* iTM2MenuKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251E91089E80F002312DA /* iTM2MenuKit.m */; };
+		51D7FDCE12987886009C0707 /* iTM2ResponderKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251EB1089E80F002312DA /* iTM2ResponderKit.m */; };
+		51D7FDCF12987886009C0707 /* iTM2ValidationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251ED1089E80F002312DA /* iTM2ValidationKit.m */; };
+		51D7FDD012987886009C0707 /* iTM2ViewKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251EF1089E80F002312DA /* iTM2ViewKit.m */; };
+		51D7FDD112987886009C0707 /* iTM2WindowKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251F11089E80F002312DA /* iTM2WindowKit.m */; };
+		51D7FDD212987886009C0707 /* iTM2MiscKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAFBE108E4785001B3F81 /* iTM2MiscKit.m */; };
+		51D7FDD312987886009C0707 /* iTM2TextFieldKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAFE0108E486B001B3F81 /* iTM2TextFieldKit.m */; };
+		51D7FDD412987886009C0707 /* iTM2InheritanceKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251FE1089E80F002312DA /* iTM2InheritanceKit.m */; };
+		51D7FDD512987886009C0707 /* iTM2UserDefaultsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C2520E1089E80F002312DA /* iTM2UserDefaultsKit.m */; };
+		51D7FDD612987886009C0707 /* iTM2PreferencesKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB234108E63BB001B3F81 /* iTM2PreferencesKit.m */; };
+		51D7FDD712987886009C0707 /* iTM2ContextKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251F81089E80F002312DA /* iTM2ContextKit.m */; };
+		51D7FDD812987886009C0707 /* iTM2DocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251FC1089E80F002312DA /* iTM2DocumentKit.m */; };
+		51D7FDD912987886009C0707 /* iTM2DocumentControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251FA1089E80F002312DA /* iTM2DocumentControllerKit.m */; };
+		51D7FDDA12987886009C0707 /* iTM2ApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251F41089E80F002312DA /* iTM2ApplicationDelegate.m */; };
+		51D7FDDB12987886009C0707 /* iTM2AutoKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251F61089E80F002312DA /* iTM2AutoKit.m */; };
+		51D7FDDC12987886009C0707 /* iTM2HelpKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB39D108E6908001B3F81 /* iTM2HelpKit.m */; };
+		51D7FDDD12987886009C0707 /* iTM2LiteScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B9A0854654B003F5F79 /* iTM2LiteScanner.m */; };
+		51D7FDDE12987886009C0707 /* iTM2TextKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BA20854654B003F5F79 /* iTM2TextKit.m */; };
+		51D7FDDF12987886009C0707 /* iTM2StringFormatKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61B9C0854654B003F5F79 /* iTM2StringFormatKit.m */; };
+		51D7FDE012987886009C0707 /* iTM2TextDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BA00854654B003F5F79 /* iTM2TextDocumentKit.m */; };
+		51D7FDE112987886009C0707 /* iTM2KeyBindingsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE35108E087D001B3F81 /* iTM2KeyBindingsKit.m */; };
+		51D7FDE212987886009C0707 /* iTM2MacroKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE37108E087D001B3F81 /* iTM2MacroKit.m */; };
+		51D7FDE312987886009C0707 /* iTM2MacroKit_Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE39108E087D001B3F81 /* iTM2MacroKit_Action.m */; };
+		51D7FDE412987886009C0707 /* iTM2MacroKit_Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE3B108E087D001B3F81 /* iTM2MacroKit_Controller.m */; };
+		51D7FDE512987886009C0707 /* iTM2MacroKit_Prefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE3D108E087D001B3F81 /* iTM2MacroKit_Prefs.m */; };
+		51D7FDE612987886009C0707 /* iTM2MacroKit_String.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE3F108E087D001B3F81 /* iTM2MacroKit_String.m */; };
+		51D7FDE712987886009C0707 /* iTM2MacroKit_Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE41108E087D001B3F81 /* iTM2MacroKit_Tree.m */; };
+		51D7FDE812987886009C0707 /* iTM2TextCompletionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB165108E5CF4001B3F81 /* iTM2TextCompletionKit.m */; };
+		51D7FDE912987886009C0707 /* iTM2RepToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC78634008CC29F400D4AA33 /* iTM2RepToolbarDelegate.m */; };
+		51D7FDEA12987886009C0707 /* iTM2PDFToolbarDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC78632608CC290700D4AA33 /* iTM2PDFToolbarDelegate.m */; };
+		51D7FDEB12987886009C0707 /* iTM2PDFDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BA70854654B003F5F79 /* iTM2PDFDocumentKit.m */; };
+		51D7FDEC12987886009C0707 /* iTM2PDFViewKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BA90854654B003F5F79 /* iTM2PDFViewKit.m */; };
+		51D7FDED12987886009C0707 /* iTM2InfoWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C240CF106A3F9C0000990A /* iTM2InfoWrapperKit.m */; };
+		51D7FDEE12987886009C0707 /* iTM2ProjectControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C240D1106A3F9C0000990A /* iTM2ProjectControllerKit.m */; };
+		51D7FDEF12987886009C0707 /* iTM2ProjectDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BAC0854654B003F5F79 /* iTM2ProjectDocumentKit.m */; };
+		51D7FDF012987886009C0707 /* iTM2TaskKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC25E50D0991FA7600545F27 /* iTM2TaskKit.m */; };
+		51D7FDF112987886009C0707 /* iTM2Responders.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BB70854654B003F5F79 /* iTM2Responders.m */; };
+		51D7FDF212987886009C0707 /* iTM2SpellKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BB90854654B003F5F79 /* iTM2SpellKit.m */; };
+		51D7FDF312987886009C0707 /* iTM2ProjectSpellKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BB50854654B003F5F79 /* iTM2ProjectSpellKit.m */; };
+		51D7FDF412987886009C0707 /* iTM2SystemSignalKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BBB0854654B003F5F79 /* iTM2SystemSignalKit.m */; };
+		51D7FDF512987886009C0707 /* iTM2StartupKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC69184F088C6E9A00F00114 /* iTM2StartupKit.m */; };
+		51D7FDF612987886009C0707 /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
+		51D7FDF712987886009C0707 /* iTM2TextStyleEditionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF61BDC0854654B003F5F79 /* iTM2TextStyleEditionKit.m */; };
+		51D7FDF812987886009C0707 /* iTM2AppleScriptKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8303EF086EA056004799EB /* iTM2AppleScriptKit.m */; };
+		51D7FDF912987886009C0707 /* iTM2DocumentPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2B47370AD2D2930039FCBA /* iTM2DocumentPrefPane.m */; };
+		51D7FDFA12987886009C0707 /* iTM2StringControllerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 5142191810988E0600A01853 /* iTM2StringControllerKit.m */; };
+		51D7FDFD12987886009C0707 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		51D7FDFE12987886009C0707 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
+		51D7FDFF12987886009C0707 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC18E08E1A5890011D2B7 /* PreferencePanes.framework */; };
+		51D7FE0012987886009C0707 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
+		51D7FE0112987886009C0707 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
+		51D7FE13129878CC009C0707 /* iTM2Test7.m in Sources */ = {isa = PBXBuildFile; fileRef = 51D7FD7F129877C6009C0707 /* iTM2Test7.m */; };
 		51ECFE3C0CECE05A00D8B978 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */; };
 		51EEA16C11B6EB21000D538E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 537677C910885159007CCC1E /* InfoPlist.strings */; };
 		51EFB39F0DFD23BD0090E7D0 /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B40854DC0F00F3EB8A /* README.rtf */; };
@@ -1443,6 +1533,20 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = iTM2Foundation;
 		};
+		51D7FE1B12987901009C0707 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51D7FDA812987886009C0707;
+			remoteInfo = iTM2Test7;
+		};
+		51D7FE1D12987901009C0707 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51FFE005127C648C0014BE72;
+			remoteInfo = iTM2Test6;
+		};
 		51EFB39B0DFD23BD0090E7D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1903,6 +2007,10 @@
 		51B7732E0E06B98C00322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		51D1D48A1196037000BC8256 /* Sandbox */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Sandbox; sourceTree = "<group>"; };
 		51D1D5B81196F2C700BC8256 /* iTM2RegExTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegExTests.plist; sourceTree = "<group>"; };
+		51D7FD7E129877C6009C0707 /* iTM2Test7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test7.h; sourceTree = "<group>"; };
+		51D7FD7F129877C6009C0707 /* iTM2Test7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test7.m; sourceTree = "<group>"; };
+		51D7FE0612987886009C0707 /* iTM2Test6.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test6.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		51D7FE1012987886009C0707 /* Tests-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info copy.plist"; sourceTree = "<group>"; };
 		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Skim.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EFB3A70DFD23FA0090E7D0 /* skim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skim; sourceTree = "<group>"; };
@@ -2297,6 +2405,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		51D7FDFC12987886009C0707 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51D7FDFD12987886009C0707 /* Cocoa.framework in Frameworks */,
+				51D7FDFE12987886009C0707 /* Carbon.framework in Frameworks */,
+				51D7FDFF12987886009C0707 /* PreferencePanes.framework in Frameworks */,
+				51D7FE0012987886009C0707 /* ExceptionHandling.framework in Frameworks */,
+				51D7FE0112987886009C0707 /* libicucore.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51FFE059127C648C0014BE72 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2573,6 +2693,7 @@
 				5338F5F8108FAF7D00842A70 /* iTM2Test5.octest */,
 				5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */,
 				51FFE063127C648D0014BE72 /* iTM2Test6.octest */,
+				51D7FE0612987886009C0707 /* iTM2Test6.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2614,6 +2735,7 @@
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				515C95DF1270DC8B0000C5BB /* iTeXMac2.xib */,
+				51D7FE1012987886009C0707 /* Tests-Info copy.plist */,
 			);
 			name = iTM2Foundation;
 			sourceTree = "<group>";
@@ -2843,6 +2965,8 @@
 				5338F212108F5A9000842A70 /* iTM2Test5.m */,
 				51FFDFFA127C64390014BE72 /* iTM2Test6.h */,
 				51FFDFFB127C64390014BE72 /* iTM2Test6.m */,
+				51D7FD7E129877C6009C0707 /* iTM2Test7.h */,
+				51D7FD7F129877C6009C0707 /* iTM2Test7.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -3239,6 +3363,24 @@
 			name = iTM2Test3B;
 			productName = iTM2NotificationKitTest;
 			productReference = 5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		51D7FDA812987886009C0707 /* iTM2Test7 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51D7FE0312987886009C0707 /* Build configuration list for PBXNativeTarget "iTM2Test7" */;
+			buildPhases = (
+				51D7FDA912987886009C0707 /* Resources */,
+				51D7FDB912987886009C0707 /* Sources */,
+				51D7FDFC12987886009C0707 /* Frameworks */,
+				51D7FE0212987886009C0707 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iTM2Test7;
+			productName = iTM2NotificationKitTest;
+			productReference = 51D7FE0612987886009C0707 /* iTM2Test6.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		51EFB3990DFD23BD0090E7D0 /* Skim */ = {
@@ -3914,6 +4056,7 @@
 				5338F3F3108F7BFF00842A70 /* iTM2Test4 */,
 				5338F59E108FAF7D00842A70 /* iTM2Test5 */,
 				51FFE005127C648C0014BE72 /* iTM2Test6 */,
+				51D7FDA812987886009C0707 /* iTM2Test7 */,
 				514218B1109885EA00A01853 /* All Tests */,
 			);
 		};
@@ -3931,6 +4074,28 @@
 				5113C29011731B7600F6D951 /* iTM2TextStyle.strings in Resources */,
 				5113C29111731B7600F6D951 /* iTM2TextNewSyntaxParserVariantController.xib in Resources */,
 				5113C29211731B7600F6D951 /* iTM2FontsAndColors.tiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51D7FDA912987886009C0707 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51D7FDAA12987886009C0707 /* iTM2DocumentPrefPane.strings in Resources */,
+				51D7FDAB12987886009C0707 /* iTM2MacroPrefPane.strings in Resources */,
+				51D7FDAC12987886009C0707 /* iTM2MacroKeyCodes.xml in Resources */,
+				51D7FDAD12987886009C0707 /* iTM2MacroPrefPane.png in Resources */,
+				51D7FDAE12987886009C0707 /* iTM2DocumentPrefPane.png in Resources */,
+				51D7FDAF12987886009C0707 /* iTM2DocumentPrefPane.xib in Resources */,
+				51D7FDB012987886009C0707 /* iTM2MacroPrefPane.xib in Resources */,
+				51D7FDB112987886009C0707 /* iTM2PrefsController.xib in Resources */,
+				51D7FDB212987886009C0707 /* Styles.resources.tgz in Resources */,
+				51D7FDB312987886009C0707 /* iTM2TextSyntaxParserAttributesInspector.xib in Resources */,
+				51D7FDB412987886009C0707 /* iTM2TextStyleInspector.xib in Resources */,
+				51D7FDB512987886009C0707 /* iTM2TextStyle_default.strings in Resources */,
+				51D7FDB612987886009C0707 /* iTM2TextStyle.strings in Resources */,
+				51D7FDB712987886009C0707 /* iTM2TextNewSyntaxParserVariantController.xib in Resources */,
+				51D7FDB812987886009C0707 /* iTM2FontsAndColors.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4379,6 +4544,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}\"\nexit 0\n";
+			showEnvVarsInLog = 0;
+		};
+		51D7FE0212987886009C0707 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "lipo -info \"${BUILD_DIR}/${EXECUTABLE_PATH}\"\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 			showEnvVarsInLog = 0;
 		};
 		51FFE05F127C648C0014BE72 /* ShellScript */ = {
@@ -4878,6 +5057,79 @@
 				5113C2D211731B7600F6D951 /* iTM2TextStorageKit.m in Sources */,
 				5113C2D311731B7600F6D951 /* iTM2TextStyleEditionKit.m in Sources */,
 				5113C2EE11731BBE00F6D951 /* iTM2Test3B.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51D7FDB912987886009C0707 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51D7FE13129878CC009C0707 /* iTM2Test7.m in Sources */,
+				51D7FDBA12987886009C0707 /* RegexKitLite.m in Sources */,
+				51D7FDBB12987886009C0707 /* ICURegEx.mm in Sources */,
+				51D7FDBC12987886009C0707 /* iTM2StringKit.m in Sources */,
+				51D7FDBD12987886009C0707 /* iTM2Runtime.m in Sources */,
+				51D7FDBE12987886009C0707 /* iTeXMac2.m in Sources */,
+				51D7FDBF12987886009C0707 /* iTM2BundleKit.m in Sources */,
+				51D7FDC012987886009C0707 /* iTM2DistributedObjectKit.m in Sources */,
+				51D7FDC112987886009C0707 /* iTM2FileManagerKit.m in Sources */,
+				51D7FDC212987886009C0707 /* iTM2Implementation.m in Sources */,
+				51D7FDC312987886009C0707 /* iTM2InstallationKit.m in Sources */,
+				51D7FDC412987886009C0707 /* iTM2Invocation.m in Sources */,
+				51D7FDC512987886009C0707 /* iTM2NotificationKit.m in Sources */,
+				51D7FDC612987886009C0707 /* iTM2ObjectServer.m in Sources */,
+				51D7FDC712987886009C0707 /* iTM2PathUtilities.m in Sources */,
+				51D7FDC812987886009C0707 /* iTM2TreeKit.m in Sources */,
+				51D7FDC912987886009C0707 /* iTM2ButtonKit.m in Sources */,
+				51D7FDCA12987886009C0707 /* iTM2CursorKit.m in Sources */,
+				51D7FDCB12987886009C0707 /* iTM2EventKit.m in Sources */,
+				51D7FDCC12987886009C0707 /* iTM2ImageKit.m in Sources */,
+				51D7FDCD12987886009C0707 /* iTM2MenuKit.m in Sources */,
+				51D7FDCE12987886009C0707 /* iTM2ResponderKit.m in Sources */,
+				51D7FDCF12987886009C0707 /* iTM2ValidationKit.m in Sources */,
+				51D7FDD012987886009C0707 /* iTM2ViewKit.m in Sources */,
+				51D7FDD112987886009C0707 /* iTM2WindowKit.m in Sources */,
+				51D7FDD212987886009C0707 /* iTM2MiscKit.m in Sources */,
+				51D7FDD312987886009C0707 /* iTM2TextFieldKit.m in Sources */,
+				51D7FDD412987886009C0707 /* iTM2InheritanceKit.m in Sources */,
+				51D7FDD512987886009C0707 /* iTM2UserDefaultsKit.m in Sources */,
+				51D7FDD612987886009C0707 /* iTM2PreferencesKit.m in Sources */,
+				51D7FDD712987886009C0707 /* iTM2ContextKit.m in Sources */,
+				51D7FDD812987886009C0707 /* iTM2DocumentKit.m in Sources */,
+				51D7FDD912987886009C0707 /* iTM2DocumentControllerKit.m in Sources */,
+				51D7FDDA12987886009C0707 /* iTM2ApplicationDelegate.m in Sources */,
+				51D7FDDB12987886009C0707 /* iTM2AutoKit.m in Sources */,
+				51D7FDDC12987886009C0707 /* iTM2HelpKit.m in Sources */,
+				51D7FDDD12987886009C0707 /* iTM2LiteScanner.m in Sources */,
+				51D7FDDE12987886009C0707 /* iTM2TextKit.m in Sources */,
+				51D7FDDF12987886009C0707 /* iTM2StringFormatKit.m in Sources */,
+				51D7FDE012987886009C0707 /* iTM2TextDocumentKit.m in Sources */,
+				51D7FDE112987886009C0707 /* iTM2KeyBindingsKit.m in Sources */,
+				51D7FDE212987886009C0707 /* iTM2MacroKit.m in Sources */,
+				51D7FDE312987886009C0707 /* iTM2MacroKit_Action.m in Sources */,
+				51D7FDE412987886009C0707 /* iTM2MacroKit_Controller.m in Sources */,
+				51D7FDE512987886009C0707 /* iTM2MacroKit_Prefs.m in Sources */,
+				51D7FDE612987886009C0707 /* iTM2MacroKit_String.m in Sources */,
+				51D7FDE712987886009C0707 /* iTM2MacroKit_Tree.m in Sources */,
+				51D7FDE812987886009C0707 /* iTM2TextCompletionKit.m in Sources */,
+				51D7FDE912987886009C0707 /* iTM2RepToolbarDelegate.m in Sources */,
+				51D7FDEA12987886009C0707 /* iTM2PDFToolbarDelegate.m in Sources */,
+				51D7FDEB12987886009C0707 /* iTM2PDFDocumentKit.m in Sources */,
+				51D7FDEC12987886009C0707 /* iTM2PDFViewKit.m in Sources */,
+				51D7FDED12987886009C0707 /* iTM2InfoWrapperKit.m in Sources */,
+				51D7FDEE12987886009C0707 /* iTM2ProjectControllerKit.m in Sources */,
+				51D7FDEF12987886009C0707 /* iTM2ProjectDocumentKit.m in Sources */,
+				51D7FDF012987886009C0707 /* iTM2TaskKit.m in Sources */,
+				51D7FDF112987886009C0707 /* iTM2Responders.m in Sources */,
+				51D7FDF212987886009C0707 /* iTM2SpellKit.m in Sources */,
+				51D7FDF312987886009C0707 /* iTM2ProjectSpellKit.m in Sources */,
+				51D7FDF412987886009C0707 /* iTM2SystemSignalKit.m in Sources */,
+				51D7FDF512987886009C0707 /* iTM2StartupKit.m in Sources */,
+				51D7FDF612987886009C0707 /* iTM2TextStorageKit.m in Sources */,
+				51D7FDF712987886009C0707 /* iTM2TextStyleEditionKit.m in Sources */,
+				51D7FDF812987886009C0707 /* iTM2AppleScriptKit.m in Sources */,
+				51D7FDF912987886009C0707 /* iTM2DocumentPrefPane.m in Sources */,
+				51D7FDFA12987886009C0707 /* iTM2StringControllerKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5594,6 +5846,7 @@
 				5338F7FD108FB84A00842A70 /* iTM2Invocation.m in Sources */,
 				5338FC091090BC1700842A70 /* iTM2InstallationKit.m in Sources */,
 				53F81FA2108677450000F555 /* Test Application debug-main.m in Sources */,
+				51D7FD81129877C6009C0707 /* iTM2Test7.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5687,8 +5940,9 @@
 				513EDA051193EE6D0069EFCA /* iTM2Test3A.m in Sources */,
 				513EDA061193EE6D0069EFCA /* iTM2Test3B.m in Sources */,
 				51D1D19C1195247600BC8256 /* iTM2Test4.m in Sources */,
-				51FFE075127C65940014BE72 /* iTM2Test6.m in Sources */,
 				51D1D19D1195247600BC8256 /* iTM2Test5.m in Sources */,
+				51FFE075127C65940014BE72 /* iTM2Test6.m in Sources */,
+				51D7FD80129877C6009C0707 /* iTM2Test7.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5826,6 +6080,16 @@
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
 			targetProxy = 51A6873C10A2E269006E0065 /* PBXContainerItemProxy */;
+		};
+		51D7FE1C12987901009C0707 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51D7FDA812987886009C0707 /* iTM2Test7 */;
+			targetProxy = 51D7FE1B12987901009C0707 /* PBXContainerItemProxy */;
+		};
+		51D7FE1E12987901009C0707 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51FFE005127C648C0014BE72 /* iTM2Test6 */;
+			targetProxy = 51D7FE1D12987901009C0707 /* PBXContainerItemProxy */;
 		};
 		51EFB39A0DFD23BD0090E7D0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6455,6 +6719,82 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Prepare Milestones";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		51D7FE0412987886009C0707 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../build\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Unit Tests/Tests.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../Lua/luacore/Source",
+					"$(SRCROOT)/../Lua/luacore/Lua",
+					"$(SRCROOT)/../ICU/icu/source/common",
+					"$(SRCROOT)/../ICU/icu/source/i18n",
+				);
+				INFOPLIST_FILE = "Tests-Info copy.plist";
+				INFOPLIST_PREPROCESS = NO;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = iTM2Test6;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Development;
+		};
+		51D7FE0512987886009C0707 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../build\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Unit Tests/Tests.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../Lua/luacore/Source",
+					"$(SRCROOT)/../Lua/luacore/Lua",
+					"$(SRCROOT)/../ICU/icu/source/common",
+					"$(SRCROOT)/../ICU/icu/source/i18n",
+				);
+				INFOPLIST_FILE = "Tests-Info copy.plist";
+				INFOPLIST_PREPROCESS = NO;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = iTM2Test6;
+				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
 			name = Deployment;
@@ -8170,6 +8510,15 @@
 			buildConfigurations = (
 				5185E6DC126F89C200AFA001 /* Development */,
 				5185E6DD126F89C200AFA001 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		51D7FE0312987886009C0707 /* Build configuration list for PBXNativeTarget "iTM2Test7" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51D7FE0412987886009C0707 /* Development */,
+				51D7FE0512987886009C0707 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

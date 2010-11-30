@@ -62,9 +62,10 @@
     PC = [[iTM2ProjectController alloc] init];
     STAssertTrue(PC.projects.count == ZER0,@"MISSED",nil);
     //  As default value, the various locations where we look for project are:
-    STAssertTrue(PC.orderedBaseProjectNames.count == ZER0,@"MISSED",nil);
+    NSError * ROR = nil;
+    STAssertTrue([PC orderedBaseProjectNamesWithError:&ROR].count == ZER0,@"MISSED",nil);
+    STAssertNil(ROR,@"MISSED",nil);
     [PC performSelector:@selector(updateBaseProjectsNotified:) withObject:nil];
-    
     return;
     
 }

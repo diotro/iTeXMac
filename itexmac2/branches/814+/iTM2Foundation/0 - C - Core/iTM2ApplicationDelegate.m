@@ -42,7 +42,7 @@ NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 
 
 @interface NSDocumentController(iTM2ApplicationDelegate)
-- (id)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL;
+- (id)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
 @end
 @implementation iTM2ApplicationDelegate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
@@ -118,8 +118,12 @@ To Do: problem when there is no UI.
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([SDC respondsToSelector:@selector(prepareOpenDocumentWithContentsOfURL:)]) {
-		[SDC prepareOpenDocumentWithContentsOfURL:[NSURL fileURLWithPath4iTM3:filename]];
+	if ([SDC respondsToSelector:@selector(prepareOpenDocumentWithContentsOfURL:error:)]) {
+        NSError * ROR = nil;
+		[SDC prepareOpenDocumentWithContentsOfURL:[NSURL fileURLWithPath4iTM3:filename] error:&ROR];
+        if (ROR) {
+            [NSApp presentError:ROR];
+        }
 	}
 //END4iTM3;
     return NO;

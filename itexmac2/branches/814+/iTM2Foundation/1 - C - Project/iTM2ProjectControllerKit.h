@@ -121,7 +121,7 @@ typedef enum
 + (void)setSharedProjectController:(id)argument;
 
 /*!
-    @method			normalizedURLWithURL:inProjectWithURL:
+    @method			normalizedURLWithURL:inProjectWithURL:error:
     @abstract		A normalized URL.
     @discussion		An URL if it can be properly decomposed with respect to the various project directories.
 					
@@ -139,11 +139,12 @@ typedef enum
 					In all cases, url is returned if it is already normalized with respect to the project.
     @param			url is the NSURL to test.
     @param			projectURL is the project URL.
+    @param          outErrorPtr
     @result			An NSURL instance.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(NSURL *)normalizedURLWithURL:(NSURL *)url inProjectWithURL:(NSURL *)projectURL;
+-(NSURL *)normalizedURLWithURL:(NSURL *)url inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
 
 /*!
     @method			reservedFileKeys
@@ -168,7 +169,7 @@ typedef enum
 - (BOOL)isReservedFileKey:(NSString *)key;
 
 /*!
-    @method			URLForFileKey:filter:inProjectWithURL:
+    @method			URLForFileKey:filter:inProjectWithURL:error:
     @abstract		The URL for the given file key of the project with the given URL.
     @discussion		For reserved keys, this is either the project URL or the source URL...
 					For file keys, this is either an absolute URL if the relative name is in fact an absolute URL
@@ -176,27 +177,29 @@ typedef enum
     @param			key is a key.
     @param			filter is a filter that applies to the file, not the project.
     @param			projectURL is an URL.
+    @param          outErrorPtr
     @result			A name.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)URLForFileKey:(NSString *)key filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL;
+- (NSURL *)URLForFileKey:(NSString *)key filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
 
 /*!
-    @method			fileKeysWithFilter:inProjectWithURL:
+    @method			fileKeysWithFilter:inProjectWithURL:error:
     @abstract		All the file keys of the project with the given URL.
     @discussion		For the regular filter, only file keys available in the main info property list are returned.
 					The special keys for the project, factory and contents are not returned.
     @param			filter is a filter that applies to the file, not to projectURL.
     @param			projectURL is an URL.
+    @param          outErrorPtr
     @result			An array of file keys.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSArray *)fileKeysWithFilter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL;
+- (NSArray *)fileKeysWithFilter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
 
 /*!
-    @method			fileKeyForURL:filter:inProjectWithURL:
+    @method			fileKeyForURL:filter:inProjectWithURL:error:
     @abstract		The file key for the given URL of the project with the given URL.
     @discussion		For all the -fileKeysOfProjectWithURL:,
 					test whether the given fileURL is -URLForFileKey:inProjectWithURL:.
@@ -205,11 +208,12 @@ typedef enum
     @param			fileURL is an URL.
     @param			filter is a filter that applies to the file, not the project.
     @param			projectURL is an URL.
+    @param          outErrorPtr
     @result			An array of file keys.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *)fileKeyForURL:(NSURL *)fileURL filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL;
+- (NSString *)fileKeyForURL:(NSURL *)fileURL filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
 
 /*!
     @method     flushCaches
@@ -231,19 +235,21 @@ typedef enum
 				but beware not to send this message too often.
 				This method is a MAJOR entry point.
     @param      fileURL is a full URL
+    @param      outErrorPtr...
     @result     A project document
 */
-- (id)projectForURL:(NSURL *)fileURL;
+- (id)projectForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     setProject:forURL:
+    @method     setProject:forURL:error:
     @abstract   Set the project for the given file name.
     @discussion Discussion forthcoming.
     @param      PD is any project document...
     @param		File name
-	@result		None
+    @param      outErrorPtr
+	@result		yorn
 */
-- (void)setProject:(id)PD forURL:(NSURL *)fileURL;
+- (BOOL)setProject:(id)PD forURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 
 /*! 
     @method     projectForDocument:
@@ -275,7 +281,7 @@ typedef enum
 - (id)projectForDocument:(NSDocument *)document;
 
 /*! 
-    @method     setProject:forDocument:
+    @method     setProject:forDocument:error:
     @abstract   Set the project for the given document.
     @discussion This is the central method where the link from a document to its associate project is made.
 				You must call this method to ensure that projectForDocument will return the expected answer.
@@ -286,12 +292,13 @@ typedef enum
 				between the document and any project involved.
     @param      document is any document...
     @param		A project document in general owning the given document
-	@result		None
+    @param      outErrorPtr
+	@result		yorn
 */
-- (void)setProject:(id)PD forDocument:(NSDocument *)document;
+- (BOOL)setProject:(id)PD forDocument:(NSDocument *)document error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     projectForSource:
+    @method     projectForSource:error:
     @abstract   The project for the given source.
     @discussion Any file MUST have a project, either useful or for convenience.
 				For example, if iTM2 opens a text file or a dvi file just to see the contents
@@ -334,9 +341,10 @@ typedef enum
 				
 				Faraway projects are used for standalone documents.
     @param      The source is either a file name or a document.
+    @param      outErrorPtr
     @result     A project document
 */
-- (id)projectForSource:(id)source;
+- (id)projectForSource:(id)source error:(NSError **)outErrorPtr;
 
 /*! 
     @method     currentProject
@@ -372,6 +380,15 @@ typedef enum
     @result     None
 */
 - (void)forgetProject:(id)project;
+
+/*! 
+    @method     forgetDocument:
+    @abstract   forget the given document.
+    @discussion Clean the caches from whatever is related to the document.
+    @param      A project
+    @result     None
+*/
+- (void)forgetDocument:(NSDocument *)document;
 
 /*! 
     @method     bookmarksSubdirectory
@@ -499,13 +516,14 @@ typedef enum
 - (NSArray *)baseProjectNames;
 
 /*! 
-    @method		orderedBaseProjectNames
+    @method		orderedBaseProjectNamesWithError:
     @abstract   The base projects names known by the project controller, ordered from the shortest to the longest.
     @discussion Discussion forthcoming.
     @param		None
+    @param      outErrorPtr
     @result		A dictionary
 */
-- (NSArray *)orderedBaseProjectNames;
+- (NSArray *)orderedBaseProjectNamesWithError:(NSError **)outErrorPtr;
 
 /*! 
     @method     countOfBaseProjects
@@ -517,16 +535,17 @@ typedef enum
 - (NSUInteger)countOfBaseProjects;
 
 /*! 
-    @method     baseProjectWithName:
+    @method     baseProjectWithName:error:
     @abstract   A project given its name.
     @discussion The name of the project is the base name of its path.
                 Many different projects may have the same name.
                 Particularly, when base projects are overriden by plugins.
                 The return project inherits from all the other base projects with the same name.
     @param      projectName
+    @param      outErrorPtr
     @result     A project
 */
-- (id)baseProjectWithName:(NSString *)projectName;
+- (id)baseProjectWithName:(NSString *)projectName error:(NSError **)outErrorPtr;
 
 /*! 
     @method     baseNamesOfAncestorsForBaseProjectName:
@@ -568,13 +587,14 @@ typedef enum
 - (BOOL)isProject:(id)argument;
 
 /*! 
-    @method     availableProjectsForURL:
+    @method     availableProjectsForURL:error:
     @abstract   Abstract forthcoming.
     @discussion Discussion forthcoming.
     @param      url...
+    @param      outErrorPtr...
     @result     an array of projects
 */
-- (id)availableProjectsForURL:(NSURL *)url;
+- (id)availableProjectsForURL:(NSURL *)url error:(NSError **)outErrorPtr;
 
 @end
 
@@ -590,29 +610,41 @@ enum {
 @interface NSWorkspace(iTM2ProjectControllerKit)
 
 /*!
-    @method		isProjectPackageAtURL4iTM3:
+    @method		isProjectPackageAtURL4iTM3:error:
     @abstract	Abstract forthcoming
     @discussion	Whether the given url points to a project.
-				If the receiver returns YES to a method named fooProjectPackageAtURL4iTM3:
+				If the receiver returns YES to a method named fooProjectPackageAtURL4iTM3:error:
 				except this one of course, the answer is YES.
 				For example, a TeX project manager can implement in a category a method named isTeXProjectPackageAtURL4iTM3:
 				Otherwise it's NO
-    @param      None
+    @param      url
+    @param      outErrorPtr
     @result     None
 */
-- (BOOL)isProjectPackageAtURL4iTM3:(NSURL *)url;
+- (BOOL)isProjectPackageAtURL4iTM3:(NSURL *)url error:(NSError **)outErrorPtr;
 
 /*!
-    @method		isWrapperPackageAtURL4iTM3:
+    @method		isWrapperPackageAtURL4iTM3:error:
     @abstract	Abstract forthcoming
     @discussion	Whether the given url points to a wrapper.
 				If the receiver returns YES to a method named fooWrapperPackageAtURL4iTM3:
 				except this one of course, the answer is YES.
 				Otherwise it's NO
-    @param      None
+    @param      url
+    @param      outErrorPtr
     @result     None
 */
-- (BOOL)isWrapperPackageAtURL4iTM3:(NSURL *)url;
+- (BOOL)isWrapperPackageAtURL4iTM3:(NSURL *)url error:(NSError **)outErrorPtr;
+
+/*!
+    @method		isFilePackageAtURL4iTM3:error:
+    @abstract	Abstract forthcoming
+    @discussion	Whether the given url points to a file package.
+    @param      The url
+    @param      outErrorPtr
+    @result     yorn
+*/
+- (BOOL)isFilePackageAtURL4iTM3:(NSURL *)url error:(NSError **)outErrorPtr;
 
 /*!
     @method		isBackupAtURL4iTM3:

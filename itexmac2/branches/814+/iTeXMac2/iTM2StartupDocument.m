@@ -52,7 +52,7 @@
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
 }
 
-- (NSData *)dataRepresentationOfType:(NSString *)aType
+- (NSData *)dataOfType:(NSString *)aType error:(NSError **)outErrorPtr;
 {DIAGNOSTIC4iTM3;
     // Insert code here to write your document from the given data.  You can also choose to override -fileWrapperRepresentationOfType: or -writeToFile:ofType: instead.
     return nil;
