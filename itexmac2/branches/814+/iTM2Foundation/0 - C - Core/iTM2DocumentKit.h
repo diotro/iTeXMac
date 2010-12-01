@@ -194,7 +194,7 @@ extern NSString * const iTM2InspectorTable;
 - (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
 
 /*!
-    @method		needsToUpdate
+    @method		needsToUpdate4iTM3
     @abstract	Whether the receiver needs an update.
     @discussion	This default implementation just compares the time stamps of the stored data
                 with the last file modification date.
@@ -203,16 +203,16 @@ extern NSString * const iTM2InspectorTable;
     @param		None.
     @result		A yorn flag.
 */
-- (BOOL)needsToUpdate;
+- (BOOL)needsToUpdate4iTM3;
 
 /*!
-    @method		updateIfNeeded
+    @method		updateIfNeeded4iTM3:
     @abstract	Abstract forthcoming.
     @discussion	Discussion Forthcoming.
-    @param		None.
+    @param		outErrorPtr.
     @result		None.
 */
-- (void)updateIfNeeded;
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
 
 /*!
     @method		recordFileModificationDateFromURL4iTM3:

@@ -559,8 +559,8 @@ To Do List:
     [self takeContext4iTM3Value:[NSNumber numberWithBool:value] forKey:aKey domain:mask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3:
-- (void)saveContext4iTM3:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3Error:
+- (BOOL)saveContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -568,11 +568,15 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
+    BOOL result = YES;
 	NSInvocation * I;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] saveContext4iTM3:sender];
-    for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteSaveContext4iTM3:" signature:[I methodSignature] inherited:YES]) {
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] saveContext4iTM3Error:outErrorPtr];
+    for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteSaveContext4iTM3:" signature:I.methodSignature inherited:YES]) {
         [I setSelector:(SEL)selector];
-        [I invoke];
+        I.invoke;
+        if (!result) {
+            [I getReturnValue:&result];
+        }
     }
 	[SUD synchronize];
 //END4iTM3;
@@ -590,8 +594,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadContext4iTM3:
-- (void)loadContext4iTM3:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadContext4iTM3Error:
+- (BOOL)loadContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -600,13 +604,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInvocation * I;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] loadContext4iTM3:sender];
-    for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteLoadContext4iTM3:" signature:[I methodSignature] inherited:YES]) {
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] loadContext4iTM3Error:outErrorPtr];
+    BOOL result = YES;
+    for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteLoadContext4iTM3Error:" signature:I.methodSignature inherited:YES]) {
         [I setSelector:(SEL)selector];
-        [I invoke];
+        I.invoke;
+        if (result) {
+            [I getReturnValue:&result];
+        }
     }
 //END4iTM3;
-    return;
+    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3DidChangeComplete
 - (void)context4iTM3DidChangeComplete;
@@ -725,18 +733,15 @@ To Do List:
 //START4iTM3
     return self.document?:[super currentContext4iTM3Manager];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerCompleteSaveContext4iTM3:
-- (void)windowControllerCompleteSaveContext4iTM3:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerCompleteSaveContext4iTM3Error:
+- (void)windowControllerCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-//START4iTM3;
-    [self.window saveContext4iTM3:sender];
-//END4iTM3;
-    return;
+    return [self.window saveContext4iTM3Error:outErrorPtr];
 }
 @end
 
@@ -1077,7 +1082,9 @@ To Do List:
 //LOG4iTM3(@"doc.fileURL.path is:%@, context4iTM3Dictionary is:%#x", doc.fileURL.path, context4iTM3Dictionary);
 	[invocation autorelease];
 	if (shouldClose) {
-		[doc saveContext4iTM3:self];
+        NSError * ROR = nil;
+		[doc saveContext4iTM3Error:&ROR];
+        REPORTERROR4iTM3(1,@"",ROR);
     }
 	[invocation setArgument:&shouldClose atIndex:3];
 	[invocation invoke];

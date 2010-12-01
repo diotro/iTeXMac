@@ -209,8 +209,8 @@ To Do List:
     return YES;
 }
 #pragma mark =-=-=-=-=-  UPDATING
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
-- (void)updateIfNeeded;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Mar 11 09:21:37 UTC 2010
@@ -221,7 +221,7 @@ To Do List:
 	[(NSMutableArray *)self.orderedPDFDocumentURLs setArray:[NSArray array]];
 	NSDictionary * oldDocuments = [NSDictionary dictionaryWithDictionary:self.PDFDocuments];
 	[self.PDFDocuments setDictionary:[NSDictionary dictionary]];
-	[super updateIfNeeded];
+	BOOL result = [super updateIfNeeded4iTM3Error:outErrorPtr];
 	if ([self PDFDocumentsCompleteReadFromURL:self.fileURL ofType:self.fileType]) {
 		// retrieving the old PDF documents
 		NSDocument * document = nil;
@@ -229,13 +229,14 @@ To Do List:
 			if(document = [oldDocuments objectForKey:url])
 				[self.PDFDocuments setObject:document forKey:url];
 		for (document in self.PDFDocuments)
-			[document updateIfNeeded];
+			result = [document updateIfNeeded4iTM3Error:outErrorPtr] && result;
+#warning should I use an NSError with synchronizePDFViewWithDocument
 		[self.windowControllers makeObjectsPerformSelector:@selector(synchronizePDFViewWithDocument) withObject:nil];
 	} else {
 		LOG4iTM3(@"**** Error while reading the pdf's");
 	}
 //END4iTM3;
-    return;
+    return result;
 }
 #pragma mark =-=-=-=-=-  FORWARDING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  forwardingTargets

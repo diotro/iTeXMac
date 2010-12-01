@@ -95,8 +95,8 @@ To Do List:
 //END4iTM3;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
-- (void)updateIfNeeded;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorRef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -104,12 +104,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(self.needsToUpdate)
-	{
-		[super updateIfNeeded];
-	}
 //END4iTM3;
-    return;
+    return self.needsToUpdate4iTM3 || [super updateIfNeeded4iTM3Error:outErrorRef];
 }
 @end
 

@@ -188,34 +188,30 @@ To Do List: to be improved...
 - (id)openDocumentWithContentsOfURL:(NSURL *)fileURL displayPageForLine:(NSUInteger)line column:(NSUInteger)column source:(NSURL *)sourceURL withHint:(NSDictionary *)hint orderFront:(BOOL)yorn;
 /*"This is the answer to the notification sent by the "e_Helper" tool.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: 11/06/2003
+Révisé par itexmac2: 2010-11-30 21:09:59 +0100
 To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
+    NSError * ROR = nil;
 	id doc = [SDC documentForURL:fileURL];
-	if (doc)
-	{
-		[doc updateIfNeeded];
+	if (doc) {
+		[doc updateIfNeeded4iTM3Error:&ROR];
+        REPORTERROR4iTM3(1,@"",ROR);
 		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:YES];
 		return doc;
 	}
-	if (yorn)
-	{
-		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
+	if (yorn) {
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
+        REPORTERROR4iTM3(2,@"",ROR);
 		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:YES];
 		return doc;
-	}
-	else
-	{
-		doc = [SDC openDocumentWithContentsOfURL:fileURL display:NO error:nil];
+	} else {
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:NO error:&ROR];
+        REPORTERROR4iTM3(3,@"",ROR);
 		[doc makeWindowControllers];
-		NSEnumerator * E = [[doc windowControllers] objectEnumerator];
-		NSWindowController * WC;
-		NSWindow * W;
-		while(WC = [E nextObject])
-		{
-			W = WC.window;
+		for (NSWindowController * WC in [doc windowControllers]) {
+			NSWindow * W = WC.window;
 			[W orderBelowFront4iTM3:self];
 		}
 		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:NO];
@@ -250,23 +246,18 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([SUD boolForKey:@"iTM2NoMoreRecentDocuments"])
-		return;
-	NSDocument * newRecentDocument = [document newRecentDocument];
-    if (newRecentDocument)
-	{
+	if ([SUD boolForKey:@"iTM2NoMoreRecentDocuments"]) return;
+    NSError * ROR = nil;
+	NSDocument * newRecentDocument = [document newRecentDocument4iTM3Error:&ROR];
+    if (newRecentDocument) {
 		// the document wants to appear in the recent docs list
 		NSURL * URL = newRecentDocument.fileURL;// do not assume that any document has a URL
-		if (URL)
-		{
+		if (URL) {
 			[self noteNewRecentDocumentURL:URL];
-			if (iTM2DebugEnabled)
-			{
-				LOG4iTM3(@"document ADDED IN THE RECENT DOCS LIST: %@", document);
-				NSLog(@"document.fileURL:%@", document.fileURL);
-				NSLog(@"newRecentDocument.fileURL.path:%@", newRecentDocument.fileURL);
-				NSLog(@"self.recentDocumentURLs:%@", self.recentDocumentURLs);
-			}
+			DEBUGLOG4iTM3(0,@"document ADDED IN THE RECENT DOCS LIST: %@"
+            @"document.fileURL:%@"
+            @"newRecentDocument.fileURL.path:%@"
+            @"self.recentDocumentURLs:%@",document,document.fileURL,newRecentDocument.fileURL,self.recentDocumentURLs);
 		}
 	}
 //END4iTM3;
@@ -449,8 +440,8 @@ To Do List:
 @end
 
 @implementation NSDocument(iTM2DocumentControllerKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument
-- (id)newRecentDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument4iTM3Error:outErrorPtr
+- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -827,8 +818,8 @@ oneMoreTime:
 {DIAGNOSTIC4iTM3;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument
-- (id)newRecentDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument4iTM3Error:
+- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003

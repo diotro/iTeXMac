@@ -24,7 +24,7 @@
 extern NSString * const iTM2MainType;
 
 #define IMPLEMENTATION self.implementation
-#define metaGETTER [self.implementation metaValueForSelector:_cmd]
+#define metaGETTER [self.implementation :_cmd]
 #define metaSETTER(argument) [self.implementation takeMetaValue:argument forSelector:_cmd]
 #define modelGETTER(type) [self.implementation modelValueForSelector:_cmd ofType:type]
 #define modelSETTER(argument, type) [self.implementation takeModelValue:argument forSelector:_cmd ofType:type]
@@ -230,18 +230,6 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (void)takeMetaFlag:(BOOL)yorn forKey:(NSString *)key;
 
 /*!
-	@method		dataOfType:error:
-	@abstract	The receiver's representation with the given key.
-	@discussion	This default implementation returns the object contained in the data representation dictionary of
-				the receiver which key is the given type.
-                nil is returned in case of an error.
-	@param		type is a key dictionary type
-	@param		outErrorPtr is a reference to an error object
-	@result		a data object.
-*/
-- (NSData *)dataOfType:(NSString *)type error:(NSError **)outErrorPtr;
-
-/*!
 	@method		willSave
 	@abstract	The document is going to save.
 	@discussion	The document of the receiver will ask the receiver to perform some actions before it saves
@@ -273,6 +261,9 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@method		readFromData:(NSData *)data ofType:(NSString *)typeName error:
 	@abstract	Loads the given data representation, assuming its type.
 	@discussion	This default implementation just stores the given data in its data representation dictionary, as is, with key, the given type. It overrides any previously loaded data representation with no precaution.
+    @param      data
+    @param      typeName
+    @param      outErrorPtr
 	@result		YES.
 */
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
@@ -290,11 +281,15 @@ NSString * iTM2KeyFromSelector(SEL selector);
 
 /*!
 	@method		dataOfType:error:
-	@abstract	All the keys of the data representations.
-	@discussion	Description forthcoming.
-	@result		an array of NSString's.
+	@abstract	The receiver's representation with the given key.
+	@discussion	This default implementation returns the object contained in the data representation dictionary of
+				the receiver which key is the given type.
+                nil is returned in case of an error.
+	@param		type is a key dictionary type
+	@param		outErrorPtr is a reference to an error object
+	@result		a data object.
 */
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError;
+- (NSData *)dataOfType:(NSString *)type error:(NSError **)outErrorPtr;
 
 /*!
 	@method		dataRepresentationTypes
@@ -327,17 +322,21 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@method		writeToDirectoryWrapper:
 	@abstract	Write the data implementation of the receiver to the given diorectory wrapper.
 	@discussion	Description never forthcoming.
+    @param      DW
+    @param      outErrorPtr
 	@result		yorn.
 */
-- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW;
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
 
 /*!
 	@method		readFromDirectoryWrapper:
 	@abstract	Read the data implementation of the owner from the given directory wrapper.
 	@discussion	Description never forthcoming.
+    @param      DW
+    @param      outErrorPtr
 	@result		yorn.
 */
-- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW;
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
 
 /*!
 	@method		parent

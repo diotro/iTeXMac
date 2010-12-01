@@ -286,8 +286,8 @@ To Do List:
     return nil;
 }
 #pragma mark =-=-=-=-=-   UPDATE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= needsToUpdate
-- (BOOL)needsToUpdate;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= needsToUpdate4iTM3
+- (BOOL)needsToUpdate4iTM3;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -321,15 +321,15 @@ To Do List:
 //LOG4iTM3(@"path is:%@ date:%@",path,date);
 	if (date) {
 		[self setFileModificationDate:date];
-		if (self.needsToUpdate) {
+		if (self.needsToUpdate4iTM3) {
 			LOG4iTM3(@"****  ERROR:THERE IS AN INCONSISTENCY... please report light bug");
 		}
 	}
 //LOG4iTM3(@"%@ should be %@ should be %@", self.fileModificationDate, [[DFM attributesOfItemOrDestinationOfSymbolicLinkAtPath4iTM3:fileName error:NULL] fileModificationDate], [self.implementation metaValueForKey:@"LastFileModificationDate"]);
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
-- (void)updateIfNeeded;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -337,7 +337,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return;
+    return YES;
 }
 #pragma mark =-=-=-=-=-   CONTAINER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childDocumentForFileName:
@@ -461,41 +461,34 @@ To Do List:
 //END4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openInspectorsCompleteSaveContext4iTM3:
-- (void)openInspectorsCompleteSaveContext4iTM3:(id) irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openInspectorsCompleteSaveContext4iTM3Error:
+- (BOOL)openInspectorsCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
+Révisé par itexmac2: 2010-11-30 21:53:11 +0100
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSMutableArray * windows = [NSMutableArray arrayWithArray:[NSApp windows]];
     NSMutableArray * openInspectors = NSMutableArray.array;
-    [windows sortUsingSelector:@selector(compareUsingLevel4iTM3:)];
-    NSWindow * W;
-    for(W in windows)
-        if (W.isVisible)
-        {
+    for (NSWindow * W in [[NSApp windows] sortedArrayUsingSelector:@selector(compareUsingLevel4iTM3:)])
+        if (W.isVisible) {
             NSWindowController * WC = W.windowController;
-            if (self == WC.document)
-            {
+            if (self == WC.document) {
                 Class C = WC.class;
 				NSString * mode = [C inspectorMode];
 				if (![mode hasPrefix:@"."])
 					[openInspectors addObject:[NSDictionary dictionaryWithObjectsAndKeys:[C inspectorType4iTM3], @"type", mode, @"mode", WC.inspectorVariant, @"variant", nil]];
             }
         }
-	if (openInspectors.count)
-	{
+	if (openInspectors.count) {
 		[self takeContext4iTM3Value:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
 	}
 //LOG4iTM3(@"openInspectors (%@) are:%@ = %@", self.fileURL.path, openInspectors, [self context4iTM3ValueForKey:iTM2ContextOpenInspectors]);
 //END4iTM3;
-    return;
+    return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3:
-- (void)saveContext4iTM3:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3Error:
+- (BOOL)saveContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -503,23 +496,19 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super saveContext4iTM3:sender];
-	if (self.context4iTM3Manager == self)
-	{
+	BOOL result = [super saveContext4iTM3Error:outErrorPtr];
+	if (self.context4iTM3Manager == self) {
 		NSURL * url = self.fileURL;
 		NSString * type = self.fileType;
-		if (self.needsToUpdate)
-		{
-			[self writeContextToURL:url ofType:type error:nil];
-		}
-		else
-		{
-			[self writeContextToURL:url ofType:type error:nil];
+		if (self.needsToUpdate4iTM3) {
+			result = [self writeContextToURL:url ofType:type error:outErrorPtr] && result;
+		} else {
+			result = [self writeContextToURL:url ofType:type error:outErrorPtr] && result;
 			[self recordFileModificationDateFromURL4iTM3:url];
 		}
 	}
 //END4iTM3;
-    return;
+    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= readContextFromURL:ofType:error:
 - (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError **)outErrorPtr;
@@ -580,7 +569,7 @@ To Do List:
 			[NSApp reportException:localException];
 			NS_ENDHANDLER
 		}
-//		BOOL needsToUpdate = self.needsToUpdate;
+//		BOOL needsToUpdate4iTM3 = self.needsToUpdate4iTM3;
 		[DFM changeExtendedFileAttributes4iTM3:[attributes.copy autorelease] inSpace:[NSNumber numberWithUnsignedInteger:'iTM2'] atPath:absoluteURL.path error:nil];
 //		[DFM changeExtendedFileAttributes4iTM3:[attributes.copy autorelease] atPath:fullDocumentPath forNameSpace:@"org_tug_mac_iTM2" error:nil];
 	}
@@ -2205,21 +2194,18 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-   UPDATE
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded
-- (void)updateIfNeeded;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue Jan 18 22:21:11 GMT 2005
+Révisé par itexmac2: 2010-11-30 21:12:42 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self.needsToUpdate)
-	{
-		[self saveContext4iTM3:nil];
-		[self readFromURL:self.fileURL ofType:self.fileType error:nil];
-	}
-    return;
+    return self.needsToUpdate4iTM3
+        && [self saveContext4iTM3Error:outErrorPtr]
+            && ([self readFromURL:self.fileURL ofType:self.fileType error:outErrorPtr],YES);
 }
 @end
 
@@ -2634,8 +2620,8 @@ To Do List:
 //START4iTM3;
     return NSLocalizedStringFromTableInBundle(self.inspectorVariant, iTM2InspectorTable, self.classBundle4iTM3, "pretty inspector variant");
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeDocument
-- (void)synchronizeDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeDocument4iTM3Error:
+- (BOOL)synchronizeDocument4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2644,11 +2630,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setDocumentEdited:NO];
-	[self saveContext4iTM3:self];
-    return;
+	return [self saveContext4iTM3Error:outErrorPtr];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument
-- (void)synchronizeWithDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument4iTM3Error:
+- (BOOL)synchronizeWithDocument4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2656,10 +2641,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self loadContext4iTM3:self];
+	BOOL yorn = [self loadContext4iTM3Error:outErrorPtr];
     [self updateChangeCount:NSChangeCleared];
     self.validateWindowContent4iTM3;
-    return;
+    return yorn;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isInspectorEdited
 - (BOOL)isInspectorEdited;
@@ -2892,7 +2877,9 @@ To Do List:
 //    self.synchronizeWithDocument; the inspector has already been synchronized when added to the document
     [self setDocumentEdited:NO];// validate the user interface as side effect
 	self.backupModel;
-    [self loadContext4iTM3:self];
+    NSError * ROR = nil;
+    [self loadContext4iTM3Error:&ROR];
+    REPORTERROR4iTM3(1,@"",ROR);
 //	self.validateWindowContent4iTM3; too early?
 //LOG4iTM3(@"should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
     return;

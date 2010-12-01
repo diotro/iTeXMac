@@ -252,7 +252,7 @@ typedef enum
 - (BOOL)setProject:(id)PD forURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     projectForDocument:
+    @method     projectForDocument:error:
     @abstract   The project for the given document.
     @discussion It asks for a project for the given document's file name.
 				If there is one it is returned, and if it is the first time such a project is asked for,
@@ -276,9 +276,10 @@ typedef enum
 				the nil project is returned.
 				Finally, an open panel is presented for that purpose.
     @param      document is any document...
+    @param      outErrorPtr
     @result     A project document
 */
-- (id)projectForDocument:(NSDocument *)document;
+- (id)projectForDocument:(NSDocument *)document error:(NSError **)outErrorPtr;
 
 /*! 
     @method     setProject:forDocument:error:
@@ -358,7 +359,7 @@ typedef enum
 - (id)currentProject;
 
 /*! 
-    @method     registerProject:
+    @method     registerProject:error:
     @abstract   register the given project.
     @discussion The project controller does not own the project. It only keeps a reference to the project.
 				In general, the document controller will be the owner of the project.
@@ -367,9 +368,10 @@ typedef enum
 				Each time a project document is created, it is added as reference to the list of projects.
 				Each time a project document is dealloced, its reference is removed from the list of project.
     @param      A project
+    @param      A outErrorPtr
     @result     None
 */
-- (void)registerProject:(iTM2ProjectDocument *)project;
+- (BOOL)registerProject:(iTM2ProjectDocument *)project error:(NSError **)outErrorPtr;
 
 /*! 
     @method     forgetProject:
@@ -382,13 +384,14 @@ typedef enum
 - (void)forgetProject:(id)project;
 
 /*! 
-    @method     forgetDocument:
+    @method     forgetDocument:error:
     @abstract   forget the given document.
     @discussion Clean the caches from whatever is related to the document.
     @param      A project
+    @param      outErrorPtr
     @result     None
 */
-- (void)forgetDocument:(NSDocument *)document;
+- (BOOL)forgetDocument:(NSDocument *)document error:(NSError **)outErrorPtr;
 
 /*! 
     @method     bookmarksSubdirectory

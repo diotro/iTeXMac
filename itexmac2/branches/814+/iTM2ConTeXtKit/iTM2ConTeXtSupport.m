@@ -302,12 +302,12 @@ To Do List:
 //END4iTM3;
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext4iTM3:
-- (void)prepareToolbarConfigurationCompleteSaveContext4iTM3:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext4iTM3Error:
+- (BOOL)prepareToolbarConfigurationCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Sun Mar 14 17:40:56 UTC 2010
-To Do List:
+LRévisé par itexmac2: 2010-11-30 21:50:14 +0100
+o Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;

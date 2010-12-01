@@ -32,8 +32,8 @@
 #import "iTM2InfoWrapperKit.h"
 
 @implementation iTM2SpellContextController(Project)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectNameForText:
-- (NSString *)spellPrettyProjectNameForText:(NSText *) text;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectNameForText:error:
+- (NSString *)spellPrettyProjectNameForText:(NSText *) text error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -41,7 +41,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[SPC projectForSource:text] displayName]?:@"";
+    return [[SPC projectForSource:text error:outErrorPtr] displayName]?:@"";
 }
 @end
 

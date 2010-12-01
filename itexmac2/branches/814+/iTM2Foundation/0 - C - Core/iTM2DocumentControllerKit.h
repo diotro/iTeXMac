@@ -162,7 +162,7 @@ extern NSString * const iTM2AutosavingDelayKey;
 @interface NSDocument(iTM2DocumentController)
 
 /*!
-    @method		newRecentDocument
+    @method		newRecentDocument4iTM3Error:
     @abstract	The new recent document that should appear in the recent docs menu.
     @discussion	This  default implementation just returns the receiver itself.
                 This is used in the notNewRecentDocument: of the SDC.
@@ -170,10 +170,10 @@ extern NSString * const iTM2AutosavingDelayKey;
                 To prevent a document for being added to the recent docs menu item,
                 simply return nil.
                 Another document can be returned, namely the project document instead of the document itself.
-    @param		None.
+    @param		outErrorPtr.
     @result		A document.
 */
-- (id)newRecentDocument;
+- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
 
 @end
 

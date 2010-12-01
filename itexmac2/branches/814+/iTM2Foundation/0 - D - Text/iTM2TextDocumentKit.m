@@ -1948,7 +1948,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[view saveContext4iTM3:self];
+    NSError * ROR = nil;
+	[view saveContext4iTM3Error:&ROR];
+    REPORTERROR4iTM3(1,@"",ROR);
 	iTM2TextInspector * inspector = [[[self.class alloc] initWithWindowNibName:NSStringFromClass(self.class)] autorelease];
 	NSDocument * document = self.document;
 	[document addWindowController:inspector];

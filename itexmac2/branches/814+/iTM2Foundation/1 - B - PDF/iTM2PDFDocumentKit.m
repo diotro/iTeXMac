@@ -563,23 +563,23 @@ To Do List:
     }
     LOG4iTM3(@"WARNING: Missing a  expected dictionary as userInfo or a number for key @\"magnification\"");
 #endif
-//END4iTM3;
+//END4iTM3;/Users/itexmac2/dev/814+/iTM2Foundation/1 - B - PDF/iTM2PDFDocumentKit.m:2181:0 #warning NYI this is needed for live sizing
+
+
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFInspectorCompleteLoadContext4iTM3:
-- (void)PDFInspectorCompleteLoadContext4iTM3:(id)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFInspectorCompleteLoadContext4iTM3Error:
+- (BOOL)PDFInspectorCompleteLoadContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
+Révisé par itexmac2: 2010-11-30 21:53:56 +0100
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.album loadContext4iTM3:irrelevant];
-    return;
+    return [self.album loadContext4iTM3Error:outErrorPtr];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFDocumentCompleteSaveContext4iTM3:
-- (void)PDFInspectorCompleteSaveContext4iTM3:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFInspectorCompleteSaveContext4iTM3Error:
+- (void)PDFInspectorCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -588,9 +588,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self takeContext4iTM3Bool:[self.window isKeyWindow] forKey:@"iTM2PDFKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy
-	[self.album saveContext4iTM3:sender];
-//END4iTM3;
-    return;
+	return [self.album saveContext4iTM3Error:outErrorPtr];
 }
 @end
 

@@ -363,7 +363,7 @@ enum
 - (void)toggleContext4iTM3BoolForKey:(NSString *)aKey;  
 
 /*! 
-    @method     saveContext4iTM3:
+    @method     saveContext4iTM3Error:
     @abstract	Abstract forthcoming.
     @discussion	Will send any message of the form ...CompleteSaveContext4iTM3:.
 				You should not subclass this method unless you really know what you are doing...
@@ -379,19 +379,19 @@ enum
                 Thus a document sends this message just before the canClose.... is called.
                 You should not call the saveContext4iTM3: method yourself
                 but you are free to call your blablablaCompleteSaveContext... of course!
-    @param      None
-    @result     None
+    @param      outErrorPtr
+    @result     yorn
 */
-- (void)saveContext4iTM3:(id)sender;
+- (BOOL)saveContext4iTM3Error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     loadContext4iTM3
+    @method     loadContext4iTM3Error
     @abstract	Abstract forthcoming.
     @discussion	Reverse saveContext4iTM3: operation.
-	@param      None
-    @result     None
+	@param      outErrorPtr
+    @result     yorn
 */
-- (void)loadContext4iTM3:(id)sender;
+- (BOOL)loadContext4iTM3Error:(NSError **)outErrorPtr;
 
 /*! 
     @method     awakeFromContext4iTM3

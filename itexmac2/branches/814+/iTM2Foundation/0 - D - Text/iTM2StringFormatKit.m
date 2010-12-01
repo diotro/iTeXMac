@@ -1773,8 +1773,8 @@ To Do List:
 //START4iTM3;
     return NSStringFromClass(self.class);
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument
-- (id)newRecentDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument4iTM3Error:
+- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003

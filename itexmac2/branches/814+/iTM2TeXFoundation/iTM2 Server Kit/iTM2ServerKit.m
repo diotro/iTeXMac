@@ -733,7 +733,7 @@ To Do List:
 	id PD = [SPC projectForSource:fileName];
 	if(!PD)
 	{
-		NSError * localError = nil;
+		NSError * ROR = nil;
 		NSString * projectName = [self getProjectNameFromContext:context];
 		PD = [SPC projectForSource:projectName];
 		if(!PD)
@@ -742,7 +742,7 @@ To Do List:
 			if(projectName.length)
 			{
 				url = [NSURL fileURLWithPath:projectName];
-				PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&localError];
+				PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&ROR];
 				[PD createNewFileKeyForURL:[NSURL fileURLWithPath:fileName] save:YES];
 			}
 			else
@@ -817,7 +817,7 @@ To Do List: see the warning below
 	if(!doc)
 	{
 		iTM2ProjectDocument * PD = [SPC projectForURL:fileURL];
-		NSError * localError = nil;
+		NSError * ROR = nil;
 		if(!PD)
 		{
 			NSString * projectName = [self getProjectNameFromContext:context];
@@ -827,10 +827,10 @@ To Do List: see the warning below
 				PD = [SPC projectForURL:projectURL];
 				if(!PD)
 				{
-					PD = [SDC openDocumentWithContentsOfURL:projectURL display:NO error:&localError];
-					if(localError)
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:NO error:&ROR];
+					if(ROR)
 					{
-						[SDC presentError:localError];
+						[SDC presentError:ROR];
 //END4iTM3;
 						return;
 					}
@@ -904,46 +904,33 @@ To Do List: see the warning below
     LOG4iTM3(@"context: %@", context);
 #else
     NSString * fileName = [self getFileNameFromContext:context];
-	if(!fileName.length)
-	{
+	if(!fileName.length) {
 		REPORTERROR4iTM3(1,@"Error in iTeXMac2 server invocation: the \"edit\" verb requires a \"-file foo\".",nil);
 	}
 	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
-	NSError * localError = nil;
 	NSUInteger line = [self getLineFromContext:context];
 	NSUInteger column = [self getColumnFromContext:context];
 	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
 	id doc = [SDC documentForURL:fileURL];
-	if(doc)
-	{
-		[doc updateIfNeeded];
-	}
-	else
-	{
+    NSError * ROR = nil;
+	if(doc) {
+		[doc updateIfNeeded4iTM3Error:&ROR];
+        REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
+	} else {
 		NSString * projectName = [self getProjectNameFromContext:context];
 		if(projectName.length)
 		{
 			NSURL * projectURL = [NSURL fileURLWithPath:projectName];
-			id projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
-			if(localError)
-			{
-				[SDC presentError:localError];
-//END4iTM3;
-				return;
-			}
-			[projectDocument createNewFileKeyForURL:fileURL save:YES];
+			id projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&ROR];
+            REPORTERRORINMAINTHREAD4iTM3(2,@"",ROR);
+			[projectDocument createNewFileKeyForURL:fileURL save:YES error:&ROR];
+            REPORTERRORINMAINTHREAD4iTM3(3,@"",ROR);
 		}
-		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
-		if(localError)
-		{
-			[SDC presentError:localError];
-//END4iTM3;
-			return;
-		}
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
+        REPORTERRORINMAINTHREAD4iTM3(4,@"",ROR);
 	}
 	[doc displayLine:(line?--line:line) column:(column?--column:column) length:-1 withHint:nil orderFront:!dontOrderFront];
-	if(dontOrderFront)
-	{
+	if (dontOrderFront) {
 		[doc showWindowsBelowFront:self];
 	}
 #endif
@@ -1104,14 +1091,14 @@ To Do List: see the warning below
     NSString * projectName = [self getProjectNameFromContext:context];
     NSString * fileName = [self getFileNameFromContext:context];
 	NSURL * fileURL = nil;
-	NSError * localError = nil;
+	NSError * ROR = nil;
 	if(projectName.length)
 	{
 		NSURL * projectURL = [NSURL fileURLWithPath:projectName];
-		id projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
-		if(localError)
+		id projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&ROR];
+		if(ROR)
 		{
-			[SDC presentError:localError];
+			[SDC presentError:ROR];
 //END4iTM3;
 			return;
 		}
@@ -1119,10 +1106,10 @@ To Do List: see the warning below
 		{
 			fileURL = [NSURL fileURLWithPath:fileName];
 			[projectDocument createNewFileKeyForURL:fileURL save:YES];
-			[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
-			if(localError)
+			[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
+			if(ROR)
 			{
-				[SDC presentError:localError];
+				[SDC presentError:ROR];
 //END4iTM3;
 				return;
 			}
@@ -1133,10 +1120,10 @@ To Do List: see the warning below
 	else if(fileName.length)
 	{
 		fileURL = [NSURL fileURLWithPath:fileName];
-		[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
-		if(localError)
+		[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
+		if(ROR)
 		{
-			[SDC presentError:localError];
+			[SDC presentError:ROR];
 //END4iTM3;
 			return;
 		}
@@ -1159,7 +1146,7 @@ To Do List: see the warning below
 #else
     NSString * projectName = [self getProjectNameFromContext:context];
     NSArray * fileNames = [self getFileNamesFromContext:context];
-	NSError * localError = nil;
+	NSError * ROR = nil;
 	NSString * fileName = nil;
 	NSURL * fileURL = nil;
 	NSURL * projectURL = nil;
@@ -1171,18 +1158,18 @@ To Do List: see the warning below
 		for (fileName in fileNames) {
 			fileURL = [NSURL fileURLWithPath:fileName];
 			if(document = [SDC documentForURL:fileURL]) {
-				[document updateIfNeeded];
-			} else if(!(PD = [SPC projectForURL:fileURL])) {
+				[document updateIfNeeded4iTM3Error:&ROR];
+                REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
+			} else if(!(PD = [SPC projectForURL:fileURL error:&ROR])) {
+                REPORTERRORINMAINTHREAD4iTM3(2,@"",ROR);
 				projectURL = [NSURL fileURLWithPath:projectName];
-				if(!(PD = [SPC projectForURL:projectURL])) {
-					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
-					if(localError) {
-						[SDC presentError:localError];
-//END4iTM3;
-						return;
-					}
-				}
-				[PD createNewFileKeyForURL:fileURL save:YES];
+				if(!(PD = [SPC projectForURL:projectURL error:&ROR])) {
+                    REPORTERRORINMAINTHREAD4iTM3(3,@"",ROR);
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&ROR];
+					REPORTERRORINMAINTHREAD4iTM3(4,@"",ROR);
+                }
+				[PD createNewFileKeyForURL:fileURL save:YES error:&ROR];
+                REPORTERRORINMAINTHREAD4iTM3(5,@"",ROR);
 			}
 		}
 //END4iTM3;
@@ -1191,26 +1178,21 @@ To Do List: see the warning below
 	for (fileName in fileNames) {
 		fileURL = [NSURL fileURLWithPath:fileName];
 		if(document = [SDC documentForURL:fileURL]) {
-			[document updateIfNeeded];
+			[document updateIfNeeded4iTM3Error:&ROR];
+            REPORTERRORINMAINTHREAD4iTM3(6,@"",ROR);
 			[document showWindowsBelowFront:self];
 		} else {
 			if(!(PD = [SPC projectForURL:fileURL])) {
 				projectURL = [NSURL fileURLWithPath:projectName];
 				if(!(PD = [SPC projectForURL:projectURL])) {
-					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
-					if(localError)
-					{
-						[SDC presentError:localError];
-//END4iTM3;
-						return;
-					}
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&ROR];
+                    REPORTERRORINMAINTHREAD4iTM3(7,@"",ROR);
 				}
-				[PD createNewFileKeyForURL:fileURL save:YES];
+				[PD createNewFileKeyForURL:fileURL save:YES error:&ROR];
+                REPORTERRORINMAINTHREAD4iTM3(8,@"",ROR);
 			}
-			document = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&localError];
-			if(localError) {
-				REPORTERROR4iTM3(1,([NSString stringWithFormat:@"Could not update document at:\n%@", fileName]),(localError));
-			}
+			document = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
+            REPORTERRORINMAINTHREAD4iTM3(9,@"",ROR);
 			//document = [SDC documentForURL:url];
 		}
 	}
@@ -1233,53 +1215,44 @@ To Do List: see the warning below
 #else
     NSString * projectName = [self getProjectNameFromContext:context];
     NSArray * fileNames = [self getFileNamesFromContext:context];
-	NSError * localError = nil;
+	NSError * ROR = nil;
 	NSString * fileName = nil;
 	NSURL * fileURL = nil;
 	NSDocument * document = nil;
 	iTM2ProjectDocument * PD = nil;
-	NSEnumerator * E = fileNames.objectEnumerator;
-	if([self getDontOrderFrontFromContext:context])
-	{
+	if ([self getDontOrderFrontFromContext:context]) {
 		// just register the document for the project,
 		// update the contents if the document is on screen
-		while(fileName = E.nextObject)
-		{
+		for (fileName in fileNames) {
 			fileURL = [NSURL fileURLWithPath:fileName];
-			if(document = [SDC documentForURL:fileURL])
-			{
-				[document updateIfNeeded];
+			if ((document = [SDC documentForURL:fileURL])) {
+				[document updateIfNeeded4iTM3:&ROR];
+                REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
 			}
 		}
 //END4iTM3;
 		return;
 	}
-	while(fileName = E.nextObject)
-	{
+	for (fileName in fileNames) {
 		fileURL = [NSURL fileURLWithPath:fileName];
-		if(document = [SDC documentForURL:fileURL])
-		{
-			[document updateIfNeeded];
+		if(document = [SDC documentForURL:fileURL]) {
+			[document updateIfNeeded4iTM3Error:&ROR];
+            REPORTERRORINMAINTHREAD4iTM3(2,@"",ROR);
 			[document showWindowsBelowFront:self];
-		}
-		else
-		{
-			if(!(PD = [SPC projectForURL:fileURL]))
-			{
+		} else {
+			if(!(PD = [SPC projectForURL:fileURL error:&ROR])) {
+                REPORTERRORINMAINTHREAD4iTM3(3,@"",ROR);
 				NSURL * projectURL = [NSURL fileURLWithPath:projectName];
-				if(!(PD = [SPC projectForURL:projectURL]))
-				{
-					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&localError];
-					if(localError)
-					{
-						[SDC presentError:localError];
-//END4iTM3;
-						return;
-					}
+				if(!(PD = [SPC projectForURL:projectURL error:&ROR])) {
+                    REPORTERRORINMAINTHREAD4iTM3(4,@"",ROR);
+					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&ROR];
+                    REPORTERRORINMAINTHREAD4iTM3(5,@"",ROR);
 				}
 			}
-			document = [PD subdocumentForURL:fileURL];
-			[document updateIfNeeded];
+			if ((document == [PD subdocumentForURL:fileURL])) {
+                [document updateIfNeeded4iTM3Error:&ROR];
+                REPORTERRORINMAINTHREAD4iTM3(6,@"",ROR);
+            }
 		}
 	}
 #warning NYI: -all not supported

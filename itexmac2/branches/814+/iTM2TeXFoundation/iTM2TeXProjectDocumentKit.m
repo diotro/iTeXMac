@@ -188,8 +188,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= needsToUpdate
-- (BOOL)needsToUpdate;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= needsToUpdate4iTM3
+- (BOOL)needsToUpdate4iTM3;
 /*"The project is known to be modified externally (see the .iTM folder). Do not update.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005

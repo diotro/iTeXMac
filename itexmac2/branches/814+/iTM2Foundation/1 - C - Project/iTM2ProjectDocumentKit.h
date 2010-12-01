@@ -300,27 +300,30 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @abstract   forget a document
     @discussion Same as closeSubdocument: but without saving.
     @param      document to be removed.
+    @param      outErrorPtr
     @result     None.
 */
-- (void)forgetSubdocument:(NSDocument *)document;
+- (BOOL)forgetSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
 
 /*! 
     @method     removeSubdocument:
     @abstract   remove a document
     @discussion Once removed, a document no longer belongs to a project.
     @param      document to be removed.
+    @param      outErrorPtr
     @result     None.
 */
-- (void)removeSubdocument:(NSDocument *)document;
+- (void)removeSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
 
 /*! 
     @method     closeSubdocument:
     @abstract   Close a document
     @discussion Discussion Forthcoming.
     @param      document to be forgotten.
+    @param      outErrorPtr
     @result     None.
 */
-- (void)closeSubdocument:(NSDocument *)document;
+- (void)closeSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
 
 /*! 
     @method     ownsSubdocument:
@@ -405,13 +408,13 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (BOOL)prepareFrontendCompleteWriteToURL4iTM3:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
 
 /*! 
-    @method     projectCompleteWillClose4iTM3
+    @method     projectCompleteWillClose4iTM3Error:
     @abstract   Abstract forthcoming.
     @discussion Used to record the context state.
     @param      None.
     @result     result forthcoming
 */
-- (void)projectCompleteWillClose4iTM3;
+- (void)projectCompleteWillClose4iTM3Error:(NSError **)outErrorPtr;
 
 /*! 
     @method     subdocumentMightHaveClosed
@@ -505,10 +508,11 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @discussion This is a convenience shortcut to the SPC's -URLForFileKey:filter:inProjectWithURL: method.
     @param      a key
     @param      filter
+    @param      outErrorPtr
     @result     an NSURL
 */
-- (NSURL *)URLForFileKey:(NSString *)key;
-- (NSArray *)URLsForFileKeys:(NSArray *)keys;
+- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)outErrorPtr;
+- (NSArray *)URLsForFileKeys:(NSArray *)keys error:(NSError **)outErrorPtr;
 
 /*! 
     @method     setURL:forFileKey:
@@ -555,9 +559,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @abstract   The project document for the given URL.
     @discussion Only file URL's are managed. If the receiver does not declare a document with the file name (given as URL), nil is returned.
     @param      file name is a full path
+    @param      outErrorPtr
     @result     a project document.
 */
-- (id)subdocumentForURL:(NSURL *)url;
+- (id)subdocumentForURL:(NSURL *)url error:(NSError **)outErrorPtr;
 
 /*! 
     @method     fileKeyForSubdocument:error:
@@ -698,7 +703,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)exposeWindows;
 
 /*! 
-    @method     saveContext4iTM3:
+    @method     saveContext4iTM3Error:
     @abstract   Abstract forthcoming.
     @discussion Overriding the inherited message.
 				First of all, the documents of the receiver are sent a -saveContext4iTM3: message.
@@ -706,10 +711,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				Finally, the receiver sends itself all the messages -...MetaWriteToFile:ofType:
 				with the receiver's file name and file type as arguments.
 				This gives third parties an opportunity to automatically save their own context stuff at appropriate time.
-    @param      irrelevant sender
+    @param      outErrorPtr
     @result     None
 */
-- (void)saveContext4iTM3:(id)irrelevant;
+- (void)saveContext4iTM3Error:(NSError **)outErrorPtr;
 
 /*! 
     @method     context4iTM3ValueForKey:fileKey:domain:
@@ -836,26 +841,26 @@ extern NSString * const iTM2ProjectURLKey;
 @interface NSDocument(iTM2ProjectKit)
 
 /*! 
-    @method     project4iTM3
+    @method     project4iTM3Error:
     @abstract   Abstract forthcoming.
     @discussion Convenient method as shortcut. If the resceiver -hasProject, the default implementation
 				uses the shared project controller -projectForURL: message to return a value.
-    @param      None
+    @param      outErrorPtr
     @result     A project
 */
-- (id)project4iTM3;
+- (id)project4iTM3Error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     wrapper4iTM3
+    @method     wrapper4iTM3Error:
     @abstract   Abstract forthcoming.
     @discussion Convenient method as shortcut to the project wrapper, if it makes sense.
-    @param      None
+    @param      outErrorPtr
     @result     A wrapper
 */
-- (id)wrapper4iTM3;
+- (id)wrapper4iTM3Error:(NSError **)outErrorPtr;
 
 /*! 
-    @method     hasProject4iTM3
+    @method     hasProject4iTM3Error
     @abstract   Abstract forthcoming.
     @discussion Not all documents naturally pertain to projects.
 				The default implementation always return NO for documents with no implementation.
@@ -865,10 +870,10 @@ extern NSString * const iTM2ProjectURLKey;
 				This is simply due to the fact that the wrapper is being computed.
 				In general, you should be careful because of this nil feature.
 				For example, one of the related problems is to read context info whilst the project and the wrapper are not known...
-    @param      None
+    @param      outErrorPtr
     @result     yorn
 */
-- (BOOL)hasProject4iTM3;
+- (BOOL)hasProject4iTM3Error:(NSError **)outErrorPtr;
 
 /*! 
     @method     setHasProject4iTM3:
@@ -932,15 +937,15 @@ extern NSString * const iTM2ProjectURLKey;
 - (NSUInteger)takeContext4iTM3Value:(id)value forKey:(NSString *)key domain:(NSUInteger)mask;
 
 /*!
-	@method			documentProjectCompleteSaveContext4iTM3:
+	@method			documentProjectCompleteSaveContext4iTM3Error:
 	@abstract		Save the project related information.
-	@discussion		Automatically called by the -saveContext4iTM3: message.
+	@discussion		Automatically called by the -saveContext4iTM3Error: message.
 					Save some info about the project. This overrides the standard behaviour declared in the iTM2ContextKit
 	@result			None.
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void)documentProjectCompleteSaveContext4iTM3:(id)sender;
+- (void)documentProjectCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
 
 @end
 

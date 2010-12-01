@@ -746,7 +746,6 @@ To Do List:
     if (outErrorPtr) *outErrorPtr = nil;
 	NSString * name = nil;
 	NSURL * url = nil;
-    if (outErrorPtr) *outErrorPtr = nil;
 	id PD = [SPC projectForURL:projectURL error:outErrorPtr];
 	if ([key isEqual:iTM2ParentKey]) {
 		if (url = [PD parentURL]) return url;

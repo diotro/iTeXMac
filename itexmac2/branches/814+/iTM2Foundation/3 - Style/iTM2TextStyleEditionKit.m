@@ -304,8 +304,8 @@ To Do List: Nothing
 //START4iTM3;
     return @"Styles";
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newRecentDocument
-- (id)newRecentDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newRecentDocument4iTM3Error:
+- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004
@@ -2456,8 +2456,8 @@ To Do List:
 //END4iTM3;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newRecentDocument
-- (id)newRecentDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newRecentDocument4iTM3Error:
+- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004

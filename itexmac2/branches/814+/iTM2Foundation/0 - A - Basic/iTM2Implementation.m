@@ -664,7 +664,7 @@ To Do List:
 //START4iTM3;
 //NSLog(@"data: %@", result);
 	if (outErrorPtr) * outErrorPtr = nil;
-    if ([typeName conformsToUTType4iTM3:kUTTypeData]) {
+    if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypeData]) {
         return [self._DataRepresentations valueForKey:typeName];
     }
     OUTERROR4iTM3(1,@"! ERROR: the type does not conform to public.data",NULL);
@@ -679,27 +679,13 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (outErrorPtr)
-	{
-		* outErrorPtr = nil;
-	}
-    return [self loadDataRepresentation:data ofType:typeName];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadDataRepresentation:ofType:
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed 05 mar 03
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    [self._DataRepresentations setValue:data forKey:type];
-    return [self._DataRepresentations valueForKey:type] != nil;
+	if (outErrorPtr) * outErrorPtr = nil;
+    [self._DataRepresentations setValue:data forKey:typeName];
+    return [self._DataRepresentations valueForKey:typeName] != nil;
 }
 NSString * const iTM2DataRepresentationsName = @"D";
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:
-- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:error:
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -713,8 +699,8 @@ To Do List:
         [self.children makeObjectsPerformSelector:_cmd withObject:DW];
         NSData * D = [_Owner respondsToSelector:@selector(dataOfType:error:)]
                             && [_Owner respondsToSelector:@selector(modelType)]?
-                [_Owner dataOfType:[_Owner modelType] error:NULL]:
-                [self dataOfType:self.modelType error:NULL];
+                [_Owner dataOfType:[_Owner modelType] error:outErrorPtr]:
+                [self dataOfType:self.modelType error:outErrorPtr];
         if (D) {
             if ([[DW fileWrappers] count]) {
                 [DW removeFileWrapper:[[DW fileWrappers] objectForKey:iTM2DataRepresentationsName]];
@@ -725,8 +711,8 @@ To Do List:
     }
     return self.writeToParentImplementation && result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromDirectoryWrapper:
-- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromDirectoryWrapper:error:
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -743,10 +729,10 @@ To Do List:
             fw = [[[NSFileWrapper alloc] initWithPath:[fw symbolicLinkDestination]] autorelease];
         if ([fw isRegularFile])
         {
-			NSString * type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:[fw preferredFilename]] error:NULL];
-            result = result && ([_Owner respondsToSelector:@selector(loadDataRepresentation:)]?
-                [_Owner loadDataRepresentation:[fw regularFileContents] ofType:type]:
-                [self loadDataRepresentation:[fw regularFileContents] ofType:type]);
+			NSString * type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:[fw preferredFilename]] error:outErrorPtr];
+            result = result && ([_Owner respondsToSelector:@selector(readFromData:ofType:error:)]?
+                [_Owner readFromData:[fw regularFileContents] ofType:type error:outErrorPtr]:
+                [self readFromData:[fw regularFileContents] ofType:type error:outErrorPtr]);
         }
     }
     self.updateChildren;

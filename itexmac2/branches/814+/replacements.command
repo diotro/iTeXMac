@@ -12,7 +12,7 @@ function find_and_replace {
 }
 
 
-find_and_replace  'contextStateForKey' 's/(context)(StateForKey)/${1}4iTM3${2}/g'
+find_and_replace  'needsToUpdate' 's/(needsToUpdate)/${1}4iTM3/g'
 
 exit 0
 
@@ -23,6 +23,7 @@ exit 0
 - (NSUInteger)contextStateForKey:(NSString *)aKey
 
 
+find_and_replace  'contextStateForKey' 's/(context)(StateForKey)/${1}4iTM3${2}/g'
 find_and_replace  'contextDidChange' 's/(context)(DidChange)/${1}4iTM3${2}/g'
 find_and_replace  'notifyContextChange' 's/(notifyContext)(Change)/${1}4iTM3${2}/g'
 find_and_replace  'contextRegistrationNeeded' 's/(context)(RegistrationNeeded)/${1}4iTM3${2}/g'

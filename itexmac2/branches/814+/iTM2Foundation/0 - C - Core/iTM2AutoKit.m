@@ -46,14 +46,12 @@ NSString * const iTM2SmartUpdateEnabledKey = @"iTM2SmartUpdateEnabled";
 - (BOOL)canAutoUpdate4iTM3;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Tue Jan 18 22:21:11 GMT 2005
+Révisé par itexmac2: 2010-11-30 21:37:43 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSEnumerator * E = [self.windowControllers objectEnumerator];
-    NSWindowController * WC;
-    while(WC = [E nextObject])
+    for (NSWindowController * WC in self.windowControllers)
         if ([WC canAutoUpdate4iTM3])
             return YES;
     return NO;
@@ -328,7 +326,7 @@ To Do List:
     NSDocument * D = [W.windowController document];
     if ([D canAutoUpdate4iTM3]
             && [D context4iTM3BoolForKey:iTM2AutoUpdateEnabledKey domain:iTM2ContextAllDomainsMask]
-                && [D needsToUpdate])
+                && [D needsToUpdate4iTM3])
     {
         if ([D context4iTM3BoolForKey:iTM2SmartUpdateEnabledKey domain:iTM2ContextAllDomainsMask])
         {
@@ -365,9 +363,11 @@ To Do List:
                     NSLocalizedStringFromTableInBundle( @"%@\nhas been edited externally.",
                         @"View", B, "Panel Information"),
                     D.fileURL);
+        } else {
+            NSError * ROR = nil;
+            [D updateIfNeeded4iTM3Error:&ROR];
+            REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
         }
-        else
-            [D updateIfNeeded];
     }
     return;
 }

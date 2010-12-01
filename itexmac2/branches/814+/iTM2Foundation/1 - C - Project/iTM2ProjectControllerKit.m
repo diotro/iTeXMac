@@ -550,7 +550,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSError * ROR = nil;
-	[self.projects.allObjects makeObjectsPerformSelector:@selector(fixProjectConsistencyWithError4iTM3:) withObject:&ROR];
+	[self.projects.allObjects makeObjectsPerformSelector:@selector(fixProjectConsistencyWithError4iTM3:) withObject:(id)(&ROR)];
     if (ROR) {
         LOG4iTM3(@"YOUR ATTENTION PLEASE! There might be an error: %@",ROR);
     }
@@ -751,7 +751,7 @@ To Do List:
 	NSURL * fileURL = document.fileURL;
     if (![[self projectForURL:fileURL error:outErrorPtr] isEqual:projectDocument]) {
         [self setProject:projectDocument forURL:fileURL error:outErrorPtr];
-        NSAssert1(!projectDocument || (projectDocument == [self projectForDocument:document]),
+        NSAssert1(!projectDocument || (projectDocument == [self projectForDocument:document error:outErrorPtr]),
             @"..........  INCONSISTENCY:unexpected behaviour,report bug 1313 in %@",__iTM2_PRETTY_FUNCTION__);
     }
 	NSAssert3((!projectDocument || [[projectDocument fileKeyForURL:fileURL] length]),
@@ -819,7 +819,7 @@ To Do List:
 	return [self getOpenProjectForURL:fileURL];// Will cache the result as side effect
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:forURL:error:
-- (BOOL)setProject:(id)projectDocument forURL:(NSURL *)fileURL error:(NSURL **)outErrorPtr;
+- (BOOL)setProject:(id)projectDocument forURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.1: Sun May  4 21:34:40 UTC 2008
@@ -1829,7 +1829,7 @@ newWritableProject:;
 //LOG4iTM3(@">>>>>>>>>>>>>>>>>>>   I have a projectDocument:%@",projectDocument);
 //LOG4iTM3(@">>>>>>>>>>>>>>>>>>>   [SDC documents] are:%@",[SDC documents]);
 			if ([projectDocument createNewFileKeyForURL:fileURL error:outErrorPtr]
-                && [self setProject:projectDocument forURL:fileURL error:outerrorPtr]) {
+                && [self setProject:projectDocument forURL:fileURL error:outErrorPtr]) {
                 if (display) {
                     [projectDocument makeWindowControllers];
                     [projectDocument showWindows];
@@ -1981,8 +1981,8 @@ To Do List:
 		if ([*fileURLRef isRelativeToURL4iTM3:[NSURL factoryURL4iTM3]]) {
 			*fileURLRef = fileURL;
 		}
-		if ([self setProject:projectDocument forURL:fileURL error:outErrorPtr];
-                &&[self setProject:projectDocument forURL:*fileURLRef error:outErrorPtr]) {// not only fileURL!!! it may have changed
+		if ([self setProject:projectDocument forURL:fileURL error:outErrorPtr]
+                && [self setProject:projectDocument forURL:*fileURLRef error:outErrorPtr]) {// not only fileURL!!! it may have changed
             [self didGetNewProjectForURL:fileURL];// reentrant management final step
             return projectDocument;
         }
@@ -3140,7 +3140,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeDocument:
-- (void)removeDocument:(NSDocument *)document;
+- (BOOL)removeDocument:(NSDocument *)document;
 /*"Returns the contextInfo of its document.
 Version history: jlaurens AT users DOT sourceforge DOT net
 NOT YET VERIFIED
@@ -3148,17 +3148,22 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iTM2ProjectDocument * PD = document.project4iTM3;
+    NSError * ROR = nil;
+	iTM2ProjectDocument * PD = [document project4iTM3Error:&ROR];
+    REPORTERROR4iTM3(1,@"",ROR);
 	if ([self.documents containsObject:document]) {
 		// the document is owned by the document controller
 		// it should not be owned by a project,
-		[PD removeSubdocument:document];//  This is not formal
+		[PD removeSubdocument:document error:&ROR];//  This is not formal
+        REPORTERROR4iTM3(1,@"",ROR);
 	} else {
 		// the document is owned by the project
 		// It is removed from the list of open project documents,
-		[PD closeSubdocument:document];
+		[PD closeSubdocument:document error:&ROR];
+        REPORTERROR4iTM3(1,@"",ROR);
 	}
-    [SPC forgetDocument:document];
+    [SPC forgetDocument:document error:&ROR];
+    REPORTERROR4iTM3(1,@"",ROR);
     [super removeDocument:document];
 //END4iTM3;
 	return;
@@ -3469,7 +3474,7 @@ To Do List:
 	// This is the natural situation.
 	// NB: A wrapper is always replaced by the project it contains, as long as NSDocument is concerned
     iTM2ProjectDocument * projectDocument = nil;
-    if ((projectDocument = [SPC projectForURL:absoluteURL])
+    if ((projectDocument = [SPC projectForURL:absoluteURL error:outErrorPtr])
 		|| (projectDocument = [SPC getProjectInWrapperForURL:absoluteURL display:display error:outErrorPtr])// fileURL belongs to a wrapper
 		|| (projectDocument = [SPC getProjectInHierarchyForURL:absoluteURL display:display error:outErrorPtr])// fileURL belongs to a project in the hierarchy
 		|| (projectDocument = [SPC getProjectInFactoryForURL:absoluteURL display:display error:outErrorPtr])// fileURL belongs to a cached project 
@@ -3489,8 +3494,8 @@ To Do List:
 	D = [super openDocumentWithContentsOfURL:absoluteURL display:display error:outErrorPtr];
     return D;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentForURL:
-- (id)documentForURL:(NSURL *)absoluteURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentForURL:error:
+- (id)documentForURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
 /*"Description forthcoming.
  Version History: jlaurens AT users DOT sourceforge DOT net
   NOT YET VERIFIED
@@ -3503,7 +3508,7 @@ To Do List:
         return [[result retain] autorelease];
 	}
 	if (absoluteURL.isFileURL) {
-		return [[SPC projectForURL:absoluteURL] subdocumentForURL:absoluteURL];
+		return [[SPC projectForURL:absoluteURL error:outErrorPtr] subdocumentForURL:absoluteURL];
 	}
 	return nil;
 }
