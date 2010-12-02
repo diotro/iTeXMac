@@ -2104,7 +2104,7 @@ To Do List:
     return [self context4iTM3BoolForKey:@"iTM2KeepBackup" domain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:error:
-- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *) DW error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed 05 mar 03
@@ -2116,12 +2116,12 @@ To Do List:
         return NO;
     }
     self.willSave;
-    BOOL result = [IMPLEMENTATION writeToDirectoryWrapper:DW error:errorStringRef];
+    BOOL result = [IMPLEMENTATION writeToDirectoryWrapper:DW error:RORef];
     self.didSave;
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromDirectoryWrapper:error:
-- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *) DW error:(NSString **) errorStringRef;
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *) DW error:(NSError **) RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed 05 mar 03
@@ -2132,9 +2132,9 @@ To Do List:
     if (!self.fileURL.isFileURL) {
         return NO;
     }
-    if ([IMPLEMENTATION readFromDirectoryWrapper:DW error:errorStringRef])
+    if ([IMPLEMENTATION readFromDirectoryWrapper:DW error:RORef])
     {
-        [self didReadFromURL:nil ofType:nil error:nil];
+        [self didReadFromURL:nil ofType:nil error:RORef];
         return YES;
     }
     else

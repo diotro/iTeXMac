@@ -1116,10 +1116,12 @@ To do list: ASK!!!
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.stringFormatter4iTM3 setStringEncoding:encoding];
-	if ([self stringRepresentationCompleteReadFromURL4iTM3:self.fileURL ofType:[self fileType] error:RORef])
-	{
-		[[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeWithDocument)];
-		return YES;
+	if ([self stringRepresentationCompleteReadFromURL4iTM3:self.fileURL ofType:self.fileType error:RORef]) {
+        BOOL result = YES;
+        for (NSWindowController * WC in self.windowControllers) {
+            result = [WC synchronizeWithDocument4iTM3Error:RORef] && result;
+        }
+		return result;
 	}
 	return NO;
 }
@@ -1620,7 +1622,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContext4iTM3Bool:self.window.isKeyWindow forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask error:RORef];// buggy?
+    [self takeContext4iTM3Bool:self.window.isKeyWindow forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy?
     [self takeContext4iTM3Value:NSStringFromRange(self.textView.selectedRange) forKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask error:RORef];
     NS_DURING
     NSRect visibleRect = self.textView.visibleRect;

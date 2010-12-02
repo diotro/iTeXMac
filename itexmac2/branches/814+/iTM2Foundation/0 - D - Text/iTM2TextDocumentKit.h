@@ -139,11 +139,11 @@ extern NSString * const iTM2TextInspectorType;
     NSTextView * iVarTextView4iTM3;
 }
 /*!
-	@method		synchronizeWithDocument
+	@method		synchronizeWithDocument4iTM3Error:
 	@abstract	This is where the inspector receives its text storage.
 	@result		None.
 */
-- (void)synchronizeWithDocument;
+- (BOOL)synchronizeWithDocument4iTM3Error:(NSError **)RORef;
 
 /*!
 	@property	textStorage

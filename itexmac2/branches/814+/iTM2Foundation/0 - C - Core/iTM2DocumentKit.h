@@ -378,10 +378,10 @@ extern NSString * const iTM2InspectorTable;
 				This is specific design for tree structured documents. Not used for projects nor document wrappers.
 				The default implementation just forwards the message to the implementation.
 	@param		DW is expected to be a directory wrapper. Behaviour is undefined yet if it is a link to a directory, see the code for details.
-	@param		errorStringRef is a reference to an error string. It will eventually point to an error string if the result is NO. The error string is autoreleased.
+	@param		RORef is a reference to an error instance.
     @result		yorn. The way the answer is handled is not that clear. It is left undefined.
 */
-- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSString **)errorStringRef;
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 
 /*!
     @method		synchronizeWindowControllers
@@ -414,10 +414,10 @@ extern NSString * const iTM2InspectorTable;
 				The default implementation just forwards the message to the implementation.
 				If the read operation was successful, a didReadFromFile:ofType: is sent with nil arguments. Poor design at first glance.
 	@param		DW is expected to be a directory wrapper. Behaviour is undefined yet if it is a link to a directory, see the code for details.
-	@param		errorStringRef is a reference to an error string. It will eventually point to an error string if the result is NO. The error string is autoreleased.
+	@param		RORef is a reference to an error instance.
     @result		yorn. The way the answer is handled is not that clear. It is left undefined.
 */
-- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSString **)errorStringRef;
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 
 /*!
     @method		context4iTM3Dictionary

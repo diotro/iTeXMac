@@ -579,7 +579,7 @@ Révisé par itexmac2: 2010-11-30 21:53:56 +0100
     return [self.album loadContext4iTM3Error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFInspectorCompleteSaveContext4iTM3Error:
-- (void)PDFInspectorCompleteSaveContext4iTM3Error:(NSError **)RORef;
+- (BOOL)PDFInspectorCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2260,11 +2260,11 @@ To Do List:
             stickMode: [self context4iTM3IntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
 //    self->_CanStick = YES;
     [self setCurrentPhysicalPage:[self context4iTM3IntegerForKey:@"iTM2PDFCurrentPhysicalPage" domain:iTM2ContextAllDomainsMask]];
-	[[self centeredSubview] loadContext4iTM3Error:RORef];
+	BOOL result = [[self centeredSubview] loadContext4iTM3Error:RORef];
     [self setParametersHaveChanged:YES];// of course!!!
 	[self setNeedsDisplay:YES];// Bug side effect too.	
 //RETURN4iTM3;
-    return;
+    return result;
 }
 @synthesize _CanStick;
 @synthesize _ParametersHaveChanged;

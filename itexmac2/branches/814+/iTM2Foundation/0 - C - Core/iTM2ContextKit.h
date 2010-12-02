@@ -500,24 +500,24 @@ enum
 - (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
-    @method     documentCompleteSaveContext4iTM3:
+    @method     documentCompleteSaveContext4iTM3Error:
     @abstract	Abstract forthcoming.
     @discussion	Sends a saveContext4iTM3: message to each window controller.
     @param      sender
     @param      RORef
-    @result     None
+    @result     yorn
 */
-- (IBAction)documentCompleteSaveContext4iTM3:(id)sender error:(NSError **)RORef;
+- (BOOL)documentCompleteSaveContext4iTM3Error:(NSError **)RORef;
 
 /*! 
-    @method     documentCompleteLoadContext4iTM3:
+    @method     documentCompleteLoadContext4iTM3Error:
     @abstract	Abstract forthcoming.
     @discussion	Sends a loadContext4iTM3: message to each window controller.
     @param      sender
     @param      RORef
-    @result     None
+    @result     yorn
 */
-- (IBAction)documentCompleteLoadContext4iTM3:(id)sender error:(NSError **)RORef;
+- (BOOL)documentCompleteLoadContext4iTM3Error:(NSError **)RORef;
 
 @end
 

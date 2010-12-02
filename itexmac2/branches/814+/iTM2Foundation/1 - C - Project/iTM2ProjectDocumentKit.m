@@ -2633,7 +2633,7 @@ To Do List:
 	{
 		return result;
 	}
-    return [self context4iTM3ValueForKey:key fileKey:fileKey domain:mask];
+    return [self context4iTM3ValueForKey:key fileKey:fileKey domain:mask error:self.RORef4iTM3];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setPropertyValue:forKey:fileKey:contextDomain:
 - (void)setPropertyValue:(id)property forKey:(NSString *)aKey fileKey:(NSString *)fileKey contextDomain:(NSUInteger)mask;
@@ -2897,8 +2897,8 @@ To Do List:to be improved...
     return;
 }
 #pragma mark =-=-=-=-=-  CONTEXT
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteLoadContext4iTM3:
-- (void)projectCompleteLoadContext4iTM3:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectCompleteLoadContext4iTM3Error:
+- (BOOL)projectCompleteLoadContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2907,22 +2907,20 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	// this is where oui set up initial context values
-	id expected = [self context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
-	if (![expected respondsToSelector:@selector(boolValue)])
-	{
-		expected = [self context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];
-		if ([expected respondsToSelector:@selector(boolValue)])
-		{
-			[self takeContext4iTM3Value:expected forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask];
+	id expected = [self context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask error:RORef];
+	if (![expected respondsToSelector:@selector(boolValue)]) {
+		expected = [self context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask error:RORef];
+		if ([expected respondsToSelector:@selector(boolValue)]) {
+			[self takeContext4iTM3Value:expected forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextStandardLocalMask error:RORef];
 		}
 	}
 	if (![self propertyValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask])
 	{
-		expected = [self context4iTM3ValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask];//something should be returned because this registered as defaults in the string formatter kit
+		expected = [self context4iTM3ValueForKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask error:RORef];//something should be returned because this registered as defaults in the string formatter kit
 		[self setPropertyValue:expected forKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
 	}
 //END4iTM3;
-    return;
+    return YES;
 }
 #pragma mark =-=-=-=-=-  WRAPPER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  wrapper
