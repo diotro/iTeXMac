@@ -293,9 +293,9 @@
 
 - (NSArray *)stringList;
 
-- (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)RORef;
 
-- (BOOL)writeToURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)url error:(NSError **)RORef;
 
 @property (retain) id iVarImplementation4iTM3;
 @end

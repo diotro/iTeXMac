@@ -232,11 +232,11 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 	}
 	return;
 }
-- (BOOL)validatePrettyMacroID:(id *)ioValue error:(NSError **)outErrorRef;
+- (BOOL)validatePrettyMacroID:(id *)ioValue error:(NSError **)RORef;
 {
-	if (outErrorRef)
+	if (RORef)
 	{
-		*outErrorRef = nil;
+		*RORef = nil;
 	}
 	if (!ioValue)
 	{
@@ -248,9 +248,9 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 	}
 	if ([[[self owner] personalMacros] objectForKey:*ioValue] || [[[self owner] macros] objectForKey:*ioValue])
 	{
-		if (outErrorRef)
+		if (RORef)
 		{
-			*outErrorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
+			*RORef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
 				[NSDictionary dictionaryWithObjectsAndKeys:
 					NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, [self classBundle4iTM3], ""), NSLocalizedDescriptionKey,
 					[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"There is already a macro named %@", iTM2LocalizedExtension, [self classBundle4iTM3], ""), *ioValue], NSLocalizedFailureReasonErrorKey,
@@ -1714,7 +1714,7 @@ To Do List:
 	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newMode forKey:domain];
-	[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
 	// change the editors
 	if (newMode)
 	{
@@ -1758,7 +1758,7 @@ To Do List:
 	id MD = [self context4iTM3DictionaryForKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
 	MD = MD?[[MD mutableCopy] autorelease]:[NSMutableDictionary dictionary];
 	[MD setValue:newDomain forKey:key];
-	[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+	[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
 	[self didChangeValueForKey:@"availableModes"];
 	NSString * newMode = [MD objectForKey:newDomain];
 	NSArray * availableModes = [self availableModes];
@@ -1960,7 +1960,7 @@ To Do List:
 	if (!MD)
 	{
 		MD = [NSMutableDictionary dictionary];
-		[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask];
+		[self setContext4iTM3Value:MD forKey:iTM2MacroEditorSelectionKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
 	}
 	NSString * selectedDomain = [self selectedDomain];
 	NSArray * availableDomains = [self availableDomains];

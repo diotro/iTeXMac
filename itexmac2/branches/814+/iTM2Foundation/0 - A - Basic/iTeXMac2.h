@@ -120,8 +120,8 @@ extern NSInteger iTM2DebugEnabled;
 #define myBUNDLE self.classBundle4iTM3
 
 #define OUTERROR4iTM3(TAG,STRING,UNDERLYING)\
-if (outErrorPtr && ([STRING length] || UNDERLYING)) {\
-	*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:TAG\
+if (RORef && ([STRING length] || UNDERLYING)) {\
+	*RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:STRING,NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
 				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])];\
@@ -239,6 +239,13 @@ FOUNDATION_EXPORT NSRange iTM3ScaleRange(NSRange range, NSInteger delta);
 #define iTM3VoidRange iTM3MakeRange(iTM3UIntegerUndefined,ZER0)
 #define iTM3FullRange iTM3MakeRange(ZER0,NSUIntegerMax)
 #define iTM3NotFoundRange iTM3MakeRange(NSNotFound,ZER0)
+
+@interface NSObject (iTM3Error)
+
+- (NSError **)RORef4iTM3;
+- (void) setRORef4iTM3:(NSError **)RORef;
+
+@end
 
 /*
 (@header|@param|@method|@class|@result|@abstract|@discussion|@protocol) 

@@ -173,7 +173,7 @@ To Do List:
     if (self.backgroundColor) {
         [self.backgroundColor set];
     } else if ([self context4iTM3BoolForKey:iTM2PDFUseSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]) {
-        [[NSColor colorWithRGBADictionary:[self context4iTM3ValueForKey:iTM2PDFSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask]] set];
+        [[NSColor colorWithRGBADictionary:[self context4iTM3ValueForKey:iTM2PDFSheetBackgroundColorKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]] set];
     } else {
         [[NSColor whiteColor] set];
     }
@@ -307,9 +307,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iVarAbsoluteFocusPoint = NSPointFromString([self context4iTM3ValueForKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask]);
+	iVarAbsoluteFocusPoint = NSPointFromString([self context4iTM3ValueForKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]);
 	[(iTM2PDFView *)self.superview placeFocusPointInVisibleArea];// scroll to the page as side effect should be a wrapper for stuff below
- 	[self scrollRectToVisible:NSRectFromString([self context4iTM3ValueForKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask])];
+ 	[self scrollRectToVisible:NSRectFromString([self context4iTM3ValueForKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3])];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFImageRepViewCompleteSaveContext4iTM3:
@@ -317,8 +317,8 @@ To Do List:
 /*"YES."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self takeContext4iTM3Value:NSStringFromPoint(iVarAbsoluteFocusPoint) forKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask];
-	[self takeContext4iTM3Value:NSStringFromRect(self.visibleRect) forKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:NSStringFromPoint(iVarAbsoluteFocusPoint) forKey:@"iTM2PDFAbsoluteFocusPoint" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+	[self takeContext4iTM3Value:NSStringFromRect(self.visibleRect) forKey:@"iTM2PDFImageRepViewVisibleRect" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
     return;
 }
 @synthesize tag = iVarTag;
@@ -756,7 +756,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     return [self context4iTM3BoolForKey:iTM2PDFUseViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]?
-        [NSColor colorWithRGBADictionary:[self context4iTM3ValueForKey:iTM2PDFViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask]]:
+        [NSColor colorWithRGBADictionary:[self context4iTM3ValueForKey:iTM2PDFViewerBackgroundColorKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]]:
             [NSColor windowBackgroundColor];
 }
 #pragma mark =-=-=-=-=-  IMAGE REPRESENTATION
@@ -1065,8 +1065,8 @@ To Do List:
 //START4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewCompleteLoadContext4iTM3:
-- (void)PDFViewCompleteLoadContext4iTM3:(id)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewCompleteLoadContext4iTM3Error:
+- (BOOL)PDFViewCompleteLoadContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1074,17 +1074,16 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.focusView loadContext4iTM3:irrelevant];
+	BOOL result = [self.focusView loadContext4iTM3Error:RORef];
 	self.placeFocusPointInVisibleArea;// scroll to the page as side effect should be a wrapper for stuff below
-    return;
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewCompleteSaveContext4iTM3:
-- (void)PDFViewCompleteSaveContext4iTM3:(id)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewCompleteSaveContext4iTM3Error:
+- (BOOL)PDFViewCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"YES."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.focusView saveContext4iTM3:irrelevant];
-    return;
+    return [self.focusView saveContext4iTM3Error:RORef];
 }
 @synthesize imageRepresentation = iVarImageRepresentation;
 @synthesize cachedImageRepresentation = iVarCachedImageRepresentation;

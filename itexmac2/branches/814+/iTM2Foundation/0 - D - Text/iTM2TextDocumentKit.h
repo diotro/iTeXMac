@@ -105,10 +105,10 @@ extern NSString * const iTM2TextInspectorType;
 	@abstract	Abstract forthcoming.
 	@discussion Description forthcoming.
 	@param		encoding is the encoding
-	@param		outErrorPtr a pointer to an NSError instance.
+	@param		RORef a pointer to an NSError instance.
 	@result		yorn
 */
-- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
+- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)RORef;
 
 /*!
 	@method			getLine:column:length:forHint:

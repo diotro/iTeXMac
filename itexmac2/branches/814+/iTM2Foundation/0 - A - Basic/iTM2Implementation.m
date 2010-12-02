@@ -654,7 +654,7 @@ To Do List:
     return [self._DataRepresentations allKeys];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataOfType:error:
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -663,7 +663,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"data: %@", result);
-	if (outErrorPtr) * outErrorPtr = nil;
+	if (RORef) * RORef = nil;
     if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypeData]) {
         return [self._DataRepresentations valueForKey:typeName];
     }
@@ -671,7 +671,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromData:ofType:error:
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -679,13 +679,13 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (outErrorPtr) * outErrorPtr = nil;
+	if (RORef) * RORef = nil;
     [self._DataRepresentations setValue:data forKey:typeName];
     return [self._DataRepresentations valueForKey:typeName] != nil;
 }
 NSString * const iTM2DataRepresentationsName = @"D";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToDirectoryWrapper:error:
-- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -699,8 +699,8 @@ To Do List:
         [self.children makeObjectsPerformSelector:_cmd withObject:DW];
         NSData * D = [_Owner respondsToSelector:@selector(dataOfType:error:)]
                             && [_Owner respondsToSelector:@selector(modelType)]?
-                [_Owner dataOfType:[_Owner modelType] error:outErrorPtr]:
-                [self dataOfType:self.modelType error:outErrorPtr];
+                [_Owner dataOfType:[_Owner modelType] error:RORef]:
+                [self dataOfType:self.modelType error:RORef];
         if (D) {
             if ([[DW fileWrappers] count]) {
                 [DW removeFileWrapper:[[DW fileWrappers] objectForKey:iTM2DataRepresentationsName]];
@@ -712,7 +712,7 @@ To Do List:
     return self.writeToParentImplementation && result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromDirectoryWrapper:error:
-- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -729,10 +729,10 @@ To Do List:
             fw = [[[NSFileWrapper alloc] initWithPath:[fw symbolicLinkDestination]] autorelease];
         if ([fw isRegularFile])
         {
-			NSString * type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:[fw preferredFilename]] error:outErrorPtr];
+			NSString * type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:[fw preferredFilename]] error:RORef];
             result = result && ([_Owner respondsToSelector:@selector(readFromData:ofType:error:)]?
-                [_Owner readFromData:[fw regularFileContents] ofType:type error:outErrorPtr]:
-                [self readFromData:[fw regularFileContents] ofType:type error:outErrorPtr]);
+                [_Owner readFromData:[fw regularFileContents] ofType:type error:RORef]:
+                [self readFromData:[fw regularFileContents] ofType:type error:RORef]);
         }
     }
     self.updateChildren;
@@ -935,7 +935,7 @@ To Do List:
     return nil;// no model, no data
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfModelOfType:error:
-- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outErrorPtr;
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -943,9 +943,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (outErrorPtr)
+	if (RORef)
 	{
-		*outErrorPtr = nil;
+		*RORef = nil;
 	}
     NSString * errorString = nil;
 	id PL = [self modelOfType:type];
@@ -1054,7 +1054,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadModelValueOfDataRepresentation:ofType:error:
-- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -1071,9 +1071,9 @@ To Do List:
                 format: &format errorDescription: &errorString];
         if (errorString)
         {
-			if (outErrorPtr)
+			if (RORef)
 			{
-				*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
+				*RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"NSPropertyListSerialization error string:'%@'", errorString]
 						forKey:NSLocalizedDescriptionKey]];
 			}

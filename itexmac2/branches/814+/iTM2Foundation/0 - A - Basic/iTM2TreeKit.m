@@ -2908,7 +2908,7 @@ To Do List:
 }
 
 
-- (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)RORef;
 {
 	if (self = self.init)
 	{
@@ -2920,23 +2920,23 @@ To Do List:
 			iVarImplementation4iTM3 = [[iTM2PatriciaNode alloc] initWithXMLElement:rootElement];
 			return self;
 		}
-		else if (error && outErrorPtr)
+		else if (error && RORef)
 		{
-			*outErrorPtr = error;
+			*RORef = error;
 		}
 		return self;
 	}
 	return nil;
 }
 
-- (BOOL)writeToURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)url error:(NSError **)RORef;
 {
 	NSXMLElement * element = [iVarImplementation4iTM3 XMLElement];
 	NSXMLDocument * document = [[[NSXMLDocument alloc] initWithRootElement:element] autorelease];
 	[document setDocumentContentKind:NSXMLDocumentXMLKind];
 	[document setCharacterEncoding:@"UTF-8"];
 	NSData * D = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
-	return [D writeToURL:url options:NSAtomicWrite error:outErrorPtr];
+	return [D writeToURL:url options:NSAtomicWrite error:RORef];
 }
 
 - (BOOL)removeString:(NSString *)aString;

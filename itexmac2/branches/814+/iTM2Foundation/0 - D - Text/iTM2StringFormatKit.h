@@ -159,7 +159,7 @@ extern NSString * const TWSEOLFileKey;
 	@param data is the NSData object to be converted.
 	@result		An NSString instance.
 */
-- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)RORef;
 
 /*!
 	@property	EOL

@@ -305,7 +305,7 @@ To Do List: Nothing
     return @"Styles";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newRecentDocument4iTM3Error:
-- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
+- (id)newRecentDocument4iTM3Error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004
@@ -2246,7 +2246,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithSyntaxParserVariant:error:
-- (id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)outErrorPtr;
+- (id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)RORef;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2268,7 +2268,7 @@ To Do List:
 					URLByAppendingPathExtension: iTM2TextStyleExtension]
 						URLByAppendingPathComponent: self.syntaxParserVariant]
 							URLByAppendingPathExtension: iTM2TextVariantExtension]];
-		[self readFromURL:self.fileURL ofType:self.fileType error:outErrorPtr];
+		[self readFromURL:self.fileURL ofType:self.fileType error:RORef];
     }
 //END4iTM3;
     return self;
@@ -2430,7 +2430,7 @@ save:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL4iTM3:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) type;
-- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2450,14 +2450,14 @@ To Do List:
 //LOG4iTM3(@"WC is: %@", WC);
         if ([WC respondsToSelector:@selector(readFromURL:ofType:error:)])
 		{
-			result = result && [WC readFromURL:absoluteURL ofType:typeName error:outErrorPtr];// only the last error will be recorded
+			result = result && [WC readFromURL:absoluteURL ofType:typeName error:RORef];// only the last error will be recorded
 		}
 	}
 //END4iTM3;
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= newRecentDocument4iTM3Error:
-- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
+- (id)newRecentDocument4iTM3Error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2: Mon Jun  7 21:48:56 GMT 2004
@@ -2606,7 +2606,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) type;
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"For the revert to saved.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2642,7 +2642,7 @@ To Do List:
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
 //- (BOOL) writeToFile: (NSString *) fileName ofType: (NSString *) type;
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2660,7 +2660,7 @@ To Do List:
 	NSDictionary * modesAttributes = [AS modesAttributes];
 	NSString * sampleString = [self.textView string];
 	[self setValue:sampleString forKeyPath:@"sampleString_meta"];
-	if (![[AS class] writeModesAttributes:modesAttributes toFile:stylePath error:outErrorPtr])
+	if (![[AS class] writeModesAttributes:modesAttributes toFile:stylePath error:RORef])
 	{
 		OUTERROR4iTM3(1,([NSString stringWithFormat:@"Could not write the modes attributes at path:%@", stylePath]),nil);
 //END4iTM3;

@@ -25,6 +25,7 @@
 @interface NSInvocation(iTeXMac2)
 + (id)getInvocation4iTM3:(NSInvocation **)invocationRef withTarget:(id)target;// GC version
 + (id)getInvocation4iTM3:(NSInvocation **)invocationRef withTarget:(id)target retainArguments:(BOOL)retain;
+- (void)invokeWithSelector4iTM3:(SEL)selector;
 - (void)invokeWithSelectors4iTM3:(NSPointerArray *)selectors;
 @end
 

@@ -148,7 +148,7 @@ extern NSString * const iTM2DontUseSmartMacrosKey;
 
 - (id)menuTree;
 - (void)setMenuTree:(id)aTree;
-- (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)outErrorPtr;
+- (NSMenu *)macroMenuForContext:(NSString *)context ofCategory:(NSString *)category inDomain:(NSString *)domain error:(NSError **)RORef;
 
 - (id)treeForContextNodeClass:(Class)aClass;
 

@@ -413,7 +413,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallationWithError:
-+ (void)completeInstallationWithError:(NSError **)outErrorPtr;
++ (void)completeInstallationWithError:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-11-29 22:02:48 +0100
@@ -422,17 +422,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInvocation * I;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallationWithError:outErrorPtr];
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallationWithError:RORef];
 	NSPointerArray * PA = [iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation4iTM3WithError:" signature:I.methodSignature inherited:YES];
 	NSUInteger i = PA.count;
 	while (i--) {
 		I.selector=(SEL)[PA pointerAtIndex:i];
         I.invoke;
 		[iTM2Runtime disableClassMethodSelector:I.selector forClass:self];
-        if (outErrorPtr) {
-            [I getArgument:&outErrorPtr atIndex:2];
-            if  (*outErrorPtr) {
-                LOG4iTM3(@"iTM2Installation error in %@\n%@",NSStringFromSelector(I.selector),*outErrorPtr);
+        if (RORef) {
+            [I getArgument:&RORef atIndex:2];
+            if  (*RORef) {
+                LOG4iTM3(@"iTM2Installation error in %@\n%@",NSStringFromSelector(I.selector),*RORef);
             }
         }
     }
@@ -440,7 +440,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  completeInstallationWithError:
-- (void)completeInstallationWithError:(NSError **)outErrorPtr;
+- (void)completeInstallationWithError:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-11-29 22:02:48 +0100
@@ -449,17 +449,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInvocation * I;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallationWithError:outErrorPtr];
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallationWithError:RORef];
 	NSPointerArray * PA = [iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteInstallation4iTM3WithError:" signature:I.methodSignature inherited:YES];
 	NSUInteger i = PA.count;
 	while (i--) {
 		I.selector=(SEL)[PA pointerAtIndex:i];
         I.invoke;
-		[iTM2Runtime disableClassMethodSelector:[I selector] forClass:self];
-        if (outErrorPtr) {
-            [I getArgument:&outErrorPtr atIndex:2];
-            if  (*outErrorPtr) {
-                LOG4iTM3(@"iTM2Installation error in %@\n%@",NSStringFromSelector(I.selector),*outErrorPtr);
+		[iTM2Runtime disableClassMethodSelector:[I selector] forClass:self.class];
+        if (RORef) {
+            [I getArgument:&RORef atIndex:2];
+            if  (*RORef) {
+                LOG4iTM3(@"iTM2Installation error in %@\n%@",NSStringFromSelector(I.selector),*RORef);
             }
         }
     }

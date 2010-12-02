@@ -229,7 +229,7 @@ To Do List:
     return result.length? result: @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"For the revert to saved.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -260,7 +260,7 @@ To Do List:
 //LOG4iTM3(@"Reading built in symbols at path %@", stylePath);
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory:&isDir] && isDir) {
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr])
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:RORef])
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -283,7 +283,7 @@ To Do List:
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory: &isDir] && isDir)
 		{
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr]) {
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:RORef]) {
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -306,7 +306,7 @@ To Do List:
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory: &isDir] && isDir)
 		{
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr]) {
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:RORef]) {
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -330,7 +330,7 @@ To Do List:
 		url = [[url URLByAppendingPathComponent:variantComponent] URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 		if(url.isFileURL && [DFM fileExistsAtPath:url.path isDirectory: &isDir] && isDir)
 		{
-			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:outErrorPtr]) {
+			for(url in [DFM contentsOfDirectoryAtURL:url includingPropertiesForKeys:[NSArray array] options:ZER0 error:RORef]) {
 				if([url.pathExtension isEqualToFileName4iTM3:iTM2TextAttributesPathExtension]) {
 //LOG4iTM3(@"Reading at path %@", path);
 					id symbolsAttributes = [iTM2XtdTeXParserAttributesServer symbolsAttributesWithContentsOfURL:url];
@@ -355,7 +355,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -434,7 +434,7 @@ To Do List:
         }
     }
     if(success) {
-        [self readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
+        [self readFromURL:absoluteURL ofType:typeName error:RORef];
 	}
     return success;
 }

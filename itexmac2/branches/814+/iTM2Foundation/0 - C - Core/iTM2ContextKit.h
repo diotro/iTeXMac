@@ -146,9 +146,10 @@ enum
 				You are not expected to overide this method but the above mentioned one.
     @param		key
     @param		mask
+    @param      RORef
     @result		None
 */
-- (id)context4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (id)context4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
     @method		getContext4iTM3ValueForKey:domain:
@@ -156,9 +157,10 @@ enum
     @discussion	Comes from the context dictionary if any, at least from the context manager.
     @param		key
     @param		mask
+    @param      RORef
     @result		None
 */
-- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
     @method		takeContext4iTM3Value:forKey:domain:
@@ -168,9 +170,10 @@ enum
     @param		value
     @param		key
     @param		mask
+    @param      RORef
     @result     yorn whether something has changed.
 */
-- (NSUInteger)takeContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (NSUInteger)takeContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
     @method		setContext4iTM3Value:forKey:domain:
@@ -181,9 +184,10 @@ enum
     @param		value
     @param		key
     @param		mask
+    @param      RORef
     @result     yorn whether something has changed.
 */
-- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
     @method		context4iTM3FontForKey:domain:domain:
@@ -379,19 +383,19 @@ enum
                 Thus a document sends this message just before the canClose.... is called.
                 You should not call the saveContext4iTM3: method yourself
                 but you are free to call your blablablaCompleteSaveContext... of course!
-    @param      outErrorPtr
+    @param      RORef
     @result     yorn
 */
-- (BOOL)saveContext4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)saveContext4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     loadContext4iTM3Error
     @abstract	Abstract forthcoming.
     @discussion	Reverse saveContext4iTM3: operation.
-	@param      outErrorPtr
+	@param      RORef
     @result     yorn
 */
-- (BOOL)loadContext4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)loadContext4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     awakeFromContext4iTM3
@@ -456,9 +460,10 @@ enum
     @abstract   Abstract forthcoming.
     @discussion See the -takeContext4iTM3Value:forKey: discussion below.
     @param      key
+    @param      RORef
     @result     A value
 */
-- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
     @method     takeContext4iTM3Value:forKey:
@@ -489,27 +494,30 @@ enum
 				If you do not want a value to be stored in the user defaults, just use the appropriate domain mask
     @param      value is the new value
     @param      key is the context value key
+    @param      RORef
     @result     yorn whether something has changed.
 */
-- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask;
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
     @method     documentCompleteSaveContext4iTM3:
     @abstract	Abstract forthcoming.
     @discussion	Sends a saveContext4iTM3: message to each window controller.
     @param      sender
+    @param      RORef
     @result     None
 */
-- (IBAction)documentCompleteSaveContext4iTM3:(id)sender;
+- (IBAction)documentCompleteSaveContext4iTM3:(id)sender error:(NSError **)RORef;
 
 /*! 
     @method     documentCompleteLoadContext4iTM3:
     @abstract	Abstract forthcoming.
     @discussion	Sends a loadContext4iTM3: message to each window controller.
     @param      sender
+    @param      RORef
     @result     None
 */
-- (IBAction)documentCompleteLoadContext4iTM3:(id)sender;
+- (IBAction)documentCompleteLoadContext4iTM3:(id)sender error:(NSError **)RORef;
 
 @end
 

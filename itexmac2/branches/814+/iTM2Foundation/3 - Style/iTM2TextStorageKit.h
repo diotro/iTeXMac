@@ -1318,10 +1318,10 @@ extern NSString * const iTM2TextDefaultVariant;
                 then it loads the built in attributes if they are different,
                 and finally it loads the other customized attributes from the various domains.
     @param	an NSString variant identifier
-    @param	outErrorPtr is a pointer to an NSError instance
+    @param	RORef is a pointer to an NSError instance
     @result	None
 */
-+ (NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)outErrorPtr;
++ (NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)RORef;
 
 /*!
     @method		builtInStyleURLs
@@ -1354,20 +1354,20 @@ extern NSString * const iTM2TextDefaultVariant;
     @discussion	The storage model design is also here.
     @param	The attributes.
     @param	The file location.
-    @param	outErrorPtr is a pointer to an NSError instance.
+    @param	RORef is a pointer to an NSError instance.
     @result	a flag indicating success or failure.
 */
-+ (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outErrorPtr;
++ (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)RORef;
 
 /*!
     @method	modesAttributesWithContentsOfURL:error:
     @abstract	Mode attributes with the contents of the given file.
     @discussion	The storage model is here.
     @param	fileURL: file url.
-    @param	outErrorPtr is a pointer to an NSError instance.
+    @param	RORef is a pointer to an NSError instance.
     @result	a dictionary.
 */
-+ (NSDictionary *)modesAttributesWithContentsOfURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
++ (NSDictionary *)modesAttributesWithContentsOfURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*!
     @method	character:isMemberOfCoveredCharacterSetForMode:

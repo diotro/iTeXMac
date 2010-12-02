@@ -24,7 +24,7 @@
 extern NSString * const iTM2MainType;
 
 #define IMPLEMENTATION self.implementation
-#define metaGETTER [self.implementation :_cmd]
+#define metaGETTER [self.implementation metaValueForSelector:_cmd]
 #define metaSETTER(argument) [self.implementation takeMetaValue:argument forSelector:_cmd]
 #define modelGETTER(type) [self.implementation modelValueForSelector:_cmd ofType:type]
 #define modelSETTER(argument, type) [self.implementation takeModelValue:argument forSelector:_cmd ofType:type]
@@ -263,21 +263,10 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	This default implementation just stores the given data in its data representation dictionary, as is, with key, the given type. It overrides any previously loaded data representation with no precaution.
     @param      data
     @param      typeName
-    @param      outErrorPtr
+    @param      RORef
 	@result		YES.
 */
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
-
-/*!
-	@method		loadDataRepresentation:ofType:
-	@abstract	Loads the given data representation, assuming its type.
-	@discussion	Deprecated since Tiger. Use
-				- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
-				instead.
-				This default implementation just stores the given data in its data representation dictionary, as is, with key, the given type. It overrides any previously loaded data representation with no precaution.
-	@result		YES.
-*/
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
 
 /*!
 	@method		dataOfType:error:
@@ -286,10 +275,10 @@ NSString * iTM2KeyFromSelector(SEL selector);
 				the receiver which key is the given type.
                 nil is returned in case of an error.
 	@param		type is a key dictionary type
-	@param		outErrorPtr is a reference to an error object
+	@param		RORef is a reference to an error object
 	@result		a data object.
 */
-- (NSData *)dataOfType:(NSString *)type error:(NSError **)outErrorPtr;
+- (NSData *)dataOfType:(NSString *)type error:(NSError **)RORef;
 
 /*!
 	@method		dataRepresentationTypes
@@ -323,20 +312,20 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@abstract	Write the data implementation of the receiver to the given diorectory wrapper.
 	@discussion	Description never forthcoming.
     @param      DW
-    @param      outErrorPtr
+    @param      RORef
 	@result		yorn.
 */
-- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
+- (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 
 /*!
 	@method		readFromDirectoryWrapper:
 	@abstract	Read the data implementation of the owner from the given directory wrapper.
 	@discussion	Description never forthcoming.
     @param      DW
-    @param      outErrorPtr
+    @param      RORef
 	@result		yorn.
 */
-- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)outErrorPtr;
+- (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 
 /*!
 	@method		parent
@@ -424,10 +413,10 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@abstract	A data representation of the model value for the given type.
 	@discussion	Returns a property list serialized object with the appropriate format.
 	@param  	type is a type
-	@param  	outErrorPtr is an NSError instance pointer
+	@param  	RORef is an NSError instance pointer
 	@result 	a data object
 */
-- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)outErrorPtr;
+- (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)RORef;
 - (NSData *)dataRepresentationOfModelOfType:(NSString *)type;//Deprecated, use the above method
 
 /*!
@@ -436,10 +425,10 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@discussion	Description never forthcoming.
 	@param  	data is a data
 	@param  	type is a key
-	@param  	outErrorPtr is an NSError instance pointer
+	@param  	RORef is an NSError instance pointer
 	@result 	A flag indicating whther things have been done or not.
 */
-- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)RORef;
 - (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;//Deprecated, use the above method
 
 /*!

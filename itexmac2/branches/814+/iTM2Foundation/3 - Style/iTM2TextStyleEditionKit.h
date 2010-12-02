@@ -125,7 +125,7 @@ extern NSString * const iTM2TextStyleInspectorType;
 */
 @interface iTM2TextSyntaxParserAttributesDocument: iTM2Document
 + (Class)syntaxParserClass;
-- (id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)outErrorPtr;
+- (id)initWithSyntaxParserVariant:(NSString *)variant error:(NSError **)RORef;
 - (NSString *)syntaxParserVariant;
 @end
 

@@ -31,7 +31,7 @@ NSString * const iTM2XDVDocumentType = @"XeTeX DeVice independent";// beware, th
 
 @implementation iTM2DVIDocument
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
-- (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorRef;
+- (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 2.0: Mon Jun 02 2003
@@ -41,7 +41,7 @@ To Do List:
 //START4iTM3;
 	if(!absoluteURL.isFileURL)
 	{
-		return [super initWithContentsOfURL:absoluteURL ofType:typeName error:outErrorRef];
+		return [super initWithContentsOfURL:absoluteURL ofType:typeName error:RORef];
 	}
 	NSString * path = absoluteURL.path;
 	path = path.stringByDeletingPathExtension;
@@ -54,8 +54,8 @@ To Do List:
 	}
 	if([DFM fileExistsAtPath:path])
 	{
-		typeName = [SDC typeForContentsOfURL:url error:outErrorRef];
-		self = [super initWithContentsOfURL:url ofType:typeName error:outErrorRef];
+		typeName = [SDC typeForContentsOfURL:url error:RORef];
+		self = [super initWithContentsOfURL:url ofType:typeName error:RORef];
 		return self;
 	}
 	if(result = [SDC documentForURL:absoluteURL])
@@ -96,7 +96,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
-- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorRef;
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -105,7 +105,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return self.needsToUpdate4iTM3 || [super updateIfNeeded4iTM3Error:outErrorRef];
+    return self.needsToUpdate4iTM3 || [super updateIfNeeded4iTM3Error:RORef];
 }
 @end
 

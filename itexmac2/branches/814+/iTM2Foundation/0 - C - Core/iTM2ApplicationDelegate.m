@@ -42,7 +42,7 @@ NSString * const iTM2MakeEmptyDocumentKey = @"iTM2MakeEmptyDocument";
 
 
 @interface NSDocumentController(iTM2ApplicationDelegate)
-- (id)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
+- (id)prepareOpenDocumentWithContentsOfURL:(NSURL *)absoluteURL error:(NSError **)RORef;
 @end
 @implementation iTM2ApplicationDelegate
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize

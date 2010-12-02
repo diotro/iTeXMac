@@ -290,40 +290,40 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				The document is then remove from the list of documents owned by the shared document controller.
 				That way, a document cannot be owned at the same time by a project and the share document controller.
     @param      document to be added.
-    @param      outErrorPtr
+    @param      RORef
     @result     yorn.
 */
-- (BOOL)addSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
+- (BOOL)addSubdocument:(NSDocument *)document error:(NSError **)RORef;
 
 /*! 
     @method     forgetSubdocument:
     @abstract   forget a document
     @discussion Same as closeSubdocument: but without saving.
     @param      document to be removed.
-    @param      outErrorPtr
+    @param      RORef
     @result     None.
 */
-- (BOOL)forgetSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
+- (BOOL)forgetSubdocument:(NSDocument *)document error:(NSError **)RORef;
 
 /*! 
     @method     removeSubdocument:
     @abstract   remove a document
     @discussion Once removed, a document no longer belongs to a project.
     @param      document to be removed.
-    @param      outErrorPtr
-    @result     None.
+    @param      RORef
+    @result     yorn.
 */
-- (void)removeSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
+- (BOOL)removeSubdocument:(NSDocument *)document error:(NSError **)RORef;
 
 /*! 
     @method     closeSubdocument:
     @abstract   Close a document
     @discussion Discussion Forthcoming.
     @param      document to be forgotten.
-    @param      outErrorPtr
-    @result     None.
+    @param      RORef
+    @result     yorn.
 */
-- (void)closeSubdocument:(NSDocument *)document error:(NSError **)outErrorPtr;
+- (BOOL)closeSubdocument:(NSDocument *)document error:(NSError **)RORef;
 
 /*! 
     @method     ownsSubdocument:
@@ -354,9 +354,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				either stored in the project or in a private cache.
 				Use the createNewFileKeyForURL: or createNewFileKeyForURL:context: for that purpose.
     @param      fileURL is a full URL
+    @param      RORef
     @result     An NSMutableDictionary
 */
-- (NSString *)fileKeyForURL:(NSURL *)fileURL;
+- (NSString *)fileKeyForURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*! 
     @method     showSubdocuments:
@@ -405,16 +406,16 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      None.
     @result     result forthcoming
 */
-- (BOOL)prepareFrontendCompleteWriteToURL4iTM3:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
+- (BOOL)prepareFrontendCompleteWriteToURL4iTM3:(NSURL *)fileURL ofType:(NSString *) type error:(NSError **)RORef;
 
 /*! 
     @method     projectCompleteWillClose4iTM3Error:
     @abstract   Abstract forthcoming.
     @discussion Used to record the context state.
-    @param      None.
-    @result     result forthcoming
+    @param      RORef.
+    @result     yorn
 */
-- (void)projectCompleteWillClose4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)projectCompleteWillClose4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     subdocumentMightHaveClosed
@@ -431,10 +432,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @discussion This method is obsolete, use the -(NSURL *)createNewFileKeyForURL:save: instead.
 				It just forwards to the above mentionned method, not asking to save.
     @param      fileName is a full path name, or relative to the project directory
-    @param      outErrorPtr
+    @param      RORef
     @result     a unique key identifier
 */
-- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*! 
     @method     createNewFileKeyForURL:save:
@@ -445,10 +446,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				The .. refers to a directory outside the Wrapper and is likely not to be used.
     @param      fileName is a full path name, or relative to the project directory
     @param      yorn is a flag indicating whether the project should save if a new key is really created
-    @param      outErrorPtr
+    @param      RORef
     @result     a unique key identifier
 */
-- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL save:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSString *)createNewFileKeyForURL:(NSURL *)fileURL save:(BOOL)yorn error:(NSError **)RORef;
 
 /*! 
     @method     saveAllSubdocumentsWithDelegate:didSaveAllSelector:contextInfo:
@@ -508,23 +509,24 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @discussion This is a convenience shortcut to the SPC's -URLForFileKey:filter:inProjectWithURL: method.
     @param      a key
     @param      filter
-    @param      outErrorPtr
+    @param      RORef
     @result     an NSURL
 */
-- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)outErrorPtr;
-- (NSArray *)URLsForFileKeys:(NSArray *)keys error:(NSError **)outErrorPtr;
+- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)RORef;
+- (NSArray *)URLsForFileKeys:(NSArray *)keys error:(NSError **)RORef;
 
 /*! 
-    @method     setURL:forFileKey:
+    @method     setURL:forFileKey:error:
     @abstract   Changes the file URL for the given key.
     @discussion This is a basic setter with NO side effect (except cleaning some private caches).
 				If the key is not covered by the allKeys list of the receiver, nothing is done.
     @param      fileName is the new file name, assumed to be a valid full path.
     @param      key is a key
     @param      flag is a flag
+    @param      RORef
     @result     A normalized URL.
 */
-- (NSURL *)setURL:(NSURL *)fileURL forFileKey:(NSString *)key;
+- (NSURL *)setURL:(NSURL *)fileURL forFileKey:(NSString *)key error:(NSError **)RORef;
 
 /*! 
     @method     factoryURLForFileKey:
@@ -559,10 +561,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @abstract   The project document for the given URL.
     @discussion Only file URL's are managed. If the receiver does not declare a document with the file name (given as URL), nil is returned.
     @param      file name is a full path
-    @param      outErrorPtr
+    @param      RORef
     @result     a project document.
 */
-- (id)subdocumentForURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (id)subdocumentForURL:(NSURL *)url error:(NSError **)RORef;
 
 /*! 
     @method     fileKeyForSubdocument:error:
@@ -576,10 +578,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				Besides this is a weird situation, we can imagine that two different projects can act differently on the same document.
 				Then it would be difficult to link the document to both projects.
     @param      \p subdocument is a document
-    @param      outErrorPtr...
+    @param      RORef...
     @result     a key identifier.
 */
-- (NSString *)fileKeyForSubdocument:(NSDocument *)subdocument error:(NSError **)outErrorPtr;
+- (NSString *)fileKeyForSubdocument:(NSDocument *)subdocument error:(NSError **)RORef;
 
 /*! 
     @method     subdocumentForFileKey:
@@ -613,10 +615,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @abstract   Only use the links or finder aliases.
     @discussion Discussion forthcoming.
     @param      (NSURL *) is a file URL
-    @param      outErrorPtr a pointer to an NSError instance in case of an error
+    @param      RORef a pointer to an NSError instance in case of an error
     @result     a key.
 */
-- (NSString *)fileKeyForRecordedURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;// only use the links or finder aliases
+- (NSString *)fileKeyForRecordedURL:(NSURL *)fileURL error:(NSError **)RORef;// only use the links or finder aliases
 
 /*! 
     @method     setPropertyValue:forKey:fileKey:contextDomain:
@@ -645,10 +647,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @abstract   Abstract forthcoming.
     @discussion Description forthcoming.
     @param      fileURL
-    @param      outErrorPtr
+    @param      RORef
     @result     None.
 */
-- (BOOL)addURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (BOOL)addURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*! 
     @method     openSubdocumentWithContentsOfURL:context:display:error:
@@ -658,7 +660,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)openSubdocumentWithContentsOfURL:(NSURL *)fileURL context:(NSDictionary *)context display:(BOOL)display error:(NSError **)RORef;
 
 /*! 
     @method     openSubdocumentForKey:display:error:
@@ -668,7 +670,7 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      irrelevant sender
     @result     None
 */
-- (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)outErrorPtr;
+- (id)openSubdocumentForKey:(NSString *)key display:(BOOL)display error:(NSError**)RORef;
 
 /*! 
     @method     shouldCloseWhenLastSubdocumentClosed
@@ -691,15 +693,15 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 - (void)setShouldCloseWhenLastSubdocumentClosed:(BOOL)yorn;
 
 /*! 
-    @method     fixProjectConsistencyWithError4iTM3:
+    @method     fixProjectConsistency4iTM3Error:
     @abstract   Fix the consistency of the receiver.
     @discussion Just in case someone has moved files around.
-    @param      outErrorPtr
+    @param      RORef
     @result     yorn
 */
-- (BOOL)fixProjectConsistencyWithError4iTM3:(NSError **)outErrorPtr;
+- (BOOL)fixProjectConsistency4iTM3Error:(NSError **)RORef;
 
-- (void)dissimulateWindows;
+- (BOOL)dissimulateWindows4iTM3Error:(NSError **)RORef;
 - (void)exposeWindows;
 
 /*! 
@@ -711,25 +713,26 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
 				Finally, the receiver sends itself all the messages -...MetaWriteToFile:ofType:
 				with the receiver's file name and file type as arguments.
 				This gives third parties an opportunity to automatically save their own context stuff at appropriate time.
-    @param      outErrorPtr
-    @result     None
+    @param      RORef
+    @result     yorn
 */
-- (void)saveContext4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)saveContext4iTM3Error:(NSError **)RORef;
 
 /*! 
-    @method     context4iTM3ValueForKey:fileKey:domain:
+    @method     context4iTM3ValueForKey:fileKey:domain:error:
     @abstract   Abstract forthcoming.
     @discussion The project is expected to manage the contexts of the files it owns.
 				The standard user defaults database is used in the end of the chain.
     @param      \p aKey is the context key
     @param      \p fileKey is the file key
 	@param		\p mask is a context domain mask
+    @param      \p RORef
     @result     An object.
 */
-- (id)context4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (id)context4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
-    @method     getContext4iTM3ValueForKey:fileKey:domain:
+    @method     getContext4iTM3ValueForKey:fileKey:domain:error:
     @abstract   Abstract forthcoming.
     @discussion The project is expected to manage the contexts of the files it owns.
 				The standard user defaults database is used in the end of the chain.
@@ -737,24 +740,26 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      \p aKey is the context key
     @param      \p fileKey is the file key
 	@param		\p mask is a context domain mask
+    @param      \p RORef
     @result     An object.
 */
-- (id)getContext4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (id)getContext4iTM3ValueForKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
-    @method     takeContext4iTM3Value:forKey:fileKey:domain:
+    @method     takeContext4iTM3Value:forKey:fileKey:domain:error:
     @abstract   Abstract forthcoming.
     @discussion See the \p -context4iTM3ValueForKey:fileKey: comment.
     @param      the value, possibly nil.
     @param      \p aKey is the context key
     @param      \p fileKey is the file key
 	@param		\p mask is a context domain mask
+	@param		\p RORef
     @result     yorn whether something has changed.
 */
-- (NSUInteger)takeContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (NSUInteger)takeContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
-    @method     setContext4iTM3Value:forKey:fileKey:domain:
+    @method     setContext4iTM3Value:forKey:fileKey:domain:error:
     @abstract   Abstract forthcoming.
     @discussion See the \p -context4iTM3ValueForKey:fileKey: comment.
 				This should only be used by subclassers.
@@ -762,9 +767,10 @@ extern NSString * const iTM2OtherProjectWindowsAlphaValue;
     @param      \p aKey is the context key
     @param      \p fileKey is the file key
 	@param		\p mask is a context domain mask
+	@param		\p RORef
     @result     yorn whether something has changed.
 */
-- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask;
+- (NSUInteger)setContext4iTM3Value:(id)object forKey:(NSString *)aKey fileKey:(NSString *)fileKey domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
     @method     allowsSubdocumentsInteraction
@@ -845,19 +851,19 @@ extern NSString * const iTM2ProjectURLKey;
     @abstract   Abstract forthcoming.
     @discussion Convenient method as shortcut. If the resceiver -hasProject, the default implementation
 				uses the shared project controller -projectForURL: message to return a value.
-    @param      outErrorPtr
+    @param      RORef
     @result     A project
 */
-- (id)project4iTM3Error:(NSError **)outErrorPtr;
+- (id)project4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     wrapper4iTM3Error:
     @abstract   Abstract forthcoming.
     @discussion Convenient method as shortcut to the project wrapper, if it makes sense.
-    @param      outErrorPtr
+    @param      RORef
     @result     A wrapper
 */
-- (id)wrapper4iTM3Error:(NSError **)outErrorPtr;
+- (id)wrapper4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     hasProject4iTM3Error
@@ -870,10 +876,10 @@ extern NSString * const iTM2ProjectURLKey;
 				This is simply due to the fact that the wrapper is being computed.
 				In general, you should be careful because of this nil feature.
 				For example, one of the related problems is to read context info whilst the project and the wrapper are not known...
-    @param      outErrorPtr
+    @param      RORef
     @result     yorn
 */
-- (BOOL)hasProject4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)hasProject4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     setHasProject4iTM3:
@@ -945,7 +951,7 @@ extern NSString * const iTM2ProjectURLKey;
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void)documentProjectCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
+- (void)documentProjectCompleteSaveContext4iTM3Error:(NSError **)RORef;
 
 @end
 
@@ -967,8 +973,10 @@ extern NSString * const iTM2WrapperInspectorType;
     @discussion	The wrapper document is expected to be a folder with a project document inside.
 				The project document is expected to live sometimes with possibly no wrapper,
 				such that there is the need of an independant wrapper document.
+    @param		RORef.
+    @result		A project document.
 */
-- (id)project4iTM3;
+- (id)project4iTM3Error:(NSError **)RORef;
 
 @end
 

@@ -1358,25 +1358,25 @@ To Do List:
 	self.isStringEncodingHardCoded = !canStringEncoding;
 	[self setHardStringEncodingName:hardStringEncodingName];
 	if (self.document) {
-		NSString * defaultStringEncodingName = [self.document context4iTM3ValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];// we are expecting something
+		NSString * defaultStringEncodingName = [self.document context4iTM3ValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask error:self.RORef4iTM3];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
 	}
 //START4iTM3;
     return string;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)RORef;
 //  Révisé par itexmac2: 2010-11-05 15:44:45 +0100
 {
-	if (outErrorPtr) {
-		*outErrorPtr = nil;
+	if (RORef) {
+		*RORef = nil;
 	}
 	NSString * S = nil;
     NSStringEncoding usedEncoding; 
     BOOL canStringEncoding = YES;
     NSString * hardStringEncodingName = @"";
     BOOL result = YES;
-    if (S = [NSString stringWithContentsOfURL:absoluteURL usedEncoding:&usedEncoding error:outErrorPtr]) {
+    if (S = [NSString stringWithContentsOfURL:absoluteURL usedEncoding:&usedEncoding error:RORef]) {
         NSStringEncoding hardCodedStringEncoding;
         NSStringEncoding preferredStringEncoding;
         NSRange hardCodedRange;
@@ -1399,7 +1399,7 @@ terminate:
                 }
                 // the system did not guess the correct encoding
                 // reread with the correct encoding
-                if (SS = [NSString stringWithContentsOfURL:absoluteURL encoding:hardCodedStringEncoding error:outErrorPtr]) {
+                if (SS = [NSString stringWithContentsOfURL:absoluteURL encoding:hardCodedStringEncoding error:RORef]) {
                     usedEncoding = hardCodedStringEncoding;
                     S = SS;
                     goto terminate;
@@ -1424,7 +1424,7 @@ try_another_encoding:
                         goto terminate;
                     }
                 } else {
-                    if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:outErrorPtr])) {
+                    if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:RORef])) {
                         usedEncoding = preferredStringEncoding;
                         S = SS;
                         goto terminate;
@@ -1442,7 +1442,7 @@ try_another_encoding:
                         }
                     }
                 }
-                if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:outErrorPtr])) {
+                if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:RORef])) {
                     usedEncoding = preferredStringEncoding;
                     S = SS;
                 }
@@ -1485,7 +1485,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     iVarEOL4iTM3 = [NSNumber numberWithUnsignedInteger:argument];
-	[self takeContext4iTM3Value:iVarEOL4iTM3 forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
+	[self takeContext4iTM3Value:iVarEOL4iTM3 forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask error:self.RORef4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyStringEncoding
@@ -1521,7 +1521,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     iVarStringEncoding4iTM3 = [NSNumber numberWithUnsignedInteger:argument];
-	[self takeContext4iTM3Value:iVarStringEncoding4iTM3 forKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
+	[self takeContext4iTM3Value:iVarStringEncoding4iTM3 forKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask error:self.RORef4iTM3];
     return;
 }
 @synthesize hardStringEncodingName = iVarHardStringEncodingName4iTM3;
@@ -1774,7 +1774,7 @@ To Do List:
     return NSStringFromClass(self.class);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument4iTM3Error:
-- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
+- (id)newRecentDocument4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -1856,7 +1856,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003
@@ -1864,16 +1864,16 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (outErrorPtr)
+	if (RORef)
 	{
-		*outErrorPtr = nil;
+		*RORef = nil;
 	}
 //END4iTM3;
     return [_ActualStringEncodings writeToURL:absoluteURL atomically:YES];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
 //- (BOOL) readFromFile: (NSString *) fileName ofType: (NSString *) irrelevantType;
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Sat May 31 2003

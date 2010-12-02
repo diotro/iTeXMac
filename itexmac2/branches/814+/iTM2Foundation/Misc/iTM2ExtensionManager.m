@@ -100,7 +100,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  extensionMenuItemAtURL:error:
-- (NSMenuItem *) extensionMenuItemAtURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (NSMenuItem *) extensionMenuItemAtURL:(NSURL *)url error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history:jlaurens@users.sourceforge.net
 Latest Revision:Fri Mar 26 20:22:45 UTC 2010
@@ -131,7 +131,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  extensionMenuAtURL:error:
-- (NSMenu *) extensionMenuAtURL:(NSURL *)URL error:(NSError **)outErrorPtr;
+- (NSMenu *) extensionMenuAtURL:(NSURL *)URL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history:jlaurens@users.sourceforge.net
 Latest Revision:Fri Mar 26 20:25:35 UTC 2010
@@ -143,14 +143,14 @@ To Do List:
     for (URL in [DFM contentsOfDirectoryAtURL:URL
         includingPropertiesForKeys:[NSArray array]
             options:NSDirectoryEnumerationSkipsSubdirectoryDescendants|NSDirectoryEnumerationSkipsHiddenFiles
-                error:outErrorPtr]) {
-        NSMenuItem * MI = [self extensionMenuItemAtURL:URL error:outErrorPtr];
+                error:RORef]) {
+        NSMenuItem * MI = [self extensionMenuItemAtURL:URL error:RORef];
         if(MI) [M addItem:MI];
     }
     return [M autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  loadTheExtensionWithError:
-- (void) loadTheExtensionWithError:(NSError **)outErrorPtr;
+- (void) loadTheExtensionWithError:(NSError **)RORef;
 /*"Description forthcoming.
 Version history:jlaurens@users.sourceforge.net
 Latest Revision:Fri Mar 26 20:34:02 UTC 2010
@@ -158,20 +158,20 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    if (*outErrorPtr) {
-        *outErrorPtr = nil;
+    if (*RORef) {
+        *RORef = nil;
     }
     // we begin by loading the assistants defined in the network area.
     NSURL * URL = [[NSBundle mainBundle] URLForSupportDirectory4iTM3:self.relativePath inDomain:NSNetworkDomainMask create:NO];
-    NSMenu * networkMenu = [self extensionMenuAtURL:URL error:outErrorPtr];
+    NSMenu * networkMenu = [self extensionMenuAtURL:URL error:RORef];
     [networkMenu setTitle:NSLocalizedStringFromTableInBundle (@"Network", TABLE, myBUNDLE, "Menu Item Title")];
     // we continue by loading the assistants defined in the local area.
     URL = [[NSBundle mainBundle] URLForSupportDirectory4iTM3:self.relativePath inDomain:NSLocalDomainMask create:NO];
-    NSMenu * localMenu = [self extensionMenuAtURL:URL error:outErrorPtr];
+    NSMenu * localMenu = [self extensionMenuAtURL:URL error:RORef];
     [localMenu setTitle:NSLocalizedStringFromTableInBundle (@"Local", TABLE, myBUNDLE, "Menu Item Title")];
     // we finish by loading the assistants defined in the local area.
     URL = [[NSBundle mainBundle] URLForSupportDirectory4iTM3:self.relativePath inDomain:NSUserDomainMask create:NO];
-    NSMenu * userMenu = [self extensionMenuAtURL:URL error:outErrorPtr];
+    NSMenu * userMenu = [self extensionMenuAtURL:URL error:RORef];
     [userMenu setTitle:NSLocalizedStringFromTableInBundle (@"User", TABLE, myBUNDLE, "Menu Item Title")];
     if(userMenu.itemArray.count) {
         if(localMenu.itemArray.count) {

@@ -235,7 +235,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*" Description forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Fri Mar 12 13:09:43 UTC 2010
@@ -243,9 +243,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(outErrorPtr)
-		*outErrorPtr = nil;
-	NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
+	if(RORef)
+		*RORef = nil;
+	NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
 //END4iTM3;
 	if ([self loadDataRepresentation:D ofType:type]) {
 		self.PDFDocumentStatus = iTM2PDFDocumentPendingStatus;
@@ -256,7 +256,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteWriteToURL4iTM3:ofType:error:
-- (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*" Description forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Fri Mar 12 13:10:23 UTC 2010

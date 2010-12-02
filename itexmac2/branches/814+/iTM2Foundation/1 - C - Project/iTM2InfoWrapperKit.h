@@ -131,12 +131,12 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@abstract		init is the designated initializer.
 	@discussion		Forthcoming.
 	@param			aData
-	@param			outErrorPtr
+	@param			RORef
 	@result			an info wrapper object.
 	@availability	iTM3
 	@copyright		2010 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)initWithData:(NSData *)aData error:(NSError **)outErrorPtr;
+- (id)initWithData:(NSData *)aData error:(NSError **)RORef;
 
 /*!
 	@method			dataWithFormat:options:error:
@@ -144,12 +144,12 @@ extern NSString * const iTM2ProjectInfoMainType;
 	@discussion		Forthcoming.
 	@param			format
 	@param			opt
-	@param			outErrorPtr
+	@param			RORef
 	@result			a data object.
 	@availability	iTM3
 	@copyright		2010 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSData *) dataWithFormat:(NSPropertyListFormat)format options:(NSPropertyListWriteOptions)opt error:(NSError **)outErrorPtr;
+- (NSData *) dataWithFormat:(NSPropertyListFormat)format options:(NSPropertyListWriteOptions)opt error:(NSError **)RORef;
 
 @end
 
@@ -172,12 +172,12 @@ extern NSString * const iTM2ProjectInfoMainType;
     @abstract		Designated initializer.
     @discussion		Discussion forthcoming.
     @param			projectURL
-    @param			outErrorPtr
+    @param			RORef
     @result			an info wrapper
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (id)initWithProjectURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+- (id)initWithProjectURL:(NSURL *)projectURL error:(NSError **)RORef;
 
 /*! 
     @method			projectURL
@@ -223,12 +223,12 @@ extern NSString * const iTM2ProjectInfoMainType;
     @abstract		The file key for the given URL.
     @discussion		Discussion forthcoming.
     @param			a name
-    @param          outErrorPtr
+    @param          RORef
     @result			an NSString
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *)fileKeyForURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (NSString *)fileKeyForURL:(NSURL *)url error:(NSError **)RORef;
 
 /*! 
     @method			URLForFileKey:error:
@@ -249,12 +249,12 @@ extern NSString * const iTM2ProjectInfoMainType;
 					and the shared project controller will in turn ask a main infos wrapper.
 					The only exception concerns cached project related URLs for the contents, factory and parent.
     @param			a key
-    @param          outErrorPtr
+    @param          RORef
     @result			an NSURL
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)outErrorPtr;
+- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)RORef;
 
 /*! 
     @method			setURL:forFileKey:error:
@@ -277,14 +277,14 @@ extern NSString * const iTM2ProjectInfoMainType;
 					
 	@param			a file URL
 	@param			a key
-    @param          outErrorPtr...
+    @param          RORef...
     @result			nil if the change failed or the no file URL was given
 					otherwise an NSURL instance equivalent to the given one,
 					but conforming to the project conventions.
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)setURL:(NSURL *)url forFileKey:(NSString *)key error:(NSError **)outErrorPtr;
+- (NSURL *)setURL:(NSURL *)url forFileKey:(NSString *)key error:(NSError **)RORef;
 
 /*! 
     @method			propertiesForFileKey:
@@ -366,12 +366,12 @@ extern NSString * const iTM2ProjectInfoMainType;
 					This API is presented just for subclassers.
     @param			absoluteURL
     @param			fileType
-    @param			outErrorPtr
+    @param			RORef
     @result			YES or NO, whether or not something was reaaly saved.
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)infoCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)outErrorPtr;
+- (BOOL)infoCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)RORef;
 
 @end
 
@@ -730,12 +730,12 @@ extern NSString * const iTM2ProjectInfoMainType;
 					It also contains meta info like string encoding, line ending (but this should not be the case).
     @param			fileURL is an URL.
 	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
+	@param			RORef a pointer to an error.
     @result			An URL.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)mainInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)mainInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 
 /*!
     @method			otherInfoURL4iTM3WithCreate:error:
@@ -743,12 +743,12 @@ extern NSString * const iTM2ProjectInfoMainType;
     @discussion		Discussion forthcoming.
     @param			fileURL is an URL.
 	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
+	@param			RORef a pointer to an error.
     @result			An URL.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)otherInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)otherInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 
 /*!
     @method			metaInfoURL4iTM3WithCreate:error:
@@ -756,12 +756,12 @@ extern NSString * const iTM2ProjectInfoMainType;
     @discussion		Discussion forthcoming.
     @param			fileURL is an URL.
 	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
+	@param			RORef a pointer to an error.
     @result			An URL.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)metaInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)metaInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 
 /*!
     @method			customInfoURL4iTM3WithCreate:error:
@@ -769,11 +769,11 @@ extern NSString * const iTM2ProjectInfoMainType;
     @discussion		Discussion forthcoming.
     @param			fileURL is an URL.
 	@param			yorn is a flag.
-	@param			outErrorPtr a pointer to an error.
+	@param			RORef a pointer to an error.
     @result			An URL.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)customInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)customInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 
 @end

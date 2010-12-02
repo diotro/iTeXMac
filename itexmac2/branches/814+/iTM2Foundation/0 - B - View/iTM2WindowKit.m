@@ -215,14 +215,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //LOG4iTM3(@"name is: %@", name);
-    if (self.positionShouldBeObserved4iTM3)
-    {
+    if (self.positionShouldBeObserved4iTM3) {
 		iTM2WindowFrameAutosaveMode mode = [self context4iTM3IntegerForKey:self.frameAutosaveModeKey4iTM3 domain:iTM2ContextAllDomainsMask];
 		NSString * identifier = [self frameAutosaveIdentifierForMode4iTM3:mode];
-		if (identifier.length)
-		{
-			[self takeContext4iTM3Value:self.stringWithSavedFrame forKey:[NSString stringWithFormat:@"Window Frame %@", identifier] domain:iTM2ContextAllDomainsMask];
-			[self takeContext4iTM3Bool:NO forKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask];
+		if (identifier.length) {
+			[self takeContext4iTM3Value:self.stringWithSavedFrame forKey:[NSString stringWithFormat:@"Window Frame %@", identifier] domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+			[self takeContext4iTM3Bool:NO forKey:@"iTM2ShouldCascadeWindows" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
 		}
     }
 	[self SWZ_iTM2_saveFrameUsingName:name];

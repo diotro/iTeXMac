@@ -155,6 +155,12 @@
 	NSParameterAssert(target!=nil);
 	return [iTM2InvocatorProxy getInvocation4iTM3: invocationRef withTarget:target retainArguments:retain];
 }
+- (void)invokeWithSelector4iTM3:(SEL)selector;
+{
+    self.selector=selector;
+    self.invoke;
+return;
+}
 - (void)invokeWithSelectors4iTM3:(NSPointerArray *)selectors;
 {
 	NSUInteger i = ZER0;

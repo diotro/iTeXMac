@@ -91,12 +91,14 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //	START_TRACKING4iTM3;
-    [self canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document4iTM3:shouldSmartClose:ignored0213:) contextInfo:nil];
+    NSError * ROR = nil;
+    [self canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document4iTM3:shouldSmartClose:error:) contextInfo:&ROR];
+    REPORTERROR4iTM3(1,@"",ROR);
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentWillClose4iTM3
-- (void)documentWillClose4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentWillClose4iTM3Error:
+- (BOOL)documentWillClose4iTM3Error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -104,15 +106,20 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    I.target = self;
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWillClose4iTM3" signature:sig0 inherited:YES]];
+    BOOL result = YES;
+    NSInvocation * I;
+    [[NSInvocation getInvocation4iTM3:&I withTarget:self] documentWillClose4iTM3Error:RORef];
+    for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWillClose4iTM3Error:" signature:I.methodSignature inherited:YES]) {
+        [I invokeWithSelector4iTM3:(SEL)selector];
+        if (result) {
+            [I getReturnValue:&result];
+        }
+    }
 //END4iTM3;
-    return;
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidClose4iTM3
-- (void)documentDidClose4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  documentDidClose4iTM3Error:
+- (BOOL)documentDidClose4iTM3Error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -120,15 +127,20 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
-    NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
-    I.target = self;
-    [I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteDidClose4iTM3" signature:sig0 inherited:YES]];
+    BOOL result = YES;
+    NSInvocation * I;
+    [[NSInvocation getInvocation4iTM3:&I withTarget:self] documentDidClose4iTM3Error:RORef];
+    for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteDidClose4iTM3Error:" signature:I.methodSignature inherited:YES]) {
+        [I invokeWithSelector4iTM3:(SEL)selector];
+        if (result) {
+            [I getReturnValue:&result];
+        }
+    }
 //END4iTM3;
-    return;
+    return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  document4iTM3:shouldSmartClose:ignore0213:
-- (void)document4iTM3:(NSDocument *) doc shouldSmartClose:(BOOL) shouldClose ignore0213:(void *) irrelevant;
+- (void)document4iTM3:(NSDocument *) doc shouldSmartClose:(BOOL) shouldClose error:(NSError **) RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004perform
@@ -136,10 +148,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (shouldClose) {
-		self.documentWillClose4iTM3;
+	if (shouldClose && [self documentWillClose4iTM3Error:RORef]) {
 		self.close;
-		self.documentDidClose4iTM3;
+		[self documentDidClose4iTM3Error:RORef];
 	}
 //END4iTM3;
     return;
@@ -329,7 +340,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
-- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 18 22:21:11 GMT 2005
@@ -409,7 +420,7 @@ To Do List:
 	return [MD.copy autorelease];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= printInfoCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)printInfoCompleteReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
+- (BOOL)printInfoCompleteReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -418,7 +429,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * fullDocumentPath = fileURL.path;
-	NSData * D = [self context4iTM3ValueForKey:@"NSPrintInfo" domain:iTM2ContextAllDomainsMask];
+	NSData * D = [self context4iTM3ValueForKey:@"NSPrintInfo" domain:iTM2ContextAllDomainsMask error:RORef];
 	if (!D)
 		D = [DFM extendedFileAttribute4iTM3:@"NSPrintInfo" inSpace:[NSNumber numberWithUnsignedInteger:'TUG0'] atPath:fullDocumentPath error:nil];
 //	if (!D)
@@ -442,7 +453,7 @@ To Do List:
     return YES;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  preparePrintInfoCompleteWriteToURL4iTM3:ofType:error:
-- (BOOL)preparePrintInfoCompleteWriteToURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)error;
+- (BOOL)preparePrintInfoCompleteWriteToURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -452,17 +463,16 @@ To Do List:
 //START4iTM3;
 	NSString * fileName = fileURL.path;
 	NSData * D = [NSArchiver archivedDataWithRootObject:self.printInfo.dictionary];
-	if (D)
-	{
-		[self takeContext4iTM3Value:D forKey:@"Print Info Data" domain:iTM2ContextAllDomainsMask];
-		[DFM addExtendedFileAttribute4iTM3:@"NSPrintInfo" value:D inSpace:[NSNumber numberWithUnsignedInteger:'TUG0'] atPath:fileName error:nil];
+	if (D) {
+		[self takeContext4iTM3Value:D forKey:@"Print Info Data" domain:iTM2ContextAllDomainsMask error:RORef];
+		[DFM addExtendedFileAttribute4iTM3:@"NSPrintInfo" value:D inSpace:[NSNumber numberWithUnsignedInteger:'TUG0'] atPath:fileName error:RORef];
 //		[DFM addExtendedFileAttribute4iTM3:@"NSPrintInfo" value:D atPath:fileName forNameSpace:@"org_tug_mac_cocoa" error:nil];
 	}
 //END4iTM3;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  openInspectorsCompleteSaveContext4iTM3Error:
-- (BOOL)openInspectorsCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)openInspectorsCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-11-30 21:53:11 +0100
@@ -481,14 +491,14 @@ Révisé par itexmac2: 2010-11-30 21:53:11 +0100
             }
         }
 	if (openInspectors.count) {
-		[self takeContext4iTM3Value:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
+		[self takeContext4iTM3Value:openInspectors forKey:iTM2ContextOpenInspectors domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask error:RORef];
 	}
 //LOG4iTM3(@"openInspectors (%@) are:%@ = %@", self.fileURL.path, openInspectors, [self context4iTM3ValueForKey:iTM2ContextOpenInspectors]);
 //END4iTM3;
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3Error:
-- (BOOL)saveContext4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)saveContext4iTM3Error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -496,14 +506,14 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL result = [super saveContext4iTM3Error:outErrorPtr];
+	BOOL result = [super saveContext4iTM3Error:RORef];
 	if (self.context4iTM3Manager == self) {
 		NSURL * url = self.fileURL;
 		NSString * type = self.fileType;
 		if (self.needsToUpdate4iTM3) {
-			result = [self writeContextToURL:url ofType:type error:outErrorPtr] && result;
+			result = [self writeContextToURL:url ofType:type error:RORef] && result;
 		} else {
-			result = [self writeContextToURL:url ofType:type error:outErrorPtr] && result;
+			result = [self writeContextToURL:url ofType:type error:RORef] && result;
 			[self recordFileModificationDateFromURL4iTM3:url];
 		}
 	}
@@ -511,7 +521,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= readContextFromURL:ofType:error:
-- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError **)outErrorPtr;
+- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -542,7 +552,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= writeContextToURL:ofType:error:
-- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
+- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -776,7 +786,7 @@ To Do List:
 	return [self inspectorAddedWithMode:mode error:nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorAddedWithMode:error:
-- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outErrorPtr;
+- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -802,7 +812,7 @@ To Do List:
     if (!MD)
     {
         MD = [NSMutableDictionary dictionary];
-        [self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+        [self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask error:RORef];
     }
     NSString * type = [self.class inspectorType4iTM3];
     NSArray * variants = [MD objectForKey:mode];
@@ -834,7 +844,7 @@ To Do List:
         }
     }
     [MD removeObjectForKey:mode];
-    [self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask error:RORef];
     if (C = [NSWindowController inspectorClassForType:type mode:mode variant:iTM2DefaultInspectorVariant])
     {
         WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
@@ -967,18 +977,6 @@ To Do List:
     if (!WC)
         return;
     Class C = WC.class;
-	#if 0
-	THIS IS BUGGY DESIGN, REALLY
-	THE WC IS EXPECTED TO BE RETAINED!!!
-    if ([C isInstanceUnique])
-    {
-        NSEnumerator * E = self.windowControllers.objectEnumerator;
-        id wc;
-        while(wc = E.nextObject)
-            if (wc.class == C)
-                return;
-    }
-	#endif
     for (NSWindowController * wc in self.windowControllers) {
         if ([wc class] == C) {
             LOG4iTM3(@"THERE IS ALREADY A WINDOW CONTROLLER:new %@, old %@", WC, wc);
@@ -999,14 +997,14 @@ To Do List:
 		[MRA removeObject:inspectorVariant];
 		[MRA insertObject:inspectorVariant atIndex:ZER0];
 		[MD setObject:MRA forKey:[C inspectorMode]];
-		[self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask];
+		[self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask error:self.RORef4iTM3];
 	}
 	if (![WC isKindOfClass:[iTM2ExternalInspector class]])
-		[self didAddWindowController:WC];
+		[self didAddWindowController4iTM3:WC error:self.RORef4iTM3];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didAddWindowController:
-- (void)didAddWindowController:(NSWindowController *) WC;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didAddWindowController4iTM3:error:
+- (BOOL)didAddWindowController4iTM3:(NSWindowController *) WC error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1014,11 +1012,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	WC.synchronizeWithDocument;
-    return;
+	return [WC synchronizeWithDocument4iTM3Error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeWindowController:
-- (void)removeWindowController:(NSWindowController *) windowController;
+- (void)removeWindowController:(NSWindowController *) WC;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1026,18 +1023,18 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (windowController) {
-		if (windowController.isWindowLoaded)
-			[windowController.window orderOut:self];// don't performCloses:, it leads to an infinite loop...
-        if (![windowController isKindOfClass:[iTM2ExternalInspector class]]) {
-			[self willRemoveWindowController:windowController];
+    if (WC) {
+		if (WC.isWindowLoaded)
+			[WC.window orderOut:self];// don't performCloses:, it leads to an infinite loop...
+        if (![WC isKindOfClass:[iTM2ExternalInspector class]]) {
+			[self willRemoveWindowController4iTM3:WC error:NULL];
         }
-        [super removeWindowController:windowController];
+        [super removeWindowController:WC];
     }
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willRemoveWindowController:
-- (void)willRemoveWindowController:(id) WC;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willRemoveWindowController4iTM3:error:
+- (BOOL)willRemoveWindowController4iTM3:(id) WC error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1045,7 +1042,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  makeWindowControllers
 - (void)makeWindowControllers;
@@ -1062,7 +1059,7 @@ To Do List:
 			return;
 	}
 
-    NSArray * modes = [self context4iTM3ValueForKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask];
+    NSArray * modes = [self context4iTM3ValueForKey:iTM2ContextOpenInspectors domain:iTM2ContextAllDomainsMask error:NULL];
     if ([modes isKindOfClass:[NSArray class]]) {
         NSMutableArray * alreadyOpenModes = [NSMutableArray array];
 		NSString * inspectorType4iTM3 = [self.class inspectorType4iTM3];
@@ -1231,7 +1228,7 @@ To Do List:
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1244,9 +1241,9 @@ To Do List:
 		LOG4iTM3(@"absoluteURL:%@", absoluteURL);
 		LOG4iTM3(@"typeName:%@", typeName);
 	}
-	if (outErrorPtr)
+	if (RORef)
 	{
-		*outErrorPtr = nil;
+		*RORef = nil;
 	}
 	NSError ** localErrorRef = nil;
 	[self readContextFromURL:absoluteURL ofType:typeName error:localErrorRef];
@@ -1255,7 +1252,7 @@ To Do List:
 		[SDC presentError:*localErrorRef];
 		localErrorRef = nil;
 	}
-	[super readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
+	[super readFromURL:absoluteURL ofType:typeName error:RORef];
     NSMethodSignature * sig0 = [self methodSignatureForSelector:_cmd];
     NSInvocation * I = [NSInvocation invocationWithMethodSignature:sig0];
     I.target = self;
@@ -1291,7 +1288,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1305,11 +1302,11 @@ To Do List:
 	NSString * fullDocumentPath = absoluteURL.path;
 	if ([DFM fileExistsAtPath:fullDocumentPath isDirectory:&isDirectory] && isDirectory)
 		return YES;
-	NSData * D = [NSData dataWithContentsOfURL:absoluteURL options:ZER0 error:outErrorPtr];
+	NSData * D = [NSData dataWithContentsOfURL:absoluteURL options:ZER0 error:RORef];
     return [self loadDataRepresentation:D ofType:typeName];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resourcesCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)resourcesCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
+- (BOOL)resourcesCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1517,7 +1514,7 @@ To Do List:
 }
 #endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)RORef;
 //- (BOOL) writeToFile:(NSString *) fullDocumentPath ofType:(NSString *) typeName originalFile:(NSString *) fullOriginalDocumentPath saveOperation:(NSSaveOperationType) saveOperation;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
@@ -1577,7 +1574,7 @@ To Do List:
 		NSLog(@"typeName:%@", typeName);
 		NSLog(@"saveOperation:%i", saveOperation);
 		NSLog(@"absoluteOriginalContentsURL:%@", absoluteOriginalContentsURL);
-		NSLog(@"error: %#x", outErrorPtr);
+		NSLog(@"error: %#x", RORef);
 		NSLog(@"Directory exists:%@", ([DFM fileExistsAtPath:absoluteURL.path.stringByDeletingLastPathComponent]? @"YES":@"NO"));
 	}
 	self.willSave;
@@ -1592,7 +1589,7 @@ To Do List:
 			// I must create a directory at the expected location, either by copying a directory or not...
 			fullOriginalDocumentPath = [fullOriginalDocumentPath stringByResolvingSymlinksAndFinderAliasesInPath4iTM3];
             absoluteOriginalContentsURL = absoluteOriginalContentsURL.URLByResolvingSymlinksAndFinderAliasesInPath4iTM3;
-			if ([absoluteOriginalContentsURL isDirectoryOrError4iTM3:outErrorPtr])
+			if ([absoluteOriginalContentsURL isDirectoryOrError4iTM3:RORef])
 			{
                 // the receiver must be a package and not a flat file
 #warning
@@ -1653,7 +1650,7 @@ the save as panel cannot list the directory contents
                 }
                 DFM.delegate = nil;
             }
-            else if ([absoluteOriginalContentsURL linkCountOrError4iTM3:outErrorPtr])
+            else if ([absoluteOriginalContentsURL linkCountOrError4iTM3:RORef])
             {
                 // this is an unexpected situation, notice the user in the log and ignore the original contents
                 OUTERROR4iTM3(3,([NSString stringWithFormat:@"CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
@@ -1661,8 +1658,8 @@ the save as panel cannot list the directory contents
                 LOG4iTM3(@"**** CONSISTENCY ERROR: the original URL does not point to a directory whereas the receiver is a package\n\
                     absoluteOriginalContentsURL:%@\nself.fileType:%@",absoluteOriginalContentsURL,self.fileType);
             }
-			if ((![absoluteURL linkCountOrError4iTM3:outErrorPtr]
-                    || ([absoluteURL isSymbolicLinkOrError4iTM3:outErrorPtr] && [DFM removeItemAtURL:absoluteURL error:outErrorPtr]))
+			if ((![absoluteURL linkCountOrError4iTM3:RORef]
+                    || ([absoluteURL isSymbolicLinkOrError4iTM3:RORef] && [DFM removeItemAtURL:absoluteURL error:RORef]))
 				&& ![DFM createDirectoryAtPath:absoluteURL.path withIntermediateDirectories:YES attributes:nil error:NULL])
 			{
 				OUTERROR4iTM3(4,([NSString stringWithFormat:@"Could not create a directory at\n%@", absoluteURL]),nil);
@@ -1677,12 +1674,12 @@ the save as panel cannot list the directory contents
 			if (D.length)
 			{
 				url = [absoluteURL URLByAppendingPathComponent:@"..namedfork/rsrc"];
-				[D writeToURL:url options:NSAtomicWrite error:outErrorPtr];
+				[D writeToURL:url options:NSAtomicWrite error:RORef];
 			}
 		}
 	}
     NSInvocation * I;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:RORef];
 	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWriteToURL4iTM3:ofType:forSaveOperation:originalContentsURL:error:" signature:I.methodSignature inherited:YES];
 	NSUInteger i = PA.count;
 	while(i--) {
@@ -1692,14 +1689,14 @@ the save as panel cannot list the directory contents
         [I getReturnValue:&R];
         result = result && R;
     }
-	if ((result = [self writeToURL:absoluteURL ofType:typeName error:outErrorPtr] && result))
+	if ((result = [self writeToURL:absoluteURL ofType:typeName error:RORef] && result))
     {
         if (saveOperation == NSSaveOperation || saveOperation == NSSaveAsOperation)
         {
             [IMPLEMENTATION takeMetaValue:[DFM attributesOfItemOrDestinationOfSymbolicLinkAtURL4iTM3:absoluteURL error:NULL] forKey:iTM2DFileAttributesKey];
         }
 		[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO]
-			_0213_DidWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+			_0213_DidWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:RORef];
 		[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteDidWriteToURL4iTM3:ofType:forSaveOperation:originalContentsURL:error:" signature:[I methodSignature] inherited:YES]];
 		self.didSave;
     }
@@ -1712,7 +1709,7 @@ the save as panel cannot list the directory contents
 	if (!result)
 	{
 		LOG4iTM3(@"FAILURE\nabsoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %@",
-			absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (outErrorPtr?*outErrorPtr:nil));
+			absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (RORef?*RORef:nil));
 	}
     return result;
 }
@@ -1739,7 +1736,7 @@ To Do List:
     return (result == NSAlertDefaultReturn);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:ofType:error:
-- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -1747,11 +1744,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL superResult = [type conformsToUTType4iTM3:(NSString *)kUTTypePackage] || [super writeToURL:absoluteURL ofType:type error:outErrorPtr];
+	BOOL superResult = [type conformsToUTType4iTM3:(NSString *)kUTTypePackage] || [super writeToURL:absoluteURL ofType:type error:RORef];
 	BOOL result = YES;
 	DEBUGLOG4iTM3(99,@"DID WRITE? %@", (result? @"YES":@"NO"));
 	NSInvocation * I = nil;
-	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:type error:outErrorPtr];
+	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] writeToURL:absoluteURL ofType:type error:RORef];
 	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWriteToURL4iTM3:ofType:error:" signature:I.methodSignature inherited:YES];
 	NSUInteger i = 0;
 	while (i < PA.count) {
@@ -1765,12 +1762,12 @@ NSLog(@"%@",NSStringFromSelector(I.selector));
             LOG4iTM3(@"FALSE:%@",NSStringFromSelector(I.selector));
         }
     }
-	[self writeContextToURL:absoluteURL ofType:type error:outErrorPtr];
+	[self writeContextToURL:absoluteURL ofType:type error:RORef];
 //END4iTM3;
     return result || superResult;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteWriteToURL4iTM3:ofType:error:
-- (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
+- (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1779,16 +1776,16 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    if (outErrorPtr) *outErrorPtr = nil;
+    if (RORef) *RORef = nil;
     if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypeData]) {
         NSError * ROR = nil;
         NSData * D = [self dataOfType:typeName error:&ROR];
         DEBUGLOG4iTM3(99,@"is there any data to save? %@\nCurrently saving data with length:%i", (D? @"Y":@"N"),D.length);
         if (!D && ROR) {
-            if (outErrorPtr) *outErrorPtr = ROR;
+            if (RORef) *RORef = ROR;
             return NO;
         } 
-        return [(D? D:[NSData data]) writeToURL:absoluteURL options:NSAtomicWrite error:outErrorPtr];
+        return [(D? D:[NSData data]) writeToURL:absoluteURL options:NSAtomicWrite error:RORef];
     }
     return YES;
 }
@@ -1805,7 +1802,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= resourcesCompleteWriteToURL4iTM3:ofType:error:
-- (BOOL)resourcesCompleteWriteToURL4iTM3:(NSURL *) absoluteURL ofType:(NSString *) typeName error:(NSError**)outErrorPtr;
+- (BOOL)resourcesCompleteWriteToURL4iTM3:(NSURL *) absoluteURL ofType:(NSString *) typeName error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2058,7 +2055,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileAttributesToWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
+- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)RORef;
 /*"From Developer/Documentation/Cocoa/TasksAndConcepts/ProgrammingTopics/Documents/Tasks/SavingHFSTypeCodes.html.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3:09/11/2003
@@ -2067,7 +2064,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSMutableDictionary * newAttributes = [NSMutableDictionary dictionaryWithDictionary:
-        [super fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr]];
+        [super fileAttributesToWriteToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:RORef]];
     NSDictionary *infoPlist = [[NSBundle mainBundle] infoDictionary];
     // First, set creatorCode to the HFS creator code for the application,
     // if it exists.
@@ -2195,7 +2192,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-   UPDATE
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
-- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-11-30 21:12:42 +0100
@@ -2204,8 +2201,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     return self.needsToUpdate4iTM3
-        && [self saveContext4iTM3Error:outErrorPtr]
-            && ([self readFromURL:self.fileURL ofType:self.fileType error:outErrorPtr],YES);
+        && [self saveContext4iTM3Error:RORef]
+            && ([self readFromURL:self.fileURL ofType:self.fileType error:RORef],YES);
 }
 @end
 
@@ -2621,7 +2618,7 @@ To Do List:
     return NSLocalizedStringFromTableInBundle(self.inspectorVariant, iTM2InspectorTable, self.classBundle4iTM3, "pretty inspector variant");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeDocument4iTM3Error:
-- (BOOL)synchronizeDocument4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)synchronizeDocument4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2630,10 +2627,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setDocumentEdited:NO];
-	return [self saveContext4iTM3Error:outErrorPtr];
+	return [self saveContext4iTM3Error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument4iTM3Error:
-- (BOOL)synchronizeWithDocument4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)synchronizeWithDocument4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2641,7 +2638,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	BOOL yorn = [self loadContext4iTM3Error:outErrorPtr];
+	BOOL yorn = [self loadContext4iTM3Error:RORef];
     [self updateChangeCount:NSChangeCleared];
     self.validateWindowContent4iTM3;
     return yorn;
@@ -3227,7 +3224,7 @@ To Do List:
 	id doc = [[[NSApp mainWindow] windowController] document];
 	if ([doc isKindOfClass:[iTM2Document class]])
 	{
-		[doc saveContext4iTM3:self];
+		[doc saveContext4iTM3Error:self.RORef4iTM3];
 		[doc replaceInspectorMode:iTM2ExternalInspectorMode variant:sender.title];
 	}
     return;
@@ -3460,7 +3457,7 @@ To Do List:
 		[processEnvironment addEntriesFromDictionary:[self.document environmentForExternalHelper]];
 		[processEnvironment addEntriesFromDictionary:environment];
 		[processEnvironment setObject:[NSString stringWithFormat:@":%@:%@",
-                        [self context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask],
+                        [self context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3],
 							[processEnvironment objectForKey:@"PATH"]]  forKey:@"PATH"];
 		[processEnvironment setObject:[self.document fileName].lastPathComponent forKey:@"file"];
         [task setEnvironment:processEnvironment];

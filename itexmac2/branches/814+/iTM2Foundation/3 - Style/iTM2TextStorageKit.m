@@ -79,8 +79,8 @@ To Do List:
 	if ([self context4iTM3BoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask]) {
 		id result = [[[iTM2TextStorage alloc] init] autorelease];
         [[iTM2StringController alloc] initWithDelegate:result];
-        NSString * style = [[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask] lowercaseString];
-		NSString * variant = [[self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask] lowercaseString];
+        NSString * style = [[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3] lowercaseString];
+		NSString * variant = [[self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3] lowercaseString];
 		for (Class C in [iTM2TextSyntaxParser syntaxParserClassEnumerator]) {
 			if ([[[C syntaxParserStyle] lowercaseString] isEqual:style]) {
 				if ([[[iTM2TextSyntaxParser syntaxParserVariantsForStyle:style] allKeys]containsObject:variant]) {
@@ -106,8 +106,8 @@ To Do List:
 //START4iTM3;
 	iTM2TextStorage * TS = self.textStorage;
 	if ([TS isKindOfClass:[iTM2TextStorage class]]) {
-		[self takeContext4iTM3Value:TS.syntaxParserStyle forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask];
-		[self takeContext4iTM3Value:TS.syntaxParserVariant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:TS.syntaxParserStyle forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+		[self takeContext4iTM3Value:TS.syntaxParserVariant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
 	}
 //END4iTM3;
     return;
@@ -611,8 +611,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setSyntaxParserStyle:style variant:variant];
-    [self takeContext4iTM3Value:style forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask];
-    [self takeContext4iTM3Value:variant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:style forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:variant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= invalidateAttributesInRange:
@@ -673,8 +673,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super context4iTM3DidChange];
-    [self setSyntaxParserStyle:[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask]
-            variant: [self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask]];
+    [self setSyntaxParserStyle:[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]
+            variant: [self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
 	self.context4iTM3DidChangeComplete;
 //END4iTM3;
     return;
@@ -5435,7 +5435,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= modesAttributesWithVariant:error:
-+ (NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)outErrorPtr;
++ (NSDictionary *)modesAttributesWithVariant:(NSString *)variant error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sat Jan 30 16:19:04 UTC 2010
@@ -5456,7 +5456,7 @@ To Do List:
 		if (styleURL.isFileURL && [DFM fileExistsAtPath:styleURL.path isDirectory:&isDir] && isDir) {
 			styleURL = [[styleURL URLByAppendingPathComponent:iTM2TextAttributesModesComponent]
 				URLByAppendingPathExtension:iTM2TextAttributesPathExtension];
-			[modesAttributes addEntriesFromDictionary:[self.class modesAttributesWithContentsOfURL:styleURL error:outErrorPtr]];
+			[modesAttributes addEntriesFromDictionary:[self.class modesAttributesWithContentsOfURL:styleURL error:RORef]];
 		}
 	}
     variant = [variant lowercaseString];
@@ -5469,7 +5469,7 @@ To Do List:
 			if (styleURL.isFileURL && [DFM fileExistsAtPath:styleURL.path isDirectory:&isDir] && isDir) {
 				styleURL = [[styleURL URLByAppendingPathComponent:iTM2TextAttributesModesComponent]
 					URLByAppendingPathExtension:iTM2TextAttributesPathExtension];
-				NSDictionary * D = [self.class modesAttributesWithContentsOfURL:styleURL error:outErrorPtr];
+				NSDictionary * D = [self.class modesAttributesWithContentsOfURL:styleURL error:RORef];
 				[modesAttributes addEntriesFromDictionary:D];
 			}
 		}
@@ -5481,7 +5481,7 @@ To Do List:
 		if (styleURL.isFileURL && [DFM fileExistsAtPath:styleURL.path isDirectory:&isDir] && isDir) {
 			styleURL= [[styleURL URLByAppendingPathComponent:iTM2TextAttributesModesComponent]
 				URLByAppendingPathExtension:iTM2TextAttributesPathExtension];
-			NSDictionary * D = [self.class modesAttributesWithContentsOfURL:styleURL error:outErrorPtr];
+			NSDictionary * D = [self.class modesAttributesWithContentsOfURL:styleURL error:RORef];
 			[modesAttributes addEntriesFromDictionary:D];
 		}
 	}
@@ -5542,7 +5542,7 @@ To Do List:
     return [NSArray arrayWithArray:otherStyleURLs];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modesAttributesWithContentsOfURL:error:
-+ (NSDictionary *)modesAttributesWithContentsOfURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
++ (NSDictionary *)modesAttributesWithContentsOfURL:(NSURL *)fileURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -5551,14 +5551,14 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //LOG4iTM3(@"fileURL:%@",fileURL);
-    NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
+    NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
 	NSMutableDictionary * MD = nil;
 	if (!D)// either a missing file or a real error
 	{
 		fileURL = [fileURL URLByDeletingPathExtension];
-		D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
+		D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
 		if (!D) {
-			if (outErrorPtr && !*outErrorPtr) {
+			if (RORef && !*RORef) {
 				REPORTERROR4iTM3(1,@"Missing file?",nil);
 			}
 			return nil;
@@ -5581,12 +5581,12 @@ To Do List:
 		}
 		return [NSDictionary dictionary];
 	}
-	NSAttributedString * AS = [[[NSAttributedString alloc] initWithData:D options:nil documentAttributes:nil error:outErrorPtr] autorelease];
+	NSAttributedString * AS = [[[NSAttributedString alloc] initWithData:D options:nil documentAttributes:nil error:RORef] autorelease];
 	if (!AS) {
 		return [NSDictionary dictionary];
 	}
 	// parse by lines with a regular expression
-    ICURegEx * RE = [ICURegEx regExForKey:iTM2TextModeREPattern error:outErrorPtr];
+    ICURegEx * RE = [ICURegEx regExForKey:iTM2TextModeREPattern error:RORef];
     RE.inputString = AS.string;
 	BOOL noBackgroundColor = NO;
 	BOOL cursorIsWhite = NO;
@@ -5626,7 +5626,7 @@ To Do List:
 	return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeModesAttributes:toFile:error:
-+ (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)outErrorPtr;
++ (BOOL)writeModesAttributes:(NSDictionary *)dictionary toFile:(NSString *)fileName error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -5676,7 +5676,7 @@ To Do List:
 	NSData * D = [MAS RTFFromRange:range documentAttributes:nil];
 //LOG4iTM3(@"fileName:%@",fileName);
 //END4iTM3;
-    return [D writeToFile:fileName options:NSAtomicWrite error:outErrorPtr];
+    return [D writeToFile:fileName options:NSAtomicWrite error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  character:isMemberOfCoveredCharacterSetForMode:
 - (BOOL)character:(unichar)theChar isMemberOfCoveredCharacterSetForMode:(NSString *)mode;

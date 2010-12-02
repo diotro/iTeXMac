@@ -443,4 +443,15 @@ NSRange iTM3ScaleRange(NSRange range, NSInteger delta) {
     return range;
 }
 
+@implementation NSObject (iTM3Error)
+
+- (NSError **)RORef4iTM3;
+{
+    return NULL;
+}
+- (void) setRORef4iTM3:(NSError **)RORef;
+{
+    return;
+}
+@end
 

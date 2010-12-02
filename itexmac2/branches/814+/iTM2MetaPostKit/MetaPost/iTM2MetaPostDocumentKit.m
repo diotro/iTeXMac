@@ -210,7 +210,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-  UPDATING
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateIfNeeded4iTM3Error:
-- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Mar 11 09:21:37 UTC 2010
@@ -221,7 +221,7 @@ To Do List:
 	[(NSMutableArray *)self.orderedPDFDocumentURLs setArray:[NSArray array]];
 	NSDictionary * oldDocuments = [NSDictionary dictionaryWithDictionary:self.PDFDocuments];
 	[self.PDFDocuments setDictionary:[NSDictionary dictionary]];
-	BOOL result = [super updateIfNeeded4iTM3Error:outErrorPtr];
+	BOOL result = [super updateIfNeeded4iTM3Error:RORef];
 	if ([self PDFDocumentsCompleteReadFromURL:self.fileURL ofType:self.fileType]) {
 		// retrieving the old PDF documents
 		NSDocument * document = nil;
@@ -229,7 +229,7 @@ To Do List:
 			if(document = [oldDocuments objectForKey:url])
 				[self.PDFDocuments setObject:document forKey:url];
 		for (document in self.PDFDocuments)
-			result = [document updateIfNeeded4iTM3Error:outErrorPtr] && result;
+			result = [document updateIfNeeded4iTM3Error:RORef] && result;
 #warning should I use an NSError with synchronizePDFViewWithDocument
 		[self.windowControllers makeObjectsPerformSelector:@selector(synchronizePDFViewWithDocument) withObject:nil];
 	} else {

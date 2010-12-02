@@ -139,12 +139,12 @@ typedef enum
 					In all cases, url is returned if it is already normalized with respect to the project.
     @param			url is the NSURL to test.
     @param			projectURL is the project URL.
-    @param          outErrorPtr
+    @param          RORef
     @result			An NSURL instance.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
--(NSURL *)normalizedURLWithURL:(NSURL *)url inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+-(NSURL *)normalizedURLWithURL:(NSURL *)url inProjectWithURL:(NSURL *)projectURL error:(NSError **)RORef;
 
 /*!
     @method			reservedFileKeys
@@ -177,12 +177,12 @@ typedef enum
     @param			key is a key.
     @param			filter is a filter that applies to the file, not the project.
     @param			projectURL is an URL.
-    @param          outErrorPtr
+    @param          RORef
     @result			A name.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSURL *)URLForFileKey:(NSString *)key filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+- (NSURL *)URLForFileKey:(NSString *)key filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)RORef;
 
 /*!
     @method			fileKeysWithFilter:inProjectWithURL:error:
@@ -191,12 +191,12 @@ typedef enum
 					The special keys for the project, factory and contents are not returned.
     @param			filter is a filter that applies to the file, not to projectURL.
     @param			projectURL is an URL.
-    @param          outErrorPtr
+    @param          RORef
     @result			An array of file keys.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSArray *)fileKeysWithFilter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+- (NSArray *)fileKeysWithFilter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)RORef;
 
 /*!
     @method			fileKeyForURL:filter:inProjectWithURL:error:
@@ -208,12 +208,12 @@ typedef enum
     @param			fileURL is an URL.
     @param			filter is a filter that applies to the file, not the project.
     @param			projectURL is an URL.
-    @param          outErrorPtr
+    @param          RORef
     @result			An array of file keys.
 	@availability	iTM2.
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (NSString *)fileKeyForURL:(NSURL *)fileURL filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+- (NSString *)fileKeyForURL:(NSURL *)fileURL filter:(iTM2ProjectControllerFilter)filter inProjectWithURL:(NSURL *)projectURL error:(NSError **)RORef;
 
 /*!
     @method     flushCaches
@@ -235,10 +235,10 @@ typedef enum
 				but beware not to send this message too often.
 				This method is a MAJOR entry point.
     @param      fileURL is a full URL
-    @param      outErrorPtr...
+    @param      RORef...
     @result     A project document
 */
-- (id)projectForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (id)projectForURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*! 
     @method     setProject:forURL:error:
@@ -246,10 +246,10 @@ typedef enum
     @discussion Discussion forthcoming.
     @param      PD is any project document...
     @param		File name
-    @param      outErrorPtr
+    @param      RORef
 	@result		yorn
 */
-- (BOOL)setProject:(id)PD forURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (BOOL)setProject:(id)PD forURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*! 
     @method     projectForDocument:error:
@@ -276,10 +276,10 @@ typedef enum
 				the nil project is returned.
 				Finally, an open panel is presented for that purpose.
     @param      document is any document...
-    @param      outErrorPtr
+    @param      RORef
     @result     A project document
 */
-- (id)projectForDocument:(NSDocument *)document error:(NSError **)outErrorPtr;
+- (id)projectForDocument:(NSDocument *)document error:(NSError **)RORef;
 
 /*! 
     @method     setProject:forDocument:error:
@@ -293,10 +293,10 @@ typedef enum
 				between the document and any project involved.
     @param      document is any document...
     @param		A project document in general owning the given document
-    @param      outErrorPtr
+    @param      RORef
 	@result		yorn
 */
-- (BOOL)setProject:(id)PD forDocument:(NSDocument *)document error:(NSError **)outErrorPtr;
+- (BOOL)setProject:(id)PD forDocument:(NSDocument *)document error:(NSError **)RORef;
 
 /*! 
     @method     projectForSource:error:
@@ -342,10 +342,10 @@ typedef enum
 				
 				Faraway projects are used for standalone documents.
     @param      The source is either a file name or a document.
-    @param      outErrorPtr
+    @param      RORef
     @result     A project document
 */
-- (id)projectForSource:(id)source error:(NSError **)outErrorPtr;
+- (id)projectForSource:(id)source error:(NSError **)RORef;
 
 /*! 
     @method     currentProject
@@ -368,10 +368,10 @@ typedef enum
 				Each time a project document is created, it is added as reference to the list of projects.
 				Each time a project document is dealloced, its reference is removed from the list of project.
     @param      A project
-    @param      A outErrorPtr
+    @param      A RORef
     @result     None
 */
-- (BOOL)registerProject:(iTM2ProjectDocument *)project error:(NSError **)outErrorPtr;
+- (BOOL)registerProject:(iTM2ProjectDocument *)project error:(NSError **)RORef;
 
 /*! 
     @method     forgetProject:
@@ -388,10 +388,10 @@ typedef enum
     @abstract   forget the given document.
     @discussion Clean the caches from whatever is related to the document.
     @param      A project
-    @param      outErrorPtr
+    @param      RORef
     @result     None
 */
-- (BOOL)forgetDocument:(NSDocument *)document error:(NSError **)outErrorPtr;
+- (BOOL)forgetDocument:(NSDocument *)document error:(NSError **)RORef;
 
 /*! 
     @method     bookmarksSubdirectory
@@ -459,15 +459,15 @@ typedef enum
 				The only purpose of these methods is just to break recursivity.
     @param      fileURLRef is a pointer to a file URL
     @param      display
-    @param      outErrorPtr
+    @param      RORef
     @result     A project.
 */
-- (id)freshProjectForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)freshProjectForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)RORef;
 
 - (void)willGetNewProjectForURL:(NSURL *)fileURL;
 - (void)didGetNewProjectForURL:(NSURL *)fileURL;
-- (BOOL)canGetNewProjectForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
-- (id)createNewWritableProjectForURL:(NSURL *)fileURL display:(BOOL)display error:(NSError **)outErrorPtr;
+- (BOOL)canGetNewProjectForURL:(NSURL *)fileURL error:(NSError **)RORef;
+- (id)createNewWritableProjectForURL:(NSURL *)fileURL display:(BOOL)display error:(NSError **)RORef;
 
 /*! 
     @method     getProjectFromPanelForURLRef:display:error:
@@ -484,30 +484,30 @@ typedef enum
 				except when there is an error.
     @param      fileNameRef is a pointer to a file name
     @param      display is a flag to indicate if the UI is required
-    @param      outErrorPtr is a pointer to an NSError instance
+    @param      RORef is a pointer to an NSError instance
     @result     project document.
 */
-- (id)getProjectFromPanelForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)outErrorPtr;
+- (id)getProjectFromPanelForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)RORef;
 
 /*! 
     @method		getProjectURLInWrapperForURL:error:
     @abstract   Abstract Forthcoming.
     @discussion Discussion Forthcoming.
     @param		fileName
-    @param		outErrorPtr
+    @param		RORef
     @result		An array of project file names
 */
-- (NSURL *)getProjectURLInWrapperForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (NSURL *)getProjectURLInWrapperForURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*! 
     @method		getProjectURLsInHierarchyForURL:error:
     @abstract   Abstract Forthcoming.
     @discussion Discussion Forthcoming.
     @param		fileName
-    @param		outErrorPtr
+    @param		RORef
     @result		An array of project file names
 */
-- (NSArray *)getProjectURLsInHierarchyForURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (NSArray *)getProjectURLsInHierarchyForURL:(NSURL *)fileURL error:(NSError **)RORef;
 
 /*! 
     @method		baseProjectNames
@@ -523,10 +523,10 @@ typedef enum
     @abstract   The base projects names known by the project controller, ordered from the shortest to the longest.
     @discussion Discussion forthcoming.
     @param		None
-    @param      outErrorPtr
+    @param      RORef
     @result		A dictionary
 */
-- (NSArray *)orderedBaseProjectNamesWithError:(NSError **)outErrorPtr;
+- (NSArray *)orderedBaseProjectNamesWithError:(NSError **)RORef;
 
 /*! 
     @method     countOfBaseProjects
@@ -545,10 +545,10 @@ typedef enum
                 Particularly, when base projects are overriden by plugins.
                 The return project inherits from all the other base projects with the same name.
     @param      projectName
-    @param      outErrorPtr
+    @param      RORef
     @result     A project
 */
-- (id)baseProjectWithName:(NSString *)projectName error:(NSError **)outErrorPtr;
+- (id)baseProjectWithName:(NSString *)projectName error:(NSError **)RORef;
 
 /*! 
     @method     baseNamesOfAncestorsForBaseProjectName:
@@ -594,10 +594,10 @@ typedef enum
     @abstract   Abstract forthcoming.
     @discussion Discussion forthcoming.
     @param      url...
-    @param      outErrorPtr...
+    @param      RORef...
     @result     an array of projects
 */
-- (id)availableProjectsForURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (id)availableProjectsForURL:(NSURL *)url error:(NSError **)RORef;
 
 @end
 
@@ -621,10 +621,10 @@ enum {
 				For example, a TeX project manager can implement in a category a method named isTeXProjectPackageAtURL4iTM3:
 				Otherwise it's NO
     @param      url
-    @param      outErrorPtr
+    @param      RORef
     @result     None
 */
-- (BOOL)isProjectPackageAtURL4iTM3:(NSURL *)url error:(NSError **)outErrorPtr;
+- (BOOL)isProjectPackageAtURL4iTM3:(NSURL *)url error:(NSError **)RORef;
 
 /*!
     @method		isWrapperPackageAtURL4iTM3:error:
@@ -634,20 +634,20 @@ enum {
 				except this one of course, the answer is YES.
 				Otherwise it's NO
     @param      url
-    @param      outErrorPtr
+    @param      RORef
     @result     None
 */
-- (BOOL)isWrapperPackageAtURL4iTM3:(NSURL *)url error:(NSError **)outErrorPtr;
+- (BOOL)isWrapperPackageAtURL4iTM3:(NSURL *)url error:(NSError **)RORef;
 
 /*!
     @method		isFilePackageAtURL4iTM3:error:
     @abstract	Abstract forthcoming
     @discussion	Whether the given url points to a file package.
     @param      The url
-    @param      outErrorPtr
+    @param      RORef
     @result     yorn
 */
-- (BOOL)isFilePackageAtURL4iTM3:(NSURL *)url error:(NSError **)outErrorPtr;
+- (BOOL)isFilePackageAtURL4iTM3:(NSURL *)url error:(NSError **)RORef;
 
 /*!
     @method		isBackupAtURL4iTM3:

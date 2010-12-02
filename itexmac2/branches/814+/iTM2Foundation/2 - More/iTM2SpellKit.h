@@ -94,20 +94,20 @@ extern NSString * const TWSSpellDefaultContextMode;
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		The fileURL.
-    @param		outErrorPtr.
+    @param		RORef.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
-- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)RORef;
 
 /*!
     @method		writeToURL:error:
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @param		The fileURL.
-    @param		outErrorPtr.
+    @param		RORef.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
 */
-- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)RORef;
 
 /*!
     @method		loadPropertyListRepresentation:
@@ -295,7 +295,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 @interface iTM2SpellContextController(Project)
 
 /*!
-    @method		spellPrettyProjectNameForText:
+    @method		spellPrettyProjectNameForText:error:
     @abstract	The spell project name for the given text.
     @discussion	Different texts might appear to pertain to the same higher level context.
                 This is the purpose of spell projects.
@@ -303,9 +303,10 @@ extern NSString * const TWSSpellDefaultContextMode;
                 This default implementation returns the pretty TeX project name if any.
                 The defauilt implementation does not know about projects and just returns a localized @"None".
     @param		text is basically a NSText instance.
+    @param      RORef
     @result		A human readable name.
 */
-- (NSString *)spellPrettyProjectNameForText:(NSText *)text;
+- (NSString *)spellPrettyProjectNameForText:(NSText *)text error:(NSError **)RORef;
 
 @end
 

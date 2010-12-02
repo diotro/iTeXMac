@@ -303,7 +303,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareToolbarConfigurationCompleteSaveContext4iTM3Error:
-- (BOOL)prepareToolbarConfigurationCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)prepareToolbarConfigurationCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 LRévisé par itexmac2: 2010-11-30 21:50:14 +0100

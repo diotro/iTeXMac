@@ -37,10 +37,10 @@
 @property (assign) NSDictionary * extensionDictionary;
 /*"Class methods"*/
 /*"Setters and Getters"*/
-- (NSMenuItem *) extensionMenuItemAtURL:(NSURL *)url error:(NSError **)outErrorPtr;
-- (NSMenu *) extensionMenuAtLibraryURL:(NSURL *)libraryURL error:(NSError **)outErrorPtr;
+- (NSMenuItem *) extensionMenuItemAtURL:(NSURL *)url error:(NSError **)RORef;
+- (NSMenu *) extensionMenuAtLibraryURL:(NSURL *)libraryURL error:(NSError **)RORef;
 /*"Main methods"*/
-- (void) loadTheExtensionWithError:(NSError **)outErrorPtr;
+- (void) loadTheExtensionWithError:(NSError **)RORef;
 - (void) registerExtension: (id) object forKey: (NSString *) aKey;
 @end
 

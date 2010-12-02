@@ -93,7 +93,7 @@ To Do List:
 			path.lastPathComponent.stringByDeletingPathExtension:path.lastPathComponent;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileExistsAtPath4iTM3:isAlias:error:
-- (BOOL)fileExistsAtPath4iTM3:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)outErrorPtr;
+- (BOOL)fileExistsAtPath4iTM3:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -107,9 +107,9 @@ To Do List:
 		OSStatus status = FSPathMakeRef((UInt8 *)[path UTF8String], &ref, NULL);
 		if (status)
 		{
-			if (outErrorPtr)
+			if (RORef)
 			{
-				*outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:status
+				*RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:status
 					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create an FSRef for %@", path] forKey:NSLocalizedDescriptionKey]];
 			}
 //END4iTM3;
@@ -266,18 +266,18 @@ NSString * const iTM2SoftLinkExtension = @"soft_link";
 @end
 
 @interface NSFileManager(_iTM2ExtendedAttributes)
-- (NSDictionary *)extendedFileAttributesWithResourceType4iTM3:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
-- (NSData *)extendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
-- (BOOL)addExtendedFileAttribute4iTM3:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
-- (BOOL)removeExtendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
-- (BOOL)changeExtendedFileAttributes4iTM3:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
-- (NSData *)extendedFileAttributeWithResourceType4iTM3:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outErrorPtr;
-- (BOOL)addExtendedFileAttribute4iTM3:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (NSDictionary *)extendedFileAttributesWithResourceType4iTM3:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
+- (NSData *)extendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
+- (BOOL)addExtendedFileAttribute4iTM3:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
+- (BOOL)removeExtendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
+- (BOOL)changeExtendedFileAttributes4iTM3:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
+- (NSData *)extendedFileAttributeWithResourceType4iTM3:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)RORef;
+- (BOOL)addExtendedFileAttribute4iTM3:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)RORef;
 @end
 
 @implementation NSFileManager(iTM2ExtendedAttributes)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttributesInDomain4iTM3:atPath:error:
-- (NSDictionary *)extendedFileAttributesInSpace4iTM3:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (NSDictionary *)extendedFileAttributesInSpace4iTM3:(id)space atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -287,13 +287,13 @@ To Do List:
 //START4iTM3;
 	if ([space isKindOfClass:[NSNumber class]])
 	{
-		return [self extendedFileAttributesWithResourceType4iTM3:[space unsignedIntegerValue] atPath:path error:outErrorPtr];
+		return [self extendedFileAttributesWithResourceType4iTM3:[space unsignedIntegerValue] atPath:path error:RORef];
 	}
 //END4iTM3;
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttributesWithResourceType4iTM3:atPath:error:
-- (NSDictionary *)extendedFileAttributesWithResourceType4iTM3:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (NSDictionary *)extendedFileAttributesWithResourceType4iTM3:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -422,7 +422,7 @@ To Do List:
 	return MD;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttribute4iTM3:inSpace:atPath:error:
-- (NSData *)extendedFileAttribute4iTM3:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (NSData *)extendedFileAttribute4iTM3:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -432,11 +432,11 @@ To Do List:
 //START4iTM3;
 //END4iTM3;
 	if ([space isKindOfClass:[NSNumber class]])
-		return [self extendedFileAttribute4iTM3:attributeName withResourceType:[space unsignedIntegerValue] atPath:path error:outErrorPtr];
+		return [self extendedFileAttribute4iTM3:attributeName withResourceType:[space unsignedIntegerValue] atPath:path error:RORef];
 	return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttribute4iTM3:withResourceType:atPath:error:
-- (NSData *)extendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (NSData *)extendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -453,8 +453,8 @@ To Do List:
 	const char * src = [attributeName UTF8String];
 	if (strlen(src)>= 256)
 	{
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesBadNameError userInfo: nil];
 		return D;
 	}
@@ -474,8 +474,8 @@ To Do List:
 		{
 			LOG4iTM3(@"1 - Could not FSOpenResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		return nil;
@@ -487,8 +487,8 @@ To Do List:
 		{
 			LOG4iTM3(@"2 - Could not UseResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		CloseResFile(fileSystemReferenceNumber);
@@ -504,8 +504,8 @@ To Do List:
 		{
 			LOG4iTM3(@"3 - Could not Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		return nil;
@@ -524,8 +524,8 @@ To Do List:
 		{
 			LOG4iTM3(@"4 - Could not ReleaseResource, error %i (attributeName is %@)", resError, attributeName);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
@@ -536,8 +536,8 @@ To Do List:
 		{
 			LOG4iTM3(@"5 - Could not CloseResFile, error %i", resError);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
@@ -550,8 +550,8 @@ To Do List:
 			{
 				LOG4iTM3(@"6 - Could not UseResFile, error %i", resError);
 			}
-			if (outErrorPtr)
-				* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+			if (RORef)
+				* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 					code: kiTM2ExtendedAttributesResourceManagerError
 						userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		}
@@ -560,7 +560,7 @@ To Do List:
 	return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute4iTM3:value:inSpace:atPath:error:
-- (BOOL)addExtendedFileAttribute4iTM3:(NSString *)attributeName value:(NSData *)D inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (BOOL)addExtendedFileAttribute4iTM3:(NSString *)attributeName value:(NSData *)D inSpace:(id)space atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -569,12 +569,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if ([space isKindOfClass:[NSNumber class]])
-		return [self addExtendedFileAttribute4iTM3:attributeName value:D withResourceType:[space unsignedIntegerValue] atPath:path error:outErrorPtr];
+		return [self addExtendedFileAttribute4iTM3:attributeName value:D withResourceType:[space unsignedIntegerValue] atPath:path error:RORef];
 //END4iTM3;
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute4iTM3:value:withResourceType:atPath:error:
-- (BOOL)addExtendedFileAttribute4iTM3:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (BOOL)addExtendedFileAttribute4iTM3:(NSString *)attributeName value:(NSData *)D withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -585,8 +585,8 @@ To Do List:
 	path = [path stringByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 	if (![DFM fileExistsAtPath:path])
 	{
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 												code: kiTM2ExtendedAttributesNoFileAtPathError
 											userInfo: [NSDictionary dictionaryWithObject:path forKey:@"Path"]];		
 		return NO;
@@ -720,7 +720,7 @@ terminate:
 	goto terminate;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute4iTM3:inSpace:atPath:error:
-- (BOOL)removeExtendedFileAttribute4iTM3:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (BOOL)removeExtendedFileAttribute4iTM3:(NSString *)attributeName inSpace:(id)space atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -729,12 +729,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if ([self isKindOfClass:[NSNumber class]])
-		return [self removeExtendedFileAttribute4iTM3:attributeName withResourceType:[space unsignedIntegerValue] atPath:path error:outErrorPtr];
+		return [self removeExtendedFileAttribute4iTM3:attributeName withResourceType:[space unsignedIntegerValue] atPath:path error:RORef];
 //END4iTM3;
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeExtendedFileAttribute4iTM3:withResourceType:atPath:error:
-- (BOOL)removeExtendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (BOOL)removeExtendedFileAttribute4iTM3:(NSString *)attributeName withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -744,8 +744,8 @@ To Do List:
 //START4iTM3;
 	if (![DFM fileExistsAtPath:path])
 	{
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return NO;
 	}
@@ -754,16 +754,16 @@ To Do List:
 	const char * src = [attributeName UTF8String];
 	if (strlen(src)>= 256)
 	{
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesBadNameError userInfo: nil];
 		return NO;
 	}
 	FSRef fileSystemReference;
 	if (!CFURLGetFSRef((CFURLRef)[NSURL fileURLWithPath:path], &fileSystemReference))
 	{
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 												code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return NO;
 	}
@@ -782,8 +782,8 @@ To Do List:
 			LOG4iTM3(@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 		}
 		CloseResFile(fileSystemReferenceNumber);
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		return NO;
@@ -796,8 +796,8 @@ To Do List:
 			LOG4iTM3(@"2 - Could not UseResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 		}
 		CloseResFile(fileSystemReferenceNumber);
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		return NO;
@@ -812,8 +812,8 @@ To Do List:
 		{
 			LOG4iTM3(@"Could not Get1NamedResource, error %i (attributeName is %@)", resError, attributeName);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
@@ -830,8 +830,8 @@ To Do List:
 			{
 				LOG4iTM3(@"Could not GetResInfo, error %i (attributeName is %@)", resError, attributeName);
 			}
-			if (outErrorPtr)
-				* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+			if (RORef)
+				* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 					code: kiTM2ExtendedAttributesResourceManagerError
 						userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		}
@@ -841,8 +841,8 @@ To Do List:
 			{
 				LOG4iTM3(@"Could use GetResInfo, error %i (attributeName is %@)", resError, attributeName);
 			}
-			if (outErrorPtr)
-				* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+			if (RORef)
+				* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 					code: kiTM2ExtendedAttributesResourceManagerError
 						userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		}
@@ -856,8 +856,8 @@ To Do List:
 		{
 			LOG4iTM3(@"Could not CloseResFile, error %i", resError);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
@@ -870,8 +870,8 @@ To Do List:
 			{
 				LOG4iTM3(@"Could not UseResFile, error %i", resError);
 			}
-			if (outErrorPtr)
-				* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+			if (RORef)
+				* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 					code: kiTM2ExtendedAttributesResourceManagerError
 						userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		}
@@ -880,7 +880,7 @@ To Do List:
     return result;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeExtendedFileAttributes4iTM3:inSpace:atPath:error:
-- (BOOL)changeExtendedFileAttributes4iTM3:(NSDictionary *)attributes inSpace:(id)space atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (BOOL)changeExtendedFileAttributes4iTM3:(NSDictionary *)attributes inSpace:(id)space atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -889,12 +889,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if ([space isKindOfClass:[NSNumber class]])
-		return [self changeExtendedFileAttributes4iTM3:attributes withResourceType:[space unsignedIntegerValue] atPath:path error:outErrorPtr];
+		return [self changeExtendedFileAttributes4iTM3:attributes withResourceType:[space unsignedIntegerValue] atPath:path error:RORef];
 //END4iTM3;
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeExtendedFileAttributes4iTM3:withResourceType:atPath:error:
-- (BOOL)changeExtendedFileAttributes4iTM3:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (BOOL)changeExtendedFileAttributes4iTM3:(NSDictionary *)attributes withResourceType:(ResType)resourceType atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -1155,7 +1155,7 @@ To Do List:
     return result;// even if the resources could not be saved...
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  extendedFileAttributeWithResourceType4iTM3:resourceID:atPath:error:
-- (NSData *)extendedFileAttributeWithResourceType4iTM3:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (NSData *)extendedFileAttributeWithResourceType4iTM3:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03
@@ -1166,8 +1166,8 @@ To Do List:
 	NSData * D = nil;
 	if (![DFM fileExistsAtPath:path])
 	{
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesNoFileAtPathError userInfo: nil];
 		return D;
 	}
@@ -1197,8 +1197,8 @@ To Do List:
 		{
 			LOG4iTM3(@"1 - Could not FSOpenResourceFile at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		return nil;
@@ -1210,8 +1210,8 @@ To Do List:
 		{
 			LOG4iTM3(@"2 - Could not UseResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		CloseResFile(fileSystemReferenceNumber);
@@ -1225,8 +1225,8 @@ To Do List:
 			LOG4iTM3(@"3 - Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID);
 			OUTERROR4iTM3(2,([NSString stringWithFormat:@"Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID]),nil);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		return nil;
@@ -1245,8 +1245,8 @@ To Do List:
 		{
 			LOG4iTM3(@"5 - Could not ReleaseResource, at %@ error %i (resourceID is %@)",path,resError,resourceID);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
@@ -1257,8 +1257,8 @@ To Do List:
 		{
 			LOG4iTM3(@"6 - Could not CloseResFile, error %i", resError);
 		}
-		if (outErrorPtr)
-			* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+		if (RORef)
+			* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 				code: kiTM2ExtendedAttributesResourceManagerError
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
@@ -1271,8 +1271,8 @@ To Do List:
 			{
 				LOG4iTM3(@"7 - Could not UseResFile, error %i", resError);
 			}
-			if (outErrorPtr)
-				* outErrorPtr = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
+			if (RORef)
+				* RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__
 					code: kiTM2ExtendedAttributesResourceManagerError
 						userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 		}
@@ -1281,7 +1281,7 @@ To Do List:
 	return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addExtendedFileAttribute4iTM3:value:withResourceType:resourceID:atPath:error:
-- (BOOL)addExtendedFileAttribute4iTM3:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)outErrorPtr;
+- (BOOL)addExtendedFileAttribute4iTM3:(NSString*)attributeName value:(NSData *)D withResourceType:(ResType)resourceType resourceID:(ResID)resourceID atPath:(NSString *)path error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 06/01/03

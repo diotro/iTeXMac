@@ -125,11 +125,11 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 - (void)setAvailableProjects:(id) argument;
 - (BOOL)preferWrapper;
 - (void)setPreferWrapper:(BOOL) yorn;
-- (BOOL)createNewWrapperWithURL:(NSURL *) fileURL error:(NSError **)outErrorPtr;
-- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
-- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL error:(NSError **)outErrorPtr;
-- (BOOL)createInAlreadyExistingProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
-- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)outErrorPtr;
+- (BOOL)createNewWrapperWithURL:(NSURL *) fileURL error:(NSError **)RORef;
+- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL error:(NSError **)RORef;
+- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *) fileURL error:(NSError **)RORef;
+- (BOOL)createInAlreadyExistingProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)RORef;
+- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)RORef;
 @end
 
 @interface iTM2SharedResponder(NewDocumentKit)
@@ -176,7 +176,7 @@ To Do List:
 @interface iTM2NewDocumentAssistant()
 @property (readwrite,assign) BOOL preferWrapper;
 @property (readwrite,assign) NSURL * panelDirectoryURL;
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withOriginalURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withOriginalURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)RORef;
 @end
 
 @implementation iTM2NewDocumentAssistant
@@ -1029,7 +1029,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInNewProjectNewDocumentWithURL:error:
-- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (BOOL)createInNewProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-11-20 21:31:43 +0100
@@ -1066,13 +1066,13 @@ To Do List:
     //  They will be removed at the end
     NSMutableSet * intermediateProjects = [NSMutableSet set];
     for (NSURL * projectURL in sourceURL.enclosedProjectURLs4iTM3) {
-        NSString * type = [SDC typeForContentsOfURL:projectURL error:outErrorPtr];
+        NSString * type = [SDC typeForContentsOfURL:projectURL error:RORef];
         Class C = [SDC documentClassForType:type];
-        iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL ofType:type error:outErrorPtr];
+        iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL ofType:type error:RORef];
         [PC registerProject:PD];
     }
     //  
-    NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:sourceURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
+    NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:sourceURL options:NSFileWrapperReadingImmediate error:RORef];
     if (!FW) {
         return YES;//   returns YES BUT there was an error
     }
@@ -1080,7 +1080,7 @@ To Do List:
     NSUInteger firewall = 256;
     while (FW.isSymbolicLink) {
         sourceURL = FW.symbolicLinkDestinationURL;
-        FW = [[NSFileWrapper alloc] initWithURL:FW.symbolicLinkDestinationURL options:NSFileWrapperReadingImmediate error:outErrorPtr];
+        FW = [[NSFileWrapper alloc] initWithURL:FW.symbolicLinkDestinationURL options:NSFileWrapperReadingImmediate error:RORef];
         if (--firewall) {
             continue;
         } else {
@@ -1096,10 +1096,10 @@ To Do List:
 		LOG4iTM3(@"There is already a project at\n%@",targetURL);
 	}
 	NSDictionary * filter = [self filterForProjectName:projectName];
-    if ((FW = [self convertedFileWrapper:FW withOriginalURL:sourceURL projectController:PC dictionary:filter error:outErrorPtr])) {
+    if ((FW = [self convertedFileWrapper:FW withOriginalURL:sourceURL projectController:PC dictionary:filter error:RORef])) {
         FW.preferredFilename = [self convertedString:FW.preferredFilename withDictionary:filter];// Only now, otherwise there is a problem with fast enumeration
-        [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:outErrorPtr]
-            && [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
+        [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:RORef]
+            && [SDC openDocumentWithContentsOfURL:targetURL display:YES error:RORef];
     }
 	self.stopProgressIndication;
     //  Now I just have to open the project in the shaed project controller
@@ -1107,7 +1107,7 @@ To Do List:
     return YES;// return YES even if there was an error
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInAlreadyExistingProjectNewDocumentWithURL:error:
-- (BOOL)createInAlreadyExistingProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (BOOL)createInAlreadyExistingProjectNewDocumentWithURL:(NSURL *)fileURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 19:40:10 UTC 2010
@@ -1146,7 +1146,7 @@ To Do List:
 		newCore = [newCore.stringByDeletingPathExtension stringByAppendingPathExtension:originalExtension];
 	}
     //  Manage spaces in filenames for tex documents
-	if ([[SDC documentClassForType:[SDC typeForContentsOfURL:sourceURL error:outErrorPtr]] isSubclassOfClass:[iTM2TeXDocument class]]) {
+	if ([[SDC documentClassForType:[SDC typeForContentsOfURL:sourceURL error:RORef]] isSubclassOfClass:[iTM2TeXDocument class]]) {
 		NSDictionary * filter = [NSDictionary dictionaryWithObject:	@"-" forKey:@" "];
 		newCore = [self convertedString:newCore withDictionary:filter];
 	}
@@ -1157,7 +1157,7 @@ To Do List:
 	NSAssert(![DFM fileExistsAtPath:targetURL.path], @"***  My dear, you as a programmer are a big naze...");
 	[self startProgressIndicationForName:targetURL.path];
 
-	if ([DFM copyItemAtURL:sourceURL toURL:targetURL error:outErrorPtr]) {
+	if ([DFM copyItemAtURL:sourceURL toURL:targetURL error:RORef]) {
 		[DFM setExtensionHidden4iTM3:[SUD boolForKey:NSFileExtensionHidden] atURL:targetURL];
 		BOOL isDirectory = NO;
 		if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
@@ -1171,7 +1171,7 @@ To Do List:
             [filter setObject:alreadyExistingURL.lastPathComponent.stringByDeletingPathExtension forKey:iTM2NewDPROJECTNAMEKey];
 			for (NSURL * url in urls) {
 				[SPC setProject:alreadyExistingProject forURL:url];//
-				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:url display:YES error:outErrorPtr];
+				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:url display:YES error:RORef];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
 				}//if([document isKindOfClass:[iTM2TextDocument class]])
@@ -1190,7 +1190,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperAndProjectWithURL:error:
-- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (BOOL)createNewWrapperAndProjectWithURL:(NSURL *)fileURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 19:44:45 UTC 2010
@@ -1219,7 +1219,7 @@ To Do List:
 	// we copy the whole directory at sourceName, possibly add a project, clean extra folders, change the names
 	if ([DFM fileExistsAtPath:targetURL.path]) {
 		LOG4iTM3(@"There is already a wrapper at %@...", targetURL);
-	} else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:outErrorPtr]) {
+	} else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:RORef]) {
 		LOG4iTM3(@"*** ERROR: Could not copy %@ to %@", sourceURL, targetURL);
 	}
 	BOOL isDirectory;
@@ -1247,7 +1247,7 @@ To Do List:
 					fileURL = [targetURL URLByAppendingPathComponent:path];
 					convertedURL = [targetURL URLByAppendingPathComponent:convertedPath];
 					convertedURL = convertedURL.URLByStandardizingPath;
-					if (![DFM moveItemAtPath:fileURL.path toPath:convertedURL.path error:outErrorPtr]) {
+					if (![DFM moveItemAtPath:fileURL.path toPath:convertedURL.path error:RORef]) {
 						LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", path, convertedPath);
 					}
 				}
@@ -1257,7 +1257,7 @@ To Do List:
 			convertedPath = [self convertedString:convertedPath withDictionary:filter];
             convertedURL = [targetURL URLByAppendingPathComponent:convertedPath];
             convertedURL = convertedURL.URLByStandardizingPath;
-			iTM2TeXProjectDocument * PD = [SPC getProjectFromPanelForURLRef:&convertedURL display:NO error:outErrorPtr];
+			iTM2TeXProjectDocument * PD = [SPC getProjectFromPanelForURLRef:&convertedURL display:NO error:RORef];
 			NSString * key = [PD createNewFileKeyForURL:convertedURL];
 			[PD setMasterFileKey:key];
 			
@@ -1266,18 +1266,18 @@ To Do List:
 			NSUInteger encoding = [N integerValue];
 			NSString * S = nil;
 			if (encoding) {
-				if(!(S = [NSString stringWithContentsOfURL:convertedURL encoding:encoding error:outErrorPtr])) {
-					S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:outErrorPtr];
+				if(!(S = [NSString stringWithContentsOfURL:convertedURL encoding:encoding error:RORef])) {
+					S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:RORef];
 				}
 			} else {
-				S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:outErrorPtr];
+				S = [NSString stringWithContentsOfURL:convertedURL usedEncoding:&encoding error:RORef];
 			}
 			S = [self convertedString:S withDictionary:filter];
 			NSData * D = [S dataUsingEncoding:encoding allowLossyConversion:YES];
-			[D writeToURL:convertedURL options:NSAtomicWrite error:outErrorPtr];
+			[D writeToURL:convertedURL options:NSAtomicWrite error:RORef];
 			[PD makeWindowControllers];
 			[PD showWindows];
-			[PD openSubdocumentWithContentsOfURL:convertedURL context:context display:YES error:outErrorPtr];
+			[PD openSubdocumentWithContentsOfURL:convertedURL context:context display:YES error:RORef];
 			[PD saveDocument:self];
 //END4iTM3;
 			return YES;
@@ -1292,7 +1292,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createNewWrapperWithURL:error:
-- (BOOL)createNewWrapperWithURL:(NSURL *)fileURL error:(NSError **)outErrorPtr;
+- (BOOL)createNewWrapperWithURL:(NSURL *)fileURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 10:24:04 UTC 2010
@@ -1323,7 +1323,7 @@ To Do List:
 	if (targetURL.isFileURL) {
         if ( [DFM fileExistsAtPath:targetURL.path]) {
             LOG4iTM3(@"There is already a wrapper at %@...", targetURL);
-        } else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:outErrorPtr]) {
+        } else if(![DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:RORef]) {
             LOG4iTM3(@"*** ERROR: Could not copy %@ to %@", sourceURL, targetURL);
         }
         BOOL isDirectory = NO;
@@ -1347,7 +1347,7 @@ To Do List:
                 for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:outErrorPtr]) {
+                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:RORef]) {
                             LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
                         }
                     }
@@ -1359,7 +1359,7 @@ To Do List:
     //LOG4iTM3(@"originalURL is: %@", originalURL);
                     // originalURL is no longer used
                     // open the project document
-                    PD = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:outErrorPtr];// first registerProject
+                    PD = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:RORef];// first registerProject
     //LOG4iTM3(@"[SDC documents]:%@",[SDC documents]);
                     // filter out the declared files
                     for (NSString * key in [PD.mainInfos4iTM3 fileKeys]) {
@@ -1386,7 +1386,7 @@ To Do List:
                             if(![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
                                 [PD setURL:convertedURL forFileKey:key];// do this before...
                             }
-                            document = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:outErrorPtr];
+                            document = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:RORef];
     //LOG4iTM3(@"document is: %@", document);
                             if ([document isKindOfClass:[iTM2TextDocument class]]) {
                                 document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
@@ -1409,7 +1409,7 @@ To Do List:
                 for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:outErrorPtr]) {
+                        if (![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:RORef]) {
                             LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
                         }
                     }
@@ -1425,7 +1425,7 @@ To Do List:
                 // what are the available documents
                 // I must create a project here before calling the next stuff, is it really true?
     //			NSURL * url = [NSURL fileURLWithPath:targetName];
-    //			[SDC openDocumentWithContentsOfURL:url display:YES error:outErrorPtr];//second registerProject
+    //			[SDC openDocumentWithContentsOfURL:url display:YES error:RORef];//second registerProject
             } else {
                 LOG4iTM3(@"*** ERROR: Missing directory at %@", targetURL);
             }
@@ -1438,7 +1438,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  createInOldProjectNewDocumentWithURL:error:
-- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)outErrorPtr;
+- (BOOL)createInOldProjectNewDocumentWithURL:(NSURL *)targetURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 10:41:46 UTC 2010
@@ -1461,7 +1461,7 @@ To Do List:
 			return NO;
 		}
 	}
-	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:oldProjectURL display:NO error:outErrorPtr];
+	iTM2ProjectDocument * oldProject = [SDC openDocumentWithContentsOfURL:oldProjectURL display:NO error:RORef];
 	if (!oldProject) {
 		return YES;
 	}
@@ -1474,7 +1474,7 @@ To Do List:
 
 	[self startProgressIndicationForName:targetURL.path];
 	NSURL * sourceURL = self.standaloneFileURL;
-	if ([DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:outErrorPtr]) {
+	if ([DFM copyItemAtPath:sourceURL.path toPath:targetURL.path error:RORef]) {
 		[DFM setExtensionHidden4iTM3:[SUD boolForKey:NSFileExtensionHidden] atURL:targetURL];
 		BOOL isDirectory = NO;
 		if ([DFM fileExistsAtPath:targetURL.path isDirectory:&isDirectory]) {
@@ -1485,17 +1485,17 @@ To Do List:
 				// changing the file permissions: it is relevant if the document was built in...
 				[DFM makeFileWritableAtPath4iTM3:targetURL.path recursive:YES];
 				// If necessary, the project will be created as expected side effect
-				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
+				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:RORef];
 				for (originalURL in [DFM enumeratorAtURL:targetURL includingPropertiesForKeys:[NSArray array] options:ZER0 errorHandler:NULL]) {
                     originalURL = originalURL.URLByStandardizingPath;
                     convertedURL = [self convertedURL:originalURL withDictionary:filter];
                     if (![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:outErrorPtr]) {
+                        if(![DFM moveItemAtPath:originalURL.path toPath:convertedURL.URLByStandardizingPath.path error:RORef]) {
                             LOG4iTM3(@"..........  ERROR: Could not change\n%@\nto\n%@.", originalURL, convertedURL);
                         }
                     }
-					if ([[SDC documentClassForType:[SDC typeForContentsOfURL:originalURL error:outErrorPtr]] isSubclassOfClass:[iTM2TeXDocument class]]) {
-						iTM2TeXDocument * document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:outErrorPtr];
+					if ([[SDC documentClassForType:[SDC typeForContentsOfURL:originalURL error:RORef]] isSubclassOfClass:[iTM2TeXDocument class]]) {
+						iTM2TeXDocument * document = [SDC openDocumentWithContentsOfURL:originalURL display:NO error:RORef];
 						document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
                     }
 				}
@@ -1508,7 +1508,7 @@ To Do List:
 				// changing the file permissions: it is relevant if the document was built in...
 				[DFM makeFileWritableAtPath4iTM3:targetURL.path recursive:YES];
 				// If necessary, the project will be created as expected side effect
-				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:outErrorPtr];
+				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:targetURL display:YES error:RORef];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
                 }
@@ -1528,7 +1528,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  convertedFileWrapper:withOriginalURL:projectController:dictionary:error:
-- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withOriginalURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)outErrorPtr;
+- (NSFileWrapper *)convertedFileWrapper:(NSFileWrapper *)FW withOriginalURL:(NSURL *)URL projectController:(iTM2ProjectController *)PC dictionary:(NSDictionary *)filter error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 10 12:47:31 UTC 2010
@@ -1536,12 +1536,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (outErrorPtr) *outErrorPtr = nil;
+    if (RORef) *RORef = nil;
     if (FW.isDirectory) {
         for (NSFileWrapper * fw in FW.fileWrappers.allValues) {
             NSURL * url = [URL URLByAppendingPathComponent:fw.filename];
-            NSFileWrapper * newFW = [self convertedFileWrapper:fw withOriginalURL:url projectController:PC dictionary:filter error:outErrorPtr];
-            if (outErrorPtr && *outErrorPtr) return FW;
+            NSFileWrapper * newFW = [self convertedFileWrapper:fw withOriginalURL:url projectController:PC dictionary:filter error:RORef];
+            if (RORef && *RORef) return FW;
             // We cannot rename the filewrapper when it belongs to a directory wrapper
             // because an exception si thrown about a fast enumeration problem (10.6 SDK)
             [FW removeFileWrapper:fw];
@@ -1553,17 +1553,17 @@ To Do List:
      } else if (FW.isRegularFile) {
         //  How can I retrieve the file encoding ?
         //  The old method was based on the text document class
-        NSString * theType = [SDC typeForContentsOfURL:URL error:outErrorPtr];
-        if (outErrorPtr && *outErrorPtr) return FW;
+        NSString * theType = [SDC typeForContentsOfURL:URL error:RORef];
+        if (RORef && *RORef) return FW;
         NSData * data = nil;
         NSDictionary * FAs = nil;
         if ([[SDC documentClassForType:theType] isSubclassOfClass:[iTM2TextDocument class]]) {
             //  Change the file wrapper
-            iTM2TextDocument * document = [[iTM2TextDocument alloc] initWithContentsOfURL:URL ofType:theType error:outErrorPtr];
+            iTM2TextDocument * document = [[iTM2TextDocument alloc] initWithContentsOfURL:URL ofType:theType error:RORef];
             document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
             data = [document.stringRepresentation dataUsingEncoding:document.stringEncoding allowLossyConversion:YES];
         } else if ([iTM2ProjectPlistPathExtension pathIsEqual4iTM3:FW.preferredFilename.pathExtension]) {
-            iTM2MainInfoWrapper * MIF = [[iTM2MainInfoWrapper alloc] initWithData:FW.regularFileContents error:outErrorPtr];
+            iTM2MainInfoWrapper * MIF = [[iTM2MainInfoWrapper alloc] initWithData:FW.regularFileContents error:RORef];
             BOOL changes = NO;
             for (NSString * K in MIF.fileKeys) {
                 NSString * oldName = [MIF nameForFileKey:K];
@@ -1574,8 +1574,8 @@ To Do List:
                 }
             }
             if (changes) {
-                if (!(data = [MIF dataWithFormat:NSPropertyListXMLFormat_v1_0 options:0 error:outErrorPtr])) {
-                    if (!outErrorPtr) {
+                if (!(data = [MIF dataWithFormat:NSPropertyListXMLFormat_v1_0 options:0 error:RORef])) {
+                    if (!RORef) {
                         LOG4iTM3(@"! ERROR: could not edit the main info");
                         return FW;
                     }

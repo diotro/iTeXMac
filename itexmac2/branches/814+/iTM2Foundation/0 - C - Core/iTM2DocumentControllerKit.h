@@ -64,10 +64,10 @@ extern NSString * const iTM2AutosavingDelayKey;
 				we use the NSWorkspace to find an application opening the file and retrieve the appropriate info from the app bundle.
 				Something can be returned, even if typeForContentsOfURL:error: returns nil.
     @param		inAbsoluteURL, only file URL's are supported.
-    @param		outErrorPtr.
+    @param		RORef.
     @result		A localized document type name owned by the receiver.
 */
-- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error4iTM3:(NSError **)outErrorPtr;
+- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error4iTM3:(NSError **)RORef;
 
 /*!
     @method		localizedDocumentTypesDictionary
@@ -170,10 +170,10 @@ extern NSString * const iTM2AutosavingDelayKey;
                 To prevent a document for being added to the recent docs menu item,
                 simply return nil.
                 Another document can be returned, namely the project document instead of the document itself.
-    @param		outErrorPtr.
+    @param		RORef.
     @result		A document.
 */
-- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
+- (id)newRecentDocument4iTM3Error:(NSError **)RORef;
 
 @end
 
@@ -245,7 +245,7 @@ extern NSString * const iTM2AutosavingDelayKey;
     @param      an error pointer
     @result     an URL
 */
-- (NSURL *)enclosingURLOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+- (NSURL *)enclosingURLOfType4iTM3:(NSString *)type error:(NSError **)RORef;
 
 /*!
     @method		enclosedURLsOfType4iTM3:error:
@@ -256,6 +256,6 @@ extern NSString * const iTM2AutosavingDelayKey;
     @param      an error pointer
     @result     an URL
 */
-- (NSArray *)enclosedURLsOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+- (NSArray *)enclosedURLsOfType4iTM3:(NSString *)type error:(NSError **)RORef;
 
 @end

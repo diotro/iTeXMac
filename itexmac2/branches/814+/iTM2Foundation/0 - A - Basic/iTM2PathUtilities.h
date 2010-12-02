@@ -666,10 +666,10 @@ extern NSString * const iTM2PATHSuffixKey;
 
 @interface NSURL (xattrs4iTM3)
 
-- (NSData *) getXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)outErrorPtr; 
-- (BOOL) setXtdAttribute4iTM3:(NSData *)data forName:(NSString *)name options:(NSUInteger)options error:(NSError **)outErrorPtr; 
-- (BOOL) removeXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)outErrorPtr;
-- (NSArray *) getXtdAttributeNames4iTM3WithOptions:(NSUInteger) options error:(NSError **)outErrorPtr;
+- (NSData *) getXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)RORef; 
+- (BOOL) setXtdAttribute4iTM3:(NSData *)data forName:(NSString *)name options:(NSUInteger)options error:(NSError **)RORef; 
+- (BOOL) removeXtdAttribute4iTM3ForName:(NSString *)name options:(NSUInteger) options error:(NSError **)RORef;
+- (NSArray *) getXtdAttributeNames4iTM3WithOptions:(NSUInteger) options error:(NSError **)RORef;
 - (NSString *) lastXtdAttributes4iTM3ErrorStatus;
 
 @end

@@ -33,7 +33,7 @@
 
 @implementation iTM2SpellContextController(Project)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectNameForText:error:
-- (NSString *)spellPrettyProjectNameForText:(NSText *) text error:(NSError **)outErrorPtr;
+- (NSString *)spellPrettyProjectNameForText:(NSText *) text error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -41,7 +41,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[SPC projectForSource:text error:outErrorPtr] displayName]?:@"";
+    return [[SPC projectForSource:text error:RORef] displayName]?:@"";
 }
 @end
 
@@ -107,7 +107,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromURL4iTM3:ofType:error:
-- (void)spellKitCompleteDidReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
+- (void)spellKitCompleteDidReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)RORef;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -130,7 +130,7 @@ To Do List:
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareSpellKitCompleteWriteMetaToURL4iTM3:ofType:error:
-- (BOOL)prepareSpellKitCompleteWriteMetaToURL4iTM3:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)outErrorPtr;
+- (BOOL)prepareSpellKitCompleteWriteMetaToURL4iTM3:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)RORef;
 /*"Description forthcoming.
 Version History:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Fri Feb 20 13:19:00 GMT 2004

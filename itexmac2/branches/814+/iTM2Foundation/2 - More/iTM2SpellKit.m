@@ -95,7 +95,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
-- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -103,7 +103,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
+    NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
     if (D.length) {
         NSString * errorString = nil;
         id DM = [NSPropertyListSerialization propertyListFromData:D
@@ -170,7 +170,7 @@ To Do List:
                     nil];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:error:
-- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)outErrorPtr;
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -195,7 +195,7 @@ To Do List:
     }
 //NSLog(@"data: %@", result);
 //END4iTM3;
-    return [D writeToURL:fileURL options:NSAtomicWrite error:outErrorPtr];
+    return [D writeToURL:fileURL options:NSAtomicWrite error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  finalize
 - (void)finalize;
@@ -597,11 +597,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    NSString * mode = [text context4iTM3ValueForKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
+    NSString * mode = [text context4iTM3ValueForKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
     if (![self spellContextForMode:mode])
     {
         mode = TWSSpellDefaultContextMode;
-        [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
+        [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
     }
 //END4iTM3;
     return mode;
@@ -2412,7 +2412,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.spellContextController spellPrettyProjectNameForText:self];
+    return [self.spellContextController spellPrettyProjectNameForText:self error:self.RORef4iTM3];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext
 - (iTM2SpellContext *)spellContext;

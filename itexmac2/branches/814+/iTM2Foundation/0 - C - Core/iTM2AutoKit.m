@@ -84,7 +84,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Auto_writeToURL:ofType:forSaveOperation:originalContentsURL:error:
-- (BOOL)SWZ_iTM2Auto_writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outErrorPtr;
+- (BOOL)SWZ_iTM2Auto_writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -92,9 +92,9 @@ To Do List:save the file, if it has disappeared from the HD.
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL result = [self SWZ_iTM2Auto_writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+    BOOL result = [self SWZ_iTM2Auto_writeToURL:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:RORef];
     if (result)
-        [self fileModificationDateCompleteDidWriteToURL4iTM3:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:outErrorPtr];
+        [self fileModificationDateCompleteDidWriteToURL4iTM3:absoluteURL ofType:typeName forSaveOperation:saveOperation originalContentsURL:absoluteOriginalContentsURL error:RORef];
 	// if result is NO the file modification date is not recorded
 	// The method below offers a second chance to record this file modification date, see the iTM2Document design
 //END4iTM3;
@@ -114,7 +114,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2Auto_readFromURL:ofType:error:
-- (BOOL)SWZ_iTM2Auto_readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)SWZ_iTM2Auto_readFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError**)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Tue Jan 18 22:21:11 GMT 2005
@@ -122,10 +122,10 @@ To Do List:save the file, if it has disappeared from the HD.
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL result = [self SWZ_iTM2Auto_readFromURL:absoluteURL ofType:type error:outErrorPtr];
+    BOOL result = [self SWZ_iTM2Auto_readFromURL:absoluteURL ofType:type error:RORef];
     if (result)
 	{
-		[self fileModificationDateCompleteDidReadFromURL4iTM3:absoluteURL ofType:type error:outErrorPtr];
+		[self fileModificationDateCompleteDidReadFromURL4iTM3:absoluteURL ofType:type error:RORef];
 	}
 //END4iTM3;
     return result;

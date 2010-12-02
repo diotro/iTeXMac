@@ -984,7 +984,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -994,10 +994,10 @@ To Do List:
 //START4iTM3;
 	DEBUGLOG4iTM3(0,@"iTM2TextDocument fileURL: %@", absoluteURL);
 	DEBUGLOG4iTM3(0,@"iTM2TextDocument type: %@", typeName);
-    return [super readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr];
+    return [super readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Now using direct NSString methods to manage the encoding properly.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1007,7 +1007,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteWriteToURL4iTM3:ofType:error:
-- (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) outErrorPtr;
+- (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) RORef;
 /*"Now using direct NSString methods to manage the encoding properly.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-11-22 22:48:12 +0100
@@ -1019,7 +1019,7 @@ To Do List:
     }
 	NSStringEncoding saveEncoding = self.stringEncoding;
 	NSString * S = self.stringRepresentation;
-    if ([S writeToURL:absoluteURL atomically:YES encoding:saveEncoding error:outErrorPtr]) {
+    if ([S writeToURL:absoluteURL atomically:YES encoding:saveEncoding error:RORef]) {
 		LOG4iTM3(@"Data saved with encoding: %@", [NSString localizedNameOfStringEncoding:saveEncoding]);
 		return YES;
 	}
@@ -1097,7 +1097,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)stringRepresentationCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)stringRepresentationCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Now using direct NSString methods to manage the encoding properly.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1105,10 +1105,10 @@ To Do List:
 "*/
 {
     //  if the receiver belongs to a project, this project must be set beforehand
-    return [self.stringFormatter4iTM3 readFromURL:absoluteURL error:outErrorPtr];
+    return [self.stringFormatter4iTM3 readFromURL:absoluteURL error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
-- (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
+- (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
 To do list: ASK!!!
@@ -1116,7 +1116,7 @@ To do list: ASK!!!
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.stringFormatter4iTM3 setStringEncoding:encoding];
-	if ([self stringRepresentationCompleteReadFromURL4iTM3:self.fileURL ofType:[self fileType] error:outErrorPtr])
+	if ([self stringRepresentationCompleteReadFromURL4iTM3:self.fileURL ofType:[self fileType] error:RORef])
 	{
 		[[self windowControllers] makeObjectsPerformSelector:@selector(synchronizeWithDocument)];
 		return YES;
@@ -1124,7 +1124,7 @@ To do list: ASK!!!
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  revertDocumentToSavedWithStringEncoding:error:
-- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)outErrorPtr;
+- (BOOL)revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
 To do list: ASK!!!
@@ -1141,7 +1141,7 @@ To do list: ASK!!!
                 docWindow = nil;
             NSDictionary * D = [NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithUnsignedInteger:encoding],iTM3StringEncodingKey,
-					[NSValue valueWithPointer:outErrorPtr],@"outErrorPtr",
+					[NSValue valueWithPointer:RORef],@"RORef",
 					[NSValue valueWithPointer:&success],@"successPtr",
 						nil];
             [D performSelector:@selector(retain)]; // D will be released below, trick for the logic analysis
@@ -1161,7 +1161,7 @@ To do list: ASK!!!
 			return success;
         }
         else
-            return [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
+            return [self _revertDocumentToSavedWithStringEncoding:encoding error:RORef];
     }
     return YES;
 }
@@ -1174,12 +1174,12 @@ To do list: ASK!!!
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [contextInfo autorelease];// was retained before
-	NSError ** outErrorPtr = [(NSValue *)[contextInfo objectForKey:@"outErrorPtr"] pointerValue];
+	NSError ** RORef = [(NSValue *)[contextInfo objectForKey:@"RORef"] pointerValue];
 	BOOL * successPtr = [(NSValue *)[contextInfo objectForKey:@"successPtr"] pointerValue];
 	NSUInteger encoding = [(NSNumber *)[contextInfo objectForKey:iTM3StringEncodingKey] unsignedIntegerValue];
     if (returnCode == NSAlertDefaultReturn)
 	{
-		BOOL success = [self _revertDocumentToSavedWithStringEncoding:encoding error:outErrorPtr];
+		BOOL success = [self _revertDocumentToSavedWithStringEncoding:encoding error:RORef];
         if (successPtr)
 		{
 			*successPtr = success;
@@ -1191,9 +1191,9 @@ To do list: ASK!!!
 		{
 			*successPtr = NO;
 		}
-        if (outErrorPtr)
+        if (RORef)
 		{
-			*outErrorPtr = nil;// no need to put an out error because the user cancelled the action...
+			*RORef = nil;// no need to put an out error because the user cancelled the action...
 		}
 	}
     return;
@@ -1472,8 +1472,8 @@ To Do List:
 //START4iTM3;
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeDocument
-- (void)synchronizeDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeDocument4iTM3Error:
+- (BOOL)synchronizeDocument4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1482,11 +1482,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.document setStringRepresentation:[self.textStorage string]];
-    [super synchronizeDocument];
-    return;
+    return [super synchronizeDocument4iTM3Error:RORef];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument
-- (void)synchronizeWithDocument;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWithDocument4iTM3Error:
+- (BOOL)synchronizeWithDocument4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1501,8 +1500,7 @@ To Do List:
 //LOG4iTM3(@"**** **** ****  ALL THE CHARACTERS ARE REPLACED");
 	[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:argument];
 	TS.endEditing;
-	[super synchronizeWithDocument];
-    return;
+    return [super synchronizeWithDocument4iTM3Error:RORef];
 }
 #pragma mark =-=-=-=-=-=-=-= SETTERS/GETTERS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyTextStorage
@@ -1613,8 +1611,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textInspectorCompleteSaveContext4iTM3:
-- (void)textInspectorCompleteSaveContext4iTM3:(id)sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textInspectorCompleteSaveContext4iTM3Error:
+- (void)textInspectorCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -1622,8 +1620,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContext4iTM3Bool:self.window.isKeyWindow forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy?
-    [self takeContext4iTM3Value:NSStringFromRange(self.textView.selectedRange) forKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Bool:self.window.isKeyWindow forKey:@"iTM2TextKeyWindow" domain:iTM2ContextAllDomainsMask error:RORef];// buggy?
+    [self takeContext4iTM3Value:NSStringFromRange(self.textView.selectedRange) forKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask error:RORef];
     NS_DURING
     NSRect visibleRect = self.textView.visibleRect;
     NSLayoutManager * LM = [self.textView layoutManager];
@@ -1636,10 +1634,10 @@ To Do List:
 			[LM glyphRangeForBoundingRectWithoutAdditionalLayout:visibleRect inTextContainer:container]);
     }
     NSRange characterRange = [LM characterRangeForGlyphRange:glyphRange actualGlyphRange:nil];
-    [self takeContext4iTM3Value:NSStringFromRange(characterRange) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:NSStringFromRange(characterRange) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask error:RORef];
     NS_HANDLER
     LOG4iTM3(@"*** Exception catched: %@", [localException reason]);
-    [self takeContext4iTM3Value:NSStringFromRange([self.textView selectedRange]) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:NSStringFromRange([self.textView selectedRange]) forKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask error:RORef];
     NS_ENDHANDLER
 //END4iTM3;
     return;
@@ -2329,9 +2327,9 @@ To Do List:
 	CGFloat scale = [self context4iTM3FloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
     NSRange R = iTM3MakeRange(ZER0,self.string.length);
-    NSRange r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask]);
+    NSRange r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]);
     [self setSelectedRange:iTM3ProjectionRange(R, r)];
-    r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask]);
+    r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]);
     [self scrollRangeToVisible:iTM3ProjectionRange(R, r)];
 //END4iTM3;
     return;

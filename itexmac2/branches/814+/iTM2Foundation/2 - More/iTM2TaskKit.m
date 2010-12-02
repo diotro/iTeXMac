@@ -1959,17 +1959,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 #warning THE TEX PROJECT MUST OVERRIDE THIS METHOD TO ADD ITS OWN STUFF
-	if (iTM2DebugEnabled>999)
-	{
-		LOG4iTM3(@"[self context4iTM3ValueForKey:iTM2PATHPrefixKey]:%@", [self context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask]);
-		LOG4iTM3(@"[self context4iTM3ValueForKey:iTM2PATHSuffixKey]:%@", [self context4iTM3ValueForKey:iTM2PATHSuffixKey domain:iTM2ContextAllDomainsMask]);
-		LOG4iTM3(@"[self context4iTM3ValueForKey:iTM2PATHDomainX11BinariesKey]:%@", [self context4iTM3ValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask]);
-	}
 //LOG4iTM3(@"complete self.environment:%@", self.environment);
 	id context4iTM3Manager = ((id)self.delegate?:((id)sender?:(id)SUD));
-    [self prependPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask]];
-    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask]];
-    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHSuffixKey domain:iTM2ContextAllDomainsMask]];
+    [self prependPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
+    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
+    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHSuffixKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
     [self setEnvironmentString:NSBundle.mainBundle.defaultWritableFolderURL4iTM3.path forKey:@"iTM2WritableFolderPATH"];
     id truc = self;
     NSInvocation * I = [self.implementation metaValueForKey:iTM2TaskLaunchInvocationKey];
@@ -2034,7 +2028,7 @@ To Do List:
     return [self.implementation metaValueForKey:iTM2TaskInterruptInvocationKey] != nil || [[self.implementation metaValueForKey:iTM2TaskCanInterruptKey] boolValue];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusAndOutput:error:
-- (NSInteger)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)outErrorPtr;
+- (NSInteger)modalStatusAndOutput:(NSString **)outputPtr error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003
@@ -2055,7 +2049,7 @@ To Do List:
     return [[TC currentTask] terminationStatus];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modalStatusOfScript:output:error:
-+ (NSInteger)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSError **)outErrorPtr;
++ (NSInteger)modalStatusOfScript:(NSString *)script output:(NSString **)outputPtr error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - for 1.3: Mon Jun 02 2003

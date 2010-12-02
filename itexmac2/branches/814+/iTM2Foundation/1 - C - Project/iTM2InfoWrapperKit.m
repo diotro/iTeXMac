@@ -123,7 +123,7 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 */
 @property (readwrite,retain) NSMutableDictionary * model;
 
-- (void)setData:(NSData *)aData error:(NSError **)outErrorPtr;
+- (void)setData:(NSData *)aData error:(NSError **)RORef;
 
 /*!
 	@method			changeCount
@@ -169,11 +169,11 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 	}
 	return self;
 }
-- (id)initWithData:(NSData *)aData error:(NSError **)outErrorPtr;
+- (id)initWithData:(NSData *)aData error:(NSError **)RORef;
 {
 	if ((self = [super init])) {
-		[self setData:aData error:outErrorPtr];
-	} else if (outErrorPtr) {
+		[self setData:aData error:RORef];
+	} else if (RORef) {
         OUTERROR4iTM3(1,([NSString stringWithFormat:@"Problem creating the main infos wrapper"]),nil);
     } else {
         LOG4iTM3(@"! ERROR: Problem creating the main infos wrapper");
@@ -217,19 +217,19 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 	model4iTM3 = [model mutableCopy];
 	return;
 }
-- (NSData *) dataWithFormat:(NSPropertyListFormat)format options:(NSPropertyListWriteOptions)opt error:(NSError **)outErrorPtr;
+- (NSData *) dataWithFormat:(NSPropertyListFormat)format options:(NSPropertyListWriteOptions)opt error:(NSError **)RORef;
 {
-    return [NSPropertyListSerialization dataWithPropertyList:self.model format:format options:opt error:outErrorPtr];
+    return [NSPropertyListSerialization dataWithPropertyList:self.model format:format options:opt error:RORef];
 }
-- (void)setData:(NSData *)aData error:(NSError **)outErrorPtr;
+- (void)setData:(NSData *)aData error:(NSError **)RORef;
 {
-    if (outErrorPtr) *outErrorPtr = nil;
+    if (RORef) *RORef = nil;
 	if (aData.length) {
 		// the model is a valid property list
         id model = nil;
 		if ((model = [NSPropertyListSerialization propertyListWithData:aData
 			options:NSPropertyListMutableContainersAndLeaves
-				format:nil error:outErrorPtr])) {
+				format:nil error:RORef])) {
 			if ([model isKindOfClass:[NSDictionary class]]) {
                 model4iTM3 = model;
             } else {
@@ -494,7 +494,7 @@ NSString * const iTM2ProjectPlistPathExtension = @"plist";
 
 @implementation NSURL(iTM2InfoWrapper)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  mainInfoURL4iTM3WithCreate:error:
-- (NSURL *)mainInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)mainInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Jan 28 22:03:17 UTC 2010
@@ -505,7 +505,7 @@ To Do List:
 	if (self.isFileURL) {
 		NSString * path = self.path;
 		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
+			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:RORef];
 		}
 		NSString * component = [iTM2ProjectInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
 		return [NSURL URLWithPath4iTM3:component relativeToURL:self];
@@ -516,7 +516,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  otherInfoURL4iTM3WithCreate:error:
-- (NSURL *)otherInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)otherInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Jan 28 22:06:35 UTC 2010
@@ -530,7 +530,7 @@ To Do List:
 		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
 		path = [fileName stringByAppendingPathComponent:path];
 		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
+			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:RORef];
 		}
 		NSString * component = [iTM2ProjectInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
 		path = [path stringByAppendingPathComponent:component];
@@ -542,7 +542,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  metaInfoURL4iTM3WithCreate:error:
-- (NSURL *)metaInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)metaInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Jan 28 22:06:23 UTC 2010
@@ -556,7 +556,7 @@ To Do List:
 		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
 		path = [fileName stringByAppendingPathComponent:path];
 		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
+			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:RORef];
 		}
 		NSString * component = [iTM2ProjectInfoMetaComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
 		path = [path stringByAppendingPathComponent:component];
@@ -568,7 +568,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  customInfoURL4iTM3WithCreate:error:
-- (NSURL *)customInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)outErrorPtr;
+- (NSURL *)customInfoURL4iTM3WithCreate:(BOOL)yorn error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Jan 28 22:07:11 UTC 2010
@@ -582,7 +582,7 @@ To Do List:
 		path = [TWSFrontendComponent stringByAppendingPathComponent:path];
 		path = [fileName stringByAppendingPathComponent:path];
 		if (yorn) {
-			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:outErrorPtr];
+			[DFM createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:RORef];
 		}
 		NSString * component = [iTM2ProjectCustomInfoComponent stringByAppendingPathExtension:iTM2ProjectPlistPathExtension];
 		path = [path stringByAppendingPathComponent:component];
@@ -596,11 +596,11 @@ To Do List:
 @end
 
 @implementation iTM2MainInfoWrapper
-- (id)initWithProjectURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+- (id)initWithProjectURL:(NSURL *)projectURL error:(NSError **)RORef;
 {
 	if ((self = [super init])) {
-		[self replaceProjectURL:projectURL error:outErrorPtr];
-	} else if (outErrorPtr) {
+		[self replaceProjectURL:projectURL error:RORef];
+	} else if (RORef) {
         OUTERROR4iTM3(1,([NSString stringWithFormat:@"Problem creating the main infos wrapper at URL:\n%@",projectURL]),nil);
     } else {
         LOG4iTM3(@"! ERROR: Problem creating the main infos wrapper at URL:\n%@",projectURL);
@@ -609,7 +609,7 @@ To Do List:
 }
 @synthesize projectURL = projectURL4iTM3;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  replaceProjectURL:error:
-- (void)replaceProjectURL:(NSURL *)projectURL error:(NSError **)outErrorPtr;
+- (void)replaceProjectURL:(NSURL *)projectURL error:(NSError **)RORef;
 /*"The given projectURL must be non nil and must be the URL of a directory.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.1: Sat May  3 16:25:55 UTC 2008
@@ -620,7 +620,7 @@ To Do List:
     //  The projectURL must end with a trailing /
 	NSParameterAssert(projectURL);
 	self.projectURL = projectURL;
-	NSURL * url = [projectURL mainInfoURL4iTM3WithCreate:NO error:outErrorPtr];
+	NSURL * url = [projectURL mainInfoURL4iTM3WithCreate:NO error:RORef];
 	if (url) {
 		id model = [NSDictionary dictionaryWithContentsOfURL:url];
 		if (model) {
@@ -731,7 +731,7 @@ To Do List:
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  URLForFileKey:error:
-- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)outErrorPtr;
+- (NSURL *)URLForFileKey:(NSString *)key error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.1: Tue May  6 14:25:43 UTC 2008
@@ -743,10 +743,10 @@ To Do List:
 	if ([key isEqual:TWSProjectKey]) {
 		return projectURL;
 	}
-    if (outErrorPtr) *outErrorPtr = nil;
+    if (RORef) *RORef = nil;
 	NSString * name = nil;
 	NSURL * url = nil;
-	id PD = [SPC projectForURL:projectURL error:outErrorPtr];
+	id PD = [SPC projectForURL:projectURL error:RORef];
 	if ([key isEqual:iTM2ParentKey]) {
 		if (url = [PD parentURL]) return url;
 		return [NSURL URLWithString:@".." relativeToURL:[projectURL URLByRemovingFactoryBaseURL4iTM3]];
@@ -755,7 +755,7 @@ To Do List:
             return url;
         } else {
             name = [self nameForFileKey:key];
-            url = [self URLForFileKey:iTM2ParentKey error:outErrorPtr];
+            url = [self URLForFileKey:iTM2ParentKey error:RORef];
             return name.length?[NSURL URLWithPath4iTM3:name relativeToURL:url]:url;
         }
 	} else if ([key isEqual:TWSFactoryKey]) {
@@ -771,10 +771,10 @@ To Do List:
 			return url;
 		} else if ([name.pathExtension pathIsEqual4iTM3:TWSFactoryExtension]) {
 			name = name.stringByDeletingPathExtension;
-			url = [self URLForFileKey:TWSFactoryKey error:outErrorPtr];
+			url = [self URLForFileKey:TWSFactoryKey error:RORef];
 			return [NSURL URLWithPath4iTM3:name relativeToURL:url];
 		} else {
-            url = [self URLForFileKey:TWSContentsKey error:outErrorPtr];
+            url = [self URLForFileKey:TWSContentsKey error:RORef];
             return [NSURL URLWithPath4iTM3:name relativeToURL:url];
         }
 	}
@@ -782,7 +782,7 @@ To Do List:
     return nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  URLsForFileKeys:error:
-- (NSArray *)URLsForFileKeys:(NSArray *)keys error:(NSError **)outErrorPtr;
+- (NSArray *)URLsForFileKeys:(NSArray *)keys error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 17 13:35:57 UTC 2010
@@ -790,10 +790,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (outErrorPtr) *outErrorPtr = nil;
+    if (RORef) *RORef = nil;
 	NSMutableSet * result = [NSMutableSet set];
 	for (NSString * key in keys) {
-		NSURL * URL = [self URLForFileKey:key error:outErrorPtr];
+		NSURL * URL = [self URLForFileKey:key error:RORef];
 		if (URL) {
 			[result addObject:URL];
 		}
@@ -802,7 +802,7 @@ To Do List:
     return result.allObjects;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileKeyForURL:error:
-- (NSString *)fileKeyForURL:(NSURL *)url error:(NSError **)outErrorPtr;
+- (NSString *)fileKeyForURL:(NSURL *)url error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.1: Sat May  3 09:41:58 UTC 2008
@@ -812,18 +812,18 @@ To Do List:
 //START4iTM3;
 	NSString * K = nil;
 	for (K in self.fileKeys) {
-		if ([[self URLForFileKey:K error:outErrorPtr] isEquivalentToURL4iTM3:url]) return K;
+		if ([[self URLForFileKey:K error:RORef] isEquivalentToURL4iTM3:url]) return K;
 	}
 	NSURL * projectURL = self.projectURL;
 	if ([projectURL isEquivalentToURL4iTM3:url]) return TWSProjectKey;
 	// next keys might correspond to cached URLs
-	iTM2ProjectDocument * PD = [SPC projectForURL:projectURL error:outErrorPtr];
+	iTM2ProjectDocument * PD = [SPC projectForURL:projectURL error:RORef];
 	if (PD) {
 		if ([PD.contentsURL isEquivalentToURL4iTM3:url]) return TWSContentsKey;
 		if ([PD.factoryURL isEquivalentToURL4iTM3:url])  return TWSFactoryKey;
 		if ([PD.parentURL isEquivalentToURL4iTM3:url])   return iTM2ParentKey;
 	} else {
-#       define TEST [[SPC URLForFileKey:K filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:outErrorPtr] isEquivalentToURL4iTM3:url]
+#       define TEST [[SPC URLForFileKey:K filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef] isEquivalentToURL4iTM3:url]
 		K = TWSContentsKey;if (TEST) return K;
 		K = TWSFactoryKey; if (TEST) return K;
 		K = iTM2ParentKey; if (TEST) return K;
@@ -833,7 +833,7 @@ To Do List:
     return @"";
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setURL:forFileKey:error:
-- (NSURL *)setURL:(NSURL *)fileURL forFileKey:(NSString *)key error:(NSError **)outErrorPtr;
+- (NSURL *)setURL:(NSURL *)fileURL forFileKey:(NSString *)key error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Mar 17 20:00:17 UTC 2010
@@ -846,13 +846,13 @@ To Do List:
 		// Nonsense
 		return projectURL;
 	}
-    if (outErrorPtr) *outErrorPtr = nil;
+    if (RORef) *RORef = nil;
 	NSURL * theURL = nil;
 	NSString * relative = nil;
 	if ([key isEqual:TWSContentsKey]) {
 		// if the given URL is absolute, the contents must be relative to the parent directory of the project
 		if (fileURL.baseURL) {
-			theURL = [SPC URLForFileKey:iTM2ParentKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:outErrorPtr];
+			theURL = [SPC URLForFileKey:iTM2ParentKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef];
 			relative = [fileURL pathRelativeToURL4iTM3:theURL];
 		} else {
 			relative = [fileURL relativePath];
@@ -861,7 +861,7 @@ To Do List:
 			return nil;
 		}
 		[self setName:relative forFileKey:key];
-		if ((theURL = [self URLForFileKey:key error:outErrorPtr])) {
+		if ((theURL = [self URLForFileKey:key error:RORef])) {
             return [theURL isEquivalentToURL4iTM3:fileURL]?fileURL:theURL;
         }
         return nil;
@@ -877,7 +877,7 @@ To Do List:
 			return nil;
 		}
 		[self setName:relative forFileKey:key];
-		if ((theURL = [self URLForFileKey:key error:outErrorPtr])) {
+		if ((theURL = [self URLForFileKey:key error:RORef])) {
             return [theURL isEquivalentToURL4iTM3:fileURL]?fileURL:theURL;
         }
         return nil;
@@ -886,7 +886,7 @@ To Do List:
 		// we can't change the URL's of the reserved keys
 		return nil;
 	}
-	theURL = [SPC URLForFileKey:TWSFactoryKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:outErrorPtr];
+	theURL = [SPC URLForFileKey:TWSFactoryKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef];
 	if ([fileURL isRelativeToURL4iTM3:theURL]) {
 		// When cached, all the file names are recorded relative to the Factory directory
 		relative = [[fileURL pathRelativeToURL4iTM3:theURL] stringByAppendingPathExtension:TWSFactoryExtension];
@@ -895,7 +895,7 @@ To Do List:
 			goto relativeFound;
 		}
 	}
-	theURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:outErrorPtr];
+	theURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef];
 	if ([fileURL isRelativeToURL4iTM3:theURL]) {
 		// the project is cached, it means that it could not be written in the correct location, write rights missing
 		relative = [fileURL pathRelativeToURL4iTM3:theURL];
@@ -906,7 +906,7 @@ To Do List:
 	relative = fileURL.standardizedURL.absoluteString;
 relativeFound:
 	[self setName:relative forFileKey:key];
-	if ((theURL = [self URLForFileKey:key error:outErrorPtr])) {
+	if ((theURL = [self URLForFileKey:key error:RORef])) {
         return [theURL isEquivalentToURL4iTM3:fileURL]?fileURL:theURL;
     }
     return nil;
@@ -1077,7 +1077,7 @@ To Do List:
 	return result;
 }
 #pragma mark =-=-=-=-=-  I/O
-- (BOOL)infoCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)outErrorPtr;
+- (BOOL)infoCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)RORef;
 {
 	BOOL result = NO;
 	iTM2MainInfoWrapper * info = nil;
@@ -1085,7 +1085,7 @@ To Do List:
     info = self.otherInfos4iTM3;
     if (info.changeCount) {
         [info setInfo4TM3:iTM2ProjectInfoProjectType forKeyPaths:@"self.class",nil];
-        if ((url = [absoluteURL otherInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
+        if ((url = [absoluteURL otherInfoURL4iTM3WithCreate:YES error:RORef])) {
             if ([info.model writeToURL:url atomically:YES]) {
                 [info updateChangeCount:NSChangeCleared];
                 result = YES;
@@ -1093,7 +1093,7 @@ meta:
                 info = self.metaInfos4iTM3;
                 if (info.changeCount) {
                     [info setInfo4TM3:iTM2ProjectInfoMetaComponent forKeyPaths:@"self.class",nil];
-                    if ((url = [absoluteURL metaInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
+                    if ((url = [absoluteURL metaInfoURL4iTM3WithCreate:YES error:RORef])) {
                         if ([info.model writeToURL:url atomically:YES]) {
                             [info updateChangeCount:NSChangeCleared];
                             result = YES;
@@ -1101,7 +1101,7 @@ custom:
                             info = self.customInfos4iTM3;
                             if (info.changeCount) {
                                 [info setInfo4TM3:iTM2ProjectInfoCustomType forKeyPaths:@"self.class",nil];
-                                if ((url = [absoluteURL customInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
+                                if ((url = [absoluteURL customInfoURL4iTM3WithCreate:YES error:RORef])) {
                                     if ([info.model writeToURL:url atomically:YES]) {
                                         [info updateChangeCount:NSChangeCleared];
                                         result = YES;
@@ -1109,7 +1109,7 @@ main:
                                         info = self.mainInfos4iTM3;
                                         if (info.changeCount ||!result) {
                                             [info setInfo4TM3:iTM2ProjectInfoMainType forKeyPaths:@"self.class",nil];
-                                            if ((url = [absoluteURL mainInfoURL4iTM3WithCreate:YES error:outErrorPtr])) {
+                                            if ((url = [absoluteURL mainInfoURL4iTM3WithCreate:YES error:RORef])) {
                                                 if ([info.model writeToURL:url atomically:YES]) {
                                                     [info updateChangeCount:NSChangeCleared];
                                                     return YES;
@@ -1135,7 +1135,7 @@ main:
     }
     goto meta;
 }
-- (BOOL)infoCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)outErrorPtr;
+- (BOOL)infoCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)fileType error:(NSError **)RORef;
 {
 	[self.implementation takeMetaValue:nil forKey:@"MainInfos"];
 	[self.implementation takeMetaValue:nil forKey:@"MetaInfos4iTM3"];

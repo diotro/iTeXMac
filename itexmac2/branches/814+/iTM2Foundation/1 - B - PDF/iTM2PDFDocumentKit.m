@@ -120,7 +120,7 @@ To Do List:
 	return [super init];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithContentsOfURL:ofType:error:
-- (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: 03/10/2002
@@ -139,8 +139,8 @@ To Do List:
 				attributes = [DFM attributesOfItemOrDestinationOfSymbolicLinkAtURL4iTM3:pdfURL error:NULL];
 				NSDate * pdfDate = [attributes fileModificationDate];
 				if ([pdfDate compare:date] == NSOrderedDescending) {
-					if (typeName = [SDC typeForContentsOfURL:pdfURL error:outErrorPtr]) {
-						return [self initWithContentsOfURL:pdfURL ofType:typeName error:outErrorPtr];
+					if (typeName = [SDC typeForContentsOfURL:pdfURL error:RORef]) {
+						return [self initWithContentsOfURL:pdfURL ofType:typeName error:RORef];
 					} else {
 						return nil;
 					}					
@@ -154,7 +154,7 @@ To Do List:
 		return nil;
 	}
 //END4iTM3;
-	return [super initWithContentsOfURL:absoluteURL ofType:typeName error:outErrorPtr];
+	return [super initWithContentsOfURL:absoluteURL ofType:typeName error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= imageRepresentation
 - (id)imageRepresentation;
@@ -203,7 +203,7 @@ To Do List:
         [NSString stringWithFormat:@"%@ (\xE2\x87\xA0 %@)", super.displayName, [[original relativePath] lastPathComponent]];//UTF8 char: '⇠'
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:ofType:error:
-- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outErrorPtr;
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
 /*"Erase the cached core file name, root file name and identifier.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.3: 03/10/2002
@@ -226,7 +226,7 @@ To Do List:
         return NO;
     BOOL result = NO;
     NS_DURING
-    result = [super readFromURL:absoluteURL ofType:typeName error:outErrorPtr];
+    result = [super readFromURL:absoluteURL ofType:typeName error:RORef];
     NS_HANDLER
     LOG4iTM3(@"*** ERROR in file reading, catched exception %@", [localException reason]);
     result = NO;
@@ -235,7 +235,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -246,10 +246,10 @@ To Do List:
 //LOG4iTM3(@"--------------------------- IT IS EXPECTED SOMETHING ELSE");
 	[self setImageRepresentation:nil];
 	return YES;
-//	return [self readImageRepresentationFromURL:fileURL ofType:type error:outErrorPtr];
+//	return [self readImageRepresentationFromURL:fileURL ofType:type error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newTryToReadImageRepresentationFromURL:ofType:error:
-+ (BOOL)newTryToReadImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
++ (BOOL)newTryToReadImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -258,10 +258,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //STOP4iTM3;
-    return [[SDC documentForURL:fileURL] readImageRepresentationFromURL:fileURL ofType:type error:outErrorPtr]; 
+    return [[SDC documentForURL:fileURL] readImageRepresentationFromURL:fileURL ofType:type error:RORef]; 
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readImageRepresentationFromURL:ofType:error:
-- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*" Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -269,7 +269,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSData * data = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:outErrorPtr];
+    NSData * data = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
     [self setDataRepresentation:data];
     Class C = [NSImageRep imageRepClassForData:data];
     if (C)
@@ -328,7 +328,7 @@ To Do List:
             [_TIM invalidate];
             NSInvocation * I;
             [[NSInvocation getInvocation4iTM3:&I withTarget:self.class]
-                newTryToReadImageRepresentationFromURL:fileURL ofType:type error:outErrorPtr];
+                newTryToReadImageRepresentationFromURL:fileURL ofType:type error:RORef];
             _TIM = [NSTimer scheduledTimerWithTimeInterval:retryInterval invocation:I repeats:NO];
             [IMPLEMENTATION takeMetaValue:_TIM forKey:@" _TIM"];
             LOG4iTM3(@"Problem in reading the PDF data (try %i), Next try in %f seconds", _FW, retryCount, retryInterval);
@@ -569,17 +569,17 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFInspectorCompleteLoadContext4iTM3Error:
-- (BOOL)PDFInspectorCompleteLoadContext4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)PDFInspectorCompleteLoadContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-11-30 21:53:56 +0100
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.album loadContext4iTM3Error:outErrorPtr];
+    return [self.album loadContext4iTM3Error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFInspectorCompleteSaveContext4iTM3Error:
-- (void)PDFInspectorCompleteSaveContext4iTM3Error:(NSError **)outErrorPtr;
+- (void)PDFInspectorCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -588,7 +588,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self takeContext4iTM3Bool:[self.window isKeyWindow] forKey:@"iTM2PDFKeyWindow" domain:iTM2ContextAllDomainsMask];// buggy
-	return [self.album saveContext4iTM3Error:outErrorPtr];
+	return [self.album saveContext4iTM3Error:RORef];
 }
 @end
 
@@ -1366,7 +1366,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     BOOL old = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
-    [self takeContext4iTM3Value:[NSNumber numberWithBool:!old] forKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:[NSNumber numberWithBool:!old] forKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
     [self setParametersHaveChanged:YES];
     return;
 }
@@ -2240,16 +2240,15 @@ To Do List:
     return;
 }
 #endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  albumViewCompleteSaveContext4iTM3:
-- (void)albumViewCompleteSaveContext4iTM3:(id)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  albumViewCompleteSaveContext4iTM3Error:
+- (BOOL)albumViewCompleteSaveContext4iTM3:(NSError **)RORef;
 /*"YES."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[self centeredSubview] saveContext4iTM3:irrelevant];
-	return;
+	return [[self centeredSubview] saveContext4iTM3Error:RORef];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  albumViewCompleteLoadContext4iTM3:
-- (void)albumViewCompleteLoadContext4iTM3:(id)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  albumViewCompleteLoadContext4iTM3Error:
+- (BOOL)albumViewCompleteLoadContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2261,7 +2260,7 @@ To Do List:
             stickMode: [self context4iTM3IntegerForKey:iTM2PDFStickModeKey domain:iTM2ContextAllDomainsMask]];
 //    self->_CanStick = YES;
     [self setCurrentPhysicalPage:[self context4iTM3IntegerForKey:@"iTM2PDFCurrentPhysicalPage" domain:iTM2ContextAllDomainsMask]];
-	[[self centeredSubview] loadContext4iTM3:irrelevant];
+	[[self centeredSubview] loadContext4iTM3Error:RORef];
     [self setParametersHaveChanged:YES];// of course!!!
 	[self setNeedsDisplay:YES];// Bug side effect too.	
 //RETURN4iTM3;
@@ -2435,7 +2434,7 @@ To Do List:
 		{
 			configDictionary = [SUD dictionaryForKey:key];
 //LOG4iTM3(@"configDictionary: %@", configDictionary);
-			[self takeContext4iTM3Value:nil forKey:key domain:iTM2ContextAllDomainsMask];
+			[self takeContext4iTM3Value:nil forKey:key domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
 			if (configDictionary.count)
 				[toolbar setConfigurationFromDictionary:configDictionary];
 			if (!toolbar.items.count)
@@ -2493,7 +2492,7 @@ To Do List:
 //START4iTM3;
     NSToolbar * toolbar = [self.window toolbar];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
-	[self takeContext4iTM3Value:[toolbar configurationDictionary] forKey:key domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:[toolbar configurationDictionary] forKey:key domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
 //START4iTM3;
 	return;
 }

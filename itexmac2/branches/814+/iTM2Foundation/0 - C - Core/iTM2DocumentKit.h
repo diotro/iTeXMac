@@ -126,19 +126,19 @@ extern NSString * const iTM2InspectorTable;
     @method		documentWillClose4iTM3
     @abstract	Close if it can close...
     @discussion	Automatically calls ...CompleteWillClose4iTM3 messages.
-    @param		None.
-    @result		None.
+    @param		RORef.
+    @result		yorn.
 */
-- (void)documentWillClose4iTM3;
+- (BOOL)documentWillClose4iTM3Error:(NSError **)RORef;
 
 /*!
-    @method		documentDidClose4iTM3
+    @method		documentDidClose4iTM3Error:
     @abstract	Close if it can close...
     @discussion	Automatically calls ...CompleteDidClose4iTM3 messages.
-    @param		None.
-    @result		None.
+    @param		RORef.
+    @result		yorn.
 */
-- (void)documentDidClose4iTM3;
+- (BOOL)documentDidClose4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     modelTypeForFileType:
@@ -190,8 +190,8 @@ extern NSString * const iTM2InspectorTable;
 */
 + (id)context4iTM3DictionaryFromURL:(NSURL *)fileURL;
 
-- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
-- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)outErrorPtr;
+- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)RORef;
+- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)RORef;
 
 /*!
     @method		needsToUpdate4iTM3
@@ -209,10 +209,10 @@ extern NSString * const iTM2InspectorTable;
     @method		updateIfNeeded4iTM3:
     @abstract	Abstract forthcoming.
     @discussion	Discussion Forthcoming.
-    @param		outErrorPtr.
+    @param		RORef.
     @result		None.
 */
-- (BOOL)updateIfNeeded4iTM3Error:(NSError **)outErrorPtr;
+- (BOOL)updateIfNeeded4iTM3Error:(NSError **)RORef;
 
 /*!
     @method		recordFileModificationDateFromURL4iTM3:
@@ -317,10 +317,10 @@ extern NSString * const iTM2InspectorTable;
 				You should use this method instead of the standard -addWindowController: route,
 				because it takes care of inspector management.
     @param		The mode.
-    @param		The outErrorPtr is an NSError instance pointer.
+    @param		The RORef is an NSError instance pointer.
     @result		an inspector.
 */
-- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)outErrorPtr;
+- (id)inspectorAddedWithMode:(NSString *) mode error:(NSError**)RORef;
 
 /*!
     @method		replaceInspectorMode:variant:
@@ -342,14 +342,15 @@ extern NSString * const iTM2InspectorTable;
 - (void)makeDefaultInspector;
 
 /*!
-    @method		didAddWindowController:
+    @method		didAddWindowController4iTM3:error:
     @abstract	The receiver has the opportunity to perform some action after the new user interface is created.
     @discussion	Subclassers will ensure that the user interface will display their data model...
 				This message is not sent if the added  window controller is an iTM2ExternalInspector instance.
     @param		The window controller added.
-    @result		None.
+    @param      RORef
+    @result		yorn.
 */
-- (void)didAddWindowController:(NSWindowController *)WC;
+- (BOOL)didAddWindowController4iTM3:(NSWindowController *)WC error:(NSError **)RORef;
 
 /*!
     @method		willRemoveWindowController:
@@ -358,9 +359,10 @@ extern NSString * const iTM2InspectorTable;
 				The default implementation just closes the window, if it is loaded...
 				This message is not sent if the added  window controller is an iTM2ExternalInspector instance.
     @param		The window controller to be removed.
-    @result		None.
+    @param      RORef
+    @result		yorn.
 */
-- (void)willRemoveWindowController:(id)WC;
+- (BOOL)willRemoveWindowController4iTM3:(id)WC error:(NSError **)RORef;
 
 /*!
     @method		writeToDirectoryWrapper:error:
@@ -835,8 +837,10 @@ extern NSString * const iTM2InspectorTable;
     @abstract	Abstract forthcoming.
     @discussion	This message should be sent to have the document in synch with its inspectors. Useful when you are about to save your document.
                 Subclasseres will prepend their own stuff. We should be sure that the use interface always reflects the state of the stored data.
+    @param      RORef
+    @result     yorn
 */
-- (void)synchronizeDocument;
+- (BOOL)synchronizeDocument4iTM3Error:(NSError **)RORef;
 
 /*!
     @method		synchronizeWithDocument
@@ -845,8 +849,10 @@ extern NSString * const iTM2InspectorTable;
                 Useful when you have just loaded your document and want the user interface to be in synch with your newly read data model.
                 The default implementation does nothing but setting the document edited flag to NO, subclassers know what to do.
 				This message is sent each time a window controller is added to a document in the -didAddWindowController: method.
+    @param      RORef
+    @result     yorn
 */
-- (void)synchronizeWithDocument;
+- (BOOL)synchronizeWithDocument4iTM3Error:(NSError **)RORef;
 
 /*!
     @method		isInspectorEdited

@@ -425,7 +425,7 @@ To Do List:
     return D;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  localizedTypeForContentsOfURL:error4iTM3:
-- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error4iTM3:(NSError **)outErrorPtr;
+- (NSString *)localizedTypeForContentsOfURL:(NSURL *)inAbsoluteURL error4iTM3:(NSError **)RORef;
 /*"On n'est jamais si bien servi que par soi-meme
 Version History: jlaurens AT users DOT sourceforge DOT net (today)
 - 2.0: 03/10/2002
@@ -433,15 +433,15 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSString * documentType = [self typeForContentsOfURL:inAbsoluteURL error:outErrorPtr];
+    NSString * documentType = [self typeForContentsOfURL:inAbsoluteURL error:RORef];
     return documentType.length? (NSString *)UTTypeCopyDescription((CFStringRef)documentType):@"";
 }
 @synthesize _Implementation;
 @end
 
 @implementation NSDocument(iTM2DocumentControllerKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument4iTM3Error:outErrorPtr
-- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument4iTM3Error:RORef
+- (id)newRecentDocument4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -819,7 +819,7 @@ oneMoreTime:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  newRecentDocument4iTM3Error:
-- (id)newRecentDocument4iTM3Error:(NSError **)outErrorPtr;
+- (id)newRecentDocument4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -857,18 +857,18 @@ To Do List:
 
 @implementation NSURL(iTM2DocumentController)
 
-- (NSURL *)enclosingURLOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+- (NSURL *)enclosingURLOfType4iTM3:(NSString *)type error:(NSError **)RORef;
 //  Révisé par itexmac2: 2010/10/30-06:25:09(UTC)
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (outErrorPtr) *outErrorPtr = nil;
-	NSURL * url = [self.baseURL enclosingURLOfType4iTM3:type error:outErrorPtr];
+    if (RORef) *RORef = nil;
+	NSURL * url = [self.baseURL enclosingURLOfType4iTM3:type error:RORef];
 	if (url) {
 		return url;
 	}
 	url = self;
     while (url.path.length>1) {
-        if ([[SDC typeForContentsOfURL:url error:outErrorPtr] conformsToUTType4iTM3:type]) {
+        if ([[SDC typeForContentsOfURL:url error:RORef] conformsToUTType4iTM3:type]) {
 //END4iTM3;
             return url;
         }
@@ -878,11 +878,11 @@ To Do List:
     return nil;
 }
 
-- (NSArray *)enclosedURLsOfType4iTM3:(NSString *)type error:(NSError **)outErrorPtr;
+- (NSArray *)enclosedURLsOfType4iTM3:(NSString *)type error:(NSError **)RORef;
 //  Révisé par itexmac2: 2010/10/30-06:24:37(UTC)
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (outErrorPtr) *outErrorPtr = nil;
+    if (RORef) *RORef = nil;
 	if (!self.isFileURL) {
 		return nil;
 	}
@@ -892,7 +892,7 @@ To Do List:
             options:NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsHiddenFiles
                 errorHandler:NULL];
 	for (NSURL * theURL in DE) {
-		if ([[SDC typeForContentsOfURL:theURL error:outErrorPtr] conformsToUTType4iTM3:type]) {
+		if ([[SDC typeForContentsOfURL:theURL error:RORef] conformsToUTType4iTM3:type]) {
 			[result addObject:theURL];
 		}
 	}

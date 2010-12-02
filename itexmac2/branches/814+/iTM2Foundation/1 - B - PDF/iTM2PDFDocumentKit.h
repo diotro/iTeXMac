@@ -107,13 +107,13 @@ extern NSString * const iTM2PDFToolbarIdentifier;
 	@discussion		Just forwards the message to the -readImageRepresentationFromFile:ofType: method.
 	@param			fileName
 	@param			type
-	@param			outErrorPtr
+	@param			RORef
 	@result			yorn
 	@availability	iTM2.
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
-- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)outErrorPtr;
+- (BOOL)dataCompleteReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
+- (BOOL)readImageRepresentationFromURL:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 @end
 
 @interface iTM2PDFWindow: NSWindow

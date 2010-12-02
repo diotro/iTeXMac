@@ -119,15 +119,19 @@
     [[TD.textStorage mutableString] appendString:S];
     TD.stringEncoding = NSUTF8StringEncoding;
     [TD saveDocument:nil];//xattr -p com.apple.TextEncoding *.txt
-    [SPC registerProject:PD];
+    [SPC registerProject:PD error:&ROR];
+    STAssertNil(ROR,@"MISSED",NULL);
     ROR = nil;
     STAssertTrue([PD addSubdocument:TD error:&ROR],@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue([PD ownsSubdocument:TD],@"MISSED",NULL);
-    key = [PD fileKeyForURL:TD.fileURL];
+    key = [PD fileKeyForURL:TD.fileURL error:&ROR];
+    STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue(key.length,@"MISSED",NULL);
-    STAssertTrue([[PD URLForFileKey:key] isEquivalentToURL4iTM3:TD.fileURL],@"MISSED",NULL);
-    iTM2ProjectDocument * pd = [SPC projectForDocument:TD];
+    STAssertTrue([[PD URLForFileKey:key error:&ROR] isEquivalentToURL4iTM3:TD.fileURL],@"MISSED",NULL);
+    STAssertNil(ROR,@"MISSED",NULL);
+    iTM2ProjectDocument * pd = [SPC projectForDocument:TD error:&ROR];
+    STAssertNil(ROR,@"MISSED",NULL);
     STAssertEquals(PD,pd,@"MISSED",NULL);
     [PD saveDocument:nil];
     key = [SPC fileKeyForURL:TD.fileURL filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:&ROR];
@@ -136,7 +140,8 @@
     STAssertTrue([[SPC URLForFileKey:key filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:&ROR] isEquivalentToURL4iTM3:TD.fileURL],@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     [SPC forgetProject:PD];
-    pd = [SPC projectForDocument:TD];
+    pd = [SPC projectForDocument:TD error:&ROR];
+    STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;
     STAssertTrue([SPC canGetNewProjectForURL:URL_F error:&ROR],@"MISSED",NULL);
@@ -145,7 +150,8 @@
     STAssertNotNil(TD,@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue([S isEqualToString:[TD.textStorage string]],@"MISSED",NULL);
-    pd = [SPC projectForDocument:TD];
+    pd = [SPC projectForDocument:TD error:&ROR];
+    STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;
     STAssertTrue([SPC canGetNewProjectForURL:URL_F error:&ROR],@"MISSED",NULL);
@@ -153,7 +159,8 @@
     STAssertNotNil(TD,@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue([S isEqualToString:[TD.textStorage string]],@"MISSED",NULL);
-    pd = [SPC projectForDocument:TD];
+    pd = [SPC projectForDocument:TD error:&ROR];
+    STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;
     STAssertTrue([SPC canGetNewProjectForURL:URL_F error:&ROR],@"MISSED",NULL);
@@ -161,7 +168,8 @@
     STAssertNotNil(TD,@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue([S isEqualToString:[TD.textStorage string]],@"MISSED",NULL);
-    pd = [SPC projectForDocument:TD];
+    pd = [SPC projectForDocument:TD error:&ROR];
+    STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;
      
