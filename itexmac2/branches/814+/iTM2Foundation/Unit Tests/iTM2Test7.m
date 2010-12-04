@@ -149,6 +149,7 @@
     TD = [[iTM2TextDocument alloc] initWithContentsOfURL:URL_F ofType:iTM3TextDocumentType error:&ROR];
     STAssertNotNil(TD,@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
+    STAssertNotNil(TD.textStorage,@"MISSED",NULL);
     STAssertTrue([S isEqualToString:[TD.textStorage string]],@"MISSED",NULL);
     pd = [SPC projectForDocument:TD error:&ROR];
     STAssertNil(ROR,@"MISSED",NULL);

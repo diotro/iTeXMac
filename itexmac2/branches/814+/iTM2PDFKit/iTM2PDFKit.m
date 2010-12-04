@@ -243,11 +243,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(RORef)
-		*RORef = nil;
 	NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
 //END4iTM3;
-	if ([self loadDataRepresentation:D ofType:type]) {
+	if ([self loadDataRepresentation:D ofType:type X]) {
 		self.PDFDocumentStatus = iTM2PDFDocumentPendingStatus;
 		self.PDFDocument;
 		iTM2PDFDocumentStatus status = self.PDFDocumentStatus;

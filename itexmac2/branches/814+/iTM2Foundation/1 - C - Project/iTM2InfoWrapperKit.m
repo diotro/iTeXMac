@@ -223,7 +223,6 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 }
 - (void)setData:(NSData *)aData error:(NSError **)RORef;
 {
-    if (RORef) *RORef = nil;
 	if (aData.length) {
 		// the model is a valid property list
         id model = nil;
@@ -743,7 +742,6 @@ To Do List:
 	if ([key isEqual:TWSProjectKey]) {
 		return projectURL;
 	}
-    if (RORef) *RORef = nil;
 	NSString * name = nil;
 	NSURL * url = nil;
 	id PD = [SPC projectForURL:projectURL error:RORef];
@@ -790,7 +788,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	NSMutableSet * result = [NSMutableSet set];
 	for (NSString * key in keys) {
 		NSURL * URL = [self URLForFileKey:key error:RORef];
@@ -846,7 +843,6 @@ To Do List:
 		// Nonsense
 		return projectURL;
 	}
-    if (RORef) *RORef = nil;
 	NSURL * theURL = nil;
 	NSString * relative = nil;
 	if ([key isEqual:TWSContentsKey]) {

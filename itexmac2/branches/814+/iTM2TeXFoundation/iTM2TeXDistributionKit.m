@@ -412,7 +412,7 @@ To Do List:
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  distributionsCompleteDidReadFromFile:ofType:
-- (void)distributionsCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;
+- (void)distributionsCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;X
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005

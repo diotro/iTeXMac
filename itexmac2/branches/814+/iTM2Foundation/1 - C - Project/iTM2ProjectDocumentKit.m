@@ -482,7 +482,7 @@ changeName:
 		NSString * S = [SDC wrapperPathExtension4iTM3];
 		S = [requiredCore stringByAppendingPathExtension:S];
 		S = [expectedDirURL.path stringByAppendingPathComponent:S];
-		NSURL * dest = [NSURL URLWithPath4iTM3:S relativeToURL:[NSURL factoryURL4iTM3]];
+		NSURL * dest = [NSURL URLWithPath4iTM3:S relativeToURL:[NSURL factoryURL4iTM3Error:RORef]];
 		if ([DFM moveItemAtPath:src.path toPath:dest.path error:NULL]) {
 			// also change the receiver's file name
             name = [projectURL pathRelativeToURL4iTM3:src];
@@ -1121,7 +1121,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	if ([self.mutableSubdocuments4iTM3 containsObject:document]) {
 		[self.mutableSubdocuments4iTM3 removeObject:document];
 		if ([SPC setProject:nil forDocument:document error:RORef]) {
@@ -1850,7 +1849,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	NSURL * projectURL = self.fileURL;
 	NSString * K = nil;
 	NSUInteger filter = iTM2PCFilterAlias;
@@ -1976,7 +1974,6 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSAssert(fileURL != nil,@"Unexpected void file name,please report bug");
-    if (RORef) *RORef = nil;
 	// is it an already registered file name?
     NSString * key = [self fileKeyForURL:fileURL error:RORef];
 	if (key.length) {
@@ -2300,7 +2297,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	if ([fileURL isEquivalentToURL4iTM3:self.fileURL]) {
 		LOG4iTM3(@"I ignore:%@, it is the project",fileURL);
         return NO;   
@@ -2376,9 +2372,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (RORef) {
-		* RORef = nil;
-    }
 	if ([fileURL isEquivalentToURL4iTM3:self.fileURL]) {
 		if (display) {
 			self.makeWindowControllers;

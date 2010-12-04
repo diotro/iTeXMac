@@ -57,7 +57,7 @@ NSString * const iTM2ProjectCurrentDidChangeNotification = @"iTM2CurrentProjectD
 NSString * const iTM3ProjectPreferWrappers = @"Project Prefer Wrappers";
 
 @interface iTM2ProjectController(CreateNewProject)
-- (id)getOpenProjectForURL:(NSURL *)fileURL;
+- (id)getOpenProjectForURL:(NSURL *)fileURL error:(NSError **)RORef;
 - (id)getBaseProjectForURL:(NSURL *)fileURL;
 - (id)getProjectInWrapperForURL:(NSURL *)fileURL display:(BOOL)display error:(NSError **)RORef;
 - (id)geWritableProjectInWrapperForURLRef:(NSURL **)fileURLRef display:(BOOL)display error:(NSError **)RORef;
@@ -303,12 +303,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	if (!projectURL) {
 		return nil;
 	}
 	iTM2ProjectDocument * PD = nil;
-	NSError * outError = nil;
+	NSError * ROR = nil;
 	iTM2MainInfoWrapper * MIW = nil;
 	NSURL * url = nil;
 	if ([key isEqual:TWSDotKey] || [key isEqual:TWSProjectKey]) {
@@ -335,9 +334,9 @@ To Do List:
 				MIW = [PD mainInfos4iTM3];
 			}
 			if (!MIW) {
-				MIW = [[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError];
-				if (outError) {
-					[NSApp presentError:outError];
+				MIW = [[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&ROR];
+				if (ROR) {
+					[NSApp presentError:ROR];
 					return [self URLForFileKey:iTM2ParentKey filter:filter inProjectWithURL:projectURL error:RORef];
 				}
 			}
@@ -353,9 +352,9 @@ To Do List:
 				MIW = [PD mainInfos4iTM3];
 			}
 			if (!MIW) {
-				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&outError] autorelease];
-				if (outError) {
-					[NSApp presentError:outError];
+				MIW = [[[iTM2MainInfoWrapper alloc] initWithProjectURL:projectURL error:&ROR] autorelease];
+				if (ROR) {
+					[NSApp presentError:ROR];
 					return [NSURL URLWithPath4iTM3:iTM2PathFactoryComponent relativeToURL:projectURL];
 				}
 			}
@@ -465,7 +464,6 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSParameterAssert(projectURL);
-    if (RORef) *RORef = nil;
 	if (nil == fileURL)// untitled documents will go there
 	{
 		return nil;
@@ -743,7 +741,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	if (!document)
 		return NO;
 	NSParameterAssert((!projectDocument || [self isProject:projectDocument]));
@@ -770,7 +767,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	for(iTM2ProjectDocument * projectDocument in self.projects) {
 		if ([[projectDocument fileKeyForURL:fileURL error:RORef] length]
                 || [projectDocument.fileURL isEquivalentToURL4iTM3:fileURL]
@@ -816,7 +812,7 @@ To Do List:
 		return nil;
 	}
 	[self.cachedProjects setObject:[NSNull null] forKey:fileURL.URLByStandardizingPath];
-	return [self getOpenProjectForURL:fileURL];// Will cache the result as side effect
+	return [self getOpenProjectForURL:fileURL error:RORef];// Will cache the result as side effect
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setProject:forURL:error:
 - (BOOL)setProject:(id)projectDocument forURL:(NSURL *)fileURL error:(NSError **)RORef;
@@ -1222,13 +1218,12 @@ To Do List:
 	if (!fileURL.isFileURL) {
 		return nil;
 	}
-    if (RORef) *RORef = nil;
 	NSURL * theURL = fileURL;
 	iTM2ProjectDocument * projectDocument = nil;
 	NSMutableArray * candidates = [NSMutableArray array];
     BOOL finished = NO;
     NSError * ROR = nil;
-	BOOL yorn = [theURL isDirectoryOrError4iTM3:&ROR];
+	BOOL yorn = [theURL isDirectory4iTM3Error:&ROR];
     if (ROR) {*RORef = ROR;return nil;}
     if (yorn) {
 scanDirectoryContent:
@@ -1315,7 +1310,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (RORef) * RORef = nil;
     NSURL * factoryURL = fileURL.URLByPrependingFactoryBaseURL4iTM3;
     if ([DFM fileExistsAtPath:factoryURL.path]) {
         return [self getProjectInFactoryForURL:factoryURL display:display error:RORef];
@@ -1417,7 +1411,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
 	if (nil == fileURL) {
 		return nil;// no fileURL given, no project
 	}
@@ -1509,6 +1502,7 @@ theEnd:
 		}
 		url = url.parentDirectoryURL4iTM3;
 	}
+    url = nil;
 	// in the cached hierarchy, this is only for projects that could not be written because of a lack of rights
     //  Go to the factory folder
 	if (!fileURL.belongsToFactory4iTM3) {
@@ -1516,9 +1510,10 @@ theEnd:
         //  We start from the bottom and go up until we find something acceptable.
         S = [iTM2PathComponentDot stringByAppendingPathComponent:fileURL.path.stringByDeletingLastPathComponent];
         NSString * ignore = @""; // ignore this component in order not to walk through a file subtree twice
-        while (S.length>1)/* relative is more than "./..." */{
-            NSURL * url = [NSURL URLWithPath4iTM3:S relativeToURL:[NSURL factoryURL4iTM3]];
-			for(component in [DFM contentsOfDirectoryAtPath:url.path error:RORef]) {
+        url = [NSURL URLWithPath4iTM3:S relativeToURL:[NSURL factoryURL4iTM3Error:RORef]];
+        BOOL isDirectory = NO;
+        while ([DFM fileExistsAtPath:url.path isDirectory:&isDirectory] && isDirectory) {
+            for(component in [DFM contentsOfDirectoryAtPath:url.path error:RORef]) {
                 if (![component isEqual:ignore]) {
                     projectURL = [NSURL URLWithPath4iTM3:component relativeToURL:url];
                     if ([SWS isWrapperPackageAtURL4iTM3:projectURL error:RORef]) {
@@ -1538,11 +1533,12 @@ theEnd:
                         }
                     }
                 }
-			}
-            ignore = S.lastPathComponent;
-            S = S.stringByDeletingLastPathComponent;
-		}
+            }
+            ignore = url.lastPathComponent;
+            url = url.parentDirectoryURL4iTM3;
+        }
 	}
+    url = nil;
 	if ((projectDocument = [self getProjectDocumentFromProjectURLs:projectURLs fileKey:keyRef forURL:fileURL display:display error:RORef])) {
 		goto theEnd;
 	}
@@ -1612,7 +1608,7 @@ To Do List:
 		return nil;
 	}
 	// create an 'library' project
-	NSString * factoryDirectory = [[NSURL factoryURL4iTM3] path];
+	NSString * factoryDirectory = [[NSURL factoryURL4iTM3Error:RORef] path];
 	NSString * typeName = [SDC projectDocumentType4iTM3];
 	iTM2ProjectDocument * projectDocument = [SDC makeUntitledDocumentOfType:(NSString *)typeName error:RORef];
 	if (projectDocument) {
@@ -1724,7 +1720,7 @@ To Do List:
 		return nil;
 	}
 	NSURL * fileURL = *fileURLRef;
-	if ([fileURL.path belongsToDirectory4iTM3:[[NSURL factoryURL4iTM3] path]]) {
+	if ([fileURL.path belongsToDirectory4iTM3:[[NSURL factoryURL4iTM3Error:RORef] path]]) {
 		return nil;
 	}
 	id projectDocument = nil;
@@ -1916,7 +1912,6 @@ To Do List:
 	if (!fileURLRef || ![*fileURLRef isFileURL]) {
 		return nil;
 	}
-    if (RORef) *RORef = nil;
 	NSURL * fileURL = *fileURLRef;// don't change fileURL
 	id projectDocument = [self projectForURL:fileURL error:RORef];
 	if (projectDocument) {
@@ -1931,11 +1926,11 @@ To Do List:
 	NSString * projectDocumentType4iTM3 = [SDC projectDocumentType4iTM3];
 	if (([[SDC typeForContentsOfURL:fileURL error:nil] conformsToUTType4iTM3:projectDocumentType4iTM3]
 		&& [SDC documentClassForType:(NSString *)projectDocumentType4iTM3])
-		|| (projectDocument = [self getOpenProjectForURL:fileURL])
+		|| (projectDocument = [self getOpenProjectForURL:fileURL error:RORef])
 		|| (projectDocument = [self getProjectInWrapperForURL:fileURL display:display error:RORef])
 		|| (projectDocument = [self getProjectInHierarchyForURL:fileURL display:display error:RORef])
 		|| (projectDocument = [self getProjectFromPanelForURLRef:fileURLRef display:display error:RORef])) {
-		if ([*fileURLRef isRelativeToURL4iTM3:[NSURL factoryURL4iTM3]]) {
+		if ([*fileURLRef isRelativeToURL4iTM3:[NSURL factoryURL4iTM3Error:RORef]]) {
 			*fileURLRef = fileURL;
 		}
 		if ([self setProject:projectDocument forURL:*fileURLRef error:RORef]) {
@@ -1960,7 +1955,6 @@ To Do List:
 	if (!fileURLRef || ![*fileURLRef isFileURL]) {
 		return nil;
 	}
-    if (RORef) *RORef = nil;
 	NSURL * fileURL = *fileURLRef;// don't change the fileURLRef for now
 	id projectDocument = [self projectForURL:fileURL error:RORef];
 	if (projectDocument) {
@@ -1974,11 +1968,11 @@ To Do List:
 	// nil is returned for project file names...
 	NSString * projectDocumentType4iTM3 = [SDC projectDocumentType4iTM3];
 	if (([SWS isProjectPackageAtURL4iTM3:fileURL error:RORef] && [SDC documentClassForType:projectDocumentType4iTM3])
-		&& ((projectDocument = [self getOpenProjectForURL:fileURL])
+		&& ((projectDocument = [self getOpenProjectForURL:fileURL error:RORef])
             || (projectDocument = [self getProjectInWrapperForURL:fileURL display:display error:RORef])
             || (projectDocument = [self getProjectInHierarchyForURL:fileURL display:display error:RORef])
             || (projectDocument = [self getProjectFromPanelForURLRef:fileURLRef display:display error:RORef]))) {
-		if ([*fileURLRef isRelativeToURL4iTM3:[NSURL factoryURL4iTM3]]) {
+		if ([*fileURLRef isRelativeToURL4iTM3:[NSURL factoryURL4iTM3Error:RORef]]) {
 			*fileURLRef = fileURL;
 		}
 		if ([self setProject:projectDocument forURL:fileURL error:RORef]
@@ -2938,7 +2932,6 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    if (RORef) *RORef = nil;
 	if (url) {
 		NSInvocation * I;
 		[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] isWrapperPackageAtURL4iTM3:url error:RORef];
@@ -3055,9 +3048,9 @@ To Do List:
 
 @implementation iTM2PDocumentController
 #if 0
-- (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
+- (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)ROR;
 {
-    NSString * theType = [super typeForContentsOfURL:inAbsoluteURL error:outError];
+    NSString * theType = [super typeForContentsOfURL:inAbsoluteURL error:ROR];
     return theType;
 }
 #endif
@@ -3206,10 +3199,7 @@ To Do List:
 		return nil;
 	}
     NSParameterAssert(absoluteURL.isFileURL);
-	NSError * outError = nil;
-	if (RORef) {
-		*RORef = nil;
-	}
+	NSError * ROR = nil;
     //  There are 3 kinds of projects
     //  - inside wrappers inside the factory
     //  - inside wrappers out of the factory
@@ -3230,30 +3220,30 @@ To Do List:
         //  folderURL = file://localhost/Volumes/boot_volume/.../Users/.../MyFolder/
 		if ([DFM fileExistsAtPath:projectURL1.path]) {
             if ([DFM isWritableFileAtPath:projectURL1.path]) {
-                if ([DFM removeItemAtURL:factoryURL error:&outError]) {
+                if ([DFM removeItemAtURL:factoryURL error:&ROR]) {
                     factoryURL = factoryURL.URLByDeletingLastPathComponent;
-                    if (![[DFM contentsOfDirectoryAtPath:factoryURL.path error:&outError] count]) {
-                        [DFM removeItemAtURL:factoryURL error:&outError];
+                    if (![[DFM contentsOfDirectoryAtPath:factoryURL.path error:&ROR] count]) {
+                        [DFM removeItemAtURL:factoryURL error:&ROR];
                     }
                 }
             }
 			return [super openDocumentWithContentsOfURL:projectURL1 display:display error:RORef];
 		} else if ([DFM fileExistsAtPath:projectURL2.path]) {
             if ([DFM isWritableFileAtPath:projectURL2.path]) {
-                if ([DFM removeItemAtURL:factoryURL error:&outError]) {
+                if ([DFM removeItemAtURL:factoryURL error:&ROR]) {
                     factoryURL = factoryURL.URLByDeletingLastPathComponent;
-                    if (![[DFM contentsOfDirectoryAtPath:factoryURL.path error:&outError] count]) {
-                        [DFM removeItemAtURL:factoryURL error:&outError];
+                    if (![[DFM contentsOfDirectoryAtPath:factoryURL.path error:&ROR] count]) {
+                        [DFM removeItemAtURL:factoryURL error:&ROR];
                     }
                 }
             }
 			return [super openDocumentWithContentsOfURL:projectURL2 display:display error:RORef];
 		} else if ([DFM fileExistsAtPath:projectURL3.path]) {
             if ([DFM isWritableFileAtPath:projectURL3.path]) {
-                if ([DFM removeItemAtURL:factoryURL error:&outError]) {
+                if ([DFM removeItemAtURL:factoryURL error:&ROR]) {
                     factoryURL = factoryURL.URLByDeletingLastPathComponent;
-                    if (![[DFM contentsOfDirectoryAtPath:factoryURL.path error:&outError] count]) {
-                        [DFM removeItemAtURL:factoryURL error:&outError];
+                    if (![[DFM contentsOfDirectoryAtPath:factoryURL.path error:&ROR] count]) {
+                        [DFM removeItemAtURL:factoryURL error:&ROR];
                     }
                 }
             }
@@ -3267,15 +3257,15 @@ To Do List:
             //  We are going to move factoryURL to absoluteURL, the latter one does not exist due to the tests above
             folderURL = absoluteURL.URLByDeletingLastPathComponent;
             //  I would like, if necesary, to create the intermediate folder at folderURL and place the factory project package inside
-            if (![DFM fileExistsAtPath:folderURL.path] && ![DFM createDirectoryAtPath:folderURL.path withIntermediateDirectories:YES attributes:nil error:&outError]) {
-				OUTERROR4iTM3(2,([NSString stringWithFormat:@"Could not create folder at\n%@",absoluteURL,factoryURL]),outError);
+            if (![DFM fileExistsAtPath:folderURL.path] && ![DFM createDirectoryAtPath:folderURL.path withIntermediateDirectories:YES attributes:nil error:&ROR]) {
+				OUTERROR4iTM3(2,([NSString stringWithFormat:@"Could not create folder at\n%@",absoluteURL,factoryURL]),ROR);
                 //  unable to create this folder
                 //  possibly due to W+ limitations
                 //  really return the factory project
                 return [super openDocumentWithContentsOfURL:factoryURL display:display error:RORef];
             }
-			if (![DFM moveItemAtURL:factoryURL toURL:absoluteURL error:&outError]) {
-				OUTERROR4iTM3(2,([NSString stringWithFormat:@"Could not move\n%@\nto\n%@",absoluteURL,factoryURL]),outError);
+			if (![DFM moveItemAtURL:factoryURL toURL:absoluteURL error:&ROR]) {
+				OUTERROR4iTM3(2,([NSString stringWithFormat:@"Could not move\n%@\nto\n%@",absoluteURL,factoryURL]),ROR);
                 return [super openDocumentWithContentsOfURL:factoryURL display:display error:RORef];
 			}
 		}
@@ -3295,11 +3285,8 @@ To Do List:
     if (![SWS isWrapperPackageAtURL4iTM3:absoluteURL error:RORef]) {
 		return nil;
 	}
-	NSError * outError = nil;
-	if (RORef) {
-		*RORef = nil;
-	}
-    NSURL * projectURL = [SPC getProjectURLInWrapperForURL:absoluteURL error:&outError];
+	NSError * ROR = nil;
+    NSURL * projectURL = [SPC getProjectURLInWrapperForURL:absoluteURL error:&ROR];
     if (projectURL) {
         NSAssert1(![projectURL isEquivalentToURL4iTM3:absoluteURL],@"What is this project URL:<%@>",projectURL);
         return [self openDocumentWithContentsOfURL:projectURL display:display error:RORef];// second registerProject
@@ -3322,11 +3309,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSParameterAssert(absoluteURL.isFileURL);
-    NSError * outError = nil;
-	if (RORef) {
-		*RORef = nil;
-	}
-    if (![absoluteURL isDirectoryOrError4iTM3:RORef]) {
+    NSError * ROR = nil;
+    if (![absoluteURL isDirectory4iTM3Error:RORef]) {
 		return nil;
 	}
     if ([SWS isWrapperPackageAtURL4iTM3:absoluteURL error:RORef]) {
@@ -3353,9 +3337,9 @@ To Do List:
             // yes, unless it is not possible to move the project
             NSURL * destinationURL = [absoluteURL URLByAppendingPathExtension:[SDC projectPathExtension4iTM3]];
             if ([DFM fileExistsAtPath:destinationURL.path] ||
-                    ![DFM moveItemAtURL:absoluteURL toURL:destinationURL error:&outError]) {
+                    ![DFM moveItemAtURL:absoluteURL toURL:destinationURL error:&ROR]) {
                 OUTERROR4iTM3(2,([NSString stringWithFormat:@"Confusing situation:the following directory seems to be a project despite it has no %@ path extension:\n%@\nOne cannot be added.",
-                            absoluteURL,[SDC projectPathExtension4iTM3]]),outError);
+                            absoluteURL,[SDC projectPathExtension4iTM3]]),ROR);
                 return nil;
             }
             return [self openDocumentWithContentsOfURL:destinationURL display:display error:RORef];
@@ -3398,10 +3382,7 @@ To Do List:
 	if (!absoluteURL.isFileURL) {// I only catch file URLs
 		return [super openDocumentWithContentsOfURL:absoluteURL display:display error:RORef];
 	}
-	NSError * outError = nil;
-	if (RORef) {
-		*RORef = nil;
-	}
+	NSError * ROR = nil;
     //  Normalize the URL according to iTM3 standards
     absoluteURL = absoluteURL.normalizedURL4iTM3;
 	//  is it an already open document (including projects and wrappers) ?
@@ -3427,41 +3408,41 @@ To Do List:
 			return nil;
 		}
 	}
-    if ((D = [self _openProjectDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&outError])) {
+    if ((D = [self _openProjectDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&ROR])) {
         return D;
-    } else if (outError) {
-        OUTERROR4iTM3(1,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),outError);
+    } else if (ROR) {
+        OUTERROR4iTM3(1,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),ROR);
 		return nil;
     }
     //  resolve the URL
-	NSURL * resolvedURL = [absoluteURL URLByResolvingSymlinksAndBookmarkDataWithOptions:NSURLBookmarkResolutionWithoutUI relativeToURL:nil error4iTM3:&outError];
-    if (!outError && [SWS isProjectPackageAtURL4iTM3:resolvedURL error:RORef]) {
-        OUTERROR4iTM3(2,([NSString stringWithFormat:@"Unsupported soft link or alias\n%@\nto\n%@",absoluteURL,resolvedURL]),nil);
+	NSURL * resolvedURL = [absoluteURL URLByResolvingSymlinksAndBookmarkDataWithOptions:NSURLBookmarkResolutionWithoutUI relativeToURL:nil error4iTM3:&ROR];
+    if (!ROR && [SWS isProjectPackageAtURL4iTM3:resolvedURL error:&ROR]) {
+        OUTERROR4iTM3(2,([NSString stringWithFormat:@"Could not open a project. Unsupported soft link or alias\n%@\nto\n%@",absoluteURL,resolvedURL]),nil);
 		return nil;
 	}
-    outError = nil;
-    if ((D = [self _openWrapperDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&outError])) {
+    ROR = nil;
+    if ((D = [self _openWrapperDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&ROR])) {
         return D;
-    } else if (outError) {
-        OUTERROR4iTM3(3,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),outError);
+    } else if (ROR) {
+        OUTERROR4iTM3(3,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),ROR);
 		return nil;
     }
-    if ((D = [self _openWrapperDocumentWithContentsOfURL:resolvedURL display:display error4iTM3:&outError])) {
+    if ((D = [self _openWrapperDocumentWithContentsOfURL:resolvedURL display:display error4iTM3:&ROR])) {
         return D;
-    } else if (outError) {
-        OUTERROR4iTM3(4,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",resolvedURL]),outError);
+    } else if (ROR) {
+        OUTERROR4iTM3(4,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",resolvedURL]),ROR);
 		return nil;
     }
-    if ((D = [self _openFolderDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&outError])) {
+    if ((D = [self _openFolderDocumentWithContentsOfURL:absoluteURL display:display error4iTM3:&ROR])) {
         return D;
-    } else if (outError) {
-        OUTERROR4iTM3(5,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),outError);
+    } else if (ROR) {
+        OUTERROR4iTM3(5,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",absoluteURL]),ROR);
 		return nil;
     }
-    if ((D = [self _openFolderDocumentWithContentsOfURL:resolvedURL display:display error4iTM3:&outError])) {
+    if ((D = [self _openFolderDocumentWithContentsOfURL:resolvedURL display:display error4iTM3:&ROR])) {
         return D;
-    } else if (outError) {
-        OUTERROR4iTM3(6,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",resolvedURL]),outError);
+    } else if (ROR) {
+        OUTERROR4iTM3(6,([NSString stringWithFormat:@"Could not open\n%@\ndue to an error",resolvedURL]),ROR);
 		return nil;
     }
     // Now we assume that absoluteURL does not point to a project nor wrapper nor directory.

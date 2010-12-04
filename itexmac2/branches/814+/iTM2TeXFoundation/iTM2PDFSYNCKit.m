@@ -1686,7 +1686,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteDidReadFromURL4iTM3:ofType:error:
-- (void)synchronizationCompleteDidReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
+- (BOOL)synchronizationCompleteDidReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri Sep 05 2003
@@ -1696,7 +1696,7 @@ To Do List:
 //START4iTM3;
 	[self updateSynchronizer:self];
 //END4iTM3;
-	return;
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateSynchronizerFileModificationDate
 - (void)updateSynchronizerFileModificationDate;

@@ -1536,7 +1536,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (RORef) *RORef = nil;
     if (FW.isDirectory) {
         for (NSFileWrapper * fw in FW.fileWrappers.allValues) {
             NSURL * url = [URL URLByAppendingPathComponent:fw.filename];

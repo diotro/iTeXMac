@@ -708,12 +708,14 @@ NSString * const iTM2PathFactoryComponent = @"Factory.localized";
     if ([path hasPrefix:iTM2PathComponentsSeparator] || !baseURL) {
         return [self fileURLWithPath4iTM3:path];
 	}
+    // basURL is not nil
     if (path.length) {
         path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        return [self URLWithString:path relativeToURL:baseURL?:[NSURL fileURLWithPath4iTM3:@""]];
+        self = [self URLWithString:path relativeToURL:baseURL];
+        return self;
     }
     if (path) {
-        return [self URLWithString:iTM2PathComponentDot relativeToURL:baseURL?:[NSURL fileURLWithPath4iTM3:@""]];
+        return [self URLWithString:iTM2PathComponentDot relativeToURL:baseURL];
     }
     return [NSURL fileURLWithPath4iTM3:nil];
 }
@@ -926,6 +928,10 @@ url_is_normalized:
 }
 + (NSURL *)factoryURL4iTM3;
 {//DIAGNOSTIC4iTM3;
+	return [self factoryURL4iTM3Error:NULL];
+}
++ (NSURL *)factoryURL4iTM3Error:(NSError **)RORef;
+{//DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * K = NSStringFromSelector(_cmd);
 	iTM2URLSingleton * url = [iTM2URLSingletons objectForKey:K];
@@ -935,9 +941,10 @@ url_is_normalized:
 	if (!url) {
 		[iTM2URLSingletons setObject:[NSNull null] forKey:K];
 		NSString * path = [[NSBundle mainBundle] pathForSupportDirectory4iTM3:iTM2PathFactoryComponent inDomain:NSUserDomainMask create:YES];
-		NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithDictionary:[DFM attributesOfItemAtPath:path error:NULL]];
-		[attributes setObject:[NSNumber numberWithBool:YES] forKey:NSFileExtensionHidden];
-		[DFM setAttributes:attributes ofItemAtPath:path error:NULL];
+        NSDictionary * As = [DFM attributesOfItemAtPath:path error:RORef];// RORef will be set here if the path was not creted
+		NSMutableDictionary * MAs = As.mutableCopy;
+		[MAs setObject:[NSNumber numberWithBool:YES] forKey:NSFileExtensionHidden];
+		[DFM setAttributes:MAs ofItemAtPath:path error:RORef];
 		url = [iTM2URLSingleton fileURLWithPath:path isDirectory:YES];// this should be a writable directory
 		[iTM2URLSingletons setObject:url.normalizedURL4iTM3 forKey:K];
 	}
@@ -969,7 +976,7 @@ To Do List:
         return self;
     }
     self = self.standardizedURL;// remove the dots in the relative path or everything when no base url
-    if (!self.path.isDirectoryPath4iTM3 && [self isDirectoryOrError4iTM3:nil]) {
+    if (!self.path.isDirectoryPath4iTM3 && [self isDirectory4iTM3Error:nil]) {
         self = [NSURL fileURLWithPath:self.path];
     }
 	NSURL * url = self.baseURL;
@@ -1157,118 +1164,118 @@ To Do List:
 {
     return self.URLByStandardizingPath;
 }
-- (NSString *) nameOrError4iTM3:(NSError**)errorRef;
+- (NSString *) name4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLNameKey] error:errorRef] objectForKey:NSURLNameKey];
 }
-- (NSString *) localizedNameOrError4iTM3:(NSError**)errorRef;
+- (NSString *) localizedName4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLLocalizedNameKey] error:errorRef] objectForKey:NSURLLocalizedNameKey];
 }
-- (BOOL) isRegularFileOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isRegularFile4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsRegularFileKey] error:errorRef] objectForKey:NSURLIsRegularFileKey] boolValue];
 }
-- (BOOL) isDirectoryOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isDirectory4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:errorRef] objectForKey:NSURLIsDirectoryKey] boolValue];
 }
-- (BOOL) isSymbolicLinkOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isSymbolicLink4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsSymbolicLinkKey] error:errorRef] objectForKey:NSURLIsSymbolicLinkKey] boolValue];
 }
-- (BOOL) isVolumeOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isVolume4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsVolumeKey] error:errorRef] objectForKey:NSURLIsVolumeKey] boolValue];
 }
-- (BOOL) isPackageOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isPackage4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsPackageKey] error:errorRef] objectForKey:NSURLIsPackageKey] boolValue];
 }
-- (BOOL) isSystemImmutableOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isSystemImmutable4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsSystemImmutableKey] error:errorRef] objectForKey:NSURLIsSystemImmutableKey] boolValue];
 }
-- (BOOL) isUserImmutableOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isUserImmutable4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsUserImmutableKey] error:errorRef] objectForKey:NSURLIsUserImmutableKey] boolValue];
 }
-- (BOOL) isHiddenOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isHidden4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsHiddenKey] error:errorRef] objectForKey:NSURLIsHiddenKey] boolValue];
 }
-- (BOOL) hasHiddenExtensionOrError4iTM3:(NSError**)errorRef;
+- (BOOL) hasHiddenExtension4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLHasHiddenExtensionKey] error:errorRef] objectForKey:NSURLHasHiddenExtensionKey] boolValue];
 }
-- (NSDate *) creationDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) creationDate4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLCreationDateKey] error:errorRef] objectForKey:NSURLCreationDateKey];
 }
-- (NSDate *) contentAccessDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) contentAccessDate4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLContentAccessDateKey] error:errorRef] objectForKey:NSURLContentAccessDateKey];
 }
-- (NSDate *) contentModificationDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) contentModificationDate4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLContentModificationDateKey] error:errorRef] objectForKey:NSURLContentModificationDateKey];
 }
-- (NSDate *) attributeModificationDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) attributeModificationDate4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLAttributeModificationDateKey] error:errorRef] objectForKey:NSURLAttributeModificationDateKey];
 }
-- (NSUInteger) linkCountOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) linkCount4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLLinkCountKey] error:errorRef] objectForKey:NSURLLinkCountKey] unsignedIntegerValue];
 }
-- (NSURL *) parentDirectoryURLOrError4iTM3:(NSError**)errorRef;
+- (NSURL *) parentDirectoryURL4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLParentDirectoryURLKey] error:errorRef] objectForKey:NSURLParentDirectoryURLKey];
 }
-- (NSURL *) volumeURLOrError4iTM3:(NSError**)errorRef;
+- (NSURL *) volumeURL4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeURLKey] error:errorRef] objectForKey:NSURLVolumeURLKey];
 }
-- (NSString *) typeIdentifierOrError4iTM3:(NSError**)errorRef;
+- (NSString *) typeIdentifier4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLTypeIdentifierKey] error:errorRef] objectForKey:NSURLTypeIdentifierKey];
 }
-- (NSString *) localizedTypeDescriptionOrError4iTM3:(NSError**)errorRef;
+- (NSString *) localizedTypeDescription4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLLocalizedTypeDescriptionKey] error:errorRef] objectForKey:NSURLLocalizedTypeDescriptionKey];
 }
-- (NSUInteger) labelNumberOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) labelNumber4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLLabelNumberKey] error:errorRef] objectForKey:NSURLLabelNumberKey] unsignedIntegerValue];
 }
-- (NSColor *) labelColorOrError4iTM3:(NSError**)errorRef;
+- (NSColor *) labelColor4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLLabelColorKey] error:errorRef] objectForKey:NSURLLabelColorKey];
 }
-- (NSString *) localizedLabelOrError4iTM3:(NSError**)errorRef;
+- (NSString *) localizedLabel4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLLocalizedLabelKey] error:errorRef] objectForKey:NSURLLocalizedLabelKey];
 }
-- (NSImage *) effectiveIconOrError4iTM3:(NSError**)errorRef;
+- (NSImage *) effectiveIcon4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLEffectiveIconKey] error:errorRef] objectForKey:NSURLEffectiveIconKey];
 }
-- (NSImage *) customIconOrError4iTM3:(NSError**)errorRef;
+- (NSImage *) customIcon4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLCustomIconKey] error:errorRef] objectForKey:NSURLCustomIconKey];
 }
 
 /* File Properties 
 */
-- (NSUInteger) fileSizeOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) fileSize4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLFileSizeKey] error:errorRef] objectForKey:NSURLFileSizeKey] unsignedIntegerValue];
 }
-- (NSUInteger) fileAllocatedSizeOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) fileAllocatedSize4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLFileAllocatedSizeKey] error:errorRef] objectForKey:NSURLFileAllocatedSizeKey] unsignedIntegerValue];
 }
-- (BOOL) isAliasFileOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isAliasFile4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsAliasFileKey] error:errorRef] objectForKey:NSURLIsAliasFileKey] boolValue];
 }
@@ -1277,56 +1284,56 @@ To Do List:
 
 As a convenience, volume properties can be requested from any file system URL. The value returned will reflect the property value for the volume on which the resource is located.
 */
-- (NSString *) volumeLocalizedFormatDescriptionOrError4iTM3:(NSError**)errorRef;
+- (NSString *) volumeLocalizedFormatDescription4iTM3Error:(NSError**)errorRef;
 {
 	return [[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeLocalizedFormatDescriptionKey] error:errorRef] objectForKey:NSURLVolumeLocalizedFormatDescriptionKey];
 }
-- (NSUInteger) volumeTotalCapacityOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) volumeTotalCapacity4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeTotalCapacityKey] error:errorRef] objectForKey:NSURLVolumeTotalCapacityKey] unsignedIntegerValue];
 }
-- (NSUInteger) volumeAvailableCapacityOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) volumeAvailableCapacity4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeAvailableCapacityKey] error:errorRef] objectForKey:NSURLVolumeAvailableCapacityKey] unsignedIntegerValue];
 }
-- (NSUInteger) volumeResourceCountOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) volumeResourceCount4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeResourceCountKey] error:errorRef] objectForKey:NSURLVolumeResourceCountKey] unsignedIntegerValue];
 }
 #if 0
-- (BOOL) volumeSupportsPersistentIDsOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsPersistentIDs4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsPersistentIDsKey] error:errorRef] objectForKey:NSURLVolumeSupportsPersistentIDsKey] boolValue];
 }
-- (BOOL) volumeSupportsSymbolicLinksOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsSymbolicLinks4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsSymbolicLinksKey] error:errorRef] objectForKey:NSURLVolumeSupportsSymbolicLinksKey] boolValue];
 }
-- (BOOL) volumeSupportsHardLinksOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsHardLinks4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsHardLinksKey] error:errorRef] objectForKey:NSURLVolumeSupportsHardLinksKey] boolValue];
 }
-- (BOOL) volumeSupportsJournalingOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsJournaling4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsJournalingKey] error:errorRef] objectForKey:NSURLVolumeSupportsJournalingKey] boolValue];
 }
-- (BOOL) volumeIsJournalingOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeIsJournaling4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeIsJournalingKey] error:errorRef] objectForKey:NSURLVolumeIsJournalingKey] boolValue];
 }
-- (BOOL) volumeSupportsSparseFilesOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsSparseFiles4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsSparseFilesKey] error:errorRef] objectForKey:NSURLVolumeSupportsSparseFilesKey] boolValue];
 }
-- (BOOL) volumeSupportsZeroRunsOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsZeroRuns4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsZeroRunsKey] error:errorRef] objectForKey:NSURLVolumeSupportsZeroRunsKey] boolValue];
 }
-- (BOOL) volumeSupportsCaseSensitiveNamesOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsCaseSensitiveNames4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsCaseSensitiveNamesKey] error:errorRef] objectForKey:NSURLVolumeSupportsCaseSensitiveNamesKey] boolValue];
 }
-- (BOOL) volumeSupportsCasePreservedNamesOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsCasePreservedNames4iTM3Error:(NSError**)errorRef;
 {
 	return [[[self resourceValuesForKeys:[NSArray arrayWithObject:NSURLVolumeSupportsCasePreservedNamesKey] error:errorRef] objectForKey:NSURLVolumeSupportsCasePreservedNamesKey] boolValue];
 }

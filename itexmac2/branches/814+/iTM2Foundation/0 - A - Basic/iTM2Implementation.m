@@ -272,10 +272,10 @@ To Do List:
 }
 @end
 
-@interface iTM2Implementation(PRIVATE1)
-+ (void)_cleanDictionary:(id)MD;
+@interface iTM2Implementation()
 - (id)_PropertyLists;
 - (void)checkPropertyList:(id)PL againstFormat:(NSPropertyListFormat)format;
+@property (readwrite,assign) id _MetaValueDictionary;
 @end
 @implementation iTM2Implementation
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
@@ -288,10 +288,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	INIT_POOL4iTM3;
 //START4iTM3;
-    [super initialize];
     static BOOL firstTime = YES;
-    if (firstTime)
-    {
+    if (firstTime) {
         firstTime = NO;
         [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
             [NSNumber numberWithInteger:NSPropertyListXMLFormat_v1_0], iTM2ItemPropertyListXMLFormatKey,
@@ -304,71 +302,21 @@ To Do List:
 	RELEASE_POOL4iTM3;
     return;
 }
-#if 0
-static NSMutableDictionary * tracker;
-static NSUInteger trackerTag = ZER0;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOwner:
 - (id)initWithOwner:(id)owner;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+Révisé par itexmac2: 2010-12-02 22:19:49 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
-    {
-        [self setOwner:owner];
-    }
-	if (!tracker)
-		tracker = [[NSMutableDictionary dictionary] retain];
-//if ([@"iTM2TaskController" isEqual:NSStringFromClass([owner class])])
-{DIAGNOSTIC4iTM3;
-[tracker setObject:[NSValue valueWithNonretainedObject:self] forKey:[NSNumber numberWithInteger:++trackerTag]];
-//LOG4iTM3(@">>>>>>>>>  New implementation: %i, %@", trackerTag , owner);
-}
-    return self;
-}
-#else
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOwner:
-- (id)initWithOwner:(id)owner;
-/*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    if (self = [super init])
-    {
-        [self setOwner:owner];
+    if ((self = [super init])) {
+        self.owner = owner;
     }
     return self;
 }
-#endif
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  owner
-- (id)owner;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Oct 10 2002
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    return _Owner;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setOwner:
-- (void)setOwner:(id)argument;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: Thu Oct 10 2002
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    _Owner = argument;
-    return;
-}
+@synthesize owner=_Owner;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  root
 - (id)root;
 /*"Description forthcoming.
@@ -380,7 +328,7 @@ To Do List:
 //START4iTM3;
     id result = _Parent;
     id P;
-    while([result respondsToSelector:@selector(implementation)] && (P = [[result implementation] parent]))
+    while ([result respondsToSelector:@selector(implementation)] && (P = [[result implementation] parent]))
         result = P;
     return result;
 }
@@ -404,8 +352,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [_Owner respondsToSelector:@selector(fileName)]?
-        [_Owner fileName]:(metaGETTER?:@"");
+    return [self.owner respondsToSelector:@selector(fileName)]?
+        [self.owner fileName]:(metaGETTER?:@"");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setFileName:
 - (void)setName:(id)argument;
@@ -416,7 +364,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (![_Owner respondsToSelector:@selector(setFileName:)])
+    if (![self.owner respondsToSelector:@selector(setFileName:)])
         metaSETTER(argument);
     return;
 }
@@ -429,8 +377,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [_Owner respondsToSelector:@selector(modelType)]?
-        [_Owner modelType]:(metaGETTER?:@"");
+    return [self.owner respondsToSelector:@selector(modelType)]?
+        [self.owner modelType]:(metaGETTER?:@"");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setModelType:
 - (void)setModelType:(id)argument;
@@ -441,7 +389,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (![_Owner respondsToSelector:@selector(setModelType:)])
+    if (![self.owner respondsToSelector:@selector(setModelType:)])
         metaSETTER(argument);
     return;
 }
@@ -569,44 +517,62 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  I/O
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willSave
-- (void)willSave;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willSaveWithError:
+- (BOOL)willSaveWithError:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Révisé par itexmac2: 2010-12-02 22:01:19 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.children makeObjectsPerformSelector:_cmd];
-    return;
+    BOOL result = YES;
+    NSInvocation * I;
+    [[NSInvocation getInvocation4iTM3:&I withTarget:self] willSaveWithError:RORef];
+    for (id child in self.children) {
+        [I invokeWithTarget:child];
+        if(result) [I getReturnValue:&result];
+    }
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didSave
-- (void)didSave;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didSaveWithError:
+- (BOOL)didSaveWithError:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Révisé par itexmac2: 2010-12-02 22:02:02 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.children makeObjectsPerformSelector:_cmd];
-    return;
+    BOOL result = YES;
+    NSInvocation * I;
+    [[NSInvocation getInvocation4iTM3:&I withTarget:self] didSaveWithError:RORef];
+    for (id child in self.children) {
+        [I invokeWithTarget:child];
+        if(result) [I getReturnValue:&result];
+    }
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didRead
-- (void)didRead;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didReadWithError:
+- (BOOL)didReadWithError:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Révisé par itexmac2: 2010-12-02 22:01:54 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.children makeObjectsPerformSelector:_cmd];
-    return;
+    BOOL result = YES;
+    NSInvocation * I;
+    [[NSInvocation getInvocation4iTM3:&I withTarget:self] didReadWithError:RORef];
+    for (id child in self.children) {
+        [I invokeWithTarget:child];
+        if(result) [I getReturnValue:&result];
+    }
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToParentImplementation
-- (BOOL)writeToParentImplementation;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToParentImplementationWithError:
+- (BOOL)writeToParentImplementationWithError:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -617,8 +583,8 @@ To Do List:
 //NSLog(@"data: %@", result);
     return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromParentImplementation
-- (BOOL)readFromParentImplementation;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromParentImplementationWithError:
+- (BOOL)readFromParentImplementationWithError:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed 05 mar 03
@@ -663,7 +629,6 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"data: %@", result);
-	if (RORef) * RORef = nil;
     if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypeData]) {
         return [self._DataRepresentations valueForKey:typeName];
     }
@@ -679,7 +644,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (RORef) * RORef = nil;
     [self._DataRepresentations setValue:data forKey:typeName];
     return [self._DataRepresentations valueForKey:typeName] != nil;
 }
@@ -696,10 +660,15 @@ To Do List:
     // if there is already a directory wrapper for the receiver.
     BOOL result = NO;
     if ([DW isDirectory]) {
-        [self.children makeObjectsPerformSelector:_cmd withObject:DW];
-        NSData * D = [_Owner respondsToSelector:@selector(dataOfType:error:)]
-                            && [_Owner respondsToSelector:@selector(modelType)]?
-                [_Owner dataOfType:[_Owner modelType] error:RORef]:
+        NSInvocation * I;
+        [[NSInvocation getInvocation4iTM3:&I withTarget:self] writeToDirectoryWrapper:DW error:RORef];
+        for (id child in self.children) {
+            [I invokeWithTarget:child];
+            if (result) [I getReturnValue:&result];
+        }
+        NSData * D = [self.owner respondsToSelector:@selector(dataOfType:error:)]
+                            && [self.owner respondsToSelector:@selector(modelType)]?
+                [self.owner dataOfType:[self.owner modelType] error:RORef]:
                 [self dataOfType:self.modelType error:RORef];
         if (D) {
             if ([[DW fileWrappers] count]) {
@@ -709,7 +678,7 @@ To Do List:
             }
         }
     }
-    return self.writeToParentImplementation && result;
+    return [self writeToParentImplementationWithError:RORef] && result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromDirectoryWrapper:error:
 - (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
@@ -720,9 +689,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL result = self.readFromParentImplementation;
-    if ([DW isDirectory])
-    {
+    BOOL result = [self readFromParentImplementationWithError:RORef];
+    if ([DW isDirectory]) {
         NSFileWrapper * fw = [[DW fileWrappers] objectForKey:iTM2DataRepresentationsName];
         NSUInteger fireWall = 128;
         while((--fireWall > ZER0) && [fw isSymbolicLink])
@@ -730,39 +698,22 @@ To Do List:
         if ([fw isRegularFile])
         {
 			NSString * type = [SDC typeForContentsOfURL:[NSURL fileURLWithPath:[fw preferredFilename]] error:RORef];
-            result = result && ([_Owner respondsToSelector:@selector(readFromData:ofType:error:)]?
-                [_Owner readFromData:[fw regularFileContents] ofType:type error:RORef]:
+            result = result && ([self.owner respondsToSelector:@selector(readFromData:ofType:error:)]?
+                [self.owner readFromData:[fw regularFileContents] ofType:type error:RORef]:
                 [self readFromData:[fw regularFileContents] ofType:type error:RORef]);
         }
     }
     self.updateChildren;
-    [self.children makeObjectsPerformSelector:_cmd withObject:DW];
+    NSInvocation * I;
+    [[NSInvocation getInvocation4iTM3:&I withTarget:self] readFromDirectoryWrapper:DW error:RORef];
+    for (id child in self.children) {
+        [I invokeWithTarget:child];
+        if (result) [I getReturnValue:&result];
+    }
     return result;
 }
 #pragma mark =-=-=-=-=-=-=-=  TREE HIERARCHY
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  parent
-- (id)parent;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    return _Parent;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setParent:
-- (void)setParent:(id)argument;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    _Parent = argument;
-    return;
-}
+@synthesize parent = _Parent;
 NSString * iTM2ChildrenKey = @"C";
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childDocuments
 - (id)children;
@@ -774,8 +725,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     id result = [self metaValueForKey:iTM2ChildrenKey];
-    if (!result)
-    {
+    if (!result) {
         [self takeMetaValue:[NSMutableArray array] forKey:iTM2ChildrenKey];
         result = [self metaValueForKey:iTM2ChildrenKey];
     }
@@ -790,22 +740,20 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([_Owner respondsToSelector:_cmd])
-        [_Owner performSelector:_cmd];
+    if ([self.owner respondsToSelector:_cmd])
+        [self.owner performSelector:_cmd];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  childForName:
 - (id)childForName:(NSString *)name;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Mon May 10 22:45:25 GMT 2004
+Révisé par itexmac2: 2010-12-03 17:42:23 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSEnumerator * E = [self.children objectEnumerator];
-    id child;
-    while(child = E.nextObject)
+    for (id child in self.children)
         if ([[child name] isEqualToString:name])
             return child;
     return nil;
@@ -820,8 +768,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSMutableArray * MRA = self.children;
-    if (![MRA containsObject:argument])
-    {
+    if (![MRA containsObject:argument]) {
         [MRA addObject:argument];
         [[argument implementation] setParent:self];
     }
@@ -905,63 +852,24 @@ To Do List:
     [self._PLXMLFormats setValue:[NSNumber numberWithInteger:argument] forKey:type];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfModelOfType:
-- (NSData *)dataRepresentationOfModelOfType:(NSString *)type;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed 05 mar 03
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    NSString * errorString = nil;
-	id PL = [self modelOfType:type];
-	if (PL)
-	{
-		NSPropertyListFormat format = [self modelFormatOfType:type];
-		id result = [NSPropertyListSerialization dataFromPropertyList:PL format: format errorDescription: &errorString];
-		if (errorString)
-		{
-			iTM2Beep();
-			LOG4iTM3(@"Big problem\nReport BUG ref: iTM2861, error string: '%@' (format: %@)\nAnalyzing the property list",
-				errorString, (format == NSPropertyListOpenStepFormat? @"OpenStep": (format == NSPropertyListXMLFormat_v1_0? @"XML": @"binary")));
-			[errorString autorelease];
-			errorString = nil;
-			[self checkPropertyList:PL againstFormat:format];
-		}
-//NSLog(@"data: %@", result);
-		return result;
-	}
-    return nil;// no model, no data
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  dataRepresentationOfModelOfType:error:
 - (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed 05 mar 03
+Révisé par itexmac2: 2010-12-03 17:46:05 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (RORef)
-	{
-		*RORef = nil;
-	}
-    NSString * errorString = nil;
 	id PL = [self modelOfType:type];
-	if (PL)
-	{
-		NSPropertyListFormat format = [self modelFormatOfType:type];
+	if (PL) {
+		NSString * errorString = nil;
+        NSPropertyListFormat format = [self modelFormatOfType:type];
 		id result = [NSPropertyListSerialization dataFromPropertyList:PL format:format errorDescription:&errorString];
-		if (result)
-		{
-			return result;
-		}
+		if (result) return result;
 		OUTERROR4iTM3(1,
 			([NSString stringWithFormat:@"Big problem\nReport BUG ref:iTM2861, error string:'%@' (format:%@)\nAnalyzing the property list (see console)",
 				errorString, (format == NSPropertyListOpenStepFormat? @"OpenStep": (format == NSPropertyListXMLFormat_v1_0? @"XML": @"binary"))]),nil);
-		[errorString autorelease];
-		errorString = nil;
 		[self checkPropertyList:PL againstFormat:format];
 		return nil;
 	}
@@ -1004,55 +912,6 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadModelValueOfDataRepresentation:ofType:
-- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed 05 mar 03
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    if (data.length)
-    {
-        NSString * errorString = nil;
-        NSPropertyListFormat format;
-        id DM = [NSPropertyListSerialization propertyListFromData:data
-            mutabilityOption: NSPropertyListMutableContainersAndLeaves
-                format: &format errorDescription: &errorString];
-        if (errorString)
-        {
-            iTM2Beep();
-            NSLog(@"Big problem\nReport BUG ref: iTM2168");
-            NSLog(@"error string: '%@'", errorString);
-            [errorString autorelease];
-            errorString = nil;
-        }
-//NSLog(@"DM: %@", DM);
-        if (DM)
-        {
-//NSLog(@"THE MODEL LOADER IS ABOUT TO REPLACE THE item DATA.......");
-            [self takeModelFormat:format ofType:type];
-            [self takeModel:DM ofType:type];
-            return YES;
-        }
-    }
-	else if (data)
-	{
-		if (iTM2DebugEnabled)
-		{
-			LOG4iTM3(@"Loading a void data.");
-		}
-		[self takeModelFormat:[SUD integerForKey:iTM2ItemPropertyListXMLFormatKey] ofType:type];
-		[self takeModel:[NSMutableDictionary dictionary] ofType:type];
-		return YES;
-	}
-	else if (iTM2DebugEnabled)
-	{
-		LOG4iTM3(@"No data to load.");
-	}
-    return NO;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadModelValueOfDataRepresentation:ofType:error:
 - (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)RORef;
 /*"Description Forthcoming.
@@ -1062,53 +921,28 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (data.length)
-    {
+    if (data.length) {
         NSString * errorString = nil;
         NSPropertyListFormat format;
         id DM = [NSPropertyListSerialization propertyListFromData:data
             mutabilityOption: NSPropertyListMutableContainersAndLeaves
                 format: &format errorDescription: &errorString];
-        if (errorString)
-        {
-			if (RORef)
-			{
-				*RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:1
-					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"NSPropertyListSerialization error string:'%@'", errorString]
-						forKey:NSLocalizedDescriptionKey]];
-			}
-			else
-			{
-				iTM2Beep();
-				NSLog(@"Big problem\nReport BUG ref: iTM2168");
-				NSLog(@"error string: '%@'", errorString);
-				[errorString autorelease];
-				errorString = nil;
-			}
-			return NO;
-        }
+		OUTERROR4iTM3(1,
+			([NSString stringWithFormat:@"NSPropertyListSerialization error string:'%@'", errorString]),nil);
 //NSLog(@"DM: %@", DM);
-        if (DM)
-        {
+        if (DM) {
 //NSLog(@"THE MODEL LOADER IS ABOUT TO REPLACE THE item DATA.......");
             [self takeModelFormat:format ofType:type];
             [self takeModel:DM ofType:type];
             return YES;
         }
-    }
-	else if (data)
-	{
-		if (iTM2DebugEnabled)
-		{
-			LOG4iTM3(@"Loading a void data.");
-		}
+    } else if (data) {
+		DEBUGLOG4iTM3(0,@"Loading a void data.");
 		[self takeModelFormat:[SUD integerForKey:iTM2ItemPropertyListXMLFormatKey] ofType:type];
 		[self takeModel:[NSMutableDictionary dictionary] ofType:type];
 		return YES;
-	}
-	else if (iTM2DebugEnabled)
-	{
-		LOG4iTM3(@"No data to load.");
+	} else {
+		DEBUGLOG4iTM3(0,@"No data to load.");
 	}
     return YES;
 }
@@ -1185,8 +1019,7 @@ To Do List:
 //START4iTM3;
 	id PLs = self._PropertyLists;
     id model = [PLs valueForKey:type];
-	if (!model)
-	{
+	if (!model) {
 		[self._PropertyLists setValue:[NSMutableDictionary dictionary] forKey:type];
 		model = [PLs valueForKey:type];
 	}
@@ -1205,8 +1038,6 @@ To Do List:
         userInfo: (previous? [NSDictionary dictionaryWithObjectsAndKeys:type, @"type", previous, @"previous", nil]:[NSDictionary dictionaryWithObjectsAndKeys:type, @"type", nil])];
     return;
 }
-@synthesize _Owner;
-@synthesize _Parent;
 @synthesize _MetaValueDictionary;
 @end
 

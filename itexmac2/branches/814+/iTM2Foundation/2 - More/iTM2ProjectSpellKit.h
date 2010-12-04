@@ -59,10 +59,10 @@
 				Subclassers will take appropriate actions here.
     @parameter	Usual fileName.
     @parameter	Usual document type.
-    @parameter	error.
-    @result		None.
+    @parameter	RORef.
+    @result		YorN.
 */
-- (void)spellKitCompleteDidReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)RORef;
+- (BOOL)spellKitCompleteDidReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)RORef;
 
 @end
 

@@ -214,7 +214,7 @@ To Do List:
 @end
 
 @interface iTM2ProjectDocument(PRIVATE_TeXProjectSpellKit)
-- (void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;
+- (void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;X
 @end
 
 @implementation iTM2TeXProjectDocument(ProjectSpellKit)
@@ -257,7 +257,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromFile:ofType:
-- (void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;
+- (void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;X
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004

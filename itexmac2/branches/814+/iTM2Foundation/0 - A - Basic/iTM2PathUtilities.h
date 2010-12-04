@@ -348,15 +348,16 @@ extern NSString * const iTM2RegExpURLFragmentName;
 - (NSString *)pathRelativeToURL4iTM3:(NSURL *)otherURL;
 
 /*!
-    @method		factoryURL4iTM3
+    @method		factoryURL4iTM3Error:
     @abstract	The writable projects directory URL.
     @discussion	When a project can't be created because we have no write permission,
 	            this folder is a repository where we definitely can write.
 				It is useful either when we can't write inside a project or
 				when we can't write where the project should be stored.
-    @param		None.
+    @param		RORef.
     @result		A singleton URL.
 */
++ (NSURL *)factoryURL4iTM3Error:(NSError **)RORef;
 + (NSURL *)factoryURL4iTM3;
 
 /*!
@@ -481,95 +482,95 @@ extern NSString * const iTM2RegExpURLFragmentName;
 
 - (NSURL *)standardizedURL4iTM3;
 
-- (NSString *) nameOrError4iTM3:(NSError**)errorRef;
+- (NSString *) name4iTM3Error:(NSError**)errorRef;
 
-- (NSString *) localizedNameOrError4iTM3:(NSError**)errorRef;
+- (NSString *) localizedName4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isRegularFileOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isRegularFile4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isDirectoryOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isDirectory4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isSymbolicLinkOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isSymbolicLink4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isVolumeOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isVolume4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isPackageOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isPackage4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isSystemImmutableOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isSystemImmutable4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isUserImmutableOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isUserImmutable4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isHiddenOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isHidden4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) hasHiddenExtensionOrError4iTM3:(NSError**)errorRef;
+- (BOOL) hasHiddenExtension4iTM3Error:(NSError**)errorRef;
 
-- (NSDate *) creationDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) creationDate4iTM3Error:(NSError**)errorRef;
 
-- (NSDate *) contentAccessDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) contentAccessDate4iTM3Error:(NSError**)errorRef;
 
-- (NSDate *) contentModificationDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) contentModificationDate4iTM3Error:(NSError**)errorRef;
 
-- (NSDate *) attributeModificationDateOrError4iTM3:(NSError**)errorRef;
+- (NSDate *) attributeModificationDate4iTM3Error:(NSError**)errorRef;
 
-- (NSUInteger) linkCountOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) linkCount4iTM3Error:(NSError**)errorRef;
 
-- (NSURL *) parentDirectoryURLOrError4iTM3:(NSError**)errorRef;
+- (NSURL *) parentDirectoryURL4iTM3Error:(NSError**)errorRef;
 
-- (NSURL *) volumeURLOrError4iTM3:(NSError**)errorRef;
+- (NSURL *) volumeURL4iTM3Error:(NSError**)errorRef;
 
-- (NSString *) typeIdentifierOrError4iTM3:(NSError**)errorRef;
+- (NSString *) typeIdentifier4iTM3Error:(NSError**)errorRef;
 
-- (NSString *) localizedTypeDescriptionOrError4iTM3:(NSError**)errorRef;
+- (NSString *) localizedTypeDescription4iTM3Error:(NSError**)errorRef;
 
-- (NSUInteger) labelNumberOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) labelNumber4iTM3Error:(NSError**)errorRef;
 
-- (NSColor *) labelColorOrError4iTM3:(NSError**)errorRef;
+- (NSColor *) labelColor4iTM3Error:(NSError**)errorRef;
 
-- (NSString *) localizedLabelOrError4iTM3:(NSError**)errorRef;
+- (NSString *) localizedLabel4iTM3Error:(NSError**)errorRef;
 
-- (NSImage *) effectiveIconOrError4iTM3:(NSError**)errorRef;
+- (NSImage *) effectiveIcon4iTM3Error:(NSError**)errorRef;
 
-- (NSImage *) customIconOrError4iTM3:(NSError**)errorRef;
+- (NSImage *) customIcon4iTM3Error:(NSError**)errorRef;
 
 
 /* File Properties 
 */
-- (NSUInteger) fileSizeOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) fileSize4iTM3Error:(NSError**)errorRef;
 
-- (NSUInteger) fileAllocatedSizeOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) fileAllocatedSize4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) isAliasFileOrError4iTM3:(NSError**)errorRef;
+- (BOOL) isAliasFile4iTM3Error:(NSError**)errorRef;
 
 /* Volume Properties
 
 As a convenience, volume properties can be requested from any file system URL. The value returned will reflect the property value for the volume on which the resource is located.
 */
-- (NSString *) volumeLocalizedFormatDescriptionOrError4iTM3:(NSError**)errorRef;
+- (NSString *) volumeLocalizedFormatDescription4iTM3Error:(NSError**)errorRef;
 
-- (NSUInteger) volumeTotalCapacityOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) volumeTotalCapacity4iTM3Error:(NSError**)errorRef;
 
-- (NSUInteger) volumeAvailableCapacityOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) volumeAvailableCapacity4iTM3Error:(NSError**)errorRef;
 
-- (NSUInteger) volumeResourceCountOrError4iTM3:(NSError**)errorRef;
+- (NSUInteger) volumeResourceCount4iTM3Error:(NSError**)errorRef;
 
 #if ZERO
-- (BOOL) volumeSupportsPersistentIDsOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsPersistentIDs4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeSupportsZeroRunsOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsZeroRuns4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeSupportsCasePreservedNamesOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsCasePreservedNames4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeSupportsHardLinksOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsHardLinks4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeIsJournalingOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeIsJournaling4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeSupportsCaseSensitiveNamesOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsCaseSensitiveNames4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeSupportsSymbolicLinksOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsSymbolicLinks4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeSupportsJournalingOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsJournaling4iTM3Error:(NSError**)errorRef;
 
-- (BOOL) volumeSupportsSparseFilesOrError4iTM3:(NSError**)errorRef;
+- (BOOL) volumeSupportsSparseFiles4iTM3Error:(NSError**)errorRef;
 
 #endif
 

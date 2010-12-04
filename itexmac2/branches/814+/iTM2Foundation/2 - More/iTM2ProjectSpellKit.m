@@ -107,7 +107,7 @@ To Do List:
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromURL4iTM3:ofType:error:
-- (void)spellKitCompleteDidReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *) type error:(NSError**)RORef;
+- (BOOL)spellKitCompleteDidReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*"Asks the document or the owner.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 1.4:Wed Sep 15 21:07:40 GMT 2004
@@ -126,7 +126,7 @@ To Do List:
 		LOG4iTM3(@"WARNING:A dictionary was expected instead of %@", O);
 	}
 //END4iTM3;
-    return;
+    return YES;
 }
 #if 1
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareSpellKitCompleteWriteMetaToURL4iTM3:ofType:error:

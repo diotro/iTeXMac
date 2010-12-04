@@ -251,15 +251,15 @@ NSString * const iTM2SoftLinkExtension = @"soft_link";
 	return [otherpath writeToFile:path atomically:NO encoding:ENCODING error:nil];
 }
 #undef ENCODING
-- (NSDictionary *)attributesOfItemOrDestinationOfSymbolicLinkAtURL4iTM3:(NSURL *)url error:(NSError **)errorRef;
+- (NSDictionary *)attributesOfItemOrDestinationOfSymbolicLinkAtURL4iTM3:(NSURL *)url error:(NSError **)RORef;
 {
 	// is it a symbolic link?
     if (url.isFileURL) {
-        NSString * destination = [self destinationOfSymbolicLinkAtPath:url.path error:errorRef];
+        NSString * destination = [self destinationOfSymbolicLinkAtPath:url.path error:nil];// ignore the ROR
         if (destination) {
-            return [self attributesOfItemAtPath:destination error:errorRef];
+            return [self attributesOfItemAtPath:destination error:RORef];
         }
-        return [self attributesOfItemAtPath:url.path error:errorRef];
+        return [self attributesOfItemAtPath:url.path error:RORef];
     }
     return nil;
 }

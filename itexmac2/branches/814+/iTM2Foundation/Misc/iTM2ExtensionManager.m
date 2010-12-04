@@ -158,9 +158,6 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    if (*RORef) {
-        *RORef = nil;
-    }
     // we begin by loading the assistants defined in the network area.
     NSURL * URL = [[NSBundle mainBundle] URLForSupportDirectory4iTM3:self.relativePath inDomain:NSNetworkDomainMask create:NO];
     NSMenu * networkMenu = [self extensionMenuAtURL:URL error:RORef];

@@ -42,6 +42,7 @@
 }
 + (id)getInvocation4iTM3:(NSInvocation **) invocationRef withTarget:(id)target retainArguments:(BOOL)retain;
 {
+    if (!target) return nil;
 	NSParameterAssert(invocationRef!=NULL);
 	NSParameterAssert(target!=nil);
 	iTM2InvocatorProxy * instance = NSZoneMalloc(nil, sizeof(iTM2InvocatorProxy));
@@ -145,21 +146,21 @@
 @implementation NSInvocation(iTeXMac2)
 + (id)getInvocation4iTM3:(NSInvocation **)invocationRef withTarget:(id)target;
 {
+	if (!target) return nil;
 	NSParameterAssert(invocationRef!=NULL);
-	NSParameterAssert(target!=nil);
 	return [iTM2InvocatorProxy getInvocation4iTM3: invocationRef withTarget:target retainArguments:YES];
 }
 + (id)getInvocation4iTM3:(NSInvocation **) invocationRef withTarget:(id)target retainArguments:(BOOL)retain;
 {
+	if (!target) return nil;
 	NSParameterAssert(invocationRef!=NULL);
-	NSParameterAssert(target!=nil);
 	return [iTM2InvocatorProxy getInvocation4iTM3: invocationRef withTarget:target retainArguments:retain];
 }
 - (void)invokeWithSelector4iTM3:(SEL)selector;
 {
     self.selector=selector;
     self.invoke;
-return;
+    return;
 }
 - (void)invokeWithSelectors4iTM3:(NSPointerArray *)selectors;
 {

@@ -46,12 +46,9 @@ NSString *getScalarDescription(NSValue *left)
     [self setUp];
     ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^testCase" error:NULL];
     NSInvocation * I = nil;
-    [[NSInvocation getInvocation4iTM3:&I withTarget:self] setUp];
-    NSPointerArray * PAs = [iTM2Runtime instanceSelectorsOfClass:self.class matchedBy:RE signature:I.methodSignature inherited:NO];
-    NSUInteger i = ZER0;
-    for (i=ZER0;i<PAs.count;++i) {
-        I.selector = (SEL)[PAs pointerAtIndex:i];
-        I.invoke;
+    [[NSInvocation getInvocation4iTM3:&I withTarget:self] invokeTest];
+    for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class matchedBy:RE signature:I.methodSignature inherited:NO]) {
+        [I invokeWithSelector4iTM3:(SEL)selector];
     }
     [self tearDown];
 }

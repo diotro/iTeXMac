@@ -766,10 +766,11 @@ To Do List:
 		return result;
 	}
 	[self makeWindowControllers];
+    [self synchronizeWindowControllers4iTM3Error:self.RORef4iTM3];
     return [self.windowControllers.lastObject textStorage];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringRepresentationCompleteDidSave4iTM3
-- (void)stringRepresentationCompleteDidSave4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringRepresentationCompleteDidSave4iTM3Error:
+- (BOOL)stringRepresentationCompleteDidSave4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -779,11 +780,11 @@ To Do List:
 //START4iTM3;
 	self.stringRepresentation = nil;
 //END4iTM3;
-    return;
+    return YES;
 }
 #pragma mark =-=-=-=-=-=-=-=  PRINTING
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWindowControllers
-- (BOOL)synchronizeWindowControllers;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizeWindowControllers4iTM3Error:
+- (BOOL)synchronizeWindowControllers4iTM3Error:(NSError **)RORef;
 /*"This prevents the inherited methods to automatically load the data.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Feb 20 13:19:00 GMT 2004
@@ -791,8 +792,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([super synchronizeWindowControllers]) {
-		self.stringRepresentation = nil;
+	if ([super synchronizeWindowControllers4iTM3Error:RORef]) {
+        for (NSWindowController * WC in self.windowControllers) {
+            if ([WC isKindOfClass:iTM2TextInspector.class]) {
+                self.stringRepresentation = nil;
+            }
+        }
 		return YES;
 	}
 //END4iTM3;
@@ -1004,7 +1009,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {
-    return YES;
+    return [self.stringFormatter4iTM3 readFromURL:absoluteURL error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= dataCompleteWriteToURL4iTM3:ofType:error:
 - (BOOL)dataCompleteWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName error:(NSError **) RORef;
@@ -1096,17 +1101,6 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 	}
 	return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringRepresentationCompleteReadFromURL4iTM3:ofType:error:
-- (BOOL)stringRepresentationCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)RORef;
-/*"Now using direct NSString methods to manage the encoding properly.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Fri Sep 05 2003
-To Do List:
-"*/
-{
-    //  if the receiver belongs to a project, this project must be set beforehand
-    return [self.stringFormatter4iTM3 readFromURL:absoluteURL error:RORef];
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  _revertDocumentToSavedWithStringEncoding:error:
 - (BOOL)_revertDocumentToSavedWithStringEncoding:(NSStringEncoding)encoding error:(NSError **)RORef;
 /*"Description Forthcoming.
@@ -1116,7 +1110,7 @@ To do list: ASK!!!
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.stringFormatter4iTM3 setStringEncoding:encoding];
-	if ([self stringRepresentationCompleteReadFromURL4iTM3:self.fileURL ofType:self.fileType error:RORef]) {
+	if ([self dataCompleteReadFromURL4iTM3:self.fileURL ofType:self.fileType error:RORef]) {
         BOOL result = YES;
         for (NSWindowController * WC in self.windowControllers) {
             result = [WC synchronizeWithDocument4iTM3Error:RORef] && result;

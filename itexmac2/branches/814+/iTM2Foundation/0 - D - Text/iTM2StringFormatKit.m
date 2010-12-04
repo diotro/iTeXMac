@@ -1368,9 +1368,6 @@ To Do List:
 - (BOOL)readFromURL:(NSURL *)absoluteURL error:(NSError **)RORef;
 //  Révisé par itexmac2: 2010-11-05 15:44:45 +0100
 {
-	if (RORef) {
-		*RORef = nil;
-	}
 	NSString * S = nil;
     NSStringEncoding usedEncoding; 
     BOOL canStringEncoding = YES;
@@ -1864,10 +1861,6 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (RORef)
-	{
-		*RORef = nil;
-	}
 //END4iTM3;
     return [_ActualStringEncodings writeToURL:absoluteURL atomically:YES];
 }

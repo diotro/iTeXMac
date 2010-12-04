@@ -234,10 +234,6 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 }
 - (BOOL)validatePrettyMacroID:(id *)ioValue error:(NSError **)RORef;
 {
-	if (RORef)
-	{
-		*RORef = nil;
-	}
 	if (!ioValue)
 	{
 		return NO;

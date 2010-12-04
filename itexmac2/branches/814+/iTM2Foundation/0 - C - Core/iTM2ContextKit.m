@@ -734,7 +734,7 @@ To Do List:
     return self.document?:[super currentContext4iTM3Manager];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerCompleteSaveContext4iTM3Error:
-- (void)windowControllerCompleteSaveContext4iTM3Error:(NSError **)RORef;
+- (BOOL)windowControllerCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -874,8 +874,8 @@ To Do List:
 	}
     return ZER0;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StringForKey:domain:error:
-- (NSString *)context4iTM3StringForKey:(NSString *)aKey domain:(NSUInteger)mask error:(NSError *)RORef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  context4iTM3StringForKey:domain:
+- (NSString *)context4iTM3StringForKey:(NSString *)aKey domain:(NSUInteger)mask;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.1.a6: 03/26/2002

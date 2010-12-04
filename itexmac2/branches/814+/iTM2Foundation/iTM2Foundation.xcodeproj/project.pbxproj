@@ -2737,6 +2737,7 @@
 				515C95DF1270DC8B0000C5BB /* iTeXMac2.xib */,
 				51D7FE1012987886009C0707 /* Tests-Info copy.plist */,
 			);
+			comments = "Keep the dSYM ?\nsee http://www.alexcurylo.com/blog/2008/10/15/symbolication/";
 			name = iTM2Foundation;
 			sourceTree = "<group>";
 		};

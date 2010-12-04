@@ -62,8 +62,8 @@ NSString * iTM2KeyFromSelector(SEL selector);
 @interface iTM2Implementation: NSObject
 {
 @private
-	id _Owner;
-	id _Parent;
+	__weak id _Owner;
+	__weak id _Parent;
 	id _DataRepresentations;
 	id _MetaValueDictionary;
 }
@@ -89,66 +89,38 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (id)implementation;
 
 /*!
-	@method		owner
+	@property	owner
 	@abstract	The document owning the receiver.
-	@discussion	The receiver is assumed to be own by an iTM2Document. Therefore it will not own its owner to avoid memory leaks.
+	@discussion	The receiver is assumed to be owned by an iTM2Document. Therefore it will not own its owner to avoid memory leaks (now it is GC enabled).
 	@result		Basically, it is an iTM2Document.
 */
-- (id)owner;
+@property (assign,readwrite) __weak id owner;
 
 /*!
-	@method		setOwner:
-	@abstract	Basic setter.
-	@discussion	The receiver is assumed to be own by an iTM2Document. Therefore it will not own its owner to avoid memory leaks.
-	@param		Basically, it is an iTM2Document.
-*/
-- (void)setOwner:(id)argument;
-
-/*!
-	@method		root
+	@property		root
 	@abstract	The top of the owning hierarchy.
 	@discussion	Description Forthcoming.
 	@result		Basically, it is an iTM2Document.
 */
-- (id)root;
+@property (readonly)  id root;
 
 /*!
-	@method		name
+	@property		name
 	@abstract	The name of the receiver.
 	@discussion	If there is an owner responding to the fileName message, its fileName is returned.
-				Otherwise a local value is used.
+				Otherwise a local value is used to store the argument.
 	@result		A name.
 */
-- (id)name;
-
-/*!
-	@method		setName:
-	@abstract	Set the name of the receiver.
-	@discussion	If there is an owner responding to the setFileName message, nothing is done,
-				otherwise a local variable is used to store the argument.
-	@param		A name.
-	@result		None.
-*/
-- (void)setName:(id)argument;
+@property (readwrite,assign) NSString * name;
 
 /*!
 	@method		modelType
 	@abstract	The type of the receiver.
 	@discussion	If there is an owner responding to the fileType message, its fileType is returned.
-				Otherwise a local value is used.
+				Otherwise a local value is used to store the argument.
 	@result		A type.
 */
-- (id)modelType;
-
-/*!
-	@method		setModelType:
-	@abstract	Set the type of the receiver.
-	@discussion	If there is an owner responding to the setFileType message, nothing is done,
-				otherwise a local variable is used to store the argument.
-	@param		A name.
-	@result		None.
-*/
-- (void)setModelType:(id)argument;
+@property (readwrite,assign) NSString * modelType;
 
 /*!
 	@method		metaValues
@@ -230,32 +202,38 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (void)takeMetaFlag:(BOOL)yorn forKey:(NSString *)key;
 
 /*!
-	@method		willSave
+	@method		willSaveWithError:
 	@abstract	The document is going to save.
 	@discussion	The document of the receiver will ask the receiver to perform some actions before it saves
 				in its documentWillSave method. The default implementation just forwards the message to the children.
 				Subclassers will append or prepend their own stuff, calling super method unless good reasons are invoked.
+    @param      RORef
+	@result		YorN.
 */
-- (void)willSave;
+- (BOOL)willSaveWithError:(NSError **)RORef;
 
 /*!
-	@method		didSave
+	@method		didSaveWithError:
 	@abstract	The document has just saved.
 	@discussion	The document of the receiver will ask the receiver to perform some actions after it saved
 				in its documentWillSave method. The default implementation just forwards the message to the children.
 				Subclassers will append or prepend their own stuff, calling super method unless good reasons are invoked.
+    @param      RORef
+	@result		YorN.
 */
-- (void)didSave;
+- (BOOL)didSaveWithError:(NSError **)RORef;
 
 /*!
-	@method		didRead
+	@method		didReadWithError:
 	@abstract	The document has just read its data.
 	@discussion	The document of the receiver will ask the receiver to perform some actions before it saves
 				in its documentDidRead method. The default implementation just forwards the message to the children.
 				Subclassers will append or prepend their own stuff, calling super method unless good reasons are invoked.
 				It is time now for thge receiver to read its data from the document or the parent
+    @param      RORef
+	@result		YorN.
 */
-- (void)didRead;
+- (BOOL)didReadWithError:(NSError **)RORef;
 
 /*!
 	@method		readFromData:(NSData *)data ofType:(NSString *)typeName error:
@@ -264,7 +242,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
     @param      data
     @param      typeName
     @param      RORef
-	@result		YES.
+	@result		YorN.
 */
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError;
 
@@ -291,21 +269,23 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (NSArray *)dataRepresentationTypes;
 
 /*!
-	@method		writeToParentImplementation
+	@method		writeToParentImplementationWithError:
 	@abstract	Write the data implementation of the
  to the implementation controller of the parent of ther receiver.
 	@discussion	Description never forthcoming.
-	@result		yorn.
+    @param      RORef
+	@result		YorN.
 */
-- (BOOL)writeToParentImplementation;
+- (BOOL)writeToParentImplementationWithError:(NSError **)RORef;
 
 /*!
-	@method		readFromParentImplementation
+	@method		readFromParentImplementationWithError:
 	@abstract	Read the data implementation of the owner from the implementation controller of the parent of ther receiver.
 	@discussion	Description never forthcoming.
-	@result		yorn.
+    @param      RORef
+	@result		YorN.
 */
-- (BOOL)readFromParentImplementation;
+- (BOOL)readFromParentImplementationWithError:(NSError **)RORef;
 
 /*!
 	@method		writeToDirectoryWrapper:
@@ -328,30 +308,21 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (BOOL)readFromDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 
 /*!
-	@method		parent
+	@property	parent
 	@abstract	The parent document.
 	@discussion	This is the first support for a tree hierarchy.
 				The parent document owns the receiver but the receiver does not own its parent document.
-	@result		Basically, it is an iTM2Document.
-*/
-- (id)parent;
-
-/*!
-	@method		setParent:
-	@abstract	Basic setter.
-	@discussion	Description forthcoming.
 				This exposed method should not be used, the parent is automatically set by the parent itself in the addChild:
 				and removeChild: methods. The receiver will not retain its parent. The parent is expected to own its children.
-	@param		an iTM2Document.
-	@result		None.
+	@result		Basically, it is an iTM2Document.
 */
-- (void)setParent:(id)argument;
+@property (assign,readwrite) __weak id parent;
 
 /*!
 	@method		children
 	@abstract	The child documents of the receiver.
 	@discussion	The child documents are the leaves of the tree whereas the receiver is the node.
-				It is a lazy initializer returning a void array at least.
+				It is a lazy initializer returning a void array or set at least.
 	@result		Basically, it is an iTM2Document.
 */
 - (id)children;
@@ -409,7 +380,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 - (void)takeModelFormat:(NSPropertyListFormat)argument ofType:(NSString *)type;
 
 /*!
-	@method		dataRepresentationOfModelOfType:
+	@method		dataRepresentationOfModelOfType:error:
 	@abstract	A data representation of the model value for the given type.
 	@discussion	Returns a property list serialized object with the appropriate format.
 	@param  	type is a type
@@ -417,10 +388,9 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@result 	a data object
 */
 - (NSData *)dataRepresentationOfModelOfType:(NSString *)type error:(NSError**)RORef;
-- (NSData *)dataRepresentationOfModelOfType:(NSString *)type;//Deprecated, use the above method
 
 /*!
-	@method		loadModelValueOfDataRepresentation:ofType:
+	@method		loadModelValueOfDataRepresentation:ofType:error:
 	@abstract	Basic loader.
 	@discussion	Description never forthcoming.
 	@param  	data is a data
@@ -429,7 +399,6 @@ NSString * iTM2KeyFromSelector(SEL selector);
 	@result 	A flag indicating whther things have been done or not.
 */
 - (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type error:(NSError**)RORef;
-- (BOOL)loadModelValueOfDataRepresentation:(NSData *)data ofType:(NSString *)type;//Deprecated, use the above method
 
 /*!
 	@method		modelTypes
@@ -491,9 +460,6 @@ NSString * iTM2KeyFromSelector(SEL selector);
 */
 - (void)takeModelValue:(id)PL forKey:(NSString *)key ofType:(NSString *)type;
 
-@property (retain) id _Owner;
-@property (retain) id _Parent;
-@property (retain) id _MetaValueDictionary;
 @end
 
 @interface iTM2Implementation(Selector)

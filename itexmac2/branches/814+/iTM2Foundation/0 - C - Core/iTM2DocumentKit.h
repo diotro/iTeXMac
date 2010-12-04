@@ -190,8 +190,8 @@ extern NSString * const iTM2InspectorTable;
 */
 + (id)context4iTM3DictionaryFromURL:(NSURL *)fileURL;
 
-- (BOOL)readContextFromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)RORef;
-- (BOOL)writeContextToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)RORef;
+- (BOOL)readContext4iTM3FromURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)RORef;
+- (BOOL)writeContext4iTM3ToURL:(NSURL *)absoluteURL ofType:(NSString *)type error:(NSError **)RORef;
 
 /*!
     @method		needsToUpdate4iTM3
@@ -384,24 +384,24 @@ extern NSString * const iTM2InspectorTable;
 - (BOOL)writeToDirectoryWrapper:(NSFileWrapper *)DW error:(NSError **)RORef;
 
 /*!
-    @method		synchronizeWindowControllers
+    @method		synchronizeWindowControllers4iTM3Error:
     @abstract	Synchronize the window controllers with the receiver.
     @discussion	Send a -synchronizeWithDocument message to all its window controllers.
 				Send this message whenever the data model has changed.
 	@param		None.
     @result		NO is there are no window controllers.
 */
-- (BOOL)synchronizeWindowControllers;
+- (BOOL)synchronizeWindowControllers4iTM3Error:(NSError **)RORef;
 
 /*!
-    @method		synchronizeWithWindowControllers;
+    @method		synchronizeWithWindowControllers4iTM3Error;
     @abstract	Synchronize the receive with its window controllers.
-    @discussion	Send a -synchronizeDocument message to all its window controllers.
+    @discussion	Send a -synchronizeDocument4iTM3Error: message to all its window controllers.
 				Send this message whenever the data model has been edited and you need an up to date model.
-	@param		None.
+	@param		RORef.
     @result		None.
 */
-- (void)synchronizeWithWindowControllers;
+- (BOOL)synchronizeWithWindowControllers4iTM3Error:(NSError **)RORef;
 
 /*!
     @method		readFromDirectoryWrapper:error:
@@ -451,8 +451,10 @@ extern NSString * const iTM2InspectorTable;
     @method		willSave
     @abstract	The receiver is about to save its data.
     @discussion	Description forthcoming.
+    @param		RORef.
+    @result		YorN.
 */
-- (void)willSave;
+- (BOOL)willSave4iTM3Error:(NSError **)RORef;
 
 /*!
     @method		didSave
@@ -461,10 +463,10 @@ extern NSString * const iTM2InspectorTable;
 				Subclassers have a hook point because any selector with the same signature as the message
 				and suffix DidSave will be performed.
 				Of course names should be chosen with care in order to avoid collisions.
-    @param      None.
-    @result     None.
+    @param		RORef.
+    @result		YorN.
 */
-- (void)didSave;
+- (BOOL)didSave4iTM3Error:(NSError **)RORef;
 
 /*! 
     @method     readFromURL:ofType:error:
@@ -480,12 +482,11 @@ extern NSString * const iTM2InspectorTable;
                 are also implemented by the TeX project document.
                 Arguments are passed through as is.
                 You must implement such a method to provide something relevant.
-				The loadDataRepresentation:ofType: has been deprecated in Tiger but was overriden here.
 				When all the methods have been successfully performed, the receiver performs a final didReadFromURL:ofType:error: message.
 				If you want some method to performed before the others, prefix it with "prepare".
 				
 				It is recommanded that you have one level of indirection in your various file reading method.
-				For example, the dataCompleteReadFromURL4iTM3:ofType:error: is just a wrapper over the loadDataRepresentation:ofType:
+				For example, the dataCompleteReadFromURL4iTM3:ofType:error: is just a wrapper over the readFromData:ofType:erro:
 				
 				If you override this method, do not forget to update the file modification date, see some auto update kit method.
     @param      absoluteURL is the new document url.
@@ -500,7 +501,7 @@ extern NSString * const iTM2InspectorTable;
     @abstract   read the data from the given url
     @discussion Preserves the resources.
 				In cocoa, the document based design automatically loads data when reading from file,
-				as soon as the loadDataRepresentation:ofType: (or a similar method) is implemented.
+				as soon as the readFromData:ofType:erro: (or a similar method) is implemented.
 				We ensured this is no longer the case overriding the file wrapper stuff.
     @param      fullDocumentPath is the document path.
     @param      typeName is the document type.
@@ -526,18 +527,18 @@ extern NSString * const iTM2InspectorTable;
 - (BOOL)resourcesCompleteReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
 
 /*!
-    @method		didReadFromURL:ofType:error:
+    @method		didReadFromURL4iTM3:ofType:error:
     @abstract	The receiver has just read its data.
 				Subclassers have hook points where they can add their own stuff:
-				any selector with the same signature and suffix DidReadFromURL:ofType:error: will be performed.
+				any selector with the same signature and suffix DidReadFromURL4iTM3:ofType:error: will be performed.
 				Of course names should be chosen with care in order to avoid collisions.
     @discussion	Description forthcoming.
     @param      absoluteURL is the document url.
     @param      typeName is the document type.
-    @param      outputError.
-    @result     None.
+    @param      RORef.
+    @result     YorN.
 */
-- (void)didReadFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)outputError;
+- (BOOL)didReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError**)RORef;
 
 /*! 
     @method		writeToURL:ofType:error:
@@ -620,22 +621,23 @@ extern NSString * const iTM2InspectorTable;
 /*! 
     @method     setDataRepresentation:
     @abstract   Set the data representation of the receiver
-    @discussion It just loadDataRepresentation:ofType: with the receiver's file type.
-                So never use this method from a loadDataRepresentation:ofType: unless you want an infinite loop.
+    @discussion It just readFromData:ofType:error: with the receiver's file type.
+                So never use this method from a readFromData:ofType:error: unless you want an infinite loop.
     @param      The document type.
     @result     A flag.
 */
 - (void)setDataRepresentation:(NSData *)data;
 
 /*! 
-    @method     loadDataRepresentation:ofType:
+    @method     readFromData:ofType:error:
     @abstract   Loads the given data representation of the given type
     @discussion Just asks the implementation to do the job.
     @param      data is tha data to be loaded.
     @param      The document type.
+    @param      RORef.
     @result     A flag indicating whether the operation succeeded of failed.
 */
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
+- (BOOL)readFromData:(NSData *)data ofType:(NSString *)type error:(NSError **)RORef;
 
 @end
 
@@ -833,7 +835,7 @@ extern NSString * const iTM2InspectorTable;
 + (NSArray *)inspectorModesForType:(NSString *)type;
 
 /*!
-    @method		synchronizeDocument
+    @method		synchronizeDocument4iTM3Error:
     @abstract	Abstract forthcoming.
     @discussion	This message should be sent to have the document in synch with its inspectors. Useful when you are about to save your document.
                 Subclasseres will prepend their own stuff. We should be sure that the use interface always reflects the state of the stored data.
