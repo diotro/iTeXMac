@@ -36,7 +36,7 @@
 	@copyright	jerome dot laurens at u minus bourgogne dot fr
 	@available	iTM2 build 710
 */
-+ (BOOL)swizzleInstanceMethodSelector4iTM3:(SEL)selector error:(NSError **)errorRef;
++ (BOOL)swizzleInstanceMethodSelector4iTM3:(SEL)selector error:(NSError **)RORef;
 
 /*!
     @method		swizzleClassMethodSelector4iTM3:
@@ -49,7 +49,7 @@
 	@copyright	jerome dot laurens at u minus bourgogne dot fr
 	@available	iTM2 build 710
 */
-+ (BOOL)swizzleClassMethodSelector4iTM3:(SEL)selector error:(NSError **)errorRef;
++ (BOOL)swizzleClassMethodSelector4iTM3:(SEL)selector error:(NSError **)RORef;
 
 @end
 

@@ -30,7 +30,7 @@
 @interface NSDocument(iTM2SpellKit)
 
 /*!
-    @method		spellContextController
+    @method		spellContextController4iTM3Error:RORef
     @abstract	The spelling context controller.
     @discussion	The spelling context is defined by the language, and the lists of know words.
                 Each logically different context is defined by a unique NSString key.
@@ -46,7 +46,7 @@
     @parameter	None.
     @result		A spell context controller.
 */
-- (iTM2SpellContextController *)spellContextController;
+- (iTM2SpellContextController *)spellContextController4iTM3Error:RORef;
 
 @end
 

@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
-		<string key="IBDocument.InterfaceBuilderVersion">804</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.SystemVersion">10H574</string>
+		<string key="IBDocument.InterfaceBuilderVersion">732</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">804</string>
+			<string key="NS.object.0">732</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="2787"/>
-			<integer value="1625"/>
+			<integer value="2247"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2888,12 +2888,12 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{595, 53}, {480, 360}}</string>
 				<int key="NSWTFlags">1886912512</int>
-				<string key="NSWindowTitle">Window</string>
+				<string key="NSWindowTitle">Test Window</string>
 				<string key="NSWindowClass">iTM2Window</string>
 				<object class="NSMutableString" key="NSViewClass">
 					<characters key="NS.bytes">View</characters>
 				</object>
-				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="354100935">
 					<reference key="NSNextResponder"/>
@@ -2964,7 +2964,7 @@
 														<string key="NSColorName">selectedTextBackgroundColor</string>
 														<object class="NSColor" key="NSColor">
 															<int key="NSColorSpace">3</int>
-															<bytes key="NSWhite">MC42NjY2NjY2ODY1AA</bytes>
+															<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
 														</object>
 													</object>
 													<object class="NSColor" key="NSColor">
@@ -2985,7 +2985,7 @@
 												<nil key="NSDefaultParagraphStyle"/>
 											</object>
 											<int key="NSTVFlags">6</int>
-											<string key="NSMaxSize">{434, 1e+07}</string>
+											<string key="NSMaxSize">{863, 1e+07}</string>
 											<string key="NSMinize">{114, 0}</string>
 											<nil key="NSDelegate"/>
 										</object>
@@ -3036,7 +3036,7 @@
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{213, 129}</string>
-				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
+				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -4528,6 +4528,14 @@
 						<reference key="destination" ref="409593857"/>
 					</object>
 					<int key="connectionID">2853</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="859188639"/>
+						<reference key="destination" ref="847112750"/>
+					</object>
+					<int key="connectionID">2854</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6586,7 +6594,7 @@
 				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1127.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="1127.ImportedFromIB2"/>
-				<string key="1132.IBEditorWindowLastContentRect">{{226, 681}, {157, 133}}</string>
+				<string key="1132.IBEditorWindowLastContentRect">{{226, 603}, {157, 133}}</string>
 				<string key="1132.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="1132.ImportedFromIB2"/>
 				<string key="1312.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6611,7 +6619,7 @@
 				<boolean value="YES" key="1580.ImportedFromIB2"/>
 				<string key="1624.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="1624.ImportedFromIB2"/>
-				<string key="1625.IBEditorWindowLastContentRect">{{383, 581}, {230, 193}}</string>
+				<string key="1625.IBEditorWindowLastContentRect">{{383, 503}, {230, 193}}</string>
 				<string key="1625.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="1625.ImportedFromIB2"/>
 				<string key="1626.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6658,6 +6666,7 @@
 				<boolean value="YES" key="1765.ImportedFromIB2"/>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="19.ImportedFromIB2"/>
+				<string key="1933.IBEditorWindowLastContentRect">{{12, 523}, {211, 213}}</string>
 				<string key="1933.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="1933.ImportedFromIB2"/>
 				<string key="1937.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6799,6 +6808,7 @@
 				<boolean value="YES" key="2149.ImportedFromIB2"/>
 				<string key="2161.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="2161.ImportedFromIB2"/>
+				<string key="2172.IBEditorWindowLastContentRect">{{292, 623}, {263, 113}}</string>
 				<string key="2172.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="2172.ImportedFromIB2"/>
 				<string key="2225.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -6837,6 +6847,7 @@
 				<boolean value="YES" key="2245.ImportedFromIB2"/>
 				<string key="2246.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="2246.ImportedFromIB2"/>
+				<string key="2247.IBEditorWindowLastContentRect">{{140, 433}, {205, 303}}</string>
 				<string key="2247.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="2247.ImportedFromIB2"/>
 				<string key="2271.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7177,9 +7188,9 @@
 				<boolean value="YES" key="2777.ImportedFromIB2"/>
 				<string key="2780.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="2780.ImportedFromIB2"/>
-				<string key="2786.IBEditorWindowLastContentRect">{{21, 462}, {480, 360}}</string>
+				<string key="2786.IBEditorWindowLastContentRect">{{33, 85}, {480, 360}}</string>
 				<string key="2786.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="2786.IBWindowTemplateEditedContentRect">{{21, 462}, {480, 360}}</string>
+				<string key="2786.IBWindowTemplateEditedContentRect">{{33, 85}, {480, 360}}</string>
 				<boolean value="YES" key="2786.ImportedFromIB2"/>
 				<boolean value="YES" key="2786.NSWindowTemplate.visibleAtLaunch"/>
 				<boolean value="YES" key="2786.windowTemplate.hasMinSize"/>
@@ -7215,7 +7226,7 @@
 				<boolean value="YES" key="2845.IBShouldRemoveOnLegacySave"/>
 				<string key="2846.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="2846.IBShouldRemoveOnLegacySave"/>
-				<string key="29.IBEditorWindowLastContentRect">{{0, 814}, {611, 20}}</string>
+				<string key="29.IBEditorWindowLastContentRect">{{0, 736}, {611, 20}}</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="29.ImportedFromIB2"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7225,7 +7236,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2853</int>
+			<int key="maxID">2854</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -7385,612 +7396,6 @@
 						<string key="unindentSelection:">id</string>
 						<string key="wrapSelectedText:">id</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="EOLDefault:">
-							<string key="name">EOLDefault:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="OgreFindMenuItemAction:">
-							<string key="name">OgreFindMenuItemAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="actualSize:">
-							<string key="name">actualSize:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="addSelectionToCompletion:">
-							<string key="name">addSelectionToCompletion:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="annotateTool:">
-							<string key="name">annotateTool:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="assignProfile:">
-							<string key="name">assignProfile:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="autoZoom:">
-							<string key="name">autoZoom:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="bookMode:">
-							<string key="name">bookMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="commentSelectedText:">
-							<string key="name">commentSelectedText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="completeLaTeXEnvironment:">
-							<string key="name">completeLaTeXEnvironment:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="crop:">
-							<string key="name">crop:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayCropBox:">
-							<string key="name">displayCropBox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayMediaBox:">
-							<string key="name">displayMediaBox:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFAtFixedSize:">
-							<string key="name">displayPDFAtFixedSize:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFAtMagnification:">
-							<string key="name">displayPDFAtMagnification:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFBackPage:">
-							<string key="name">displayPDFBackPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFFirstPage:">
-							<string key="name">displayPDFFirstPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFFitFromTag:">
-							<string key="name">displayPDFFitFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFForwardPage:">
-							<string key="name">displayPDFForwardPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFLastPage:">
-							<string key="name">displayPDFLastPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFNextNextPage:">
-							<string key="name">displayPDFNextNextPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFNextPage:">
-							<string key="name">displayPDFNextPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFPreviousPage:">
-							<string key="name">displayPDFPreviousPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFPreviousPreviousPage:">
-							<string key="name">displayPDFPreviousPreviousPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFZoomAt:">
-							<string key="name">displayPDFZoomAt:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFZoomIn:">
-							<string key="name">displayPDFZoomIn:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="displayPDFZoomOut:">
-							<string key="name">displayPDFZoomOut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doGoBack:">
-							<string key="name">doGoBack:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doGoForward:">
-							<string key="name">doGoForward:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doGoToFirstPage:">
-							<string key="name">doGoToFirstPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doGoToLastPage:">
-							<string key="name">doGoToLastPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doGoToNextPage:">
-							<string key="name">doGoToNextPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doGoToPreviousPage:">
-							<string key="name">doGoToPreviousPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doZoomIn:">
-							<string key="name">doZoomIn:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doZoomOut:">
-							<string key="name">doZoomOut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doZoomToSelection:">
-							<string key="name">doZoomToSelection:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="editCompletions:">
-							<string key="name">editCompletions:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="editExportImageOptions:">
-							<string key="name">editExportImageOptions:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="findAndScrollSynchronizationPointToVisible:">
-							<string key="name">findAndScrollSynchronizationPointToVisible:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="flipHorizontal:">
-							<string key="name">flipHorizontal:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="flipVertical:">
-							<string key="name">flipVertical:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="getInfo:">
-							<string key="name">getInfo:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="goToPageNumberPanel:">
-							<string key="name">goToPageNumberPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="imageCorrection:">
-							<string key="name">imageCorrection:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="indentSelectedText:">
-							<string key="name">indentSelectedText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="indentSelectedTextToPrevious:">
-							<string key="name">indentSelectedTextToPrevious:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="indentSelection:">
-							<string key="name">indentSelection:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="macroEdit:">
-							<string key="name">macroEdit:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="macroMode:">
-							<string key="name">macroMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="mailForHelp:">
-							<string key="name">mailForHelp:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="matchToProfile:">
-							<string key="name">matchToProfile:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="moreCopy:">
-							<string key="name">moreCopy:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="moreCut:">
-							<string key="name">moreCut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="moreNewPasteboard:">
-							<string key="name">moreNewPasteboard:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="morePaste:">
-							<string key="name">morePaste:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="myRating:">
-							<string key="name">myRating:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="newDocumentFromRunningAssistantPanel:">
-							<string key="name">newDocumentFromRunningAssistantPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openDocumentQuicklyGraphics:">
-							<string key="name">openDocumentQuicklyGraphics:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openDocumentQuicklyOther:">
-							<string key="name">openDocumentQuicklyOther:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openDocumentQuicklyText:">
-							<string key="name">openDocumentQuicklyText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="orderFrontLaTeXSymbolsPanel:">
-							<string key="name">orderFrontLaTeXSymbolsPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="orderFrontProjectPreferencesPanel:">
-							<string key="name">orderFrontProjectPreferencesPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="parseAllText:">
-							<string key="name">parseAllText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="parseSelectedText:">
-							<string key="name">parseSelectedText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="parseVisibleText:">
-							<string key="name">parseVisibleText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="performCloseProject:">
-							<string key="name">performCloseProject:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="performMoreFindAction:">
-							<string key="name">performMoreFindAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectAddCurrentDocument:">
-							<string key="name">projectAddCurrentDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectAddDocument:">
-							<string key="name">projectAddDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectChooseMaster:">
-							<string key="name">projectChooseMaster:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectCurrent:">
-							<string key="name">projectCurrent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectCurrentCreate:">
-							<string key="name">projectCurrentCreate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectCurrentNone:">
-							<string key="name">projectCurrentNone:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectDocuments:">
-							<string key="name">projectDocuments:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectNoDocument:">
-							<string key="name">projectNoDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="projectShowSettings:">
-							<string key="name">projectShowSettings:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="reportBug:">
-							<string key="name">reportBug:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="requestFeature:">
-							<string key="name">requestFeature:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="rotateLeft:">
-							<string key="name">rotateLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="rotateRight:">
-							<string key="name">rotateRight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollTool:">
-							<string key="name">scrollTool:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="selectNextPlaceholder:">
-							<string key="name">selectNextPlaceholder:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="selectPreviousPlaceholder:">
-							<string key="name">selectPreviousPlaceholder:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="selectTool:">
-							<string key="name">selectTool:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setCircleAnnotation:">
-							<string key="name">setCircleAnnotation:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setFacingPages:">
-							<string key="name">setFacingPages:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setFreeTextAnnotation:">
-							<string key="name">setFreeTextAnnotation:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setSinglePages:">
-							<string key="name">setSinglePages:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showAREFindPanel:">
-							<string key="name">showAREFindPanel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showLaTeXHelp:">
-							<string key="name">showLaTeXHelp:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showPreferences:">
-							<string key="name">showPreferences:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showReleaseNotes:">
-							<string key="name">showReleaseNotes:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showTeTeXHelp:">
-							<string key="name">showTeTeXHelp:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showTeXCatalogueOnLine:">
-							<string key="name">showTeXCatalogueOnLine:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showViewerPreferences:">
-							<string key="name">showViewerPreferences:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="slideshow:">
-							<string key="name">slideshow:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="stringEncodingDefault:">
-							<string key="name">stringEncodingDefault:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="stringEncodingEditList:">
-							<string key="name">stringEncodingEditList:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="stringEncodingMissingLocale:">
-							<string key="name">stringEncodingMissingLocale:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="stringEncodingToggleAuto:">
-							<string key="name">stringEncodingToggleAuto:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takeEOLFromTag:">
-							<string key="name">takeEOLFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takePDFDisplayOrientationFromTag:">
-							<string key="name">takePDFDisplayOrientationFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takePDFNewPageModeFromTag:">
-							<string key="name">takePDFNewPageModeFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takePDFPageLayoutModeFromTag:">
-							<string key="name">takePDFPageLayoutModeFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takePDFStickModeFromTag:">
-							<string key="name">takePDFStickModeFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textAlignCenter:">
-							<string key="name">textAlignCenter:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textAlignJustified:">
-							<string key="name">textAlignJustified:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textAlignLeft:">
-							<string key="name">textAlignLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textAlignRight:">
-							<string key="name">textAlignRight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textBold:">
-							<string key="name">textBold:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textItalic:">
-							<string key="name">textItalic:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleEdit:">
-							<string key="name">textStyleEdit:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleFormat:">
-							<string key="name">textStyleFormat:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleName:">
-							<string key="name">textStyleName:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleToggleEnabled:">
-							<string key="name">textStyleToggleEnabled:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleVariant:">
-							<string key="name">textStyleVariant:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textTool:">
-							<string key="name">textTool:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textUnderline:">
-							<string key="name">textUnderline:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleAutoIndentNewLine:">
-							<string key="name">toggleAutoIndentNewLine:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleAutoUpdate:">
-							<string key="name">toggleAutoUpdate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleBaseWritingDirection:">
-							<string key="name">toggleBaseWritingDirection:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleContinuousPage:">
-							<string key="name">toggleContinuousPage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleDrawer:">
-							<string key="name">toggleDrawer:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleDrawsTextBackground:">
-							<string key="name">toggleDrawsTextBackground:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleFixSymbolDrawerBug:">
-							<string key="name">toggleFixSymbolDrawerBug:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleGrab:">
-							<string key="name">toggleGrab:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleInspector:">
-							<string key="name">toggleInspector:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleMatchDelimiter:">
-							<string key="name">toggleMatchDelimiter:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="togglePDFDisplayModeStick:">
-							<string key="name">togglePDFDisplayModeStick:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="togglePDFSlidesLandscapeMode:">
-							<string key="name">togglePDFSlidesLandscapeMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="togglePageBreaks:">
-							<string key="name">togglePageBreaks:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleReadOnly:">
-							<string key="name">toggleReadOnly:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShareToolbarConfiguration:">
-							<string key="name">toggleShareToolbarConfiguration:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShiftDelete:">
-							<string key="name">toggleShiftDelete:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShowsControls:">
-							<string key="name">toggleShowsControls:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShowsInvisibles:">
-							<string key="name">toggleShowsInvisibles:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSmartInsert:">
-							<string key="name">toggleSmartInsert:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSmartMacros:">
-							<string key="name">toggleSmartMacros:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSmartSelection:">
-							<string key="name">toggleSmartSelection:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSmartUpdate:">
-							<string key="name">toggleSmartUpdate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSyncAllBullets:">
-							<string key="name">toggleSyncAllBullets:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSyncFocusBullet:">
-							<string key="name">toggleSyncFocusBullet:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSyncFollowFocus:">
-							<string key="name">toggleSyncFollowFocus:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSyncNoBullets:">
-							<string key="name">toggleSyncNoBullets:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSyncUserBullets:">
-							<string key="name">toggleSyncUserBullets:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSynchronizationMode:">
-							<string key="name">toggleSynchronizationMode:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleThreadedPDFRendering:">
-							<string key="name">toggleThreadedPDFRendering:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="uncommentSelectedText:">
-							<string key="name">uncommentSelectedText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="unindentSelectedText:">
-							<string key="name">unindentSelectedText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="unindentSelection:">
-							<string key="name">unindentSelection:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="wrapSelectedText:">
-							<string key="name">wrapSelectedText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -8005,7 +7410,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSApplication</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="415988011">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">0 - A - Basic/iTeXMac2.h</string>
 					</object>
@@ -8059,20 +7464,6 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSDocument</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="documentCompleteLoadContext4iTM3:">id</string>
-						<string key="documentCompleteSaveContext4iTM3:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="documentCompleteLoadContext4iTM3:">
-							<string key="name">documentCompleteLoadContext4iTM3:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="documentCompleteSaveContext4iTM3:">
-							<string key="name">documentCompleteSaveContext4iTM3:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="224606514">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">0 - C - Core/iTM2ContextKit.h</string>
@@ -8091,13 +7482,6 @@
 						<string key="NS.key.0">showWindowsBelowFront:</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showWindowsBelowFront:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showWindowsBelowFront:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="71019538">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">0 - C - Core/iTM2DocumentKit.h</string>
@@ -8112,17 +7496,6 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSDocument</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">documentProjectCompleteSaveContext4iTM3:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">documentProjectCompleteSaveContext4iTM3:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">documentProjectCompleteSaveContext4iTM3:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="28588879">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">1 - C - Project/iTM2ProjectDocumentKit.h</string>
@@ -8202,6 +7575,10 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
+					<reference key="sourceIdentifier" ref="415988011"/>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">0 - B - View/iTM2EventKit.h</string>
@@ -8212,13 +7589,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">noop:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">noop:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">noop:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<reference key="sourceIdentifier" ref="1023060404"/>
 				</object>
@@ -8231,20 +7601,6 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="loadContext:">id</string>
-						<string key="saveContext:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="loadContext:">
-							<string key="name">loadContext:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveContext:">
-							<string key="name">saveContext:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<reference key="sourceIdentifier" ref="224606514"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8309,13 +7665,6 @@
 						<string key="NS.key.0">showPreferences:</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showPreferences:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showPreferences:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -8329,24 +7678,6 @@
 						<string key="scrollPageLeft:">id</string>
 						<string key="scrollPageRight:">id</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="scrollCharacterLeft:">
-							<string key="name">scrollCharacterLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollCharacterRight:">
-							<string key="name">scrollCharacterRight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollPageLeft:">
-							<string key="name">scrollPageLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollPageRight:">
-							<string key="name">scrollPageRight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="986942121">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">0 - B - View/iTM2ResponderKit.h</string>
@@ -8358,13 +7689,6 @@
 						<string key="NS.key.0">toggleSmartUndo:</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">toggleSmartUndo:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">toggleSmartUndo:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<reference key="sourceIdentifier" ref="71019538"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8373,20 +7697,6 @@
 						<string key="flushKeyBindings:">id</string>
 						<string key="flushKeyStrokeEvents4iTM3:">id</string>
 						<string key="flushLastKeyStrokeEvent4iTM3:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="flushKeyBindings:">
-							<string key="name">flushKeyBindings:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="flushKeyStrokeEvents4iTM3:">
-							<string key="name">flushKeyStrokeEvents4iTM3:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="flushLastKeyStrokeEvent4iTM3:">
-							<string key="name">flushLastKeyStrokeEvent4iTM3:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<reference key="sourceIdentifier" ref="111982472"/>
 				</object>
@@ -8414,13 +7724,6 @@
 						<string key="NS.key.0">openSelectionQuickly:</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">openSelectionQuickly:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">openSelectionQuickly:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<reference key="sourceIdentifier" ref="979021801"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8428,13 +7731,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">openSelectionQuickly:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">openSelectionQuickly:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">openSelectionQuickly:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="1010548910">
 						<string key="majorKey">IBProjectSource</string>
@@ -8458,16 +7754,6 @@
 						<string key="doZoomIn:">id</string>
 						<string key="doZoomOut:">id</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="doZoomIn:">
-							<string key="name">doZoomIn:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doZoomOut:">
-							<string key="name">doZoomOut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<reference key="sourceIdentifier" ref="1010548910"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8475,13 +7761,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">select1stPlaceholder:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">select1stPlaceholder:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">select1stPlaceholder:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<reference key="sourceIdentifier" ref="915775648"/>
 				</object>
@@ -8508,40 +7787,6 @@
 						<string key="scrollPageRight:">id</string>
 						<string key="scrollPageUp:">id</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="scrollCharacterLeft:">
-							<string key="name">scrollCharacterLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollCharacterRight:">
-							<string key="name">scrollCharacterRight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollLineDown:">
-							<string key="name">scrollLineDown:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollLineUp:">
-							<string key="name">scrollLineUp:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollPageDown:">
-							<string key="name">scrollPageDown:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollPageLeft:">
-							<string key="name">scrollPageLeft:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollPageRight:">
-							<string key="name">scrollPageRight:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollPageUp:">
-							<string key="name">scrollPageUp:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="367109960">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">0 - B - View/iTM2ViewKit.h</string>
@@ -8556,13 +7801,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">orderBelowFront4iTM3:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">orderBelowFront4iTM3:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">orderBelowFront4iTM3:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<reference key="sourceIdentifier" ref="772739647"/>
 				</object>
@@ -8588,13 +7826,6 @@
 						<string key="NS.key.0">showWindowBelowFront:</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showWindowBelowFront:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showWindowBelowFront:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<reference key="sourceIdentifier" ref="71019538"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8616,13 +7847,6 @@
 						<string key="NS.key.0">checkForUpdate:</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">checkForUpdate:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">checkForUpdate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
@@ -8640,16 +7864,6 @@
 						<string key="toggleAutoUpdate:">id</string>
 						<string key="toggleSmartUpdate:">id</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="toggleAutoUpdate:">
-							<string key="name">toggleAutoUpdate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleSmartUpdate:">
-							<string key="name">toggleSmartUpdate:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<reference key="sourceIdentifier" ref="995756209"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8658,13 +7872,6 @@
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">showHelp:</string>
 						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showHelp:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showHelp:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -8678,13 +7885,6 @@
 						<string key="NS.key.0">implementation4iTM3</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">implementation4iTM3</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">implementation4iTM3</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<reference key="sourceIdentifier" ref="71019538"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8693,16 +7893,6 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="doZoomIn:">id</string>
 						<string key="doZoomOut:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="doZoomIn:">
-							<string key="name">doZoomIn:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="doZoomOut:">
-							<string key="name">doZoomOut:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -8716,16 +7906,6 @@
 						<string key="showReleaseNotes:">id</string>
 						<string key="showWelcomeNotes:">id</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="showReleaseNotes:">
-							<string key="name">showReleaseNotes:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showWelcomeNotes:">
-							<string key="name">showWelcomeNotes:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<reference key="sourceIdentifier" ref="169673558"/>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -8736,24 +7916,6 @@
 						<string key="stringEncodingToggleAuto:">id</string>
 						<string key="takeEOLFromTag:">id</string>
 						<string key="takeStringEncodingFromTag:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="stringEncodingEditList:">
-							<string key="name">stringEncodingEditList:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="stringEncodingToggleAuto:">
-							<string key="name">stringEncodingToggleAuto:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takeEOLFromTag:">
-							<string key="name">takeEOLFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="takeStringEncodingFromTag:">
-							<string key="name">takeStringEncodingFromTag:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -8766,16 +7928,6 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="scrollTaggedAndRepresentedStringToVisible:">id</string>
 						<string key="scrollTaggedToVisible:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="scrollTaggedAndRepresentedStringToVisible:">
-							<string key="name">scrollTaggedAndRepresentedStringToVisible:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scrollTaggedToVisible:">
-							<string key="name">scrollTaggedToVisible:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -8800,32 +7952,6 @@
 						<string key="textStyleToggle:">id</string>
 						<string key="textStyleToggleEnabled:">id</string>
 						<string key="textStyleVariant:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="textStyleEdit:">
-							<string key="name">textStyleEdit:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleFormat:">
-							<string key="name">textStyleFormat:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleName:">
-							<string key="name">textStyleName:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleToggle:">
-							<string key="name">textStyleToggle:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleToggleEnabled:">
-							<string key="name">textStyleToggleEnabled:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="textStyleVariant:">
-							<string key="name">textStyleVariant:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -8925,32 +8051,6 @@
 						<string key="saveDocumentAs:">id</string>
 						<string key="saveDocumentTo:">id</string>
 					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="printDocument:">
-							<string key="name">printDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="revertDocumentToSaved:">
-							<string key="name">revertDocumentToSaved:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="runPageLayout:">
-							<string key="name">runPageLayout:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocument:">
-							<string key="name">saveDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocumentAs:">
-							<string key="name">saveDocumentAs:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveDocumentTo:">
-							<string key="name">saveDocumentTo:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSDocument.h</string>
@@ -8971,24 +8071,6 @@
 						<string key="newDocument:">id</string>
 						<string key="openDocument:">id</string>
 						<string key="saveAllDocuments:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="clearRecentDocuments:">
-							<string key="name">clearRecentDocuments:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="newDocument:">
-							<string key="name">newDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="openDocument:">
-							<string key="name">openDocument:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="saveAllDocuments:">
-							<string key="name">saveAllDocuments:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
@@ -9402,13 +8484,6 @@
 						<string key="NS.key.0">showWindow:</string>
 						<string key="NS.object.0">id</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showWindow:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showWindow:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSWindowController.h</string>
@@ -9417,7 +8492,6 @@
 			</array>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<integer value="1060" key="NS.object.0"/>
@@ -9429,9 +8503,5 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../../iTM2Foundation.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NSMenuCheckmark">{9, 8}</string>
-			<string key="NSMenuMixedState">{7, 2}</string>
-		</dictionary>
 	</data>
 </archive>

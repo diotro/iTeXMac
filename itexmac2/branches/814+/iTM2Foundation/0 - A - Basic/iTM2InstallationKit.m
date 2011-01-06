@@ -60,7 +60,7 @@ To Do List:
 			}
 			NSInvocation * I;
 			[[NSInvocation getInvocation4iTM3:&I withTarget:C retainArguments:NO] completeInstallation];
-			[I invokeWithSelectors4iTM3:[iTM2Runtime realClassSelectorsOfClass:C withSuffix:@"CompleteInstallation4iTM3" signature:[I methodSignature] inherited:NO]];
+			[I invokeWithSelectors4iTM3:[iTM2Runtime realClassSelectorsOfClass:C withSuffix:@"CompleteInstallation4iTM3" signature:I.methodSignature inherited:NO]];
 			object_setClass(C,[iTM2InstallerZombie class]);
 		}
 	}
@@ -265,7 +265,7 @@ To Do List:
 //START4iTM3;
 	NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] fixInstallation];
-	NSPointerArray * PA = [iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"FixInstallation4iTM3" signature:[I methodSignature] inherited:YES];
+	NSPointerArray * PA = [iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"FixInstallation4iTM3" signature:I.methodSignature inherited:YES];
 	NSUInteger i = PA.count;
 	while(i--)
 	{
@@ -289,7 +289,7 @@ To Do List:
 //START4iTM3;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] fixInstallation];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"FixInstallation4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"FixInstallation4iTM3" signature:I.methodSignature inherited:YES]];
 //END4iTM3;
     return;
 }
@@ -482,25 +482,24 @@ To Do List:
 	already = YES;
 	NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] completeInstallation];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime realClassSelectorsOfClass:self withSuffix:@"CompleteInstallation4iTM3" signature:I.methodSignature inherited:YES]];
 	//END4iTM3;
     return;
 }
 - (void)finishLaunching;
 {
 	[iTM2Installer completeInstallation];
-    NSError * ROR = nil;
-	[iTM2Installer completeInstallationWithError:&ROR];
+    [iTM2Installer completeInstallationWithError:self.RORef4iTM3];
 	NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] finishLaunching];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteWillFinishLaunching4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteWillFinishLaunching4iTM3" signature:I.methodSignature inherited:YES]];
 	[super finishLaunching];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteDidFinishLaunching4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"CompleteDidFinishLaunching4iTM3" signature:I.methodSignature inherited:YES]];
 	[iTM2MileStone verifyRegisteredMileStones];
 }
 
 @end
 
-#include "../../build/Milestones/iTM2Foundation.m"
+#include "Milestones/iTM2FoundationMilestones.m"
 
 #endif

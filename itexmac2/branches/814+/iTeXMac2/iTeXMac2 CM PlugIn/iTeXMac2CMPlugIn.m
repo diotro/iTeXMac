@@ -392,7 +392,7 @@ static OSStatus _iTeXMac2CMPlugInCreateSubmenu(void * thisInstanceRef, const AED
 		AEDisposeDesc(&result);
 		--index;
 	}
-#if __iTM2_DEVELOPMENT__
+#if __iTM3_DEVELOPMENT__
 	NSLog(@"wrappers are: %@", wrappers);
 	NSLog(@"projects are: %@", projects);
 	NSLog(@"folders are: %@", folders);

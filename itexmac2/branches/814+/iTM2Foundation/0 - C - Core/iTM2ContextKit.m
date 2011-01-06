@@ -138,21 +138,17 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	id result = nil;
-	if (mask & iTM2ContextStandardLocalMask)
-	{
+	if (mask & iTM2ContextStandardLocalMask) {
 		NSDictionary * D = self.context4iTM3Dictionary;
-		if (result = [D valueForKey:aKey])
-		{
+		if ((result = [D valueForKey:aKey])) {
 			return result;
 		}
 		id context4iTM3Manager = self.context4iTM3Manager;
-		if ((self != context4iTM3Manager && SUD != context4iTM3Manager) && (result = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask error:RORef]))
-		{
+		if ((self != context4iTM3Manager) && (SUD != context4iTM3Manager) && (result = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask error:RORef])) {
 			return result;
 		}
 	}
-	if (mask & iTM2ContextDefaultsMask)
-	{
+	if (mask & iTM2ContextDefaultsMask) {
 		result = [SUD context4iTM3ValueForKey:aKey domain:mask error:RORef];
 	}
     return result;
@@ -224,7 +220,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSDictionary * D = [self context4iTM3ValueForKey:aKey domain:mask error:self.RORef4iTM3];
+	NSDictionary * D = [self context4iTM3ValueForKey:aKey domain:mask ROR4iTM3];
 //END4iTM3;
     return [NSFont fontWithNameSizeDictionary:D];
 }
@@ -238,7 +234,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSDictionary * D = [aFont nameSizeDictionary];
-    [self takeContext4iTM3Value:D forKey:aKey domain:mask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:D forKey:aKey domain:mask ROR4iTM3];
 //END4iTM3;
     return;
 }
@@ -251,7 +247,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSDictionary * D = [self context4iTM3ValueForKey:aKey domain:mask error:self.RORef4iTM3];
+	NSDictionary * D = [self context4iTM3ValueForKey:aKey domain:mask ROR4iTM3];
 //END4iTM3;
     return [NSColor colorWithRGBADictionary:D];
 }
@@ -265,7 +261,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSDictionary * D = [aColor RGBADictionary];
-    [self takeContext4iTM3Value:D forKey:aKey domain:mask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:D forKey:aKey domain:mask ROR4iTM3];
 //END4iTM3;
     return;
 }
@@ -425,7 +421,7 @@ next:;
 		}
 		id context4iTM3Manager = self.context4iTM3Manager;
 		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
-		   && ((value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask error:self.RORef4iTM3]))
+		   && ((value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask ROR4iTM3]))
                 && [value respondsToSelector:@selector(floatValue)]) {
 			return value.floatValue;
 		}
@@ -451,7 +447,7 @@ next:;
 		}
 		id context4iTM3Manager = self.context4iTM3Manager;
 		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
-            && (value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask error:self.RORef4iTM3])
+            && (value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask ROR4iTM3])
                 &&([value respondsToSelector:@selector(integerValue)])) {
 			return [value integerValue];
 		}
@@ -477,7 +473,7 @@ next:;
 		}
 		id context4iTM3Manager = self.context4iTM3Manager;
 		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
-            && (value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask error:self.RORef4iTM3])
+            && (value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask ROR4iTM3])
                 &&([value respondsToSelector:@selector(unsignedIntegerValue)])) {
 			return [value unsignedIntegerValue];
 		}
@@ -503,7 +499,7 @@ To Do List:
 		}
 		id context4iTM3Manager = self.context4iTM3Manager;
 		if ((context4iTM3Manager != self) && (context4iTM3Manager != SUD)
-			&& ((value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask error:self.RORef4iTM3]))
+			&& ((value = [context4iTM3Manager context4iTM3ValueForKey:aKey domain:mask ROR4iTM3]))
 				&& [value respondsToSelector:@selector(boolValue)]) {
 			return [value boolValue];
 		}
@@ -520,7 +516,7 @@ To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
-    [self takeContext4iTM3Value:[NSNumber numberWithInteger:value] forKey:aKey domain:mask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:[NSNumber numberWithInteger:value] forKey:aKey domain:mask ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3UnsignedInteger:forKey:domain:
@@ -532,7 +528,7 @@ To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
 	//START4iTM3;
-    [self takeContext4iTM3Value:[NSNumber numberWithUnsignedInteger:value] forKey:aKey domain:mask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:[NSNumber numberWithUnsignedInteger:value] forKey:aKey domain:mask ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3Float:forKey:domain:
@@ -544,7 +540,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContext4iTM3Value:[NSNumber numberWithFloat:value] forKey:aKey domain:mask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:[NSNumber numberWithFloat:value] forKey:aKey domain:mask ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeContext4iTM3Bool:forKey:domain:
@@ -556,7 +552,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContext4iTM3Value:[NSNumber numberWithBool:value] forKey:aKey domain:mask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:[NSNumber numberWithBool:value] forKey:aKey domain:mask ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  saveContext4iTM3Error:
@@ -685,7 +681,7 @@ To Do List:
 	{
 		return NSOnState;
 	}
-	if ([self context4iTM3ValueForKey:aKey domain:iTM2ContextPrivateMask error:self.RORef4iTM3])
+	if ([self context4iTM3ValueForKey:aKey domain:iTM2ContextPrivateMask ROR4iTM3])
 	{
 		return NSOffState;
 	}
@@ -709,11 +705,11 @@ To Do List:
 			[self takeContext4iTM3Bool:NO forKey:aKey domain:iTM2ContextPrivateMask];
 			return;
 		}
-		[self takeContext4iTM3Value:nil forKey:aKey domain:iTM2ContextPrivateMask error:self.RORef4iTM3];
+		[self takeContext4iTM3Value:nil forKey:aKey domain:iTM2ContextPrivateMask ROR4iTM3];
 		return;
 	}
 	if ([self context4iTM3BoolForKey:aKey domain:iTM2ContextAllDomainsMask&~iTM2ContextPrivateMask]) {
-		[self takeContext4iTM3Value:nil forKey:aKey domain:iTM2ContextPrivateMask error:self.RORef4iTM3];
+		[self takeContext4iTM3Value:nil forKey:aKey domain:iTM2ContextPrivateMask ROR4iTM3];
 		return;
 	}
 	[self takeContext4iTM3Bool:YES forKey:aKey domain:iTM2ContextPrivateMask];
@@ -768,6 +764,20 @@ To Do List:
 		return parentWindow;
 	}
     return [super currentContext4iTM3Manager];
+}
+@end
+
+@implementation NSApplication(iTM2ContextKit)
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentContext4iTM3Manager
+- (id)currentContext4iTM3Manager;
+/*"Returns the context4iTM3Manager of its window.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Révisé par itexmac2: 2010-12-27 23:45:54 +0100
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3
+    return SUD;
 }
 @end
 
@@ -1020,7 +1030,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSError * ROR = nil;
-	if ([NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) error:&ROR])
+	if ([NSDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2ContextKit_canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:) error:self.RORef4iTM3])
 	{
 		MILESTONE4iTM3((@"NSDocument(iTM2ContextKit)"),(@"WARNING: canCloseDocumentWithDelegate:... message could not be patched..."));
 	} else if (ROR) {

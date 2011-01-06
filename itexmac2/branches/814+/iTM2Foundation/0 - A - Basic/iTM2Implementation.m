@@ -149,7 +149,7 @@ To Do List:
 	[self.implementation takeModel:[[[self.class defaultModel] mutableCopy] autorelease] ofType:iTM2MainType];
 	NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] fixImplementation];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"FixImplementation4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"FixImplementation4iTM3" signature:I.methodSignature inherited:YES]];
    return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeImplementation
@@ -1265,7 +1265,7 @@ To Do List:
 //START4iTM3;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] fixImplementation];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"FixImplementation4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"FixImplementation4iTM3" signature:I.methodSignature inherited:YES]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  observeImplementation

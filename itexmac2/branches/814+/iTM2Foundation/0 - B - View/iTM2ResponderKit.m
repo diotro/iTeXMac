@@ -3,7 +3,7 @@
 //  @version Subversion: $Id: iTM2ResponderKit.m 798 2009-10-12 19:32:06Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Nov 27 2001.
-//  Copyright © 2001-2002 Laurens'Tribune. All rights reserved.
+//  Copyright Â© 2001-2002 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -44,7 +44,7 @@ This allows to split code in logically different units and it is an alternative 
 When we improve an object with further methods, we can either add a new responder or subclass an existing one.
 Both methods may be used.
 
-As suggested by appleª in the NSView documentation, we can insert responders after the main window content view
+As suggested by appleâ„¢ in the NSView documentation, we can insert responders after the main window content view
 or after the window delegate.
 
 There might be a bug/memory leak when the window is closed but not released (as for iTeXMac2 project windows).

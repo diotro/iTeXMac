@@ -100,7 +100,6 @@
 		DC225F720AE53C1A00186582 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC225F650AE53C1A00186582 /* InfoPlist.strings */; };
 		DC225F730AE53C1A00186582 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC225F670AE53C1A00186582 /* iTeXMac2.nib */; };
 		DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */; };
-		DC225F8A0AE53F8D00186582 /* OgreKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
 		DC24D2B70952C5DB00647943 /* iTeXMac2 Server in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */; };
 		DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */; };
 		DC4E16E00CCD054F00F5CE3E /* iTM2TeXTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4E16DF0CCD054F00F5CE3E /* iTM2TeXTestSuite.m */; };
@@ -112,7 +111,6 @@
 		DC4E17020CCD085900F5CE3E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F710C0F3CC700F2D5B9 /* libicucore.dylib */; };
 		DC4E17030CCD085900F5CE3E /* Lua.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70EFA80BFC56BF006C6A76 /* Lua.framework */; };
 		DC4E17040CCD085B00F5CE3E /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */; };
-		DC4E17050CCD085B00F5CE3E /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
 		DC4E1A0E0CCDD63800F5CE3E /* bookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A050CCDD63800F5CE3E /* bookmark.png */; };
 		DC4E1A0F0CCDD63800F5CE3E /* cautionTypeset.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A060CCDD63800F5CE3E /* cautionTypeset.png */; };
 		DC4E1A110CCDD63800F5CE3E /* showCurrentPLog.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A080CCDD63800F5CE3E /* showCurrentPLog.png */; };
@@ -149,7 +147,6 @@
 		DC90CF8A09978A1200C79525 /* iTM2ScriptUser.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90CF7E09978A1200C79525 /* iTM2ScriptUser.png */; };
 		DC90D2830997E66200C79525 /* iTM2ScriptMisc.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90D2820997E66200C79525 /* iTM2ScriptMisc.png */; };
 		DC90D2840997E66200C79525 /* iTM2ScriptMisc.png in Resources */ = {isa = PBXBuildFile; fileRef = DC90D2820997E66200C79525 /* iTM2ScriptMisc.png */; };
-		DC98402C0BA62E3C0061BD8B /* OgreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC225F860AE53F8D00186582 /* OgreKit.framework */; };
 		DC99EA87088315BD007AF81F /* iTM2ServerKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = DC99EA4A088315BD007AF81F /* iTM2ServerKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC99EA88088315BD007AF81F /* iTM2ServerKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = DC99EA4B088315BD007AF81F /* iTM2ServerKeys.m */; };
 		DC99EA89088315BD007AF81F /* iTM2ServerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC99EA4C088315BD007AF81F /* iTM2ServerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -173,7 +170,6 @@
 		DCAF9A3D09D810A400AFD95F /* iTM2TextStyle_TeX-Xtd.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3509D810A400AFD95F /* iTM2TextStyle_TeX-Xtd.strings */; };
 		DCAF9A3E09D810A400AFD95F /* iTM2TextStyle_TeX.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3709D810A400AFD95F /* iTM2TextStyle_TeX.strings */; };
 		DCAF9A4009D810A400AFD95F /* Styles.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A3B09D810A400AFD95F /* Styles.resources.tgz */; };
-		DCBE56790BC3CF2B00899B35 /* iTM2LaTeXKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCBE56760BC3CF2000899B35 /* iTM2LaTeXKit.framework */; };
 		DCC3D16C0926A425005471BD /* iTM2TextWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC3D1680926A425005471BD /* iTM2TextWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCC3D16D0926A425005471BD /* iTM2TextWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3D1690926A425005471BD /* iTM2TextWatcher.m */; };
 		DCC3EC6B08FDC4B900A74157 /* iTM2TeXFoundationErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC3EC6908FDC4B900A74157 /* iTM2TeXFoundationErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -282,9 +278,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DC1C6C65090D9961000F4FDE /* iTM2Foundation.framework in CopyFiles */,
-				DC225F8A0AE53F8D00186582 /* OgreKit.framework in CopyFiles */,
 				DC1C6C66090D9961000F4FDE /* iTM2TeXFoundation.framework in CopyFiles */,
-				DCBE56790BC3CF2B00899B35 /* iTM2LaTeXKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,7 +380,6 @@
 		DC225F690AE53C1A00186582 /* Test TeX Application-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test TeX Application-Info.plist"; sourceTree = "<group>"; };
 		DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test TeX Application-main.m"; sourceTree = "<group>"; };
 		DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test TeX Application-Prefix.pch"; sourceTree = "<group>"; };
-		DC225F860AE53F8D00186582 /* OgreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OgreKit.framework; path = ../build/OgreKit.framework; sourceTree = SOURCE_ROOT; };
 		DC23F5C10B713A51006261D8 /* TEST.tex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TEST.tex; path = Style/TEST.tex; sourceTree = SOURCE_ROOT; };
 		DC3B41750A4ADC7300E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
 		DC3B41760A4ADC7300E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
@@ -537,7 +530,6 @@
 				DC1C6C2C090D98FE000F4FDE /* iTM2Foundation.framework in Frameworks */,
 				DC1C6C2D090D98FE000F4FDE /* iTM2TeXFoundation.framework in Frameworks */,
 				DC1C6C2E090D98FE000F4FDE /* Carbon.framework in Frameworks */,
-				DC98402C0BA62E3C0061BD8B /* OgreKit.framework in Frameworks */,
 				DC1C6C2F090D98FE000F4FDE /* Cocoa.framework in Frameworks */,
 				DC1C6C30090D98FE000F4FDE /* PreferencePanes.framework in Frameworks */,
 			);
@@ -555,7 +547,6 @@
 				DC4E17020CCD085900F5CE3E /* libicucore.dylib in Frameworks */,
 				DC4E17030CCD085900F5CE3E /* Lua.framework in Frameworks */,
 				DC4E17040CCD085B00F5CE3E /* PreferencePanes.framework in Frameworks */,
-				DC4E17050CCD085B00F5CE3E /* OgreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,7 +601,6 @@
 		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC225F860AE53F8D00186582 /* OgreKit.framework */,
 				DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */,
 				DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */,
 				DCC7F4C70854ACD700F3EB8A /* Carbon.framework */,
@@ -1027,6 +1017,7 @@
 			targets = (
 				DCF2E57D095240C600EE54E2 /* iTeXMac2 Server */,
 				DC5D6CB90949A3F100EBA96C /* Prepare iTM2Foundation */,
+				5185ED7912702B6800AFA001 /* Prepare Milestones */,
 				8DC2EF4F0486A6940098B216 /* iTM2TeXFoundation */,
 				DC892C1908FB10E9007A4673 /* Build & Install Engines */,
 				DC892DA308FB951F007A4673 /* Install Engines */,
@@ -1034,7 +1025,6 @@
 				DC81AE6D08871B4600943C99 /* iTeXMac2 */,
 				DC1C6B31090D983F000F4FDE /* Test TeX Application */,
 				DC4E16D40CCD04FF00F5CE3E /* Test Suite */,
-				5185ED7912702B6800AFA001 /* Prepare Milestones */,
 			);
 		};
 /* End PBXProject section */
@@ -1142,10 +1132,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
+				"$(BUILD_ROOT)/Milestones/$(PRODUCT_NAME)MileStones.m",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}\"\nexit 0\n";
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}/Milestones\"\nexit 0\n";
 			showEnvVarsInLog = 0;
 		};
 		DC4E16D30CCD04FF00F5CE3E /* ShellScript */ = {
@@ -2012,8 +2003,14 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lgcov",
+				);
 				PRODUCT_NAME = "Test TeX Application";
 			};
 			name = Development;

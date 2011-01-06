@@ -28,7 +28,9 @@
 
 #import "iTM2TreeKit.h"
 
+#ifndef DIAGNOSTIC4iTM3
 #define DIAGNOSTIC4iTM3
+#endif
 
 @interface iTM2TreeNode()
 @property (assign,readwrite) __strong NSArray * children;

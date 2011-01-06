@@ -66,7 +66,7 @@ To Do List:
 	NSURL * url = nil;
 	NSString * output = nil;
 	NSDocument * D = nil;
-	iTM2TeXProjectDocument * TPD = [SPC projectForURL:sourceURL];
+	iTM2TeXProjectDocument * TPD = [SPC projectForURL:sourceURL ROR4iTM3];
 	if (TPD) {
 		for (D in TPD.subdocuments) {
 			if ([D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force]) {
@@ -76,24 +76,24 @@ To Do List:
 		if(!force) {
 			return NO;
         }
-		NSURL * masterURL = [TPD URLForFileKey:TPD.masterFileKey];
+		NSURL * masterURL = [TPD URLForFileKey:TPD.masterFileKey ROR4iTM3];
 		if(masterURL) {
 			output = [masterURL.path.stringByDeletingPathExtension stringByAppendingPathExtension:[TPD outputFileExtension]];
 			url = [NSURL fileURLWithPath:output];
-			if(![TPD subdocumentForURL:url] &&
-                    (D = [self openDocumentWithContentsOfURL:url display:NO error:nil])) {
+			if(![TPD subdocumentForURL:url ROR4iTM3] &&
+                    (D = [self openDocumentWithContentsOfURL:url display:NO ROR4iTM3])) {
 				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 			}
 			url = [url URLByRemovingFactoryBaseURL4iTM3];
-			if(![TPD subdocumentForURL:url] &&
-                    (D = [self openDocumentWithContentsOfURL:url display:NO error:nil])) {
+			if(![TPD subdocumentForURL:url ROR4iTM3] &&
+                    (D = [self openDocumentWithContentsOfURL:url display:NO ROR4iTM3])) {
 				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];
 			}
 		}
     } else if(sourceURL) {
 		url = [sourceURL.URLByDeletingPathExtension URLByAppendingPathExtension:@"pdf"];
 		if(url.isFileURL && [DFM fileExistsAtPath:sourceURL.path]) {
-			if(D = [self openDocumentWithContentsOfURL:url display:NO error:nil]) {
+			if(D = [self openDocumentWithContentsOfURL:url display:NO ROR4iTM3]) {
 				return [D displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:force];// time consuming
             }
 		}
@@ -1121,12 +1121,10 @@ To Do List:
 	NSDictionary * availableProjects = self.availableProjects;
 	NSInteger count = availableProjects.count;
 	// this peculiar situation occurs when I insert in a wrapper that has no project inside
-	if(count == 1)
-	{
+	if (count == 1) {
 		NSString * path = [[availableProjects allKeys] lastObject];
 		NSURL * url = [NSURL fileURLWithPath:path];
-		if([SWS isWrapperPackageAtURL4iTM3:url])
-		{
+		if ([SWS isWrapperPackageAtURL4iTM3:url ROR4iTM3]) {
 			NSArray * enclosed = [url enclosedProjectURLs4iTM3];
 			return enclosed.count > ZER0;
 		}
@@ -1288,7 +1286,7 @@ To Do List:
 	[self setBaseProjectName:[SUD stringForKey:iTM2TeXProjectDefaultBaseNameKey]];
 	[self setDocumentIsMaster:[SUD boolForKey:iTM2TeXProjectDocumentIsMasterFileKey]];
 	[self setPreferWrapper:[SUD boolForKey:iTM2NewDocumentEnclosedInWrapperKey]];
-	NSDictionary * availableProjects = [SPC availableProjectsForURL:self.fileURL];
+	NSDictionary * availableProjects = [SPC availableProjectsForURL:self.fileURL ROR4iTM3];
 	[self setAvailableProjects:availableProjects];
 	NSInteger creationMode = [SUD integerForKey:iTM2NewProjectCreationModeKey];
 	[self setCreationMode:creationMode];
@@ -2248,7 +2246,7 @@ To Do List:
 	NSString * baseProjectName = self.baseProjectName;
 	if(!baseProjectName.length)
 		return nil;
-	id result = [SPC baseProjectWithName:baseProjectName];
+	id result = [SPC baseProjectWithName:baseProjectName ROR4iTM3];
     return result == self? nil:result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  baseProjectFixImplementation4iTM3
@@ -2370,12 +2368,12 @@ To Do List:
 	if (result) {
 		return result;
 	}
-	if (result = [self projectForSource:sender]) {
+	if (result = [self projectForSource:sender ROR4iTM3]) {
 		return nil;
 	}
 	if ([sender isKindOfClass:[NSDocument class]]) {
 		[sender setHasProject4iTM3:YES];
-		if (result = [sender project4iTM3]) {
+		if (result = [sender project4iTM3Error:self.RORef4iTM3]) {
 			return result;
 		}
 	} else if(!sender) {
@@ -2394,7 +2392,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	id result = [self projectForSource:(id) sender];
+	id result = [self projectForSource:(id) sender ROR4iTM3];
     return [result isKindOfClass:[iTM2TeXProjectDocument class]]? result:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  currentTeXProject
@@ -2443,7 +2441,7 @@ To Do List:
 
 @implementation iTM2Document(iTM2TeXProject)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  project
-- (id)project;
+- (id)project4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Wed Mar 30 15:52:06 GMT 2005
@@ -2451,11 +2449,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	id result = [super project4iTM3];
+	id result = [super project4iTM3Error:RORef];
 	if(result)
 		return result;
 	NSURL * url = self.fileURL;
-	if (self.hasProject4iTM3 && !url) {
+	if ([self hasProject4iTM3Error:RORef] && !url) {
 		[self saveDocument:self];
 		url = self.fileURL;
 		if (!url) {
@@ -2463,8 +2461,8 @@ To Do List:
 			return nil;
 		}
 	}
-	if (self.hasProject4iTM3) {
-		if (result = [SPC freshProjectForURLRef:&url display:NO error:nil]) {
+	if ([self hasProject4iTM3Error:RORef]) {
+		if ((result = [SPC freshProjectForURLRef:&url display:NO error:RORef])) {
 			if(![url.path pathIsEqual4iTM3:self.fileURL.path])
 				[self setFileURL:url];// weird code, this is possobly due to a cocoa weird behaviour
 		} else {
@@ -2526,7 +2524,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [[SPC projectForSource:sender] showTerminal:sender];
+    [[SPC projectForSource:sender ROR4iTM3] showTerminal:sender];
 //END4iTM3;
     return;
 }
@@ -2558,12 +2556,12 @@ To Do List:
 - (IBAction)showCurrentProjectSettings:(id) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 21:10:36 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[SPC projectForSource:nil] showSettings:sender];
+	[[SPC projectForSource:nil ROR4iTM3] showSettings:sender];
 //END4iTM3;
 	return;
 }  
@@ -2571,12 +2569,12 @@ To Do List:
 - (IBAction)showCurrentProjectFiles:(id) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 21:10:33 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[SPC projectForSource:nil] showFiles:sender];
+	[[SPC projectForSource:nil ROR4iTM3] showFiles:sender];
 //END4iTM3;
 	return;
 }
@@ -2584,48 +2582,40 @@ To Do List:
 - (BOOL)showCurrentProjectFilesWillPopUp:(id) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 21:10:22 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	id PD = [SPC projectForSource:nil];
-	NSEnumerator * E = [[PD allKeys] objectEnumerator];
+	iTM2ProjectDocument * PD = [SPC projectForSource:nil ROR4iTM3];
 	NSMutableDictionary * MD = [NSMutableDictionary dictionary];
 	NSString * S;
-	while(S = E.nextObject)
-	{
+	for (S in PD.fileKeys) {
 		NSString * FN = [PD nameForFileKey:S];
-		if(FN.length)
-			[MD setObject:S forKey:FN];
+		if (FN.length) [MD setObject:S forKey:FN];
 	}
-	NSArray * sortedKeys = [[MD allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-	if(![NSApp targetForAction:@selector(projectEditDocumentUsingRepresentedObject:)])
-	{
+	NSArray * sortedKeys = [MD.allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	if (![NSApp targetForAction:@selector(projectEditDocumentUsingRepresentedObject:)]) {
 		LOG4iTM3(@"..........  ERROR:the project responder is not yet installed!");
 	}
 	NSMenu * M = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 	[M addItemWithTitle:@"" action:NULL keyEquivalent:@""];// first item is used a s title
 	// populating the menu with project documents
-	if(sortedKeys.count)
-	{
-		for(S in sortedKeys)
-		{
-			NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle:S
-							action:@selector(projectEditDocumentUsingRepresentedObject1:) keyEquivalent:@""] autorelease];
-			[M addItem:MI];
-			MI.target = nil;
-			NSString * key = [MD objectForKey:S];
-			NSURL * url = [PD URLForFileKey:key];
-			NSImage * I = [SWS iconForFile:url.path];
-			[I setSizeSmallIcon4iTM3];
-			MI.image = I;
-			MI.representedObject = [NSDictionary dictionaryWithObjectsAndKeys:
-					[NSValue valueWithNonretainedObject:PD], @"project",
-					key, @"key",
-						nil];
-		}
-	}
+    for (S in sortedKeys) {
+        NSMenuItem * MI = [[[NSMenuItem alloc] initWithTitle:S
+                        action:@selector(projectEditDocumentUsingRepresentedObject1:) keyEquivalent:@""] autorelease];
+        [M addItem:MI];
+        MI.target = nil;
+        NSString * key = [MD objectForKey:S];
+        NSURL * url = [PD URLForFileKey:key ROR4iTM3];
+        NSImage * I = [SWS iconForFile:url.path];
+        [I setSizeSmallIcon4iTM3];
+        MI.image = I;
+        MI.representedObject = [NSDictionary dictionaryWithObjectsAndKeys:
+                [NSValue valueWithNonretainedObject:PD], @"project",
+                key, @"key",
+                    nil];
+    }
 	[[sender popUpCell] setMenu:M];
 	[M update];
 	return YES;
@@ -2634,12 +2624,12 @@ To Do List:
 - (IBAction)showCurrentProjectTerminal:(id) sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 21:10:58 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[[SPC projectForSource:nil] showTerminal:sender];
+	[[SPC projectForSource:nil ROR4iTM3] showTerminal:sender];
 //END4iTM3;
 	return;
 }  
@@ -2699,8 +2689,8 @@ To Do List:
 			NSString * key = [D objectForKey:@"key"];
 			if([key isKindOfClass:[NSString class]])
 			{
-				NSURL * url = [PD URLForFileKey:key];
-                [SDC openDocumentWithContentsOfURL:url display:YES error:nil];
+				NSURL * url = [PD URLForFileKey:key ROR4iTM3];
+                [SDC openDocumentWithContentsOfURL:url display:YES ROR4iTM3];
 			}
 			return;
 		}
@@ -2727,7 +2717,7 @@ To Do List:
 			NSString * key = [D objectForKey:@"key"];
 			if([key isKindOfClass:[NSString class]])
 			{
-				NSString * path = [[PD URLForFileKey:key] path];
+				NSString * path = [[PD URLForFileKey:key ROR4iTM3] path];
                 return [DFM fileExistsAtPath:path];
 			}
 		}

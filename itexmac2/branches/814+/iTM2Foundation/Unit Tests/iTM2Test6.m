@@ -77,13 +77,13 @@
     path = [path stringByAppendingPathComponent:@"test.txt"];
     NSURL * URL = [NSURL fileURLWithPath:path];
     NSError * ROR = nil;
-    STAssertTrue(([[NSFileManager defaultManager] createDirectoryAtPath:path.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR]),@"MISSED",NULL);
+    STAssertTrue(([[NSFileManager defaultManager] createDirectoryAtPath:path.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:self.RORef4iTM3]),@"MISSED",NULL);
     NSData * aValue = [@"énorméﬁê∂Òæ" dataUsingEncoding:NSUTF8StringEncoding];
     NSFileWrapper * FW = [[NSFileWrapper alloc] initRegularFileWithContents:aValue];
-    STAssertTrue(([FW writeToURL:URL options:ZER0 originalContentsURL:nil error:&ROR]),@"MISSED",NULL);
+    STAssertTrue(([FW writeToURL:URL options:ZER0 originalContentsURL:nil error:self.RORef4iTM3]),@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
-    NSString * typeName = [SDC typeForContentsOfURL:URL error:&ROR];
-    iTM2TextDocument * D = [[iTM2TextDocument alloc] initWithContentsOfURL:URL ofType:typeName error:&ROR];
+    NSString * typeName = [SDC typeForContentsOfURL:URL error:self.RORef4iTM3];
+    iTM2TextDocument * D = [[iTM2TextDocument alloc] initWithContentsOfURL:URL ofType:typeName error:self.RORef4iTM3];
     NSLog(@"D:%@",D.textStorage);
     return;
 }

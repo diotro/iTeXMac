@@ -12,7 +12,7 @@ function find_and_replace {
 }
 
 
-find_and_replace  'needsToUpdate' 's/(needsToUpdate)/${1}4iTM3/g'
+find_and_replace  '__iTM2_DEVELOPMENT__' 's/__iTM2_DEVELOPMENT__/__iTM3_DEVELOPMENT__/g'
 
 exit 0
 
@@ -23,6 +23,14 @@ exit 0
 - (NSUInteger)contextStateForKey:(NSString *)aKey
 
 
+find_and_replace  'isNotConsistent' 's/\[(\w+) (isNotConsistent)\]/\1.\2/g'
+find_and_replace  'errorRef' 's/\berrorRef\b/RORef/g'
+find_and_replace  'pellContext' 's/(pellContext\b)/${1}4iTM3/g'
+find_and_replace  'spellContextController4iTM3' 's/(spellContextController4iTM3)/${1}Error:RORef/g'
+find_and_replace  '\{1\}' 's/\{1\}4iTM3/spellContextController4iTM3/g'
+find_and_replace  'spellContextController' 's/(spellContextController)/${1}4iTM3/g'
+find_and_replace  'I methodSignature' 's/\[I methodSignature\]/I.methodSignature/g'
+find_and_replace  'needsToUpdate' 's/(needsToUpdate)/${1}4iTM3/g'
 find_and_replace  'contextStateForKey' 's/(context)(StateForKey)/${1}4iTM3${2}/g'
 find_and_replace  'contextDidChange' 's/(context)(DidChange)/${1}4iTM3${2}/g'
 find_and_replace  'notifyContextChange' 's/(notifyContext)(Change)/${1}4iTM3${2}/g'

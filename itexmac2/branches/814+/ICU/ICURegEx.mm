@@ -35,6 +35,10 @@
 #   define iTM3EqualRanges NSEqualRanges
 #endif
 
+#ifndef ZER0
+#   define ZER0 ((NSUInteger)0)
+#endif
+
 /*
  LF:    Line Feed, U+000A
  CR:    Carriage Return, U+000D
@@ -1373,6 +1377,9 @@ groupName_found: {
 #   define input (_IVARS.uString)
 #   define maxNumberOfComponents UINT_MAX
 	unsigned firstUnrecorded = ZER0;
+    if (!input) {
+        return nil;
+    }
 	const UChar * buffer = input->getBuffer();// read only buffer
 	CFStringRef component = nil;
     //

@@ -1366,7 +1366,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     BOOL old = [self context4iTM3BoolForKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask];
-    [self takeContext4iTM3Value:[NSNumber numberWithBool:!old] forKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:[NSNumber numberWithBool:!old] forKey:iTM2PDFSlidesLandscapeModeKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
     [self setParametersHaveChanged:YES];
     return;
 }
@@ -2434,7 +2434,7 @@ To Do List:
 		{
 			configDictionary = [SUD dictionaryForKey:key];
 //LOG4iTM3(@"configDictionary: %@", configDictionary);
-			[self takeContext4iTM3Value:nil forKey:key domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+			[self takeContext4iTM3Value:nil forKey:key domain:iTM2ContextAllDomainsMask ROR4iTM3];
 			if (configDictionary.count)
 				[toolbar setConfigurationFromDictionary:configDictionary];
 			if (!toolbar.items.count)
@@ -2492,7 +2492,7 @@ To Do List:
 //START4iTM3;
     NSToolbar * toolbar = [self.window toolbar];
 	NSString * key = [NSString stringWithFormat:@"NSToolbar Configuration %@", [toolbar identifier]];
-	[self takeContext4iTM3Value:[toolbar configurationDictionary] forKey:key domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+	[self takeContext4iTM3Value:[toolbar configurationDictionary] forKey:key domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //START4iTM3;
 	return;
 }

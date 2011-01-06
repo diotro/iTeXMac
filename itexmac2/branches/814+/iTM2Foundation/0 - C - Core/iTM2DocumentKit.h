@@ -437,17 +437,6 @@ extern NSString * const iTM2InspectorTable;
 - (void)userDefaultsDidChange:(NSNotification *)notification;
 
 /*!
-    @method		loadFileWrapperRepresentation:ofType:
-    @abstract	Pre Tiger API.
-    @discussion	This overriden method ensures that pre Tiger document design won't load the data automatically.
-				If you really need to read a file wrapper, use the readFromDirectoryWrapper:error:, writeToDirectoryWrapper:error:.
-    @param		wrapper is an unused file wrapper.
-    @param		type is an unused document type.
-    @result		Allways NO.
-*/
-- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type;
-
-/*!
     @method		willSave
     @abstract	The receiver is about to save its data.
     @discussion	Description forthcoming.

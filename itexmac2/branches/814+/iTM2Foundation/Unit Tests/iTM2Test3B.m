@@ -246,7 +246,7 @@
     //  work with one mode line
 #   undef TEST_NO
 #   define TEST_NO(WHERE) \
-    STAssertFalse([TSP textStorageDidDeleteCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:&ROR],@"MISSED",NULL)
+    STAssertFalse([TSP textStorageDidDeleteCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED",NULL)
     TEST_NO(ZER0);
     TEST_NO(1);
     TEST_NO(NSUIntegerMax);
@@ -259,13 +259,13 @@
     TEST_NO(NSUIntegerMax);
 #   undef TEST_ML
 #   define TEST_ML(CONTENTS_LENGTH,EOL_LENGTH)\
-    STAssertFalse(ML.diagnostic,@"MISSED",NULL);\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);\
     STAssertTrue((ML.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.contentsLength,CONTENTS_LENGTH),NO),@"MISSED",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL);\
     [ML validateLocalRange:iTM3FullRange]
 #   undef TEST_YES
 #   define TEST_YES(WHERE,LOCATION,LENGTH,EOL_LENGTH) \
-    STAssertTrue([TSP textStorageDidDeleteCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
+    STAssertTrue([TSP textStorageDidDeleteCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
     ML.describe;\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
     STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH))||(NSLog(@"%@(R)<!>{%lu,%lu}(Expected)",NSStringFromRange(R),(LOCATION),(LENGTH)),NO),@"MISSED NSEqualRanges",NULL);\
@@ -415,7 +415,7 @@
 #   undef TEST_NO
 #   undef TEST_NO
 #   define TEST_NO(WHERE) \
-    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:WHERE count:1 editedAttributesRangeIn:&R error:&ROR],@"MISSED",NULL)
+    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:WHERE count:1 editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED",NULL)
     TEST_NO(ZER0);
     TEST_NO(1);
     TEST_NO(NSUIntegerMax);
@@ -429,14 +429,14 @@
 #   undef TEST_YES
 #   undef TEST_YES
 #   define TEST_YES(WHERE,LOCATION,LENGTH,EOL_LENGTH) \
-    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:WHERE count:1 editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
+    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:WHERE count:1 editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
     STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH)),@"MISSED NSEqualRanges",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL)
 #   undef TEST_ML
 #   undef TEST_ML
 #   define TEST_ML(CONTENTS_LENGTH,EOL_LENGTH)\
-    STAssertFalse(ML.diagnostic,@"MISSED",NULL);\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);\
     STAssertTrue((ML.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.contentsLength,CONTENTS_LENGTH),NO),@"MISSED",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL);\
     [ML validateLocalRange:iTM3FullRange]
@@ -577,7 +577,7 @@
 #   undef TEST_NO
 #   undef TEST_NO
 #   define TEST_NO(WHERE) \
-    STAssertFalse([TSP textStorageDidDeleteCharacterAtIndex:(10+WHERE) editedAttributesRangeIn:&R error:&ROR],@"MISSED",NULL)
+    STAssertFalse([TSP textStorageDidDeleteCharacterAtIndex:(10+WHERE) editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED",NULL)
     TEST_NO(ZER0);
     TEST_NO(1);
     TEST_NO(NSUIntegerMax-10);
@@ -591,14 +591,14 @@
 #   undef TEST_YES
 #   undef TEST_YES
 #   define TEST_YES(WHERE,LOCATION,LENGTH,EOL_LENGTH) \
-    STAssertTrue([TSP textStorageDidDeleteCharacterAtIndex:(10+WHERE) editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
+    STAssertTrue([TSP textStorageDidDeleteCharacterAtIndex:(10+WHERE) editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
     STAssertTrue(NSEqualRanges(R,NSMakeRange(10+LOCATION,LENGTH)),@"MISSED NSEqualRanges",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL)
 #   undef TEST_ML
 #   undef TEST_ML
 #   define TEST_ML(CONTENTS_LENGTH,EOL_LENGTH)\
-    STAssertFalse(ML.diagnostic,@"MISSED",NULL);\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);\
     STAssertTrue((ML.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.contentsLength,CONTENTS_LENGTH),NO),@"MISSED",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL);\
     [ML validateLocalRange:iTM3FullRange]
@@ -748,7 +748,7 @@
 #   undef TEST_NO
 #   undef TEST_NO
 #   define TEST_NO(WHERE) \
-    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(10+WHERE) count:1 editedAttributesRangeIn:&R error:&ROR],@"MISSED",NULL)
+    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(10+WHERE) count:1 editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED",NULL)
     TEST_NO(ZER0);
     TEST_NO(1);
     TEST_NO(NSUIntegerMax-10);
@@ -762,14 +762,14 @@
 #   undef TEST_YES
 #   undef TEST_YES
 #   define TEST_YES(WHERE,LOCATION,LENGTH,EOL_LENGTH) \
-    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(10+WHERE) count:1 editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
+    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(10+WHERE) count:1 editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
     STAssertTrue(NSEqualRanges(R,NSMakeRange(10+LOCATION,LENGTH))||(NSLog(@"%@<!>{%lu,%lu}(expected)",NSStringFromRange(R),10+LOCATION,LENGTH),NO),@"MISSED NSEqualRanges",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL)
 #   undef TEST_ML
 #   undef TEST_ML
 #   define TEST_ML(CONTENTS_LENGTH,EOL_LENGTH)\
-    STAssertFalse(ML.diagnostic,@"MISSED",NULL);\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);\
     STAssertTrue((ML.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.contentsLength,CONTENTS_LENGTH),NO),@"MISSED",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL);\
     [ML validateLocalRange:iTM3FullRange]
@@ -923,7 +923,7 @@
 #   undef TEST_NO
 #   undef TEST_NO
 #   define TEST_NO(WHERE,COUNT) \
-    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:(COUNT) editedAttributesRangeIn:&R error:&ROR],@"MISSED",NULL)
+    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:(COUNT) editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED",NULL)
     TEST_NO(10+ZER0,1);
     TEST_NO(10+ZER0,2);
     TEST_NO(10+ZER0,NSUIntegerMax);
@@ -946,14 +946,14 @@
 #   undef TEST_YES
 #   undef TEST_YES
 #   define TEST_YES(WHERE,COUNT,LOCATION,LENGTH,EOL_LENGTH) \
-    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:COUNT editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
+    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:COUNT editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidDeleteCharacterAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
     STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH)),@"MISSED NSEqualRanges",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED EOL",NULL)
 #   undef TEST_ML
 #   undef TEST_ML
 #   define TEST_ML(CONTENTS_LENGTH,EOL_LENGTH)\
-    STAssertFalse(ML.diagnostic,@"MISSED",NULL);\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);\
     STAssertTrue((ML.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.contentsLength,CONTENTS_LENGTH),NO),@"MISSED",NULL);\
     STAssertTrue((ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(ML)<!>%lu(Expected)",ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL);\
     [ML validateLocalRange:iTM3FullRange]
@@ -1097,7 +1097,7 @@
     //  work with one mode line
 #   undef TEST_NO
 #   define TEST_NO(WHERE,COUNT) \
-    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:(COUNT) editedAttributesRangeIn:&R error:&ROR],@"MISSED",NULL)
+    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:(COUNT) editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED",NULL)
     TEST_NO(10+ZER0,1);
     TEST_NO(10+ZER0,2);
     TEST_NO(10+ZER0,NSUIntegerMax);
@@ -1119,12 +1119,12 @@
     TEST_NO(NSUIntegerMax,NSUIntegerMax);
 #   undef TEST_YES
 #   define TEST_YES(WHERE,COUNT,LOCATION,LENGTH) \
-    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:COUNT editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharactersAtIndex",NULL);\
+    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:COUNT editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidDeleteCharactersAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
     STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH))||(NSLog(@"%@<!>{%lu,%lu}(Expected)",NSStringFromRange(R),LOCATION,LENGTH),NO),@"MISSED NSEqualRanges",NULL)
 #   undef TEST
 #   define TEST(_ML,CONTENTS_LENGTH,EOL_LENGTH)\
-    STAssertFalse(_ML.diagnostic,@"MISSED diagnostic",NULL);\
+    STAssertTrue(_ML.isConsistent,@"MISSED diagnostic",NULL);\
     STAssertTrue((_ML.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",_ML.contentsLength,CONTENTS_LENGTH),NO),@"MISSED",NULL);\
     STAssertTrue((_ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",_ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL)
     TEST_YES(10+ZER0,1,10+ZER0,ZER0);
@@ -1226,7 +1226,7 @@
 #   undef TEST
 #   undef TEST
 #   define TEST(_ML,CONTENTS_LENGTH,EOL_LENGTH)\
-    STAssertFalse(_ML.diagnostic,@"MISSED diagnostic",NULL);\
+    STAssertTrue(_ML.isConsistent,@"MISSED diagnostic",NULL);\
     STAssertTrue((_ML.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",_ML.contentsLength,CONTENTS_LENGTH),NO),@"MISSED",NULL);\
     STAssertTrue((_ML.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",_ML.EOLLength,EOL_LENGTH),NO),@"MISSED",NULL)
     TEST(ML1,8,2);
@@ -1236,14 +1236,14 @@
 #   undef TEST_NO
 #   undef TEST_NO
 #   define TEST_NO(WHERE,COUNT) \
-    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:(COUNT) editedAttributesRangeIn:&R error:&ROR],@"MISSED",NULL)
+    STAssertFalse([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:(COUNT) editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED",NULL)
 
     NSRange R;
     NSError * ROR = nil;
 #   undef TEST_YES
 #   undef TEST_YES
 #   define TEST_YES(WHERE,COUNT,LOCATION,LENGTH) \
-    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:COUNT editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidDeleteCharactersAtIndex",NULL);\
+    STAssertTrue([TSP textStorageDidDeleteCharactersAtIndex:(WHERE) count:COUNT editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidDeleteCharactersAtIndex",NULL);\
     STAssertNil(ROR,@"MISSED ROR",NULL);\
     STAssertTrue(NSEqualRanges(R,NSMakeRange(LOCATION,LENGTH)),@"MISSED NSEqualRanges",NULL)
 
@@ -1304,9 +1304,8 @@
     TEST_K(ML1,7,9,90);
     TEST_K(ML1,8,2,20);
     TEST_K(ML1,9,3,30);
-    NSError * ROR = nil;
     ML1.describe;
-    ML2 = [ML1 modeLineBySplittingFromGlobalLocation:ZER0 error:&ROR];
+    ML2 = [ML1 modeLineBySplittingFromGlobalLocation:ZER0 error:self.RORef4iTM3];
     ML1.describe;
     ML2.describe;
     STAssertTrue((ML2.EOLMode == mode) ||(NSLog(@"%lu<!>%lu",mode,ML2.EOLMode),NO),@"MISSED",nil);
@@ -1325,7 +1324,7 @@
         ML1.EOLMode = mode;\
         ML1.startOff7 = off7;\
         [ML1 appendSyntaxModesAndLengths:(UI)1,(UI)10,(UI)2,(UI)20,(UI)1,(UI)10,(UI)3,(UI)30,(UI)4,(UI)40,(UI)5,(UI)50,(UI)7,(UI)70,(UI)9,(UI)90,(UI)2,(UI)20,(UI)3,(UI)30,ZER0,ZER0];\
-        ML2 = [ML1 modeLineBySplittingFromGlobalLocation:WHERE error:&ROR];\
+        ML2 = [ML1 modeLineBySplittingFromGlobalLocation:WHERE error:self.RORef4iTM3];\
         STAssertTrue(!ML2.EOLLength || (ML2.EOLMode == mode),@"MISSED EOLMode",nil);\
     } while (NO)
     PREPARE_TEST_K(1);
@@ -1946,7 +1945,7 @@
     NSError * ROR = nil;
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:@"\r"];\
-        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -1954,7 +1953,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -2146,7 +2145,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,2,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
@@ -2198,7 +2197,7 @@
     NSError * ROR = nil;
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:@"\n"];\
-        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -2206,7 +2205,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -2398,7 +2397,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,2,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
@@ -2450,7 +2449,7 @@
     NSError * ROR = nil;
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:[NSString stringWithFormat:@"%C",0x0085]];\
-        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -2458,7 +2457,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -2654,7 +2653,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,2,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
@@ -2706,7 +2705,7 @@
     NSError * ROR = nil;
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:@"?"];\
-        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharacterAtIndex:WHERE editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharacterAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -2714,7 +2713,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -2898,7 +2897,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,2,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
@@ -2949,7 +2948,7 @@
     NSUInteger insertedLength = 2;
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:insertedString];\
-        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:insertedString.length editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:insertedString.length editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -2957,7 +2956,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -3141,7 +3140,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,2,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
@@ -3190,7 +3189,7 @@
     NSError * ROR = nil;
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:@"\nzz"];\
-        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:3 editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:3 editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -3198,7 +3197,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -3405,7 +3404,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,2,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,2,ZER0,2); \
@@ -3458,7 +3457,7 @@
     NSUInteger contentsLength = 2;//  contents of insertedString
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:insertedString];\
-        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:3 editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:3 editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -3466,7 +3465,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -3674,7 +3673,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,contentsLength,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,contentsLength,ZER0,2); \
@@ -3728,7 +3727,7 @@
     NSUInteger contentsLength = 2;//  contents of insertedString
 #   define NEW_TEST(WHERE,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE,ZER0) withString:insertedString];\
-        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:3 editedAttributesRangeIn:&R error:&ROR],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
+        STAssertTrue([TSP textStorageDidInsertCharactersAtIndex:WHERE count:3 editedAttributesRangeIn:&R error:self.RORef4iTM3],@"MISSED textStorageDidInsertCharactersAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION,RANGE)),@"MISSED NSEqualRanges",nil);\
         STAssertTrue(TSP.numberOfModeLines==NUMBER_OF_MODE_LINES,@"MISSED numberOfModeLines",nil);\
@@ -3736,7 +3735,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\
@@ -3947,7 +3946,7 @@
     ML0 = [TSP modeLineAtIndex:ZER0]; \
     TEST(0,contentsLength,ZER0,1); \
     TEST_K(0,ZER0,kiTM2TextUnknownSyntaxMode,2); \
-    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:&ROR]; \
+    [ML0 deleteModesInGlobalRange:iTM3MakeRange(ZER0,2) error:self.RORef4iTM3]; \
     STAssertNil(ROR,@"MISSED !ROR",nil); \
     [ML0 appendSyntaxModesAndLengths:(UI)1,(UI)1,(UI)2,(UI)1,ZER0,ZER0]; \
     TEST(0,contentsLength,ZER0,2); \
@@ -4007,7 +4006,7 @@
 #   define NEW_TEST(WHAT,WHERE,LENGTH,REPLACEMENT,LOCATION,RANGE,NUMBER_OF_MODE_LINES) do {\
         PREPARE_TEST(WHAT);\
         [TS replaceCharactersInRange:iTM3MakeRange(WHERE+prefix.length,LENGTH) withString:REPLACEMENT];\
-        STAssertTrue([TSP textStorageDidReplaceCharactersAtIndex:WHERE+prefix.length count:LENGTH withCount:[REPLACEMENT length] editedAttributesRangeIn:&R error:&ROR],\
+        STAssertTrue([TSP textStorageDidReplaceCharactersAtIndex:WHERE+prefix.length count:LENGTH withCount:[REPLACEMENT length] editedAttributesRangeIn:&R error:self.RORef4iTM3],\
             @"MISSED textStorageDidReplaceCharactersAtIndex",nil);\
         STAssertNil(ROR,@"MISSED non nil ROR",nil);\
         STAssertTrue(NSEqualRanges(R,iTM3MakeRange(LOCATION+prefix.length,RANGE))||(NSLog(@"R: %@",NSStringFromRange(R)),NO),@"MISSED NSEqualRanges",nil);\
@@ -4016,7 +4015,7 @@
 #   undef TEST
 #   define TEST(IDX,CONTENTS_LENGTH,EOL_LENGTH,NUMBER_OF_SYNTAX_WORDS) do {\
         ML##IDX = [TSP modeLineAtIndex:IDX+prefixNumOfEOLs.unsignedIntegerValue];\
-        STAssertFalse(ML##IDX.diagnostic,@"MISSED diagnostic",NULL);\
+        STAssertTrue(ML##IDX.isConsistent,@"MISSED diagnostic",NULL);\
         STAssertTrue((ML##IDX.contentsLength==CONTENTS_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.contentsLength,CONTENTS_LENGTH),NO),@"MISSED contentsLength",NULL);\
         STAssertTrue((ML##IDX.EOLLength==EOL_LENGTH)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.EOLLength,EOL_LENGTH),NO),@"MISSED EOLLength",NULL);\
         STAssertTrue((ML##IDX.numberOfSyntaxWords==NUMBER_OF_SYNTAX_WORDS)||(NSLog(@"%lu(_ML)<!>%lu(Expected)",ML##IDX.numberOfSyntaxWords,NUMBER_OF_SYNTAX_WORDS),NO),@"MISSED numberOfSyntaxWords",NULL);\

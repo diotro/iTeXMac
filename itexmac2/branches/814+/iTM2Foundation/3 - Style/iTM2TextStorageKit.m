@@ -65,6 +65,12 @@ NSString * const iTM2TextSyntaxParserVariantKey = @"iTM2TextSyntaxParserVariant"
 
 NSString * const iTM2SyntaxParserStyleEnabledKey = @"iTM2SyntaxParserStyleEnabled";
 
+#ifdef __EMBEDDED_TEST_SETUP__
+    if (iTM2DebugEnabled<10000) {
+        iTM2DebugEnabled = 10000;
+    }
+#endif
+
 @implementation iTM2TextInspector(iTM2TextStorageKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  SWZ_iTM2style_lazyTextStorage
 - (id)SWZ_iTM2style_lazyTextStorage;
@@ -79,8 +85,8 @@ To Do List:
 	if ([self context4iTM3BoolForKey:iTM2SyntaxParserStyleEnabledKey domain:iTM2ContextAllDomainsMask]) {
 		id result = [[[iTM2TextStorage alloc] init] autorelease];
         [[iTM2StringController alloc] initWithDelegate:result];
-        NSString * style = [[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3] lowercaseString];
-		NSString * variant = [[self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3] lowercaseString];
+        NSString * style = [[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask ROR4iTM3] lowercaseString];
+		NSString * variant = [[self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask ROR4iTM3] lowercaseString];
 		for (Class C in [iTM2TextSyntaxParser syntaxParserClassEnumerator]) {
 			if ([[[C syntaxParserStyle] lowercaseString] isEqual:style]) {
 				if ([[[iTM2TextSyntaxParser syntaxParserVariantsForStyle:style] allKeys]containsObject:variant]) {
@@ -106,8 +112,8 @@ To Do List:
 //START4iTM3;
 	iTM2TextStorage * TS = self.textStorage;
 	if ([TS isKindOfClass:[iTM2TextStorage class]]) {
-		[self takeContext4iTM3Value:TS.syntaxParserStyle forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
-		[self takeContext4iTM3Value:TS.syntaxParserVariant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+		[self takeContext4iTM3Value:TS.syntaxParserStyle forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
+		[self takeContext4iTM3Value:TS.syntaxParserVariant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
 	}
 //END4iTM3;
     return;
@@ -235,9 +241,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.syntaxParser textStorageWillProcessEditing];// is it necessary?
+    [self.syntaxParser textStorageWillProcessEditing4iTM3Error:self.RORef4iTM3];
+    // now we have to synchronize the text storage and the syntax parser
     [super processEditing];
-    [self.syntaxParser textStorageDidProcessEditing];// is it necessary?
+    [self.syntaxParser textStorageDidProcessEditing4iTM3Error:self.RORef4iTM3];
     return;
 }
 #if 0
@@ -300,29 +307,12 @@ To Do List:
 //START4iTM3;
 //NSLog(@"%@", NSStringFromRange(range));
 //NSLog(@"<%@>", string);
-    NSUInteger oldLength = _TextModel.length;
     NSError * ROR = nil;
     if ([self.syntaxParser textStorageShouldReplaceCharactersInRange:range withString:string error:&ROR]) {
         // the next call will put the text storage in an inconsistent state
         [_TextModel replaceCharactersInRange:range withString:string];
-        // now we have to synchronize the text storage and the syntax parser
-        NSUInteger newLength = _TextModel.length;
-        NSInteger delta = newLength - oldLength;
-        //  As newLength = oldLength - range.length + string.length
-        //  delta == string.length - range.length
-        NSUInteger stringLength = string.length;
-        NSRange editedAttributesRange;// will receive the range where the attributes might have changed
-        if ((range.length && stringLength && [self.syntaxParser textStorageDidReplaceCharactersAtIndex:range.location count:range.length withCount:stringLength editedAttributesRangeIn:&editedAttributesRange error:&ROR])
-            || (!ROR && delta == 1 && [self.syntaxParser textStorageDidInsertCharacterAtIndex:range.location editedAttributesRangeIn:&editedAttributesRange error:&ROR])
-                || (!ROR && delta == -1 && [self.syntaxParser textStorageDidDeleteCharacterAtIndex:range.location editedAttributesRangeIn:&editedAttributesRange error:&ROR])
-                    || (!ROR && delta > ZER0 && [self.syntaxParser textStorageDidInsertCharactersAtIndex:range.location count:delta editedAttributesRangeIn:&editedAttributesRange error:&ROR])
-                        || (!ROR && delta < ZER0 && [self.syntaxParser textStorageDidDeleteCharactersAtIndex:range.location count:-delta editedAttributesRangeIn:&editedAttributesRange error:&ROR])) {
-            [self edited:NSTextStorageEditedCharacters range:range changeInLength:delta];
-            [self invalidateAttributesInRange:editedAttributesRange];
-            return;
-        }
-    }
-    if (ROR) {
+        [self edited:NSTextStorageEditedCharacters range:range changeInLength:string.length-range.length];
+    } else if (ROR) {
         LOG4iTM3(@"**** ERROR: %@",ROR);
         [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:ROR waitUntilDone:NO];
     }
@@ -611,8 +601,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setSyntaxParserStyle:style variant:variant];
-    [self takeContext4iTM3Value:style forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
-    [self takeContext4iTM3Value:variant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+    [self takeContext4iTM3Value:style forKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
+    [self takeContext4iTM3Value:variant forKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= invalidateAttributesInRange:
@@ -673,8 +663,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super context4iTM3DidChange];
-    [self setSyntaxParserStyle:[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]
-            variant: [self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
+    [self setSyntaxParserStyle:[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask ROR4iTM3]
+            variant: [self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask ROR4iTM3]];
 	self.context4iTM3DidChangeComplete;
 //END4iTM3;
     return;
@@ -1036,8 +1026,8 @@ To Do List: Nothing
 	}
     return self;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  diagnostic
-- (BOOL)diagnostic;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isConsistent
+- (BOOL)isConsistent;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu Apr 22 21:13:55 UTC 2010
@@ -1046,84 +1036,80 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (iTM2DebugEnabled < 9999) {
-		return NO;
-    }
-    NSString * S = [self.textStorage string];
-	if (!S.length) {
-		return NO;
+		return YES;
     }
     NSUInteger countOfModeLines = self.numberOfModeLines;
-	BOOL toJail = NO;
-	if (countOfModeLines) {
-		NSUInteger end, contentsEnd;
-		NSUInteger modeLineIndex = ZER0;
-		NSRange R = iTM3MakeRange(ZER0, ZER0);
-		iTM2ModeLine * modeLine = [self modeLineAtIndex:modeLineIndex];
-testNextLine:
-		[S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-		if (modeLineIndex < self.badOff7Index) {
-			if (modeLine.startOff7 != R.location) {
-				LOG4iTM3(@"!!!!!!!!!!!!!!  Bad offset at modeLineIndex: %lu (got %lu instead of %lu)",
-					modeLineIndex, modeLine.startOff7, R.location);
-				toJail = YES;
-			}
-			if (modeLine.contentsEndOff7 != contentsEnd) {
-				LOG4iTM3(@"!!!!!!!!!!!!!!  Bad contents offset at modeLineIndex: %lu (got %lu instead of %lu)",
-					modeLineIndex, modeLine.contentsEndOff7, contentsEnd);
-				toJail = YES;
-			}
-			if (modeLine.endOff7 != end) {
-				LOG4iTM3(@"!!!!!!!!!!!!!!  Bad next offset at modeLineIndex: %lu (got %lu instead of %lu)",
-					modeLineIndex, modeLine.endOff7, end);
-				toJail = YES;
-			}
-		}
-		if (modeLine.contentsLength != contentsEnd-R.location) {
-			LOG4iTM3(@"!!!!!!!!!!!!!!  Bad contentsLength at modeLineIndex: %lu (got %lu instead of %lu)",
-				modeLineIndex, [modeLine contentsLength], contentsEnd-R.location);
-			toJail = YES;
-		}
-		if (modeLine.EOLLength != end-contentsEnd) {
-			LOG4iTM3(@"!!!!!!!!!!!!!!  Bad eol length at modeLineIndex: %lu (got %lu instead of %lu)",
-				modeLineIndex, modeLine.EOLLength, end-contentsEnd);
-			toJail = YES;
-		}
-		if (modeLine.length != end-R.location) {
-			LOG4iTM3(@"!!!!!!!!!!!!!!  Bad length at modeLineIndex: %lu (got %lu instead of %lu)",
-				modeLineIndex, modeLine.length, end-R.location);
-			toJail = YES;
-		}
-		if ([modeLine invalidLocalRange].length
-			&& ([modeLine invalidLocalRange].location<[modeLine contentsLength])
-				&& (modeLineIndex < self.badModeIndex)) {
-			LOG4iTM3(@"!!!!!!!!!!!!!!  Invalid mode line with valid mode index");
-			toJail = YES;
-		}
-		if ([modeLine diagnostic]) {
-			LOG4iTM3(@"!!!!!!!!!!!!!!  BAD MODE LINE AT INDEX: %lu", modeLineIndex);
-			toJail = YES;
-		}
-		R.location = end;
-		if (contentsEnd < end) {
-			// we MUST have a new mode line
-			if (++modeLineIndex<countOfModeLines) {
-				modeLine = [self modeLineAtIndex:modeLineIndex];
-				goto testNextLine;
-			} else {
-				LOG4iTM3(@"!!!!!!!!!!!!!!  MISSING MODE LINE");
-				toJail = YES;
-			}
-		} else {
-			// this is a non eol string: this must be the last one
-			if (++modeLineIndex<countOfModeLines) {
-				LOG4iTM3(@"!!!!!!!!!!!!!!  TOO MANY MODE LINES");
-				toJail = YES;
-			}
-		}
-	} else {
+    if (!countOfModeLines) {
 		LOG4iTM3(@"!!!!!!!!!!!!!!  THERE MUST BE AT LEAST ONE MODE LINE..");
-		toJail = YES;
-	}
+        return NO; //  at least one modeline
+    }
+    NSUInteger modeLineIndex = ZER0;
+    iTM2ModeLine * modeLine = [self modeLineAtIndex:modeLineIndex];
+    NSString * S = [self.textStorage string];
+	BOOL toJail = YES;
+    NSUInteger end, contentsEnd;
+    NSRange R = iTM3MakeRange(ZER0, ZER0);
+testNextLine:
+    [S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
+    if (modeLineIndex < self.badOff7Index) {
+        if (modeLine.startOff7 != R.location) {
+            LOG4iTM3(@"!!!!!!!!!!!!!!  Bad offset at modeLineIndex: %lu (got %lu instead of %lu)",
+                modeLineIndex, modeLine.startOff7, R.location);
+            toJail = NO;
+        }
+        if (modeLine.contentsEndOff7 != contentsEnd) {
+            LOG4iTM3(@"!!!!!!!!!!!!!!  Bad contents offset at modeLineIndex: %lu (got %lu instead of %lu)",
+                modeLineIndex, modeLine.contentsEndOff7, contentsEnd);
+            toJail = NO;
+        }
+        if (modeLine.endOff7 != end) {
+            LOG4iTM3(@"!!!!!!!!!!!!!!  Bad next offset at modeLineIndex: %lu (got %lu instead of %lu)",
+                modeLineIndex, modeLine.endOff7, end);
+            toJail = NO;
+        }
+    }
+    if (modeLine.contentsLength != contentsEnd-R.location) {
+        LOG4iTM3(@"!!!!!!!!!!!!!!  Bad contentsLength at modeLineIndex: %lu (got %lu instead of %lu)",
+            modeLineIndex, [modeLine contentsLength], contentsEnd-R.location);
+        toJail = NO;
+    }
+    if (modeLine.EOLLength != end-contentsEnd) {
+        LOG4iTM3(@"!!!!!!!!!!!!!!  Bad eol length at modeLineIndex: %lu (got %lu instead of %lu)",
+            modeLineIndex, modeLine.EOLLength, end-contentsEnd);
+        toJail = NO;
+    }
+    if (modeLine.length != end-R.location) {
+        LOG4iTM3(@"!!!!!!!!!!!!!!  Bad length at modeLineIndex: %lu (got %lu instead of %lu)",
+            modeLineIndex, modeLine.length, end-R.location);
+        toJail = NO;
+    }
+    if ([modeLine invalidLocalRange].length
+        && ([modeLine invalidLocalRange].location<[modeLine contentsLength])
+            && (modeLineIndex < self.badModeIndex)) {
+        LOG4iTM3(@"!!!!!!!!!!!!!!  Invalid mode line with valid mode index");
+        toJail = NO;
+    }
+    if (!modeLine.isConsistent) {
+        LOG4iTM3(@"!!!!!!!!!!!!!!  BAD MODE LINE AT INDEX: %lu", modeLineIndex);
+        toJail = NO;
+    }
+    R.location = end;
+    if (contentsEnd < end) {
+        // we MUST have a new mode line at the end
+        if (++modeLineIndex<countOfModeLines) {
+            modeLine = [self modeLineAtIndex:modeLineIndex];
+            goto testNextLine;
+        } else {
+            LOG4iTM3(@"!!!!!!!!!!!!!!  THE LAST MODE LINE MUST NOT HAVE AN EOL");
+            toJail = NO;
+        }
+    } else {
+        // this is a non eol string: this must be the last one
+        if (++modeLineIndex<countOfModeLines) {
+            LOG4iTM3(@"!!!!!!!!!!!!!!  TOO MANY MODE LINES");
+            toJail = NO;
+        }
+    }
 //END4iTM3;
     if (toJail) {
 		LOG4iTM3(@"There are actually %lu lines", countOfModeLines);
@@ -1196,11 +1182,11 @@ RoseRouge:
 			[S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
 #ifdef __ELEPHANT_MODELINE__
 #warning ELEPHANT MODE: For debugging purpose only.. see iTM2TextStorageKit.h
-			modeLine->originalString = [S substringWithRange:iTM3MakeRange(modeLine.startOff7, R.location-modeLine.startOff7)];
+			modeLine.originalString = [S substringWithRange:iTM3MakeRange(modeLine.startOff7, R.location-modeLine.startOff7)];
 #endif
 			if (modeLine.startOff7 < contentsEnd) {
                 NSError * ROR = nil;
-				if (![modeLine appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-modeLine.startOff7 error:&ROR] && ROR) {
+				if (![modeLine appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-modeLine.startOff7 error:self.RORef4iTM3] && ROR) {
                     REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
                     return;
                 }
@@ -1218,7 +1204,7 @@ RoseRouge:
     [self invalidateModesFromIndex:ZER0];
 	[[self modeLineAtIndex:ZER0] setPreviousMode:kiTM2TextRegularSyntaxMode];// the first line must always have a regular previous mode
 //LOG4iTM3(@"The number of lines in this text is: self.numberOfModeLines:%u", self.numberOfModeLines);
-	if (self.diagnostic) {
+	if (!self.isConsistent) {
         REPORTERRORINMAINTHREAD4iTM3(123,@"********\n\n\nBIG STARTING PROBLEM.", NULL);
     }
 //END4iTM3;
@@ -1338,7 +1324,7 @@ To Do List:
 		iTM2TextStorage * TS = (iTM2TextStorage *)TV.textStorage;
 		if ([TS respondsToSelector:@selector(syntaxParser)]) {
 			iTM2TextSyntaxParser * SP = TS.syntaxParser;
-			[SP diagnostic];
+			!SP.isConsistent;
 		}
 	}
 	NS_ENDHANDLER
@@ -1393,7 +1379,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.modeLines objectAtIndex:idx];
+    return idx < self.numberOfModeLines? [self.modeLines objectAtIndex:idx]: nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  insertModeLine:atIndex:
 - (void)insertModeLine:(id)modeLine atIndex:(NSUInteger)idx;
@@ -1767,7 +1753,7 @@ To Do List:
 	// what is the previous mode?
     NSUInteger mode = first? [[self modeLineAtIndex:first-1] EOLMode]:[[self modeLineAtIndex:first] previousMode];
 //NSLog(@"BIG CALCULUS (first is: %u, last is: %u and self.badModeIndex is: %u, mode is: %u)", first, last, self.badModeIndex, mode);
-	if (self.diagnostic)
+	if (!self.isConsistent)
     {
         LOG4iTM3(@"=====  |=:( Comment il a pu me foutre un bordel pareil........");
     }
@@ -1775,11 +1761,11 @@ To Do List:
     {
 ValidateNextModeLine:;
         iTM2ModeLine * modeLine = [self modeLineAtIndex:first];
-		#ifdef __ELEPHANT_MODELINE__
+#       ifdef __ELEPHANT_MODELINE__
 		NSUInteger start, end;
 		[[self.textStorage string] getLineStart:&start end:&end contentsEnd:nil forRange:iTM3MakeRange(modeLine.startOff7, ZER0)];
-		_iTM2InternalAssert([[modeLine originalString] isEqualToString:[[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]], ([NSString stringWithFormat:@"original is\n<%@> != expected string is:\n<%@>", [modeLine originalString], [[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]]));
-		#endif
+		_iTM2InternalAssert([modeLine.originalString isEqualToString:[[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]], ([NSString stringWithFormat:@"original is\n<%@> != expected string is:\n<%@>", modeLine.originalString, [[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]]));
+#       endif
         mode = [self validEOLModeOfModeLine:modeLine forPreviousMode:mode];
 		if (mode && ((mode & ~kiTM2TextFlagsSyntaxMask) != kiTM2TextUnknownSyntaxMode))
 		{
@@ -1791,7 +1777,7 @@ ValidateNextModeLine:;
 			}
 		}
     }
-    _iTM2InternalAssert(!self.diagnostic, @"=====  |=:( Qui m'a foutu un bordel pareil........");
+    _iTM2InternalAssert(self.isConsistent, @"=====  |=:( Qui m'a foutu un bordel pareil........");
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= invalidateModesForCharacterRangeIndex:editedAttributesRangeIn:
@@ -1875,7 +1861,7 @@ To Do List:
 /*"This method is an entry point will compute all the correct attributes."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    _iTM2InternalAssert(!self.diagnostic, @"BIG PROBLEM BEFORE VALIDATING THE MODE");
+    _iTM2InternalAssert(self.isConsistent, @"BIG PROBLEM BEFORE VALIDATING THE MODE");
 #ifdef __ELEPHANT_MODELINE__
 	{
         NSUInteger start, end;
@@ -1907,7 +1893,7 @@ To Do List:
         return originalModeLine.EOLMode = (originalModeLine.EOLMode | kiTM2TextEndOfLineSyntaxMask);
 //START4iTM3;
 	// now, we are really going to compute the attributes validating the modes
-    _iTM2InternalAssert(!self.diagnostic, @"***  ZER0-STARTING:BIG PROBLEM IN VALIDATING THE MODE");
+    _iTM2InternalAssert(self.isConsistent, @"***  ZER0-STARTING:BIG PROBLEM IN VALIDATING THE MODE");
     #undef IR
     #define IR originalModeLine.invalidLocalRange
 //LOG4iTM3(@"Working hard: local invalid range %@, previousMode: %u", NSStringFromRange(IR), previousMode);
@@ -1923,7 +1909,7 @@ To Do List:
     NSUInteger syntaxWordIndex = ZER0;// Here, syntaxWordIndex < originalModeLine.numberOfSyntaxWords
     NSUInteger currentSyntaxWordOff7 = ZER0;// it is the offset of the syntax word at index syntaxWordIndex
     //currentSyntaxWordOff7 = \sum_{i=ZER0}^{syntaxWordIndex-1} [originalModeLine syntaxLengthAtIndex:i]
-    _iTM2InternalAssert(!self.diagnostic, @"***  1 :BIG PROBLEM IN VALIDATING THE MODE");
+    _iTM2InternalAssert(self.isConsistent, @"***  1 :BIG PROBLEM IN VALIDATING THE MODE");
     NSUInteger testigo = ZER0;// debugger to ensure that all chars are the same
 	// We start by copying the valid original modes
 	// a syntax word is considered to be valid when it is before the invalid range and far from it
@@ -1944,7 +1930,7 @@ copyValidOriginalMode:;
 		if (originalMode==previousMode) {
 			previousLength += originalModeLine.syntaxWordLengths[syntaxWordIndex];
 		} else {
-			if (![workingML appendSyntaxMode:previousMode length:previousLength error:&ROR] && ROR) {
+			if (![workingML appendSyntaxMode:previousMode length:previousLength error:self.RORef4iTM3] && ROR) {
                 REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
                 return kiTM2TextErrorSyntaxMode;
             }
@@ -1960,7 +1946,7 @@ copyValidOriginalMode:;
 		// the beginning of the syntax word is not accepted
         IR = iTM3MakeRange(currentSyntaxWordOff7,IR.length+IR.location-currentSyntaxWordOff7);
 	}
-	_iTM2InternalAssert(!self.diagnostic, @"2-BIG PROBLEM IN VALIDATING THE MODE");
+	_iTM2InternalAssert(self.isConsistent, @"2-BIG PROBLEM IN VALIDATING THE MODE");
 	// HERE we have
     // currentSyntaxWordOff7 <= IR.location < nextSyntaxWordOff7
     // syntaxWordIndex < originalModeLine.numberOfSyntaxWords
@@ -1980,7 +1966,7 @@ copyValidOriginalMode:;
     NSUInteger parsedLength = ZER0;
     NSUInteger nextMode = kiTM2TextUnknownSyntaxMode;
 	// parsedLength is used as a cache
-	_iTM2InternalAssert(!self.diagnostic, @"3-BIG PROBLEM IN VALIDATING THE MODE");
+	_iTM2InternalAssert(self.isConsistent, @"3-BIG PROBLEM IN VALIDATING THE MODE");
     if (globalLocation < topGlobalLocation) {
 fixGlobalLocationMode:
 //NSLog(@"WE ARE NOW WORKING ON globalLocation: %u, topGlobalLocation: %u", globalLocation, topGlobalLocation);
@@ -1991,7 +1977,7 @@ fixGlobalLocationMode:
         if (parsedMode == previousMode) {
             previousLength += parsedLength;
         } else {
-            if (![workingML appendSyntaxMode:previousMode length:previousLength error:&ROR] && ROR) {
+            if (![workingML appendSyntaxMode:previousMode length:previousLength error:self.RORef4iTM3] && ROR) {
                 REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
                 return kiTM2TextErrorSyntaxMode;
             }
@@ -2028,7 +2014,7 @@ skipOldSyntaxWords:
 				if (nextMode && nextMode != kiTM2TextUnknownSyntaxMode) {
 					// nextMode is the mode at globalLocation
 //++N;
-                    if (![workingML appendSyntaxMode:previousMode length:previousLength error:&ROR] && ROR) {
+                    if (![workingML appendSyntaxMode:previousMode length:previousLength error:self.RORef4iTM3] && ROR) {
                         REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
                         return kiTM2TextErrorSyntaxMode;
                     }
@@ -2054,14 +2040,14 @@ skipOldSyntaxWords:
     // currentSyntaxWordOff7 = '[originalModeLine offsetAtIndex:syntaxWordIndex]'
     // nextSyntaxWordOff7 = currentSyntaxWordOff7+[originalModeLine syntaxLengthAtIndex:syntaxWordIndex]
     // currentSyntaxWordOff7 <= localLocation < nextSyntaxWordOff7
-	_iTM2InternalAssert(!self.diagnostic, @"4-BIG PROBLEM IN VALIDATING THE MODE");
+	_iTM2InternalAssert(self.isConsistent, @"4-BIG PROBLEM IN VALIDATING THE MODE");
     NSUInteger oldPreviousMode = (localLocation>currentSyntaxWordOff7)? [originalModeLine syntaxModeAtIndex:syntaxWordIndex]:
         (syntaxWordIndex? [originalModeLine syntaxModeAtIndex:syntaxWordIndex-1]:[originalModeLine previousMode]);
     if (oldPreviousMode == previousMode) {
 //LOG4iTM3(@"Saving %u words (parsedMode = %u)", originalModeLine.numberOfSyntaxWords-syntaxWordIndex, previousMode);
-        if (![workingML appendSyntaxMode:previousMode length:previousLength error:&ROR]
+        if (![workingML appendSyntaxMode:previousMode length:previousLength error:self.RORef4iTM3]
             && ROR
-                || ![workingML appendSyntaxMode:[originalModeLine syntaxModeAtIndex:syntaxWordIndex] length:nextSyntaxWordOff7-localLocation error:&ROR]
+                || ![workingML appendSyntaxMode:[originalModeLine syntaxModeAtIndex:syntaxWordIndex] length:nextSyntaxWordOff7-localLocation error:self.RORef4iTM3]
                     && ROR) {
             REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
             return kiTM2TextErrorSyntaxMode;
@@ -2069,7 +2055,7 @@ skipOldSyntaxWords:
         previousLength = ZER0;
         while(++syntaxWordIndex<originalModeLine.numberOfSyntaxWords)
             if (![workingML appendSyntaxMode:[originalModeLine syntaxModeAtIndex:syntaxWordIndex]
-                    length:[originalModeLine syntaxLengthAtIndex:syntaxWordIndex] error:&ROR] && ROR) {
+                    length:[originalModeLine syntaxLengthAtIndex:syntaxWordIndex] error:self.RORef4iTM3] && ROR) {
                 REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
                 return kiTM2TextErrorSyntaxMode;
             }
@@ -2083,23 +2069,23 @@ skipOldSyntaxWords:
 theEnd:
 //NSLog(@"END OK: %u", previousLength);
     ROR = nil;
-    if (![workingML appendSyntaxMode:previousMode length:previousLength error:&ROR]) {
+    if (![workingML appendSyntaxMode:previousMode length:previousLength error:self.RORef4iTM3]) {
         REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
         return kiTM2TextErrorSyntaxMode;
     }
-	_iTM2InternalAssert(!workingML.diagnostic, @"***  7<<-before swap :BIG PROBLEM IN VALIDATING THE MODE");
+	_iTM2InternalAssert(workingML.isConsistent, @"***  7<<-before swap :BIG PROBLEM IN VALIDATING THE MODE");
 	NSAssert2(workingML.contentsLength == originalModeLine.contentsLength,
 		@"***  7<-before swap : BIG PROBLEM IN VALIDATING THE MODE %u != %u",
 								workingML.contentsLength, originalModeLine.contentsLength);
     [originalModeLine swapContentsWithModeLine:workingML];
-	_iTM2InternalAssert(!self.diagnostic, @"***  7-before END :BIG PROBLEM IN VALIDATING THE MODE");
+	_iTM2InternalAssert(self.isConsistent, @"***  7-before END :BIG PROBLEM IN VALIDATING THE MODE");
 //NSLog(@"Number of modes really computed: %u/%u", N, originalModeLine.length);
-	_iTM2InternalAssert(!self.diagnostic, @"***  END1 :BIG PROBLEM IN VALIDATING THE MODE");
+	_iTM2InternalAssert(self.isConsistent, @"***  END1 :BIG PROBLEM IN VALIDATING THE MODE");
     originalModeLine.EOLMode = [self EOLModeForPreviousMode:previousMode];
 //[originalModeLine describe];
 //LOG4iTM3(@"Worked hard: local invalid range %@, nextMode: %u", NSStringFromRange([originalModeLine invalidLocalRange]), previousMode);
 //END4iTM3;
-	_iTM2InternalAssert(!self.diagnostic, @"***  END2 :BIG PROBLEM IN VALIDATING THE MODE");
+	_iTM2InternalAssert(self.isConsistent, @"***  END2 :BIG PROBLEM IN VALIDATING THE MODE");
 //END4iTM3;
 //    [originalModeLine describe];
 	[self didUpdateModeLine:originalModeLine forPreviousMode:previousMode];
@@ -2153,7 +2139,7 @@ To Do List:
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COMMUNICATION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= textStorageShouldReplaceCharactersInRange:withString:error:
-- (BOOL)textStorageShouldReplaceCharactersInRange:(NSRange)range withString:(NSString *)string error:(NSError **)errorRef;
+- (BOOL)textStorageShouldReplaceCharactersInRange:(NSRange)range withString:(NSString *)string error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Mon Apr 19 20:49:30 UTC 2010
@@ -2161,9 +2147,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+	if (!self.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"The mode lines are not in a consistent state before character replacement.",
                     NSLocalizedDescriptionKey,
@@ -2177,7 +2163,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCarriageReturnAtIndex:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidInsertCarriageReturnAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertCarriageReturnAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"This new version is stronger.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sun Apr 25 18:08:31 UTC 2010
@@ -2188,9 +2174,9 @@ To Do List:
     //  Was there a \n at aGlobalLocation or is there a \n at aGlobalLocation+1?
 	NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
 	iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
-    if (ML.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!ML.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"STARTING WITH A BAD MODE LINE!!!",
                     NSLocalizedDescriptionKey,
@@ -2208,18 +2194,18 @@ To Do List:
     if (aGlobalLocation < ML.contentsEndOff7) {
         //  the line is splitted at index aGlobalLocation+1
         //  what is at aGlobalLocation and after will go to the next line
-        if ((ml = [ML modeLineBySplittingFromGlobalLocation:aGlobalLocation error:errorRef])) {
+        if ((ml = [ML modeLineBySplittingFromGlobalLocation:aGlobalLocation error:RORef])) {
             [ml invalidateLocalRange:iTM3MakeRange(ZER0,1)];
             //  Now set up the EOL for ML
             ML.EOLLength = 1;
             ML.EOLMode = kiTM2TextUnknownSyntaxMode;
             [self insertModeLine:ml atIndex:lineIndex+1];
             ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
+#           ifdef __ELEPHANT_MODELINE__
             NSString * S = [self.textStorage string];
-            ML -> originalString = [S substringWithRange:ML.completeRange];
-            ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+            ML.originalString = [S substringWithRange:ML.completeRange];
+            ml.originalString = [S substringWithRange:ml.completeRange];
+#           endif
             [ML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
             //  to fix the edited range:
             //  get a syntax mode range including location and the index before if it is in the same line
@@ -2240,9 +2226,9 @@ To Do List:
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+1];
 diagnostic_and_return:
-            if (self.diagnostic) {
-                if (errorRef) {
-                    *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+            if (!self.isConsistent) {
+                if (RORef) {
+                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                         userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                             @"Could not insert character properly, please report bug.",
                             NSLocalizedDescriptionKey,
@@ -2254,8 +2240,8 @@ diagnostic_and_return:
             }
             return YES;
         }
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( Could not insert character properly.",
                     NSLocalizedDescriptionKey,
@@ -2278,9 +2264,9 @@ diagnostic_and_return:
         if (ML.contentsEndOff7 == aGlobalLocation) {
             //  NO \r originally before the \n
             ML.EOLLength = 2;
-#ifdef __ELEPHANT_MODELINE__
-            ML -> originalString = [S substringWithRange:ML.completeRange];
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+            ML.originalString = [S substringWithRange:ML.completeRange];
+#           endif
             R = ML.EOLRange;
             [ML invalidateGlobalRange:R];
             if (editedAttributesRangePtr) {
@@ -2299,10 +2285,10 @@ diagnostic_and_return:
         ml.EOLMode = ML.EOLMode;
         ml.EOLLength = 2;
         ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-        ML -> originalString = [S substringWithRange:ML.completeRange];
-        ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [S substringWithRange:ML.completeRange];
+        ml.originalString = [S substringWithRange:ml.completeRange];
+#       endif
         [self insertModeLine:ml atIndex:lineIndex+1];
         [self invalidateOff7sFromIndex:lineIndex+2];
         if (editedAttributesRangePtr) {
@@ -2319,10 +2305,10 @@ diagnostic_and_return:
         ml.EOLLength = ML.EOLLength;
         ML.EOLLength = 1;
         ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-        ML -> originalString = [S substringWithRange:ML.completeRange];
-        ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [S substringWithRange:ML.completeRange];
+        ml.originalString = [S substringWithRange:ml.completeRange];
+#       endif
         [self insertModeLine:ml atIndex:lineIndex+1];
         [self invalidateOff7sFromIndex:lineIndex+2];
         if (editedAttributesRangePtr) {
@@ -2334,9 +2320,9 @@ diagnostic_and_return:
     //  \r was appended to a line with 
     ML.EOLLength = 1;
     ML.EOLMode = kiTM2TextUnknownSyntaxMode;
-#ifdef __ELEPHANT_MODELINE__
-    ML -> originalString = [S substringWithRange:ML.completeRange];
-#endif
+#   ifdef __ELEPHANT_MODELINE__
+    ML.originalString = [S substringWithRange:ML.completeRange];
+#   endif
     if (editedAttributesRangePtr) {
         *editedAttributesRangePtr = ML.EOLRange;
     }
@@ -2348,7 +2334,7 @@ diagnostic_and_return:
     goto diagnostic_and_return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertLineFeedAtIndex:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidInsertLineFeedAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertLineFeedAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"This new version is stronger.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sat May  1 09:34:51 UTC 2010
@@ -2359,16 +2345,8 @@ To Do List:
     //  Is there a \r at aGlobalLocation - 1
 	NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
 	iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
-    if (ML.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"STARTING WITH A BAD MODE LINE!!!",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: STARTING WITH A BAD MODE LINE!!!");
-        }
+    if (!ML.isConsistent) {
+        OUTERROR4iTM3(1,@"STARTING WITH A BAD MODE LINE!!!",NULL);
         return NO;
     }
     //  actually
@@ -2382,18 +2360,18 @@ To Do List:
             //  the line is splitted at index aGlobalLocation + 1
             //  so the mode line is splitted at index aGlobalLocation (no change made yet)
             //  what is at aGlobalLocation and after will go to the next line
-            if ((ml = [ML modeLineBySplittingFromGlobalLocation:aGlobalLocation error:errorRef])) {
+            if ((ml = [ML modeLineBySplittingFromGlobalLocation:aGlobalLocation error:RORef])) {
                 [ml invalidateLocalRange:iTM3MakeRange(ZER0,1)];
                 //  Now set up the EOL for ML
                 ML.EOLLength = 1;
                 ML.EOLMode = kiTM2TextUnknownSyntaxMode;
                 [self insertModeLine:ml atIndex:lineIndex+1];
                 ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
+#               ifdef __ELEPHANT_MODELINE__
                 NSString * S = [self.textStorage string];
-                ML -> originalString = [S substringWithRange:ML.completeRange];
-                ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+                ML.originalString = [S substringWithRange:ML.completeRange];
+                ml.originalString = [S substringWithRange:ml.completeRange];
+#               endif
                 [ML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
                 //  to fix the edited range:
                 //  get a syntax mode range including location and the index before if it is in the same line
@@ -2414,9 +2392,9 @@ To Do List:
                 [self invalidateModesFromIndex:lineIndex];
                 [self invalidateOff7sFromIndex:lineIndex+1];
 diagnostic_and_return:
-                if (self.diagnostic) {
-                    if (errorRef) {
-                        *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+                if (!self.isConsistent) {
+                    if (RORef) {
+                        *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                             userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                                 @"Could not insert character properly, please report bug.",
                                 NSLocalizedDescriptionKey,
@@ -2428,8 +2406,8 @@ diagnostic_and_return:
                 }
                 return YES;
             }
-            if (errorRef) {
-                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+            if (RORef) {
+                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                         @"d:( Could not insert character properly.",
                         NSLocalizedDescriptionKey,
@@ -2452,10 +2430,10 @@ diagnostic_and_return:
             ml.EOLLength = ML.EOLLength;
             ML.EOLLength = 1;
             ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-            ML -> originalString = [S substringWithRange:ML.completeRange];
-            ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+            ML.originalString = [S substringWithRange:ML.completeRange];
+            ml.originalString = [S substringWithRange:ml.completeRange];
+#           endif
             [self insertModeLine:ml atIndex:lineIndex+1];
             [self invalidateOff7sFromIndex:lineIndex+2];
             if (editedAttributesRangePtr) {
@@ -2472,9 +2450,9 @@ diagnostic_and_return:
             if (ML.EOLLength == 1) {
                 //  just augment the EOL length
                 ML.EOLLength = 2;
-#ifdef __ELEPHANT_MODELINE__
-                ML -> originalString = [S substringWithRange:ML.completeRange];
-#endif
+#               ifdef __ELEPHANT_MODELINE__
+                ML.originalString = [S substringWithRange:ML.completeRange];
+#               endif
                 R = ML.EOLRange;
                 [ML invalidateGlobalRange:R];
                 if (editedAttributesRangePtr) {
@@ -2491,10 +2469,10 @@ diagnostic_and_return:
             ml.EOLLength = ML.EOLLength-1;
             ML.EOLLength = 2;
             ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-            ML -> originalString = [S substringWithRange:ML.completeRange];
-            ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+            ML.originalString = [S substringWithRange:ML.completeRange];
+            ml.originalString = [S substringWithRange:ml.completeRange];
+#           endif
             [self insertModeLine:ml atIndex:lineIndex+1];
             [self invalidateOff7sFromIndex:lineIndex+2];
             if (editedAttributesRangePtr) {
@@ -2508,9 +2486,9 @@ diagnostic_and_return:
         ml.EOLMode = ML.EOLMode;
         ml.EOLLength = 1;
         ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-        ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+#       ifdef __ELEPHANT_MODELINE__
+        ml.originalString = [S substringWithRange:ml.completeRange];
+#       endif
         [self insertModeLine:ml atIndex:lineIndex+1];
         [self invalidateOff7sFromIndex:lineIndex+2];
         if (editedAttributesRangePtr) {
@@ -2525,10 +2503,10 @@ diagnostic_and_return:
             ml = [self modeLineAtIndex:aGlobalLocation-1];
             ml.EOLLength += 1;
             ML.startOff7 += 1;
-#ifdef __ELEPHANT_MODELINE__
-            ML -> originalString = [S substringWithRange:ML.completeRange];
-            ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+            ML.originalString = [S substringWithRange:ML.completeRange];
+            ml.originalString = [S substringWithRange:ml.completeRange];
+#           endif
             [self invalidateOff7sFromIndex:lineIndex+1];
             if (editedAttributesRangePtr) {
                 *editedAttributesRangePtr = ml.EOLRange;
@@ -2542,9 +2520,9 @@ diagnostic_and_return:
     ml.EOLMode = kiTM2TextUnknownSyntaxMode;
     ml.EOLLength = 1;
     ml.startOff7 = aGlobalLocation;
-#ifdef __ELEPHANT_MODELINE__
-    ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+#   ifdef __ELEPHANT_MODELINE__
+    ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
+#   endif
     [self insertModeLine:ml atIndex:lineIndex];
     R = ml.EOLRange;
     [ml invalidateGlobalRange:R];
@@ -2556,7 +2534,7 @@ diagnostic_and_return:
     goto diagnostic_and_return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertSingleEOLAtIndex:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidInsertSingleEOLAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertSingleEOLAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"This new version is stronger.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sat May  1 09:34:51 UTC 2010
@@ -2565,9 +2543,9 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
 	iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
-    if (ML.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!ML.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"STARTING WITH A BAD MODE LINE!!!",
                     NSLocalizedDescriptionKey,
@@ -2588,18 +2566,18 @@ To Do List:
         //  the line is splitted at index aGlobalLocation+1
         //  the mode line is splitted at index aGlobalLocation (they are not yet sync'ed)
         //  what is at aGlobalLocation and after will go to the next line
-        if ((ml = [ML modeLineBySplittingFromGlobalLocation:aGlobalLocation error:errorRef])) {
+        if ((ml = [ML modeLineBySplittingFromGlobalLocation:aGlobalLocation error:RORef])) {
             [ml invalidateLocalRange:iTM3MakeRange(ZER0,1)];
             //  Now set up the EOL for ML
             ML.EOLLength = 1;
             ML.EOLMode = kiTM2TextUnknownSyntaxMode;
             [self insertModeLine:ml atIndex:lineIndex+1];
             ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
+#           ifdef __ELEPHANT_MODELINE__
             NSString * S = [self.textStorage string];
-            ML -> originalString = [S substringWithRange:ML.completeRange];
-            ml -> originalString = [S substringWithRange:ml.completeRange];
-#endif
+            ML.originalString = [S substringWithRange:ML.completeRange];
+            ml.originalString = [S substringWithRange:ml.completeRange];
+#           endif
             [ML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
             //  to fix the edited range:
             //  get a syntax mode range including location and the index before if it is in the same line
@@ -2620,9 +2598,9 @@ To Do List:
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+1];
 diagnostic_and_return:
-            if (self.diagnostic) {
-                if (errorRef) {
-                    *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+            if (!self.isConsistent) {
+                if (RORef) {
+                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                         userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                             @"Could not insert character properly, please report bug.",
                             NSLocalizedDescriptionKey,
@@ -2634,8 +2612,8 @@ diagnostic_and_return:
             }
             return YES;
         }
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( Could not insert character properly.",
                     NSLocalizedDescriptionKey,
@@ -2654,9 +2632,9 @@ diagnostic_and_return:
         ML.EOLMode = kiTM2TextUnknownSyntaxMode;
         ml = [iTM2ModeLine modeLine];
         ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-        ML -> originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
-#endif
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
+#       endif
         R = ML.EOLRange;
         [ML invalidateGlobalRange:R];
         if (editedAttributesRangePtr) {
@@ -2675,10 +2653,10 @@ diagnostic_and_return:
             ml.EOLMode = ML.EOLMode;
             ml.EOLLength = 1;
             ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-            ML -> originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
-            ml -> originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+            ML.originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
+            ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
+#           endif
             R = ML.EOLRange;
             [ML invalidateGlobalRange:R];
             if (editedAttributesRangePtr) {
@@ -2690,9 +2668,9 @@ diagnostic_and_return:
             ml.EOLMode = ML.EOLMode;
             ml.EOLLength = 1;
             ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-            ml -> originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+            ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
+#           endif
             [self insertModeLine:ml atIndex:lineIndex+2];
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+3];
@@ -2705,10 +2683,10 @@ diagnostic_and_return:
     ml.EOLLength = ML.EOLLength;
     ML.EOLLength = 1;
     ml.startOff7 = ML.endOff7;
-#ifdef __ELEPHANT_MODELINE__
-    ML -> originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
-    ml -> originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
-#endif
+#   ifdef __ELEPHANT_MODELINE__
+    ML.originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
+    ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
+#   endif
     R = ML.EOLRange;
     [ML invalidateGlobalRange:R];
     if (editedAttributesRangePtr) {
@@ -2720,7 +2698,7 @@ diagnostic_and_return:
     goto diagnostic_and_return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertNonEOLCharacterAtIndex:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidInsertNonEOLCharacterAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertNonEOLCharacterAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"This new version is stronger.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sat May  1 09:34:51 UTC 2010
@@ -2729,9 +2707,9 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
 	iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
-    if (ML.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!ML.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"STARTING WITH A BAD MODE LINE!!!",
                     NSLocalizedDescriptionKey,
@@ -2747,11 +2725,11 @@ To Do List:
     //  There might be a problem wih a \r\n sequence
     NSRange R,r;
     if (aGlobalLocation <= ML.contentsEndOff7) {
-        if ([ML enlargeSyntaxModeAtGlobalLocation:aGlobalLocation length:1 error:errorRef]) {
-#ifdef __ELEPHANT_MODELINE__
+        if ([ML enlargeSyntaxModeAtGlobalLocation:aGlobalLocation length:1 error:RORef]) {
+#           ifdef __ELEPHANT_MODELINE__
             NSString * S = [self.textStorage string];
-            ML -> originalString = [S substringWithRange:ML.completeRange];
-#endif
+            ML.originalString = [S substringWithRange:ML.completeRange];
+#           endif
             [ML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
             //  to fix the edited range:
             //  get a syntax mode range including location and the index before if it is in the same line
@@ -2772,9 +2750,9 @@ To Do List:
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+1];
 //diagnostic_and_return:
-            if (self.diagnostic) {
-                if (errorRef) {
-                    *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+            if (!self.isConsistent) {
+                if (RORef) {
+                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                         userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                             @"Could not insert character properly, please report bug.",
                             NSLocalizedDescriptionKey,
@@ -2793,10 +2771,10 @@ To Do List:
     //  replace by insertioin of 2 characters, the latter being the \n
     ML.EOLLength = 1;
     [self invalidateOff7sFromIndex:lineIndex+1];
-    return [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:2 editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+    return [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:2 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharacterAtIndex:error:
-- (BOOL)textStorageDidInsertCharacterAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertCharacterAtIndex:(NSUInteger)aGlobalLocation editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"This new version is stronger.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Mon Apr 12 19:14:24 UTC 2010
@@ -2806,19 +2784,19 @@ To Do List:
 //START4iTM3;
     switch ([[self.textStorage string] characterAtIndex:aGlobalLocation]) {
         case '\n':
-            return [self textStorageDidInsertLineFeedAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+            return [self textStorageDidInsertLineFeedAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         case '\r':
-            return [self textStorageDidInsertCarriageReturnAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+            return [self textStorageDidInsertCarriageReturnAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         case 0x0085:
         case 0x2028:
         case 0x2029:
-            return [self textStorageDidInsertSingleEOLAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+            return [self textStorageDidInsertSingleEOLAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         default:
-            return [self textStorageDidInsertNonEOLCharacterAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+            return [self textStorageDidInsertNonEOLCharacterAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidReplaceCharactersAtIndex:(NSUInteger)location count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidReplaceCharactersAtIndex:(NSUInteger)location count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Apr 21 17:34:00 UTC 2010
@@ -2864,8 +2842,8 @@ To Do List:
         //  if we insert something like \n... and a \r before, the contentsEnd should be == ML.startOff7 - 1
         //  WHAT we do is manage the leading \n, then the remaining inserted chars
         if (!first) {
-            if (errorRef) {
-                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+            if (RORef) {
+                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                         @"Internal inconsistency, first is 0.",
                         NSLocalizedDescriptionKey,
@@ -2882,17 +2860,17 @@ To Do List:
         //  that go to the EOL sequence
         if (oldCount -= R.location - location) {
             if (newCount -= R.location - location) {
-                return [self textStorageDidReplaceCharactersAtIndex:location+1 count:oldCount withCount:newCount editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+                return [self textStorageDidReplaceCharactersAtIndex:location+1 count:oldCount withCount:newCount editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
             } else {
-                return [self textStorageDidDeleteCharacterAtIndex:location+1 editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+                return [self textStorageDidDeleteCharacterAtIndex:location+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
             }
         } else if (newCount -= R.location - location) {
-            return [self textStorageDidInsertCharactersAtIndex:location+1 count:newCount editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+            return [self textStorageDidInsertCharactersAtIndex:location+1 count:newCount editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         } else {
             //  R.location - location characters have been added to the EOL sequence
             //  They must be removed from the mode line at index first
             ML = [self modeLineAtIndex:first];
-            if ([ML deleteModesInGlobalMakeRange:ML.startOff7:1 error:errorRef]) {
+            if ([ML deleteModesInGlobalMakeRange:ML.startOff7:1 error:RORef]) {
                 if (editedAttributesRangePtr) {
                     // we ignore the leading inserted '\n'
                     * editedAttributesRangePtr = iTM3MakeRange(firstChar+1, lastChar-firstChar-1);
@@ -2904,12 +2882,12 @@ To Do List:
     }
     while (YES) {
         ML.EOLLength = R.location-contentsEnd;
-        if (contentsEnd>ML.startOff7 && ![ML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-ML.startOff7 error:errorRef]) {
+        if (contentsEnd>ML.startOff7 && ![ML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-ML.startOff7 error:RORef]) {
             return NO;
         }
-#ifdef __ELEPHANT_MODELINE__
-        ML->originalString = [S substringWithRange:ML.completeRange];
-#endif
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [S substringWithRange:ML.completeRange];
+#       endif
         [newModes addObject:ML];
         if (R.location < lastChar) {
             ML = [iTM2ModeLine modeLine];
@@ -2926,9 +2904,9 @@ To Do List:
             [newModes addObject:ML];
         }
         [self replaceModeLinesInRange:iTM3MakeRange(first, last-first+1) withModeLines:newModes];
-        if (self.diagnostic) {
-            if (errorRef) {
-                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (!self.isConsistent) {
+            if (RORef) {
+                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                         @"Could not replace characters properly, please report bug.",
                         NSLocalizedDescriptionKey,
@@ -2946,7 +2924,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharactersAtIndex:count:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidInsertCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Apr 21 17:06:07 UTC 2010
@@ -3004,8 +2982,8 @@ To Do List:
         //  if we insert something like \n... and a \r before, the contentsEnd should be == ML.startOff7 - 1
         //  WHAT we do is manage the leading \n, then the remaining inserted chars
         if (!first) {
-            if (errorRef) {
-                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+            if (RORef) {
+                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                         @"Internal inconsistency, first is 0.",
                         NSLocalizedDescriptionKey,
@@ -3021,8 +2999,8 @@ To Do List:
         [self invalidateOff7sFromIndex:first+1];
         count -= R.location - location;
         return count > 1?
-            [self textStorageDidInsertCharactersAtIndex:location+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:errorRef]:
-            [self textStorageDidInsertCharacterAtIndex:location+1 editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+            [self textStorageDidInsertCharactersAtIndex:location+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef]:
+            [self textStorageDidInsertCharacterAtIndex:location+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
     }
     NSRange r = iTM3MakeRange(ZER0,ZER0);
     if (R.location == lastChar) {
@@ -3053,13 +3031,13 @@ To Do List:
                     [firstML invalidateGlobalRange:firstML.EOLRange];
                 }
                 return count>1?
-                    [self textStorageDidInsertCharactersAtIndex:location count:count editedAttributesRangeIn:editedAttributesRangePtr error:errorRef]:
-                    [self textStorageDidInsertCharacterAtIndex:location editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+                    [self textStorageDidInsertCharactersAtIndex:location count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef]:
+                    [self textStorageDidInsertCharacterAtIndex:location editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
             }
 #           undef newEOLLength
             //  the inserted characters did not contain an EOL
         }
-        if ([firstML enlargeSyntaxModeAtGlobalLocation:location length:count error:errorRef]) {
+        if ([firstML enlargeSyntaxModeAtGlobalLocation:location length:count error:RORef]) {
             [firstML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
             //  to fix the edited range:
             //  get a syntax mode range including location and the index before if it is in the same line
@@ -3080,9 +3058,9 @@ To Do List:
 			[self invalidateModesFromIndex:first];
 			[self invalidateOff7sFromIndex:first+1];
 diagnostic_and_return:
-            if (self.diagnostic) {
-                if (errorRef) {
-                    *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+            if (!self.isConsistent) {
+                if (RORef) {
+                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                         userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                             @"Could not replace characters properly, please report bug.",
                             NSLocalizedDescriptionKey,
@@ -3092,9 +3070,9 @@ diagnostic_and_return:
                 }
                 return NO;
             }
-#ifdef __ELEPHANT_MODELINE__
-            firstML->originalString = [S substringWithRange:firstML.completeRange];
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+            firstML.originalString = [S substringWithRange:firstML.completeRange];
+#           endif
             return YES;
         }
         return NO;
@@ -3111,28 +3089,28 @@ diagnostic_and_return:
                 //  In fact we do not break the \r\n sequence
                 //  let us consider that we do not insert the whole string but only the part after the EOL
                 //  completed with a final '\n'
-                return [self textStorageDidInsertCharactersAtIndex:location+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+                return [self textStorageDidInsertCharactersAtIndex:location+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
             }
             //  We did not insert something starting with a '\n'
             //  separate the \r and the \n
             //  we consider that the \n was inserted
             firstML.EOLLength = R.location - contentsEnd;
             [self invalidateOff7sFromIndex:first+1];
-#ifdef __ELEPHANT_MODELINE__
-            firstML->originalString = [S substringWithRange:firstML.completeRange];
-#endif
-            return [self textStorageDidInsertCharactersAtIndex:location count:count+1 editedAttributesRangeIn:editedAttributesRangePtr error:errorRef];
+#           ifdef __ELEPHANT_MODELINE__
+            firstML.originalString = [S substringWithRange:firstML.completeRange];
+#           endif
+            return [self textStorageDidInsertCharactersAtIndex:location count:count+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         }
     }
     NSMutableArray * newModes = [NSMutableArray array];
     while (YES) {
         ML.EOLLength = R.location-contentsEnd;
-        if (contentsEnd>ML.startOff7 && ![ML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-ML.startOff7 error:errorRef]) {
+        if (contentsEnd>ML.startOff7 && ![ML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-ML.startOff7 error:RORef]) {
             return NO;
         }
-#ifdef __ELEPHANT_MODELINE__
-        ML->originalString = [S substringWithRange:ML.completeRange];
-#endif
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [S substringWithRange:ML.completeRange];
+#       endif
         [newModes addObject:ML];
         if (R.location < lastChar) {
             ML = [iTM2ModeLine modeLine];
@@ -3179,131 +3157,196 @@ diagnostic_and_return:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharacterAtIndex:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidDeleteCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidDeleteCharacterAtIndex:(NSUInteger const)location editedAttributesRangeIn:(NSRangePointer const)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.sss
 Version history: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Fri Apr 23 20:58:35 UTC 2010
+Révisé par itexmac2: 2010-12-30 18:27:53 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_DELETE_1_CHARACTER_YES
+#   define TEST_DELETE_1_CHARACTER_YES(WHAT,LOCATION)\
+    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,1) withString:@""]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+#   undef TEST_DELETE_1_CHARACTER_NO
+#   define TEST_DELETE_1_CHARACTER_NO(WHAT,LOCATION)\
+    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,1) withString:@""]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+#endif
     if (location > NSUIntegerMax - 1) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"Could not delete characters, bounds exceeded.",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not delete characters, bounds exceeded");
-        }
+        OUTERROR4iTM3(1,@"Could not delete characters, bounds exceeded.",NULL);
         return NO;
     }
+//  discussion:
+//  the main problem concerns EOLs
     NSUInteger lineIndex = [self lineIndexForLocation4iTM3:location];
     iTM2ModeLine * workingML = [self modeLineAtIndex:lineIndex];
-    if (location < workingML.contentsEndOff7) {
-		if ([workingML deleteModesInGlobalMakeRange:location:1 error:errorRef]) {
-            if (ZER0 == workingML.length) {
-                //  The line is simply removed
-                if (self.numberOfModeLines > 1) {
-                    [self removeModeLineAtIndex:lineIndex];
-                }
-                if (editedAttributesRangePtr) {
-                    editedAttributesRangePtr->location = location;
-                    editedAttributesRangePtr->length = ZER0;
-                }
-return_YES:
-                if (errorRef) {
-                    *errorRef = nil;
-                }
-                return YES;
-            }
-            NSRange R;
-invalidate_and_return_YES:
-            [workingML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
-            //  to fix the edited range:
-            //  get a syntax mode range including location and the index before if it is in the same line
-            NSRange r;
-            if (location > workingML.startOff7 && location == R.location) {
-                [workingML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
-                r.length += R.length;
-                R = r;
-            }
-            if (R.location > workingML.startOff7 && R.length <= 1) {
-                [workingML getSyntaxMode:NULL atGlobalLocation:R.location-1 longestRange:&r];
-                r.length += R.length;
-                R = r;
-            }
-            [workingML invalidateGlobalRange:R];
+    if (![workingML deleteModesInGlobalMakeRange:location:1 error:RORef]) {
+        if (RORef && !*RORef) {
+            OUTERROR4iTM3(1,@"Unknown problem in deleteModesInGlobalMakeRange....",NULL);
+        }
+        return NO;
+    }
+#   ifdef __ELEPHANT_MODELINE__
+    NSMutableString * MS = workingML.originalString.mutableCopy;
+    NSUInteger locationInMS = location - workingML.startOff7;
+    [MS replaceCharactersInRange:NSMakeRange(locationInMS,1) withString:@""];
+    workingML.originalString = MS.copy;
+#   endif
+    NSUInteger contentsEnd = ZER0;
+    //  Do we have to merge the mode line before workingML and after workingML?
+    //  This is not possible because we would have to remove more than on character
+//  Should I merge to the left
+    if (lineIndex && !workingML.contentsLength && workingML.EOLLength == 1 && location == workingML.startOff7) {
+        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
+        if (contentsEnd < location) {
+            [self removeModeLineAtIndex:lineIndex];
+            --lineIndex;
+            workingML = [self modeLineAtIndex:lineIndex];
+            ++workingML.EOLLength;
+            [self validateOff7sUpToIndex:lineIndex];
             if (editedAttributesRangePtr) {
-                *editedAttributesRangePtr = workingML.invalidGlobalRange;
+                * editedAttributesRangePtr = workingML.EOLRange;
             }
-			[self invalidateModesFromIndex:lineIndex];
-			[self invalidateOff7sFromIndex:lineIndex+1];
-diagnostic_and_return:
-            if (self.diagnostic) {
-                if (errorRef) {
-                    *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                            @"Could not delete one character properly.",
-                            NSLocalizedDescriptionKey,
-                                nil]];
-                } else {
-                    LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not delete one character properly.");
-                }
-                return NO;
-            }
-            goto return_YES;
-		}
-        return NO;
-    }
-    if (location >= workingML.endOff7) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"Can't one char out of bounds.",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Can't one char out of bounds.");
+#           ifdef __ELEPHANT_MODELINE__
+            workingML.originalString = [workingML.originalString stringByAppendingString:@"\n"];
+#           endif
+            ReachCode4iTM3(@"delete one character, merge to the left");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_1_CHARACTER_YES
+            TEST(@"\rY\n",1);
+            TEST(@"\r\r\n",1);
+            TEST(@"\rY\nX",1);
+            TEST(@"\r\r\nX",1);
+            TEST(@"0\rY\n",2);
+            TEST(@"0\r\r\n",2);
+            TEST(@"0\rY\nX",2);
+            TEST(@"0\r\r\nX",2);
+#           endif
+            goto diagnostic_and_return;
         }
-        return NO;
     }
-    //  workingML.contentsEndOff7 <= location < workingML.endOff7
-    //  We are removing an EOL, or part of an EOL
-    //  We are removing the whole EOL
-    if (workingML.EOLLength) {
-        [self invalidateOff7sFromIndex:lineIndex+1];// no need to change the mode
-        --workingML.EOLLength;
+//  Should I merge to the right
+    if (lineIndex < self.numberOfModeLines-1 && workingML.EOLLength == 1 && location == workingML.endOff7) {
+        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
+        if (contentsEnd < location) {
+            ++workingML.EOLLength;
+            [self removeModeLineAtIndex:lineIndex+1];
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = workingML.EOLRange;
+            }
+#           ifdef __ELEPHANT_MODELINE__
+            workingML.originalString = [workingML.originalString stringByAppendingString:@"\n"];
+#           endif
+            ReachCode4iTM3(@"delete one character, merge to the right");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_1_CHARACTER_YES
+            TEST(@"\r\n\n",1);
+            TEST(@"X\r\n\n",2);
+            TEST(@"\r\n\nX",1);
+            TEST(@"\n\r\n\n",2);
+            TEST(@"\nX\r\n\n",3);
+            TEST(@"\n\r\n\nX",2);
+#           endif
+            goto diagnostic_and_return;
+        }
+    }
+//  Should I remove the mode line
+    if (lineIndex < self.numberOfModeLines-1 && !workingML.length) {
+        [self removeModeLineAtIndex:lineIndex];
+        workingML = [self modeLineAtIndex:lineIndex];
+        [self validateOff7sUpToIndex:lineIndex];
+        ReachCode4iTM3(@"delete one character, remove the mode line");
+#       ifdef __EMBEDDED_TEST__
+        iTM2TextStorage * TS = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_1_CHARACTER_YES
+        TEST(@"\r\n\n",1);
+        TEST(@"X\r\n\n",2);
+        TEST(@"\r\n\nX",1);
+        TEST(@"\n\r\n\n",2);
+        TEST(@"\nX\r\n\n",3);
+        TEST(@"\n\r\n\nX",2);
+#       endif
         if (editedAttributesRangePtr) {
-            *editedAttributesRangePtr = workingML.EOLRange;
+            *editedAttributesRangePtr = workingML.completeRange;
         }
-        if (workingML.EOLLength == ZER0) {
-            //  Maybe we should merge with the following mode line if any:
-            if (lineIndex+1<self.numberOfModeLines) {
-                iTM2ModeLine * nextML = [self modeLineAtIndex:++lineIndex];
-                if ([workingML appendSyntaxModesFromModeLine:nextML error:errorRef]) {
-                    [self removeModeLineAtIndex:lineIndex];
-                    goto invalidate_and_return_YES;
-                }
-                return NO;
-            }
-        }
+        [self invalidateModesFromIndex:lineIndex];
         goto diagnostic_and_return;
     }
-    if (errorRef) {
-        *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-            userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                @"Nothing to delete.",
-                NSLocalizedDescriptionKey,
-                    nil]];
-    } else {
-        LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Nothing to delete");
+    //  All the other cases
+    // !lineIndex || !workingML.contentsLength || workingML.EOLLength != 1 || location != workingML.startOff7
+    //  || lineIndex == self.numberOfModeLines-1 || workingML.EOLLength != 1 || location != workingML.endOff7
+    ReachCode4iTM3(@"delete one character, other cases");
+#   ifdef __EMBEDDED_TEST__
+    iTM2TextStorage * TS = nil;
+    #undef  TEST
+    #define TEST TEST_DELETE_1_CHARACTER_YES
+    TEST(@"X",ZER0);
+    TEST(@"\nX",1);
+    TEST(@"XY",ZER0);
+    TEST(@"XY",1);
+    TEST(@"\nXY",1);
+    TEST(@"\nXY",2);
+    TEST(@"Z\nXY",ZER0);
+    TEST(@"ZT\nXY",ZER0);
+    TEST(@"ZT\nXY",1);
+    TEST(@"\nZ",ZER0);
+    TEST(@"X\nZ",1);
+    TEST(@"XY\nZ",2);
+    TEST(@"\nZT",ZER0);
+    TEST(@"X\nZT",1);
+    TEST(@"XY\nZT",2);
+    TEST(@"\nZT\r",ZER0);
+    TEST(@"X\nZT\r",1);
+    TEST(@"XY\nZT\r",2);
+    TEST(@"\nZT\rU",ZER0);
+    TEST(@"X\nZT\rU",1);
+    TEST(@"XY\nZT\rU",2);
+    TEST(@"\r\n",ZER0);
+    TEST(@"\r\n",1);
+    TEST(@"X\r\nY",2);
+    TEST(@"X\r\nY\r\n",4);
+    TEST(@"X\r\nY\r\n",5);
+    TEST(@"X\r\n\r\n",2);
+    TEST(@"X\r\n\r\n",3);
+    TEST(@"X\r\n\r\n",4);
+#   endif
+    NSRange R = iTM3Zer0Range;
+    [workingML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
+    //  to fix the edited range:
+    //  get a syntax mode range including location and the index before if it is in the same line
+    NSRange r;
+    if (location > workingML.startOff7 && location == R.location) {
+        [workingML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
+        r.length += R.length;
+        R = r;
     }
-    return NO;
+    if (R.location > workingML.startOff7 && R.length <= 1) {
+        [workingML getSyntaxMode:NULL atGlobalLocation:R.location-1 longestRange:&r];
+        r.length += R.length;
+        R = r;
+    }
+    [workingML invalidateGlobalRange:R];
+    if (editedAttributesRangePtr) {
+        *editedAttributesRangePtr = workingML.invalidGlobalRange;
+    }
+    [self invalidateModesFromIndex:lineIndex];
+    [self invalidateOff7sFromIndex:lineIndex+1];
+    goto diagnostic_and_return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharactersAtIndex:count:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidDeleteCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidDeleteCharactersAtIndex:(NSUInteger const)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer const)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Fri Apr 23 20:58:40 UTC 2010
@@ -3312,94 +3355,415 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSParameterAssert(count>ZER0);
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_DELETE_CHARACTERS_YES
+#   define TEST_DELETE_CHARACTERS_YES(WHAT,LOCATION,LENGTH)\
+    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,LENGTH) withString:@""]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+#   undef TEST_DELETE_CHARACTERS_NO
+#   define TEST_DELETE_CHARACTERS_NO(WHAT,LOCATION,LENGTH)\
+    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,LENGTH) withString:@""]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+#endif
+    //  get the line index of the first deleted character
     NSUInteger oldFirstIndex = [self lineIndexForLocation4iTM3:location];
-    //  get the line of the first undeleted character
+    //  now get the line index of the first undeleted character
     if (location > NSUIntegerMax - count) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"Could not delete characters, bounds exceeded.",
-                    NSLocalizedDescriptionKey,
-                        nil]];
+        OUTERROR4iTM3(1,@"Could not delete characters, bounds exceeded.",NULL);
+        return NO;
+    }
+    NSUInteger oldLastIndex = [self lineIndexForLocation4iTM3:location+count];
+    NSAssert(oldFirstIndex<=oldLastIndex,@"MISSED");
+    iTM2ModeLine * oldFirst = nil;
+    iTM2ModeLine * oldLast = nil;
+    while (oldFirstIndex+1<oldLastIndex) {
+        oldLast = [self modeLineAtIndex:--oldLastIndex];
+        if (count > oldLast.length) {
+            count -= oldLast.length;
+            [self removeModeLineAtIndex:oldLastIndex];
         } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not delete characters, bounds exceeded");
+            NSAssert(NO,@"Huge problem: the text storage is not consistent");
+        }
+    }
+    //  Here: oldLastIndex>=oldFirstIndex>=oldLastIndex-1
+    //  Or: oldFirstIndex = oldLastIndex || oldFirstIndex = oldLastIndex-1
+    oldFirst = [self modeLineAtIndex:oldFirstIndex];
+    oldLast = [self modeLineAtIndex:oldLastIndex];
+    [self validateOff7sUpToIndex:oldLastIndex];
+    //  Do we delete full lines ?
+    if (oldFirst.startOff7 == location && oldLast.startOff7 == location + count) {
+        //  We have oldFirstIndex = oldLastIndex-1
+        [self removeModeLineAtIndex:--oldLastIndex];
+        //  Do we have to merge two mode lines
+        if (oldFirstIndex && !oldLast.contentsLength && oldLast.EOLLength == 1) {
+            oldFirstIndex = oldLastIndex - 1;
+            oldFirst = [self modeLineAtIndex:oldFirstIndex];
+            if (oldFirst.EOLLength == 1) {
+                [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
+                if (contentsEnd < location) {
+                    ++oldFirst.EOLLength;
+                    [self removeModeLineAtIndex:oldLastIndex];
+#                   ifdef __ELEPHANT_MODELINE__
+                    oldFirst.originalString = [oldFirst.originalString stringByAppendingString:@"\n"];
+#                   endif
+                    if (editedAttributesRangePtr) {
+                        * editedAttributesRangePtr = oldFirst.EOLRange;
+                    }
+                    ReachCode4iTM3(@"delete full line(s), merge to the left and the right");
+#                   ifdef __EMBEDDED_TEST__
+                    iTM2TextStorage * TS = nil;
+                    #undef  TEST
+                    #define TEST TEST_DELETE_CHARACTER_YES
+                    TEST(@"\rX\n\n",1,2);
+                    TEST(@"0\rX\n\n",2,2);
+                    TEST(@"\rX\n\n0",1,2);
+                    TEST(@"\rX\nY\n\n",1,4);
+                    TEST(@"0\rX\nY\n\n",2,4);
+                    TEST(@"\rX\nY\n\n0",1,4);
+#                   endif
+diagnostic_and_return:
+                    if (!self.isConsistent) {
+                        OUTERROR4iTM3(2,@"Could not delete characters properly.",NULL);
+                        return NO;
+                    }
+                    return YES;
+                }
+            }
+        }
+        ReachCode4iTM3(@"delete full line(s)");
+#       ifdef __EMBEDDED_TEST__
+        iTM2TextStorage * TS = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_CHARACTER_YES
+        TEST(@"\r\n",ZER0,2);
+        TEST(@"X\n",ZER0,2);
+        TEST(@"\r\nX\n",ZER0,2);
+        TEST(@"\r\nX\n",2,2);
+        TEST(@"\r\nX\n\n",2,2);
+        TEST(@"0\r\nX\n\n",3,2);
+        TEST(@"\r\nX\n\n0",2,2);
+        TEST(@"\r\nX\nY\n\n",2,4);
+        TEST(@"0\r\nX\nY\n\n",3,4);
+        TEST(@"\r\nX\nY\n\n0",2,4);
+#       endif
+        goto diagnostic_and_return;
+    }
+    if (![oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]
+            || (![oldFirstML isEqual:oldLastML] && ![oldLastML deleteModesInGlobalMakeRange:location:count error:RORef])) {
+        if (RORef && !*RORef) {
+            OUTERROR4iTM3(2,@"Could not delete characters.",NULL);
         }
         return NO;
     }
-	NSUInteger oldLastIndex = [self lineIndexForLocation4iTM3:location+count];
-    //  We remove all intermediate lines
-    iTM2ModeLine * oldLast = nil;
-    if (oldLastIndex) {
-        while (oldLastIndex - 1 > oldFirstIndex) {
-            //  remove the mode line before oldLastIndex
-            oldLast = [self modeLineAtIndex:--oldLastIndex];
-            count -= oldLast.length;
-            [self removeModeLineAtIndex:oldLastIndex];
-            [self invalidateOff7sFromIndex:oldLastIndex];
+//  Should I merge with the previous mode line
+    if (oldFirstIndex && !oldFirstML.contentsLength && oldFirstML.EOLLength == 1 && location == oldFirstML.startOff7) {
+        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
+        if (contentsEnd < location) {
+            [self removeModeLineAtIndex:oldFirstIndex];
+            oldFirstML = [self modeLineAtIndex:--oldFirstIndex];
+            ++oldFirstML.EOLLength;
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = oldFirstML.EOLRange;
+            }
+#           ifdef __ELEPHANT_MODELINE__
+            oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
+#           endif
+            ReachCode4iTM3(@"delete characters, merge with the previous mode line");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_CHARACTERS_YES
+            TEST(@"\rXY\n",1,2);
+            TEST(@"\rXY\n",1,2);
+#           endif
+            goto diagnostic_and_return;
         }
     }
-    //  oldLastIndex <= oldFirstIndex + 1
-    iTM2ModeLine * oldFirst = [self modeLineAtIndex:oldFirstIndex];
-	if (editedAttributesRangePtr) {
-		NSUInteger location = oldFirst.startOff7;
-		* editedAttributesRangePtr = iTM3MakeRange(location,[self.textStorage length]-location);
-	}
-    NSRange R = iTM3MakeRange(ZER0,ZER0);
-    NSRange r = iTM3MakeRange(ZER0,ZER0);
+    
     NSString * S = nil;
     NSUInteger contentsEnd = ZER0;
+    if (location + count == oldFirst.endOff7) {
+        //  The trailing part of the line is removed
+        if (location == oldFirst.startOff7) {
+            //  The whole line is removed
+            [self removeModeLineAtIndex:oldFirstIndex];
+            oldFirst = [self modeLineAtIndex:oldFirstIndex];
+            [self validateOff7sUpToIndex:oldFirstIndex];
+            
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = oldFirst.completeRange;
+            }
+            oldLastIndex = oldFirstIndex + 1;
+            if ((oldLast = [self modeLineAtIndex:oldLastIndex]) && !oldLast.length) {
+                // oldFirst must become the last mode line
+                [self removeModeLineAtIndex:oldLastIndex];
+                ReachCode4iTM3(@"delete characters, remove the last mode line (1)");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"X\n",ZER0,2);
+                TEST(@"\r\n",ZER0,2);
+                TEST(@"X\r\n",ZER0,3);
+                TEST(@"\n\r\n",1,2);
+                TEST(@"\nX\r\n",1,3);
+#               endif
+                goto diagnostic_and_return;
+            }
+            ReachCode4iTM3(@"delete characters, delete one line");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_CHARACTERS_YES
+            TEST(@"XY",ZER0,2);
+            TEST(@"\r\n1",ZER0,2);
+            TEST(@"X\r\n1",ZER0,3);
+            TEST(@"\n\r\n1",1,2);
+            TEST(@"\nX\r\n1",1,3);
+            TEST(@"\rX\n",1,2);
+            TEST(@"\rX\r\n",1,2);
+            TEST(@"Z\rXY\n",2,2);
+            TEST(@"Z\rX\r\n",2,2);
+#           endif
+diagnostic_and_return:
+            if (!self.isConsistent) {
+                OUTERROR4iTM3(1,@"Could not delete characters (1).",NULL);
+                return NO;
+            }
+return_YES:
+            return YES;
+        }
+        if (![oldFirst deleteModesInGlobalMakeRange:location:count error:RORef]) {
+            if (RORef && !*RORef) {
+                OUTERROR4iTM3(1,@"Could not delete characters (2).",NULL);
+            }
+            return NO;
+        }
+#       ifdef __ELEPHANT_MODELINE__
+        [oldFirst.originalString substringToIndex:location-oldFirst.startOff7]
+#       endif
+        if (editedAttributesRangePtr) {
+            *editedAttributesRangePtr = oldFirst.invalidGlobalRange;
+        }
+        //  Should I merge with the next mode line, or remove it
+        oldLastIndex = oldFirstIndex + 1;
+        if ((oldLast = [self modeLineAtIndex:oldLastIndex]) && !oldFirst.EOLLength) {
+            if (!oldLast.length) {
+                // oldFirst must become the last mode line
+                [self removeModeLineAtIndex:oldLastIndex];
+                ReachCode4iTM3(@"delete characters, remove the last mode line (2)");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"0X\n",1,2);
+                TEST(@"0\r\n",1,2);
+                TEST(@"\nX\n",1,2);
+                TEST(@"\n\r\n",1,2);
+#               endif
+invalidate_first_and_return_YES:
+                [oldFirst getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
+                //  to fix the edited range:
+                //  get a syntax mode range including location and the index before if it is in the same line
+                if (location > oldFirst.startOff7 && location == R.location) {
+                    [oldFirst getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
+                    r.length += R.length;
+                    R = r;
+                }
+                if (R.location > oldFirst.startOff7 && R.length <= 1) {
+                    [oldFirst getSyntaxMode:NULL atGlobalLocation:R.location-1 longestRange:&r];
+                    r.length += R.length;
+                    R = r;
+                }
+                [oldFirst invalidateGlobalRange:R];
+                if (editedAttributesRangePtr) {
+                    *editedAttributesRangePtr = oldFirst.invalidGlobalRange;
+                }
+                [self invalidateOff7sFromIndex:oldFirstIndex+1];
+                [self invalidateModesFromIndex:oldFirstIndex];
+                goto diagnostic_and_return;
+            }
+            if ([oldFirst appendSyntaxModesFromModeLine:oldLast error:RORef]) {
+                [self removeModeLineAtIndex:oldLastIndex];
+#               ifdef __ELEPHANT_MODELINE__
+                oldFirst.originalString = [oldFirst.originalString stringByAppendingString:oldLast.originalString];
+#               endif
+                ReachCode4iTM3(@"delete characters, merge with the next mode line");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"X\n",ZER0,2);
+                TEST(@"\r\n",ZER0,2);
+                TEST(@"0X\n",1,2);
+                TEST(@"0\r\n",1,2);
+                TEST(@"\nX\n",1,2);
+                TEST(@"\n\r\n",1,2);
+#               endif
+                goto invalidate_first_and_return_YES;
+            }
+            if (RORef && !*RORef) {
+                OUTERROR4iTM3(1,@"Could not delete characters (3).",NULL);
+            }
+            return NO;
+            
+        }
+        //  Here we have oldFirst.EOLLength > 0
+            else {
+                NSString * S = [self.textStorage string];
+                NSUInteger contentsEnd = 0;
+                [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];// location+count before edition,location, once edited
+                if (contentsEnd < location) {
+                    oldFirst.EOLLength += oldLast.length;
+                    [self removeModeLineAtIndex:oldLastIndex];
+#                       ifdef __ELEPHANT_MODELINE__
+                    NSMutableString * MS = oldFirst.originalString.mutableCopy;
+                    [MS appendString:oldLast.originalString];
+                    oldFirst.originalString = MS.copy;
+#                       endif
+                    ReachCode4iTM3(@"delete characters, _3b");
+#                       ifdef __EMBEDDED_TEST__
+                    iTM2TextStorage * TS = nil;
+                    #undef  TEST
+                    #define TEST TEST_DELETE_CHARACTERS_YES
+                    TEST(@"0\r\n1",1,2);
+                    TEST(@"\nX\n1",1,2);
+                    TEST(@"\n\r\n1",1,2);
+                    TEST(@"0\r\n1\r",1,2);
+                    TEST(@"\nX\n1\r",1,2);
+                    TEST(@"\n\r\n1\r",1,2);
+#                       endif
+                    goto diagnostic_and_return;
+                }
+            }
+        }
+        if (oldFirst.EOLlength==1 && oldLastIndex < self.numberOfModeLines) {
+            oldLast = [self modeLineAtIndex:oldLastIndex];
+            if (!oldLast.contentsLength && oldLast.EOLLength == 1) {
+                S = [self.textStorage string];
+                [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(oldLast.startOff7,ZER0)];
+                if (contentsEnd < oldLast.startOff7) {
+                    [self removeModeLineAtIndex:oldLastIndex];
+                    ++oldFirst.EOLLength;
+#                   ifdef __ELEPHANT_MODELINE__
+                    oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
+#                   endif
+                    ReachCode4iTM3(@"delete characters, merge to the right");
+#                   ifdef __EMBEDDED_TEST__
+                    iTM2TextStorage * TS = nil;
+                    #undef  TEST
+                    #define TEST TEST_DELETE_1_CHARACTER_YES
+                    TEST(@"\r\n\n",1);
+                    TEST(@"X\r\n\n",2);
+                    TEST(@"\r\n\nX",1);
+                    TEST(@"\n\r\n\n",2);
+                    TEST(@"\nX\r\n\n",3);
+                    TEST(@"\n\r\n\nX",2);
+#                   endif
+                    goto diagnostic_and_return;
+                }
+
+            }
+
+            [self removeModeLineAtIndex:oldFirstIndex];
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = oldFirst.invalidGlobalRange;
+            }
+            
+        }
+    }
+
+    oldLastIndex = [self lineIndexForLocation4iTM3:location+count];
+    NSAssert2(oldLastIndex>=oldFirstIndex,@"****  INTERNAL INCONSISTENCY: unexpected %lu < %lu",oldLastIndex,oldFirstIndex);
+    NSRange r = iTM3Zer0Range;
+    
+    
+    
+    
     if (oldLastIndex == oldFirstIndex) {
         //  the characters deleted all come from the same line
-        if([oldFirst deleteModesInGlobalMakeRange:location:count error:errorRef]) {
+        //  moreover, the last character of that line is undeleted, except a non EOL final character
+        if ([oldFirst deleteModesInGlobalMakeRange:location:count error:RORef]) {
             //  No problem in editing the mode line
-            if (ZER0 == oldFirst.length) {
-                //  The line is simply removed
-                if (self.numberOfModeLines>1) {
-                    [self removeModeLineAtIndex:oldFirstIndex];
-                }
-                if (editedAttributesRangePtr) {
-                    editedAttributesRangePtr->location = location;
-                    editedAttributesRangePtr->length = ZER0;
-                }
-return_YES:
-                if (errorRef) {
-                    *errorRef = nil;
-                }
-                return YES;
-            }
-            // should I merge with the previous ?
+            //  should I merge with the previous because of EOL marks being partly deleted and \r\n combination
             if (oldFirstIndex && (oldFirst.EOLLength == 1) && !oldFirst.contentsLength) {
                 //  oldFirst is a pure 1 length EOL and is not the 1st one
                 S = [self.textStorage string];
-                if (S.length) {
-                    [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:NSMakeRange(oldFirst.startOff7,ZER0)];
-                    if (contentsEnd < oldFirst.startOff7) {
-                        oldLast = [self modeLineAtIndex:oldFirstIndex-1];
-                        ++oldLast.EOLLength;
-                        [self removeModeLineAtIndex:oldFirstIndex];
-                        oldFirst = oldLast;
-                        if (editedAttributesRangePtr) {
-                            *editedAttributesRangePtr = oldFirst.EOLRange;
-                        }
-                        [self invalidateOff7sFromIndex:oldFirstIndex--];
-                        [self invalidateModesFromIndex:oldFirstIndex];
-diagnostic_and_return:
-                        if (self.diagnostic) {
-                            if (errorRef) {
-                                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                        @"Could not delete characters.",
-                                        NSLocalizedDescriptionKey,
-                                            nil]];
-                            } else {
-                                LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not delete characters.");
-                            }
-                            return NO;
-                        }
-                        goto return_YES;
+                [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:NSMakeRange(oldFirst.startOff7,ZER0)];
+                if (contentsEnd < oldFirst.startOff7) {
+                    //  We have to merge because oldFirst.startOff7 now lies inside an EOL mark
+                    //  Get the previous mode line
+                    oldLastIndex = oldFirstIndex-1;
+                    oldLast = [self modeLineAtIndex:oldLastIndex];
+                    //  extend this modeline to take into account the new EOL mark component
+                    ++oldLast.EOLLength;
+                    [self removeModeLineAtIndex:oldFirstIndex];
+                    oldFirst = oldLast;
+                    if (editedAttributesRangePtr) {
+                        *editedAttributesRangePtr = oldFirst.EOLRange;
                     }
+                    [self invalidateModesFromIndex:oldLastIndex];
+#                   ifdef __ELEPHANT_MODELINE__
+                    //  append a \n, the line was previously ending with a \r
+                    NSMutableString * MS = oldLast.originalString.mutableCopy;
+                    [MS appendString:@"\n"];
+                    oldLast.originalString = MS.copy;
+#                   endif
+                    ReachCode4iTM3(@"delete characters, merge to the left");
+#                   ifdef __EMBEDDED_TEST__
+                    iTM2TextStorage * TS = nil;
+                    #undef  TEST
+                    #define TEST TEST_DELETE_CHARACTERS_YES
+                    TEST(@"\rXY\n",1,2);
+                    TEST(@"\rX\r\n",1,2);
+                    TEST(@"Z\rXY\n",2,2);
+                    TEST(@"Z\rX\r\n",2,2);
+#                   endif
+diagnostic_and_return:
+                    if (!self.isConsistent) {
+                        OUTERROR4iTM3(1,@"Could not delete characters.",NULL);
+                        return NO;
+                    }
+return_YES:
+                    return YES;
                 }
-            }
+            } // else if (!oldFirstIndex || (oldFirst.EOLLength != 1) || oldFirst.contentsLength)
+#           ifdef __ELEPHANT_MODELINE__
+            //  Remove count characters from oldFirst
+            NSMutableString * MS = oldFirst.originalString.mutableCopy;
+            NSUInteger locationInMS = location - oldFirst.startOff7;
+            NSRange R = iTM3MakeRange(locationInMS,count);
+            [MS replaceCharactersInRange:R withString:@""];
+            oldFirst.originalString = MS.copy;
+#           endif
+            ReachCode4iTM3(@"delete characters, _2");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_CHARACTERS_YES
+            TEST(@"XY",ZER0,2);
+            TEST(@"XYZ",ZER0,2);
+            TEST(@"XYZ",1,2);
+            TEST(@"XY\r",ZER0,2);
+            TEST(@"XYZ\r",ZER0,2);
+            TEST(@"XYZ\r",1,2);
+            TEST(@"X\r\n",0,2);
+            TEST(@"\r\nXYZ",2,2);
+            TEST(@"\r\nXYZ",3,2);
+            TEST(@"YZ\r\n123",ZER0,2);
+            TEST(@"YZ\r\n123",1,2);
+            TEST(@"\nXY",1,2);
+            TEST(@"\nXYZ",1,2);
+            TEST(@"\nXYZ",2,2);
+            TEST(@"\n\r\nXYZ",3,2);
+            TEST(@"\n\r\nXYZ",4,2);
+            TEST(@"\nYZ\r\n123",1,2);
+            TEST(@"\nYZ\r\n123",2,2);
+#           endif
 invalidate_first_and_return_YES:
             [oldFirst getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
             //  to fix the edited range:
@@ -3422,16 +3786,134 @@ invalidate_first_and_return_YES:
             [self invalidateModesFromIndex:oldFirstIndex];
             goto diagnostic_and_return;
         }
+return_NO:
+        if (RORef && !RORef) {
+            OUTERROR4iTM3(2,@"Unknown problem.",NULL);
+        }
         return NO;
     }
-    //  maybe the last character deleted was just the EOL, such that I should merge with the next line, if any
+    //  The change concerns different lines : oldLastIndex > oldFirstIndex
+    //  We remove all intermediate lines that are complete and we will eventually concatenate some lines 
+    while (oldLastIndex - 1 > oldFirstIndex) {
+        //  remove the mode line before oldLastIndex
+        oldLast = [self modeLineAtIndex:--oldLastIndex];
+        if (count > oldLast.length) {
+            count -= oldLast.length;
+            [self removeModeLineAtIndex:oldLastIndex];
+        } else {
+            NSAssert(NO,@"Huge problem: the text storage is not consistent");
+        }
+    }
+    //  oldLastIndex == oldFirstIndex + 1
     oldLast = [self modeLineAtIndex:oldLastIndex];
+    oldLast.startOff7 = oldFirst.endOff7;
+    //  We have oldFirst.startOff7 <= location < oldFirst.endOff7 == oldLast.startOff7 <= location+count < oldLast.endOff7
     if (oldLast.startOff7 == location+count) {
-        //  We remove nothing from oldLast
-        //  Did I remove the whole EOL or just one part?
+        // the end of the first line is removed, we might have to merge with the next one
+        if ([oldFirst deleteModesInGlobalMakeRange:location:count error:RORef]) {
+            if (oldFirst.EOLLength) {
+#if 0
+                        TEST(@"XY",ZER0,2);
+                        TEST(@"XYZ",ZER0,2);
+                        TEST(@"XY\n",ZER0,2);
+                        TEST(@"XYZ",1,2);
+                        TEST(@"XYZ\n",ZER0,2);
+                        TEST(@"XYZ\n123",ZER0,2);
+                        TEST(@"AXY\n",1,2);
+                        TEST(@"AXYZ",1,2);
+                        TEST(@"AXYZ\n",1,2);
+                        TEST(@"AXYZ\n123",1,2);
+                        TEST(@"\nXY\n",1,2);
+                        TEST(@"\nXYZ",1,2);
+                        TEST(@"\nXYZ\n",1,2);
+                        TEST(@"\nXYZ\n123",1,2);
+                        TEST(@"X\r\n",ZER0,2);
+                        TEST(@"\nX\r\n",1,2);
+                        TEST(@"AX\r\n",1,2);
+#endif
+            } else {
+                // Maybe the merge must occur with the next mode line, but only if it is not void
+            }
+        }
+        goto return_NO;
+    }
+	if (editedAttributesRangePtr) {
+		NSUInteger where = oldFirst.startOff7;
+		* editedAttributesRangePtr = iTM3MakeRange(where,[self.textStorage length]-where);
+	}
+    if (oldLastIndex == oldFirstIndex) {
+        //  the characters deleted all come from the same line, there was no intermediate line to remove
+        //  moreover, the last character of that line is undeleted
+        if ([oldFirst deleteModesInGlobalMakeRange:location:count error:RORef]) {
+            //  No problem in editing the mode line
+            if (ZER0 == oldFirst.length) {
+                //  The line is simply removed
+                if (self.numberOfModeLines>1) {
+                    [self removeModeLineAtIndex:oldFirstIndex];
+                }
+                if (editedAttributesRangePtr) {
+                    editedAttributesRangePtr->location = location;
+                    editedAttributesRangePtr->length = ZER0;
+                }
+#               ifdef __ELEPHANT_MODELINE__
+                NSMutableString * MS = oldFirst.originalString.mutableCopy;
+                NSUInteger locationInMS = location - oldFirst.startOff7;
+                NSRange R = NSMakeRange(locationInMS,count);
+                [MS replaceCharactersInRange:R withString:@""];
+                oldFirst.originalString = MS.copy;
+#               endif
+                goto return_YES;
+            }
+            //  should I merge with the previous because of EOL marks being partly deleted and \r\n combination
+            if (oldFirstIndex && (oldFirst.EOLLength == 1) && !oldFirst.contentsLength) {
+                //  oldFirst is a pure 1 length EOL and is not the 1st one
+                S = [self.textStorage string];
+                if (S.length) {
+                    [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:NSMakeRange(oldFirst.startOff7,ZER0)];
+                    if (contentsEnd < oldFirst.startOff7) {
+                        //  We have to merge because oldFirst.startOff7 now lies inside an EOL mark
+                        //  Get the previous mode line
+                        oldLast = [self modeLineAtIndex:oldFirstIndex-1];
+                        //  extend this modeline to take into account the new EOL mark component
+                        ++oldLast.EOLLength;
+#                       ifdef __ELEPHANT_MODELINE__
+                        //  The character corresponding to ++oldLast.EOLLength is not in its originalString
+                        //  It is the last character of the actual range of oldFirst
+                        NSRange R = NSMakeRange(oldFirst.originalString.length-1,1);
+                        NSString * replacement = [oldFirst.originalString substringWithRange:R];
+                        NSMutableString * MS = oldLast.originalString.mutableCopy;
+                        R = NSMakeRange(MS.length,0);
+                        [MS replaceCharactersInRange:R withString:replacement];
+                        oldLast.originalString = MS.copy;
+#                       endif
+                        [self removeModeLineAtIndex:oldFirstIndex];
+                        oldFirst = oldLast;
+                        if (editedAttributesRangePtr) {
+                            *editedAttributesRangePtr = oldFirst.EOLRange;
+                        }
+                        [self invalidateOff7sFromIndex:oldFirstIndex--];
+                        [self invalidateModesFromIndex:oldFirstIndex];
+                        goto diagnostic_and_return;
+                    }
+                }
+            }
+            goto invalidate_first_and_return_YES;
+        }
+        return NO;
+    }
+    oldLast = [self modeLineAtIndex:oldLastIndex];
+    //  maybe the last character(s) deleted was just the EOL, such that I should merge the first modeline with the next one, if any
+    if (oldLast.startOff7 == location+count) {
+        //  We removed absolutely nothing from the oldLast range
+        //  Did I remove the whole EOL of oldFirst or just one part?
         if (location > oldFirst.contentsEndOff7) {
             //  just one part
             oldFirst.EOLLength = location - oldFirst.contentsEndOff7;//  do not invalidate the EOL mode
+#           ifdef __ELEPHANT_MODELINE__
+            //  Remove the extra EOL char from oldFirst's originalString
+            //  We remove the trailing part of the originalString in order to have a string of the correct length
+            oldFirst.originalString = [oldFirst.originalString substringToIndex:oldFirst.length];
+#           endif
             if (editedAttributesRangePtr) {
                 //  fix the edited range
                 //  returns a syntax mode range including location and the index before if it is in the same line
@@ -3439,42 +3921,58 @@ invalidate_first_and_return_YES:
             }
             [self invalidateOff7sFromIndex:oldLastIndex];
             goto diagnostic_and_return;
-        }
-        //  I removed the whole EOL and maybe more
-        if (location == oldFirst.startOff7) {
-            //  the whole firstLine line is removed, no more, no less
-            [self removeModeLineAtIndex:oldLastIndex];
-            oldFirst = oldLast;
-            oldFirst.startOff7 = location;
-            goto invalidate_first_and_return_YES;
-        }
-        //  merge modes from oldLast then remove oldLast
-        if ([oldFirst deleteModesInGlobalMakeRange:location:count error:errorRef]
-                && [oldFirst appendSyntaxModesFromModeLine:oldLast error:errorRef]) {
-            [self removeModeLineAtIndex:oldLastIndex];
-            goto invalidate_first_and_return_YES;
-        }
-        return NO;
-    }
-    //  we have
-    //  oldLast.startOff7 < location + count < oldLast.endOff7
-    if ([oldLast deleteModesInGlobalMakeRange:oldLast.startOff7:location+count-oldLast.startOff7 error:errorRef]) {
-        //  oldFirst.startOff7 <= location < oldFirst.endOff7
-        //  oldLast.location < location + count < oldLast.endOff7
-        if (location == oldFirst.startOff7) {
-            //  the whole firstLine line is removed
+        } else if (location == oldFirst.startOff7) {
+            //  the whole oldFirst line is removed, no more, no less
             [self removeModeLineAtIndex:oldFirstIndex];
             oldFirst = oldLast;
             oldFirst.startOff7 = location;
+#           ifdef __ELEPHANT_MODELINE__
+            //  Nothing to do
+#           endif
+            goto invalidate_first_and_return_YES;
+        } else if ([oldFirst deleteModesInGlobalMakeRange:location:location+count-oldFirst.startOff7 error:RORef]
+            //  merge modes from oldLast then remove oldLast
+                && [oldFirst appendSyntaxModesFromModeLine:oldLast error:RORef]) {
+            [self removeModeLineAtIndex:oldLastIndex];
+#           ifdef __ELEPHANT_MODELINE__
+            //  Remove characters from oldFirst's originalString from location on
+            //  then append the oldLast.originalString
+            oldFirst.originalString = [[oldFirst.originalString substringToIndex:location - oldFirst.startOff7]
+                stringByAppendingString:oldLast.originalString];
+#           endif
             goto invalidate_first_and_return_YES;
         }
+        return NO;
+    } // else we have
+    //  oldLast.startOff7 < location + count < oldLast.endOff7
+    if ([oldLast deleteModesInGlobalMakeRange:oldLast.startOff7:location+count-oldLast.startOff7 error:RORef]) {
+        //  oldFirst.startOff7 <= location < oldFirst.endOff7
+        //  oldLast.startOff7 < location + count < oldLast.endOff7
+        if (location == oldFirst.startOff7) {
+            //  the whole firstLine line is removed
+            [self removeModeLineAtIndex:oldFirstIndex];
+#           ifdef __ELEPHANT_MODELINE__
+            //  Remove characters from oldLast's originalString up to location
+            oldLast.originalString = [oldLast.originalString substringFromIndex:location - oldLast.startOff7];
+#           endif
+            oldFirst = oldLast;
+            oldFirst.startOff7 = location;
+            goto invalidate_first_and_return_YES;
+        } // else
         //  location > oldFirst.startOff7
         //  Do we remove only part of EOLs from oldFirst
         if (location > oldFirst.contentsEndOff7) {
+            //  We did remove only a part of the EOL mark
             oldFirst.EOLLength = location - oldFirst.contentsEndOff7;
             //  Maybe we have to merge with the following mode line
             if (oldLast.contentsLength) {
-                //  NO
+                //  NO, oldLast does contain text
+#               ifdef __ELEPHANT_MODELINE__
+                //  Remove the extra EOL char from oldFirst's originalString
+                //  We remove the trailing part of the originalString in order to have a string of the correct length
+                oldFirst.originalString = [oldFirst.originalString substringToIndex:oldFirst.length];
+                oldLast.originalString = [oldLast.originalString substringFromIndex:location - oldLast.startOff7];                
+#               endif
                 goto invalidate_first_and_return_YES;
             }
             //  We may have to merge
@@ -3484,34 +3982,98 @@ invalidate_first_and_return_YES:
                     [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:NSMakeRange(oldFirst.endOff7,ZER0)];
                     if (contentsEnd < oldFirst.endOff7) {
                         ++oldFirst.EOLLength;
+#                       ifdef __ELEPHANT_MODELINE__
+                        //  Remove the extra EOL char from oldFirst's originalString
+                        //  We remove the trailing part of the originalString in order to have a string of the correct length
+                        oldFirst.originalString = [[oldFirst.originalString substringToIndex:oldFirst.length]
+                            stringByAppendingString:[oldLast.originalString substringFromIndex:oldLast.length-1]];
+#                       endif
                         [self removeModeLineAtIndex:oldLastIndex];
+                        goto invalidate_first_and_return_YES;
                     }
                 }
             }
+#           ifdef __ELEPHANT_MODELINE__
+            //  Remove the extra EOL char from oldFirst's originalString
+            //  We remove the trailing part of the originalString in order to have a string of the correct length
+            oldFirst.originalString = [oldFirst.originalString substringToIndex:oldFirst.length];
+            oldLast.originalString = [oldLast.originalString substringFromIndex:location - oldLast.startOff7];                
+#           endif
             goto invalidate_first_and_return_YES;
         }
         //  We remove the whole EOL of oldFirst
-        if ([oldFirst deleteModesInGlobalMakeRange:location:oldFirst.endOff7-location error:errorRef]
-            && [oldFirst appendSyntaxModesFromModeLine:oldLast error:errorRef]) {
+        if ([oldFirst deleteModesInGlobalMakeRange:location:oldFirst.endOff7-location error:RORef]
+            && [oldFirst appendSyntaxModesFromModeLine:oldLast error:RORef]) {
             [self removeModeLineAtIndex:oldLastIndex];
+#           ifdef __ELEPHANT_MODELINE__
+            //  Remove the extra EOL char from oldFirst's originalString
+            //  We remove the trailing part of the originalString in order to have a string of the correct length
+            oldFirst.originalString = [[oldFirst.originalString substringToIndex:oldFirst.length]
+                stringByAppendingString:[oldLast.originalString substringFromIndex:location - oldLast.startOff7]];                
+#           endif
             goto invalidate_first_and_return_YES;
         }
     }
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageWillProcessEditing
-- (void)textStorageWillProcessEditing;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageWillProcessEditing4iTM3Error:
+- (BOOL)textStorageWillProcessEditing4iTM3Error:(NSError **)RORef;
 /*"Default implementation does nothing. Subclassers will append their job. Delegate can change the characters or attributes
 Version history: 
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
+Révisé par itexmac2: 2010-12-31 10:25:44 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return;
+    NSInteger delta = [self.textStorage changeInLength];
+    NSRange range = [self.textStorage editedRange];// the range in the edited string
+    //  range.length - delta is the original length of the edited range
+    //  when inserting characters in a 0 length range :
+    //  delta == range.length
+    //  when deleting characters :
+    //  range.length == 0
+    //  when replacing characters by others
+    //  range.length > 0
+    //  delta != range.length
+    NSUInteger stringLength = range.length - delta;
+    NSRange editedAttributesRange = iTM3NotFoundRange;// will receive the range where the attributes might have changed
+    if (range.length) {
+        if (stringLength) {
+            if ([self textStorageDidReplaceCharactersAtIndex:range.location count:stringLength withCount:range.length editedAttributesRangeIn:&editedAttributesRange error:RORef]) {
+                [self.textStorage invalidateAttributesInRange:editedAttributesRange];
+                return YES;
+            }
+        } else if (delta > 1) {
+            if ([self textStorageDidInsertCharactersAtIndex:range.location count:delta editedAttributesRangeIn:&editedAttributesRange error:RORef]) {
+                [self.textStorage invalidateAttributesInRange:editedAttributesRange];
+                return YES;
+            }
+        } else {
+            if ([self textStorageDidInsertCharacterAtIndex:range.location editedAttributesRangeIn:&editedAttributesRange error:RORef]) {
+                [self.textStorage invalidateAttributesInRange:editedAttributesRange];
+                return YES;
+            }
+        }
+    } else {
+        if (delta == -1) {
+            if ([self textStorageDidDeleteCharacterAtIndex:range.location editedAttributesRangeIn:&editedAttributesRange error:RORef]) {
+                [self.textStorage invalidateAttributesInRange:editedAttributesRange];
+                return YES;
+            }
+        } else {
+            if ([self textStorageDidDeleteCharactersAtIndex:range.location count:-delta editedAttributesRangeIn:&editedAttributesRange error:RORef]) {
+                [self.textStorage invalidateAttributesInRange:editedAttributesRange];
+                return YES;
+            }
+        }
+    }
+    if (RORef && !*RORef) {
+        OUTERROR4iTM3(0,@"Unknown problem",NULL);
+    }
+    return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidProcessEditing
-- (void)textStorageDidProcessEditing;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidProcessEditing4iTM3Error:
+- (BOOL)textStorageDidProcessEditing4iTM3Error:(NSError **)RORef;
 /*"Default implementation does nothing. Subclassers will append their job. Delegate can change the attributes.
 Version history: 
 - 1.4: Wed Dec 17 09:32:38 GMT 2003
@@ -3519,7 +4081,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didClickOnLink4iTM3:atIndex:
 - (BOOL)didClickOnLink4iTM3:(id)link atIndex:(NSUInteger)charIndex;
@@ -3616,28 +4178,28 @@ To Do List:
                 [aString getLineStart:nil end:cursorPtr contentsEnd:&contents forRange:iTM3MakeRange(start, ZER0)];
                 length = *cursorPtr-start;
                 contents -= start;
-#ifdef __ELEPHANT_MODELINE__
-				originalString = [aString substringWithRange:iTM3MakeRange(start, *cursorPtr-start)];
-#endif
+#               ifdef __ELEPHANT_MODELINE__
+				self.originalString = [aString substringWithRange:iTM3MakeRange(start, *cursorPtr-start)];
+#               endif
 //LOG4iTM3(@"self.length is: %u, contents is: %u, *cursorPtr is: %u", self.length, contents, *cursorPtr);
             } else {
 //NSLog(@"GLS 2");
                 self.startOff7 = ZER0;
                 [aString getLineStart:nil end:&length contentsEnd:&contents forRange:iTM3MakeRange(ZER0, ZER0)];
-#ifdef __ELEPHANT_MODELINE__
-				originalString = [aString substringWithRange:iTM3MakeRange(ZER0, length)];
-#endif
+#               ifdef __ELEPHANT_MODELINE__
+				self.originalString = [aString substringWithRange:iTM3MakeRange(ZER0, length)];
+#               endif
             }
             self.EOLLength = length-contents;
             NSError * ROR = nil;
-            if (![self appendNormalSyntaxMode:kiTM2TextUnknownSyntaxMode length:contents error:&ROR] && ROR) {
+            if (![self appendNormalSyntaxMode:kiTM2TextUnknownSyntaxMode length:contents error:self.RORef4iTM3] && ROR) {
                 REPORTERRORINMAINTHREAD4iTM3(123,@"MISSED the text storage change",ROR);
                 return self;
             }
         } else {
-#ifdef __ELEPHANT_MODELINE__
-			originalString = @"";
-#endif
+#           ifdef __ELEPHANT_MODELINE__
+			self.originalString = @"";
+#           endif
             self.startOff7 = self.EOLLength = ZER0;
         }
 		self.invalidLocalRange = iTM3MakeRange(ZER0, NSUIntegerMax);
@@ -3651,7 +4213,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  modeLineBySplittingFromGlobalLocation:error:
-- (iTM2ModeLine *) modeLineBySplittingFromGlobalLocation:(NSUInteger)location error:(NSError **)errorRef;
+- (iTM2ModeLine *) modeLineBySplittingFromGlobalLocation:(NSUInteger)location error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sat Apr 24 17:25:17 UTC 2010
@@ -3678,11 +4240,11 @@ To Do List:
         while (i < self.numberOfSyntaxWords) {
             NSUInteger l = [self syntaxLengthAtIndex:i];
             if (l > local) {
-                if (![ML appendSyntaxMode:[self syntaxModeAtIndex:i] length:l-local error:errorRef]) {
+                if (![ML appendSyntaxMode:[self syntaxModeAtIndex:i] length:l-local error:RORef]) {
                     return nil;
                 }
                 while (++i < self.numberOfSyntaxWords) {
-                    if (![ML appendSyntaxMode:[self syntaxModeAtIndex:i] length:[self syntaxLengthAtIndex:i] error:errorRef]) {
+                    if (![ML appendSyntaxMode:[self syntaxModeAtIndex:i] length:[self syntaxLengthAtIndex:i] error:RORef]) {
                         return nil;
                     }
                 }
@@ -3695,7 +4257,7 @@ To Do List:
             ++i;
         }
     }
-    return [self deleteModesInGlobalRange:iTM3MakeRange(location,self.endOff7 - location) error:errorRef]?ML:nil;
+    return [self deleteModesInGlobalRange:iTM3MakeRange(location,self.endOff7 - location) error:RORef]?ML:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isEqualToModeLine:
 - (BOOL)isEqualToModeLine:(iTM2ModeLine *)lhs;
@@ -3705,7 +4267,7 @@ Latest Revision: Mon Apr  5 16:51:25 UTC 2010
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-    if ( !self.diagnostic && !lhs.diagnostic
+    if ( self.isConsistent && lhs.isConsistent
             && self.startOff7 == lhs.startOff7
             && self.commentOff7 == lhs.commentOff7
             && self.contentsEndOff7 == lhs.contentsEndOff7
@@ -3744,10 +4306,10 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (iTM2DebugEnabled > 999999) {
-        if (self.diagnostic) {
+        if (!self.isConsistent) {
             LOG4iTM3(@"BAD RECEIVER!!!!");
         }
-        if ([swapModeLine diagnostic]) {
+        if (!swapModeLine.isConsistent) {
             LOG4iTM3(@"BAD ARGUMENT!!!!");
         }
         if (self.contentsLength != swapModeLine.contentsLength) {
@@ -3773,7 +4335,7 @@ To Do List:
     NSRange  tempRange;
     _iTM2_SWAP(tempRange, self.invalidLocalRange, swapModeLine.invalidLocalRange);
     // consistency:
-	if (self.diagnostic) {
+	if (!self.isConsistent) {
         LOG4iTM3(@"BAD SWAPPING METHOD!!!!");
     }
     return;
@@ -3815,14 +4377,14 @@ To Do List:
         ++idx;
     }
     NSLog(@"__SyntaxWordOff7s[_NumberOfSyntaxWords]=%lu=%lu",__SyntaxWordOff7s[_NumberOfSyntaxWords],self.contentsLength);
-#ifdef __ELEPHANT_MODELINE__
-	NSLog(@"originalString is: <%@>", originalString);
-#endif
+#   ifdef __ELEPHANT_MODELINE__
+	NSLog(@"originalString is: <%@>", self.originalString);
+#   endif
     END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  diagnostic
-- (BOOL)diagnostic;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isConsistent
+- (BOOL)isConsistent;
 /*"Description forthcoming. Returns YES when things are not consistent.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Mon Apr  5 17:57:02 UTC 2010
@@ -3831,7 +4393,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (iTM2DebugEnabled < 10000) {
-		return NO;
+		return YES;
     }
     if (__SyntaxWordOff7s && (__SyntaxWordOff7s+1 != __SyntaxWordEnds)) {
         LOG4iTM3(@"**** __SyntaxWordOff7s+1 (%lu) != __SyntaxWordEnds (%lu)", __SyntaxWordOff7s+1, __SyntaxWordEnds);
@@ -3887,10 +4449,10 @@ To Do List:
 			}
         }
     }
-    return NO;
+    return YES;
     bail:
     self.describe;
-    return YES;
+    return NO;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTER/GETTER
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setStartOff7:
@@ -4150,17 +4712,7 @@ To Do List:
     return _NumberOfSyntaxWords;
 }
 #ifdef __ELEPHANT_MODELINE__
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  originalString
-- (NSString *)originalString;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Dec 17 09:32:38 GMT 2003
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    return originalString;
-}
+@synthesize originalString=__OriginalString;
 #endif
 #pragma mark =-=-=-=-=-=-=-=-=-=-  MODES/LENGTHS
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  syntaxLengthAtIndex
@@ -4237,7 +4789,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  appendSyntaxModesFromModeLine:error:
-- (BOOL)appendSyntaxModesFromModeLine:(iTM2ModeLine *)aModeLine error:(NSError **)errorRef;
+- (BOOL)appendSyntaxModesFromModeLine:(iTM2ModeLine *)aModeLine error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 09:59:21 UTC 2010
@@ -4245,8 +4797,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
     if (aModeLine.length && self.EOLLength) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( append syntax modes from mode line failed, report error!!!!",
                     NSLocalizedDescriptionKey,
@@ -4258,7 +4810,7 @@ To Do List:
     }
     NSUInteger i = ZER0;
     while (i < aModeLine.numberOfSyntaxWords) {
-        if (![self appendSyntaxMode:[aModeLine syntaxModeAtIndex:i] length:[aModeLine syntaxLengthAtIndex:i] error:errorRef]) {
+        if (![self appendSyntaxMode:[aModeLine syntaxModeAtIndex:i] length:[aModeLine syntaxLengthAtIndex:i] error:RORef]) {
             return NO;
         }
         ++i;
@@ -4268,7 +4820,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  appendSyntaxMode:length:error:
-- (BOOL)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
+- (BOOL)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 09:59:21 UTC 2010
@@ -4276,11 +4828,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
     return mode & kiTM2TextCommentSyntaxMask?
-        [self appendCommentedSyntaxMode:mode length:length error:errorRef]:
-        [self appendNormalSyntaxMode:mode length:length error:errorRef];
+        [self appendCommentedSyntaxMode:mode length:length error:RORef]:
+        [self appendNormalSyntaxMode:mode length:length error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  appendCommentedSyntaxMode:length:error:
-- (BOOL)appendCommentedSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
+- (BOOL)appendCommentedSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 09:59:21 UTC 2010
@@ -4293,14 +4845,14 @@ To Do List:
 //NSLog(@"self.wordLengths:%@ (%u)", self.wordLengths, wordLengths.length);
 //NSLog(@"self.modes:%@ (%u)", self.modes, modes.length);
     if (!length) {
-        if (errorRef) {
-            * errorRef = nil;
+        if (RORef) {
+            * RORef = nil;
         }
         return NO;
     }
-    if (self.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!self.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( Will not append a commented mode!!!!!",
                     NSLocalizedDescriptionKey,
@@ -4346,9 +4898,9 @@ To Do List:
 		++_NumberOfSyntaxWords;
     }
     self.commentedLength += length;
-    if (self.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!self.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( Could not append a commented mode!!!!!",
                     NSLocalizedDescriptionKey,
@@ -4361,7 +4913,7 @@ To Do List:
     return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  appendNormalSyntaxMode:length:error:
-- (BOOL)appendNormalSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
+- (BOOL)appendNormalSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 09:59:16 UTC 2010
@@ -4374,17 +4926,17 @@ To Do List:
 //NSLog(@"self.wordLengths:%@ (%u)", self.wordLengths, wordLengths.length);
 //NSLog(@"self.modes:%@ (%u)", self.modes, modes.length);
     if (!length) {
-        if (errorRef) {
-            * errorRef = nil;
+        if (RORef) {
+            * RORef = nil;
         }
         return NO;
     }
     if (self.commentedLength) {
-        return [self appendCommentedSyntaxMode:mode length:length error:errorRef];
+        return [self appendCommentedSyntaxMode:mode length:length error:RORef];
     }
-    if (self.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!self.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( Will not append a normal mode!!!!!",
                     NSLocalizedDescriptionKey,
@@ -4431,9 +4983,9 @@ To Do List:
 		++_NumberOfSyntaxWords;
     }
     self.uncommentedLength += length;
-    if (self.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!self.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( Could not append a normal mode!!!!!",
                     NSLocalizedDescriptionKey,
@@ -4455,7 +5007,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //Start4iTM3;
 	if (_NumberOfSyntaxWords) {
-        if (self.diagnostic) {
+        if (!self.isConsistent) {
             LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Deleting last mode on a bad mode line");
         }
 		NSAssert(__SyntaxWordLengths, @"****  INTERNAL INCONSISTENCY: unexpected lack of storage for modes");
@@ -4468,7 +5020,7 @@ To Do List:
             NSAssert(self.uncommentedLength >= lastLength, @"****  INTERNAL INCONSISTENCY: the uncommented header does not span over a full syntax word.");
             self.uncommentedLength -= lastLength;
         }
-        if (self.diagnostic) {
+        if (!self.isConsistent) {
             LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Deleting last mode results in a bad mode line");
         }
 		return YES;
@@ -4478,7 +5030,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  enlargeSyntaxModeAtGlobalLocation:length:error:
-- (BOOL)enlargeSyntaxModeAtGlobalLocation:(NSUInteger)aGlobalLocation length:(NSUInteger)lengthOff7 error:(NSError **)errorRef;
+- (BOOL)enlargeSyntaxModeAtGlobalLocation:(NSUInteger)aGlobalLocation length:(NSUInteger)lengthOff7 error:(NSError **)RORef;
 /*Adds length to the length at global location aGlobalLocation.
 It is relative to the beginning of the line. Other locations mean new line char insertions.
 The attribute value at aGlobalLocation won't change once the message is sent!!! It simply finds the "word" containing
@@ -4495,17 +5047,17 @@ To Do List:
 //LOG4iTM3(@"aGlobalLocation: %u, lengthOff7: %u", aGlobalLocation, lengthOff7);
 //self.describe;
     if (!lengthOff7) {
-        if (errorRef) {
-            *errorRef = nil;
+        if (RORef) {
+            *RORef = nil;
         }
         return NO;
     } else if (aGlobalLocation<self.startOff7) {
         self.startOff7 += lengthOff7;
         return YES;
     } else if (aGlobalLocation < self.contentsEndOff7) {
-        if (self.diagnostic) {
-            if (errorRef) {
-                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (!self.isConsistent) {
+            if (RORef) {
+                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                         @"d:( Evidemment avec un mode line m**dique, APPEND c'est la foire!!!!!",
                         NSLocalizedDescriptionKey,
@@ -4572,9 +5124,9 @@ To Do List:
         do {
             __SyntaxWordEnds[idx] += lengthOff7;
         } while(++idx<_NumberOfSyntaxWords);
-        if (self.diagnostic) {
-            if (errorRef) {
-                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (!self.isConsistent) {
+            if (RORef) {
+                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                         @"d:( BAD THINGS HAPPENING: pas enlarge mode!!!",
                         NSLocalizedDescriptionKey,
@@ -4586,9 +5138,9 @@ To Do List:
         }
         return YES;
     } else if (aGlobalLocation == self.contentsEndOff7) {
-        if (self.diagnostic) {
-            if (errorRef) {
-                *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (!self.isConsistent) {
+            if (RORef) {
+                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                         @"d:( Evidemment avec un mode line m**dique, APPEND c'est la foire!!!!!",
                         NSLocalizedDescriptionKey,
@@ -4615,11 +5167,11 @@ To Do List:
             }
             return YES;
         } else {
-            return [self appendNormalSyntaxMode:kiTM2TextUnknownSyntaxMode length:lengthOff7 error:errorRef];
+            return [self appendNormalSyntaxMode:kiTM2TextUnknownSyntaxMode length:lengthOff7 error:RORef];
         }
     } else {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:) REFUSED TO ENLARGE AN EOL!!!!",
                     NSLocalizedDescriptionKey,
@@ -4797,17 +5349,17 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  deleteModesInGlobalMakeRange::error:
-- (BOOL)deleteModesInGlobalMakeRange:(NSUInteger)location:(NSUInteger)length error:(NSError **)errorRef;
+- (BOOL)deleteModesInGlobalMakeRange:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
 /*"Description forthcoming. deleteRange is in global coordinates.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 10:21:55 UTC 2010
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-    return [self deleteModesInGlobalRange:iTM3MakeRange(location, length) error:errorRef];
+    return [self deleteModesInGlobalRange:iTM3MakeRange(location, length) error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  deleteModesInGlobalRange:error:
-- (BOOL)deleteModesInGlobalRange:(NSRange)deleteRange error:(NSError **)errorRef;
+- (BOOL)deleteModesInGlobalRange:(NSRange)deleteRange error:(NSError **)RORef;
 /*"Description forthcoming. deleteRange is in global coordinates.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Thu May  6 13:48:23 UTC 2010
@@ -4815,8 +5367,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (errorRef) {
-        *errorRef = nil;
+    if (RORef) {
+        *RORef = nil;
     }
     //  preparation for simple cases
     if (!deleteRange.length) {
@@ -5029,9 +5581,9 @@ To Do List:
     //  leftLocation == ZER0 and __SyntaxWordOff7s[_NumberOfSyntaxWords] == rightLocation
     __SyntaxWordLengths[idx] = (__SyntaxWordEnds[idx] = leftLocation) - __SyntaxWordOff7s[idx]; // > ZER0
     _NumberOfSyntaxWords = idx +1;
-    if (self.diagnostic) {
-        if (errorRef) {
-            *errorRef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
+    if (!self.isConsistent) {
+        if (RORef) {
+            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
                 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                     @"d:( delete modes failed, report error!!!!",
                     NSLocalizedDescriptionKey,

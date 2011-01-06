@@ -244,7 +244,7 @@
         TEST(iTM2RegExpMKEOLName,         EOL)
 
         NSError * ROR = nil;
-        ICURegEx * RE = [ICURegEx regExForKey:iTM2RegExpMKPlaceholderOrEOLKey error:&ROR];
+        ICURegEx * RE = [ICURegEx regExForKey:iTM2RegExpMKPlaceholderOrEOLKey error:self.RORef4iTM3];
         STAssertNil(ROR,@"MISSED",nil);
         STAssertNotNil(RE,OUPS,NULL);
         RE.inputString =
@@ -378,7 +378,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         }
         STAssertTrue(i==7,OUPS,NULL);
         NSLog(@"====================================");
-        RE = [ICURegEx regExForKey:@"SEL" error:&ROR];
+        RE = [ICURegEx regExForKey:@"SEL" error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
@@ -387,7 +387,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKIndexFromEndName,@"23");
         TEST(iTM2RegExpMKIndexName,@"");
         TEST(@"default",@"");
-        RE = [ICURegEx regExForKey:@"SEL" error:&ROR];
+        RE = [ICURegEx regExForKey:@"SEL" error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [ 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
@@ -396,7 +396,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"23");
         TEST(@"default",@"");
-        RE = [ICURegEx regExForKey:@"SEL..." error:&ROR];
+        RE = [ICURegEx regExForKey:@"SEL..." error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
@@ -405,7 +405,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKIndexFromEndName,@"23");
         TEST(iTM2RegExpMKIndexName,@"");
         TEST(iTM2RegExpMKDefaultName,@" defaut valeur     ");
-        RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:&ROR];
+        RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @" SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
@@ -415,7 +415,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKIndexName,@"");
         TEST(iTM2RegExpMKDefaultName,@" defaut valeur     ");
         TEST(iTM2RegExpMKTypeName,@"");
-        RE = [ICURegEx regExForKey:@"TYPE..." error:&ROR];
+        RE = [ICURegEx regExForKey:@"TYPE..." error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
@@ -424,7 +424,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"");
         TEST(iTM2RegExpMKDefaultName,@" defaut valeur     ");
-        RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:&ROR];
+        RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SAL  [  last  - 23   ]: defaut valeur     ";
         RE.displayMatchResult;
@@ -436,19 +436,19 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKDefaultName,@" defaut valeur     ");
         TEST(iTM2RegExpMKTypeName,@"]");
 //      TYPE:X SaL:Y
-        RE = [ICURegEx regExForKey:@"SEL" error:&ROR];
+        RE = [ICURegEx regExForKey:@"SEL" error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         NSLog(@"SEL:%@",RE.searchPattern);
-        RE = [ICURegEx regExForKey:iTM2RegExpMKTypeName error:&ROR];
+        RE = [ICURegEx regExForKey:iTM2RegExpMKTypeName error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         NSLog(@"TYPE:%@",RE.searchPattern);
-        RE = [ICURegEx regExForKey:iTM2RegExpMKDefaultName error:&ROR];
+        RE = [ICURegEx regExForKey:iTM2RegExpMKDefaultName error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         NSLog(@"Default:%@",RE.searchPattern);
-        RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:&ROR];
+        RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         NSLog(@"SEL|TYPE...:%@",RE.searchPattern);
-        RE = [ICURegEx regExForKey:@"__(SEL|TYPE...)__|EOL" error:&ROR];
+        RE = [ICURegEx regExForKey:@"__(SEL|TYPE...)__|EOL" error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         NSLog(@"__(SEL|TYPE...)__|EOL:%@",RE.searchPattern);
         RE.inputString =

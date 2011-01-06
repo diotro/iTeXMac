@@ -411,8 +411,8 @@ To Do List:
 //END4iTM3;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  distributionsCompleteDidReadFromFile:ofType:
-- (void)distributionsCompleteDidReadFromFile:(NSString *)fileName ofType:(NSString *)type;X
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  distributionsCompleteDidReadFromURL4iTM3:ofType:error:
+- (BOOL)distributionsCompleteDidReadFromURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -425,14 +425,14 @@ To Do List:
 	NSString * distribution = self.TeXMFDistribution;
 	NSString * path = self.TeXMFProgramsPath;
 	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
-		return;
+		return YES;
 	distribution = self.OtherProgramsDistribution;
 	path = self.OtherProgramsPath;
 	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
-		return;
+		return YES;
 	[self performSelector:@selector(notifyUncompleteDistributionWarning:) withObject:nil afterDelay:0.01];
 //END4iTM3;
-    return;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  notifyUncompleteDistributionWarning:
 - (void)notifyUncompleteDistributionWarning:(id)irrelevant;

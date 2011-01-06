@@ -38,8 +38,8 @@ enum{
 
 #define __iTM2_PRETTY_FUNCTION__ [NSString stringWithUTF8String:__PRETTY_FUNCTION__]
 #define __iTM2_ERROR_DOMAIN__ ([NSString stringWithFormat:@"%s/%s",__FILE__,__PRETTY_FUNCTION__])
-#if __iTM2_DEVELOPMENT__
-	#define DIAGNOSTIC4iTM3 if (iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#x\n", __PRETTY_FUNCTION__, (NSUInteger)self)
+#if __iTM3_DEVELOPMENT__
+#   define DIAGNOSTIC4iTM3 if (iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#lx\n", __PRETTY_FUNCTION__, (NSUInteger)self)
 // enclose some protion of code with
 // iTM2DebugEnabled_FLAGS |= iTM2DebugEnabled_traceAllFunctionsMask;
 // and
@@ -49,11 +49,15 @@ enum{
 	#define START_TRACKING4iTM3 iTM2DebugEnabled_FLAGS |= iTM2DebugEnabled_traceAllFunctionsMask
 	#define STOP_TRACKING4iTM3 iTM2DebugEnabled_FLAGS &= ~iTM2DebugEnabled_traceAllFunctionsMask
     #define ASSERT_UNREACHABLE_CODE4iTM3 NSAssert(NO,@"UNREACHABLE CODE")
+//  Next macros will help to see if critical parts of the code are reached as expected
+extern NSMutableSet * ReachCodeTags4iTM3;
+#   define ReachCode4iTM3(TAG) [ReachCodeTags4iTM3 addObject:TAG]
 #else
 	#define DIAGNOSTIC4iTM3 //
 	#define START_TRACKING4iTM3
 	#define STOP_TRACKING4iTM3
     #define ASSERT_UNREACHABLE_CODE4iTM3
+#   define ReachCode4iTM3(TAG)
 #endif
 
 #define START4iTM3 NSLog(@"%s %#x START(%@)", __PRETTY_FUNCTION__, self, [[NSDate date] description])
@@ -119,6 +123,9 @@ extern NSInteger iTM2DebugEnabled;
 
 #define myBUNDLE self.classBundle4iTM3
 
+#define ROR4iTM3 error:self.RORef4iTM3
+#define PRESENT_ROR4iTM3 ;
+#define isROR4iTM3 (self.RORef4iTM3 && !(*(self.RORef4iTM3)))
 #define OUTERROR4iTM3(TAG,STRING,UNDERLYING)\
 if (RORef && ([STRING length] || UNDERLYING)) {\
 	*RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:TAG\
@@ -239,9 +246,12 @@ FOUNDATION_EXPORT NSRange iTM3ScaleRange(NSRange range, NSInteger delta);
 #define iTM3VoidRange iTM3MakeRange(iTM3UIntegerUndefined,ZER0)
 #define iTM3FullRange iTM3MakeRange(ZER0,NSUIntegerMax)
 #define iTM3NotFoundRange iTM3MakeRange(NSNotFound,ZER0)
+#define iTM3Zer0Range iTM3MakeRange(ZER0,ZER0)
 
 @interface NSObject (iTM3Error)
 
++ (NSError **)RORef4iTM3;
++ (void) setRORef4iTM3:(NSError **)RORef;
 - (NSError **)RORef4iTM3;
 - (void) setRORef4iTM3:(NSError **)RORef;
 

@@ -1768,11 +1768,11 @@ To Do List:
 	[stringEncodingInfo autorelease];// was retained above
 	NSUInteger encoding = [stringEncodingInfo unsignedIntegerValue];
 	if (NSAlertDefaultReturn == returnCode) {
-		NSError * outError = nil;
 		iTM2TextDocument * doc = self.document;
-		[doc writeContextToURL:doc.fileURL ofType:doc.fileType error:nil];// any change to the context will be preserved
-		if (![doc revertDocumentToSavedWithStringEncoding:encoding error:&outError] && outError) {
-			[NSApp presentError:outError];
+		[doc writeContext4iTM3ToURL:doc.fileURL ofType:doc.fileType ROR4iTM3];// any change to the context will be preserved
+        PRESENT_ROR4iTM3;
+		if (![doc revertDocumentToSavedWithStringEncoding:encoding ROR4iTM3]) {
+			PRESENT_ROR4iTM3;
 		}
 		return;
 	}
@@ -1942,10 +1942,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSError * ROR = nil;
-	[view saveContext4iTM3Error:&ROR];
-    REPORTERROR4iTM3(1,@"",ROR);
-	iTM2TextInspector * inspector = [[[self.class alloc] initWithWindowNibName:NSStringFromClass(self.class)] autorelease];
+    [view saveContext4iTM3Error:self.RORef4iTM3];
+    iTM2TextInspector * inspector = [[[self.class alloc] initWithWindowNibName:NSStringFromClass(self.class)] autorelease];
 	NSDocument * document = self.document;
 	[document addWindowController:inspector];
 	inspector.window;
@@ -2323,9 +2321,9 @@ To Do List:
 	CGFloat scale = [self context4iTM3FloatForKey:@"iTM2TextScaleFactor" domain:iTM2ContextAllDomainsMask];
 	[self setScaleFactor:(scale>0? scale:1)];
     NSRange R = iTM3MakeRange(ZER0,self.string.length);
-    NSRange r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]);
+    NSRange r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextSelectedRange" domain:iTM2ContextAllDomainsMask ROR4iTM3]);
     [self setSelectedRange:iTM3ProjectionRange(R, r)];
-    r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]);
+    r = NSRangeFromString([self context4iTM3ValueForKey:@"iTM2TextVisibleRange" domain:iTM2ContextAllDomainsMask ROR4iTM3]);
     [self scrollRangeToVisible:iTM3ProjectionRange(R, r)];
 //END4iTM3;
     return;

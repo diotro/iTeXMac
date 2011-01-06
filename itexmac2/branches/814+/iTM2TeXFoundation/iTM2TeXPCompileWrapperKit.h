@@ -121,9 +121,10 @@ extern NSString * const iTM2TeXProjectEngineTable;
     @abstract   (description)
     @discussion Install the named binary.
     @param      The name
-    @result     None.
+    @param      RORef
+    @result     YorN.
 */
-- (void)installBinaryWithName:(NSString *)aName;
+- (BOOL)installBinaryWithName4iTM3:(NSString *)aName error:(NSError **)RORef;
 
 @end
 

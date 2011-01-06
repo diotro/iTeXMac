@@ -101,8 +101,8 @@ To Do List:
 //LOG4iTM3(@"R: %@", R);
     return R;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didAddWindowController:
-- (void)didAddWindowController:(id)WC;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didAddWindowController4iTM3:error:
+- (BOOL)didAddWindowController4iTM3:(id)WC error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -110,14 +110,14 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super didAddWindowController:WC];
+	BOOL result = [super didAddWindowController4iTM3:WC error:RORef];
 	if([WC isKindOfClass:[iTM2TeXPTaskInspector class]])
 		[self._taskController addInspector:WC];
 //END4iTM3;
-    return;
+    return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willRemoveWindowController:
-- (void)willRemoveWindowController:(id)WC;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willRemoveWindowController4iTM3:error:
+- (BOOL)willRemoveWindowController4iTM3:(id)WC error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -127,8 +127,7 @@ To Do List:
 //START4iTM3;
 	if([WC isKindOfClass:[iTM2TeXPTaskInspector class]])
 		[self._taskController removeInspector:WC];
-	[super willRemoveWindowController:WC];
-    return;
+	return[super willRemoveWindowController4iTM3:WC error:RORef];
 }
 @end
 
@@ -310,7 +309,7 @@ To Do List:
                 (h1+h2+h3+h4>0? h1/(h1+h2+h3+h4): 0),
                 (h2+h3+h4>0? h2/(h2+h3+h4): 0),
                 (h3+h4>0? h3/(h3+h4): 0)]
-            forKey: iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask];
+            forKey: iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //LOG4iTM3(@"[self context4iTM3ValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey] is: %@", [self context4iTM3ValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]);
     return [super validateWindowContent4iTM3];
 }
@@ -596,15 +595,15 @@ To Do List:
 	if(![path hasPrefix:iTM2PathComponentsSeparator])
 	{
 		iTM2TeXProjectDocument * TPD = (id)self.document;
-		NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:TPD.fileURL];
+		NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:TPD.fileURL ROR4iTM3];
 		NSString * clickedPath = [[NSURL URLWithPath4iTM3:path relativeToURL:sourceURL] path];
 		if(![DFM fileExistsAtPath:clickedPath])
 		{
-			NSURL * factoryURL = [SPC URLForFileKey:TWSFactoryKey filter:iTM2PCFilterRegular inProjectWithURL:TPD.fileURL];
+			NSURL * factoryURL = [SPC URLForFileKey:TWSFactoryKey filter:iTM2PCFilterRegular inProjectWithURL:TPD.fileURL ROR4iTM3];
 			clickedPath = [[NSURL URLWithPath4iTM3:path relativeToURL:factoryURL] path];
 			if(![DFM fileExistsAtPath:clickedPath])
 			{
-				clickedPath = [[TPD URLForFileKey:[TPD masterFileKey]] path];// won't work if the master file key is Front Document related
+				clickedPath = [[TPD URLForFileKey:[TPD masterFileKey] ROR4iTM3] path];// won't work if the master file key is Front Document related
 				clickedPath = [[clickedPath.stringByDeletingLastPathComponent stringByAppendingPathComponent:path] stringByStandardizingPath];
 				if(![DFM fileExistsAtPath:clickedPath])
 				{
@@ -613,7 +612,7 @@ To Do List:
 					NSString * key = nil;
 					for(key in allKeys)
 					{
-						clickedPath = [[TPD URLForFileKey:key] path];
+						clickedPath = [[TPD URLForFileKey:key ROR4iTM3] path];
 						if([clickedPath.lastPathComponent pathIsEqual4iTM3:path])
 						{
 							goto resolved;
@@ -1024,7 +1023,7 @@ To Do List:
 	NSString * oldStyle = [self context4iTM3StringForKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
 	if(![newStyle isEqualToString:oldStyle])
 	{
-		[self takeContext4iTM3Value:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
 		[self.document updateChangeCount:NSChangeDone];
 	}
     self.validateWindowContent4iTM3;
@@ -1069,7 +1068,7 @@ To Do List:
 		if(idx == NSNotFound)
 		{
 			style = [iTM2TeXLogParser key];
-			[self takeContext4iTM3Value:style forKey:iTM2TPFELogParserKey domain:iTM2ContextPrivateMask];
+			[self takeContext4iTM3Value:style forKey:iTM2TPFELogParserKey domain:iTM2ContextPrivateMask ROR4iTM3];
 			idx = [sender indexOfItemWithRepresentedObject:style];
 		}
         [sender selectItemAtIndex:idx];

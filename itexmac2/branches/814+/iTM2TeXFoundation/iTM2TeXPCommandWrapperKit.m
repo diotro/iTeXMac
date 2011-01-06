@@ -1364,12 +1364,12 @@ NSString * const iTM2ToolbarTypesetItemIdentifier = @"typesetCurrentProject";
 - (IBAction)typesetCurrentProject:(NSMenuItem *)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 20:58:42 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil];
+	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil ROR4iTM3];
 	NSImage * I = nil;
 	if([[[TPD taskController] currentTask] isRunning]) {
 		[[TPD taskController] stop];
@@ -1388,12 +1388,12 @@ To Do List:
 - (BOOL)validateTypesetCurrentProject:(NSMenuItem *)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 20:58:53 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iTM2TeXProjectDocument * TPD = [SPC projectForSource:sender];
+	iTM2TeXProjectDocument * TPD = [SPC projectForSource:sender ROR4iTM3];
 	sender.image = [NSImage cachedImageNamed4iTM3:
 		([[[TPD taskController] currentTask] isRunning]?@"stopTypesetCurrentProject":@"typesetCurrentProject")];
 //END4iTM3;
@@ -1403,12 +1403,12 @@ To Do List:
 - (IBAction)doubleTypesetCurrentProject:(NSMenuItem *)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 20:59:01 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil];
+	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil ROR4iTM3];
 	NSImage * I = nil;
 	if([[[TPD taskController] currentTask] isRunning])
 	{
@@ -1429,12 +1429,12 @@ To Do List:
 - (BOOL)validateDoubleTypesetCurrentProject:(id)sender;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Tue May  3 16:20:26 GMT 2005
+Révisé par itexmac2: 2010-12-05 20:59:08 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil];
+	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil ROR4iTM3];
 //END4iTM3;
     return [[iTM2TeXPCommandManager commandPerformerForName:@"Typeset"]//very bad design...
 			canPerformCommandForProject: TPD];

@@ -92,7 +92,7 @@ To Do List:
 //START4iTM3;
 //	START_TRACKING4iTM3;
     NSError * ROR = nil;
-    [self canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document4iTM3:shouldSmartClose:error:) contextInfo:&ROR];
+    [self canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document4iTM3:shouldSmartClose:error:) contextInfo:self.RORef4iTM3];
     REPORTERROR4iTM3(1,@"",ROR);
 //END4iTM3;
     return;
@@ -188,7 +188,7 @@ To Do List:
 		NSInvocation * I;
 		[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO]
 			 template_selector_document4iTM3:self shouldClose:NO contextInfo:contextInfo];
-		if ([MS isEqual:[I methodSignature]]) {
+		if ([MS isEqual:I.methodSignature]) {
             I.selector = shouldCloseSelector;
 			I.target = delegate;
 			[self SWZ_iTM2_canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(document4iTM3:forwardShouldClose:toInvocation:) contextInfo:(void *)I];
@@ -530,8 +530,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
  	if (self.context4iTM3Manager == self) {
-        NSError * ROR = nil;
-		NSDictionary * attributes = [DFM extendedFileAttributesInSpace4iTM3:[NSNumber numberWithUnsignedInteger:'iTM2'] atPath:absoluteURL.path error:&ROR];// ignore this error
+        NSDictionary * attributes = [DFM extendedFileAttributesInSpace4iTM3:[NSNumber numberWithUnsignedInteger:'iTM2'] atPath:absoluteURL.path error:self.RORef4iTM3];// ignore this error
 		for (NSString * key in attributes.allKeys) {
 			NS_DURING
 			id O = [NSUnarchiver unarchiveObjectWithData:[attributes objectForKey:key]];
@@ -991,10 +990,10 @@ To Do List:
 		[MRA removeObject:inspectorVariant];
 		[MRA insertObject:inspectorVariant atIndex:ZER0];
 		[MD setObject:MRA forKey:[C inspectorMode]];
-		[self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask error:self.RORef4iTM3];
+		[self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextStandardLocalMask|iTM2ContextExtendedMask ROR4iTM3];
 	}
 	if (![WC isKindOfClass:[iTM2ExternalInspector class]])
-		[self didAddWindowController4iTM3:WC error:self.RORef4iTM3];
+		[self didAddWindowController4iTM3:WC ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= didAddWindowController4iTM3:error:
@@ -1672,7 +1671,7 @@ To Do List:
 //END4iTM3;
      if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypeData]) {
         NSError * ROR = nil;
-        NSData * D = [self dataOfType:typeName error:&ROR];
+        NSData * D = [self dataOfType:typeName error:self.RORef4iTM3];
         DEBUGLOG4iTM3(99,@"is there any data to save? %@\nCurrently saving data with length:%i", (D? @"Y":@"N"),D.length);
         if (!D && ROR) {
             if (RORef) *RORef = ROR;
@@ -1932,7 +1931,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self readFromData:data ofType:self.fileType error:self.RORef4iTM3];
+    [self readFromData:data ofType:self.fileType ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileAttributesToWriteToURL:ofType:forSaveOperation:originalContentsURL:error:
@@ -2572,7 +2571,7 @@ To Do List:
 //LOG4iTM3(@"should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] windowWillLoad];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"WindowWillLoad4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"WindowWillLoad4iTM3" signature:I.methodSignature inherited:YES]];
 //END4iTM3;
     return;
 }
@@ -2590,7 +2589,7 @@ To Do List:
 //LOG4iTM3(@"2 - should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] windowWillLoad];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"WindowDidLoad4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"WindowDidLoad4iTM3" signature:I.methodSignature inherited:YES]];
 	//LOG4iTM3(@"3 - should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
 //END4iTM3;
     return;
@@ -2742,7 +2741,7 @@ To Do List:
     [self setDocumentEdited:NO];// validate the user interface as side effect
 	self.backupModel;
     NSError * ROR = nil;
-    [self loadContext4iTM3Error:&ROR];
+    [self loadContext4iTM3Error:self.RORef4iTM3];
     REPORTERROR4iTM3(1,@"",ROR);
 //	self.validateWindowContent4iTM3; too early?
 //LOG4iTM3(@"should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
@@ -2795,7 +2794,7 @@ To Do List:
 //START4iTM3;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] windowWillLoad];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteBackupModel4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteBackupModel4iTM3" signature:I.methodSignature inherited:YES]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  restoreModel
@@ -2809,7 +2808,7 @@ To Do List:
 //START4iTM3;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] windowWillLoad];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteRestoreModel4iTM3" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteRestoreModel4iTM3" signature:I.methodSignature inherited:YES]];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeModelBackup:(id) backup forKey:
@@ -3324,7 +3323,7 @@ To Do List:
 		[processEnvironment addEntriesFromDictionary:[self.document environmentForExternalHelper]];
 		[processEnvironment addEntriesFromDictionary:environment];
 		[processEnvironment setObject:[NSString stringWithFormat:@":%@:%@",
-                        [self context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3],
+                        [self context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask ROR4iTM3],
 							[processEnvironment objectForKey:@"PATH"]]  forKey:@"PATH"];
 		[processEnvironment setObject:[self.document fileName].lastPathComponent forKey:@"file"];
         [task setEnvironment:processEnvironment];

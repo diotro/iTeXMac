@@ -236,7 +236,7 @@ extern NSString * const iTM2BundleContentsComponent;
 	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
 */
 - (NSURL *)temporaryBinaryDirectoryURL4iTM3;
-- (BOOL)createSymbolicLinkWithExecutableContentURL4iTM3:(NSURL *)executableURL error:(NSError **)errorRef;
+- (BOOL)createSymbolicLinkWithExecutableContentURL4iTM3:(NSURL *)executableURL error:(NSError **)RORef;
 
 /*!
 	@method			temporaryUniqueDirectoryURL4iTM3

@@ -167,10 +167,13 @@ id ICsA, ICsB, EOLs;
 #import "iTM2Test2.h"
 #import "iTM2Test3A.h"
 #import "iTM2Test3B.h"
+#import "iTM2Test3C.h"
 #import "iTM2Test4.h"
 #import "iTM2TesT5.h"
 #import "iTM2Test6.h"
 #import "iTM2TesT7.h"
+
+#import "../../build/EmbeddedTestCases/iTM2FoundationTestCases.m"
 
 @interface SenTestCase(MORE)
 @end
@@ -179,6 +182,7 @@ static id text = nil;
 
 - (void)prepare000000000StringControllerCompleteDidFinishLaunching4iTM3;
 {
+    invoke_iTM2Foundation_testCases();
 #if 0
     [[[iTM2Test_RE alloc] init]invokeTest];
     [[[iTM2Test0A alloc] init]invokeTest];
@@ -191,11 +195,13 @@ static id text = nil;
     [[[iTM2Test2 alloc] init]invokeTest];
     [[[iTM2Test3A alloc] init]invokeTest];
     [[[iTM2Test3B alloc] init]invokeTest];
+    [[[iTM2Test3C alloc] init]invokeTest];
     [[[iTM2Test4 alloc] init]invokeTest];
     [[[iTM2Test5 alloc] init]invokeTest];
     [[[iTM2Test6 alloc] init]invokeTest];
-#endif
     [[[iTM2Test7 alloc] init]invokeTest];
+#endif
+    [[[iTM2Test3C alloc] init] invokeTest];
 }
 - (BOOL)canEditText;
 {

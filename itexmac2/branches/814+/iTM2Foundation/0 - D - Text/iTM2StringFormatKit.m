@@ -1358,7 +1358,7 @@ To Do List:
 	self.isStringEncodingHardCoded = !canStringEncoding;
 	[self setHardStringEncodingName:hardStringEncodingName];
 	if (self.document) {
-		NSString * defaultStringEncodingName = [self.document context4iTM3ValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask error:self.RORef4iTM3];// we are expecting something
+		NSString * defaultStringEncodingName = [self.document context4iTM3ValueForKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
 	}
 //START4iTM3;
@@ -1482,7 +1482,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     iVarEOL4iTM3 = [NSNumber numberWithUnsignedInteger:argument];
-	[self takeContext4iTM3Value:iVarEOL4iTM3 forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask error:self.RORef4iTM3];
+	[self takeContext4iTM3Value:iVarEOL4iTM3 forKey:TWSEOLFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask ROR4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  lazyStringEncoding
@@ -1518,7 +1518,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     iVarStringEncoding4iTM3 = [NSNumber numberWithUnsignedInteger:argument];
-	[self takeContext4iTM3Value:iVarStringEncoding4iTM3 forKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask error:self.RORef4iTM3];
+	[self takeContext4iTM3Value:iVarStringEncoding4iTM3 forKey:TWSStringEncodingFileKey domain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask ROR4iTM3];
     return;
 }
 @synthesize hardStringEncodingName = iVarHardStringEncodingName4iTM3;

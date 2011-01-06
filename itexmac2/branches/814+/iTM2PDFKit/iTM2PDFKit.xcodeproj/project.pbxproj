@@ -443,10 +443,10 @@
 			projectRoot = "";
 			targets = (
 				DC5D702D0949E0B100EBA96C /* Prepare iTM2TeXFoundation */,
+				5185ED5212702A4F00AFA001 /* Prepare Milestones */,
 				DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */,
 				DC9E4F310858A8A300A86BED /* All */,
 				DC81AD950887196E00943C99 /* iTeXMac2 */,
-				5185ED5212702A4F00AFA001 /* Prepare Milestones */,
 			);
 		};
 /* End PBXProject section */
@@ -510,10 +510,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
+				"$(BUILD_ROOT)/Milestones/$(PRODUCT_NAME)MileStones.m",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}\"\nexit 0\n";
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}/Milestones\"\nexit 0\n";
 		};
 		DC5896C609D455C700E8F33C /* Expand compressed resources */ = {
 			isa = PBXShellScriptBuildPhase;

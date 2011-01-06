@@ -54,29 +54,22 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * key = [self.mainInfos4iTM3 info4iTM3ForKeyPaths:TWSMasterFileKey,nil];
-	if([key isEqualToString:iTM2ProjectFrontDocumentKey])
-	{
+	if ([key isEqualToString:iTM2ProjectFrontDocumentKey]) {
 		// get the front most document of the project
-		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
-		NSWindow * W;
-		while(W = [E nextObject])
-		{
+		for (NSWindow * W in [NSApp orderedWindows]) {
 			NSDocument * D = [W.windowController document];
-			if(![D isEqual:self] && [[SPC projectForSource:D] isEqual:self])
-			{
-				return [self fileKeyForURL:D.fileURL];
+			if (![D isEqual:self] && [[SPC projectForSource:D ROR4iTM3] isEqual:self]) {
+				return [self fileKeyForURL:D.fileURL ROR4iTM3];
 			}
 		}
 		return @"";
 	}
-	if(key.length)
-	{
+	if (key.length) {
 		return key;
 	}
 	NSMutableArray * Ks = [NSMutableArray arrayWithArray:self.fileKeys];
-	[Ks removeObject:[self fileKeyForURL:self.fileURL]];
-	if(Ks.count == 1)
-	{
+	[Ks removeObject:[self fileKeyForURL:self.fileURL ROR4iTM3]];
+	if (Ks.count == 1) {
 		NSString * fileKey = Ks.lastObject;
 		[self setMasterFileKey:fileKey];
 		return fileKey;

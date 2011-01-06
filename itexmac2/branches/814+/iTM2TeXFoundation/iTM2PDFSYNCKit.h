@@ -76,8 +76,10 @@ This implementation reads the .PDFSYNC file associated to the receiver. There sh
     @abstract   Update the pdfsync file modification date.
     @discussion This message is sent each time the file modification date of the receiver is expected to change.
 				More precisely it is sent when the context is saved and when the receiver is saved.
+    @param      RORef
+    @return     YorN
 */
-- (void)updatePdfSyncFileModificationDate;
+- (BOOL)updateSynchronizerFileModificationDate4iTM3Error:(NSError **)RORef;
 
 @end
 

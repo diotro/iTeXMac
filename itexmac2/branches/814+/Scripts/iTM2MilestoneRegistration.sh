@@ -7,12 +7,12 @@ myBase="$(basename "$my_PROJECT_DIR")"
 function create_milestone_file {
 #   $1 source folder
     echo "#warning iTeXMac2 INFO, registering the milestones of directory $1"
-    echo "@implementation iTM2Application(${myBase}_milestones)"
+    echo "@implementation iTM2Application(${myBase}Milestones)"
     echo "+(void)prepareMilestones4${myBase}CompleteInstallation4iTM3; {"
     find "$1" -name "*.m" -exec perl -ne 'print "ENOTSELIM4iTM3$1\n" if /MILESTONE4iTM3(.*?\)\w*;)/' "{}" \;
     echo "} @end"
 }
-WHERE="$my_DIR_ROOT/Milestones/${myBase}.m"
+WHERE="$my_DIR_ROOT/${myBase}Milestones.m"
 mkdir -p "$(dirname "$WHERE")"
 create_milestone_file "$my_PROJECT_DIR" > "$WHERE"
 exit 0

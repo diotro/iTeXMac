@@ -769,7 +769,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self willChangeValueForKey:@"editedCommand"];
-	[self takeContext4iTM3Value:argument forKey:@"Commands Inspector:Edited Command" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:argument forKey:@"Commands Inspector:Edited Command" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 	[self didChangeValueForKey:@"editedCommand"];
 //END4iTM3;
     return;
@@ -1533,7 +1533,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-#if __iTM2_DEVELOPMENT__
+#if __iTM3_DEVELOPMENT__
 #warning *** BUG TRACKING: OTHER TeX menu management
 #pragma mark BUG TRACKING
 	id MI = (NSMenuItem *)[[NSApp mainMenu] deepItemWithAction4iTM3:@selector(projectCurrent:)];

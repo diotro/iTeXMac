@@ -471,13 +471,13 @@ To Do List:
 - (BOOL)validateProjectPathEdited:(NSControl *) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+Révisé par itexmac2: 2010-12-05 21:00:02 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSURL * projectURL = [self.document fileURL];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL ROR4iTM3];
     sender.stringValue = sourceURL?sourceURL.path:([self.document displayName]?:@"");
     return YES;
 }
@@ -497,7 +497,7 @@ To Do List:
 - (BOOL)validateChooseMainFile:(NSPopUpButton *) sender;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
+Révisé par itexmac2: 2010-12-05 21:03:00 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -520,18 +520,12 @@ To Do List:
 	[senderMenu addItem:[NSMenuItem separatorItem]];
 //	[[sender lastItem] setAction:@selector(takeMainFileFromRepresentedObject:)];
 //	[[sender lastItem] setTarget:self];
-    NSArray * fileKeys = self.orderedFileKeys;
-    NSInteger row = ZER0;
     iTM2TeXProjectDocument * project = (iTM2TeXProjectDocument *)self.document;
 	NSString * fileKey = nil;
-    while(row<fileKeys.count)
-    {
-        fileKey = [fileKeys objectAtIndex:row];
-        if(fileKey.length)
-        {
+    for (fileKey in self.orderedFileKeys) {
+        if(fileKey.length) {
             NSString * FN = [project nameForFileKey:fileKey];
-            if(FN.length)
-            {
+            if (FN.length) {
                 [sender addItemWithTitle:FN];
 				NSMenuItem * item = [sender lastItem];
                 item.representedObject = [[fileKey copy] autorelease];
@@ -539,15 +533,12 @@ To Do List:
                 item.target = self;// sender belongs to the receiver's window
             }
         }
-        ++row;
     }
-    if([sender numberOfItems] > ZER0)
-	{
+    if ([sender numberOfItems] > ZER0) {
 		[senderMenu addItem:[NSMenuItem separatorItem]];
 	}
 	NSUInteger lastIndex = [sender numberOfItems];
-	if(frontDocumentMenuItem)
-	{
+	if (frontDocumentMenuItem) {
 		[senderMenu addItem:frontDocumentMenuItem];
 		[frontDocumentMenuItem autorelease];
 		NSMenuItem * item = [sender lastItem];
@@ -601,33 +592,26 @@ To Do List:
 //START4iTM3;
     NSInteger row = [self.documentsView selectedRow];
 	NSArray * orderedFileKeys = self.orderedFileKeys;
-    if(row < ZER0 || row >= orderedFileKeys.count)
-	{
+    if(row < ZER0 || row >= orderedFileKeys.count) {
         return;
-	}
-    else if(row)
-    {
+	} else if(row) {
 		NSString * key = [orderedFileKeys objectAtIndex:row];
 		iTM2ProjectDocument * PD = self.document;
-        NSURL * oldURL = [PD URLForFileKey:key];
-        if(!oldURL)
-		{
+        NSURL * oldURL = [PD URLForFileKey:key ROR4iTM3];
+        if(!oldURL) {
 			return;
 		}
-		if(![DFM fileExistsAtPath:oldURL.path])
-		{
+		if(![DFM fileExistsAtPath:oldURL.path]) {
 			// nothing to copy
 			return;
 		}
-		NSDocument * subDocument = [PD subdocumentForURL:oldURL];
-		if([subDocument isDocumentEdited])
-		{
+		NSDocument * subDocument = [PD subdocumentForURL:oldURL ROR4iTM3];
+		if([subDocument isDocumentEdited]) {
 			return;
 		}
 		NSString * newRelative = [sender stringValue];
 		NSBundle * B = [iTM2ProjectDocument classBundle4iTM3];
-		if([newRelative hasPrefix:@".."])
-		{
+		if ([newRelative hasPrefix:@".."]) {
 			NSBeginAlertSheet(
 				NSLocalizedStringFromTableInBundle(@"Bad name", iTM2ProjectTable, B, ""),
 				nil, nil, nil,
@@ -639,13 +623,11 @@ To Do List:
 			return;
 		}
 		NSURL * newURL = [NSURL URLWithPath4iTM3:newRelative relativeToURL:[PD contentsURL]];
-		if([newURL isEquivalentToURL4iTM3:oldURL])
-		{
+		if ([newURL isEquivalentToURL4iTM3:oldURL]) {
 			return;
 		}
-		NSString * newKey = [PD fileKeyForURL:newURL];
-		if(newKey.length)
-		{
+		NSString * newKey = [PD fileKeyForURL:newURL ROR4iTM3];
+		if (newKey.length) {
 			NSBeginAlertSheet(
 				NSLocalizedStringFromTableInBundle(@"Name conflict", iTM2ProjectTable, B, ""),
 				nil, nil, nil,
@@ -656,8 +638,7 @@ To Do List:
 				newURL.path);
 			return;
 		}
-		if([DFM fileExistsAtPath:newURL.path])
-		{
+		if ([DFM fileExistsAtPath:newURL.path]) {
 			// there is a possible conflict
 			NSBeginAlertSheet(
 				NSLocalizedStringFromTableInBundle(@"Naming problem", iTM2ProjectTable, B, ""),
@@ -669,11 +650,8 @@ To Do List:
 				newURL.path);
 			return;
 		}
-		NSError * localError = nil;
-		if([DFM createDirectoryAtPath:[[newURL parentDirectoryURL4iTM3] path] withIntermediateDirectories:YES attributes:nil error:&localError])
-		{
-			if(![DFM moveItemAtPath:oldURL.path toPath:newURL.path error:NULL])
-			{
+		if ([DFM createDirectoryAtPath:[[newURL parentDirectoryURL4iTM3] path] withIntermediateDirectories:YES attributes:nil  ROR4iTM3]) {
+			if(![DFM moveItemAtPath:oldURL.path toPath:newURL.path ROR4iTM3]) {
 				NSBeginAlertSheet(
 					NSLocalizedStringFromTableInBundle(@"Naming problem", iTM2ProjectTable, B, ""),
 					nil, nil, nil,
@@ -684,12 +662,10 @@ To Do List:
 				return;
 			}
 			[subDocument setFileURL:newURL];// before the project is aware of a file change
-			[PD setURL:newURL forFileKey:key];// after the document name has changed
+			[PD setURL:newURL forFileKey:key ROR4iTM3];// after the document name has changed
 			DEBUGLOG4iTM3(0,@"Name successfully changed from %@ to %@", oldURL.path, newURL.path);
 		} else {
-			if(localError) {
-				[SDC presentError:localError];
-			}
+#warning IN THE METHOD where the validation occurs, present an error if necessary.
 			return;
 		}
 		[sender validateWindowContent4iTM3];
@@ -840,7 +816,7 @@ To Do List:
 			return enabled;
 		}
 		fileKey = iTM2ProjectDefaultsKey;
-		NSNumber * N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+		NSNumber * N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 		BOOL defaultIsAutoStringEncoding = [N boolValue];// beware, context4iTM3BoolForKey should be preferred, once it is well implemented
 		NSString * defaultStringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];// we are expecting something
 		NSAssert(defaultStringEncodingName,(@"The defaults string encoding has not been registered, some code is broken in the iTM2StringFormatterKit"));
@@ -908,7 +884,7 @@ selectOneItem:
 		{
 			if([document isKindOfClass:[iTM2TextDocument class]])
 			{
-				N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 				if([N boolValue])
 				{
 					iTM2StringFormatController * SFC = [document stringFormatter4iTM3];
@@ -920,56 +896,40 @@ selectOneItem:
 			}
 		}
 		NSString * fileName = [project nameForFileKey:fileKey];
-		if(fileName.length)
-		{
-			NSURL * fileURL = [project URLForFileKey:fileKey];
-			NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+		if (fileName.length) {
+			NSURL * fileURL = [project URLForFileKey:fileKey ROR4iTM3];
+			NSString * type = [SDC typeForContentsOfURL:fileURL ROR4iTM3];
 			Class C = [SDC documentClassForType:type];
-			if([C isSubclassOfClass:[iTM2TextDocument class]])
-			{
-				N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
-				if([N boolValue])
-				{
+			if ([C isSubclassOfClass:[iTM2TextDocument class]]) {
+				N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
+				if ([N boolValue]) {
 					[sender selectItem:nil];
 //END4iTM3;
 					return NO;
-				}
-				else if(N)
-				{
+				} else if(N) {
 bibiche:
-					if(stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask])
-					{
+					if(stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask]) {
 						encoding = [NSString stringEncodingWithName4iTM3:stringEncodingName];
 						enabled = YES;
 						goto selectOneItem;
-					}
-					else
-					{
+					} else {
 						[sender selectItemAtIndex:ZER0];
 //END4iTM3;
 						return YES;
 					}
-				}
-				else if(defaultIsAutoStringEncoding)
-				{
+				} else if(defaultIsAutoStringEncoding) {
 					[sender selectItem:nil];
 //END4iTM3;
 					return NO;
-				}
-				else
-				{
+				} else {
 					goto bibiche;
 				}
-			}
-			else
-			{// do not go further
+			} else {// do not go further
 				[sender selectItem:nil];
 //END4iTM3;
 				return NO;
 			}
-		}
-		else
-		{// do not go further
+		} else {// do not go further
 			[sender selectItem:nil];
 //END4iTM3;
 			return NO;
@@ -1070,14 +1030,13 @@ To Do List:
 			else
 			{
 				[project setPropertyValue:nil forKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
-				[project takeContext4iTM3Value:nil forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				[project takeContext4iTM3Value:nil forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 			}
 			changed = YES;
 		}
 		row = [selectedRowIndexes indexGreaterThanIndex:row];
 	}
-	if(changed)
-	{
+	if (changed) {
 		[project updateChangeCount:NSChangeDone];		
 	}
 	self.validateWindowContent4iTM3;
@@ -1101,35 +1060,32 @@ To Do List:
 	NSUInteger top = fileKeys.count;
 	id D = nil;
 	BOOL changed = NO;
-	while(row < top)
-	{
+	while (row < top) {
 		NSString * fileKey = [fileKeys objectAtIndex:row];
-		id isAuto = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+		id isAuto = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 		BOOL old = [isAuto boolValue];
 		// this is a 3 states switch: YES, NO, inherited
 		NSString * fileName = [project nameForFileKey:fileKey];
-		if(fileName.length)
-		{
+		if (fileName.length) {
 			isAuto = isAuto?(old?[NSNumber numberWithBool:NO]:nil):[NSNumber numberWithBool:YES];
-			NSURL * fileURL = [project URLForFileKey:fileKey];
-			NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+			NSURL * fileURL = [project URLForFileKey:fileKey ROR4iTM3];
+			NSString * type = [SDC typeForContentsOfURL:fileURL ROR4iTM3];
 			Class C = [SDC documentClassForType:type];
 			if([C isSubclassOfClass:[iTM2TextDocument class]]) {
 				if((D = [project subdocumentForFileKey:fileKey])) {
 					[D takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
 				} else {
-					[project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+					[project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 				}
 				changed = YES;
 			}
 		} else if([fileKey isEqual:iTM2ProjectDefaultsKey]) {
 			isAuto = [NSNumber numberWithBool:!old];
-			changed = [project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+			changed = [project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 		}
 		row = [selectedRowIndexes indexGreaterThanIndex:row];
 	}
-	if(changed)
-	{
+	if (changed) {
 		[project updateChangeCount:NSChangeDone];		
 	}
 	self.validateWindowContent4iTM3;
@@ -1189,19 +1145,15 @@ To Do List:
 		keyWithAutoDefault = [fileKeys objectAtIndex:ZER0];
 		fileKey = keyWithAutoDefault;
 		row = [selectedRowIndexes indexGreaterThanIndex:row];
-	}
-	else
-	{
+	} else {
 		fileKey = [fileKeys objectAtIndex:row];
 		fileName = [project nameForFileKey:fileKey];
-		if(fileName.length)
-		{
-			NSURL * fileURL = [project URLForFileKey:fileKey];
-			NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+		if(fileName.length) {
+			NSURL * fileURL = [project URLForFileKey:fileKey ROR4iTM3];
+			NSString * type = [SDC typeForContentsOfURL:fileURL ROR4iTM3];
 			Class C = [SDC documentClassForType:type];
-			if([C isSubclassOfClass:[iTM2TextDocument class]])
-			{
-				if(N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask])
+			if([C isSubclassOfClass:[iTM2TextDocument class]]) {
+				if((N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3]))
 				{
 					if([N boolValue])
 					{
@@ -1229,7 +1181,7 @@ To Do List:
 	// mutliple case
 	// hasOn && hasOff
 	BOOL x = NO;
-	if(N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask])
+	if ((N = [project context4iTM3ValueForKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey domain:iTM2ContextAllDomainsMask ROR4iTM3]))
 	{
 		x = [N boolValue];
 	}
@@ -1402,8 +1354,8 @@ To Do List:
 			fileName = [project nameForFileKey:fileKey];
 			if(fileName.length)
 			{
-				NSURL * fileURL = [project URLForFileKey:fileKey];
-				NSString * type = [SDC typeForContentsOfURL:fileURL error:NULL];
+				NSURL * fileURL = [project URLForFileKey:fileKey ROR4iTM3];
+				NSString * type = [SDC typeForContentsOfURL:fileURL ROR4iTM3];
 				Class C = [SDC documentClassForType:type];
 				if([C isSubclassOfClass:[iTM2TextDocument class]])
 				{
@@ -1581,7 +1533,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * string = NSStringFromSize(contentSize);
-	[self takeContext4iTM3Value:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //END4iTM3;
 	return contentSize;
 }
@@ -1619,7 +1571,7 @@ To Do List:
 	else
 	{
 		string = NSStringFromSize(contentSize);
-		[self takeContext4iTM3Value:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
+		[self takeContext4iTM3Value:string forKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 	}
     return;
 }
@@ -2024,8 +1976,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	iTM2TeXProjectDocument * TPD = [SPC projectForSource:self];
-	NSString * fileKey = [TPD fileKeyForURL:self.fileURL];
+	iTM2TeXProjectDocument * TPD = [SPC projectForSource:self ROR4iTM3];
+	NSString * fileKey = [TPD fileKeyForURL:self.fileURL ROR4iTM3];
 	NSString * codeset = [TPD propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
 //END4iTM3;
     return codeset.length?[NSDictionary dictionaryWithObjectsAndKeys:

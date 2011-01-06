@@ -103,6 +103,7 @@ NSString * const iTM2RegExpTestsName = @"iTM2RegExTests";
     for (NSString * K in tests.allKeys) {
         NSError * ROR = nil;
         ICURegEx * RE = [ICURegEx regExForKey:K error:&ROR];
+        STAssertNil(ROR,@"MISSED",NULL);
         STAssertNotNil(RE,@"MISSED",NULL);
         NSDictionary * D = [tests objectForKey:K];
         STAssertTrue(D.count,@"MISSED",NULL);

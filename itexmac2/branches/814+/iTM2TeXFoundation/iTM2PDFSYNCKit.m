@@ -67,7 +67,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super initialize];
+	// [super initialize];
 	[SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 			NSStringFromPoint(NSMakePoint(ZER0, ZER0)), iTM2PDFSyncOffsetKey,
 			[NSNumber numberWithBool:YES], @"iTM2PDFSYNCOrderFrontOutput",
@@ -1175,8 +1175,8 @@ To Do List:
 //START4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOutputURL:
-- (id)initWithOutputURL:(NSURL *)outputURL;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initWithOutputURL:error:
+- (id)initWithOutputURL:(NSURL *)outputURL error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1199,7 +1199,7 @@ To Do List:
 			// when big files are involved.
 			// We try to create a synctex scanner, then we compare the file modification dates
 			// of the output file and the scanner related file
-            iTM2TeXProjectDocument * PD = [SPC projectForURL:outputURL];
+            iTM2TeXProjectDocument * PD = [SPC projectForURL:outputURL error:RORef];
             NSURL * otherURL = [PD URLInFactoryForURL:outputURL];
 			// if there is a file at otherURL, any synctex information will belong to these file
 			if (!otherURL.isFileURL || ![DFM fileExistsAtPath:otherURL.path]) {
@@ -1698,8 +1698,8 @@ To Do List:
 //END4iTM3;
 	return YES;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateSynchronizerFileModificationDate
-- (void)updateSynchronizerFileModificationDate;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= updateSynchronizerFileModificationDate4iTM3Error:
+- (BOOL)updateSynchronizerFileModificationDate4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri Sep 05 2003
@@ -1716,35 +1716,40 @@ To Do List:
 	{
 update:;
 		NSDate * pdfDate = [[DFM attributesOfItemAtPath:FN error:NULL] fileModificationDate];
-		if(pdfDate && ![DFM setAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] ofItemAtPath:pdfsyncPath error:NULL])
-		{
+		if(pdfDate && ![DFM setAttributes:[NSDictionary dictionaryWithObject:pdfDate forKey:NSFileModificationDate] ofItemAtPath:pdfsyncPath error:RORef]) {
 			LOG4iTM3(@"ERROR:Unexpected problem:could not change the file modification date...");
 		}
-	}
-	else
-	{
-		iTM2ProjectDocument * PD = [SPC projectForURL:self.fileURL];
-		NSString * K = [PD fileKeyForSubdocument:self];
-		NSURL * url = [PD URLForFileKey:K];
+	} else {
+		iTM2ProjectDocument * PD = [SPC projectForURL:self.fileURL error:RORef];
+		NSString * K = [PD fileKeyForSubdocument:self error:RORef];
+		NSURL * url = [PD URLForFileKey:K error:RORef];
 		NSString * relativeName = [url relativeString];
 		pdfsyncPath = relativeName.stringByDeletingPathExtension;
 		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
-		if(pdfsyncPath.length)
-		{
+		if(pdfsyncPath.length) {
 			NSURL * pdfsyncURL = [NSURL URLWithPath4iTM3:pdfsyncPath relativeToURL:[url baseURL]];
 			pdfsyncPath = [[pdfsyncURL absoluteURL] path];
 			pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath4iTM3];
-			if([DFM fileExistsAtPath:pdfsyncPath])
-			{
+			if([DFM fileExistsAtPath:pdfsyncPath]) {
 				goto update;
 			}
 		}
 	}
 //END4iTM3;
-	return;
+	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteWriteToURL4iTM3:ofType:error:
-- (void)synchronizationCompleteWriteToURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
+- (BOOL)synchronizationCompleteWriteToURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
+/*"Description Forthcoming.
+Version history:jlaurens AT users DOT sourceforge DOT net
+Révisé par itexmac2: 2010-12-04 17:15:17 +0100
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+	return [self updateSynchronizerFileModificationDate4iTM3Error:RORef];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteSaveContext4iTM3Error:
+- (BOOL)synchronizationCompleteSaveContext4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - 2.0:Fri Sep 05 2003
@@ -1752,27 +1757,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	// the filename is not really the final filename...
-	[self updateSynchronizerFileModificationDate];
-//END4iTM3;
-	return;
+	return [self updateSynchronizerFileModificationDate4iTM3Error:RORef];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizationCompleteSaveContext4iTM3:
-- (void)synchronizationCompleteSaveContext4iTM3:(id)sender;
-/*"Description Forthcoming.
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 2.0:Fri Sep 05 2003
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	// the filename is not really the final filename...
-	[self updateSynchronizerFileModificationDate];
-//END4iTM3;
-	return;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateSynchronizer:
-- (void)updateSynchronizer:(id)irrelevant;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  updateSynchronizer4iTM3Error:
+- (BOOL)updateSynchronizer4iTM3Error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history:jlaurens AT users DOT sourceforge DOT net
 - for 2.0:Mon Jun 02 2003
@@ -1784,7 +1772,7 @@ To Do List:
     // does a PDFSYNC info exist?
     if([self context4iTM3BoolForKey:iTM2PDFNoSynchronizationKey domain:iTM2ContextAllDomainsMask]) {
         [self replaceSynchronizer:nil];
-		return;
+		return YES;
 	}
     for (NSWindow * W in [NSApp windows]) {
 		iTM2PDFInspector * WC = W.windowController;
@@ -1795,23 +1783,23 @@ To Do List:
 	// no window to synchronize, no synchronizer
 //LOG4iTM3(@"NO WINDOW TO SYNCHRONIZE");
 	[self replaceSynchronizer:nil];
-	return;
+	return YES;
 laSuite:;
 	// first we try the synctex option
 	// we just try to create a SyncTeX synchronizer
 	// if something is returned, it means that there is a synctex file available.
 	id S = nil;
-	if(S = [[[iTM2SyncTeXSynchronizer alloc] initWithOutputURL:self.fileURL] autorelease]) {
+	if(S = [[[iTM2SyncTeXSynchronizer alloc] initWithOutputURL:self.fileURL error:RORef] autorelease]) {
 		[self replaceSynchronizer:S];
-		return;
+		return YES;
 	}	
 	NSString * FN = self.fileURL.path;
 	NSString * pdfsyncPath = FN.stringByDeletingPathExtension;
 	pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
 	pdfsyncPath = [pdfsyncPath lazyStringByResolvingSymlinksAndFinderAliasesInPath4iTM3];
 	if(![DFM fileOrLinkExistsAtPath4iTM3:pdfsyncPath]) {
-		iTM2ProjectDocument * PD = [SPC projectForURL:self.fileURL];
-		NSString * K = [PD fileKeyForSubdocument:self];
+		iTM2ProjectDocument * PD = [SPC projectForURL:self.fileURL error:RORef];
+		NSString * K = [PD fileKeyForSubdocument:self error:RORef];
 		NSString * relativeName = [PD nameForFileKey:K];
 		pdfsyncPath = relativeName.stringByDeletingPathExtension;
 		pdfsyncPath = [pdfsyncPath stringByAppendingPathExtension:iTM2PDFSYNCExtension];
@@ -1820,7 +1808,7 @@ laSuite:;
 		if(![DFM fileExistsAtPath:pdfsyncPath]) {
 			S = [[[iTM2PDFSynchronizer alloc] init] autorelease];
 			[self replaceSynchronizer:S];
-			return;
+			return YES;
 		}
 	}
 	NSDate * pdfsyncDate = [[DFM attributesOfItemAtPath:pdfsyncPath error:NULL] fileModificationDate];
@@ -1829,7 +1817,7 @@ laSuite:;
 			S = [[[iTM2PDFSynchronizer alloc] init] autorelease];
 			[self replaceSynchronizer:S];
 		}
-		return;
+		return YES;
 	}
 #if 0
 // is the file busy?
@@ -1873,7 +1861,7 @@ laSuite:;
 		S = [[[iTM2PDFSynchronizer alloc] init] autorelease];
 		[self replaceSynchronizer:S];
 	}
-    return;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  pdfsyncDidParseNotified:
 - (void)pdfsyncDidParseNotified:(NSNotification *)notification;
@@ -1896,7 +1884,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(![self.project allowsSubdocumentsInteraction]) {
+	if(![[self project4iTM3Error:self.RORef4iTM3] allowsSubdocumentsInteraction]) {
 		return YES;
 	}
 	NSWindow * W;

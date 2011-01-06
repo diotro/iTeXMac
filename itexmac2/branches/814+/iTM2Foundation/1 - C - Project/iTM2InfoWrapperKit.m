@@ -3,7 +3,7 @@
 //  @version Subversion: $Id: iTM2InfoWrapperKit.m 574 2007-10-08 23:21:41Z jlaurens $ 
 //
 //  Created by jlaurens AT users DOT sourceforge DOT net on Tue Jan  4 07:48:24 GMT 2005.
-//  Copyright © 2005 Laurens'Tribune. All rights reserved.
+//  Copyright © 2005-2010 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -1236,7 +1236,7 @@ main:
 	}
     while ((name = E.nextObject)) {
         NSError * ROR = nil;
-		P = [SPC baseProjectWithName:name error:&ROR];
+		P = [SPC baseProjectWithName:name error:self.RORef4iTM3];
         if (ROR) {
             LOG4iTM3(@"YOUR ATTENTION PLEASE! There might be an error: %@",ROR);
             ROR = nil;
@@ -1246,7 +1246,7 @@ main:
 		if ([result isKindOfClass:[NSDictionary class]]) {
 			result = [[result mutableCopy] autorelease];
 			while ((name = E.nextObject)) {
-				P = [SPC baseProjectWithName:name error:&ROR];
+				P = [SPC baseProjectWithName:name error:self.RORef4iTM3];
                 if (ROR) {
                     LOG4iTM3(@"YOUR ATTENTION PLEASE! There might be an error: %@",ROR);
                     ROR = nil;

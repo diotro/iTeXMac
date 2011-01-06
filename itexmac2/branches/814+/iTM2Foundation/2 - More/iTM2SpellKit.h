@@ -51,7 +51,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 
 /*!
-    @class	iTM2SpellContext
+    @class	iTM2SpellContext4iTM3
     @abstract	A spelling context.
     @discussion	The spelling context is defined by the language, and the lists of known words.
                 Each NSText is supposed to have its own spelling context,
@@ -62,7 +62,7 @@ extern NSString * const TWSSpellDefaultContextMode;
                 See the iTM2SpellCheckerHelper class for details.
 */
 
-@interface iTM2SpellContext: NSObject
+@interface iTM2SpellContext4iTM3: NSObject
 {
 @private
     NSArray *           iVarIgnoredWords;
@@ -78,36 +78,6 @@ extern NSString * const TWSSpellDefaultContextMode;
 @property (copy,nonatomic) NSArray * ignoredWords;
 @property (assign) NSString * spellLanguage;
 @property (assign) NSInteger tag;
-
-/*!
-    @method		loadPropertyListRepresentation:
-    @abstract	Loads the given property list.
-    @discussion	The given property list must comply the TeX Wrapper Structure specifications version 1.
-    @param		The argument is the property list.
-    @result		A flag indicating in an obvious manner the success or failure of the operation.
-                If the slightest problem is encountered, the result is NO. So don't be too exigent.
-*/
-- (BOOL)loadPropertyListRepresentation:(id)PL;
-
-/*!
-    @method		readFromURL:error:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		The fileURL.
-    @param		RORef.
-    @result		A flag indicating in an obvious manner the success or failure of the operation.
-*/
-- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)RORef;
-
-/*!
-    @method		writeToURL:error:
-    @abstract	Abstract forthcoming.
-    @discussion	Discussion forthcoming.
-    @param		The fileURL.
-    @param		RORef.
-    @result		A flag indicating in an obvious manner the success or failure of the operation.
-*/
-- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)RORef;
 
 /*!
     @method		loadPropertyListRepresentation:
@@ -237,20 +207,20 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description Forthcoming.
     @param		An NSString representing a mode, id est a set of parameters defining the spelling:
                 the language and the ignored words. The mode must exist prior to this message.
-    @result		An iTM2SpellContext.
+    @result		An iTM2SpellContext4iTM3.
 */
 - (id)spellContextForMode:(NSString *)mode;
 
 /*!
-    @method		setSpellContext:forMode:
+    @method		setSpellContext4iTM3:forMode:
     @abstract	Sets the spell context for the given mode.
     @discussion	Description Forthcoming.
     @param		A possibly nil spell context.
     @param		An NSString representing a mode, id est a set of parameters defining the spelling:
                 the language and the ignored words. The mode must exist prior to this message.
-    @result		An iTM2SpellContext.
+    @result		An iTM2SpellContext4iTM3.
 */
-- (void)setSpellContext:(id)newContext forMode:(NSString *)mode;
+- (void)setSpellContext4iTM3:(id)newContext forMode:(NSString *)mode;
 
 /*!
     @method		spellContextModeForText:
@@ -287,8 +257,36 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 - (NSString *)spellPrettyNameForText:(NSText *)text;
 
-- (id)propertyListRepresentation;
+/*!
+    @method		readFromURL:error:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		The fileURL.
+    @param		RORef.
+    @result		A flag indicating in an obvious manner the success or failure of the operation.
+*/
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)RORef;
+
+/*!
+    @method		writeToURL:error:
+    @abstract	Abstract forthcoming.
+    @discussion	Discussion forthcoming.
+    @param		The fileURL.
+    @param		RORef.
+    @result		A flag indicating in an obvious manner the success or failure of the operation.
+*/
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)RORef;
+
+/*!
+    @method		loadPropertyListRepresentation:
+    @abstract	Loads the given property list.
+    @discussion	The given property list must comply with the TeX Wrapper Structure specifications version 1.
+    @param		The argument is the property list.
+    @result		A flag indicating in an obvious manner the success or failure of the operation.
+                If the slightest problem is encountered, the result is NO. So don't be too exigent.
+*/
 - (BOOL)loadPropertyListRepresentation:(id)PL;
+- (id)propertyListRepresentation;
 
 @end
 
@@ -328,7 +326,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 @interface NSObject(iTM2SpellKit)
 
 /*!
-    @method		spellContextController
+    @method		spellContextController4iTM3Error:
     @abstract	The spelling context controller.
     @discussion	The spelling context is defined by the language, and the lists of know words.
                 Each logically different context is defined by a unique NSString key.
@@ -341,10 +339,10 @@ extern NSString * const TWSSpellDefaultContextMode;
                 A NSWindowController object inherits its spelling context controller
                 from its document if any or from its owner if any.
                 All these default behaviours might be overriden by subclassers.
-    @parameter	None.
+    @parameter	RORef is an NSError object reference.
     @result		A spell context controller.
 */
-- (id)spellContextController;
+- (id)spellContextController4iTM3Error:(NSError **)RORef;
 
 @end
 
@@ -358,25 +356,26 @@ extern NSString * const TWSSpellDefaultContextMode;
 @interface NSText(iTM2SpellKit)
 
 /*!
-    @method		spellContextController
+    @method		spellContextController4iTM3Error:
     @abstract	The spelling context controller.
     @discussion	This is basically the one of its window,
                 which is the one of its window controller,
                 which is the one of its document or owner,
                 which is the default spell context controller unless subclassers have overriden the default behaviour...
+    @parameter	RORef is an NSError object reference.
     @result		an iTM2SpellContextController instance.
 */
-- (id)spellContextController;
+- (id)spellContextController4iTM3Error:(NSError **)RORef;
 
 /*!
-    @method		spellContext
+    @method		spellContext4iTM3
     @abstract	The spell context.
     @discussion	This default implementation just asks the meta property server to do the job.
                 Given a mode name, iTeXMac2 can retrieve a language and a list of know words.
     @param		None.
     @result		The new mode.
 */
-- (iTM2SpellContext *)spellContext;
+- (iTM2SpellContext4iTM3 *)spellContext4iTM3;
 
 /*!
     @method		spellPrettyName
@@ -397,7 +396,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 - (NSString *)spellPrettyProjectName;
 
 /*!
-    @method		spellContextController
+    @method		spellContextMode
     @abstract	The spell context mode.
     @discussion	Given a mode name, iTeXMac2 can retrieve a language and a list of know words.
     @param		None.
@@ -585,4 +584,4 @@ extern NSString * const TWSSpellDefaultContextMode;
 
 @end
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2SpellContext
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2SpellContext4iTM3

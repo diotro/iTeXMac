@@ -196,18 +196,18 @@ To Do List: see the warning below
     NSError * ROR = nil;
 	id doc = [SDC documentForURL:fileURL];
 	if (doc) {
-		[doc updateIfNeeded4iTM3Error:&ROR];
+		[doc updateIfNeeded4iTM3Error:self.RORef4iTM3];
         REPORTERROR4iTM3(1,@"",ROR);
 		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:YES];
 		return doc;
 	}
 	if (yorn) {
-		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:self.RORef4iTM3];
         REPORTERROR4iTM3(2,@"",ROR);
 		[doc displayPageForLine:line column:column source:sourceURL withHint:hint orderFront:yorn force:YES];
 		return doc;
 	} else {
-		doc = [SDC openDocumentWithContentsOfURL:fileURL display:NO error:&ROR];
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:NO error:self.RORef4iTM3];
         REPORTERROR4iTM3(3,@"",ROR);
 		[doc makeWindowControllers];
 		for (NSWindowController * WC in [doc windowControllers]) {
@@ -247,8 +247,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if ([SUD boolForKey:@"iTM2NoMoreRecentDocuments"]) return;
-    NSError * ROR = nil;
-	NSDocument * newRecentDocument = [document newRecentDocument4iTM3Error:&ROR];
+    NSDocument * newRecentDocument = [document newRecentDocument4iTM3Error:self.RORef4iTM3];
     if (newRecentDocument) {
 		// the document wants to appear in the recent docs list
 		NSURL * URL = newRecentDocument.fileURL;// do not assume that any document has a URL

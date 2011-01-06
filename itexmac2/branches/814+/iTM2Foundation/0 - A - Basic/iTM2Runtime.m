@@ -37,7 +37,7 @@
 @end
 @implementation NSObject(iTM2Runtime)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzleInstanceMethodSelector4iTM3:
-+ (BOOL)swizzleInstanceMethodSelector4iTM3:(SEL)selector error:(NSError **) errorRef;
++ (BOOL)swizzleInstanceMethodSelector4iTM3:(SEL)selector error:(NSError **) RORef;
 /*"swizzle instance selector.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 29 10:15:13 UTC 2008
@@ -45,18 +45,18 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)" error:errorRef];
+	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)" error:RORef];
 	if ([RE matchString:NSStringFromSelector(selector)]) {
 		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
         RE.forget;
 //END4iTM3;
-		return [iTM2Runtime swizzleInstanceMethodSelector:selector replacement:swizzled forClass:self error:errorRef];
+		return [iTM2Runtime swizzleInstanceMethodSelector:selector replacement:swizzled forClass:self error:RORef];
 	}
 //END4iTM3;
 	return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  swizzleClassMethodSelector4iTM3:error:
-+ (BOOL)swizzleClassMethodSelector4iTM3:(SEL)selector error:(NSError **)errorRef;
++ (BOOL)swizzleClassMethodSelector4iTM3:(SEL)selector error:(NSError **)RORef;
 /*"swizzle instance selector.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Tue Jan 29 10:15:13 UTC 2008
@@ -64,12 +64,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)" error:errorRef];
+	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)" error:RORef];
 	if ([RE matchString:NSStringFromSelector(selector)]) {
 		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
         RE.forget;
 //END4iTM3;
-		return [iTM2Runtime swizzleClassMethodSelector:selector replacement:swizzled forClass:self error:errorRef];
+		return [iTM2Runtime swizzleClassMethodSelector:selector replacement:swizzled forClass:self error:RORef];
 	}
 //END4iTM3;
 	return NO;
@@ -141,7 +141,7 @@ To Do List:
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleInstanceMethodSelector:replacement:forClass:error:
-+ (BOOL)swizzleInstanceMethodSelector:(SEL)origSel_ replacement:(SEL)altSel_ forClass:(Class)aClass error:(NSError **)errorRef;
++ (BOOL)swizzleInstanceMethodSelector:(SEL)origSel_ replacement:(SEL)altSel_ forClass:(Class)aClass error:(NSError **)RORef;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -149,8 +149,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (errorRef) {
-		*errorRef = nil;
+	if (RORef) {
+		*RORef = nil;
 	}
     if (!aClass) {
         LOG4iTM3(@"WARNING: Missing a  class, no swizzling.");
@@ -169,13 +169,13 @@ NSString *errStr = [@"+[iTM2Runtime swizzleInstanceMethodSelector:replacement:fo
 code:-1        \
 userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescriptionKey]]; \
 }
-		SetNSError(errorRef, @"original method %@ not found for class %@", NSStringFromSelector(origSel_), [aClass className]);
+		SetNSError(RORef, @"original method %@ not found for class %@", NSStringFromSelector(origSel_), [aClass className]);
 		return NO;
 	}
 	
 	Method altMethod = class_getInstanceMethod(aClass, altSel_);
 	if (!altMethod) {
-		SetNSError(errorRef, @"alternate method %@ not found for class %@", NSStringFromSelector(altSel_), [aClass className]);
+		SetNSError(RORef, @"alternate method %@ not found for class %@", NSStringFromSelector(altSel_), [aClass className]);
 		return NO;
 	}
 	
@@ -192,7 +192,7 @@ userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescription
 	return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  swizzleClassMethodSelector:replacement:forClass:error:
-+ (BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass error:(NSError **) errorRef;
++ (BOOL)swizzleClassMethodSelector:(SEL)orig_sel replacement:(SEL)alt_sel forClass:(Class)aClass error:(NSError **) RORef;
 /*"Description forthcoming.
 Code from cocoadev MethodSwizzle
 Version history: jlaurens AT users DOT sourceforge DOT net
@@ -200,9 +200,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (errorRef)
+	if (RORef)
 	{
-		*errorRef = nil;
+		*RORef = nil;
 	}
 	if (!aClass)
     {
@@ -210,7 +210,7 @@ To Do List:
         return NO;
     }
 //END4iTM3;
-	return [self swizzleInstanceMethodSelector:orig_sel replacement:alt_sel forClass:aClass->isa error:errorRef];
+	return [self swizzleInstanceMethodSelector:orig_sel replacement:alt_sel forClass:aClass->isa error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  disableInstanceMethodSelector:forClass:
 + (BOOL)disableInstanceMethodSelector:(SEL)orig_sel forClass:(Class)aClass;

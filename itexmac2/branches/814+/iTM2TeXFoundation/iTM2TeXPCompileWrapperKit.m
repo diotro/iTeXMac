@@ -192,7 +192,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self takeContext4iTM3Value:argument forKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:argument forKey:@"Compile Inspector:Edited Engine" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //END4iTM3;
     return;
 }
@@ -220,27 +220,19 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"sender is: %@", sender);
-    if([sender isKindOfClass:[NSPopUpButton class]])
-    {
-        if([sender numberOfItems] < 2)
-        {
+    if([sender isKindOfClass:[NSPopUpButton class]]) {
+        if([sender numberOfItems] < 2) {
             [sender removeAllItems];
-			NSEnumerator * E = [[iTM2TeXPCompilePerformer allBuiltInEngineModes] objectEnumerator];
-			id O;
-			while(O = E.nextObject)
-			{
-				if([O isKindOfClass:[NSString class]])
-				{
+			for (id O in [iTM2TeXPCompilePerformer allBuiltInEngineModes]) {
+            	if([O isKindOfClass:[NSString class]]) {
 					[sender addItemWithTitle:O];// may be we should use a localized string here
 					sender.lastItem.representedObject = O;
-				}
-				else if([O isKindOfClass:[NSArray class]])
-				{
+				} else if ([O isKindOfClass:[NSArray class]]) {
 					NSMutableString * MS = [NSMutableString string];
 					[sender addItemWithTitle:@""];
 					NSEnumerator * e = [O objectEnumerator];
 					id o;
-					suite:
+suite:
 					o = e.nextObject;
 					if([o isKindOfClass:[NSString class]]) {
 						sender.lastItem.representedObject = o;
@@ -882,7 +874,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self takeContext4iTM3Value:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask];
+    [self takeContext4iTM3Value:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //    self.validateWindowContent4iTM3; now in the validation kit
 //END4iTM3;
     return;
@@ -1288,7 +1280,7 @@ To do list:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	id TPD = [SPC projectForSource:self];
+	id TPD = [SPC projectForSource:self error:NULL];
 //END4iTM3;
     return ![TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask] && [self context4iTM3BoolForKey:iTM2UDSmartUndoKey domain:iTM2ContextAllDomainsMask];
 }
@@ -1296,11 +1288,12 @@ To do list:
 - (BOOL)canToggleSmartUndo;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net.
+Révisé par itexmac2: 2010-12-05 20:59:17 +0100
 To do list:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	id TPD = [SPC projectForSource:self];
+	id TPD = [SPC projectForSource:self ROR4iTM3];
 //END4iTM3;
     return ![TPD context4iTM3BoolForKey:iTM2ContinuousCompile domain:iTM2ContextAllDomainsMask];
 }
@@ -1310,11 +1303,11 @@ To do list:
 //#import <iTM2Foundation/iTM2Runtime.h>
 
 @implementation NSBundle(iTM2CompileWrapperKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  installBinaryWithName:
-- (void)installBinaryWithName:(NSString *)aName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  installBinaryWithName:error:
+- (BOOL)installBinaryWithName4iTM3:(NSString *)aName error:(NSError **)RORef;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
-Latest Revision: Sat Mar 27 21:52:22 UTC 2010
+Révisé par itexmac2: 2010-12-05 20:59:34 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1324,59 +1317,33 @@ To Do List:
     NSString * completeName = [aName stringByAppendingPathExtension:@"rb"];
 	NSURL * executable = [self URLForAuxiliaryExecutable:completeName];
 	if (executable.isFileURL) {
-		NSError * error = nil;
-		if(![self createSymbolicLinkWithExecutableContentURL4iTM3:executable error:&error]) {
-			[NSApp presentError:error];
-		}
-        return;
+        return [self createSymbolicLinkWithExecutableContentURL4iTM3:executable ROR4iTM3];
 	}
     completeName = [aName stringByAppendingPathExtension:@"py"];
 	executable = [self URLForAuxiliaryExecutable:completeName];
 	if (executable.isFileURL) {
-		NSError * error = nil;
-		if(![self createSymbolicLinkWithExecutableContentURL4iTM3:executable error:&error]) {
-			[NSApp presentError:error];
-		}
-        return;
+        return [self createSymbolicLinkWithExecutableContentURL4iTM3:executable ROR4iTM3];
 	}
     completeName = [aName stringByAppendingPathExtension:@"lua"];
 	executable = [self URLForAuxiliaryExecutable:completeName];
 	if (executable.isFileURL) {
-		NSError * error = nil;
-		if(![self createSymbolicLinkWithExecutableContentURL4iTM3:executable error:&error]) {
-			[NSApp presentError:error];
-		}
-        return;
+        return [self createSymbolicLinkWithExecutableContentURL4iTM3:executable ROR4iTM3];
 	}
     completeName = [aName stringByAppendingPathExtension:@"sh"];
 	executable = [self URLForAuxiliaryExecutable:completeName];
 	if (executable.isFileURL) {
-		NSError * error = nil;
-		if(![self createSymbolicLinkWithExecutableContentURL4iTM3:executable error:&error]) {
-			[NSApp presentError:error];
-		}
-        return;
+        return [self createSymbolicLinkWithExecutableContentURL4iTM3:executable ROR4iTM3];
 	}
     completeName = aName;
 	executable = [self URLForAuxiliaryExecutable:completeName];
 	if (executable.isFileURL) {
-		NSError * error = nil;
-		if(![self createSymbolicLinkWithExecutableContentURL4iTM3:executable error:&error]) {
-			[NSApp presentError:error];
-		}
-        return;
+        return [self createSymbolicLinkWithExecutableContentURL4iTM3:executable ROR4iTM3];
 	}
     NSBundle * bundle = [iTM2TeXPEngineInspector classBundle4iTM3];
-    [NSApp presentError: [NSError errorWithDomain:iTM2TeXFoundationErrorDomain code:1
-            userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, bundle, ""), NSLocalizedDescriptionKey,
-                [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Missing executable %@ in bundle %@", iTM2LocalizedExtension, bundle, ""), aName, bundle], NSLocalizedFailureReasonErrorKey,
-                NSLocalizedStringFromTableInBundle(@"Reinstall iTeXMac2 and if it happens again, report a bug", iTM2LocalizedExtension, bundle, ""), NSLocalizedRecoverySuggestionErrorKey,
-                    nil]]];
-    LOG4iTM3(@".........  ERROR: Missing executable (bundle: %@, aName: %@, target, %@)...",
-        bundle, aName, executable);
+    OUTERROR4iTM3(1,([NSString stringWithFormat:@"Missing executable %@ in bundle %@",aName, bundle]), nil);
+    LOG4iTM3(@".........  ERROR: Missing executable (bundle: %@, aName: %@, target, %@)...", bundle, aName, executable);
 //END4iTM3;
-    return;
+    return isROR4iTM3;
 }
 @end
 
@@ -1408,7 +1375,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	INIT_POOL4iTM3;
 //START4iTM3;
-	[myBUNDLE installBinaryWithName:self.engineMode];
+	[myBUNDLE installBinaryWithName4iTM3:self.engineMode ROR4iTM3];
 //END4iTM3;
 	RELEASE_POOL4iTM3;
     return;

@@ -211,7 +211,7 @@ To Do List:
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] isPrivateFileAtPath4iTM3:path];
     BOOL result = NO;
 	// BEWARE, the didReadFromURL:ofType:methods are not called here because they do not have the appropriate signature!
-	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"IsPrivateFileAtPath4iTM3:" signature:[I methodSignature] inherited:YES];
+	NSPointerArray * PA = [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"IsPrivateFileAtPath4iTM3:" signature:I.methodSignature inherited:YES];
 	NSUInteger i = PA.count;
 	while (i--) {
         [I setSelector:(SEL)[PA pointerAtIndex:i]];

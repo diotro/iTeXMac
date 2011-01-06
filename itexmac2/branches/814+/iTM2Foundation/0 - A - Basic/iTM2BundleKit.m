@@ -334,7 +334,7 @@ To Do List:
 	return returnURL;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  createSymbolicLinkWithExecutableContentURL4iTM3:error:
-- (BOOL) createSymbolicLinkWithExecutableContentURL4iTM3:(NSURL *)executableURL error:(NSError **)errorRef;
+- (BOOL) createSymbolicLinkWithExecutableContentURL4iTM3:(NSURL *)executableURL error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Fri Jan 29 20:56:30 UTC 2010
@@ -346,23 +346,23 @@ To Do List:
         NSURL * binaryDirectoryURL = self.temporaryBinaryDirectoryURL4iTM3;
         NSURL * linkURL = [binaryDirectoryURL URLByAppendingPathComponent:executableURL.lastPathComponent];// no URLByStandardizingPath please
         NSString * path = linkURL.path;
-        if (([DFM fileExistsAtPath:path] || [DFM destinationOfSymbolicLinkAtPath:path error:errorRef])
-                && (![DFM isDeletableFileAtPath:path] || ![DFM removeItemAtPath:path error:errorRef])) {
-            if (errorRef && !*errorRef) {
-                * errorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
+        if (([DFM fileExistsAtPath:path] || [DFM destinationOfSymbolicLinkAtPath:path error:RORef])
+                && (![DFM isDeletableFileAtPath:path] || ![DFM removeItemAtPath:path error:RORef])) {
+            if (RORef && !*RORef) {
+                * RORef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
                     [NSDictionary dictionaryWithObjectsAndKeys:
                         NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, self.classBundle4iTM3, ""), NSLocalizedDescriptionKey,
                         [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT remove existing file at %@", iTM2LocalizedExtension, self.classBundle4iTM3, ""), link], NSLocalizedFailureReasonErrorKey,
                         [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Remove file at %@", iTM2LocalizedExtension, self.classBundle4iTM3, ""), link], NSLocalizedRecoverySuggestionErrorKey,
                             nil]];
             }
-        } else if ([DFM createSymbolicLinkAtPath:path withDestinationPath:executableURL.path error:errorRef]) {
+        } else if ([DFM createSymbolicLinkAtPath:path withDestinationPath:executableURL.path error:RORef]) {
             if (iTM2DebugEnabled) {
                 LOG4iTM3(@"INFO: new soft link from\n%@\nto %@...", link, executableURL.path);
             }
             return YES;
-        } else if (errorRef && !*errorRef) {
-            * errorRef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
+        } else if (RORef && !*RORef) {
+            * RORef = [NSError errorWithDomain:iTM2FoundationErrorDomain code:1 userInfo:
                 [NSDictionary dictionaryWithObjectsAndKeys:
                     NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, self.classBundle4iTM3, ""), NSLocalizedDescriptionKey,
                     [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, myBUNDLE, ""), link, executableURL.path], NSLocalizedFailureReasonErrorKey,

@@ -44,6 +44,18 @@
 			name = "Prepare ICU";
 			productName = "Prepare ICU";
 		};
+		5183F2AD12CACF04009C5B3F /* Prepare Embedded Tests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5183F2AF12CACF04009C5B3F /* Build configuration list for PBXAggregateTarget "Prepare Embedded Tests" */;
+			buildPhases = (
+				5183F2AE12CACF04009C5B3F /* ShellScript */,
+			);
+			dependencies = (
+				5183F3D912CB37E1009C5B3F /* PBXTargetDependency */,
+			);
+			name = "Prepare Embedded Tests";
+			productName = "Prepare Milestones";
+		};
 		5185E6DB126F89C100AFA001 /* Prepare Milestones */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 5185E6DE126F89E000AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
@@ -211,6 +223,12 @@
 		5160E1E110CE916300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E29810CE9ABF00476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E3C610CEBEC100476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
+		5183F0E312CA6388009C5B3F /* iTM2Test3C.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F0E212CA6388009C5B3F /* iTM2Test3C.m */; };
+		5183F0E412CA6388009C5B3F /* iTM2Test3C.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F0E212CA6388009C5B3F /* iTM2Test3C.m */; };
+		5183F3DD12CB3811009C5B3F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		5183F3DE12CB3811009C5B3F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
+		5183F3E812CB39A0009C5B3F /* EmbeddedTestsTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F3E712CB3937009C5B3F /* EmbeddedTestsTool.m */; };
+		5183F3E912CB39BC009C5B3F /* ICURegEx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 53C2525E1089E836002312DA /* ICURegEx.mm */; };
 		5185EB5A12701C8400AFA001 /* Deployment-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */; };
 		5185EB5B12701C8400AFA001 /* Development-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5712701C8400AFA001 /* Development-set.xcconfig */; };
 		5185EB5C12701C8400AFA001 /* DevelopmentGC.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5812701C8400AFA001 /* DevelopmentGC.xcconfig */; };
@@ -1512,6 +1530,27 @@
 			remoteGlobalIDString = 515C9691127106DD0000C5BB;
 			remoteInfo = "Prepare ICU";
 		};
+		5183F2C112CACF66009C5B3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5183F2AD12CACF04009C5B3F;
+			remoteInfo = "Prepare Dynamic Tests";
+		};
+		5183F3D812CB37E1009C5B3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5183F3CC12CB37C4009C5B3F;
+			remoteInfo = EmbeddedTestsTool;
+		};
+		5183F3EA12CB3A00009C5B3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 515C9691127106DD0000C5BB;
+			remoteInfo = "Prepare ICU";
+		};
 		5185E6DF126F89F400AFA001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1995,6 +2034,11 @@
 		5142191810988E0600A01853 /* iTM2StringControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StringControllerKit.m; sourceTree = "<group>"; };
 		515C95E01270DC8B0000C5BB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Test Application/English.lproj/iTeXMac2.xib"; sourceTree = "<group>"; };
 		5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
+		5183F0E112CA6388009C5B3F /* iTM2Test3C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test3C.h; sourceTree = "<group>"; };
+		5183F0E212CA6388009C5B3F /* iTM2Test3C.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test3C.m; sourceTree = "<group>"; };
+		5183F3CD12CB37C4009C5B3F /* EmbeddedTestsTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EmbeddedTestsTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		5183F3E712CB3937009C5B3F /* EmbeddedTestsTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmbeddedTestsTool.m; sourceTree = "<group>"; };
+		5183F9D812CC076E009C5B3F /* iTM2FoundationTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM2FoundationTestCases.m; path = ../build/EmbeddedTestCases/iTM2FoundationTestCases.m; sourceTree = SOURCE_ROOT; };
 		5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
 		5185EB5712701C8400AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
 		5185EB5812701C8400AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
@@ -2405,6 +2449,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5183F3CB12CB37C4009C5B3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5183F3DD12CB3811009C5B3F /* Cocoa.framework in Frameworks */,
+				5183F3DE12CB3811009C5B3F /* libicucore.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51D7FDFC12987886009C0707 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2694,6 +2747,7 @@
 				5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */,
 				51FFE063127C648D0014BE72 /* iTM2Test6.octest */,
 				51D7FE0612987886009C0707 /* iTM2Test6.octest */,
+				5183F3CD12CB37C4009C5B3F /* EmbeddedTestsTool */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2723,10 +2777,10 @@
 				DCC7F7F70854BBEE00F3EB8A /* iTM2Foundation Test-Info.plist */,
 				DC25E43C0991F6B900545F27 /* Unit Tests */,
 				DC3B41C40A4ADEA400E83ABA /* Settings */,
-				DC6698AC08E128A2004FCA6D /* iTM2PreferenceTemplate-Info.plist */,
 				DC25E42F0991F5F000545F27 /* iTM2TaskKit Test-Info.plist */,
 				DCB0A00B09AEF96E00D2A37C /* Alias Test-Info.plist */,
 				DC99ECBF0A284EA800F50752 /* Project-Info.plist */,
+				DC6698AC08E128A2004FCA6D /* iTM2PreferenceTemplate-Info.plist */,
 				53767F7810887003007CCC1E /* iTM2NotificationKitTest-Info.plist */,
 				DCAD227F0C144931005549DC /* ICU RegEx test-Info.plist */,
 				DCC7F7F90854BBEE00F3EB8A /* Test Application */,
@@ -2927,6 +2981,8 @@
 		DC25E43C0991F6B900545F27 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				5183F3E712CB3937009C5B3F /* EmbeddedTestsTool.m */,
+				5183F9D812CC076E009C5B3F /* iTM2FoundationTestCases.m */,
 				51D1D48A1196037000BC8256 /* Sandbox */,
 				513EDA6411943CBA0069EFCA /* iTM3SenTestKit.h */,
 				513EDA6511943CBA0069EFCA /* iTM3SenTestKit.m */,
@@ -2960,6 +3016,8 @@
 				5338F20E108F5A9000842A70 /* iTM2Test3A.m */,
 				5113C2ED11731BBE00F6D951 /* iTM2Test3B.h */,
 				5113C2EC11731BBE00F6D951 /* iTM2Test3B.m */,
+				5183F0E112CA6388009C5B3F /* iTM2Test3C.h */,
+				5183F0E212CA6388009C5B3F /* iTM2Test3C.m */,
 				5338F20F108F5A9000842A70 /* iTM2Test4.h */,
 				5338F210108F5A9000842A70 /* iTM2Test4.m */,
 				5338F211108F5A9000842A70 /* iTM2Test5.h */,
@@ -3366,6 +3424,23 @@
 			productReference = 5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
+		5183F3CC12CB37C4009C5B3F /* EmbeddedTestsTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5183F3DA12CB37FF009C5B3F /* Build configuration list for PBXNativeTarget "EmbeddedTestsTool" */;
+			buildPhases = (
+				5183F3CA12CB37C4009C5B3F /* Sources */,
+				5183F3CB12CB37C4009C5B3F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5183F3EB12CB3A00009C5B3F /* PBXTargetDependency */,
+			);
+			name = EmbeddedTestsTool;
+			productName = EmbeddedTestsTool;
+			productReference = 5183F3CD12CB37C4009C5B3F /* EmbeddedTestsTool */;
+			productType = "com.apple.product-type.tool";
+		};
 		51D7FDA812987886009C0707 /* iTM2Test7 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 51D7FE0312987886009C0707 /* Build configuration list for PBXNativeTarget "iTM2Test7" */;
@@ -3705,6 +3780,7 @@
 			dependencies = (
 				DCB1D93D0B4EACDB00B0704A /* PBXTargetDependency */,
 				5185E6E2126F8A1600AFA001 /* PBXTargetDependency */,
+				5183F2C212CACF66009C5B3F /* PBXTargetDependency */,
 				515C96CB12710B1B0000C5BB /* PBXTargetDependency */,
 			);
 			name = iTM2Foundation;
@@ -4024,6 +4100,7 @@
 				53F81EA21086742B0000F555 /* Test Application debug */,
 				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
 				5185E6DB126F89C100AFA001 /* Prepare Milestones */,
+				5183F2AD12CACF04009C5B3F /* Prepare Embedded Tests */,
 				515C9691127106DD0000C5BB /* Prepare ICU */,
 				DC0F125B0BFB74CA00108852 /* Prepare Lua */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
@@ -4041,6 +4118,7 @@
 				DC951796088DED4B0011E823 /* iTeXMac2 */,
 				DC8303B6086E9DA2004799EB /* Scripting Definition */,
 				DC6698AA08E1289F004FCA6D /* iTM2PreferencePane */,
+				5183F3CC12CB37C4009C5B3F /* EmbeddedTestsTool */,
 				DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */,
 				DCB0A00909AEF96E00D2A37C /* Alias Test */,
 				DCAD22750C144930005549DC /* ICU RegEx test */,
@@ -4533,6 +4611,22 @@
 			shellScript = "# shell script goes here\ncd \"${PROJECT_DIR}/../ICU\"\nif ! [ -d \"icu\" ]\nthen\n\tunzip -oq icu.zip\nfi\nexit 0";
 			showEnvVarsInLog = 0;
 		};
+		5183F2AE12CACF04009C5B3F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/3 - Style/iTM2TextStorageKit.m",
+			);
+			outputPaths = (
+				"$(BUILD_ROOT)/EmbeddedTestCases/$(PROJECT_NAME)TestCases.m",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}\"\n\"${BUILD_ROOT}/EmbeddedTestsTool\" \"${PROJECT_DIR}\" \"${BUILD_ROOT}/EmbeddedTestCases/\"\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}... DONE\"\nexit 0\n";
+			showEnvVarsInLog = 0;
+		};
 		5185E6DA126F89C100AFA001 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4541,10 +4635,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
+				"$(BUILD_ROOT)/Milestones/$(PRODUCT_NAME)MileStones.m",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}\"\nexit 0\n";
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}/Milestones\"\nexit 0\n";
 			showEnvVarsInLog = 0;
 		};
 		51D7FE0212987886009C0707 /* ShellScript */ = {
@@ -5058,6 +5153,15 @@
 				5113C2D211731B7600F6D951 /* iTM2TextStorageKit.m in Sources */,
 				5113C2D311731B7600F6D951 /* iTM2TextStyleEditionKit.m in Sources */,
 				5113C2EE11731BBE00F6D951 /* iTM2Test3B.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5183F3CA12CB37C4009C5B3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5183F3E812CB39A0009C5B3F /* EmbeddedTestsTool.m in Sources */,
+				5183F3E912CB39BC009C5B3F /* ICURegEx.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5848,6 +5952,7 @@
 				5338FC091090BC1700842A70 /* iTM2InstallationKit.m in Sources */,
 				53F81FA2108677450000F555 /* Test Application debug-main.m in Sources */,
 				51D7FD81129877C6009C0707 /* iTM2Test7.m in Sources */,
+				5183F0E412CA6388009C5B3F /* iTM2Test3C.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5944,6 +6049,7 @@
 				51D1D19D1195247600BC8256 /* iTM2Test5.m in Sources */,
 				51FFE075127C65940014BE72 /* iTM2Test6.m in Sources */,
 				51D7FD80129877C6009C0707 /* iTM2Test7.m in Sources */,
+				5183F0E312CA6388009C5B3F /* iTM2Test3C.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6066,6 +6172,21 @@
 			isa = PBXTargetDependency;
 			target = 515C9691127106DD0000C5BB /* Prepare ICU */;
 			targetProxy = 515C96CC12710B270000C5BB /* PBXContainerItemProxy */;
+		};
+		5183F2C212CACF66009C5B3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5183F2AD12CACF04009C5B3F /* Prepare Embedded Tests */;
+			targetProxy = 5183F2C112CACF66009C5B3F /* PBXContainerItemProxy */;
+		};
+		5183F3D912CB37E1009C5B3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5183F3CC12CB37C4009C5B3F /* EmbeddedTestsTool */;
+			targetProxy = 5183F3D812CB37E1009C5B3F /* PBXContainerItemProxy */;
+		};
+		5183F3EB12CB3A00009C5B3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 515C9691127106DD0000C5BB /* Prepare ICU */;
+			targetProxy = 5183F3EA12CB3A00009C5B3F /* PBXContainerItemProxy */;
 		};
 		5185E6E0126F89F400AFA001 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6699,6 +6820,88 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Prepare ICU";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		5183F2B012CACF04009C5B3F /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lgcov",
+				);
+				PRODUCT_NAME = "Prepare Milestones";
+			};
+			name = Development;
+		};
+		5183F2B112CACF04009C5B3F /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare Milestones";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		5183F3CF12CB37C5009C5B3F /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../ICU/icu/source/common",
+					"$(SRCROOT)/../ICU/icu/source/il8n",
+				);
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = EmbeddedTestsTool;
+			};
+			name = Development;
+		};
+		5183F3D012CB37C5009C5B3F /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../ICU/icu/source/common",
+					"$(SRCROOT)/../ICU/icu/source/il8n",
+				);
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = EmbeddedTestsTool;
 				ZERO_LINK = NO;
 			};
 			name = Deployment;
@@ -7784,6 +7987,7 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				HEADER_SEARCH_PATHS = (
+					"$(BUILD_DIR)",
 					"$(BUILD_DIR)/Lua.framework/Headers",
 					"$(SRCROOT)/../ICU/icu/source/common",
 					"$(SRCROOT)/../ICU/icu/source/i18n",
@@ -7802,6 +8006,7 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				HEADER_SEARCH_PATHS = (
+					"$(BUILD_DIR)",
 					"$(BUILD_DIR)/Lua.framework/Headers",
 					"$(SRCROOT)/../ICU/icu/source/common",
 					"$(SRCROOT)/../ICU/icu/source/i18n",
@@ -8502,6 +8707,24 @@
 			buildConfigurations = (
 				515C9692127106DD0000C5BB /* Development */,
 				515C9693127106DD0000C5BB /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		5183F2AF12CACF04009C5B3F /* Build configuration list for PBXAggregateTarget "Prepare Embedded Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5183F2B012CACF04009C5B3F /* Development */,
+				5183F2B112CACF04009C5B3F /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		5183F3DA12CB37FF009C5B3F /* Build configuration list for PBXNativeTarget "EmbeddedTestsTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5183F3CF12CB37C5009C5B3F /* Development */,
+				5183F3D012CB37C5009C5B3F /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

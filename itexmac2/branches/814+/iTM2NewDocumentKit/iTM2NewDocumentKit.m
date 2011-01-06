@@ -1010,11 +1010,11 @@ To Do List:
 							tag:nil])
 		{
             NSError * ROR = nil;
-			[self createInAlreadyExistingProjectNewDocumentWithURL:URL error:&ROR]
-			|| [self createNewWrapperAndProjectWithURL:URL error:&ROR]// create a new wrapper and the new included project, if relevant
-			|| [self createNewWrapperWithURL:URL error:&ROR]// create a new wrapper assuming that the included project will come for free
-			|| [self createInNewProjectNewDocumentWithURL:URL error:&ROR]// create a new project if relevant, but no wrapper
-			|| [self createInOldProjectNewDocumentWithURL:URL error:&ROR];// just insert the main file in the project if relevant
+			[self createInAlreadyExistingProjectNewDocumentWithURL:URL error:self.RORef4iTM3]
+			|| [self createNewWrapperAndProjectWithURL:URL error:self.RORef4iTM3]// create a new wrapper and the new included project, if relevant
+			|| [self createNewWrapperWithURL:URL error:self.RORef4iTM3]// create a new wrapper assuming that the included project will come for free
+			|| [self createInNewProjectNewDocumentWithURL:URL error:self.RORef4iTM3]// create a new project if relevant, but no wrapper
+			|| [self createInOldProjectNewDocumentWithURL:URL error:self.RORef4iTM3];// just insert the main file in the project if relevant
 			if (ROR) {
                 REPORTERROR4iTM3(2,@"There was a problem creating the new document",ROR);
             }

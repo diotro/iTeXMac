@@ -3162,7 +3162,7 @@ To Do List:
 	[super drawPage:page];
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] drawPage:page];
-	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteDrawPage4iTM3:" signature:[I methodSignature] inherited:YES]];
+	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteDrawPage4iTM3:" signature:I.methodSignature inherited:YES]];
 //END4iTM3;
     return;
 }
@@ -8900,25 +8900,25 @@ To Do List:
 + (void)preparePDFKitCompleteInstallation4iTM3;
 {
     NSError * ROR = nil;
-	if ([PDFDocument swizzleClassMethodSelector4iTM3:@selector(SWZ_iTM2_alloc) error:&ROR]
-            && [PDFDocument swizzleClassMethodSelector4iTM3:@selector(SWZ_iTM2_allocWithZone:) error:&ROR]) {
+	if ([PDFDocument swizzleClassMethodSelector4iTM3:@selector(SWZ_iTM2_alloc) error:self.RORef4iTM3]
+            && [PDFDocument swizzleClassMethodSelector4iTM3:@selector(SWZ_iTM2_allocWithZone:) error:self.RORef4iTM3]) {
 		MILESTONE4iTM3((@"PDFDocument alloc(...:)"),(@"No patch available for PDFKit's alloc and allocWithZone:"));
 	} else if(ROR) {
         LOG4iTM3(@"ERROR:%@",ROR);
     }
-	if ([PDFView swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_keyDown:) error:&ROR]) {
+	if ([PDFView swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_keyDown:) error:self.RORef4iTM3]) {
 		MILESTONE4iTM3((@"PDFKit keyDown:"),(@"No patch available for PDFKit's keyDown:"));
 	} else if(ROR) {
         LOG4iTM3(@"ERROR:%@",ROR);
     }
 	if (![SUD boolForKey:@"iTM2NOPDFPageCharacterIndexAtPointFix"]) {
-		if ([PDFPage swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_characterIndexAtPoint:) error:&ROR]) {
+		if ([PDFPage swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_characterIndexAtPoint:) error:self.RORef4iTM3]) {
 			MILESTONE4iTM3((@"PDFPage(iTM2SyncKit)"),(@"No patch available for PDFPage's characterIndexAtPoint:"));
 		} else if(ROR) {
             LOG4iTM3(@"ERROR:%@",ROR);
         }
 	}
-	if ([iTM2PDFDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2PDFKit_init) error:&ROR]) {
+	if ([iTM2PDFDocument swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2PDFKit_init) error:self.RORef4iTM3]) {
 		MILESTONE4iTM3((@"iTM2PDFDocument(Cluster)"),(@"WARNING:No hook available to init Tiger aware PDF documents..."));
 	} else if(ROR) {
         LOG4iTM3(@"ERROR:%@",ROR);

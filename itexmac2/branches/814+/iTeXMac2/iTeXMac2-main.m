@@ -271,16 +271,16 @@ To Do List:
     BOOL yorn = NO;
     NSError * ROR = nil;
     NSAssert(([DFM fileExistsAtPath:url.path isDirectory:&yorn] && yorn)
-        || [DFM createDirectoryAtPath:url.path withIntermediateDirectories:YES attributes:nil error:&ROR],@"MISSED");
-    NSString * theType = [SDC typeForContentsOfURL:url error:&ROR];
+        || [DFM createDirectoryAtPath:url.path withIntermediateDirectories:YES attributes:nil error:self.RORef4iTM3],@"MISSED");
+    NSString * theType = [SDC typeForContentsOfURL:url error:self.RORef4iTM3];
     CFDictionaryRef D = UTTypeCopyDeclaration((CFStringRef) theType);
     CFURLRef URL = UTTypeCopyDeclaringBundleURL((CFStringRef) theType);
     LOG4iTM3(@"Type:%@\nDeclaration:%@,from bundle:%@",theType,D,URL);
     NSAssert([theType conformsToUTType4iTM3:iTM2UTTypeTeXWrapper] || [theType conformsToUTType4iTM3:iTM3UTTypeTeXWrapper],@"MISSED TeX Wrapper");
     url = [tempURL URLByAppendingPathComponent:@"foo.texp"];
     NSAssert(([DFM fileExistsAtPath:url.path isDirectory:&yorn] && yorn)
-        || [DFM createDirectoryAtPath:url.path withIntermediateDirectories:YES attributes:nil error:&ROR],@"MISSED");
-    theType = [SDC typeForContentsOfURL:url error:&ROR];
+        || [DFM createDirectoryAtPath:url.path withIntermediateDirectories:YES attributes:nil error:self.RORef4iTM3],@"MISSED");
+    theType = [SDC typeForContentsOfURL:url error:self.RORef4iTM3];
     D = UTTypeCopyDeclaration((CFStringRef) theType);
     URL = UTTypeCopyDeclaringBundleURL((CFStringRef) theType);
     LOG4iTM3(@"Type:%@\nDeclaration:%@,from bundle:%@",theType,D,URL);

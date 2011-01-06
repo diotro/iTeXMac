@@ -463,7 +463,7 @@ extern NSString * const iTM2RegExpURLFragmentName;
 
 - (NSURL *)URLByResolvingSymlinksAndFinderAliasesInPath4iTM3;
 
-- (NSURL *)URLByResolvingSymlinksAndBookmarkDataWithOptions:(NSURLBookmarkResolutionOptions)options relativeToURL:(NSURL *)relativeURL error4iTM3:(NSError **)errorRef;
+- (NSURL *)URLByResolvingSymlinksAndBookmarkDataWithOptions:(NSURLBookmarkResolutionOptions)options relativeToURL:(NSURL *)relativeURL error4iTM3:(NSError **)RORef;
 
 - (NSURL *)URLByDeletingParentLastPathComponent4iTM3;
 
@@ -482,95 +482,95 @@ extern NSString * const iTM2RegExpURLFragmentName;
 
 - (NSURL *)standardizedURL4iTM3;
 
-- (NSString *) name4iTM3Error:(NSError**)errorRef;
+- (NSString *) name4iTM3Error:(NSError**)RORef;
 
-- (NSString *) localizedName4iTM3Error:(NSError**)errorRef;
+- (NSString *) localizedName4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isRegularFile4iTM3Error:(NSError**)errorRef;
+- (BOOL) isRegularFile4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isDirectory4iTM3Error:(NSError**)errorRef;
+- (BOOL) isDirectory4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isSymbolicLink4iTM3Error:(NSError**)errorRef;
+- (BOOL) isSymbolicLink4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isVolume4iTM3Error:(NSError**)errorRef;
+- (BOOL) isVolume4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isPackage4iTM3Error:(NSError**)errorRef;
+- (BOOL) isPackage4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isSystemImmutable4iTM3Error:(NSError**)errorRef;
+- (BOOL) isSystemImmutable4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isUserImmutable4iTM3Error:(NSError**)errorRef;
+- (BOOL) isUserImmutable4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isHidden4iTM3Error:(NSError**)errorRef;
+- (BOOL) isHidden4iTM3Error:(NSError**)RORef;
 
-- (BOOL) hasHiddenExtension4iTM3Error:(NSError**)errorRef;
+- (BOOL) hasHiddenExtension4iTM3Error:(NSError**)RORef;
 
-- (NSDate *) creationDate4iTM3Error:(NSError**)errorRef;
+- (NSDate *) creationDate4iTM3Error:(NSError**)RORef;
 
-- (NSDate *) contentAccessDate4iTM3Error:(NSError**)errorRef;
+- (NSDate *) contentAccessDate4iTM3Error:(NSError**)RORef;
 
-- (NSDate *) contentModificationDate4iTM3Error:(NSError**)errorRef;
+- (NSDate *) contentModificationDate4iTM3Error:(NSError**)RORef;
 
-- (NSDate *) attributeModificationDate4iTM3Error:(NSError**)errorRef;
+- (NSDate *) attributeModificationDate4iTM3Error:(NSError**)RORef;
 
-- (NSUInteger) linkCount4iTM3Error:(NSError**)errorRef;
+- (NSUInteger) linkCount4iTM3Error:(NSError**)RORef;
 
-- (NSURL *) parentDirectoryURL4iTM3Error:(NSError**)errorRef;
+- (NSURL *) parentDirectoryURL4iTM3Error:(NSError**)RORef;
 
-- (NSURL *) volumeURL4iTM3Error:(NSError**)errorRef;
+- (NSURL *) volumeURL4iTM3Error:(NSError**)RORef;
 
-- (NSString *) typeIdentifier4iTM3Error:(NSError**)errorRef;
+- (NSString *) typeIdentifier4iTM3Error:(NSError**)RORef;
 
-- (NSString *) localizedTypeDescription4iTM3Error:(NSError**)errorRef;
+- (NSString *) localizedTypeDescription4iTM3Error:(NSError**)RORef;
 
-- (NSUInteger) labelNumber4iTM3Error:(NSError**)errorRef;
+- (NSUInteger) labelNumber4iTM3Error:(NSError**)RORef;
 
-- (NSColor *) labelColor4iTM3Error:(NSError**)errorRef;
+- (NSColor *) labelColor4iTM3Error:(NSError**)RORef;
 
-- (NSString *) localizedLabel4iTM3Error:(NSError**)errorRef;
+- (NSString *) localizedLabel4iTM3Error:(NSError**)RORef;
 
-- (NSImage *) effectiveIcon4iTM3Error:(NSError**)errorRef;
+- (NSImage *) effectiveIcon4iTM3Error:(NSError**)RORef;
 
-- (NSImage *) customIcon4iTM3Error:(NSError**)errorRef;
+- (NSImage *) customIcon4iTM3Error:(NSError**)RORef;
 
 
 /* File Properties 
 */
-- (NSUInteger) fileSize4iTM3Error:(NSError**)errorRef;
+- (NSUInteger) fileSize4iTM3Error:(NSError**)RORef;
 
-- (NSUInteger) fileAllocatedSize4iTM3Error:(NSError**)errorRef;
+- (NSUInteger) fileAllocatedSize4iTM3Error:(NSError**)RORef;
 
-- (BOOL) isAliasFile4iTM3Error:(NSError**)errorRef;
+- (BOOL) isAliasFile4iTM3Error:(NSError**)RORef;
 
 /* Volume Properties
 
 As a convenience, volume properties can be requested from any file system URL. The value returned will reflect the property value for the volume on which the resource is located.
 */
-- (NSString *) volumeLocalizedFormatDescription4iTM3Error:(NSError**)errorRef;
+- (NSString *) volumeLocalizedFormatDescription4iTM3Error:(NSError**)RORef;
 
-- (NSUInteger) volumeTotalCapacity4iTM3Error:(NSError**)errorRef;
+- (NSUInteger) volumeTotalCapacity4iTM3Error:(NSError**)RORef;
 
-- (NSUInteger) volumeAvailableCapacity4iTM3Error:(NSError**)errorRef;
+- (NSUInteger) volumeAvailableCapacity4iTM3Error:(NSError**)RORef;
 
-- (NSUInteger) volumeResourceCount4iTM3Error:(NSError**)errorRef;
+- (NSUInteger) volumeResourceCount4iTM3Error:(NSError**)RORef;
 
 #if ZERO
-- (BOOL) volumeSupportsPersistentIDs4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsPersistentIDs4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeSupportsZeroRuns4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsZeroRuns4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeSupportsCasePreservedNames4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsCasePreservedNames4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeSupportsHardLinks4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsHardLinks4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeIsJournaling4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeIsJournaling4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeSupportsCaseSensitiveNames4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsCaseSensitiveNames4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeSupportsSymbolicLinks4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsSymbolicLinks4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeSupportsJournaling4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsJournaling4iTM3Error:(NSError**)RORef;
 
-- (BOOL) volumeSupportsSparseFiles4iTM3Error:(NSError**)errorRef;
+- (BOOL) volumeSupportsSparseFiles4iTM3Error:(NSError**)RORef;
 
 #endif
 

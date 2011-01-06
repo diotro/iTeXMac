@@ -352,7 +352,7 @@ To Do List: see the warning below
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * projectName  = [self getProjectNameFromContext:context];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName] error:NULL];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
@@ -378,7 +378,7 @@ To Do List: see the warning below
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * projectName  = [self getProjectNameFromContext:context];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
+	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName] error:NULL];
 	NSMutableArray * RA = [NSMutableArray array];
 	NSString * argument = [self getFileNameFromContext:context];
 	if (argument.length) {
@@ -415,7 +415,7 @@ To Do List: see the warning below
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSString * projectName  = [self getProjectNameFromContext:context];
-	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName]];
+    NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName] error:NULL];
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
@@ -730,12 +730,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * fileName = [self getFileNameFromContext:context];
-	id PD = [SPC projectForSource:fileName];
+    NSError * ROR = nil;
+	id PD = [SPC projectForSource:fileName error:&ROR];
 	if(!PD)
 	{
-		NSError * ROR = nil;
 		NSString * projectName = [self getProjectNameFromContext:context];
-		PD = [SPC projectForSource:projectName];
+		PD = [SPC projectForSource:projectName error:&ROR];
 		if(!PD)
 		{
 			NSURL * url = nil;
@@ -743,7 +743,7 @@ To Do List:
 			{
 				url = [NSURL fileURLWithPath:projectName];
 				PD = [SDC openDocumentWithContentsOfURL:url display:YES error:&ROR];
-				[PD createNewFileKeyForURL:[NSURL fileURLWithPath:fileName] save:YES];
+				[PD createNewFileKeyForURL:[NSURL fileURLWithPath:fileName] save:YES error:&ROR];
 			}
 			else
 			{
@@ -811,12 +811,13 @@ To Do List: see the warning below
 #if __iTM2_Server_Test__
     LOG4iTM3(@"arguments: %@", arguments);
 #else
+    NSError * ROR = nil;
     NSString * fileName = [self getFileNameFromContext:context];
 	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
 	id doc = [SDC documentForURL:fileURL];
 	if(!doc)
 	{
-		iTM2ProjectDocument * PD = [SPC projectForURL:fileURL];
+		iTM2ProjectDocument * PD = [SPC projectForURL:fileURL error:&ROR];
 		NSError * ROR = nil;
 		if(!PD)
 		{
@@ -824,7 +825,7 @@ To Do List: see the warning below
 			if(projectName.length)
 			{
 				NSURL * projectURL = [NSURL fileURLWithPath:projectName];
-				PD = [SPC projectForURL:projectURL];
+				PD = [SPC projectForURL:projectURL error:&ROR];
 				if(!PD)
 				{
 					PD = [SDC openDocumentWithContentsOfURL:projectURL display:NO error:&ROR];
@@ -834,13 +835,13 @@ To Do List: see the warning below
 //END4iTM3;
 						return;
 					}
-					[PD createNewFileKeyForURL:fileURL save:YES];
+					[PD createNewFileKeyForURL:fileURL save:YES error:&ROR];
 					[PD makeDefaultInspector];
 					[PD showWindowsBelowFront:self];
 				}
 			}
 		}
-		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:nil];
+		doc = [SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
 	}
 	BOOL dontOrderFront = [self getDontOrderFrontFromContext:context];
 	NSUInteger line = [self getLineFromContext:context];
@@ -905,7 +906,7 @@ To Do List: see the warning below
 #else
     NSString * fileName = [self getFileNameFromContext:context];
 	if(!fileName.length) {
-		REPORTERROR4iTM3(1,@"Error in iTeXMac2 server invocation: the \"edit\" verb requires a \"-file foo\".",nil);
+		REPORTERRORINMAINTHREAD4iTM3 (1,@"Error in iTeXMac2 server invocation: the \"edit\" verb requires a \"-file foo\".",nil);
 	}
 	NSURL * fileURL = [NSURL fileURLWithPath:fileName];
 	NSUInteger line = [self getLineFromContext:context];
@@ -950,7 +951,7 @@ To Do List: see the warning below
     LOG4iTM3(@"context: %@", context);
 #else
     NSString * reason = [self getReasonFromContext:context];
-	REPORTERROR4iTM3(1,reason,nil);
+	REPORTERRORINMAINTHREAD4iTM3(1,reason,nil);
 #endif
 //END4iTM3;
     return;
@@ -1018,11 +1019,12 @@ To Do List: None
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSString * projectName = [self getProjectNameFromContext:context];
-	iTM2TeXProjectDocument * PD = [SPC projectForSource:projectName];
-	if(!PD)
-	{
+    NSError * ROR = nil;
+	iTM2TeXProjectDocument * PD = [SPC projectForSource:projectName error:&ROR];
+	if (!PD) {
 //END4iTM3;
-		return;
+        REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
+        return;
 	}
 	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
@@ -1080,7 +1082,7 @@ To Do List: None
 + (void)openPerformedWithContext:(NSDictionary *)context;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
+Révisé par itexmac2: 2010-12-05 18:36:57 +0100
 To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
@@ -1091,44 +1093,23 @@ To Do List: see the warning below
     NSString * projectName = [self getProjectNameFromContext:context];
     NSString * fileName = [self getFileNameFromContext:context];
 	NSURL * fileURL = nil;
-	NSError * ROR = nil;
-	if(projectName.length)
-	{
+    NSError * ROR = nil;
+	if (projectName.length) {
 		NSURL * projectURL = [NSURL fileURLWithPath:projectName];
 		id projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&ROR];
-		if(ROR)
-		{
-			[SDC presentError:ROR];
-//END4iTM3;
-			return;
-		}
-		if(fileName.length)
-		{
+		if (fileName.length) {
 			fileURL = [NSURL fileURLWithPath:fileName];
-			[projectDocument createNewFileKeyForURL:fileURL save:YES];
+			[projectDocument createNewFileKeyForURL:fileURL save:YES error:&ROR];
 			[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
-			if(ROR)
-			{
-				[SDC presentError:ROR];
-//END4iTM3;
-				return;
-			}
-//END4iTM3;
+            REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
 			return;
 		}
-	}
-	else if(fileName.length)
-	{
+	} else if (fileName.length) {
 		fileURL = [NSURL fileURLWithPath:fileName];
 		[SDC openDocumentWithContentsOfURL:fileURL display:YES error:&ROR];
-		if(ROR)
-		{
-			[SDC presentError:ROR];
-//END4iTM3;
-			return;
-		}
 	}
 #endif
+    REPORTERRORINMAINTHREAD4iTM3(2,@"",ROR);
 //END4iTM3;
     return;
 }
@@ -1146,12 +1127,12 @@ To Do List: see the warning below
 #else
     NSString * projectName = [self getProjectNameFromContext:context];
     NSArray * fileNames = [self getFileNamesFromContext:context];
-	NSError * ROR = nil;
 	NSString * fileName = nil;
 	NSURL * fileURL = nil;
 	NSURL * projectURL = nil;
 	NSDocument * document = nil;
 	iTM2ProjectDocument * PD = nil;
+    NSError * ROR = nil;
 	if([self getDontOrderFrontFromContext:context]) {
 		// just register the document for the project,
 		// update the contents if the document is on screen
@@ -1182,9 +1163,9 @@ To Do List: see the warning below
             REPORTERRORINMAINTHREAD4iTM3(6,@"",ROR);
 			[document showWindowsBelowFront:self];
 		} else {
-			if(!(PD = [SPC projectForURL:fileURL])) {
+			if(!(PD = [SPC projectForURL:fileURL error:&ROR])) {
 				projectURL = [NSURL fileURLWithPath:projectName];
-				if(!(PD = [SPC projectForURL:projectURL])) {
+				if(!(PD = [SPC projectForURL:projectURL error:&ROR])) {
 					PD = [SDC openDocumentWithContentsOfURL:projectURL display:YES error:&ROR];
                     REPORTERRORINMAINTHREAD4iTM3(7,@"",ROR);
 				}
@@ -1226,7 +1207,7 @@ To Do List: see the warning below
 		for (fileName in fileNames) {
 			fileURL = [NSURL fileURLWithPath:fileName];
 			if ((document = [SDC documentForURL:fileURL])) {
-				[document updateIfNeeded4iTM3:&ROR];
+				[document updateIfNeeded4iTM3Error:&ROR];
                 REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
 			}
 		}
@@ -1249,7 +1230,7 @@ To Do List: see the warning below
                     REPORTERRORINMAINTHREAD4iTM3(5,@"",ROR);
 				}
 			}
-			if ((document == [PD subdocumentForURL:fileURL])) {
+			if ((document == [PD subdocumentForURL:fileURL error:&ROR])) {
                 [document updateIfNeeded4iTM3Error:&ROR];
                 REPORTERRORINMAINTHREAD4iTM3(6,@"",ROR);
             }

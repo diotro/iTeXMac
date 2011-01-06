@@ -7,7 +7,7 @@
     #import <Cocoa/Cocoa.h>
 //    #import "/Developer/SDKs/MacOSX10.2.8.sdk/System/Library/Frameworks/Carbon.framework/Headers/Carbon.h"
     #import <Carbon/Carbon.h>
-    #import <OgreKit/OgreKit.h>
+//    #import <OgreKit/OgreKit.h>
     #import <iTM2Foundation/iTM2Foundation.h>
     #import "iTM2TeXFoundationErrors.h"
 #endif

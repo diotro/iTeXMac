@@ -1961,9 +1961,9 @@ To Do List:
 #warning THE TEX PROJECT MUST OVERRIDE THIS METHOD TO ADD ITS OWN STUFF
 //LOG4iTM3(@"complete self.environment:%@", self.environment);
 	id context4iTM3Manager = ((id)self.delegate?:((id)sender?:(id)SUD));
-    [self prependPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
-    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
-    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHSuffixKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3]];
+    [self prependPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHPrefixKey domain:iTM2ContextAllDomainsMask ROR4iTM3]];
+    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHDomainX11BinariesKey domain:iTM2ContextAllDomainsMask ROR4iTM3]];
+    [self appendPATHComponent:[context4iTM3Manager context4iTM3ValueForKey:iTM2PATHSuffixKey domain:iTM2ContextAllDomainsMask ROR4iTM3]];
     [self setEnvironmentString:NSBundle.mainBundle.defaultWritableFolderURL4iTM3.path forKey:@"iTM2WritableFolderPATH"];
     id truc = self;
     NSInvocation * I = [self.implementation metaValueForKey:iTM2TaskLaunchInvocationKey];

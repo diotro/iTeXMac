@@ -337,9 +337,9 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-#if __iTM2_DEVELOPMENT__
-printf("Currently validating: %s from document %s in zone %#x\n", [self.title lossyCString],
-	[[self.windowController.document description] lossyCString], (NSUInteger)self.zone);
+#if __iTM3_DEVELOPMENT__
+printf("Currently validating: %s from document %s in zone %#lx\n", [self.title UTF8String],
+	[[[self.windowController document] description] UTF8String], (NSUInteger)self.zone);
 #endif
 //START4iTM3;
     BOOL flag = [self.contentView validateUserInterfaceItems4iTM3];

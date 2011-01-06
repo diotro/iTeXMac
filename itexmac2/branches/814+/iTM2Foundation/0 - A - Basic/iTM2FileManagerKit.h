@@ -166,7 +166,7 @@ extern NSString * const iTM2SoftLinkExtension;
  @param		error will contain an error description if non void and if the return value is nil.
  @result	A dictionary of attributes. 
  */
-- (NSDictionary *)attributesOfItemOrDestinationOfSymbolicLinkAtURL4iTM3:(NSURL *)url error:(NSError **)errorRef;
+- (NSDictionary *)attributesOfItemOrDestinationOfSymbolicLinkAtURL4iTM3:(NSURL *)url error:(NSError **)RORef;
 
 @end
 

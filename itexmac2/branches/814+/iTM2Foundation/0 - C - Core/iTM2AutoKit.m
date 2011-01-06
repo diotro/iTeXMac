@@ -359,7 +359,7 @@ To Do List:
                     D.fileURL);
         } else {
             NSError * ROR = nil;
-            [D updateIfNeeded4iTM3Error:&ROR];
+            [D updateIfNeeded4iTM3Error:self.RORef4iTM3];
             REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
         }
     }

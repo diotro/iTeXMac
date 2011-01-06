@@ -57,8 +57,7 @@ To Do List:
 //START4iTM3;
 //    NSString * mode = [self.project spellingModeForFileKey:[self.project fileKeyForURL:[[[text.window windowController] document] fileName]]];
 	NSString * mode = nil;
-    if(![self spellContextForMode:mode])
-    {
+    if (![self spellContextForMode:mode]) {
         mode = [self SWZ_iTM2TeX_spellContextModeForText:text];
     }
 //END4iTM3;
@@ -170,8 +169,8 @@ To Do List:
 //END4iTM3;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  readFromDirectory:
-- (BOOL)readFromDirectory:(NSString *) directoryName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  readFromDirectory:error:
+- (BOOL)readFromDirectory:(NSString *) directoryName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -182,39 +181,26 @@ To Do List:
     directoryName = [directoryName stringByAppendingPathComponent:TWSSpellComponent];
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:self.spellContexts];
     BOOL result = YES;
-    for(NSString * file in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
-    {
+    for (NSString * file in [DFM contentsOfDirectoryAtPath:directoryName error:RORef]) {
 		NSString * extension = [file pathExtension];
-        if([extension pathIsEqual4iTM3:TWSSpellExtension])
-        {
-            iTM2SpellContext * SC = [[[iTM2SpellContext alloc] init] autorelease];
+        if ([extension pathIsEqual4iTM3:TWSSpellExtension]) {
+            iTM2SpellContext4iTM3 * SC = [[[iTM2SpellContext4iTM3 alloc] init] autorelease];
 			NSString * path = [directoryName stringByAppendingPathComponent:file];
 			NSURL * url = [NSURL fileURLWithPath:path];
-			NSError * error = nil;
-            if([SC readFromURL:url error:&error])
-			{
+			if ([SC readFromURL:url error:RORef]) {
 				file = file.stringByDeletingPathExtension;
                 [MD setObject:SC forKey:file];
-			}
-            else
-			{
-				if(iTM2DebugEnabled && (error!=nil))
-					[SDC presentError:error];
+			} else {
                 result = NO;
-			}
+            }
         }
     }
-    if(result)
-    {
+    if (result) {
         [self setSpellContexts:MD];
     }
 //END4iTM3;
     return result;
 }
-@end
-
-@interface iTM2ProjectDocument(PRIVATE_TeXProjectSpellKit)
-- (void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;X
 @end
 
 @implementation iTM2TeXProjectDocument(ProjectSpellKit)
@@ -245,7 +231,7 @@ To Do List:
     return [self propertyValueForKey:TWSSpellingFileKey fileKey:fileKey contextDomain:iTM2ContextAllDomainsMask];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setSpellingMode:forFileKey:
-- (void)setSpellingMode:(NSString *) spellingMode forFileKey:(NSString *) fileKey;
+- (void)setSpellingMode:(NSString *)spellingMode forFileKey:(NSString *) fileKey;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -256,20 +242,46 @@ To Do List:
 	[self setPropertyValue:spellingMode forKey:TWSSpellingFileKey fileKey:fileKey contextDomain:iTM2ContextAllDomainsMask&~iTM2ContextProjectMask];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromFile:ofType:
-- (void)spellKitCompleteDidReadFromFile:(NSString *) fileName ofType:(NSString *) type;X
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellKitCompleteDidReadFromURL4iTM3:ofType:error:
+- (BOOL)spellKitCompleteDidReadFromURL4iTM3:(NSURL *) fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*"Asks the document or the owner.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
+Version history:jlaurens AT users DOT sourceforge DOT net
+Révisé par itexmac2: 2010-12-05 22:16:19 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[super spellKitCompleteDidReadFromFile:fileName ofType:type];
-	[self.spellContextController readFromDirectory:fileName];
+    
+	id O = [self metaInfo4iTM3ForKeyPaths:@"SpellContextModes",nil];
+//LOG4iTM3(@"SPELL KIT MODEL TO BE LOADED:%@", O);
+	if ([O isKindOfClass:[NSDictionary class]]) {
+		[self.spellContextController4iTM3Error:RORef loadPropertyListRepresentation:O];
+		// actively updates the spell checker panel, including the language
+		// delay the message to let the receiver finish its setting
+		[SCH synchronizeWithCurrentText];
+	} else if (O) {
+		LOG4iTM3(@"WARNING:A dictionary was expected instead of %@", O);
+	} else {
+        return [self.spellContextController4iTM3Error:RORef readFromURL:fileURL error:RORef];
+    }
 //END4iTM3;
-    return;
+    return YES;
 }
+#if 1
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prepareSpellKitCompleteWriteMetaToURL4iTM3:ofType:error:
+- (BOOL)prepareSpellKitCompleteWriteMetaToURL4iTM3:(NSURL *)fileURL ofType:(NSString *) type error:(NSError**)RORef;
+/*"Description forthcoming.
+Version History:jlaurens AT users DOT sourceforge DOT net
+Révisé par itexmac2: 2010-12-05 22:16:27 +0100
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+//LOG4iTM3(@"SPELL KIT MODEL TO BE SAVED:%@", [self.spellContextController4iTM3Error:RORef propertyListRepresentation]);
+	[self setMetaInfo4iTM3:[self.spellContextController4iTM3Error:RORef propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
+    return YES;
+}
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  spellKitCompleteWriteMetaToURL4iTM3:ofType:error:
 - (BOOL)spellKitCompleteWriteMetaToURL4iTM3:(NSURL *)fileURL ofType:(NSString *)type error:(NSError**)RORef;
 /*"Description forthcoming.
@@ -279,7 +291,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.spellContextController writeToDirectory:fileURL.path];
+    return [self.spellContextController4iTM3Error:RORef writeToURL:fileURL error:RORef];
 }
 @end
 #endif

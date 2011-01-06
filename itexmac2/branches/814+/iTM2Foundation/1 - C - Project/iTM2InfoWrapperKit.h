@@ -195,12 +195,12 @@ extern NSString * const iTM2ProjectInfoMainType;
     @abstract		Set the owning project URL.
     @discussion		The project must update this each time its own file URL changes.
     @param			url
-	@param			errorRef
+	@param			RORef
     @result			None
 	@availability	iTM2.1
 	@copyright		2008 jlaurens AT users DOT sourceforge DOT net and others.
 */
-- (void)replaceProjectURL:(NSURL *)url error:(NSError **)errorRef;
+- (void)replaceProjectURL:(NSURL *)url error:(NSError **)RORef;
 
 /*! 
     @method			fileKeys

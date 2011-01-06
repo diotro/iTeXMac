@@ -120,7 +120,7 @@ To Do: problem when there is no UI.
 //START4iTM3;
 	if ([SDC respondsToSelector:@selector(prepareOpenDocumentWithContentsOfURL:error:)]) {
         NSError * ROR = nil;
-		[SDC prepareOpenDocumentWithContentsOfURL:[NSURL fileURLWithPath4iTM3:filename] error:&ROR];
+		[SDC prepareOpenDocumentWithContentsOfURL:[NSURL fileURLWithPath4iTM3:filename] error:self.RORef4iTM3];
         if (ROR) {
             [NSApp presentError:ROR];
         }
@@ -140,7 +140,7 @@ To Do List:
     NSApplicationTerminateReply reply;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] applicationShouldTerminate:sender];
-	NSPointerArray * PA = [iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"ApplicationShouldTerminate:" signature:[I methodSignature] inherited:YES];
+	NSPointerArray * PA = [iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"ApplicationShouldTerminate:" signature:I.methodSignature inherited:YES];
 	NSUInteger i = PA.count;
 	while(i--)
 	{
@@ -167,7 +167,7 @@ To Do List:
 //START4iTM3;
     NSInvocation * I;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] applicationWillTerminate:notification];
-    [I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"ApplicationWillTerminate:" signature:[I methodSignature] inherited:YES]];
+    [I invokeWithSelectors4iTM3:[iTM2Runtime realInstanceSelectorsOfClass:self.class withSuffix:@"ApplicationWillTerminate:" signature:I.methodSignature inherited:YES]];
 //END4iTM3;
     return;
 }

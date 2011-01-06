@@ -515,10 +515,10 @@ enum
 				This is a very critical and sensitive part of the code, modify with great care.
     @param      range, same meaning than -replaceCharactersInRange:withString:
     @param      string, same meaning than -replaceCharactersInRange:withString:
-    @param      errorRef points to an NSError instance if NO is the return value
+    @param      RORef points to an NSError instance if NO is the return value
     @result     YES if the replacement can occur.
 */
-- (BOOL)textStorageShouldReplaceCharactersInRange:(NSRange)range withString:(NSString *)string error:(NSError **)errorRef;
+- (BOOL)textStorageShouldReplaceCharactersInRange:(NSRange)range withString:(NSString *)string error:(NSError **)RORef;
 
 /*!
     @method     textStorageDidInsertCharacterAtIndex:editedAttributesRangeIn:
@@ -529,10 +529,10 @@ enum
 				This is a very critical and sensitive part of the code, modify with great care.
     @param      location, where the character was inserted
     @param      editedAttributesRangePtr, on return points to the edited attributes range
-    @param      errorRef points to an NSError instance if NO is the return value
+    @param      RORef points to an NSError instance if NO is the return value
     @result     YES if the change is properly registered.
 */
-- (BOOL)textStorageDidInsertCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 
 /*!
     @method     textStorageDidInsertCharactersAtIndex:count:editedAttributesRangeIn:
@@ -543,10 +543,10 @@ enum
 				This is a very critical and sensitive part of the code, modify with great care.
     @param      location, where the characters were inserted
     @param      editedAttributesRangePtr, on return points to the edited attributes range
-    @param      errorRef points to an NSError instance if NO is the return value
+    @param      RORef points to an NSError instance if NO is the return value
     @result     YES if the change is properly registered.
 */
-- (BOOL)textStorageDidInsertCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidInsertCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 
 /*!
     @method     textStorageDidDeleteCharacterAtIndex:editedAttributesRangeIn:
@@ -557,10 +557,10 @@ enum
 				This is a very critical and sensitive part of the code, modify with great care.
     @param      location, where the character was deleted
     @param      editedAttributesRangePtr, on return points to the edited attributes range
-    @param      errorRef points to an NSError instance if NO is the return value
+    @param      RORef points to an NSError instance if NO is the return value
     @result     YES if the change is properly registered.
 */
-- (BOOL)textStorageDidDeleteCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidDeleteCharacterAtIndex:(NSUInteger)location editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 
 /*!
     @method     textStorageDidDeleteCharactersAtIndex:count:editedAttributesRangeIn:
@@ -573,10 +573,10 @@ enum
     @param      location, where the characters were deleted
     @param      count
 	@param      editedAttributesRangePtr, on return points to the edited attributes range
-    @param      errorRef points to an NSError instance if NO is the return value
+    @param      RORef points to an NSError instance if NO is the return value
     @result     YES if the change is properly registered.
 */
-- (BOOL)textStorageDidDeleteCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidDeleteCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 
 /*!
     @method     textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:
@@ -587,32 +587,32 @@ enum
     @param      oldCount
     @param      newCount
 	@param      editedAttributesRangePtr, on return points to the edited attributes range
-    @param      errorRef points to an NSError instance if NO is the return value
+    @param      RORef points to an NSError instance if NO is the return value
     @result     YES if the change is properly registered.
 */
-- (BOOL)textStorageDidReplaceCharactersAtIndex:(NSUInteger)location count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)errorRef;
+- (BOOL)textStorageDidReplaceCharactersAtIndex:(NSUInteger)location count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 
 /*!
-    @method     textStorageWillProcessEditing
+    @method     textStorageWillProcessEditing4iTM3Error:
     @abstract   The text storage of the receiver has begun editing
     @discussion Sent by the text storage of the receiver when the processEditing begins.
 				Characters or attributes of the text storage of the receiver can be changed.
 				This default implementation does nothing.
-    @param      None
-    @result     None
+    @param      RORef
+    @result     YorN
 */
-- (void)textStorageWillProcessEditing;
+- (BOOL)textStorageWillProcessEditing4iTM3Error:(NSError **)RORef;
 
 /*!
-    @method     textStorageDidProcessEditing
+    @method     textStorageDidProcessEditing4iTM3Error:
     @abstract   The text storage of the receiver has ended editing
     @discussion Sent by the text storage of the receiver when the processEditing ends.
 Characters of the text storage of the receiver can not be changed, whereas attributes indeed can.
 This default implementation does nothing.
-    @param      None
-    @result     None
+    @param      RORef
+    @result     YorN
 */
-- (void)textStorageDidProcessEditing;
+- (BOOL)textStorageDidProcessEditing4iTM3Error:(NSError **)RORef;
 
 /*!
     @method     validEOLModeOfModeLine:forPreviousMode:
@@ -739,7 +739,7 @@ This default implementation does nothing.
 */
 - (void)fixSyntaxModesInRange:(NSRange)range;
 
-- (BOOL)diagnostic;// private/debug use, YES when there is a problem
+- (BOOL)isConsistent;// private/debug use, NO when there is a problem
 
 /*!
     @method     didClickOnLink4iTM3:atIndex:
@@ -840,7 +840,7 @@ extern NSString * const iTM2TextDefaultStyle;
     NSUInteger _Depth;
 #ifdef __ELEPHANT_MODELINE__
 @public
-	NSString * originalString;
+	NSString __strong * __OriginalString;
 #endif
 }
 
@@ -848,7 +848,7 @@ extern NSString * const iTM2TextDefaultStyle;
 - (id)initWithString:(NSString *)aString atCursor:(NSUInteger *)cursor;
 - (BOOL)isEqualToModeLine:(iTM2ModeLine *)lhs;
 - (void)describe;
-- (BOOL)diagnostic;// private/debug use, YES when there is a problem
+- (BOOL)isConsistent;// private/debug use, NO when there is a problem
 
 /*!
     @method     status
@@ -1001,9 +1001,9 @@ extern NSString * const iTM2TextDefaultStyle;
     @param      an error ref, only set when NO is returned AND an error was found.
     @result     A flag indicating whether the receiver did remove some modes, ie its length as decreased.
 */
-- (BOOL)deleteModesInGlobalRange:(NSRange)aRange error:(NSError **)errorRef;
-- (BOOL)deleteModesInGlobalMakeRange:(NSUInteger)location:(NSUInteger)length error:(NSError **)errorRef;
-- (iTM2ModeLine *) modeLineBySplittingFromGlobalLocation:(NSUInteger)location error:(NSError **)errorRef;
+- (BOOL)deleteModesInGlobalRange:(NSRange)aRange error:(NSError **)RORef;
+- (BOOL)deleteModesInGlobalMakeRange:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
+- (iTM2ModeLine *) modeLineBySplittingFromGlobalLocation:(NSUInteger)location error:(NSError **)RORef;
 
 /*!
     @method     moreStorage
@@ -1014,12 +1014,12 @@ extern NSString * const iTM2TextDefaultStyle;
 */
 - (BOOL)moreStorage;
 
-- (BOOL)enlargeSyntaxModeAtGlobalLocation:(NSUInteger)aGlobalLocation length:(NSUInteger)lengthOffset error:(NSError **)errorRef;
-- (BOOL)appendCommentedSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
-- (BOOL)appendNormalSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
-- (BOOL)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)errorRef;
+- (BOOL)enlargeSyntaxModeAtGlobalLocation:(NSUInteger)aGlobalLocation length:(NSUInteger)lengthOffset error:(NSError **)RORef;
+- (BOOL)appendCommentedSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
+- (BOOL)appendNormalSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
+- (BOOL)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
 - (BOOL)appendSyntaxModesAndLengths:(NSUInteger)firstMode,...;// convenient method for testing and debugging purposes only, do not forget to use typecasting to NSUInteger
-- (BOOL)appendSyntaxModesFromModeLine:(iTM2ModeLine *)aModeLine error:(NSError **)errorRef;
+- (BOOL)appendSyntaxModesFromModeLine:(iTM2ModeLine *)aModeLine error:(NSError **)RORef;
 - (BOOL)removeLastMode;// NO if no storage for modes
 - (void)swapContentsWithModeLine:(iTM2ModeLine *)ML;
 
@@ -1050,7 +1050,7 @@ extern NSString * const iTM2TextDefaultStyle;
 //All these should be private
 /*"Overriden methods"*/
 #ifdef __ELEPHANT_MODELINE__
-- (NSString *)originalString;
+@property (assign,nonatomic) NSString * originalString;
 #endif
 /*!
     @method     previousMode
@@ -1095,7 +1095,7 @@ extern NSString * const iTM2TextDefaultStyle;
 
 /*!
     @property   contentsEndOff7
-    @abstract   The starting offset of the receiver.
+    @abstract   The contents end offset of the receiver.
     @discussion Global coordinates.
     @param      None
     @result     An offset

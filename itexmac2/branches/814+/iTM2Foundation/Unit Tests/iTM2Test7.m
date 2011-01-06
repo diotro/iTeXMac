@@ -68,11 +68,11 @@
     // Create data structures here.
     //  create the temporary folder where we will save
     NSError * ROR = nil;
-    NSURL * url = [DFM URLForDirectory:NSCachesDirectory inDomain:NSAllDomainsMask appropriateForURL:nil create:YES error:&ROR];
+    NSURL * url = [DFM URLForDirectory:NSCachesDirectory inDomain:NSAllDomainsMask appropriateForURL:nil create:YES error:self.RORef4iTM3];
     STAssertTrue(url&&!ROR,@"MISSED");
     NSBundle * B = [NSBundle mainBundle];
     self.temporaryDirectoryURL = [url URLByAppendingPathComponent:B?B.bundleIdentifier:@"iTM3.tests"];
-    STAssertTrue([DFM createDirectoryAtPath:self.temporaryDirectoryURL.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&ROR]&&!ROR,@"MISSED");
+    STAssertTrue([DFM createDirectoryAtPath:self.temporaryDirectoryURL.path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:self.RORef4iTM3]&&!ROR,@"MISSED");
     [iTM2ProjectController setSharedProjectController:[[[iTM2ProjectController alloc] init] autorelease]];
     return;
 }
@@ -81,7 +81,7 @@
 {
     // Release data structures here.
     NSError * ROR = nil;
-    STAssertTrue([DFM removeItemAtURL:self.temporaryDirectoryURL error:&ROR]&&!ROR,@"MISSED",NULL);
+    STAssertTrue([DFM removeItemAtURL:self.temporaryDirectoryURL error:self.RORef4iTM3]&&!ROR,@"MISSED",NULL);
     return;  
 }
 - (void)testCase_ProjectBasics;
@@ -108,7 +108,7 @@
     NSURL * URL_F = [[[PD.fileURL URLByDeletingLastPathComponent] URLByAppendingPathComponent:[NSString stringWithUUID4iTM3]] URLByAppendingPathExtension:@"txt"];
     //  project PD does not contain any document
     NSError * ROR = nil;
-    NSString * key = [SPC fileKeyForURL:URL_F filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:&ROR];
+    NSString * key = [SPC fileKeyForURL:URL_F filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertFalse(key.length,@"MISSED",NULL);
     //  Create a text document
@@ -119,57 +119,57 @@
     [[TD.textStorage mutableString] appendString:S];
     TD.stringEncoding = NSUTF8StringEncoding;
     [TD saveDocument:nil];//xattr -p com.apple.TextEncoding *.txt
-    [SPC registerProject:PD error:&ROR];
+    [SPC registerProject:PD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     ROR = nil;
-    STAssertTrue([PD addSubdocument:TD error:&ROR],@"MISSED",NULL);
+    STAssertTrue([PD addSubdocument:TD error:self.RORef4iTM3],@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue([PD ownsSubdocument:TD],@"MISSED",NULL);
-    key = [PD fileKeyForURL:TD.fileURL error:&ROR];
+    key = [PD fileKeyForURL:TD.fileURL error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue(key.length,@"MISSED",NULL);
-    STAssertTrue([[PD URLForFileKey:key error:&ROR] isEquivalentToURL4iTM3:TD.fileURL],@"MISSED",NULL);
+    STAssertTrue([[PD URLForFileKey:key error:self.RORef4iTM3] isEquivalentToURL4iTM3:TD.fileURL],@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
-    iTM2ProjectDocument * pd = [SPC projectForDocument:TD error:&ROR];
+    iTM2ProjectDocument * pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertEquals(PD,pd,@"MISSED",NULL);
     [PD saveDocument:nil];
-    key = [SPC fileKeyForURL:TD.fileURL filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:&ROR];
+    key = [SPC fileKeyForURL:TD.fileURL filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue(key.length,@"MISSED",NULL);
-    STAssertTrue([[SPC URLForFileKey:key filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:&ROR] isEquivalentToURL4iTM3:TD.fileURL],@"MISSED",NULL);
+    STAssertTrue([[SPC URLForFileKey:key filter:iTM2PCFilterRegular inProjectWithURL:PD.fileURL error:self.RORef4iTM3] isEquivalentToURL4iTM3:TD.fileURL],@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     [SPC forgetProject:PD];
-    pd = [SPC projectForDocument:TD error:&ROR];
+    pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;
-    STAssertTrue([SPC canGetNewProjectForURL:URL_F error:&ROR],@"MISSED",NULL);
+    STAssertTrue([SPC canGetNewProjectForURL:URL_F error:self.RORef4iTM3],@"MISSED",NULL);
     //  When using the initWithContentsOfURL:... method, no project is associated with the document
-    TD = [[iTM2TextDocument alloc] initWithContentsOfURL:URL_F ofType:iTM3TextDocumentType error:&ROR];
+    TD = [[iTM2TextDocument alloc] initWithContentsOfURL:URL_F ofType:iTM3TextDocumentType error:self.RORef4iTM3];
     STAssertNotNil(TD,@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNotNil(TD.textStorage,@"MISSED",NULL);
     STAssertTrue([S isEqualToString:[TD.textStorage string]],@"MISSED",NULL);
-    pd = [SPC projectForDocument:TD error:&ROR];
+    pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;
-    STAssertTrue([SPC canGetNewProjectForURL:URL_F error:&ROR],@"MISSED",NULL);
-    TD = [SDC makeDocumentWithContentsOfURL:URL_F ofType:iTM3TextDocumentType error:&ROR];
+    STAssertTrue([SPC canGetNewProjectForURL:URL_F error:self.RORef4iTM3],@"MISSED",NULL);
+    TD = [SDC makeDocumentWithContentsOfURL:URL_F ofType:iTM3TextDocumentType error:self.RORef4iTM3];
     STAssertNotNil(TD,@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue([S isEqualToString:[TD.textStorage string]],@"MISSED",NULL);
-    pd = [SPC projectForDocument:TD error:&ROR];
+    pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;
-    STAssertTrue([SPC canGetNewProjectForURL:URL_F error:&ROR],@"MISSED",NULL);
-    TD = [SDC openDocumentWithContentsOfURL:URL_F display:NO error:&ROR];
+    STAssertTrue([SPC canGetNewProjectForURL:URL_F error:self.RORef4iTM3],@"MISSED",NULL);
+    TD = [SDC openDocumentWithContentsOfURL:URL_F display:NO error:self.RORef4iTM3];
     STAssertNotNil(TD,@"MISSED",NULL);
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertTrue([S isEqualToString:[TD.textStorage string]],@"MISSED",NULL);
-    pd = [SPC projectForDocument:TD error:&ROR];
+    pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
     TD.close;

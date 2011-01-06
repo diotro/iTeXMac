@@ -63,7 +63,7 @@
     STAssertTrue(PC.projects.count == ZER0,@"MISSED",nil);
     //  As default value, the various locations where we look for project are:
     NSError * ROR = nil;
-    STAssertTrue([PC orderedBaseProjectNamesWithError:&ROR].count == ZER0,@"MISSED",nil);
+    STAssertTrue([PC orderedBaseProjectNamesWithError:self.RORef4iTM3].count == ZER0,@"MISSED",nil);
     STAssertNil(ROR,@"MISSED",nil);
     [PC performSelector:@selector(updateBaseProjectsNotified:) withObject:nil];
     return;

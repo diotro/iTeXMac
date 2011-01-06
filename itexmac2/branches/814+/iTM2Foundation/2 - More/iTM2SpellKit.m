@@ -58,7 +58,7 @@ NSString * const iTM2SpellContextModeKey = @"Spell Context Mode";
 
 #define SSC [NSSpellChecker sharedSpellChecker]
 
-@implementation iTM2SpellContext
+@implementation iTM2SpellContext4iTM3
 @synthesize ignoredWords=iVarIgnoredWords;
 @synthesize spellLanguage=iVarLanguage;
 @synthesize tag=iVarTag;
@@ -93,34 +93,6 @@ To Do List:
         self.tag = [NSSpellChecker uniqueSpellDocumentTag];// last
     }
     return self;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
-- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)RORef;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed 05 mar 03
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
-    if (D.length) {
-        NSString * errorString = nil;
-        id DM = [NSPropertyListSerialization propertyListFromData:D
-            mutabilityOption: NSPropertyListImmutable
-                format: nil errorDescription: &errorString];
-        if (errorString) {
-            iTM2Beep();
-            NSLog(@"Big problem\nReport BUG ref: iTM2168");
-            NSLog(@"error string: '%@'", errorString);
-		}
-//NSLog(@"DM: %@", DM);
-        if ([self loadPropertyListRepresentation:DM])
-            return YES;
-        LOG4iTM3(@"Corrupted spelling context at:\n%@", fileURL);
-    }
-//END4iTM3;
-    return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  loadPropertyListRepresentation:
 - (BOOL)loadPropertyListRepresentation:(id)PL;
@@ -160,42 +132,14 @@ To Do List:
 	NSInteger tag = self.tag;
 	NSArray * RA = [SSC ignoredWordsInSpellDocumentWithTag:tag];
 	self.ignoredWords = RA;
-	if ([[SSC.currentText spellContext] isEqual:self])
+	if ([[SSC.currentText spellContext4iTM3] isEqual:self])
 		self.spellLanguage = [SSC language];
-//LOG4iTM3(@"CURRENT LANGUAGE IS: %@, current spell context is: %#x", [SSC language], [[SSC currentText] spellContext]);
+//LOG4iTM3(@"CURRENT LANGUAGE IS: %@, current spell context is: %#x", [SSC language], [[SSC currentText] spellContext4iTM3]);
     return [NSDictionary dictionaryWithObjectsAndKeys:
                 TWSSpellIsaValue, TWSSpellIsaKey,
                 self.spellLanguage, TWSSpellLanguageKey,
                 self.ignoredWords, TWSSpellIgnoredWordsKey,
                     nil];
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:error:
-- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)RORef;
-/*"Description Forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed 05 mar 03
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-	if (fileURL.isFileURL) {
-		if (![DFM isWritableFileAtPath:fileURL.path])
-		{
-			return YES;
-		}
-	}
-    id PL = self.propertyListRepresentation;
-    NSString * errorString = nil;
-    id D = [NSPropertyListSerialization dataFromPropertyList:PL
-        format: NSPropertyListXMLFormat_v1_0 errorDescription: &errorString];
-    if (errorString)
-    {
-        iTM2Beep();
-        LOG4iTM3(@"Big problem\nReport BUG ref: iTM2861, error string: '%@'\nPropery List: %@", errorString, PL);
-    }
-//NSLog(@"data: %@", result);
-//END4iTM3;
-    return [D writeToURL:fileURL options:NSAtomicWrite error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  finalize
 - (void)finalize;
@@ -226,42 +170,42 @@ To Do List:
 @end
 
 @implementation NSWindow(iTM2SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
-- (id)spellContextController;
-/*"Asks a delegate for a non empty #{spellContextController}.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
+- (id)spellContextController4iTM3Error:(NSError **)RORef;
+/*"Asks a delegate for a non empty #{spellContextController4iTM3Error:}.
 The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
+Révisé par itexmac2: 2010-12-27 17:09:47 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.windowController spellContextController];
+    return [self.windowController spellContextController4iTM3Error:RORef];
 }
 @end
 
 @implementation NSWindowController(iTM2SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
-- (id)spellContextController;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
+- (id)spellContextController4iTM3Error:(NSError **)RORef;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Wed Sep 15 21:07:40 GMT 2004
+Révisé par itexmac2: 2010-12-27 17:10:42 +0100
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     id D = self.document;
     if (D)
-        return [D spellContextController];
+        return [D spellContextController4iTM3Error:RORef];
     if ((D = self.owner) && (D!=self))
-        return [D spellContextController];
-    return [super spellContextController];
+        return [D spellContextController4iTM3Error:RORef];
+    return [super spellContextController4iTM3Error:RORef];
 }
 @end
 
 @implementation NSObject(iTM2SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
-- (id)spellContextController;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
+- (id)spellContextController4iTM3Error:(NSError **)RORef;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -296,7 +240,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return self.spellContext.tag;
+    return self.spellContext4iTM3.tag;
 }
 #if 0
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSelectedRange:affinity:stillSelecting:
@@ -429,7 +373,7 @@ To Do List:
 //START4iTM3;
     if (!_iTM2SpellContextController) {
         [super initialize];
-        iTM2SpellContext * SC = [iTM2SpellContext new];
+        iTM2SpellContext4iTM3 * SC = [iTM2SpellContext4iTM3 new];
 		NSDictionary * D;
 #if 1
 		D = [SC propertyListRepresentation];
@@ -449,11 +393,11 @@ To Do List:
         D = [SUD dictionaryForKey:iTM2SpellContextsKey];
         for(NSString * mode in D.keyEnumerator)
         {
-            iTM2SpellContext * SC = [iTM2SpellContext new];
+            iTM2SpellContext4iTM3 * SC = [iTM2SpellContext4iTM3 new];
             if (SC)
             {
                 [SC loadPropertyListRepresentation:[D objectForKey:mode]];
-                [_iTM2SpellContextController setSpellContext:SC forMode:mode];
+                [_iTM2SpellContextController setSpellContext4iTM3:SC forMode:mode];
             }
         }
 //LOG4iTM3(@"THE DEFAULT SPELL CONTEXTS HAVE BEEN CREATED");
@@ -526,9 +470,9 @@ To Do List:
     if (self = [super init])
     {
         [self setSpellContexts:[NSDictionary dictionary]];
-        iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
+        iTM2SpellContext4iTM3 * SC = [[iTM2SpellContext4iTM3 alloc] init];
         [SC loadPropertyListRepresentation:[[SUD objectForKey:iTM2SpellContextsKey] objectForKey:TWSSpellDefaultContextMode]];
-        [self setSpellContext:SC forMode:TWSSpellDefaultContextMode];
+        [self setSpellContext4iTM3:SC forMode:TWSSpellDefaultContextMode];
 //LOG4iTM3(@"self.spellContexts are:\n%@", self.spellContexts);
 //LOG4iTM3(@"MAIN SPELL CONTEXT CREATED...");
     }
@@ -549,7 +493,7 @@ To Do List:
         return NO;
     else if (mode.length && ![self spellContextForMode:mode])
     {
-        [self setSpellContext:[[iTM2SpellContext alloc] init] forMode:mode];
+        [self setSpellContext4iTM3:[[iTM2SpellContext4iTM3 alloc] init] forMode:mode];
 //NSLog(@"NEW MODE CREATED: %@\n%@", mode, MD);
         [self updateChangeCount:NSChangeDone];
 //END4iTM3;
@@ -568,7 +512,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if ([self spellContextForMode:mode]) {
-        [self setSpellContext:nil forMode:mode];
+        [self setSpellContext4iTM3:nil forMode:mode];
         [self updateChangeCount:NSChangeDone];
 //END4iTM3;
         return YES;
@@ -597,11 +541,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    NSString * mode = [text context4iTM3ValueForKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+    NSString * mode = [text context4iTM3ValueForKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
     if (![self spellContextForMode:mode])
     {
         mode = TWSSpellDefaultContextMode;
-        [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask error:self.RORef4iTM3];
+        [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
     }
 //END4iTM3;
     return mode;
@@ -645,9 +589,9 @@ To Do List:
     {
 		if ([mode isEqualToString:TWSSpellDefaultContextMode])
 		{
-			iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
+			iTM2SpellContext4iTM3 * SC = [[iTM2SpellContext4iTM3 alloc] init];
 			[SC loadPropertyListRepresentation:[[SUD objectForKey:iTM2SpellContextsKey] objectForKey:TWSSpellDefaultContextMode]];
-			[self setSpellContext:SC forMode:TWSSpellDefaultContextMode];
+			[self setSpellContext4iTM3:SC forMode:TWSSpellDefaultContextMode];
 			result = SC;
 		} else {
 			DEBUGLOG4iTM3(0,@"SORRY, self.spellContexts are:\n%@", self.spellContexts);
@@ -656,8 +600,8 @@ To Do List:
 //END4iTM3;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContext:forMode:
-- (void)setSpellContext:(id)newContext forMode:(NSString *)mode;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContext4iTM3:forMode:
+- (void)setSpellContext4iTM3:(id)newContext forMode:(NSString *)mode;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -695,6 +639,55 @@ To Do List:
     metaSETTER([newContexts mutableCopy]);// a dictionary is expected
 //END4iTM3;
     return;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  readFromURL:error:
+- (BOOL)readFromURL:(NSURL *)fileURL error:(NSError**)RORef;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed 05 mar 03
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+    NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
+    if (D.length) {
+        NSString * errorString = nil;
+        id DM = [NSPropertyListSerialization propertyListFromData:D
+            mutabilityOption: NSPropertyListImmutable
+                format: nil errorDescription: &errorString];
+        if (errorString) {
+            OUTERROR4iTM3(1,errorString,1);
+		}
+//NSLog(@"DM: %@", DM);
+        if ([self loadPropertyListRepresentation:DM])
+            return YES;
+        LOG4iTM3(@"Corrupted spelling context at:\n%@", fileURL);
+    }
+//END4iTM3;
+    return NO;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  writeToURL:error:
+- (BOOL)writeToURL:(NSURL *)fileURL error:(NSError**)RORef;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.4: Wed 05 mar 03
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+	if (fileURL.isFileURL) {
+		if (![DFM isWritableFileAtPath:fileURL.path]) {
+			return YES;
+		}
+	}
+    id PL = self.propertyListRepresentation;
+    NSString * errorString = nil;
+    id D = [NSPropertyListSerialization dataFromPropertyList:PL
+        format: NSPropertyListXMLFormat_v1_0 errorDescription: &errorString];
+    OUTERROR4iTM3(1,errorString,nil);
+//NSLog(@"data: %@", result);
+//END4iTM3;
+    return [D writeToURL:fileURL options:NSAtomicWrite error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  propertyListRepresentation
 - (id)propertyListRepresentation;
@@ -736,9 +729,9 @@ To Do List:
             NSString * mode;
             while(mode = E.nextObject)
             {
-                iTM2SpellContext * SC = [[iTM2SpellContext alloc] init];
+                iTM2SpellContext4iTM3 * SC = [[iTM2SpellContext4iTM3 alloc] init];
                 if ([SC loadPropertyListRepresentation:[d objectForKey:mode]])
-                    [self setSpellContext:SC forMode:mode];
+                    [self setSpellContext4iTM3:SC forMode:mode];
                 else
                     result = NO;
             }
@@ -878,9 +871,9 @@ To Do List:
 //START4iTM3;
 	if (currentText) {
 		iVarCurrentText = currentText;
-		iTM2SpellContextController * currentController = [currentText spellContextController];
+		iTM2SpellContextController * currentController = [currentText spellContextController4iTM3Error:self.RORef4iTM3];
 		NSString * currentMode = [currentController spellContextModeForText:currentText];
-		iTM2SpellContext * currentContext = [currentController spellContextForMode:currentMode];
+		iTM2SpellContext4iTM3 * currentContext = [currentController spellContextForMode:currentMode];
 		self.ignoredWords = ([[SSC ignoredWordsInSpellDocumentWithTag:currentContext.tag] mutableCopy]?
 			: [NSMutableArray array]);
 		[iVarIgnoredWords sortUsingSelector:@selector(compare:)];
@@ -938,7 +931,7 @@ To Do List:
 //START4iTM3;
     while([self.ignoredWords containsObject:@"?"])
         [iVarIgnoredWords removeObject:@"?"];
-    iTM2SpellContext * currentContext = [self.currentText spellContext];
+    iTM2SpellContext4iTM3 * currentContext = [self.currentText spellContext4iTM3];
     [currentContext replaceIgnoredWords:self.ignoredWords];
     self.currentText = nil;// necessary
     [NSApp endSheet:sender.window returnCode:NSAlertDefaultReturn];
@@ -1497,7 +1490,7 @@ To Do List:
 	NSText * text = [notification object];
 	if (text == self.currentText)
 	{
-		iTM2SpellContext * SC = [text spellContext];
+		iTM2SpellContext4iTM3 * SC = [text spellContext4iTM3];
 		if (SC)
 		{
 			[SC setSpellLanguage:[SSC language]];
@@ -1534,7 +1527,7 @@ To Do List:
 	NSText * text = self.currentText;
     if ([notification object] == text.window)
     {
-		iTM2SpellContext * SC = [text spellContext];
+		iTM2SpellContext4iTM3 * SC = [text spellContext4iTM3];
 		if (SC)
 		{
 			NS_DURING
@@ -1588,9 +1581,9 @@ To Do List:
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
 	self.currentText = newText;
-	iTM2SpellContext * SC;
+	iTM2SpellContext4iTM3 * SC;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-	if (SC = newText.spellContext)
+	if (SC = newText.spellContext4iTM3)
 	{
 		NSString * language = SC.spellLanguage;
 		if (![SSC setLanguage:language])
@@ -1618,7 +1611,7 @@ To Do List:
 	else if (newText)
 	{
 //LOG4iTM3(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", newText, newText.window.title);
-newText.spellContext;
+newText.spellContext4iTM3;
 	}
 	else
 	{
@@ -1650,7 +1643,7 @@ To Do List:
 //LOG4iTM3(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
-	iTM2SpellContext * SC = [self.currentText spellContext];
+	iTM2SpellContext4iTM3 * SC = [self.currentText spellContext4iTM3];
     [SC setSpellLanguage:language];
     [SC setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:SC.tag]];
     if (newText != self.currentText)
@@ -1658,7 +1651,7 @@ To Do List:
 		// save the actual settings for the old text:
         self.currentText = newText;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-		if (SC = newText.spellContext)
+		if (SC = newText.spellContext4iTM3)
 		{
 			NSString * language = SC.spellLanguage;
 			if (![SSC setLanguage:language])
@@ -1746,7 +1739,7 @@ To Do List:
 //LOG4iTM3(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
-	iTM2SpellContext * SC = self.currentText.spellContext;
+	iTM2SpellContext4iTM3 * SC = self.currentText.spellContext4iTM3;
     SC.spellLanguage = language;
     SC.ignoredWords = [SSC ignoredWordsInSpellDocumentWithTag:SC.tag];
     if (newText != self.currentText)
@@ -1754,7 +1747,7 @@ To Do List:
 		// save the actual settings for the old text:
         self.currentText = newText;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-		if (SC = newText.spellContext)
+		if (SC = newText.spellContext4iTM3)
 		{
 			NSString * language = SC.spellLanguage;
 			if (![SSC setLanguage:language])
@@ -1809,7 +1802,7 @@ To Do List:
 	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"Synchronizing"];
     NSText * text = self.currentText;
 	// this is the crucial part that needs reentrant management
-	iTM2SpellContext * SC = [text spellContext];
+	iTM2SpellContext4iTM3 * SC = [text spellContext4iTM3];
 	NSString * language = SC.spellLanguage;
 	if (![SSC setLanguage:language])
 	{
@@ -1964,7 +1957,7 @@ To Do List:
         // synchronisation is critical here because we make an intensive use of side effects.
         // we must also force the cocoa spell checker to change the spell document tag.
         // this is the reason why we change the first responder.
-        [[self.currentText spellContext] setSpellLanguage:[SSC language]];
+        [[self.currentText spellContext4iTM3] setSpellLanguage:[SSC language]];
         [self.currentText setSpellContextMode:TWSSpellDefaultContextMode];
         NSWindow * W = self.currentText.window;
         id FR = W.firstResponder;
@@ -1984,7 +1977,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if ([sender isKindOfClass:[NSPopUpButton class]]) {
-        iTM2SpellContextController * currentController = [self.currentText spellContextController];
+        iTM2SpellContextController * currentController = [self.currentText spellContextController4iTM3Error:self.RORef4iTM3];
         // updating the popup:
         [sender removeAllItems];
         NSString * title = NSLocalizedStringFromTableInBundle(TWSSpellDefaultContextMode, TABLE,
@@ -2088,7 +2081,7 @@ To Do List:
         // we must also force the cocoa spell checker to change the spell document tag.
         // this is the reason why we change the first responder.
 #if 1
-        [[self.currentText spellContext] setSpellLanguage:[SSC language]];
+        [[self.currentText spellContext4iTM3] setSpellLanguage:[SSC language]];
         [self.currentText setSpellContextMode:newMode];
         NSWindow * W = self.currentText.window;
         id FR = W.firstResponder;
@@ -2139,7 +2132,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [[self.currentText spellContextController] removeSpellMode:[sender representedObject]];
+    [[self.currentText spellContextController4iTM3Error:self.RORef4iTM3] removeSpellMode:[sender representedObject]];
     [self setEditing:NO];
     self.validateWindowContent4iTM3;
     return;
@@ -2158,7 +2151,7 @@ To Do List:
         NSLog(@"No text available for spelling, comme c'est bizarre!");
         return;
     }
-//LOG4iTM3(@"THE IGNORED WORDS ARE: %@", [[self.currentText spellContext] ignoredWords]);
+//LOG4iTM3(@"THE IGNORED WORDS ARE: %@", [[self.currentText spellContext4iTM3] ignoredWords]);
     [self setEditing:YES];
 //NSLog(@"YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
     _iTM2IgnoredWordsEditor * IWE = [_iTM2IgnoredWordsEditor sharedEditor];
@@ -2170,7 +2163,7 @@ To Do List:
             didEndSelector: @selector(editIgnoredWordsSheetDidEnd:returnCode:irrelevant:)
             contextInfo: nil];
 	// I tried to create a new window controller each time it is called but it caused an error 10/11 crash
-//LOG4iTM3(@"THE IGNORED WORDS ARE NOW: %@", [[self.currentText spellContext] ignoredWords]);
+//LOG4iTM3(@"THE IGNORED WORDS ARE NOW: %@", [[self.currentText spellContext4iTM3] ignoredWords]);
 //END4iTM3;
     return;
 }
@@ -2211,7 +2204,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    iTM2SpellContextController * currentController = [self.currentText spellContextController];
+    iTM2SpellContextController * currentController = [self.currentText spellContextController4iTM3Error:self.RORef4iTM3];
     NSString * newMode = [sender stringValue];
     if ([[[currentController spellContextModesEnumerator] allObjects] containsObject:newMode])
     {
@@ -2367,9 +2360,9 @@ To Do List:
         return NO;
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController
-- (id)spellContextController;
-/*"Asks a delegate for a non empty #{spellContextController}.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
+- (id)spellContextController4iTM3Error:(NSError **)RORef;
+/*"Asks a delegate for a non empty #{spellContextController4iTM3Error:RORef}.
 The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2377,7 +2370,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.window spellContextController];
+    return [self.window spellContextController4iTM3Error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextMode
 - (NSString *)spellContextMode;
@@ -2389,7 +2382,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self.spellContextController spellContextModeForText:self];
+    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellContextModeForText:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyName
 - (NSString *)spellPrettyName;
@@ -2401,7 +2394,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self.spellContextController spellPrettyNameForText:self];
+    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellPrettyNameForText:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectName
 - (NSString *)spellPrettyProjectName;
@@ -2412,10 +2405,10 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.spellContextController spellPrettyProjectNameForText:self error:self.RORef4iTM3];
+    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellPrettyProjectNameForText:self ROR4iTM3];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext
-- (iTM2SpellContext *)spellContext;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext4iTM3
+- (iTM2SpellContext4iTM3 *)spellContext4iTM3;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2424,7 +2417,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [self.spellContextController spellContextForMode:self.spellContextMode];
+    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellContextForMode:self.spellContextMode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextMode:
 - (void)setSpellContextMode:(NSString *)mode;
@@ -2435,7 +2428,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [self.spellContextController setSpellContextMode:mode forText:self];
+    [[self spellContextController4iTM3Error:self.RORef4iTM3] setSpellContextMode:mode forText:self];
 //END4iTM3;
     return;
 }
@@ -2448,7 +2441,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return self.spellContext.tag;
+    return self.spellContext4iTM3.tag;
 }
 @end
 

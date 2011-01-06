@@ -33,6 +33,11 @@ NSString * const iTM2FoundationErrorDomain = @"iTM2 Foundation Error Domain";
 
 NSInteger iTM2DebugEnabled_FLAGS = ZER0;
 
+#if __iTM3_DEVELOPMENT__
+NSMutableSet * ReachCodeTags4iTM3 = nil;
+#endif
+
+
 void iTM2Beep(void);
 
 void iTM2Beep(void)
@@ -151,8 +156,7 @@ To Do List:
 //START4iTM3;
 	[super initialize];
 	iTM2DebugEnabled = [SUD integerForKey:iTM2DebugEnabledKey];
-	if (iTM2DebugEnabled)
-	{
+	if (iTM2DebugEnabled) {
 		[SUD registerDefaults:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:1] forKey:@"NSScriptingDebugLogLevel"]];
 	}
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -163,6 +167,9 @@ To Do List:
 	iTM2Application_sendApplicationDefinedEvent = (char *)NSAllocateCollectable(strlen(name)+1, ZER0);
 	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
 	iTM2Application_sendApplicationDefinedEvent[strlen(name)+1]='\0';
+#if __iTM3_DEVELOPMENT__
+    ReachCodeTags4iTM3 = NSMutableSet.set;
+#endif
 //END4iTM3;
 	RELEASE_POOL4iTM3;
     return;
@@ -445,6 +452,14 @@ NSRange iTM3ScaleRange(NSRange range, NSInteger delta) {
 
 @implementation NSObject (iTM3Error)
 
++ (NSError **)RORef4iTM3;
+{
+    return NULL;
+}
++ (void) setRORef4iTM3:(NSError **)RORef;
+{
+    return;
+}
 - (NSError **)RORef4iTM3;
 {
     return NULL;

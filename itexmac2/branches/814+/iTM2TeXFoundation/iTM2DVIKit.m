@@ -66,8 +66,8 @@ To Do List:
 	{
 		[self setFileURL:url];
 		[self setFileType:typeName];
-		iTM2TeXProjectDocument * TPD = [SPC projectForURL:url];
-		NSString * K = [TPD fileKeyForURL:url];
+		iTM2TeXProjectDocument * TPD = [SPC projectForURL:url error:RORef];
+		NSString * K = [TPD fileKeyForURL:url error:RORef];
 		[TPD setMasterFileKey:K];
 		Class performer = [iTM2TeXPCommandManager commandPerformerForName:@"Compile"];
 		[performer performCommandForProject: TPD];
