@@ -51,7 +51,6 @@
 				5183F2AE12CACF04009C5B3F /* ShellScript */,
 			);
 			dependencies = (
-				5183F3D912CB37E1009C5B3F /* PBXTargetDependency */,
 			);
 			name = "Prepare Embedded Tests";
 			productName = "Prepare Milestones";
@@ -225,10 +224,6 @@
 		5160E3C610CEBEC100476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5183F0E312CA6388009C5B3F /* iTM2Test3C.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F0E212CA6388009C5B3F /* iTM2Test3C.m */; };
 		5183F0E412CA6388009C5B3F /* iTM2Test3C.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F0E212CA6388009C5B3F /* iTM2Test3C.m */; };
-		5183F3DD12CB3811009C5B3F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
-		5183F3DE12CB3811009C5B3F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
-		5183F3E812CB39A0009C5B3F /* EmbeddedTestsTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F3E712CB3937009C5B3F /* EmbeddedTestsTool.m */; };
-		5183F3E912CB39BC009C5B3F /* ICURegEx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 53C2525E1089E836002312DA /* ICURegEx.mm */; };
 		5185EB5A12701C8400AFA001 /* Deployment-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */; };
 		5185EB5B12701C8400AFA001 /* Development-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5712701C8400AFA001 /* Development-set.xcconfig */; };
 		5185EB5C12701C8400AFA001 /* DevelopmentGC.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5812701C8400AFA001 /* DevelopmentGC.xcconfig */; };
@@ -1537,20 +1532,6 @@
 			remoteGlobalIDString = 5183F2AD12CACF04009C5B3F;
 			remoteInfo = "Prepare Dynamic Tests";
 		};
-		5183F3D812CB37E1009C5B3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5183F3CC12CB37C4009C5B3F;
-			remoteInfo = EmbeddedTestsTool;
-		};
-		5183F3EA12CB3A00009C5B3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 515C9691127106DD0000C5BB;
-			remoteInfo = "Prepare ICU";
-		};
 		5185E6DF126F89F400AFA001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -2036,8 +2017,6 @@
 		5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
 		5183F0E112CA6388009C5B3F /* iTM2Test3C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test3C.h; sourceTree = "<group>"; };
 		5183F0E212CA6388009C5B3F /* iTM2Test3C.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test3C.m; sourceTree = "<group>"; };
-		5183F3CD12CB37C4009C5B3F /* EmbeddedTestsTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EmbeddedTestsTool; sourceTree = BUILT_PRODUCTS_DIR; };
-		5183F3E712CB3937009C5B3F /* EmbeddedTestsTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmbeddedTestsTool.m; sourceTree = "<group>"; };
 		5183F9D812CC076E009C5B3F /* iTM2FoundationTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM2FoundationTestCases.m; path = ../build/EmbeddedTestCases/iTM2FoundationTestCases.m; sourceTree = SOURCE_ROOT; };
 		5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
 		5185EB5712701C8400AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
@@ -2054,7 +2033,6 @@
 		51D7FD7E129877C6009C0707 /* iTM2Test7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test7.h; sourceTree = "<group>"; };
 		51D7FD7F129877C6009C0707 /* iTM2Test7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test7.m; sourceTree = "<group>"; };
 		51D7FE0612987886009C0707 /* iTM2Test6.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test6.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		51D7FE1012987886009C0707 /* Tests-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info copy.plist"; sourceTree = "<group>"; };
 		51ECFE3B0CECE05A00D8B978 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
 		51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Skim.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EFB3A70DFD23FA0090E7D0 /* skim */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skim; sourceTree = "<group>"; };
@@ -2449,15 +2427,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5183F3CB12CB37C4009C5B3F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5183F3DD12CB3811009C5B3F /* Cocoa.framework in Frameworks */,
-				5183F3DE12CB3811009C5B3F /* libicucore.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		51D7FDFC12987886009C0707 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2747,7 +2716,6 @@
 				5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */,
 				51FFE063127C648D0014BE72 /* iTM2Test6.octest */,
 				51D7FE0612987886009C0707 /* iTM2Test6.octest */,
-				5183F3CD12CB37C4009C5B3F /* EmbeddedTestsTool */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2789,7 +2757,6 @@
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				515C95DF1270DC8B0000C5BB /* iTeXMac2.xib */,
-				51D7FE1012987886009C0707 /* Tests-Info copy.plist */,
 			);
 			comments = "Keep the dSYM ?\nsee http://www.alexcurylo.com/blog/2008/10/15/symbolication/";
 			name = iTM2Foundation;
@@ -2981,7 +2948,6 @@
 		DC25E43C0991F6B900545F27 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				5183F3E712CB3937009C5B3F /* EmbeddedTestsTool.m */,
 				5183F9D812CC076E009C5B3F /* iTM2FoundationTestCases.m */,
 				51D1D48A1196037000BC8256 /* Sandbox */,
 				513EDA6411943CBA0069EFCA /* iTM3SenTestKit.h */,
@@ -3423,23 +3389,6 @@
 			productName = iTM2NotificationKitTest;
 			productReference = 5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */;
 			productType = "com.apple.product-type.bundle";
-		};
-		5183F3CC12CB37C4009C5B3F /* EmbeddedTestsTool */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5183F3DA12CB37FF009C5B3F /* Build configuration list for PBXNativeTarget "EmbeddedTestsTool" */;
-			buildPhases = (
-				5183F3CA12CB37C4009C5B3F /* Sources */,
-				5183F3CB12CB37C4009C5B3F /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5183F3EB12CB3A00009C5B3F /* PBXTargetDependency */,
-			);
-			name = EmbeddedTestsTool;
-			productName = EmbeddedTestsTool;
-			productReference = 5183F3CD12CB37C4009C5B3F /* EmbeddedTestsTool */;
-			productType = "com.apple.product-type.tool";
 		};
 		51D7FDA812987886009C0707 /* iTM2Test7 */ = {
 			isa = PBXNativeTarget;
@@ -4118,7 +4067,6 @@
 				DC951796088DED4B0011E823 /* iTeXMac2 */,
 				DC8303B6086E9DA2004799EB /* Scripting Definition */,
 				DC6698AA08E1289F004FCA6D /* iTM2PreferencePane */,
-				5183F3CC12CB37C4009C5B3F /* EmbeddedTestsTool */,
 				DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */,
 				DCB0A00909AEF96E00D2A37C /* Alias Test */,
 				DCAD22750C144930005549DC /* ICU RegEx test */,
@@ -4624,7 +4572,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}\"\n\"${BUILD_ROOT}/EmbeddedTestsTool\" \"${PROJECT_DIR}\" \"${BUILD_ROOT}/EmbeddedTestCases/\"\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}... DONE\"\nexit 0\n";
+			shellScript = "# shell script goes here\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}\"\n\"${PROJECT_DIR}/../Scripts/iTM3EmbeddedTestsParser.py\" \"${PROJECT_DIR}\" \"${BUILD_ROOT}/EmbeddedTestCases/\"\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}... DONE\"\nexit 0\n";
 			showEnvVarsInLog = 0;
 		};
 		5185E6DA126F89C100AFA001 /* ShellScript */ = {
@@ -5153,15 +5101,6 @@
 				5113C2D211731B7600F6D951 /* iTM2TextStorageKit.m in Sources */,
 				5113C2D311731B7600F6D951 /* iTM2TextStyleEditionKit.m in Sources */,
 				5113C2EE11731BBE00F6D951 /* iTM2Test3B.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5183F3CA12CB37C4009C5B3F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5183F3E812CB39A0009C5B3F /* EmbeddedTestsTool.m in Sources */,
-				5183F3E912CB39BC009C5B3F /* ICURegEx.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6178,16 +6117,6 @@
 			target = 5183F2AD12CACF04009C5B3F /* Prepare Embedded Tests */;
 			targetProxy = 5183F2C112CACF66009C5B3F /* PBXContainerItemProxy */;
 		};
-		5183F3D912CB37E1009C5B3F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5183F3CC12CB37C4009C5B3F /* EmbeddedTestsTool */;
-			targetProxy = 5183F3D812CB37E1009C5B3F /* PBXContainerItemProxy */;
-		};
-		5183F3EB12CB3A00009C5B3F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 515C9691127106DD0000C5BB /* Prepare ICU */;
-			targetProxy = 5183F3EA12CB3A00009C5B3F /* PBXContainerItemProxy */;
-		};
 		5185E6E0126F89F400AFA001 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5185E6DB126F89C100AFA001 /* Prepare Milestones */;
@@ -6847,61 +6776,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Prepare Milestones";
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		5183F3CF12CB37C5009C5B3F /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 1;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../ICU/icu/source/common",
-					"$(SRCROOT)/../ICU/icu/source/il8n",
-				);
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = EmbeddedTestsTool;
-			};
-			name = Development;
-		};
-		5183F3D012CB37C5009C5B3F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 1;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../ICU/icu/source/common",
-					"$(SRCROOT)/../ICU/icu/source/il8n",
-				);
-				INSTALL_PATH = /usr/local/bin;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = EmbeddedTestsTool;
 				ZERO_LINK = NO;
 			};
 			name = Deployment;
@@ -8716,15 +8590,6 @@
 			buildConfigurations = (
 				5183F2B012CACF04009C5B3F /* Development */,
 				5183F2B112CACF04009C5B3F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		5183F3DA12CB37FF009C5B3F /* Build configuration list for PBXNativeTarget "EmbeddedTestsTool" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5183F3CF12CB37C5009C5B3F /* Development */,
-				5183F3D012CB37C5009C5B3F /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
