@@ -58,7 +58,7 @@ NSString * const iTM2SpellContextModeKey = @"Spell Context Mode";
 
 #define SSC [NSSpellChecker sharedSpellChecker]
 
-@implementation iTM2SpellContext4iTM3
+@implementation iTM3SpellContext
 @synthesize ignoredWords=iVarIgnoredWords;
 @synthesize spellLanguage=iVarLanguage;
 @synthesize tag=iVarTag;
@@ -373,7 +373,7 @@ To Do List:
 //START4iTM3;
     if (!_iTM2SpellContextController) {
         [super initialize];
-        iTM2SpellContext4iTM3 * SC = [iTM2SpellContext4iTM3 new];
+        iTM3SpellContext * SC = [iTM3SpellContext new];
 		NSDictionary * D;
 #if 1
 		D = [SC propertyListRepresentation];
@@ -393,7 +393,7 @@ To Do List:
         D = [SUD dictionaryForKey:iTM2SpellContextsKey];
         for(NSString * mode in D.keyEnumerator)
         {
-            iTM2SpellContext4iTM3 * SC = [iTM2SpellContext4iTM3 new];
+            iTM3SpellContext * SC = [iTM3SpellContext new];
             if (SC)
             {
                 [SC loadPropertyListRepresentation:[D objectForKey:mode]];
@@ -470,7 +470,7 @@ To Do List:
     if (self = [super init])
     {
         [self setSpellContexts:[NSDictionary dictionary]];
-        iTM2SpellContext4iTM3 * SC = [[iTM2SpellContext4iTM3 alloc] init];
+        iTM3SpellContext * SC = [[iTM3SpellContext alloc] init];
         [SC loadPropertyListRepresentation:[[SUD objectForKey:iTM2SpellContextsKey] objectForKey:TWSSpellDefaultContextMode]];
         [self setSpellContext4iTM3:SC forMode:TWSSpellDefaultContextMode];
 //LOG4iTM3(@"self.spellContexts are:\n%@", self.spellContexts);
@@ -493,7 +493,7 @@ To Do List:
         return NO;
     else if (mode.length && ![self spellContextForMode:mode])
     {
-        [self setSpellContext4iTM3:[[iTM2SpellContext4iTM3 alloc] init] forMode:mode];
+        [self setSpellContext4iTM3:[[iTM3SpellContext alloc] init] forMode:mode];
 //NSLog(@"NEW MODE CREATED: %@\n%@", mode, MD);
         [self updateChangeCount:NSChangeDone];
 //END4iTM3;
@@ -589,7 +589,7 @@ To Do List:
     {
 		if ([mode isEqualToString:TWSSpellDefaultContextMode])
 		{
-			iTM2SpellContext4iTM3 * SC = [[iTM2SpellContext4iTM3 alloc] init];
+			iTM3SpellContext * SC = [[iTM3SpellContext alloc] init];
 			[SC loadPropertyListRepresentation:[[SUD objectForKey:iTM2SpellContextsKey] objectForKey:TWSSpellDefaultContextMode]];
 			[self setSpellContext4iTM3:SC forMode:TWSSpellDefaultContextMode];
 			result = SC;
@@ -729,7 +729,7 @@ To Do List:
             NSString * mode;
             while(mode = E.nextObject)
             {
-                iTM2SpellContext4iTM3 * SC = [[iTM2SpellContext4iTM3 alloc] init];
+                iTM3SpellContext * SC = [[iTM3SpellContext alloc] init];
                 if ([SC loadPropertyListRepresentation:[d objectForKey:mode]])
                     [self setSpellContext4iTM3:SC forMode:mode];
                 else
@@ -873,7 +873,7 @@ To Do List:
 		iVarCurrentText = currentText;
 		iTM2SpellContextController * currentController = [currentText spellContextController4iTM3Error:self.RORef4iTM3];
 		NSString * currentMode = [currentController spellContextModeForText:currentText];
-		iTM2SpellContext4iTM3 * currentContext = [currentController spellContextForMode:currentMode];
+		iTM3SpellContext * currentContext = [currentController spellContextForMode:currentMode];
 		self.ignoredWords = ([[SSC ignoredWordsInSpellDocumentWithTag:currentContext.tag] mutableCopy]?
 			: [NSMutableArray array]);
 		[iVarIgnoredWords sortUsingSelector:@selector(compare:)];
@@ -931,7 +931,7 @@ To Do List:
 //START4iTM3;
     while([self.ignoredWords containsObject:@"?"])
         [iVarIgnoredWords removeObject:@"?"];
-    iTM2SpellContext4iTM3 * currentContext = [self.currentText spellContext4iTM3];
+    iTM3SpellContext * currentContext = [self.currentText spellContext4iTM3];
     [currentContext replaceIgnoredWords:self.ignoredWords];
     self.currentText = nil;// necessary
     [NSApp endSheet:sender.window returnCode:NSAlertDefaultReturn];
@@ -1490,7 +1490,7 @@ To Do List:
 	NSText * text = [notification object];
 	if (text == self.currentText)
 	{
-		iTM2SpellContext4iTM3 * SC = [text spellContext4iTM3];
+		iTM3SpellContext * SC = [text spellContext4iTM3];
 		if (SC)
 		{
 			[SC setSpellLanguage:[SSC language]];
@@ -1527,7 +1527,7 @@ To Do List:
 	NSText * text = self.currentText;
     if ([notification object] == text.window)
     {
-		iTM2SpellContext4iTM3 * SC = [text spellContext4iTM3];
+		iTM3SpellContext * SC = [text spellContext4iTM3];
 		if (SC)
 		{
 			NS_DURING
@@ -1581,7 +1581,7 @@ To Do List:
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
 	self.currentText = newText;
-	iTM2SpellContext4iTM3 * SC;
+	iTM3SpellContext * SC;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
 	if (SC = newText.spellContext4iTM3)
 	{
@@ -1643,7 +1643,7 @@ To Do List:
 //LOG4iTM3(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
-	iTM2SpellContext4iTM3 * SC = [self.currentText spellContext4iTM3];
+	iTM3SpellContext * SC = [self.currentText spellContext4iTM3];
     [SC setSpellLanguage:language];
     [SC setIgnoredWords:[SSC ignoredWordsInSpellDocumentWithTag:SC.tag]];
     if (newText != self.currentText)
@@ -1739,7 +1739,7 @@ To Do List:
 //LOG4iTM3(@"Updating the spell information, [SSC language] is:%@", [SSC language]);
     // updating the actual information to make the current mode and the language in synch
 //LOG4iTM3(@"self.currentText is:%@", self.currentText);
-	iTM2SpellContext4iTM3 * SC = self.currentText.spellContext4iTM3;
+	iTM3SpellContext * SC = self.currentText.spellContext4iTM3;
     SC.spellLanguage = language;
     SC.ignoredWords = [SSC ignoredWordsInSpellDocumentWithTag:SC.tag];
     if (newText != self.currentText)
@@ -1802,7 +1802,7 @@ To Do List:
 	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"Synchronizing"];
     NSText * text = self.currentText;
 	// this is the crucial part that needs reentrant management
-	iTM2SpellContext4iTM3 * SC = [text spellContext4iTM3];
+	iTM3SpellContext * SC = [text spellContext4iTM3];
 	NSString * language = SC.spellLanguage;
 	if (![SSC setLanguage:language])
 	{
@@ -2408,7 +2408,7 @@ To Do List:
     return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellPrettyProjectNameForText:self ROR4iTM3];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext4iTM3
-- (iTM2SpellContext4iTM3 *)spellContext4iTM3;
+- (iTM3SpellContext *)spellContext4iTM3;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004

@@ -14,3 +14,18 @@ int main(int argc, char *argv[])
 NSLog(@"START now:%@",[NSDate date]);
     return NSApplicationMain(argc, (const char **) argv);
 }
+
+#import "iTM2TeXStringKit.h"
+#import "../../build/EmbeddedTestCases/iTM2TeXFoundationTestCases.m"
+
+@interface SenTestCase(MORE)
+@end
+static id text = nil;
+@implementation iTM2Application(Test)
+
+- (void)prepare000000000StringControllerCompleteDidFinishLaunching4iTM3;
+{
+    invoke_iTM2TeXFoundation_testCases();
+}
+
+@end

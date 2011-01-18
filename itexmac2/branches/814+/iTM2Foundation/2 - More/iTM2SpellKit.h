@@ -51,7 +51,7 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 
 /*!
-    @class	iTM2SpellContext4iTM3
+    @class	iTM3SpellContext
     @abstract	A spelling context.
     @discussion	The spelling context is defined by the language, and the lists of known words.
                 Each NSText is supposed to have its own spelling context,
@@ -62,7 +62,7 @@ extern NSString * const TWSSpellDefaultContextMode;
                 See the iTM2SpellCheckerHelper class for details.
 */
 
-@interface iTM2SpellContext4iTM3: NSObject
+@interface iTM3SpellContext: NSObject
 {
 @private
     NSArray *           iVarIgnoredWords;
@@ -207,7 +207,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @discussion	Description Forthcoming.
     @param		An NSString representing a mode, id est a set of parameters defining the spelling:
                 the language and the ignored words. The mode must exist prior to this message.
-    @result		An iTM2SpellContext4iTM3.
+    @result		An iTM3SpellContext.
 */
 - (id)spellContextForMode:(NSString *)mode;
 
@@ -218,7 +218,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		A possibly nil spell context.
     @param		An NSString representing a mode, id est a set of parameters defining the spelling:
                 the language and the ignored words. The mode must exist prior to this message.
-    @result		An iTM2SpellContext4iTM3.
+    @result		An iTM3SpellContext.
 */
 - (void)setSpellContext4iTM3:(id)newContext forMode:(NSString *)mode;
 
@@ -375,7 +375,7 @@ extern NSString * const TWSSpellDefaultContextMode;
     @param		None.
     @result		The new mode.
 */
-- (iTM2SpellContext4iTM3 *)spellContext4iTM3;
+- (iTM3SpellContext *)spellContext4iTM3;
 
 /*!
     @method		spellPrettyName
@@ -584,4 +584,4 @@ extern NSString * const TWSSpellDefaultContextMode;
 
 @end
 
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2SpellContext4iTM3
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM3SpellContext

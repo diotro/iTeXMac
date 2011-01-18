@@ -184,7 +184,7 @@ To Do List:
     for (NSString * file in [DFM contentsOfDirectoryAtPath:directoryName error:RORef]) {
 		NSString * extension = [file pathExtension];
         if ([extension pathIsEqual4iTM3:TWSSpellExtension]) {
-            iTM2SpellContext4iTM3 * SC = [[[iTM2SpellContext4iTM3 alloc] init] autorelease];
+            iTM3SpellContext * SC = [[[iTM3SpellContext alloc] init] autorelease];
 			NSString * path = [directoryName stringByAppendingPathComponent:file];
 			NSURL * url = [NSURL fileURLWithPath:path];
 			if ([SC readFromURL:url error:RORef]) {
@@ -255,14 +255,14 @@ To Do List:
 	id O = [self metaInfo4iTM3ForKeyPaths:@"SpellContextModes",nil];
 //LOG4iTM3(@"SPELL KIT MODEL TO BE LOADED:%@", O);
 	if ([O isKindOfClass:[NSDictionary class]]) {
-		[self.spellContextController4iTM3Error:RORef loadPropertyListRepresentation:O];
+		[[self spellContextController4iTM3Error:RORef] loadPropertyListRepresentation:O];
 		// actively updates the spell checker panel, including the language
 		// delay the message to let the receiver finish its setting
 		[SCH synchronizeWithCurrentText];
 	} else if (O) {
 		LOG4iTM3(@"WARNING:A dictionary was expected instead of %@", O);
 	} else {
-        return [self.spellContextController4iTM3Error:RORef readFromURL:fileURL error:RORef];
+        return [[self spellContextController4iTM3Error:RORef] readFromURL:fileURL error:RORef];
     }
 //END4iTM3;
     return YES;
@@ -277,8 +277,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"SPELL KIT MODEL TO BE SAVED:%@", [self.spellContextController4iTM3Error:RORef propertyListRepresentation]);
-	[self setMetaInfo4iTM3:[self.spellContextController4iTM3Error:RORef propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
+//LOG4iTM3(@"SPELL KIT MODEL TO BE SAVED:%@", [[self spellContextController4iTM3Error:RORef] propertyListRepresentation]);
+	[self setMetaInfo4iTM3:[[self spellContextController4iTM3Error:RORef] propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
     return YES;
 }
 #endif
@@ -291,7 +291,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.spellContextController4iTM3Error:RORef writeToURL:fileURL error:RORef];
+    return [[self spellContextController4iTM3Error:RORef] writeToURL:fileURL error:RORef];
 }
 @end
 #endif

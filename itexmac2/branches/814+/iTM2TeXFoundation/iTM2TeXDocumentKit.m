@@ -1870,11 +1870,11 @@ To Do List:
         return [super doubleClickAtIndex:index];
     }
 //END4iTM3;
-    return iTM3MakeRange(NSNotFound, ZER0);
+    return iTM3NotFoundRange;
 }
 @end
 
-#include "../build/Milestones/iTM2TeXFoundation.m"
+#include "../build/Milestones/iTM2TeXFoundationMileStones.m"
 
 #if 0
 

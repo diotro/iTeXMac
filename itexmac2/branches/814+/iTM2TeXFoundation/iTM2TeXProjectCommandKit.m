@@ -1536,9 +1536,8 @@ To Do List:
 #if __iTM3_DEVELOPMENT__
 #warning *** BUG TRACKING: OTHER TeX menu management
 #pragma mark BUG TRACKING
-	id MI = (NSMenuItem *)[[NSApp mainMenu] deepItemWithAction4iTM3:@selector(projectCurrent:)];
-	if(!MI)
-	{
+	NSMenuItem * MI = (NSMenuItem *)[[NSApp mainMenu] deepItemWithAction4iTM3:@selector(projectCurrent:)];
+	if (!MI) {
 		LOG4iTM3(@"NO TEX MENU: please report possible bug");
 		return;
 	}
@@ -1546,14 +1545,11 @@ To Do List:
 	// removing all the menu items with command responders as represented objects
 	// finding the first menu item like that
 	NSInteger index = [M indexOfItem:MI] + 1;
-	while(index < [M numberOfItems])
-	{
-		NSMenuItem * mi = [M itemAtIndex:index];
-		if([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]])
-		{
+	while (index < M.numberOfItems) {
+		NSMenuItem * mi = (NSMenuItem *)[M itemAtIndex:index];
+		if ([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]]) {
 			[M removeItemAtIndex:index];
-			while(index < [M numberOfItems])
-			{
+			while (index < [M numberOfItems]) {
 				mi = (NSMenuItem *)[M itemAtIndex:index];
 				if([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]] || [mi isSeparatorItem])
 					[M removeItemAtIndex:index];
@@ -1567,49 +1563,40 @@ To Do List:
 //LOG4iTM3(@"FIRST TIME? NO MENU ITEM WITH A iTM2TeXPCommandPerformer INSTANCE REPRESENTED OBJECT");
 	index = [M indexOfItem:MI] + 1;
 	// inserting the stuff
-	insert:;
+insert:
 //LOG4iTM3(@"THE MENU IS NOW: %@", M);
-	NSEnumerator * E  = [self.orderedBuiltInCommandNames objectEnumerator];
-	NSEnumerator * e;
-	while(e = [[E nextObject] objectEnumerator])
-	{
+	for (NSArray * RA in self.orderedBuiltInCommandNames) {
 		if([[M itemAtIndex:index] isSeparatorItem])
 			++index;
 		else if(![[M itemAtIndex:index-1] isSeparatorItem])
 			[M insertItem:[NSMenuItem separatorItem] atIndex:index++];
-		NSString * name;
-		while(name = [e nextObject])
-		{
+		for (NSString * name in RA) {
 			Class performer = [self commandPerformerForName:name];
 			SEL action = @selector(performCommand:);
-			if([performer respondsToSelector:action])
-			{
+			if ([performer respondsToSelector:action]) {
 				NSMenuItem * mi = [[[NSMenuItem alloc] initWithTitle:[[performer class] localizedNameForName:name]
 						action: action
 							keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
 				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
 				mi.representedObject = performer;
 				mi.target = performer;// performer is expected to last forever
-				if([[mi keyEquivalent] length])
-				{
+				if ([[mi keyEquivalent] length]) {
 					NSMenuItem * mite;
 					NSMenu * rootMenu4iTM3 = [M rootMenu4iTM3];
-					while(mite = [rootMenu4iTM3 deepItemWithKeyEquivalent4iTM3:[mi keyEquivalent]
-							modifierMask: [mi keyEquivalentModifierMask]])
+					while ((mite = [rootMenu4iTM3 deepItemWithKeyEquivalent4iTM3:[mi keyEquivalent]
+							modifierMask: [mi keyEquivalentModifierMask]]))
 						[mite setKeyEquivalent:@""];
 				}
 				[M insertItem:mi atIndex:index++];
 			}
 		}
 	}
-	if((index < [M numberOfItems]) && ![[M itemAtIndex:index] isSeparatorItem])
-	{
+	if ((index < M.numberOfItems) && ![[M itemAtIndex:index] isSeparatorItem]) {
 		[M insertItem:[NSMenuItem separatorItem] atIndex:index];
 	}
 #else
 	NSMenuItem * MI = (NSMenuItem *)[[NSApp mainMenu] deepItemWithAction4iTM3:@selector(projectCurrent:)];
-	if(!MI)
-	{
+	if (!MI) {
 		LOG4iTM3(@"NO TEX MENU: please report possible bug");
 		return;
 	}
@@ -1617,14 +1604,11 @@ To Do List:
 	// removing all the menu items with command responders as represented objects
 	// finding the first menu item like that
 	NSInteger index = [M indexOfItem:MI] + 1;
-	while(index < [M numberOfItems])
-	{
+	while (index < M.numberOfItems) {
 		NSMenuItem * mi = [M itemAtIndex:index];
-		if([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]])
-		{
+		if ([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]]) {
 			[M removeItemAtIndex:index];
-			while(index < [M numberOfItems])
-			{
+			while (index < [M numberOfItems]) {
 				mi = (NSMenuItem *)[M itemAtIndex:index];
 				if([[mi representedObject] isSubclassOfClass:[iTM2TeXPCommandPerformer class]] || [mi isSeparatorItem])
 					[M removeItemAtIndex:index];
@@ -1638,43 +1622,35 @@ To Do List:
 //LOG4iTM3(@"FIRST TIME? NO MENU ITEM WITH A iTM2TeXPCommandPerformer INSTANCE REPRESENTED OBJECT");
 	index = [M indexOfItem:MI] + 1;
 	// inserting the stuff
-	insert:;
+insert:
 //LOG4iTM3(@"THE MENU IS NOW: %@", M);
-	NSEnumerator * E  = [self.orderedBuiltInCommandNames objectEnumerator];
-	NSEnumerator * e;
-	while(e = [[E nextObject] objectEnumerator])
-	{
+	for (NSArray * RA in self.orderedBuiltInCommandNames) {
 		if([[M itemAtIndex:index] isSeparatorItem])
 			++index;
 		else if(![[M itemAtIndex:index-1] isSeparatorItem])
 			[M insertItem:[NSMenuItem separatorItem] atIndex:index++];
-		NSString * name;
-		while(name = [e nextObject])
-		{
+		for (NSString * name in RA) {
 			Class performer = [self commandPerformerForName:name];
 			SEL action = @selector(performCommand:);
-			if([performer respondsToSelector:action])
-			{
+			if ([performer respondsToSelector:action]) {
 				NSMenuItem * mi = [[[NSMenuItem alloc] initWithTitle:[[performer class] localizedNameForName:name]
 						action: action keyEquivalent: [[performer class] keyEquivalentForName:name]] autorelease];
 				[mi setKeyEquivalentModifierMask:[[performer class] keyEquivalentModifierMaskForName:name]];
 				mi.representedObject = performer;
 				mi.target = performer;// performer is expected to last forever
 				// before we insert the menu item, we try to remove the items with the same keyEquivalent and modifier mask
-				if([[mi keyEquivalent] length])
-				{
+				if ([[mi keyEquivalent] length]) {
 					NSMenuItem * mite;
 					NSMenu * rootMenu4iTM3 = [M rootMenu4iTM3];
-					while(mite = [rootMenu4iTM3 deepItemWithKeyEquivalent4iTM3:[mi keyEquivalent]
-							modifierMask: [mi keyEquivalentModifierMask]])
+					while ((mite = [rootMenu4iTM3 deepItemWithKeyEquivalent4iTM3:[mi keyEquivalent]
+							modifierMask: [mi keyEquivalentModifierMask]]))
 						[mite setKeyEquivalent:@""];
 				}
 				[M insertItem:mi atIndex:index++];
 			}
 		}
 	}
-	if((index < [M numberOfItems]) && ![[M itemAtIndex:index] isSeparatorItem])
-	{
+	if ((index < M.numberOfItems) && ![[M itemAtIndex:index] isSeparatorItem]) {
 		[M insertItem:[NSMenuItem separatorItem] atIndex:index];
 	}
 #endif

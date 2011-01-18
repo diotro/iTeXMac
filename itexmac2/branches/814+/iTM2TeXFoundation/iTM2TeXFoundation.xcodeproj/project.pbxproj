@@ -18,6 +18,17 @@
 			name = "Prepare Milestones";
 			productName = "Prepare Milestones";
 		};
+		51F00C1612E63B98002A4013 /* Prepare embedded Tests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 51F00C1B12E63BCC002A4013 /* Build configuration list for PBXAggregateTarget "Prepare embedded Tests" */;
+			buildPhases = (
+				51F00C1512E63B98002A4013 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare embedded Tests";
+			productName = "Prepare embedded Tests";
+		};
 		DC2CA78D0855D4F500128F14 /* All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = DC6BB86909474619004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
@@ -81,6 +92,8 @@
 		51314DED0D01C14B00862683 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51314DEC0D01C14B00862683 /* iTM2Gear.png */; };
 		5150EC8B0E8139C300578A0A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5150EC8A0E8139C300578A0A /* libz.dylib */; };
 		51999E360D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51999E340D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib */; };
+		51F00C5E12E64243002A4013 /* iTM3SenTestKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */; };
+		51F00CB112E64761002A4013 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F00CB012E64761002A4013 /* SenTestingKit.framework */; };
 		53E563E5106B9A020077B6FD /* synctex_parser_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */; };
 		53F77DD8106B8538005D94C0 /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCB106B84FB005D94C0 /* synctex_parser.c */; };
 		53F77DD9106B8538005D94C0 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 53F77DCC106B84FB005D94C0 /* synctex_parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -218,6 +231,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5185ED7912702B6800AFA001;
 			remoteInfo = "Prepare Milestones";
+		};
+		51F00C4D12E64139002A4013 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51F00C1612E63B98002A4013 /* Prepare embedded Tests */;
+			remoteInfo = "Prepare embedded Tests";
 		};
 		DC1C6C6C090D9AA5000F4FDE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -359,6 +379,9 @@
 		5185ED7512702B5100AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
 		51999E350D92D744004F0D09 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
 		51999E370D92D752004F0D09 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
+		51F00C5C12E64243002A4013 /* iTM3SenTestKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTM3SenTestKit.h; path = "../iTM2Foundation/Unit Tests/iTM3SenTestKit.h"; sourceTree = SOURCE_ROOT; };
+		51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM3SenTestKit.m; path = "../iTM2Foundation/Unit Tests/iTM3SenTestKit.m"; sourceTree = SOURCE_ROOT; };
+		51F00CB012E64761002A4013 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		53F77DB2106B84FB005D94C0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		53F77DCB106B84FB005D94C0 /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser.c; sourceTree = "<group>"; };
 		53F77DCC106B84FB005D94C0 /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser.h; sourceTree = "<group>"; };
@@ -532,6 +555,7 @@
 				DC1C6C2E090D98FE000F4FDE /* Carbon.framework in Frameworks */,
 				DC1C6C2F090D98FE000F4FDE /* Cocoa.framework in Frameworks */,
 				DC1C6C30090D98FE000F4FDE /* PreferencePanes.framework in Frameworks */,
+				51F00CB112E64761002A4013 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +601,7 @@
 		0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				51F00CB012E64761002A4013 /* SenTestingKit.framework */,
 				51133FFF1135D60700C6FB19 /* replacements.command */,
 				DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */,
 				DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */,
@@ -649,6 +674,8 @@
 				DC225F690AE53C1A00186582 /* Test TeX Application-Info.plist */,
 				DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */,
 				DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */,
+				51F00C5C12E64243002A4013 /* iTM3SenTestKit.h */,
+				51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */,
 			);
 			path = "Test TeX Application";
 			sourceTree = "<group>";
@@ -896,6 +923,7 @@
 			dependencies = (
 				DCD2500B094EFDEB00346075 /* PBXTargetDependency */,
 				DC5D6CD10949A43200EBA96C /* PBXTargetDependency */,
+				51F00C4E12E64139002A4013 /* PBXTargetDependency */,
 				5185ED7D12702B7F00AFA001 /* PBXTargetDependency */,
 			);
 			name = iTM2TeXFoundation;
@@ -1017,6 +1045,7 @@
 			targets = (
 				DCF2E57D095240C600EE54E2 /* iTeXMac2 Server */,
 				DC5D6CB90949A3F100EBA96C /* Prepare iTM2Foundation */,
+				51F00C1612E63B98002A4013 /* Prepare embedded Tests */,
 				5185ED7912702B6800AFA001 /* Prepare Milestones */,
 				8DC2EF4F0486A6940098B216 /* iTM2TeXFoundation */,
 				DC892C1908FB10E9007A4673 /* Build & Install Engines */,
@@ -1137,6 +1166,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}/Milestones\"\nexit 0\n";
+			showEnvVarsInLog = 0;
+		};
+		51F00C1512E63B98002A4013 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}\"\n\"${PROJECT_DIR}/../Scripts/iTM3EmbeddedTestsParser.py\" \"${PROJECT_DIR}\" \"${BUILD_ROOT}/EmbeddedTestCases/\"\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}... DONE\"\nexit 0\n";
 			showEnvVarsInLog = 0;
 		};
 		DC4E16D30CCD04FF00F5CE3E /* ShellScript */ = {
@@ -1339,6 +1382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */,
+				51F00C5E12E64243002A4013 /* iTM3SenTestKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1365,6 +1409,11 @@
 			isa = PBXTargetDependency;
 			target = 5185ED7912702B6800AFA001 /* Prepare Milestones */;
 			targetProxy = 5185ED7C12702B7F00AFA001 /* PBXContainerItemProxy */;
+		};
+		51F00C4E12E64139002A4013 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51F00C1612E63B98002A4013 /* Prepare embedded Tests */;
+			targetProxy = 51F00C4D12E64139002A4013 /* PBXContainerItemProxy */;
 		};
 		DC1C6C6D090D9AA5000F4FDE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1713,6 +1762,27 @@
 			};
 			name = Deployment;
 		};
+		51F00C1912E63B99002A4013 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare embedded Tests";
+			};
+			name = Development;
+		};
+		51F00C1A12E63B99002A4013 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare embedded Tests";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
 		DC4E16D80CCD050000F5CE3E /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2000,6 +2070,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
@@ -2023,6 +2094,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
@@ -2082,6 +2154,15 @@
 			buildConfigurations = (
 				5185ED7A12702B6900AFA001 /* Development */,
 				5185ED7B12702B6900AFA001 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		51F00C1B12E63BCC002A4013 /* Build configuration list for PBXAggregateTarget "Prepare embedded Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51F00C1912E63B99002A4013 /* Development */,
+				51F00C1A12E63B99002A4013 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
