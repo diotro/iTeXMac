@@ -108,8 +108,8 @@ To Do List:
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  writeToDirectory:
-- (BOOL)writeToDirectory:(NSString *) directoryName;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  writeToDirectory:error:
+- (BOOL)writeToDirectory:(NSString *) directoryName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -123,7 +123,7 @@ To Do List:
     BOOL isDirectory;
     if(![DFM fileExistsAtPath:directoryName isDirectory:&isDirectory])
     {
-        if(![DFM createDirectoryAtPath:directoryName withIntermediateDirectories:YES attributes:nil error:NULL])
+        if(![DFM createDirectoryAtPath:directoryName withIntermediateDirectories:YES attributes:nil error:RORef])
         {
             LOG4iTM3(@"Could create a directory at path:\n%@\nDon't know where to save the spelling contexts", directoryName);
 //END4iTM3;
@@ -133,13 +133,13 @@ To Do List:
     else if(!isDirectory)
     {
         // links are not supported
-        if(![DFM removeItemAtPath:directoryName error:NULL])
+        if(![DFM removeItemAtPath:directoryName error:RORef])
         {
             LOG4iTM3(@"Could remove whatever exists at path:\n%@\nDon't know where to save the spelling contexts", directoryName);
 //END4iTM3;
             return NO;
         }
-        if(![DFM createDirectoryAtPath:directoryName withIntermediateDirectories:YES attributes:nil error:NULL])
+        if(![DFM createDirectoryAtPath:directoryName withIntermediateDirectories:YES attributes:nil error:RORef])
         {
             LOG4iTM3(@"Could create a directory at path:\n%@\nDon't know where to save the spelling contexts", directoryName);
 //END4iTM3;
@@ -162,15 +162,15 @@ To Do List:
 		}
     }
     // then removes the spelling context files that are not in the actual list
-    for (mode in [DFM contentsOfDirectoryAtPath:directoryName error:NULL])
+    for (mode in [DFM contentsOfDirectoryAtPath:directoryName error:RORef])
         if([[mode pathExtension] pathIsEqual4iTM3:TWSSpellExtension]
             && ![[self.spellContexts allKeys] containsObject:mode.stringByDeletingPathExtension])
-		[DFM removeItemAtPath:[directoryName stringByAppendingPathComponent:mode] error:NULL];
+		[DFM removeItemAtPath:[directoryName stringByAppendingPathComponent:mode] error:RORef];
 //END4iTM3;
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  readFromDirectory:error:
-- (BOOL)readFromDirectory:(NSString *) directoryName error:(NSError **)RORef;
+- (BOOL)readFromDirectory:(NSString *)directoryName error:(NSError **)RORef;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004

@@ -973,7 +973,7 @@ To Do List:
 				stringEncodingName = [iTM2StringFormatController nameOfCoreFoundationStringEncoding:new];
 				if(D)
 				{
-					[D takeContext4iTM3Value:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+					[D takeContextValue4iTM3:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 				}
 				else
 				{
@@ -1506,7 +1506,7 @@ To Do List:
 			}
 			else if(D)
 			{
-				[D takeContext4iTM3Value:new forKey:TWSEOLFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				[D takeContextValue4iTM3:new forKey:TWSEOLFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
 			}
 			else
 			{

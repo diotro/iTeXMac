@@ -54,10 +54,11 @@ extern NSString * const TWSSpellingFileKey;
                 The old spelling context the receiver could control are removed before new ones are read.
                 It turns the data read into a possible property list and then it loadPropertyListRepresentation:
     @param		The argument is the full path to the directory where spelling contexts are to be read.
+    @param		RORef points to an NSError instance.
     @result		A flag indicating in an obvious manner the success or failure of the operation.
                 If the slightest problem is encountered, the result is NO. So don't be too exigent.
 */
-- (BOOL)readFromDirectory:(NSString *)directoryName;
+- (BOOL)readFromDirectory:(NSString *)directoryName error:(NSError **)RORef;
 
 @end
 
