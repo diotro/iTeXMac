@@ -3210,6 +3210,7 @@ To Do List:
             //  This is not the last mode line
             //  We can remove it safely
             [self removeModeLineAtIndex:lineIndex];
+            workingML = [self modeLineAtIndex:lineIndex];
             if (editedAttributesRangePtr) {
                 * editedAttributesRangePtr = workingML.completeRange;
             }
@@ -3218,8 +3219,13 @@ To Do List:
             iTM2TextStorage * TS = nil;
             #undef  TEST
             #define TEST TEST_DELETE_1_CHARACTER_YES
-            TEST(@"\n\n",0);
+            TEST(@"\n",ZER0);
+            TEST(@"\n\n",ZER0);
             TEST(@"\n\n\n",1);
+            TEST(@"\nZ",ZER0);
+            TEST(@"\nZT",ZER0);
+            TEST(@"\nZT\r",ZER0);
+            TEST(@"\nZT\rU",ZER0);
 #           endif
 diagnostic_and_return:
             if (!self.isConsistent) {
@@ -3234,17 +3240,86 @@ diagnostic_and_return:
             if (editedAttributesRangePtr) {
                 * editedAttributesRangePtr = workingML.EOLRange;
             }
-            ReachCode4iTM3(@"delete the last standalone EOL");
+            ReachCode4iTM3(@"delete the last standalone character");
 #           ifdef __EMBEDDED_TEST__
             iTM2TextStorage * TS = nil;
             #undef  TEST
             #define TEST TEST_DELETE_1_CHARACTER_YES
-            TEST(@"\n",0);
-            TEST(@"\n\n",1);
-            TEST(@"\n\n\n",2);
+            TEST(@"X",ZER0);
+            TEST(@"\nX",1);
+            TEST(@"\n\nX",2);
 #           endif
             goto diagnostic_and_return;
         }
+    }
+    //  workingML.EOLLength > 0
+    //  Did I remove the full EOL
+    if (!workingML.EOLLength && location == workingML.contentsEndOff7) {
+        //  YES I did
+        //  should I merge with the next ML
+        if (lineIndex < self.numberOfModeLines - 1) {
+            //  This is not the last mode line
+            iTM2ModeLine * nextML = [self modeLineAtIndex:lineIndex+1];
+            if (!nextML.length) {
+                //  nextML is the last mode line, remove it now
+                [self removeModeLineAtIndex:lineIndex+1];
+#               ifdef __ELEPHANT_MODELINE__
+                workingML.originalString = [workingML.originalString substringToIndex:workingML.length-1];
+#               endif
+                if (editedAttributesRangePtr) {
+                    * editedAttributesRangePtr = workingML.EOLRange;
+                }
+                ReachCode4iTM3(@"delete the last EOL and last character, but not standalone");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_1_CHARACTER_YES
+                TEST(@"X\n",1);
+                TEST(@"\nX\n",2);
+                TEST(@"YX\n",2);
+#               endif
+                goto diagnostic_and_return;
+            } else if ([workingML appendSyntaxModesFromModeLine:nextML error:RORef]) {
+                [self removeModeLineAtIndex:lineIndex+1];
+#               ifdef __ELEPHANT_MODELINE__
+                workingML.originalString = [workingML.originalString stringByAppendingString:nextML.originalString];
+#               endif
+                if (editedAttributesRangePtr) {
+                    * editedAttributesRangePtr = workingML.completeRange;
+                }
+                ReachCode4iTM3(@"delete an EOL and merge to the right");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_1_CHARACTER_YES
+                TEST(@"X\nY",1);
+                TEST(@"X\nY\n",1);
+                TEST(@"X\nZT",1);
+                TEST(@"XY\nZT",2);
+                TEST(@"X\nZT\rU",1);
+                TEST(@"XY\nZT\rU",2);
+#               endif
+                goto diagnostic_and_return;
+            }
+            return NO;
+        }
+        //  lineIndex >= self.numberOfModeLines - 1
+        //  We just removed the last character which is not an EOL
+#       ifdef __ELEPHANT_MODELINE__
+        workingML.originalString = [workingML.originalString substringToIndex:workingML.length-1];
+#       endif
+        if (editedAttributesRangePtr) {
+            * editedAttributesRangePtr = workingML.completeRange;
+        }
+        ReachCode4iTM3(@"delete the last character, not an EOL, not alone");
+#       ifdef __EMBEDDED_TEST__
+        iTM2TextStorage * TS = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_1_CHARACTER_YES
+        TEST(@"XY",1);
+        TEST(@"\nXY",2);
+#       endif
+        goto diagnostic_and_return;
     }
 #   ifdef __ELEPHANT_MODELINE__
     NSMutableString * MS = workingML.originalString.mutableCopy;
@@ -3259,38 +3334,22 @@ diagnostic_and_return:
     if (lineIndex && !workingML.contentsLength && workingML.EOLLength == 1 && location == workingML.startOff7) {
         [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:workingML.contentsRange];
         if (contentsEnd < workingML.startOff7) {
-            if (lineIndex < self.numberOfModeLines - 1) {
-                [self removeModeLineAtIndex:lineIndex];
-                ReachCode4iTM3(@"delete one character, merge to the left");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_1_CHARACTER_YES
-                TEST(@"\rY\n\n",1);
-                TEST(@"\r\r\n\n",1);
-                TEST(@"\rY\nX\n",1);
-                TEST(@"\r\r\nX\n",1);
-                TEST(@"0\rY\n\n",2);
-                TEST(@"0\r\r\n\n",2);
-                TEST(@"0\rY\nX\n",2);
-                TEST(@"0\r\r\nX\n",2);
-#               endif
-            } else {
-                ReachCode4iTM3(@"delete one character in the last line, merge to the left");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_1_CHARACTER_YES
-                TEST(@"\rY\n",1);
-                TEST(@"\r\r\n",1);
-                TEST(@"\rY\nX",1);
-                TEST(@"\r\r\nX",1);
-                TEST(@"0\rY\n",2);
-                TEST(@"0\r\r\n",2);
-                TEST(@"0\rY\nX",2);
-                TEST(@"0\r\r\nX",2);
-#               endif
-            }
+            [self removeModeLineAtIndex:lineIndex];
+            workingML = nil;
+            ReachCode4iTM3(@"delete one character, merge to the left");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_1_CHARACTER_YES
+            TEST(@"\rY\n\n",1);
+            TEST(@"\r\r\n\n",1);
+            TEST(@"\rY\nX\n",1);
+            TEST(@"\r\r\nX\n",1);
+            TEST(@"0\rY\n\n",2);
+            TEST(@"0\r\r\n\n",2);
+            TEST(@"0\rY\nX\n",2);
+            TEST(@"0\r\r\nX\n",2);
+#           endif
             --lineIndex;
             workingML = [self modeLineAtIndex:lineIndex];
             ++workingML.EOLLength;
@@ -3305,43 +3364,28 @@ diagnostic_and_return:
     }
 //  Should I merge to the right, beware of the last mode line
     if (lineIndex < self.numberOfModeLines-1 && workingML.EOLLength == 1 && location == workingML.endOff7) {
-        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
-        if (contentsEnd < location) {
-            ++workingML.EOLLength;
-            if (lineIndex+1 < self.numberOfModeLines-1) {
-                //  This is not the last mode line, I can remove it
-                [self removeModeLineAtIndex:lineIndex+1];
-                ReachCode4iTM3(@"delete one character, merge to the right");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_1_CHARACTER_YES
-                TEST(@"\r\n\n",1);
-                TEST(@"X\r\n\n",2);
-                TEST(@"\r\n\nX",1);
-                TEST(@"\n\r\n\n",2);
-                TEST(@"\nX\r\n\n",3);
-                TEST(@"\n\r\n\nX",2);
-#               endif
-            } else {
-                iTM2ModeLine * nextML = [self modeLineAtIndex:lineIndex+1];//  This is the last modeLine
-                --nextML.EOLLength;
-#               ifdef __ELEPHANT_MODELINE__
-                workingML.originalString = [workingML.originalString stringByAppendingString:@""];
-#               endif
-                ReachCode4iTM3(@"delete one character, merge to the right, last mode line");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_1_CHARACTER_YES
-                TEST(@"\r\n\n",1);
-                TEST(@"X\r\n\n",2);
-                TEST(@"\r\n\nX",1);
-                TEST(@"\n\r\n\n",2);
-                TEST(@"\nX\r\n\n",3);
-                TEST(@"\n\r\n\nX",2);
-#               endif
+        NSUInteger end = 0;
+        [[self.textStorage string] getLineStart:NULL end:&end contentsEnd:NULL forRange:workingML.EOLRange];
+        if (workingML.endOff7+1 == end) {
+            if (lineIndex+1 >= self.numberOfModeLines-1) {
+                OUTERROR4iTM3(1,@"Could not delete characters, unconsistent mode lines.",NULL);
+                return NO;
             }
+            ++workingML.EOLLength;
+            //  This is not the last mode line, I can remove it
+            [self removeModeLineAtIndex:lineIndex+1];
+            ReachCode4iTM3(@"delete one character, merge to the right");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_1_CHARACTER_YES
+            TEST(@"\r\n\n",1);
+            TEST(@"X\r\n\n",2);
+            TEST(@"\r\n\nX",1);
+            TEST(@"\n\r\n\n",2);
+            TEST(@"\nX\r\n\n",3);
+            TEST(@"\n\r\n\nX",2);
+#           endif
             if (editedAttributesRangePtr) {
                 * editedAttributesRangePtr = workingML.EOLRange;
             }
@@ -3359,27 +3403,11 @@ diagnostic_and_return:
     iTM2TextStorage * TS = nil;
     #undef  TEST
     #define TEST TEST_DELETE_1_CHARACTER_YES
-    TEST(@"X",ZER0);
-    TEST(@"\nX",1);
     TEST(@"XY",ZER0);
-    TEST(@"XY",1);
     TEST(@"\nXY",1);
-    TEST(@"\nXY",2);
     TEST(@"Z\nXY",ZER0);
     TEST(@"ZT\nXY",ZER0);
     TEST(@"ZT\nXY",1);
-    TEST(@"\nZ",ZER0);
-    TEST(@"X\nZ",1);
-    TEST(@"XY\nZ",2);
-    TEST(@"\nZT",ZER0);
-    TEST(@"X\nZT",1);
-    TEST(@"XY\nZT",2);
-    TEST(@"\nZT\r",ZER0);
-    TEST(@"X\nZT\r",1);
-    TEST(@"XY\nZT\r",2);
-    TEST(@"\nZT\rU",ZER0);
-    TEST(@"X\nZT\rU",1);
-    TEST(@"XY\nZT\rU",2);
     TEST(@"\r\n",ZER0);
     TEST(@"\r\n",1);
     TEST(@"X\r\nY",2);
@@ -3436,7 +3464,6 @@ To Do List:
     STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,LENGTH) withString:@""]));\
     STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
 #endif
-#if 0
     //  get the line index of the first deleted character
     NSUInteger oldFirstIndex = [self lineIndexForLocation4iTM3:location];
     //  now get the line index of the first undeleted character
@@ -3444,11 +3471,11 @@ To Do List:
         OUTERROR4iTM3(1,@"Could not delete characters, bounds exceeded.",NULL);
         return NO;
     }
+    iTM2ModeLine * oldFirstML = [self modeLineAtIndex:oldFirstIndex];
     NSUInteger oldLastIndex = [self lineIndexForLocation4iTM3:location+count];
     NSAssert(oldFirstIndex<=oldLastIndex,@"MISSED");
-    iTM2ModeLine * oldFirstML = nil;
     iTM2ModeLine * oldLastML = nil;
-    //  First we delete all full lines
+    //  First we delete all intermediate full lines
     while (oldFirstIndex+1<oldLastIndex) {
         oldLastML = [self modeLineAtIndex:--oldLastIndex];// oldLastML is just a temporary variable
         if (count > oldLastML.length) {
@@ -3458,17 +3485,140 @@ To Do List:
             NSAssert(NO,@"Huge problem: the text storage is not consistent");
         }
     }
+    //  The various test cases
+    //  TEST(@"XX, 0, 2););
+    //  TEST(@"X\n, 0, 2););
+    //  TEST(@"\nX, 0, 2););
+    //  TEST(@"\n\n", 0, 2);
+    //  TEST(@"\r\n", 0, 2);
+    //  TEST(@"\n\r", 0, 2);
+    //  TEST(@"XXX", 0, 3);
+
+    //  TEST(@"XXX", 0, 2);
+    //  TEST(@"XXX", 1, 2);
+    //  TEST(@"\nXX", 0, 2);
+    //  TEST(@"X\nX", 0, 2);
+    //  TEST(@"XX\n", 0, 2);
+    //  TEST(@"\nXX", 1, 2);
+    //  TEST(@"X\nX", 1, 2);
+    //  TEST(@"XX\n", 1, 2);
+    //  TEST(@"\nXX", 0, 3);
+    //  TEST(@"X\nX", 0, 3);
+    //  TEST(@"XX\n", 0, 3);
+    //  TEST(@"\nX\n", 0, 2);
+    //  TEST(@"X\n\n", 0, 2);
+    //  TEST(@"\nX\n", 0, 3);
+    //  TEST(@"X\n\n", 0, 3);
+    //  TEST(@"\nX\n", 1, 2);
+    //  TEST(@"X\r\n", 1, 2);
+    //  TEST(@"\rX\n", 0, 2);
+    //  TEST(@"X\r\n", 0, 2);
+    //  TEST(@"\rX\n", 0, 3);
+    //  TEST(@"X\r\n", 0, 3);
+    //  TEST(@"\rX\n", 1, 2);
+    //  TEST(@"X\r\n", 1, 2);
+    //  TEST(@"\nX\r", 0, 2);
+    //  TEST(@"X\n\r", 0, 2);
+    //  TEST(@"\nX\r", 0, 3);
+    //  TEST(@"X\n\r", 0, 3);
+    //  TEST(@"\nX\r", 1, 2);
+    //  TEST(@"X\n\r", 1, 2);
+    
+    //  TEST(@"\rXY\n", 1, 2);
+    //  TEST(@"\rX\r\n", 1, 2);
+    //  TEST(@"\r\nY\n", 1, 2);
+    //  TEST(@"\r\n\r\n", 1, 2);
+    //  TEST(@"\rXY\n", 0, 2);
+    //  TEST(@"\rX\r\n", 0, 2);
+    //  TEST(@"\r\nY\n", 0, 2);
+    //  TEST(@"\r\n\r\n", 0, 2);
+    //  TEST(@"\rXY\n", 2, 2);
+    //  TEST(@"\rX\r\n", 2, 2);
+    //  TEST(@"\r\nY\n", 2, 2);
+    //  TEST(@"\r\n\r\n", 2, 2);
+
+    //  TEST(@"\rXY\n", 0, 3);
+    //  TEST(@"\rX\r\n", 0, 3);
+    //  TEST(@"\r\nY\n", 0, 3);
+    //  TEST(@"\r\n\r\n", 0, 3);
+    //  TEST(@"\rXY\n", 1, 3);
+    //  TEST(@"\rX\r\n", 1, 3);
+    //  TEST(@"\r\nY\n", 1, 3);
+    //  TEST(@"\r\n\r\n", 1, 3);
+    
+    
     //  Here: oldLastIndex>=oldFirstIndex>=oldLastIndex-1
     //  Or: oldFirstIndex = oldLastIndex || oldFirstIndex = oldLastIndex-1
     oldFirstML = [self modeLineAtIndex:oldFirstIndex];
-    oldLastML = [self modeLineAtIndex:oldLastIndex];
     NSUInteger contentsEnd = 0;
+    if (oldFirstIndex == oldLastIndex) {
+        //  We only remove the characters from one line, but we do not touch the ending character
+        //  We only have to merge if the 
+        if (![oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef] ) {
+            if (RORef && !*RORef) {
+                OUTERROR4iTM3(2,@"Could not delete characters.",NULL);
+            }
+            return NO;
+        }
+        if (oldFirstIndex && oldFirstML.length == 1 && location == oldFirstML.startOff7) {
+            [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldFirstML.completeRange];
+            if (contentsEnd<oldFirstML.startOff7) {
+                //  We must merge with the left mode line
+                [self removeModeLineAtIndex:oldFirstIndex--];
+                oldFirstML = [self modeLineAtIndex:oldFirstIndex];
+                ++oldFirstML.EOLLength;
+#               ifdef __ELEPHANT_MODELINE__
+                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
+#               endif
+                if (editedAttributesRangePtr) {
+                    * editedAttributesRangePtr = oldFirstML.EOLRange;
+                }
+                ReachCode4iTM3(@"delete from one line, merge to the left");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"\rXY\n",1,2);
+                TEST(@"\rX\r\n",1,2);
+                TEST(@"0\rXY\n",2,2);
+                TEST(@"0\rX\r\n",2,2);
+#               endif
+diagnostic_and_return:
+                if (!self.isConsistent) {
+                    OUTERROR4iTM3(2,@"Could not delete characters properly.",NULL);
+                    return NO;
+                }
+                return YES;
+            }
+        }
+        //  We do not have to merge with the previous mode line
+#       ifdef __ELEPHANT_MODELINE__
+        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
+#       endif
+        if (editedAttributesRangePtr) {
+            * editedAttributesRangePtr = oldFirstML.EOLRange;
+        }
+        ReachCode4iTM3(@"delete from one line, merge to the left");
+#       ifdef __EMBEDDED_TEST__
+        iTM2TextStorage * TS = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_CHARACTERS_YES
+        TEST(@"\rXY\n",1,2);
+        TEST(@"\rX\r\n",1,2);
+        TEST(@"0\rXY\n",2,2);
+        TEST(@"0\rX\r\n",2,2);
+#       endif
+        goto diagnostic_and_return;
+    }
+    oldLastML = [self modeLineAtIndex:oldLastIndex];
+    oldLastML.startOff7 = oldFirstML.endOff7;
+    [self validateOff7sUpToIndex:oldLastIndex];
     //  Do we delete another full line ?
     if (oldFirstML.startOff7 == location && oldLastML.startOff7 == location + count) {
         //  YES and we have oldFirstIndex == oldLastIndex - 1
-        [self removeModeLineAtIndex:--oldLastIndex];
+        [self removeModeLineAtIndex:--oldLastIndex];// oldLastIndex and oldLastML are sync'ed
         //  Do we have to merge two mode lines
-        //  This will happen when the preceding EOL is '\r' and the next line is just '\n'
+        //  This will happen when exactly the preceding EOL is '\r' and the next line is just '\n'
         if (oldFirstIndex && !oldLastML.contentsLength && oldLastML.EOLLength == 1) {
             oldFirstIndex = oldLastIndex - 1;
             oldFirstML = [self modeLineAtIndex:oldFirstIndex];
@@ -3495,12 +3645,7 @@ To Do List:
                     TEST(@"0\rX\nY\n\n",2,4);
                     TEST(@"\rX\nY\n\n0",1,4);
 #                   endif
-diagnostic_and_return:
-                    if (!self.isConsistent) {
-                        OUTERROR4iTM3(2,@"Could not delete characters properly.",NULL);
-                        return NO;
-                    }
-                    return YES;
+                    goto diagnostic_and_return;
                 }
             }
         }
@@ -3523,6 +3668,7 @@ diagnostic_and_return:
 #       endif
         goto diagnostic_and_return;
     }
+#if 0
     //  We do not delete another full line
     //  oldFirstML.startOff7 < location || oldLastML.startOff7 < location + count)
     //  oldFirstIndex <= oldLastIndex
@@ -3536,7 +3682,7 @@ diagnostic_and_return:
         return NO;
     }
     //  Synchronisation SUCCEEDED
-    if ([oldFirsML isEqual:oldLastML]) {
+    if ([oldFirstML isEqual:oldLastML]) {
         if (oldFirstML.startOff7 == location) {
             //  We removed characters from one line only, keeping the trailer untouched
             // Do we have to merge with the previous mode line ?
