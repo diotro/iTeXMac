@@ -29,46 +29,77 @@ def main():
                 lines = f.readlines()
                 n = 0
                 __CODE_TAG__ = "NONE"
+                depth = 0
                 while len(lines)>0:
                     line = lines.pop(0)
-                    if re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_SETUP__",line):
+                    if re.match("#\\s*if\\s*0",line):
+                        depth = depth + 1;
+                    elif depth>0:
+                        if re.match("#\\s*endif",line):
+                            depth = depth - 1
+                    elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_SETUP__",line):
                         while len(lines)>0:
                             line = lines.pop(0)
-                            if re.match("#\\s*endif",line):
-                                break
-                            else:
-                                setups.append(line)
+                            setups.append(line)
+                            if re.match("#\\s*if\\s*0",line)||re.match("#\\s*ifdef",line):
+                                depth = depth + 1;
+                            elif re.match("#\\s*endif",line):
+                                if depth > 0:
+                                    depth = depth-1
+                                else:
+                                    setups.pop(-1)
+                                    break
                     elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_TEARDOWN__",line):
                         while len(lines)>0:
                             line = lines.pop(0)
-                            if re.match("#\\s*endif",line):
-                                break
-                            else:
-                                teardowns.append(line)
+                            teardowns.append(line)
+                            if re.match("#\\s*if\\s*0",line):
+                                depth = depth + 1;
+                            elif re.match("#\\s*endif",line):
+                                if depth > 0:
+                                    depth = depth-1
+                                else:
+                                    teardowns.pop(-1)
+                                    break
                     elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_BEGIN__",line):
                         n = n+1
                         tests.append("-(void)testCase_%i;\n{\n"%n)
                         tests.append("\tNSString * __CODE_TAG__ = %s;"%__CODE_TAG__)
                         while len(lines)>0:
                             line = lines.pop(0)
-                            if re.match("#\\s*endif",line):
-                                break
-                            else:
-                                tests.append(line)
+                            tests.append(line)
+                            if re.match("#\\s*if\\s*0",line):
+                                depth = depth + 1;
+                            elif re.match("#\\s*endif",line):
+                                if depth > 0:
+                                    depth = depth-1
+                                else:
+                                    tests.pop(-1)
+                                    break
                     elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_CONTINUE__",line):
                         while len(lines)>0:
                             line = lines.pop(0)
-                            if re.match("#\\s*endif",line):
-                                break
-                            else:
-                                tests.append(line)
+                            tests.append(line)
+                            if re.match("#\\s*if\\s*0",line):
+                                depth = depth + 1;
+                            elif re.match("#\\s*endif",line):
+                                if depth > 0:
+                                    depth = depth-1
+                                else:
+                                    tests.pop(-1)
+                                    break
                     elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_END__",line):
                         while len(lines)>0:
                             line = lines.pop(0)
-                            if re.match("#\\s*endif",line):
-                                break
-                            else:
-                                tests.append(line)
+                            tests.append(line)
+                            if re.match("#\\s*if\\s*0",line):
+                                depth = depth + 1;
+                            elif re.match("#\\s*endif",line):
+                                if depth > 0:
+                                    depth = depth-1
+                                else:
+                                    tests.pop(-1)
+                                    break
                         tests.append("}\n")
                     elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST__",line):
                         n = n+1
@@ -76,10 +107,15 @@ def main():
                         tests.append("\tNSString * __CODE_TAG__ = %s;\n"%__CODE_TAG__)
                         while len(lines)>0:
                             line = lines.pop(0)
-                            if re.match("#\\s*endif",line):
-                                break
-                            else:
-                                tests.append(line)
+                            tests.append(line)
+                            if re.match("#\\s*if\\s*0",line):
+                                depth = depth + 1;
+                            elif re.match("#\\s*endif",line):
+                                if depth > 0:
+                                    depth = depth-1
+                                else:
+                                    tests.pop(-1)
+                                    break
                         tests.append("}\n")
                     else:
                         m = re.search("ReachCode4iTM3\\s*\\(\\s*(@\".*?\")\\s*\\)",line)

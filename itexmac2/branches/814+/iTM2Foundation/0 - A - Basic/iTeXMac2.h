@@ -39,7 +39,11 @@ enum{
 #define __iTM2_PRETTY_FUNCTION__ [NSString stringWithUTF8String:__PRETTY_FUNCTION__]
 #define __iTM2_ERROR_DOMAIN__ ([NSString stringWithFormat:@"%s/%s",__FILE__,__PRETTY_FUNCTION__])
 #if __iTM3_DEVELOPMENT__
-#   define DIAGNOSTIC4iTM3 if (iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#lx\n", __PRETTY_FUNCTION__, (NSUInteger)self)
+#   if __LP64__ || NS_BUILD_32_LIKE_64
+#       define DIAGNOSTIC4iTM3 if (iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#lx\n", __PRETTY_FUNCTION__, (NSUInteger)self)
+#   else
+#       define DIAGNOSTIC4iTM3 if (iTM2DebugEnabled_FLAGS&iTM2DebugEnabled_traceAllFunctionsMask)printf("%s %#x\n", __PRETTY_FUNCTION__, (NSUInteger)self)
+#   endif
 // enclose some protion of code with
 // iTM2DebugEnabled_FLAGS |= iTM2DebugEnabled_traceAllFunctionsMask;
 // and
