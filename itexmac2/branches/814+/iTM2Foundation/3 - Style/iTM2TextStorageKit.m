@@ -3067,15 +3067,7 @@ To Do List:
 			[self invalidateOff7sFromIndex:first+1];
 diagnostic_and_return:
             if (!self.isConsistent) {
-                if (RORef) {
-                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                            @"Could not replace characters properly, please report bug.",
-                            NSLocalizedDescriptionKey,
-                                nil]];
-                } else {
-                    LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not replace characters properly, please report bug.");
-                }
+                OUTERROR4iTM3(11,@"Could not replace characters properly, please report bug.",NULL);
                 return NO;
             }
 #           ifdef __ELEPHANT_MODELINE__
@@ -3593,33 +3585,172 @@ diagnostic_and_return:
         }
         //  We do not have to merge with the previous mode line
 #       ifdef __ELEPHANT_MODELINE__
-        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
+        oldFirstML.originalString = [oldFirstML.originalString substringFromIndex:location+count-oldFirstML.startOff7];
 #       endif
         if (editedAttributesRangePtr) {
-            * editedAttributesRangePtr = oldFirstML.EOLRange;
+            * editedAttributesRangePtr = oldFirstML.completeRange;
         }
-        ReachCode4iTM3(@"delete from one line, merge to the left");
+        ReachCode4iTM3(@"delete one line heading characters");
 #       ifdef __EMBEDDED_TEST__
         iTM2TextStorage * TS = nil;
         #undef  TEST
         #define TEST TEST_DELETE_CHARACTERS_YES
-        TEST(@"\rXY\n",1,2);
-        TEST(@"\rX\r\n",1,2);
-        TEST(@"0\rXY\n",2,2);
-        TEST(@"0\rX\r\n",2,2);
+        TEST(@"XY",0,2);
+        TEST(@"XY\n",0,2);
+        TEST(@"X\r\n",0,2);
+        TEST(@"\nXY\n",1,2);
+        TEST(@"\nX\r\n",1,2);
+        TEST(@"0\nXY\n",2,2);
+        TEST(@"0\nX\r\n",2,2);
 #       endif
         goto diagnostic_and_return;
     }
+    //  oldFirstIndex == oldLastIndex-1
     oldLastML = [self modeLineAtIndex:oldLastIndex];
     oldLastML.startOff7 = oldFirstML.endOff7;
     [self validateOff7sUpToIndex:oldLastIndex];
     //  Do we delete another full line ?
-    if (oldFirstML.startOff7 == location && oldLastML.startOff7 == location + count) {
-        //  YES and we have oldFirstIndex == oldLastIndex - 1
+    if (oldFirstML.startOff7 == location) {
+        count -= oldFirstML.length;
+        oldLastML.startOff7 -= oldFirstML.length;
         [self removeModeLineAtIndex:--oldLastIndex];// oldLastIndex and oldLastML are sync'ed
-        //  Do we have to merge two mode lines
-        //  This will happen when exactly the preceding EOL is '\r' and the next line is just '\n'
-        if (oldFirstIndex && !oldLastML.contentsLength && oldLastML.EOLLength == 1) {
+        oldFirstML = nil;
+        //  Do we delete more ?
+        if (count) {
+            //  YES
+            if (![oldLastML deleteModesInGlobalMakeRange:location:count error:RORef] ) {
+                if (RORef && !*RORef) {
+                    OUTERROR4iTM3(21,@"Could not delete characters.",NULL);
+                }
+                return NO;
+            }
+            if (oldLastIndex && oldLastML.length == 1) {
+                oldFirstIndex = oldLastIndex - 1;
+                oldFirstML = [self modeLineAtIndex:oldFirstIndex];
+                if (oldFirstML.EOLLength == 1) {
+                    [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
+                    if (contentsEnd < location) {
+                        ++oldFirstML.EOLLength;
+                        [self removeModeLineAtIndex:oldLastIndex];
+                        oldLastML = nil;
+#                       ifdef __ELEPHANT_MODELINE__
+                        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
+#                       endif
+                        if (editedAttributesRangePtr) {
+                            * editedAttributesRangePtr = oldFirstML.EOLRange;
+                        }
+                        ReachCode4iTM3(@"delete more than full line(s), merge to the left and the right");
+#                       ifdef __EMBEDDED_TEST__
+                        iTM2TextStorage * TS = nil;
+                        #undef  TEST
+                        #define TEST TEST_DELETE_CHARACTERS_YES
+                        TEST(@"\rX\nX\n",1,3);
+                        TEST(@"0\rX\nX\n",2,3);
+                        TEST(@"\rX\nX\n0",1,3);
+                        TEST(@"\rX\nY\nX\n",1,5);
+                        TEST(@"0\rX\nY\nX\n",2,5);
+                        TEST(@"\rX\nY\nX\n0",1,5);
+#                       endif
+                        goto diagnostic_and_return;
+                    }
+                    // no merge
+#                   ifdef __ELEPHANT_MODELINE__
+                    oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
+#                   endif
+                    if (editedAttributesRangePtr) {
+                        * editedAttributesRangePtr = oldLastML.completeRange;
+                    }
+                    ReachCode4iTM3(@"delete more than full line(s), no merge \n\n");
+#                   ifdef __EMBEDDED_TEST__
+                    iTM2TextStorage * TS = nil;
+                    #undef  TEST
+                    #define TEST TEST_DELETE_CHARACTERS_YES
+                    TEST(@"\nX\nX\n",1,3);
+                    TEST(@"0\nX\nX\n",2,3);
+                    TEST(@"\nX\nX\n0",1,3);
+                    TEST(@"\nX\nY\nX\n",1,5);
+                    TEST(@"0\nX\nY\nX\n",2,5);
+                    TEST(@"\nX\nY\nX\n0",1,5);
+#                   endif
+                    goto diagnostic_and_return;
+                }
+                // no merge
+#               ifdef __ELEPHANT_MODELINE__
+                oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
+#               endif
+                if (editedAttributesRangePtr) {
+                    * editedAttributesRangePtr = oldLastML.completeRange;
+                }
+                ReachCode4iTM3(@"delete more than full line(s), no merge \r\n\n");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"\r\nX\nX\n",2,3);
+                TEST(@"0\r\nX\nX\n",3,3);
+                TEST(@"\r\nX\nX\n0",2,3);
+                TEST(@"\r\nX\nY\nX\n",2,5);
+                TEST(@"0\r\nX\nY\nX\n",3,5);
+                TEST(@"\r\nX\nY\nX\n0",2,5);
+                TEST(@"\r\nX\n\r\n",2,3);
+                TEST(@"0\r\nX\n\r\n",3,3);
+                TEST(@"\r\nX\n\r\n0",2,3);
+                TEST(@"\r\nX\nY\n\r\n",2,5);
+                TEST(@"0\r\nX\nY\n\r\n",3,5);
+                TEST(@"\r\nX\nY\n\r\n0",2,5);
+#               endif
+                goto diagnostic_and_return;
+            }
+            // no merge
+#           ifdef __ELEPHANT_MODELINE__
+            oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
+#           endif
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = oldLastML.completeRange;
+            }
+            ReachCode4iTM3(@"delete more than full line(s), no merge ^ or ...\r\n");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_CHARACTERS_YES
+            TEST(@"\r\nX",0,3);
+            TEST(@"\r\nX\n",0,3);
+            TEST(@"\r\nX\nX",0,3);
+            TEST(@"\r\nX\nX\n",0,3);
+            TEST(@"\r\nX\nX\n",0,5);
+            TEST(@"0\r\nX\nX\n",0,4);
+            TEST(@"0\r\nX\nX\n",0,6);
+            TEST(@"\r\nX\nX\n0",0,5);
+            TEST(@"\r\nX\nY\nX\n",0,7);
+            TEST(@"0\r\nX\nY\nX\n",0,8);
+            TEST(@"\r\nX\nY\nX\n0",0,7);
+            TEST(@"\r\nX\nX\n",0,5);
+            TEST(@"0\r\nX\nX\n",0,6);
+            TEST(@"\r\nX\nX\n0",0,5);
+            TEST(@"\r\nX\nY\nX\n",0,7);
+            TEST(@"0\r\nX\nY\nX\n",0,8);
+            TEST(@"\r\nX\nY\nX\n0",0,7);
+            TEST(@"\r\r\nX\r\n",1,3);
+            TEST(@"\rX\rX\r\n",1,3);
+            TEST(@"\rX\r\nX\r\n",1,4);
+            TEST(@"\r\nX\nX\r\n",2,3);
+            TEST(@"0\r\nX\nX\r\n",3,3);
+            TEST(@"0\r\nX\nX\r\n",3,3);
+            TEST(@"\r\nX\nX\r\n0",2,3);
+            TEST(@"\r\nX\nY\nX\r\n",2,5);
+            TEST(@"0\r\nX\nY\nX\r\n",3,5);
+            TEST(@"\r\nX\nY\nX\r\n0",2,5);
+            TEST(@"\r\nX\nX\r\n",2,3);
+            TEST(@"0\r\nX\nX\r\n",3,3);
+            TEST(@"\r\nX\nX\r\n0",2,3);
+            TEST(@"\r\nX\nY\nX\r\n",2,5);
+            TEST(@"0\r\nX\nY\nX\r\n",3,5);
+            TEST(@"\r\nX\nY\nX\r\n0",2,5);
+#           endif
+            goto diagnostic_and_return;
+        }
+        // We deleted exactly full line(s)
+        if (oldLastIndex && oldLastML.length == 1) {
             oldFirstIndex = oldLastIndex - 1;
             oldFirstML = [self modeLineAtIndex:oldFirstIndex];
             if (oldFirstML.EOLLength == 1) {
@@ -3627,13 +3758,14 @@ diagnostic_and_return:
                 if (contentsEnd < location) {
                     ++oldFirstML.EOLLength;
                     [self removeModeLineAtIndex:oldLastIndex];
+                    oldLastML = nil;
 #                   ifdef __ELEPHANT_MODELINE__
                     oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
 #                   endif
                     if (editedAttributesRangePtr) {
                         * editedAttributesRangePtr = oldFirstML.EOLRange;
                     }
-                    ReachCode4iTM3(@"delete full line(s), merge to the left and the right");
+                    ReachCode4iTM3(@"delete exactly full line(s), merge to the left and the right");
 #                   ifdef __EMBEDDED_TEST__
                     iTM2TextStorage * TS = nil;
                     #undef  TEST
@@ -3647,829 +3779,224 @@ diagnostic_and_return:
 #                   endif
                     goto diagnostic_and_return;
                 }
+                // no merge
+                if (editedAttributesRangePtr) {
+                    * editedAttributesRangePtr = oldFirstML.EOLRange;
+                }
+                ReachCode4iTM3(@"delete exactly full line(s), no merge \n\n or \n\r");
+#               ifdef __EMBEDDED_TEST__
+                iTM2TextStorage * TS = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"\nX\n\n",1,2);
+                TEST(@"0\nX\n\n",2,2);
+                TEST(@"\nX\n\n0",1,2);
+                TEST(@"\nX\nY\n\n",1,4);
+                TEST(@"0\nX\nY\n\n",2,4);
+                TEST(@"\nX\nY\n\n0",1,4);
+                TEST(@"\nX\n\r",1,2);
+                TEST(@"0\nX\n\r",2,2);
+                TEST(@"\nX\n\r0",1,2);
+                TEST(@"\nX\nY\n\r",1,4);
+                TEST(@"0\nX\nY\n\r",2,4);
+                TEST(@"\nX\nY\n\r0",1,4);
+#               endif
+                goto diagnostic_and_return;
             }
+            // no merge
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = oldFirstML.completeRange;
+            }
+            ReachCode4iTM3(@"delete exactly full line(s), no merge \r\n\n");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_CHARACTERS_YES
+            TEST(@"\r\nXW\n\n",2,3);
+            TEST(@"0\r\nXW\n\n",3,3);
+            TEST(@"\r\nXW\n\n0",2,3);
+            TEST(@"\r\nXW\n\n\n\n",2,5);
+            TEST(@"0\r\nXW\n\n\n\n",3,5);
+            TEST(@"\r\nXW\nY\n\n0",2,5);
+            TEST(@"\r\nXW\nY\n\n",2,5);
+            TEST(@"0\r\nXW\nY\n\n",3,5);
+#           endif
+            goto diagnostic_and_return;
         }
-        // do not merge consecutive mode lines
-        ReachCode4iTM3(@"delete full line(s)");
+        if (oldLastIndex) {
+            oldFirstIndex = oldLastIndex - 1;
+            oldFirstML = [self modeLineAtIndex:oldFirstIndex];
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = oldFirstML.EOLRange;
+            }
+            ReachCode4iTM3(@"delete exactly full line(s), not the frst one, no merge next line has length != 1");
+#           ifdef __EMBEDDED_TEST__
+            iTM2TextStorage * TS = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_CHARACTERS_YES
+            TEST(@"\rX\r\n",1,3);
+            TEST(@"\rX\r\nXX",1,3);
+            TEST(@"\rX\r\nX\n",1,3);
+            TEST(@"\rX\r\n\r\n",1,3);
+            TEST(@"\rX\rX\r\n",1,5);
+            TEST(@"\rX\rX\r\nXX",1,5);
+            TEST(@"\rX\rX\r\nX\n",1,5);
+            TEST(@"\rX\rX\r\n\r\n",1,5);
+#           endif
+            goto diagnostic_and_return;
+        }
+        // no merge, delete first full lines
+        if (editedAttributesRangePtr) {
+            * editedAttributesRangePtr = oldLastML.completeRange;
+        }
+        ReachCode4iTM3(@"delete exactly first full line(s)");
 #       ifdef __EMBEDDED_TEST__
         iTM2TextStorage * TS = nil;
         #undef  TEST
         #define TEST TEST_DELETE_CHARACTERS_YES
-        TEST(@"\r\n",ZER0,2);
-        TEST(@"X\n",ZER0,2);
-        TEST(@"\r\nX\n",ZER0,2);
-        TEST(@"\r\nX\n",2,2);
-        TEST(@"\r\nX\n\n",2,2);
-        TEST(@"0\r\nX\n\n",3,2);
-        TEST(@"\r\nX\n\n0",2,2);
-        TEST(@"\r\nX\nY\n\n",2,4);
-        TEST(@"0\r\nX\nY\n\n",3,4);
-        TEST(@"\r\nX\nY\n\n0",2,4);
+        TEST(@"X\n",0,2);
+        TEST(@"\r\n",0,2);
+        TEST(@"X\r\n",0,3);
+        TEST(@"\n0\r\n",0,4);
+        TEST(@"X\n0\r\n",0,5);
+        TEST(@"\r\n0\r\n",0,5);
+        TEST(@"X\r\n0\r\n",0,6);
+        TEST(@"X\n0",0,2);
+        TEST(@"\r\n0",0,2);
+        TEST(@"X\r\n0",0,3);
+        TEST(@"\n0\r\n0",0,4);
+        TEST(@"X\n0\r\n0",0,5);
+        TEST(@"\r\n0\r\n0",0,5);
+        TEST(@"X\r\n0\r\n0",0,6);
+        TEST(@"X\n\n",0,2);
+        TEST(@"\r\n\n",0,2);
+        TEST(@"X\r\n\n",0,3);
+        TEST(@"\n0\r\n\n",0,4);
+        TEST(@"X\n0\r\n\n",0,5);
+        TEST(@"\r\n0\r\n\n",0,5);
+        TEST(@"X\r\n0\r\n\n",0,6);
+        TEST(@"X\n\r\n",0,2);
+        TEST(@"\r\n\r\n",0,2);
+        TEST(@"X\r\n\r\n",0,3);
+        TEST(@"\n0\r\n\r\n",0,4);
+        TEST(@"X\n0\r\n\r\n",0,5);
+        TEST(@"\r\n0\r\n\r\n",0,5);
+        TEST(@"X\r\n0\r\n\r\n",0,6);
 #       endif
         goto diagnostic_and_return;
     }
-#if 0
-    //  We do not delete another full line
-    //  oldFirstML.startOff7 < location || oldLastML.startOff7 < location + count)
-    //  oldFirstIndex <= oldLastIndex
-    //  Either must keep the header of the first ML or the tail of the last one
-    //  Synchronize the mode lines with the actual text
-    if (![oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]
-            || (![oldFirstML isEqual:oldLastML] && ![oldLastML deleteModesInGlobalMakeRange:location:count error:RORef])) {
+    //  oldFirstML.startOff7 < location
+    //  oldFirstIndex +1 == oldLastIndex
+    //  We keep the first character of the line
+    //  We deleted the traier of the line.
+    //  We cannot merge to the left
+    //  Do we merge to the right ?
+    if (![oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]) {
         if (RORef && !*RORef) {
             OUTERROR4iTM3(2,@"Could not delete characters.",NULL);
         }
         return NO;
     }
-    //  Synchronisation SUCCEEDED
-    if ([oldFirstML isEqual:oldLastML]) {
-        if (oldFirstML.startOff7 == location) {
-            //  We removed characters from one line only, keeping the trailer untouched
-            // Do we have to merge with the previous mode line ?
-            if (!oldLastML.contentsLength && oldLastML.EOLLength == 1 && oldFirstIndex) {
-                oldFirstML = [self modeLineAtIndex:--oldFirstIndex];
-                if (oldFirstML.EOLLength == 1) {
-                    [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldLastML.contentsRange];
-                    if (contentsEnd == oldFirstML.contentsEndOff7) {
-                        //  YES we have to merge
-                        [self removeModeLineAtIndex:oldLastIndex];
-                        ++oldFirstML.EOLLength;
-#                       ifdef __ELEPHANT_MODELINE__
-                        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
-#                       endif
-                        if (editedAttributesRangePtr) {
-                            * editedAttributesRangePtr = oldFirstML.EOLRange;
-                        }
-                        ReachCode4iTM3(@"delete partially one line, merge to the left");
-#                       ifdef __EMBEDDED_TEST__
-                        iTM2TextStorage * TS = nil;
-                        #undef  TEST
-                        #define TEST TEST_DELETE_CHARACTERS_YES
-                        TEST(@"\rX\r\n\n",1,2);
-                        TEST(@"\rXY\n\n",1,2);
-                        TEST(@"0\rX\r\n\n",2,2);
-                        TEST(@"0\rXY\n\n",2,2);
-#                       endif
-                        goto diagnostic_and_return;
-                    }
+    //  1st synchronisation SUCCEEDED
+    if (oldLastML.startOff7 == location+count) {
+        // deleting the trailer of the first edited line
+        // at least 2 characters including the EOL
+        //  delete nothing from the next line
+        if (oldLastML.length) {
+            if (![oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
+                if (RORef && !*RORef) {
+                    OUTERROR4iTM3(33,@"Could not delete characters.",NULL);
                 }
+                return NO;
             }
-            //  No merge to the left, we cannot merge to the right
 #           ifdef __ELEPHANT_MODELINE__
-            NSMutableString * MS = oldFirstML.originalString.mutableCopy;
-            [MS removeCharactersInRange:iTM3MakeRange(location,count)];
-            oldFirstML.originalString = MS.copy;
+            oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
 #           endif
+            [self removeModeLineAtIndex:oldLastIndex];
+            oldLastML = nil;
             if (editedAttributesRangePtr) {
                 * editedAttributesRangePtr = oldFirstML.completeRange;
             }
-            ReachCode4iTM3(@"delete characters in only one line, no merge");
+            ReachCode4iTM3(@"delete one line except its header, including the EOL, merge to the right");
 #           ifdef __EMBEDDED_TEST__
             iTM2TextStorage * TS = nil;
             #undef  TEST
             #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"ab",0,2);
-            TEST(@"abc",0,2);
-            TEST(@"abc",1,2);
-            TEST(@"abcd",1,2);
-            TEST(@"ab\r",0,2);
-            TEST(@"abc\r",0,2);
-            TEST(@"abc\r",1,2);
-            TEST(@"abcd\r",1,2);
-            TEST(@"ab\n",0,2);
-            TEST(@"abc\n",0,2);
-            TEST(@"abc\n",1,2);
-            TEST(@"abcd\n",1,2);
-            TEST(@"ab\r\n",0,2);
-            TEST(@"abc\r\n",0,2);
-            TEST(@"abc\r\n",1,2);
-            TEST(@"abcd\r\n",1,2);
-            TEST(@"\nab",1,2);
-            TEST(@"\nabc",1,2);
-            TEST(@"\nabc",2,2);
-            TEST(@"\nabcd",2,2);
-            TEST(@"\nab\r",1,2);
-            TEST(@"\nabc\r",1,2);
-            TEST(@"\nabc\r",2,2);
-            TEST(@"\nabcd\r",2,2);
-            TEST(@"\nab\n",1,2);
-            TEST(@"\nabc\n",1,2);
-            TEST(@"\nabc\n",2,2);
-            TEST(@"\nabcd\n",2,2);
-            TEST(@"\nab\r\n",1,2);
-            TEST(@"\nabc\r\n",1,2);
-            TEST(@"\nabc\r\n",2,2);
-            TEST(@"\nabcd\r\n",2,2);
-            TEST(@"\rab",1,2);
-            TEST(@"\rabc",1,2);
-            TEST(@"\rabc",2,2);
-            TEST(@"\rabcd",2,2);
-            TEST(@"\rab\r",1,2);
-            TEST(@"\rabc\r",1,2);
-            TEST(@"\rabc\r",2,2);
-            TEST(@"\rabcd\r",2,2);
-            //TEST(@"\rab\n",1,2);
-            TEST(@"\rabc\n",1,2);
-            TEST(@"\rabc\n",2,2);
-            TEST(@"\rabcd\n",2,2);
-            TEST(@"\rab\r\n",1,2);
-            TEST(@"\rabc\r\n",1,2);
-            TEST(@"\rabc\r\n",2,2);
-            TEST(@"\rabcd\r\n",2,2);
+            TEST(@"0\r\nX",1,2);
+            TEST(@"0\r\n\n",1,2);
+            TEST(@"0\r\nX\n",1,2);
+            TEST(@"0\r\nW\n\n",1,2+2);
+            TEST(@"0\r\nXW\n\n",1,2+3);
 #           endif
             goto diagnostic_and_return;
         }
-        //  oldFirstML.startOff7 < location
-        //  We keep the leftmost character
-        //  We will have to merge with the next mode line if we deleted the EOL of oldFirstML
-        if (!oldFirsML.EOLLength && oldLastIndex+1 < self.numberOfModeLines) {
-            oldLastML = [self modeLineAtIndex:++oldLastIndex];
-            //  append to oldFirsML the modes from oldLastML
-            if ([oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
-                [self removeModeLineAtIndex:oldLastIndex];
-#               ifdef __ELEPHANT_MODELINE__
-                oldFirstML.originalString = [oldFirstML.originalString substringToIndex:location+count-oldFirstML.startOff7];
-                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
-#               endif
-                ReachCode4iTM3(@"delete trailer characters from only one line, merge with the next mode line");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_CHARACTERS_YES
-                TEST(@"0X\n",1,2);
-                TEST(@"0\r\n",1,2);
-                TEST(@"0X\n\n",1,2);
-                TEST(@"0X\r\n\n",1,3);
-                TEST(@"0X\r\n\n",2,2);
-                TEST(@"0X\r\nY\n",1,3);
-                TEST(@"0X\r\nY\n",2,2);
-#               endif
-invalidate_first_and_return_YES:
-                [oldFirstML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
-                //  to fix the edited range:
-                //  get a syntax mode range including location and the index before if it is in the same line
-                if (location > oldFirstML.startOff7 && location == R.location) {
-                    [oldFirstML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
-                    r.length += R.length;
-                    R = r;
-                }
-                if (R.location > oldFirstML.startOff7 && R.length <= 1) {
-                    [oldFirstML getSyntaxMode:NULL atGlobalLocation:R.location-1 longestRange:&r];
-                    r.length += R.length;
-                    R = r;
-                }
-                [oldFirstML invalidateGlobalRange:R];
-                if (editedAttributesRangePtr) {
-                    *editedAttributesRangePtr = oldFirstML.invalidGlobalRange;
-                }
-                [self invalidateOff7sFromIndex:oldFirstIndex+1];
-                [self invalidateModesFromIndex:oldFirstIndex];
-                goto diagnostic_and_return;
-            }
-            if (RORef && !*RORef) {
-                OUTERROR4iTM3(4,@"Could not delete characters.",NULL);
-            }
-            return NO;
+        // no merge, delete first full lines
+        [self removeModeLineAtIndex:oldLastIndex];
+        oldLastML = nil;
+        if (editedAttributesRangePtr) {
+            * editedAttributesRangePtr = oldFirstML.completeRange;
         }
-        //  We did not remove the EOL or there is no next line
-#       ifdef __ELEPHANT_MODELINE__
-        NSMutableString * MS = oldFirstML.originalString.mutableCopy;
-        [MS removeCharactersInRange:iTM3MakeRange(location-oldFirstML.startOff7,count)];
-        oldFirstML.originalString = MS.copy;
-#       endif
-        ReachCode4iTM3(@"delete characters from only one line, keep the leftmost, do not merge with the next mode line");
+        ReachCode4iTM3(@"delete one line except its header, including the EOL, remove the last mode line");
 #       ifdef __EMBEDDED_TEST__
         iTM2TextStorage * TS = nil;
         #undef  TEST
         #define TEST TEST_DELETE_CHARACTERS_YES
-        TEST(@"0XY",1,2);
-        TEST(@"0XYZ",1,2);
-        TEST(@"0XY\r",1,2);
-        TEST(@"0X\r\n",1,2);
+        TEST(@"X\r\n",1,2);
+        TEST(@"XX\n",1,2);
+        TEST(@"X\r\n\n",1,2+1);
+        TEST(@"XX\n\n",1,2+1);
+        TEST(@"0\r\nX\n",1,2+2);
+        TEST(@"X\r\n\nZ\r\n",1,2+1+3);
+        TEST(@"XX\n\nZ\r\n",1,2+1+3);
 #       endif
-        goto invalidate_first_and_return_YES;
+        goto diagnostic_and_return;
     }
-    //  oldFirsML != oldLastML
-    //  We must keep the leftmost character of oldFirsML
-    //  and the rightmost character of oldLastML
-    //  We merge when the whole EOL has been removed from oldFirstML
-    if (!oldFirsML.EOLLength) {
-        //  append to oldFirsML the modes from oldLastML
-        if ([oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
-            [self removeModeLineAtIndex:oldLastIndex];
-#           ifdef __ELEPHANT_MODELINE__
-            oldFirstML.originalString = [oldFirstML.originalString substringToIndex:location-oldFirstML.startOff7];
-            oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
-            oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
-#           endif
-            ReachCode4iTM3(@"delete characters from two lines including a full EOL, merge them");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"0\nA",1,2);
-            TEST(@"0\nA\n",1,2);
-            TEST(@"0\nAB\n",1,2);
-            TEST(@"0\r\nA",1,3);
-            TEST(@"0\r\nA\n",1,3);
-            TEST(@"0\r\nAB\n",1,3);
-#           endif
-            goto invalidate_first_and_return_YES:
-        }
+    //  oldLastML.startOff7 < location+count
+    if (![oldLastML deleteModesInGlobalMakeRange:location:count error:RORef]) {
         if (RORef && !*RORef) {
-            OUTERROR4iTM3(4,@"Could not delete characters.",NULL);
+            OUTERROR4iTM3(23,@"Could not delete characters.",NULL);
         }
         return NO;
     }
-    if (oldFirstML.EOLLength == 1 && !oldLastML.contentsLength) {
-        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldLastML.contentsRange];
-        if (contentsEnd == oldFirstML.contentsEndOff7) {
-            //  Merge the two mode lines
-            ++oldFirstML.EOLLength;
-            --oldLastML.EOLLength;
-            REMEMBER THE LAST MODE LINE MUST NOT HAVE AN EOL!
-#           ifdef __ELEPHANT_MODELINE__
-            oldFirstML.originalString = [oldFirstML.originalString substringToIndex:location-oldFirstML.startOff7];
-            oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
-#           endif
-            ReachCode4iTM3(@"delete characters from two lines, merge them");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"0\r\nA\n",1,2);
-            TEST(@"0\nA\n",1,2);
-            TEST(@"0\nAB\n",1,2);
-            TEST(@"0\r\nA",1,3);
-            TEST(@"0\r\nA\n",1,3);
-            TEST(@"0\r\nAB\n",1,3);
-#           endif
-            goto invalidate_first_and_return_YES:
-        }
-    }
-    
-    //  Should I merge with the next mode line
-    //  As the header of the first ML is kept as is, merge can't occur with the previous mode line
-    //  except in the case of a huge error: the first ML did correspond to "\n" only and something was removed from it
-    //  and it is still non void...
-    NSString * S = [self.textStorage string];
-    
-
-
-    if (
-    if (oldFirstIndex && !oldFirstML.contentsLength && oldFirstML.EOLLength == 1 && location == oldFirstML.startOff7) {
-        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
-        if (contentsEnd < location) {
-            [self removeModeLineAtIndex:oldFirstIndex];
-            oldFirstML = [self modeLineAtIndex:--oldFirstIndex];
-            ++oldFirstML.EOLLength;
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = oldFirstML.EOLRange;
-            }
-#           ifdef __ELEPHANT_MODELINE__
-            oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
-#           endif
-            ReachCode4iTM3(@"delete characters, merge with the previous mode line");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"\rXY\n",1,2);
-            TEST(@"\rXY\n",1,2);
-#           endif
-            goto diagnostic_and_return;
-        }
-    }
-    
-    if (location + count == oldFirstML.endOff7) {
-        //  The trailing part of the line is removed
-        if (location == oldFirstML.startOff7) {
-            //  The whole line is removed
-            [self removeModeLineAtIndex:oldFirstIndex];
-            oldFirstML = [self modeLineAtIndex:oldFirstIndex];
-            [self validateOff7sUpToIndex:oldFirstIndex];
-            
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = oldFirstML.completeRange;
-            }
-            oldLastIndex = oldFirstIndex + 1;
-            if ((oldLastML = [self modeLineAtIndex:oldLastIndex]) && !oldLastML.length) {
-                // oldFirstML must become the last mode line
-                [self removeModeLineAtIndex:oldLastIndex];
-                ReachCode4iTM3(@"delete characters, remove the last mode line (1)");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_CHARACTERS_YES
-                TEST(@"X\n",ZER0,2);
-                TEST(@"\r\n",ZER0,2);
-                TEST(@"X\r\n",ZER0,3);
-                TEST(@"\n\r\n",1,2);
-                TEST(@"\nX\r\n",1,3);
-#               endif
-                goto diagnostic_and_return;
-            }
-            ReachCode4iTM3(@"delete characters, delete one line");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"XY",ZER0,2);
-            TEST(@"\r\n1",ZER0,2);
-            TEST(@"X\r\n1",ZER0,3);
-            TEST(@"\n\r\n1",1,2);
-            TEST(@"\nX\r\n1",1,3);
-            TEST(@"\rX\n",1,2);
-            TEST(@"\rX\r\n",1,2);
-            TEST(@"Z\rXY\n",2,2);
-            TEST(@"Z\rX\r\n",2,2);
-#           endif
-diagnostic_and_return:
-            if (!self.isConsistent) {
-                OUTERROR4iTM3(1,@"Could not delete characters (1).",NULL);
-                return NO;
-            }
-return_YES:
-            return YES;
-        }
-        if (![oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]) {
+#if 0
+#   ifdef __ELEPHANT_MODELINE__
+    oldFirstML.originalString = [oldFirstML.originalString substringToIndex:location-oldFirstML.startOff7];
+    oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
+#   endif
+    if (oldFirstML.EOLLength == 0) {
+        //  always merge to the right
+        //  always have oldLastML.length>0
+        if (![oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
             if (RORef && !*RORef) {
-                OUTERROR4iTM3(1,@"Could not delete characters (2).",NULL);
+                OUTERROR4iTM3(3,@"Could not delete characters.",NULL);
             }
             return NO;
         }
 #       ifdef __ELEPHANT_MODELINE__
-        oldFirstML.originalString = [oldFirstML.originalString substringToIndex:location-oldFirstML.startOff7];
+        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
 #       endif
+        [self removeModeLineAtIndex:oldLastIndex];
+        oldLastML = nil;
         if (editedAttributesRangePtr) {
-            *editedAttributesRangePtr = oldFirstML.invalidGlobalRange;
+            * editedAttributesRangePtr = oldFirstML.completeRange;
         }
-        //  Should I merge with the next mode line, or remove it
-        oldLastIndex = oldFirstIndex + 1;
-        if ((oldLastML = [self modeLineAtIndex:oldLastIndex]) && !oldFirstML.EOLLength) {
-            if (!oldLastML.length) {
-                // oldFirstML must become the last mode line
-                [self removeModeLineAtIndex:oldLastIndex];
-                ReachCode4iTM3(@"delete characters, remove the last mode line (2)");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_CHARACTERS_YES
-                TEST(@"0X\n",1,2);
-                TEST(@"0\r\n",1,2);
-                TEST(@"\nX\n",1,2);
-                TEST(@"\n\r\n",1,2);
-#               endif
-                NSRange R = iTM3NotFoundRange, r = iTM3NotFoundRange;
-invalidate_first_and_return_YES:
-                [oldFirstML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
-                //  to fix the edited range:
-                //  get a syntax mode range including location and the index before if it is in the same line
-                if (location > oldFirstML.startOff7 && location == R.location) {
-                    [oldFirstML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
-                    r.length += R.length;
-                    R = r;
-                }
-                if (R.location > oldFirstML.startOff7 && R.length <= 1) {
-                    [oldFirstML getSyntaxMode:NULL atGlobalLocation:R.location-1 longestRange:&r];
-                    r.length += R.length;
-                    R = r;
-                }
-                [oldFirstML invalidateGlobalRange:R];
-                if (editedAttributesRangePtr) {
-                    *editedAttributesRangePtr = oldFirstML.invalidGlobalRange;
-                }
-                [self invalidateOff7sFromIndex:oldFirstIndex+1];
-                [self invalidateModesFromIndex:oldFirstIndex];
-                goto diagnostic_and_return;
-            }
-            if ([oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
-                [self removeModeLineAtIndex:oldLastIndex];
-#               ifdef __ELEPHANT_MODELINE__
-                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
-#               endif
-                ReachCode4iTM3(@"delete characters, merge with the next mode line");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_CHARACTERS_YES
-                TEST(@"X\n",ZER0,2);
-                TEST(@"\r\n",ZER0,2);
-                TEST(@"0X\n",1,2);
-                TEST(@"0\r\n",1,2);
-                TEST(@"\nX\n",1,2);
-                TEST(@"\n\r\n",1,2);
-#               endif
-                goto invalidate_first_and_return_YES;
-            }
-            if (RORef && !*RORef) {
-                OUTERROR4iTM3(1,@"Could not delete characters (3).",NULL);
-            }
-            return NO;
-            
-        }
-        //  Here we have oldFirstML.EOLLength > 0
-        else {
-            NSString * S = [self.textStorage string];
-            NSUInteger contentsEnd = 0;
-            [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];// location+count before edition,location, once edited
-            if (contentsEnd < location) {
-                oldFirstML.EOLLength += oldLastML.length;
-                [self removeModeLineAtIndex:oldLastIndex];
-#                       ifdef __ELEPHANT_MODELINE__
-                NSMutableString * MS = oldFirstML.originalString.mutableCopy;
-                [MS appendString:oldLastML.originalString];
-                oldFirstML.originalString = MS.copy;
-#                       endif
-                ReachCode4iTM3(@"delete characters, _3b");
-#                       ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_CHARACTERS_YES
-                TEST(@"0\r\n1",1,2);
-                TEST(@"\nX\n1",1,2);
-                TEST(@"\n\r\n1",1,2);
-                TEST(@"0\r\n1\r",1,2);
-                TEST(@"\nX\n1\r",1,2);
-                TEST(@"\n\r\n1\r",1,2);
-#                       endif
-                goto diagnostic_and_return;
-            }
-        }
-        if (oldFirstML.EOLLength==1 && oldLastIndex < self.numberOfModeLines) {
-            oldLastML = [self modeLineAtIndex:oldLastIndex];
-            if (!oldLastML.contentsLength && oldLastML.EOLLength == 1) {
-                S = [self.textStorage string];
-                [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(oldLastML.startOff7,ZER0)];
-                if (contentsEnd < oldLastML.startOff7) {
-                    [self removeModeLineAtIndex:oldLastIndex];
-                    ++oldFirstML.EOLLength;
-#                   ifdef __ELEPHANT_MODELINE__
-                    oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
-#                   endif
-                    ReachCode4iTM3(@"delete characters, merge to the right");
-#                   ifdef __EMBEDDED_TEST__
-                    iTM2TextStorage * TS = nil;
-                    #undef  TEST
-                    #define TEST TEST_DELETE_1_CHARACTER_YES
-                    TEST(@"\r\n\n",1);
-                    TEST(@"X\r\n\n",2);
-                    TEST(@"\r\n\nX",1);
-                    TEST(@"\n\r\n\n",2);
-                    TEST(@"\nX\r\n\n",3);
-                    TEST(@"\n\r\n\nX",2);
-#                   endif
-                    goto diagnostic_and_return;
-                }
-
-            }
-
-            [self removeModeLineAtIndex:oldFirstIndex];
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = oldFirstML.invalidGlobalRange;
-            }
-            
-        }
-    }
-
-    oldLastIndex = [self lineIndexForLocation4iTM3:location+count];
-    NSAssert2(oldLastIndex>=oldFirstIndex,@"****  INTERNAL INCONSISTENCY: unexpected %lu < %lu",oldLastIndex,oldFirstIndex);
-    NSRange r = iTM3Zer0Range;
-    
-    
-    
-    
-    if (oldLastIndex == oldFirstIndex) {
-        //  the characters deleted all come from the same line
-        //  moreover, the last character of that line is undeleted, except a non EOL final character
-        if ([oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]) {
-            //  No problem in editing the mode line
-            //  should I merge with the previous because of EOL marks being partly deleted and \r\n combination
-            if (oldFirstIndex && (oldFirstML.EOLLength == 1) && !oldFirstML.contentsLength) {
-                //  oldFirstML is a pure 1 length EOL and is not the 1st one
-                S = [self.textStorage string];
-                [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:NSMakeRange(oldFirstML.startOff7,ZER0)];
-                if (contentsEnd < oldFirstML.startOff7) {
-                    //  We have to merge because oldFirstML.startOff7 now lies inside an EOL mark
-                    //  Get the previous mode line
-                    oldLastIndex = oldFirstIndex-1;
-                    oldLastML = [self modeLineAtIndex:oldLastIndex];
-                    //  extend this modeline to take into account the new EOL mark component
-                    ++oldLastML.EOLLength;
-                    [self removeModeLineAtIndex:oldFirstIndex];
-                    oldFirstML = oldLastML;
-                    if (editedAttributesRangePtr) {
-                        *editedAttributesRangePtr = oldFirstML.EOLRange;
-                    }
-                    [self invalidateModesFromIndex:oldLastIndex];
-#                   ifdef __ELEPHANT_MODELINE__
-                    //  append a \n, the line was previously ending with a \r
-                    NSMutableString * MS = oldLastML.originalString.mutableCopy;
-                    [MS appendString:@"\n"];
-                    oldLastML.originalString = MS.copy;
-#                   endif
-                    ReachCode4iTM3(@"delete characters, merge to the left");
-#                   ifdef __EMBEDDED_TEST__
-                    iTM2TextStorage * TS = nil;
-                    #undef  TEST
-                    #define TEST TEST_DELETE_CHARACTERS_YES
-                    TEST(@"\rXY\n",1,2);
-                    TEST(@"\rX\r\n",1,2);
-                    TEST(@"Z\rXY\n",2,2);
-                    TEST(@"Z\rX\r\n",2,2);
-#                   endif
-diagnostic_and_return:
-                    if (!self.isConsistent) {
-                        OUTERROR4iTM3(1,@"Could not delete characters.",NULL);
-                        return NO;
-                    }
-return_YES:
-                    return YES;
-                }
-            } // else if (!oldFirstIndex || (oldFirstML.EOLLength != 1) || oldFirstML.contentsLength)
-#           ifdef __ELEPHANT_MODELINE__
-            //  Remove count characters from oldFirstML
-            NSMutableString * MS = oldFirstML.originalString.mutableCopy;
-            NSUInteger locationInMS = location - oldFirstML.startOff7;
-            NSRange R = iTM3MakeRange(locationInMS,count);
-            [MS replaceCharactersInRange:R withString:@""];
-            oldFirstML.originalString = MS.copy;
-#           endif
-            ReachCode4iTM3(@"delete characters, _2");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"XY",ZER0,2);
-            TEST(@"XYZ",ZER0,2);
-            TEST(@"XYZ",1,2);
-            TEST(@"XY\r",ZER0,2);
-            TEST(@"XYZ\r",ZER0,2);
-            TEST(@"XYZ\r",1,2);
-            TEST(@"X\r\n",0,2);
-            TEST(@"\r\nXYZ",2,2);
-            TEST(@"\r\nXYZ",3,2);
-            TEST(@"YZ\r\n123",ZER0,2);
-            TEST(@"YZ\r\n123",1,2);
-            TEST(@"\nXY",1,2);
-            TEST(@"\nXYZ",1,2);
-            TEST(@"\nXYZ",2,2);
-            TEST(@"\n\r\nXYZ",3,2);
-            TEST(@"\n\r\nXYZ",4,2);
-            TEST(@"\nYZ\r\n123",1,2);
-            TEST(@"\nYZ\r\n123",2,2);
-#           endif
-invalidate_first_and_return_YES:
-            [oldFirstML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
-            //  to fix the edited range:
-            //  get a syntax mode range including location and the index before if it is in the same line
-            if (location > oldFirstML.startOff7 && location == R.location) {
-                [oldFirstML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
-                r.length += R.length;
-                R = r;
-            }
-            if (R.location > oldFirstML.startOff7 && R.length <= 1) {
-                [oldFirstML getSyntaxMode:NULL atGlobalLocation:R.location-1 longestRange:&r];
-                r.length += R.length;
-                R = r;
-            }
-            [oldFirstML invalidateGlobalRange:R];
-            if (editedAttributesRangePtr) {
-                *editedAttributesRangePtr = oldFirstML.invalidGlobalRange;
-            }
-            [self invalidateOff7sFromIndex:oldFirstIndex+1];
-            [self invalidateModesFromIndex:oldFirstIndex];
-            goto diagnostic_and_return;
-        }
-return_NO:
-        if (RORef && !RORef) {
-            OUTERROR4iTM3(2,@"Unknown problem.",NULL);
-        }
-        return NO;
-    }
-    //  The change concerns different lines : oldLastIndex > oldFirstIndex
-    //  We remove all intermediate lines that are complete and we will eventually concatenate some lines 
-    while (oldLastIndex - 1 > oldFirstIndex) {
-        //  remove the mode line before oldLastIndex
-        oldLastML = [self modeLineAtIndex:--oldLastIndex];
-        if (count > oldLastML.length) {
-            count -= oldLastML.length;
-            [self removeModeLineAtIndex:oldLastIndex];
-        } else {
-            NSAssert(NO,@"Huge problem: the text storage is not consistent");
-        }
-    }
-    //  oldLastIndex == oldFirstIndex + 1
-    oldLastML = [self modeLineAtIndex:oldLastIndex];
-    oldLastML.startOff7 = oldFirstML.endOff7;
-    //  We have oldFirstML.startOff7 <= location < oldFirstML.endOff7 == oldLastML.startOff7 <= location+count < oldLastML.endOff7
-    if (oldLastML.startOff7 == location+count) {
-        // the end of the first line is removed, we might have to merge with the next one
-        if ([oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]) {
-            if (oldFirstML.EOLLength) {
-#if 0
-                        TEST(@"XY",ZER0,2);
-                        TEST(@"XYZ",ZER0,2);
-                        TEST(@"XY\n",ZER0,2);
-                        TEST(@"XYZ",1,2);
-                        TEST(@"XYZ\n",ZER0,2);
-                        TEST(@"XYZ\n123",ZER0,2);
-                        TEST(@"AXY\n",1,2);
-                        TEST(@"AXYZ",1,2);
-                        TEST(@"AXYZ\n",1,2);
-                        TEST(@"AXYZ\n123",1,2);
-                        TEST(@"\nXY\n",1,2);
-                        TEST(@"\nXYZ",1,2);
-                        TEST(@"\nXYZ\n",1,2);
-                        TEST(@"\nXYZ\n123",1,2);
-                        TEST(@"X\r\n",ZER0,2);
-                        TEST(@"\nX\r\n",1,2);
-                        TEST(@"AX\r\n",1,2);
-#endif
-            } else {
-                // Maybe the merge must occur with the next mode line, but only if it is not void
-            }
-        }
-        goto return_NO;
-    }
-	if (editedAttributesRangePtr) {
-		NSUInteger where = oldFirstML.startOff7;
-		* editedAttributesRangePtr = iTM3MakeRange(where,[self.textStorage length]-where);
-	}
-    if (oldLastIndex == oldFirstIndex) {
-        //  the characters deleted all come from the same line, there was no intermediate line to remove
-        //  moreover, the last character of that line is undeleted
-        if ([oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]) {
-            //  No problem in editing the mode line
-            if (ZER0 == oldFirstML.length) {
-                //  The line is simply removed
-                if (self.numberOfModeLines>1) {
-                    [self removeModeLineAtIndex:oldFirstIndex];
-                }
-                if (editedAttributesRangePtr) {
-                    editedAttributesRangePtr->location = location;
-                    editedAttributesRangePtr->length = ZER0;
-                }
-#               ifdef __ELEPHANT_MODELINE__
-                NSMutableString * MS = oldFirstML.originalString.mutableCopy;
-                NSUInteger locationInMS = location - oldFirstML.startOff7;
-                NSRange R = NSMakeRange(locationInMS,count);
-                [MS replaceCharactersInRange:R withString:@""];
-                oldFirstML.originalString = MS.copy;
-#               endif
-                goto return_YES;
-            }
-            //  should I merge with the previous because of EOL marks being partly deleted and \r\n combination
-            if (oldFirstIndex && (oldFirstML.EOLLength == 1) && !oldFirstML.contentsLength) {
-                //  oldFirstML is a pure 1 length EOL and is not the 1st one
-                S = [self.textStorage string];
-                if (S.length) {
-                    [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:NSMakeRange(oldFirstML.startOff7,ZER0)];
-                    if (contentsEnd < oldFirstML.startOff7) {
-                        //  We have to merge because oldFirstML.startOff7 now lies inside an EOL mark
-                        //  Get the previous mode line
-                        oldLastML = [self modeLineAtIndex:oldFirstIndex-1];
-                        //  extend this modeline to take into account the new EOL mark component
-                        ++oldLastML.EOLLength;
-#                       ifdef __ELEPHANT_MODELINE__
-                        //  The character corresponding to ++oldLastML.EOLLength is not in its originalString
-                        //  It is the last character of the actual range of oldFirstML
-                        NSRange R = NSMakeRange(oldFirstML.originalString.length-1,1);
-                        NSString * replacement = [oldFirstML.originalString substringWithRange:R];
-                        NSMutableString * MS = oldLastML.originalString.mutableCopy;
-                        R = NSMakeRange(MS.length,0);
-                        [MS replaceCharactersInRange:R withString:replacement];
-                        oldLastML.originalString = MS.copy;
-#                       endif
-                        [self removeModeLineAtIndex:oldFirstIndex];
-                        oldFirstML = oldLastML;
-                        if (editedAttributesRangePtr) {
-                            *editedAttributesRangePtr = oldFirstML.EOLRange;
-                        }
-                        [self invalidateOff7sFromIndex:oldFirstIndex--];
-                        [self invalidateModesFromIndex:oldFirstIndex];
-                        goto diagnostic_and_return;
-                    }
-                }
-            }
-            goto invalidate_first_and_return_YES;
-        }
-        return NO;
-    }
-    oldLastML = [self modeLineAtIndex:oldLastIndex];
-    //  maybe the last character(s) deleted was just the EOL, such that I should merge the first modeline with the next one, if any
-    if (oldLastML.startOff7 == location+count) {
-        //  We removed absolutely nothing from the oldLastML range
-        //  Did I remove the whole EOL of oldFirstML or just one part?
-        if (location > oldFirstML.contentsEndOff7) {
-            //  just one part
-            oldFirstML.EOLLength = location - oldFirstML.contentsEndOff7;//  do not invalidate the EOL mode
-#           ifdef __ELEPHANT_MODELINE__
-            //  Remove the extra EOL char from oldFirstML's originalString
-            //  We remove the trailing part of the originalString in order to have a string of the correct length
-            oldFirstML.originalString = [oldFirstML.originalString substringToIndex:oldFirstML.length];
-#           endif
-            if (editedAttributesRangePtr) {
-                //  fix the edited range
-                //  returns a syntax mode range including location and the index before if it is in the same line
-                *editedAttributesRangePtr = oldFirstML.EOLRange;
-            }
-            [self invalidateOff7sFromIndex:oldLastIndex];
-            goto diagnostic_and_return;
-        } else if (location == oldFirstML.startOff7) {
-            //  the whole oldFirstML line is removed, no more, no less
-            [self removeModeLineAtIndex:oldFirstIndex];
-            oldFirstML = oldLastML;
-            oldFirstML.startOff7 = location;
-#           ifdef __ELEPHANT_MODELINE__
-            //  Nothing to do
-#           endif
-            goto invalidate_first_and_return_YES;
-        } else if ([oldFirstML deleteModesInGlobalMakeRange:location:location+count-oldFirstML.startOff7 error:RORef]
-            //  merge modes from oldLastML then remove oldLastML
-                && [oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
-            [self removeModeLineAtIndex:oldLastIndex];
-#           ifdef __ELEPHANT_MODELINE__
-            //  Remove characters from oldFirstML's originalString from location on
-            //  then append the oldLastML.originalString
-            oldFirstML.originalString = [[oldFirstML.originalString substringToIndex:location - oldFirstML.startOff7]
-                stringByAppendingString:oldLastML.originalString];
-#           endif
-            goto invalidate_first_and_return_YES;
-        }
-        return NO;
-    } // else we have
-    //  oldLastML.startOff7 < location + count < oldLastML.endOff7
-    if ([oldLastML deleteModesInGlobalMakeRange:oldLastML.startOff7:location+count-oldLastML.startOff7 error:RORef]) {
-        //  oldFirstML.startOff7 <= location < oldFirstML.endOff7
-        //  oldLastML.startOff7 < location + count < oldLastML.endOff7
-        if (location == oldFirstML.startOff7) {
-            //  the whole firstLine line is removed
-            [self removeModeLineAtIndex:oldFirstIndex];
-#           ifdef __ELEPHANT_MODELINE__
-            //  Remove characters from oldLastML's originalString up to location
-            oldLastML.originalString = [oldLastML.originalString substringFromIndex:location - oldLastML.startOff7];
-#           endif
-            oldFirstML = oldLastML;
-            oldFirstML.startOff7 = location;
-            goto invalidate_first_and_return_YES;
-        } // else
-        //  location > oldFirstML.startOff7
-        //  Do we remove only part of EOLs from oldFirstML
-        if (location > oldFirstML.contentsEndOff7) {
-            //  We did remove only a part of the EOL mark
-            oldFirstML.EOLLength = location - oldFirstML.contentsEndOff7;
-            //  Maybe we have to merge with the following mode line
-            if (oldLastML.contentsLength) {
-                //  NO, oldLastML does contain text
-#               ifdef __ELEPHANT_MODELINE__
-                //  Remove the extra EOL char from oldFirstML's originalString
-                //  We remove the trailing part of the originalString in order to have a string of the correct length
-                oldFirstML.originalString = [oldFirstML.originalString substringToIndex:oldFirstML.length];
-                oldLastML.originalString = [oldLastML.originalString substringFromIndex:location - oldLastML.startOff7];                
-#               endif
-                goto invalidate_first_and_return_YES;
-            }
-            //  We may have to merge
-            if (oldLastML.EOLLength == 1) {
-                S = [self.textStorage string];
-                if (S.length) {
-                    [S getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:NSMakeRange(oldFirstML.endOff7,ZER0)];
-                    if (contentsEnd < oldFirstML.endOff7) {
-                        ++oldFirstML.EOLLength;
-#                       ifdef __ELEPHANT_MODELINE__
-                        //  Remove the extra EOL char from oldFirstML's originalString
-                        //  We remove the trailing part of the originalString in order to have a string of the correct length
-                        oldFirstML.originalString = [[oldFirstML.originalString substringToIndex:oldFirstML.length]
-                            stringByAppendingString:[oldLastML.originalString substringFromIndex:oldLastML.length-1]];
-#                       endif
-                        [self removeModeLineAtIndex:oldLastIndex];
-                        goto invalidate_first_and_return_YES;
-                    }
-                }
-            }
-#           ifdef __ELEPHANT_MODELINE__
-            //  Remove the extra EOL char from oldFirstML's originalString
-            //  We remove the trailing part of the originalString in order to have a string of the correct length
-            oldFirstML.originalString = [oldFirstML.originalString substringToIndex:oldFirstML.length];
-            oldLastML.originalString = [oldLastML.originalString substringFromIndex:location - oldLastML.startOff7];                
-#           endif
-            goto invalidate_first_and_return_YES;
-        }
-        //  We remove the whole EOL of oldFirstML
-        if ([oldFirstML deleteModesInGlobalMakeRange:location:oldFirstML.endOff7-location error:RORef]
-            && [oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
-            [self removeModeLineAtIndex:oldLastIndex];
-#           ifdef __ELEPHANT_MODELINE__
-            //  Remove the extra EOL char from oldFirstML's originalString
-            //  We remove the trailing part of the originalString in order to have a string of the correct length
-            oldFirstML.originalString = [[oldFirstML.originalString substringToIndex:oldFirstML.length]
-                stringByAppendingString:[oldLastML.originalString substringFromIndex:location - oldLastML.startOff7]];                
-#           endif
-            goto invalidate_first_and_return_YES;
-        }
+        ReachCode4iTM3(@"delete one line except the header, including the EOL, and more, merge to the right");
+#       ifdef __EMBEDDED_TEST__
+        iTM2TextStorage * TS = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_CHARACTERS_YES
+        TEST(@"0\r\nXX",1,2+1);
+        TEST(@"0\r\n\n",1,2);
+        TEST(@"0\r\nX\n",1,2);
+        TEST(@"0\r\nW\nX",1,2+2);
+        TEST(@"0\r\nXW\n",1,2+2);
+        TEST(@"0\r\nW\n\n",1,2+2);
+        TEST(@"0\r\nXW\n\n",1,2+2);
+#       endif
+        goto diagnostic_and_return;
     }
 #endif
+    ReachCode4iTM3(@"UNEXPECTED");
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageWillProcessEditing4iTM3Error:
@@ -5812,7 +5339,90 @@ Latest Revision: Tue Apr  6 10:21:55 UTC 2010
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-    return [self deleteModesInGlobalRange:iTM3MakeRange(location, length) error:RORef];
+    return [self deleteModesInGlobalRange:iTM3MakeRange(location,length) error:RORef];
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _deleteModesInGlobalMakeRangeEOL::error:
+- (BOOL)_deleteModesInGlobalMakeRangeEOL:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
+/*"Description forthcoming. deleteRange is in global coordinates.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Latest Revision: Tue Apr  6 10:21:55 UTC 2010
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _deleteModesInGlobalMakeRangeCommented::error:
+- (BOOL)_deleteModesInGlobalMakeRangeCommented:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
+/*"Description forthcoming. deleteRange is in global coordinates.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Latest Revision: Tue Apr  6 10:21:55 UTC 2010
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _deleteSyntaxWordsInLocalMakeRange::error:
+- (BOOL)_deleteSyntaxWordsInLocalMakeRange:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
+/*"Description forthcoming. deleteRange is in global coordinates.
+Version history: jlaurens AT users DOT sourceforge DOT net
+Latest Revision: Tue Apr  6 10:21:55 UTC 2010
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+    //  We remove the last uncomplete syntax word
+    //  Then we remove the complete syntax word if relevant
+    //  Finally we remove the first uncomplete syntax words
+    //  So, let us remove the last uncomplete syntax word
+    //  find the biggest idx <= _NumberOfSyntaxWords such that
+    //      __SyntaxWordOff7s[idx] <= rightLocation < __SyntaxWordOff7s[idx+1] ( if relevant)
+    //  What will be removed is
+    //      rightLocation - __SyntaxWordOff7s[idx]
+    //  What will remain is
+    //      __SyntaxWordOff7s[idx+1] - rightLocation, if it makes sense
+    //  We already know that
+    //  rightLocation <= __SyntaxWordOff7s[_NumberOfSyntaxWords] == self.contentsLength
+    //  such that the expected idx is at most _NumberOfSyntaxWords
+    //  But that is not yet an explicit requirement
+    if (location > NSUIntegerMax - length) {
+        OUTERROR4iTM3(1,@"!!!!  CAPACITY EXCEEDED...",NULL);
+        return NO;
+    }
+    NSUInteger readIndex = 0;
+    //  Skip the syntax words that are not modified:
+    //  Find the largest index such that
+    //  __SyntaxWordOff7s[readIndex]<location
+    if (!_NumberOfSyntaxWords) {
+        return NO;
+    }
+    
+    if (__SyntaxWordOff7s[readIndex]<location) {
+next_readIndex:
+        if (readIndex < _NumberOfSyntaxWords) {
+            if (__SyntaxWordOff7s[readIndex+1]<location) {
+                ++readIndex;
+                goto next_readIndex;
+            }
+            // __SyntaxWordOff7s[readIndex] < location <= __SyntaxWordOff7s[readIndex+1]
+            NSUInteger delta = __SyntaxWordOff7s[readIndex+1] - location;
+            __SyntaxWordLengths[readIndex] -= delta;
+            length -= delta;
+            __SyntaxWordOff7s[readIndex+1] -= delta;
+        } else {
+            //  No more syntax words, location is too big
+            return NO;
+        }
+    }
+    NSUInteger writeIndex = ++readIndex;
+next_readIndex_bis:
+    if (readIndex < _NumberOfSyntaxWords) {
+        if (__SyntaxWordLengths[readIndex] <= length ) {
+            length -= __SyntaxWordLengths[readIndex];
+            ++readIndex;
+            goto next_readIndex_bis;
+        }
+    }
+    __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex] - length;
+    __SyntaxWordOff7s[writeIndex+1] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
+    _NumberOfSyntaxWords = writeIndex;
+    return YES;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  deleteModesInGlobalRange:error:
 - (BOOL)deleteModesInGlobalRange:(NSRange)deleteRange error:(NSError **)RORef;
@@ -5826,27 +5436,204 @@ To Do List:
     if (RORef) {
         *RORef = nil;
     }
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_DELETE_MODES_YES
+#   define TEST_DELETE_MODES_YES(LOCATION,LENGTH,EOL,COMMENT,...)\
+    ML = [iTM2ModeLine modeLine];\
+    ML.EOLLength = EOL;\
+    STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
+    if (COMMENT <= ML.contentsLength) {\
+        ML.commentedLength = COMMENT;\
+    }\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);
+#   undef TEST_DELETE_MODES_NO
+#   define TEST_DELETE_MODES_NO(LOCATION,LENGTH,EOL,COMMENT,...)\
+    ML = [iTM2ModeLine modeLine];\
+    ML.EOLLength = EOL;\
+    STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
+    if (COMMENT <= ML.contentsLength) {\
+        ML.commentedLength = COMMENT;\
+    }\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);\
+    STAssertReachCode4iTM3((![ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);
+#   undef REACH_CODE_ARGS
+#   define REACH_CODE_ARGS(...) [[NSArray arrayWithObjects:@"deleteModesInGlobalRange", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+#endif
+#   undef REACH_CODE_ARGS
+#   define REACH_CODE_ARGS(...) [[NSArray arrayWithObjects:@"deleteModesInGlobalRange", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
     //  preparation for simple cases
     if (!deleteRange.length) {
         //  nothing to remove
+        ReachCode4iTM3(REACH_CODE_ARGS(@"void range",@"NO"));
+#       ifdef __EMBEDDED_TEST__
+        iTM2ModeLine * ML = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_MODES_NO
+        TEST(0,0,0,0,0);
+#       endif
         return NO;
     }
-    // We do not touch deleteRange
+    //  We do not touch deleteRange
     NSUInteger leftLocation = deleteRange.location;
+    NSUInteger rightLocation = iTM3MaxRange(deleteRange);
+    //  We first edit the lengths, then we edit the mode words
+    //  leftLocation < rightLocation
+    //  Locate both locations in
+    //  self.startOff7 <= self.commentOff7 <= self.contentsEndOff7 <= self.endOff7
+    //  or conversely locate the 4 previous limits in
+    //  . <= . <= . <= . <= .(==leftLocation) <= . <= . <= . <= . <= .(==rightLocation) <= . <= . <= . <= .
+    if (self.endOff7 <= leftLocation) {
+        // everything is removed from the right part
+        ReachCode4iTM3(REACH_CODE_ARGS(@"maximum exceeded",@"NO"));
+#       ifdef __EMBEDDED_TEST__
+        iTM2ModeLine * ML = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_MODES_NO
+        TEST(0,1,0,0,0);
+        TEST(1,1,0,0,1,1,0);
+        TEST(2,1,0,0,1,1,0);
+#       endif
+        return NO;
+    }
+    if (self.contentsEndOff7 <= leftLocation) {
+        // everything is removed from the EOL part
+        if (self.endOff7 <= rightLocation) {
+            self.EOLLength = leftLocation - self.contentsEndOff7;
+            ReachCode4iTM3(@"deleteModesInGlobalRange, delete only the right part of the EOL");
+#           ifdef __EMBEDDED_TEST__
+            iTM2ModeLine * ML = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_MODES_YES
+            TEST(0,1,1,0,0);
+            TEST(1,1,2,0,0);
+            TEST(1,1,1,0,0);
+            TEST(0,1+2,1,0,0);
+            TEST(1,1+2,2,0,0);
+            TEST(1,1+2,1,0,0);
+#           endif
+            return YES;
+        }
+        self.EOLLength -= deleteRange.length;
+        ReachCode4iTM3(@"deleteModesInGlobalRange, delete only the left part of the EOL");
+#       ifdef __EMBEDDED_TEST__
+        iTM2ModeLine * ML = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_MODES_NO
+        TEST(0,1,2,0,0);
+        TEST(1,1,2,0,121,1,0);
+#       endif
+        return YES;
+    }
+    //  Now something is removed from the contents part
+    
+    if (self.commentOff7 <= leftLocation) {
+        if (self.endOff7 <= rightLocation) {
+            // everything is removed from the EOL part
+            if (self.endOff7 <= rightLocation) {
+                self.EOLLength = leftLocation - self.contentsEndOff7;
+                ReachCode4iTM3(REACH_CODE_ARGS(@"delete only the right part of the EOL",@"YES"));
+    #           ifdef __EMBEDDED_TEST__
+                iTM2ModeLine * ML = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_MODES_YES
+                TEST(0,1,1,0,0);
+                TEST(1,1,2,0,0);
+                TEST(1,1,1,0,121,1,0);
+                TEST(1,1,1,0,0);
+                TEST(@"\n",0,1+2);
+                TEST(@"\r\n",1,1+2);
+                TEST(@"X\n",1,1+2);
+    #           endif
+                return [self _deleteModesFrom:self.commentOff7 to:self.contentsEndOff7 error:RORef];
+            }
+            self.EOLLength -= deleteRange.length;
+            ReachCode4iTM3(REACH_CODE_ARGS(@"delete only the left part of the EOL",@"YES"));
+    #       ifdef __EMBEDDED_TEST__
+            iTM2ModeLine * ML = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_MODES_NO
+            TEST(@"\r\n",0,1);
+            TEST(@"X\r\n",1,1);
+    #       endif
+            return YES;
+        }
+        if (self.contentsEndOff7 <= rightLocation) {
+            // everything is removed from the EOL part
+            if (self.endOff7 <= rightLocation) {
+                self.EOLLength = leftLocation - self.contentsEndOff7;
+                ReachCode4iTM3(REACH_CODE_ARGS(@"delete only the right part of the EOL",@"YES"));
+    #           ifdef __EMBEDDED_TEST__
+                iTM2ModeLine * ML = nil;
+                #undef  TEST
+                #define TEST TEST_DELETE_MODES_YES
+                TEST(@"\n",0,1);
+                TEST(@"\r\n",1,1);
+                TEST(@"X\n",1,1);
+                TEST(@"\n",0,1+2);
+                TEST(@"\r\n",1,1+2);
+                TEST(@"X\n",1,1+2);
+    #           endif
+                return YES;
+            }
+            self.EOLLength -= deleteRange.length;
+            ReachCode4iTM3(@"deleteModesInGlobalRange, delete only the left part of the EOL");
+    #       ifdef __EMBEDDED_TEST__
+            iTM2ModeLine * ML = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_MODES_NO
+            TEST(@"\r\n",0,1);
+            TEST(@"X\r\n",1,1);
+    #       endif
+            return YES;
+        }
+        // everything is removed from the EOL part
+        if (self.endOff7 <= rightLocation) {
+            self.EOLLength = leftLocation - self.contentsEndOff7;
+            ReachCode4iTM3(@"deleteModesInGlobalRange, delete only the right part of the EOL");
+#           ifdef __EMBEDDED_TEST__
+            iTM2ModeLine * ML = nil;
+            #undef  TEST
+            #define TEST TEST_DELETE_MODES_YES
+            TEST(@"\n",0,1);
+            TEST(@"\r\n",1,1);
+            TEST(@"X\n",1,1);
+            TEST(@"\n",0,1+2);
+            TEST(@"\r\n",1,1+2);
+            TEST(@"X\n",1,1+2);
+#           endif
+            return YES;
+        }
+        self.EOLLength -= deleteRange.length;
+        ReachCode4iTM3(@"deleteModesInGlobalRange, delete only the left part of the EOL");
+#       ifdef __EMBEDDED_TEST__
+        iTM2ModeLine * ML = nil;
+        #undef  TEST
+        #define TEST TEST_DELETE_MODES_NO
+        TEST(@"\r\n",0,1);
+        TEST(@"X\r\n",1,1);
+#       endif
+        return YES;
+    }
     NSUInteger idx = self.endOff7;
     if (idx <= leftLocation) {
         // everything is removed from the right part
         return NO;
     }
-    NSUInteger xdi = self.contentsEndOff7;
-    NSUInteger rightLocation = iTM3MaxRange(deleteRange);
+    //  leftLocation < idx
+    NSUInteger xdi = self.contentsEndOff7; // xdi <= idx
+
     if (xdi <= leftLocation) {
-        // everything is removed from the EOL part
+        //  everything is removed from the EOL part
         if (idx <= rightLocation) {
+            //  xdi <= leftLocation < idx <= rightLocation
             if (!(self.EOLLength = leftLocation - xdi)) {
                 self.EOLMode = kiTM2TextUnknownSyntaxMode;
             }
         } else {
+            // xdi <= leftLocation < rightLocation < idx
             if (!(self.EOLLength -= rightLocation - leftLocation)) {
                 self.EOLMode = kiTM2TextUnknownSyntaxMode;
             }
@@ -5865,6 +5652,7 @@ To Do List:
 		self.startOff7 -= deleteRange.length;
         return NO;
     } else if (idx <= rightLocation) {
+        //  self.startOff7 < rightLocation
         self.EOLLength = ZER0;
         self.EOLMode = kiTM2TextUnknownSyntaxMode;
         rightLocation = xdi;
@@ -5939,104 +5727,6 @@ To Do List:
             }
         }
     }
-    //  We remove the last uncomplete syntax word
-    //  Then we remove the complete syntax word
-    //  Finally we remove the first uncomplete syntax words
-    //  So, let us remove the last uncomplete syntax word
-    //  find the biggest idx <= _NumberOfSyntaxWords such that
-    //      __SyntaxWordOff7s[idx] <= rightLocation < __SyntaxWordOff7s[idx+1] ( if relevant)
-    //  What will be removed is
-    //      rightLocation - __SyntaxWordOff7s[idx]
-    //  What will remain is
-    //      __SyntaxWordOff7s[idx+1] - rightLocation, if it makes sense
-    //  We already know that
-    //  rightLocation <= __SyntaxWordOff7s[_NumberOfSyntaxWords] == self.contentsLength
-    //  such that the expected idx is at most _NumberOfSyntaxWords
-    idx = _NumberOfSyntaxWords;
-    if (__SyntaxWordOff7s[idx] > rightLocation) {
-        // the last syntax word is partly removed
-        do {
-            --idx;
-        } while (__SyntaxWordOff7s[idx] > rightLocation);
-        //  idx < _NumberOfSyntaxWords
-        //  The loop stops because rightLocation > ZER0 == __SyntaxWordOff7s[ZER0]
-        //  We have now
-        //      __SyntaxWordOff7s[idx] <= rightLocation < __SyntaxWordEnds[idx]
-        //  idx is the index of the syntax word that is partly removed
-        if (__SyntaxWordOff7s[idx] <= leftLocation) {
-            //  We only remove some part of a syntax word
-            //  _NumberOfSyntaxWords does not change
-            __SyntaxWordLengths[idx] -= rightLocation - leftLocation; // > ZER0
-            do {
-                __SyntaxWordEnds[idx] = __SyntaxWordOff7s[idx] + __SyntaxWordLengths[idx];
-            } while (++idx<_NumberOfSyntaxWords);
-            return YES;
-        }
-        //  leftLocation < __SyntaxWordOff7s[idx] <= rightLocation < __SyntaxWordEnds[idx]
-        __SyntaxWordLengths[idx] = __SyntaxWordEnds[idx] - rightLocation; // > ZER0
-        rightLocation = __SyntaxWordOff7s[idx];
-        //  leftLocation < __SyntaxWordOff7s[idx] == rightLocation
-        xdi = idx;//    <= _NumberOfSyntaxWords
-        //  xdi is the biggest index for which the syntax word length has been modified
-        while (YES) {
-            //  We have __SyntaxWordOff7s[idx] == rightLocation > leftLocation >= ZER0, so idx > ZER0
-            --idx; // idx < xdi
-            if (leftLocation <= __SyntaxWordOff7s[idx]) {
-                //  A complete syntax word must be removed
-                rightLocation = __SyntaxWordOff7s[idx];
-                __SyntaxWordLengths[idx] = ZER0;
-                if (leftLocation < rightLocation) {
-                    continue;
-                }
-                //  leftLocation == rightLocation
-                //  It is possible that we have removed full syntax words between two syntax words with the same mode
-                //  We must reconnect the two following syntax words with the same mode
-                //  The idea is to tranfer the length of the left word to the rightmost one
-                if (idx && (__SyntaxWordModes[idx-1] == __SyntaxWordModes[xdi])) {
-                    --idx;
-                    __SyntaxWordLengths[xdi] += __SyntaxWordLengths[idx];
-                    __SyntaxWordLengths[idx] = ZER0;
-                }
-            } else {
-                // leftLocation > __SyntaxWordOff7s[idx]
-                //  This is a partially deleted syntax word
-                if (__SyntaxWordModes[idx] == __SyntaxWordModes[xdi]) {
-                    __SyntaxWordLengths[xdi] += leftLocation - __SyntaxWordOff7s[idx];
-                    __SyntaxWordLengths[idx] = ZER0;
-                } else {
-                    __SyntaxWordLengths[idx] = leftLocation - __SyntaxWordOff7s[idx];
-                    //  Fix consistency for this syntax word
-                    __SyntaxWordEnds[idx] = __SyntaxWordOff7s[idx] + __SyntaxWordLengths[idx];
-                    ++idx; // idx <= xdi
-                }
-            }
-            break;
-        }
-        //  Now all the lengths have been set
-
-        //  Fix the consistency of the other syntax words
-        while (xdi < _NumberOfSyntaxWords) {
-            __SyntaxWordEnds[idx] = __SyntaxWordOff7s[idx] + (__SyntaxWordLengths[idx] = __SyntaxWordLengths[xdi]);
-            __SyntaxWordModes[idx] = __SyntaxWordModes[xdi];
-            ++idx;
-            ++xdi;
-        }
-        _NumberOfSyntaxWords = idx;
-        return YES;
-    }
-    //  __SyntaxWordOff7s[_NumberOfSyntaxWords] <= rightLocation
-    //  Which means
-    //  __SyntaxWordOff7s[_NumberOfSyntaxWords] == rightLocation
-    //  As rightLocation > ZER0, __SyntaxWordOff7s[_NumberOfSyntaxWords] > ZER0 and idx == _NumberOfSyntaxWords > ZER0
-    while (idx && leftLocation <= __SyntaxWordOff7s[--idx]) {
-        //  This syntax word is totally removed
-        continue;
-    }
-    //  The loop ends because leftLocation > ZER0 == __SyntaxWordOff7s[ZER0]
-    //  We already have eliminated the case where
-    //  leftLocation == ZER0 and __SyntaxWordOff7s[_NumberOfSyntaxWords] == rightLocation
-    __SyntaxWordLengths[idx] = (__SyntaxWordEnds[idx] = leftLocation) - __SyntaxWordOff7s[idx]; // > ZER0
-    _NumberOfSyntaxWords = idx +1;
     if (!self.isConsistent) {
         if (RORef) {
             *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__

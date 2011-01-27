@@ -135,6 +135,10 @@ def main():
                         m = re.search("ReachCode4iTM3\\s*\\(\\s*(@\".*?\")\\s*\\)",line)
                         if m:
                             __CODE_TAG__ = m.group(1)
+                        else:
+                            m = re.search("ReachCode4iTM3\\s*\\(\\s*(REACH_CODE_ARGS\\s*\\(\\s*@\".*?\"\\s*\\))\\s*\\)",line)
+                            if m:
+                                __CODE_TAG__ = m.group(1)
 
                 f.close()
                 if len(setups):

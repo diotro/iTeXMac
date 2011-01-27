@@ -55,7 +55,7 @@ enum{
     #define ASSERT_UNREACHABLE_CODE4iTM3 NSAssert(NO,@"UNREACHABLE CODE")
 //  Next macros will help to see if critical parts of the code are reached as expected
 extern NSMutableSet * ReachCodeTags4iTM3;
-#   define ReachCode4iTM3(TAG) [ReachCodeTags4iTM3 addObject:TAG]
+#   define ReachCode4iTM3(TAG) [ReachCodeTags4iTM3 addObject:(TAG)]
 #else
 	#define DIAGNOSTIC4iTM3 //
 	#define START_TRACKING4iTM3
