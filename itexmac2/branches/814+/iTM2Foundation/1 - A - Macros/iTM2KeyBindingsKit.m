@@ -1098,7 +1098,7 @@ To Do List:
 		SEL result = (SEL)NSMapGet(KeyStroke_Selectors4iTM3,key);
 		if (iTM2DebugEnabled > 999)
 		{
-			LOG4iTM3(@"result: %@", result);
+			LOG4iTM3(@"result: %@", NSStringFromSelector(result));
 		}
 		if (result)
 			return result;

@@ -8198,6 +8198,7 @@
 			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_CFLAGS = "-Wall";
 				SDKROOT = macosx10.6;
 			};
 			name = Development;

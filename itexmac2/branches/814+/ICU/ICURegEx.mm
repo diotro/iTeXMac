@@ -119,11 +119,6 @@ NSString * const iTM2RegExpResourceName = @"iTM2RegularExpressions";
 
 #define _IVARS ((ICURegExIVars*)_iVars)
 
-static UChar U_CALLCONV
-InlineBuffer_charAt(int32_t offset, void *context) {
-    return (UChar)CFStringGetCharacterFromInlineBuffer((CFStringInlineBuffer*)context, offset);
-}
-
 @interface ICURegEx(PRIVATE)
 - (NSInteger)status;
 + (NSString *)errorDescriptionForStatus:(NSInteger)status;
@@ -426,13 +421,13 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 				[[self class] errorDescriptionForStatus:status],NSLocalizedDescriptionKey,
 					nil];
 			NSNumber * N;
-			if (pe.line>ZER0) {
+			if (pe.line>0) {
 				N = [NSNumber numberWithInt:pe.line-1];
 				[dict setObject:N forKey:@"line"];
 			}
-			if (pe.offset>=ZER0) {
+			if (pe.offset>=0) {
 				N = [NSNumber numberWithInt:pe.offset];
-				[dict setObject:N forKey:(pe.line>ZER0?@"column":@"offset")];
+				[dict setObject:N forKey:(pe.line>0?@"column":@"offset")];
 			}
 			NSString * context;
 			UnicodeString unicodeString;
@@ -495,13 +490,13 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 				[[self class] errorDescriptionForStatus:iVars.status],NSLocalizedDescriptionKey,
 					nil];
 			NSNumber * N;
-			if (pe.line>ZER0) {
+			if (pe.line>0) {
 				N = [NSNumber numberWithInt:pe.line-1];
 				[dict setObject:N forKey:@"line"];
 			}
-			if (pe.offset>=ZER0) {
+			if (pe.offset>=0) {
 				N = [NSNumber numberWithInt:pe.offset];
-				[dict setObject:N forKey:(pe.line>ZER0?@"column":@"offset")];
+				[dict setObject:N forKey:(pe.line>0?@"column":@"offset")];
 			}
 			NSString * context;
 			UnicodeString unicodeString;
@@ -1443,7 +1438,7 @@ groupName_found: {
 		_IVARS.error = [[NSError errorWithDomain:@"ICURegEx" code:-1 userInfo:dict] retain];
 		return NO;
 	}
-	NSParameterAssert((index<_IVARS.stringOffset));
+	NSParameterAssert(((NSUInteger)index<_IVARS.stringOffset));
 	[_IVARS.error autorelease];
 	_IVARS.error = nil;
 	_IVARS.status = U_ZERO_ERROR;

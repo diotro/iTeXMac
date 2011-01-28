@@ -131,12 +131,12 @@ extern NSInteger iTM2DebugEnabled;
 #define PRESENT_ROR4iTM3 ;
 #define isROR4iTM3 (self.RORef4iTM3 && !(*(self.RORef4iTM3)))
 #define OUTERROR4iTM3(TAG,STRING,UNDERLYING)\
-if (RORef && ([STRING length] || UNDERLYING)) {\
+if (RORef && !*RORef && ([STRING length] || UNDERLYING)) {\
 	*RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:TAG\
 		userInfo:(UNDERLYING?\
 			[NSDictionary dictionaryWithObjectsAndKeys:STRING,NSLocalizedDescriptionKey,UNDERLYING,NSUnderlyingErrorKey,nil]\
 				:[NSDictionary dictionaryWithObject:STRING forKey:NSLocalizedDescriptionKey])];\
-} else if (UNDERLYING) {\
+} else {\
 	LOCALERROR4iTM3(TAG,(STRING),(UNDERLYING));\
 }
 

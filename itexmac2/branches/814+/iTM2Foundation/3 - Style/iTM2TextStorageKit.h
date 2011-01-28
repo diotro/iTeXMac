@@ -874,7 +874,7 @@ extern NSString * const iTM2TextDefaultStyle;
 
 /*!
     @property   EOLLength:
-    @abstract   Set the EOL length of the receiver.
+    @abstract   Reads the EOL length of the receiver.
     @discussion This is one of 0, 1 or 2.
     @param      argument
     @result     None
@@ -1015,8 +1015,6 @@ extern NSString * const iTM2TextDefaultStyle;
 - (BOOL)moreStorage;
 
 - (BOOL)enlargeSyntaxModeAtGlobalLocation:(NSUInteger)aGlobalLocation length:(NSUInteger)lengthOffset error:(NSError **)RORef;
-- (BOOL)appendCommentedSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
-- (BOOL)appendNormalSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
 - (BOOL)appendSyntaxMode:(NSUInteger)mode length:(NSUInteger)length error:(NSError **)RORef;
 - (BOOL)appendSyntaxModesAndLengths:(NSUInteger)firstMode,...;// convenient method for testing and debugging purposes only, do not forget to use typecasting to NSUInteger
 - (BOOL)appendSyntaxModesFromModeLine:(iTM2ModeLine *)aModeLine error:(NSError **)RORef;

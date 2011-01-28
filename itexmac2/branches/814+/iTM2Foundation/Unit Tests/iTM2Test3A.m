@@ -252,7 +252,7 @@
             ,@"MISSED",nil)
     TEST(ML,ZER0,ZER0,ZER0,ZER0,ZER0,kiTM2TextOuterDefaultSyntaxMode,kiTM2TextOuterDefaultSyntaxMode);
     ML.startOff7 = 9999;
-    [ML appendNormalSyntaxMode:123123 length:1000 error:self.RORef4iTM3];
+    [ML appendSyntaxMode:123123 length:1000 error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",nil);
     STAssertTrue(ML.isConsistent,@"MISSED",nil);
     ML.describe;

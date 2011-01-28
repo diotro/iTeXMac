@@ -27,6 +27,7 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode
 
 #import "iTM2TreeKit.h"
+#import <objc/runtime.h>
 
 #ifndef DIAGNOSTIC4iTM3
 #define DIAGNOSTIC4iTM3
@@ -650,7 +651,7 @@ To Do List:
 		if ([[element name] isEqual:@"L"]) {
 			object_setClass(self,[iTM2PatriciaLeafNode class]);
         }
-		if (countOfChildren = [element childCount]) {
+		if ((countOfChildren = [element childCount])) {
 			// the first child is expected to be a text node
 			child = [element childAtIndex:index];
 			if ([child kind] == NSXMLTextKind) {

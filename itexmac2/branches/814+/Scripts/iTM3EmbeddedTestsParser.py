@@ -22,6 +22,7 @@ def main():
         for file in files:
             candidate = os.path.join(root,file)
             if re.match(".*iTM2.*\\.m$",candidate) and not re.search("iTM2.*test",candidate,re.I) and not re.search("/Archive/",candidate,re.I):
+                headers = []
                 setups = []
                 teardowns = []
                 tests = []
@@ -45,6 +46,19 @@ def main():
                         elif re.match("#\\s*if",line):
                             depth = depth+1
                             #print "#warning <<<<<< %i, line %i" %(depth,c)
+                    elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_HEADER__",line):
+                        while len(lines)>0:
+                            c = c+1
+                            line = lines.pop(0)
+                            headers.append(line)
+                            if re.match("#\\s*if",line):
+                                depth = depth + 1;
+                            elif re.match("#\\s*endif",line):
+                                if depth > 0:
+                                    depth = depth-1
+                                else:
+                                    headers.pop(-1)
+                                    break
                     elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_SETUP__",line):
                         while len(lines)>0:
                             c = c+1
@@ -136,7 +150,7 @@ def main():
                         if m:
                             __CODE_TAG__ = m.group(1)
                         else:
-                            m = re.search("ReachCode4iTM3\\s*\\(\\s*(REACH_CODE_ARGS\\s*\\(\\s*@\".*?\"\\s*\\))\\s*\\)",line)
+                            m = re.search("ReachCode4iTM3\\s*\\(\\s*(REACH_CODE_ARGS.*?\\s*\\(\\s*@\".*?\"\\s*\\))\\s*\\)",line)
                             if m:
                                 __CODE_TAG__ = m.group(1)
 
@@ -155,6 +169,8 @@ def main():
                     setups.insert(0,"\n@implementation %s\n"%class_name)
                     setups.append("@end\n")
                     setups.insert(0,"#import \"iTM3SenTestKit.h\"\n@interface %s : SenTestCase {\n}\n@end\n"%class_name)
+                    if len(headers):
+                        testCases.insert(0,"\n".join(headers))
                     setups.insert(0,"//This file was generated automatically by the 'Prepare Embedded Tests' build phase.\n")
                     try:
                         # This will create a new file or **overwrite an existing file**.
