@@ -1323,11 +1323,11 @@ To Do List:
     NSEnumerator * E = [self.layoutManagers objectEnumerator];
     NSLayoutManager * LM;
     NSTextView * cachedTV = nil;
-    while(LM = E.nextObject)
+    while((LM = E.nextObject))
     {
         NSEnumerator * EE = [[LM textContainers] objectEnumerator];
         NSTextContainer * TC;
-        while(TC = EE.nextObject)
+        while((TC = EE.nextObject))
         {
             NSTextView * TV = [TC textView];
             if (TV.window)

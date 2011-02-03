@@ -96,7 +96,7 @@ To Do List:
     NSMutableArray * MRA = [NSMutableArray array];
     NSEnumerator * E = [[self.mutableDictionary objectForKey:type] objectEnumerator];
     NSDictionary * D;
-    while(D = E.nextObject)
+    while((D = E.nextObject))
         [MRA addObject:[[D objectForKey:@"address"] nonretainedObjectValue]];
     return MRA.objectEnumerator;
 }

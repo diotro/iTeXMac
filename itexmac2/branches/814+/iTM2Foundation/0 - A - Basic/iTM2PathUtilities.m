@@ -509,12 +509,12 @@ To Do List:
 	NSArray * itsComponents = [dirName pathComponents];
 	NSEnumerator * itsE = itsComponents.objectEnumerator;
 	NSString * component = nil;
-	if (component = itsE.nextObject) {
+	if ((component = itsE.nextObject)) {
 		do {
 			if (![component pathIsEqual4iTM3:myE.nextObject]) {
 				return NO;
 			}
-		} while(component = itsE.nextObject);
+		} while ((component = itsE.nextObject));
 		return YES;
 	}
 //END4iTM3;
@@ -582,7 +582,7 @@ static NSMutableDictionary * iTM2URLSingletons = nil;
 - initWithScheme:(NSString *)scheme host:(NSString *)host path:(NSString *)path;
 {
 	NSParameterAssert(path.length);
-	if (self = [super initWithScheme:scheme host:host path:path])
+	if ((self = [super initWithScheme:scheme host:host path:path]))
 	{
 		NSString * key = self.absoluteString;
 		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
@@ -596,7 +596,7 @@ static NSMutableDictionary * iTM2URLSingletons = nil;
 - initWithString:(NSString *)URLString;
 {
 	NSParameterAssert(URLString.length);
-	if (self = [super initWithString:URLString])
+	if ((self = [super initWithString:URLString]))
 	{
 		NSString * key = self.absoluteString;
 		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
@@ -610,7 +610,7 @@ static NSMutableDictionary * iTM2URLSingletons = nil;
 - initWithString:(NSString *)URLString relativeToURL:(NSURL *)baseURL;
 {
 	NSParameterAssert(URLString.length);
-	if (self = [super initWithString:URLString relativeToURL:baseURL])
+	if ((self = [super initWithString:URLString relativeToURL:baseURL]))
 	{
 		NSString * key = self.absoluteString;
 		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
@@ -624,7 +624,7 @@ static NSMutableDictionary * iTM2URLSingletons = nil;
 - initFileURLWithPath:(NSString *)path isDirectory:(BOOL)yorn;
 {
 	NSParameterAssert(path.length);
-	if (self = [super initFileURLWithPath:path isDirectory:yorn]) {
+	if ((self = [super initFileURLWithPath:path isDirectory:yorn])) {
 		NSString * key = self.absoluteString;
 		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
 		if (singleton) {
@@ -637,7 +637,7 @@ static NSMutableDictionary * iTM2URLSingletons = nil;
 - initFileURLWithPath:(NSString *)path;
 {
 	NSParameterAssert(path.length);
-	if (self = [super initFileURLWithPath:path]) {
+	if ((self = [super initFileURLWithPath:path])) {
 		NSString * key = self.absoluteString;
 		NSURL * singleton = [iTM2URLSingletons objectForKey:key];
 		if (singleton) {

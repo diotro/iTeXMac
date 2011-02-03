@@ -564,7 +564,7 @@ To Do List:
 		NSMutableDictionary * attributes = [NSMutableDictionary dictionary];
 		NSEnumerator * E = context4iTM3Dictionary.keyEnumerator;
 		NSString * key;
-		while(key = E.nextObject)
+		while((key = E.nextObject))
 		{
 			NS_DURING
 			[attributes setObject:[NSArchiver archivedDataWithRootObject:[context4iTM3Dictionary objectForKey:key]] forKey:key];
@@ -794,7 +794,7 @@ To Do List:
     }
     NSEnumerator * e = self.windowControllers.objectEnumerator;
     NSWindowController * WC;
-    while(WC = e.nextObject)
+    while((WC = e.nextObject))
 	{
         if ([[WC.class inspectorMode] isEqual:mode])
 		{
@@ -814,9 +814,9 @@ To Do List:
     {
         e = variants.objectEnumerator;
         NSString * variant;
-        while(variant = e.nextObject)
+        while((variant = e.nextObject))
         {
-            if (C = [NSWindowController inspectorClassForType:type mode:mode variant:variant])
+            if ((C = [NSWindowController inspectorClassForType:type mode:mode variant:variant]))
             {
                 WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
 				[WC setInspectorVariant:variant];
@@ -838,7 +838,7 @@ To Do List:
     }
     [MD removeObjectForKey:mode];
     [self takeContext4iTM3Value:MD forKey:iTM2ContextInspectorVariants domain:iTM2ContextAllDomainsMask error:RORef];
-    if (C = [NSWindowController inspectorClassForType:type mode:mode variant:iTM2DefaultInspectorVariant])
+    if ((C = [NSWindowController inspectorClassForType:type mode:mode variant:iTM2DefaultInspectorVariant]))
     {
         WC = [[[C alloc] initWithWindowNibName:[C windowNibName]] autorelease];
         [self addWindowController:WC];
@@ -1166,7 +1166,7 @@ To Do List:
 here:
 		inspectorType4iTM3 = [self.class inspectorType4iTM3];
 		NSEnumerator * E = [[NSWindowController inspectorModesForType:inspectorType4iTM3] objectEnumerator];
-		while(inspectorMode = E.nextObject)
+		while((inspectorMode = E.nextObject))
 		{
 			if (![inspectorMode hasPrefix:@"."])
 			{
@@ -1311,13 +1311,13 @@ To Do List:
 			OSErr resError;
 			BOOL wasCurResFile = (noErr == ResError());
 			short refNum = FSOpenResFile(&ref, fsRdPerm);
-			if (resError = ResError())
+			if ((resError = ResError()))
 			{
 				LOG4iTM3(@"1 - Could not FSOpenResFile, error %i (refNum:%i)", resError, refNum);
 				return YES;
 			}
 			UseResFile(refNum);
-			if (resError = ResError())
+			if ((resError = ResError()))
 			{
 				LOG4iTM3(@"2 - Could not UseResFile, error %i (refNum:%i)", resError, refNum);
 				CloseResFile(refNum);
@@ -1344,7 +1344,7 @@ To Do List:
 				}
 				SInt16 resourceID = 0;
 				GetResInfo(H, &resourceID, nil, nil);
-				if (resError = ResError())
+				if ((resError = ResError()))
 				{
 					LOG4iTM3(@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex);
 					OUTERROR4iTM3(3,([NSString stringWithFormat:@"5 - Could not GetResInfo, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
@@ -1359,7 +1359,7 @@ To Do List:
 				NSData * D = [NSData dataWithBytes:*H length:GetHandleSize(H)];
 				HUnlock(H);
 				ReleaseResource(H);
-				if (resError = ResError())
+				if ((resError = ResError()))
 				{
 					LOG4iTM3(@"7 - Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex);
 					OUTERROR4iTM3(3,([NSString stringWithFormat:@"7 - Could not ReleaseResource, error %i (resourceIndex is %i)", resError, resourceIndex]),nil);
@@ -1392,7 +1392,7 @@ To Do List:
 				--resourceIndex;
 			}
 			CloseResFile(refNum);
-			if (resError = ResError())
+			if ((resError = ResError()))
 			{
 				LOG4iTM3(@"8 - Could not CloseResFile, error %i", resError);
 				OUTERROR4iTM3(3,([NSString stringWithFormat:@"8 - Could not CloseResFile, error %i", resError]),nil);
@@ -1400,7 +1400,7 @@ To Do List:
 			if (wasCurResFile)
 			{
 				UseResFile(curResFile);
-				if (resError = ResError())
+				if ((resError = ResError()))
 				{
 					LOG4iTM3(@"9 - Could not UseResFile, error %i", resError);
 					OUTERROR4iTM3(3,([NSString stringWithFormat:@"9 - Could not UseResFile, error %i", resError]),nil);
@@ -1763,7 +1763,7 @@ To Do List:
 		return NO;
 	}
 	ResFileRefNum fileSystemReferenceNumber;
-	if (resError = FSOpenResourceFile (&fsRef,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber))
+	if ((resError = FSOpenResourceFile (&fsRef,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber)))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -1774,7 +1774,7 @@ To Do List:
 		return NO;
 	}
 	UseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -1798,7 +1798,7 @@ To Do List:
 		I.invoke;
 		ResID resourceID = hexa;
 		Handle H = Get1Resource(resourceType, resourceID);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			LOG4iTM3(@"3 - Could not Get1Resource, error %i", resError);
 			OUTERROR4iTM3(2,([NSString stringWithFormat:@"3 - Could not Get1Resource, error %i", resError]),nil);
@@ -1812,7 +1812,7 @@ To Do List:
 		}
 		NSData * D = [NSArchiver archivedDataWithRootObject:resourceContent];
 		if (!D) D = [NSData data];
-		if (resError = PtrToHand([D bytes], &H, D.length))
+		if ((resError = PtrToHand([D bytes], &H, D.length)))
 		{
 			LOG4iTM3(@"4 - WARNING:Could not convert a Ptr into a handle, error %i", resError);
 			OUTERROR4iTM3(2,([NSString stringWithFormat:@"4 - WARNING:Could not convert a Ptr into a handle"]),nil);
@@ -1822,7 +1822,7 @@ To Do List:
 			HLock(H);
 			AddResource(H, resourceType, resourceID, (ConstStr255Param)"\0");
 			HUnlock(H);
-			if (resError = ResError())
+			if ((resError = ResError()))
 			{
 				LOG4iTM3(@"5 - Could not AddResource, error %i", resError);
 				OUTERROR4iTM3(2,([NSString stringWithFormat:@"5 - Could not AddResource, error %i", resError]),nil);
@@ -1836,7 +1836,7 @@ To Do List:
 		}
 	}
 	CloseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		LOG4iTM3(@"7 - Could not CloseResFile, error %i", resError);
 		OUTERROR4iTM3(2,([NSString stringWithFormat:@"7 - Could not CloseResFile, error %i", resError]),nil);
@@ -1844,7 +1844,7 @@ To Do List:
 	if (wasCurResFile)
 	{
 		UseResFile(curResFile);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			LOG4iTM3(@"8 - Could not UseResFile, error %i", resError);
 			OUTERROR4iTM3(2,([NSString stringWithFormat:@"8 - Could not UseResFile, error %i", resError]),nil);
@@ -1957,7 +1957,7 @@ To Do List:
     // Use the first associated HFS type code, if any exist.
     NSEnumerator * E = [[infoPlist objectForKey:@"CFBundleDocumentTypes"] objectEnumerator];
     NSDictionary * D;
-    while(D = E.nextObject)
+    while((D = E.nextObject))
     {
         NSString * type = [D objectForKey:@"CFBundleTypeName"];
         if ([type isEqualToString:typeName])
@@ -2406,7 +2406,7 @@ To Do List:
 	NSArray * inspectorClasses = [self inspectorClassesForType:type mode:mode];
     NSEnumerator * E = inspectorClasses.objectEnumerator;
     Class C;
-    while(C = E.nextObject)
+    while((C = E.nextObject))
 	{
 //LOG4iTM3(NSStringFromClass(C));
         if ([[C allInspectorVariantsForType:type] containsObject:variant])
@@ -2650,7 +2650,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //LOG4iTM3(@"name:%@", name);
-    if (self = [super initWithWindow:window]) {
+    if ((self = [super initWithWindow:window])) {
         self.initImplementation;
     }
     return self;
@@ -2664,7 +2664,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithCoder:aDecoder])
+    if ((self = [super initWithCoder:aDecoder]))
     {
         self.initImplementation;
     }
@@ -2726,7 +2726,7 @@ To Do List:
 	NSRect frame = window.frame;
 	NSEnumerator * E = [NSApp.windows objectEnumerator];
 	NSWindow * W;
-	while(W = E.nextObject)
+	while((W = E.nextObject))
 	{
 		if ((window != W) && NSEqualRects(frame, W.frame))
 		{
@@ -2899,7 +2899,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super initWithTitle:title])
+	if ((self = [super initWithTitle:title]))
 	{
 		// I thought update was automatic for menus, but it seems that it is not the case,
 		// at least for the inspector menu, so I must update them the hard way

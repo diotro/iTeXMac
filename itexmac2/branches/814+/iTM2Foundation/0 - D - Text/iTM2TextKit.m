@@ -192,12 +192,12 @@ To Do List:
     NSDictionary * attributes = [NSDictionary dictionaryWithObjectsAndKeys:
             [NSColor secondarySelectedControlColor], NSBackgroundColorAttributeName, nil];
 	NSRange R = iTM3MakeRange(ZER0, TS.length);
-    while (LM = [E1 nextObject])
+    while ((LM = [E1 nextObject]))
     {
 		[LM removeTemporaryAttribute:NSBackgroundColorAttributeName forCharacterRange:R];
         id V;
         NSEnumerator * E2 = ranges.objectEnumerator;
-        while(V = [E2 nextObject])
+        while((V = [E2 nextObject]))
         {
              [LM addTemporaryAttributes:attributes forCharacterRange:[V rangeValue]];
         }

@@ -453,11 +453,11 @@ DEFINE_IMAGE(imageUnlockDocument, @"imageUnlockDocument");
 {
 	NSString * imageName = [name hasPrefix:@"iTM2:"]?name:[NSString stringWithFormat:@"iTM2:%@",name];
 	NSImage * I;
-	if (I = [self imageNamed:imageName]) {
+	if ((I = [self imageNamed:imageName])) {
 		return I;
 	}
 	NSURL * imageURL = [[[NSBundle mainBundle] allURLsForImageResource4iTM3:name] lastObject];
-	if (I = [[self.alloc initWithContentsOfURL:imageURL] autorelease]) {
+	if ((I = [[self.alloc initWithContentsOfURL:imageURL] autorelease])) {
 		[I setName:imageName];
 		return I;
 	}
@@ -591,7 +591,7 @@ To Do List:
 		toolbarItems = [_toolbarItems objectForKey:toolbarIdentifier];
 	}
 	NSToolbarItem * toolbarItem;
-	if (toolbarItem = [toolbarItems objectForKey:anIdentifier]) {
+	if ((toolbarItem = [toolbarItems objectForKey:anIdentifier])) {
 		return [[toolbarItem copy] autorelease];
 	}
 	SEL selector = [self selectorFromIdentifier4iTM3:anIdentifier];
@@ -606,7 +606,7 @@ To Do List:
     NSBundle * MB = [NSBundle mainBundle];
 	NSURL * imageURL = [[MB allURLsForImageResource4iTM3:anIdentifier] lastObject];
 	if (imageURL.isFileURL) {
-		if (I = [[NSImage alloc] initWithContentsOfURL:imageURL])
+		if ((I = [[NSImage alloc] initWithContentsOfURL:imageURL]))
 		{
 			[I setName:anIdentifier];
 			if (iTM2DebugEnabled) {

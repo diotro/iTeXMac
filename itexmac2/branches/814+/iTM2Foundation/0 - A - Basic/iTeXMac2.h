@@ -80,7 +80,7 @@ do {\
         NSLog(DESCRIPTION,##__VA_ARGS__,NULL);\
     }\
 } while(NO)
-//	NSLog(DESCRIPTION,##__VA_ARGS__);\
+//	NSLog(DESCRIPTION,##__VA_ARGS__);
 
 #define STRONG_GETSET4iTM3(source, className, getter, setter)\
 - (void)getter;\
@@ -254,6 +254,8 @@ FOUNDATION_EXPORT NSRange iTM3ScaleRange(NSRange range, NSInteger delta);
 
 @interface NSObject (iTM3Error)
 
++ (void)setupRORef4iTM3;
+- (void)setupRORef4iTM3;
 + (NSError **)RORef4iTM3;
 + (void) setRORef4iTM3:(NSError **)RORef;
 - (NSError **)RORef4iTM3;

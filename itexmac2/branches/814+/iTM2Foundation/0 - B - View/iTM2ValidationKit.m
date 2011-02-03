@@ -294,9 +294,7 @@ To Do List:
     if (!self.isValid4iTM3)
     {
         BOOL flag = YES;
-        NSEnumerator * E = [self.subviews objectEnumerator];
-        NSView * V;
-        while(V = [E nextObject])
+        for (NSView * V in self.subviews)
             flag = [V validateUserInterfaceItems4iTM3] && flag;
 //END4iTM3;
         return flag;
@@ -343,14 +341,12 @@ printf("Currently validating: %s from document %s in zone %#lx\n", [self.title U
 #endif
 //START4iTM3;
     BOOL flag = [self.contentView validateUserInterfaceItems4iTM3];
-    NSEnumerator * E = [self.drawers objectEnumerator];
     id D;
-    while(D = [E nextObject])
+    for (D in self.drawers)
         flag = [D validateContent4iTM3] && flag;
-	if (D = self.attachedSheet)
+	if ((D = self.attachedSheet))
         flag = [D validateContent4iTM3] && flag;
-	E = [self.childWindows objectEnumerator];
-    while(D = [E nextObject])
+	for (D in self.childWindows)
         flag = [D validateContent4iTM3] && flag;
     return flag;
 }
@@ -482,9 +478,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     BOOL flag = YES;
-    NSEnumerator * E = [self.windowControllers objectEnumerator];
-    NSWindowController * WC;
-    while(WC = [E nextObject])
+    for (NSWindowController * WC in self.windowControllers)
         flag = [WC validateWindowContent4iTM3] && flag;
 //END4iTM3;
     return flag;

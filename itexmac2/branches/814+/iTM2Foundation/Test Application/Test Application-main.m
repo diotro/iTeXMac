@@ -201,7 +201,7 @@ static id text = nil;
     [[[iTM2Test6 alloc] init]invokeTest];
     [[[iTM2Test7 alloc] init]invokeTest];
 #endif
-    [[[iTM2Test3C alloc] init] invokeTest];
+    [[[iTM2Test3B alloc] init] invokeTest];
 }
 - (BOOL)canEditText;
 {

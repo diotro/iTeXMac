@@ -102,7 +102,7 @@ DEFINE(codeName,setCodeName)
 }
 - (NSString *)altKey;
 {
-	if ((modifierFlags & NSAlternateKeyMask > ZER0)
+	if (((modifierFlags & NSAlternateKeyMask) > ZER0)
 		&& altCodeName.length
 			&& ![altCodeName isEqual:codeName])
 	{
@@ -299,7 +299,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [self init])
+    if ((self = [self init]))
     {
 		[self setChildren:[NSMutableArray array]];
 		[self setParent:aParent];
@@ -545,7 +545,7 @@ DEFINE(tooltip,setTooltip)
 @implementation iTM2MacroParser
 - (id)initWithClass:(Class)theClass owner:(id)anOwner;
 {
-	if (self = [self init])
+	if ((self = [self init]))
 	{
 		macroClass = theClass;
 		owner = anOwner;
@@ -707,7 +707,7 @@ NSString * const iTM2MacroControllerComponent = @"Macros.localized";
 - (id)initWithParent:(iTM2MacroTreeNode *)parent domain:(NSString *)domain;
 {
 	NSParameterAssert(domain);
-	if (self = [super initWithParent:parent])
+	if ((self = [super initWithParent:parent]))
 	{
 		[self setValue:domain forKeyPath:@"value.domain"];
 	}
@@ -757,7 +757,7 @@ NSString * const iTM2MacroControllerComponent = @"Macros.localized";
 - (id)initWithParent:(iTM2MacroTreeNode *)parent category:(NSString *)category;
 {
 	NSParameterAssert(category);
-	if (self = [super initWithParent:parent])
+	if ((self = [super initWithParent:parent]))
 	{
 		[self setValue:category forKeyPath:@"value.category"];
 	}
@@ -810,7 +810,7 @@ NSString * const iTM2MacroPersonalComponent = @"Personal";
 - (id)initWithParent:(iTM2MacroTreeNode *)parent context:(NSString *)context;
 {
 	NSParameterAssert(context);
-	if (self = [super initWithParent:parent])
+	if ((self = [super initWithParent:parent]))
 	{
 		[self setValue:context forKeyPath:@"value.context"];
 	}
@@ -906,7 +906,7 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 		{
 			LOG4iTM3(@"Reading Macros");
 		}
-		while(url = [E nextObject])
+		while((url = [E nextObject]))
 		{
 			if (![url isEqual:personalUrl])
 			{
@@ -920,7 +920,7 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 					LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
 					localError = nil;
 				}
-				if (D = [iTM2MacroNode macrosWithData:data owner:self])
+				if ((D = [iTM2MacroNode macrosWithData:data owner:self]))
 				{
 					[MD addEntriesFromDictionary:D];
 				}
@@ -935,7 +935,7 @@ NSString * const iTM2MacroPathExtension = @"iTM2-macros";
 		{
 			LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
 		}
-		if (D = [iTM2MacroNode macrosWithData:data owner:self])
+		if ((D = [iTM2MacroNode macrosWithData:data owner:self]))
 		{
 			[MD addEntriesFromDictionary:D];
 		}
@@ -978,7 +978,7 @@ NSString * const iTM2KeyBindingPathExtension = @"iTM2-key-bindings";
 	NSURL * personalURL = [self personalURL];
 	NSError * localError =  nil;
 	NSData * data = nil;
-	while(url = [E nextObject])
+	while((url = [E nextObject]))
 	{
 		if (![url isEqual:personalURL])
 		{

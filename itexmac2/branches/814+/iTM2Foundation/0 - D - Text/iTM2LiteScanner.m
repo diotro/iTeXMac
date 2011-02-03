@@ -55,7 +55,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         self.string = nil;
         self.charactersToBeSkipped = [NSCharacterSet whitespaceAndNewlineCharacterSet];
@@ -71,7 +71,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = self.init)
+    if ((self = self.init))
     {
         self.string = aString;
     }

@@ -343,7 +343,7 @@ To Do List:
 	// removing all the menu items with the stringEncodingSelect:
 	NSEnumerator * E = [M.itemArray objectEnumerator];
 	NSMenuItem * MI = nil;
-	while(MI = [E nextObject])
+	while((MI = [E nextObject]))
 		if (MI.action == @selector(takeStringEncodingFromTag:) && (!MI.target))
 			[M removeItem:MI];
 	// adding the string encoding menu items
@@ -351,7 +351,7 @@ To Do List:
 	[M insertItem:[NSMenuItem separatorItem] atIndex:index];
 	E = [[[iTM2StringFormatController stringEncodingMenuWithAction:@selector(takeStringEncodingFromTag:) target:nil]
 			itemArray] reverseObjectEnumerator];
-	while(MI = [[[E nextObject] retain] autorelease])
+	while((MI = [[[E nextObject] retain] autorelease]))
 	{
 		[MI.menu removeItem:MI];
 		[M insertItem:MI atIndex:index];
@@ -459,7 +459,7 @@ To Do List:
             result = kCFStringEncodingNonLossyASCII;
         }
     }
-    else if ([S scanString:@"nextstep" intoString:nil] && [S scanString:@"latin" intoString:nil]
+    else if (([S scanString:@"nextstep" intoString:nil] && [S scanString:@"latin" intoString:nil])
 		||[S scanString:@"next" intoString:nil])
     {
         result = kCFStringEncodingNextStepLatin;
@@ -1215,7 +1215,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ((self = [super init]))  {
+	if (((self = [super init])))  {
 		self.document=document;
 	}
 //END4iTM3;
@@ -1307,7 +1307,7 @@ To Do List:
 				string = [[[NSString alloc] initWithData:docData encoding:usedEncoding] autorelease];
 			}
         }
-    } else if (usedEncoding = self.stringEncoding) {
+    } else if ((usedEncoding = self.stringEncoding)) {
         if (![[NSString localizedNameOfStringEncoding:usedEncoding] length]) {
             usedEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingMacRoman);
         } else {
@@ -1373,7 +1373,7 @@ To Do List:
     BOOL canStringEncoding = YES;
     NSString * hardStringEncodingName = @"";
     BOOL result = YES;
-    if (S = [NSString stringWithContentsOfURL:absoluteURL usedEncoding:&usedEncoding error:RORef]) {
+    if ((S = [NSString stringWithContentsOfURL:absoluteURL usedEncoding:&usedEncoding error:RORef])) {
         NSStringEncoding hardCodedStringEncoding;
         NSStringEncoding preferredStringEncoding;
         NSRange hardCodedRange;
@@ -1396,7 +1396,7 @@ terminate:
                 }
                 // the system did not guess the correct encoding
                 // reread with the correct encoding
-                if (SS = [NSString stringWithContentsOfURL:absoluteURL encoding:hardCodedStringEncoding error:RORef]) {
+                if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:hardCodedStringEncoding error:RORef])) {
                     usedEncoding = hardCodedStringEncoding;
                     S = SS;
                     goto terminate;
@@ -1421,7 +1421,7 @@ try_another_encoding:
                         goto terminate;
                     }
                 } else {
-                    if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:RORef])) {
+                    if (((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:RORef]))) {
                         usedEncoding = preferredStringEncoding;
                         S = SS;
                         goto terminate;
@@ -1439,7 +1439,7 @@ try_another_encoding:
                         }
                     }
                 }
-                if ((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:RORef])) {
+                if (((SS = [NSString stringWithContentsOfURL:absoluteURL encoding:preferredStringEncoding error:RORef]))) {
                     usedEncoding = preferredStringEncoding;
                     S = SS;
                 }
@@ -1627,7 +1627,7 @@ To do list: External stringEncodings are not supported now.
 #if 1
     NSArray * encodingStringsFromFile = nil;
     for (NSURL * url in [[NSBundle mainBundle] allURLsForResource4iTM3:@"StringEncodings" withExtension:@"plist"]) {
-        if (encodingStringsFromFile = [NSArray arrayWithContentsOfURL:url]) {
+        if ((encodingStringsFromFile = [NSArray arrayWithContentsOfURL:url]) ){
 			if (iTM2DebugEnabled) {
 				LOG4iTM3(@"url is: %@", url);
 			}
@@ -1752,7 +1752,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		[_ActualStringEncodings autorelease];
 		_ActualStringEncodings = [[iTM2StringFormatController supportedStringEncodings] mutableCopy];

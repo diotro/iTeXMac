@@ -64,7 +64,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = self.init) {
+    if ((self = self.init)) {
 		self.value = anObject;
 		self.parent = aParent;
     }
@@ -79,7 +79,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = self.init) {
+    if ((self = self.init)) {
 		self.value = [NSMutableDictionary dictionary];
 		self.parent = aParent;
     }
@@ -221,7 +221,7 @@ To Do List:
 {
 //START4iTM3;
 	// reentrant management
-	if (iVarFlags4iTM3&1>ZER0)
+	if ((iVarFlags4iTM3&1)>ZER0)
 	{
 		return;
 	}
@@ -479,7 +479,7 @@ To Do List:
 		return N;
 	}
 	for (N in self.children) {
-		if (N = [N deepObjectInChildrenWithValue:anObject]) {
+		if ((N = [N deepObjectInChildrenWithValue:anObject])) {
 			break;// no return here due to a problem with intel gcc, unconfirmed
 		}
 	}
@@ -500,7 +500,7 @@ To Do List:
 		return N;
 	}
 	for (N in self.children) {
-		if (N = [N deepObjectInChildrenWithNonretainedValue:anObject]) {
+		if ((N = [N deepObjectInChildrenWithNonretainedValue:anObject])) {
 			break;// no return here due to a problem with intel gcc, unconfirmed
 		}
 	}
@@ -547,7 +547,7 @@ To Do List:
 		return N;
 	}
 	for(N in iVarChildren4iTM3) {
-		if (N = [N deepObjectInChildrenWithValue:anObject forKeyPath:path]) {
+		if ((N = [N deepObjectInChildrenWithValue:anObject forKeyPath:path])) {
 			break;// no return here due to a problem with intel gcc, unconfirmed
 		}
 	}
@@ -2899,7 +2899,7 @@ To Do List:
 
 - (id)init;
 {
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		if (iVarImplementation4iTM3 = [[iTM2PatriciaNode alloc] init])
 		{
@@ -2913,7 +2913,7 @@ To Do List:
 
 - (id)initWithContentsOfURL:(NSURL *)url error:(NSError **)RORef;
 {
-	if (self = self.init)
+	if ((self = self.init))
 	{
 		NSError * error = nil;
 		NSXMLDocument * document = [[[NSXMLDocument alloc] initWithContentsOfURL:url options:ZER0 error:&error] autorelease];
@@ -2959,7 +2959,7 @@ To Do List:
 		// is exactly the string of the patricia tree up to node (included)
 		NSUInteger maxChildIndex;
 nextNode:
-		if (maxChildIndex = node->countOfChildren) {
+		if ((maxChildIndex = node->countOfChildren)) {
 			// there are children at this level level
 			// compare the characters of the children with the characters of the prefix for each child
 			NSUInteger minChildIndex = ZER0;
@@ -3028,7 +3028,7 @@ nextCharacter:
 						// remove child from node
 						if (node->countOfChildren) {
 							id * newChildren;
-							if (newChildren = NSAllocateCollectable((node->countOfChildren-1)*sizeof(id),ZER0)) {
+							if ((newChildren = NSAllocateCollectable((node->countOfChildren-1)*sizeof(id),ZER0))) {
 								if (childIndex && !memmove(newChildren,node->children,childIndex*sizeof(id))) {
 									LOG4iTM3(@"memmove problem  1");
 									return NO;
@@ -3082,7 +3082,7 @@ nextCharacter:
 		NSUInteger maxChildIndex;
 #pragma mark > nextNode, going deeper
 nextNode:
-		if (maxChildIndex = node->countOfChildren) {
+		if ((maxChildIndex = node->countOfChildren)) {
 #pragma mark + root node has children
 			// there are children at this level level
 			// compare the characters of the children with the characters of the prefix for each child
@@ -3298,10 +3298,10 @@ nextNode:
 #pragma mark -+ "];: first character of aSpring is after first character of last child: append a leaf node
 				// this is the most frequent situation, at least when adding a list of lexically ordered words
 				// I must add the string after the last node
-				if (newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),ZER0)) {
+				if ((newChildren = (id *)NSAllocateCollectable((node->countOfChildren+1)*sizeof(id),ZER0))) {
 					if (memmove(newChildren,node->children,node->countOfChildren*sizeof(id))) {
-						if (newChild = [[iTM2PatriciaLeafNode alloc] init]) {
-							if (newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0)) {
+						if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
+							if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0))) {
 								if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 									newChild->countOfCharacters = countOfStringCharsFromPtr;
 									newChild->characters = newChars;
@@ -3353,7 +3353,7 @@ splitNodeAndInsertAfter:
 							// all the characters before stringCharsPtr are common
 							// newChild is the child before the split
 							// its string will be the common part
-							if (commonChild = [[iTM2PatriciaNode alloc] init]) {
+							if ((commonChild = [[iTM2PatriciaNode alloc] init])) {
 								// copy the characters that have already been tested
 								// how many characters have been tested so far: countOfCharacters - countOfChildCharsFromPtr
 								countOfCommonChars = child->countOfCharacters - countOfChildCharsFromPtr;
@@ -3439,7 +3439,7 @@ splitNodeAndInsertBefore:
 											if ((newChildCharsAfterSplit = (unichar *)NSAllocateCollectable(countOfChildCharsFromPtr*sizeof(unichar),ZER0))) {
 												if (memmove(newChildCharsAfterSplit,childCharsPtr,countOfChildCharsFromPtr*sizeof(unichar))) {
 													if ((newChild = [[iTM2PatriciaLeafNode alloc] init])) {
-														if (newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0)) {
+														if ((newChars = (unichar *)NSAllocateCollectable(countOfStringCharsFromPtr*sizeof(unichar),ZER0))) {
 															if (memmove(newChars,stringCharsPtr,countOfStringCharsFromPtr*sizeof(unichar))) {
 																// every memory allocation has succeeded
 																// I can now piece all the things together
@@ -3786,7 +3786,7 @@ nextChild:
 @implementation iTM2LinkedNode
 - (id)initWithValue:(id)value;
 {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		self.value = value;
 	}
 	return self;
@@ -3849,19 +3849,19 @@ nextChild:
 - (id <iTM2LinkedNode>)nextNode;
 {
 	id <iTM2LinkedNode> result = nil;
-	if (result = self.firstChild) {
+	if ((result = self.firstChild)) {
 		return result;
 	}
-	if (result = self.nextSibling) {
+	if ((result = self.nextSibling)) {
 		return result;
 	}
 	id <iTM2LinkedNode> parent = self.parent;
 	if (parent) {
         do {
-            if (result = parent.nextSibling) {
+            if ((result = parent.nextSibling)) {
                 return result;
             }
-        } while (parent = parent.parent);
+        } while ((parent = parent.parent));
     }
 	return nil;
 }
@@ -3884,7 +3884,7 @@ nextChild:
 			node.parent.lastChild = node;// now it is consistant
 		}
 		self.previousSibling = nil;// disconnected
-	} else if (node = self.parent) {
+	} else if ((node = self.parent)) {
 		NSAssert(node.firstChild==self,@"Inconsistency");
 		// the parent is the owner;
 		node.firstChild = self.nextSibling;
@@ -3940,7 +3940,7 @@ nextChild:
 	do {
 		node.parent = self;
 		sibling = node;
-	} while(node = node.nextSibling);
+	} while((node = node.nextSibling));
 	if (!self.lastChild) {
 		self.lastChild = sibling;
 	}
@@ -3968,7 +3968,7 @@ nextChild:
 		node.previousSibling = nil;
 		do {
 			node.parent = nil;
-		} while(node = node.nextSibling);
+		} while((node = node.nextSibling));
 	}
 	self.nextSibling = nil;
 	[self.parent setLastChild:self];

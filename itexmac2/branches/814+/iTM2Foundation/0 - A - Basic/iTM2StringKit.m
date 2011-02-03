@@ -417,12 +417,9 @@ To Do List:
 	NSMutableArray * result = [NSMutableArray arrayWithObject:self];
 	va_list ap;
 	va_start(ap, separator);
-	while([separator isKindOfClass:[NSString class]])
-	{
+	while ([separator isKindOfClass:[NSString class]]) {
 		NSMutableArray * newResult = [NSMutableArray array];
-		NSEnumerator * E = result.objectEnumerator;
-		NSString * S;
-		while(S = E.nextObject)
+		for (NSString * S in result)
 			[newResult addObjectsFromArray:[S componentsSeparatedByString:separator]];
 		[result setArray:newResult];
 		separator = va_arg(ap, NSString *);

@@ -44,7 +44,7 @@ To Do List:
 "*/
 {
 //NSLog(@"-[%@ %@] 0x%x", self.class, NSStringFromSelector(_cmd), self);
-    if (self = [super init]) {
+    if ((self = [super init])) {
         self.lastMagnificationITII = nil;
     }
     return self;

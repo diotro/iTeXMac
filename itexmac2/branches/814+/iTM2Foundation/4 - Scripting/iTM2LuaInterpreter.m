@@ -37,7 +37,7 @@ typedef struct
 	{
 		return nil;
 	}
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		_implementation=imp;
 		((iTM2LuaInterpreter_Implementation *)_implementation)->luaState = l;

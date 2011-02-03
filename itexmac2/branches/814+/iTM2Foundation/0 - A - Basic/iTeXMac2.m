@@ -167,6 +167,7 @@ To Do List:
 	iTM2Application_sendApplicationDefinedEvent = (char *)NSAllocateCollectable(strlen(name)+1, ZER0);
 	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
 	iTM2Application_sendApplicationDefinedEvent[strlen(name)+1]='\0';
+    [self setupRORef4iTM3];
 #if __iTM3_DEVELOPMENT__
     ReachCodeTags4iTM3 = NSMutableSet.set;
 #endif
@@ -450,22 +451,35 @@ NSRange iTM3ScaleRange(NSRange range, NSInteger delta) {
     return range;
 }
 
+NSError * _ROR4iTM3 = nil;
+NSError ** _RORef4iTM3 = nil;
+
 @implementation NSObject (iTM3Error)
 
++ (void)setupRORef4iTM3;
+{
+    [self setRORef4iTM3:&_ROR4iTM3];
+}
+- (void)setupRORef4iTM3;
+{
+    [self setRORef4iTM3:&_ROR4iTM3];
+}
 + (NSError **)RORef4iTM3;
 {
-    return NULL;
+    return _RORef4iTM3;
 }
 + (void) setRORef4iTM3:(NSError **)RORef;
 {
+    _RORef4iTM3 = RORef;
     return;
 }
 - (NSError **)RORef4iTM3;
 {
-    return NULL;
+    return _RORef4iTM3;
 }
 - (void) setRORef4iTM3:(NSError **)RORef;
 {
+    _RORef4iTM3 = RORef;
     return;
 }
 @end

@@ -274,7 +274,7 @@ To Do List: to be improved... to allow different signature
 //START4iTM3;
     NSEnumerator * E = [self.documents objectEnumerator];
     id doc;
-    while(doc = [E nextObject])
+    while((doc = [E nextObject]))
 		if ([doc respondsToSelector:@selector(projectDocumentWillClose)])
 			[doc performSelector:@selector(projectDocumentWillClose) withObject:nil];
     [super closeAllDocumentsWithDelegate:delegate didCloseAllSelector:didAllCloseSelector contextInfo:contextInfo];
@@ -652,7 +652,7 @@ To Do List: retain?
     NSMutableArray * hiddenFiles = [NSMutableArray array];
     NSEnumerator * E = [[[NSString stringWithContentsOfFile:@".hidden" usedEncoding:nil error:nil] componentsSeparatedByString:@"\n"] objectEnumerator];
     NSString * O;
-    while(O = [E nextObject])
+    while((O = [E nextObject]))
         [hiddenFiles addObjectsFromArray:[O componentsSeparatedByString:@"\r"]];
     E = [[dfm contentsOfDirectoryAtPath:cdp error:NULL] objectEnumerator];
     NSMutableArray * textFiles = [NSMutableArray array];
@@ -660,7 +660,7 @@ To Do List: retain?
     NSMutableArray * otherFiles = [NSMutableArray array];
     NSMutableArray * directories = [NSMutableArray array];
 oneMoreTime:
-    if (O = [E nextObject])
+    if ((O = [E nextObject]))
     {
         if ([O hasPrefix:@"."])
             goto oneMoreTime;
@@ -710,7 +710,7 @@ oneMoreTime:
 			// too many items, use a submenu
 			NSMenu * M = [[[NSMenu alloc] initWithTitle:MI.title] autorelease];
 			[self setSubmenu:M forItem:MI];
-			while(O = [E nextObject])
+			while((O = [E nextObject]))
 			{
 				NSMenuItem * MI = [M addItemWithTitle:O action:@selector(_action:) keyEquivalent:@""];
 				[MI setTarget:[iTM2OpenQuicklyMenu class]];
@@ -719,7 +719,7 @@ oneMoreTime:
 		}
 		else
 		{
-			while(O = [E nextObject])
+			while((O = [E nextObject]))
 			{
 				NSMenuItem * MI = [self addItemWithTitle:O action:@selector(_action:) keyEquivalent:@""];
 				MI.indentationLevel = level;
@@ -742,7 +742,7 @@ oneMoreTime:
 			// too many items, use a submenu
 			NSMenu * M = [[[NSMenu alloc] initWithTitle:MI.title] autorelease];
 			[self setSubmenu:M forItem:MI];
-			while(O = [E nextObject])
+			while((O = [E nextObject]))
 			{
 				NSMenuItem * MI = [M addItemWithTitle:O action:@selector(_action:) keyEquivalent:@""];
 				[MI setTarget:[iTM2OpenQuicklyMenu class]];
@@ -751,7 +751,7 @@ oneMoreTime:
 		}
 		else
 		{
-			while(O = [E nextObject])
+			while((O = [E nextObject]))
 			{
 				NSMenuItem * MI = [self addItemWithTitle:O action:@selector(_action:) keyEquivalent:@""];
 				MI.indentationLevel = level;
@@ -774,7 +774,7 @@ oneMoreTime:
 			// use a submenu
 			NSMenu * M = [[[NSMenu alloc] initWithTitle:MI.title] autorelease];
 			[self setSubmenu:M forItem:MI];
-			while(O = [E nextObject])
+			while((O = [E nextObject]))
 			{
 				NSMenuItem * MI = [M addItemWithTitle:O action:@selector(_action:) keyEquivalent:@""];
 				[MI setTarget:[iTM2OpenQuicklyMenu class]];
@@ -783,7 +783,7 @@ oneMoreTime:
 		}
 		else
 		{
-			while(O = [E nextObject])
+			while((O = [E nextObject]))
 			{
 				NSMenuItem * MI = [self addItemWithTitle:O action:@selector(_action:) keyEquivalent:@""];
 				MI.indentationLevel = level;

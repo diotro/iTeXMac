@@ -139,7 +139,7 @@ To Do List:
 				attributes = [DFM attributesOfItemOrDestinationOfSymbolicLinkAtURL4iTM3:pdfURL error:NULL];
 				NSDate * pdfDate = [attributes fileModificationDate];
 				if ([pdfDate compare:date] == NSOrderedDescending) {
-					if (typeName = [SDC typeForContentsOfURL:pdfURL error:RORef]) {
+					if ((typeName = [SDC typeForContentsOfURL:pdfURL error:RORef])) {
 						return [self initWithContentsOfURL:pdfURL ofType:typeName error:RORef];
 					} else {
 						return nil;
@@ -506,7 +506,7 @@ To Do List:
                     name: iTM2PDFMagnificationDidChangeNotification
                             object: _Album4iTM3];
         }
-    	if (_Album4iTM3 = [aView retain])
+    	if ((_Album4iTM3 = [aView retain]))
             [INC addObserver:self
                     selector: @selector(magnificationDidChangeNotified:)
                         name: iTM2PDFMagnificationDidChangeNotification
@@ -1304,7 +1304,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:frame])
+    if ((self = [super initWithFrame:frame]))
     {
         [self setCenteredSubview:[[[iTM2PDFView alloc] initWithFrame:NSZeroRect] autorelease]];
     }
@@ -1319,7 +1319,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithCoder:(NSCoder *) decoder])
+    if ((self = [super initWithCoder:(NSCoder *) decoder]))
     {
         [self setCenteredSubview:[[[iTM2PDFView alloc] initWithFrame:NSZeroRect] autorelease]];
     }

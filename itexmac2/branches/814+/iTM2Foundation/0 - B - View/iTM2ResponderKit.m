@@ -60,7 +60,7 @@ To Do List:
 //START4iTM3;
 	NSResponder * previous = NSApp;
 	NSResponder * next;
-	while(next = [previous nextResponder])
+	while((next = [previous nextResponder]))
 		if (next == self)
 		{
 			[previous setNextResponder:[next nextResponder]];
@@ -289,7 +289,7 @@ To Do List:
 		}
 	}
 	NSResponder * R = self;
-	while(R = [R nextResponder])
+	while((R = [R nextResponder]))
 	{
 //NSLog(@"R is: %@", R);
 		[toInstall removeObject:[R class]];
@@ -302,7 +302,7 @@ To Do List:
 	{
 		LOG4iTM3(@"Here is the list of the next responders of NSApp");
 		NSResponder * R = self;
-		while(R = [R nextResponder])
+		while((R = [R nextResponder]))
 		{
 			NSLog(@"R is: %@", R);
 		}

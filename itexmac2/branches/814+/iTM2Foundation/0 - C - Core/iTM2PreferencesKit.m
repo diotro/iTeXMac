@@ -76,7 +76,7 @@ To Do List:
             self.release;
         return [_iTMSharedPrefsController retain];
     }
-    else if (self = [super initWithWindow:window])
+    else if ((self = [super initWithWindow:window]))
     {
         [self setWindowFrameAutosaveName:NSStringFromClass(self.class)];
 		[self setPrefPanes:[NSDictionary dictionary]];
@@ -319,7 +319,7 @@ To Do List:
 	{
 		NSEnumerator * E = [toolbar.items objectEnumerator];
 		NSToolbarItem * TI;
-		while(TI = [E nextObject])
+		while((TI = [E nextObject]))
 		{
 			if ([[TI itemIdentifier] isEqual:lastIdentifier])
 			{
@@ -697,7 +697,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithBundle:aBundle])
+    if ((self = [super initWithBundle:aBundle]))
     {
         self.initImplementation;
     }

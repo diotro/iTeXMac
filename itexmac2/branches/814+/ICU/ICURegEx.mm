@@ -329,7 +329,7 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
             search = [MRA componentsJoinedByString:@""];
             if ([ICURegEx isValidPattern:search options:ZER0 error:errorRef]) {
                 NSUInteger flags = [[infos objectForKey:@"flags"] unsignedIntegerValue];
-                if (result = [[self alloc] initWithSearchPattern:search options:flags error:errorRef]) {
+                if ((result = [[self alloc] initWithSearchPattern:search options:flags error:errorRef])) {
                     [ICURegEx_by_key_cache setObject:result forKey:patternKey];
                     NSSet * set = [NSSet setWithArray:GNs];
                     result.groupNames = set.count == GNs.count? GNs:longGNs;
@@ -501,12 +501,12 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
 			NSString * context;
 			UnicodeString unicodeString;
 			int length;
-			if (length = u_strlen(pe.preContext)) {
+			if ((length = u_strlen(pe.preContext))) {
 				context = (NSString *)CFStringCreateWithCharacters(kCFAllocatorDefault,pe.preContext,length);
 				[dict setObject:context forKey:@"pre context"];
 				[context release];
 			}
-			if (length = u_strlen(pe.postContext)) {
+			if ((length = u_strlen(pe.postContext))) {
 				context = (NSString *)CFStringCreateWithCharacters(kCFAllocatorDefault,pe.postContext,length);
 				[dict setObject:context forKey:@"post context"];
 				[context release];

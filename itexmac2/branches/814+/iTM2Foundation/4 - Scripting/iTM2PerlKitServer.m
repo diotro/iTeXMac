@@ -229,7 +229,7 @@ To Do List:
 }
 - (id)initWithTarget:(id)target;
 {
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		[_target autorelease];
 		_target = [target retain];

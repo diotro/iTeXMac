@@ -281,7 +281,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:aFrame])
+    if ((self = [super initWithFrame:aFrame]))
     {
         [[iTM2StatusNotificationCenter defaultCenter] addObserver:self];
     }
@@ -296,7 +296,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithCoder:decoder])
+    if ((self = [super initWithCoder:decoder]))
     {
         [[iTM2StatusNotificationCenter defaultCenter] addObserver:self];
         [self setStringValue:[[iTM2StatusNotificationCenter defaultCenter] currentStatus]];

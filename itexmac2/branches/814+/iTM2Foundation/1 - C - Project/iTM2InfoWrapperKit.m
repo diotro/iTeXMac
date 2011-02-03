@@ -87,7 +87,7 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 	
 	NSEnumerator * E = self.keyEnumerator;
 	NSString * K;
-	while(K = E.nextObject)
+	while((K = E.nextObject))
 	{
 		if ([[self objectForKey:K] isEqual:@"Base"])// no more base due to the correct management of inheritancy
 		{
@@ -95,7 +95,7 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 		}
 	}
 	E = otherDictionary.keyEnumerator;
-	while(K = E.nextObject)
+	while((K = E.nextObject))
 	{
 		id left = [self objectForKey:K];
 		id right = [otherDictionary objectForKey:K];
@@ -199,9 +199,9 @@ NSString * const iTM2ProjectFrontDocumentKey = @"...iTM2FrontDocument";
 	NSData * data = [NSPropertyListSerialization dataFromPropertyList:model format:NSPropertyListBinaryFormat_v1_0 errorDescription:&errorString];
 	if (data) {
 		// the model is a valid property list
-		if (model = [NSPropertyListSerialization propertyListFromData:data
+		if ((model = [NSPropertyListSerialization propertyListFromData:data
 			mutabilityOption: NSPropertyListMutableContainersAndLeaves
-				format: nil errorDescription: &errorString]) {
+				format: nil errorDescription: &errorString])) {
 			// this is a mean to retrieve a completely mutable model
 			model4iTM3 = model;
 			return;
@@ -746,10 +746,10 @@ To Do List:
 	NSURL * url = nil;
 	id PD = [SPC projectForURL:projectURL error:RORef];
 	if ([key isEqual:iTM2ParentKey]) {
-		if (url = [PD parentURL]) return url;
+		if ((url = [PD parentURL])) return url;
 		return [NSURL URLWithString:@".." relativeToURL:[projectURL URLByRemovingFactoryBaseURL4iTM3]];
 	} else if ([key isEqual:TWSContentsKey]) {
-		if (url = [PD contentsURL]) {
+		if ((url = [PD contentsURL])) {
             return url;
         } else {
             name = [self nameForFileKey:key];
@@ -757,7 +757,7 @@ To Do List:
             return name.length?[NSURL URLWithPath4iTM3:name relativeToURL:url]:url;
         }
 	} else if ([key isEqual:TWSFactoryKey]) {
-		if (url = [PD factoryURL]) return url;
+		if ((url = [PD factoryURL])) return url;
 		name = [self nameForFileKey:key];
 		return name.length?[NSURL URLWithPath4iTM3:name relativeToURL:projectURL]:projectURL;// we should always have name.length>ZER0
 	} else if ([SPC isReservedFileKey:key]) {
@@ -1183,7 +1183,7 @@ main:
 @implementation iTM2InfosController
 - (id)initWithProject:(id)project atomic:(BOOL)yorn prefixWithKeyPaths:(NSString *)first,...;
 {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		self.project = project;
 		VA_LIST_OF_KEY_PATHS_TO_ARRAY4iTM3(first,MRA);
         self.prefix = MRA;

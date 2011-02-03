@@ -94,7 +94,7 @@ here:
 //END4iTM3;
 		return result;
 	}
-	if ((action = self.action)
+	if (((action = self.action))
 			&& (MS = [target methodSignatureForSelector:action]))
 	{
 		goto here;
@@ -820,7 +820,7 @@ break_and_return:
                         R.length = LS.scanLocation - R.location;
                         S = [globalS substringWithRange:R];
                         [currentPrefix appendString:S];
-                        if (length = LS.scanLimit - LS.scanLocation) {
+                        if ((length = LS.scanLimit - LS.scanLocation)) {
                             //  length is a number of chars to have the proper depth
                             S = [self stringComplementForLength:LS.scanLocation - globalCommentIC.location];
                             [currentPrefix appendString:S];
@@ -904,7 +904,7 @@ add_macro_comment:
             //  missing depth:
             depth = expectedDepth - globalICsBefore.indentationDepthBefore4iTM3;
             E = globalICsAfter.objectEnumerator;
-            while (IC = E.nextObject) {
+            while ((IC = E.nextObject)) {
                 if (IC.depth < depth) {
                     depth -= IC.depth;
                     continue;
@@ -966,7 +966,7 @@ add_macro_comment:
         //  How Do I manage the last global indentation component
         //  If this last component is uncomplete, I should skip its last part.
         //  The problem is whether this component has a depth or not
-        if (IC = globalICsBefore.count? [globalICsBefore objectAtIndex:ZER0]:globalCommentIC) {
+        if ((IC = globalICsBefore.count? [globalICsBefore objectAtIndex:ZER0]:globalCommentIC)) {
             //  There is a last object
             R.location = IC.location;
             IC = globalICsAfter.lastObject?:globalICsBefore.lastObject;
@@ -998,8 +998,8 @@ add_macro_comment:
                     R.length = LS.scanLocation - R.location;
                     S = [globalS substringWithRange:R];
                     [currentPrefix appendString:S];
-                    if (length = LS.scanLimit - LS.scanLocation) {
-                        if (depth = length / self.numberOfSpacesPerTab) {
+                    if ((length = LS.scanLimit - LS.scanLocation)) {
+                        if ((depth = length / self.numberOfSpacesPerTab)) {
                             S = [self indentationStringWithDepth:depth];
                             [currentPrefix appendString:S];
                         }
@@ -1019,7 +1019,7 @@ add_macro_comment:
         [currentPrefix appendString:S];
         //  Preserve the remainder
         IC = macroICsAfter.lastObject?:macroICsBefore.lastObject;
-        if (length = IC.length % self.numberOfSpacesPerTab) {
+        if ((length = IC.length % self.numberOfSpacesPerTab)) {
             S = [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:ZER0];
             [currentPrefix appendString:S];
         }
@@ -1335,7 +1335,7 @@ NSLog(@"components:<%@>",macroComponents);
                         //  If this line includes an EOL, then there is more stuff after
                         //  aka ICsBefore, ICsAfter and range
                         NSArray * selectionICsBefore;
-                        while (selectionICsBefore = EE.nextObject) {
+                        while ((selectionICsBefore = EE.nextObject)) {
                             NSArray * selectionICsAfter = EE.nextObject;
                             if (selectionICsAfter && (V = EE.nextObject)) {
                                 currentPrefix = [SC getCurrentPrefixWithGlobalPrefix:globalS:globalICsBefore:globalICsAfter
@@ -1436,7 +1436,7 @@ To Do List:
 	if ([argument isKindOfClass:[NSArray class]])
 	{
         NSEnumerator * E = [argument objectEnumerator];
-		if ((argument = E.nextObject))
+		if (((argument = E.nextObject)))
 		{
 			[self insertMacro4iTM3:argument inRange:affectedCharRange];
 		}

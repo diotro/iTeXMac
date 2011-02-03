@@ -94,7 +94,7 @@ To Do List:
 			sortedArrayUsingSelector: @selector(compareUsingLevel4iTM3:)] objectEnumerator];
 		NSWindow * W;
 		iTM2TextInspector * WC;
-		while(W = [E nextObject])
+		while((W = [E nextObject]))
 		{
 			iTM2TextInspector * WC = (iTM2TextInspector *)W.windowController;
 			NSDocument * D = WC.document;
@@ -114,7 +114,7 @@ To Do List:
 					if (yorn)
 						[WC.window makeKeyAndOrderFront:self];
 				}
-				while(W = [E nextObject])
+				while((W = [E nextObject]))
 				{
 					iTM2TextInspector * WC = (iTM2TextInspector *)W.windowController;
 					NSDocument * D = WC.document;
@@ -141,7 +141,7 @@ To Do List:
 		}
 		[self makeWindowControllers];
 		E = [[self windowControllers] objectEnumerator];
-		while(WC = [E nextObject])
+		while((WC = [E nextObject]))
 		{
 			if ([WC isKindOfClass:[iTM2ExternalInspector class]])
 			{
@@ -640,7 +640,7 @@ match12345:
 		return UINT_MAX;
 	NSEnumerator * E = matches.keyEnumerator;
 	NSUInteger top = [[E nextObject] unsignedIntegerValue];
-	while(N = [E nextObject]) {
+	while((N = [E nextObject])) {
 		NSUInteger newTop = [N unsignedIntegerValue];
 		if (newTop < top) {
 			top = newTop;
@@ -650,7 +650,7 @@ match12345:
 	NSMutableDictionary * beforeMatches = [NSMutableDictionary dictionary];
 	NSMutableDictionary * afterMatches = [NSMutableDictionary dictionary];
 	E = matches.keyEnumerator;
-	while(N = [E nextObject]) {
+	while((N = [E nextObject])) {
 		if ([N unsignedIntegerValue] < top) {
 			RA = [matches objectForKey:N];
 			NSMutableDictionary * MD = [RA objectAtIndex:ZER0];
@@ -1301,7 +1301,7 @@ To Do List:
 		NSArray * allKeys = [MD allKeysForObject:V];
 		if ([V pointerValue] && (allKeys.count > 1)) {
 			NSEnumerator * EE = allKeys.objectEnumerator;
-			while(TE = (id)[[EE nextObject] pointerValue]) {
+			while((TE = (id)[[EE nextObject] pointerValue])) {
 				NSScrollView * ESV = TE.enclosingScrollView;
 				if (ESV) {
 					iTM2ScrollerToolbar * scrollerToolbar;
@@ -1360,7 +1360,7 @@ To Do List:
 			}
 		} else {
 			NSEnumerator * EE = [[MD allKeysForObject:V] objectEnumerator];
-			while(TE = (id)[[EE nextObject] pointerValue]) {
+			while((TE = (id)[[EE nextObject] pointerValue])) {
 				NSScrollView * ESV = TE.enclosingScrollView;
 				if (ESV)
 				{
@@ -1624,7 +1624,7 @@ To Do List:
     NSEnumerator * E = [[LM textContainers] objectEnumerator];
     NSTextContainer * container = [E nextObject];
     NSRange glyphRange = [LM glyphRangeForBoundingRectWithoutAdditionalLayout:visibleRect inTextContainer:container];
-    while(container = [E nextObject])
+    while((container = [E nextObject]))
     {
 		glyphRange = iTM3UnionRange(glyphRange,
 			[LM glyphRangeForBoundingRectWithoutAdditionalLayout:visibleRect inTextContainer:container]);
@@ -2288,7 +2288,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super initWithFrame:frameRect]) {
+	if ((self = [super initWithFrame:frameRect])) {
 		[self initImplementation];
 	}
 //END4iTM3;
@@ -2303,7 +2303,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super initWithCoder:aDecoder]) {
+	if ((self = [super initWithCoder:aDecoder])) {
 		[self initImplementation];
 	}
     return self;

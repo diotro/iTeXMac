@@ -1190,7 +1190,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         self.initImplementation;
     }

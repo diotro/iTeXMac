@@ -54,7 +54,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:frameRect]) {
+    if ((self = [super initWithFrame:frameRect])) {
         iVarAbsoluteFocusPoint = NSMakePoint(1e7, 1e7);
         [self setDrawsBoundary:YES];
     }
@@ -393,7 +393,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //NSLog(@"%@ %#x %@", NSStringFromClass(self.class), NSStringFromSelector(_cmd), self, NSStringFromRect(rect));
-    if (self = [super initWithFrame:rect]) {
+    if ((self = [super initWithFrame:rect])) {
         self.pageLayout = [SUD integerForKey:iTM2PDFPageLayoutModeKey];// preferred? last
 		self.newPage = YES;
         iVarCurrentLogicalPage = ZER0;// improbable: this will force initialization
@@ -1117,7 +1117,7 @@ To Do List:
         B = [aRepresentation boundingBox];
     else
         B = NSMakeRect(0.0, 0.0, [aRepresentation size].width, [aRepresentation size].height);
-    if (self = [super initWithFrame:B]) {
+    if ((self = [super initWithFrame:B])) {
         self.scale = (scale>0? scale:1.0);
         B.size.width *= self.scale;
         B.size.height *= self.scale;

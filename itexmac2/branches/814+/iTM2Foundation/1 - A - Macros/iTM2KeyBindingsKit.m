@@ -182,7 +182,7 @@ To Do List:
     NSCharacterSet * nonZeroSet = [[NSCharacterSet characterSetWithCharactersInString:@"0"] invertedSet];
     NSEnumerator * E = [D keyEnumerator];
     NSString * k;
-    while(k = [E nextObject])
+    while((k = [E nextObject]))
         if ([k isKindOfClass:[NSString class]])
         {
             k = [k lowercaseString];
@@ -255,7 +255,7 @@ To Do List:
 	NSArray * RA = [MB allURLsForResource4iTM3:identifier withExtension:iTM2KeyBindingPathExtension subdirectory:iTM2MacroControllerComponent];
 	NSURL * url;
 	for (url in [RA reverseObjectEnumerator]) {
-		if (D = [NSDictionary dictionaryWithContentsOfURL:url]) {
+		if ((D = [NSDictionary dictionaryWithContentsOfURL:url])) {
 			[keyBindings addEntriesFromDictionary:D];
 		} else if (iTM2DebugEnabled) {
 			LOG4iTM3(@"???  No key bindings at url: %@, please report incident", url);
@@ -263,7 +263,7 @@ To Do List:
 	}
 	RA = [MB allURLsForResource4iTM3:identifier withExtension:iTM2SelectorMapExtension subdirectory:iTM2MacroControllerComponent];
 	for (url in [RA reverseObjectEnumerator]) {
-		if (D = [NSDictionary dictionaryWithContentsOfURL:url]) {
+		if ((D = [NSDictionary dictionaryWithContentsOfURL:url])) {
 			[selectorMap addEntriesFromDictionary:D];
 		} else if (iTM2DebugEnabled) {
 			LOG4iTM3(@"No selector map at url: %@", url);
@@ -299,7 +299,7 @@ To Do List:
     if (!identifier.length)
         return nil;
     id result;
-    if (result = [self getKeyBindingsForIdentifier:identifier])
+    if ((result = [self getKeyBindingsForIdentifier:identifier]))
         return result;
     if ([identifier hasPrefix:@"./"])
     {
@@ -315,7 +315,7 @@ shorter:
             NSString * newIdentifier = helperIdentifier.stringByDeletingLastPathComponent;
             if (newIdentifier.length < helperIdentifier.length)
             {
-                if (result = [self getKeyBindingsForIdentifier:newIdentifier])
+                if ((result = [self getKeyBindingsForIdentifier:newIdentifier]))
                     return result;
                 helperIdentifier = newIdentifier;
                 goto shorter;
@@ -332,14 +332,14 @@ shorter:
         NSString * key = [identifier stringByStandardizingPath];
         NSString * helperKey = key;
 otherShorter:
-        if (result = [self getKeyBindingsForIdentifier:key])
+        if ((result = [self getKeyBindingsForIdentifier:key]))
             return result;
         if (!(result = [NSDictionary dictionaryWithContentsOfFile:key]))
         {
             NSString * newKey = helperKey.stringByDeletingPathExtension;
             if (newKey.length < helperKey.length)
             {
-                if (result = [self getKeyBindingsForIdentifier:newKey])
+                if ((result = [self getKeyBindingsForIdentifier:newKey]))
                     return result;
                 helperKey = newKey;
                 goto otherShorter;
@@ -350,7 +350,7 @@ otherShorter:
         [self setKeyBindings:result forIdentifier:identifier];
         return result;
     }
-	if (result = [self getKeyBindingsForIdentifier:identifier])
+	if ((result = [self getKeyBindingsForIdentifier:identifier]))
 		return result;
 	[self setKeyBindings:nil forIdentifier:identifier];
 //END4iTM3;
@@ -393,7 +393,7 @@ To Do List:
     if (!identifier.length)
         return [NSDictionary dictionary];
     id result;
-    if (result = [self getSelectorMapForIdentifier:identifier])
+    if ((result = [self getSelectorMapForIdentifier:identifier]))
         return result;
 //END4iTM3;
     return [NSDictionary dictionary];
@@ -432,7 +432,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         _SM = [[[self class] selectorMapForIdentifier:identifier] retain];
         _KBS = [NSMutableArray array];
@@ -1110,7 +1110,7 @@ To Do List:
 //LOG4iTM3(@"unichar is: %#x(%u)", U, U);
         NSString * base = [KeyStroke_Bases4iTM3 objectForKey:[NSString stringWithFormat:@"%x", U]];
 //LOG4iTM3(@"base is: %@", base);
-        if (!base)
+        if (!base) {
             if ([KeyStroke_CharacterSet4iTM3 characterIsMember:U])
                 base = key;
             else
@@ -1301,6 +1301,7 @@ To Do List:
 						[KeyStroke_Unmapped4iTM3 addObject:[key copy]];
 						return NULL;
                 }
+            }
         NSString * selectorName = [NSString stringWithFormat:@"interpretKeyStroke%@:", base];
 		if (iTM2DebugEnabled>999)
 		{

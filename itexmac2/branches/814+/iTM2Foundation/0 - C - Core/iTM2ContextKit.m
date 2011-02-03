@@ -305,7 +305,7 @@ To Do List:
 //START4iTM3;
 	id result = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if (result = [self.context4iTM3Dictionary valueForKey:aKey]) {
+		if ((result = [self.context4iTM3Dictionary valueForKey:aKey])) {
 			if ([result isKindOfClass:[NSArray class]]) {
 				return result;
 			}
@@ -380,7 +380,7 @@ To Do List:
 //START4iTM3;
 	NSArray * result = nil;
 	if (mask & iTM2ContextStandardLocalMask) {
-		if (result = [self.context4iTM3Dictionary valueForKey:aKey]) {
+		if ((result = [self.context4iTM3Dictionary valueForKey:aKey])) {
 			if ([result isKindOfClass:[NSArray class]]) {
 				if (result.count) {
 					for (NSString * S in result) {

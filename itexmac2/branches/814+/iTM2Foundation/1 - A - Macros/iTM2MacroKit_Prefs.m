@@ -215,7 +215,7 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 	id root = [NSXMLElement elementWithName:@"MACROS"];
 	NSEnumerator * E = theMacros.objectEnumerator;
 	id node;
-	while(node = [E nextObject])
+	while((node = [E nextObject]))
 	{
 		[root addChild:[node XMLElement]];
 	}
@@ -302,7 +302,7 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 }
 - (id)initWithParent:(id)parent;
 {
-	if (self = [super initWithParent:parent])
+	if ((self = [super initWithParent:parent]))
 	{
 		NSURL * personalUrl = [parent personalURL];
 		NSMutableDictionary * MD = [NSMutableDictionary dictionary];
@@ -316,7 +316,7 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 			{
 				LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", personalUrl,localError);
 			}
-			if (D = [iTM2MutableMacroNode macrosWithData:data owner:self])
+			if ((D = [iTM2MutableMacroNode macrosWithData:data owner:self]))
 			{
 				[MD addEntriesFromDictionary:D];
 			}
@@ -325,7 +325,7 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 		MD = [NSMutableDictionary dictionary];
 		NSEnumerator * E = [[parent valueForKeyPath:@"value.URLsPromise"] objectEnumerator];
 		NSURL * url;
-		while(url = [E nextObject])
+		while((url = [E nextObject]))
 		{
 			if (![url isEqual:personalUrl])
 			{
@@ -335,7 +335,7 @@ NSLog(@"EXCEPTION CATCHED IN %@ removeObserver:%@ keyPath:%@",self,observer,keyP
 				{
 					LOG4iTM3(@"*** The macro file might be corrupted at\n%@\nerror:%@", url,localError);
 				}
-				if (D = [iTM2PrefsMacroNode macrosWithData:data owner:self])
+				if ((D = [iTM2PrefsMacroNode macrosWithData:data owner:self]))
 				{
 					[MD addEntriesFromDictionary:D];
 				}
@@ -543,7 +543,7 @@ To Do List:
 		NSEnumerator * E = result.objectEnumerator;
 		result = [NSMutableArray array];
 		id node;
-		while(node = [E nextObject])
+		while((node = [E nextObject]))
 		{
 			if ([ID isEqual:[node macroID]])
 			{
@@ -812,7 +812,7 @@ DEFINE(isNumericPad,setIsNumericPad,canNumericPad,NSNumericPadKeyMask)
 }
 - (id) init;
 {
-	if (self = [super init])
+	if ((self = [super init]))
 	{
 		[value autorelease];
 		value = [[NSMutableDictionary dictionary] retain];
@@ -1034,7 +1034,7 @@ To Do List:
 	NSUInteger idx;
 	id KS;
 	NSEnumerator * E = [KSs reverseObjectEnumerator];
-	while(KS = [E nextObject])
+	while((KS = [E nextObject]))
 	{
 		idx = [parent indexOfObjectInAvailableKeyBindings:KS];
 		if (idx == NSNotFound)
@@ -1081,7 +1081,7 @@ COPY(modifierFlags,setModifierFlags)
 	while([parent isKindOfClass:[iTM2PrefsKeyBindingNode class]] && [parent codeName]);
 	NSIndexPath * indexPath = [[[NSIndexPath alloc] init] autorelease];
 	E = [KSs reverseObjectEnumerator];
-	while(KS = [E nextObject])
+	while((KS = [E nextObject]))
 	{
 		indexPath = [indexPath indexPathByAddingIndex:[parent indexOfObjectInAvailableKeyBindings:KS]];
 		parent = KS;
@@ -1185,7 +1185,7 @@ To Do List:
 {
 	NSEnumerator * E = [[self children] objectEnumerator];
 	id child;
-	while(child = [E nextObject])
+	while((child = [E nextObject]))
 	{
 		[child feedXMLElement:element];
 	}
@@ -1391,7 +1391,7 @@ To Do List:
 @implementation iTM2KeyBindingList
 - (id)initWithParent:(id)parent;
 {
-	if (self = [super initWithParent:parent])
+	if ((self = [super initWithParent:parent]))
 	{
 		/*  Only the personal URL can be customized */
 		NSURL * personalUrl = [parent personalURL];
@@ -1409,7 +1409,7 @@ To Do List:
 		iTM2PrefsKeyBindingNode * MKB = [[[iTM2PrefsKeyBindingNode alloc] initWithParent:self] autorelease];// not mutable!!
 		NSEnumerator * E = [[parent valueForKeyPath:@"value.URLsPromise"] objectEnumerator];
 		NSURL * url;
-		while(url = [E nextObject])
+		while((url = [E nextObject]))
 		{
 			if (![url isEqual:personalUrl])
 			{
@@ -1548,12 +1548,12 @@ To Do List:
 	[keySet minusSet:temp];
 	NSString * mode;
 	NSEnumerator * E = [[keySet allObjects] objectEnumerator];
-	while(mode = [E nextObject])
+	while((mode = [E nextObject]))
 	{
 		[[[iTM2MacroDomainNode alloc] initWithParent:macroTree domain:mode] autorelease];
 	}
 	E = [[macroSet allObjects] objectEnumerator];
-	while(mode = [E nextObject])
+	while((mode = [E nextObject]))
 	{
 		[[[iTM2MacroDomainNode alloc] initWithParent:keyBindingTree domain:mode] autorelease];
 	}
@@ -1598,12 +1598,12 @@ To Do List:
 	[keySet minusSet:temp];
 	NSString * category;
 	NSEnumerator * E = [[keySet allObjects] objectEnumerator];
-	while(category = [E nextObject])
+	while((category = [E nextObject]))
 	{
 		[[[iTM2MacroCategoryNode alloc] initWithParent:macroNode category:category] autorelease];
 	}
 	E = [[macroSet allObjects] objectEnumerator];
-	while(category = [E nextObject])
+	while((category = [E nextObject]))
 	{
 		[[[iTM2MacroCategoryNode alloc] initWithParent:keyNode category:category] autorelease];
 	}
@@ -1993,7 +1993,7 @@ To Do List:
             id macroID;
 			NSMutableSet * MS = [NSMutableSet set];
 			for (O in [[self keyBindingEditor] keyBindingSelectionIndexPaths]) {
-				if (macroID = [[[self keyBindingEditor] objectInAvailableKeyBindingsAtIndexPath:O] macroID]) {
+				if ((macroID = [[[self keyBindingEditor] objectInAvailableKeyBindingsAtIndexPath:O] macroID])) {
 					[MS addObject:macroID];
 				}
 			}
@@ -2006,7 +2006,7 @@ here:
 					if (idx!=NSNotFound)/* unless exception raised */ {
 						[MIS addIndex:idx];
 					}
-				} else if ((O = [[[self macroEditor] macros] objectForKey:macroID])) {
+				} else if (((O = [[[self macroEditor] macros] objectForKey:macroID]))) {
 					goto here;
 				}
 			}
@@ -2089,7 +2089,7 @@ here:
 			[copy setObject:category forKey:@"category"];
 			[copy setObject:context forKey:@"context"];
 			NSEnumerator * E = selectedObjects.objectEnumerator;
-			while(node = [E nextObject])
+			while((node = [E nextObject]))
 			{
 				NSString * ID = [node ID];
 				[IDs addObject:ID];
@@ -2145,12 +2145,12 @@ here:
 	sourceTree = [sourceTree list];
 	id targetTree = [[self delegate] macroEditor];
 	id node, alreadyNode;
-	while(ID = [E nextObject])
+	while((ID = [E nextObject]))
 	{
-		if (node = [sourceTree objectInChildrenWithID:ID])
+		if ((node = [sourceTree objectInChildrenWithID:ID]))
 		{
 			node = [node copy];
-			if (alreadyNode = [targetTree objectInChildrenWithID:ID])
+			if ((alreadyNode = [targetTree objectInChildrenWithID:ID]))
 			{
 				//The only thing I have to do is connect the last mutableXMLElement;
 				NSURL * url = [targetTree personalURL];
@@ -2164,7 +2164,7 @@ here:
 					NSArray * RA = [personalRootElement nodesForXPath:XPath error:nil];
 					id elt;
 					NSEnumerator * EE = RA.objectEnumerator;
-					while(elt = [EE nextObject])
+					while((elt = [EE nextObject]))
 					{
 						[elt detach];
 					}
@@ -2366,7 +2366,7 @@ To Do List:
 {
 	//sender is an array of selected objects
 	NSEnumerator * E = [sender objectEnumerator];
-	while((sender = E.nextObject))
+	while(((sender = E.nextObject)))
 	{
 		if ([sender respondsToSelector:@selector(executeMacroWithTarget:selector:substitutions:)])// for macro nodes
 		{
@@ -2491,7 +2491,7 @@ static id iTM2HumanReadableActionNames = nil;
 		}
 		return result;
 	}
-	if (result = [iTM2HumanReadableActionNames objectForKey:value])
+	if ((result = [iTM2HumanReadableActionNames objectForKey:value]))
 	{
 		return result;
 	}
@@ -2535,7 +2535,7 @@ static id iTM2HumanReadableActionNames = nil;
 - (BOOL)catchEvent4iTM3:(NSEvent *)event;
 {
 	id V = self;
-	while(V = [V superview])
+	while((V = [V superview]))
 	{
 		if ([V catchEvent4iTM3:event])
 		{

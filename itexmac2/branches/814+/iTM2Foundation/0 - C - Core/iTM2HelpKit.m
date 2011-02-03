@@ -230,7 +230,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:NSMakeRect(0,0,32,32)])
+    if ((self = [super initWithFrame:NSMakeRect(0,0,32,32)]))
     {
         [self.cell setBezelStyle:NSCircularBezelStyle];
         #if 0
@@ -257,7 +257,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithCoder:aDecoder])
+    if ((self = [super initWithCoder:aDecoder]))
     {
         NSLog(NSStringFromRect(self.frame));
         NSLog(@"isTransparent: %@", (self.isTransparent? @"Y":@"N"));

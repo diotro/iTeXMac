@@ -151,7 +151,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super initWithWindowNibName:name])
+	if ((self = [super initWithWindowNibName:name]))
 	{
 		NSPanel * window = nil;
 		NSAssert((window = (NSPanel *)self.window),@"BUG, please report error iTM2 9669-2");
@@ -211,7 +211,7 @@ To Do List:
 	node = [node objectInChildrenWithCategory:[aTextView macroCategory]];
 	node = [node objectInChildrenWithContext:[aTextView macroContext]];
 	NSArray * availableIDs = [node availableIDs];
-	while(V = [E nextObject])
+	while((V = [E nextObject]))
 	{
 		NSRange range = [V rangeValue];
 		NSString * substring = [string substringWithRange:range];
@@ -456,7 +456,7 @@ grosbois:
 
 	_EditedRangeForUserCompletion = _RangeForUserCompletion;
 	NSUndoManager * undoManager = [_TextView undoManager];
-	if (_ShouldEnableUndoRegistration = [undoManager isUndoRegistrationEnabled])
+	if ((_ShouldEnableUndoRegistration = [undoManager isUndoRegistrationEnabled]))
 	{
 		NSLog(@"disableUndoRegistration");
 		[undoManager disableUndoRegistration];

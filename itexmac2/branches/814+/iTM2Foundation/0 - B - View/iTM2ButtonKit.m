@@ -244,7 +244,7 @@ To Do List:
     if ([theEvent clickCount] == 1)
     {
         self.willPopUp;
-        if (self.isEnabled)
+        if (self.isEnabled) {
             if ([self.menu numberOfItems] > ZER0)
             {
                 [self highlight:YES];
@@ -280,6 +280,7 @@ To Do List:
 			{
 				LOG4iTM3(@"***  WEIRD: no menu in iTM2ButtonMixed: %@, %@", self, self.menu);
 			}
+        }
     }
     return;
 }
@@ -481,7 +482,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:NSMakeRect(0,0,32,31)])
+    if ((self = [super initWithFrame:NSMakeRect(0,0,32,31)]))
     {
         [self.cell setBordered: YES];
         [self.cell setBezelStyle:NSCircularBezelStyle];
@@ -521,7 +522,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:NSMakeRect(0,0,32,31)])
+    if ((self = [super initWithFrame:NSMakeRect(0,0,32,31)]))
     {
         [self.cell setBordered: YES];
         [self.cell setBezelStyle:NSCircularBezelStyle];
@@ -757,7 +758,7 @@ To Do List:
     NSView * superView;
     if ([[(NSTimer *)[notification object] userInfo] boolValue])
     {
-        if (superView = [_VCB superview])
+        if ((superView = [_VCB superview]))
         {
 //NSLog(@"showing coffee break");
             [self setFrame:_VCB.frame];
@@ -767,7 +768,7 @@ To Do List:
     }
     else
     {
-        if (superView = self.superview)
+        if ((superView = self.superview))
         {
 //NSLog(@"hiding coffee break");
             [_VCB setFrame:self.frame];
@@ -804,7 +805,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:NSMakeRect(0,0,32,31)])
+    if ((self = [super initWithFrame:NSMakeRect(0,0,32,31)]))
     {
         [self.cell setBordered: YES];
         [self.cell setBezelStyle:NSCircularBezelStyle];
@@ -1415,7 +1416,7 @@ To Do List:
 }
 - (id)initWithCoder:(NSCoder *)aDecoder;
 {
-	if (self = [super initWithCoder:(NSCoder *)aDecoder]) {
+	if ((self = [super initWithCoder:(NSCoder *)aDecoder])) {
 		NS_DURING
 		self.popUpCell = [aDecoder decodeObjectForKey:@"popUpCell"];// *** Exception catched: *** -[NSKeyedUnarchiver decodeObjectForKey:]: missing class name for class
 		NS_HANDLER

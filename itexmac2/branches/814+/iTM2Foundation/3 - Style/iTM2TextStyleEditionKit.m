@@ -88,7 +88,7 @@ To Do List:
     Class C = [iTM2TextStyleDocument class];
     NSEnumerator * E = [[SDC documents] objectEnumerator];
     id document;
-    while(document = E.nextObject)
+    while((document = E.nextObject))
     {
         if ([document class] == C)
         {
@@ -117,7 +117,7 @@ To Do List:
 //LOG4iTM3(@"C is: %@", NSStringFromClass(C));
     NSEnumerator * E = [[SDC documents] objectEnumerator];
     id document;
-    while(document = E.nextObject)
+    while((document = E.nextObject))
     {
         if (([document class] == C) && ([[document syntaxParserVariant] isEqualToString:variant]))
         {
@@ -127,7 +127,7 @@ To Do List:
         }
     }
 	NSError * localError = nil;
-	if (document = [[[C alloc] initWithSyntaxParserVariant:variant error:&localError] autorelease])
+	if ((document = [[[C alloc] initWithSyntaxParserVariant:variant error:&localError] autorelease]))
 	{
 		[SDC addDocument:document];
 		[document makeWindowControllers];
@@ -840,7 +840,7 @@ To Do List: Nothing
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithTitle:aString])
+    if ((self = [super initWithTitle:aString]))
         [_gVarTextSyntaxMenus4iTM3 addObject:self];
     return self;
 }
@@ -853,7 +853,7 @@ To Do List: Nothing
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithCoder:aDecoder]) {
+    if ((self = [super initWithCoder:aDecoder])) {
         [_gVarTextSyntaxMenus4iTM3 addObject:self];
         while (self.numberOfItems) [self removeItemAtIndex:ZER0];
     }
@@ -945,7 +945,7 @@ To Do List: Nothing
             NSEnumerator * EE = MI.submenu.itemArray.objectEnumerator;
             NSMenuItem * mi;
 ici:
-            if (mi = EE.nextObject) {
+            if ((mi = EE.nextObject)) {
                 [[NSApp targetForAction:mi.action to:mi.target from:mi] validateMenuItem:mi];
                 if ([mi state] == NSOnState) {
                     MI.state = NSOnState;
@@ -2258,7 +2258,7 @@ To Do List:
     {
         return nil;
     }
-    else if (self = [super init])
+    else if ((self = [super init]))
     {
 		[self setSyntaxParserVariant:variant];
         [self setFileType:@"iTeXMac2 private document"];
@@ -2445,7 +2445,7 @@ To Do List:
     BOOL result = YES;
     NSEnumerator * E = [self.windowControllers objectEnumerator];
     id WC;
-    while(WC = E.nextObject)
+    while((WC = E.nextObject))
 	{
 //LOG4iTM3(@"WC is: %@", WC);
         if ([WC respondsToSelector:@selector(readFromURL:ofType:error:)])
@@ -2743,7 +2743,7 @@ To Do List:
 	[[self.undoManager prepareWithInvocationTarget:self]doPasteAllModes:[AS modesAttributes]];
 	NSEnumerator * E = [[AS modesAttributes] keyEnumerator];
 	NSString * mode;
-	while(mode = E.nextObject)
+	while((mode = E.nextObject))
 	{
 		id attributes = [dictionary objectForKey:mode];
 		if (attributes)
@@ -2882,7 +2882,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     iTM2TextNewSyntaxParserVariantController * controller = nil;
-	if (controller = [[self.alloc initWithWindowNibName:NSStringFromClass(self)] autorelease])
+	if ((controller = [[self.alloc initWithWindowNibName:NSStringFromClass(self)] autorelease]))
     {
         [controller setStyle:[[aStyle copy] autorelease]];
 		[controller setWindowFrameAutosaveName:NSStringFromClass(self)];

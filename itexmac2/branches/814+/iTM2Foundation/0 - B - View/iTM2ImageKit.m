@@ -35,7 +35,7 @@
 @implementation iTM2NullImage
 - (id)copy;
 {
-	if (self = [super copy])
+	if ((self = [super copy]))
 	{
 		isa = [iTM2NullImage class];
 	}
@@ -75,7 +75,7 @@
 	{
 		return result;
 	}
-	else if (result = [self  imageNamed:name])
+	else if ((result = [self  imageNamed:name]))
 	{
 		return result;
 	}

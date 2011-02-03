@@ -90,7 +90,7 @@
 		// methodSignatureForSelector: result (in case we guessed wrong).
 		//
 	}
-	if (iVarMethodSignature = [iVarTarget methodSignatureForSelector:aSelector])
+	if ((iVarMethodSignature = [iVarTarget methodSignatureForSelector:aSelector]))
 	{
 		return iVarMethodSignature;
 	}

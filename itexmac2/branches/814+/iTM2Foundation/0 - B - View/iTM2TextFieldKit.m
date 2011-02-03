@@ -284,7 +284,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         [self setPositiveFormat:@"#0"];
         NSAttributedString * string = [[[NSAttributedString alloc] initWithString:@"..."] autorelease];
@@ -453,7 +453,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         [self setPositiveFormat:@"#0"];
         NSAttributedString * string = [[[NSAttributedString alloc] initWithString:@"..."] autorelease];
@@ -503,7 +503,7 @@ To Do List:
 	}
     NSEnumerator * menuEnumerator = [menuItem.menu.itemArray objectEnumerator];
     iTM2MagnificationFormatter * MF = [[[iTM2MagnificationFormatter alloc] init] autorelease];
-    while(menuItem=[menuEnumerator nextObject])
+    while((menuItem=[menuEnumerator nextObject]))
     {
         NSNumber * number;
         if ([MF getObjectValue:&number forString:menuItem.title errorDescription:nil])
@@ -524,7 +524,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         [self setPositiveFormat:@"#0 %"];
         NSAttributedString * string = [[[NSAttributedString alloc] initWithString:@"..."] autorelease];
@@ -631,7 +631,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         self.initImplementation;
     }

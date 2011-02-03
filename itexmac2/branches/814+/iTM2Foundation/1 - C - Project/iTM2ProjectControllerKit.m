@@ -327,7 +327,7 @@ To Do List:
 	} else if ([key isEqual:TWSContentsKey]) {
 		if (filter == iTM2PCFilterRegular) {
 			if ((PD = [self projectForURL:projectURL error:RORef])) {
-				if (url = [PD contentsURL]) {
+				if ((url = [PD contentsURL])) {
 					return url;
 				}
 				MIW = [PD mainInfos4iTM3];
@@ -340,8 +340,8 @@ To Do List:
 //END4iTM3;
 	} else if ([key isEqual:TWSFactoryKey]) {
 		if (filter == iTM2PCFilterRegular) {
-			if (PD = [self projectForURL:projectURL error:RORef]) {
-				if (url = [PD factoryURL]) {
+			if ((PD = [self projectForURL:projectURL error:RORef])) {
+				if ((url = [PD factoryURL])) {
 					return url;
 				}
 				MIW = [PD mainInfos4iTM3];
@@ -391,7 +391,7 @@ To Do List:
 			return [NSURL URLByResolvingBookmarkData:bookmarkData options:ZER0 relativeToURL:nil bookmarkDataIsStale:NULL error:RORef];
 		case iTM2PCFilterRegular:
 		default:
-			if (PD = [self projectForURL:projectURL error:RORef]) {
+			if ((PD = [self projectForURL:projectURL error:RORef])) {
 				MIW = [PD mainInfos4iTM3];
 			}
 			if (!MIW) {
@@ -1317,11 +1317,11 @@ To Do List:
         NSURL * projectURL = nil;
 		id projectDocument = nil;
 		for (projectURL in projectURLs.objectEnumerator) {
-			if (projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef]) {
+			if ((projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef])) {
 				if ([self fileKeyForURL:fileURL filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef]) {
 					// fine, the project at projectURL (if any) knows about fileURL, this should never happen because it was already tested above
 					#define OPEN_PROJECT_OR_REMOVE\
-					if (projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef]) {\
+					if ((projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef])) {\
 						return projectDocument;\
 					} else {\
 						[projectURLs removeObject:projectURL];\
@@ -1337,8 +1337,8 @@ To Do List:
 		// relative path, useful when both the file and the project where moved accordingly
 		NSString * aFileName = nil;
 		for (projectURL in projectURLs.objectEnumerator) {
-			if (projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef]) {
-				if (aKey = [self fileKeyForURL:fileURL filter:iTM2PCFilterAlias inProjectWithURL:projectURL error:RORef]) {
+			if ((projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef])) {
+				if ((aKey = [self fileKeyForURL:fileURL filter:iTM2PCFilterAlias inProjectWithURL:projectURL error:RORef])) {
 					// this project did know about fileURL, as a finder alias
 					// but if there is now an existing document for this key, this is not an acceptable project
 					#define LEVEL1\
@@ -1352,8 +1352,8 @@ To Do List:
 		}
 		// None of the remaining project candidates knows about the given fileURL as either a regular file or a finder alias
 		for (projectURL in projectURLs.objectEnumerator) {
-			if (projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef]) {
-				if (aKey = [self fileKeyForURL:fileURL filter:iTM2PCFilterAbsoluteLink inProjectWithURL:projectURL error:RORef]) {
+			if ((projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef])) {
+				if ((aKey = [self fileKeyForURL:fileURL filter:iTM2PCFilterAbsoluteLink inProjectWithURL:projectURL error:RORef])) {
 					// this project did know about fileURL, as an absolute path
 					// but if there is now an existing document for this key, either regular or finder alias, this is not an acceptable project
 					#define LEVEL2\
@@ -1367,8 +1367,8 @@ To Do List:
 		}
 		// None of the remaining project candidates knows about the given fileURL as either a regular file, a finder alias or an absolute link
 		for (projectURL in projectURLs.objectEnumerator) {
-			if (projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef]) {
-				if (aKey = [self fileKeyForURL:fileURL filter:iTM2PCFilterRelativeLink inProjectWithURL:projectURL error:RORef]) {
+			if ((projectURL = [self URLForFileKey:TWSDotKey filter:[N integerValue] inProjectWithURL:projectURL error:RORef])) {
+				if ((aKey = [self fileKeyForURL:fileURL filter:iTM2PCFilterRelativeLink inProjectWithURL:projectURL error:RORef])) {
 					// this project did know about fileURL, as an relative path
 					// but if there is now an existing document for this key, either regular, finder alias or absolute, this is not an acceptable project
 					#define LEVEL3\
@@ -1412,7 +1412,7 @@ newProjectURLCandidate:
 			url = [self URLForFileKey:theKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef];
 			if ([url isEquivalentToURL4iTM3:fileURL]) {
                 //  OK, the project knows about fileURL
-				if ((projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef])) {
+				if (((projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef]))) {
 theEnd:
 					[projectDocument fixProjectConsistency4iTM3Error:RORef];// this must be revisited
 					if (keyRef) {
@@ -1449,7 +1449,7 @@ theEnd:
 		if (![projectURLs containsObject:projectURL]\
                 && [SWS isProjectPackageAtURL4iTM3:projectURL error:RORef]) {\
 			if ([[self URLForFileKey:theKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef] isEquivalentToURL4iTM3:fileURL]) {\
-				if (projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef]) {\
+				if ((projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef])) {\
 					goto theEnd;\
 				}\
 			} else {\
@@ -1473,7 +1473,7 @@ theEnd:
 			projectURL = [NSURL URLWithPath4iTM3:component relativeToURL:url];
 			if (![projectURLs containsURL4iTM3:projectURL] && [SWS isProjectPackageAtURL4iTM3:projectURL error:RORef]) {
 				if ([[self URLForFileKey:theKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef] isEquivalentToURL4iTM3:fileURL]) {
-					if (projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef]) {
+					if ((projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef])) {
 						goto theEnd;
 					} else {
 						OUTERROR4iTM3(1,([NSString stringWithFormat:@"Problem opening projectn%@",
@@ -1505,7 +1505,7 @@ theEnd:
                     if ([SWS isProjectPackageAtURL4iTM3:projectURL error:RORef]) {
                         if (![projectURLs containsURL4iTM3:projectURL]) {
                             if ([[self URLForFileKey:theKey filter:iTM2PCFilterRegular inProjectWithURL:projectURL error:RORef] isEquivalentToURL4iTM3:fileURL]) {
-                                if (projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef]) {
+                                if ((projectDocument = [SDC openDocumentWithContentsOfURL:projectURL display:display error:RORef])) {
                                     goto theEnd;
                                 } else {
                                     OUTERROR4iTM3(1,([NSString stringWithFormat:@"Problem opening project\n%@",
@@ -1557,7 +1557,7 @@ theEnd:
 				&& (projectDocument = [self getUnregisteredProjectForURL:texFileURL fileKey:&theKey display:display error:RORef])) {
 		goto theEnd;
 	}
-	if (projectDocument = [self getProjectDocumentFromProjectURLs:projectURLs fileKey:keyRef forURL:fileURL display:display error:RORef]) {
+	if ((projectDocument = [self getProjectDocumentFromProjectURLs:projectURLs fileKey:keyRef forURL:fileURL display:display error:RORef])) {
 		goto theEnd;
 	}
 //END4iTM3;
@@ -1740,7 +1740,7 @@ newWritableProject:;
 	controller = [[controllerClass alloc] initWithWindowNibName:NSStringFromClass(controllerClass)];
 	[controller setFileURL:fileURL];
 	NSInteger returnCode = ZER0;
-	if (W = controller.window) {
+	if ((W = controller.window)) {
 		returnCode = [NSApp runModalForWindow:W];
 		[W orderOut:self];
 	}
@@ -2113,7 +2113,7 @@ Latest Revision: Sat May 15 13:00:47 UTC 2010
 			NSEnumerator * E = MRA.reverseObjectEnumerator;// from the longest to the shortest, subclassed for a more clever test
 			NSString * baseName;
             while (YES) {
-                if (baseName = E.nextObject) {
+                if ((baseName = E.nextObject)) {
                     if ([name rangeOfString:baseName].length) {
                         [MD setObject:baseName forKey:name];
                     } else {
@@ -2190,7 +2190,7 @@ To Do List:
                     //  get the base name
                     if ([SWS isProjectPackageAtURL4iTM3:url ROR4iTM3]) {
                         K = url.lastPathComponent.stringByDeletingPathExtension;
-                        if (MRA = [self.baseURLs4ProjectName objectForKey:K]) {
+                        if ((MRA = [self.baseURLs4ProjectName objectForKey:K])) {
                             [MRA addObject:url];
                         } else {
                             [self.baseURLs4ProjectName setObject:[NSMutableArray arrayWithObject:url] forKey:K];
@@ -3056,7 +3056,7 @@ To Do List:
             LOG4iTM3(@"YOUR ATTENTION PLEASE! There maight be an error: %@",ROR);
             ROR = nil;
         }
-		if (enclosingURL = absoluteURL.enclosingWrapperURL4iTM3) {
+		if ((enclosingURL = absoluteURL.enclosingWrapperURL4iTM3)) {
 			NSArray * enclosed = enclosingURL.enclosedProjectURLs4iTM3;
 			if (enclosed.count == 1) {
 				absoluteURL = enclosed.lastObject;

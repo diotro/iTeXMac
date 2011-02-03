@@ -144,11 +144,11 @@ To Do List:
 //START4iTM3;
 	NSWindow * mainWindow = [NSApp mainWindow];
 	NSWindow * parentWindow;
-	while (parentWindow = [mainWindow parentWindow]) {
+	while ((parentWindow = [mainWindow parentWindow])) {
 		mainWindow = parentWindow;
 	}
 	NSWindow * keyWindow = [NSApp keyWindow];
-	while (parentWindow = [keyWindow parentWindow]) {
+	while ((parentWindow = [keyWindow parentWindow])) {
 		keyWindow = parentWindow;
 	}
 	NSArray * orderedWindows = [NSApp orderedWindows];

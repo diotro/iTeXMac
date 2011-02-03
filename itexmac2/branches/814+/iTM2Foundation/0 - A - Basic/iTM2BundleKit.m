@@ -841,14 +841,14 @@ To Do List:
 	for (B in [self supportBundlesInDomain4iTM3:NSNetworkDomainMask]) {
 		RA = [B URLsForSupportResource4iTM3:name withExtension:ext subdirectory:subpath];
 		[result addObjectsFromArray:RA];
-		if (url = [B URLForResource:name withExtension:ext subdirectory:subpath]) {
+		if ((url = [B URLForResource:name withExtension:ext subdirectory:subpath])) {
 			[result addObject:url];
 		}
 	}
 	for (B in [self supportBundlesInDomain4iTM3:NSLocalDomainMask]) {
 		RA = [B URLsForSupportResource4iTM3:name withExtension:ext subdirectory:subpath];
 		[result addObjectsFromArray:RA];
-		if (url = [B URLForResource:name withExtension:ext subdirectory:subpath]) {
+		if ((url = [B URLForResource:name withExtension:ext subdirectory:subpath])) {
 			[result addObject:url];
 		}
 	}
@@ -880,7 +880,7 @@ To Do List:
 	for(B in [self supportBundlesInDomain4iTM3:NSUserDomainMask]) {
 		RA = [B URLsForSupportResource4iTM3:name withExtension:ext subdirectory:subpath];
 		[result addObjectsFromArray:RA];
-		if (url = [B URLForResource:name withExtension:ext subdirectory:subpath]) {
+		if ((url = [B URLForResource:name withExtension:ext subdirectory:subpath])) {
 			[result addObject:url];
 		}
 	}

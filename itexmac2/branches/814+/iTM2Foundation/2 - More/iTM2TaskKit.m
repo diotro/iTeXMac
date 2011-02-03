@@ -383,7 +383,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init]) {
+    if ((self = [super init])) {
         self.wrappers = [NSMutableArray array];
         self.conversation = [[NSProcessInfo processInfo] globallyUniqueString];
         self.inspectors = [NSHashTable hashTableWithWeakObjects];
@@ -644,7 +644,7 @@ To Do List:
         [_CurrentTask setStandardOutput:[NSPipe pipe]];
 		[_CurrentTask setStandardError:[NSPipe pipe]];
 		NSFileHandle * FH;
-		if (FH = [[_CurrentTask standardOutput] fileHandleForReading]) {
+		if ((FH = [[_CurrentTask standardOutput] fileHandleForReading])) {
 //LOG4iTM3(@"OBSERVING OUTPUT:%@",FH);
 			[DNC addObserver:self
 				selector: @selector(_outputDataAvailableNotified:)
@@ -652,7 +652,7 @@ To Do List:
 						object: FH];
 			[FH waitForDataInBackgroundAndNotify];
 		}
-		if (FH = [[_CurrentTask standardError] fileHandleForReading]) {
+		if ((FH = [[_CurrentTask standardError] fileHandleForReading])) {
 //LOG4iTM3(@"OBSERVING ERROR:%@",FH);
 			[DNC addObserver:self
 				selector: @selector(_errorDataAvailableNotified:)
@@ -1326,15 +1326,15 @@ To Do List:
         {
             NSMutableString * MS = [NSMutableString stringWithString:@"\n! AppleScript execution error:\n"];
             NSString * message;
-            if (message = [errorInfo objectForKey:NSAppleScriptErrorAppName])
+            if ((message = [errorInfo objectForKey:NSAppleScriptErrorAppName]))
                 [MS appendFormat:@"! Application:%@\n", message];
-            if (message = [errorInfo objectForKey:NSAppleScriptErrorMessage])
+            if ((message = [errorInfo objectForKey:NSAppleScriptErrorMessage]))
                 [MS appendFormat:@"! Reason:%@\n", message];
-            if (message = [errorInfo objectForKey:NSAppleScriptErrorNumber])
+            if ((message = [errorInfo objectForKey:NSAppleScriptErrorNumber]))
                 [MS appendFormat:@"! Error number:%@\n", message];
-            if (message = [errorInfo objectForKey:NSAppleScriptErrorBriefMessage])
+            if ((message = [errorInfo objectForKey:NSAppleScriptErrorBriefMessage]))
                 [MS appendFormat:@"! Brief reason:%@\n", message];
-            if (message = [errorInfo objectForKey:NSAppleScriptErrorRange])
+            if ((message = [errorInfo objectForKey:NSAppleScriptErrorRange]))
                 [MS appendFormat:@"! Error range:%@\n", message];
             [self.allInspectors makeObjectsPerformSelector:@selector(logCustom:) withObject:MS];
         }
@@ -1726,7 +1726,7 @@ To Do List:
         NSEnumerator * E = argument.objectEnumerator;
         NSString * S;
         NSMutableArray * MRA = [NSMutableArray array];
-        while(S = E.nextObject)
+        while((S = E.nextObject))
         {
             if ([argument isKindOfClass:[NSString class]] && S.length)
                 [MRA addObject:S];

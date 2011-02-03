@@ -60,7 +60,7 @@ To Do List:
 "*/
 {
 //NSLog(@"-[%@ %@] 0x%x", self.class, NSStringFromSelector(_cmd), self);
-    if (self = [super init]) {
+    if ((self = [super init])) {
         [self->__LastNavigationITII release];
         self->__LastNavigationITII = nil;
         [self setNavigationField:nil];

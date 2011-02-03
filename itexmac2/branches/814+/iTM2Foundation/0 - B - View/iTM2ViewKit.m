@@ -254,7 +254,7 @@ To Do List:
 //START4iTM3;
     NSEnumerator * E = [self.subviews objectEnumerator];
     NSView * V;
-    while(V = [E nextObject])
+    while ((V = E.nextObject))
         [V removeFromSuperviewWithoutNeedingDisplay];
     return;
 }
@@ -332,7 +332,7 @@ To Do List:
 //START4iTM3;
 	id result = nil;
 	for (NSView * V in self.subviews)
-		if (result = [V controlWithAction:action])
+		if ((result = [V controlWithAction:action]))
 			break;
     return result;
 }
@@ -562,7 +562,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:frame])
+    if ((self = [super initWithFrame:frame]))
     {
         self.initImplementation;
     }
@@ -577,7 +577,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithCoder:decoder])
+    if ((self = [super initWithCoder:decoder]))
     {
         self.initImplementation;
     }
@@ -632,7 +632,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithFrame:(NSRect) aFrame])
+    if ((self = [super initWithFrame:(NSRect) aFrame]))
     {
         self.initImplementation;
     }
@@ -647,7 +647,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super initWithCoder:(NSCoder *) decoder])
+    if ((self = [super initWithCoder:(NSCoder *) decoder]))
     {
         self.initImplementation;
     }
@@ -942,7 +942,7 @@ loop3:
 	tag = subview.tag;
 //NSLog(@"subview: %@, %d", [subview description], subview.tag);
 	while (tag) {
-		if (partialTag = tag & 15)
+		if ((partialTag = tag & 15))
 			iVarIndexFromTag4iTM3[partialTag] = idx;
 		tag /= 16;
 	}
@@ -974,7 +974,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super initWithCoder:aDecoder])
+	if ((self = [super initWithCoder:aDecoder]))
 	{
 		self.computeIndexFromTag4iTM3;
 		[self moveAwaySubviewAtIndex:iVarVisibleSubviewIndex4iTM3];
@@ -1469,7 +1469,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if (self = [super initWithCoder:aDecoder])
+	if ((self = [super initWithCoder:aDecoder]))
 	{
 		NSUInteger position;
 		[aDecoder decodeValueOfObjCType:@encode(NSUInteger) at:&position];
@@ -1598,7 +1598,7 @@ To Do List:
 @implementation iTM2StackView
 - (id)initWithFrame:(NSRect)frameRect;
 {
-	if (self = [super initWithFrame:(NSRect)frameRect]) {
+	if ((self = [super initWithFrame:(NSRect)frameRect])) {
 		[self setPostsFrameChangedNotifications:YES];
 		[self setAutoresizesSubviews:YES];
 		[DNC addObserver:self
@@ -1621,14 +1621,14 @@ To Do List:
 	NSView * V;
 	NSRect bounds = self.bounds;
 	NSPoint origin = bounds.origin;
-	if (V = [E nextObject])
+	if ((V = [E nextObject]))
 	{
 		NSRect frame = V.frame;
 		frame.origin = origin;
 		frame.size.width = bounds.size.width;
 		[V setFrame:frame];
 		origin.y = NSMaxY(frame);
-		while(V = [E nextObject])
+		while((V = [E nextObject]))
 		{
 			origin.y += VERT_PADDING;
 			frame = V.frame;

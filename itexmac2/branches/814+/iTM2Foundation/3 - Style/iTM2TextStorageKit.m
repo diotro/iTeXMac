@@ -168,9 +168,9 @@ To Do List: Nothing
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if ((self = self.init)) {
-        if (aString) {
+        if (aString.length) {
             self.beginEditing;
-            [self replaceCharactersInRange:iTM3MakeRange(ZER0, ZER0) withString:aString];
+            [self replaceCharactersInRange:iTM3Zer0Range withString:aString];
             self.endEditing;
 		}
     }
@@ -555,11 +555,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if (iVarSP4iTM3 != argument) {
-        DEBUGLOG4iTM3(500,@"The new syntax style is: %@ with parser: %@", [[iVarSP4iTM3 class] syntaxParserStyle], iVarSP4iTM3);
+        DEBUGLOG4iTM3(50000,@"The new syntax style is: %@ with parser: %@", [[iVarSP4iTM3 class] syntaxParserStyle], iVarSP4iTM3);
         iVarSP4iTM3 = argument;
         [argument setTextStorage:self];
         [iVarSP4iTM3 setUpAllTextViews];
-        DEBUGLOG4iTM3(500,@"The new syntax style is: %@ with parser: %@", [[iVarSP4iTM3 class] syntaxParserStyle], iVarSP4iTM3);
+        DEBUGLOG4iTM3(50000,@"The new syntax style is: %@ with parser: %@", [[iVarSP4iTM3 class] syntaxParserStyle], iVarSP4iTM3);
     }
     return;
 }
@@ -1055,15 +1055,18 @@ To Do List:
     }
     NSUInteger countOfModeLines = self.numberOfModeLines;
     if (!countOfModeLines) {
-		LOG4iTM3(@"!!!!!!!!!!!!!!  THERE MUST BE AT LEAST 1ull MODE LINE..");
+		LOG4iTM3(@"!!!!!!!!!!!!!!  THERE MUST BE AT LEAST 1 MODE LINE..");
         return NO; //  at least one modeline
     }
-    NSUInteger modeLineIndex = ZER0;
-    iTM2ModeLine * modeLine = [self modeLineAtIndex:modeLineIndex];
     NSString * S = [self.textStorage string];
-	BOOL toJail = YES;
+    if (!S) {
+        return YES;//   Nothing to test
+    }
+	NSUInteger modeLineIndex = ZER0;
+    iTM2ModeLine * modeLine = [self modeLineAtIndex:modeLineIndex];
+    BOOL toJail = YES;
     NSUInteger end, contentsEnd;
-    NSRange R = iTM3MakeRange(ZER0, ZER0);
+    NSRange R = iTM3Zer0Range;
 testNextLine:
     [S getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
     if (modeLineIndex < self.badOff7Index) {
@@ -1126,7 +1129,7 @@ testNextLine:
         }
     }
 //END4iTM3;
-    if (toJail) {
+    if (toJail && iTM2DebugEnabled > 199999) {
 		LOG4iTM3(@"There are actually %lu lines", countOfModeLines);
 		NSLog(@"BadOff7Index %lu", self.badOff7Index);
 		NSLog(@"BadModeIndex %lu", self.badModeIndex);
@@ -1429,6 +1432,7 @@ To Do List:
         iTM2ModeLine * ML = [self modeLineAtIndex:ZER0];
         ML.startOff7 = 0;
     }
+    
     return;
 }
 - (void)replaceModeLineAtIndex:(NSUInteger)idx withModeLine:(id)ML;
@@ -1444,6 +1448,10 @@ To Do List:
     [[self modeLineAtIndex:ZER0] setPreviousMode:kiTM2TextRegularSyntaxMode];
     [self invalidateOff7sFromIndex:range.location];
     [self invalidateModesFromIndex:range.location];
+}
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len;
+{
+    return [self.modeLines countByEnumeratingWithState:state objects:stackbuf count:len];
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  INDEX WITH BAD OFFSET
 @synthesize badOff7Index = iVarBadOff7Idx4iTM3;
@@ -2173,15 +2181,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (!self.isConsistent) {
-        if (RORef) {
-            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"The mode lines are not in a consistent state before character replacement.",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: The mode line is not in a consistent state before replacing characters");
-        }
+        OUTERROR4iTM3(1,@"The mode lines are not in a consistent state before character replacement.",NULL);
         return NO;
 	}
 //END4iTM3;
@@ -2200,17 +2200,27 @@ To Do List:
 	NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
 	iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
     if (!ML.isConsistent) {
-        if (RORef) {
-            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"STARTING WITH A BAD MODE LINE!!!",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: STARTING WITH A BAD MODE LINE!!!");
-        }
+        OUTERROR4iTM3(1,@"STARTING WITH A BAD MODE LINE!!!",NULL);
         return NO;
     }
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_INSERT_CARRIAGE_RETURN_YES
+#   define TEST_INSERT_CARRIAGE_RETURN_YES(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\r"]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef TEST_INSERT_CARRIAGE_RETURN_NO
+#   define TEST_INSERT_CARRIAGE_RETURN_NO(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3((([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\r"])));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef REACH_CODE_ARGS_3
+#   define REACH_CODE_ARGS_3(...) [[NSArray arrayWithObjects:@"insertCR", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+#endif
+#   undef REACH_CODE_ARGS_3
+#   define REACH_CODE_ARGS_3(...) [[NSArray arrayWithObjects:@"insertCR", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
     //  actually
     //  ML.startOff7 <= aGlobalLocation < ML.endOff7
     //  Most common situation: \r inserted before 1 non EOL
@@ -2227,9 +2237,8 @@ To Do List:
             [self insertModeLine:ml atIndex:lineIndex+1];
             ml.startOff7 = ML.endOff7;
 #           ifdef __ELEPHANT_MODELINE__
-            NSString * S = [self.textStorage string];
-            ML.originalString = [S substringWithRange:ML.completeRange];
-            ml.originalString = [S substringWithRange:ml.completeRange];
+            ml.originalString = [ML.originalString substringFromIndex:aGlobalLocation-ML.startOff7];
+            ML.originalString = [[ML.originalString substringToIndex:aGlobalLocation-ML.startOff7] stringByAppendingString:@"\r"];
 #           endif
             [ML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
             //  to fix the edited range:
@@ -2250,38 +2259,80 @@ To Do List:
             }
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+1];
+            ReachCode4iTM3(REACH_CODE_ARGS_3(@"Insert \\r in the text",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_CARRIAGE_RETURN_YES
+            TEST(@"X\n",ZER0);
+            TEST(@"XY\n",1ull);
+            TEST(@"XY\n",1ull);
+#           endif
 diagnostic_and_return:
             if (!self.isConsistent) {
-                if (RORef) {
-                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                            @"Could not insert character properly, please report bug.",
-                            NSLocalizedDescriptionKey,
-                                nil]];
-                } else {
-                    LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not insert character properly, please report bug.");
-                }
+                OUTERROR4iTM3(2,@"Could not insert \\r properly, please report bug.",NULL);
                 return NO;
             }
             return YES;
         }
-        if (RORef) {
-            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"d:( Could not insert character properly.",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not insert character properly.");
-        }
+        OUTERROR4iTM3(3,@"d:( Could not insert \\r properly.",NULL);
         return NO;
     }
-    //  aGlobalLocation >= ML.contentsEndOff7
+    //  ML.contentsEndOff7 <= aGlobalLocation <= ML.endOff7
+    //  We assume that \r\n is the only EOL with length 2
     //  4 possibilities
     //  - insert a \r before a \n but after a \r
-    //  - insert a \r before a \n
+    //  - insert a \r before a \n, not after a \r
     //  - insert a \r before another kind of EOL
     //  - insert a \r after an EOL
+    if (aGlobalLocation > ML.contentsEndOff7) {
+        //  The '\r' was inserted in the middle of a '\r\n' sequence
+inserted_before:
+        ML.EOLLength = 1;
+        ML.EOLMode = kiTM2TextUnknownSyntaxMode;
+        ml = [iTM2ModeLine modeLine];
+        ml.EOLLength = 2;
+        ml.EOLMode = kiTM2TextUnknownSyntaxMode;
+        [self insertModeLine:ml atIndex:lineIndex+1];
+        ml.startOff7 = ML.endOff7;
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [ML.originalString substringToIndex:ML.contentsLength+1];
+        ml.originalString = @"\r\n";
+#       endif
+        [self invalidateModesFromIndex:lineIndex];
+        [self invalidateOff7sFromIndex:lineIndex+1];
+        ReachCode4iTM3(REACH_CODE_ARGS_3(@"Insert \\r into \\r\\n",@"YES"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_INSERT_CARRIAGE_RETURN_YES
+        TEST(@"\r\n",1ull);
+        TEST(@"X\r\n",2ull);
+        TEST(@"\r\r\n",2ull);
+        TEST(@"\n\r\n",2ull);
+        TEST(@"\r\nZ",1ull);
+        TEST(@"X\r\nZ",2ull);
+        TEST(@"\r\r\nZ",2ull);
+        TEST(@"\n\r\nZ",2ull);
+#       endif
+        goto diagnostic_and_return;
+    }
+    // ML.contentsEndOff7 == aGlobalLocation
+    if (ML.EOLLength == 2) {
+        //  The '\r' was inserted at the beginning of a '\r\n' sequence
+        ReachCode4iTM3(REACH_CODE_ARGS_3(@"Insert \\r at the beginning of \\r\\n",@"YES"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_INSERT_CARRIAGE_RETURN_YES
+        TEST(@"\r\n",0ull);
+        TEST(@"X\r\n",1ull);
+        TEST(@"\r\r\n",1ull);
+        TEST(@"\n\r\n",1ull);
+        TEST(@"\r\nZ",0ull);
+        TEST(@"X\r\nZ",1ull);
+        TEST(@"\r\r\nZ",1ull);
+        TEST(@"\n\r\nZ",1ull);
+#       endif
+        goto inserted_before;
+    }
     NSString * S = [self.textStorage string];
     if (aGlobalLocation+1 < S.length && [S characterAtIndex:aGlobalLocation+1] == '\n') {
         //  the newly inserted \r creates an \r\n EOL sequence
@@ -2299,6 +2350,14 @@ diagnostic_and_return:
             }
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+1];
+            ReachCode4iTM3(REACH_CODE_ARGS_3(@"Insert CR in the text",@"YES"));
+#           ifdef X__EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_CARRIAGE_RETURN_YES
+            TEST(@"X\n",ZER0);
+            TEST(@"XY\n",1ull);
+            TEST(@"XY\n",1ull);
+#           endif
             goto diagnostic_and_return;
         }
         //  ML.contentsEndOff7 != aGlobalLocation
@@ -2374,12 +2433,32 @@ To Do List:
         OUTERROR4iTM3(1,@"STARTING WITH A BAD MODE LINE!!!",NULL);
         return NO;
     }
-    //  actually
+    //  actually, either
     //  ML.startOff7 <= aGlobalLocation < ML.endOff7
+    //  or
+    //  ML.startOff7 <= aGlobalLocation <= ML.contentsEndOff7 == ML.endOff7
     //  Most common situation: \n inserted after 1 non EOL
     iTM2ModeLine * ml = nil;
     NSRange R,r;
     NSString * S = nil;
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_INSERT_LF_YES
+#   define TEST_INSERT_LF_YES(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\n"]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef TEST_INSERT_LF_NO
+#   define TEST_INSERT_LF_NO(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\n"]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef REACH_CODE_ARGS_5
+#   define REACH_CODE_ARGS_5(...) [[NSArray arrayWithObjects:@"insert \\n", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+#endif
+#   undef REACH_CODE_ARGS_5
+#   define REACH_CODE_ARGS_5(...) [[NSArray arrayWithObjects:@"insert \\n", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
     if (aGlobalLocation > ML.startOff7) {
         if (aGlobalLocation < ML.contentsEndOff7) {
             //  the line is splitted at index aGlobalLocation + 1
@@ -2416,33 +2495,26 @@ To Do List:
                 }
                 [self invalidateModesFromIndex:lineIndex];
                 [self invalidateOff7sFromIndex:lineIndex+1];
+                ReachCode4iTM3(REACH_CODE_ARGS_5(@"In the running text",@"YES"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_INSERT_LF_YES
+                TEST(@"XY",1ull);
+                TEST(@"\nXY",1+1ull);
+                TEST(@"XY\r\n",1ull);
+                TEST(@"\nXY\r\n",1+1ull);
+#               endif
 diagnostic_and_return:
                 if (!self.isConsistent) {
-                    if (RORef) {
-                        *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                            userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                @"Could not insert character properly, please report bug.",
-                                NSLocalizedDescriptionKey,
-                                    nil]];
-                    } else {
-                        LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not insert character properly, please report bug.");
-                    }
+                    OUTERROR4iTM3(2,@"Could not insert character properly, please report bug.",NULL);
                     return NO;
                 }
                 return YES;
             }
-            if (RORef) {
-                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                        @"d:( Could not insert character properly.",
-                        NSLocalizedDescriptionKey,
-                            nil]];
-            } else {
-                LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not insert character properly.");
-            }
+            OUTERROR4iTM3(1,@"d:( Could not insert character properly.",NULL);
             return NO;
         }
-        //  aGlobalLocation >= ML.contentsEndOff7
+        //  aGlobalLocation >= ML.contentsEndOff7 and > ML.startOff7
         //  there is a potential problem with ML's EOL
         //  3 possibilities
         //  - insert a \n after a \r
@@ -2465,88 +2537,89 @@ diagnostic_and_return:
                 *editedAttributesRangePtr = ML.EOLRange;
                 editedAttributesRangePtr->length += ml.EOLLength;
             }
+            ReachCode4iTM3(REACH_CODE_ARGS_5(@"At the end of the running text",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_LF_YES
+            TEST(@"X",1ull);
+            TEST(@"\nX",1+1ull);
+            TEST(@"X\r\n",1ull);
+            TEST(@"\nX\r\n",1+1ull);
+#           endif
             goto diagnostic_and_return;
         }
-        //  ML.endOff7 >= aGlobalLocation > ML.contentsEndOff7
-        S = [self.textStorage string];
-        if ([S characterAtIndex:aGlobalLocation-1] == '\r') {
-            //  the newly inserted \n creates an \r\n EOL sequence
-            //  either it breaks an existing EOL sequence in two or it just extands an '\r' sequence
-            if (ML.EOLLength == 1) {
-                //  just augment the EOL length
-                ML.EOLLength = 2;
+        //  ML.endOff7 > aGlobalLocation > ML.contentsEndOff7
+        //  thus
+        //  ML.EOLLength == 2
+        //  a \n is inserted between \r and \n
+        ReachCode4iTM3(REACH_CODE_ARGS_5(@"\\n inside \\r\\n ",@"YES"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_INSERT_LF_YES
+        TEST(@"\r\n",1ull);
+        TEST(@"X\r\n",2ull);
+        TEST(@"\r\nX",1ull);
+        TEST(@"X\r\nX",2ull);
+#       endif
+        return [self textStorageDidInsertLineFeedAtIndex:aGlobalLocation+1 editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:RORef];
+    }
+    //  ML.startOff7 == aGlobalLocation
+    //  there is a potential \r\n problem with the previous EOL
+    if (lineIndex) {
+        ml = [self modeLineAtIndex:lineIndex-1];
+        if (ml.EOLLength == 1) {
+            NSAssert(aGlobalLocation>0,@"!!!!  HUGE BUG");
+            S = [self.textStorage string];
+            if ([S characterAtIndex:aGlobalLocation-1] == '\r') {
+                ml.EOLLength += 1;
+                ML.startOff7 += 1;
 #               ifdef __ELEPHANT_MODELINE__
-                ML.originalString = [S substringWithRange:ML.completeRange];
+                ml.originalString = [ml.originalString stringByAppendingString:@"\n"];
 #               endif
-                R = ML.EOLRange;
-                [ML invalidateGlobalRange:R];
-                if (editedAttributesRangePtr) {
-                    *editedAttributesRangePtr = ML.invalidGlobalRange;
-                }
-                [self invalidateModesFromIndex:lineIndex];
                 [self invalidateOff7sFromIndex:lineIndex+1];
+                if (editedAttributesRangePtr) {
+                    *editedAttributesRangePtr = ml.EOLRange;
+                }
+                ReachCode4iTM3(REACH_CODE_ARGS_5(@"\\n after \\r., merge to the left",@"YES"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_INSERT_LF_YES
+                TEST(@"\r",1ull);
+                TEST(@"X\r",2ull);
+                TEST(@"\rX",1ull);
+                TEST(@"X\rX",2ull);
+#               endif
                 goto diagnostic_and_return;
             }
-            //  ML.EOLLength > 1
-            //  The newly inserted \n splits an existing \r\n into \r\n+\n
-            ml = [iTM2ModeLine modeLine];
-            ml.EOLMode = ML.EOLMode;
-            ml.EOLLength = ML.EOLLength-1;
-            ML.EOLLength = 2;
-            ml.startOff7 = ML.endOff7;
-#           ifdef __ELEPHANT_MODELINE__
-            ML.originalString = [S substringWithRange:ML.completeRange];
-            ml.originalString = [S substringWithRange:ml.completeRange];
+            ReachCode4iTM3(REACH_CODE_ARGS_5(@"\\n after \\n., merge to the left",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_LF_YES
+            TEST(@"\n",1ull);
+            TEST(@"X\n",2ull);
+            TEST(@"\nX",1ull);
+            TEST(@"X\nX",2ull);
 #           endif
-            [self insertModeLine:ml atIndex:lineIndex+1];
-            [self invalidateOff7sFromIndex:lineIndex+2];
-            if (editedAttributesRangePtr) {
-                *editedAttributesRangePtr = ML.EOLRange;
-                editedAttributesRangePtr->length += ml.EOLLength;
-            }
-            goto diagnostic_and_return;
-        }
-        //  No \r before, just append a new mode line
-        ml = [iTM2ModeLine modeLine];
-        ml.EOLMode = ML.EOLMode;
-        ml.EOLLength = 1;
-        ml.startOff7 = ML.endOff7;
-#       ifdef __ELEPHANT_MODELINE__
-        ml.originalString = [S substringWithRange:ml.completeRange];
-#       endif
-        [self insertModeLine:ml atIndex:lineIndex+1];
-        [self invalidateOff7sFromIndex:lineIndex+2];
-        if (editedAttributesRangePtr) {
-            *editedAttributesRangePtr = ml.EOLRange;
-        }
-        goto diagnostic_and_return;
-    }
-    //  there is a potential \r\n problem with the previous EOL
-    if (aGlobalLocation) {
-        S = [self.textStorage string];
-        if ([S characterAtIndex:aGlobalLocation-1] == '\r') {
-            ml = [self modeLineAtIndex:aGlobalLocation-1];
-            ml.EOLLength += 1;
-            ML.startOff7 += 1;
-#           ifdef __ELEPHANT_MODELINE__
-            ML.originalString = [S substringWithRange:ML.completeRange];
-            ml.originalString = [S substringWithRange:ml.completeRange];
+        } else {
+            //  no \r before
+            ReachCode4iTM3(REACH_CODE_ARGS_5(@"\\n after \\r\\n., merge to the left",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_LF_YES
+            TEST(@"\r\n",1ull);
+            TEST(@"X\r\n",2ull);
+            TEST(@"\r\nX",1ull);
+            TEST(@"X\r\nX",2ull);
 #           endif
-            [self invalidateOff7sFromIndex:lineIndex+1];
-            if (editedAttributesRangePtr) {
-                *editedAttributesRangePtr = ml.EOLRange;
-            }
-            goto diagnostic_and_return;
         }
-        //  no \r before
     }
-    //  nothing before
+    //  nothing meargeable before
     ml = [iTM2ModeLine modeLine];
     ml.EOLMode = kiTM2TextUnknownSyntaxMode;
     ml.EOLLength = 1;
     ml.startOff7 = aGlobalLocation;
 #   ifdef __ELEPHANT_MODELINE__
-    ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
+    ml.originalString = @"\n";
 #   endif
     [self insertModeLine:ml atIndex:lineIndex];
     R = ml.EOLRange;
@@ -2556,6 +2629,27 @@ diagnostic_and_return:
     }
     [self invalidateModesFromIndex:lineIndex];
     [self invalidateOff7sFromIndex:lineIndex+1];
+    ReachCode4iTM3(REACH_CODE_ARGS_5(@"\\n after \\r\\n., \\n or nothing, don't merge to the left",@"YES"));
+#   ifdef __EMBEDDED_TEST__
+    #undef  TEST
+    #define TEST TEST_INSERT_LF_YES
+    TEST(@"\n",1ull);
+    TEST(@"X\n",2ull);
+    TEST(@"\nX",1ull);
+    TEST(@"X\nX",2ull);
+    TEST(@"\r\n",1ull);
+    TEST(@"X\r\n",2ull);
+    TEST(@"\r\nX",1ull);
+    TEST(@"X\r\nX",2ull);
+    TEST(@"\n",0ull);
+    TEST(@"X\n",0ull);
+    TEST(@"\nX",0ull);
+    TEST(@"X\nX",0ull);
+    TEST(@"\r\n",0ull);
+    TEST(@"X\r\n",0ull);
+    TEST(@"\r\nX",0ull);
+    TEST(@"X\r\nX",0ull);
+#   endif
     goto diagnostic_and_return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertSingleEOLAtIndex:editedAttributesRangeIn:error:
@@ -2569,22 +2663,33 @@ To Do List:
 	NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
 	iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
     if (!ML.isConsistent) {
-        if (RORef) {
-            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"STARTING WITH A BAD MODE LINE!!!",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: STARTING WITH A BAD MODE LINE!!!");
-        }
+        OUTERROR4iTM3(1,@"STARTING WITH A BAD MODE LINE!!!",NULL);
         return NO;
     }
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_INSERT_SINGLE_EOL_YES
+#   define TEST_INSERT_SINGLE_EOL_YES(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\342\200\250"]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef TEST_INSERT_SINGLE_EOL_NO
+#   define TEST_INSERT_SINGLE_EOL_NO(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\342\200\250"]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef REACH_CODE_ARGS_6
+#   define REACH_CODE_ARGS_6(...) [[NSArray arrayWithObjects:@"insert single EOL", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+#endif
+#   undef REACH_CODE_ARGS_6
+#   define REACH_CODE_ARGS_6(...) [[NSArray arrayWithObjects:@"insert single EOL", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
     //  actually
     //  ML.startOff7 <= aGlobalLocation < ML.endOff7
+    //  or
+    //  ML.startOff7 <= aGlobalLocation <= ML.contentsEndOff7 ==  ML.endOff7
     //  Most common situation: single EOL inserted before 1 non EOL
-    //  There might be a problem wih a \r\n sequence
-    //  Was there a \n at aGlobalLocation or is there a \n at aGlobalLocation+1?
+    //  There might be a problem wih a \r\n sequence being broken
     iTM2ModeLine * ml = nil;
     NSRange R,r;
     if (aGlobalLocation < ML.contentsEndOff7) {
@@ -2600,8 +2705,8 @@ To Do List:
             ml.startOff7 = ML.endOff7;
 #           ifdef __ELEPHANT_MODELINE__
             NSString * S = [self.textStorage string];
-            ML.originalString = [S substringWithRange:ML.completeRange];
-            ml.originalString = [S substringWithRange:ml.completeRange];
+            ML.originalString = [ML.originalString stringByAppendingString:[S substringWithRange:ML.EOLRange]];
+            ml.originalString = [ml.originalString substringFromIndex:aGlobalLocation-ml.startOff7+ML.EOLLength];
 #           endif
             [ML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
             //  to fix the edited range:
@@ -2622,43 +2727,42 @@ To Do List:
             }
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+1];
+            ReachCode4iTM3(REACH_CODE_ARGS_6(@"in the running text",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_SINGLE_EOL_YES
+            TEST(@"X",0ull);
+            TEST(@"XX",1ull);
+            TEST(@"\rX",1+0ull);
+            TEST(@"\rXX",1+1ull);
+            TEST(@"X\nOO",0ull);
+            TEST(@"XX\nOO",1ull);
+            TEST(@"\rX\nOO",1+0ull);
+            TEST(@"\rXX\nOO",1+1ull);
+#           endif
 diagnostic_and_return:
             if (!self.isConsistent) {
-                if (RORef) {
-                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                            @"Could not insert character properly, please report bug.",
-                            NSLocalizedDescriptionKey,
-                                nil]];
-                } else {
-                    LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not insert character properly, please report bug.");
-                }
+                OUTERROR4iTM3(2,@"Could not insert character properly, please report bug.",NULL);
                 return NO;
             }
             return YES;
         }
-        if (RORef) {
-            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"d:( Could not insert character properly.",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not insert character properly.");
-        }
+        OUTERROR4iTM3(3,@"d:( Could not insert character properly.",NULL);
         return NO;
     }
     //  aGlobalLocation >= ML.contentsEndOff7
-    //  2 possibilities
+    //  3 possibilities
     //  - break a \r\n
     //  - insert before the EOL
+    //  - insert at the end
     if (ML.EOLLength == ZER0) {
+        //  Append at the end
         ML.EOLLength = 1;
         ML.EOLMode = kiTM2TextUnknownSyntaxMode;
         ml = [iTM2ModeLine modeLine];
         ml.startOff7 = ML.endOff7;
 #       ifdef __ELEPHANT_MODELINE__
-        ML.originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
+        ML.originalString = [ML.originalString stringByAppendingString:[[self.textStorage string] substringWithRange:ML.EOLRange]];
 #       endif
         R = ML.EOLRange;
         [ML invalidateGlobalRange:R];
@@ -2668,6 +2772,19 @@ diagnostic_and_return:
         [self insertModeLine:ml atIndex:lineIndex+1];
         [self invalidateModesFromIndex:lineIndex];
         [self invalidateOff7sFromIndex:lineIndex+1];
+        ReachCode4iTM3(REACH_CODE_ARGS_6(@"at the very end of the text",@"YES"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_INSERT_SINGLE_EOL_YES
+        TEST(@"X",1ull);
+        TEST(@"XX",2ull);
+        TEST(@"X\r",1+1ull);
+        TEST(@"XX\n",1+2ull);
+        TEST(@"00\nX",3+1ull);
+        TEST(@"00\nXX",3+2ull);
+        TEST(@"00\nX\r",3+1+1ull);
+        TEST(@"00\nXX\n",3+1+2ull);
+#       endif
         goto diagnostic_and_return;
     }
     if (ML.EOLLength == 2) {
@@ -2679,8 +2796,8 @@ diagnostic_and_return:
             ml.EOLLength = 1;
             ml.startOff7 = ML.endOff7;
 #           ifdef __ELEPHANT_MODELINE__
-            ML.originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
-            ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
+            ml.originalString = [ML.originalString substringFromIndex:aGlobalLocation-ML.startOff7];
+            ML.originalString = [ML.originalString substringToIndex:aGlobalLocation-ML.startOff7];
 #           endif
             R = ML.EOLRange;
             [ML invalidateGlobalRange:R];
@@ -2696,21 +2813,53 @@ diagnostic_and_return:
 #           ifdef __ELEPHANT_MODELINE__
             ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
 #           endif
-            [self insertModeLine:ml atIndex:lineIndex+2];
+            [self insertModeLine:ml atIndex:lineIndex+1];
             [self invalidateModesFromIndex:lineIndex];
-            [self invalidateOff7sFromIndex:lineIndex+3];
+            [self invalidateOff7sFromIndex:lineIndex+1];
+            ReachCode4iTM3(REACH_CODE_ARGS_6(@"breaking a \\r\\n sequence",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_SINGLE_EOL_YES
+            TEST(@"\r\n",1ull);
+            TEST(@"\r\nXX",1ull);
+            TEST(@"\r\nXX\n",1ull);
+            TEST(@"\r\n\n",1ull);
+            TEST(@"W\r\n",1+1ull);
+            TEST(@"W\r\nXX",1+1ull);
+            TEST(@"W\r\nXX\n",1+1ull);
+            TEST(@"W\r\n\n",1+1ull);
+            TEST(@"\rW\r\n",1+1+1ull);
+            TEST(@"\rW\r\nXX",1+1+1ull);
+            TEST(@"\rW\r\nXX\n",1+1+1ull);
+            TEST(@"\rW\r\n\n",1+1+1ull);
+#           endif
             goto diagnostic_and_return;
         }
         //  The single EOL was inserted just before the \r\n
+        ReachCode4iTM3(REACH_CODE_ARGS_6(@"before \\r\\n sequence",@"YES"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_INSERT_SINGLE_EOL_YES
+        TEST(@"X\r\n",1ull);
+        TEST(@"XX\r\n",2ull);
+        TEST(@"X\r\r\n",1+1ull);
+        TEST(@"XX\n\r\n",1+2ull);
+        TEST(@"00\nX\r\n",3+1ull);
+        TEST(@"00\nXX\r\n",3+2ull);
+        TEST(@"00\nX\r\r\n",3+1+1ull);
+        TEST(@"00\nXX\n\r\n",3+1+2ull);
+#       endif
     }
+    //  The single EOL was inserted just before the EOL
     ml = [iTM2ModeLine modeLine];
     ml.EOLMode = ML.EOLMode;
     ml.EOLLength = ML.EOLLength;
     ML.EOLLength = 1;
     ml.startOff7 = ML.endOff7;
 #   ifdef __ELEPHANT_MODELINE__
-    ML.originalString = [[self.textStorage string] substringWithRange:ML.completeRange];
-    ml.originalString = [[self.textStorage string] substringWithRange:ml.completeRange];
+    ml.originalString = [ML.originalString substringFromIndex:aGlobalLocation-ML.startOff7];
+    ML.originalString = [ML.originalString substringToIndex:aGlobalLocation-ML.startOff7];
+    ML.originalString = [ML.originalString stringByAppendingString:[[self.textStorage string] substringWithRange:ML.EOLRange]];
 #   endif
     R = ML.EOLRange;
     [ML invalidateGlobalRange:R];
@@ -2720,6 +2869,27 @@ diagnostic_and_return:
     [self insertModeLine:ml atIndex:lineIndex+1];
     [self invalidateModesFromIndex:lineIndex];
     [self invalidateOff7sFromIndex:lineIndex+2];
+    ReachCode4iTM3(REACH_CODE_ARGS_6(@"before the EOL",@"YES"));
+#   ifdef __EMBEDDED_TEST__
+    #undef  TEST
+    #define TEST TEST_INSERT_SINGLE_EOL_YES
+    TEST(@"X\n\n",1ull);
+    TEST(@"XX\n\n",2ull);
+    TEST(@"X\n\n\n",1+1ull);
+    TEST(@"XX\n\n\n",1+2ull);
+    TEST(@"00\nX\n\n",3+1ull);
+    TEST(@"00\nXX\n\n",3+2ull);
+    TEST(@"00\nX\n\n\n",3+1+1ull);
+    TEST(@"00\nXX\n\n\n",3+1+2ull);
+    TEST(@"X\r\n\n",1ull);
+    TEST(@"XX\r\n\n",2ull);
+    TEST(@"X\n\r\n\n",1+1ull);
+    TEST(@"XX\n\r\n\n",1+2ull);
+    TEST(@"00\nX\n\r\n",3+1ull);
+    TEST(@"00\nXX\n\r\n",3+2ull);
+    TEST(@"00\nX\n\r\n\n",3+1+1ull);
+    TEST(@"00\nXX\n\r\n\n",3+1+2ull);
+#   endif
     goto diagnostic_and_return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertNonEOLCharacterAtIndex:editedAttributesRangeIn:error:
@@ -2733,20 +2903,32 @@ To Do List:
 	NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
 	iTM2ModeLine * ML = [self modeLineAtIndex:lineIndex];
     if (!ML.isConsistent) {
-        if (RORef) {
-            *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                    @"STARTING WITH A BAD MODE LINE!!!",
-                    NSLocalizedDescriptionKey,
-                        nil]];
-        } else {
-            LOG4iTM3(@"****  INTERNAL INCONSISTENCY: STARTING WITH A BAD MODE LINE!!!");
-        }
+        OUTERROR4iTM3(1,@"STARTING WITH A BAD MODE LINE!!!",NULL);
         return NO;
     }
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_INSERT_SINGLE_NON_EOL_YES
+#   define TEST_INSERT_SINGLE_NON_EOL_YES(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\342\200\252"]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef TEST_INSERT_SINGLE_NON_EOL_NO
+#   define TEST_INSERT_SINGLE_NON_EOL_NO(WHAT,LOCATION) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:@"\342\200\252"]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef REACH_CODE_ARGS_7
+#   define REACH_CODE_ARGS_7(...) [[NSArray arrayWithObjects:@"insert single character", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+#endif
+#   undef REACH_CODE_ARGS_7
+#   define REACH_CODE_ARGS_7(...) [[NSArray arrayWithObjects:@"insert single character", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
     //  actually
     //  ML.startOff7 <= aGlobalLocation < ML.endOff7
-    //  Most common situation: single EOL inserted before 1 non EOL
+    //  or
+    //  ML.startOff7 <= aGlobalLocation <= ML.contentsEndOff7 == ML.endOff7
+    //  Most common situation: single NON_EOL inserted before 1 non EOL
     //  There might be a problem wih a \r\n sequence
     NSRange R,r;
     if (aGlobalLocation <= ML.contentsEndOff7) {
@@ -2774,17 +2956,26 @@ To Do List:
             }
             [self invalidateModesFromIndex:lineIndex];
             [self invalidateOff7sFromIndex:lineIndex+1];
+            ReachCode4iTM3(REACH_CODE_ARGS_6(@"before the EOL sequence",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_SINGLE_NON_EOL_YES
+            TEST(@"",0ull);
+            TEST(@"X",0ull);
+            TEST(@"X",1ull);
+            TEST(@"\r",0ull);
+            TEST(@"X\r",0ull);
+            TEST(@"X\r",1ull);
+            TEST(@"\n",1+0ull);
+            TEST(@"\nX",1+0ull);
+            TEST(@"\nX",1+1ull);
+            TEST(@"\n\r",1+0ull);
+            TEST(@"\nX\r",1+0ull);
+            TEST(@"\nX\r",1+1ull);
+#           endif
 //diagnostic_and_return:
             if (!self.isConsistent) {
-                if (RORef) {
-                    *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                        userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                            @"Could not insert character properly, please report bug.",
-                            NSLocalizedDescriptionKey,
-                                nil]];
-                } else {
-                    LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not insert character properly, please report bug.");
-                }
+                OUTERROR4iTM3(1,@"Could not insert character properly, please report bug.",NULL);
                 return NO;
             }
             return YES;        
@@ -2794,7 +2985,25 @@ To Do List:
     //  ML.endOff7 > aGlobalLocation > ML.contentsEndOff7
     //  We inserted a character just between the \r\n EOL sequence
     //  replace by insertioin of 2 characters, the latter being the \n
-    ML.EOLLength = 1;
+    ML.EOLLength = 1;// instead of 2
+#   ifdef __ELEPHANT_MODELINE__
+    NSString * S = [self.textStorage string];
+    ML.originalString = [S substringWithRange:ML.completeRange];
+#   endif
+    ReachCode4iTM3(REACH_CODE_ARGS_6(@"inside the \\r\\n sequence",@"YES"));
+#   ifdef __EMBEDDED_TEST__
+    #undef  TEST
+    #define TEST TEST_INSERT_SINGLE_NON_EOL_YES
+    TEST(@"\r\n",1ull);
+    TEST(@"\r\nXX",1ull);
+    TEST(@"\r\n\n",1ull);
+    TEST(@"W\r\n",1+1ull);
+    TEST(@"W\r\nXX",1+1ull);
+    TEST(@"W\r\n\n",1+1ull);
+    TEST(@"W\n\r\n",1+1+1ull);
+    TEST(@"W\n\r\nXX",1+1+1ull);
+    TEST(@"W\n\r\n\n",1+1+1ull);
+#   endif
     [self invalidateOff7sFromIndex:lineIndex+1];
     return [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:2 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
 }
@@ -2821,7 +3030,7 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidReplaceCharactersAtIndex:count:withCount:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidReplaceCharactersAtIndex:(NSUInteger)location count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
+- (BOOL)textStorageDidReplaceCharactersAtIndex:(NSUInteger)aGlobalLocation count:(NSUInteger)oldCount withCount:(NSUInteger)newCount editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Apr 21 17:34:00 UTC 2010
@@ -2833,78 +3042,138 @@ To Do List:
     NSParameterAssert(oldCount>ZER0);
     //  very simple method
     //  First get the range of full lines that span over the original characters range
-    NSUInteger first = [self lineIndexForLocation4iTM3:location];
-    NSUInteger last  = [self lineIndexForLocation4iTM3:location+oldCount];
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_REPLACE_YES
+#   define TEST_REPLACE_YES(WHAT,LOCATION,LENGTH,REPLACEMENT) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,LENGTH) withString:REPLACEMENT]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef TEST_REPLACE_NO
+#   define TEST_REPLACE_NO(WHAT,LOCATION,LENGTH,REPLACEMENT) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,LENGTH) withString:REPLACEMENT]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef REACH_CODE_ARGS_8
+#   define REACH_CODE_ARGS_8(...) [[NSArray arrayWithObjects:@"replaceCharacters", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+#endif
+#   undef REACH_CODE_ARGS_8
+#   define REACH_CODE_ARGS_8(...) [[NSArray arrayWithObjects:@"replaceCharacters", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+    NSUInteger first = [self lineIndexForLocation4iTM3:aGlobalLocation];
+    NSUInteger last  = [self lineIndexForLocation4iTM3:aGlobalLocation+oldCount];
     //  This is the range of mode lines that we are going to change
     //  The corresponding character range is
     iTM2ModeLine * ML = [self modeLineAtIndex:first];
-    NSUInteger firstChar = ML.startOff7;
+    NSUInteger firstLocation = ML.startOff7;
     ML = [self modeLineAtIndex:last];
-    NSUInteger lastChar = ML.endOff7;
+    NSUInteger lastLocation = ML.endOff7;
     //  After the change, this last char index becomes
-    lastChar += newCount - oldCount;
+    lastLocation += newCount - oldCount;
     //  We now parse the string to create new mode lines
     NSString * S = [self.textStorage string];
-    NSUInteger contentsEnd;
-    NSRange R = iTM3MakeRange(firstChar, ZER0);
-    NSMutableArray * newModes = [NSMutableArray array];
+    NSUInteger contentsEnd = ZER0;
+    NSRange R = iTM3MakeRange(firstLocation, ZER0);
+    NSMutableArray * newModeLines = [NSMutableArray array];
     // we create a new line
     ML = [iTM2ModeLine modeLine];
     ML.startOff7 = R.location;
     [S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
-    if (contentsEnd < firstChar) {
+    if (contentsEnd < firstLocation) {
         //  this can occur in only one situation:
         //  the previous line ends with a '\r' EOL
-        //  the inserted char starts with a '\n'
+        //  the inserted chars start with a '\n'
         //  the insertion location is exactly after the '\r'
         //  As a consequence, we have first > ZER0
         //  Before the change, we had
-        //  ML.startOff7 <= ML.contentsEndOff7 <= ML.endOff7
-        //  now contentsEnd < ML.startOff7 <= R.location
+        //  aGlobalLocation == ML.startOff7 == ML.contentsEndOff7 < ML.endOff7
+        //  now contentsEnd < ML.startOff7 == ML.contentsEndOff7 <= R.location
         //  this means that ML.startOff7 is now inside the EOL sequence
         //  if we inserted something else than a \n..., the contentsEnd should be >= ML.startOff7
         //  if we insert something like \n... and no \r before, the contentsEnd should be == ML.startOff7
         //  if we insert something like \n... and a \r before, the contentsEnd should be == ML.startOff7 - 1
         //  WHAT we do is manage the leading \n, then the remaining inserted chars
         if (!first) {
-            if (RORef) {
-                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                        @"Internal inconsistency, first is 0.",
-                        NSLocalizedDescriptionKey,
-                            nil]];
-            } else {
-                LOG4iTM3(@"****  INTERNAL INCONSISTENCY: first is ZER0");
-            }
+            OUTERROR4iTM3(1,@"Internal inconsistency, first is 0.",NULL);
             return NO;
         }
         ML = [self modeLineAtIndex:first - 1];
         ML.EOLLength = R.location - contentsEnd;
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [S substringWithRange:ML.completeRange];
+#       endif
         [self invalidateOff7sFromIndex:first];
-        //  R.location - location is the number of inserted characters
+        //  R.location - aGlobalLocation is the number of inserted characters in that line
         //  that go to the EOL sequence
-        if (oldCount -= R.location - location) {
-            if (newCount -= R.location - location) {
-                return [self textStorageDidReplaceCharactersAtIndex:location+1 count:oldCount withCount:newCount editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
-            } else {
-                return [self textStorageDidDeleteCharacterAtIndex:location+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
-            }
-        } else if (newCount -= R.location - location) {
-            return [self textStorageDidInsertCharactersAtIndex:location+1 count:newCount editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+        if ((newCount -= R.location - aGlobalLocation)) {
+            ReachCode4iTM3(REACH_CODE_ARGS_8(@"\\n... after \\r in \\r...",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_REPLACE_YES
+            TEST(@"\rX\n",1ull,1ull,@"\nXXX");
+            TEST(@"\rX\nXX",1ull,1ull,@"\nXXX");
+            TEST(@"\rX\n\n",1ull,1ull,@"\nXXX");
+            TEST(@"W\rX\n",1+1ull,1ull,@"\nXXX");
+            TEST(@"W\rX\nXX",1+1ull,1ull,@"\nXXX");
+            TEST(@"W\rX\n\n",1+1ull,1ull,@"\nXXX");
+            TEST(@"W\n\rX\n",1+1+1ull,1ull,@"\nXXX");
+            TEST(@"W\n\rX\nXX",1+1+1ull,1ull,@"\nXXX");
+            TEST(@"W\n\rX\n\n",1+1+1ull,1ull,@"\nXXX");
+#           endif
+            return [self textStorageDidReplaceCharactersAtIndex:R.location count:oldCount withCount:newCount editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+        } else if (oldCount>1) {
+            ReachCode4iTM3(REACH_CODE_ARGS_8(@"\\n after \\r in \\r...",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_REPLACE_YES
+            TEST(@"\rXWW\n",1ull,1+1ull,@"\n");
+            TEST(@"\rXWW\nXX",1ull,1+1ull,@"\n");
+            TEST(@"\rXWW\n\n",1ull,1+1ull,@"\n");
+            TEST(@"W\rXWW\n",1+1ull,1+1ull,@"\n");
+            TEST(@"W\rXWW\nXX",1+1ull,1+1ull,@"\n");
+            TEST(@"W\rXWW\n\n",1+1ull,1+1ull,@"\n");
+            TEST(@"W\n\rXWW\n",1+1+1ull,1+1ull,@"\n");
+            TEST(@"W\n\rXWW\nXX",1+1+1ull,1+1ull,@"\n");
+            TEST(@"W\n\rXWW\n\n",1+1+1ull,1+1ull,@"\n");
+            TEST(@"\rXWW\n",1ull,2+1ull,@"\n");
+            TEST(@"\rXWW\nXX",1ull,2+1ull,@"\n");
+            TEST(@"\rXWW\n\n",1ull,2+1ull,@"\n");
+            TEST(@"W\rXWW\n",1+1ull,2+1ull,@"\n");
+            TEST(@"W\rXWW\nXX",1+1ull,2+1ull,@"\n");
+            TEST(@"W\rXWW\n\n",1+1ull,2+1ull,@"\n");
+            TEST(@"W\n\rXWW\n",1+1+1ull,2+1ull,@"\n");
+            TEST(@"W\n\rXWW\nXX",1+1+1ull,2+1ull,@"\n");
+            TEST(@"W\n\rXWW\n\n",1+1+1ull,2+1ull,@"\n");
+            TEST(@"\rXWW\n",1ull,3+1ull,@"\n");
+            TEST(@"\rXWW\nXX",1ull,3+1ull,@"\n");
+            TEST(@"\rXWW\n\n",1ull,3+1ull,@"\n");
+            TEST(@"W\rXWW\n",1+1ull,3+1ull,@"\n");
+            TEST(@"W\rXWW\nXX",1+1ull,3+1ull,@"\n");
+            TEST(@"W\rXWW\n\n",1+1ull,3+1ull,@"\n");
+            TEST(@"W\n\rXWW\n",1+1+1ull,3+1ull,@"\n");
+            TEST(@"W\n\rXWW\nXX",1+1+1ull,3+1ull,@"\n");
+            TEST(@"W\n\rXWW\n\n",1+1+1ull,3+1ull,@"\n");
+#           endif
+            return [self textStorageDidDeleteCharactersAtIndex:aGlobalLocation+1 count:oldCount editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         } else {
-            //  R.location - location characters have been added to the EOL sequence
-            //  They must be removed from the mode line at index first
-            ML = [self modeLineAtIndex:first];
-            if ([ML deleteModesInGlobalMakeRange:ML.startOff7:1 error:RORef]) {
-                if (editedAttributesRangePtr) {
-                    // we ignore the leading inserted '\n'
-                    * editedAttributesRangePtr = iTM3MakeRange(firstChar+1, lastChar-firstChar-1);
-                }
-                return YES;
-            }
-            return NO;
+            ReachCode4iTM3(REACH_CODE_ARGS_8(@"\\n after \\r in \\r.",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_REPLACE_YES
+            TEST(@"\rX\n",1ull,1ull,@"\n");
+            TEST(@"\rX\nXX",1ull,1ull,@"\n");
+            TEST(@"\rX\n\n",1ull,1ull,@"\n");
+            TEST(@"W\rX\n",1+1ull,1ull,@"\n");
+            TEST(@"W\rX\nXX",1+1ull,1ull,@"\n");
+            TEST(@"W\rX\n\n",1+1ull,1ull,@"\n");
+            TEST(@"W\n\rX\n",1+1+1ull,1ull,@"\n");
+            TEST(@"W\n\rX\nXX",1+1+1ull,1ull,@"\n");
+            TEST(@"W\n\rX\n\n",1+1+1ull,1ull,@"\n");
+#           endif
+            return [self textStorageDidDeleteCharacterAtIndex:R.location editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         }
     }
+    //  No merge to the left
     while (YES) {
         ML.EOLLength = R.location-contentsEnd;
         if (contentsEnd>ML.startOff7 && ![ML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-ML.startOff7 error:RORef]) {
@@ -2913,8 +3182,8 @@ To Do List:
 #       ifdef __ELEPHANT_MODELINE__
         ML.originalString = [S substringWithRange:ML.completeRange];
 #       endif
-        [newModes addObject:ML];
-        if (R.location < lastChar) {
+        [newModeLines addObject:ML];
+        if (R.location < lastLocation) {
             ML = [iTM2ModeLine modeLine];
             ML.startOff7 = R.location;
             [S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
@@ -2926,30 +3195,195 @@ To Do List:
         if (ML.EOLLength && last == self.numberOfModeLines - 1) {
             ML = [iTM2ModeLine modeLine];
             ML.startOff7 = R.location;
-            [newModes addObject:ML];
+            [newModeLines addObject:ML];
         }
-        [self replaceModeLinesInRange:iTM3MakeRange(first, last-first+1) withModeLines:newModes];
+        [self replaceModeLinesInRange:iTM3MakeRange(first, last-first+1) withModeLines:newModeLines];
         if (!self.isConsistent) {
-            if (RORef) {
-                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                        @"Could not replace characters properly, please report bug.",
-                        NSLocalizedDescriptionKey,
-                            nil]];
-            } else {
-                LOG4iTM3(@"****  INTERNAL INCONSISTENCY: Could not replace characters properly, please report bug.");
-            }
+            OUTERROR4iTM3(2,@"Could not replace characters properly, please report bug.",NULL);
             return NO;
         }
         //  Record the change in attributes
         if (editedAttributesRangePtr) {
-            * editedAttributesRangePtr = iTM3MakeRange(firstChar, lastChar-firstChar);
+            * editedAttributesRangePtr = iTM3MakeRange(firstLocation, lastLocation-firstLocation);
         }
+        ReachCode4iTM3(REACH_CODE_ARGS_8(@"whatevererything else",@"YES"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_REPLACE_YES
+        TEST(@"Z",0ull,1ull,@"X");
+        TEST(@"Z",0ull,1ull,@"\n");
+        TEST(@"Z",0ull,1ull,@"X\n");
+        TEST(@"Z",0ull,1ull,@"\nX");
+        TEST(@"Z",0ull,1ull,@"X\n\n");
+        TEST(@"Z",0ull,1ull,@"\nX\n");
+        TEST(@"Z",0ull,1ull,@"\n\nX");
+        TEST(@"ZX",0ull,1ull,@"X");
+        TEST(@"ZX",0ull,1ull,@"\n");
+        TEST(@"ZX",0ull,1ull,@"X\n");
+        TEST(@"ZX",0ull,1ull,@"\nX");
+        TEST(@"ZX",0ull,1ull,@"X\n\n");
+        TEST(@"ZX",0ull,1ull,@"\nX\n");
+        TEST(@"ZX",0ull,1ull,@"\n\nX");
+        TEST(@"ZX",1ull,1ull,@"X");
+        TEST(@"ZX",1ull,1ull,@"\n");
+        TEST(@"ZX",1ull,1ull,@"X\n");
+        TEST(@"ZX",1ull,1ull,@"\nX");
+        TEST(@"ZX",1ull,1ull,@"X\n\n");
+        TEST(@"ZX",1ull,1ull,@"\nX\n");
+        TEST(@"ZX",1ull,1ull,@"\n\nX");
+        TEST(@"ZX",0ull,2ull,@"X");
+        TEST(@"ZX",0ull,2ull,@"\n");
+        TEST(@"ZX",0ull,2ull,@"X\n");
+        TEST(@"ZX",0ull,2ull,@"\nX");
+        TEST(@"ZX",0ull,2ull,@"X\n\n");
+        TEST(@"ZX",0ull,2ull,@"\nX\n");
+        TEST(@"ZX",0ull,2ull,@"\n\nX");
+        TEST(@"Z\n",0ull,1ull,@"X");
+        TEST(@"Z\n",0ull,1ull,@"\n");
+        TEST(@"Z\n",0ull,1ull,@"X\n");
+        TEST(@"Z\n",0ull,1ull,@"\nX");
+        TEST(@"Z\n",0ull,1ull,@"X\n\n");
+        TEST(@"Z\n",0ull,1ull,@"\nX\n");
+        TEST(@"Z\n",0ull,1ull,@"\n\nX");
+        TEST(@"ZX\n",0ull,1ull,@"X");
+        TEST(@"ZX\n",0ull,1ull,@"\n");
+        TEST(@"ZX\n",0ull,1ull,@"X\n");
+        TEST(@"ZX\n",0ull,1ull,@"\nX");
+        TEST(@"ZX\n",0ull,1ull,@"X\n\n");
+        TEST(@"ZX\n",0ull,1ull,@"\nX\n");
+        TEST(@"ZX\n",0ull,1ull,@"\n\nX");
+        TEST(@"ZX\n",1ull,1ull,@"X");
+        TEST(@"ZX\n",1ull,1ull,@"\n");
+        TEST(@"ZX\n",1ull,1ull,@"X\n");
+        TEST(@"ZX\n",1ull,1ull,@"\nX");
+        TEST(@"ZX\n",1ull,1ull,@"X\n\n");
+        TEST(@"ZX\n",1ull,1ull,@"\nX\n");
+        TEST(@"ZX\n",1ull,1ull,@"\n\nX");
+        TEST(@"ZX\n",0ull,2ull,@"X");
+        TEST(@"ZX\n",0ull,2ull,@"\n");
+        TEST(@"ZX\n",0ull,2ull,@"X\n");
+        TEST(@"ZX\n",0ull,2ull,@"\nX");
+        TEST(@"ZX\n",0ull,2ull,@"X\n\n");
+        TEST(@"ZX\n",0ull,2ull,@"\nX\n");
+        TEST(@"ZX\n",0ull,2ull,@"\n\nX");
+        TEST(@"\nW\nZ\n",3+0ull,1ull,@"X");
+        TEST(@"\nW\nZ\n",3+0ull,1ull,@"\n");
+        TEST(@"\nW\nZ\n",3+0ull,1ull,@"X\n");
+        TEST(@"\nW\nZ\n",3+0ull,1ull,@"\nX");
+        TEST(@"\nW\nZ\n",3+0ull,1ull,@"X\n\n");
+        TEST(@"\nW\nZ\n",3+0ull,1ull,@"\nX\n");
+        TEST(@"\nW\nZ\n",3+0ull,1ull,@"\n\nX");
+        TEST(@"\nW\nZX\n",3+0ull,1ull,@"X");
+        TEST(@"\nW\nZX\n",3+0ull,1ull,@"\n");
+        TEST(@"\nW\nZX\n",3+0ull,1ull,@"X\n");
+        TEST(@"\nW\nZX\n",3+0ull,1ull,@"\nX");
+        TEST(@"\nW\nZX\n",3+0ull,1ull,@"X\n\n");
+        TEST(@"\nW\nZX\n",3+0ull,1ull,@"\nX\n");
+        TEST(@"\nW\nZX\n",3+0ull,1ull,@"\n\nX");
+        TEST(@"\nW\nZX\n",3+1ull,1ull,@"X");
+        TEST(@"\nW\nZX\n",3+1ull,1ull,@"\n");
+        TEST(@"\nW\nZX\n",3+1ull,1ull,@"X\n");
+        TEST(@"\nW\nZX\n",3+1ull,1ull,@"\nX");
+        TEST(@"\nW\nZX\n",3+1ull,1ull,@"X\n\n");
+        TEST(@"\nW\nZX\n",3+1ull,1ull,@"\nX\n");
+        TEST(@"\nW\nZX\n",3+1ull,1ull,@"\n\nX");
+        TEST(@"\nW\nZX\n",3+0ull,2ull,@"X");
+        TEST(@"\nW\nZX\n",3+0ull,2ull,@"\n");
+        TEST(@"\nW\nZX\n",3+0ull,2ull,@"X\n");
+        TEST(@"\nW\nZX\n",3+0ull,2ull,@"\nX");
+        TEST(@"\nW\nZX\n",3+0ull,2ull,@"X\n\n");
+        TEST(@"\nW\nZX\n",3+0ull,2ull,@"\nX\n");
+        TEST(@"\nW\nZX\n",3+0ull,2ull,@"\n\nX");
+        TEST(@"\nW\nZ\n",2+0ull,1ull,@"X");
+        TEST(@"\nW\nZ\n",2+0ull,1ull,@"\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull,@"X\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull,@"\nX");
+        TEST(@"\nW\nZ\n",2+0ull,1ull,@"X\n\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull,@"\nX\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull,@"\n\nX");
+        TEST(@"\nW\nZX\n",2+0ull,1ull,@"X");
+        TEST(@"\nW\nZX\n",2+0ull,1ull,@"\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull,@"X\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull,@"\nX");
+        TEST(@"\nW\nZX\n",2+0ull,1ull,@"X\n\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull,@"\nX\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull,@"\n\nX");
+        TEST(@"\nW\nZX\n",2+1ull,1ull,@"X");
+        TEST(@"\nW\nZX\n",2+1ull,1ull,@"\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull,@"X\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull,@"\nX");
+        TEST(@"\nW\nZX\n",2+1ull,1ull,@"X\n\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull,@"\nX\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull,@"\n\nX");
+        TEST(@"\nW\nZX\n",2+0ull,2ull,@"X");
+        TEST(@"\nW\nZX\n",2+0ull,2ull,@"\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull,@"X\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull,@"\nX");
+        TEST(@"\nW\nZX\n",2+0ull,2ull,@"X\n\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull,@"\nX\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull,@"\n\nX");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"X");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"X\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\nX");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"X\n\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\nX\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\n\nX");
+        TEST(@"\nW\nZX\n",2+0ull,1ull+1,@"X");
+        TEST(@"\nW\nZX\n",2+0ull,1ull+1,@"\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull+1,@"X\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull+1,@"\nX");
+        TEST(@"\nW\nZX\n",2+0ull,1ull+1,@"X\n\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull+1,@"\nX\n");
+        TEST(@"\nW\nZX\n",2+0ull,1ull+1,@"\n\nX");
+        TEST(@"\nW\nZX\n",2+1ull,1ull+1,@"X");
+        TEST(@"\nW\nZX\n",2+1ull,1ull+1,@"\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull+1,@"X\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull+1,@"\nX");
+        TEST(@"\nW\nZX\n",2+1ull,1ull+1,@"X\n\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull+1,@"\nX\n");
+        TEST(@"\nW\nZX\n",2+1ull,1ull+1,@"\n\nX");
+        TEST(@"\nW\nZX\n",2+0ull,2ull+1,@"X");
+        TEST(@"\nW\nZX\n",2+0ull,2ull+1,@"\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull+1,@"X\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull+1,@"\nX");
+        TEST(@"\nW\nZX\n",2+0ull,2ull+1,@"X\n\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull+1,@"\nX\n");
+        TEST(@"\nW\nZX\n",2+0ull,2ull+1,@"\n\nX");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"X");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"X\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\nX");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"X\n\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\nX\n");
+        TEST(@"\nW\nZ\n",2+0ull,1ull+1,@"\n\nX");
+        TEST(@"\nW\nZX\n",1+0ull,1ull+2,@"X");
+        TEST(@"\nW\nZX\n",1+0ull,1ull+2,@"\n");
+        TEST(@"\nW\nZX\n",1+0ull,1ull+2,@"X\n");
+        TEST(@"\nW\nZX\n",1+0ull,1ull+2,@"\nX");
+        TEST(@"\nW\nZX\n",1+0ull,1ull+2,@"X\n\n");
+        TEST(@"\nW\nZX\n",1+0ull,1ull+2,@"\nX\n");
+        TEST(@"\nW\nZX\n",1+0ull,1ull+2,@"\n\nX");
+        TEST(@"\nW\nZX\n",1+1ull,1ull+2,@"X");
+        TEST(@"\nW\nZX\n",1+1ull,1ull+2,@"\n");
+        TEST(@"\nW\nZX\n",1+1ull,1ull+2,@"X\n");
+        TEST(@"\nW\nZX\n",1+1ull,1ull+2,@"\nX");
+        TEST(@"\nW\nZX\n",1+1ull,1ull+2,@"X\n\n");
+        TEST(@"\nW\nZX\n",1+1ull,1ull+2,@"\nX\n");
+        TEST(@"\nW\nZX\n",1+1ull,1ull+2,@"\n\nX");
+        TEST(@"\nW\nZX\n",1+0ull,2ull+2,@"X");
+        TEST(@"\nW\nZX\n",1+0ull,2ull+2,@"\n");
+        TEST(@"\nW\nZX\n",1+0ull,2ull+2,@"X\n");
+        TEST(@"\nW\nZX\n",1+0ull,2ull+2,@"\nX");
+        TEST(@"\nW\nZX\n",1+0ull,2ull+2,@"X\n\n");
+        TEST(@"\nW\nZX\n",1+0ull,2ull+2,@"\nX\n");
+        TEST(@"\nW\nZX\n",1+0ull,2ull+1,@"\n\nX");
+#       endif
         return YES;
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidInsertCharactersAtIndex:count:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidInsertCharactersAtIndex:(NSUInteger)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
+- (BOOL)textStorageDidInsertCharactersAtIndex:(NSUInteger)aGlobalLocation count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Wed Apr 21 17:06:07 UTC 2010
@@ -2958,116 +3392,205 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     //  There are different situations
-    //  - depending on location
+    //  - depending on aGlobalLocation
     //  - depending on the inserted characters
-    //  Consider firstML the modeLine of location
+    //  Consider firstML the modeLine of aGlobalLocation
     //  We have always
-    //      firstML.startOff7 <= location <= firstML.endOff7
+    //      firstML.startOff7 <= aGlobalLocation <= firstML.endOff7
     //  and
-    //      location < firstML.endOff7
+    //      aGlobalLocation < firstML.endOff7
     //      OR
-    //      firstML.endOff7 == location AND firstML is the last mode line
+    //      firstML.endOff7 == aGlobalLocation AND firstML is the last mode line
     //
-    //  There are 3 different kinds of region where we insert things
+    //  There are 4 different kinds of region where we insert things
     //  - the contents
+    //  - the comment
     //  - the EOL
-    //  - the end
+    //  - the end of the text
     //  The inserted characters may contain EOLs
+#ifdef __EMBEDDED_TEST_SETUP__
+#   undef TEST_INSERT_CHARACTERS_YES
+#   define TEST_INSERT_CHARACTERS_YES(WHAT,LOCATION,MORE) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:MORE]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef TEST_INSERT_CHARACTERS_NO
+#   define TEST_INSERT_CHARACTERS_NO(WHAT,LOCATION,MORE) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
+    STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,0) withString:MORE]));\
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef REACH_CODE_ARGS_4
+#   define REACH_CODE_ARGS_4(...) [[NSArray arrayWithObjects:@"insertCharacters", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+#endif
+#   undef REACH_CODE_ARGS_4
+#   define REACH_CODE_ARGS_4(...) [[NSArray arrayWithObjects:@"insertCharacters", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
     NSParameterAssert(count>ZER0);
     //  very simple method
     //  First get the range of full lines that span over the original characters range
-    NSUInteger first = [self lineIndexForLocation4iTM3:location];
+    NSUInteger firstLineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
     //  This is the range of mode lines that we are going to change
     //  The corresponding character range is
-    iTM2ModeLine * firstML = [self modeLineAtIndex:first];
-    NSUInteger firstChar = firstML.startOff7;
-    NSUInteger lastChar = firstML.endOff7;
+    iTM2ModeLine * firstML = [self modeLineAtIndex:firstLineIndex];
+    NSUInteger firstLocation = firstML.startOff7;
+    NSUInteger lastLocation = firstML.endOff7;
     //  After the change, this last char index becomes
-    lastChar += count;
-    //  We now parse the string to create new mode lines
+    lastLocation += count;
+    //  We now parse the string to create new mode lines eventually
     NSString * S = [self.textStorage string];
     NSUInteger contentsEnd;
-    NSRange R = iTM3MakeRange(firstChar, ZER0);
+    NSRange R = iTM3MakeRange(firstLocation, ZER0);
     // we create a new line
-    iTM2ModeLine * ML = [iTM2ModeLine modeLine];
-    ML.startOff7 = R.location;// store R.location
+    iTM2ModeLine * ML = nil;
     [S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
-    if (contentsEnd < firstChar) {
+    if (contentsEnd < firstLocation) {
+        //  Exit from this block
         //  this can occur in only one situation:
         //  the previous line ends with a '\r' EOL
         //  the inserted char starts with a '\n'
-        //  the insertion location is exactly after the '\r'
-        //  As a consequence, we have first > ZER0
+        //  the insertion aGlobalLocation is exactly after the '\r'
+        //  As a consequence, we have firstLineIndex > ZER0
         //  Before the change, we had
-        //  ML.startOff7 <= ML.contentsEndOff7 <= ML.endOff7
+        //  ML.startOff7 <= ML.commentOff7 <= ML.contentsEndOff7 <= ML.endOff7
         //  now contentsEnd < ML.startOff7 <= R.location
         //  this means that ML.startOff7 is now inside the EOL sequence
         //  if we inserted something else than a \n..., the contentsEnd should be >= ML.startOff7
         //  if we insert something like \n... and no \r before, the contentsEnd should be == ML.startOff7
         //  if we insert something like \n... and a \r before, the contentsEnd should be == ML.startOff7 - 1
         //  WHAT we do is manage the leading \n, then the remaining inserted chars
-        if (!first) {
-            if (RORef) {
-                *RORef = [NSError errorWithDomain:__iTM2_ERROR_DOMAIN__ code:__LINE__
-                    userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                        @"Internal inconsistency, first is 0.",
-                        NSLocalizedDescriptionKey,
-                            nil]];
-            } else {
-                LOG4iTM3(@"****  INTERNAL INCONSISTENCY: first is ZER0");
-            }
+        if (!firstLineIndex) {
+            OUTERROR4iTM3(1,@"Internal inconsistency, firstLineIndex is 0.",NULL);
             return NO;
         }
-        ML = [self modeLineAtIndex:first - 1];
+        ML = [self modeLineAtIndex:firstLineIndex - 1];
         ML.EOLLength = R.location - contentsEnd;
+#       ifdef __ELEPHANT_MODELINE__
+        ML.originalString = [ML.originalString stringByAppendingString:@"\n"];
+#       endif
         firstML.startOff7 = ML.endOff7;
-        [self invalidateOff7sFromIndex:first+1];
-        count -= R.location - location;
-        return count > 1?
-            [self textStorageDidInsertCharactersAtIndex:location+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef]:
-            [self textStorageDidInsertCharacterAtIndex:location+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+        [self invalidateOff7sFromIndex:firstLineIndex+1];
+        //  We have gobbled the first inserted character into the previous mode line
+        count -= R.location - aGlobalLocation;
+        if (count>1) {
+            ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert \\n..... after a \\r",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_CHARACTERS_YES
+            TEST(@"\r",1ull,@"\nXX");
+            TEST(@"\rZ",1ull,@"\nXX");
+            TEST(@"X\r",2ull,@"\nXX");
+            TEST(@"X\rZ",2ull,@"\nXX");
+            TEST(@"\r",1ull,@"\nX\nY");
+            TEST(@"\rZ",1ull,@"\nX\nY");
+            TEST(@"X\r",2ull,@"\nX\nY");
+            TEST(@"X\rZ",2ull,@"\nX\nY");
+#           endif
+            return [self textStorageDidInsertCharactersAtIndex:aGlobalLocation+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+        }
+        if (count>0) {
+            ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert \\n. after a \\r",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_CHARACTERS_YES
+            TEST(@"\r",1ull,@"\nX");
+            TEST(@"\rZ",1ull,@"\nX");
+            TEST(@"X\r",2ull,@"\nX");
+            TEST(@"X\rZ",2ull,@"\nX");
+#           endif
+            return [self textStorageDidInsertCharacterAtIndex:aGlobalLocation+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+        }
+        return NO;
     }
-    NSRange r = iTM3MakeRange(ZER0,ZER0);
-    if (R.location == lastChar) {
+    //  firstLocation <= contentsEnd
+    NSRange r = iTM3VoidRange;
+    if (R.location == lastLocation) {
         //  We will return from this block
-        //  the inserted chars did not contain an EOL or the original string did not contain an EOL
+        //  the inserted chars did not contain an EOL or the original line did not contain an EOL
+        //  or the inserted string replaces an EOL
         //  only one line is modified, we do not have to change everything
         if (R.location > contentsEnd) {
-#           define newEOLLength contentsEnd
-            newEOLLength = R.location - contentsEnd;
-            if (firstML.EOLLength < newEOLLength) {
+            if (firstML.EOLLength < R.location - contentsEnd) {
                 //  We return from this block
                 //  The new EOL is bigger than the original one
                 //  The # of inserted characters that constitute the new EOL sequence is
-                //  newEOLLength - firstML.EOLLength
+                //  R.location - contentsEnd - firstML.EOLLength
                 //  remove those chars from the count of inserted characters
-                count -= newEOLLength - firstML.EOLLength;
+                count -= R.location - contentsEnd - firstML.EOLLength;
                 //  we have inserted exactly count characters without the terminating EOL
                 if (!firstML.EOLLength) {
                     //  firstML was the last mode line, insert one supplemental mode line after
-                    [self insertModeLine:ML atIndex:first+1];
-                    firstML.EOLLength = newEOLLength;
+                    firstML.EOLLength = R.location - contentsEnd;
                     [firstML invalidateGlobalRange:firstML.EOLRange];
                     firstML.EOLMode = kiTM2TextUnknownSyntaxMode;
+#                   ifdef __ELEPHANT_MODELINE__
+                    firstML.originalString = [firstML.originalString
+                        stringByAppendingString:[S substringWithRange:iTM3MakeRange(contentsEnd,R.location - contentsEnd)]];
+#                   endif
+                    ML = [iTM2ModeLine modeLine];
                     ML.startOff7 = firstML.endOff7;
+                    [self insertModeLine:ML atIndex:firstLineIndex+1];
                     ML = nil;
                 } else {
-                    firstML.EOLLength = newEOLLength;
+                    firstML.EOLLength = R.location - contentsEnd;
                     [firstML invalidateGlobalRange:firstML.EOLRange];
+#                   ifdef __ELEPHANT_MODELINE__
+                    firstML.originalString = [[firstML.originalString substringToIndex:firstML.contentsLength]
+                        stringByAppendingString:[S substringWithRange:iTM3MakeRange(contentsEnd,R.location-contentsEnd)]];
+#                   endif
                 }
-                return count>1?
-                    [self textStorageDidInsertCharactersAtIndex:location count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef]:
-                    [self textStorageDidInsertCharacterAtIndex:location editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+                if (count>1) {
+                    ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert \\n..... after a line with no EOL",@"YES"));
+#                   ifdef __EMBEDDED_TEST__
+                    #undef  TEST
+                    #define TEST TEST_INSERT_CHARACTERS_YES
+                    TEST(@"",0ull,@"AA\n");
+                    TEST(@"",0ull,@"AA\r\n");
+                    TEST(@"X",1ull,@"AA\r\n");
+                    TEST(@"X",1ull,@"AAY\n");
+                    TEST(@"\n",1+0ull,@"AA\n");
+                    TEST(@"\n",1+0ull,@"AA\r\n");
+                    TEST(@"\nX",1+1ull,@"AA\r\n");
+                    TEST(@"\nX",1+1ull,@"AAY\n");
+#                   endif
+                    return [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+                }
+                if (count>0) {
+                    ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert .\\n after a line with no EOL",@"YES"));
+#                   ifdef __EMBEDDED_TEST__
+                    #undef  TEST
+                    #define TEST TEST_INSERT_CHARACTERS_YES
+                    TEST(@"",0ull,@"A\n");
+                    TEST(@"",0ull,@"A\r\n");
+                    TEST(@"X",1ull,@"A\r\n");
+                    TEST(@"X",1ull,@"Y\n");
+                    TEST(@"\n",1+0ull,@"A\n");
+                    TEST(@"\n",1+0ull,@"A\r\n");
+                    TEST(@"\nX",1+1ull,@"A\r\n");
+                    TEST(@"\nX",1+1ull,@"Y\n");
+#                   endif
+                    return [self textStorageDidInsertCharacterAtIndex:aGlobalLocation editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+                }
+                ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert EOL after a line with no EOL",@"YES"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_INSERT_CHARACTERS_YES
+                TEST(@"",0ull,@"\r\n");
+                TEST(@"X",1ull,@"\r\n");
+                TEST(@"\n",1+0ull,@"\r\n");
+                TEST(@"\nX",1+1ull,@"\r\n");
+#               endif
+                return YES;
             }
-#           undef newEOLLength
-            //  the inserted characters did not contain an EOL
+            //  The new EOLLength is exactly the same which means that the inserted characters did not modify the EOL
+            //  All the insertion took place before the contentsEnd
         }
-        if ([firstML enlargeSyntaxModeAtGlobalLocation:location length:count error:RORef]) {
-            [firstML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
+        if ([firstML enlargeSyntaxModeAtGlobalLocation:aGlobalLocation length:count error:RORef]) {
+            [firstML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
             //  to fix the edited range:
-            //  get a syntax mode range including location and the index before if it is in the same line
-            if (location > firstML.startOff7 && location == R.location) {
-                [firstML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
+            //  get a syntax mode range including aGlobalLocation and the index before if it is in the same line
+            if (aGlobalLocation > firstML.startOff7 && aGlobalLocation == R.location) {
+                [firstML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation-1 longestRange:&r];
                 r.length += R.length;
                 R = r;
             }
@@ -3080,8 +3603,25 @@ To Do List:
             if (editedAttributesRangePtr) {
                 *editedAttributesRangePtr = firstML.invalidGlobalRange;
             }
-			[self invalidateModesFromIndex:first];
-			[self invalidateOff7sFromIndex:first+1];
+			[self invalidateModesFromIndex:firstLineIndex];
+			[self invalidateOff7sFromIndex:firstLineIndex+1];
+            ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert text with no EOL after no EOL",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_CHARACTERS_YES
+            TEST(@"",0ull,@"XX");
+            TEST(@"0",0ull,@"XX");
+            TEST(@"0",1ull,@"XX");
+            TEST(@"\n",0ull,@"XX");
+            TEST(@"0\n",0ull,@"XX");
+            TEST(@"0\n",1ull,@"XX");
+            TEST(@"\n",1+0ull,@"XX");
+            TEST(@"\n0",1+0ull,@"XX");
+            TEST(@"\n0",1+1ull,@"XX");
+            TEST(@"\n\n",1+0ull,@"XX");
+            TEST(@"\n0\n",1+0ull,@"XX");
+            TEST(@"\n0\n",1+1ull,@"XX");
+#           endif
 diagnostic_and_return:
             if (!self.isConsistent) {
                 OUTERROR4iTM3(11,@"Could not replace characters properly, please report bug.",NULL);
@@ -3095,31 +3635,77 @@ diagnostic_and_return:
         return NO;
     }
     //  R.location < firstML.endOff7 + count
+    //  the inserted chars contain an EOL and the original line contains an EOL
     //  An EOL was inserted or \r\n was broken
-    if (location > firstML.contentsEndOff7) {
-        if (location < firstML.endOff7) {
-            //  firstML.contendsOff7 < location < firstML.endsOff7;
+    if (aGlobalLocation > firstML.contentsEndOff7) {
+        if (aGlobalLocation < firstML.endOff7) {
+            //  firstML.contendsOff7 < aGlobalLocation < firstML.endsOff7;
             //  we broke a \r\n sequence
             //  did we insert something starting with a \n ?
-            if ([S characterAtIndex:location] == '\n') {
+            if ([S characterAtIndex:aGlobalLocation] == '\n') {
                 //  we replaced the already existing '\n' with another one
                 //  In fact we do not break the \r\n sequence
                 //  let us consider that we do not insert the whole string but only the part after the EOL
                 //  completed with a final '\n'
-                return [self textStorageDidInsertCharactersAtIndex:location+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+                ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert \\n. in the middle of a \\r\\n",@"YES"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_INSERT_CHARACTERS_YES
+                TEST(@"\r\n",1ull,@"\nX");
+                TEST(@"X\r\n",2ull,@"\nX");
+                TEST(@"\r\n",1ull,@"\nXX");
+                TEST(@"X\r\n",2ull,@"\nXX");
+                TEST(@"\r\n",1ull,@"\nX\nY");
+                TEST(@"X\r\n",2ull,@"\nX\nY");
+#               endif
+                return [self textStorageDidInsertCharactersAtIndex:aGlobalLocation+1 count:count editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
             }
             //  We did not insert something starting with a '\n'
             //  separate the \r and the \n
             //  we consider that the \n was inserted
             firstML.EOLLength = R.location - contentsEnd;
-            [self invalidateOff7sFromIndex:first+1];
+            [self invalidateOff7sFromIndex:firstLineIndex+1];
 #           ifdef __ELEPHANT_MODELINE__
             firstML.originalString = [S substringWithRange:firstML.completeRange];
 #           endif
-            return [self textStorageDidInsertCharactersAtIndex:location count:count+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
+            ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert ... breaking a \\r\\n sequence",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_CHARACTERS_YES
+            TEST(@"\r\n",1ull,@"WX");
+            TEST(@"X\r\n",2ull,@"WX");
+            TEST(@"\r\n",1ull,@"WXX");
+            TEST(@"X\r\n",2ull,@"WXX");
+            TEST(@"\r\n",1ull,@"WX\nY");
+            TEST(@"X\r\n",2ull,@"WX\nY");
+            TEST(@"\r\n",1ull,@"\rWX");
+            TEST(@"X\r\n",2ull,@"\rWX");
+            TEST(@"\r\n",1ull,@"\rWXX");
+            TEST(@"X\r\n",2ull,@"\rWXX");
+            TEST(@"\r\n",1ull,@"\rWX\nY");
+            TEST(@"X\r\n",2ull,@"\rWX\nY");
+            TEST(@"\r\n",1ull,@"WX\r");
+            TEST(@"X\r\n",2ull,@"WX\r");
+            TEST(@"\r\n",1ull,@"WXX\r");
+            TEST(@"X\r\n",2ull,@"WXX\r");
+            TEST(@"\r\n",1ull,@"WX\nY\r");
+            TEST(@"X\r\n",2ull,@"WX\nY\r");
+            TEST(@"\r\n",1ull,@"\rWX\r");
+            TEST(@"X\r\n",2ull,@"\rWX\r");
+            TEST(@"\r\n",1ull,@"\rWXX\r");
+            TEST(@"X\r\n",2ull,@"\rWXX\r");
+            TEST(@"\r\n",1ull,@"\rWX\nY\r");
+            TEST(@"X\r\n",2ull,@"\rWX\nY\r");
+#           endif
+            return [self textStorageDidInsertCharactersAtIndex:aGlobalLocation count:count+1 editedAttributesRangeIn:editedAttributesRangePtr error:RORef];
         }
+        UNREACHABLE_CODE4iTM3;
     }
-    NSMutableArray * newModes = [NSMutableArray array];
+    //  firstML.startOff7 <= aGlobalLocation <= firstML.contentsEndOff7
+    //  R.location < firstML.endOff7 + count
+    NSMutableArray * newModeLines = [NSMutableArray array];
+    ML = [iTM2ModeLine modeLine];
+    ML.startOff7 = firstLocation;
     while (YES) {
         ML.EOLLength = R.location-contentsEnd;
         if (contentsEnd>ML.startOff7 && ![ML appendSyntaxMode:kiTM2TextUnknownSyntaxMode length:contentsEnd-ML.startOff7 error:RORef]) {
@@ -3128,53 +3714,73 @@ diagnostic_and_return:
 #       ifdef __ELEPHANT_MODELINE__
         ML.originalString = [S substringWithRange:ML.completeRange];
 #       endif
-        [newModes addObject:ML];
-        if (R.location < lastChar) {
+        [newModeLines addObject:ML];
+        if (R.location < lastLocation) {
             ML = [iTM2ModeLine modeLine];
             ML.startOff7 = R.location;
             [S getLineStart:nil end:&R.location contentsEnd:&contentsEnd forRange:R];
             continue;
         }
-        if (ML.EOLLength && first == self.numberOfModeLines-1) {
+        if (ML.EOLLength && firstLineIndex == self.numberOfModeLines-1) {
             ML = [iTM2ModeLine modeLine];
             ML.startOff7 = R.location;
-            [newModes addObject:ML];
+            [newModeLines addObject:ML];
         }
-        if (newModes.count > 1) {
-            [self replaceModeLinesInRange:iTM3MakeRange(first,1) withModeLines:newModes];
-            [self invalidateModesFromIndex:first];
+        if (newModeLines.count > 1) {
+            [self replaceModeLinesInRange:iTM3MakeRange(firstLineIndex,1) withModeLines:newModeLines];
+            [self invalidateModesFromIndex:firstLineIndex];
             //  Record the change in attributes
             if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = iTM3MakeRange(firstChar, lastChar-firstChar);
+                * editedAttributesRangePtr = iTM3MakeRange(firstLocation, lastLocation-firstLocation);
             }
+            ReachCode4iTM3(REACH_CODE_ARGS_4(@"Insert ...EOL... out of a \\r\\n sequence",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_INSERT_CHARACTERS_YES
+            TEST(@"X",0ull,@"X\n");
+            TEST(@"X",0ull,@"\nX");
+            TEST(@"X",0ull,@"\n\n");
+            TEST(@"X",0ull,@"Y\n\n");
+            TEST(@"X",0ull,@"\nY\n");
+            TEST(@"X",0ull,@"\n\nY");
+            TEST(@"\n",0ull,@"X\n");
+            TEST(@"\n",0ull,@"\nX");
+            TEST(@"\n",0ull,@"\n\n");
+            TEST(@"\n",0ull,@"Y\n\n");
+            TEST(@"\n",0ull,@"\nY\n");
+            TEST(@"\n",0ull,@"\n\nY");
+            TEST(@"\nW",0ull,@"X\n");
+            TEST(@"\nW",0ull,@"\nX");
+            TEST(@"\nW",0ull,@"\n\n");
+            TEST(@"\nW",0ull,@"Y\n\n");
+            TEST(@"\nW",0ull,@"\nY\n");
+            TEST(@"\nW",0ull,@"\n\nY");
+            TEST(@"\nW",1ull,@"X\n");
+            TEST(@"\nW",1ull,@"\nX");
+            TEST(@"\nW",1ull,@"\n\n");
+            TEST(@"\nW",1ull,@"Y\n\n");
+            TEST(@"\nW",1ull,@"\nY\n");
+            TEST(@"\nW",1ull,@"\n\nY");
+            TEST(@"W\nW",1+0ull,@"X\n");
+            TEST(@"W\nW",1+0ull,@"\nX");
+            TEST(@"W\nW",1+0ull,@"\n\n");
+            TEST(@"W\nW",1+0ull,@"Y\n\n");
+            TEST(@"W\nW",1+0ull,@"\nY\n");
+            TEST(@"W\nW",1+0ull,@"\n\nY");
+            TEST(@"W\nW",1+1ull,@"X\n");
+            TEST(@"W\nW",1+1ull,@"\nX");
+            TEST(@"W\nW",1+1ull,@"\n\n");
+            TEST(@"W\nW",1+1ull,@"Y\n\n");
+            TEST(@"W\nW",1+1ull,@"\nY\n");
+            TEST(@"W\nW",1+1ull,@"\n\nY");
+#           endif
             goto diagnostic_and_return;
         }
-        firstML = newModes.lastObject;
-        [self replaceModeLineAtIndex:first withModeLine:firstML];
-        [firstML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
-        //  to fix the edited range:
-        //  get a syntax mode range including location and the index before if it is in the same line
-        if (location > firstML.startOff7 && location == R.location) {
-            [firstML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
-            r.length += R.length;
-            R = r;
-        }
-        if (R.location > firstML.startOff7 && R.length <= 1) {
-            [firstML getSyntaxMode:NULL atGlobalLocation:R.location-1 longestRange:&r];
-            r.length += R.length;
-            R = r;
-        }
-        [firstML invalidateGlobalRange:R];
-        R.location += firstChar - firstML.startOff7;
-        if (editedAttributesRangePtr) {
-            *editedAttributesRangePtr = R;
-        }
-        [self invalidateModesFromIndex:first];
-        goto diagnostic_and_return;
+        UNREACHABLE_CODE4iTM3;
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharacterAtIndex:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidDeleteCharacterAtIndex:(NSUInteger const)location editedAttributesRangeIn:(NSRangePointer const)editedAttributesRangePtr error:(NSError **)RORef;
+- (BOOL)textStorageDidDeleteCharacterAtIndex:(NSUInteger const)aGlobalLocation editedAttributesRangeIn:(NSRangePointer const)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.sss
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-12-30 18:27:53 +0100
@@ -3184,168 +3790,171 @@ To Do List:
 //START4iTM3;
 #ifdef __EMBEDDED_TEST_SETUP__
 #   undef TEST_DELETE_1_CHARACTER_YES
-#   define TEST_DELETE_1_CHARACTER_YES(WHAT,LOCATION)\
-    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+#   define TEST_DELETE_1_CHARACTER_YES(WHAT,LOCATION) do {\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
     STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
     STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,1) withString:@""]));\
-    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
 #   undef TEST_DELETE_1_CHARACTER_NO
-#   define TEST_DELETE_1_CHARACTER_NO(WHAT,LOCATION)\
-    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+#   define TEST_DELETE_1_CHARACTER_NO(WHAT,LOCATION) do {\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
     STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
     STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,1) withString:@""]));\
-    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
 #endif
-    if (location > NSUIntegerMax - 1) {
+    if (aGlobalLocation > NSUIntegerMax - 1) {
         OUTERROR4iTM3(1,@"Could not delete characters, bounds exceeded.",NULL);
         return NO;
     }
 //  discussion:
 //  the main problem concerns EOLs
-    NSUInteger lineIndex = [self lineIndexForLocation4iTM3:location];
+    NSUInteger lineIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
     iTM2ModeLine * workingML = [self modeLineAtIndex:lineIndex];
-    if (![workingML deleteModesInGlobalMakeRange:location:1 error:RORef]) {
+    //  workingML.startOff7 <= aGlobalLocation < workingML.endOff7
+    if (![workingML deleteModesInGlobalMakeRange:aGlobalLocation:1 error:RORef]) {
         OUTERROR4iTM3(1,@"Unknown problem in deleteModesInGlobalMakeRange....",NULL);
         return NO;
     }
+    [self invalidateOff7sFromIndex:lineIndex+1];
+    //  Now
+    //  workingML.startOff7 <= aGlobalLocation <= workingML.endOff7    
     //  Now the mode line is in sync with the string, except for the original string and merging
     //  Did I remove a full line
+    NSUInteger contentsEnd = ZER0;
     if (!workingML.length) {
-        //  YES I did
-        //  No concrete merge possible, only deletion
+        //  YES we did
+        //  Merging possible for \\r+\u2028+\\n and the like
+        if (editedAttributesRangePtr) {
+            * editedAttributesRangePtr = workingML.EOLRange;
+        }
         if (lineIndex < self.numberOfModeLines - 1) {
-            //  This is not the last mode line
-            //  We can remove it safely
             [self removeModeLineAtIndex:lineIndex];
-            workingML = [self modeLineAtIndex:lineIndex];
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = workingML.completeRange;
-            }
-            ReachCode4iTM3(@"delete one standalone EOL");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_1_CHARACTER_YES
-            TEST(@"\n",ZER0);
-            TEST(@"\n\n",ZER0);
-            TEST(@"\n\n\n",1ull);
-            TEST(@"\nZ",ZER0);
-            TEST(@"\nZT",ZER0);
-            TEST(@"\nZT\r",ZER0);
-            TEST(@"\nZT\rU",ZER0);
-#           endif
+            if (lineIndex) {
+                [[self.textStorage string] getLineStart:NULL end:&contentsEnd contentsEnd:NULL forRange:iTM3MakeRange(workingML.startOff7-1,1)];
+                if (contentsEnd > workingML.startOff7) {
+                    ReachCode4iTM3(@"delete one standalone EOL (unicode), merge \\r+\\n ");
+                    workingML = [self modeLineAtIndex:lineIndex-1];
+                    workingML.EOLLength += 1;
+                    [self removeModeLineAtIndex:lineIndex];
+                    if (editedAttributesRangePtr) {
+                        * editedAttributesRangePtr = workingML.EOLRange;
+                    }
+#                   ifdef __ELEPHANT_MODELINE__
+                    workingML.originalString = [workingML.originalString stringByAppendingString:@"\n"];
+#                   endif
+#                   ifdef __EMBEDDED_TEST__
+                    #undef  TEST
+                    #define TEST TEST_DELETE_1_CHARACTER_YES
+                    TEST(@"\r\u2028\n",1);
+                    TEST(@"\r\u2029\n",1);
+                    TEST(@"\r\u2028\n\n",1ull);
+#                   endif
 diagnostic_and_return:
-            if (!self.isConsistent) {
-                OUTERROR4iTM3(11,@"Could not delete one character properly.",NULL);
-                return NO;
+                    if (!self.isConsistent) {
+                        OUTERROR4iTM3(11,@"Could not delete one character properly.",NULL);
+                        return NO;
+                    }
+                    return YES;
+                } else {
+                    ReachCode4iTM3(@"delete one standalone EOL, no merge");
+#                   ifdef __EMBEDDED_TEST__
+                    #undef  TEST
+                    #define TEST TEST_DELETE_1_CHARACTER_YES
+                    TEST(@"\n\n\n",1ull);
+                    TEST(@"\r\r\r",1ull);
+                    TEST(@"\n\n",1ull);
+                    TEST(@"\r\r",1ull);
+                    TEST(@"\n\nX",1ull);
+                    TEST(@"\r\rX",1ull);
+#                   endif
+                    goto diagnostic_and_return;
+                }
+            } else /* if (!lineIndex) */{
+                ReachCode4iTM3(@"delete the first standalone character");
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_DELETE_1_CHARACTER_YES
+                TEST(@"\n",ZER0);
+                TEST(@"\n\n",ZER0);
+                TEST(@"\r\r",ZER0);
+#               endif
+                goto diagnostic_and_return;
             }
-            return YES;
-        } else {
-#           ifdef __ELEPHANT_MODELINE__
-            workingML.originalString = @"";
-#           endif
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = workingML.EOLRange;
-            }
-            ReachCode4iTM3(@"delete the last standalone character");
+        } else /* if (lineIndex == self.numberOfModeLines - 1) */{
+            ReachCode4iTM3(@"delete the last standalone EOL or character, more than one line");
 #           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
             #undef  TEST
             #define TEST TEST_DELETE_1_CHARACTER_YES
             TEST(@"X",ZER0);
             TEST(@"\nX",1ull);
-            TEST(@"\n\nX",2ull);
+            TEST(@"\rX",1ull);
 #           endif
             goto diagnostic_and_return;
         }
     }
-    //  workingML.EOLLength > 0
+    //  ASSUME: workingML.length > 0
     //  Did I remove the full EOL
-    if (!workingML.EOLLength && location == workingML.contentsEndOff7) {
-        //  YES I did
-        //  should I merge with the next ML
-        if (lineIndex < self.numberOfModeLines - 1) {
-            //  This is not the last mode line
-            iTM2ModeLine * nextML = [self modeLineAtIndex:lineIndex+1];
-            if (!nextML.length) {
-                //  nextML is the last mode line, remove it now
-                [self removeModeLineAtIndex:lineIndex+1];
-#               ifdef __ELEPHANT_MODELINE__
-                workingML.originalString = [workingML.originalString substringToIndex:workingML.length-1];
-#               endif
-                if (editedAttributesRangePtr) {
-                    * editedAttributesRangePtr = workingML.EOLRange;
-                }
-                ReachCode4iTM3(@"delete the last EOL and last character, but not standalone");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_1_CHARACTER_YES
-                TEST(@"X\n",1ull);
-                TEST(@"\nX\n",2ull);
-                TEST(@"YX\n",2ull);
-#               endif
-                goto diagnostic_and_return;
-            } else if ([workingML appendSyntaxModesFromModeLine:nextML error:RORef]) {
-                [self removeModeLineAtIndex:lineIndex+1];
-#               ifdef __ELEPHANT_MODELINE__
-                workingML.originalString = [workingML.originalString stringByAppendingString:nextML.originalString];
-#               endif
-                if (editedAttributesRangePtr) {
-                    * editedAttributesRangePtr = workingML.completeRange;
-                }
-                ReachCode4iTM3(@"delete an EOL and merge to the right");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_1_CHARACTER_YES
-                TEST(@"X\nY",1ull);
-                TEST(@"X\nY\n",1ull);
-                TEST(@"X\nZT",1ull);
-                TEST(@"XY\nZT",2ull);
-                TEST(@"X\nZT\rU",1ull);
-                TEST(@"XY\nZT\rU",2ull);
-#               endif
-                goto diagnostic_and_return;
+    if (lineIndex < self.numberOfModeLines-1 && !workingML.EOLLength && aGlobalLocation == workingML.contentsEndOff7) {
+        //  This is not the last mode line
+        iTM2ModeLine * nextML = [self modeLineAtIndex:lineIndex+1];
+        if (!nextML.length) {
+            //  nextML is the last mode line, remove it now
+            [self removeModeLineAtIndex:lineIndex+1];
+#           ifdef __ELEPHANT_MODELINE__
+            workingML.originalString = [workingML.originalString substringToIndex:workingML.length-1];
+#           endif
+            if (editedAttributesRangePtr) {
+                * editedAttributesRangePtr = workingML.EOLRange;
             }
+            ReachCode4iTM3(@"delete the last EOL and last character, but not standalone");
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_DELETE_1_CHARACTER_YES
+            TEST(@"X\n",1ull);
+            TEST(@"\nX\n",2ull);
+            TEST(@"YX\n",2ull);
+#           endif
+            goto diagnostic_and_return;
+        }
+        if (![workingML appendSyntaxModesFromModeLine:nextML error:RORef]) {
             return NO;
         }
-        //  lineIndex >= self.numberOfModeLines - 1
-        //  We just removed the last character which is not an EOL
+        [self removeModeLineAtIndex:lineIndex+1];
 #       ifdef __ELEPHANT_MODELINE__
-        workingML.originalString = [workingML.originalString substringToIndex:workingML.length-1];
+        workingML.originalString = [workingML.originalString stringByAppendingString:nextML.originalString];
 #       endif
         if (editedAttributesRangePtr) {
             * editedAttributesRangePtr = workingML.completeRange;
         }
-        ReachCode4iTM3(@"delete the last character, not an EOL, not alone");
+        ReachCode4iTM3(@"delete an EOL and merge to the right");
 #       ifdef __EMBEDDED_TEST__
-        iTM2TextStorage * TS = nil;
         #undef  TEST
         #define TEST TEST_DELETE_1_CHARACTER_YES
-        TEST(@"XY",1ull);
-        TEST(@"\nXY",2ull);
+        TEST(@"X\nY",1ull);
+        TEST(@"X\nY\n",1ull);
+        TEST(@"X\nZT",1ull);
+        TEST(@"XY\nZT",2ull);
+        TEST(@"X\nZT\rU",1ull);
+        TEST(@"XY\nZT\rU",2ull);
 #       endif
         goto diagnostic_and_return;
     }
 #   ifdef __ELEPHANT_MODELINE__
     NSMutableString * MS = workingML.originalString.mutableCopy;
-    NSUInteger locationInMS = location - workingML.startOff7;
-    [MS deleteCharactersInRange:NSMakeRange(locationInMS,1)];
+    NSUInteger locationInMS = aGlobalLocation - workingML.startOff7;
+    [MS deleteCharactersInRange:iTM3MakeRange(locationInMS,1)];
     workingML.originalString = MS.copy;
 #   endif
-    NSUInteger contentsEnd = ZER0;
     //  Do we have to merge the mode line before workingML and after workingML?
-    //  This is not possible because we would have to remove more than one character
+    //  This is not possible to merge to the right because we would have to remove more than one character
     //  Should I merge to the left only
-    if (lineIndex && !workingML.contentsLength && workingML.EOLLength == 1 && location == workingML.startOff7) {
-        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:workingML.contentsRange];
+    if (lineIndex && !workingML.contentsLength && workingML.EOLLength == 1 && aGlobalLocation == workingML.startOff7) {
+        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:workingML.completeRange];
         if (contentsEnd < workingML.startOff7) {
             [self removeModeLineAtIndex:lineIndex];
             workingML = nil;
             ReachCode4iTM3(@"delete one character, merge to the left");
 #           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
             #undef  TEST
             #define TEST TEST_DELETE_1_CHARACTER_YES
             TEST(@"\rY\n\n",1ull);
@@ -3368,69 +3977,136 @@ diagnostic_and_return:
             }
             goto diagnostic_and_return;
         }
+        ReachCode4iTM3(@"delete \\r in \\r\\n, no merge to the left");
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_DELETE_1_CHARACTER_YES
+        TEST(@"X\r\n\r\n",3ull);
+#       endif
     }
 //  Should I merge to the right, beware of the last mode line
-    if (lineIndex < self.numberOfModeLines-1 && workingML.EOLLength == 1 && location == workingML.endOff7) {
-        NSUInteger end = 0;
-        [[self.textStorage string] getLineStart:NULL end:&end contentsEnd:NULL forRange:workingML.EOLRange];
-        if (workingML.endOff7+1 == end) {
-            if (lineIndex+1 >= self.numberOfModeLines-1) {
-                OUTERROR4iTM3(1,@"Could not delete characters, unconsistent mode lines.",NULL);
-                return NO;
+    if (workingML.EOLLength == 1) {
+        if (lineIndex < self.numberOfModeLines-1) {
+            if (aGlobalLocation == workingML.endOff7) {
+                NSUInteger end = 0;
+                [[self.textStorage string] getLineStart:NULL end:&end contentsEnd:NULL forRange:workingML.EOLRange];
+                if (workingML.endOff7+1 == end) {
+                    if (lineIndex+1 >= self.numberOfModeLines-1) {
+                        OUTERROR4iTM3(1,@"Could not delete characters, unconsistent mode lines.",NULL);
+                        return NO;
+                    }
+                    ++workingML.EOLLength;
+                    //  This is not the last mode line, I can remove it
+                    [self removeModeLineAtIndex:lineIndex+1];
+                    ReachCode4iTM3(@"delete first \\n in \\r\\n\\n, merge to the right");
+#                   ifdef __EMBEDDED_TEST__
+                    #undef  TEST
+                    #define TEST TEST_DELETE_1_CHARACTER_YES
+                    TEST(@"\r\n\n",1ull);
+                    TEST(@"X\r\n\n",2ull);
+                    TEST(@"\r\n\nX",1ull);
+                    TEST(@"\n\r\n\n",2ull);
+                    TEST(@"\nX\r\n\n",3ull);
+                    TEST(@"\n\r\n\nX",2ull);
+#                   endif
+                    if (editedAttributesRangePtr) {
+                        * editedAttributesRangePtr = workingML.EOLRange;
+                    }
+#                   ifdef __ELEPHANT_MODELINE__
+                    workingML.originalString = [workingML.originalString stringByAppendingString:@"\n"];
+#                   endif
+                    goto diagnostic_and_return;
+                }
+                ReachCode4iTM3(@"delete \\n in \\r\\n..., but no \\n to the right ");
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_DELETE_1_CHARACTER_YES
+                TEST(@"\r\n",1ull);
+                TEST(@"\r\nX",1ull);
+                TEST(@"X\r\n",2ull);
+                TEST(@"\nX\r\nX",3ull);
+                TEST(@"\r\nX\n",1ull);
+                TEST(@"X\r\nX\n",2ull);
+                TEST(@"\r\nX\nX",1ull);
+                TEST(@"\n\r\nX\n",2ull);
+                TEST(@"\nX\r\nX\n",3ull);
+                TEST(@"\n\r\nX\nX",2ull);
+                TEST(@"\r\n\r",1ull);
+                TEST(@"X\r\n\r",2ull);
+                TEST(@"\r\n\rX",1ull);
+                TEST(@"\n\r\n\r",2ull);
+                TEST(@"\nX\r\n\r",3ull);
+                TEST(@"\n\r\n\rX",2ull);
+                TEST(@"X\r\nY\r\n",5ull);
+                TEST(@"X\r\n\r\n",2ull);
+#               endif
+            } else {
+                ReachCode4iTM3(@"delete one character in ...EOL..., including \\r in \\r\\n... ");
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_DELETE_1_CHARACTER_YES
+                TEST(@"X\n\n",0ull);
+                TEST(@"XX\n\n",0ull);
+                TEST(@"XX\n\n",1ull);
+                TEST(@"Y\nX\n\n",0ull+2);
+                TEST(@"Y\nXX\n\n",0ull+2);
+                TEST(@"Y\nXX\n\n",1ull+2);
+                TEST(@"X\nZZ\n",0ull+2);
+                TEST(@"XX\nZZ\n",1ull+2);
+                TEST(@"XX\nZZ\n",2ull+2);
+                TEST(@"Y\nX\nZZ\n",0ull+2+2);
+                TEST(@"Y\nXX\nZZ\n",1ull+2+2);
+                TEST(@"Y\nXX\nZZ\n",2ull+2+2);
+                TEST(@"Z\nXY",ZER0);
+                TEST(@"ZT\nXY",ZER0);
+                TEST(@"ZT\nXY",1ull);
+                TEST(@"\r\n",ZER0);
+                TEST(@"X\r\nY",1ull);
+                TEST(@"X\r\n\r\n",1ull);
+                TEST(@"X\r\n\r\n",3ull);
+#               endif
             }
-            ++workingML.EOLLength;
-            //  This is not the last mode line, I can remove it
-            [self removeModeLineAtIndex:lineIndex+1];
-            ReachCode4iTM3(@"delete one character, merge to the right");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_1_CHARACTER_YES
-            TEST(@"\r\n\n",1ull);
-            TEST(@"X\r\n\n",2ull);
-            TEST(@"\r\n\nX",1ull);
-            TEST(@"\n\r\n\n",2ull);
-            TEST(@"\nX\r\n\n",3ull);
-            TEST(@"\n\r\n\nX",2ull);
-#           endif
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = workingML.EOLRange;
-            }
-#           ifdef __ELEPHANT_MODELINE__
-            workingML.originalString = [workingML.originalString stringByAppendingString:@"\n"];
-#           endif
-            goto diagnostic_and_return;
+        } else {
+            //  This is a HUGE error, the last mode line must not end with an EOL
+            NSAssert(NO,@"Internal inconsistency, the last mode line must not end with an EOL");
         }
+    } else if (workingML.EOLLength == 2) {
+        //  EOL length is 2 after the change, it was 2 before
+        //  A normal character was removed
+        ReachCode4iTM3(@"delete one character in ...\\r\\n");
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_DELETE_1_CHARACTER_YES
+        TEST(@"X\r\n",ZER0);
+        TEST(@"XY\r\n",1ull);
+        TEST(@"C\nX\r\n",ZER0+2);
+        TEST(@"C\nXY\r\n",1ull+2);
+        TEST(@"X\r\nX\r",ZER0);
+        TEST(@"XY\r\nX\r",1ull);
+        TEST(@"C\nX\r\nX\r",ZER0+2);
+        TEST(@"C\nXY\r\nX\r",1ull+2);
+#       endif
+    } else {
+        ReachCode4iTM3(@"delete one character in ..., last line with no EOL");
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_DELETE_1_CHARACTER_YES
+        TEST(@"XY",ZER0);
+        TEST(@"A\nXY",ZER0+2);
+        TEST(@"XY",1ull);
+        TEST(@"\nXY",2ull);
+#       endif
     }
     //  All the other cases
-    // !lineIndex || !workingML.contentsLength || workingML.EOLLength != 1 || location != workingML.startOff7
-    //  || lineIndex == self.numberOfModeLines-1 || workingML.EOLLength != 1 || location != workingML.endOff7
-    ReachCode4iTM3(@"delete one character, other cases");
-#   ifdef __EMBEDDED_TEST__
-    iTM2TextStorage * TS = nil;
-    #undef  TEST
-    #define TEST TEST_DELETE_1_CHARACTER_YES
-    TEST(@"XY",ZER0);
-    TEST(@"\nXY",1ull);
-    TEST(@"Z\nXY",ZER0);
-    TEST(@"ZT\nXY",ZER0);
-    TEST(@"ZT\nXY",1ull);
-    TEST(@"\r\n",ZER0);
-    TEST(@"\r\n",1ull);
-    TEST(@"X\r\nY",2ull);
-    TEST(@"X\r\nY\r\n",4ull);
-    TEST(@"X\r\nY\r\n",5ull);
-    TEST(@"X\r\n\r\n",2ull);
-    TEST(@"X\r\n\r\n",3ull);
-    TEST(@"X\r\n\r\n",4ull);
-#   endif
+    // !lineIndex || !workingML.contentsLength || workingML.EOLLength != 1 || aGlobalLocation != workingML.startOff7
+    //  || lineIndex == self.numberOfModeLines-1 || workingML.EOLLength != 1 || aGlobalLocation != workingML.endOff7
     NSRange R = iTM3Zer0Range;
-    [workingML getSyntaxMode:NULL atGlobalLocation:location longestRange:&R];
+    [workingML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
     //  to fix the edited range:
-    //  get a syntax mode range including location and the index before if it is in the same line
+    //  get a syntax mode range including aGlobalLocation and the index before if it is in the same line
     NSRange r;
-    if (location > workingML.startOff7 && location == R.location) {
-        [workingML getSyntaxMode:NULL atGlobalLocation:location-1 longestRange:&r];
+    if (aGlobalLocation > workingML.startOff7 && aGlobalLocation == R.location) {
+        [workingML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation-1 longestRange:&r];
         r.length += R.length;
         R = r;
     }
@@ -3448,7 +4124,7 @@ diagnostic_and_return:
     goto diagnostic_and_return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageDidDeleteCharactersAtIndex:count:editedAttributesRangeIn:error:
-- (BOOL)textStorageDidDeleteCharactersAtIndex:(NSUInteger const)location count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer const)editedAttributesRangePtr error:(NSError **)RORef;
+- (BOOL)textStorageDidDeleteCharactersAtIndex:(NSUInteger const)aGlobalLocation count:(NSUInteger)count editedAttributesRangeIn:(NSRangePointer const)editedAttributesRangePtr error:(NSError **)RORef;
 /*"Desription Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Fri Apr 23 20:58:40 UTC 2010
@@ -3456,550 +4132,445 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSParameterAssert(count>1);
+    if (!count) {
+        return NO;
+    }
 #ifdef __EMBEDDED_TEST_SETUP__
 #   undef TEST_DELETE_CHARACTERS_YES
-#   define TEST_DELETE_CHARACTERS_YES(WHAT,LOCATION,LENGTH)\
-    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+#   define TEST_DELETE_CHARACTERS_YES(WHAT,LOCATION,LENGTH) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
     STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
     STAssertReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,LENGTH) withString:@""]));\
-    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
 #   undef TEST_DELETE_CHARACTERS_NO
-#   define TEST_DELETE_CHARACTERS_NO(WHAT,LOCATION,LENGTH)\
-    TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
+#   define TEST_DELETE_CHARACTERS_NO(WHAT,LOCATION,LENGTH) do{\
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:WHAT];\
     STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);\
     STAssertDontReachCode4iTM3(([TS replaceCharactersInRange:iTM3MakeRange(LOCATION,LENGTH) withString:@""]));\
-    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);
+    STAssertTrue([TS.syntaxParser isConsistent],@"MISSED",NULL);} while(NO)
+#   undef REACH_CODE_ARGS_9
+#   define REACH_CODE_ARGS_9(...) [[NSArray arrayWithObjects:@"deleteCharacters", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
 #endif
+#   undef REACH_CODE_ARGS_9
+#   define REACH_CODE_ARGS_9(...) [[NSArray arrayWithObjects:@"deleteCharacters", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
+    //  ASSUME: count > 0
     //  get the line index of the first deleted character
-    NSUInteger oldFirstIndex = [self lineIndexForLocation4iTM3:location];
+    iTM2ModeLine * oldFirstML = nil;
+    iTM2ModeLine * oldLastML = nil;
+    NSUInteger oldFirstIndex = [self lineIndexForLocation4iTM3:aGlobalLocation];
     //  now get the line index of the first undeleted character
-    if (location > NSUIntegerMax - count) {
+    if (aGlobalLocation > NSUIntegerMax - count) {
         OUTERROR4iTM3(1,@"Could not delete characters, bounds exceeded.",NULL);
         return NO;
     }
-    iTM2ModeLine * oldFirstML = [self modeLineAtIndex:oldFirstIndex];
-    NSUInteger oldLastIndex = [self lineIndexForLocation4iTM3:location+count];
+    NSUInteger oldLastIndex = [self lineIndexForLocation4iTM3:aGlobalLocation+count];
     NSAssert(oldFirstIndex<=oldLastIndex,@"MISSED");
-    iTM2ModeLine * oldLastML = nil;
-    //  First we delete all intermediate full lines
+    //  First we try to delete all intermediate full lines
     while (oldFirstIndex+1<oldLastIndex) {
-        oldLastML = [self modeLineAtIndex:--oldLastIndex];// oldLastML is just a temporary variable
-        if (count > oldLastML.length) {
+        oldLastML = [self modeLineAtIndex:oldFirstIndex+1];
+        if (count >= oldLastML.length) {
             count -= oldLastML.length;
-            [self removeModeLineAtIndex:oldLastIndex];
+            [self removeModeLineAtIndex:oldFirstIndex+1];
+            --oldLastIndex;
         } else {
-            NSAssert(NO,@"Huge problem: the text storage is not consistent");
-        }
-    }
-    //  The various test cases
-    //  TEST(@"XX, 0, 2););
-    //  TEST(@"X\n, 0, 2););
-    //  TEST(@"\nX, 0, 2););
-    //  TEST(@"\n\n", 0, 2);
-    //  TEST(@"\r\n", 0, 2);
-    //  TEST(@"\n\r", 0, 2);
-    //  TEST(@"XXX", 0, 3);
-
-    //  TEST(@"XXX", 0, 2);
-    //  TEST(@"XXX", 1, 2);
-    //  TEST(@"\nXX", 0, 2);
-    //  TEST(@"X\nX", 0, 2);
-    //  TEST(@"XX\n", 0, 2);
-    //  TEST(@"\nXX", 1, 2);
-    //  TEST(@"X\nX", 1, 2);
-    //  TEST(@"XX\n", 1, 2);
-    //  TEST(@"\nXX", 0, 3);
-    //  TEST(@"X\nX", 0, 3);
-    //  TEST(@"XX\n", 0, 3);
-    //  TEST(@"\nX\n", 0, 2);
-    //  TEST(@"X\n\n", 0, 2);
-    //  TEST(@"\nX\n", 0, 3);
-    //  TEST(@"X\n\n", 0, 3);
-    //  TEST(@"\nX\n", 1, 2);
-    //  TEST(@"X\r\n", 1, 2);
-    //  TEST(@"\rX\n", 0, 2);
-    //  TEST(@"X\r\n", 0, 2);
-    //  TEST(@"\rX\n", 0, 3);
-    //  TEST(@"X\r\n", 0, 3);
-    //  TEST(@"\rX\n", 1, 2);
-    //  TEST(@"X\r\n", 1, 2);
-    //  TEST(@"\nX\r", 0, 2);
-    //  TEST(@"X\n\r", 0, 2);
-    //  TEST(@"\nX\r", 0, 3);
-    //  TEST(@"X\n\r", 0, 3);
-    //  TEST(@"\nX\r", 1, 2);
-    //  TEST(@"X\n\r", 1, 2);
-    
-    //  TEST(@"\rXY\n", 1, 2);
-    //  TEST(@"\rX\r\n", 1, 2);
-    //  TEST(@"\r\nY\n", 1, 2);
-    //  TEST(@"\r\n\r\n", 1, 2);
-    //  TEST(@"\rXY\n", 0, 2);
-    //  TEST(@"\rX\r\n", 0, 2);
-    //  TEST(@"\r\nY\n", 0, 2);
-    //  TEST(@"\r\n\r\n", 0, 2);
-    //  TEST(@"\rXY\n", 2, 2);
-    //  TEST(@"\rX\r\n", 2, 2);
-    //  TEST(@"\r\nY\n", 2, 2);
-    //  TEST(@"\r\n\r\n", 2, 2);
-
-    //  TEST(@"\rXY\n", 0, 3);
-    //  TEST(@"\rX\r\n", 0, 3);
-    //  TEST(@"\r\nY\n", 0, 3);
-    //  TEST(@"\r\n\r\n", 0, 3);
-    //  TEST(@"\rXY\n", 1, 3);
-    //  TEST(@"\rX\r\n", 1, 3);
-    //  TEST(@"\r\nY\n", 1, 3);
-    //  TEST(@"\r\n\r\n", 1, 3);
-    
-    
-    //  Here: oldLastIndex>=oldFirstIndex>=oldLastIndex-1
-    //  Or: oldFirstIndex = oldLastIndex || oldFirstIndex = oldLastIndex-1
-    oldFirstML = [self modeLineAtIndex:oldFirstIndex];
-    NSUInteger contentsEnd = 0;
-    if (oldFirstIndex == oldLastIndex) {
-        //  We only remove the characters from one line, but we do not touch the ending character
-        //  We only have to merge if the 
-        if (![oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef] ) {
-            OUTERROR4iTM3(2,@"Could not delete characters.",NULL);
+            OUTERROR4iTM3(2,@"Could not delete characters. Internal inconsistency.",NULL);
             return NO;
         }
-        if (oldFirstIndex && oldFirstML.length == 1 && location == oldFirstML.startOff7) {
-            [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldFirstML.completeRange];
-            if (contentsEnd<oldFirstML.startOff7) {
-                //  We must merge with the left mode line
-                [self removeModeLineAtIndex:oldFirstIndex--];
-                oldFirstML = [self modeLineAtIndex:oldFirstIndex];
-                ++oldFirstML.EOLLength;
-#               ifdef __ELEPHANT_MODELINE__
-                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
-#               endif
-                if (editedAttributesRangePtr) {
-                    * editedAttributesRangePtr = oldFirstML.EOLRange;
-                }
-                ReachCode4iTM3(@"delete from one line, merge to the left");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_CHARACTERS_YES
-                TEST(@"\rXY\n",1ull,2ull);
-                TEST(@"\rX\r\n",1ull,2ull);
-                TEST(@"0\rXY\n",2ull,2ull);
-                TEST(@"0\rX\r\n",2ull,2ull);
-#               endif
-diagnostic_and_return:
-                if (!self.isConsistent) {
-                    OUTERROR4iTM3(2,@"Could not delete characters properly.",NULL);
-                    return NO;
-                }
-                return YES;
-            }
-        }
-        //  We do not have to merge with the previous mode line
-#       ifdef __ELEPHANT_MODELINE__
-        oldFirstML.originalString = [oldFirstML.originalString substringFromIndex:location+count-oldFirstML.startOff7];
-#       endif
-        if (editedAttributesRangePtr) {
-            * editedAttributesRangePtr = oldFirstML.completeRange;
-        }
-        ReachCode4iTM3(@"delete one line heading characters");
-#       ifdef __EMBEDDED_TEST__
-        iTM2TextStorage * TS = nil;
-        #undef  TEST
-        #define TEST TEST_DELETE_CHARACTERS_YES
-        TEST(@"XY",ZER0,2ull);
-        TEST(@"XY\n",ZER0,2ull);
-        TEST(@"X\r\n",ZER0,2ull);
-        TEST(@"\nXY\n",1ull,2ull);
-        TEST(@"\nX\r\n",1ull,2ull);
-        TEST(@"0\nXY\n",2ull,2ull);
-        TEST(@"0\nX\r\n",2ull,2ull);
-#       endif
-        goto diagnostic_and_return;
     }
-    //  oldFirstIndex == oldLastIndex-1
+    //  ASSUME: oldLastIndex <= oldFirstIndex+1
+    oldFirstML = [self modeLineAtIndex:oldFirstIndex];
     oldLastML = [self modeLineAtIndex:oldLastIndex];
-    oldLastML.startOff7 = oldFirstML.endOff7;
-    [self validateOff7sUpToIndex:oldLastIndex];
-    //  Do we delete another full line ?
-    if (oldFirstML.startOff7 == location) {
-        count -= oldFirstML.length;
-        oldLastML.startOff7 -= oldFirstML.length;
-        [self removeModeLineAtIndex:--oldLastIndex];// oldLastIndex and oldLastML are sync'ed
-        oldFirstML = nil;
-        //  Do we delete more ?
-        if (count) {
-            //  YES
-            if (![oldLastML deleteModesInGlobalMakeRange:location:count error:RORef] ) {
-                OUTERROR4iTM3(21,@"Could not delete characters.",NULL);
-                return NO;
-            }
-            if (oldLastIndex && oldLastML.length == 1) {
-                oldFirstIndex = oldLastIndex - 1;
-                oldFirstML = [self modeLineAtIndex:oldFirstIndex];
-                if (oldFirstML.EOLLength == 1) {
-                    [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
-                    if (contentsEnd < location) {
-                        ++oldFirstML.EOLLength;
-                        [self removeModeLineAtIndex:oldLastIndex];
-                        oldLastML = nil;
-#                       ifdef __ELEPHANT_MODELINE__
-                        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
-#                       endif
-                        if (editedAttributesRangePtr) {
-                            * editedAttributesRangePtr = oldFirstML.EOLRange;
-                        }
-                        ReachCode4iTM3(@"delete more than full line(s), merge to the left and the right");
-#                       ifdef __EMBEDDED_TEST__
-                        iTM2TextStorage * TS = nil;
-                        #undef  TEST
-                        #define TEST TEST_DELETE_CHARACTERS_YES
-                        TEST(@"\rX\nX\n",1ull,3ull);
-                        TEST(@"0\rX\nX\n",2ull,3ull);
-                        TEST(@"\rX\nX\n0",1ull,3ull);
-                        TEST(@"\rX\nY\nX\n",1ull,5ull);
-                        TEST(@"0\rX\nY\nX\n",2ull,5ull);
-                        TEST(@"\rX\nY\nX\n0",1ull,5ull);
-#                       endif
-                        goto diagnostic_and_return;
+    //  oldFirstML.startOff7 <= aGlobalLocation < oldFirstML.endOff7
+    //  or
+    //  oldFirstML.startOff7 == aGlobalLocation == oldFirstML.endOff7
+    //  The second case above is not possible, because it would significate that oldFirstML is the last ML
+    //  and aGlobalLocation+count would go beyond the limit of the original string
+    //
+    //  ASSUME: oldFirstML.startOff7 <= aGlobalLocation < oldFirstML.endOff7
+    //  ASSUME: oldLastML.startOff7 <= aGlobalLocation+count < oldLastML.endOff7
+    //      OR: oldLastML.startOff7 == aGlobalLocation+count == oldLastML.endOff7
+    NSUInteger contentsEnd = ZER0;
+    if (oldFirstIndex < oldLastIndex) {
+        oldLastML.startOff7 = oldFirstML.endOff7;
+        [self validateOff7sUpToIndex:oldLastIndex];
+        if (aGlobalLocation+count == oldFirstML.endOff7) {
+            //  only oldFirstML is edited
+            if (oldFirstML.startOff7 == aGlobalLocation) {
+                //  the whole oldFirstML is removed, no more, no less
+                [self removeModeLineAtIndex:oldFirstIndex];
+                //  merge ?
+                oldLastML.startOff7 = oldFirstML.startOff7;
+                oldLastIndex = oldFirstIndex;
+                [self validateOff7sUpToIndex:oldLastIndex];
+                oldFirstML = nil;
+                [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldLastML.completeRange];
+                if (contentsEnd < oldLastML.startOff7) {
+                    //  YES
+                    if (oldFirstIndex == 0 || oldLastML.length != 1) {
+                        OUTERROR4iTM3(3,@"Missing 1st mode line. Internal inconsistency.",NULL);
+                        return NO;
                     }
-                    // no merge
+                    oldFirstML = [self modeLineAtIndex:--oldFirstIndex];
+                    oldFirstML.EOLLength += oldLastML.EOLLength;
 #                   ifdef __ELEPHANT_MODELINE__
-                    oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
+                    oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
 #                   endif
-                    if (editedAttributesRangePtr) {
-                        * editedAttributesRangePtr = oldLastML.completeRange;
-                    }
-                    ReachCode4iTM3(@"delete more than full line(s), no merge \n\n");
-#                   ifdef __EMBEDDED_TEST__
-                    iTM2TextStorage * TS = nil;
-                    #undef  TEST
-                    #define TEST TEST_DELETE_CHARACTERS_YES
-                    TEST(@"\nX\nX\n",1ull,3ull);
-                    TEST(@"0\nX\nX\n",2ull,3ull);
-                    TEST(@"\nX\nX\n0",1ull,3ull);
-                    TEST(@"\nX\nY\nX\n",1ull,5ull);
-                    TEST(@"0\nX\nY\nX\n",2ull,5ull);
-                    TEST(@"\nX\nY\nX\n0",1ull,5ull);
-#                   endif
-                    goto diagnostic_and_return;
-                }
-                // no merge
-#               ifdef __ELEPHANT_MODELINE__
-                oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
-#               endif
-                if (editedAttributesRangePtr) {
-                    * editedAttributesRangePtr = oldLastML.completeRange;
-                }
-                ReachCode4iTM3(@"delete more than full line(s), no merge \r\n\n");
-#               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_CHARACTERS_YES
-                TEST(@"\r\nX\nX\n",2ull,3ull);
-                TEST(@"0\r\nX\nX\n",3ull,3ull);
-                TEST(@"\r\nX\nX\n0",2ull,3ull);
-                TEST(@"\r\nX\nY\nX\n",2ull,5ull);
-                TEST(@"0\r\nX\nY\nX\n",3ull,5ull);
-                TEST(@"\r\nX\nY\nX\n0",2ull,5ull);
-                TEST(@"\r\nX\n\r\n",2ull,3ull);
-                TEST(@"0\r\nX\n\r\n",3ull,3ull);
-                TEST(@"\r\nX\n\r\n0",2ull,3ull);
-                TEST(@"\r\nX\nY\n\r\n",2ull,5ull);
-                TEST(@"0\r\nX\nY\n\r\n",3ull,5ull);
-                TEST(@"\r\nX\nY\n\r\n0",2ull,5ull);
-#               endif
-                goto diagnostic_and_return;
-            }
-            // no merge
-#           ifdef __ELEPHANT_MODELINE__
-            oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
-#           endif
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = oldLastML.completeRange;
-            }
-            ReachCode4iTM3(@"delete more than full line(s), no merge ^ or ...\r\n");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"\r\nX",ZER0,3ull);
-            TEST(@"\r\nX\n",ZER0,3ull);
-            TEST(@"\r\nX\nX",ZER0,3ull);
-            TEST(@"\r\nX\nX\n",ZER0,3ull);
-            TEST(@"\r\nX\nX\n",ZER0,5ull);
-            TEST(@"0\r\nX\nX\n",ZER0,4ull);
-            TEST(@"0\r\nX\nX\n",ZER0,6ull);
-            TEST(@"\r\nX\nX\n0",ZER0,5ull);
-            TEST(@"\r\nX\nY\nX\n",ZER0,7ull);
-            TEST(@"0\r\nX\nY\nX\n",ZER0,8ull);
-            TEST(@"\r\nX\nY\nX\n0",ZER0,7ull);
-            TEST(@"\r\nX\nX\n",ZER0,5ull);
-            TEST(@"0\r\nX\nX\n",ZER0,6ull);
-            TEST(@"\r\nX\nX\n0",ZER0,5ull);
-            TEST(@"\r\nX\nY\nX\n",ZER0,7ull);
-            TEST(@"0\r\nX\nY\nX\n",ZER0,8ull);
-            TEST(@"\r\nX\nY\nX\n0",ZER0,7ull);
-            TEST(@"\r\r\nX\r\n",1ull,3ull);
-            TEST(@"\rX\rX\r\n",1ull,3ull);
-            TEST(@"\rX\r\nX\r\n",1ull,4ull);
-            TEST(@"\r\nX\nX\r\n",2ull,3ull);
-            TEST(@"0\r\nX\nX\r\n",3ull,3ull);
-            TEST(@"0\r\nX\nX\r\n",3ull,3ull);
-            TEST(@"\r\nX\nX\r\n0",2ull,3ull);
-            TEST(@"\r\nX\nY\nX\r\n",2ull,5ull);
-            TEST(@"0\r\nX\nY\nX\r\n",3ull,5ull);
-            TEST(@"\r\nX\nY\nX\r\n0",2ull,5ull);
-            TEST(@"\r\nX\nX\r\n",2ull,3ull);
-            TEST(@"0\r\nX\nX\r\n",3ull,3ull);
-            TEST(@"\r\nX\nX\r\n0",2ull,3ull);
-            TEST(@"\r\nX\nY\nX\r\n",2ull,5ull);
-            TEST(@"0\r\nX\nY\nX\r\n",3ull,5ull);
-            TEST(@"\r\nX\nY\nX\r\n0",2ull,5ull);
-#           endif
-            goto diagnostic_and_return;
-        }
-        // We deleted exactly full line(s)
-        if (oldLastIndex && oldLastML.length == 1) {
-            oldFirstIndex = oldLastIndex - 1;
-            oldFirstML = [self modeLineAtIndex:oldFirstIndex];
-            if (oldFirstML.EOLLength == 1) {
-                [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:iTM3MakeRange(location,0)];
-                if (contentsEnd < location) {
-                    ++oldFirstML.EOLLength;
                     [self removeModeLineAtIndex:oldLastIndex];
-                    oldLastML = nil;
-#                   ifdef __ELEPHANT_MODELINE__
-                    oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:@"\n"];
-#                   endif
                     if (editedAttributesRangePtr) {
                         * editedAttributesRangePtr = oldFirstML.EOLRange;
                     }
-                    ReachCode4iTM3(@"delete exactly full line(s), merge to the left and the right");
+                    ReachCode4iTM3(REACH_CODE_ARGS_9(@"Full lines",@"merge"));
 #                   ifdef __EMBEDDED_TEST__
-                    iTM2TextStorage * TS = nil;
                     #undef  TEST
                     #define TEST TEST_DELETE_CHARACTERS_YES
                     TEST(@"\rX\n\n",1ull,2ull);
-                    TEST(@"0\rX\n\n",2ull,2ull);
-                    TEST(@"\rX\n\n0",1ull,2ull);
-                    TEST(@"\rX\nY\n\n",1ull,4ull);
-                    TEST(@"0\rX\nY\n\n",2ull,4ull);
-                    TEST(@"\rX\nY\n\n0",1ull,4ull);
+                    TEST(@"\r\u2028\n\n",1ull,2ull);
+                    TEST(@"\rX\nX\n\n",1ull,4ull);
+                    TEST(@"W\rX\nX\n\n",2ull,4ull);
+                    TEST(@"W\nW\rX\nX\n\n",4ull,4ull);
+                    TEST(@"\rX\nX\nX\n\n",1ull,6ull);
+                    TEST(@"W\rX\nX\nX\n\n",2ull,6ull);
+                    TEST(@"W\nW\rX\nX\nX\n\n",4ull,6ull);
 #                   endif
-                    goto diagnostic_and_return;
+diagnostic_and_return:
+                    if (!self.isConsistent) {
+                        OUTERROR4iTM3(4,@"Could not delete characters properly.",NULL);
+                        return NO;
+                    }
+                    return YES;
                 }
-                // no merge
+                //  NO merge
                 if (editedAttributesRangePtr) {
                     * editedAttributesRangePtr = oldFirstML.EOLRange;
                 }
-                ReachCode4iTM3(@"delete exactly full line(s), no merge \n\n or \n\r");
+                ReachCode4iTM3(REACH_CODE_ARGS_9(@"Full lines",@"NO merge"));
 #               ifdef __EMBEDDED_TEST__
-                iTM2TextStorage * TS = nil;
                 #undef  TEST
                 #define TEST TEST_DELETE_CHARACTERS_YES
                 TEST(@"\nX\n\n",1ull,2ull);
-                TEST(@"0\nX\n\n",2ull,2ull);
-                TEST(@"\nX\n\n0",1ull,2ull);
-                TEST(@"\nX\nY\n\n",1ull,4ull);
-                TEST(@"0\nX\nY\n\n",2ull,4ull);
-                TEST(@"\nX\nY\n\n0",1ull,4ull);
-                TEST(@"\nX\n\r",1ull,2ull);
-                TEST(@"0\nX\n\r",2ull,2ull);
-                TEST(@"\nX\n\r0",1ull,2ull);
-                TEST(@"\nX\nY\n\r",1ull,4ull);
-                TEST(@"0\nX\nY\n\r",2ull,4ull);
-                TEST(@"\nX\nY\n\r0",1ull,4ull);
+                TEST(@"\n\u2028\n\n",1ull,2ull);
+                TEST(@"\nX\nX\n\n",1ull,4ull);
+                TEST(@"W\nX\nX\n\n",2ull,4ull);
+                TEST(@"W\nW\nX\nX\n\n",4ull,4ull);
+                TEST(@"\nX\nX\nX\n\n",1ull,6ull);
+                TEST(@"W\nX\nX\nX\n\n",2ull,6ull);
+                TEST(@"W\nW\nX\nX\nX\n\n",4ull,6ull);
+                TEST(@"\rX\n\r",1ull,2ull);
+                TEST(@"\r\u2028\n\r",1ull,2ull);
+                TEST(@"\rX\nX\n\r",1ull,4ull);
+                TEST(@"W\rX\nX\n\r",2ull,4ull);
+                TEST(@"W\nW\rX\nX\n\r",4ull,4ull);
+                TEST(@"\rX\nX\nX\n\r",1ull,6ull);
+                TEST(@"W\rX\nX\nX\n\r",2ull,6ull);
+                TEST(@"W\nW\rX\nX\nX\n\r",4ull,6ull);
 #               endif
                 goto diagnostic_and_return;
             }
-            // no merge
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = oldFirstML.completeRange;
+            //  ASSUME: oldLFirstML.startOff7 < aGlobalLocation < aGlobalLocation+count == oldLFirstML.endOff7
+            if (![oldFirstML deleteModesInGlobalMakeRange:aGlobalLocation:count error:RORef] ) {
+                OUTERROR4iTM3(5,@"Could not delete characters.",NULL);
+                return NO;
             }
-            ReachCode4iTM3(@"delete exactly full line(s), no merge \r\n\n");
-#           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
-            #undef  TEST
-            #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"\r\nXW\n\n",2ull,3ull);
-            TEST(@"0\r\nXW\n\n",3ull,3ull);
-            TEST(@"\r\nXW\n\n0",2ull,3ull);
-            TEST(@"\r\nXW\n\n\n\n",2ull,5ull);
-            TEST(@"0\r\nXW\n\n\n\n",3ull,5ull);
-            TEST(@"\r\nXW\nY\n\n0",2ull,5ull);
-            TEST(@"\r\nXW\nY\n\n",2ull,5ull);
-            TEST(@"0\r\nXW\nY\n\n",3ull,5ull);
+            oldLastML.startOff7 = oldFirstML.endOff7;
+            [self invalidateOff7sFromIndex:oldLastIndex+1];
+            [self validateOff7sUpToIndex:oldLastIndex];
+#           ifdef __ELEPHANT_MODELINE__
+            oldFirstML.originalString = [oldFirstML.originalString substringToIndex:aGlobalLocation-oldFirstML.startOff7];
 #           endif
-            goto diagnostic_and_return;
-        }
-        if (oldLastIndex) {
-            oldFirstIndex = oldLastIndex - 1;
-            oldFirstML = [self modeLineAtIndex:oldFirstIndex];
+            [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldLastML.completeRange];
+            if (contentsEnd < oldLastML.startOff7) {
+                if (oldLastML.contentsLength != ZER0 || oldLastML.EOLLength == ZER0) {
+                    OUTERROR4iTM3(6,@"Missing 1st mode line. Internal inconsistency.",NULL);
+                    return NO;
+                }
+                oldFirstML.EOLLength += oldLastML.EOLLength;
+#               ifdef __ELEPHANT_MODELINE__
+                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
+#               endif
+                [self removeModeLineAtIndex:oldLastIndex];
+                if (editedAttributesRangePtr) {
+                    * editedAttributesRangePtr = oldFirstML.EOLRange;
+                }
+                ReachCode4iTM3(REACH_CODE_ARGS_9(@"EOL/???\\r[\\n..]\\n",@"merge"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"\r\n\n\n",1ull,2ull);
+                TEST(@"\r\n\u2028\n",1ull,2ull);
+                TEST(@"\r\nX\n\n",1ull,3ull);
+                TEST(@"\r\nX\nX\n\n",1ull,5ull);
+#               endif
+                goto diagnostic_and_return;
+            }
+            if (!oldFirstML.EOLLength) {
+                if (oldLastML.length>0 && ![oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
+                    return NO;
+                }
+#               ifdef __ELEPHANT_MODELINE__
+                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
+#               endif
+                [self removeModeLineAtIndex:oldLastIndex];
+                if (editedAttributesRangePtr) {
+                    * editedAttributesRangePtr = oldFirstML.completeRange;
+                }
+                ReachCode4iTM3(REACH_CODE_ARGS_9(@"EOL/???[EOL...EOL]...\\n",@"NO merge"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@".\n\u2028\n",1ull,2ull);
+                TEST(@".\nX\n\n",1ull,3ull);
+                TEST(@".\nX\nX\n\n",1ull,5ull);
+                TEST(@".\nX\nX\n.\n",1ull,5ull);
+                TEST(@".\n\n\r",1ull,2ull);
+                TEST(@".\n\u2028\r",1ull,2ull);
+                TEST(@".\nX\n\r",1ull,3ull);
+                TEST(@".\nX\nX\n\r",1ull,5ull);
+                TEST(@".\n\n\n",1ull,2ull);
+                TEST(@".\n\u2028\n",1ull,2ull);
+                TEST(@".\nX\n\n",1ull,3ull);
+                TEST(@".\nX\nX\n\n",1ull,5ull);
+#               endif
+                goto diagnostic_and_return;
+            }
+            //  ASSUME: oldFirstML.EOLLength
+            //  ASSUME: oldLFirstML.startOff7 < aGlobalLocation < aGlobalLocation+count == oldLFirstML.endOff7
             if (editedAttributesRangePtr) {
                 * editedAttributesRangePtr = oldFirstML.EOLRange;
             }
-            ReachCode4iTM3(@"delete exactly full line(s), not the frst one, no merge next line has length != 1");
+            ReachCode4iTM3(REACH_CODE_ARGS_9(@"EOL/???\\r[\\n...EOL]...\\r",@"NO merge"));
 #           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
             #undef  TEST
             #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"\rX\r\n",1ull,3ull);
-            TEST(@"\rX\r\nXX",1ull,3ull);
-            TEST(@"\rX\r\nX\n",1ull,3ull);
-            TEST(@"\rX\r\n\r\n",1ull,3ull);
-            TEST(@"\rX\rX\r\n",1ull,5ull);
-            TEST(@"\rX\rX\r\nXX",1ull,5ull);
-            TEST(@"\rX\rX\r\nX\n",1ull,5ull);
-            TEST(@"\rX\rX\r\n\r\n",1ull,5ull);
+            TEST(@"\r\n\n\r",1ull,2ull);
+            TEST(@"\r\n\u2028\r",1ull,2ull);
+            TEST(@"\r\nX\n\r",1ull,3ull);
+            TEST(@"\r\nX\nX\n\r",1ull,5ull);
 #           endif
             goto diagnostic_and_return;
         }
-        // no merge, delete first full lines
-        if (editedAttributesRangePtr) {
-            * editedAttributesRangePtr = oldLastML.completeRange;
-        }
-        ReachCode4iTM3(@"delete exactly first full line(s)");
-#       ifdef __EMBEDDED_TEST__
-        iTM2TextStorage * TS = nil;
-        #undef  TEST
-        #define TEST TEST_DELETE_CHARACTERS_YES
-        TEST(@"X\n",ZER0,2ull);
-        TEST(@"\r\n",ZER0,2ull);
-        TEST(@"X\r\n",ZER0,3ull);
-        TEST(@"\n0\r\n",ZER0,4ull);
-        TEST(@"X\n0\r\n",ZER0,5ull);
-        TEST(@"\r\n0\r\n",ZER0,5ull);
-        TEST(@"X\r\n0\r\n",ZER0,6ull);
-        TEST(@"X\n0",ZER0,2ull);
-        TEST(@"\r\n0",ZER0,2ull);
-        TEST(@"X\r\n0",ZER0,3ull);
-        TEST(@"\n0\r\n0",ZER0,4ull);
-        TEST(@"X\n0\r\n0",ZER0,5ull);
-        TEST(@"\r\n0\r\n0",ZER0,5ull);
-        TEST(@"X\r\n0\r\n0",ZER0,6ull);
-        TEST(@"X\n\n",ZER0,2ull);
-        TEST(@"\r\n\n",ZER0,2ull);
-        TEST(@"X\r\n\n",ZER0,3ull);
-        TEST(@"\n0\r\n\n",ZER0,4ull);
-        TEST(@"X\n0\r\n\n",ZER0,5ull);
-        TEST(@"\r\n0\r\n\n",ZER0,5ull);
-        TEST(@"X\r\n0\r\n\n",ZER0,6ull);
-        TEST(@"X\n\r\n",ZER0,2ull);
-        TEST(@"\r\n\r\n",ZER0,2ull);
-        TEST(@"X\r\n\r\n",ZER0,3ull);
-        TEST(@"\n0\r\n\r\n",ZER0,4ull);
-        TEST(@"X\n0\r\n\r\n",ZER0,5ull);
-        TEST(@"\r\n0\r\n\r\n",ZER0,5ull);
-        TEST(@"X\r\n0\r\n\r\n",ZER0,6ull);
-#       endif
-        goto diagnostic_and_return;
-    }
-    //  oldFirstML.startOff7 < location
-    //  oldFirstIndex +1 == oldLastIndex
-    //  We keep the first character of the line
-    //  We deleted the traier of the line.
-    //  We cannot merge to the left
-    //  Do we merge to the right ?
-    if (![oldFirstML deleteModesInGlobalMakeRange:location:count error:RORef]) {
-        OUTERROR4iTM3(2,@"Could not delete characters.",NULL);
-        return NO;
-    }
-    //  1st synchronisation SUCCEEDED
-    if (oldLastML.startOff7 == location+count) {
-        // deleting the trailer of the first edited line
-        // at least 2 characters including the EOL
-        //  delete nothing from the next line
-        if (oldLastML.length) {
-            if (![oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
-                OUTERROR4iTM3(33,@"Could not delete characters.",NULL);
+        //  ASSUME: oldLastML.startOff7 <= aGlobalLocation+count < oldLastML.endOff7
+        //      OR: oldLastML.startOff7 == aGlobalLocation+count == oldLastML.endOff7
+        //  ASSUME: oldFirstML.startOff7 <= aGlobalLocation < oldLFirstML.endOff7 == oldLLastML.startOff7 < aGlobalLocation+count < oldLastML.endOff7
+        if (oldFirstML.startOff7 < aGlobalLocation) {
+            if (![oldFirstML deleteModesInGlobalMakeRange:aGlobalLocation:count error:RORef]) {
+                OUTERROR4iTM3(62,@"Can't delete syntax modes. Internal inconsistency.",NULL);
                 return NO;
             }
 #           ifdef __ELEPHANT_MODELINE__
+            oldFirstML.originalString = [oldFirstML.originalString substringToIndex:aGlobalLocation - oldFirstML.startOff7];
+#           endif
+            if (![oldLastML deleteModesInGlobalMakeRange:aGlobalLocation:count error:RORef]) {
+                OUTERROR4iTM3(63,@"Can't delete syntax modes. Internal inconsistency.",NULL);
+                return NO;
+            }
+#           ifdef __ELEPHANT_MODELINE__
+            oldLastML.originalString = [oldLastML.originalString substringFromIndex:aGlobalLocation + count - oldLastML.startOff7];
+#           endif
+            oldLastML.startOff7 = oldFirstML.endOff7;
+            [self invalidateOff7sFromIndex:oldLastIndex+1];
+            //  ASSUME: oldFirstML.startOff7 < aGlobalLocation < oldLFirstML.endOff7 == oldLLastML.startOff7 < aGlobalLocation+count < oldLastML.endOff7
+            //  The first character of oldFirstML is not removed
+            //  The last character of oldLastML is also kept
+            //  Should I merge ?
+            [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldLastML.completeRange];
+            if (contentsEnd < oldLastML.startOff7) {
+                //  we merge
+                [self removeModeLineAtIndex:oldLastIndex];
+                oldFirstML.EOLLength += oldLastML.EOLLength;
+#               ifdef __ELEPHANT_MODELINE__
+                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
+#               endif
+                ReachCode4iTM3(REACH_CODE_ARGS_9(@"?\\r[\\n...]\\n, merge"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@"\r\n.\n",1ull,2ull);
+                TEST(@"\r\n\r\n",1ull,2ull);
+                TEST(@"\r\n.\n.\n",1ull,4ull);
+                TEST(@"\r\n\n.\r\n",1ull,4ull);
+                TEST(@"\r\n\n\n.\n",1ull,4ull);
+                TEST(@".\r\n.\n",1+1ull,2ull);
+                TEST(@".\r\n\r\n",1+1ull,2ull);
+                TEST(@".\r\n.\n.\n",1+1ull,4ull);
+                TEST(@".\r\n\n.\r\n",1+1ull,4ull);
+                TEST(@".\r\n\n\n.\n",1+1ull,4ull);
+#               endif
+                goto diagnostic_and_return;
+            }
+            //  ASSUME: oldFirstML.startOff7 < aGlobalLocation < oldLFirstML.endOff7 == oldLLastML.startOff7 < aGlobalLocation+count < oldLastML.endOff7
+            if (!oldFirstML.EOLLength) {
+                //  we also merge
+                if (oldLastML.length > 0 && ![oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
+                    return NO;
+                }
+                [self removeModeLineAtIndex:oldLastIndex];
+#               ifdef __ELEPHANT_MODELINE__
+                oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
+#               endif
+                ReachCode4iTM3(REACH_CODE_ARGS_9(@"?.[\\n...]\\n, NO merge"));
+#               ifdef __EMBEDDED_TEST__
+                #undef  TEST
+                #define TEST TEST_DELETE_CHARACTERS_YES
+                TEST(@".\n.\n",1ull,2ull);
+                TEST(@".\n\r\n",1ull,2ull);
+                TEST(@".\n.\n.\n",1ull,4ull);
+                TEST(@".\n\n.\r\n",1ull,4ull);
+                TEST(@".\n\n\n.\n",1ull,4ull);
+                TEST(@"..\n.\n",1+1ull,2ull);
+                TEST(@"..\n\r\n",1+1ull,2ull);
+                TEST(@"..\n.\n.\n",1+1ull,4ull);
+                TEST(@"..\n\n.\r\n",1+1ull,4ull);
+                TEST(@"..\n\n\n.\n",1+1ull,4ull);
+#               endif
+                goto diagnostic_and_return;
+            }
+            //  ASSUME: oldFirstML.EOLLength > 0
+            //  ASSUME: oldFirstML.startOff7 < aGlobalLocation < oldLFirstML.endOff7 == oldLLastML.startOff7 < aGlobalLocation+count < oldLastML.endOff7
+#           ifdef __ELEPHANT_MODELINE__
             oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
 #           endif
-            [self removeModeLineAtIndex:oldLastIndex];
-            oldLastML = nil;
-            if (editedAttributesRangePtr) {
-                * editedAttributesRangePtr = oldFirstML.completeRange;
-            }
-            ReachCode4iTM3(@"delete one line except its header, including the EOL, merge to the right");
+            ReachCode4iTM3(REACH_CODE_ARGS_9(@".[][][]., NO merge"));
 #           ifdef __EMBEDDED_TEST__
-            iTM2TextStorage * TS = nil;
             #undef  TEST
             #define TEST TEST_DELETE_CHARACTERS_YES
-            TEST(@"0\r\nX",1ull,2ull);
-            TEST(@"0\r\n\n",1ull,2ull);
-            TEST(@"0\r\nX\n",1ull,2ull);
-            TEST(@"0\r\nW\n\n",1ull,2ull+2);
-            TEST(@"0\r\nXW\n\n",1ull,2ull+3);
+            TEST(@"\r\n..",1ull,2ull);
+            TEST(@"\r\n\r..",1ull,3ull);
+            TEST(@"\r\n.\n..",1ull,4ull);
+            TEST(@"\r\n\n.\r..",1ull,5ull);
+            TEST(@"\r\n\n\n..",1ull,4ull);
+            TEST(@".\r\n..",1+1ull,2ull);
+            TEST(@".\r\n\r..",1+1ull,3ull);
+            TEST(@".\r\n.\n..",1+1ull,4ull);
+            TEST(@".\r\n\n.\r..",1+1ull,5ull);
+            TEST(@".\r\n\n\n..",1+1ull,4ull);
 #           endif
             goto diagnostic_and_return;
         }
-        // no merge, delete first full lines
-        [self removeModeLineAtIndex:oldLastIndex];
-        oldLastML = nil;
-        if (editedAttributesRangePtr) {
-            * editedAttributesRangePtr = oldFirstML.completeRange;
-        }
-        ReachCode4iTM3(@"delete one line except its header, including the EOL, remove the last mode line");
-#       ifdef XXXXX__EMBEDDED_TEST__
-        iTM2TextStorage * TS = nil;
-        #undef  TEST
-        #define TEST TEST_DELETE_CHARACTERS_YES
-        TEST(@"X\r\n",1ull,2ull);
-        TEST(@"XX\n",1ull,2ull);
-        TEST(@"X\r\n\n",1ull,2ull+1);
-        TEST(@"XX\n\n",1ull,2ull+1);
-        TEST(@"0\r\nX\n",1ull,2ull+2);
-        TEST(@"X\r\n\nZ\r\n",1ull,2ull+1+3);
-        TEST(@"XX\n\nZ\r\n",1ull,2ull+1+3);
-#       endif
-        goto diagnostic_and_return;
-    }
-    //  oldLastML.startOff7 < location+count
-    if (![oldLastML deleteModesInGlobalMakeRange:location:count error:RORef]) {
-        OUTERROR4iTM3(23,@"Could not delete characters.",NULL);
-        return NO;
-    }
-#if 0
-#   ifdef __ELEPHANT_MODELINE__
-    oldFirstML.originalString = [oldFirstML.originalString substringToIndex:location-oldFirstML.startOff7];
-    oldLastML.originalString = [oldLastML.originalString substringFromIndex:location+count-oldLastML.startOff7];
-#   endif
-    if (oldFirstML.EOLLength == 0) {
-        //  always merge to the right
-        //  always have oldLastML.length>0
-        if (![oldFirstML appendSyntaxModesFromModeLine:oldLastML error:RORef]) {
-            OUTERROR4iTM3(3,@"Could not delete characters.",NULL);
+        //  ASSUME: oldFirstML.startOff7 == aGlobalLocation < oldLFirstML.endOff7 == oldLLastML.startOff7 < aGlobalLocation+count < oldLastML.endOff7
+        if (![oldLastML deleteModesInGlobalMakeRange:aGlobalLocation:count error:RORef]) {
+            OUTERROR4iTM3(62,@"Can't delete syntax modes. Internal inconsistency.",NULL);
             return NO;
         }
 #       ifdef __ELEPHANT_MODELINE__
-        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
+        oldLastML.originalString = [oldLastML.originalString substringFromIndex:aGlobalLocation + count - oldLastML.startOff7];
 #       endif
-        [self removeModeLineAtIndex:oldLastIndex];
-        oldLastML = nil;
-        if (editedAttributesRangePtr) {
-            * editedAttributesRangePtr = oldFirstML.completeRange;
+        oldLastML.startOff7 = oldFirstML.startOff7;
+        [self removeModeLineAtIndex:oldFirstIndex];
+        oldLastIndex = oldFirstIndex;
+        [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldLastML.completeRange];
+        if (contentsEnd < oldLastML.startOff7) {
+            //  we merge
+            if (oldFirstIndex == 0) {
+                OUTERROR4iTM3(621,@"Can't delete syntax modes. Internal inconsistency.",NULL);
+                return NO;
+            }
+            oldFirstML = [self modeLineAtIndex:--oldFirstIndex];
+            [self removeModeLineAtIndex:oldLastIndex];
+            oldFirstML.EOLLength += oldLastML.EOLLength;
+#           ifdef __ELEPHANT_MODELINE__
+            oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
+#           endif
+            ReachCode4iTM3(REACH_CODE_ARGS_9(@"?\\r[?EOL.\r]\\n, merge"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_DELETE_CHARACTERS_YES
+            TEST(@"\r\r..\n",1ull,3ull);
+            TEST(@"\r.\r.\n",1ull,3ull);
+            TEST(@"\r\r\r.\n",1ull,3ull);
+            TEST(@"\r\r.\r\n",1ull,3ull);
+            TEST(@"\r\r\r\r\n",1ull,3ull);
+#           endif
+            goto diagnostic_and_return;
         }
-        ReachCode4iTM3(@"delete one line except the header, including the EOL, and more, merge to the right");
+        //  ASSUME: oldFirstML.startOff7 == aGlobalLocation < oldLFirstML.endOff7 == oldLLastML.startOff7 < aGlobalLocation+count < oldLastML.endOff7
+        //  we do not merge
+        ReachCode4iTM3(REACH_CODE_ARGS_9(@"?\\r[?EOL...]\\n, NO merge"));
 #       ifdef __EMBEDDED_TEST__
-        iTM2TextStorage * TS = nil;
         #undef  TEST
         #define TEST TEST_DELETE_CHARACTERS_YES
-        TEST(@"0\r\nXX",1ull,2ull+1);
-        TEST(@"0\r\n\n",1ull,2ull);
-        TEST(@"0\r\nX\n",1ull,2ull);
-        TEST(@"0\r\nW\nX",1ull,2ull+2);
-        TEST(@"0\r\nXW\n",1ull,2ull+2);
-        TEST(@"0\r\nW\n\n",1ull,2ull+2);
-        TEST(@"0\r\nXW\n\n",1ull,2ull+2);
+        TEST(@"\n\r..\n",1ull,3ull);
+        TEST(@"\n.\r.\n",1ull,3ull);
+        TEST(@"\n\r\r.\n",1ull,3ull);
+        TEST(@"\n\r.\r\n",1ull,3ull);
+        TEST(@"\n\r\r\r\n",1ull,3ull);
+        TEST(@"\r.\r.\r",1ull,3ull);
+        TEST(@"\r\r..\r",1ull,3ull);
+        TEST(@"\r\r\r.\r",1ull,3ull);
 #       endif
         goto diagnostic_and_return;
     }
-#endif
-    ReachCode4iTM3(@"UNEXPECTED");
+    //  ASSUME: oldFirstIndex == oldLastIndex
+    //  ASSUME: oldFirstML.startOff7 <= aGlobalLocation < aGlobalLocation+count < oldFirstML.endOff7
+    if (![oldFirstML deleteModesInGlobalMakeRange:aGlobalLocation:count error:RORef] ) {
+        OUTERROR4iTM3(8,@"Could not delete characters.",NULL);
+        return NO;
+    }
+    if (oldFirstML.startOff7 < aGlobalLocation) {
+        //  ASSUME: oldFirstML.startOff7 < aGlobalLocation < aGlobalLocation+count < oldFirstML.endOff7
+#       ifdef __ELEPHANT_MODELINE__
+        NSMutableString * MS = oldFirstML.originalString.mutableCopy;
+        NSUInteger locationInMS = aGlobalLocation - oldFirstML.startOff7;
+        [MS deleteCharactersInRange:iTM3MakeRange(locationInMS,count)];
+        oldFirstML.originalString = MS.copy;
+#       endif
+        ReachCode4iTM3(REACH_CODE_ARGS_9(@"/.[...]./"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_DELETE_CHARACTERS_YES
+        TEST(@"....",1ull,2ull);
+        TEST(@"...\n",1ull,2ull);
+        TEST(@"..\r\n",1ull,2ull);
+        TEST(@"...\n.",1ull,2ull);
+        TEST(@"..\r\n.",1ull,2ull);
+        TEST(@"\n....",1+1ull,2ull);
+        TEST(@"\n...\n",1+1ull,2ull);
+        TEST(@"\n..\r\n",1+1ull,2ull);
+        TEST(@"\n...\n.",1+1ull,2ull);
+        TEST(@"\n..\r\n.",1+1ull,2ull);
+#       endif
+        goto diagnostic_and_return;
+    }
+    //  ASSUME: oldFirstML.startOff7 == aGlobalLocation < aGlobalLocation+count < oldFirstML.endOff7
+#   ifdef __ELEPHANT_MODELINE__
+    oldFirstML.originalString = [oldFirstML.originalString substringFromIndex:aGlobalLocation+count-oldFirstML.startOff7];
+#   endif
+    [[self.textStorage string] getLineStart:NULL end:NULL contentsEnd:&contentsEnd forRange:oldFirstML.completeRange];
+    if (contentsEnd < oldFirstML.startOff7) {
+        //  we merge
+        if (oldFirstIndex == 0) {
+            OUTERROR4iTM3(9,@"Could not delete characters. Internal inconsistency.",NULL);
+            return NO;
+        }
+        [self removeModeLineAtIndex:oldLastIndex];
+        oldFirstML = [self modeLineAtIndex:--oldFirstIndex];
+        oldFirstML.EOLLength += oldLastML.EOLLength;
+#       ifdef __ELEPHANT_MODELINE__
+        oldFirstML.originalString = [oldFirstML.originalString stringByAppendingString:oldLastML.originalString];
+#       endif
+        ReachCode4iTM3(REACH_CODE_ARGS_9(@"?\\r[...]\\n, merge"));
+#       ifdef __EMBEDDED_TEST__
+        #undef  TEST
+        #define TEST TEST_DELETE_CHARACTERS_YES
+        TEST(@"\r.\r\n",1ull,2ull);
+        TEST(@"\r..\n",1ull,2ull);
+        TEST(@"\r...\n",1ull,3ull);
+        TEST(@"\r..\r\n",1ull,3ull);
+#       endif
+        goto diagnostic_and_return;
+    }
+    //  we do not merge
+    ReachCode4iTM3(REACH_CODE_ARGS_9(@"?\\r[...]\\n, NO merge"));
+#   ifdef __EMBEDDED_TEST__
+    #undef  TEST
+    #define TEST TEST_DELETE_CHARACTERS_YES
+    TEST(@"\n.\r\n",1ull,2ull);
+    TEST(@"\n..\n",1ull,2ull);
+    TEST(@"\n...\n",1ull,3ull);
+    TEST(@"\n..\r\n",1ull,3ull);
+    TEST(@"\r..\r",1ull,2ull);
+    TEST(@"\r...\r",1ull,3ull);
+#   endif
+    goto diagnostic_and_return;
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  textStorageWillProcessEditing4iTM3Error:
@@ -4023,7 +4594,7 @@ To Do List:
     //  delta != range.length
     NSUInteger stringLength = range.length - delta;
     NSRange editedAttributesRange = iTM3NotFoundRange;// will receive the range where the attributes might have changed
-    if (range.length) {
+    if (range.length>0) {
         if (stringLength) {
             if ([self textStorageDidReplaceCharactersAtIndex:range.location count:stringLength withCount:range.length editedAttributesRangeIn:&editedAttributesRange error:RORef]) {
                 [self.textStorage invalidateAttributesInRange:editedAttributesRange];
@@ -4046,11 +4617,13 @@ To Do List:
                 [self.textStorage invalidateAttributesInRange:editedAttributesRange];
                 return YES;
             }
-        } else {
+        } else if (delta < -1) {
             if ([self textStorageDidDeleteCharactersAtIndex:range.location count:-delta editedAttributesRangeIn:&editedAttributesRange error:RORef]) {
                 [self.textStorage invalidateAttributesInRange:editedAttributesRange];
                 return YES;
             }
+        } else if (delta==0) {
+            return YES;
         }
     }
     OUTERROR4iTM3(0,@"Unknown problem",NULL);
@@ -4197,7 +4770,7 @@ To Do List:
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  modeLineBySplittingFromGlobalLocation:error:
-- (iTM2ModeLine *) modeLineBySplittingFromGlobalLocation:(NSUInteger)location error:(NSError **)RORef;
+- (iTM2ModeLine *) modeLineBySplittingFromGlobalLocation:(NSUInteger)aGlobalLocation error:(NSError **)RORef;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Sat Apr 24 17:25:17 UTC 2010
@@ -4205,22 +4778,22 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
     iTM2ModeLine * ML = [iTM2ModeLine modeLine];
-    if (location >= self.endOff7) {
+    if (aGlobalLocation >= self.endOff7) {
         return ML;
     }
-    if (location <= self.startOff7) {
+    if (aGlobalLocation <= self.startOff7) {
         [ML swapContentsWithModeLine:self];
         ML.EOLMode = self.EOLMode;
         ML.EOLLength = self.EOLLength;
         self.EOLLength = ZER0;
         return ML;
     }
-    if (location >= self.contentsEndOff7) {
-        ML.EOLLength = self.endOff7 - location;
+    if (aGlobalLocation >= self.contentsEndOff7) {
+        ML.EOLLength = self.endOff7 - aGlobalLocation;
         ML.EOLMode = self.EOLMode;
     } else {
         NSUInteger i = ZER0;
-        NSUInteger local = location - self.startOff7;
+        NSUInteger local = aGlobalLocation - self.startOff7;
         while (i < self.numberOfSyntaxWords) {
             NSUInteger l = [self syntaxLengthAtIndex:i];
             if (l > local) {
@@ -4241,7 +4814,7 @@ To Do List:
             ++i;
         }
     }
-    return [self deleteModesInGlobalRange:iTM3MakeRange(location,self.endOff7 - location) error:RORef]?ML:nil;
+    return [self deleteModesInGlobalRange:iTM3MakeRange(aGlobalLocation,self.endOff7 - aGlobalLocation) error:RORef]?ML:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isEqualToModeLine:
 - (BOOL)isEqualToModeLine:(iTM2ModeLine *)lhs;
@@ -4262,7 +4835,7 @@ To Do List:
             && self.length == lhs.length
             && self.EOLLength == lhs.EOLLength
             && self.previousMode == lhs.previousMode
-            && self.EOLMode == lhs.EOLMode
+            && (self.EOLLength == 0 || self.EOLMode == lhs.EOLMode )
             && self.status == lhs.status
             && self.depth == lhs.depth
             && self->_NumberOfSyntaxWords == lhs->_NumberOfSyntaxWords) {
@@ -4275,6 +4848,9 @@ To Do List:
                 return NO;
             }
             ++idx;
+        }
+        if (self->__SyntaxWordOff7s[idx] != lhs->__SyntaxWordOff7s[idx]) {
+            return NO;
         }
         return YES;
     }
@@ -5211,17 +5787,17 @@ To Do List:
     }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  deleteModesInGlobalMakeRange::error:
-- (BOOL)deleteModesInGlobalMakeRange:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
+- (BOOL)deleteModesInGlobalMakeRange:(NSUInteger)aGlobalLocation:(NSUInteger)length error:(NSError **)RORef;
 /*"Description forthcoming. deleteRange is in global coordinates.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 10:21:55 UTC 2010
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-    return [self deleteModesInGlobalRange:iTM3MakeRange(location,length) error:RORef];
+    return [self deleteModesInGlobalRange:iTM3MakeRange(aGlobalLocation,length) error:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _deleteModesInGlobalMakeRangeEOL::error:
-- (BOOL)_deleteModesInGlobalMakeRangeEOL:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
+- (BOOL)_deleteModesInGlobalMakeRangeEOL:(NSUInteger)aGlobalLocation:(NSUInteger)length error:(NSError **)RORef;
 /*"Description forthcoming. deleteRange is in global coordinates.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 10:21:55 UTC 2010
@@ -5231,7 +5807,7 @@ To Do List:
     return NO;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _deleteModesInGlobalMakeRangeCommented::error:
-- (BOOL)_deleteModesInGlobalMakeRangeCommented:(NSUInteger)location:(NSUInteger)length error:(NSError **)RORef;
+- (BOOL)_deleteModesInGlobalMakeRangeCommented:(NSUInteger)aGlobalLocation:(NSUInteger)length error:(NSError **)RORef;
 /*"Description forthcoming. deleteRange is in global coordinates.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Latest Revision: Tue Apr  6 10:21:55 UTC 2010
@@ -5272,23 +5848,23 @@ To Do List:
     //  But that is not yet an explicit requirement
 #ifdef __EMBEDDED_TEST_SETUP__
 #   undef _UI
-#   define Null ((NSUInteger)N)
+//#   define Null ((NSUInteger)N)
 #   undef TEST_DELETE_MODES_YES
-#   define TEST_DELETE_MODES_YES(LOCATION,LENGTH,OFF7,EOL,...)\
-    ML = [iTM2ModeLine modeLine];\
+#   define TEST_DELETE_MODES_YES(LOCATION,LENGTH,OFF7,EOL,...) do{\
+    iTM2ModeLine * ML = [iTM2ModeLine modeLine];\
     ML.startOff7 = OFF7;\
     ML.EOLLength = EOL;\
     STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
     STAssertReachCode4iTM3(([ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
-    STAssertTrue(ML.isConsistent,@"MISSED",NULL);
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);} while(NO)
 #   undef TEST_DELETE_MODES_NO
-#   define TEST_DELETE_MODES_NO(LOCATION,LENGTH,OFF7,EOL,...)\
-    ML = [iTM2ModeLine modeLine];\
+#   define TEST_DELETE_MODES_NO(LOCATION,LENGTH,OFF7,EOL,...) do{\
+    iTM2ModeLine * ML = [iTM2ModeLine modeLine];\
     ML.startOff7 = OFF7;\
     ML.EOLLength = EOL;\
     STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
     STAssertReachCode4iTM3((![ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
-    STAssertTrue(ML.isConsistent,@"MISSED",NULL);
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);} while(NO)
 #   undef REACH_CODE_ARGS_1
 #   define REACH_CODE_ARGS_1(...) [[NSArray arrayWithObjects:@"_deleteSyntaxModesInLocalMakeRange", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
 #endif
@@ -5310,9 +5886,8 @@ To Do List:
                     while (++readIndex < _NumberOfSyntaxWords) {
                         __SyntaxWordEnds[readIndex] = __SyntaxWordOff7s[readIndex] + __SyntaxWordLengths[readIndex];
                     }
-                    ReachCode4iTM3(REACH_CODE_ARGS_1(@"only one syntax word",@"YES"));
+                    ReachCode4iTM3(REACH_CODE_ARGS_1(@"only one syntax word edited",@"YES"));
 #                   ifdef __EMBEDDED_TEST__
-                    iTM2ModeLine * ML = nil;
                     #undef  TEST
                     #define TEST TEST_DELETE_MODES_YES
                     TEST(ZER0,1ull,ZER0,ZER0,99ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5333,29 +5908,62 @@ To Do List:
                     return YES;
                 }
                 //  This word is removed
-                writeIndex = readIndex;
+                if ((writeIndex = readIndex)) {
+                    //  This is not the first word
+                    if (++readIndex < _NumberOfSyntaxWords) {
+                        //  This is not the last
+                        //  Should I merge with the previous ?
+                        if (__SyntaxWordModes[writeIndex-1] == __SyntaxWordModes[readIndex]) {
+                            //  YES
+                            __SyntaxWordLengths[writeIndex-1] += __SyntaxWordLengths[readIndex];
+                            __SyntaxWordEnds[writeIndex-1] = __SyntaxWordOff7s[writeIndex-1] + __SyntaxWordLengths[writeIndex-1];
+                            ReachCode4iTM3(REACH_CODE_ARGS_1(@"only one syntax word, completely removed, merged",@"YES"));
+#                           ifdef __EMBEDDED_TEST__
+                            #undef  TEST
+                            #define TEST TEST_DELETE_MODES_YES
+                            TEST(2ull,1ull,ZER0,ZER0,99ull,2ull,88ull,1ull,99ull,3ull);
+#                           endif
+                        } else {
+                            __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex];
+                            __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
+                            __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
+                            ++writeIndex;
+                            ReachCode4iTM3(REACH_CODE_ARGS_1(@"only one syntax word, completely removed, not the 1st, not merged",@"YES"));
+#                           ifdef __EMBEDDED_TEST__
+                            #undef  TEST
+                            #define TEST TEST_DELETE_MODES_YES
+                            TEST(1ull,1ull,ZER0,ZER0,99ull,1ull,88ull,1ull,77ull,3ull);
+                            TEST(2ull,1ull,ZER0,ZER0,99ull,2ull,88ull,1ull,77ull,3ull);
+                            TEST(1ull,2ull,ZER0,ZER0,99ull,1ull,88ull,2ull,77ull,3ull);
+#                           endif
+                        }
+                    } else {
+                        ReachCode4iTM3(REACH_CODE_ARGS_1(@"only the last syntax word, completely removed",@"YES"));
+#                       ifdef __EMBEDDED_TEST__
+                        #undef  TEST
+                        #define TEST TEST_DELETE_MODES_YES
+                        TEST(1ull,1ull,ZER0,ZER0,99ull,1ull,88ull,1ull);
+                        TEST(2ull,1ull,ZER0,ZER0,99ull,2ull,88ull,1ull);
+                        TEST(1ull,2ull,ZER0,ZER0,99ull,1ull,88ull,2ull);
+#                       endif
+                    }
+                } else {
+                    ReachCode4iTM3(REACH_CODE_ARGS_1(@"only one syntax word, completely removed",@"YES"));
+#                   ifdef __EMBEDDED_TEST__
+                    #undef  TEST
+                    #define TEST TEST_DELETE_MODES_YES
+                    TEST(ZER0,1ull,ZER0,ZER0,99ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                    TEST(ZER0,1ull,ZER0,ZER0,99ull,1ull,88ull,1ull);
+                    TEST(ZER0,1ull,ZER0,ZER0,99ull,1ull,88ull,2ull);
+#                   endif
+                }
                 while (++readIndex < _NumberOfSyntaxWords) {
                     __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex];
                     __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
                     __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
-                    writeIndex = readIndex;
+                    ++writeIndex;
                 }
                 _NumberOfSyntaxWords = writeIndex;
-                ReachCode4iTM3(REACH_CODE_ARGS_1(@"only one syntax word, completely removed",@"YES"));
-#               ifdef __EMBEDDED_TEST__
-                iTM2ModeLine * ML = nil;
-                #undef  TEST
-                #define TEST TEST_DELETE_MODES_YES
-                TEST(ZER0,1ull,ZER0,ZER0,99ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
-                TEST(ZER0,1ull,ZER0,ZER0,99ull,1ull,88ull,1ull);
-                TEST(ZER0,1ull,ZER0,ZER0,99ull,1ull,88ull,2ull);
-                TEST(1ull,1ull,ZER0,ZER0,99ull,1ull,88ull,1ull);
-                TEST(2ull,1ull,ZER0,ZER0,99ull,2ull,88ull,1ull);
-                TEST(1ull,2ull,ZER0,ZER0,99ull,1ull,88ull,2ull);
-                TEST(1ull,1ull,ZER0,ZER0,99ull,1ull,88ull,1ull,77ull,3ull);
-                TEST(2ull,1ull,ZER0,ZER0,99ull,2ull,88ull,1ull,77ull,3ull);
-                TEST(1ull,2ull,ZER0,ZER0,99ull,1ull,88ull,2ull,77ull,3ull);
-#               endif
                 return YES;
             }
             //  length > __SyntaxWordEnds[readIndex] - location
@@ -5364,6 +5972,7 @@ To Do List:
             if ((__SyntaxWordLengths[readIndex] = __SyntaxWordEnds[readIndex] - __SyntaxWordOff7s[readIndex])) {
                 //  The whole syntax word is not removed, only the rightmost part
                 writeIndex = ++readIndex;// here we should write
+                //  writeIndex > 0
                 if (readIndex < _NumberOfSyntaxWords) {
                     while (length >= __SyntaxWordLengths[readIndex]) {
                         if ((length -= __SyntaxWordLengths[readIndex])) {
@@ -5375,7 +5984,53 @@ To Do List:
                                 return NO;
                             }
                         } else {
-                            //  everything is removed
+                            //  everything is propery removed up to readIndex, included
+                            //  Should I merge 2 syntax words ?
+                            if (++readIndex < _NumberOfSyntaxWords) {
+                                //  The last syntax word is not removed
+                                if (__SyntaxWordModes[writeIndex-1] == __SyntaxWordModes[readIndex]) {
+                                    //  YES
+                                    __SyntaxWordLengths[writeIndex-1] += __SyntaxWordLengths[readIndex];
+                                    __SyntaxWordEnds[writeIndex-1] = __SyntaxWordOff7s[writeIndex-1] + __SyntaxWordLengths[writeIndex-1];
+                                    ReachCode4iTM3(REACH_CODE_ARGS_1(@"many syntax words, completely removed except the 1st one, merged",@"YES"));
+#                                   ifdef __EMBEDDED_TEST__
+                                    #undef  TEST
+                                    #define TEST TEST_DELETE_MODES_YES
+                                    TEST(2ull,3ull,ZER0,ZER0,99ull,3ull,88ull,1ull,77ull,1ull,99ull,3ull);
+#                                   endif
+                                } else {
+                                    __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex];
+                                    __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
+                                    __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
+                                    ++writeIndex;
+                                    ReachCode4iTM3(REACH_CODE_ARGS_1(@"many syntax words, completely removed except the 1st one, not merged",@"YES"));
+#                                   ifdef __EMBEDDED_TEST__
+                                    #undef  TEST
+                                    #define TEST TEST_DELETE_MODES_YES
+                                    TEST(2ull,2ull,ZER0,ZER0,99ull,3ull,88ull,1ull,77ull,1ull,88ull,3ull);
+                                    TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull,77ull,2ull);
+                                    TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull,77ull,2ull);
+                                    TEST(1ull,4ull,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
+                                    TEST(1ull,5ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
+                                    TEST(1ull,6ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
+                                    TEST(1+2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,77ull,2ull);
+                                    TEST(1+2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,77ull,2ull);
+                                    TEST(1+2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
+                                    TEST(1+2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
+                                    TEST(1+2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
+#                                   endif
+                                }
+                            } else {
+                                ReachCode4iTM3(REACH_CODE_ARGS_1(@"one syntax word partly removed, others completely",@"YES"));
+#                               ifdef __EMBEDDED_TEST__
+                                #undef  TEST
+                                #define TEST TEST_DELETE_MODES_YES
+                                TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                                TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull);
+                                TEST(1+2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull);
+                                TEST(1+2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull);
+#                               endif
+                            }
                             while (++readIndex < _NumberOfSyntaxWords) {
                                 __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex];
                                 __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
@@ -5383,34 +6038,55 @@ To Do List:
                                 ++writeIndex;
                             }
                             _NumberOfSyntaxWords = writeIndex;
-                            ReachCode4iTM3(REACH_CODE_ARGS_1(@"one syntax word partly removed, others completely",@"YES"));
-#                           ifdef __EMBEDDED_TEST__
-                            iTM2ModeLine * ML = nil;
-                            #undef  TEST
-                            #define TEST TEST_DELETE_MODES_YES
-                            TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
-                            TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull,77ull,2ull);
-                            TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull);
-                            TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull,77ull,2ull);
-                            TEST(1ull,4ull,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
-                            TEST(1ull,5ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
-                            TEST(1ull,6ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
-                            TEST(1+2,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull);
-                            TEST(1+2,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,77ull,2ull);
-                            TEST(1+2,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull);
-                            TEST(1+2,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,77ull,2ull);
-                            TEST(1+2,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
-                            TEST(1+2,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
-                            TEST(1+2,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
-#                           endif
                             return YES;
                         }
                     }
                     // 0 < length < __SyntaxWordLengths[readIndex]
-                    __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex] - length;
-                    __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
-                    __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
-                    ++writeIndex;
+                    //  Should I merge ?
+                    if (__SyntaxWordModes[writeIndex-1] == __SyntaxWordModes[readIndex]) {
+                        //  YES
+                        __SyntaxWordLengths[writeIndex-1] += __SyntaxWordLengths[readIndex] - length;
+                        __SyntaxWordEnds[writeIndex-1] = __SyntaxWordOff7s[writeIndex-1] + __SyntaxWordLengths[writeIndex-1];
+                        ReachCode4iTM3(REACH_CODE_ARGS_1(@"many syntax words, last uncompletely removed, 1st uncompletely, merged",@"YES"));
+#                       ifdef __EMBEDDED_TEST__
+                        #undef  TEST
+                        #define TEST TEST_DELETE_MODES_YES
+                        TEST(2ull,3ull,ZER0,ZER0,99ull,3ull,88ull,1ull,99ull,3ull,88ull,3ull);
+                        TEST(2ull,4ull,ZER0,ZER0,99ull,3ull,88ull,1ull,77ull,1ull,99ull,2ull,99ull,3ull);
+                        TEST(1ull,4ull,ZER0,ZER0,99ull,2ull,88ull,1ull,99ull,2ull+1,77ull,2ull);
+                        TEST(1ull,5ull,ZER0,ZER0,99ull,2ull,88ull,2ull,99ull,2ull+1,77ull,2ull);
+                        TEST(1ull,6ull,ZER0,ZER0,99ull,2ull,88ull,2ull,99ull,3ull+1,77ull,2ull);
+                        TEST(1+2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,99ull,2ull+1,77ull,2ull);
+                        TEST(1+2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,99ull,2ull+1,77ull,2ull);
+                        TEST(1+2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,99ull,3ull+1,77ull,2ull);
+#                       endif
+                    } else {
+                        __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex] - length;
+                        __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
+                        __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
+                        ++writeIndex;
+                        ReachCode4iTM3(REACH_CODE_ARGS_1(@"many syntax words, last uncompletely removed, 1st uncompletely, NOT merged",@"YES"));
+#                       ifdef __EMBEDDED_TEST__
+                        #undef  TEST
+                        #define TEST TEST_DELETE_MODES_YES
+                        TEST(2ull,2ull,ZER0,ZER0,99ull,3ull,88ull,2ull,77ull,2ull,88ull,3ull);
+                        TEST(2ull,3ull,ZER0,ZER0,99ull,3ull,88ull,1ull,77ull,2ull,88ull,2ull,99ull,3ull);
+                        TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull+1);//(LOCATION,LENGTH,OFF7,EOL,...)
+                        TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull+1,77ull,2ull);
+                        TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull+1);
+                        TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull+1,77ull,2ull);
+                        TEST(1ull,4ull,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,2ull+1,77ull,2ull);
+                        TEST(1ull,5ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,2ull+1,77ull,2ull);
+                        TEST(1ull,6ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,3ull+1,77ull,2ull);
+                        TEST(1+2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull+1);
+                        TEST(1+2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull+1,77ull,2ull);
+                        TEST(1+2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull+1);
+                        TEST(1+2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull+1,77ull,2ull);
+                        TEST(1+2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull+1,77ull,2ull);
+                        TEST(1+2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull+1,77ull,2ull);
+                        TEST(1+2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull+1,77ull,2ull);
+#                       endif
+                    }
                     while (++readIndex < _NumberOfSyntaxWords) {
                         __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex];
                         __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
@@ -5418,26 +6094,6 @@ To Do List:
                         ++writeIndex;
                     }
                     _NumberOfSyntaxWords = writeIndex;
-                    ReachCode4iTM3(REACH_CODE_ARGS_1(@"one syntax word partly removed, others completely, last partly",@"YES"));
-#                   ifdef __EMBEDDED_TEST__
-                    iTM2ModeLine * ML = nil;
-                    #undef  TEST
-                    #define TEST TEST_DELETE_MODES_YES
-                    TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull+1);//(LOCATION,LENGTH,OFF7,EOL,...)
-                    TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,88ull,1ull+1,77ull,2ull);
-                    TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull+1);
-                    TEST(1ull,3ull,ZER0,ZER0,99ull,2ull,88ull,2ull+1,77ull,2ull);
-                    TEST(1ull,4ull,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,2ull+1,77ull,2ull);
-                    TEST(1ull,5ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,2ull+1,77ull,2ull);
-                    TEST(1ull,6ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,3ull+1,77ull,2ull);
-                    TEST(1+2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull+1);
-                    TEST(1+2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull+1,77ull,2ull);
-                    TEST(1+2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull+1);
-                    TEST(1+2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull+1,77ull,2ull);
-                    TEST(1+2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull+1,77ull,2ull);
-                    TEST(1+2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull+1,77ull,2ull);
-                    TEST(1+2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull+1,77ull,2ull);
-#                   endif
                     return YES;
                 }
                 //  No more syntax words, length is too big, what should I do there ?
@@ -5445,7 +6101,89 @@ To Do List:
                 return NO;
             }
             //  This syntax word is completely removed, also remove the next ones as long as necessary
-            writeIndex = readIndex;
+            if ((writeIndex = readIndex)) {
+                //  There is a possible merge
+                while (++readIndex < _NumberOfSyntaxWords) {
+                    if (length > __SyntaxWordLengths[readIndex]) {
+                        length -= __SyntaxWordLengths[readIndex];
+                        continue;
+                    } else /* if (length <= __SyntaxWordLengths[readIndex]) */ {
+                        if (length == __SyntaxWordLengths[readIndex]) {
+                            if (++readIndex < _NumberOfSyntaxWords) {
+                                length = 0;
+                            } else {
+                                // Nothing to merge, we have removed everything
+                                ReachCode4iTM3(REACH_CODE_ARGS_1(@"syntax words completely removed til the end, NOT merged",@"YES"));
+#                               ifdef __EMBEDDED_TEST__
+                                #undef  TEST
+                                #define TEST TEST_DELETE_MODES_YES
+                                TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,1ull);
+                                TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull);
+                                TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,1ull,77ull,1ull);
+                                TEST(2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,1ull,77ull,2ull);
+                                TEST(2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull,66ull,1ull,77ull,1ull);
+                                TEST(2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull,66ull,1ull,77ull,2ull);
+#                               endif
+                                _NumberOfSyntaxWords = writeIndex+1;
+                                return YES;
+                            }
+                        }
+                        //  Should I merge with readIndex ?
+                        if (__SyntaxWordModes[writeIndex-1] == __SyntaxWordModes[readIndex]) {
+                            __SyntaxWordLengths[writeIndex-1] += __SyntaxWordLengths[readIndex] - length;
+                            __SyntaxWordEnds[writeIndex-1] = __SyntaxWordOff7s[writeIndex-1] + __SyntaxWordLengths[writeIndex-1];
+                            ReachCode4iTM3(REACH_CODE_ARGS_1(@"syntax words completely removed, last one not, merged",@"YES"));
+#                           ifdef __EMBEDDED_TEST__
+                            #undef  TEST
+                            #define TEST TEST_DELETE_MODES_YES
+                            TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,11ull,2ull);
+                            TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,11ull,2ull,77ull,2ull);
+                            TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,11ull,2ull);
+                            TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,11ull,2ull,77ull,2ull);
+                            TEST(2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,11ull,2ull,77ull,2ull);
+                            TEST(2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,11ull,2ull,77ull,2ull);
+                            TEST(2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,11ull,3ull,77ull,2ull);
+                            TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,11ull,2ull);
+                            TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,11ull,2ull,77ull,2ull);
+                            TEST(2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,11ull,2ull,77ull,2ull);
+                            TEST(2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,11ull,2ull,77ull,2ull);
+                            TEST(2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,3ull,88ull,2ull,11ull,3ull,77ull,2ull);
+#                           endif
+                        } else {
+                            __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex] - length;
+                            __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
+                            __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
+                            ++writeIndex;
+                            ReachCode4iTM3(REACH_CODE_ARGS_1(@"syntax words completely removed, last one not, eventually, NOT merged",@"YES"));
+#                           ifdef __EMBEDDED_TEST__
+                            #undef  TEST
+                            #define TEST TEST_DELETE_MODES_YES
+                            TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull);
+                            TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull,77ull,2ull);
+                            TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull);
+                            TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,77ull,2ull);
+                            TEST(2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
+                            TEST(2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
+                            TEST(2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
+                            TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull);
+                            TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull,77ull,2ull);
+                            TEST(2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
+                            TEST(2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
+                            TEST(2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
+#                           endif
+                        }
+                        while (++readIndex < _NumberOfSyntaxWords) {
+                            __SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex];
+                            __SyntaxWordEnds[writeIndex] = __SyntaxWordOff7s[writeIndex] + __SyntaxWordLengths[writeIndex];
+                            __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
+                            ++writeIndex;
+                        }
+                        _NumberOfSyntaxWords = writeIndex;
+                        return YES;
+                    }
+                }
+                return NO;
+            }
             while (++readIndex < _NumberOfSyntaxWords) {
                 if (length <= __SyntaxWordLengths[readIndex]) {
                     if ((__SyntaxWordLengths[writeIndex] = __SyntaxWordLengths[readIndex] - length)) {
@@ -5459,9 +6197,8 @@ To Do List:
                             __SyntaxWordModes[writeIndex] = __SyntaxWordModes[readIndex];
                         }
                         _NumberOfSyntaxWords = writeIndex+1;
-                        ReachCode4iTM3(REACH_CODE_ARGS_1(@"syntax words completely removed, last one not",@"YES"));
+                        ReachCode4iTM3(REACH_CODE_ARGS_1(@"syntax words completely removed from the beginning, last one not",@"YES"));
 #                       ifdef __EMBEDDED_TEST__
-                        iTM2ModeLine * ML = nil;
                         #undef  TEST
                         #define TEST TEST_DELETE_MODES_YES
                         TEST(0ull,2ull,ZER0,ZER0,99ull,1ull,88ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5471,13 +6208,6 @@ To Do List:
                         TEST(0ull,4ull,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
                         TEST(0ull,5ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
                         TEST(0ull,6ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
-                        TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull);
-                        TEST(2ull,2ull,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull,77ull,2ull);
-                        TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull);
-                        TEST(2ull,3ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,77ull,2ull);
-                        TEST(2ull,4ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
-                        TEST(2ull,5ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
-                        TEST(2ull,6ull,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
 #                       endif
                         return YES;
                     } else {
@@ -5489,30 +6219,22 @@ To Do List:
                             ++writeIndex;
                         }
                         _NumberOfSyntaxWords = writeIndex;
-                        ReachCode4iTM3(REACH_CODE_ARGS_1(@"syntax words completely removed",@"YES"));
+                        ReachCode4iTM3(REACH_CODE_ARGS_1(@"syntax words completely removed from the beginning, not all eventually",@"YES"));
 #                       ifdef __EMBEDDED_TEST__
-                        iTM2ModeLine * ML = nil;
                         #undef  TEST
                         #define TEST TEST_DELETE_MODES_YES
-                        TEST(0ull,2ull+1,ZER0,ZER0,99ull,1ull,88ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
-                        TEST(0ull,2ull+1,ZER0,ZER0,99ull,1ull,88ull,2ull,77ull,2ull);
-                        TEST(0ull,3ull+1,ZER0,ZER0,99ull,2ull,88ull,2ull);
-                        TEST(0ull,3ull+1,ZER0,ZER0,99ull,2ull,88ull,2ull,77ull,2ull);
-                        TEST(0ull,4ull+1,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
-                        TEST(0ull,5ull+1,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
-                        TEST(0ull,6ull+1,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
-                        TEST(2ull,2ull+1,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull);
-                        TEST(2ull,2ull+1,ZER0,ZER0,11ull,2ull,99ull,1ull,88ull,2ull,77ull,2ull);
-                        TEST(2ull,3ull+1,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull);
-                        TEST(2ull,3ull+1,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,77ull,2ull);
-                        TEST(2ull,4ull+1,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
-                        TEST(2ull,5ull+1,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
-                        TEST(2ull,6ull+1,ZER0,ZER0,11ull,2ull,99ull,2ull,88ull,2ull,66ull,3ull,77ull,2ull);
+                        TEST(0ull,4ull,ZER0,ZER0,99ull,2ull,88ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                        TEST(0ull,2ull,ZER0,ZER0,99ull,1ull,88ull,1ull,77ull,2ull);
+                        TEST(0ull,3ull,ZER0,ZER0,99ull,1ull,88ull,2ull);
+                        TEST(0ull,3ull,ZER0,ZER0,99ull,2ull,88ull,1ull,77ull,2ull);
+                        TEST(0ull,4ull,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,1ull,77ull,2ull);
+                        TEST(0ull,5ull,ZER0,ZER0,99ull,2ull,88ull,1ull,66ull,2ull,77ull,2ull);
+                        TEST(0ull,6ull,ZER0,ZER0,99ull,2ull,88ull,2ull,66ull,2ull,77ull,2ull);
 #                       endif
                         return YES;
                     }
                 }
-                length -= __SyntaxWordLengths[readIndex];
+                length -= __SyntaxWordLengths[readIndex];// > 0
             }
             //  No more syntax words, length is too big, what should I do there ?
             OUTERROR4iTM3(3,@"!!!!  CAPACITY EXCEEDED!",NULL);
@@ -5540,23 +6262,23 @@ To Do List:
     }
 #ifdef __EMBEDDED_TEST_SETUP__
 #   undef _UI
-#   define Null ((NSUInteger)N)
+//#   define Null ((NSUInteger)N)
 #   undef TEST_DELETE_MODES_YES
-#   define TEST_DELETE_MODES_YES(LOCATION,LENGTH,OFF7,EOL,...)\
-    ML = [iTM2ModeLine modeLine];\
+#   define TEST_DELETE_MODES_YES(LOCATION,LENGTH,OFF7,EOL,...) do {\
+    iTM2ModeLine * ML = [iTM2ModeLine modeLine];\
     ML.startOff7 = OFF7;\
     ML.EOLLength = EOL;\
     STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
     STAssertReachCode4iTM3(([ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
-    STAssertTrue(ML.isConsistent,@"MISSED",NULL);
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);} while (NO)
 #   undef TEST_DELETE_MODES_NO
-#   define TEST_DELETE_MODES_NO(LOCATION,LENGTH,OFF7,EOL,...)\
-    ML = [iTM2ModeLine modeLine];\
+#   define TEST_DELETE_MODES_NO(LOCATION,LENGTH,OFF7,EOL,...) do {\
+    iTM2ModeLine * ML = [iTM2ModeLine modeLine];\
     ML.startOff7 = OFF7;\
     ML.EOLLength = EOL;\
     STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
     STAssertReachCode4iTM3((![ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
-    STAssertTrue(ML.isConsistent,@"MISSED",NULL);
+    STAssertTrue(ML.isConsistent,@"MISSED",NULL);} while (NO)
 #   undef REACH_CODE_ARGS_2
 #   define REACH_CODE_ARGS_2(...) [[NSArray arrayWithObjects:@"deleteModesInGlobalRange", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
 #endif
@@ -5567,7 +6289,6 @@ To Do List:
         //  nothing to remove
         ReachCode4iTM3(REACH_CODE_ARGS_2(@"void range",@"NO"));
 #       ifdef __EMBEDDED_TEST__
-        iTM2ModeLine * ML = nil;
         #undef  TEST
         #define TEST TEST_DELETE_MODES_NO
         TEST(ZER0,ZER0,ZER0,ZER0,ZER0);//(LOCATION,LENGTH,OFF7,COMMENT_LENGTH,EOL,...)
@@ -5589,7 +6310,6 @@ To Do List:
         // everything is removed from the right part
         ReachCode4iTM3(REACH_CODE_ARGS_2(@"maximum exceeded",@"NO"));
 #       ifdef __EMBEDDED_TEST__
-        iTM2ModeLine * ML = nil;
         #undef  TEST
         #define TEST TEST_DELETE_MODES_NO
         TEST(ZER0,1ull,ZER0,ZER0,ZER0);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5603,10 +6323,11 @@ To Do List:
     if (self.contentsEndOff7 <= leftLocation /* < self.endOff7 */) {
         // everything is removed from the EOL part
         if (self.endOff7 <= rightLocation) {
-            self.EOLLength = leftLocation - self.contentsEndOff7;
+            if (!(self.EOLLength = leftLocation - self.contentsEndOff7)) {
+                self.EOLMode = kiTM2TextUnknownSyntaxMode;
+            }
             ReachCode4iTM3(@"deleteModesInGlobalRange, delete only the right part of the EOL");
 #           ifdef __EMBEDDED_TEST__
-            iTM2ModeLine * ML = nil;
             #undef  TEST
             #define TEST TEST_DELETE_MODES_YES
             TEST(ZER0,1ull,ZER0,1ull,ZER0);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5619,10 +6340,11 @@ To Do List:
             return YES;
         }
         //  rightLocation < self.endOff7
-        self.EOLLength -= deleteRange.length;
+        if (!(self.EOLLength = deleteRange.length)) {
+            self.EOLMode = kiTM2TextUnknownSyntaxMode;
+        }
         ReachCode4iTM3(@"deleteModesInGlobalRange, delete only the left part of the EOL");
 #       ifdef __EMBEDDED_TEST__
-        iTM2ModeLine * ML = nil;
         #undef  TEST
         #define TEST TEST_DELETE_MODES_YES
         TEST(ZER0,1ull,ZER0,2ull,ZER0);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5644,7 +6366,6 @@ To Do List:
                     // self.EOLLength = self.EOLLength;
                     ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete only part of the comment",@"YES"));
 #                   ifdef __EMBEDDED_TEST__
-                    iTM2ModeLine * ML = nil;
                     #undef  TEST
                     #define TEST TEST_DELETE_MODES_YES
                     TEST(ZER0,1ull,ZER0,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5703,6 +6424,174 @@ To Do List:
                     TEST(0ull+2,2ull,ZER0,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull,999ull,2);
                     TEST(1ull+2,2ull,ZER0,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull,999ull,2);
                     TEST(1ull+2,2ull,ZER0,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull,999ull,2);
+                    TEST(55ull+ZER0,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                    TEST(55ull+ZER0,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(55ull+ZER0,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+ZER0,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,4ull);
+                    TEST(55ull+ZER0,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull,9ull,1ull);
+                    TEST(55ull+ZER0,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(55ull+ZER0,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(55ull+ZER0,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,4ull,9ull,1ull);
+                    TEST(55ull+ZER0,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull,9ull,2ull);
+                    TEST(55ull+ZER0,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(55ull+ZER0,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(55ull+ZER0,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,4ull,9ull,2ull);
+                    TEST(55ull+0ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull);
+                    TEST(55ull+0ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull);
+                    TEST(55ull+0ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull);
+                    TEST(55ull+0ull+2,1ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+                    TEST(55ull+0ull+2,1ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull+2,1ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull);
+                    TEST(55ull+0ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull);
+                    TEST(55ull+1ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull);
+                    TEST(55ull+1ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull);
+                    TEST(55ull+0ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull,999ull,2);
+                    TEST(55ull+0ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+1ull,1ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull,999ull,2);
+                    TEST(55ull+0ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull,999ull,2);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull,999ull,2);
+                    TEST(55ull+1ull,2ull,55ull,ZER0,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull,999ull,2);
+                    TEST(55ull+0ull+2,1ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,999ull,2);
+                    TEST(55ull+0ull+2,1ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+1ull+2,1ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull,999ull,2);
+                    TEST(55ull+0ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull,999ull,2);
+                    TEST(55ull+1ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull,999ull,2);
+                    TEST(55ull+1ull+2,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull,999ull,2);
+                    TEST(ZER0,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                    TEST(ZER0,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(ZER0,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(ZER0,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,4ull);
+                    TEST(ZER0,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,9ull,1ull);
+                    TEST(ZER0,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(ZER0,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(ZER0,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,4ull,9ull,1ull);
+                    TEST(ZER0,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,9ull,2ull);
+                    TEST(ZER0,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(ZER0,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(ZER0,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,4ull,9ull,2ull);
+                    TEST(0ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+                    TEST(0ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(0ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(0ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull);
+                    TEST(0ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull);
+                    TEST(0ull+2,1ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+                    TEST(0ull+2,1ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(1ull+2,1ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(0ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(0ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull);
+                    TEST(0ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull);
+                    TEST(1ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull);
+                    TEST(1ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull);
+                    TEST(0ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,999ull,2);
+                    TEST(0ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(1ull,1ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(0ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(0ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull,999ull,2);
+                    TEST(0ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull,999ull,2);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull,999ull,2);
+                    TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull,999ull,2);
+                    TEST(0ull+2,1ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,999ull,2);
+                    TEST(0ull+2,1ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(1ull+2,1ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(0ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(0ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull,999ull,2);
+                    TEST(0ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull,999ull,2);
+                    TEST(1ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull,999ull,2);
+                    TEST(1ull+2,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull,999ull,2);
+                    TEST(55ull+ZER0,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                    TEST(55ull+ZER0,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(55ull+ZER0,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+ZER0,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,4ull);
+                    TEST(55ull+ZER0,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,9ull,1ull);
+                    TEST(55ull+ZER0,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(55ull+ZER0,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,1ull);
+                    TEST(55ull+ZER0,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,1ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,4ull,9ull,1ull);
+                    TEST(55ull+ZER0,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,9ull,2ull);
+                    TEST(55ull+ZER0,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(55ull+ZER0,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                    TEST(55ull+ZER0,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,3ull,9ull,2ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,4ull,9ull,2ull);
+                    TEST(55ull+0ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+                    TEST(55ull+0ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull);
+                    TEST(55ull+0ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull);
+                    TEST(55ull+0ull+2,1ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+                    TEST(55ull+0ull+2,1ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+1ull+2,1ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                    TEST(55ull+0ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull);
+                    TEST(55ull+0ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull);
+                    TEST(55ull+1ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull);
+                    TEST(55ull+1ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull);
+                    TEST(55ull+0ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,999ull,2);
+                    TEST(55ull+0ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+1ull,1ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull,999ull,2);
+                    TEST(55ull+0ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull,999ull,2);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull,999ull,2);
+                    TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull,999ull,2);
+                    TEST(55ull+0ull+2,1ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,999ull,2);
+                    TEST(55ull+0ull+2,1ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+1ull+2,1ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,999ull,2);
+                    TEST(55ull+0ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,1ull,999ull,2);
+                    TEST(55ull+0ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull,121ull,2ull,999ull,2);
+                    TEST(55ull+1ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,1ull,999ull,2);
+                    TEST(55ull+1ull+2,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,121ull,2ull,999ull,2);
 #                   endif
                     return YES;
                 }
@@ -5716,9 +6605,9 @@ To Do List:
             if ([self _deleteSyntaxModesInLocalMakeRange:leftLocation-self.startOff7:self.contentsEndOff7 - leftLocation error:RORef]) {
                 self.commentedLength = leftLocation - self.commentOff7;
                 self.EOLLength = 0;
+                self.EOLMode = kiTM2TextUnknownSyntaxMode;
                 ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete only the EOL and the right part of the comment",@"YES"));
 #               ifdef __EMBEDDED_TEST__
-                iTM2ModeLine * ML = nil;
                 #undef  TEST
                 #define TEST TEST_DELETE_MODES_YES
                 TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5727,6 +6616,12 @@ To Do List:
                 TEST(1ull,6ull,ZER0,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
                 TEST(2ull,6ull,ZER0,2ull,9ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
                 TEST(3ull,6ull,ZER0,2ull,9ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                TEST(55ull+1ull,3ull,55ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,4ull,55ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,6ull,55ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                TEST(55ull+2ull,6ull,55ull,2ull,9ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+                TEST(55ull+3ull,6ull,55ull,2ull,9ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
 #               endif
                 return YES;
             }
@@ -5735,11 +6630,12 @@ To Do List:
         //  self.contentsEndOff7 < rightLocation < self.endOff7
         //  self.commentOff7 <= leftLocation < self.contentsEndOff7 < rightLocation < self.endOff7
         if ([self _deleteSyntaxModesInLocalMakeRange:leftLocation-self.startOff7:self.contentsEndOff7-leftLocation error:RORef]) {
-            self.EOLLength = self.endOff7 - rightLocation;
+            if (!(self.EOLLength = self.endOff7 - rightLocation)) {
+                self.EOLMode = kiTM2TextUnknownSyntaxMode;
+            }
             self.commentedLength = leftLocation - self.commentOff7;
             ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete only the EOL and the right part of the comment",@"YES"));
 #           ifdef __EMBEDDED_TEST__
-            iTM2ModeLine * ML = nil;
             #undef  TEST
             #define TEST TEST_DELETE_MODES_YES
             TEST(1ull,2ull,ZER0,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5748,6 +6644,12 @@ To Do List:
             TEST(1ull,6ull,ZER0,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
             TEST(2ull,6ull,ZER0,2ull,9ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
             TEST(3ull,6ull,ZER0,2ull,9ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+            TEST(55ull+1ull,2ull,55ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+            TEST(55ull+1ull,3ull,55ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+1ull,4ull,55ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+1ull,6ull,55ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+            TEST(55ull+2ull,6ull,55ull,2ull,9ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
+            TEST(55ull+3ull,6ull,55ull,2ull,9ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull,9ull,2ull);
 #           endif
             return YES;
         }
@@ -5769,7 +6671,6 @@ To Do List:
                 self.uncommentedLength -= count;
                 ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete only from the uncommented part",@"YES"));
 #               ifdef __EMBEDDED_TEST__
-                iTM2ModeLine * ML = nil;
                 #undef  TEST
                 #define TEST TEST_DELETE_MODES_YES
                 TEST(0ull,1ull,ZER0,ZER0,121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
@@ -5854,6 +6755,88 @@ To Do List:
                 TEST(0ull+1+1,1ull+1,ZER0,1ull,122ull,1ull,121ull,1ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
                 TEST(0ull+1+1,1ull+1,ZER0,1ull,122ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
                 TEST(1ull+1+1,1ull+1,ZER0,1ull,122ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,2ull);
+                TEST(55ull+1ull,1ull,55ull,ZER0,121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull,1ull,55ull,ZER0,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull+1,1ull,55ull,ZER0,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull+1,1ull,55ull,ZER0,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull+1,1ull,55ull,ZER0,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,ZER0,122ull,1ull,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull+1+1,1ull,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull,1ull+1,55ull,ZER0,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull,1ull+1,55ull,ZER0,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull,1ull+1,55ull,ZER0,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,ZER0,121ull,1ull,122ull,2ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,ZER0,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull+1,1ull+1,55ull,ZER0,121ull,2ull,122ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,ZER0,122ull,1ull,121ull,1ull,122ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,2ull);
+                TEST(55ull+1ull+1+1,1ull+1,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,1ull,121ull,2ull);
+                TEST(55ull+1ull,1ull,55ull,1ull,121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,1ull,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull,1ull,55ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull,1ull,55ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull+1,1ull,55ull,1ull,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull+1,1ull,55ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull+1,1ull,55ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,1ull,122ull,1ull,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,1ull,122ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull+1+1,1ull,55ull,1ull,122ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull,1ull+1,55ull,1ull,121ull,1ull,122ull,1ull);
+                TEST(55ull+0ull,1ull+1,55ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull,1ull+1,55ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,1ull,121ull,1ull,122ull,2ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,1ull,121ull,2ull,122ull,1ull);
+                TEST(55ull+1ull+1,1ull+1,55ull,1ull,121ull,2ull,122ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,1ull,122ull,1ull,121ull,1ull,122ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,1ull,122ull,1ull,121ull,2ull,122ull,2ull);
+                TEST(55ull+1ull+1+1,1ull+1,55ull,1ull,122ull,1ull,121ull,2ull,122ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,1ull,55ull,ZER0,121ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,ZER0,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,1ull,55ull,ZER0,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull,55ull,ZER0,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull,55ull,ZER0,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1,1ull,55ull,ZER0,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,ZER0,122ull,1ull,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1+1,1ull,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull+1,55ull,ZER0,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull+1,55ull,ZER0,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,1ull+1,55ull,ZER0,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,ZER0,121ull,1ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,ZER0,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1,1ull+1,55ull,ZER0,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,ZER0,122ull,1ull,121ull,1ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1+1,1ull+1,55ull,ZER0,122ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,1ull,121ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,1ull,55ull,1ull,121ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,1ull,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull,55ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,1ull,55ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull,55ull,1ull,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull,55ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1,1ull,55ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,1ull,122ull,1ull,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull,55ull,1ull,122ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1+1,1ull,55ull,1ull,122ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull+1,55ull,1ull,121ull,1ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull,1ull+1,55ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull,1ull+1,55ull,1ull,121ull,2ull,122ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,1ull,121ull,1ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1,1ull+1,55ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1,1ull+1,55ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,1ull,122ull,1ull,121ull,1ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+0ull+1+1,1ull+1,55ull,1ull,122ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+                TEST(55ull+1ull+1+1,1ull+1,55ull,1ull,122ull,1ull,121ull,2ull,122ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
 #               endif
                 return YES;
             }
@@ -5861,21 +6844,101 @@ To Do List:
         }
         return NO;
     }
+    //  self.startOff7 <= leftLocation < self.commentOff7 < rightLocation
     if (rightLocation <= self.contentsEndOff7) {
+        //  self.startOff7 <= leftLocation < self.commentOff7 < rightLocation <= self.contentsEndOff7
         //  remove characters from both the uncommented and commented parts
         if ([self _deleteSyntaxModesInLocalMakeRange:leftLocation-self.startOff7:rightLocation-leftLocation error:RORef]) {
             self.commentedLength = self.contentsEndOff7 - rightLocation;
-            self.uncommentedLength = leftLocation-self.startOff7;
+            self.uncommentedLength = leftLocation - self.startOff7;
+            ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete the right part of the uncommented text and the left ârt of the commented one",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_DELETE_MODES_YES
+            TEST(ZER0,2ull,ZER0,ZER0,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+            TEST(ZER0,2ull,ZER0,ZER0,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(1ull,2ull,ZER0,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(ZER0,2ull,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(ZER0,2ull,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(1ull,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(1ull,2ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+ZER0,2ull,55ull,ZER0,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+            TEST(55ull+ZER0,2ull,55ull,ZER0,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+1ull,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+1ull,2ull,55ull,ZER0,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+ZER0,2ull,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+ZER0,2ull,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+1ull,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+1ull,2ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+#           endif
             return YES;
         }
         return NO;
     }
+    //  self.startOff7 <= leftLocation < self.commentOff7 <= self.contentsEndOff7 < rightLocation
     if (rightLocation <= self.endOff7) {
+        //  self.startOff7 <= leftLocation < self.commentOff7 <= self.contentsEndOff7 < rightLocation <= self.endOff7
         //  remove characters from the uncommented part, the whole commented part and part of the EOL
-        if ([self _deleteSyntaxModesInLocalMakeRange:leftLocation-self.startOff7:self.contentsEndOff7 - leftLocation error:RORef]) {
-            self.EOLLength = self.endOff7 - rightLocation;
+        if (self.contentsEndOff7<=leftLocation ||[self _deleteSyntaxModesInLocalMakeRange:leftLocation-self.startOff7:self.contentsEndOff7-leftLocation error:RORef]) {
+            if (!(self.EOLLength = self.endOff7 - rightLocation)) {
+                self.EOLMode = kiTM2TextUnknownSyntaxMode;
+            }
             self.commentedLength = 0;
             self.uncommentedLength = leftLocation-self.startOff7;
+            ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete the right part of the uncommented text, the whole commented text and part of the EOL",@"YES"));
+#           ifdef __EMBEDDED_TEST__
+            #undef  TEST
+            #define TEST TEST_DELETE_MODES_YES
+            TEST(ZER0,2ull+1,ZER0,1ull,99ull,1ull,121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+            TEST(ZER0,3ull+1,ZER0,1ull,99ull,1ull,121ull,2ull);
+            TEST(1ull,2ull+1,ZER0,1ull,99ull,2ull,121ull,1ull);
+            TEST(1ull,2ull+2,ZER0,1ull,99ull,2ull,121ull,2ull);
+            TEST(ZER0,3ull,ZER0,1ull,99ull,1ull,121ull,1ull);
+            TEST(ZER0,3ull+1,ZER0,1ull,99ull,1ull,121ull,2ull);
+            TEST(1ull,3ull,ZER0,1ull,99ull,2ull,121ull,1ull);
+            TEST(1ull,3ull+1,ZER0,1ull,99ull,2ull,121ull,2ull);
+            TEST(ZER0,3ull+1,ZER0,2ull,99ull,1ull,121ull,1ull);
+            TEST(ZER0,3ull+1,ZER0,2ull,99ull,1ull,121ull,2ull);
+            TEST(1ull,3ull+1,ZER0,2ull,99ull,2ull,121ull,1ull);
+            TEST(1ull,3ull+1,ZER0,2ull,99ull,2ull,121ull,2ull);
+            TEST(55ull+ZER0,2ull+1,55ull,1ull,99ull,1ull,121ull,1ull);
+            TEST(55ull+ZER0,3ull+1,55ull,1ull,99ull,1ull,121ull,2ull);
+            TEST(55ull+1ull,2ull+1,55ull,1ull,99ull,2ull,121ull,1ull);
+            TEST(55ull+1ull,2ull+2,55ull,1ull,99ull,2ull,121ull,2ull);
+            TEST(55ull+ZER0,3ull,55ull,1ull,99ull,1ull,121ull,1ull);
+            TEST(55ull+ZER0,3ull+1,55ull,1ull,99ull,1ull,121ull,2ull);
+            TEST(55ull+1ull,3ull,55ull,1ull,99ull,2ull,121ull,1ull);
+            TEST(55ull+1ull,3ull+1,55ull,1ull,99ull,2ull,121ull,2ull);
+            TEST(55ull+ZER0,3ull+1,55ull,2ull,99ull,1ull,121ull,1ull);
+            TEST(55ull+ZER0,3ull+1,55ull,2ull,99ull,1ull,121ull,2ull);
+            TEST(55ull+1ull,3ull+1,55ull,2ull,99ull,2ull,121ull,1ull);
+            TEST(55ull+1ull,3ull+1,55ull,2ull,99ull,2ull,121ull,2ull);
+            TEST(ZER0,2ull+1,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(ZER0,3ull+1,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(1ull,2ull+1,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(1ull,2ull+2,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(ZER0,3ull,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(ZER0,3ull+1,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(1ull,3ull,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(1ull,3ull+1,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(ZER0,3ull+1,ZER0,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(ZER0,3ull+1,ZER0,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(1ull,3ull+1,ZER0,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(1ull,3ull+1,ZER0,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+ZER0,2ull+1,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+ZER0,3ull+1,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+1ull,2ull+1,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+1ull,2ull+2,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+ZER0,3ull,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+ZER0,3ull+1,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+1ull,3ull,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+1ull,3ull+1,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+ZER0,3ull+1,55ull,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+ZER0,3ull+1,55ull,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+            TEST(55ull+1ull,3ull+1,55ull,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+            TEST(55ull+1ull,3ull+1,55ull,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+#           endif
             return YES;
         }
         return NO;
@@ -5885,19 +6948,35 @@ To Do List:
         self.uncommentedLength = leftLocation - self.startOff7;
         self.commentedLength = 0;
         self.EOLLength = 0;
-        ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete everything except part the uncommented header",@"YES"));
+        self.EOLMode = kiTM2TextUnknownSyntaxMode;
+        ReachCode4iTM3(REACH_CODE_ARGS_2(@"delete everything except part the uncommented header, and more",@"YES"));
 #       ifdef __EMBEDDED_TEST__
-        iTM2ModeLine * ML = nil;
         #undef  TEST
         #define TEST TEST_DELETE_MODES_YES
-        TEST(0ull,2ull,ZER0,ZER0,121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
-        TEST(1ull,2ull,ZER0,ZER0,121ull,2ull);
-        TEST(0ull,3ull,ZER0,1ull,121ull,1ull);
-        TEST(1ull,3ull,ZER0,1ull,121ull,2ull);
-        TEST(0ull,2ull+2,ZER0,ZER0,121ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
-        TEST(1ull,2ull+2,ZER0,ZER0,121ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
-        TEST(0ull,3ull+2,ZER0,1ull,121ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
-        TEST(1ull,3ull+2,ZER0,1ull,121ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(ZER0,2ull+2,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);//(LOCATION,LENGTH,OFF7,EOL,...)
+        TEST(ZER0,2ull+3,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(1ull,2ull+2,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(1ull,2ull+3,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(ZER0,3ull+2,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(ZER0,3ull+2,ZER0,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(1ull,3ull+2,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(1ull,3ull+2,ZER0,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(ZER0,3ull+2,ZER0,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(ZER0,3ull+3,ZER0,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(1ull,3ull+2,ZER0,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(1ull,3ull+3,ZER0,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(55ull+ZER0,2ull+2,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(55ull+ZER0,2ull+3,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(55ull+1ull,2ull+2,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(55ull+1ull,2ull+3,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(55ull+ZER0,3ull+2,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(55ull+ZER0,3ull+2,55ull,1ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(55ull+1ull,3ull+2,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(55ull+1ull,3ull+2,55ull,1ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(55ull+ZER0,3ull+2,55ull,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(55ull+ZER0,3ull+3,55ull,2ull,99ull,1ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
+        TEST(55ull+1ull,3ull+2,55ull,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,1ull);
+        TEST(55ull+1ull,3ull+3,55ull,2ull,99ull,2ull,kiTM2TextCommentSyntaxMask|121ull,2ull);
 #       endif
         return YES;
     }

@@ -79,13 +79,13 @@ Latest Revision: Sat Jan 30 09:49:05 UTC 2010
 					iTM2MacroDomainNode * domainNode = nil;
 					iTM2MacroCategoryNode * categoryNode = nil;
 					id contextNode = nil;
-					if (component = [e nextObject]) {
+					if ((component = [e nextObject])) {
 						domainNode = [rootNode objectInChildrenWithDomain:component]?:
 								[[[iTM2MacroDomainNode alloc] initWithParent:rootNode domain:component] autorelease];
-						if (component = [e nextObject]) {
+						if ((component = [e nextObject])) {
 							categoryNode = [domainNode objectInChildrenWithCategory:component]?:
 									[[[iTM2MacroCategoryNode alloc] initWithParent:domainNode category:component] autorelease];
-							if (component = [e nextObject]) {
+							if ((component = [e nextObject])) {
 								contextNode = [categoryNode objectInChildrenWithContext:component]?:
 										[[self.alloc initWithParent:categoryNode context:component] autorelease];
 							} else {
@@ -158,7 +158,7 @@ static id _iTM2MacroController = nil;
 	{
 		return [_iTM2MacroController retain];
 	}
-	else if (self = [super init])
+	else if ((self = [super init]))
 	{
 		[self setMacroTree:nil];
 	}
@@ -188,13 +188,13 @@ static id _iTM2MacroController = nil;
 					iTM2MacroDomainNode * domainNode = nil;
 					iTM2MacroCategoryNode * categoryNode = nil;
 					id contextNode = nil;
-					if (component = [e nextObject]) {
+					if ((component = [e nextObject])) {
 						domainNode = [rootNode objectInChildrenWithDomain:component]?:
 								[[[iTM2MacroDomainNode alloc] initWithParent:rootNode domain:component] autorelease];
-						if (component = [e nextObject]) {
+						if ((component = [e nextObject])) {
 							categoryNode = [domainNode objectInChildrenWithCategory:component]?:
 									[[[iTM2MacroCategoryNode alloc] initWithParent:domainNode category:component] autorelease];
-							if (component = [e nextObject]) {
+							if ((component = [e nextObject])) {
 								contextNode = [categoryNode objectInChildrenWithContext:component]?:
 										[[[aClass alloc] initWithParent:categoryNode context:component] autorelease];
 							} else {
@@ -306,17 +306,17 @@ To Do List:
 	// node is either the macro tree or the key bindings tree
 	NSArray * children = [node children];
 	NSEnumerator * E = children.objectEnumerator;
-	while(node = [E nextObject])
+	while((node = [E nextObject]))
 	{
 		// now the domain level
 		children = [node children];
 		NSEnumerator * EE = children.objectEnumerator;
-		while(node = [EE nextObject])
+		while((node = [EE nextObject]))
 		{
 			// now the category level
 			children = [node children];
 			NSEnumerator * EEE = children.objectEnumerator;
-			while(node = [EEE nextObject])
+			while((node = [EEE nextObject]))
 			{
 				// now the context level
 				NSURL * url = [node personalURL];
@@ -405,10 +405,10 @@ To Do List:
 					iTM2MacroCategoryNode * categoryNode = nil;
 					// for menus there are only two levels
 					// no level for the context depth
-					if (component = [e nextObject]) {
+					if ((component = [e nextObject])) {
 						domainNode = [rootNode objectInChildrenWithDomain:component]?:
 								[[[iTM2MacroDomainNode alloc] initWithParent:rootNode domain:component] autorelease];
-						if (component = [e nextObject])
+						if ((component = [e nextObject]))
 						{
 							categoryNode = [domainNode objectInChildrenWithCategory:component]?:
 									[[[iTM2MacroCategoryNode alloc] initWithParent:domainNode category:component] autorelease];
@@ -529,7 +529,7 @@ To Do List:
 				NSMenuItem * MI = [self macroMenuItemWithXMLElement:child forContext:context ofCategory:category inDomain:domain error:RORef];
 				if (MI)
 					[M addItem:MI];
-			} while(child = [child nextSibling]);
+			} while((child = [child nextSibling]));
 			return M;
 		}
 	}

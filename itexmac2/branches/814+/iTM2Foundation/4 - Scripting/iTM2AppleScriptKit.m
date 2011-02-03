@@ -145,7 +145,7 @@ To Do List:
     NSMutableDictionary * newClasses = [NSMutableDictionary dictionaryWithDictionary:Classes];
     NSEnumerator * E = Classes.keyEnumerator;
     NSString * K;
-    while(K = E.nextObject)
+    while((K = E.nextObject))
     {
         id d = [Classes objectForKey:K];
         NSString * Superclass = [d objectForKey:@"Superclass"];
@@ -208,10 +208,10 @@ To Do List:
 		[self SWZ_iTM2MiscKit_loadSuiteWithDictionary:D fromBundle:bundle];
 		// a new dictionary has been loaded, may be it now possible to load another dictionary suite
 		NSEnumerator * E = dictionarySuites.keyEnumerator;
-		while(D = E.nextObject)
+		while((D = E.nextObject))
 		{
 			NSBundle * B = [dictionarySuites objectForKey:D];
-			if (D = [self dictionaryForLoadingSuiteWithDictionary:D fromBundle:B])
+			if ((D = [self dictionaryForLoadingSuiteWithDictionary:D fromBundle:B]))
 			{
 				[dictionarySuites removeObjectForKey:D];
 				[self SWZ_iTM2MiscKit_loadSuiteWithDictionary:D fromBundle:B];

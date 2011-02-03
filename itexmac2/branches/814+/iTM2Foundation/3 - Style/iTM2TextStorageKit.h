@@ -252,7 +252,7 @@ enum
 
 @class iTM2TextSyntaxParserAttributesServer, iTM2ModeLine;
 
-@interface iTM2TextSyntaxParser: NSObject
+@interface iTM2TextSyntaxParser: NSObject <NSFastEnumeration>
 {
 @private
     NSMutableArray * iVarMLs4iTM3;
@@ -341,6 +341,7 @@ enum
 
 - (id)modeLineAtIndex:(NSUInteger)idx;
 - (void)insertModeLine:(id)modeLine atIndex:(NSUInteger)idx;
+- (void)removeModeLineAtIndex:(NSUInteger)idx;
 
 /*!
     @method     replaceModeLineAtIndex:withModeLine:

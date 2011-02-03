@@ -286,7 +286,7 @@ NSString * const iTM2RegExpMKPlaceholderOrEOLKey = @"__(SEL|TYPE...)__|EOL";
             [XPCTD_test addObject:lines];
             E1 = [[fullLinesPrefix OBJECT_n] objectEnumerator];
             E2 = [[fullLines OBJECT_n] objectEnumerator];
-            while (O = [E1 nextObject]) {
+            while ((O = [E1 nextObject])) {
                 [lines addObject:O];
                 O = [E2 nextObject];
                 [lines addObject:O];
@@ -349,7 +349,7 @@ make_the_test_and_return:
         [XPCTD_test addObject:lines];
         E1 = [[fullLinesPrefix OBJECT_n] objectEnumerator];
         E2 = [[fullLines OBJECT_n] objectEnumerator];
-        while (O = [E1 nextObject]) {
+        while ((O = [E1 nextObject])) {
             [lines addObject:O];
             O = [E2 nextObject];
             [lines addObject:O];

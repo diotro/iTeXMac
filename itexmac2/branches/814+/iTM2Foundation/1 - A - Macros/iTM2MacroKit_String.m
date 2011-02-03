@@ -865,14 +865,14 @@ To Do List: ?
     ICURegEx * RE = self.placeholderICURegEx;
     RE.inputString = aString;
     while (RE.nextMatch) {
-        if (R.length = RE.rangeOfMatch.location - R.location) {
+        if ((R.length = RE.rangeOfMatch.location - R.location)) {
             [MRA addObject:[aString substringWithRange:R]];
         }
         [MRA addObject:RE.macroDefaultString4iTM3];
         R.location = iTM3MaxRange(RE.rangeOfMatch);
     }
     RE.forget;
-    if (R.length = aString.length - R.location) {
+    if ((R.length = aString.length - R.location)) {
         [MRA addObject:[aString substringWithRange:R]];
     }
 	return [MRA componentsJoinedByString:@""];

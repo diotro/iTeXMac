@@ -87,7 +87,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init]) {
+    if ((self = [super init])) {
         self.spellLanguage = [SUD objectForKey:iTM2CurrentSpellLanguageKey];
         self.ignoredWords = [NSArray array];
         self.tag = [NSSpellChecker uniqueSpellDocumentTag];// last
@@ -107,9 +107,9 @@ To Do List:
     NS_DURING
     if ([[PL valueForKey:TWSSpellIsaKey] isEqual:TWSSpellIsaValue]) {
         id O;
-        if (O = [PL valueForKey:TWSSpellLanguageKey])
+        if ((O = [PL valueForKey:TWSSpellLanguageKey]))
             self.spellLanguage = O;
-        if (O = [PL valueForKey:TWSSpellIgnoredWordsKey])
+        if ((O = [PL valueForKey:TWSSpellIgnoredWordsKey]))
             [self replaceIgnoredWords:O];
         result = YES;
     } else if (PL) {
@@ -438,7 +438,7 @@ To Do List:
     NSMutableDictionary * MD = [[SUD dictionaryForKey:iTM2SpellContextsKey] mutableCopy];
     NSEnumerator * E = MD.keyEnumerator;
     NSString * mode;
-    while(mode = E.nextObject)
+    while((mode = E.nextObject))
         if (![newModes containsObject:mode])
             [MD removeObjectForKey:mode];
     for(mode in newModes)
@@ -467,7 +467,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         [self setSpellContexts:[NSDictionary dictionary]];
         iTM3SpellContext * SC = [[iTM3SpellContext alloc] init];
@@ -702,7 +702,7 @@ To Do List:
 	NSMutableDictionary * md = [NSMutableDictionary dictionary];
 	NSEnumerator * E = [self.spellContexts keyEnumerator];
 	id mode;
-	while(mode = E.nextObject)
+	while((mode = E.nextObject))
 		[md setObject:[[self spellContextForMode:mode] propertyListRepresentation] forKey:mode];
     [MD setObject:md forKey:iTM2SpellModesKey];
 //END4iTM3;
@@ -727,7 +727,7 @@ To Do List:
         {
             NSEnumerator * E = d.keyEnumerator;
             NSString * mode;
-            while(mode = E.nextObject)
+            while((mode = E.nextObject))
             {
                 iTM3SpellContext * SC = [[iTM3SpellContext alloc] init];
                 if ([SC loadPropertyListRepresentation:[d objectForKey:mode]])
@@ -1059,7 +1059,7 @@ To Do List:
 //START4iTM3;
     if (tableView != iVarTableView) {
 		iVarTableView.delegate = iVarTableView.target = iVarTableView.dataSource = nil;
-        if (iVarTableView = tableView) {
+        if ((iVarTableView = tableView)) {
             iVarTableView.delegate = iVarTableView.target = iVarTableView.dataSource = self;
             iVarTableView.reloadData;
             [iVarTableView setNeedsDisplay:YES];
@@ -1440,7 +1440,7 @@ To Do List:
     {
         return _iTM2SpellCheckerHelper;
     }
-    else if (self = [super initWithWindow:window])
+    else if ((self = [super initWithWindow:window]))
     {
 		self.initImplementation;
 		_iVarCurrentText = nil;
@@ -1583,7 +1583,7 @@ To Do List:
 	self.currentText = newText;
 	iTM3SpellContext * SC;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-	if (SC = newText.spellContext4iTM3)
+	if ((SC = newText.spellContext4iTM3))
 	{
 		NSString * language = SC.spellLanguage;
 		if (![SSC setLanguage:language])
@@ -1651,7 +1651,7 @@ To Do List:
 		// save the actual settings for the old text:
         self.currentText = newText;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-		if (SC = newText.spellContext4iTM3)
+		if ((SC = newText.spellContext4iTM3))
 		{
 			NSString * language = SC.spellLanguage;
 			if (![SSC setLanguage:language])
@@ -1747,7 +1747,7 @@ To Do List:
 		// save the actual settings for the old text:
         self.currentText = newText;
 //LOG4iTM3(@"iVarCurrentTextRef is changed, [SSC language] is:%@", [SSC language]);
-		if (SC = newText.spellContext4iTM3)
+		if ((SC = newText.spellContext4iTM3))
 		{
 			NSString * language = SC.spellLanguage;
 			if (![SSC setLanguage:language])
@@ -1999,7 +1999,7 @@ To Do List:
         NSEnumerator * E = [[[[currentController spellContextModesEnumerator] allObjects]
                                         sortedArrayUsingSelector: @selector(compare:)] objectEnumerator];
         NSString * contextMode;
-        while(contextMode = E.nextObject)
+        while((contextMode = E.nextObject))
         {
             if (![contextMode isEqualToString:TWSSpellDefaultContextMode])
             {

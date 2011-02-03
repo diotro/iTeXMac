@@ -78,7 +78,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if (self = [super init])
+    if ((self = [super init]))
     {
         _Implementation = [NSMutableDictionary dictionary];
 		[_Implementation setObject:[NSHashTable hashTableWithWeakObjects] forKey:@"Observers"];

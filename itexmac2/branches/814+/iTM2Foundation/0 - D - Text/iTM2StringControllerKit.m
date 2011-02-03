@@ -346,7 +346,7 @@ To Do List:
 }
 - (id)initWithDelegate:(id)delegate;
 {
-    if (self=[super init])
+    if ((self=[super init]))
     {
         self.setUpMacroTypes;
         self.delegate = delegate?:self;
@@ -878,7 +878,7 @@ continue_after_comment:
         //  No indentation already defined
         //  Only indentation from availableICs
         E = availableICs.objectEnumerator;
-        while (IC = E.nextObject) {
+        while ((IC = E.nextObject)) {
             if (IC.depth < changeInDepth) {
                 [returnICs addObject:IC];
                 changeInDepth -= IC.depth;
@@ -1658,7 +1658,7 @@ did_start_last_commented_IC_candidate:
                 // reset breakLocation
                 breakLocation = ZER0;
             }
-            if (newNumberOfPendingChars = ++numberOfPendingChars % self.numberOfSpacesPerTab) {
+            if ((newNumberOfPendingChars = ++numberOfPendingChars % self.numberOfSpacesPerTab)) {
                 // this is not the end of the component
                 continue;
             }
@@ -1780,7 +1780,7 @@ edit_commented_IC:
                 // reset breakLocation
                 breakLocation = ZER0;
             }
-            if (newNumberOfPendingChars = (numberOfPendingChars += LS.scanLocation - idx) % self.numberOfSpacesPerTab) {
+            if ((newNumberOfPendingChars = (numberOfPendingChars += LS.scanLocation - idx) % self.numberOfSpacesPerTab)) {
                 // this is not the end of the component
                 continue;
             }
@@ -1817,7 +1817,7 @@ edit_commented_IC:
     NSEnumerator * E = ICs.objectEnumerator;
     BOOL addWhiteAfterReplacement = NO;
     iTM2LiteScanner * LS = nil;
-    while(IC = E.nextObject)
+    while((IC = E.nextObject))
     {
         totalCommentLength -= IC.commentLength;
         if (IC.depth < excedent)
@@ -1837,7 +1837,7 @@ edit_commented_IC:
                     totalDepth -= IC.depth;
                 }
                 R.length = IC.nextLocation - R.location;
-                if (IC = E.nextObject)
+                if ((IC = E.nextObject))
                 {
                     R.length = IC.nextLocation - R.location;
                     if (IC.depth)
@@ -2198,7 +2198,7 @@ To Do List: Nothing at first glance.
     NSEnumerator * E = selectedRanges.objectEnumerator;
     NSValue * V = nil;
 	NSRange R = iTM3VoidRange;
-    if (V = E.nextObject)
+    if ((V = E.nextObject))
 	{
         // the first iteration of the loop is very different from the other ones
 		R = V.rangeValue;
@@ -2210,7 +2210,7 @@ To Do List: Nothing at first glance.
         [newSelectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(start+off7,end-start+changeInLength)]];
         off7 += changeInLength;
 
-        while(V = E.nextObject)
+        while((V = E.nextObject))
         {
             R = V.rangeValue;
             if (R.location>=end)
@@ -2240,7 +2240,7 @@ To Do List: Nothing at first glance.
                 {
                     [self setSelectedRanges:newSelectedRanges];
                 }
-                else if (V = selectedRanges.lastObject)
+                else if ((V = selectedRanges.lastObject))
                 {
                     R = V.rangeValue;
                     if (R.length)
@@ -2281,7 +2281,7 @@ To Do List: Nothing at first glance.
 
     NSEnumerator * E = selectedRanges.objectEnumerator;
     NSValue * V;
-    if ((V = E.nextObject))
+    if (((V = E.nextObject)))
 	{
         // the first iteration of the loop is very different from the other ones
         NSRange R = V.rangeValue;

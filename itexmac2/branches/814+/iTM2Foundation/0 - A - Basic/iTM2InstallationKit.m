@@ -156,10 +156,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSEnumerator * E = [__iTM2MileStone keyEnumerator];
-	NSString *K;
-	while(K = E.nextObject)
-	{
+	for (NSString * K in __iTM2MileStone.allKeys) {
 		LOG4iTM3(@".......... INSTALLATION ERROR %@: %@", K, [__iTM2MileStone objectForKey:K]);
 	}
 //END4iTM3;

@@ -37,7 +37,7 @@
 NSString * const iTM2AutoUpdateEnabledKey = @"iTM2AutoUpdateEnabled";
 NSString * const iTM2SmartUpdateEnabledKey = @"iTM2SmartUpdateEnabled";
 
-@interface NSDocument(iTM2AutoKit)
+@interface NSDocument(iTM2AutoKit_BIS)
 - (BOOL)fileModificationDataCompleteDidWriteToURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) typeName forSaveOperation:(NSSaveOperationType) saveOperationType originalContentsURL:(NSURL *) originalAbsoluteContentsURL error:(NSError**)RORef;
 - (BOOL)fileModificationDateCompleteDidReadFromURL4iTM3:(NSURL *)absoluteURL ofType:(NSString *) type error:(NSError**)RORef;
 @end
@@ -300,7 +300,7 @@ To Do List:
     NSDocument * D;
     [self postNotificationWithStatus4iTM3:
 		NSLocalizedStringFromTableInBundle(@"Auto saving the documents.", TABLE, BUNDLE, "Status")];
-    while(D = [E nextObject])
+    while((D = [E nextObject]))
         if ([D canAutoSave4iTM3])
             [D saveDocument:self];
     [self postNotificationWithStatus4iTM3:
@@ -328,7 +328,7 @@ To Do List:
             NSMutableArray * windows = [NSMutableArray array];
             NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
             NSWindow * W;
-            while(W = [E nextObject])
+            while((W = [E nextObject]))
             {
                 if ([W isVisible] && [[W.windowController document] isEqual:D])
                 {

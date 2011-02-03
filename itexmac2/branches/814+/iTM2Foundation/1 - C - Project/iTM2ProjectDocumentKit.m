@@ -491,11 +491,11 @@ changeName:
 				url = [self URLForFileKey:key error:RORef];
 				if ([DFM fileExistsAtPath:url.path]) {
 					[self setURL:url forFileKey:key error:RORef];
-				} else if (url = [oldExistingURLs objectForKey:key]) {
+				} else if ((url = [oldExistingURLs objectForKey:key])) {
 					[self setURL:url forFileKey:key error:RORef];
-				} else if (url = [oldMovedURLs objectForKey:key]) {
+				} else if ((url = [oldMovedURLs objectForKey:key])) {
 					[self setURL:url forFileKey:key error:RORef];
-				} else if (url = [oldFactoryURLs objectForKey:key]) {
+				} else if ((url = [oldFactoryURLs objectForKey:key])) {
 					[self setURL:url forFileKey:key error:RORef];
 				}
 			}
@@ -685,7 +685,7 @@ To Do List:
 			if (![SPC isReservedFileKey:key]) {
 				if ((url = [self URLForFileKey:key error:RORef]),[DFM fileExistsAtPath:url.path]) {
 					// do nothing;
-				} else if (url = [self recordedURLForFileKey:key]) {
+				} else if ((url = [self recordedURLForFileKey:key])) {
 					[self setURL:url forFileKey:key error:RORef];
 				} else if ([(name = [self nameForFileKey:key]) length]) {
 					LOG4iTM3(@"Project\n%@\nLost file\n%@",projectURL,name);
@@ -702,7 +702,7 @@ To Do List:
 			if (![SPC isReservedFileKey:key]) {
 				if ([DFM fileExistsAtPath:[[self URLForFileKey:key error:RORef] path]]) {
 					// do nothing;
-				} else if (url = [self recordedURLForFileKey:key]) {
+				} else if ((url = [self recordedURLForFileKey:key])) {
 					[self setURL:url forFileKey:key error:RORef];
 				} else if ([(name = [self nameForFileKey:key]) length]) {
 					LOG4iTM3(@"Project\n%@\nLost file\n%@",projectURL,name);
@@ -886,7 +886,7 @@ To Do List:
     self.makeSubdocumentsInspector;
     NSEnumerator * E = [self.windowControllers objectEnumerator];
     NSWindowController * WC;
-    while(WC = E.nextObject)
+    while((WC = E.nextObject))
         if ([WC isKindOfClass:[iTM2SubdocumentsInspector class]])
         {
             [WC.window makeKeyAndOrderFront:self];
@@ -1196,7 +1196,7 @@ To Do List:
 		// this front window will be used for the save sheet
 		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
 		NSWindow * W;
-		while(W = E.nextObject)
+		while((W = E.nextObject))
 		{
 			if (![W isKindOfClass:[iTM2ProjectGhostWindow class]])
 			{
@@ -1219,7 +1219,7 @@ To Do List:
 		// get the first window except the ghost window,order it front
 		NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
 		NSWindow * W = nil;
-		while(W = E.nextObject)
+		while((W = E.nextObject))
 		{
 			if ([[W.windowController document] isEqual:self] && ![W isKindOfClass:[iTM2ProjectGhostWindow class]])
 			{
@@ -1784,7 +1784,7 @@ To Do List:
 //LOG4iTM3(@"BEFORE cachedKeys: %@",[IMPLEMENTATION metaValueForKey:iTM2ProjectCachedKeysKey]);
 	fileURL = [fileURL absoluteURL];
     NSString * result;
-	if (result = [cachedKeys objectForKey:fileURL])
+	if ((result = [cachedKeys objectForKey:fileURL]))
 	{
 		return result;
 	}
@@ -2058,7 +2058,7 @@ To Do List:
 			NSString * base = nil;
 			base = [SPC finderAliasesSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
-			if ([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory
+			if (([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory)
                     || [DFM createDirectoryAtPath:base withIntermediateDirectories:YES attributes:nil error:nil]) {
 				if (![DFM fileExistsAtPath:(path = [base stringByAppendingPathComponent:@"Readme.txt"])]) {
 					[@"This directory contains finder aliases to files the project is aware of.\niTeXMac2" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
@@ -2114,7 +2114,7 @@ To Do List:
 			}
 			base = [SPC absoluteSoftLinksSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
-			if ([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory
+			if (([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory)
 				|| [DFM createDirectoryAtPath:base withIntermediateDirectories:YES attributes:nil error:nil])
 			{
 				path = [base stringByAppendingPathComponent:@"Readme.txt"];
@@ -2152,7 +2152,7 @@ To Do List:
 			}
 			base = [SPC relativeSoftLinksSubdirectory];
 			base = [projectName stringByAppendingPathComponent:base];
-			if ([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory
+			if (([DFM fileExistsAtPath:base isDirectory:&isDirectory] && isDirectory)
 				|| [DFM createDirectoryAtPath:base withIntermediateDirectories:YES attributes:nil error:nil])
 			{
 				path = [base stringByAppendingPathComponent:@"Readme.txt"];
@@ -2256,7 +2256,7 @@ To Do List:
     [SPC flushCaches];
     NSEnumerator * E = [self.windowControllers objectEnumerator];
     id WC;
-    while(WC = E.nextObject)
+    while((WC = E.nextObject))
         if ([WC respondsToSelector:@selector(updateOrderedFileKeys)])
             [WC updateOrderedFileKeys];
 	// then I remove all the references,either links or finder aliases,used as cache
@@ -2611,7 +2611,7 @@ To Do List:
 	NSParameterAssert(fileKey);
 	id result = nil;
 	id Ps = [self.mainInfos4iTM3 propertiesForFileKey:fileKey];
-	if (result = [Ps valueForKey:key])
+	if ((result = [Ps valueForKey:key]))
 	{
 		return result;
 	}
@@ -2669,7 +2669,7 @@ To Do List:
 		// just save the subdocuments where they normally stand...
 		NSEnumerator * E = [self.subdocuments objectEnumerator];
 		NSDocument * D;
-		while(D = E.nextObject)
+		while((D = E.nextObject))
 		{
 			if ([D isDocumentEdited])
 			{
@@ -2922,7 +2922,7 @@ To Do List:
 		NSURL * wrapperURL = self.wrapperURL;
 		if (wrapperURL) {
 			NSString * typeName = [SDC typeForContentsOfURL:wrapperURL error:NULL];
-			if (lazyWrapper = [SDC makeDocumentWithContentsOfURL:wrapperURL ofType:typeName]) {
+			if ((lazyWrapper = [SDC makeDocumentWithContentsOfURL:wrapperURL ofType:typeName])) {
 				metaSETTER(lazyWrapper);// the wrapper is automatically dealloc'd when the owner is dealloc'd.
 //LOG4iTM3(@"[SDC documents] are:%@",[SDC documents]);
 			}
@@ -5378,7 +5378,7 @@ To Do List:
 	NSImage * I = nil;
     sender.image = nil;
 	if (wrapperName.length) {
-		if (I=[SWS iconForFile:wrapperName]) {
+		if ((I=[SWS iconForFile:wrapperName])) {
 			I.size = NSMakeSize(16,16);
 			sender.image = I;
 		}
@@ -5432,10 +5432,10 @@ To Do List:
 			NSEnumerator * E = [[NSApp orderedWindows] objectEnumerator];
 			NSWindow * W;
             NSError * ROR = nil;
-			while (W = E.nextObject) {
+			while ((W = E.nextObject)) {
                 if (PD != [SPC projectForSource:W error:self.RORef4iTM3]) {
                     NSWindow * w;
-                    while (w = E.nextObject) {
+                    while ((w = E.nextObject)) {
                         if (PD == [SPC projectForSource:w error:self.RORef4iTM3]) {
                             [w orderWindow:NSWindowAbove relativeTo:W.windowNumber];
                         } else {
@@ -6181,7 +6181,7 @@ To Do List:
 	BOOL stringEncodingNotAvailable = YES;
 	NSMenu * menu = sender.menu;
 	NSEnumerator * E = [menu.itemArray objectEnumerator];
-	while(sender = E.nextObject)
+	while((sender = E.nextObject))
 	{
 		if (sender.action == @selector(takeStringEncodingFromTag:))
 		{

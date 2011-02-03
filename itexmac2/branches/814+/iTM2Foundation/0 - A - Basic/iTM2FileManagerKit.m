@@ -103,15 +103,11 @@ To Do List:
 //START4iTM3;
 	if ([self fileExistsAtPath:path])//traverse links
 	{
-		FSRef ref = {ZER0};
+		FSRef ref = {{ZER0}};
 		OSStatus status = FSPathMakeRef((UInt8 *)[path UTF8String], &ref, NULL);
 		if (status)
 		{
-			if (RORef)
-			{
-				*RORef = [NSError errorWithDomain:__iTM2_PRETTY_FUNCTION__ code:status
-					userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Could not create an FSRef for %@", path] forKey:NSLocalizedDescriptionKey]];
-			}
+			OUTERROR4iTM3(1,([NSString stringWithFormat:@"Could not create an FSRef for %@", path]),NULL);
 //END4iTM3;
 			return YES;
 		}
@@ -315,7 +311,7 @@ To Do List:
 	OSErr resError;
 	BOOL wasCurResFile = (noErr == ResError());
 	ResFileRefNum fileSystemReferenceNumber = FSOpenResFile(&fileSystemReference, fsRdPerm);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -325,7 +321,7 @@ To Do List:
 		return nil;
 	}
 	UseResFile(fileSystemReferenceNumber);// maybe this is useless, undocumented
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -333,7 +329,7 @@ To Do List:
 		}
 		OUTERROR4iTM3(kiTM2ExtendedAttributesResourceManagerError,([NSString stringWithFormat:@"2 - Could not UseResFile, at %@ error %i (fileSystemReferenceNumber: %i)",path,resError,fileSystemReferenceNumber]),nil);
 		CloseResFile(fileSystemReferenceNumber);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -347,7 +343,7 @@ To Do List:
 	while(resourceIndex)
 	{
 		Handle H = Get1IndResource(resourceType, resourceIndex);
-		if ((resError = ResError())|| !H)
+		if (((resError = ResError()))|| !H)
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -363,7 +359,7 @@ To Do List:
 		}
 		Str255 resourceName;
 		GetResInfo(H, NULL, NULL, resourceName);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -381,7 +377,7 @@ To Do List:
 		NSData * D = [NSData dataWithBytes:*H length:GetHandleSize(H)];
 		HUnlock(H);
 		ReleaseResource(H);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -398,7 +394,7 @@ To Do List:
 		--resourceIndex;
 	}
 	CloseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -409,7 +405,7 @@ To Do List:
 	if (wasCurResFile)
 	{
 		UseResFile(curResFile);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -468,7 +464,7 @@ To Do List:
 	OSErr resError;
 	BOOL wasCurResFile = (noErr == ResError());
 	ResFileRefNum fileSystemReferenceNumber = FSOpenResFile(&fileSystemReference, fsRdPerm);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -481,7 +477,7 @@ To Do List:
 		return nil;
 	}
 	UseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -498,7 +494,7 @@ To Do List:
 	memcpy(resourceName+1, src, strlen(src));
 	resourceName[ZER0]=strlen(src);
 	Handle H = Get1NamedResource(resourceType, resourceName);
-	if ((resError = ResError())|| !H)
+	if (((resError = ResError()))|| !H)
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -518,7 +514,7 @@ To Do List:
 	D = [NSData dataWithBytes:*H length:GetHandleSize(H)];
 	HUnlock(H);
 	ReleaseResource(H);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -530,7 +526,7 @@ To Do List:
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
 	CloseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -544,7 +540,7 @@ To Do List:
 	if (wasCurResFile)
 	{
 		UseResFile(curResFile);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -623,7 +619,7 @@ To Do List:
 		return NO;
 	}
 	UseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -632,14 +628,14 @@ To Do List:
 		result = NO;
 terminate:
 		CloseResFile(fileSystemReferenceNumber);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			LOG4iTM3(@"10 - Could not CloseResFile, error %i", resError);
 		}
 		if (wasCurResFile)
 		{
 			UseResFile(curResFile);
-			if (resError = ResError())
+			if ((resError = ResError()))
 			{
 				if (iTM2DebugEnabled)
 				{
@@ -654,7 +650,7 @@ terminate:
 	memcpy(resourceName+1, src, strlen(src));
 	resourceName[ZER0]=strlen(src);
 	Handle H = Get1NamedResource(resourceType, resourceName);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -669,7 +665,7 @@ terminate:
 	if (H)
 	{
 		GetResInfo(H, &resourceID, nil, resourceName);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -687,11 +683,11 @@ terminate:
 	else
 	{
 		resourceID = 256;
-		while(H = Get1IndResource(resourceType, resourceID))
+		while((H = Get1IndResource(resourceType, resourceID)))
 			++resourceID;
 		
 	}
-	if (resError = PtrToHand([D bytes], &H, D.length))
+	if ((resError = PtrToHand([D bytes], &H, D.length)))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -703,7 +699,7 @@ terminate:
 		HLock(H);
 		AddResource(H, resourceType, resourceID, resourceName);
 		HUnlock(H);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -776,7 +772,7 @@ To Do List:
 		return -1;
 	}
 	ResFileRefNum fileSystemReferenceNumber;
-	if (resError = FSOpenResourceFile (&fileSystemReference,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber)) {
+	if ((resError = FSOpenResourceFile (&fileSystemReference,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber))) {
 		if (iTM2DebugEnabled)
 		{
 			LOG4iTM3(@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
@@ -789,7 +785,7 @@ To Do List:
 		return NO;
 	}
 	UseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -806,7 +802,7 @@ To Do List:
 	memcpy(resourceName+1, src, strlen(src));
 	resourceName[ZER0]=strlen(src);
 	Handle H = Get1NamedResource(resourceType, resourceName);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -824,7 +820,7 @@ To Do List:
 	if (H)
 	{
 		RemoveResource(H);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -850,7 +846,7 @@ To Do List:
 		H = nil;
 	}
 	CloseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -864,7 +860,7 @@ To Do List:
 	if (wasCurResFile)
 	{
 		UseResFile(curResFile);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -941,7 +937,7 @@ To Do List:
 		return NO;
 	}
 	ResFileRefNum fileSystemReferenceNumber;
-	if (resError = FSOpenResourceFile (&fsRef,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber))
+	if ((resError = FSOpenResourceFile (&fsRef,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber)))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -952,7 +948,7 @@ To Do List:
 		return NO;
 	}
 	UseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -992,7 +988,7 @@ To Do List:
 			LOG4iTM3(@"4 - Could use Get1Resource, error %i (resourceIndex is %i)", resError, resourceIndex);
 		}
 		GetResInfo(H, &resourceID, nil, resourceName);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -1013,7 +1009,7 @@ To Do List:
 		if (key.length)
 		{
 			RemoveResource(H);
-			if (resError = ResError())
+			if ((resError = ResError()))
 			{
 				if (iTM2DebugEnabled)
 				{
@@ -1025,7 +1021,7 @@ To Do List:
 			NSData * D = [attributes objectForKey:key];
 			if ([D isKindOfClass:[NSData class]])
 			{
-				if (resError = PtrToHand([D bytes], &H, D.length))
+				if ((resError = PtrToHand([D bytes], &H, D.length)))
 				{
 					if (iTM2DebugEnabled)
 					{
@@ -1037,7 +1033,7 @@ To Do List:
 					HLock(H);
 					AddResource(H, resourceType, resourceID, resourceName);
 					HUnlock(H);
-					if (resError = ResError())
+					if ((resError = ResError()))
 					{
 						if (iTM2DebugEnabled)
 						{
@@ -1073,7 +1069,7 @@ To Do List:
 			resourceName[ZER0]=strlen(src);
 			if ([D isKindOfClass:[NSData class]])
 			{
-				if (resError = PtrToHand([D bytes], &H, D.length))
+				if ((resError = PtrToHand([D bytes], &H, D.length)))
 				{
 					if (iTM2DebugEnabled)
 					{
@@ -1084,7 +1080,7 @@ To Do List:
 				else
 				{
 					resourceID = Unique1ID(resourceType);
-					if (resError = ResError())
+					if ((resError = ResError()))
 					{
 						if (iTM2DebugEnabled)
 						{
@@ -1097,7 +1093,7 @@ To Do List:
 						HLock(H);
 						AddResource(H, resourceType, resourceID, resourceName);
 						HUnlock(H);
-						if (resError = ResError())
+						if ((resError = ResError()))
 						{
 							if (iTM2DebugEnabled)
 							{
@@ -1125,7 +1121,7 @@ To Do List:
 		}
 	}
 	CloseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -1135,7 +1131,7 @@ To Do List:
 	if (wasCurResFile)
 	{
 		UseResFile(curResFile);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -1191,7 +1187,7 @@ To Do List:
 		return D;
 	}
 	ResFileRefNum fileSystemReferenceNumber;
-	if (resError = FSOpenResourceFile (&fileSystemReference,resourceForkName.length,resourceForkName.unicode,fsRdPerm,&fileSystemReferenceNumber))
+	if ((resError = FSOpenResourceFile (&fileSystemReference,resourceForkName.length,resourceForkName.unicode,fsRdPerm,&fileSystemReferenceNumber)))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -1204,7 +1200,7 @@ To Do List:
 		return nil;
 	}
 	UseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -1239,7 +1235,7 @@ To Do List:
 	D = [NSData dataWithBytes:*H length:GetHandleSize(H)];
 	HUnlock(H);
 	ReleaseResource(H);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -1251,7 +1247,7 @@ To Do List:
 					userInfo: [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:resError] forKey:@"ResError"]];
 	}
 	CloseResFile(fileSystemReferenceNumber);
-	if (resError = ResError())
+	if ((resError = ResError()))
 	{
 		if (iTM2DebugEnabled)
 		{
@@ -1265,7 +1261,7 @@ To Do List:
 	if (wasCurResFile)
 	{
 		UseResFile(curResFile);
-		if (resError = ResError())
+		if ((resError = ResError()))
 		{
 			if (iTM2DebugEnabled)
 			{
@@ -1322,7 +1318,7 @@ To Do List:
 		return NO;
 	}
 	ResFileRefNum fileSystemReferenceNumber;
-	if (resError = FSOpenResourceFile (&fsRef,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber)) {
+	if ((resError = FSOpenResourceFile (&fsRef,resourceForkName.length,resourceForkName.unicode,fsRdWrPerm,&fileSystemReferenceNumber))) {
 		if (iTM2DebugEnabled) {
 			LOG4iTM3(@"1 - Could not FSOpenResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 		}
@@ -1331,7 +1327,7 @@ To Do List:
 		return NO;
 	}
 	UseResFile(fileSystemReferenceNumber);
-	if (resError = ResError()) {
+	if ((resError = ResError())) {
 		if (iTM2DebugEnabled) {
 			LOG4iTM3(@"2 - Could not UseResFile, at %@, error %i, fileSystemReferenceNumber: %i",path,resError,fileSystemReferenceNumber);
 		}
@@ -1340,7 +1336,7 @@ To Do List:
 		return NO;
 	}
 	Handle H = Get1Resource(resourceType, resourceID);
-	if (resError = ResError()) {
+	if ((resError = ResError())) {
 		if (iTM2DebugEnabled) {
 			LOG4iTM3(@"3 - Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID);
 			OUTERROR4iTM3(3,([NSString stringWithFormat:@"3 - Could not Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID]),nil);
@@ -1348,7 +1344,7 @@ To Do List:
 	} else if (iTM2DebugEnabled) {
 		LOG4iTM3(@"4 - Could use Get1Resource, at %@ error %i (resourceID is %i)", path,resError,resourceID);
 	}
-	if (resError = PtrToHand([D bytes], &H, D.length)) {
+	if ((resError = PtrToHand([D bytes], &H, D.length))) {
 		if (iTM2DebugEnabled) {
 			LOG4iTM3(@"5 - WARNING: Could not convert a Ptr into a handle, error %i", resError);
 			OUTERROR4iTM3(3,([NSString stringWithFormat:@"5 - WARNING: Could not convert a Ptr into a handle"]),nil);
@@ -1375,7 +1371,7 @@ createSrc:
 		HLock(H);
 		AddResource(H, resourceType, resourceID, resourceName);
 		HUnlock(H);
-		if (resError = ResError()) {
+		if ((resError = ResError())) {
 			if (iTM2DebugEnabled) {
 				LOG4iTM3(@"6 - Could not AddResource, error %i", resError);
 			}
@@ -1386,13 +1382,13 @@ createSrc:
 		// DisposeHandle(H);// hum the handle is considered the property of the resource manager now?
 	}
 	CloseResFile(fileSystemReferenceNumber);
-	if (resError = ResError()) {
+	if ((resError = ResError())) {
 		LOG4iTM3(@"8 - Could not CloseResFile, error %i", resError);
 		OUTERROR4iTM3(3,([NSString stringWithFormat:@"8 - Could not CloseResFile, error %i", resError]),nil);
 	}
 	if (wasCurResFile) {
 		UseResFile(curResFile);
-		if (resError = ResError()) {
+		if ((resError = ResError())) {
 			if (iTM2DebugEnabled) {
 				LOG4iTM3(@"9 - Could not UseResFile, error %i", resError);
 			}

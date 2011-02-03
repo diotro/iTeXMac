@@ -469,7 +469,7 @@ Latest Revision: Sat Jan 30 09:40:05 UTC 2010
 */
 - (id)init;
 {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		keyCodesForNames = [[NSMutableDictionary dictionary] retain];
 		NSArray * RA = [[NSBundle mainBundle] allURLsForResource4iTM3:@"iTM2KeyCodes" withExtension:@"xml"];
 		if (RA.count) {
@@ -487,7 +487,7 @@ Latest Revision: Sat Jan 30 09:40:05 UTC 2010
                         //  O is a node
 						NSString * KEY = [O stringValue];//case sensitive
 						if (KEY.length) {
-							if (O = [O attributeForName:@"CODE"]) {
+							if ((O = [O attributeForName:@"CODE"])) {
                                 //  O is an element
 								NSString * stringCode = [O stringValue];
 								NSScanner * scanner = [NSScanner scannerWithString:stringCode];

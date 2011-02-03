@@ -358,7 +358,7 @@ To Do List:
 		int numClasses = objc_getClassList(NULL, ZER0);
 		if (numClasses > ZER0 )
 		{
-			if (classes = NSAllocateCollectable(sizeof(Class) * numClasses,ZER0))
+			if ((classes = NSAllocateCollectable(sizeof(Class) * numClasses,ZER0)))
 			{
 				(void)objc_getClassList(classes, numClasses);
 				Class * ptr = classes;
@@ -1061,7 +1061,7 @@ To Do List:
     // Find the root class
     Class rootClass = superClass;
 	Class candidate;
-    while( candidate = class_getSuperclass(rootClass) )
+    while(( candidate = class_getSuperclass(rootClass)) )
     {
         rootClass = candidate;
     }
@@ -1148,7 +1148,7 @@ To Do List:
 	[result appendFormat:@"<NSMethodSignature %x",self];
 	NSUInteger numberOfArguments = self.numberOfArguments;
 	[result appendFormat:@"\n numberOfArguments %u",numberOfArguments];
-	while(numberOfArguments)
+	while(numberOfArguments>0)
 	{
 		[result appendFormat:@"\n getArgumentTypeAtIndex %u->%s",numberOfArguments,[self getArgumentTypeAtIndex:--numberOfArguments]];
 	}

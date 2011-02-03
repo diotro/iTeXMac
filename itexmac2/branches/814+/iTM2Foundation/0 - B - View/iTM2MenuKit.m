@@ -408,11 +408,9 @@ To Do List: We should write a NSMenuItem category to implement the #{copy} metho
 The cell is not copied. Better should be done.
 "*/
 {DIAGNOSTIC4iTM3;
-    NSEnumerator * E = [self.itemArray objectEnumerator];
-    NSMenuItem * MI;
-    while(MI = E.nextObject)
-        if ([MI hasSubmenu])
-            [[MI submenu] deepMakeMenuItemTitlesSmall4iTM3];
+    for (NSMenuItem * MI in self.itemArray)
+        if (MI.hasSubmenu)
+            [MI.submenu deepMakeMenuItemTitlesSmall4iTM3];
     self._MakeMennuItemsSmall4iTM3;
     return;
 }
@@ -425,9 +423,7 @@ To Do List: We should write a NSMenuItem category to implement the #{copy} metho
 The cell is not copied. Better should be done.
 "*/
 {DIAGNOSTIC4iTM3;
-    NSEnumerator * E = [self.itemArray objectEnumerator];
-    NSMenuItem * MI;
-    while(MI = E.nextObject)
+    for (NSMenuItem * MI in self.itemArray)
         if ([MI hasSubmenu])
             [[MI submenu] deepEnableItems4iTM3];
         else if (MI.action != NULL)
@@ -446,9 +442,7 @@ To Do List: We should write a NSMenuItem category to implement the #{copy} metho
 The cell is not copied. Better should be done.
 "*/
 {DIAGNOSTIC4iTM3;
-    NSEnumerator * E = [self.itemArray objectEnumerator];
-    NSMenuItem * MI;
-    while(MI = E.nextObject)
+    for (NSMenuItem * MI in self.itemArray)
         if ([MI hasSubmenu])
             [[MI submenu] Target4iTM3:aTarget];
         else if (MI.action != NULL)
@@ -463,9 +457,7 @@ Version history: jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-    NSEnumerator * E = [self.itemArray objectEnumerator];
-    NSMenuItem * MI;
-    while(MI = E.nextObject)
+    for (NSMenuItem * MI in self.itemArray)
         if ([MI hasSubmenu])
             [[MI submenu] AutoenablesItems4iTM3:aFlag];
     [self setAutoenablesItems:aFlag];
@@ -490,13 +482,11 @@ To Do List: retain?
         {
             NSString * dotHidden = [NSString stringWithContentsOfFile:
                 [aFullPath.stringByDeletingLastPathComponent stringByAppendingPathComponent:@".hidden"] usedEncoding:nil error:nil];
-            NSEnumerator * E = [[dotHidden componentsSeparatedByString:@"\n"] objectEnumerator];
-            id object;
-            while(object = E.nextObject)
-                if ([object isKindOfClass:[NSString class]] && [(NSString *)object length])
+            for (NSString * object in [dotHidden componentsSeparatedByString:@"\n"])
+                if ([object isKindOfClass:[NSString class]] && [object length])
                     [hiddenFiles addObjectsFromArray:[object componentsSeparatedByString:@"\r"]];
         }
-        while(key = enumerator.nextObject)
+        while((key = enumerator.nextObject))
         {
             NSFileWrapper * FW = [[[D objectForKey:key] retain] autorelease];
             NSString * menuItemTitle = [FW preferredFilename];
