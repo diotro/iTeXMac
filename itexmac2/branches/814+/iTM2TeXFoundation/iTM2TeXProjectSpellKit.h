@@ -32,7 +32,7 @@ extern NSString * const TWSSpellingFileKey;
 - (void)setProject:(id)project;
 
 /*!
-    @method		writeToDirectory:
+    @method		writeToDirectory:error:
     @abstract	Saves all the spelling modes to the given directory.
     @discussion	The expected argument is a basically TeX project file name.
                 The receiver looks for a subdirectory named "Spell", if it does not exist, creates one.
@@ -41,10 +41,10 @@ extern NSString * const TWSSpellingFileKey;
                 This "foo.spelling" file contains an XML property list complying to the specification of
                 the TeX Wrapper Structure version 1.
     @param		The argument is the full path to the directory where spelling contexts are to be saved.
-    @result		A flag indicating in an obvious manner the success or failure of the operation.
+v    @result		A flag indicating in an obvious manner the success or failure of the operation.
                 If the slightest problem is encountered, the result is NO. So don't be too exigent.
 */
-- (BOOL)writeToDirectory:(NSString *)directoryName;
+- (BOOL)writeToDirectory:(NSString *)directoryName error:(NSError **)RORef;
 
 /*!
     @method		readFromDirectory:

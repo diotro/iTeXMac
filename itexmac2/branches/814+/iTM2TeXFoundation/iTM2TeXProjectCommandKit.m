@@ -2027,7 +2027,7 @@ To Do List: to be improved...
 	{
 		iTM2TaskController * TC = [project taskController];
 #warning DEBUGGGGG: add a SUD default here, related to hidden and silent from the terminal window
-		[project takeContext4iTM3Value:commandName forKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
+		[project takeContext4iTM3Value:commandName forKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 		[project showTerminalInBackGroundIfNeeded:self];
 		DEBUGLOG4iTM3(100,@"/\\/\\/\\/\\  performing action name: %@ for project: %@", commandName, project.fileURL);
 		NSString * localizedCommand = [self localizedNameForName:commandName];

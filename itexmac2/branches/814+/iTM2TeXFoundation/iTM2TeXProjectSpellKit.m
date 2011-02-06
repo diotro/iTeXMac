@@ -181,16 +181,28 @@ To Do List:
     directoryName = [directoryName stringByAppendingPathComponent:TWSSpellComponent];
     NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithDictionary:self.spellContexts];
     BOOL result = YES;
-    for (NSString * file in [DFM contentsOfDirectoryAtPath:directoryName error:RORef]) {
-		NSString * extension = [file pathExtension];
+    for (NSString * fileName in [DFM contentsOfDirectoryAtPath:directoryName error:RORef]) {
+		NSString * extension = fileName.pathExtension;
         if ([extension pathIsEqual4iTM3:TWSSpellExtension]) {
             iTM3SpellContext * SC = [[[iTM3SpellContext alloc] init] autorelease];
-			NSString * path = [directoryName stringByAppendingPathComponent:file];
-			NSURL * url = [NSURL fileURLWithPath:path];
-			if ([SC readFromURL:url error:RORef]) {
-				file = file.stringByDeletingPathExtension;
-                [MD setObject:SC forKey:file];
-			} else {
+			NSString * path = [directoryName stringByAppendingPathComponent:fileName];
+			NSURL * fileURL = [NSURL fileURLWithPath:path];
+            NSData * D = [NSData dataWithContentsOfURL:fileURL options:ZER0 error:RORef];
+            if (D.length) {
+                NSString * errorString = nil;
+                id DM = [NSPropertyListSerialization propertyListFromData:D
+                    mutabilityOption: NSPropertyListImmutable
+                        format: nil errorDescription: &errorString];
+                if (errorString) {
+                    OUTERROR4iTM3(1,errorString,1);
+                }
+                if ([SC loadPropertyListRepresentation:DM]) {
+                    fileName = fileName.stringByDeletingPathExtension;
+                    [MD setObject:SC forKey:fileName];
+                } else {
+                    result = NO;
+                }
+            } else {
                 result = NO;
             }
         }
@@ -255,14 +267,14 @@ To Do List:
 	id O = [self metaInfo4iTM3ForKeyPaths:@"SpellContextModes",nil];
 //LOG4iTM3(@"SPELL KIT MODEL TO BE LOADED:%@", O);
 	if ([O isKindOfClass:[NSDictionary class]]) {
-		[[self spellContextController4iTM3Error:RORef] loadPropertyListRepresentation:O];
+		[[self spellContext4iTM3ControllerError:RORef] loadPropertyListRepresentation:O];
 		// actively updates the spell checker panel, including the language
 		// delay the message to let the receiver finish its setting
 		[SCH synchronizeWithCurrentText];
 	} else if (O) {
 		LOG4iTM3(@"WARNING:A dictionary was expected instead of %@", O);
 	} else {
-        return [[self spellContextController4iTM3Error:RORef] readFromURL:fileURL error:RORef];
+        return [[self spellContext4iTM3ControllerError:RORef] readFromURL:fileURL error:RORef];
     }
 //END4iTM3;
     return YES;
@@ -277,8 +289,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//LOG4iTM3(@"SPELL KIT MODEL TO BE SAVED:%@", [[self spellContextController4iTM3Error:RORef] propertyListRepresentation]);
-	[self setMetaInfo4iTM3:[[self spellContextController4iTM3Error:RORef] propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
+//LOG4iTM3(@"SPELL KIT MODEL TO BE SAVED:%@", [[self spellContext4iTM3ControllerError:RORef] propertyListRepresentation]);
+	[self setMetaInfo4iTM3:[[self spellContext4iTM3ControllerError:RORef] propertyListRepresentation] forKeyPaths:@"SpellContextModes",nil];
     return YES;
 }
 #endif
@@ -291,7 +303,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self spellContextController4iTM3Error:RORef] writeToURL:fileURL error:RORef];
+    return [[self spellContext4iTM3ControllerError:RORef] writeToURL:fileURL error:RORef];
 }
 @end
 #endif

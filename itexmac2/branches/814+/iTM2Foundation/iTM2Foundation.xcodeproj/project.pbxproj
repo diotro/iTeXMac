@@ -2735,6 +2735,7 @@
 				DCF61BC40854654B003F5F79 /* 3 - Style */,
 				DC8303ED086EA056004799EB /* 4 - Scripting */,
 				DC66983708E0B554004FCA6D /* 5 - Preferences */,
+				51FAD91F12FF1BA300A59CD2 /* GTM */,
 				DCF61C000854654B003F5F79 /* Core Resources */,
 				DCF61C350854654B003F5F79 /* iTM2Foundation-Info.plist */,
 				DCF61C360854654B003F5F79 /* iTM2Foundation-Prefix.pch */,
@@ -2797,6 +2798,14 @@
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
+		};
+		51FAD91F12FF1BA300A59CD2 /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = GTM;
+			path = ../GTM;
+			sourceTree = SOURCE_ROOT;
 		};
 		533EAE27108E087D001B3F81 /* 1 - A - Macros */ = {
 			isa = PBXGroup;

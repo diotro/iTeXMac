@@ -893,16 +893,17 @@ extern NSString * const iTM2ProjectURLKey;
 - (void)setHasProject4iTM3:(BOOL)yorn;
 
 /*! 
-    @method     context4iTM3ValueForKey:domain:
+    @method     context4iTM3ValueForKey:domain:error:
     @abstract   Abstract forthcoming.
-    @discussion See the -takeContext4iTM3Value:forKey: discussion below.
+    @discussion See the -takeContext4iTM3Value:forKey:error: discussion below.
     @param      key
+    @param      RORef
     @result     A project
 */
-- (id)context4iTM3ValueForKey:(NSString *)key domain:(NSUInteger)mask;
+- (id)context4iTM3ValueForKey:(NSString *)key domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*! 
-    @method     takeContext4iTM3Value:forKey:domain:
+    @method     takeContext4iTM3Value:forKey:domain:error:
     @abstract   Abstract forthcoming.
     @discussion This is the setter entry point for the context of documents owned by a project.
 				The project records the context of each document of it own.
@@ -938,9 +939,10 @@ extern NSString * const iTM2ProjectURLKey;
 				f - if the context value exists in the user defaults data base, it is returned
     @param      value is the new value
     @param      key is the context value key
+    @param      a reference to an error instance
     @result     yorn whether something has changed.
 */
-- (NSUInteger)takeContext4iTM3Value:(id)value forKey:(NSString *)key domain:(NSUInteger)mask;
+- (NSUInteger)takeContext4iTM3Value:(id)value forKey:(NSString *)key domain:(NSUInteger)mask error:(NSError **)RORef;
 
 /*!
 	@method			documentProjectCompleteSaveContext4iTM3Error:

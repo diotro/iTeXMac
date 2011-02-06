@@ -23,6 +23,10 @@
 
 #define ANCS [NSCharacterSet alphanumericCharacterSet]
 
+#ifdef __EMBEDDED_TEST_HEADER__
+#import <iTM2TeXFoundation/iTM2TeXStringKit.h>
+#endif
+
 #ifdef __EMBEDDED_TEST_SETUP__
     if (iTM2DebugEnabled<10000) {
         iTM2DebugEnabled = 10000;
@@ -83,6 +87,7 @@ right:
     iTM2StringController * SC = iTM2StringController.defaultController;
     NSRange R = [SC rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:AS atIndex:0];
     STAssertTrue(NSEqualRanges(R,iTM3MakeRange(0,1)),@"MISSED",NULL);
+    STAssertReachCode4iTM3(YES);
 #   endif
 	return R;
 }

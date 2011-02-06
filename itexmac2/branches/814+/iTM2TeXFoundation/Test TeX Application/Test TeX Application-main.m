@@ -15,17 +15,41 @@ NSLog(@"START now:%@",[NSDate date]);
     return NSApplicationMain(argc, (const char **) argv);
 }
 
-#import "iTM2TeXStringKit.h"
 #import "../../build/EmbeddedTestCases/iTM2TeXFoundationTestCases.m"
 
 @interface SenTestCase(MORE)
 @end
+
 static id text = nil;
+
 @implementation iTM2Application(Test)
 
 - (void)prepare000000000StringControllerCompleteDidFinishLaunching4iTM3;
 {
     invoke_iTM2TeXFoundation_testCases();
+}
+- (BOOL)canEditText;
+{
+	return YES;
+}
+- (NSAttributedString *) text;
+{
+	if (!text)
+	{
+		text = [[NSMutableAttributedString alloc] initWithString:@"Binding test: this text view MUST be editable"];
+	}
+	return text;
+}
+- (void)setText:(NSAttributedString *) newText;
+{
+	if (!text)
+	{
+		text = [[NSMutableAttributedString alloc] initWithString:@"Binding test: this text view MUST be editable"];
+	}
+	[text beginEditing];
+	[text setString:(newText?[newText string]:@"")];
+	[text endEditing];
+	return;
 }
 
 @end

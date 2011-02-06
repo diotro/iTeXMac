@@ -956,7 +956,7 @@ To Do List:
 	NSUInteger row = [selectedRowIndexes firstIndex];
 	NSUInteger top = fileKeys.count;
 	BOOL changed = NO;
-	while(row < top)
+	while (row < top)
 	{
 		NSString * fileKey = [fileKeys objectAtIndex:row];
 		NSString * stringEncodingName = [project propertyValueForKey:TWSStringEncodingFileKey fileKey:fileKey contextDomain:iTM2ContextStandardLocalMask];
@@ -973,7 +973,7 @@ To Do List:
 				stringEncodingName = [iTM2StringFormatController nameOfCoreFoundationStringEncoding:new];
 				if(D)
 				{
-					[D takeContextValue4iTM3:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+					[D takeContext4iTM3Value:stringEncodingName forKey:TWSStringEncodingFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 				}
 				else
 				{
@@ -1024,8 +1024,8 @@ To Do List:
 			}
 			else if(D)
 			{
-				[D takeContext4iTM3Value:nil forKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask];
-				[D takeContext4iTM3Value:nil forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+				[D takeContext4iTM3Value:nil forKey:TWSStringEncodingFileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
+				[D takeContext4iTM3Value:nil forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 			}
 			else
 			{
@@ -1073,7 +1073,7 @@ To Do List:
 			Class C = [SDC documentClassForType:type];
 			if([C isSubclassOfClass:[iTM2TextDocument class]]) {
 				if((D = [project subdocumentForFileKey:fileKey])) {
-					[D takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask];
+					[D takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 				} else {
 					[project takeContext4iTM3Value:isAuto forKey:iTM2StringEncodingIsAutoKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 				}
@@ -1506,7 +1506,7 @@ To Do List:
 			}
 			else if(D)
 			{
-				[D takeContextValue4iTM3:new forKey:TWSEOLFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask];
+				[D takeContext4iTM3Value:new forKey:TWSEOLFileKey fileKey:fileKey domain:iTM2ContextStandardLocalMask ROR4iTM3];
 			}
 			else
 			{

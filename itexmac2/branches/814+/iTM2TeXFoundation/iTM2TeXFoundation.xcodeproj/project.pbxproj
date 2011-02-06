@@ -94,6 +94,7 @@
 		51999E360D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51999E340D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib */; };
 		51F00C5E12E64243002A4013 /* iTM3SenTestKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */; };
 		51F00CB112E64761002A4013 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F00CB012E64761002A4013 /* SenTestingKit.framework */; };
+		51FAD7C912FEF4CA00A59CD2 /* iTeXMac2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51FAD7C712FEF4CA00A59CD2 /* iTeXMac2.xib */; };
 		53E563E5106B9A020077B6FD /* synctex_parser_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */; };
 		53F77DD8106B8538005D94C0 /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCB106B84FB005D94C0 /* synctex_parser.c */; };
 		53F77DD9106B8538005D94C0 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 53F77DCC106B84FB005D94C0 /* synctex_parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -111,7 +112,6 @@
 		DC1C6C66090D9961000F4FDE /* iTM2TeXFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC8A6156088D79FC0016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC225F710AE53C1A00186582 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC225F630AE53C1A00186582 /* Credits.rtf */; };
 		DC225F720AE53C1A00186582 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC225F650AE53C1A00186582 /* InfoPlist.strings */; };
-		DC225F730AE53C1A00186582 /* iTeXMac2.nib in Resources */ = {isa = PBXBuildFile; fileRef = DC225F670AE53C1A00186582 /* iTeXMac2.nib */; };
 		DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */; };
 		DC24D2B70952C5DB00647943 /* iTeXMac2 Server in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */; };
 		DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */; };
@@ -236,7 +236,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 51F00C1612E63B98002A4013 /* Prepare embedded Tests */;
+			remoteGlobalIDString = 51F00C1612E63B98002A4013;
 			remoteInfo = "Prepare embedded Tests";
 		};
 		DC1C6C6C090D9AA5000F4FDE /* PBXContainerItemProxy */ = {
@@ -382,6 +382,7 @@
 		51F00C5C12E64243002A4013 /* iTM3SenTestKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTM3SenTestKit.h; path = "../iTM2Foundation/Unit Tests/iTM3SenTestKit.h"; sourceTree = SOURCE_ROOT; };
 		51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM3SenTestKit.m; path = "../iTM2Foundation/Unit Tests/iTM3SenTestKit.m"; sourceTree = SOURCE_ROOT; };
 		51F00CB012E64761002A4013 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		51FAD7C812FEF4CA00A59CD2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTeXMac2.xib; sourceTree = "<group>"; };
 		53F77DB2106B84FB005D94C0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		53F77DCB106B84FB005D94C0 /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser.c; sourceTree = "<group>"; };
 		53F77DCC106B84FB005D94C0 /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser.h; sourceTree = "<group>"; };
@@ -399,7 +400,6 @@
 		DC1C6B32090D983F000F4FDE /* Test TeX Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test TeX Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC225F640AE53C1A00186582 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		DC225F660AE53C1A00186582 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DC225F680AE53C1A00186582 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/iTeXMac2.nib; sourceTree = "<group>"; };
 		DC225F690AE53C1A00186582 /* Test TeX Application-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test TeX Application-Info.plist"; sourceTree = "<group>"; };
 		DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test TeX Application-main.m"; sourceTree = "<group>"; };
 		DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test TeX Application-Prefix.pch"; sourceTree = "<group>"; };
@@ -668,9 +668,9 @@
 		DC225F620AE53C1A00186582 /* Test TeX Application */ = {
 			isa = PBXGroup;
 			children = (
+				51FAD7C712FEF4CA00A59CD2 /* iTeXMac2.xib */,
 				DC225F630AE53C1A00186582 /* Credits.rtf */,
 				DC225F650AE53C1A00186582 /* InfoPlist.strings */,
-				DC225F670AE53C1A00186582 /* iTeXMac2.nib */,
 				DC225F690AE53C1A00186582 /* Test TeX Application-Info.plist */,
 				DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */,
 				DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */,
@@ -1139,7 +1139,7 @@
 				DC90D2830997E66200C79525 /* iTM2ScriptMisc.png in Resources */,
 				DC225F710AE53C1A00186582 /* Credits.rtf in Resources */,
 				DC225F720AE53C1A00186582 /* InfoPlist.strings in Resources */,
-				DC225F730AE53C1A00186582 /* iTeXMac2.nib in Resources */,
+				51FAD7C912FEF4CA00A59CD2 /* iTeXMac2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1624,6 +1624,14 @@
 			name = iTM2XtdTeXParserSymbolsInspector.xib;
 			sourceTree = "<group>";
 		};
+		51FAD7C712FEF4CA00A59CD2 /* iTeXMac2.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				51FAD7C812FEF4CA00A59CD2 /* English */,
+			);
+			name = iTeXMac2.xib;
+			sourceTree = "<group>";
+		};
 		DC225F630AE53C1A00186582 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1638,14 +1646,6 @@
 				DC225F660AE53C1A00186582 /* English */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DC225F670AE53C1A00186582 /* iTeXMac2.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DC225F680AE53C1A00186582 /* English */,
-			);
-			name = iTeXMac2.nib;
 			sourceTree = "<group>";
 		};
 		DCAF99D609D8107600AFD95F /* BaseProjects.resources.tgz */ = {

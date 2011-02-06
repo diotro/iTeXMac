@@ -170,9 +170,9 @@ To Do List:
 @end
 
 @implementation NSWindow(iTM2SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
-- (id)spellContextController4iTM3Error:(NSError **)RORef;
-/*"Asks a delegate for a non empty #{spellContextController4iTM3Error:}.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext4iTM3ControllerError:
+- (id)spellContext4iTM3ControllerError:(NSError **)RORef;
+/*"Asks a delegate for a non empty #{spellContext4iTM3ControllerError:}.
 The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-12-27 17:09:47 +0100
@@ -180,13 +180,13 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.windowController spellContextController4iTM3Error:RORef];
+    return [self.windowController spellContext4iTM3ControllerError:RORef];
 }
 @end
 
 @implementation NSWindowController(iTM2SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
-- (id)spellContextController4iTM3Error:(NSError **)RORef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext4iTM3ControllerError:
+- (id)spellContext4iTM3ControllerError:(NSError **)RORef;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 Révisé par itexmac2: 2010-12-27 17:10:42 +0100
@@ -196,16 +196,16 @@ To Do List:
 //START4iTM3;
     id D = self.document;
     if (D)
-        return [D spellContextController4iTM3Error:RORef];
+        return [D spellContext4iTM3ControllerError:RORef];
     if ((D = self.owner) && (D!=self))
-        return [D spellContextController4iTM3Error:RORef];
-    return [super spellContextController4iTM3Error:RORef];
+        return [D spellContext4iTM3ControllerError:RORef];
+    return [super spellContext4iTM3ControllerError:RORef];
 }
 @end
 
 @implementation NSObject(iTM2SpellKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
-- (id)spellContextController4iTM3Error:(NSError **)RORef;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext4iTM3ControllerError:
+- (id)spellContext4iTM3ControllerError:(NSError **)RORef;
 /*"Asks the document or the owner.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -872,7 +872,7 @@ To Do List:
 //START4iTM3;
 	if (currentText) {
 		iVarCurrentText = currentText;
-		iTM2SpellContextController * currentController = [currentText spellContextController4iTM3Error:self.RORef4iTM3];
+		iTM2SpellContextController * currentController = [currentText spellContext4iTM3ControllerError:self.RORef4iTM3];
 		NSString * currentMode = [currentController spellContextModeForText:currentText];
 		iTM3SpellContext * currentContext = [currentController spellContextForMode:currentMode];
 		self.ignoredWords = ([[SSC ignoredWordsInSpellDocumentWithTag:currentContext.tag] mutableCopy]?
@@ -1978,7 +1978,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if ([sender isKindOfClass:[NSPopUpButton class]]) {
-        iTM2SpellContextController * currentController = [self.currentText spellContextController4iTM3Error:self.RORef4iTM3];
+        iTM2SpellContextController * currentController = [self.currentText spellContext4iTM3ControllerError:self.RORef4iTM3];
         // updating the popup:
         [sender removeAllItems];
         NSString * title = NSLocalizedStringFromTableInBundle(TWSSpellDefaultContextMode, TABLE,
@@ -2133,7 +2133,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [[self.currentText spellContextController4iTM3Error:self.RORef4iTM3] removeSpellMode:[sender representedObject]];
+    [[self.currentText spellContext4iTM3ControllerError:self.RORef4iTM3] removeSpellMode:[sender representedObject]];
     [self setEditing:NO];
     self.validateWindowContent4iTM3;
     return;
@@ -2205,7 +2205,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    iTM2SpellContextController * currentController = [self.currentText spellContextController4iTM3Error:self.RORef4iTM3];
+    iTM2SpellContextController * currentController = [self.currentText spellContext4iTM3ControllerError:self.RORef4iTM3];
     NSString * newMode = [sender stringValue];
     if ([[[currentController spellContextModesEnumerator] allObjects] containsObject:newMode])
     {
@@ -2361,9 +2361,9 @@ To Do List:
         return NO;
     }
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextController4iTM3Error:
-- (id)spellContextController4iTM3Error:(NSError **)RORef;
-/*"Asks a delegate for a non empty #{spellContextController4iTM3Error:RORef}.
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext4iTM3ControllerError:
+- (id)spellContext4iTM3ControllerError:(NSError **)RORef;
+/*"Asks a delegate for a non empty #{spellContext4iTM3ControllerError:RORef}.
 The delegate is the first one that gives a sensitive answer among the receiver's delegate, its window's delegate, the document of its window's controller, the owner of its window's controller. In that specific order.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -2371,7 +2371,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.window spellContextController4iTM3Error:RORef];
+    return [self.window spellContext4iTM3ControllerError:RORef];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContextMode
 - (NSString *)spellContextMode;
@@ -2383,7 +2383,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellContextModeForText:self];
+    return [[self spellContext4iTM3ControllerError:self.RORef4iTM3] spellContextModeForText:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyName
 - (NSString *)spellPrettyName;
@@ -2395,7 +2395,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellPrettyNameForText:self];
+    return [[self spellContext4iTM3ControllerError:self.RORef4iTM3] spellPrettyNameForText:self];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellPrettyProjectName
 - (NSString *)spellPrettyProjectName;
@@ -2406,7 +2406,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellPrettyProjectNameForText:self ROR4iTM3];
+    return [[self spellContext4iTM3ControllerError:self.RORef4iTM3] spellPrettyProjectNameForText:self ROR4iTM3];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  spellContext4iTM3
 - (iTM3SpellContext *)spellContext4iTM3;
@@ -2418,7 +2418,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [[self spellContextController4iTM3Error:self.RORef4iTM3] spellContextForMode:self.spellContextMode];
+    return [[self spellContext4iTM3ControllerError:self.RORef4iTM3] spellContextForMode:self.spellContextMode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  setSpellContextMode:
 - (void)setSpellContextMode:(NSString *)mode;
@@ -2429,7 +2429,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [[self spellContextController4iTM3Error:self.RORef4iTM3] setSpellContextMode:mode forText:self];
+    [[self spellContext4iTM3ControllerError:self.RORef4iTM3] setSpellContextMode:mode forText:self];
 //END4iTM3;
     return;
 }

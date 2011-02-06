@@ -12,7 +12,7 @@ function find_and_replace {
 }
 
 
-find_and_replace  'iTM2SpellContext4iTM3' 's/iTM2SpellContext4iTM3/iTM3SpellContext/g'
+find_and_replace  'ContextController4iTM3' 's/ContextController4iTM3/Context4iTM3Controller/g'
 
 exit 0
 
@@ -23,6 +23,7 @@ exit 0
 - (NSUInteger)contextStateForKey:(NSString *)aKey
 
 
+find_and_replace  'iTM2SpellContext4iTM3' 's/iTM2SpellContext4iTM3/iTM3SpellContext/g'
 find_and_replace  '__iTM2_DEVELOPMENT__' 's/__iTM2_DEVELOPMENT__/__iTM3_DEVELOPMENT__/g'
 find_and_replace  'isNotConsistent' 's/\[(\w+) (isNotConsistent)\]/\1.\2/g'
 find_and_replace  'errorRef' 's/\berrorRef\b/RORef/g'

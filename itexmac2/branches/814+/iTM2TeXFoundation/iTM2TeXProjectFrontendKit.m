@@ -27,7 +27,7 @@
 #import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
 #import <iTM2Foundation/iTM2Foundation.h>
 #import <Carbon/Carbon.h>
-//#import <objc/objc-runtime.h>
+#import <objc/runtime.h>
 
 NSString * const iTM2TeXProjectFrontendTable = @"Frontend";
 

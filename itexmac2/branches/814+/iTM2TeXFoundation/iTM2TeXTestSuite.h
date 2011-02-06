@@ -8,7 +8,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface iTM2TeXTestSuite : SenTestCase {
+@interface iTM2TeXTestSuite : GTMSenTestCase {
 
 }
 
