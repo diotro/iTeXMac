@@ -56,20 +56,93 @@
 
 // iTM2TextSyntaxParser
 
+NSArray * gLetters = nil;
+
+@interface Node : NSObject
+{
+    NSUInteger index;
+    NSMutableArray * children;
+    __weak Node * parent;
+    BOOL isComplete;
+}
+@property NSUInteger index;
+@property BOOL isComplete;
+@property (readonly) NSString * key;
+@property (readonly) NSArray * children;
+@property (assign) __weak Node * parent;
+- (Node *)firstUnCompleteChild;
+- (Node *)childAtIndex:(NSUInteger)index;
+@end
+
 @implementation iTM2Test3B
 - (void) setUp
 {
     // Create data structures here.
     iTM2DebugEnabled = 20000;
-    EOLs = [NSArray arrayWithObjects:@"\n",@"\r",@"\r\n",@"\f",
-        [NSString stringWithFormat:@"%C",0x0085],
-        [NSString stringWithFormat:@"%C",0x2028],
-        [NSString stringWithFormat:@"%C",0x2029],
-            nil];
+    EOLs = [NSArray arrayWithObjects:@"\n",@"\r",@"\r\n",@"\f",@"\xC2\x85",@"\u2028",@"\u2029",nil];
+    testStrings = [NSMutableArray array];
+    [testStrings addObject:[NSMutableArray array]];
+    gLetters = [NSArray arrayWithObjects:@".",@".",@".",@"\r",@"\n",@"\xC2\x85",nil];
+    Node * root = [Node new];
+    NSPointerArray * PRA = [NSPointerArray pointerArrayWithWeakObjects];
+    NSUInteger count = patternLength = 6;
+    while(YES) {
+        Node * N = root;
+        Node * child = nil;
+        NSUInteger i = 0;
+        for (i=0; i<PRA.count; ++i) {
+            NSUInteger n = (NSUInteger)[PRA pointerAtIndex:i];
+            if ((child = [N childAtIndex:n])) {
+                N = child;
+            } else {
+                [PRA removePointerAtIndex:0];
+                if (PRA.count) break;
+                // we have found everything : terminate here
+terminate:
+                while ([testStrings.lastObject count]<gLetters.count) {
+                    [testStrings.lastObject addObject:gLetters.lastObject];
+                }
+                [testStrings addObject:[testStrings.lastObject componentsJoinedByString:@""]];
+                [testStrings removeObjectAtIndex:testStrings.count-2];
+                if([testStrings.lastObject length]!=0) {
+                    [testStrings addObject:@""];
+                }
+                return;
+            }
+        }
+        if ((child = N.firstUnCompleteChild)) {
+            [PRA addPointer:(void*)child.index];
+            [testStrings.lastObject addObject:child.key];
+            if (!(--count)) {
+                count = patternLength;
+                [testStrings addObject:[testStrings.lastObject componentsJoinedByString:@""]];
+                [testStrings removeObjectAtIndex:testStrings.count-2];
+                [testStrings addObject:[NSMutableArray array]];
+            }
+            N = child;
+            for (++i;i<patternLength;++i) {
+                child = N.firstUnCompleteChild;
+                [PRA addPointer:(void*)child.index];
+                [testStrings.lastObject addObject:child.key];
+                 if (!(--count)) {
+                    count = patternLength;
+                    [testStrings addObject:[testStrings.lastObject componentsJoinedByString:@""]];
+                    [testStrings removeObjectAtIndex:testStrings.count-2];
+                    [testStrings addObject:[NSMutableArray array]];
+                }
+               N = child;
+            }
+            N.isComplete = YES;
+        }
+        [PRA removePointerAtIndex:0];
+        if (PRA.count) continue;
+        goto terminate;
+    }
 }
 - (void) tearDown
 {
     // Release data structures here.
+    testStrings = nil;
 }
 - (void) testCase_init0
 {
@@ -1151,6 +1224,122 @@
 #   undef PREPARE_TEST_K
 #   undef TEST_K
 }
+- (void)testCase_systematic_delete_1_charater;
+{
+    NSUInteger i,j;
+    NSRange RR = iTM3MakeRange(0,2);
+    NSString * S = [[testStrings subarrayWithRange:RR] componentsJoinedByString:@""];
+    iTM2TextStorage * TS = [[iTM2TextStorage alloc] initWithString:S];
+    NSRange r = iTM3MakeRange(4,1);
+    NSString * ss = [S substringWithRange:r];
+    [TS replaceCharactersInRange:r withString:@""];
+    r.length = 0;
+    [TS replaceCharactersInRange:r withString:ss];
+    for (j = 1;j<patternLength;++j) {
+        r.location = 0;
+        //  NSLog(@"Almost exhausted testings %lu",r.length);
+        for (i=0;i+r.length<=patternLength;++i) {
+            r.length = j;
+            ss = [TS.string substringWithRange:r];
+            [TS replaceCharactersInRange:r withString:@""];
+            r.length = 0;
+            [TS replaceCharactersInRange:r withString:ss];
+            ++r.location;
+        }
+    }
+    RR.length = 3;
+    while (RR.location + RR.length <= testStrings.count) {
+        S = [[testStrings subarrayWithRange:RR] componentsJoinedByString:@""];
+        TS = [[iTM2TextStorage alloc] initWithString:S];
+        NSLog(@"Almost exhausted testings %@",NSStringFromRange(RR));
+        for (j = 1;j<patternLength;++j) {
+            r.location = patternLength;
+            for (i=0;i+j<=patternLength;++i) {
+                r.length = j;
+                ss = [TS.string substringWithRange:r];
+                [TS replaceCharactersInRange:r withString:@""];
+                r.length = 0;
+                [TS replaceCharactersInRange:r withString:ss];
+                ++r.location;
+            }
+        }
+        ++RR.location;
+    }
+}
 
 @end
+
+@implementation Node
+
+- (NSString*) key;
+{
+    return [gLetters objectAtIndex:self.index];
+}
+- (Node *)firstUnCompleteChild;
+{
+    if (self.isComplete) {
+        children = nil;
+        return nil;
+    }
+    Node * N = nil;
+    if (!self.children) {
+        children = [NSMutableArray array];
+        NSUInteger i;
+        for (i=0;i<gLetters.count;++i) {
+            N = [Node new];
+            N.index = i;
+            N.parent = self;
+            [children addObject:N];
+        }
+        return self.children.lastObject;
+    }
+    for (N in self.children) {
+        if (!N.isComplete) {
+            return N;
+        }
+    }
+    self.isComplete = YES;
+    children = nil;
+    return nil;
+}
+- (Node *)childAtIndex:(NSUInteger)anIndex;
+{
+    if (self.isComplete) {
+        return nil;
+    }
+    if (!self.children) {
+        children = [NSMutableArray array];
+        NSUInteger i;
+        for (i=0;i<gLetters.count;++i) {
+            Node * N = [Node new];
+            N.index = i;
+            N.parent = self;
+            [children addObject:N];
+        }
+    }
+    if (anIndex < self.children.count) {
+        return [self.children objectAtIndex:anIndex];
+    }
+    return nil;
+}
+- (void) setIsComplete:(BOOL)yorn;
+{
+    isComplete = yorn;
+    if (yorn) {
+        if (self.parent) {
+            for (Node * N in self.parent.children) {
+                if (!N.isComplete) {
+                    return;
+                }
+            }
+            self.parent.isComplete = YES;
+        }
+    }
+}
+@synthesize index;
+@synthesize isComplete;
+@synthesize parent;
+@synthesize children;
+@end
+
 

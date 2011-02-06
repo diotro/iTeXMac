@@ -10,7 +10,8 @@
 
 @interface iTM2Test3B : SenTestCase {
 NSArray * EOLs;
-	
+NSMutableArray * testStrings;
+NSUInteger patternLength;
 }
 
 @end

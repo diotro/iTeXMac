@@ -1148,8 +1148,7 @@ To Do List:
 	[result appendFormat:@"<NSMethodSignature %x",self];
 	NSUInteger numberOfArguments = self.numberOfArguments;
 	[result appendFormat:@"\n numberOfArguments %u",numberOfArguments];
-	while(numberOfArguments>0)
-	{
+	while (numberOfArguments>0) {
 		[result appendFormat:@"\n getArgumentTypeAtIndex %u->%s",numberOfArguments,[self getArgumentTypeAtIndex:--numberOfArguments]];
 	}
 	[result appendFormat:@"\n frameLength %u",self.frameLength];

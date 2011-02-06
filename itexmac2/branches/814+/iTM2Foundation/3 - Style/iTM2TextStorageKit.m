@@ -1766,32 +1766,31 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-//NSLog(@"range: %@", NSStringFromRange(range));
-//NSLog(@"Now self.badModeIndex = %u", self.badModeIndex);
     // Trivial cases.
-    if ((range.location >= [(NSTextStorage *)_TextStorage length]) || (!range.length))
+    if ((range.location >= [(NSTextStorage *)_TextStorage length]) || (!range.length)) {
         return;
+    }
     // I don't know if the range is valid.
     range.length = MIN(range.length, [(NSTextStorage *)_TextStorage length]-range.location);
     NSUInteger last  = [self lineIndexForLocation4iTM3:range.location+range.length-1];
     // last: offset <= range.location range.length-1 < offset+end
     // It means that all the character indices in range are spread over the lines between first and last,
     // both included.
-    if (last < self.badModeIndex)
+    if (last < self.badModeIndex) {
     // all the line indices strictly before self.badOff7Index are all valid: no need to make further computation
         return;
+    }
 //START4iTM3;
     NSUInteger first = MIN([self lineIndexForLocation4iTM3:range.location], self.badModeIndex);
     // first: offset <= range.location < offset+end
 	// what is the previous mode?
     NSUInteger mode = first? [[self modeLineAtIndex:first-1] EOLMode]:[[self modeLineAtIndex:first] previousMode];
 //NSLog(@"BIG CALCULUS (first is: %u, last is: %u and self.badModeIndex is: %u, mode is: %u)", first, last, self.badModeIndex, mode);
-	if (!self.isConsistent)
-    {
+	if (!self.isConsistent) {
         LOG4iTM3(@"=====  |=:( Comment il a pu me foutre un bordel pareil........");
     }
-    if (mode && (mode != kiTM2TextUnknownSyntaxMode))// no error is reported from the previous line
-    {
+    if (mode && (mode != kiTM2TextUnknownSyntaxMode)) {
+        // no error is reported from the previous line
 ValidateNextModeLine:;
         iTM2ModeLine * modeLine = [self modeLineAtIndex:first];
 #       ifdef __ELEPHANT_MODELINE__
@@ -1800,12 +1799,10 @@ ValidateNextModeLine:;
 		_iTM2InternalAssert([modeLine.originalString isEqualToString:[[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]], ([NSString stringWithFormat:@"original is\n<%@> != expected string is:\n<%@>", modeLine.originalString, [[self.textStorage string] substringWithRange:iTM3MakeRange(start, end-start)]]));
 #       endif
         mode = [self validEOLModeOfModeLine:modeLine forPreviousMode:mode];
-		if (mode && ((mode & ~kiTM2TextFlagsSyntaxMask) != kiTM2TextUnknownSyntaxMode))
-		{
+		if (mode && ((mode & ~kiTM2TextFlagsSyntaxMask) != kiTM2TextUnknownSyntaxMode)) {
 			[self validateModesUpToIndex:first];
 			NSUInteger firewall = 543;
-			if (++first<last && firewall--)
-			{
+			if (++first<last && firewall--) {
 				goto ValidateNextModeLine;
 			}
 		}
@@ -2528,6 +2525,7 @@ diagnostic_and_return:
             ML.EOLLength = 1;
             ml.startOff7 = ML.endOff7;
 #           ifdef __ELEPHANT_MODELINE__
+            S = [self.textStorage string];
             ML.originalString = [S substringWithRange:ML.completeRange];
             ml.originalString = [S substringWithRange:ml.completeRange];
 #           endif
@@ -2698,6 +2696,7 @@ To Do List:
         //  what is at aGlobalLocation and after will go to the next line
         if ((ml = [ML modeLineBySplittingFromGlobalLocation:aGlobalLocation error:RORef])) {
             [ml invalidateLocalRange:iTM3MakeRange(ZER0,1)];
+            [ML deleteModesInGlobalMakeRange:aGlobalLocation:ML.endOff7-aGlobalLocation error:RORef];
             //  Now set up the EOL for ML
             ML.EOLLength = 1;
             ML.EOLMode = kiTM2TextUnknownSyntaxMode;
@@ -2705,8 +2704,8 @@ To Do List:
             ml.startOff7 = ML.endOff7;
 #           ifdef __ELEPHANT_MODELINE__
             NSString * S = [self.textStorage string];
-            ML.originalString = [ML.originalString stringByAppendingString:[S substringWithRange:ML.EOLRange]];
-            ml.originalString = [ml.originalString substringFromIndex:aGlobalLocation-ml.startOff7+ML.EOLLength];
+            ml.originalString = [ML.originalString substringFromIndex:aGlobalLocation-ML.startOff7];
+            ML.originalString = [[ML.originalString substringToIndex:aGlobalLocation-ML.startOff7] stringByAppendingString:[S substringWithRange:ML.EOLRange]];
 #           endif
             [ML getSyntaxMode:NULL atGlobalLocation:aGlobalLocation longestRange:&R];
             //  to fix the edited range:
@@ -4505,6 +4504,7 @@ diagnostic_and_return:
         OUTERROR4iTM3(8,@"Could not delete characters.",NULL);
         return NO;
     }
+    [self invalidateOff7sFromIndex:oldFirstIndex+1];
     if (oldFirstML.startOff7 < aGlobalLocation) {
         //  ASSUME: oldFirstML.startOff7 < aGlobalLocation < aGlobalLocation+count < oldFirstML.endOff7
 #       ifdef __ELEPHANT_MODELINE__
@@ -4971,6 +4971,22 @@ To Do List:
         LOG4iTM3(@"**** self.length(%lu) != self.contentsLength(%lu)+self.EOLLength(%lu)", self.length, self.contentsLength, self.EOLLength);
         goto bail;
     }
+#   ifdef __ELEPHANT_MODELINE__
+    if (!self.originalString) {
+        LOG4iTM3(@"**** MISSING original string in elephant mode");
+        goto bail;
+    }
+    if (iTM2DebugEnabled > 30000) {
+        NSUInteger contentsEnd, end;
+        [self.originalString getLineStart:NULL end:&end contentsEnd:&contentsEnd forRange:iTM3Zer0Range];
+        if (self.length != end) {
+            LOG4iTM3(@"**** self.length(%lu) != end(%lu)", self.length, end);
+        }
+        if (self.contentsLength != contentsEnd) {
+            LOG4iTM3(@"**** self.contentsLength(%lu) != contentsEnd(%lu)", self.contentsLength, contentsEnd);
+        }
+    }
+#   endif
     if (_NumberOfSyntaxWords) {
         if (!__SyntaxWordOff7s) {
             LOG4iTM3(@"**** NO __SyntaxWordOff7s!!!!!");
@@ -5010,7 +5026,7 @@ To Do List:
         }
     }
     return YES;
-    bail:
+bail:
     self.describe;
     return NO;
 }

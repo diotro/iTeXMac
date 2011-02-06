@@ -698,13 +698,14 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithObject:iTM2SpellModesIsaValue forKey:TWSSpellIsaKey];
 	NSMutableDictionary * md = [NSMutableDictionary dictionary];
-	NSEnumerator * E = [self.spellContexts keyEnumerator];
-	id mode;
-	while((mode = E.nextObject))
+	for (NSString * mode in [self.spellContexts allKeys]) {
 		[md setObject:[[self spellContextForMode:mode] propertyListRepresentation] forKey:mode];
-    [MD setObject:md forKey:iTM2SpellModesKey];
+    }
+	NSMutableDictionary * MD = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        iTM2SpellModesIsaValue,TWSSpellIsaKey,
+        md,iTM2SpellModesKey,
+            nil];
 //END4iTM3;
     return MD;
 }
