@@ -601,14 +601,15 @@
 		0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				51F00CB012E64761002A4013 /* SenTestingKit.framework */,
 				51133FFF1135D60700C6FB19 /* replacements.command */,
 				DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */,
-				DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */,
+				51FAD9381302909D00A59CD2 /* GTM */,
+				51FAD93B130290B900A59CD2 /* Unit Tests */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				DC225F620AE53C1A00186582 /* Test TeX Application */,
 				DC3B41740A4ADC7300E83ABA /* Settings */,
+				DC0085FF0A6558D6009236E8 /* Prepare iTM2Foundation-Info.plist */,
 				DC4E16D60CCD04FF00F5CE3E /* Test Suite-Info.plist */,
 			);
 			name = iTM2TeXFoundation;
@@ -645,8 +646,24 @@
 				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
 				D2F7E79907B2D74100F64583 /* CoreData.framework */,
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+				51F00CB012E64761002A4013 /* SenTestingKit.framework */,
 			);
 			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		51FAD9381302909D00A59CD2 /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = GTM;
+			path = ../GTM;
+			sourceTree = SOURCE_ROOT;
+		};
+		51FAD93B130290B900A59CD2 /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Unit Tests";
 			sourceTree = "<group>";
 		};
 		53F77DAA106B84FB005D94C0 /* synctexdir */ = {
