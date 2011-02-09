@@ -95,6 +95,8 @@
 		51F00C5E12E64243002A4013 /* iTM3SenTestKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */; };
 		51F00CB112E64761002A4013 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F00CB012E64761002A4013 /* SenTestingKit.framework */; };
 		51FAD7C912FEF4CA00A59CD2 /* iTeXMac2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51FAD7C712FEF4CA00A59CD2 /* iTeXMac2.xib */; };
+		51FAD95D1302933F00A59CD2 /* GTMAppKitUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD95A1302933F00A59CD2 /* GTMAppKitUnitTestingUtilities.m */; };
+		51FAD95E1302933F00A59CD2 /* GTMFoundationUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD95C1302933F00A59CD2 /* GTMFoundationUnitTestingUtilities.m */; };
 		53E563E5106B9A020077B6FD /* synctex_parser_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */; };
 		53F77DD8106B8538005D94C0 /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCB106B84FB005D94C0 /* synctex_parser.c */; };
 		53F77DD9106B8538005D94C0 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 53F77DCC106B84FB005D94C0 /* synctex_parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -383,6 +385,12 @@
 		51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM3SenTestKit.m; path = "../iTM2Foundation/Unit Tests/iTM3SenTestKit.m"; sourceTree = SOURCE_ROOT; };
 		51F00CB012E64761002A4013 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		51FAD7C812FEF4CA00A59CD2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTeXMac2.xib; sourceTree = "<group>"; };
+		51FAD9441302917500A59CD2 /* GTMUnitTestingTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMUnitTestingTest.h; sourceTree = "<group>"; };
+		51FAD9451302917500A59CD2 /* GTMUnitTestingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMUnitTestingTest.m; sourceTree = "<group>"; };
+		51FAD9591302933F00A59CD2 /* GTMAppKitUnitTestingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMAppKitUnitTestingUtilities.h; path = "../../google-toolbox-for-mac/UnitTesting/GTMAppKitUnitTestingUtilities.h"; sourceTree = SOURCE_ROOT; };
+		51FAD95A1302933F00A59CD2 /* GTMAppKitUnitTestingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMAppKitUnitTestingUtilities.m; path = "../../google-toolbox-for-mac/UnitTesting/GTMAppKitUnitTestingUtilities.m"; sourceTree = SOURCE_ROOT; };
+		51FAD95B1302933F00A59CD2 /* GTMFoundationUnitTestingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMFoundationUnitTestingUtilities.h; path = "../../google-toolbox-for-mac/UnitTesting/GTMFoundationUnitTestingUtilities.h"; sourceTree = SOURCE_ROOT; };
+		51FAD95C1302933F00A59CD2 /* GTMFoundationUnitTestingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMFoundationUnitTestingUtilities.m; path = "../../google-toolbox-for-mac/UnitTesting/GTMFoundationUnitTestingUtilities.m"; sourceTree = SOURCE_ROOT; };
 		53F77DB2106B84FB005D94C0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		53F77DCB106B84FB005D94C0 /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser.c; sourceTree = "<group>"; };
 		53F77DCC106B84FB005D94C0 /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser.h; sourceTree = "<group>"; };
@@ -654,6 +662,7 @@
 		51FAD9381302909D00A59CD2 /* GTM */ = {
 			isa = PBXGroup;
 			children = (
+				51FAD9431302917500A59CD2 /* UnitTesting */,
 			);
 			name = GTM;
 			path = ../GTM;
@@ -664,6 +673,19 @@
 			children = (
 			);
 			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		51FAD9431302917500A59CD2 /* UnitTesting */ = {
+			isa = PBXGroup;
+			children = (
+				51FAD9591302933F00A59CD2 /* GTMAppKitUnitTestingUtilities.h */,
+				51FAD95A1302933F00A59CD2 /* GTMAppKitUnitTestingUtilities.m */,
+				51FAD95B1302933F00A59CD2 /* GTMFoundationUnitTestingUtilities.h */,
+				51FAD95C1302933F00A59CD2 /* GTMFoundationUnitTestingUtilities.m */,
+				51FAD9441302917500A59CD2 /* GTMUnitTestingTest.h */,
+				51FAD9451302917500A59CD2 /* GTMUnitTestingTest.m */,
+			);
+			path = UnitTesting;
 			sourceTree = "<group>";
 		};
 		53F77DAA106B84FB005D94C0 /* synctexdir */ = {
@@ -1400,6 +1422,8 @@
 			files = (
 				DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */,
 				51F00C5E12E64243002A4013 /* iTM3SenTestKit.m in Sources */,
+				51FAD95D1302933F00A59CD2 /* GTMAppKitUnitTestingUtilities.m in Sources */,
+				51FAD95E1302933F00A59CD2 /* GTMFoundationUnitTestingUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

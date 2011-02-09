@@ -9,10 +9,24 @@
 //
 
 #import <Cocoa/Cocoa.h>
-int main(int argc, char *argv[])
-{
-NSLog(@"START now:%@",[NSDate date]);
-    return NSApplicationMain(argc, (const char **) argv);
+#import "GTMAppKitUnitTestingUtilities.h"
+#import "GTMFoundationUnitTestingUtilities.h"
+
+//  This is the main function from GTMUnitTestingTest
+int main(int argc, char *argv[]) {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+  [GTMAppKitUnitTestingUtilities setUpForUIUnitTestsIfBeingTested];
+
+  // Give ourselves a max of 10 minutes for the tests.  Sometimes (in automated
+  // builds) the unittesting bundle fails to load which causes the app to keep
+  // running forever.  This will force it to exit after a certain amount of time
+  // instead of hanging running forever.
+  [GTMFoundationUnitTestingUtilities installTestingTimeout:10*60.0];
+
+  int result = NSApplicationMain(argc,  (const char **) argv);
+  [pool drain];
+  return result;
 }
 
 #import "../../build/EmbeddedTestCases/iTM2TeXFoundationTestCases.m"
