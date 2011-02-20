@@ -385,8 +385,8 @@
 		5185ED7512702B5100AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
 		51999E350D92D744004F0D09 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
 		51999E370D92D752004F0D09 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
-		51F06ECE13069F7000D6A5F9 /* iTM3SenTestKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM3SenTestKit.h; sourceTree = "<group>"; };
-		51F06ECF13069F7000D6A5F9 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM3SenTestKit.m; sourceTree = "<group>"; };
+		51F06ECE13069F7000D6A5F9 /* iTM3SenTestKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTM3SenTestKit.h; path = "../../iTM2Foundation/Unit Tests/iTM3SenTestKit.h"; sourceTree = "<group>"; };
+		51F06ECF13069F7000D6A5F9 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM3SenTestKit.m; path = "../../iTM2Foundation/Unit Tests/iTM3SenTestKit.m"; sourceTree = "<group>"; };
 		51FAD7C812FEF4CA00A59CD2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTeXMac2.xib; sourceTree = "<group>"; };
 		51FAD9781302941500A59CD2 /* GTMAppKitUnitTestingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMAppKitUnitTestingUtilities.h; sourceTree = "<group>"; };
 		51FAD9791302941500A59CD2 /* GTMAppKitUnitTestingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMAppKitUnitTestingUtilities.m; sourceTree = "<group>"; };
@@ -694,9 +694,9 @@
 		51FAD93B130290B900A59CD2 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				516A8EAC1305A0A800934718 /* iTM2TeXFoundation */,
 				51F06ECE13069F7000D6A5F9 /* iTM3SenTestKit.h */,
 				51F06ECF13069F7000D6A5F9 /* iTM3SenTestKit.m */,
-				516A8EAC1305A0A800934718 /* iTM2TeXFoundation */,
 				51FAD98A1302952300A59CD2 /* iTM2TeXTestSuite.h */,
 				51FAD98B1302952300A59CD2 /* iTM2TeXTestSuite.m */,
 			);
