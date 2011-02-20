@@ -37,6 +37,23 @@ NSString * const iTM2NewDORGANIZATIONNAMEKey = @"__(ORGANIZATIONNAME)__";
 
 NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 
+#ifdef __EMBEDDED_TEST_HEADER__
+#import <iTM2Foundation/iTM2Foundation.h>
+#import <iTM2NewDocumentKit/iTM2NewDocumentKit.h>
+@interface NSFileWrapper(moreX)
+- (void) displayLongDescription4iTM3;
+@end
+@interface iTM2NewDocumentAssistant(PRIVATEX)
++ (id)newDocumentDataSource;
+@end
+#endif
+
+#ifdef __EMBEDDED_TEST_SETUP__
+    if (iTM2DebugEnabled<10000) {
+        iTM2DebugEnabled = 10000;
+    }
+#endif
+
 @interface NSFileWrapper(more)
 - (void) displayLongDescription4iTM3;
 @end
@@ -60,6 +77,14 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 {
     NSMutableArray * MRA = NSMutableArray.array;
     [self _displayLongDescription4iTM3:MRA];
+    ReachCode4iTM3(@"rangeOfCharactersInSet...");
+#   ifdef __EMBEDDED_TEST__
+    NSArray * RA = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationDirectory inDomains:NSLocalDomainMask];
+    NSURL * url = [RA.lastObject URLByAppendingPathComponent:@"TextEdit.app"];
+    NSError * ROR = nil;
+    NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:url options:NSFileWrapperReadingImmediate error:&ROR];
+    STAssertReachCode4iTM3(([FW displayLongDescription4iTM3]));
+#   endif
     return;
 }
 
@@ -147,6 +172,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
+    LOG4iTM3(@"This method (newDocumentFromRunningAssistantPanelForProject:) is obsolete, please use newDocumentFromRunningAssistantPanelForProject4iTM3: instead");
 	[self newDocumentFromRunningAssistantPanelForProject4iTM3:nil];
 //END4iTM3;
     return;
@@ -214,7 +240,7 @@ To Do List:
 	OLV.reloadData;
 	OLV.doubleAction = @selector(_outlineViewDoubleAction:);
 	// expand the first level items
-	NSInteger row = [OLV numberOfRows];
+	NSInteger row = OLV.numberOfRows;
 	while (row--) {
 		if ([OLV levelForRow:row] == ZER0) {
 			[OLV expandItem:[OLV itemAtRow:row]];
@@ -222,8 +248,8 @@ To Do List:
 	}
 	[OLV registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil]];
 	[self.window setDelegate:self];
-	[self setPreferWrapper:[SUD boolForKey:iTM2NewDocumentEnclosedInWrapperKey]];
-	[self setCreationMode:[SUD integerForKey:iTM2NewProjectCreationModeKey]];
+	self.preferWrapper = [SUD boolForKey:iTM2NewDocumentEnclosedInWrapperKey];
+	self.creationMode = [SUD integerForKey:iTM2NewProjectCreationModeKey];
 //END4iTM3;
     return;
 }
@@ -267,6 +293,16 @@ To Do List:
 	_iTM2NewDocumentsTree = tree;
 	LOG4iTM3(@"INFORMATION: templates loaded.");
 //END4iTM3;
+    ReachCode4iTM3(@"-[iTM2NewDocumentAssistant loadTemplates]");
+#   ifdef __EMBEDDED_TEST__
+    NSArray * URLs = [[NSBundle mainBundle] allURLsForResource4iTM3:iTM2NewDPathComponent withExtension:@""];
+    STAssertTrue (URLs.count==2,@"MISSED",NULL);
+	for (NSURL * url in URLs.reverseObjectEnumerator) {
+		LOG4iTM3(@"url:%@",url);
+	}
+    STAssertReachCode4iTM3(([iTM2NewDocumentAssistant loadTemplates]));
+    LOG4iTM3(@"iTM2NewDocumentAssistant.newDocumentDataSource:%@",[iTM2NewDocumentAssistant newDocumentDataSource]);
+#   endif
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= _loadTemplatesAtURL:inTree:
@@ -280,92 +316,54 @@ To Do List:
 //START4iTM3;
 //LOG4iTM3(@"+=+=+=+=+=+=+=+=+=+=  Loading Templates at path: %@", path);
 	if (url.isFileURL) {
-		url = [url URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
+		url = url.URLByResolvingSymlinksAndFinderAliasesInPath4iTM3;
 	} else {
 		return;
 	}
 	// path is now expected to point to a folder
 	INIT_POOL4iTM3;
-	NSMutableString * hidden = [NSMutableString stringWithContentsOfURL:[url URLByAppendingPathComponent:@".hidden"] encoding:NSUTF8StringEncoding error:nil];
-	if (hidden.length) {
-		NSString * replacement= @"\n";
-		unichar U = 0x000A;
-		NSString * target = [NSString stringWithCharacters:&U length:1];
-		[hidden replaceOccurrencesOfString:target withString:replacement options:ZER0 range:iTM3MakeRange(ZER0, hidden.length)];
-		U = 0x000D;
-		target = [NSString stringWithCharacters:&U length:1];
-		[hidden replaceOccurrencesOfString:target withString:replacement options:ZER0 range:iTM3MakeRange(ZER0, hidden.length)];
-		U = 0x0085;
-		target = [NSString stringWithCharacters:&U length:1];
-		[hidden replaceOccurrencesOfString:target withString:replacement options:ZER0 range:iTM3MakeRange(ZER0, hidden.length)];
-	}
-	NSArray * hiddenFiles = [hidden componentsSeparatedByString:@"\n"];
 //- (id) _MutableDictionaryFromArray: (id) array;
 //- (id) _ArrayFromDictionary: (id) dictionary;
-	for (NSString * component in [DFM contentsOfDirectoryAtPath:url.path error:NULL]) {
-//LOG4iTM3(@"+=+=+=+=+=+=+=+=+=+=  component: %@", component);
-		if([component hasPrefix:@"."])
-			continue;
-		if([[component pathExtension] pathIsEqual4iTM3:@"templateDescription"])
-			continue;
-		if([[component pathExtension] pathIsEqual4iTM3:@"templateImage"])
-			continue;
-		if([component hasPrefix:@"."])
-			continue;
-		if([hiddenFiles containsObject:component])
-			continue;
-   		FSRef possibleInvisibleFile;
-   		FSCatalogInfo catalogInfo;
-		NSURL * fullURL = [url URLByAppendingPathComponent:component];
-   		OSStatus errStat = FSPathMakeRef((UInt8 *)[fullURL.path fileSystemRepresentation], &possibleInvisibleFile, nil);
-		if (!errStat) {
-   			OSErr errStat = FSGetCatalogInfo(&possibleInvisibleFile, kFSCatInfoFinderInfo, &catalogInfo, nil, nil, nil);
-			if(!errStat && ((FileInfo*)catalogInfo.finderInfo)->finderFlags & kIsInvisible)
-   			   	continue;
-		}
-		// all the invisible file have been managed so far
-		// Some note about the alias and sym links policy:
-		// The name is attached to the file name and the contents is attached to the target.
-		// this allows to have two different pointers to the same template
-		// The name is determined before the alias or links are resolved
-		// the object and children are determined once the alias or link has been resolved.
-		NSString * name = component;
+    for (NSURL * fullURL in [DFM enumeratorAtURL:url includingPropertiesForKeys:[NSArray array]
+            options:NSVolumeEnumerationSkipHiddenVolumes|NSDirectoryEnumerationSkipsPackageDescendants
+                errorHandler:^(NSURL *url, NSError *error) {
+                            NSLog(@"enumeratorAtURL failed on enum %@, error description: %@",url,[error localizedDescription]);
+                            return NO;
+                          }]) {
 		NSURL * resolvedURL = [fullURL URLByResolvingSymlinksAndFinderAliasesInPath4iTM3];
-		BOOL isDirectory = NO;
-		if (![DFM fileExistsAtPath:resolvedURL.path isDirectory:&isDirectory]) {
+		if([resolvedURL.pathExtension pathIsEqual4iTM3:@"templateDescription"]
+            || [resolvedURL.pathExtension pathIsEqual4iTM3:@"templateImage"]
+                || NO) {
 			continue;
         }
 		NSURL * contentsURL = [fullURL URLByAppendingPathComponent:iTM2BundleContentsComponent];
-		NSString * prettyName = [DFM prettyNameAtPath4iTM3:fullURL.path];
+		NSString * prettyName = [fullURL prettyName4iTM3Error:self.RORef4iTM3];
 		iTM2NewDocumentTreeNode * child = nil;
-		if(isDirectory
-			&& (![SWS isFilePackageAtPath:resolvedURL.path]
-				&& !([DFM fileExistsAtPath:contentsURL.path isDirectory:&isDirectory] && isDirectory)))
+		if([contentsURL isDirectory4iTM3Error:self.RORef4iTM3]
+			|| [resolvedURL isRegularFile4iTM3Error:self.RORef4iTM3])
 		{
+			// resolvedURL points either to a standard file or a file package or a directory containing a "Contents" folder
+			// all of them are mapped to one separate entry
+			child = [iTM2NewDocumentTreeNode nodeWithParent:tree];
+			child.nameValue = fullURL.lastPathComponent;
+			child.prettyNameValue = prettyName;
+			child.URLValue = resolvedURL;
+		} else if ([resolvedURL isDirectory4iTM3Error:self.RORef4iTM3]){
 			// this is considered as a directory
-//LOG4iTM3(@"+=+=+=+=+=+=+=+=+=+=  DIRECTORY. %@, %@, %@", contentsPath, ([DFM fileExistsAtPath:contentsPath isDirectory:&isDirectory]?@"Y":@"N"), (isDirectory?@"Y":@"N"));
 			child = [tree childWithPrettyNameValue:prettyName];
 			if (!child) {
 				child = [iTM2NewDocumentTreeNode nodeWithParent:tree];
 				child.prettyNameValue = prettyName;
 			}
 			[self _loadTemplatesAtURL:resolvedURL inTree:child];
-			if (![child countOfChildren]) {
+			if (!child.countOfChildren) {
 				[tree removeObjectFromChildren:child];
 			}
-		} else {
-			// at resolvedPath points either to a standard file or a file package or a directory containing a "Contents" folder
-			// all of them are mapped to one separate entry
-//LOG4iTM3(@"+=+=+=+=+=+=+=+=+=+=  FILE.");
-			child = [iTM2NewDocumentTreeNode nodeWithParent:tree];
-			child.nameValue = name;
-			child.prettyNameValue = prettyName;
-			child.URLValue = resolvedURL;
 		}
-	}
+    }
 	if (tree.countOfChildren) {
 		tree.nameValue = url.lastPathComponent;
-		tree.prettyNameValue = [DFM displayNameAtPath:url.path];
+		tree.prettyNameValue = [url prettyName4iTM3Error:self.RORef4iTM3];
 		tree.URLValue = url;
 	}
 	RELEASE_POOL4iTM3;
@@ -894,7 +892,7 @@ To Do List:
 		newDirectory = url.parentDirectoryURL4iTM3.path;// the directory containing the alreadyExisting project
 		if ([DFM fileExistsAtPath:newDirectory isDirectory:&isDirectory] && isDirectory) {
 			[SP setTreatsFilePackagesAsDirectories:YES];
-			iTM2ProjectDocument * project = [SPC projectForURL:url];
+			iTM2ProjectDocument * project = [SPC projectForURL:url ROR4iTM3];
 			NSWindow * W = project.subdocumentsInspector.window;
 			[W orderFront:nil];
 			[self.window orderOut:self];
@@ -1069,7 +1067,7 @@ To Do List:
         NSString * type = [SDC typeForContentsOfURL:projectURL error:RORef];
         Class C = [SDC documentClassForType:type];
         iTM2ProjectDocument * PD = [[C alloc] initWithContentsOfURL:projectURL ofType:type error:RORef];
-        [PC registerProject:PD];
+        [PC registerProject:PD error:RORef];
     }
     //  
     NSFileWrapper * FW = [[NSFileWrapper alloc] initWithURL:sourceURL options:NSFileWrapperReadingImmediate error:RORef];
@@ -1091,7 +1089,7 @@ To Do List:
     NSURL * targetURL = fileURL.URLByDeletingPathExtension;
 	NSString * projectName = targetURL.lastPathComponent;
 	[self takeContext4iTM3Value:targetURL.URLByDeletingLastPathComponent.path
-		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask error:RORef];
 	if ([DFM fileExistsAtPath:targetURL.path]) {
 		LOG4iTM3(@"There is already a project at\n%@",targetURL);
 	}
@@ -1119,7 +1117,7 @@ To Do List:
 	if (!alreadyExistingURL) {
 		return NO;
 	}
-	iTM2ProjectDocument * alreadyExistingProject = [SPC projectForURL:alreadyExistingURL];
+	iTM2ProjectDocument * alreadyExistingProject = [SPC projectForURL:alreadyExistingURL error:RORef];
 	if (!alreadyExistingProject) {
 		return NO;
 	}
@@ -1128,7 +1126,7 @@ To Do List:
 
 	NSString * originalExtension = sourceURL.pathExtension;
 	NSURL * targetDirectoryURL = alreadyExistingURL.URLByDeletingLastPathComponent;
-	[self takeContext4iTM3Value:targetDirectoryURL.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:targetDirectoryURL.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask error:RORef];
 	NSString * fileName = fileURL.path;
 	NSString * newCore = fileName;
 	NSArray * newCoreComponents = newCore.pathComponents;
@@ -1170,7 +1168,7 @@ To Do List:
             //  set the name of the project in the filter
             [filter setObject:alreadyExistingURL.lastPathComponent.stringByDeletingPathExtension forKey:iTM2NewDPROJECTNAMEKey];
 			for (NSURL * url in urls) {
-				[SPC setProject:alreadyExistingProject forURL:url];//
+				[SPC setProject:alreadyExistingProject forURL:url error:RORef];//
 				iTM2TextDocument * document = [SDC openDocumentWithContentsOfURL:url display:YES error:RORef];
 				if ([document isKindOfClass:[iTM2TextDocument class]]) {
 					document.stringRepresentation = [self convertedString:document.stringRepresentation withDictionary:filter];
@@ -1209,7 +1207,7 @@ To Do List:
 	if(enclosedProjects.count!=ZER0) {
 		return NO;
 	}
-	[self takeContext4iTM3Value:fileURL.path.stringByDeletingLastPathComponent forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:fileURL.path.stringByDeletingLastPathComponent forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask error:RORef];
 	// No extension for fileName, the extension will be borrowed from the project
 	NSString * projectName = fileURL.lastPathComponent.stringByDeletingPathExtension;
 	NSURL * targetURL = [fileURL.URLByDeletingPathExtension URLByAppendingPathExtension:[SDC wrapperPathExtension4iTM3]];
@@ -1258,7 +1256,7 @@ To Do List:
             convertedURL = [targetURL URLByAppendingPathComponent:convertedPath];
             convertedURL = convertedURL.URLByStandardizingPath;
 			iTM2TeXProjectDocument * PD = [SPC getProjectFromPanelForURLRef:&convertedURL display:NO error:RORef];
-			NSString * key = [PD createNewFileKeyForURL:convertedURL];
+			NSString * key = [PD createNewFileKeyForURL:convertedURL error:RORef];
 			[PD setMasterFileKey:key];
 			
 			NSDictionary * context = [NSDocument context4iTM3DictionaryFromURL:convertedURL];
@@ -1311,7 +1309,7 @@ To Do List:
 	if (enclosedProjects.count==ZER0) {
 		return NO; // see createNewWrapperAndProjectWithURL
 	}
-	[self takeContext4iTM3Value:sourceURL.URLByDeletingLastPathComponent.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:sourceURL.URLByDeletingLastPathComponent.path forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask error:RORef];
 	// No extension for fileName, the extension will be borrowed from the project
 	fileURL = fileURL.URLByDeletingPathExtension;
 	NSURL * targetURL = [fileURL URLByAppendingPathExtension:[SDC wrapperPathExtension4iTM3]];
@@ -1372,7 +1370,7 @@ To Do List:
                             convertedURL = [self convertedURL:originalURL withDictionary:filter];
     //LOG4iTM3(@"convertedPath is: %@", convertedPath);
                             if(![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                                [PD setURL:convertedURL forFileKey:key];
+                                [PD setURL:convertedURL forFileKey:key error:RORef];
                                 document.fileURL = convertedURL;
                             }
                             if ([document isKindOfClass:[iTM2TextDocument class]]) {
@@ -1381,10 +1379,10 @@ To Do List:
                                 document.undoManager.removeAllActions;
     //LOG4iTM3(@"Open document saved");
                             }
-                        } else if(originalURL = [PD URLForFileKey:key]) {
+                        } else if(originalURL = [PD URLForFileKey:key error:RORef]) {
                             convertedURL = [self convertedURL:originalURL withDictionary:filter];
                             if(![convertedURL.path pathIsEqual4iTM3:originalURL.path]) {
-                                [PD setURL:convertedURL forFileKey:key];// do this before...
+                                [PD setURL:convertedURL forFileKey:key error:RORef];// do this before...
                             }
                             document = [SDC openDocumentWithContentsOfURL:convertedURL display:NO error:RORef];
     //LOG4iTM3(@"document is: %@", document);
@@ -1456,7 +1454,7 @@ To Do List:
 		LOG4iTM3(@"*** ERROR: I have been asked to create a document in an old project, but I was not given an old project...");
 		return NO;//<< this is a bug
 	}
-	if ([SWS isWrapperPackageAtURL4iTM3:oldProjectURL])/* Crash Log Report */ {
+	if ([SWS isWrapperPackageAtURL4iTM3:oldProjectURL error:RORef])/* Crash Log Report */ {
 		if (!oldProjectURL.enclosedProjectURLs4iTM3.count && ![SWS isTeXProjectPackageAtURL4iTM3:oldProjectURL]) {
 			return NO;
 		}
@@ -1468,7 +1466,7 @@ To Do List:
 #warning **** ERROR: this MUST be revisited, together with the other similar methods above
 	//  remember the location where the new document should be stored
 	[self takeContext4iTM3Value:oldProject.parentURL.path
-		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask];
+		forKey:@"iTM2NewDocumentDirectory" domain:iTM2ContextAllDomainsMask error:RORef];
 	
 	NSAssert(![DFM fileExistsAtPath:targetURL.path], @"***  My dear, you as a programmer are a big naze...");
 
@@ -1504,7 +1502,7 @@ To Do List:
 				[document saveToURL:document.fileURL ofType:document.fileType forSaveOperation:NSSaveAsOperation delegate:nil didSaveSelector:NULL contextInfo:nil];
 				document.undoManager.removeAllActions;
 			} else {
-				[oldProject createNewFileKeyForURL:targetURL];
+				[oldProject createNewFileKeyForURL:targetURL error:RORef];
 				// changing the file permissions: it is relevant if the document was built in...
 				[DFM makeFileWritableAtPath4iTM3:targetURL.path recursive:YES];
 				// If necessary, the project will be created as expected side effect
@@ -1886,7 +1884,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return self.standaloneFileURL.isFileURL? [SPC projectForURL:self.alreadyExistingProjectURL]:nil;
+    return self.standaloneFileURL.isFileURL? [SPC projectForURL:self.alreadyExistingProjectURL ROR4iTM3]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  canInsertItem:inOldProjectForDirectoryURL:
 - (BOOL)canInsertItem:(iTM2NewDocumentTreeNode *)item inOldProjectForDirectoryURL:(NSURL *)directoryURL;
@@ -1913,12 +1911,12 @@ To Do List:
 	if (!standalone.isFileURL) {
 		return NO;
 	}
-	if ([SWS isWrapperPackageAtURL4iTM3:standalone]) {
+	if ([SWS isWrapperPackageAtURL4iTM3:standalone ROR4iTM3]) {
 		return NO;
 	}
 	NSURL * alreadyExistingURL = self.alreadyExistingProjectURL;
 	if (alreadyExistingURL) {
-		if ([SWS isProjectPackageAtURL4iTM3:alreadyExistingURL]) {
+		if ([SWS isProjectPackageAtURL4iTM3:alreadyExistingURL ROR4iTM3]) {
 			return NO;
 		}
 		alreadyExistingURL = alreadyExistingURL.parentDirectoryURL4iTM3;
@@ -1933,9 +1931,9 @@ To Do List:
 		if (enclosing) {
 			return enclosing.enclosedProjectURLs4iTM3.count == ZER0;
 		}
-		NSDictionary * available = [SPC availableProjectsForURL:standalone];
+		NSDictionary * available = [SPC availableProjectsForURL:standalone ROR4iTM3];
 		for (enclosing in available.keyEnumerator) {
-			if ([SWS isWrapperPackageAtURL4iTM3:enclosing]) {
+			if ([SWS isWrapperPackageAtURL4iTM3:enclosing ROR4iTM3]) {
                 if (enclosing.enclosedProjectURLs4iTM3.count == ZER0) {
 					return YES;
 				}
@@ -1944,7 +1942,7 @@ To Do List:
 		return NO;
 	}
 //END4iTM3;
-	return [[SPC availableProjectsForURL:directoryURL] count]>ZER0;
+	return [[SPC availableProjectsForURL:directoryURL ROR4iTM3] count]>ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  selectedTemplateCanInsertInOldProject
 - (BOOL)selectedTemplateCanInsertInOldProject;
@@ -2039,10 +2037,10 @@ To Do List:
 	// 2 the current panel directory is not included in a wrapper
 	// except when the wrapper no longer has a project
 	NSURL * url = item.standaloneFileURLValue;
-	if ([SWS isProjectPackageAtURL4iTM3:url]) {
+	if ([SWS isProjectPackageAtURL4iTM3:url ROR4iTM3]) {
 		return NO;
 	}
-	if ([SWS isWrapperPackageAtURL4iTM3:url]) {
+	if ([SWS isWrapperPackageAtURL4iTM3:url ROR4iTM3]) {
 		return NO;
 	}
 //END4iTM3;
@@ -2202,7 +2200,7 @@ To Do List:
 		return;
 	}
 	[self setOldProjectURL:new];
-	if (![new belongsToFactory4iTM3] && [SWS isWrapperPackageAtURL4iTM3:new]) {
+	if (![new belongsToFactory4iTM3] && [SWS isWrapperPackageAtURL4iTM3:new ROR4iTM3]) {
 		NSSavePanel * SP = [NSSavePanel savePanel];
 		[SP setDirectoryURL:new];
 		[SP update];
@@ -2267,12 +2265,12 @@ To Do List:
 		if (!standalone.isFileURL) {
 			return NO;
 		}
-		if ([SWS isWrapperPackageAtURL4iTM3:standalone]) {
+		if ([SWS isWrapperPackageAtURL4iTM3:standalone ROR4iTM3]) {
 			return NO;
 		}
 		if ([SWS isTeXProjectPackageAtURL4iTM3:standalone]) {
 			standalone = [(NSMenuItem *)sender representedObject];
-			if ([SWS isWrapperPackageAtURL4iTM3:standalone]) {
+			if ([SWS isWrapperPackageAtURL4iTM3:standalone ROR4iTM3]) {
 				if (!standalone.enclosedProjectURLs4iTM3.count) {
 					return YES;
 				}
@@ -2345,7 +2343,7 @@ To Do List:
 		NSString * displayName = enclosing.path.lastPathComponent.stringByDeletingPathExtension;
 		iVarAvailableProjects4iTM3 = [NSDictionary dictionaryWithObject:displayName forKey:enclosing];
 	} else {
-		iVarAvailableProjects4iTM3 = [SPC availableProjectsForURL:url];
+		iVarAvailableProjects4iTM3 = [SPC availableProjectsForURL:url ROR4iTM3];
 	}
 //END4iTM3;
     return iVarAvailableProjects4iTM3;
@@ -2615,4 +2613,4 @@ To Do List:
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2NewDocumentKit
 
-#include "../build/Milestones/iTM2NewDocumentKit.m"
+//#include "../build/Milestones/iTM2NewDocumentKit.m"
