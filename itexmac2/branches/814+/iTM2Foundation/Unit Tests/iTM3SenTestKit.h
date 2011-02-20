@@ -14,7 +14,7 @@
 #import <SenTestingKit/NSException_SenTestFailure.h>
 #import <SenTestingKit/SenTestCase_Macros.h>
 #import <SenTestingKit/SenTestingUtilities.h>
-@interface SenTestCase: NSObject {
+@interface iTM3TestCase: NSObject {
 
 }
 /*"Invoking a test performs only its setUp, invocation, and tearDown, outside the context of a run; it's the primitive method used by -performTest:."*/
@@ -26,6 +26,16 @@
 @end
 #else
 #import <SenTestingKit/SenTestingKit.h>
+@interface iTM3TestCase: iTM3TestCase {
+
+}
+/*"Invoking a test performs only its setUp, invocation, and tearDown, outside the context of a run; it's the primitive method used by -performTest:."*/
+- (void) invokeTest;
+/*"Pre- and post-test methods"*/
+- (void) setUp;
+- (void) tearDown;
+- (void) failWithException:(NSException *) anException;
+@end
 #endif
 //  We assume that the mutable set below is defined in iTM2Foundation
 //  This is true if this framework was built with the development build configuration.

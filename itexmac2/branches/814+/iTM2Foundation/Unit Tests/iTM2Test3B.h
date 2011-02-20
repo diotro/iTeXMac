@@ -8,7 +8,7 @@
 
 #import "iTM3SenTestKit.h"
 
-@interface iTM2Test3B : SenTestCase {
+@interface iTM2Test3B : iTM3TestCase {
 NSArray * EOLs;
 NSMutableArray * testStrings;
 NSUInteger patternLength;

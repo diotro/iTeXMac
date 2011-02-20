@@ -10,7 +10,7 @@
 
 #import "iTM3SenTestKit.h"
 
-@interface Task : SenTestCase {
+@interface Task : iTM3TestCase {
 
 }
 

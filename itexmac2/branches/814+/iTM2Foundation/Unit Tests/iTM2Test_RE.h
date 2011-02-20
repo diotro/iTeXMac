@@ -8,7 +8,7 @@
 
 #import "iTM3SenTestKit.h"
 
-@interface iTM2Test_RE : SenTestCase {
+@interface iTM2Test_RE : iTM3TestCase {
 }
 
 @end

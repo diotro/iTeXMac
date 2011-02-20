@@ -8,7 +8,7 @@
 
 #import "iTM3SenTestKit.h"
 
-@interface iTM2Test1A : SenTestCase {
+@interface iTM2Test1A : iTM3TestCase {
     NSArray * fullLines;
     NSArray * fullLinesPrefix;
     NSArray * partsOfLine;

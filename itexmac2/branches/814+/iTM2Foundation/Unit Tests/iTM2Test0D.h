@@ -8,7 +8,7 @@
 
 #import "iTM3SenTestKit.h"
 
-@interface iTM2Test0D : SenTestCase {
+@interface iTM2Test0D : iTM3TestCase {
 	NSArray * ICsA;
     NSArray * ICsB;
 }

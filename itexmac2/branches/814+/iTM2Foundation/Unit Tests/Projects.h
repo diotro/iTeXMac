@@ -10,7 +10,7 @@
 
 #import "iTM3SenTestKit.h"
 
-@interface Projects : SenTestCase {
+@interface Projects : iTM3TestCase {
 
 }
 

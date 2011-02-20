@@ -10,9 +10,7 @@
 
 #ifdef __iTM2_LIVE_TEST__
 #import "iTM3SenTestKit.h"
-#import "ICURegEx.h"
-#import "iTM2Runtime.h"
-#import "iTM2Invocation.h"
+#import <iTM2Foundation/iTM2Foundation.h>
 
 NSString *STComposeString(NSString * first, ...)
 {
@@ -39,7 +37,7 @@ NSString *getScalarDescription(NSValue *left)
 @end
 
 
-@implementation SenTestCase
+@implementation iTM3TestCase
 /*"Mimics: Invoking a test performs only its setUp, invocation, and tearDown, outside the context of a run; it's the primitive method used by -performTest:."*/
 - (void) invokeTest;
 {

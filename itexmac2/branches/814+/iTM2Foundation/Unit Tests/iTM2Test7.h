@@ -8,7 +8,7 @@
 
 #import "iTM3SenTestKit.h"
 
-@interface iTM2Test7 : SenTestCase {
+@interface iTM2Test7 : iTM3TestCase {
 @private
     NSURL * iVarTemporaryDirectoryURL4iTM3;
 }
