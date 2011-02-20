@@ -742,7 +742,6 @@ To Do List:
     if ([RE nextMatch]) {
         S = [RE substringOfCaptureGroupWithName:@"url"];
         if (S.length) {
-            S = [SC stringByRemovingTeXEscapeSequencesInString:S];
             if(![SWS openURL:[NSURL URLWithString:S]]) {
                 LOG4iTM3(@"INFO: could not open url <%@>", S);
             }
