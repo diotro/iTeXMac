@@ -18,8 +18,9 @@
 //  to the actual developper team.
 */
 
+#import <iTM2Foundation/iTM2Foundation.h>
 #import <iTM2TeXFoundation/iTM2TeXStringKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM2TeXFoundation/iTM2TeXDocumentKit.h>
 
 #define ANCS [NSCharacterSet alphanumericCharacterSet]
 
@@ -50,83 +51,69 @@ To Do List:implement some kind of balance range for range
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSRange R = iTM3NotFoundRange;
-	NSString * S = [theAttributedString string];
-    if (S.length) {
+	NSString * S = theAttributedString.string;
+    NSUInteger length = S.length;
+    if (length>0) {
         unichar theChar = [S characterAtIndex:index];
         if ([theSet characterIsMember:theChar]) {
-            R.location = index;
+            NSUInteger loc = R.location = index;
             R.length = 1;
-            NSRange r = iTM3NotFoundRange;
-            
-            NSUInteger loc = index;
-left:
-            if (--index) {
+            while (index--) {
                 theChar = [S characterAtIndex:index];
-                if([theSet characterIsMember:theChar]) {
-                    --R.location;
-                    ++R.length;
-                    goto left;
+                if (![theSet characterIsMember:theChar]) {
+                    break;
                 }
+                --R.location;
+                ++R.length;
             }
-            loc = index;
-            NSUInteger length = S.length;
-right:
-            if (++index<length) {
+            index = loc;
+            while (++index<length) {
                 theChar = [S characterAtIndex:index];
-                if ([theSet characterIsMember:theChar]) {
-                    ++R.length;
-                    goto right;
+                if (![theSet characterIsMember:theChar]) {
+                    break;
                 }
+                ++R.length;
             }
         }
     }
 //END4iTM3;
     ReachCode4iTM3(@"rangeOfCharactersInSet...");
 #   ifdef __EMBEDDED_TEST__
-    NSAttributedString * AS = [[NSAttributedString alloc] initWithString:@"X"];
     iTM2StringController * SC = iTM2StringController.defaultController;
-    NSRange R = [SC rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:AS atIndex:0];
-    STAssertTrue(NSEqualRanges(R,iTM3MakeRange(0,1)),@"MISSED",NULL);
-    STAssertReachCode4iTM3(YES);
+    NSRange R = iTM3VoidRange;
+    NSAttributedString * AS = nil;
+#   define TEST(WHAT,WHERE,LOCATION,LENGTH) \
+    AS = [[NSAttributedString alloc] initWithString:WHAT]; \
+    STAssertReachCode4iTM3((R = [SC rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:AS atIndex:WHERE])); \
+    STAssertTrue((NSEqualRanges(R,iTM3MakeRange(LOCATION,LENGTH))||(TestLog4iTM3(@"%@<!>(%lu,%lu)",NSStringFromRange(R),(LOCATION),(LENGTH)),NO)),@"MISSED",NULL);
+    TEST(@"X",0,0,1);
+    TEST(@"XX",0,0,2);
+    TEST(@"XX",1,0,2);
+    TEST(@"XXX",0,0,3);
+    TEST(@"XXX",1,0,3);
+    TEST(@"XXX",2,0,3);
+    TEST(@"X1",0,0,1);
+    TEST(@"XX1",0,0,2);
+    TEST(@"XX1",1,0,2);
+    TEST(@"XXX1",0,0,3);
+    TEST(@"XXX1",1,0,3);
+    TEST(@"XXX1",2,0,3);
+    TEST(@"1X",1+0,1+0,1);
+    TEST(@"1XX",1+0,1+0,2);
+    TEST(@"1XX",1+1,1+0,2);
+    TEST(@"1XXX",1+0,1+0,3);
+    TEST(@"1XXX",1+1,1+0,3);
+    TEST(@"1XXX",1+2,1+0,3);
+    TEST(@"1X1",1+0,1+0,1);
+    TEST(@"1XX1",1+0,1+0,2);
+    TEST(@"1XX1",1+1,1+0,2);
+    TEST(@"1XXX1",1+0,1+0,3);
+    TEST(@"1XXX1",1+1,1+0,3);
+    TEST(@"1XXX1",1+2,1+0,3);
+    TEST(@"你",0,NSNotFound,0);
+#   undef TEST
 #   endif
 	return R;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stringByRemovingTeXEscapeSequencesInString:
-- (NSString *) stringByRemovingTeXEscapeSequencesInString:(NSString *)aString;
-/*"This takes TeX commands into account, and \- hyphenation too
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 1.3:03/10/2002
-To Do List:implement some kind of balance range for range
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-    NSError * ROR = nil;
-    ICURegEx * RE = [ICURegEx regExForKey:@"\\.→." inBundle:myBUNDLE error:&ROR];
-    if (ROR) {
-        LOG4iTM3(@"There is an error:%@",ROR);
-        return aString;
-    }
-    NSMutableString * MS = [NSMutableString stringWithString:aString];
-    [MS replaceOccurrencesOfICURegEx:RE error:&ROR];
-    RE.forget;
-    if (ROR) {
-        LOG4iTM3(@"There is another error:%@",ROR);
-        return aString;
-    }
-//END4iTM3;
-	return MS;
-}
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareWordRangeInString:atIndex:
-- (NSRange)TeXAwareWordRangeInString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
-/*"This takes TeX commands into account, and \- hyphenation too
-Version history:jlaurens AT users DOT sourceforge DOT net
-- 1.3:03/10/2002
-To Do List:implement some kind of balance range for range
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-//END4iTM3;
-	return iTM3MakeRange(NSNotFound,ZER0);
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= TeXAwareWordRangeInAttributedString:atIndex:
 - (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
@@ -145,17 +132,17 @@ To Do List:implement some kind of balance range for range
 	NSUInteger loc;
 	NSUInteger commandIndex = NSNotFound;
 	BOOL escaped;
-	if([ANCS characterIsMember:theChar])
+	if ([ANCS characterIsMember:theChar])
 	{
 		R = [theAttributedString SWZ_iTM2_doubleClickAtIndex:index];
 expandToTheLeftAsLetters:
-		if(R.location)
+		if (R.location)
 		{
 			theChar = [S characterAtIndex:R.location-1];
-			if([ANCS characterIsMember:theChar])
+			if ([ANCS characterIsMember:theChar])
 			{
 				r = [theAttributedString SWZ_iTM2_doubleClickAtIndex:R.location-1];
-				if(r.location
+				if (r.location
 					&& [S isControlAtIndex:r.location-1 escaped:&escaped]
 						&& !escaped)
 				{
@@ -164,16 +151,16 @@ expandToTheLeftAsLetters:
 				R = iTM3UnionRange(R,r);
 				goto expandToTheLeftAsLetters;
 			}
-			if((R.location>4)
+			if ((R.location>4)
 				&& [S isControlAtIndex:R.location-5 escaped:&escaped]
 					&& !escaped)
 			{
 				r = iTM3MakeRange(R.location-5,5);
-				if(iTM3MaxRange(r)<=length)
+				if (iTM3MaxRange(r)<=length)
 				{
 					s = [S substringWithRange:r];
 					[iTM2StringController_TeX_RE setInputString:s];
-					if([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
+					if ([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
 					{
 						R.location -= 5;
 						R.length += 5;
@@ -182,7 +169,7 @@ expandToTheLeftAsLetters:
 					}
 				}
 			}
-			if((R.location>1)
+			if ((R.location>1)
 				&& [S isControlAtIndex:R.location-2 escaped:&escaped]
 					&& !escaped
 						&& ((theChar=='-')||(theChar=='_')||(theChar=='@')||(theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.')))
@@ -192,12 +179,12 @@ expandToTheLeftAsLetters:
 				commandIndex = R.location;
 				goto expandToTheLeftAsLetters;
 			}
-			if((R.location>ZER0)
+			if ((R.location>ZER0)
 				&& [S isControlAtIndex:R.location-1 escaped:&escaped]
 					&& !escaped)
 			{
 				R.length += R.location;
-				if(commandIndex != NSNotFound)
+				if (commandIndex != NSNotFound)
 				{
 					// it is not the correct range if there is already a command somewhere.
 					R.location = commandIndex;
@@ -210,22 +197,22 @@ expandToTheLeftAsLetters:
 				// then expand everything to the right, as command, accept only letters and @
 				loc = iTM3MaxRange(R);
 				r = [self rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:theAttributedString atIndex:loc];
-				if(r.length)
+				if (r.length)
 				{
 					R = iTM3UnionRange(R,r);
 				}
 				return R;
 			}
 		}
-		if(R.location>2)
+		if (R.location>2)
 		{
 			// is it a 7bits accented letter?
 			r = iTM3MakeRange(R.location-3,5);
-			if(iTM3MaxRange(r)<=length)
+			if (iTM3MaxRange(r)<=length)
 			{
 				s = [S substringWithRange:r];
 				[iTM2StringController_TeX_RE setInputString:s];
-				if([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
+				if ([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
 				{
 					R = r;
 					return R;
@@ -235,43 +222,43 @@ expandToTheLeftAsLetters:
 expandToTheRightAsLetters:
 		// just add \_, \-, \@ and all accented chars
 		loc = iTM3MaxRange(R);
-		if(loc>=length)
+		if (loc>=length)
 		{
 			return R;
 		}
-		if(loc+4<length)
+		if (loc+4<length)
 		{
 			r = iTM3MakeRange(loc,5);
 			s = [S substringWithRange:r];
 			[iTM2StringController_TeX_RE setInputString:s];
-			if([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
+			if ([iTM2StringController_TeX_RE matchesAtIndex:ZER0 extendToTheEnd:YES])
 			{
 				R.length += 5;
 				goto expandToTheRightAsLetters;
 			}
 		}
-		if((loc+1<length) &&
+		if ((loc+1<length) &&
 				[S isControlAtIndex:loc escaped:&escaped] &&
 						!escaped)
 		{
 			theChar = [S characterAtIndex:loc+1];
-			if((theChar=='_')||(theChar=='-')||(theChar=='@'))
+			if ((theChar=='_')||(theChar=='-')||(theChar=='@'))
 			{
 				R.length += 2;
 				goto expandToTheRightAsLetters;
 			}
-			else if((theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
+			else if ((theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
 			{
 				R.length += 2;
 				loc+=2;
-				if(loc>=length)
+				if (loc>=length)
 				{
 					return R;
 				}
 			}
 		}
 		theChar = [S characterAtIndex:loc];
-		if([ANCS characterIsMember:theChar])
+		if ([ANCS characterIsMember:theChar])
 		{
 			r = [theAttributedString SWZ_iTM2_doubleClickAtIndex:loc];
 			R = iTM3UnionRange(R,r);
@@ -280,25 +267,25 @@ expandToTheRightAsLetters:
 		return R;
 	}
 	// this is not a letter character
-	if([S isControlAtIndex:index escaped:&escaped] && !escaped)
+	if ([S isControlAtIndex:index escaped:&escaped] && !escaped)
 	{
-		if(index+1<length)
+		if (index+1<length)
 		{
 			theChar = [S characterAtIndex:index+1];
 			R = iTM3MakeRange(index,2);
-			if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
+			if ((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
 			{
-				if(index+2<length)
+				if (index+2<length)
 				{
 					r = [S groupRangeAtIndex:index+2 beginDelimiter:'{' endDelimiter:'}'];
-					if(r.location == index+2)
+					if (r.location == index+2)
 					{
 						R = iTM3UnionRange(R,r);
 					}
 					else
 					{
 						theChar = [S characterAtIndex:index+2];
-						if([ANCS characterIsMember:theChar])
+						if ([ANCS characterIsMember:theChar])
 						{
 							r = [theAttributedString SWZ_iTM2_doubleClickAtIndex:index+2];
 							R = iTM3UnionRange(R,r);
@@ -312,19 +299,19 @@ expandToTheRightAsLetters:
 					goto expandToTheLeftAsLetters;
 				}
 			}
-			else if(theChar=='-')
+			else if (theChar=='-')
 			{
 				// hyphens are selected without the surrounding letters to allow deletion
 				return R;
 			}
-			else if(theChar=='(')
+			else if (theChar=='(')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
 				r = [S rangeOfString:@"\\)" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = iTM3MaxRange(r);
 						r.location = index;
@@ -336,14 +323,14 @@ expandToTheRightAsLetters:
 				}
 				return R;
 			}
-			else if(theChar=='[')
+			else if (theChar=='[')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
 				r = [S rangeOfString:@"\\]" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = iTM3MaxRange(r);
 						r.location = index;
@@ -355,14 +342,14 @@ expandToTheRightAsLetters:
 				}
 				return R;
 			}
-			else if(theChar==')')
+			else if (theChar==')')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(ZER0,index);
 				r = [S rangeOfString:@"\\(" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = iTM3MaxRange(R);
 						r.length -= r.location;
@@ -373,14 +360,14 @@ expandToTheRightAsLetters:
 				}
 				return R;
 			}
-			else if(theChar==']')
+			else if (theChar==']')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(ZER0,index);
 				r = [S rangeOfString:@"\\[" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = iTM3MaxRange(R);
 						r.length -= r.location;
@@ -401,23 +388,23 @@ expandToTheRightAsLetters:
 			return iTM3MakeRange(index,1);
 		}
 	}
-	if(index)
+	if (index)
 	{
-		if([S isControlAtIndex:index-1 escaped:&escaped] && !escaped)
+		if ([S isControlAtIndex:index-1 escaped:&escaped] && !escaped)
 		{
 			R = iTM3MakeRange(index-1,2);
-			if((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
+			if ((theChar=='`')||(theChar=='\'')||(theChar=='^')||(theChar=='"')||(theChar=='~')||(theChar=='=')||(theChar=='.'))
 			{
-				if(index+1<length)
+				if (index+1<length)
 				{
 					r = [S groupRangeAtIndex:index+1 beginDelimiter:'{' endDelimiter:'}'];
-					if(r.location == index+1)
+					if (r.location == index+1)
 					{
 						R = iTM3UnionRange(R,r);
 						goto expandToTheLeftAsLetters;
 					}
 					theChar = [S characterAtIndex:index+1];
-					if([ANCS characterIsMember:theChar])
+					if ([ANCS characterIsMember:theChar])
 					{
 						R = [theAttributedString SWZ_iTM2_doubleClickAtIndex:index+1];
 						R.location -= 2;
@@ -427,14 +414,14 @@ expandToTheRightAsLetters:
 					goto expandToTheLeftAsLetters;
 				}
 			}
-			else if(theChar=='(')
+			else if (theChar=='(')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
 				r = [S rangeOfString:@"\\)" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = iTM3MaxRange(r);
 						r.location = index-1;
@@ -445,14 +432,14 @@ expandToTheRightAsLetters:
 					r.length = length - r.location;
 				}
 			}
-			else if(theChar=='[')
+			else if (theChar=='[')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(index+1,length-index-1);
 				r = [S rangeOfString:@"\\]" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = iTM3MaxRange(r);
 						r.location = index-1;
@@ -463,14 +450,14 @@ expandToTheRightAsLetters:
 					r.length = length - r.location;
 				}
 			}
-			else if(theChar==')')
+			else if (theChar==')')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(ZER0,index);
 				r = [S rangeOfString:@"\\(" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = index+1;
 						r.length -= r.location;
@@ -480,14 +467,14 @@ expandToTheRightAsLetters:
 					r.length = length - r.location;
 				}
 			}
-			else if(theChar==']')
+			else if (theChar==']')
 			{
 				//select the balancing stuff
 				r = iTM3MakeRange(ZER0,index);
 				r = [S rangeOfString:@"\\[" options:ZER0 range:r];
 				while(r.length)
 				{
-					if([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
+					if ([S isControlAtIndex:r.location escaped:&escaped]&&!escaped)
 					{
 						r.length = index+1;
 						r.length -= r.location;
@@ -500,38 +487,38 @@ expandToTheRightAsLetters:
 			R = iTM3MakeRange(index-1,2);
 			return R;// maybe
 		}
-		if(theChar == '@')
+		if (theChar == '@')
 		{
 			R = iTM3MakeRange(index,1);
 			goto expandToTheLeftAsLetters;
 		}
 	}
-	if(theChar == '@')
+	if (theChar == '@')
 	{
 		// is it a URL?
 		R = iTM3MakeRange(index,1);
 		goto expandToTheLeftAsLetters;
 	}
-	if((theChar == '{') || (theChar == '}'))
+	if ((theChar == '{') || (theChar == '}'))
 	{
 		R = [S groupRangeAtIndex:index beginDelimiter:'{' endDelimiter:'}'];
-		if(R.length)
+		if (R.length)
 		{
 			return R;
 		}
 	}
-	if((theChar == '[') || (theChar == ']'))
+	if ((theChar == '[') || (theChar == ']'))
 	{
 		R = [S groupRangeAtIndex:index beginDelimiter:'[' endDelimiter:']'];
-		if(R.length)
+		if (R.length)
 		{
 			return R;
 		}
 	}
-	if((theChar == '(') || (theChar == ')'))
+	if ((theChar == '(') || (theChar == ')'))
 	{
 		R = [S groupRangeAtIndex:index beginDelimiter:'(' endDelimiter:')'];
-		if(R.length)
+		if (R.length)
 		{
 			return R;
 		}
@@ -656,13 +643,13 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	unichar backslash = [NSString backslashCharacter];
-    if(iTM3LocationInRange(index, iTM3MakeRange(ZER0, self.length)) && [self characterAtIndex:index]==backslash)
+    if (iTM3LocationInRange(index, iTM3MakeRange(ZER0, self.length)) && [self characterAtIndex:index]==backslash)
     {
-        if(aFlagPtr)
+        if (aFlagPtr)
         {
             NSUInteger level = ZER0;
             while(index-->ZER0)
-                if([self characterAtIndex:index]==backslash)
+                if ([self characterAtIndex:index]==backslash)
                     ++level;
                 else
                     break;
@@ -670,7 +657,7 @@ To Do List:
         }
         return YES;
     }
-    else if(aFlagPtr)
+    else if (aFlagPtr)
         * aFlagPtr = NO;
     return NO;
 }
@@ -683,16 +670,16 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if(commentPtr)
+    if (commentPtr)
     {
         NSUInteger start, contentsEnd;
 //NSLog(@"GLS");
         [self getLineStart:&start end:lineEndPtr contentsEnd:&contentsEnd forRange:iTM3MakeRange(index, ZER0)];
-        if(startPtr) *startPtr = start;
-        if(contentsEndPtr) *contentsEndPtr = contentsEnd;
+        if (startPtr) *startPtr = start;
+        if (contentsEndPtr) *contentsEndPtr = contentsEnd;
         NSRange R = [self rangeOfString:@"%" options:ZER0 range:iTM3MakeRange(start, contentsEnd-start)];
         BOOL escaped;
-        if(R.length && ((R.location==start)||![self isControlAtIndex:R.location-1 escaped:&escaped]||escaped))
+        if (R.length && ((R.location==start)||![self isControlAtIndex:R.location-1 escaped:&escaped]||escaped))
             *commentPtr = R.location;
         else
             *commentPtr = NSNotFound;
@@ -717,12 +704,12 @@ To Do List:
     while(anchor<index)
     {
         NSRange R = [self rangeOfString:@"%" options:ZER0 range:iTM3MakeRange(anchor, index-anchor)];
-        if(R.length)
+        if (R.length)
         {
-            if(R.location>anchor)
+            if (R.location>anchor)
             {
                 BOOL escaped;
-                if([self isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
+                if ([self isControlAtIndex:R.location-1 escaped:&escaped] && !escaped)
                     anchor = iTM3MaxRange(R);
                 else
                     return YES;
@@ -763,19 +750,19 @@ To Do List:
     CharacterAtIndexIMP CAI = (CharacterAtIndexIMP) [self methodForSelector:@selector(characterAtIndex:)];
     #define NextCharacter CAI(self, @selector(characterAtIndex:), scanLocation)
     BOOL escaped = YES;
-    if(!scanLocation||![self isControlAtIndex:scanLocation-1 escaped:&escaped]||escaped)
+    if (!scanLocation||![self isControlAtIndex:scanLocation-1 escaped:&escaped]||escaped)
     {
         unichar uchar = NextCharacter;
-        if(uchar==bgroup)
+        if (uchar==bgroup)
         {
             while (++scanLocation < maxLocation)
             {
-                if(escaped)
+                if (escaped)
                     escaped = NO;
                 else
                 {
                     uchar = NextCharacter;
-                    if(uchar==[NSString backslashCharacter])
+                    if (uchar==[NSString backslashCharacter])
                         escaped = YES;
                     else if (uchar==bgroup)
                         ++groupLevel;
@@ -788,18 +775,18 @@ To Do List:
                 }
             }
         }
-        else if(uchar==egroup)
+        else if (uchar==egroup)
         {
             while (scanLocation-- > ZER0)
             {
                 uchar = NextCharacter;
                 if (uchar==egroup)
                 {
-                    if(!scanLocation)
+                    if (!scanLocation)
                         return iTM3MakeRange(NSNotFound, ZER0);
-                    else if([self isControlAtIndex:scanLocation-1 escaped:&escaped])
+                    else if ([self isControlAtIndex:scanLocation-1 escaped:&escaped])
                     {
-                        if(escaped)
+                        if (escaped)
                         {
                             scanLocation -= 2;
                             ++groupLevel;                        
@@ -812,11 +799,11 @@ To Do List:
                 }
                 else if (uchar==bgroup)
                 {
-                    if(!scanLocation)
+                    if (!scanLocation)
                         --groupLevel;                        
-                    else if([self isControlAtIndex:scanLocation-1 escaped:&escaped])
+                    else if ([self isControlAtIndex:scanLocation-1 escaped:&escaped])
                     {
-                        if(escaped)
+                        if (escaped)
                         {
                             --groupLevel;                        
                             scanLocation -= 2;
@@ -880,14 +867,14 @@ To Do List:
     while(left-->ZER0)
     {
         unichar uchar = PreviousCharacter;
-        if(uchar==egroup)
+        if (uchar==egroup)
         {
-            if(left==ZER0)
+            if (left==ZER0)
                 return iTM3MakeRange(NSNotFound, ZER0);
             NSUInteger previous = left-1;
-            if([self isControlAtIndex:previous escaped:&escaped])
+            if ([self isControlAtIndex:previous escaped:&escaped])
             {
-                if(escaped)
+                if (escaped)
                 {
                     left -= 2;
                     ++groupLevel;                        
@@ -900,21 +887,21 @@ To Do List:
         }
         else if (uchar==bgroup)
         {
-            if(!left||![self isControlAtIndex:left-1 escaped:&escaped]||escaped)
+            if (!left||![self isControlAtIndex:left-1 escaped:&escaped]||escaped)
                 --groupLevel;                        
-            if(groupLevel==ZER0)
+            if (groupLevel==ZER0)
             {
                 // now expanding to the right
                 groupLevel = 1;
                 BOOL escaped = NO;
                 while (right < top)
                 {
-                    if(escaped)
+                    if (escaped)
                         escaped = NO;
                     else
                     {
                         uchar = NextCharacter;
-                        if(uchar==[NSString backslashCharacter])
+                        if (uchar==[NSString backslashCharacter])
                             escaped = YES;
                         else if (uchar==bgroup)
                             ++groupLevel;
@@ -923,7 +910,7 @@ To Do List:
                             --groupLevel;
                             if (groupLevel==ZER0)
                             {
-                                if(right>=max)
+                                if (right>=max)
                                     return iTM3MakeRange(left, right-left+1);
                                 // we must find an outer group
                                 goto kahuei;
@@ -954,12 +941,12 @@ To Do List:
 	for(string in components)
 	{
 		NSUInteger length = string.length;
-		if(length>ZER0)
+		if (length>ZER0)
 		{
 			BOOL escaped;
-			if([string isControlAtIndex:--length escaped:&escaped] && !escaped)
+			if ([string isControlAtIndex:--length escaped:&escaped] && !escaped)
 			{
-				if(length>ZER0)
+				if (length>ZER0)
 				{
 					S = [string substringWithRange:iTM3MakeRange(ZER0, length)];
 					[MRA addObject:S];
@@ -984,19 +971,19 @@ To Do List:
 		BOOL escaped = NO;// To deal with the \\ newline command
 		for(component in components)
 		{
-			if(component.length)
+			if (component.length)
 			{
-				if(escaped)
+				if (escaped)
 				{
 					NSRange R = iTM3MakeRange(ZER0, ZER0);
 					iTM2LiteScanner * scanner = [iTM2LiteScanner scannerWithString:component charactersToBeSkipped:[NSCharacterSet whitespaceCharacterSet]];
-					if(([scanner scanString:@"begin" intoString:nil]
+					if (([scanner scanString:@"begin" intoString:nil]
 								||[scanner scanString:@"end" intoString:nil])// latex aware
 						&& [scanner scanString:[NSString bgroupString] intoString:nil])
 					{
 						[scanner scanUpToString:[NSString egroupString] intoString:nil];
 						R.location = [scanner scanLocation];
-						if(R.location++<component.length-1)
+						if (R.location++<component.length-1)
 						{
 							R.length = component.length-R.location;
 							// we replace all the { and } by spaces (they will not appear as is in the output
@@ -1010,11 +997,11 @@ To Do List:
 					else
 					{
 						R = [component doubleClickAtIndex:ZER0];
-						if(R.length > 1)
+						if (R.length > 1)
 						{
 							// The beginning of this component is a 2 chars csname
 							R.location = iTM3MaxRange(R);
-							if(R.location<component.length)
+							if (R.location<component.length)
 							{
 								R.length = component.length-R.location;
 								// we replace all the { and } by spaces (they will not appear as is in the output
@@ -1045,7 +1032,7 @@ To Do List:
 		mra = [NSMutableArray array];
 		for(component in [[[[mra componentsJoinedByString:@" "] componentsSeparatedByString:@"~"]
 			componentsJoinedByString:@" "] componentsSeparatedByString:@" "])
-			if(component.length)
+			if (component.length)
 				[mra addObject:component];
 		[MRA addObject:[mra componentsJoinedByString:@" "]];
 	}
@@ -1068,41 +1055,41 @@ To Do List:
 	// all the control sequences are considered to be "transparent" and silently removed
 	// of course this is not true because for example \begin end \end should gobble the following argument
 	// and \arrow is a real character...
-	if(beforePtr) * beforePtr = nil;
-	if(herePtr) * herePtr = nil;
-	if(afterPtr) * afterPtr = nil;
+	if (beforePtr) * beforePtr = nil;
+	if (herePtr) * herePtr = nil;
+	if (afterPtr) * afterPtr = nil;
 	NSUInteger TeXCommentIndex, start, end, contentsEnd;
 	NSUInteger afterAnchor = ZER0;// the after word is expected after this anchor
 	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
 startAgain:
 	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
-	if(TeXCommentIndex != NSNotFound)
+	if (TeXCommentIndex != NSNotFound)
 	{
 		// there is a % comment in this line
-		if(hitIndex>=TeXCommentIndex)
+		if (hitIndex>=TeXCommentIndex)
 		{
-			if(!alreadyComment)
+			if (!alreadyComment)
 			{
 				alreadyComment = YES;
 				alreadyControl = YES;
 			}
-			if(!afterAnchor)
+			if (!afterAnchor)
 				afterAnchor = end;
 			// we hit a % commented character:no hope to find it in the output
-			if(TeXCommentIndex > start)
+			if (TeXCommentIndex > start)
 			{
 				// There exists uncommented characters
 				hitIndex = TeXCommentIndex-1;
 			}
-			else if(hitIndex >= self.length)
+			else if (hitIndex >= self.length)
 			{
 				// No chance to do anything:the source is just one TeX comment or command!!!
 				return ZER0;
 			}
-			else//if(TeXCommentIndex <= start) &&...
+			else//if (TeXCommentIndex <= start) &&...
 			{
 				hitIndex = start;// the first character of the line
-				if(hitIndex--)
+				if (hitIndex--)
 					goto startAgain;
 				else
 					// no chance to find a word
@@ -1112,25 +1099,25 @@ startAgain:
 	}
 point1:;
 	NSRange hereRange = [self rangeOfWordAtIndex4iTM3:hitIndex];
-	if(hereRange.length)
+	if (hereRange.length)
 	{
-		if(hereRange.location)
+		if (hereRange.location)
 		{
 			BOOL escaped = NO;
-			if([self isControlAtIndex:hereRange.location-1 escaped:&escaped] && !escaped)
+			if ([self isControlAtIndex:hereRange.location-1 escaped:&escaped] && !escaped)
 			{
 				// this is a control sequence
-				if(!alreadyControl)
+				if (!alreadyControl)
 				{
 					inControl = YES;
 					alreadyControl = YES;
 				}
-				if(hereRange.location>start+2)
+				if (hereRange.location>start+2)
 				{
 					hitIndex = hereRange.location-2;
 					goto point1;
 				}
-				else if(start)
+				else if (start)
 				{
 					hitIndex = --start;
 					goto startAgain;
@@ -1140,7 +1127,7 @@ point1:;
 			}
 		}
 	}
-	else if(hitIndex)
+	else if (hitIndex)
 	{
 		--hitIndex;
 		goto point1;
@@ -1159,11 +1146,11 @@ point1:;
 		--R.location;
 		R.length = ZER0;
 		[self getLineStart:&R.location end:nil contentsEnd:&contentsEnd forRange:R];
-		if(R.length = contentsEnd-R.location)
+		if (R.length = contentsEnd-R.location)
 			before = [[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]
 				stringByAppendingFormat:@" %@", before];
 	}
-	if(!afterAnchor)
+	if (!afterAnchor)
 		afterAnchor = iTM3MaxRange(hereRange);
 	R.location = afterAnchor;
 	R.length = ZER0;
@@ -1171,19 +1158,19 @@ point1:;
 	NSString * after = [NSString stringByStrippingTeXTagsInString:
 				[self substringWithRange:iTM3MakeRange(afterAnchor, contentsEnd-afterAnchor)]];
 mamita:
-	if(after.length < limit && (end < self.length))
+	if (after.length < limit && (end < self.length))
 	{
 		R.location = end;
 		R.length = ZER0;
 		[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-		if(R.length = contentsEnd-R.location)
+		if (R.length = contentsEnd-R.location)
 			after = [after stringByAppendingFormat:@" %@",
 				[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]];
-		if(contentsEnd < end)
+		if (contentsEnd < end)
 			goto mamita;
 	}
 	NSString * afterWord = nil;
-	if(after.length > 1)
+	if (after.length > 1)
 	{
 		NSUInteger index = 1;
 		NSString * afterWord0 = nil;// default value
@@ -1191,9 +1178,9 @@ mamita:
 		NSString * afterWord2 = nil;// second candidate, the chosen one will be the longest
 nextAfterWord:
 		R = [after rangeOfWordAtIndex4iTM3:index];
-		if(R.length>1)
+		if (R.length>1)
 		{
-			if(afterWord1)
+			if (afterWord1)
 			{
 				afterWord2 = [after substringWithRange:R];
 			}
@@ -1201,29 +1188,29 @@ nextAfterWord:
 			{
 				afterWord1 = [after substringWithRange:R];
 				index = iTM3MaxRange(R) + 1;
-				if(index < after.length)
+				if (index < after.length)
 					goto nextAfterWord;
 			}
 		}
 		else
 		{
-			if(!afterWord0 && R.length)
+			if (!afterWord0 && R.length)
 				afterWord0 = [after substringWithRange:R];
 			index = iTM3MaxRange(R) + 1;
-			if(index < after.length)
+			if (index < after.length)
 				goto nextAfterWord;
 		}
-		if(afterWord0.length > 2)
+		if (afterWord0.length > 2)
 			afterWord = afterWord0;
-		else if(afterWord1.length > 2)
+		else if (afterWord1.length > 2)
 			afterWord = afterWord1;
-		else if(afterWord2.length > 2)
+		else if (afterWord2.length > 2)
 			afterWord = afterWord2;
 		else
 			afterWord = afterWord0;
 	}
 	NSString * beforeWord = nil;
-	if(before.length > 1)
+	if (before.length > 1)
 	{
 		R = iTM3MakeRange(before.length, ZER0);
 		NSString * beforeWord0 = nil;
@@ -1231,38 +1218,38 @@ nextAfterWord:
 		NSString * beforeWord2 = nil;
 nextBeforeWord:
 		R = [before rangeOfWordAtIndex4iTM3:R.location-1];
-		if(R.length>1)
+		if (R.length>1)
 		{
-			if(beforeWord1)
+			if (beforeWord1)
 			{
 				beforeWord2 = [before substringWithRange:R];
 			}
 			else
 			{
 				beforeWord1 = [before substringWithRange:R];
-				if(R.location>ZER0)
+				if (R.location>ZER0)
 					goto nextBeforeWord;
 			}
 		}
 		else
 		{
-			if(!beforeWord0 && R.length)
+			if (!beforeWord0 && R.length)
 				beforeWord0 = [before substringWithRange:R];
-			if(R.location>ZER0)
+			if (R.location>ZER0)
 				goto nextBeforeWord;
 		}
-		if(beforeWord0.length > 2)
+		if (beforeWord0.length > 2)
 			beforeWord = beforeWord0;
-		else if(beforeWord1.length > 2)
+		else if (beforeWord1.length > 2)
 			beforeWord = beforeWord1;
-		else if(beforeWord2.length > 2)
+		else if (beforeWord2.length > 2)
 			beforeWord = beforeWord2;
 		else
 			beforeWord = beforeWord0;
 	}
-	if(beforePtr) * beforePtr = beforeWord;
-	if(herePtr)	  * herePtr   = [self substringWithRange:hereRange];
-	if(afterPtr)  * afterPtr  = afterWord;
+	if (beforePtr) * beforePtr = beforeWord;
+	if (herePtr)	  * herePtr   = [self substringWithRange:hereRange];
+	if (afterPtr)  * afterPtr  = afterWord;
 //END4iTM3;
 	return inControl?NSNotFound:hitIndex-hereRange.location;
 }
@@ -1274,7 +1261,7 @@ Version history:jlaurens AT users DOT sourceforge DOT net
 To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
-	if(isSyncTeX)
+	if (isSyncTeX)
 	{
 		;//return [self _iTM2_getWordBefore:beforePtr here:herePtr after:afterPtr atIndex:hitIndex];
 	}
@@ -1285,41 +1272,41 @@ To Do List:
 	// all the control sequences are considered to be "transparent" and silently removed
 	// of course this is not true because for example \begin end \end should gobble the following argument
 	// and \arrow is a real character...
-	if(beforePtr) * beforePtr = nil;
-	if(herePtr) * herePtr = nil;
-	if(afterPtr) * afterPtr = nil;
+	if (beforePtr) * beforePtr = nil;
+	if (herePtr) * herePtr = nil;
+	if (afterPtr) * afterPtr = nil;
 	NSUInteger TeXCommentIndex, start, end, contentsEnd;
 	NSUInteger afterAnchor = ZER0;// the after word is expected after this anchor
 	BOOL inControl = NO,alreadyControl = NO,alreadyComment = NO;
 startAgain:
 	[self getLineStart:&start end:&end contentsEnd:&contentsEnd TeXComment:&TeXCommentIndex forIndex:hitIndex];
-	if(TeXCommentIndex != NSNotFound)
+	if (TeXCommentIndex != NSNotFound)
 	{
 		// there is a % comment in this line
-		if(hitIndex>=TeXCommentIndex)
+		if (hitIndex>=TeXCommentIndex)
 		{
-			if(!alreadyComment)
+			if (!alreadyComment)
 			{
 				alreadyComment = YES;
 				alreadyControl = YES;
 			}
-			if(!afterAnchor)
+			if (!afterAnchor)
 				afterAnchor = end;
 			// we hit a % commented character:no hope to find it in the output
-			if(TeXCommentIndex > start)
+			if (TeXCommentIndex > start)
 			{
 				// There exists uncommented characters
 				hitIndex = TeXCommentIndex-1;
 			}
-			else if(hitIndex >= self.length)
+			else if (hitIndex >= self.length)
 			{
 				// No chance to do anything:the source is just one TeX comment or command!!!
 				return ZER0;
 			}
-			else//if(TeXCommentIndex <= start) &&...
+			else//if (TeXCommentIndex <= start) &&...
 			{
 				hitIndex = start;// the first character of the line
-				if(hitIndex--)
+				if (hitIndex--)
 					goto startAgain;
 				else
 					// no chance to find a word
@@ -1329,20 +1316,20 @@ startAgain:
 	}
 point1:;
 	NSRange hereRange = [self rangeOfWordAtIndex4iTM3:hitIndex];
-	if(!hereRange.length)
+	if (!hereRange.length)
 	{
 		hereRange = [self rangeOfComposedCharacterSequenceAtIndex:hitIndex];
-		if(hereRange.length == 1)
+		if (hereRange.length == 1)
 		{
-			if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:hitIndex]]
+			if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:hitIndex]]
 					&& (hitIndex>ZER0))
 			{
 				return [self getWordBefore4iTM3:beforePtr here:herePtr after:afterPtr atIndex:hitIndex-1 mode:isSyncTeX];
 			}
 		}
-		if(!hereRange.length)
+		if (!hereRange.length)
 		{
-			if(hitIndex)
+			if (hitIndex)
 			{
 				--hitIndex;
 				goto point1;
@@ -1350,23 +1337,23 @@ point1:;
 			return NSNotFound;
 		}
 	}
-	if(hereRange.location)
+	if (hereRange.location)
 	{
 		BOOL escaped = NO;
-		if([self isControlAtIndex:hereRange.location-1 escaped:&escaped] && !escaped)
+		if ([self isControlAtIndex:hereRange.location-1 escaped:&escaped] && !escaped)
 		{
 			// this is a control sequence
-			if(!alreadyControl)
+			if (!alreadyControl)
 			{
 				inControl = YES;
 				alreadyControl = YES;
 			}
-			if(hereRange.location>start+2)
+			if (hereRange.location>start+2)
 			{
 				hitIndex = hereRange.location-2;
 				goto point1;
 			}
-			else if(start)
+			else if (start)
 			{
 				hitIndex = --start;
 				goto startAgain;
@@ -1389,11 +1376,11 @@ point1:;
 		--R.location;
 		R.length = ZER0;
 		[self getLineStart:&R.location end:nil contentsEnd:&contentsEnd forRange:R];
-		if(R.length = contentsEnd-R.location)
+		if (R.length = contentsEnd-R.location)
 			before = [[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]
 				stringByAppendingFormat:@" %@", before];
 	}
-	if(!afterAnchor)
+	if (!afterAnchor)
 		afterAnchor = iTM3MaxRange(hereRange);
 	R.location = afterAnchor;
 	R.length = ZER0;
@@ -1401,19 +1388,19 @@ point1:;
 	NSString * after = [NSString stringByStrippingTeXTagsInString:
 				[self substringWithRange:iTM3MakeRange(afterAnchor, contentsEnd-afterAnchor)]];
 mamita:
-	if(after.length < limit && (end < self.length))
+	if (after.length < limit && (end < self.length))
 	{
 		R.location = end;
 		R.length = ZER0;
 		[self getLineStart:nil end:&end contentsEnd:&contentsEnd forRange:R];
-		if(R.length = contentsEnd-R.location)
+		if (R.length = contentsEnd-R.location)
 			after = [after stringByAppendingFormat:@" %@",
 				[NSString stringByStrippingTeXTagsInString:[self substringWithRange:R]]];
-		if(contentsEnd < end)
+		if (contentsEnd < end)
 			goto mamita;
 	}
 	NSString * afterWord = nil;
-	if(after.length > 1)
+	if (after.length > 1)
 	{
 		NSUInteger index = 1;
 		NSString * afterWord0 = nil;// default value
@@ -1421,22 +1408,22 @@ mamita:
 		NSString * afterWord2 = nil;// second candidate, the chosen one was the longest
 nextAfterWord:
 		R = [after rangeOfWordAtIndex4iTM3:index];
-		if(!R.length)
+		if (!R.length)
 		{
 			R = [self rangeOfComposedCharacterSequenceAtIndex:index];
-			if(R.length == 1)
+			if (R.length == 1)
 			{
 				index = iTM3MaxRange(R) + 1;
-				if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
+				if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
 						&& (index < after.length))
 				{
 					goto nextAfterWord;
 				}
 			}
 		}
-		if(R.length>1)
+		if (R.length>1)
 		{
-			if(afterWord1)
+			if (afterWord1)
 			{
 				afterWord2 = [after substringWithRange:R];
 			}
@@ -1444,27 +1431,27 @@ nextAfterWord:
 			{
 				afterWord1 = [after substringWithRange:R];
 				index = iTM3MaxRange(R) + 1;
-				if(index < after.length)
+				if (index < after.length)
 					goto nextAfterWord;
 			}
 		}
 		else
 		{
-			if(!afterWord0 && R.length)
+			if (!afterWord0 && R.length)
 				afterWord0 = [after substringWithRange:R];
 			index = iTM3MaxRange(R) + 1;
-			if(index < after.length)
+			if (index < after.length)
 				goto nextAfterWord;
 		}
-		if(afterWord2.length > afterWord1.length)
+		if (afterWord2.length > afterWord1.length)
 			afterWord = afterWord2;
-		else if(afterWord1.length > afterWord0.length)
+		else if (afterWord1.length > afterWord0.length)
 			afterWord = afterWord1;
 		else
 			afterWord = afterWord0;
 	}
 	NSString * beforeWord = nil;
-	if(before.length > 1)
+	if (before.length > 1)
 	{
 		R = iTM3MakeRange(before.length, ZER0);
 		NSString * beforeWord0 = nil;
@@ -1472,13 +1459,13 @@ nextAfterWord:
 		NSString * beforeWord2 = nil;
 nextBeforeWord:
 		R = [before rangeOfWordAtIndex4iTM3:R.location-1];
-		if(!R.length)
+		if (!R.length)
 		{
             if (R.location) {
                 R = [self rangeOfComposedCharacterSequenceAtIndex:R.location-1];
-                if(R.length == 1)
+                if (R.length == 1)
                 {
-                    if([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
+                    if ([[NSCharacterSet whitespaceAndNewlineCharacterSet] characterIsMember:[self characterAtIndex:R.location]]
                             && (R.location>ZER0))
                     {
                         goto nextBeforeWord;
@@ -1486,36 +1473,36 @@ nextBeforeWord:
                 }
             }
 		}
-		if(R.length>1)
+		if (R.length>1)
 		{
-			if(beforeWord1)
+			if (beforeWord1)
 			{
 				beforeWord2 = [before substringWithRange:R];
 			}
 			else
 			{
 				beforeWord1 = [before substringWithRange:R];
-				if(R.location>ZER0)
+				if (R.location>ZER0)
 					goto nextBeforeWord;
 			}
 		}
 		else
 		{
-			if(!beforeWord0 && R.length)
+			if (!beforeWord0 && R.length)
 				beforeWord0 = [before substringWithRange:R];
-			if(R.location>ZER0)
+			if (R.location>ZER0)
 				goto nextBeforeWord;
 		}
-		if(beforeWord2.length > beforeWord1.length)
+		if (beforeWord2.length > beforeWord1.length)
 			beforeWord = beforeWord2;
-		else if(beforeWord1.length > beforeWord0.length)
+		else if (beforeWord1.length > beforeWord0.length)
 			beforeWord = beforeWord1;
 		else
 			beforeWord = beforeWord0;
 	}
-	if(beforePtr) * beforePtr = beforeWord;
-	if(herePtr)	  * herePtr   = [self substringWithRange:hereRange];
-	if(afterPtr)  * afterPtr  = afterWord;
+	if (beforePtr) * beforePtr = beforeWord;
+	if (herePtr)	  * herePtr   = [self substringWithRange:hereRange];
+	if (afterPtr)  * afterPtr  = afterWord;
 //END4iTM3;
 	return inControl?NSNotFound:hitIndex-hereRange.location;
 }
@@ -1528,17 +1515,16 @@ nextBeforeWord:
 @implementation iTM2MainInstaller(TeXStringKit)
 + (void)prepareTeXStringKitCompleteInstallation4iTM3;
 {
-	if ([NSAttributedString swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_doubleClickAtIndex:) error:NULL]) {
-		MILESTONE4iTM3((@"NSAttributedString(TeX4iTM3)"),(@"The doubleClickAtIndex: is not patched to take TeX commands intou account."));
+	if ([NSAttributedString swizzleInstanceMethodSelector4iTM3:@selector(SWZ_iTM2_doubleClickAtIndex:) ROR4iTM3]) {
+		MILESTONE4iTM3((@"NSAttributedString(TeX4iTM3)"),(@"The doubleClickAtIndex: is not patched to take TeX commands into account."));
 	}
-	if(!iTM2StringController_TeX_RE) {
-		NSError * ROR = nil;
+	if (!iTM2StringController_TeX_RE) {
 //		iTM2StringController_TeX_RE = [[ICURegEx alloc] initWithSearchPattern:@"(?!\\(?:\\{2})*)\\[`'\\^\"~=.]\\{.\\}" options:nil error:&ROR];
-		iTM2StringController_TeX_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:ZER0 error:&ROR];
+		iTM2StringController_TeX_RE = [[ICURegEx alloc] initWithSearchPattern:@"\\\\[`'\\^\"~=.]\\{.\\}" options:ZER0 ROR4iTM3];
 		if (!iTM2StringController_TeX_RE) {
 			LOG4iTM3(@"RE unavailable");
-			if (ROR) {
-				LOG4iTM3(@"ROR:%@",ROR);
+			if (self.RORef4iTM3) {
+				LOG4iTM3(@"ROR:%@",*(self.RORef4iTM3));
             } else {
 				LOG4iTM3(@"ROR unavailable");
 			}

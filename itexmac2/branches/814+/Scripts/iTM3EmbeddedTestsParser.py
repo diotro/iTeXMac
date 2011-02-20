@@ -2,18 +2,23 @@
 # -*- coding: utf-8 -*-
 
 import sys, os, os.path, re, io
+from optparse import OptionParser
+
 
 def main():
-    if len(sys.argv)!=3:
-        sys.exit("One parameter exactly needed");
-    frmwk_src_path = sys.argv[1]
-    test_dir = sys.argv[2]
+    parser = OptionParser(usage="usage: %prog [options] framework_src_path",
+                          version="%prog 1.0")
+    (options, args) = parser.parse_args()
+    if len(args) != 2:
+        parser.error("wrong number of arguments")
+    frmwk_src_path = args[0]
+    test_dir = args[1]
     frmk_name = os.path.basename(frmwk_src_path)
     if len(frmk_name) == 0:
         frmk_name = os.path.basename(os.path.dirname(frmwk_src_path))
         if len(frmk_name) == 0:
             sys.exit("Bad 1st parameter");
-    path = os.path.join(sys.argv[2],frmk_name)
+    path = os.path.join(test_dir,frmk_name)
     if not os.path.exists(path):
         os.makedirs(path)
     testCases = []
@@ -58,6 +63,7 @@ def main():
                                     depth = depth-1
                                 else:
                                     headers.pop(-1)
+                                    print headers
                                     break
                     elif re.match("#\\s*ifdef\\s*__EMBEDDED_TEST_SETUP__",line):
                         while len(lines)>0:
@@ -168,9 +174,9 @@ def main():
                     class_name = "%sTestCases"%os.path.splitext(file)[0];
                     setups.insert(0,"\n@implementation %s\n"%class_name)
                     setups.append("@end\n")
-                    setups.insert(0,"#import \"iTM3SenTestKit.h\"\n@interface %s : SenTestCase {\n}\n@end\n"%class_name)
+                    setups.insert(0,"#import \"%s\"\n@interface %s : %s {\n}\n@end\n"%(("iTM3SenTestKit.h"),class_name,("iTM3TestCase")))
                     if len(headers):
-                        testCases.insert(0,"\n".join(headers))
+                        setups.insert(0,"\n".join(headers))
                     setups.insert(0,"//This file was generated automatically by the 'Prepare Embedded Tests' build phase.\n")
                     try:
                         # This will create a new file or **overwrite an existing file**.

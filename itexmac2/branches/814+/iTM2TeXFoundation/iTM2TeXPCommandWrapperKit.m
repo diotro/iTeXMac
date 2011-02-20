@@ -1371,11 +1371,11 @@ To Do List:
 //START4iTM3;
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil ROR4iTM3];
 	NSImage * I = nil;
-	if([[[TPD taskController] currentTask] isRunning]) {
-		[[TPD taskController] stop];
+	if([[TPD.taskController currentTask] isRunning]) {
+		[TPD.taskController stop];
 		I = [NSImage cachedImageNamed4iTM3:@"typesetCurrentProject"];
 	} else {
-		NSString * commandName = [TPD context4iTM3ValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
+		NSString * commandName = [TPD context4iTM3ValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 		Class performer = [iTM2TeXPCommandManager commandPerformerForName:(commandName?:@"Compile")];
 		[performer performCommandForProject: TPD];
 		I = [NSImage cachedImageNamed4iTM3:@"stopTypesetCurrentProject"];
@@ -1395,7 +1395,7 @@ To Do List:
 //START4iTM3;
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:sender ROR4iTM3];
 	sender.image = [NSImage cachedImageNamed4iTM3:
-		([[[TPD taskController] currentTask] isRunning]?@"stopTypesetCurrentProject":@"typesetCurrentProject")];
+		([[TPD.taskController currentTask] isRunning]?@"stopTypesetCurrentProject":@"typesetCurrentProject")];
 //END4iTM3;
     return TPD != nil;
 }  
@@ -1410,9 +1410,9 @@ To Do List:
 //START4iTM3;
 	iTM2TeXProjectDocument * TPD = [SPC projectForSource:nil ROR4iTM3];
 	NSImage * I = nil;
-	if([[[TPD taskController] currentTask] isRunning])
+	if([[TPD.taskController currentTask] isRunning])
 	{
-		[[TPD taskController] stop];
+		[TPD.taskController stop];
 		I = [NSImage cachedImageNamed4iTM3:@"typesetCurrentProject"];
 	}
 	else

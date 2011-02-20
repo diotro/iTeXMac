@@ -6,9 +6,9 @@
 //  Copyright 2007 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import "GTMSenTestCase.h"
 
-@interface iTM2TeXTestSuite : GTMSenTestCase {
+@interface iTM2TeXTestSuite : GTMTestCase {
 
 }
 

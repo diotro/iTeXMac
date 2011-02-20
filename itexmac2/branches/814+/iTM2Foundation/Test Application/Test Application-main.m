@@ -175,7 +175,7 @@ id ICsA, ICsB, EOLs;
 
 #import "../../build/EmbeddedTestCases/iTM2FoundationTestCases.m"
 
-@interface SenTestCase(MORE)
+@interface iTM3TestCase(MORE)
 @end
 static id text = nil;
 @implementation iTM2Application(Test)

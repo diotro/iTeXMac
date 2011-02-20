@@ -19,6 +19,7 @@
 */
 
 #import <Foundation/NSString.h>
+#import <iTM2Foundation/iTM2Foundation.h>
 
 extern NSString * const iTM2UDTabAnchorStringKey;
 
@@ -61,7 +62,6 @@ extern NSString * const iTM2UDTabAnchorStringKey;
 
 @interface iTM2StringController(TeX)
 - (NSRange)TeXAwareWordRangeInAttributedString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
-- (NSString *) stringByRemovingTeXEscapeSequencesInString:(NSString *)aString;
 - (NSRange)rangeOfCharactersInSet:(NSCharacterSet *)theSet inAttributedString:(NSAttributedString *)theAttributedString atIndex:(NSUInteger)index;
 @end
 

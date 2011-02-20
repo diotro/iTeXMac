@@ -2128,7 +2128,7 @@ To Do List:
 	if([SPC isBaseProject:TPD])
 		return NO;
 	// selector  names like projectXXXXX: are catched here
-	NSString * lastCommandName = [TPD context4iTM3ValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask];
+	NSString * lastCommandName = [TPD context4iTM3ValueForKey:@"iTM2TeXProjectLastCommandName" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 	NSString * commandName = self.commandName;
 	sender.state = ([lastCommandName isEqualToString:commandName]?NSMixedState:NSOffState);
 	NSImage * I = [NSImage imageNamed:@"iTeXMac2Mini"];

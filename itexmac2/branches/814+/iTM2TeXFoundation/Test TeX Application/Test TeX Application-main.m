@@ -29,19 +29,36 @@ int main(int argc, char *argv[]) {
   return result;
 }
 
-#import "../../build/EmbeddedTestCases/iTM2TeXFoundationTestCases.m"
-
-@interface SenTestCase(MORE)
-@end
-
 static id text = nil;
+
+#import "../../build/EmbeddedTestCases/iTM2TeXFoundationTestCases.m"
 
 @implementation iTM2Application(Test)
 
-- (void)prepare000000000StringControllerCompleteDidFinishLaunching4iTM3;
+- (void)prepare000000000CompleteDidFinishLaunching4iTM3;
 {
     invoke_iTM2TeXFoundation_testCases();
+#if 0
+    [[[iTM2Test_RE alloc] init]invokeTest];
+    [[[iTM2Test0A alloc] init]invokeTest];
+    [[[iTM2Test0B alloc] init]invokeTest];
+    [[[iTM2Test0C alloc] init]invokeTest];
+    [[[iTM2Test0D alloc] init]invokeTest];
+    [[[iTM2Test1A alloc] init]invokeTest];
+    [[[iTM2Test1B alloc] init]invokeTest];
+    [[[iTM2Test1C alloc] init]invokeTest];
+    [[[iTM2Test2 alloc] init]invokeTest];
+    [[[iTM2Test3A alloc] init]invokeTest];
+    [[[iTM2Test3B alloc] init]invokeTest];
+    [[[iTM2Test3C alloc] init]invokeTest];
+    [[[iTM2Test4 alloc] init]invokeTest];
+    [[[iTM2Test5 alloc] init]invokeTest];
+    [[[iTM2Test6 alloc] init]invokeTest];
+    [[[iTM2Test7 alloc] init]invokeTest];
+    [[[iTM2Test3B alloc] init] invokeTest];
+#endif
 }
+
 - (BOOL)canEditText;
 {
 	return YES;

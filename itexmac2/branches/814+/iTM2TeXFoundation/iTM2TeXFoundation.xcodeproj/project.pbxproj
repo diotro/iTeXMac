@@ -92,11 +92,15 @@
 		51314DED0D01C14B00862683 /* iTM2Gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 51314DEC0D01C14B00862683 /* iTM2Gear.png */; };
 		5150EC8B0E8139C300578A0A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5150EC8A0E8139C300578A0A /* libz.dylib */; };
 		51999E360D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51999E340D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib */; };
-		51F00C5E12E64243002A4013 /* iTM3SenTestKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */; };
-		51F00CB112E64761002A4013 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F00CB012E64761002A4013 /* SenTestingKit.framework */; };
+		51F06ED013069F7000D6A5F9 /* iTM3SenTestKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 51F06ECF13069F7000D6A5F9 /* iTM3SenTestKit.m */; };
+		51F06F7113084CD800D6A5F9 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51FAD9D81302D5FD00A59CD2 /* SenTestingKit.framework */; };
 		51FAD7C912FEF4CA00A59CD2 /* iTeXMac2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51FAD7C712FEF4CA00A59CD2 /* iTeXMac2.xib */; };
 		51FAD97C1302941500A59CD2 /* GTMAppKitUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD9791302941500A59CD2 /* GTMAppKitUnitTestingUtilities.m */; };
 		51FAD97D1302941500A59CD2 /* GTMFoundationUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD97B1302941500A59CD2 /* GTMFoundationUnitTestingUtilities.m */; };
+		51FAD9B2130297EF00A59CD2 /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD9B1130297EF00A59CD2 /* GTMSenTestCase.m */; };
+		51FAD9B9130298C900A59CD2 /* GTMUnitTestDevLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD9B8130298C900A59CD2 /* GTMUnitTestDevLog.m */; };
+		51FAD9BC130298D300A59CD2 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD9BB130298D300A59CD2 /* GTMObjC2Runtime.m */; };
+		51FAD9CE1302D33C00A59CD2 /* GTMRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FAD9CD1302D33C00A59CD2 /* GTMRegex.m */; };
 		53E563E5106B9A020077B6FD /* synctex_parser_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCF106B84FB005D94C0 /* synctex_parser_utils.c */; };
 		53F77DD8106B8538005D94C0 /* synctex_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F77DCB106B84FB005D94C0 /* synctex_parser.c */; };
 		53F77DD9106B8538005D94C0 /* synctex_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 53F77DCC106B84FB005D94C0 /* synctex_parser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -117,7 +121,6 @@
 		DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */; };
 		DC24D2B70952C5DB00647943 /* iTeXMac2 Server in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DCF2E57E095240C600EE54E2 /* iTeXMac2 Server */; };
 		DC4AAF930A6C470400531ADA /* iTeXMac2Mini.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */; };
-		DC4E16E00CCD054F00F5CE3E /* iTM2TeXTestSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4E16DF0CCD054F00F5CE3E /* iTM2TeXTestSuite.m */; };
 		DC4E16FD0CCD085600F5CE3E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C70854ACD700F3EB8A /* Carbon.framework */; };
 		DC4E16FE0CCD085600F5CE3E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC4E16FF0CCD085700F5CE3E /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C30854ACBA00F3EB8A /* iTM2Foundation.framework */; };
@@ -375,22 +378,33 @@
 		51314DE90D01BFE400862683 /* 7bitsAccents.iTM2-key-bindings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "7bitsAccents.iTM2-key-bindings"; sourceTree = "<group>"; };
 		51314DEC0D01C14B00862683 /* iTM2Gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2Gear.png; sourceTree = "<group>"; };
 		5150EC8A0E8139C300578A0A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
+		516A8EAD1305A0A800934718 /* iTM2TeXStringKitTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStringKitTestCases.m; sourceTree = "<group>"; };
 		5185ED7212702B5100AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
 		5185ED7312702B5100AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
 		5185ED7412702B5100AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
 		5185ED7512702B5100AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
 		51999E350D92D744004F0D09 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
 		51999E370D92D752004F0D09 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2XtdTeXParserSymbolsInspector.xib; sourceTree = "<group>"; };
-		51F00C5C12E64243002A4013 /* iTM3SenTestKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTM3SenTestKit.h; path = "../iTM2Foundation/Unit Tests/iTM3SenTestKit.h"; sourceTree = SOURCE_ROOT; };
-		51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM3SenTestKit.m; path = "../iTM2Foundation/Unit Tests/iTM3SenTestKit.m"; sourceTree = SOURCE_ROOT; };
-		51F00CB012E64761002A4013 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		51F06ECE13069F7000D6A5F9 /* iTM3SenTestKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM3SenTestKit.h; sourceTree = "<group>"; };
+		51F06ECF13069F7000D6A5F9 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM3SenTestKit.m; sourceTree = "<group>"; };
 		51FAD7C812FEF4CA00A59CD2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTeXMac2.xib; sourceTree = "<group>"; };
-		51FAD9441302917500A59CD2 /* GTMUnitTestingTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMUnitTestingTest.h; sourceTree = "<group>"; };
-		51FAD9451302917500A59CD2 /* GTMUnitTestingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMUnitTestingTest.m; sourceTree = "<group>"; };
 		51FAD9781302941500A59CD2 /* GTMAppKitUnitTestingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMAppKitUnitTestingUtilities.h; sourceTree = "<group>"; };
 		51FAD9791302941500A59CD2 /* GTMAppKitUnitTestingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMAppKitUnitTestingUtilities.m; sourceTree = "<group>"; };
 		51FAD97A1302941500A59CD2 /* GTMFoundationUnitTestingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMFoundationUnitTestingUtilities.h; sourceTree = "<group>"; };
 		51FAD97B1302941500A59CD2 /* GTMFoundationUnitTestingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMFoundationUnitTestingUtilities.m; sourceTree = "<group>"; };
+		51FAD98A1302952300A59CD2 /* iTM2TeXTestSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXTestSuite.h; sourceTree = "<group>"; };
+		51FAD98B1302952300A59CD2 /* iTM2TeXTestSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXTestSuite.m; sourceTree = "<group>"; };
+		51FAD99C130296B400A59CD2 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
+		51FAD99D130296B400A59CD2 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		51FAD9B0130297EF00A59CD2 /* GTMSenTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMSenTestCase.h; sourceTree = "<group>"; };
+		51FAD9B1130297EF00A59CD2 /* GTMSenTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMSenTestCase.m; sourceTree = "<group>"; };
+		51FAD9B7130298C900A59CD2 /* GTMUnitTestDevLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMUnitTestDevLog.h; sourceTree = "<group>"; };
+		51FAD9B8130298C900A59CD2 /* GTMUnitTestDevLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMUnitTestDevLog.m; sourceTree = "<group>"; };
+		51FAD9BA130298D300A59CD2 /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
+		51FAD9BB130298D300A59CD2 /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
+		51FAD9CC1302D33C00A59CD2 /* GTMRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMRegex.h; sourceTree = "<group>"; };
+		51FAD9CD1302D33C00A59CD2 /* GTMRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMRegex.m; sourceTree = "<group>"; };
+		51FAD9D81302D5FD00A59CD2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		53F77DB2106B84FB005D94C0 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		53F77DCB106B84FB005D94C0 /* synctex_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synctex_parser.c; sourceTree = "<group>"; };
 		53F77DCC106B84FB005D94C0 /* synctex_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = synctex_parser.h; sourceTree = "<group>"; };
@@ -417,8 +431,6 @@
 		DC4AAF920A6C470400531ADA /* iTeXMac2Mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTeXMac2Mini.png; sourceTree = "<group>"; };
 		DC4E16D50CCD04FF00F5CE3E /* Test Suite.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Test Suite.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC4E16D60CCD04FF00F5CE3E /* Test Suite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test Suite-Info.plist"; sourceTree = "<group>"; };
-		DC4E16DE0CCD054F00F5CE3E /* iTM2TeXTestSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXTestSuite.h; sourceTree = "<group>"; };
-		DC4E16DF0CCD054F00F5CE3E /* iTM2TeXTestSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXTestSuite.m; sourceTree = "<group>"; };
 		DC4E1A050CCDD63800F5CE3E /* bookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookmark.png; sourceTree = "<group>"; };
 		DC4E1A060CCDD63800F5CE3E /* cautionTypeset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cautionTypeset.png; sourceTree = "<group>"; };
 		DC4E1A080CCDD63800F5CE3E /* showCurrentPLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = showCurrentPLog.png; sourceTree = "<group>"; };
@@ -563,7 +575,7 @@
 				DC1C6C2E090D98FE000F4FDE /* Carbon.framework in Frameworks */,
 				DC1C6C2F090D98FE000F4FDE /* Cocoa.framework in Frameworks */,
 				DC1C6C30090D98FE000F4FDE /* PreferencePanes.framework in Frameworks */,
-				51F00CB112E64761002A4013 /* SenTestingKit.framework in Frameworks */,
+				51F06F7113084CD800D6A5F9 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +656,7 @@
 				DC70EFA80BFC56BF006C6A76 /* Lua.framework */,
 				5150EC8A0E8139C300578A0A /* libz.dylib */,
 				DCE52F710C0F3CC700F2D5B9 /* libicucore.dylib */,
+				51FAD9D81302D5FD00A59CD2 /* SenTestingKit.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -654,14 +667,24 @@
 				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
 				D2F7E79907B2D74100F64583 /* CoreData.framework */,
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
-				51F00CB012E64761002A4013 /* SenTestingKit.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		516A8EAC1305A0A800934718 /* iTM2TeXFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				516A8EAD1305A0A800934718 /* iTM2TeXStringKitTestCases.m */,
+			);
+			name = iTM2TeXFoundation;
+			path = ../build/EmbeddedTestCases/iTM2TeXFoundation;
+			sourceTree = SOURCE_ROOT;
+		};
 		51FAD9381302909D00A59CD2 /* GTM */ = {
 			isa = PBXGroup;
 			children = (
+				51FAD99B130296B400A59CD2 /* Foundation */,
+				51FAD99D130296B400A59CD2 /* GTMDefines.h */,
 				51FAD9431302917500A59CD2 /* UnitTesting */,
 			);
 			name = GTM;
@@ -671,6 +694,11 @@
 		51FAD93B130290B900A59CD2 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				51F06ECE13069F7000D6A5F9 /* iTM3SenTestKit.h */,
+				51F06ECF13069F7000D6A5F9 /* iTM3SenTestKit.m */,
+				516A8EAC1305A0A800934718 /* iTM2TeXFoundation */,
+				51FAD98A1302952300A59CD2 /* iTM2TeXTestSuite.h */,
+				51FAD98B1302952300A59CD2 /* iTM2TeXTestSuite.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -682,10 +710,24 @@
 				51FAD9791302941500A59CD2 /* GTMAppKitUnitTestingUtilities.m */,
 				51FAD97A1302941500A59CD2 /* GTMFoundationUnitTestingUtilities.h */,
 				51FAD97B1302941500A59CD2 /* GTMFoundationUnitTestingUtilities.m */,
-				51FAD9441302917500A59CD2 /* GTMUnitTestingTest.h */,
-				51FAD9451302917500A59CD2 /* GTMUnitTestingTest.m */,
+				51FAD9B0130297EF00A59CD2 /* GTMSenTestCase.h */,
+				51FAD9B1130297EF00A59CD2 /* GTMSenTestCase.m */,
+				51FAD9B7130298C900A59CD2 /* GTMUnitTestDevLog.h */,
+				51FAD9B8130298C900A59CD2 /* GTMUnitTestDevLog.m */,
 			);
 			path = UnitTesting;
+			sourceTree = "<group>";
+		};
+		51FAD99B130296B400A59CD2 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				51FAD99C130296B400A59CD2 /* GTMGarbageCollection.h */,
+				51FAD9BA130298D300A59CD2 /* GTMObjC2Runtime.h */,
+				51FAD9BB130298D300A59CD2 /* GTMObjC2Runtime.m */,
+				51FAD9CC1302D33C00A59CD2 /* GTMRegex.h */,
+				51FAD9CD1302D33C00A59CD2 /* GTMRegex.m */,
+			);
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 		53F77DAA106B84FB005D94C0 /* synctexdir */ = {
@@ -713,8 +755,6 @@
 				DC225F690AE53C1A00186582 /* Test TeX Application-Info.plist */,
 				DC225F6A0AE53C1A00186582 /* Test TeX Application-main.m */,
 				DC225F6B0AE53C1A00186582 /* Test TeX Application-Prefix.pch */,
-				51F00C5C12E64243002A4013 /* iTM3SenTestKit.h */,
-				51F00C5D12E64243002A4013 /* iTM3SenTestKit.m */,
 			);
 			path = "Test TeX Application";
 			sourceTree = "<group>";
@@ -825,8 +865,6 @@
 				DCC3D1690926A425005471BD /* iTM2TextWatcher.m */,
 				DC7888810C46801900E30CB0 /* iTM2DVIKit.h */,
 				DC7888820C46801900E30CB0 /* iTM2DVIKit.m */,
-				DC4E16DE0CCD054F00F5CE3E /* iTM2TeXTestSuite.h */,
-				DC4E16DF0CCD054F00F5CE3E /* iTM2TeXTestSuite.m */,
 				DC99EA05088315BD007AF81F /* Binaries */,
 				DC99EA47088315BD007AF81F /* iTM2 Server Kit */,
 				DCC7F3F10854AC9200F3EB8A /* Resources */,
@@ -1213,6 +1251,7 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/iTM2TeXStringKit.m",
 			);
 			outputPaths = (
 			);
@@ -1421,9 +1460,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC225F750AE53C1A00186582 /* Test TeX Application-main.m in Sources */,
-				51F00C5E12E64243002A4013 /* iTM3SenTestKit.m in Sources */,
 				51FAD97C1302941500A59CD2 /* GTMAppKitUnitTestingUtilities.m in Sources */,
 				51FAD97D1302941500A59CD2 /* GTMFoundationUnitTestingUtilities.m in Sources */,
+				51FAD9B2130297EF00A59CD2 /* GTMSenTestCase.m in Sources */,
+				51FAD9B9130298C900A59CD2 /* GTMUnitTestDevLog.m in Sources */,
+				51FAD9BC130298D300A59CD2 /* GTMObjC2Runtime.m in Sources */,
+				51FAD9CE1302D33C00A59CD2 /* GTMRegex.m in Sources */,
+				51F06ED013069F7000D6A5F9 /* iTM3SenTestKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1431,7 +1474,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC4E16E00CCD054F00F5CE3E /* iTM2TeXTestSuite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2119,6 +2161,7 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
 				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = /Developer/Library/Frameworks;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lgcov",
@@ -2140,7 +2183,9 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = __iTM2_LIVE_TEST__;
 				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = /Developer/Library/Frameworks;
 				PRODUCT_NAME = "Test TeX Application";
 			};
 			name = Deployment;

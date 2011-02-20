@@ -899,6 +899,7 @@ To Do List:
 - (NSUInteger)xlineIndexForLocation4iTM3:(NSUInteger)location;
 @end
 
+#ifndef __iTM2ModeLine_HEADER__
 @interface iTM2ModeLine()
 @property (assign, nonatomic) NSUInteger uncommentedLength;
 @property (assign, nonatomic) NSUInteger commentedLength;
@@ -912,7 +913,10 @@ To Do List:
 @property (assign, nonatomic) NSUInteger * syntaxWordEnds;
 @property (assign, nonatomic) NSUInteger * syntaxWordModes;
 @end
+#define __iTM2ModeLine_HEADER__
+#endif
 #ifdef __EMBEDDED_TEST_HEADER__
+#ifndef __iTM2ModeLine_HEADER__
 @interface iTM2ModeLine()
 @property (assign, nonatomic) NSUInteger uncommentedLength;
 @property (assign, nonatomic) NSUInteger commentedLength;
@@ -926,6 +930,8 @@ To Do List:
 @property (assign, nonatomic) NSUInteger * syntaxWordEnds;
 @property (assign, nonatomic) NSUInteger * syntaxWordModes;
 @end
+#define __iTM2ModeLine_HEADER__
+#endif
 #endif
 
 @interface iTM2TextSyntaxParser()
