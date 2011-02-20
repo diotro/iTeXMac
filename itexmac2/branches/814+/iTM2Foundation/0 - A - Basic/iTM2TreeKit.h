@@ -218,7 +218,7 @@
 	@method		indexPath
 	@abstract	Abstract forthcoming.
 	@discussion	Discussion forthcoming.
-	@result		a node.
+	@result		an index path instance.
 */
 @property (readonly) NSIndexPath * indexPath;
 
@@ -248,6 +248,7 @@
 	@method		initWithParent:
 	@abstract	Initializer.
 	@discussion	The default value is a mutable dictionary.
+    @param      the parent node
 	@result		An object.
 */
 - (id <iTM2TreeNode>)initWithParent:(id <iTM2TreeNode>)aParent;
@@ -256,6 +257,8 @@
 	@method		initWithParent:value:
 	@abstract	Initializer.
 	@discussion	Discussion forthcoming.
+    @param      the parent node
+    @param      the strong value
 	@result		An object.
 */
 - (id <iTM2TreeNode>)initWithParent:(id <iTM2TreeNode>)aParent value:(id)anObject;
@@ -264,9 +267,19 @@
 	@method		initWithParent:retainedValue:
 	@abstract	Initializer.
 	@discussion	Discussion forthcoming.
+    @param      the parent node
+    @param      the weak value
 	@result		An object.
 */
 - (id <iTM2TreeNode>)initWithParent:(id <iTM2TreeNode>)aParent nonretainedValue:(id)anObject;
+
+/*!
+	@method		longDescription
+	@abstract	Long description.
+	@discussion	Discussion forthcoming.
+	@result		A string.
+*/
+- (NSString *)longDescription;
 
 @end
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TreeNode

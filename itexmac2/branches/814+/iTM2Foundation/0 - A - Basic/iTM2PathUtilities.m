@@ -1339,6 +1339,20 @@ As a convenience, volume properties can be requested from any file system URL. T
 }
 #endif
 
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyName4iTM3Error:
+- (NSString *)prettyName4iTM3Error:(NSError **)RORef;
+/*"Description forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 1.3: 06/01/03
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+//END4iTM3;
+	return [self hasHiddenExtension4iTM3Error:RORef]?
+			self.lastPathComponent.stringByDeletingPathExtension:self.lastPathComponent;
+}
+
 @end
 
 @implementation NSArray(iTM2PathUtilities)

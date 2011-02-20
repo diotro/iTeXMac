@@ -79,19 +79,6 @@ To Do List:
 //END4iTM3;
 	return [url setResourceValue:[NSNumber numberWithBool:yorn] forKey:NSURLHasHiddenExtensionKey error:NULL];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  prettyNameAtPath4iTM3:
-- (NSString *)prettyNameAtPath4iTM3:(NSString *)path;
-/*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- 1.3: 06/01/03
-To Do List:
-"*/
-{DIAGNOSTIC4iTM3;
-//START4iTM3;
-//END4iTM3;
-	return [[self attributesOfItemAtPath:path error:NULL] fileExtensionHidden]?
-			path.lastPathComponent.stringByDeletingPathExtension:path.lastPathComponent;
-}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  fileExistsAtPath4iTM3:isAlias:error:
 - (BOOL)fileExistsAtPath4iTM3:(NSString *)path isAlias:(BOOL *)isAlias error:(NSError**)RORef;
 /*"Description forthcoming.

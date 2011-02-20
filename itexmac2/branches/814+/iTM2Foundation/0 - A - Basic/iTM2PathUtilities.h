@@ -574,6 +574,17 @@ As a convenience, volume properties can be requested from any file system URL. T
 
 #endif
 
+/*!
+	@method			prettyName4iTM3rror:
+	@abstract		Abstract forthcoming.
+	@discussion		The cocoa display name at the given URL traverses links. This one does not.
+	@param			fileName
+	@result			Non traversing link display name.
+	@availability	iTM3.
+	@copyright		2011 jlaurens AT users DOT sourceforge DOT net and others.
+*/
+- (NSString *)prettyName4iTM3Error:(NSError**)RORef;
+
 @end
 
 @interface NSArray(iTM2PathUtilities)

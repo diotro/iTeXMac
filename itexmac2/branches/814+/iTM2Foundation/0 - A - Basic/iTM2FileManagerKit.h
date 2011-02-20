@@ -42,17 +42,6 @@ extern NSString * const iTM2SoftLinkExtension;
 - (void)makeFileWritableAtPath4iTM3:(NSString *)fileName recursive:(BOOL)yorn;
 
 /*!
-	@method			prettyNameAtPath4iTM3:
-	@abstract		Abstract forthcoming.
-	@discussion		The display name at path traverses links. This one does not.
-	@param			fileName
-	@result			Non traversing link display name.
-	@availability	iTM2.
-	@copyright		2005 jlaurens AT users DOT sourceforge DOT net and others.
-*/
-- (NSString *)prettyNameAtPath4iTM3:(NSString *)path;
-
-/*!
 	@method			setExtensionHidden4iTM3:atURL:
 	@abstract		Abstract forthcoming.
 	@discussion		Forthcoming.

@@ -3994,6 +3994,10 @@ nextChild:
 {
 	return self.parent?[NSString stringWithFormat:@"%@+-",[self.parent indentation]]:@"+-";
 }
+- (NSString *)longDescription;
+{
+    return self.description;
+}
 - (NSString *)description;
 {
 	NSString * status = @"";
