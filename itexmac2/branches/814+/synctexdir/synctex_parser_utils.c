@@ -1,11 +1,12 @@
 /* 
-Copyright (c) 2008, 2009 jerome DOT laurens AT u-bourgogne DOT fr
+Copyright (c) 2008, 2009, 2010 , 2011 jerome DOT laurens AT u-bourgogne DOT fr
 
 This file is part of the SyncTeX package.
 
-Latest Revision: Wed Nov  4 11:52:35 UTC 2009
+Latest Revision: Fri Mar 11 07:39:12 UTC 2011
 
-Version: 1.9
+Version: 1.13
+
 See synctex_parser_readme.txt for more details
 
 License:
@@ -215,17 +216,17 @@ int _synctex_copy_with_quoting_last_path_component(const char * src, char ** des
 				 *	or equivalently: strlen(dest)+2<size (see below) */
 				if(strlen(src)<size) {
 					if((dest = (char *)malloc(size+2))) {
+						char * dpc = dest + (lpc-src);	/*	dpc is the last path component of dest.	*/
 						if(dest != strncpy(dest,src,size)) {
 							_synctex_error("!  _synctex_copy_with_quoting_last_path_component: Copy problem");
 							free(dest);
 							dest = NULL;/*  Don't forget to reinitialize. */
 							return -2;
 						}
-						lpc += dest - src;	/*	Now lpc is the last path component of dest.	*/
-						memmove(lpc+1,lpc,strlen(lpc)+1);	/*	Also move the null terminating character. */
-						lpc[0]='"';
-						lpc[strlen(lpc)+1]='\0';/*	Consistency test */
-						lpc[strlen(lpc)]='"';
+						memmove(dpc+1,dpc,strlen(dpc)+1);	/*	Also move the null terminating character. */
+						dpc[0]='"';
+						dpc[strlen(dpc)+1]='\0';/*	Consistency test */
+						dpc[strlen(dpc)]='"';
 						return 0;	/*	Success. */
 					}
 					return -1;	/*	Memory allocation error.	*/
@@ -294,7 +295,8 @@ char * _synctex_merge_strings(const char * first,...) {
  *  There is a list of possible filenames from which we return the most recent one and try to remove all the others.
  *  With two runs of pdftex or xetex we are sure the the synctex file is really the most appropriate.
  */
-int _synctex_get_name(const char * output, const char * build_directory, char ** synctex_name_ref, synctex_io_mode_type * compress_mode_ref) {
+int _synctex_get_name(const char * output, const char * build_directory, char ** synctex_name_ref, synctex_compress_mode_t * compress_mode_ref)
+{
 	if(output && synctex_name_ref && compress_mode_ref) {
 		/*  If output is already absolute, we just have to manage the quotes and the compress mode */
 		size_t size = 0;

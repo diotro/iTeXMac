@@ -1,12 +1,13 @@
 /* 
-Copyright (c) 2008, 2009, 2010 jerome DOT laurens AT u-bourgogne DOT fr
+Copyright (c) 2008, 2009, 2010 , 2011 jerome DOT laurens AT u-bourgogne DOT fr
 
 This file is part of the SyncTeX package.
 
-Version: 1.10
-See synctex_parser_readme.txt for more details
+Latest Revision: Fri Mar 11 07:39:12 UTC 2011
 
-Latest Revision: Thu Sep 16 07:13:10 UTC 2010
+Version: 1.13
+
+See synctex_parser_readme.txt for more details
 
 License:
 --------
@@ -1044,7 +1045,7 @@ typedef int synctex_status_t;
 #   define SYNCTEX_FILE (scanner->file)
 
 /*  Actually, the minimum buffer size is driven by integer and float parsing.
- *  ¬±0.123456789e123
+ *  �0.123456789e123
  */
 #   define SYNCTEX_BUFFER_MIN_SIZE 16
 #   define SYNCTEX_BUFFER_SIZE 32768
@@ -3387,9 +3388,10 @@ int synctex_display_query(synctex_scanner_t scanner,const char * name,int line,i
 				}
 				start_ref += 1;
 				SYNCTEX_END = (unsigned char *)start_ref;
-			}
+                return (SYNCTEX_END-SYNCTEX_START)/sizeof(synctex_node_t);// added on behalf Jan Sundermeyer
+            }
 			SYNCTEX_CUR = NULL;
-			return (SYNCTEX_END-SYNCTEX_START)/sizeof(synctex_node_t);
+			// return (SYNCTEX_END-SYNCTEX_START)/sizeof(synctex_node_t); removed on behalf Jan Sundermeyer
 		}
 #       if defined(__SYNCTEX_STRONG_DISPLAY_QUERY__)
 		break;
