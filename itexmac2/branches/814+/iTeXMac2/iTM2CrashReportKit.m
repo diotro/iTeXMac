@@ -243,8 +243,8 @@ To Do List:
 		 ;
 	}
 #	endif
-	self.close;
-	self.autorelease;
+	[self close];
+	[self autorelease];
 //END4iTM3;
     return;
 }
@@ -257,8 +257,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.autorelease;
-	self.close;
+	[self autorelease];
+	[self close];
 //END4iTM3;
     return;
 }
