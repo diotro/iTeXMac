@@ -159,7 +159,7 @@
 - (void)invokeWithSelector4iTM3:(SEL)selector;
 {
     self.selector=selector;
-    self.invoke;
+    [self invoke];
     return;
 }
 - (void)invokeWithSelectors4iTM3:(NSPointerArray *)selectors;
@@ -169,7 +169,7 @@
 		SEL selector = (SEL)[selectors pointerAtIndex:i++];
 		if ([self.target respondsToSelector:selector]) {
             self.selector=selector;
-			self.invoke;
+			[self invoke];
 		} else {
 			LOG4iTM3(@"%@ does not respond to %@",self.target, NSStringFromSelector(selector));
 		}
