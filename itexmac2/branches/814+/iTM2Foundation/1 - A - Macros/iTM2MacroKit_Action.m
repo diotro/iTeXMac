@@ -1428,7 +1428,7 @@ To Do List:
             [PB setString:replacementString forType:NSStringPboardType];
         } else if ([self shouldChangeTextInRange:affectedCharRange replacementString:replacementString]) {
             [self replaceCharactersInRange:affectedCharRange withString:replacementString];
-            self.didChangeText;
+            [self didChangeText];
             [self select1stPlaceholder:self];
         }
         return;
@@ -1466,7 +1466,7 @@ To Do List:
 	if ([self shouldChangeTextInRange:affectedCharRange replacementString:argument])
 	{
 		[self replaceCharactersInRange:affectedCharRange withString:argument];
-		self.didChangeText;
+		[self didChangeText];
 	}
 	return;
 }
