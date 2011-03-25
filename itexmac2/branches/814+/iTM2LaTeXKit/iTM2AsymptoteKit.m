@@ -152,7 +152,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = [self context4iTM3BoolForKey:@"iTM2AsymptoteToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContext4iTM3Bool: !old forKey:@"iTM2AsymptoteToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
