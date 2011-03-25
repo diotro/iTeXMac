@@ -68,7 +68,7 @@ NSString * const iTM2NewDPathComponent = @"New Documents.localized";
         for (NSFileWrapper * fw in self.fileWrappers.allValues) {
             [fw _displayLongDescription4iTM3:MRA];
         }
-        MRA.removeLastObject;
+        [MRA removeLastObject];
     }
     return;
 }
@@ -237,7 +237,7 @@ To Do List:
 	NSOutlineView * OLV = self.outlineView;
 	[OLV setDelegate:self];
 	OLV.dataSource = self;
-	OLV.reloadData;
+	[OLV reloadData];
 	OLV.doubleAction = @selector(_outlineViewDoubleAction:);
 	// expand the first level items
 	NSInteger row = OLV.numberOfRows;
@@ -393,7 +393,7 @@ To Do List:
 //START4iTM3;
 	iVarPanelDirectoryURL4iTM3 = object;
 	self.availableProjects = nil;
-	self.validateCreationMode;
+	[self validateCreationMode];
 	return;
 }
 @synthesize panelDirectoryURL = iVarPanelDirectoryURL4iTM3;
@@ -513,7 +513,7 @@ To Do List:
 	self.templateImage=nil;
 	self.tabViewItemIdentifier=@"Image";
 	[self.templatePDFView setDocument:nil];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -877,7 +877,7 @@ To Do List:
 	// If there is a alreadyExisting project, things are more constrained
 	// one of the problems is the memory
 	// 
-	self.validateCreationMode;
+	[self validateCreationMode];
     NSSavePanel * SP = [NSSavePanel savePanel];
 	[SP setDelegate:self];
 	[SP setAccessoryView:self.savePanelAccessoryView];
@@ -1099,7 +1099,7 @@ To Do List:
         [FW writeToURL:targetURL options:ZER0 originalContentsURL:nil error:RORef]
             && [SDC openDocumentWithContentsOfURL:targetURL display:YES error:RORef];
     }
-	self.stopProgressIndication;
+	[self stopProgressIndication];
     //  Now I just have to open the project in the shaed project controller
 //END4iTM3;
     return YES;// return YES even if there was an error
@@ -1183,7 +1183,7 @@ To Do List:
 	} else {
 		LOG4iTM3(@"*** ERROR: Could not copy %@ to %@", sourceURL, targetURL);
 	}
-	self.stopProgressIndication;
+	[self stopProgressIndication];
 //END4iTM3;
     return YES;
 }
@@ -1285,7 +1285,7 @@ To Do List:
 	} else {
 		LOG4iTM3(@"*** ERROR: Missing file at %@", targetURL);
 	}
-	self.stopProgressIndication;
+	[self stopProgressIndication];
 //END4iTM3;
     return YES;
 }
@@ -1431,7 +1431,7 @@ To Do List:
             LOG4iTM3(@"*** ERROR: Missing file at %@", targetURL);
         }
     }
-	self.stopProgressIndication;
+	[self stopProgressIndication];
 //END4iTM3;
     return YES;
 }
@@ -1521,7 +1521,7 @@ To Do List:
 	} else {
 		LOG4iTM3(@"*** ERROR: Could not copy %@ to %@", sourceURL, targetURL);
 	}
-	self.stopProgressIndication;
+	[self stopProgressIndication];
 //END4iTM3;
     return YES;
 }
@@ -1772,7 +1772,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setPanelDirectoryURL:url];// will make some setups too
-	[sender validateContent4iTM3];
+	[sender isContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2143,8 +2143,8 @@ To Do List:
 //START4iTM3;
 	// Hum, the sender is the matrix despite each cell is connected separately in interface builder
 	self.creationMode = [sender.selectedCell tag];
-	self.validateCreationMode;
-	self.validateWindowContent4iTM3;
+	[self validateCreationMode];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2205,7 +2205,7 @@ To Do List:
 		[SP setDirectoryURL:new];
 		[SP update];
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2307,7 +2307,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	iVarPreferWrapper4iTM3 = !iVarPreferWrapper4iTM3;
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
