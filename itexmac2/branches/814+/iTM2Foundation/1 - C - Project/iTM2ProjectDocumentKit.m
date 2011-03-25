@@ -246,7 +246,7 @@ To Do List:
 			}
 		}
 	}
-	self.close;
+	[self close];
 //END4iTM3;
     return;
 }
@@ -659,12 +659,12 @@ To Do List:
 			required = [required stringByAppendingPathExtension:[projectURL.path pathExtension]];
 			required = [projectURL.path.stringByDeletingLastPathComponent stringByAppendingPathComponent:required];
 			if (![required pathIsEqual4iTM3:projectURL.path])/* Contents directory? */{
-				if ([DFM moveItemAtPath:projectURL.path toPath:required error:NULL]) {
+				if ([DFM moveItemAtPath:projectURL.path toPath:required error:RORef]) {
 					NSURL * url = [NSURL fileURLWithPath:required];
 					[self setFileURL:url];
 					[self saveDocument:self];
 				} else {
-					LOG4iTM3(@"Could not move %@ to %@...");
+					LOG4iTM3(@"Could not move %@ to %@...",projectURL.path,required);
 				}
 			}
 		}
@@ -749,7 +749,7 @@ To Do List:
 		return;
 	}
     [super makeWindowControllers];// after the documents are open
-    self.addGhostWindowController;
+    [self addGhostWindowController];
 //END4iTM3;
     return;
 }
@@ -777,7 +777,7 @@ To Do List:
 	[super showWindows];
     if (![self context4iTM3BoolForKey:@"iTM2DontOpenSubdocumentsWindow" domain:iTM2ContextAllDomainsMask]) {
         NS_DURING;
-        NSArray * previouslyOpenDocuments = [self context4iTM3ValueForKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
+        NSArray * previouslyOpenDocuments = [self context4iTM3ValueForKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask ROR4iTM3];
         DEBUGLOG4iTM3(999,@"The documents to be opened are:%@",previouslyOpenDocuments);
 		[self.implementation takeMetaValue:[NSNull null] forKey:@"is opening subdocuments"];
         for (NSString * K in previouslyOpenDocuments) {
@@ -801,7 +801,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super removeWindowController:windowController];
-	self.closeIfNeeded;
+	[self closeIfNeeded];
 //END4iTM3;
     return;
 }
@@ -865,7 +865,7 @@ To Do List:
 //START4iTM3;
     if (!self.windowControllers.count && !self.mutableSubdocuments4iTM3.count)
     {
-        self.makeSubdocumentsInspector;
+        [self makeSubdocumentsInspector];
         if (!self.windowControllers.count)
         {
 			REPORTERROR4iTM3(1,@"NO DEFAULT WINDOW: I don't know what to do!!!\nPerhaps a missing plug-in?",nil);
@@ -883,7 +883,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.makeSubdocumentsInspector;
+    [self makeSubdocumentsInspector];
     NSEnumerator * E = [self.windowControllers objectEnumerator];
     NSWindowController * WC;
     while((WC = E.nextObject))
@@ -1009,7 +1009,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.subdocumentsInspector;
+    [self subdocumentsInspector];
     if (!self.windowControllers.count) {
         REPORTERROR4iTM3(1,@"NO DEFAULT WINDOW: I don't know what to do!!!\nPerhaps a missing plug-in?",nil);
     }
@@ -1132,7 +1132,7 @@ To Do List:
 	if ([self.mutableSubdocuments4iTM3 containsObject:document]) {
 		if ([document saveContext4iTM3Error:RORef]
                 && [self forgetSubdocument:document error:RORef]) {
-            self.closeIfNeeded;
+            [self closeIfNeeded];
             return YES;
         }
     }
@@ -1507,7 +1507,7 @@ To Do List:
 	[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
 	for (iTM2SubdocumentsInspector * WC in self.windowControllers) {
 		if ([WC respondsToSelector:@selector(updateOrderedFileKeys)]) {
-			WC.updateOrderedFileKeys;
+			[WC updateOrderedFileKeys];
 		}
 	}
 //END4iTM3;
@@ -1653,28 +1653,9 @@ To Do List:
         }
         //  the given url lives outside the current project
     }
-    if (url.isFileURL && self.fileURL.isFileURL) {
-        NSArray * RA = url.pathComponents4iTM3;
-        NSArray * ra = self.fileURL.pathComponents4iTM3;
-        #warning FAILED
-    }
     //  maybe the given url already belongs to the factory url
     if ([url isRelativeToURL4iTM3:NSURL.factoryURL4iTM3]) {
         return url;
-    }
-    //  maybe the given url already belongs to the factory url
-    if ([url isRelativeToURL4iTM3:NSURL.factoryURL4iTM3]) {
-        return url;
-    }
-    //  Then check if url is rela
-    if (url.isFileURL && self.fileURL.isFileURL) {
-        NSArray * RA = url.pathComponents4iTM3;
-        NSArray * ra = self.fileURL.pathComponents4iTM3;
-        #warning FAILED
-    }
-    if (url.isFileURL && self.fileURL.isFileURL) {
-        NSArray * RA = url.pathComponents4iTM3;
-        NSArray * ra = self.fileURL.pathComponents4iTM3;
     }
 //END4iTM3;
     return nil;
@@ -1758,7 +1739,7 @@ To Do List:
 		[(iTM2MainInfoWrapper *)self.mainInfos4iTM3 setName:name forFileKey:key];
 		[IMPLEMENTATION takeMetaValue:nil forKey:iTM2ProjectCachedKeysKey];// clean the cached keys
 		NSAssert3([key isEqualToString:[self fileKeyForName:name]],(@"AIE AIE INCONSITENT STATE %@,%@ != %@"),__iTM2_PRETTY_FUNCTION__,key,[self fileKeyForName:name]);
-		self.keysDidChange;
+		[self keysDidChange];
 	}
 	return;
 }
@@ -2363,8 +2344,8 @@ To Do List:
 //START4iTM3;
 	if ([fileURL isEquivalentToURL4iTM3:self.fileURL]) {
 		if (display) {
-			self.makeWindowControllers;
-			self.showWindows;
+			[self makeWindowControllers];
+			[self showWindows];
 		}
 		return self;// this is when we open the wrapper
 	}
@@ -2465,8 +2446,8 @@ To Do List:
 	NSDocument * D = [self subdocumentForFileKey:key];
 	if (D) {
 		if (display) {
-			D.makeWindowControllers;
-			D.showWindows;
+			[D makeWindowControllers];
+			[D showWindows];
 		}
 		return D;
 	}
@@ -2475,8 +2456,8 @@ To Do List:
 	for (D in [SDC documents]) {
 		if ([[D project4iTM3Error:RORef] isEqual:self] && [key isEqualToString:[self fileKeyForURL:D.fileURL error:RORef]]) {
 			if (display) {
-				D.makeWindowControllers;
-                D.showWindows;
+				[D makeWindowControllers];
+                [D showWindows];
 			}
 			return D;
 		}
@@ -2611,8 +2592,7 @@ To Do List:
 	NSParameterAssert(fileKey);
 	id result = nil;
 	id Ps = [self.mainInfos4iTM3 propertiesForFileKey:fileKey];
-	if ((result = [Ps valueForKey:key]))
-	{
+	if ((result = [Ps valueForKey:key])) {
 		return result;
 	}
     return [self context4iTM3ValueForKey:key fileKey:fileKey domain:mask ROR4iTM3];
@@ -2626,9 +2606,8 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([self.mainInfos4iTM3 setPropertyValue:property forKey:aKey fileKey:fileKey])
-	{
-		[self takeContext4iTM3Value:property forKey:aKey domain:mask];
+	if ([self.mainInfos4iTM3 setPropertyValue:property forKey:aKey fileKey:fileKey]) {
+		[self takeContext4iTM3Value:property forKey:aKey domain:mask ROR4iTM3];
 		[self updateChangeCount:NSChangeDone];
 	}
     return;
@@ -2770,7 +2749,7 @@ To Do List:
 			}
 		}
 	}
-	[self takeContext4iTM3Value:mra forKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask];
+	[self takeContext4iTM3Value:mra forKey:iTM2ContextOpenDocuments domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //END4iTM3;
     return YES;
 }
@@ -3038,19 +3017,19 @@ To Do List:
 	BOOL needsToUpdate4iTM3 = self.needsToUpdate4iTM3;
 	NSUndoManager * UM = self.undoManager;
 	BOOL isUndoRegistrationEnabled = UM.isUndoRegistrationEnabled;
-	UM.disableUndoRegistration;
+	[UM disableUndoRegistration];
     NSInvocation * I = nil;
     [[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] saveContext4iTM3Error:RORef];
     for (NSDocument * D in self.mutableSubdocuments4iTM3) {
         I.target = D;
-        I.invoke;
+        [I invoke];
         if (result) {
             [I getReturnValue:&result];
         }
     }
 	result = [super saveContext4iTM3Error:RORef] && result;
 	if (isUndoRegistrationEnabled)
-		UM.enableUndoRegistration;
+		[UM enableUndoRegistration];
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] writeToURL:self.fileURL ofType:self.fileType error:RORef];
     for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteWriteMetaToURL4iTM3:ofType:error:" signature:I.methodSignature inherited:YES]) {
         [I invokeWithSelector4iTM3:(SEL)selector];
@@ -3268,7 +3247,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.updateOrderedFileKeys;
+    [self updateOrderedFileKeys];
     self.window.delegate = self;
 	// from Laurent Daudelin,mamasam START
 	NSImageCell * imageCell = [[[NSImageCell alloc] initImageCell:nil] autorelease];
@@ -3306,7 +3285,7 @@ To Do List:
 	id DV = self.documentsView;
     [DV reloadData];
 	[DV setNeedsDisplay:YES];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 @synthesize orderedFileKeys = iVarOrderedFileKeys4iTM3;
@@ -3352,9 +3331,12 @@ To Do List:
 //START4iTM3;
     ASSERT_INCONSISTENCY4iTM3(!argument || [argument isKindOfClass:[NSTableView class]]);
     if (iVarDocumentsView4iTM3 != argument) {
-        iVarDocumentsView4iTM3.delegate = iVarDocumentsView4iTM3.dataSource = nil;
+        iVarDocumentsView4iTM3.delegate = nil;
+        iVarDocumentsView4iTM3.dataSource = nil;
         if ((iVarDocumentsView4iTM3 = argument)) {
-            iVarDocumentsView4iTM3.delegate = iVarDocumentsView4iTM3.dataSource = iVarDocumentsView4iTM3.target = self;
+            iVarDocumentsView4iTM3.delegate = self;
+            iVarDocumentsView4iTM3.dataSource = self;
+            iVarDocumentsView4iTM3.target = self;
             argument.doubleAction = @selector(_tableViewDoubleAction:);
         }
     }
@@ -3446,14 +3428,14 @@ To Do List:
 						REPORTERROR4iTM3(4,@"",ROR);
 						[PD setURL:[NSURL fileURLWithPath:oldName] forFileKey:key error:self.RORef4iTM3];// revert
                         REPORTERROR4iTM3(5,@"",ROR);
-						LOG4iTM3(@"*** ERROR:Could not move %@ to %@\ndue to problem %i,please do it by hand",absolute,newAbsolute);
+						LOG4iTM3(@"*** ERROR:Could not move %@ to %@\n,please do it by hand",absolute,newAbsolute);
 					}
 					// the concerned documents should now that a file name has changed
 				} else {
                     REPORTERROR4iTM3(6,@"",ROR);
 					[PD setURL:[NSURL fileURLWithPath:oldName] forFileKey:key error:self.RORef4iTM3];// revert
                     REPORTERROR4iTM3(7,@"",ROR);
-					LOG4iTM3(@"*** ERROR:Could not create %@,please do it by hand",newAbsolute.stringByDeletingLastPathComponent);
+					LOG4iTM3(@"*** ERROR:Could not create %@,\nplease do it by hand",newAbsolute.stringByDeletingLastPathComponent);
 				}
 			}
 			else
@@ -3463,7 +3445,7 @@ To Do List:
 			}
 		}
     }
-	self.updateOrderedFileKeys;
+	[self updateOrderedFileKeys];
 //END4iTM3;
     return;
 }
@@ -3476,7 +3458,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -3782,7 +3764,7 @@ To Do List:
 						problem = YES;
 					} else {
 						NSURL * dirURL = URL.URLByDeletingLastPathComponent;
-						NSInteger tag;
+						NSInteger tag = 0;
 						if ([SWS performFileOperation:NSWorkspaceCopyOperation source:dirURL.path
 										destination:contentsURL.path files:[NSArray arrayWithObject:lastComponent] tag:&tag]) {
                             NSError * ROR = nil;
@@ -3799,7 +3781,7 @@ To Do List:
                             }
 							[URLs removeObject:URL];
 						} else {
-							LOG4iTM3(@"Could not copy synchronously file at %@ (tag is %i)",targetURL,tag);
+							LOG4iTM3(@"Could not copy synchronously file at %@ (tag is %ld)",targetURL,tag);
 						}
 					}
 				}
@@ -3817,7 +3799,7 @@ To Do List:
 			[PD openSubdocumentWithContentsOfURL:URL context:nil display:YES error:nil];
 		}
     }
-	self.updateOrderedFileKeys;
+	[self updateOrderedFileKeys];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  copyProjectDocumentSheetDidDismiss:returnCode:copiables:
@@ -3843,7 +3825,7 @@ To Do List:
 				problem = YES;
 			} else {
 				NSURL * dirURL = URL.URLByDeletingLastPathComponent;
-				NSInteger tag;
+				NSInteger tag = 0;
                 if ([SWS performFileOperation:NSWorkspaceCopyOperation source:dirURL.path
 								destination:contentsURL.path files:[NSArray arrayWithObject:lastComponent] tag:&tag]) {
 					[PD addURL:targetURL error:self.RORef4iTM3];
@@ -3851,7 +3833,7 @@ To Do List:
 					[PD openSubdocumentWithContentsOfURL:targetURL context:nil display:YES error:self.RORef4iTM3];
                     REPORTERRORINMAINTHREAD4iTM3(4,@"",ROR);
 				} else {
-					LOG4iTM3(@"Could not copy synchronously file at %@ (tag is %i)",URL,tag);
+					LOG4iTM3(@"Could not copy synchronously file at %@ (tag is %ld)",URL,tag);
 				}
 			}
 		}
@@ -3869,7 +3851,7 @@ To Do List:
 			NSLocalizedStringFromTableInBundle(@"Name conflict,copy not complete.",iTM2ProjectTable,myBUNDLE,""));
 		}
 	}
-	self.updateOrderedFileKeys;
+	[self updateOrderedFileKeys];
 //END4iTM3;
 	return;
 }
@@ -3912,7 +3894,7 @@ To Do List:
 	for(fileKey in removable) {
 		[PD removeFileKey:fileKey];
 	}
-	self.updateOrderedFileKeys;
+	[self updateOrderedFileKeys];
 	if (recyclable.count)
         NSBeginAlertSheet(
 			NSLocalizedStringFromTableInBundle(@"Suppressing project documents references",iTM2ProjectTable,myBUNDLE,""),
@@ -3968,13 +3950,13 @@ To Do List:
 		} else {
 			NSString * lastComponent = url.lastPathComponent;
 			NSURL * dirURL = url.URLByDeletingLastPathComponent;
-			NSInteger tag;
+			NSInteger tag = 0;
 			if (recycle) {
 				if ([SWS performFileOperation:NSWorkspaceRecycleOperation source:dirURL.path
 								destination:@"" files:[NSArray arrayWithObject:lastComponent] tag:&tag]) {
 					LOG4iTM3(@"Recycling synchronously file at %@ in directory %@...",lastComponent,dirURL);
 				} else {
-					LOG4iTM3(@"Could not recycle synchronously file at %@ (tag is %i)",url,tag);
+					LOG4iTM3(@"Could not recycle synchronously file at %@ (tag is %ld)",url,tag);
 				}
 				[PD removeFileKey:fileKey];
 			} else {
@@ -3985,7 +3967,7 @@ To Do List:
 									destination:destinationURL.path files:[NSArray arrayWithObject:lastComponent] tag:&tag]) {
 						LOG4iTM3(@"Moving file at %@ in directory %@...",lastComponent,dirURL);
 					} else {
-						LOG4iTM3(@"Could not move synchronously file at %@ (tag is %i)",url,tag);
+						LOG4iTM3(@"Could not move synchronously file at %@ (tag is %ld)",url,tag);
 					}
 				}
 				[PD removeFileKey:fileKey];
@@ -4016,13 +3998,13 @@ To Do List:
 	BOOL recycle = [[contextInfo objectForKey:@"recycle"] boolValue];
 	NSString * lastComponent = fileURL.lastPathComponent;
 	NSURL * dirURL = fileURL.URLByDeletingLastPathComponent;
-	NSInteger tag;
+	NSInteger tag = 0;
 	if (recycle) {
 		if ([SWS performFileOperation:NSWorkspaceRecycleOperation source:dirURL.path
 						destination:@"" files:[NSArray arrayWithObject:lastComponent] tag:&tag]) {
 			LOG4iTM3(@"Recycling %@ from directory %@",lastComponent,dirURL);
 		} else {
-			LOG4iTM3(@"Could not recycle synchronously file at %@ (tag is %i)",fileURL,tag);
+			LOG4iTM3(@"Could not recycle synchronously file at %@ (tag is %ld)",fileURL,tag);
 		}
     } else {
 		NSURL * destinationURL = fileURL.enclosingWrapperURL4iTM3.URLByRemovingFactoryBaseURL4iTM3.parentDirectoryURL4iTM3;
@@ -4032,12 +4014,12 @@ To Do List:
 			{
 				LOG4iTM3(@"Moving file at %@ in directory %@...",lastComponent,dirURL);
 			} else {
-				LOG4iTM3(@"Could not move synchronously file at %@ (tag is %i)",destinationURL,tag);
+				LOG4iTM3(@"Could not move synchronously file at %@ (tag is %ld)",destinationURL,tag);
 			}
 		}
 	}
 	[PD removeFileKey:fileKey];
-    self.updateOrderedFileKeys;
+    [self updateOrderedFileKeys];
 	[subdocument canCloseDocumentWithDelegate:self shouldCloseSelector:@selector(subdocument:shouldClose:contextInfo:) contextInfo:nil];
     return;
 }
@@ -4170,7 +4152,7 @@ To Do List:
 			} else {
 				return;
 			}
-			[sender validateWindowContent4iTM3];
+			[sender isWindowContentValid4iTM3];
 		}
     }
     return;
@@ -4294,7 +4276,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     metaSETTER([NSNumber numberWithBool:yorn]);
-	self.updateContext4iTM3Manager;
+	[self updateContext4iTM3Manager];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  subdocumentCompleteSaveContext4iTM3Error:
@@ -4674,17 +4656,17 @@ To Do List:
 	[I setArgument:&didSaveSuccessfully atIndex:3];
 	NSURL * newURL = [contextInfo objectForKey:@"newURL"];
 	if (!newURL.isFileURL) {
-		I.invoke;
+		[I invoke];
 		return;
 	}
 	iTM2ProjectDocument * newPD = [SPC projectForURL:newURL ROR4iTM3];
  	if (!newPD) {
-		I.invoke;
+		[I invoke];
 		return;
 	}
 	NSURL * oldURL = [contextInfo objectForKey:@"oldURL"];
 	if (!oldURL.isFileURL) {
-		I.invoke;
+		[I invoke];
 		return;
 	}
 	iTM2ProjectDocument * oldPD = [SPC projectForDocument:document ROR4iTM3];
@@ -4705,7 +4687,7 @@ To Do List:
 			[newPD addSubdocument:document ROR4iTM3];
 		}
 	}
-	I.invoke;
+	[I invoke];
 	return;
 //END4iTM3;
 }
@@ -5095,7 +5077,7 @@ To Do List:
     N = root;
     NSMutableSet * allTheNodes = [NSMutableSet set];
     while ((N = N.nextNode)) {
-        N.relativePath = [[N.parent relativePath] stringByAppendingPathComponent:N.component];
+        N.relativePath = [[(iTM2ProjectDocumentResponderTreeNode*)N.parent relativePath] stringByAppendingPathComponent:N.component];
         N.newURL = [containerURL URLByAppendingPathComponent:N.relativePath];
         [allTheNodes addObject:N];
     }
@@ -5153,13 +5135,13 @@ To Do List:
         //  Mark the nodes that will follow the project
         for (N in followingNodes) {
             N.followsProject = YES;
-            [N.parent setContainsFollowsProject:YES];
+            [(iTM2ProjectDocumentResponderTreeNode*)N.parent setContainsFollowsProject:YES];
         }
     }
     //  Now we have setup the nodes
     //  Change the nodes to indicate that they follow the project
-    root.setupFollowsProject;
-    root.revert;
+    [root setupFollowsProject];
+    [root revert];
 //END4iTM3;
 	return root;
 }
@@ -5182,7 +5164,7 @@ To Do List:
 - (void)setupFollowsProject;
 {
     [self.children makeObjectsPerformSelector:_cmd];
-    self.fixConsistencyWithChildren;
+    [self fixConsistencyWithChildren];
 }
 - (void)completeFollowsProject;
 {
@@ -5190,7 +5172,7 @@ To Do List:
     if (self.shouldFollowProject) {
         self.followsProject = YES;
     }
-    self.fixConsistencyWithChildren;
+    [self fixConsistencyWithChildren];
 }
 #if 0
 - (iTM2ProjectDocumentResponderTreeNode * )parent;
@@ -5204,7 +5186,7 @@ To Do List:
 #endif
 - (iTM2ProjectDocumentResponderRootNode * )root;
 {
-    return [self.parent root];
+    return [(iTM2ProjectDocumentResponderTreeNode*)self.parent root];
 }
 - (void)revert;
 {
@@ -5242,7 +5224,7 @@ To Do List:
 - (void)setContainsFollowsProject:(BOOL)yorn;
 {
     if (yorn && iVarContainsFollowsProject4iTM3 != yorn) {
-        [self.parent setContainsFollowsProject:iVarContainsFollowsProject4iTM3 = YES];
+        [(iTM2ProjectDocumentResponderTreeNode*)self.parent setContainsFollowsProject:iVarContainsFollowsProject4iTM3 = YES];
     }
 }
 @synthesize containsFollowsProject = iVarContainsFollowsProject4iTM3;
@@ -5251,7 +5233,7 @@ To Do List:
     if (iVarShouldFollowProject4iTM3 != state) {
         iVarShouldFollowProject4iTM3 = state;
         iTM2ProjectDocumentResponderTreeNode * N = self.parent;
-        N.updateShouldFollowProject;
+        [N updateShouldFollowProject];
     }
 }
 - (BOOL)validateShouldFollowProject:(NSInteger *)stateRef error:(NSError **)outError {
@@ -5292,11 +5274,11 @@ To Do List:
 }
 - (IBAction)revertAll:(id)sender;
 {
-    self.root.revert;
+    [self.root revert];
 }
 - (IBAction)revert:(id)sender;
 {
-    self.root.revert;
+    [self.root revert];
 }
 - (void)setupCopyPanel;
 {
@@ -5644,7 +5626,7 @@ To Do List:
 			// we cannot add project documents to project documents?
 			if ([SPC isProject:currentDocument])
 				return;
-			[currentDocument takeContext4iTM3Value:nil forKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask];
+			[currentDocument takeContext4iTM3Value:nil forKey:@"_iTM2:Document With No Project" domain:iTM2ContextAllDomainsMask ROR4iTM3];
 			[SDC removeDocument:currentDocument];
             NSError * ROR = nil;
 			[PD addURL:currentDocument.fileURL error:self.RORef4iTM3];
@@ -5750,7 +5732,7 @@ To Do List:
             }
             if (Ns.count) {
                 inspector.nodes = Ns;
-                inspector.setupCopyPanel;// change the main panel to the copy panel
+                [inspector setupCopyPanel];// change the main panel to the copy panel
                 if ([NSApp runModalForWindow:inspector.window] == NSRunStoppedResponse) {
                     //  Now I can perform the move;
                     for (N in inspector.nodes) {
@@ -5773,7 +5755,7 @@ To Do List:
                         //  Many different errors
                         //  Present a list of localized descriptions
                         inspector.nodes = RORs.allObjects;
-                        inspector.setupErrorPanel;
+                        [inspector setupErrorPanel];
                         [NSApp runModalForWindow:inspector.window];
                     } else if (RORs.count) {
                         //  Only one error, present it directly
@@ -6143,7 +6125,7 @@ To Do List:
 //START4iTM3;
 	NSNumber * N = [NSNumber numberWithInteger:sender.tag];
 	[self.document setPropertyValue:N forKey:TWSStringEncodingFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
@@ -6159,7 +6141,7 @@ To Do List:
 	BOOL old = [N respondsToSelector:@selector(boolValue)]?[N boolValue]:NO;
 	N = [NSNumber numberWithBool:!old];
 	[self.document setPropertyValue:N forKey:iTM2StringEncodingIsAutoKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextStandardLocalMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
@@ -6203,7 +6185,7 @@ To Do List:
 	}
 	if (stringEncodingNotAvailable)
 	{
-		LOG4iTM3(@"StringEncoding %i is not available", tag);
+		LOG4iTM3(@"StringEncoding %ld is not available", tag);
 		NSString * title = [NSString localizedNameOfStringEncoding:tag];
 		if (!title.length)
 			title = [NSString stringWithFormat:@"StringEncoding:%u", tag];
@@ -6230,7 +6212,7 @@ To Do List:
 //START4iTM3;
 	NSNumber * N = [NSNumber numberWithInteger:sender.tag];
 	[self.document setPropertyValue:N forKey:TWSEOLFileKey fileKey:iTM2ProjectDefaultsKey contextDomain:iTM2ContextAllDomainsMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
