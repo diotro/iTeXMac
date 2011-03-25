@@ -185,7 +185,7 @@ DECLARE4iTM3(11110,commentLength,blackLength,afterLength,contentLength)
 + (id)indentationComponent;
 {
     _iTM2IndentationComponent * new = [[_iTM2IndentationComponent new] autorelease];
-    new.reset;
+    [new reset];
     return new;
 }
 - (void)reset;
@@ -348,7 +348,7 @@ To Do List:
 {
     if ((self=[super init]))
     {
-        self.setUpMacroTypes;
+        [self setUpMacroTypes];
         self.delegate = delegate?:self;
     }
     return self;
@@ -467,7 +467,7 @@ To Do List:
 */
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    IC.reset;
+    [IC reset];
     IC.location = LS.scanLocation - offset;
     while (IC.depth < maxDepth) {
         NSUInteger index = ZER0;
@@ -655,7 +655,7 @@ continue_after_comment:
             return result;
         }
         [result addObject:IC.clone];
-        IC.reset;
+        [IC reset];
         IC.location = LS.scanLocation;
     }
     return result;
@@ -1098,7 +1098,7 @@ continue_after_comment:
             ++leading;
         }
         //  scan a comment to keep in afterwards
-        [LS scanCommentSequence] || [LS scanCommentCharacter];
+        if (![LS scanCommentSequence]) [LS scanCommentCharacter];
         R.length = LS.scanLocation - R.location;
         expectedDepth = firstCommentedIC.depth >= changeInDepth? firstCommentedIC.depth - changeInDepth:ZER0;
         expectedLength = expectedDepth * self.numberOfSpacesPerTab + expectedReminder;// this will be the trailer
@@ -1131,7 +1131,7 @@ continue_after_comment:
             //  too big, try without the leading spaces
             R.location += leading;
             LS.scanLocation = R.location;
-            [LS scanCommentSequence] || [LS scanCommentCharacter];
+            if (![LS scanCommentSequence]) [LS scanCommentCharacter];
             R.length = LS.scanLocation - R.location;
             expectedDepth = firstCommentedIC.depth >= changeInDepth? firstCommentedIC.depth - changeInDepth:ZER0;
             expectedLength = expectedDepth * self.numberOfSpacesPerTab + expectedReminder;
@@ -2232,7 +2232,7 @@ To Do List: Nothing at first glance.
                 R = V.rangeValue;
                 [self replaceCharactersInRange:R withString:S];
             }
-            self.didChangeText;
+            [self didChangeText];
             R = self.selectedRange;
             if (!R.length)
             {
@@ -2320,7 +2320,8 @@ To Do List: Nothing at first glance.
                 {
                     // remove the penultimate component
                     EE = ICs.reverseObjectEnumerator;
-                    IC = EE.nextObject,EE.nextObject;
+                    [EE nextObject];
+                    IC = EE.nextObject;
                     [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,IC.length)]];
                     [replacementStrings addObject:@""];
                     changeInLength = -IC.length;
@@ -2380,7 +2381,8 @@ To Do List: Nothing at first glance.
                         {
                             // remove the penultimate component
                             EE = ICs.reverseObjectEnumerator;
-                            IC = EE.nextObject,EE.nextObject;
+                            [EE nextObject];
+                            IC = EE.nextObject;
                             [affectedRanges addObject:[NSValue valueWithRange:iTM3MakeRange(IC.location,IC.length)]];
                             [replacementStrings addObject:@""];
                             changeInLength = -IC.length;
@@ -2415,7 +2417,7 @@ To Do List: Nothing at first glance.
                 R = V.rangeValue;
                 [self replaceCharactersInRange:R withString:S];
             }
-            self.didChangeText;
+            [self didChangeText];
             R = self.selectedRange;
             if (!R.length)
             {
