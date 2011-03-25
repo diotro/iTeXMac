@@ -316,7 +316,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if ([self respondsToSelector:@selector(breakUndoCoalescing)])
-		self.breakUndoCoalescing;
+		[self breakUndoCoalescing];
 	else
 		[super breakTypingFlow];
     return;
