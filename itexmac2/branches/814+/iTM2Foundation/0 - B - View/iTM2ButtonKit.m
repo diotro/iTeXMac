@@ -48,8 +48,7 @@ To Do List:
     NSString * path = [B pathForImageResource:name];
     NSImage * I = nil;
     if (!path.length || !(I = [[[NSImage alloc] initWithContentsOfFile:path] autorelease]))
-        NSLog(@"%@ %#x error: Could not find a %@ image, PLEASE report BUG iTM202103",
-            NSStringFromClass(self.class), NSStringFromSelector(_cmd), self, name);
+        LOG4iTM3(@"error: Could not find a %@ image, PLEASE report BUG iTM202103",name);
     else
     {
 //NSLog(@"INFO: image path: %@", path);
@@ -120,7 +119,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     self = [super initWithFrame:aRect];
-    self.awakeFromNib;
+    [self awakeFromNib];
     [self setMixedEnabled:NO];
     return self;
 }
@@ -241,45 +240,36 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([theEvent clickCount] == 1)
-    {
-        self.willPopUp;
-        if (self.isEnabled) {
-            if ([self.menu numberOfItems] > ZER0)
-            {
-                [self highlight:YES];
-                self.state = NSOnState;
-                self.display;
-                NSTimeInterval timeInterval = self.isMixedEnabled ? [SUD floatForKey:@"iTM2DoubleClickDelay"]:0;
+    if (theEvent.clickCount == 1 && self.shoudPopUp4iTM3 && self.isEnabled) {
+        if ([self.menu numberOfItems] > ZER0) {
+            [self highlight:YES];
+            self.state = NSOnState;
+            [self display];
+            NSTimeInterval timeInterval = self.isMixedEnabled ? [SUD floatForKey:@"iTM2DoubleClickDelay"]:0;
 #if 1
-				NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
-				if (![NSApp nextEventMatchingMask:NSLeftMouseUpMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:NO])
-				{
-					[self popUpContextMenuWithEvent:theEvent];
-					[self highlight:NO];
-					self.state = NSOffState;
-				#if 0
-					// crash here, don't know why
-					[self.target performSelector:self.mixedAction withObject:self afterDelay:0];
-				#else
-					[self sendAction:self.mixedAction to:self.target];
-				#endif
-					[self.window update];
-					
-				}
-#else
-                [self setTimer:[NSTimer scheduledTimerWithTimeInterval:timeInterval
-                                    target: self selector: @selector(timerHasFired:) userInfo: theEvent repeats: NO]];
-#endif
-            }
-            else if (!self.isMixedEnabled)
+            NSDate * date = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
+            if (![NSApp nextEventMatchingMask:NSLeftMouseUpMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:NO])
             {
-                [super mouseDown:theEvent];
+                [self popUpContextMenuWithEvent:theEvent];
+                [self highlight:NO];
+                self.state = NSOffState;
+#if 0
+                // crash here, don't know why
+                [self.target performSelector:self.mixedAction withObject:self afterDelay:0];
+#else
+                [self sendAction:self.mixedAction to:self.target];
+#endif
+                [self.window update];
+                
             }
-			else
-			{
-				LOG4iTM3(@"***  WEIRD: no menu in iTM2ButtonMixed: %@, %@", self, self.menu);
-			}
+#else
+            [self setTimer:[NSTimer scheduledTimerWithTimeInterval:timeInterval
+                                target: self selector: @selector(timerHasFired:) userInfo: theEvent repeats: NO]];
+#endif
+        } else if (!self.isMixedEnabled) {
+            [super mouseDown:theEvent];
+        } else {
+                LOG4iTM3(@"***  WEIRD: no menu in iTM2ButtonMixed: %@, %@", self, self.menu);
         }
     }
     return;
@@ -319,7 +309,7 @@ To Do List:
                                 windowNumber: [theEvent windowNumber]
                                 context: [theEvent context]
                                 eventNumber: [theEvent eventNumber]
-                                clickCount: [theEvent clickCount]
+                                clickCount: theEvent.clickCount
                                 pressure: [theEvent pressure]]
                         forView: self];
     return;
@@ -339,7 +329,7 @@ To Do List:
     [super mouseUp:theEvent];
     [self highlight:NO];
     self.state = NSOffState;
-    self.display;
+    [self display];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= drawRect
@@ -438,8 +428,8 @@ To Do List:
 //LOG4iTM3(@"I AM %@VALID", (result? @"": @"NOT "));
 	return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willPopUp
-- (BOOL)willPopUp;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shoudPopUp4iTM3
+- (BOOL)shoudPopUp4iTM3;
 /*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{isValid4iTM3} message. The menu of the receiver is also updated."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
@@ -448,16 +438,15 @@ To Do List:
     if (!length)
         return NO;
     char * name = NSAllocateCollectable(strlen(selectorName)+9,ZER0);
-    if (name)
-	{
+    if (name) {
 		strcpy(name, selectorName);
 		strcpy(name+strlen(selectorName)-1, "WillPopUp:");
 //LOG4iTM3(@"selector name: <%s>", name);
 		SEL willPopUpAction = sel_getUid(name);
 		if (willPopUpAction) {
 			id T = self.target?:[NSApp targetForAction:self.action];
-			if (T && class_getInstanceMethod( T->isa, willPopUpAction)) {
-                objc_msgSend(T, willPopUpAction, self) != nil;
+			if (T && class_getInstanceMethod( [T class], willPopUpAction)) {
+                objc_msgSend(T, willPopUpAction, self);
 			}
 		}
 	}
@@ -490,7 +479,7 @@ To Do List:
         [self.cell setHighlightsBy:NSChangeGrayCellMask];//[NSContentsCellMask];
         [self setCenteredArrow:NO];
         [self setMixedEnabled:YES];
-        self.fixImage;
+        [self fixImage];
         self.title = @"";
         self.action = @selector(displayForwardPage:);
         self.target = nil;
@@ -507,7 +496,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super awakeFromNib];
-    self.fixImage;
+    [self fixImage];
     return;
 }
 @end
@@ -530,7 +519,7 @@ To Do List:
         [self.cell setHighlightsBy:NSChangeGrayCellMask];//[NSContentsCellMask];
         [self setCenteredArrow:NO];
         [self setMixedEnabled:YES];
-        self.fixImage;
+        [self fixImage];
         self.title = @"";
         self.action = @selector(displayBackPage:);
         self.target = nil;
@@ -547,7 +536,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super awakeFromNib];
-    self.fixImage;
+    [self fixImage];
     return;
 }
 @end
@@ -825,7 +814,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super drawRect:aRect];
-    self.displayIcon;
+    [self displayIcon];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
@@ -1172,7 +1161,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super drawRect:aRect];
-    self.displayIcon;
+    [self displayIcon];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
@@ -1228,7 +1217,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super drawRect:aRect];
-    self.displayIcon;
+    [self displayIcon];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= displayIcon
@@ -1301,7 +1290,7 @@ To Do List:
 - (void)awakeFromNib;
 {
     [super awakeFromNib];
-	self.setup;
+	[self setup];
 }
 - (void)setup;
 {
@@ -1439,8 +1428,8 @@ To Do List:
 	return;
 }
 @synthesize popUpCell = iVarPopUpCell;
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= willPopUp
-- (BOOL)willPopUp;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= shoudPopUp4iTM3
+- (BOOL)shouldPopUp4iTM3;
 /*"The receiver is always enabled. The validator is the target of its action. The receiver is continuous according to the answer of the validator through the #{isValid4iTM3} message. The menu of the receiver is also updated."*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
@@ -1461,8 +1450,8 @@ To Do List:
 		SEL willPopUpAction = sel_getUid(name);
 		if (willPopUpAction) {
 			id T = self.target?:[NSApp targetForAction:self.action];
-			if (T && class_getInstanceMethod(T->isa, willPopUpAction)) {
-                objc_msgSend(T, willPopUpAction, self) != nil;
+			if (T && class_getInstanceMethod([T class], willPopUpAction)) {
+                objc_msgSend(T, willPopUpAction, self);
             }
 		}
 	}
@@ -1599,7 +1588,7 @@ nextMouseUp:
 			goto nextMouseUp;
 		}
 	}
-	if (!self.willPopUp) {
+	if (!self.shouldPopUp4iTM3) {
 		return NO;
     }
 	NSControlSize oldPopUpSize = [self.popUpCell controlSize];
