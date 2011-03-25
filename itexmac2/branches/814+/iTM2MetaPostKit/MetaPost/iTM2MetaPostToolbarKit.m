@@ -78,7 +78,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = [self context4iTM3BoolForKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContext4iTM3Bool: !old forKey:@"iTM2MetaPostToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -393,7 +393,7 @@ To Do List:
 //START4iTM3;
 	self.pdfView.currentPage.rotation -= 90;
 	[self.pdfView setNeedsDisplay:YES];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -408,7 +408,7 @@ To Do List:
 //START4iTM3;
 	self.pdfView.currentPage.rotation += 90;
 	[self.pdfView setNeedsDisplay:YES];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -424,7 +424,7 @@ To Do List:
 	NSInteger n = MIN(MAX(1, sender.integerValue), self.outputFigureNumbers.count);
 	if (n--) {
 		self.currentOutputFigure = [self.outputFigureNumbers objectAtIndex:n];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -475,7 +475,7 @@ To Do List:
 	CGFloat newScale = sender.floatValue;
 	if (newScale <= 0) newScale = 1;
     [(PDFView *)(self.scaleAndPageTarget?:self.pdfView) setScaleFactor:newScale];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -520,7 +520,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.toolMode = [sender.cell tagForSegment:sender.selectedSegment];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
