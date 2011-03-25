@@ -8,7 +8,7 @@
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
 //
 
-#ifdef __iTM2_LIVE_TEST__
+#ifdef __iTM3_LIVE_TEST__
 #import "iTM3SenTestKit.h"
 #import <iTM2Foundation/iTM2Foundation.h>
 
