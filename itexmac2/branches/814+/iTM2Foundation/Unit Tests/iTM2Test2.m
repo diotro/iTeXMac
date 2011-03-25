@@ -65,7 +65,7 @@
 #define BIGLOG(URL)\
     do {\
         NSURL * __U = URL;\
-        NSLog(@"%s%@(0x%X)","BIGLOG "#URL":",__U,__U);\
+        NSLog(@"%s%@(0x%lX)","BIGLOG "#URL":",__U,(NSInteger)__U);\
         NSLog(@"base:%@",__U.baseURL);\
         NSLog(@"absoluteString:%@",__U.absoluteString);\
         NSLog(@"relativeString:%@",__U.relativeString);\
@@ -97,34 +97,34 @@
     //  Very basic tests
     #define BIGTEST(U,ABSOLUTE_STRING,RELATIVE_STRING,SCHEME,RESOURCE_SPEC,HOST,PORT,USER,PASSWD,PATH,FRAGMENT,PARAMETER,QUERY,RELATIVE_PATH,BASE_URL)\
     do {\
-        if (ABSOLUTE_STRING) STAssertEqualObjects(U.absoluteString,ABSOLUTE_STRING,@"MISSED",nil);\
+        if ((void*)(ABSOLUTE_STRING)>(void*)1) STAssertEqualObjects(U.absoluteString,ABSOLUTE_STRING,@"MISSED",nil);\
         else STAssertNil(U.absoluteString,@"MISSED",nil);\
-        if (RELATIVE_STRING) STAssertEqualObjects(U.relativeString,RELATIVE_STRING,@"MISSED",nil);\
+        if ((void*)(RELATIVE_STRING)>(void*)1) STAssertEqualObjects(U.relativeString,RELATIVE_STRING,@"MISSED",nil);\
         else STAssertNil(U.absoluteString,@"MISSED",nil);\
-        if (SCHEME) STAssertEqualObjects(U.scheme,SCHEME,@"MISSED",nil);\
+        if ((void*)(SCHEME)>(void*)1) STAssertEqualObjects(U.scheme,SCHEME,@"MISSED",nil);\
         else STAssertNil(U.scheme,@"MISSED",nil);\
-        if (RESOURCE_SPEC) STAssertEqualObjects(U.resourceSpecifier,RESOURCE_SPEC,@"MISSED",nil);\
+        if ((void*)(RESOURCE_SPEC)>(void*)1) STAssertEqualObjects(U.resourceSpecifier,RESOURCE_SPEC,@"MISSED",nil);\
         else STAssertNil(U.resourceSpecifier,@"MISSED",nil);\
-        if (HOST) STAssertEqualObjects(U.host,HOST,@"MISSED",nil);\
+        if ((void*)(HOST)>(void*)1) STAssertEqualObjects(U.host,HOST,@"MISSED",nil);\
         else STAssertNil(U.host,@"MISSED",nil);\
-        if (PORT) STAssertEqualObjects(U.port,PORT,@"MISSED",nil);\
+        if ((void*)(PORT)>(void*)1) STAssertEqualObjects(U.port,PORT,@"MISSED",nil);\
         else STAssertNil(U.port,@"MISSED",nil);\
-        if (USER) STAssertEqualObjects(U.user,USER,@"MISSED",nil);\
+        if ((void*)(USER)>(void*)1) STAssertEqualObjects(U.user,USER,@"MISSED",nil);\
         else STAssertNil(U.user,@"MISSED",nil);\
-        if (PASSWD) STAssertEqualObjects(U.password,PASSWD,@"MISSED",nil);\
+        if ((void*)(PASSWD)>(void*)1) STAssertEqualObjects(U.password,PASSWD,@"MISSED",nil);\
         else STAssertNil(U.password,@"MISSED",nil);\
-        if (PATH) STAssertEqualObjects(U.path,PATH,@"MISSED",nil);\
+        if ((void*)(PATH)>(void*)1) STAssertEqualObjects(U.path,PATH,@"MISSED",nil);\
         else STAssertNil(U.path,@"MISSED",nil);\
-        if (FRAGMENT) STAssertEqualObjects(U.fragment,FRAGMENT,@"MISSED",nil);\
+        if ((void*)(FRAGMENT)>(void*)1) STAssertEqualObjects(U.fragment,FRAGMENT,@"MISSED",nil);\
         else STAssertNil(U.fragment,@"MISSED",nil);\
-        if (PARAMETER) STAssertEqualObjects(U.parameterString,PARAMETER,@"MISSED",nil);\
+        if ((void*)(PARAMETER)>(void*)1) STAssertEqualObjects(U.parameterString,PARAMETER,@"MISSED",nil);\
         else STAssertNil(U.parameterString,@"MISSED",nil);\
-        if (QUERY) STAssertEqualObjects(U.query,QUERY,@"MISSED",nil);\
+        if ((void*)(QUERY)>(void*)1) STAssertEqualObjects(U.query,QUERY,@"MISSED",nil);\
         else STAssertNil(U.query,@"MISSED",nil);\
-        if (RELATIVE_PATH) STAssertEqualObjects(U.relativePath,RELATIVE_PATH,@"MISSED",nil);\
+        if ((void*)(RELATIVE_PATH)>(void*)1) STAssertEqualObjects(U.relativePath,RELATIVE_PATH,@"MISSED",nil);\
         else STAssertNil(U.relativePath,@"MISSED",nil);\
         NSURL * ___BASE_URL = BASE_URL;\
-        if (___BASE_URL) STAssertEqualObjects(U.baseURL,___BASE_URL.absoluteURL,@"MISSED",nil);\
+        if ((void*)(___BASE_URL)>(void*)1) STAssertEqualObjects(U.baseURL,___BASE_URL.absoluteURL,@"MISSED",nil);\
         else STAssertNil(U.baseURL,@"MISSED",nil);\
     } while(NO)
 	U = [NSURL URLWithString:@"myScheme://jlaurens:password@my_host:81/root/subdirectory;parameters?truc=much&machin=zob#counard"];
@@ -282,17 +282,17 @@
     //  8 relative strings: "|/|.|..|[^/]+|[^/]+/|/[^/]+|[^/]+/[^/]+"
     #undef TEST
     #define TEST(URL,BASE_URL,STRING,ABSOLUTE_STRING,RELATIVE_STRING,PATH,RELATIVE_PATH)\
-    URL = [NSURL URLWithString:STRING relativeToURL:BASE_URL];\
-    if (BASE_URL) STAssertEqualObjects(URL.baseURL,BASE_URL,@"MISSED",nil);\
+    do {URL = [NSURL URLWithString:STRING relativeToURL:BASE_URL];\
+    if ((void*)(BASE_URL)>(void*)1) STAssertEqualObjects(URL.baseURL,BASE_URL,@"MISSED",nil);\
     else STAssertNil(BASE_URL,@"MISSED",nil);\
-    if (ABSOLUTE_STRING) STAssertEqualObjects(URL.absoluteString,ABSOLUTE_STRING,@"MISSED",nil);\
+    if ((void*)(ABSOLUTE_STRING)>(void*)1) STAssertEqualObjects(URL.absoluteString,ABSOLUTE_STRING,@"MISSED",nil);\
     else STAssertNil(ABSOLUTE_STRING,@"MISSED",nil);\
-    if (RELATIVE_STRING) STAssertEqualObjects(URL.relativeString,RELATIVE_STRING,@"MISSED",nil);\
+    if ((void*)(RELATIVE_STRING)>(void*)1) STAssertEqualObjects(URL.relativeString,RELATIVE_STRING,@"MISSED",nil);\
     else STAssertNil(RELATIVE_STRING,@"MISSED",nil);\
-    if (PATH) STAssertEqualObjects(URL.path,PATH,@"MISSED",nil);\
+    if ((void*)(PATH)>(void*)1) STAssertEqualObjects(URL.path,PATH,@"MISSED",nil);\
     else STAssertNil(PATH,@"MISSED",nil);\
-    if (RELATIVE_PATH) STAssertEqualObjects(URL.relativePath,RELATIVE_PATH,@"MISSED",nil);\
-    else STAssertNil(RELATIVE_PATH,@"MISSED",nil)
+    if ((void*)(RELATIVE_PATH)>(void*)1) STAssertEqualObjects(URL.relativePath,RELATIVE_PATH,@"MISSED",nil);\
+    else STAssertNil(RELATIVE_PATH,@"MISSED",nil);}while(NO)
     U = [NSURL URLWithString:@"myScheme://localhost/root/subdirectory"];
     TEST(u,
         U,
