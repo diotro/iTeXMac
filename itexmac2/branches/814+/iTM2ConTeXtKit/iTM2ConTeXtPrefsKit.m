@@ -79,7 +79,7 @@ To Do List:
 	[object registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, NSFilenamesPboardType, NSStringPboardType, nil]];
 	object.dataSource = self;
 	object.delegate = self;
-	self.synchronizeWithUserDefaults;
+	[self synchronizeWithUserDefaults];
 //END4iTM3;
     return;
 }
@@ -188,7 +188,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [(NSMutableArray *)self.ConTeXtManuals insertObject:anObject atIndex:index];
-	self.synchronizeUserDefaults;
+	[self synchronizeUserDefaults];
 //END4iTM3;
 	return;
 }
@@ -202,7 +202,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [(NSMutableArray *)self.ConTeXtManuals removeObjectAtIndex:index];
-	self.synchronizeUserDefaults;
+	[self synchronizeUserDefaults];
 //END4iTM3;
 	return;
 }
@@ -216,7 +216,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [(NSMutableArray *)self.ConTeXtManuals replaceObjectAtIndex:index withObject:anObject];
-	self.synchronizeUserDefaults;
+	[self synchronizeUserDefaults];
 //END4iTM3;
 	return;
 }
@@ -476,7 +476,7 @@ To Do List:
 		[self.downloadIndicator setIndeterminate:NO];
 	} else
 		[self.downloadIndicator setIndeterminate:YES];
-	[self.downloadPanel validateContent4iTM3];
+	[self.downloadPanel isContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -772,7 +772,7 @@ To Do List:
 			[(iTM2ConTeXtPrefsPane *)self.dataSource removeObjectFromConTeXtManualsAtIndex:index];
 			index = [IS indexLessThanIndex:index];
 		}
-		self.reloadData;
+		[self reloadData];
 	//END4iTM3;
         return YES;
     }
