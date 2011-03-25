@@ -26,27 +26,27 @@
 @interface NSView(iTM2Validation)
 - (BOOL)validateUserInterfaceItems4iTM3;
 - (BOOL)isValid4iTM3;
-- (BOOL)validateWindowContent4iTM3;
+- (BOOL)isWindowContentValid4iTM3;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindow(iTeXMac2)
 @interface NSWindow(iTM2Validation)
-- (BOOL)validateContent4iTM3;
+- (BOOL)isContentValid4iTM3;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSDrawer(iTeXMac2)
 @interface NSDrawer(iTM2Validation)
-- (BOOL)validateContent4iTM3;
+- (BOOL)isContentValid4iTM3;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindowController(iTeXMac2)
 @interface NSWindowController(iTM2Validation)
-- (BOOL)validateWindowContent4iTM3;
+- (BOOL)isWindowContentValid4iTM3;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSWindowController(iTeXMac2)
 @interface NSDocument(iTM2Validation)
-- (BOOL)validateWindowsContents4iTM3;
+- (BOOL)isWindowContentValid4iTM3;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSCell(iTeXMac2)
@@ -64,7 +64,7 @@
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= NSToolbar(iTM2Validation)
 
 @interface NSToolbar(iTM2Validation)
-- (BOOL)validateContent4iTM3;
+- (BOOL)isContentValid4iTM3;
 @end
 
 
