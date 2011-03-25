@@ -98,7 +98,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if (!iVarOutputView4iTM3) {
-        self.window;
+        [self window];
     }
     return iVarOutputView4iTM3;
 }
@@ -192,7 +192,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if (!iVarErrorView4iTM3) {
-        self.window;
+        [self window];
     }
     return iVarErrorView4iTM3;
 }
@@ -536,9 +536,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.flush;
+    [self flush];
     [self addTaskWrapper:argument];
-    self.start;
+    [self start];
 //END4iTM3;
     return;
 }
@@ -562,7 +562,7 @@ To Do List:
     } else {
         [self.wrappers removeObject:argument];
     }
-    self.start;
+    [self start];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= stop
@@ -610,7 +610,7 @@ To Do List:
 		}
 		_CurrentTask = nil;
 		_CurrentWrapper = nil;
-		self.resignStandalone;// maybe collected now
+		[self resignStandalone];// maybe collected now
         return;
     }
 //LOG4iTM3(@"2");
@@ -864,11 +864,11 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.stop;
+    [self stop];
     while(self.wrappers.count) {
         [self removeTaskWrapper:[self.wrappers lastObject]];
     }
-    self.clean;
+    [self clean];
     _CustomReadFileHandle = nil;// not retained, only garbage collected, in some private sense
 //#warning THE FIFO SHOULD BE CHANGED HERE
     return;
@@ -1303,7 +1303,7 @@ To Do List:
     [self.allInspectors makeObjectsPerformSelector:@selector(taskDidTerminate)];
     _CurrentTask = nil;
     _CurrentWrapper = nil;
-    self.start;
+    [self start];
 //END4iTM3;
     return;
 }
@@ -1376,7 +1376,7 @@ start:
 					modifierFlags &= ~NSShiftKeyMask;
 					if (modifierFlags == NSCommandKeyMask)
 					{
-						self.clean;
+						[self clean];
 						[NSCursor pop];
 						return;
 					}
@@ -1434,7 +1434,7 @@ start:
 	}
 	_CurrentTask = nil;
 	_CurrentWrapper = nil;
-	self.start;
+	[self start];
 	if (_CurrentWrapper)
 	{
 		goto start;
@@ -2226,7 +2226,7 @@ To Do List:
 	ICURegEx * RE = [ICURegEx regExForKey:@"^#!\\S*/([^/\\s]+)" error:NULL];
 	if ([RE matchString:script]) {
 		NSString * shell = [RE substringOfCaptureGroupAtIndex:1];// the length is at least 1 but we force it
-        RE.forget;
+        [RE forget];
 		NSAssert(shell.length>ZER0,@"Bad programing, a regular expression does not gove the expected result, report BUG or FIX ME (code 78355)");
 		NSString * selName = [NSString stringWithFormat:@"executeAs%@Script:",shell.capitalizedString];
 		SEL selector = NSSelectorFromString(selName);
