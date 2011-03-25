@@ -113,7 +113,7 @@ To Do List:
     if (_giTM2StatusNotificationCenter)
     {
         if (![self isEqual:_giTM2StatusNotificationCenter])
-            self.release;
+            [self release];
         return [_giTM2StatusNotificationCenter retain];
     }
     else
@@ -321,7 +321,7 @@ NSLog(@"statusNotified: %@", [[aNotification userInfo] objectForKey:iTM2SNStatus
     NS_HANDLER
     LOG4iTM3(@"***  EXCEPTION CATCHED: %@", [localException reason]);
     NS_ENDHANDLER
-    self.display;
+    [self display];
     return;
 }
 @end
