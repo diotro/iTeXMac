@@ -126,7 +126,7 @@ To Do List:
         NSString * theUTI = nil;
         [theOldWrapperURL getResourceValue:&theUTI forKey:NSURLTypeIdentifierKey error:RORef];
         if ([theUTI conformsToUTType4iTM3:wrapperType]) {
-            DE.skipDescendants;
+            [DE skipDescendants];
             NSURL * theOldProjectURL = theOldWrapperURL.enclosedProjectURLs4iTM3.lastObject;
             if((theOldProjectURL)) {
                 NSString * theRelativePath = nil;
@@ -252,7 +252,7 @@ To Do List:
         self.reentrantProjects = [NSMutableSet set];
         self.baseNamesOfAncestorsForBaseProjectName = nil;// important!
         self.baseURLs4ProjectName = [NSMutableDictionary dictionary];
-        self.flushCaches;
+        [self flushCaches];
     }
     return self;
 }
@@ -2316,7 +2316,7 @@ Latest Revision: Sat May 15 21:16:56 UTC 2010
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.currentProject;
+	[self currentProject];
 //END4iTM3;
     return;
 }
@@ -2350,7 +2350,7 @@ Latest Revision: Sat May 15 21:19:40 UTC 2010
 			LOG4iTM3(@"WARNING:Missing a  an iTM2NoProjectSheetController window.");
 		} else {
 			[NSApp beginSheet:W modalForWindow:window modalDelegate:nil didEndSelector:NULL contextInfo:nil];
-			[WC validateWindowContent4iTM3];
+			[WC isWindowContentValid4iTM3];
 //LOG4iTM3(@"sheet is here and validated");
 			NSInteger returnCode = [NSApp runModalForWindow:W];
 			[NSApp endSheet:W];
@@ -2388,7 +2388,7 @@ Latest Revision: Sat May 15 21:19:33 UTC 2010
 //LOG4iTM3(@"%@ is %@",[SUD objectForKey:iTM2DontShowNoProjectNote],([SUD boolForKey:iTM2DontShowNoProjectNote]? @"Y":@"N"));
 	BOOL oldFlag = [SUD boolForKey:iTM2DontShowNoProjectNote];
 	[SUD setObject:[NSNumber numberWithBool:!oldFlag] forKey:iTM2DontShowNoProjectNote];
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDontShowAgain:
@@ -2523,7 +2523,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super windowDidLoad];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -2576,7 +2576,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.toggleProjectMode = iTM2ToggleNewProjectMode;
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -2601,7 +2601,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.isDirectoryWrapper = !self.isDirectoryWrapper;
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -2635,7 +2635,7 @@ To Do List:
 		NSString * new = [senderString stringByAppendingPathExtension:[SDC projectPathExtension4iTM3]];
 		if (![new pathIsEqual4iTM3:self.newProjectName]) {
 			self.newProjectName = new;
-			[sender validateWindowContent4iTM3];
+			[sender isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
@@ -2684,7 +2684,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.toggleProjectMode = iTM2ToggleOldProjectMode;
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -2888,7 +2888,7 @@ To Do List:
 			SEL selector = (SEL)[PA pointerAtIndex:i];
 			if (selector != _cmd) {
 				I.selector = selector;
-				I.invoke;
+				[I invoke];
 				BOOL R = NO;
 				[I getReturnValue:&R];
 				if (R) {
@@ -2921,7 +2921,7 @@ To Do List:
 			SEL selector = (SEL)[PA pointerAtIndex:i];
 			if (selector != _cmd) {
 				I.selector = selector;
-				I.invoke;
+				[I invoke];
 				BOOL R = NO;
 				[I getReturnValue:&R];
 				if (R) {
