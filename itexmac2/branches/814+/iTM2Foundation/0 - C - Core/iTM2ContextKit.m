@@ -569,7 +569,7 @@ To Do List:
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] saveContext4iTM3Error:RORef];
     for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteSaveContext4iTM3:" signature:I.methodSignature inherited:YES]) {
         [I setSelector:(SEL)selector];
-        I.invoke;
+        [I invoke];
         if (!result) {
             [I getReturnValue:&result];
         }
@@ -604,7 +604,7 @@ To Do List:
     BOOL result = YES;
     for (id selector in [iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteLoadContext4iTM3Error:" signature:I.methodSignature inherited:YES]) {
         [I setSelector:(SEL)selector];
-        I.invoke;
+        [I invoke];
         if (result) {
             [I getReturnValue:&result];
         }
