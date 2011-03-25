@@ -285,7 +285,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = [self context4iTM3BoolForKey:@"iTM2ConTeXtToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContext4iTM3Bool: !old forKey:@"iTM2ConTeXtToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -514,7 +514,7 @@ To Do List:
 			name: NSPopUpButtonWillPopUpNotification
 				object: self];
 	NSView * superview = self.superview;
-	self.removeFromSuperviewWithoutNeedingDisplay;
+	[self removeFromSuperviewWithoutNeedingDisplay];
 	[superview addSubview:self];
 //END4iTM3;
     return;
@@ -614,7 +614,7 @@ To Do List:
 			name: NSPopUpButtonWillPopUpNotification
 				object: self];
 	NSView * superview = self.superview;
-	self.removeFromSuperviewWithoutNeedingDisplay;
+	[self removeFromSuperviewWithoutNeedingDisplay];
 	[superview addSubview:self];
 //END4iTM3;
     return;
@@ -745,14 +745,14 @@ To Do List:
             if(![SWS openURL:[NSURL URLWithString:S]]) {
                 LOG4iTM3(@"INFO: could not open url <%@>", S);
             }
-            RE.forget;
+            [RE forget];
             return;
         }
         S = [RE substringOfCaptureGroupWithName:@"name"];
         if (S.length) {
             S = [SC stringByRemovingTeXEscapeSequencesInString:S];
             #warning CONTINUE HERE
-            RE.forget;
+            [RE forget];
             return;
         }
         
