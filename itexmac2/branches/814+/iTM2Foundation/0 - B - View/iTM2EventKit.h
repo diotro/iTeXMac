@@ -41,6 +41,8 @@ extern NSString * const iTM2FlagsDidChangeNotification;
 /*"Overriden methods"*/
 @end
 
+#if 0
+This is not 64 bits compliant
 @interface iTM2IdleTimer: NSObject
 {
 @private
@@ -59,5 +61,5 @@ extern NSString * const iTM2FlagsDidChangeNotification;
 -(void) idleTimerIdling:(iTM2IdleTimer *)idleTime;
 -(void) idleTimerStopped:(iTM2IdleTimer *)idleTime;
 @end
-
+#endif
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2EventObserver
