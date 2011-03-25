@@ -33,9 +33,9 @@
 #warning Auto validation is OFF, undefine the __iTM2_AUTO_VALIDATION_OFF__ preprocessor macro
 @implementation NSObject(iTM2Validation)
 - (BOOL)validateUserInterfaceItems4iTM3;{return YES;}
-- (BOOL)validateContent4iTM3;{return YES;}
-- (BOOL)validateWindowContent4iTM3;{return YES;}
-- (BOOL)validateWindowsContents4iTM3;{return YES;}
+- (BOOL)isContentValid4iTM3;{return YES;}
+- (BOOL)isWindowContentValid4iTM3;{return YES;}
+- (BOOL)isWindowContentValid4iTM3;{return YES;}
 - (BOOL)isValid4iTM3;{return YES;}
 + (iTM2ValidationStatus)target4iTM3:(id)validatorTarget validateUserInterfaceItem:(id)sender;{return YES;}
 - (BOOL)validateUserInterfaceItem:(id)sender;{return YES;}
@@ -313,8 +313,8 @@ To Do List:
 //START4iTM3;
     return NO;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3
-- (BOOL)validateWindowContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -322,32 +322,32 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.window validateContent4iTM3];
+    return [self.window isContentValid4iTM3];
 }
 @end
 
 @implementation NSWindow(iTM2Validation)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateContent4iTM3
-- (BOOL)validateContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContentValid4iTM3
+- (BOOL)isContentValid4iTM3;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - < 1.1: 03/10/2002
+ To Do List:
+ "*/
 {DIAGNOSTIC4iTM3;
 #if __iTM3_DEVELOPMENT__
-printf("Currently validating: %s from document %s in zone %#lx\n", [self.title UTF8String],
-	[[[self.windowController document] description] UTF8String], (NSUInteger)self.zone);
+    printf("Currently validating: %s from document %s in zone %#lx\n", [self.title UTF8String],
+           [[[self.windowController document] description] UTF8String], (NSUInteger)self.zone);
 #endif
-//START4iTM3;
+    //START4iTM3;
     BOOL flag = [self.contentView validateUserInterfaceItems4iTM3];
     id D;
     for (D in self.drawers)
-        flag = [D validateContent4iTM3] && flag;
+        flag = [D isContentValid4iTM3] && flag;
 	if ((D = self.attachedSheet))
-        flag = [D validateContent4iTM3] && flag;
+        flag = [D isContentValid4iTM3] && flag;
 	for (D in self.childWindows)
-        flag = [D validateContent4iTM3] && flag;
+        flag = [D isContentValid4iTM3] && flag;
     return flag;
 }
 @end
@@ -363,7 +363,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if (place != NSWindowOut)
-		self.validateContent4iTM3;
+		[self isContentValid4iTM3];
     [self SWZ_iTM2Valid_orderWindow:place relativeTo:otherWin];
 //END4iTM3;
     return;
@@ -377,7 +377,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.validateContent4iTM3;
+	[self isContentValid4iTM3];
     [self SWZ_iTM2Valid_orderFrontRegardless];
 //END4iTM3;
     return;
@@ -392,7 +392,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self SWZ_iTM2Valid_becomeKeyWindow];
-	self.validateContent4iTM3;
+	[self isContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -407,7 +407,7 @@ To Do List:
 //START4iTM3;
     [self SWZ_iTM2Valid_resignKeyWindow];
 	if (self.isVisible) {
-		self.validateContent4iTM3;
+		[self isContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -415,25 +415,25 @@ To Do List:
 @end
 
 @implementation NSDrawer(iTM2Validation)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateContent4iTM3
-- (BOOL)validateContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContentValid4iTM3
+- (BOOL)isContentValid4iTM3;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - < 1.1: 03/10/2002
+ To Do List:
+ "*/
 {DIAGNOSTIC4iTM3;
-//START4iTM3;
+    //START4iTM3;
 	NSView * V = self.contentView;
 	NSSize S = [V visibleRect].size;
-//END4iTM3;
+    //END4iTM3;
 	return (self.state == NSDrawerClosedState) || (S.width>0 && S.height>0 && [V validateUserInterfaceItems4iTM3]);
 }
 @end
 
 @implementation NSWindowController(iTM2Validation)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3
-- (BOOL)validateWindowContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -442,7 +442,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //  the following one is satisfying because it does not load the window as side effect...
-    return self.isWindowLoaded && [self.window isVisible] && [self.window validateContent4iTM3];
+    return self.isWindowLoaded && [self.window isVisible] && [self.window isContentValid4iTM3];
 }
 @end
 
@@ -468,8 +468,8 @@ To Do List:
 	}
     return [sender submenu]!=nil || [self SWZ_iTM2Valid_validateMenuItem:sender];
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowsContents4iTM3
-- (BOOL)validateWindowsContents4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - < 1.1: 03/10/2002
@@ -479,7 +479,7 @@ To Do List:
 //START4iTM3;
     BOOL flag = YES;
     for (NSWindowController * WC in self.windowControllers)
-        flag = [WC validateWindowContent4iTM3] && flag;
+        flag = [WC isWindowContentValid4iTM3] && flag;
 //END4iTM3;
     return flag;
 }
@@ -570,7 +570,7 @@ To Do List:
     if (!validatorAction) {
         return iTM2ValidationStatusUnkonwn;
     }
-    if (!class_getInstanceMethod(validatorTarget->isa, validatorAction)) {
+    if (!class_getInstanceMethod([validatorTarget class], validatorAction)) {
         return iTM2ValidationStatusUnkonwn;
     }
 //END4iTM3;
@@ -646,22 +646,19 @@ To Do List:
 @end
 
 @implementation NSToolbar(iTM2Validation)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateContent4iTM3
-- (BOOL)validateContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isContentValid4iTM3
+- (BOOL)isContentValid4iTM3;
 /*"Description forthcoming.
-Version history: jlaurens AT users DOT sourceforge DOT net
-- < 1.1: 03/10/2002
-To Do List:
-"*/
+ Version history: jlaurens AT users DOT sourceforge DOT net
+ - < 1.1: 03/10/2002
+ To Do List:
+ "*/
 {DIAGNOSTIC4iTM3;
-//START4iTM3;
-	NSArray * items = self.items;
-	NSToolbarItem * item = nil;
-	for(item in items)
-	{
+    //START4iTM3;
+	for (NSToolbarItem * item in self.items) {
 		[item validate];
 	}
-//END4iTM3;
+    //END4iTM3;
 	return YES;
 }
 @end
