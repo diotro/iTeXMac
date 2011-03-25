@@ -271,7 +271,7 @@ To Do List:
 		output = [RE substringOfCaptureGroupWithName:@"output"];
 		variant = [RE substringOfCaptureGroupWithName:@"variant"];
 	}
-    RE.forget;
+    [RE forget];
 	NSString * prettyExtension = NSLocalizedStringFromTableInBundle([extension lowercaseString],iTM2TeXProjectFrontendTable,[NSBundle bundleForClass:[iTM2TeXProjectDocument class]],"");
     return [NSDictionary dictionaryWithObjectsAndKeys:mode, iTM2TPDKModeKey, extension, iTM2TPDKExtensionKey, prettyExtension, iTM2TPDKPrettyExtensionKey, output, iTM2TPDKOutputKey, variant, iTM2TPDKVariantKey, name, iTM2TPDKNameKey, nil];
 }
@@ -576,7 +576,7 @@ To Do List:
     {
         [project setMasterFileKey:newK];
         [project updateChangeCount:NSChangeDone];
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
     }
     return;
 }
@@ -668,7 +668,7 @@ To Do List:
 #warning IN THE METHOD where the validation occurs, present an error if necessary.
 			return;
 		}
-		[sender validateWindowContent4iTM3];
+		[sender isWindowContentValid4iTM3];
     }
     return;
 }
@@ -988,7 +988,7 @@ To Do List:
 	{
 		[project updateChangeCount:NSChangeDone];		
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1039,7 +1039,7 @@ To Do List:
 	if (changed) {
 		[project updateChangeCount:NSChangeDone];		
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1088,7 +1088,7 @@ To Do List:
 	if (changed) {
 		[project updateChangeCount:NSChangeDone];		
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1520,7 +1520,7 @@ To Do List:
 	{
 		[project updateChangeCount:NSChangeDone];		
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  drawerWillResizeContents:toSize:
@@ -1547,7 +1547,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSDrawer * drawer = [notification object];
-    [drawer validateContent4iTM3];
+    [drawer isContentValid4iTM3];
 	NSSize contentSize = [drawer contentSize];
 	NSString * string = [self context4iTM3StringForKey:@"iTM2ProjectSubdocumentsDrawerSize" domain:iTM2ContextAllDomainsMask];
 	if(string)
