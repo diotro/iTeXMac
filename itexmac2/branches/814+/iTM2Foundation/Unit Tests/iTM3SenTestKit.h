@@ -9,7 +9,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#ifdef __iTM2_LIVE_TEST__
+#ifdef __iTM3_LIVE_TEST__
 #warning LIVE TEST: all the tests are run from a test application
 #import <SenTestingKit/NSException_SenTestFailure.h>
 #import <SenTestingKit/SenTestCase_Macros.h>
@@ -26,7 +26,7 @@
 @end
 #else
 #import <SenTestingKit/SenTestingKit.h>
-@interface iTM3TestCase: iTM3TestCase {
+@interface iTM3TestCase: SenTestCase {
 
 }
 /*"Invoking a test performs only its setUp, invocation, and tearDown, outside the context of a run; it's the primitive method used by -performTest:."*/
@@ -43,9 +43,9 @@
 #   warning: This is in development mode
 extern NSMutableSet * ReachCodeTags4iTM3;
 #   define HasReachedCode4iTM3(TAG) [ReachCodeTags4iTM3 containsObject:TAG]
-#   define ResetReachCodeTags4iTM3 ReachCodeTags4iTM3.removeAllObjects
-//  In th following macros, __CODE_TAG__ is an NSString instance
-#   define STAssertReachCode4iTM3(INSTRUCTION)\
+#   define ResetReachCodeTags4iTM3 [ReachCodeTags4iTM3 removeAllObjects]
+//  In the following macros, __CODE_TAG__ is an NSString instance
+#   define STAssertReachCode4iTM3(INSTRUCTION) \
     do {\
         LOG4iTM3(@"ReachCode?%@",__CODE_TAG__);\
         ResetReachCodeTags4iTM3;\
