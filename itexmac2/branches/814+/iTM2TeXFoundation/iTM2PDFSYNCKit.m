@@ -863,7 +863,7 @@ To Do List:
             }
         }
         else
-            E.nextObject;
+            [E nextObject];
     }
 	if(beforeIndexes)
 		*beforeIndexes = [beforeDictResult allKeysForObject:beforeObjectResult];
@@ -1204,13 +1204,13 @@ To Do List:
 			// if there is a file at otherURL, any synctex information will belong to these file
 			if (!otherURL.isFileURL || ![DFM fileExistsAtPath:otherURL.path]) {
                 //  This is not acceptable because the 
-                self.release;
+                [self release];
                 self = nil;
                 return self;
 			}
 			scanner = synctex_scanner_new_with_output_file(otherURL.path.fileSystemRepresentation,nil,1);
 			if(scanner == NULL) {
-				self.release;
+				[self release];
 				self = nil;
 				return self;
 			}
@@ -1224,7 +1224,7 @@ To Do List:
 				// the path was modified 1 second after other path was
 				// I consider that otherPath is obsolete
 				synctex_scanner_free(scanner);
-				self.release;
+				[self release];
 				self = nil;
 				return self;
 			}
@@ -1894,8 +1894,8 @@ To Do List:
 			goto laSuite;
 		}
 	}
-	self.makeWindowControllers;
-	self.showWindows;
+	[self makeWindowControllers];
+	[self showWindows];
 	NSString * SRCE = nil;
 laSuite:
 	if(sourceURL.isFileURL) {
@@ -2376,7 +2376,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if([theEvent clickCount] == 1)
+    if(theEvent.clickCount == 1)
 	{
 		NSUInteger modifierFlags = [theEvent modifierFlags]
 			& (NSAlphaShiftKeyMask
@@ -2394,7 +2394,7 @@ To Do List:
 			return;
 		}
 	}
-//LOG4iTM3(@"[theEvent clickCount] is:%i", [theEvent clickCount]);
+//LOG4iTM3(@"theEvent.clickCount is:%i", theEvent.clickCount);
     [super mouseDown:theEvent];
     return;
 }
@@ -2566,11 +2566,11 @@ To Do List:
     NSUInteger modifierFlags = [event modifierFlags];
     if((modifierFlags & NSCommandKeyMask)>ZER0)
 	{
-		if(([event clickCount]==1) && [self pdfSynchronizeMouseDown:event])
+		if((event.clickCount==1) && [self pdfSynchronizeMouseDown:event])
 		{
 			return;
 		}
-		else if([event clickCount]>1)
+		else if(event.clickCount>1)
 		{
 			NSDocument * D = [self.window.windowController document];
 			if([D respondsToSelector:@selector(orderFrontCurrentSource)])
