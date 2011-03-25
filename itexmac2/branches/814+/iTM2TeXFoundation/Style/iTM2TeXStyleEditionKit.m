@@ -350,7 +350,7 @@ To Do List:
 	MD = [NSMutableDictionary dictionary];
 
 	[_AllSymbolsSets setObject:allSymbols forKey:@"K"];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return result;
 }
@@ -400,9 +400,9 @@ To Do List:
                 {
                     id As = [AS attributesAtIndex:ZER0 effectiveRange:nil];
                     NSFont * F = [As objectForKey:NSFontAttributeName]?:[NSFont systemFontOfSize:[NSFont systemFontSize]];
-                    TS.beginEditing;
+                    [TS beginEditing];
                     [TS setAttributedString:AS];
-                    TS.endEditing;
+                    [TS endEditing];
                     NSGlyphInfo * GI = [NSGlyphInfo glyphInfoWithGlyph:[LM glyphAtIndex:ZER0] forFont:F baseString:command];
                     if (GI) {
                         id attributes = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -468,12 +468,12 @@ To Do List:
     [C setAllowsEditingTextAttributes:YES];
     [C setImportsGraphics:YES];
     self.window.delegate = self;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3
-- (BOOL)validateWindowContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -481,7 +481,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [super validateWindowContent4iTM3];
+    [super isWindowContentValid4iTM3];
     NSString * CSK = self.currentSetKey;
     if(CSK.length && ![_CustomKeysSets objectForKey:CSK])
     {
@@ -531,7 +531,7 @@ To Do List:
         }
     }
 //END4iTM3;
-    return [addSetPanel validateContent4iTM3];
+    return [addSetPanel isContentValid4iTM3];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName;
@@ -560,7 +560,7 @@ To Do List:
     if(_CurrentSetItem != newItem)
     {
         _CurrentSetItem = newItem;
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
     }
     return;
 }
@@ -801,7 +801,7 @@ To Do List:
     if(_CurrentSetItem != sender)
     {
         _CurrentSetItem = sender;
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
     }
 //END4iTM3;
     return;
@@ -854,7 +854,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     if(![self.window attachedSheet])
     {
         [NSApp beginSheet:addSetPanel
@@ -889,7 +889,7 @@ To Do List:
 		// we would want to select the menu item of the newly created set, assuming that we are going to edit it.
 		// force the validation: the menu items will be created from scratch,
 		_CurrentSetItem = nil;
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 		// normally the "all symbols" menu item should be selected.
 		if(_CurrentSetItem)
 		{
@@ -901,7 +901,7 @@ To Do List:
 				{
 					_CurrentSetItem = MI;
 					// now we know what menu item should be selected.
-					self.validateWindowContent4iTM3;
+					[self isWindowContentValid4iTM3];
 					if([tableView acceptsFirstResponder])
 					{
 						[tableView.window makeFirstResponder:tableView];
@@ -978,7 +978,7 @@ To Do List:
     [_iTM2PRIVATE_NewSetName autorelease];
     _iTM2PRIVATE_NewSetName = [[sender stringValue] copy];
     _CurrentSetItem = nil;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  removeSet:
@@ -1023,7 +1023,7 @@ To Do List:
             [self.document updateChangeCount:NSChangeDone];
 //LOG4iTM3(@"[_RecycleSymbolsSets allKeys]: %@", [_RecycleSymbolsSets allKeys]);
 //LOG4iTM3(@"[_CustomSymbolsSets allKeys]: %@", [_CustomSymbolsSets allKeys]);
-			self.validateWindowContent4iTM3;
+			[self isWindowContentValid4iTM3];
         }
     }
 //END4iTM3;
@@ -1115,7 +1115,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  tableView:shouldEditTableColumn:row:
@@ -1169,7 +1169,7 @@ To Do List:
 //START4iTM3;
     if(self.currentSets != _CustomSymbolsSets)
     {
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
         return;
     }
     NSString * CSK = self.currentSetKey;
@@ -1191,7 +1191,7 @@ To Do List:
         [tv reloadData];
     }
 	[tv selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     if([tv acceptsFirstResponder] && [tv.window makeFirstResponder:tv])
 	{
 #if 1
@@ -1235,7 +1235,7 @@ To Do List:
 //START4iTM3;
     if(self.currentSets != _CustomSymbolsSets)
     {
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
         return;
     }
     NSString * CSK = self.currentSetKey;
@@ -1257,7 +1257,7 @@ To Do List:
 		row = [indexes indexLessThanIndex:row];
 	}
 //    [tv reloadData];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  COLOR MANAGEMENT
@@ -1271,7 +1271,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SCP setColor:[[NSColor whiteColor] colorWithAlphaComponent:0]];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1306,7 +1306,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     _Background = !_Background;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1360,7 +1360,7 @@ To Do List:
                 [_Ks addObject:object];
 				[_Ks sortUsingSelector:@selector(compare:)];
                 [self.document updateChangeCount:NSChangeDone];
-				self.validateWindowContent4iTM3;
+				[self isWindowContentValid4iTM3];
             }
             [TV reloadData];
         }
@@ -1386,7 +1386,7 @@ To Do List:
                     if(rowHeight > [TV rowHeight])
                         [TV setRowHeight:rowHeight];
                     [self.document updateChangeCount:NSChangeDone];
-					self.validateWindowContent4iTM3;
+					[self isWindowContentValid4iTM3];
 //LOG4iTM3(@"The character? %x", [[object string] characterAtIndex);
 //LOG4iTM3(@"attributes? %@", [object attributesAtIndexeffectiveRange:nil]);
                 }
@@ -1440,7 +1440,7 @@ To Do List:
     if(isDocumentEdited)
     {
         [self.document updateChangeCount:NSChangeDone];
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
     }
     [tableView setRowHeight:rowHeight];
     return;
@@ -1456,7 +1456,7 @@ To Do List:
 //START4iTM3;
     if(self.currentSets != _CustomSymbolsSets)
     {
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
         return;
     }
     NSColor * newC = [sender color];
@@ -1501,7 +1501,7 @@ To Do List:
     if(isDocumentEdited)
     {
         [self.document updateChangeCount:NSChangeDone];
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
     }
 //END4iTM3;
     return;
@@ -1614,7 +1614,7 @@ To Do List:
         [tv setRowHeight:rowHeight];
         [tv reloadData];
         [self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
         return YES;
     }
     else if([type isEqualToString:NSStringPboardType])
@@ -1651,7 +1651,7 @@ To Do List:
         [tv setRowHeight:rowHeight];
         [tv reloadData];
         [self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
         return YES;
     }
     else
