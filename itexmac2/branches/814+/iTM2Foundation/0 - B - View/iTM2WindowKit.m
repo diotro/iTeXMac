@@ -173,7 +173,7 @@ To Do List:
 		WN = [frontWindow windowNumber];
 	}
 	[self orderWindow:NSWindowBelow relativeTo:WN];
-	self.displayIfNeeded;
+	[self displayIfNeeded];
 //END4iTM3;
     return;
 }
