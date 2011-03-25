@@ -314,7 +314,7 @@ To Do List: ...
 	BOOL yorn = [self context4iTM3BoolForKey:iTM2UDContinuousSpellCheckingKey domain:iTM2ContextAllDomainsMask];
     [self setContinuousSpellCheckingEnabled:yorn];
 	[super context4iTM3DidChange];
-	self.context4iTM3DidChangeComplete;
+	[self context4iTM3DidChangeComplete];
 //END4iTM3;
     return;
 }
@@ -559,7 +559,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask];
+    [text takeContext4iTM3Value:mode forKey:iTM2SpellContextModeKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //END4iTM3;
     return;
 }
@@ -857,7 +857,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[super windowDidLoad];
-    self.validateWindowContent4iTM3;
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 //END4iTM3;
     return;
 }
@@ -878,13 +878,13 @@ To Do List:
 		self.ignoredWords = ([[SSC ignoredWordsInSpellDocumentWithTag:currentContext.tag] mutableCopy]?
 			: [NSMutableArray array]);
 		[iVarIgnoredWords sortUsingSelector:@selector(compare:)];
-		self.tableView.reloadData;
-		self.tableView.display;
-		self.validateWindowContent4iTM3;
+		[self.tableView reloadData];
+		[self.tableView display];
+		if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 	} else {
 		iVarCurrentText = nil;
-		self.tableView.reloadData;
-		self.tableView.display;
+		[self.tableView reloadData];
+		[self.tableView display];
 	}
 //END4iTM3;
     return;
@@ -900,18 +900,18 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //    [sender.window makeFirstResponder:nil];
-    self.tableView.abortEditing;
+    [self.tableView abortEditing];
     NSString * newArgument = @"?";
     if ([self addIgnoredWord:newArgument])
     {
-		self.tableView.reloadData;
-		self.tableView.display;
+		[self.tableView reloadData];
+		[self.tableView display];
         NSUInteger row = [self.ignoredWords indexOfObject:newArgument];
         if (row>=ZER0) {
             [self.tableView deselectAll:self];
             [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 //            [iVarTableView scrollRowToVisible:row];
-            [self.tableView editColumn:ZER0 row:self.tableView.selectedRow withEvent:nil select:YES];
+            [self.tableView editColumn:ZER0 row:[self.tableView selectedRow] withEvent:nil select:YES];
             return;
         }
     }
@@ -1040,8 +1040,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     NSInteger total = [self numberOfRowsInTableView:iVarTableView];
-    if (self.tableView.numberOfSelectedRows == 1) {
-        sender.stringValue = [NSString stringWithFormat:@"%i/%i", self.tableView.selectedRow +1, total];
+    if ([self.tableView numberOfSelectedRows] == 1) {
+        sender.stringValue = [NSString stringWithFormat:@"%i/%i", [self.tableView selectedRow] +1, total];
     } else {
         sender.stringValue = [NSString stringWithFormat:@"%i", total];
     }
@@ -1062,7 +1062,7 @@ To Do List:
 		iVarTableView.delegate = iVarTableView.target = iVarTableView.dataSource = nil;
         if ((iVarTableView = tableView)) {
             iVarTableView.delegate = iVarTableView.target = iVarTableView.dataSource = self;
-            iVarTableView.reloadData;
+            [iVarTableView reloadData];
             [iVarTableView setNeedsDisplay:YES];
         }
     }
@@ -1103,7 +1103,7 @@ To Do List:
 //START4iTM3;
     NSString * oldArgument = ((row>-1) && ((row<self.ignoredWords.count))? [self.ignoredWords objectAtIndex:row]:nil);
     if (oldArgument && [self smartReplaceIgnoredWord:oldArgument by:object]) {
-        tableView.reloadData;
+        [tableView reloadData];
         [tableView setNeedsDisplay:YES];
         NSUInteger row = [self.ignoredWords indexOfObject:object];
         [tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
@@ -1111,7 +1111,7 @@ To Do List:
     } else {
 //START4iTM3;
         NSLog(@"No replacement of %@ by %@", oldArgument, object);
-        tableView.reloadData;// bad word given:things should change
+        [tableView reloadData];// bad word given:things should change
         [tableView setNeedsDisplay:YES];
     }
 //END4iTM3;
@@ -1133,8 +1133,8 @@ To Do List:
             [self.ignoredWords removeObjectAtIndex:idx];
 		idx = [IS indexLessThanIndex:idx];
 	}
-    TV.reloadData;
-    self.validateWindowContent4iTM3;
+    [TV reloadData];
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  tableViewSelectionDidChange:
 - (void)tableViewSelectionDidChange:(NSNotification *)notification;
@@ -1145,7 +1145,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.validateWindowContent4iTM3;
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 	if ([notification.object acceptsFirstResponder]) {
 		[self.window makeFirstResponder:notification.object];
 	}
@@ -1443,7 +1443,7 @@ To Do List:
     }
     else if ((self = [super initWithWindow:window]))
     {
-		self.initImplementation;
+		[self initImplementation];
 		_iVarCurrentText = nil;
         [DNC addObserver:self
             selector: @selector(_windowWillCloseOrDidResignKeyNotified:)
@@ -1503,7 +1503,7 @@ To Do List:
 //LOG4iTM3(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", text, text.window.title);
 		}
 		self.currentText = nil;
-		self.validateWindowContent4iTM3;
+		if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 	}
 	else
 	{
@@ -1545,7 +1545,7 @@ To Do List:
 //LOG4iTM3(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", text, text.window.title);
 		}
         self.currentText = nil;
-		self.validateWindowContent4iTM3;
+		if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 	}
 	else
 	{
@@ -1612,7 +1612,7 @@ To Do List:
 	else if (newText)
 	{
 //LOG4iTM3(@"*** ERROR: MISSING SPELL CONTEXT FOR TEXT: %#x in window %@", newText, newText.window.title);
-newText.spellContext4iTM3;
+        [newText spellContext4iTM3];
 	}
 	else
 	{
@@ -1620,7 +1620,7 @@ newText.spellContext4iTM3;
 	}
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
 	if ([self.window isVisible])
-		self.validateWindowContent4iTM3;
+		if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 //END4iTM3;
     return;
 }
@@ -1675,7 +1675,7 @@ To Do List:
 		}
 	}
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
-    self.validateWindowContent4iTM3;
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 //END4iTM3;
     return;
 }
@@ -1771,7 +1771,7 @@ To Do List:
 		}
 	}
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
-    self.validateWindowContent4iTM3;
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  _1stResponderMightHaveChanged:
@@ -1824,7 +1824,7 @@ To Do List:
     }
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
 	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:NO] forKey:@"Synchronizing"];
-    self.validateWindowContent4iTM3;
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 //END4iTM3;
     return;
 }
@@ -1854,8 +1854,8 @@ To Do List:
 	}
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  validateWindowContent4iTM3
-- (BOOL)validateWindowContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Wed Sep 15 21:07:40 GMT 2004
@@ -1864,8 +1864,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	BOOL result = [super validateWindowContent4iTM3];
-	result = [self.spellCheckerAccessoryView validateWindowContent4iTM3] && result;
+	BOOL result = [super isWindowContentValid4iTM3];
+	result = [self.spellCheckerAccessoryView isWindowContentValid4iTM3] && result;
     return result;
 }
 #pragma mark =-=-=-=-=-  GUI Validation
@@ -1964,7 +1964,7 @@ To Do List:
         id FR = W.firstResponder;
         [W makeFirstResponder:nil];
         [W makeFirstResponder:FR];
-        self.validateWindowContent4iTM3;
+        if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
     }
     return;
 }
@@ -2058,7 +2058,7 @@ To Do List:
     // Sheet is up here.
     [NSApp endSheet:self.window];
     [self.window orderOut:self];
-    self.validateWindowContent4iTM3;
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
     [self setEditing:NO];
 //END4iTM3;
     return;
@@ -2088,7 +2088,7 @@ To Do List:
         id FR = W.firstResponder;
         [W makeFirstResponder:W.contentView];
         [W makeFirstResponder:FR];
-        self.validateWindowContent4iTM3;
+        if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 #else
         NSString * oldLanguage = [SSC language];
         NSWindow * W = self.currentText.window;
@@ -2098,7 +2098,7 @@ To Do List:
         [W makeFirstResponder:FR];
         if (oldLanguage.length)
             [[currentController spellContextForMode:oldMode] setSpellLanguage:oldLanguage];
-        self.validateWindowContent4iTM3;
+        if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 #endif
     }
     return;
@@ -2135,7 +2135,7 @@ To Do List:
 //START4iTM3;
     [[self.currentText spellContext4iTM3ControllerError:self.RORef4iTM3] removeSpellMode:[sender representedObject]];
     [self setEditing:NO];
-    self.validateWindowContent4iTM3;
+    if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  editIgnoredWords:
