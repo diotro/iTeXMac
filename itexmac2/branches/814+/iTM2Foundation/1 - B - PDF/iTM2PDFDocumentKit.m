@@ -796,7 +796,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setMagnification:sender.floatValue];
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -828,7 +828,7 @@ To Do List:
 		[self doZoomIn:nil];
 //NSLog(@"dfp");
     [sender setIntegerValue:ZER0];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -855,7 +855,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setCurrentPhysicalPage:[sender integerValue] - 1];
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -885,7 +885,7 @@ To Do List:
 //START4iTM3;
 //NSLog(@"dfp");
     [self setCurrentPhysicalPage:ZER0];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoToFirstPage:
@@ -909,7 +909,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.album setCurrentPhysicalPage:INT_MAX];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoToLastPage:
@@ -933,7 +933,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.album setCurrentPhysicalPage:[self.album forwardPhysicalPage]];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoForward:
@@ -957,7 +957,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.album setCurrentPhysicalPage:[self.album backPhysicalPage]];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateDoGoBack:
@@ -981,7 +981,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setMagnification:1.0];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2801,7 +2801,7 @@ To Do List:
 //START4iTM3;
 	self.PDFView.currentPage.rotation -= 90;
 	[self.PDFView setNeedsDisplay:YES];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -2816,7 +2816,7 @@ To Do List:
 //START4iTM3;
 	self.PDFView.currentPage.rotation += 90;
 	[self.PDFView setNeedsDisplay:YES];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -2839,7 +2839,7 @@ To Do List:
 	if (n<pageCount)
 		[self.PDFView goToPage:[document pageAtIndex:n]];
 //END4iTM3;
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePageFrom:
@@ -2892,7 +2892,7 @@ To Do List:
 		newScale = 1;
     }
     [self.PDFView setScaleFactor:newScale];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -2941,7 +2941,7 @@ To Do List:
 	} else {
 		[self.PDFView goBack:sender];
 	}
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -2978,7 +2978,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setToolMode:[sender.cell tagForSegment:sender.selectedSegment]];
-	[self validateWindowContent4iTM3];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
