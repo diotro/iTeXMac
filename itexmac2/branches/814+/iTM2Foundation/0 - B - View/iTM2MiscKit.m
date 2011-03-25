@@ -530,7 +530,7 @@ To Do List:
 //START4iTM3;
 	ICURegEx * RE = [ICURegEx regExForKey:@"iTM2_([:alpha:]+)ToolbarItem" error:NULL];
 	NSString * result = [RE matchString:NSStringFromSelector(aSelector)]? [RE substringOfCaptureGroupAtIndex:1]:@"";
-    RE.forget;
+    [RE forget];
 //END4iTM3;
     return result;
 }
@@ -686,7 +686,7 @@ To Do List:
 	ICURegEx * RE = [ICURegEx regExForKey:@"([:letter:][:alpha:]*)ValueTransformer" error:NULL];
 //END4iTM3;
     NSString * result = [RE matchString:NSStringFromClass(self)]? [RE substringOfCaptureGroupAtIndex:1]:RE.inputString;
-    RE.forget;
+    [RE forget];
     return result;
 }
 @end
