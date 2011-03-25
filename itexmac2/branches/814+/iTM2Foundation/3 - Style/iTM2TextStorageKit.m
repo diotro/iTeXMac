@@ -169,9 +169,9 @@ To Do List: Nothing
 //START4iTM3;
     if ((self = self.init)) {
         if (aString.length) {
-            self.beginEditing;
+            [self beginEditing];
             [self replaceCharactersInRange:iTM3Zer0Range withString:aString];
-            self.endEditing;
+            [self endEditing];
 		}
     }
     return self;
@@ -397,7 +397,7 @@ To Do List:
 			}
 		}
 	}
-    RE.forget;
+    [RE forget];
 	NSArray * affectedRanges = [[map allKeys] sortedArrayUsingSelector:@selector(compareRangeLocation4iTM3:)];
 	NSMutableArray * replacementStrings = [NSMutableArray array];
 	for (V in affectedRanges) {
@@ -405,12 +405,12 @@ To Do List:
 	}
 	NSUInteger result = ZER0;
 	if (affectedRanges.count && [view shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings]) {
-		self.beginEditing;
+		[self beginEditing];
         NSEnumerator * E = replacementStrings.reverseObjectEnumerator;
 		for (V in affectedRanges.reverseObjectEnumerator) {
 			[self replaceCharactersInRange:V.rangeValue withString:E.nextObject];
 		}
-		self.endEditing;
+		[self endEditing];
 		result = affectedRanges.count;
 	}
 //END4iTM3;
@@ -665,7 +665,7 @@ To Do List:
 	[super context4iTM3DidChange];
     [self setSyntaxParserStyle:[self context4iTM3ValueForKey:iTM2TextStyleKey domain:iTM2ContextAllDomainsMask ROR4iTM3]
             variant: [self context4iTM3ValueForKey:iTM2TextSyntaxParserVariantKey domain:iTM2ContextAllDomainsMask ROR4iTM3]];
-	self.context4iTM3DidChangeComplete;
+	[self context4iTM3DidChangeComplete];
 //END4iTM3;
     return;
 }
@@ -832,7 +832,7 @@ To Do List:
     if (!_iTM2TextObjectServerDictionary) {
 		_iTM2TextObjectServerDictionary = [NSMutableDictionary dictionary];
 		[INC addObserver:self selector:@selector(bundleDidLoadNotified:) name:iTM2BundleDidLoadNotification object:nil];
-		self.update;
+		[self update];
 	}
 //END4iTM3;
     return;
@@ -1177,7 +1177,7 @@ To Do List:
 //START4iTM3;
     if (iVarTS4iTM3 != argument) {
         iVarTS4iTM3 = argument;// NOT RETAINED
-        self.textStorageDidChange;
+        [self textStorageDidChange];
     }
     return;
 }
@@ -1379,7 +1379,7 @@ To Do List: NYI
         [self.attributesServer attributesDidChange];
         // the above message can be sent more than once to the same object
         // to prevent a waste of time and energy, the attribute server keeps track of the file modification date
-        self.setUpAllTextViews;
+        [self setUpAllTextViews];
     }
 //END4iTM3;
     return;
@@ -4671,7 +4671,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if ((iVarAS4iTM3 != argument) && (iVarAS4iTM3 = argument)) {
-        self.setUpAllTextViews;
+        [self setUpAllTextViews];
     }
     return;
 }
@@ -5033,7 +5033,7 @@ To Do List:
     }
     return YES;
 bail:
-    self.describe;
+    [self describe];
     return NO;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  SETTER/GETTER
@@ -7286,7 +7286,7 @@ To Do List:
 //LOG4iTM3(@"INITIALIZING WITH VARIANT: %@", variant);
     if ((self = [super init])) {
         _Variant = [variant copy];
-        self.attributesDidChange;
+        [self attributesDidChange];
     }
 //LOG4iTM3(@"_ModesAttributes are: %@", _ModesAttributes);
 //END4iTM3;
@@ -7346,7 +7346,7 @@ To Do List:
     if (!_UpToDate)
     {
         _UpToDate = YES;
-        self.attributesDidChange;
+        [self attributesDidChange];
         [self performSelector:@selector(__canUpdateNow) withObject:nil afterDelay:0.01];
     }
 //END4iTM3;
