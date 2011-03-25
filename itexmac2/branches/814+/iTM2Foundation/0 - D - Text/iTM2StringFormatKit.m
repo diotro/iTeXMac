@@ -30,6 +30,7 @@
 #import "iTM2TextKit.h"
 #import "iTM2TextDocumentKit.h"
 #import "iTM2StringFormatKit.h"
+#import "iTM2ValidationKit.h"
 
 // This file must live with iTM2TextDocumentKit
 
@@ -1921,7 +1922,7 @@ To Do List:
 		[actualTableView.window makeFirstResponder:actualTableView];
 	}
     [self updateChangeCount:NSChangeDone];
-    self.validateWindowsContents4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDelete:
@@ -1958,7 +1959,7 @@ To Do List:
         [actualTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:targetRow] byExtendingSelection:NO];
         [self updateChangeCount:NSChangeDone];
         [actualTableView reloadData];
-        self.validateWindowsContents4iTM3;
+        [self isWindowContentValid4iTM3];
     }
     return;
 }
@@ -1984,7 +1985,7 @@ To Do List:
 		[actualTableView.window makeFirstResponder:actualTableView];
 	}
     [self updateChangeCount:NSChangeDone];
-    self.validateWindowsContents4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowControllerDidLoadNib:
@@ -2007,7 +2008,7 @@ To Do List:
     [actualTableView registerForDraggedTypes:[NSArray arrayWithObject:iTM2DraggingStringEncodingPboardType]];
     availableTableView.doubleAction = @selector(addSelection:);
     [actualTableView reloadData];
-    self.validateWindowsContents4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  numberOfRowsInTableView:
@@ -2133,7 +2134,7 @@ To Do List:
 				[tv.window makeFirstResponder:tv];
 			}
 			[self updateChangeCount:NSChangeDone];
-            self.validateWindowsContents4iTM3;
+            [self isWindowContentValid4iTM3];
             return YES;
         }
         else
@@ -2158,7 +2159,7 @@ To Do List:
 			[IS addIndexesInRange:iTM3MakeRange(row,length)];
 			[tv selectRowIndexes:IS byExtendingSelection:NO];
             [self updateChangeCount:NSChangeDone];
-            self.validateWindowsContents4iTM3;
+            [self isWindowContentValid4iTM3];
             return YES;
         }
     }
@@ -2173,7 +2174,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.validateWindowsContents4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 #if 0
@@ -2244,7 +2245,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setStringEncoding:sender.tag];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  stringEncodingToggleAuto:
@@ -2270,7 +2271,7 @@ To Do List:
 			[self setStringEncoding:encoding];
 		}
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateStringEncodingToggleAuto:
@@ -2336,7 +2337,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self.document setEOL:sender.tag];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeEOLFromTag:
