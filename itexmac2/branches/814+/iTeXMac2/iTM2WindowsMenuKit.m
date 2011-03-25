@@ -589,7 +589,7 @@ up1:
 //LOG4iTM3(@"=-=-=-=-=-  CLEANED %i", windowsMenu.numberOfItems);
 //LOG4iTM3(@"=-=-=-=-=-  windowsMenu %@", windowsMenu);
 //LOG4iTM3(@"3 - windowsMenu:%@",   windowsMenu);
-	self.registerNotifications;
+	[self registerNotifications];
 	[windowsMenu setMenuChangedMessagesEnabled:oldMenuChangedMessagesEnabled];
 //END4iTM3;
 	return;
