@@ -46,7 +46,7 @@ extern NSString * const iTM2UDMixedButtonDelayKey;
 - (void)setMixedAction:(SEL)anAction;
 /*"Main methods."*/
 - (void)popUpContextMenuWithEvent:(NSEvent *)theEvent;
-- (BOOL)willPopUp;
+- (BOOL)shoudPopUp4iTM3;
 /*"Overriden methods."*/
 @property (retain) NSTimer * _Timer;
 @property SEL _MixedAction;
@@ -131,7 +131,7 @@ extern NSString * const iTM2ToggleEditableKey;
 	SEL iVarDoubleAction;
 	NSPopUpButtonCell * iVarPopUpCell;
 }
-- (BOOL)willPopUp;
+- (BOOL)shouldPopUp4iTM3;
 - (BOOL)isDoubleValid4iTM3;
 @property (assign) SEL doubleAction;
 @property (retain) NSPopUpButtonCell * popUpCell;
