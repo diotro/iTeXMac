@@ -146,7 +146,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if([notification object] == self.window)
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowTitleForDocumentDisplayName:
@@ -215,7 +215,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 #endif
@@ -314,7 +314,7 @@ the_end:
 			[TPD setBaseProjectName:newBPN];
 			[TPD updateChangeCount:NSChangeDone];
 		}
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 		return;
 	}
 	// try to keep the variant
@@ -441,7 +441,7 @@ the_end:
 			[TPD setBaseProjectName:newBPN];
 			[TPD updateChangeCount:NSChangeDone];
 		}
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 		return;
 	}
 	// try to keep the ouput
@@ -561,7 +561,7 @@ To Do List:
 		[TPD setBaseProjectName:newBPN];
 		[TPD updateChangeCount:NSChangeDone];
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
@@ -669,7 +669,7 @@ To Do List:
 		[TPD setBaseProjectName:newBPN];
 		[TPD updateChangeCount:NSChangeDone];
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 	return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
@@ -784,7 +784,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setEditedCommand:[[sender selectedItem] representedObject]];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseEditCommand:
@@ -840,7 +840,7 @@ To Do List:
 			[bins setObject:url.path forKey:[RE substringOfCaptureGroupWithName:iTM2TeXPCommandRegexName]];
 		}
 	}
-    RE.forget;
+    [RE forget];
 	return bins;
 }
 - (NSString *)editedScriptMode;
@@ -877,7 +877,7 @@ To Do List:
 	{
 		[self setInfo4TM3:newMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil];
 		[self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -987,7 +987,7 @@ To Do List:
 	[self setInfo4TM3:scriptMode forKeyPaths:iTM2TPFECommandsKey,self.editedCommand,iTM2TPFEScriptModeKey,nil];
 	[self setInfo4TM3:@"" forKeyPaths:iTM2TPFECommandScriptsKey,scriptMode,iTM2TPFELabelKey,nil];
 	[self.document updateChangeCount:NSChangeDone];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1014,7 +1014,7 @@ To Do List:
 			}
 		}
 		[self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
     return;
 }
@@ -1040,7 +1040,7 @@ To Do List:
 		if(W)
 		{
 			[TPD addWindowController:WC];
-			[WC validateWindowContent4iTM3];
+			[WC isWindowContentValid4iTM3];
 			[NSApp beginSheet: W
 					modalForWindow: self.window
 					modalDelegate: self
@@ -1081,7 +1081,7 @@ To Do List:
     [sheet orderOut:self];
     NSWindowController * WC = sheet.windowController;
     [WC.document removeWindowController:WC];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  OPTIONS MANAGEMENT
@@ -1131,7 +1131,7 @@ To Do List:
 			{
 				NSAssert(self.isCustomEnvironmentMode,@"Custom environment mode expected");
 				[self.document updateChangeCount:NSChangeDone];
-				self.validateWindowContent4iTM3;
+				[self isWindowContentValid4iTM3];
 			}
 		}
 	}
@@ -1144,13 +1144,13 @@ To Do List:
 			[self backupCustomInfo4iTM3ForKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil];
 			[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandEnvironmentsKey,environmentMode,nil];
 			[self.document updateChangeCount:NSChangeDone];
-			self.validateWindowContent4iTM3;
+			[self isWindowContentValid4iTM3];
 		}
 	}
 	else if([self setInfo4TM3:environmentMode forKeyPaths:iTM2TPFECommandsKey,editedCommand,iTM2TPFEEnvironmentModeKey,nil])
 	{
 		[self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //LOG4iTM3(@"CW is NOW: %@", CW);
     return;
@@ -1243,8 +1243,8 @@ To Do List:
 //LOG4iTM3(@"The command inspector is: %@", WC);
 			DEBUGLOG4iTM3(0,@"Starting to edit environment mode: %@", environmentMode);
 			[W setExcludedFromWindowsMenu:YES];
-			[W validateContent4iTM3];
-//LOG4iTM3(@"BEFORE validateWindowContent4iTM3, WC.document is: %@", WC.document);
+			[W isContentValid4iTM3];
+//LOG4iTM3(@"BEFORE isWindowContentValid4iTM3, WC.document is: %@", WC.document);
             [NSApp beginSheet: W
                     modalForWindow: self.window
                     modalDelegate: self
@@ -1305,7 +1305,7 @@ To Do List:
 	{
 		[self.document updateChangeCount:NSChangeDone];
 	}
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateDefaultCommand:
@@ -1432,7 +1432,7 @@ To Do List:
 //START4iTM3;
 	ICURegEx * RE = [[[ICURegEx alloc] initWithSearchPattern:@"iTM2TeXP(.*)Inspector" options:ZER0 error:nil] autorelease];
 	NSString * result = [RE matchString:NSStringFromClass(self)]? [RE substringOfCaptureGroupAtIndex:1]:@"";
-    RE.forget;
+    [RE forget];
     return result;
 }
 - (NSString *) infosKeyPathPrefix;
@@ -1507,7 +1507,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.setupTeXMenu;
+	[self setupTeXMenu];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setupTeXMenu
@@ -1684,7 +1684,7 @@ To Do List:
 		}
 		_iTM2TeXPBuiltInCommandNames = [[set allObjects] retain];
 		oldNumberOfClasses = newNumberOfClasses;
-		self.setupTeXMenu;
+		[self setupTeXMenu];
 	}
 //LOG4iTM3(@"_iTM2TeXPBuiltInCommandNames are: %@", _iTM2TeXPBuiltInCommandNames);
 //END4iTM3;
