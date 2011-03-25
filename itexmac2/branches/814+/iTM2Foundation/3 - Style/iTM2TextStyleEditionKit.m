@@ -500,12 +500,12 @@ To Do List:
         [LM replaceTextStorage:TS];
 	}
     // now validating the user interface
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3
-- (BOOL)validateWindowContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description Forthcoming..
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -513,7 +513,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    BOOL result = [super validateWindowContent4iTM3];
+    BOOL result = [super isWindowContentValid4iTM3];
     // and after we set the correct style and variant for the text storage
     // at this point thet self.currentStyle and currentVGariant are consistent
     // as set by other validate methods.
@@ -537,7 +537,7 @@ To Do List:
     {
         [self setCurrentStyle:new];
         [self setCurrentVariant:nil];
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
     }
     return;
 }
@@ -553,7 +553,7 @@ To Do List:
     if ([sender isKindOfClass:[NSPopUpButton class]]) {
         if (!self.currentStyle.length)
         {
-            sender.removeAllItems;
+            [sender removeAllItems];
             for (Class C in [iTM2TextSyntaxParser syntaxParserClassEnumerator]) {
                 [sender addItemWithTitle:[C prettySyntaxParserStyle]];
                 sender.lastItem.representedObject = [[C syntaxParserStyle] lowercaseString];
@@ -582,7 +582,7 @@ To Do List:
     if (![new isEqual:self.currentVariant])
     {
         [self setCurrentVariant:new];
-        self.validateWindowContent4iTM3;
+        [self isWindowContentValid4iTM3];
     }
     return;
 }
@@ -607,7 +607,7 @@ To Do List:
                 [sender selectItemAtIndex:index];
 			}
 		} else {
-            sender.removeAllItems;
+            [sender removeAllItems];
             for (variant in [iTM2TextSyntaxParser syntaxParserVariantsForStyle:self.currentStyle]) {
                 [sender addItemWithTitle:variant];
 				variant = [variant lowercaseString];
@@ -660,7 +660,7 @@ To Do List:
 	if (self.currentVariant.length) {
 		[[iTM2TextSyntaxParser syntaxParserClassForStyle:self.currentStyle] removeSyntaxParserVariant:self.currentVariant];
 		[self setCurrentVariant:nil];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 		[INC postNotificationName:iTM2TextStyleVariantShouldUpdate object:nil];
 	}
 //END4iTM3;
@@ -691,9 +691,9 @@ To Do List:
     NSString * newVariant = [[iTM2TextSyntaxParser syntaxParserClassForStyle:self.currentStyle] createNewSyntaxParserVariant];
 	[INC postNotificationName:iTM2TextStyleVariantShouldUpdate object:nil];
     [self setCurrentVariant:nil];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     [self setCurrentVariant:newVariant];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 @end
@@ -1199,7 +1199,7 @@ To Do List:
 	}
 	NSWindowController * WC = self.window.windowController;
 	[WC.document updateChangeCount:NSChangeDone];
-	WC.validateWindowContent4iTM3;
+	[WC isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1258,7 +1258,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super setSelectedRange:charRange affinity:affinity stillSelecting:stillSelectingFlag];
-    [self.window.windowController validateWindowContent4iTM3];
+    [self.window.windowController isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  changeAttributes:
@@ -1279,7 +1279,7 @@ To Do List:
 	{
 		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
 	}
 //END4iTM3;
 	return;
@@ -1304,7 +1304,7 @@ To Do List:
 		NSMutableDictionary * newD = [[oldD mutableCopy] autorelease];
 		[newD setValue:value forKey:NSBackgroundColorAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
     }
 //END4iTM3;
     return;
@@ -1373,7 +1373,7 @@ To Do List:
         D = [NSDictionary dictionaryWithDictionary:MD];
 		NSString * mode = [D objectForKey:iTM2TextModeAttributeName];
         [SP.attributesServer setAttributes:D forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1387,7 +1387,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SCP setColor:[[NSColor whiteColor] colorWithAlphaComponent:ZER0]];
-    [self.window.windowController validateWindowContent4iTM3];
+    [self.window.windowController isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1412,7 +1412,7 @@ To Do List:
 	[newD setValue:N forKey:NSSuperscriptAttributeName];
 	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 	[SP.attributesServer setAttributes:newD forMode:mode];
-	self.syntaxParserAttributesDidChange;
+	[self syntaxParserAttributesDidChange];
 //END4iTM3;
 	return;
 }
@@ -1437,7 +1437,7 @@ To Do List:
 	[newD setValue:N forKey:NSSuperscriptAttributeName];
 	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 	[SP.attributesServer setAttributes:newD forMode:mode];
-	self.syntaxParserAttributesDidChange;
+	[self syntaxParserAttributesDidChange];
 //END4iTM3;
 	return;
 }
@@ -1459,7 +1459,7 @@ To Do List:
 	[newD setValue:N forKey:NSUnderlineStyleAttributeName];
 	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 	[SP.attributesServer setAttributes:newD forMode:mode];
-	self.syntaxParserAttributesDidChange;
+	[self syntaxParserAttributesDidChange];
 //END4iTM3;
 	return;
 }
@@ -1480,7 +1480,7 @@ To Do List:
 	[newD setValue:nil forKey:NSSuperscriptAttributeName];
 	NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 	[SP.attributesServer setAttributes:newD forMode:mode];
-	self.syntaxParserAttributesDidChange;
+	[self syntaxParserAttributesDidChange];
 //END4iTM3;
 	return;
 }
@@ -1510,7 +1510,7 @@ To Do List:
 		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
 		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
 	}
 //END4iTM3;
 	return;
@@ -1541,7 +1541,7 @@ To Do List:
 		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
 		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
 	}
 //END4iTM3;
 	return;
@@ -1572,7 +1572,7 @@ To Do List:
 		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
 		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
 	}
 //END4iTM3;
 	return;
@@ -1603,7 +1603,7 @@ To Do List:
 		[newD setObject:newParagraphStyle forKey:NSParagraphStyleAttributeName];
 		NSString * mode = [newD objectForKey:iTM2TextModeAttributeName];
 		[SP.attributesServer setAttributes:newD forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
 	}
 //END4iTM3;
 	return;
@@ -1618,7 +1618,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     _SameXHeight = !_SameXHeight;
-    [self.window.windowController validateWindowContent4iTM3];
+    [self.window.windowController isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleSameXHeight:
@@ -1669,7 +1669,7 @@ To Do List:
             return;
         }
         [SP.attributesServer setAttributes:D forMode:[D objectForKey:iTM2TextModeAttributeName]];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1729,7 +1729,7 @@ To Do List:
 		[MD setValue:newC forKey:NSBackgroundColorAttributeName];
         D = [NSDictionary dictionaryWithDictionary:MD];
         [SP.attributesServer setAttributes:D forMode:[D objectForKey:iTM2TextModeAttributeName]];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1786,7 +1786,7 @@ To Do List:
 //        [MD setObject:[NSNumber numberWithInteger:1] forKey:NSUnderlineStyleAttributeName];
         NSDictionary * D = [NSDictionary dictionaryWithDictionary:MD];
         [SP.attributesServer setAttributes:D forMode:iTM2TextSelectionSyntaxModeName];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
 //LOG4iTM3(@"NEW self.selectedTextAttributes are:%@", self.selectedTextAttributes);
     }
     return;
@@ -1836,7 +1836,7 @@ To Do List:
 		[MD setValue:newC forKey:key];
         NSDictionary * D = [NSDictionary dictionaryWithDictionary:MD];
         [SP.attributesServer setAttributes:D forMode:iTM2TextSelectionSyntaxModeName];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1885,7 +1885,7 @@ To Do List:
     {
 		[MD setValue:newC forKey:key];
         [SP.attributesServer setAttributes:[NSDictionary dictionaryWithDictionary:MD] forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -1940,7 +1940,7 @@ To Do List:
 		else
 			[MD removeObjectForKey:key];
         [SP.attributesServer setAttributes:[NSDictionary dictionaryWithDictionary:MD] forMode:mode];
-		self.syntaxParserAttributesDidChange;
+		[self syntaxParserAttributesDidChange];
     }
     return;
 }
@@ -2055,7 +2055,7 @@ To Do List:
     [SP setUpAllTextViews];
     NSWindowController * WC = self.window.windowController;
     [WC.document updateChangeCount:NSChangeDone];
-    [WC validateWindowContent4iTM3];
+    [WC isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2094,7 +2094,7 @@ To Do List:
     [SP setUpAllTextViews];
     NSWindowController * WC = self.window.windowController;
     [WC.document updateChangeCount:NSChangeDone];
-    [WC validateWindowContent4iTM3];
+    [WC isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2348,7 +2348,7 @@ To Do List:
 						URLByAppendingPathExtension: iTM2TextVariantExtension];
 	[self setFileURL:styleURL];
 	[super revertDocumentToSaved:sender];
-    self.validateWindowsContents4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -2441,7 +2441,7 @@ To Do List:
 //LOG4iTM3(@"fileName: %@", fileName);
 	if (!absoluteURL.isFileURL)
 		return NO;
-	self.makeWindowControllers;
+	[self makeWindowControllers];
     BOOL result = YES;
     NSEnumerator * E = [self.windowControllers objectEnumerator];
     id WC;
@@ -2499,7 +2499,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-	return (metaGETTER?: (self.window, metaGETTER));
+	return (metaGETTER?: ([self window], metaGETTER));
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setTextView:
 - (void)setTextView:(NSTextView *)argument;
@@ -2572,7 +2572,7 @@ To Do List:
 //START4iTM3;
     [super windowDidLoad];
     self.window.delegate = self;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     [self.window makeKeyAndOrderFront:self];
 //END4iTM3;
     return;
@@ -2889,7 +2889,7 @@ To Do List:
         NSWindow * W = controller.window;
         if (W)
         {
-			[controller validateWindowContent4iTM3];
+			[controller isWindowContentValid4iTM3];
             [W makeKeyAndOrderFront:controller];
             if ([NSApp runModalForWindow:W] == 1)
 			{
@@ -2956,7 +2956,7 @@ To Do List:
             [NSApp stopModalWithCode:1];
         }
     }
-    [sender.window validateContent4iTM3];
+    [sender.window isContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2988,7 +2988,7 @@ To Do List:
     if (!self.variant.length)
     {
         [self setVariant:[[[TV string] copy] autorelease]];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
     }
 //END4iTM3;
     return;
