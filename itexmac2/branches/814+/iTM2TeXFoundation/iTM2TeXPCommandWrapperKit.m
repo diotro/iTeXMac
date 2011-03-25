@@ -348,7 +348,7 @@ To Do List:
             break;
     }
     [self setInfo4TM3:option forKeyPaths:iTM2TeXPIndexSeparateStartKey,nil];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateStartingAtChosen:
@@ -773,7 +773,7 @@ To Do List:
             break;
     }
     [self setInfo4TM3:option forKeyPaths:iTM2TeXPGlossarySeparateStartKey,nil];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= validateStartingAtChosen:
