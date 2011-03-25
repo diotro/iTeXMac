@@ -85,7 +85,7 @@ To Do List:implement some kind of balance range for range
 #   define TEST(WHAT,WHERE,LOCATION,LENGTH) \
     AS = [[NSAttributedString alloc] initWithString:WHAT]; \
     STAssertReachCode4iTM3((R = [SC rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:AS atIndex:WHERE])); \
-    STAssertTrue((NSEqualRanges(R,iTM3MakeRange(LOCATION,LENGTH))||(TestLog4iTM3(@"%@<!>(%lu,%lu)",NSStringFromRange(R),(LOCATION),(LENGTH)),NO)),@"MISSED",NULL);
+    STAssertTrue((NSEqualRanges(R,iTM3MakeRange(LOCATION,LENGTH))||(LOG4iTM3(@"%@<!>(%lu,%lu)",NSStringFromRange(R),(LOCATION),(LENGTH)),NO)),@"MISSED",NULL);
     TEST(@"X",0,0,1);
     TEST(@"XX",0,0,2);
     TEST(@"XX",1,0,2);
