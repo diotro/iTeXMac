@@ -162,7 +162,7 @@ To Do List:
     [SUD registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                     [NSNumber numberWithInteger:ZER0], iTM2CurrentVersionNumberKey,
                                 nil]];
-	self.createDocumentController4iTM3;
+	[self createDocumentController4iTM3];
 	const char * name = "sendApplicationDefinedEventOfSubtypeXX:";
 	iTM2Application_sendApplicationDefinedEvent = (char *)NSAllocateCollectable(strlen(name)+1, ZER0);
 	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
@@ -482,5 +482,13 @@ NSError ** _RORef4iTM3 = nil;
     _RORef4iTM3 = RORef;
     return;
 }
+- (void) log4iTM3:(NSString *)format,...;
+{
+    va_list argp;
+	NSLog(@"file:%s line:%i", __FILE__, __LINE__);\
+	NSLog(@"%s %#lx", __PRETTY_FUNCTION__, (NSUInteger)self);\
+    va_start(argp, format);
+	NSLogv(format, argp);
+    va_end(argp);
+}
 @end
-
