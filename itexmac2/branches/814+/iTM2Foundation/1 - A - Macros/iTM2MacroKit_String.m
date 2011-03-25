@@ -133,7 +133,7 @@ To Do List:
         [RE setInputString:aString range:iTM3MakeRange(index,aString.length-index)];
         if ([RE nextMatch]) {
             NSRange R = [RE rangeOfMatch];
-            RE.forget;
+            [RE forget];
             return R;
         }
 	}
@@ -871,7 +871,7 @@ To Do List: ?
         [MRA addObject:RE.macroDefaultString4iTM3];
         R.location = iTM3MaxRange(RE.rangeOfMatch);
     }
-    RE.forget;
+    [RE forget];
     if ((R.length = aString.length - R.location)) {
         [MRA addObject:[aString substringWithRange:R]];
     }
@@ -900,10 +900,10 @@ To Do List: ?
         placeholder.inputString = self.string;
         if ([placeholder matchesAtIndex:idx extendToTheEnd:NO]) {
             NSRange R = placeholder.rangeOfMatch;
-            placeholder.forget;
+            [placeholder forget];
             return R;
         }
-        placeholder.forget;
+        [placeholder forget];
 	}
 	//END4iTM3;
 	return wordRange;
