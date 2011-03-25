@@ -206,7 +206,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setEditedEngine:[(id)[sender selectedItem] representedString]];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -324,7 +324,7 @@ To Do List:
 	{
 		[self setInfo4TM3:newMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEEnvironmentModeKey,nil];
 //		[self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -465,7 +465,7 @@ To Do List:
 	[self setInfo4TM3:engineMode forKeyPaths:iTM2TPFECommandEnvironmentsKey,commandName,editedEngine,iTM2TPFEScriptModeKey,nil];
 	[self setInfo4TM3:@"" forKeyPaths:iTM2TPFEEngineScriptsKey,engineMode,iTM2TPFELabelKey,nil];
 //	[self.document updateChangeCount:NSChangeDone];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -493,7 +493,7 @@ To Do List:
 			}
 		}
 //		[self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -521,7 +521,7 @@ To Do List:
 		if(W)
 		{
 			[TPD addWindowController:WC];
-			[WC validateWindowContent4iTM3];
+			[WC isWindowContentValid4iTM3];
 			[NSApp beginSheet: W
 					modalForWindow: self.window
 					modalDelegate: self
@@ -564,7 +564,7 @@ To Do List:
     [sheet orderOut:self];
     NSWindowController * WC = sheet.windowController;
     [WC.document removeWindowController:WC];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -613,7 +613,7 @@ To Do List:
 		{
 			NSAssert(self.isCustomEnvironmentMode,@"Custom environment mode expected");
 //				[self.document updateChangeCount:NSChangeDone];
-			self.validateWindowContent4iTM3;
+			[self isWindowContentValid4iTM3];
 		}
 	}
 	else if([environmentMode isEqual:iTM2TPFEBaseMode])
@@ -622,7 +622,7 @@ To Do List:
 		[self backupCustomInfo4iTM3ForKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 		[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 //			[self.document updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -703,7 +703,7 @@ To Do List:
 //LOG4iTM3(@"The inspector is: %@", WC);
 			DEBUGLOG4iTM3(100,@"Starting to edit environment mode: %@", environmentMode);
 			[W setExcludedFromWindowsMenu:YES];
-//LOG4iTM3(@"BEFORE validateWindowContent4iTM3, WC.document is: %@ and W is: %@", WC.document, W);
+//LOG4iTM3(@"BEFORE isWindowContentValid4iTM3, WC.document is: %@ and W is: %@", WC.document, W);
             [NSApp beginSheet: W
                     modalForWindow: self.window
                     modalDelegate: self
@@ -796,7 +796,7 @@ To Do List:
 	[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEngineEnvironmentsKey,environmentMode,nil];
 	// the scripts are not removed because it is difficult to have them back
 	// removing scripts should be made by hand.
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -836,7 +836,7 @@ To Do List:
     NSTabView * TV = metaGETTER;
     if(!TV)
     {
-        self.window;
+        [self window];
         TV = metaGETTER;
     }
     return TV;
@@ -875,7 +875,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self takeContext4iTM3Value:[tabViewItem identifier] forKey:@"Compile Inspector:Tab View Item Identifier" domain:iTM2ContextAllDomainsMask ROR4iTM3];
-//    self.validateWindowContent4iTM3; now in the validation kit
+//    [self isWindowContentValid4iTM3]; now in the validation kit
 //END4iTM3;
     return;
 }
@@ -1465,7 +1465,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
