@@ -108,7 +108,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if ((self = [super init])) {
-        self.initImplementation;
+        [self initImplementation];
 		[self setAutosavingDelay:[SUD floatForKey:iTM2AutosavingDelayKey]];
     }
     return self;
@@ -416,7 +416,7 @@ To Do List:
 	if (!D) {
 		metaSETTER((D = [NSMutableDictionary dictionary]));
 		if ((D = metaGETTER)) {
-			self.documentClassNameForTypeDictionary;// initialize as side effect
+			[self documentClassNameForTypeDictionary];// initialize as side effect
 //LOG4iTM3(@"localizedDocumentTypesDictionary:%@",D);
 		}
 	}
@@ -616,7 +616,7 @@ To Do List: retain?
 	[self insertItem:[NSMenuItem separatorItem] atIndex:ZER0];
 	[self insertItemWithTitle:[@"..." stringByAppendingPathComponent:aFullPath.lastPathComponent]
 		action: NULL keyEquivalent: @"" atIndex: ZER0];
-	self.cleanSeparators4iTM3;
+	[self cleanSeparators4iTM3];
     [super update];
 //END4iTM3;
     return;
