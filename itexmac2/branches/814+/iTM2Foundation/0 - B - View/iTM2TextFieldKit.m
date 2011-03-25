@@ -197,7 +197,7 @@ To Do List:
 		{
 			[self setIntegerValue:new];
 //LOG4iTM3(@"2  -  self.updateFrame");
-			self.updateFrame;
+			[self updateFrame];
 		}
 	}
 //END4iTM3;
@@ -232,7 +232,7 @@ To Do List:
         if (old != new) {
             [F setMaximum:[NSNumber numberWithUnsignedInteger:new]];
 //LOG4iTM3(@"3  -  self.updateFrame");
-            self.updateFrame;
+            [self updateFrame];
         }
     }
 //END4iTM3;
@@ -633,7 +633,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super init]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
