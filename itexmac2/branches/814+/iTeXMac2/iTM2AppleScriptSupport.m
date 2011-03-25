@@ -132,7 +132,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.makeWindowControllers;
+	[self makeWindowControllers];
 	NSMutableArray * mra = [NSMutableArray array];
 	for (NSWindowController * WC in self.windowControllers) {
         NSWindow * W;
