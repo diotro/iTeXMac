@@ -73,7 +73,7 @@ To Do List:
     if (_iTMSharedPrefsController)
     {
         if (![self isEqual:_iTMSharedPrefsController])
-            self.release;
+            [self release];
         return [_iTMSharedPrefsController retain];
     }
     else if ((self = [super initWithWindow:window]))
@@ -266,7 +266,7 @@ To Do List:
 	}
 	[self setPrefPanes:MD];// a copy is stored by the receiver
 	// then recover all the .prefPanes in the standard locations
-	self.loadPrefPanes;
+	[self loadPrefPanes];
 //END4iTM3;
 	return;
 }
@@ -484,7 +484,7 @@ To Do List:
 		{
 			[W makeFirstResponder:[new initialKeyView]];
 		}
-		[V validateWindowContent4iTM3];
+		[V isWindowContentValid4iTM3];
 	}
 	[old didUnselect];
 	[new didSelect];
@@ -677,7 +677,7 @@ To Do List:
     }
 	if ([NSBundle loadNibNamed:NSStringFromClass(self.class) owner:self]) {
 //END4iTM3;
-		self.assignMainView;
+		[self assignMainView];
 		return self.mainView;
 	} else {
 		LOG4iTM3(@"..........  ERROR: Missing a nib for this preference pane (%@)...",NSStringFromClass(self.class));
@@ -699,7 +699,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super initWithBundle:aBundle]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
