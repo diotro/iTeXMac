@@ -284,12 +284,12 @@ To Do List:
     // definitely forgetting the split view
     [super windowDidLoad];
 //LOG4iTM3(@"self is:%@",self);// if I remove this line EXC_BAD_ACCESS 07/03/2007
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     [self.window setDelegate:self];
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3
-- (BOOL)validateWindowContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description Forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net (09/11/01)
 - for 1.3: Mon Jun 02 2003
@@ -311,7 +311,7 @@ To Do List:
                 (h3+h4>0? h3/(h3+h4): 0)]
             forKey: iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
 //LOG4iTM3(@"[self context4iTM3ValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey] is: %@", [self context4iTM3ValueForKey:iTM2TeXPTaskInspectorSplitViewFactorsKey domain:iTM2ContextAllDomainsMask]);
-    return [super validateWindowContent4iTM3];
+    return [super isWindowContentValid4iTM3];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowShouldClose:
 - (BOOL)windowShouldClose:(id)sender;
@@ -392,7 +392,7 @@ To Do List:
         R4.size.height = 0;
     }
     [[notification object] adjustSubviews];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 #pragma mark =-=-=-=-=-=-  CUSTOM VIEW
@@ -408,7 +408,7 @@ To Do List:
     NSTextView * TV = metaGETTER;
     if(!TV)
     {
-        self.window;
+        [self window];
         TV = metaGETTER;
     }
     return TV;
@@ -462,7 +462,7 @@ To Do List:
             [V setFrameSize: NSMakeSize(V.frame.size.width, 0)];
             [SV adjustSubviews];
         }
-        [sender validateWindowContent4iTM3];
+        [sender isWindowContentValid4iTM3];
     }
     return;
 }
@@ -542,7 +542,7 @@ To Do List:
     NSTextView * TV = metaGETTER;
     if(!TV)
     {
-        self.window;
+        [self window];
         TV = metaGETTER;
     }
     return TV;
@@ -673,7 +673,7 @@ To Do List:
             [V setFrameSize: NSMakeSize(V.frame.size.width, 0)];
         [SV adjustSubviews];
     }
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalOutput:
@@ -764,7 +764,7 @@ To Do List:
     NSTextView * TV = metaGETTER;
     if(!TV)
     {
-        self.window;
+        [self window];
         TV = metaGETTER;
     }
     return TV;
@@ -813,7 +813,7 @@ To Do List:
             [V setFrameSize: NSMakeSize(V.frame.size.width, 0)];
         [SV adjustSubviews];
     }
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalErrors:
@@ -1007,7 +1007,7 @@ To Do List:
 //LOG4iTM3(@"DONT SCROLL:%@,%i,%i",NSStringFromRange(visibleRange),begin,TS.length);
 	}
 	[TV setEditable:NO];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeStyleFromRepresentedObject:
@@ -1026,7 +1026,7 @@ To Do List:
 		[self takeContext4iTM3Value:newStyle forKey:iTM2TPFELogParserKey domain:iTM2ContextAllDomainsMask ROR4iTM3];
 		[self.document updateChangeCount:NSChangeDone];
 	}
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakeStyleFromRepresentedObject:
@@ -1087,7 +1087,7 @@ To Do List:
 	iTM2TaskController * TC = self.taskController;
 	[TC setMute: ![TC isMute]];
 	[self.document updateChangeCount:NSChangeDone];
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalSilent:
@@ -1113,7 +1113,7 @@ To Do List:
 //START4iTM3;
 	[self setHidden: !self.isHidden];
 	[self.document updateChangeCount:NSChangeDone];
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleTerminalHidden:
@@ -1280,7 +1280,7 @@ To Do List:
     id TV = metaGETTER;
     if(!TV)
     {
-        self.window;
+        [self window];
         TV = metaGETTER;
     }
     return TV;
@@ -1346,7 +1346,7 @@ To Do List:
         else
             [V setFrameSize: NSMakeSize(V.frame.size.width, 0)];
         [SV adjustSubviews];
-        [sender validateWindowContent4iTM3];
+        [sender isWindowContentValid4iTM3];
     }
     return;
 }
@@ -1442,7 +1442,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super initialize];
-    self.registerParser;
+    [self registerParser];
     if(!_iTM2LogColors)
         _iTM2LogColors = [[NSDictionary dictionaryWithObjectsAndKeys:
             [NSColor blackColor], @"Normal",
