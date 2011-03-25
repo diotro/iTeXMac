@@ -251,7 +251,7 @@ To Do List:
 	} else {
 		[window orderFront:self];
 	}
-    self.validateWindowsContents4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  projectName
@@ -333,7 +333,7 @@ To Do List:
 	SEL selector = sel_getUid(selName);
     if([I.methodSignature isEqual:[self methodSignatureForSelector:selector]]) {
 		I.selector = selector;
-		I.invoke;
+		[I invoke];
 		BOOL flag;
 		[I getReturnValue:&flag];
 	 //END4iTM3;
@@ -481,7 +481,7 @@ To Do List:
 //START4iTM3;
 	if(self = [super initWithWindow:window])
 	{
-		self.fixImplementation;
+		[self fixImplementation];
 	}
     return self;
 }
@@ -560,7 +560,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.window;
+    [self window];
     [IMPLEMENTATION takeMetaValue:(scriptDescriptor? [[scriptDescriptor copy] autorelease]:[NSMutableDictionary dictionary])
 		forKey:@"scriptDescriptor"];
     NSString * shellScript = [scriptDescriptor valueForKey:iTM2TPFEContentKey];
@@ -599,7 +599,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super windowDidLoad];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  editLabel:
@@ -1290,7 +1290,7 @@ To Do List:
 	[self setAvailableProjects:availableProjects];
 	NSInteger creationMode = [SUD integerForKey:iTM2NewProjectCreationModeKey];
 	[self setCreationMode:creationMode];
-	self.validateCreationMode;
+	[self validateCreationMode];
 //END4iTM3;
 	return;
 }
@@ -1305,23 +1305,23 @@ To Do List:
 //START4iTM3;
 	//Preparing the projects for the table view
 	[super windowDidLoad];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3
-- (BOOL)validateWindowContent4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Before calling the inherited method, update the list of available projects.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 1.4: Fri Feb 20 13:19:00 GMT 2004
-To Do List:
-"*/
+ Version History: jlaurens AT users DOT sourceforge DOT net
+ - 1.4: Fri Feb 20 13:19:00 GMT 2004
+ To Do List:
+ "*/
 {DIAGNOSTIC4iTM3;
-//START4iTM3;
+    //START4iTM3;
     [IMPLEMENTATION takeMetaValue:[SPC TeXBaseProjectsProperties] forKey:@"_TPPs"];// TeX Projects Properties
-	self.validateCreationMode;
-//LOG4iTM3(@"MD:%@", MD);
-    return [super validateWindowContent4iTM3];
+	[self validateCreationMode];
+    //LOG4iTM3(@"MD:%@", MD);
+    return [super isWindowContentValid4iTM3];
 }
 #pragma mark =-=-=-=-=-  UI
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  OK:
@@ -1444,7 +1444,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = self.documentIsMaster;
 	[self setDocumentIsMaster:!old];
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -1471,7 +1471,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setOldProjectName:[[sender selectedItem] representedObject]];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1539,7 +1539,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = self.preferWrapper;
 	[self setPreferWrapper:!old];
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -1572,7 +1572,7 @@ To Do List:
 //START4iTM3;
 	// Hum, the sender is the matrix despite each cell is connected separately in interface builder
 	[self setCreationMode:[[sender selectedCell] tag]];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1662,7 +1662,7 @@ To Do List:
     newBPN = shortestName;
 tahaa:
     [self setBaseProjectName:newBPN];
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseBaseMode:
@@ -1774,7 +1774,7 @@ To Do List:
     newBPN = shortestName;
 tahaa:
     [self setBaseProjectName:newBPN];
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseVariant:
@@ -1871,7 +1871,7 @@ To Do List:
             break;
         }
     }
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseOutput:
@@ -1947,7 +1947,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = self.exportOutput;
 	[self setExportOutput:!old];
-	[sender validateWindowContent4iTM3];
+	[sender isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -2011,7 +2011,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [IMPLEMENTATION takeModel:(model? [NSMutableDictionary dictionaryWithDictionary:model]:[NSMutableDictionary dictionary]) ofType:iTM2MainType];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelValueForKey:
@@ -2044,7 +2044,7 @@ To Do List:
 	if(![old isEqual:value])
 	{
 		[IMPLEMENTATION takeModelValue:value forKey:key ofType:iTM2MainType];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 	if(iTM2DebugEnabled>100000)
 	{
@@ -2122,7 +2122,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super setDocument:document];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  windowDidLoad
@@ -2135,7 +2135,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super windowDidLoad];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleModelFlagForKey:
@@ -2149,7 +2149,7 @@ To Do List:
 //START4iTM3;
     BOOL old = [[self modelValueForKey:key] boolValue];
     [self takeModelValue:[NSNumber numberWithBool:!old] forKey:key];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  modelFlagForKey:
