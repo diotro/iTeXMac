@@ -211,7 +211,7 @@ To Do List: Change doubleClickAtIndex with a groupRangeAtIndex
 //START4iTM3;
 	[_iTM2TextWatcherMapTable removeObjectForKey:self];
 	[super context4iTM3DidChange];
-	self.context4iTM3DidChangeComplete;
+	[self context4iTM3DidChangeComplete];
 //END4iTM3;
     return;
 }
