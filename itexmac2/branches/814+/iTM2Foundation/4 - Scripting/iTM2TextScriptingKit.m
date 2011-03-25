@@ -90,7 +90,7 @@ To Do List:
     else
     {
         if (!findTarget)
-            self.findTarget;
+            [self findTarget];
         return findRangeValue;
     }
 }
@@ -342,7 +342,7 @@ To Do List:
 {
 //START4iTM3;
     if (!insertionRangeValue && !insertionTarget)
-        self.insertionTarget;
+        [self insertionTarget];
     return insertionRangeValue;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  insertionTarget
@@ -707,7 +707,7 @@ To Do List:
     else
     {
         if (!findTarget)
-            self.findTarget;
+            [self findTarget];
         return findRangeValue;
     }
 }
