@@ -102,8 +102,8 @@ To Do List:
     [TV insertText:(AS.length>ZER0? (NSString *)AS:@"No news today, my heart has gone away...")];
     [TV scrollRangeToVisible:iTM3MakeRange(ZER0, ZER0)];
     [TV setEditable:NO];
-    if ([TV respondsToSelector:@selector(validateWindowContent4iTM3)])
-        [TV performSelector:@selector(validateWindowContent4iTM3)];
+    if ([TV respondsToSelector:@selector(isWindowContentValid4iTM3)])
+        [TV performSelector:@selector(isWindowContentValid4iTM3)];
     [self.window orderFront:self];
     return;
 }
@@ -131,8 +131,8 @@ To Do List:
     [TV insertText:(AS.length>ZER0? (NSString *)AS:@"You are not welcome today, this is unexpected result...")];
     [TV scrollRangeToVisible:iTM3MakeRange(ZER0, ZER0)];
     [TV setEditable:NO];
-    if ([TV respondsToSelector:@selector(validateWindowContent4iTM3)])
-        [TV performSelector:@selector(validateWindowContent4iTM3)];
+    if ([TV respondsToSelector:@selector(isWindowContentValid4iTM3)])
+        [TV performSelector:@selector(isWindowContentValid4iTM3)];
     [self.window orderFront:self];
     return;
 }
@@ -159,8 +159,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setBool:([sender state] == NSOnState) forKey:iTM2DontShowTipsKey];
-    if ([sender respondsToSelector:@selector(validateWindowContent4iTM3)])
-        [sender performSelector:@selector(validateWindowContent4iTM3)];
+    if ([sender respondsToSelector:@selector(isWindowContentValid4iTM3)])
+        [sender performSelector:@selector(isWindowContentValid4iTM3)];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateToggleDontShowTips:
@@ -185,7 +185,7 @@ To Do List: Nothing at first glance
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     if (!iVarInfoTextView4iTM3) {
-        self.window;
+        [self window];
 		if (!iVarInfoTextView4iTM3) {
 			LOG4iTM3(@"Problem with nib file: iTM2FirstPanel");
 		}
