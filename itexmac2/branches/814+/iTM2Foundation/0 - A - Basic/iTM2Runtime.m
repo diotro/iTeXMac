@@ -48,7 +48,7 @@ To Do List:
 	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)" error:RORef];
 	if ([RE matchString:NSStringFromSelector(selector)]) {
 		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
-        RE.forget;
+        [RE forget];
 //END4iTM3;
 		return [iTM2Runtime swizzleInstanceMethodSelector:selector replacement:swizzled forClass:self error:RORef];
 	}
@@ -67,7 +67,7 @@ To Do List:
 	ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"^SWZ_.*?_(.*)" error:RORef];
 	if ([RE matchString:NSStringFromSelector(selector)]) {
 		SEL swizzled = NSSelectorFromString([RE substringOfCaptureGroupAtIndex:1]);
-        RE.forget;
+        [RE forget];
 //END4iTM3;
 		return [iTM2Runtime swizzleClassMethodSelector:selector replacement:swizzled forClass:self error:RORef];
 	}
@@ -274,7 +274,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.flushCache;
+	[self flushCache];
 //END4iTM3;
     return;
 }
@@ -1149,7 +1149,8 @@ To Do List:
 	NSUInteger numberOfArguments = self.numberOfArguments;
 	[result appendFormat:@"\n numberOfArguments %u",numberOfArguments];
 	while (numberOfArguments>0) {
-		[result appendFormat:@"\n getArgumentTypeAtIndex %u->%s",numberOfArguments,[self getArgumentTypeAtIndex:--numberOfArguments]];
+		[result appendFormat:@"\n getArgumentTypeAtIndex %u->%s",numberOfArguments,[self getArgumentTypeAtIndex:numberOfArguments-1]];
+        --numberOfArguments;
 	}
 	[result appendFormat:@"\n frameLength %u",self.frameLength];
 	[result appendFormat:@"\n isOneway: %@",(self.isOneway?@"YES":@"NO")];
