@@ -149,7 +149,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (shouldClose && [self documentWillClose4iTM3Error:RORef]) {
-		self.close;
+		[self close];
 		[self documentDidClose4iTM3Error:RORef];
 	}
 //END4iTM3;
@@ -440,10 +440,10 @@ To Do List:
 	if ([dictionary isKindOfClass:[NSDictionary class]])
 	{
 		BOOL wasUndoing = self.undoManager.isUndoRegistrationEnabled;
-		self.undoManager.disableUndoRegistration;
+		[self.undoManager disableUndoRegistration];
 		[self setPrintInfo:[[[NSPrintInfo alloc] initWithDictionary:dictionary] autorelease]];
 		if (wasUndoing)
-			self.undoManager.enableUndoRegistration;
+			[self.undoManager enableUndoRegistration];
 	}
 	else
 	{
@@ -685,7 +685,7 @@ To Do List:
                     object:SUD];
         [self userDefaultsDidChange:[NSNotification notificationWithName:iTM2UserDefaultsDidChangeNotification
                     object:SUD]];
-        self.initImplementation;
+        [self initImplementation];
         [IMPLEMENTATION updateChildren];
     }
     return self;
@@ -713,9 +713,9 @@ To Do List:
 //START4iTM3;
 	[super setFileURL:url];
 	DEBUGLOG4iTM3(0,@"The new file url is:%@", url);
-	self.updateContext4iTM3Manager;
+	[self updateContext4iTM3Manager];
     for (NSWindowController * WC in self.windowControllers) {
-        WC.window.validateContent4iTM3;
+        [WC.window isContentValid4iTM3];
     }
     [IMPLEMENTATION takeMetaValue:nil forKey:iTM2DKDirectoryURLKey];
     return;
@@ -1098,7 +1098,7 @@ To Do List:
            return;
         }
     }
-    self.makeDefaultInspector;
+    [self makeDefaultInspector];
 //END4iTM3;
     return;
 }
@@ -1373,7 +1373,7 @@ To Do List:
 					if (selector)
 					{
 						[I setSelector:selector];
-						I.invoke;
+						[I invoke];
 						if (iTM2DebugEnabled>99)
 						{
 							LOG4iTM3(@"Read resource with ID:%u", resourceID);
@@ -1494,7 +1494,7 @@ To Do List:
 	// The problem is that I don't know what to do in such a situation because I don't know for sure whether the cocoa framework
 	// tries to override an existing file with the user permission
 	// In order to be safe, recycle the target url to the trash, but this can break things!
-	DEBUGLOG4iTM3(99,@"absoluteURL:%@\ntypeName:%@\nsaveOperation:%i\nabsoluteOriginalContentsURL:%@\nerror: %#x\nDirectory exists:%@", absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, RORef, ([DFM fileExistsAtPath:absoluteURL.path.stringByDeletingLastPathComponent]? @"YES":@"NO"));
+	DEBUGLOG4iTM3(99,@"absoluteURL:%@\ntypeName:%@\nsaveOperation:%lu\nabsoluteOriginalContentsURL:%@\nerror: %#lx\nDirectory exists:%@", absoluteURL, typeName, saveOperation, absoluteOriginalContentsURL, (unsigned long)RORef, ([DFM fileExistsAtPath:absoluteURL.path.stringByDeletingLastPathComponent]? @"YES":@"NO"));
     BOOL result = [self willSave4iTM3Error:RORef];
     // just duplicate the original content if it is not a file: respect the third parties that will certainly write things inside the folder.
     // question are the resource forks respected?
@@ -1647,7 +1647,7 @@ To Do List:
 	while (i < PA.count) {
 		I.selector=(SEL)[PA pointerAtIndex:i++];
 NSLog(@"%@",NSStringFromSelector(I.selector));
-        I.invoke;//(gdb) po NSStringFromSelector((SEL)[I selector])
+        [I invoke];//(gdb) po NSStringFromSelector((SEL)[I selector])
         BOOL R = NO;
         [I getReturnValue:&R];
         result = result && R;
@@ -1672,7 +1672,7 @@ To Do List:
      if ([typeName conformsToUTType4iTM3:(NSString *)kUTTypeData]) {
         NSError * ROR = nil;
         NSData * D = [self dataOfType:typeName error:self.RORef4iTM3];
-        DEBUGLOG4iTM3(99,@"is there any data to save? %@\nCurrently saving data with length:%i", (D? @"Y":@"N"),D.length);
+        DEBUGLOG4iTM3(99,@"is there any data to save? %@\nCurrently saving data with length:%lu", (D? @"Y":@"N"),D.length);
         if (!D && ROR) {
             if (RORef) *RORef = ROR;
             return NO;
@@ -1795,7 +1795,7 @@ To Do List:
 	while(NSNextMapEnumeratorPair(&ME, (void *)&hexa, (void *)&selector))
 	{
 		[I setSelector:selector];
-		I.invoke;
+		[I invoke];
 		ResID resourceID = hexa;
 		Handle H = Get1Resource(resourceType, resourceID);
 		if ((resError = ResError()))
@@ -2098,7 +2098,7 @@ To Do List:
 	{
 		_iTM2WindowControllerServerDictionary = [[NSMutableDictionary dictionary] retain];
 		[INC addObserver:[iTM2WindowControllerServer class] selector:@selector(bundleDidLoadNotified:) name:iTM2BundleDidLoadNotification object:nil];
-		self.WCCompleteInstallation4iTM3;
+		[self WCCompleteInstallation4iTM3];
 	}
 //END4iTM3;
 	RELEASE_POOL4iTM3;
@@ -2425,7 +2425,7 @@ To Do List:
 //START4iTM3;
 //LOG4iTM3(@"REQUESTED TYPE IS:%@", type);
 //END4iTM3;
-    return [[self.windowControllerServer keyEnumeratorForType:type] allObjects];
+    return [[[self windowControllerServer] keyEnumeratorForType:type] allObjects];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorClassesForType:mode:
 + (NSArray *)inspectorClassesForType:(NSString *) type mode:(NSString *) mode;
@@ -2436,7 +2436,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [self.windowControllerServer objectForType:type key:mode];
+    return [[self windowControllerServer] objectForType:type key:mode];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  allInspectorsDescription
 + (NSString *)allInspectorsDescription;
@@ -2448,7 +2448,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return [[self.windowControllerServer mutableDictionary] description];
+    return [[[self windowControllerServer] mutableDictionary] description];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  inspectorVariant
 - (NSString *)inspectorVariant;
@@ -2506,7 +2506,7 @@ To Do List:
 //START4iTM3;
 	BOOL yorn = [self loadContext4iTM3Error:RORef];
     [self updateChangeCount:NSChangeCleared];
-    self.validateWindowContent4iTM3;
+    [self isWindowContentValid4iTM3];
     return yorn;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isInspectorEdited
@@ -2651,7 +2651,7 @@ To Do List:
 //START4iTM3;
 //LOG4iTM3(@"name:%@", name);
     if ((self = [super initWithWindow:window])) {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
@@ -2666,7 +2666,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super initWithCoder:aDecoder]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
@@ -2739,11 +2739,11 @@ To Do List:
     [super windowDidLoad];
 //    self.synchronizeWithDocument; the inspector has already been synchronized when added to the document
     [self setDocumentEdited:NO];// validate the user interface as side effect
-	self.backupModel;
+	[self backupModel];
     NSError * ROR = nil;
     [self loadContext4iTM3Error:self.RORef4iTM3];
     REPORTERROR4iTM3(1,@"",ROR);
-//	self.validateWindowContent4iTM3; too early?
+//	[self isWindowContentValid4iTM3]; too early?
 //LOG4iTM3(@"should cascade:%@", (self.shouldCascadeWindows? @"Y":@"N"));
     return;
 }
@@ -2770,8 +2770,8 @@ To Do List:
 	metaSETTER([[argument copy] autorelease]);
     return;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateWindowContent4iTM3:
-- (BOOL)validateWindowContent4iTM3:(id) sender;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isWindowContentValid4iTM3
+- (BOOL)isWindowContentValid4iTM3;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 05 2003
@@ -2780,7 +2780,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setDocumentEdited:([[IMPLEMENTATION metaValueForKey:@"changeCount"] integerValue] != ZER0)];
-    return [super validateWindowContent4iTM3];
+    return [super isWindowContentValid4iTM3];
 }
 #pragma mark =-=-=-=-=-=-=-=-=-=-  CANCEL management
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  backupModel
@@ -2792,7 +2792,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSInvocation * I;
+    NSInvocation * I = nil;
 	[[NSInvocation getInvocation4iTM3:&I withTarget:self retainArguments:NO] windowWillLoad];
 	[I invokeWithSelectors4iTM3:[iTM2Runtime instanceSelectorsOfClass:self.class withSuffix:@"CompleteBackupModel4iTM3" signature:I.methodSignature inherited:YES]];
     return;
@@ -2917,7 +2917,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.update;
+	[self update];
 //END4iTM3;
 	return;
 }
@@ -3116,7 +3116,7 @@ To Do List:
 			I = [[[SWS iconForFile:[SWS fullPathForApplication:appName]] copy] autorelease];// copy!!!
             [I performSelector:@selector(retain)];// trick for the logic analyzer
 			[I setName:name];
-			I.setSizeSmallIcon4iTM3;
+			[I setSizeSmallIcon4iTM3];
 		}
 		sender.image = I;
 	}
