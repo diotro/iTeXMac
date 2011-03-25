@@ -375,16 +375,16 @@ To Do List:
 		right = [[right substringWithRange:iTM3MakeRange(commonPrefixLength, right.length - commonPrefixLength)] stringByDeletingPathExtension];
         ICURegEx * RE = [ICURegEx regExForKey:iTM2MetaPostRENumberedNameKey inBundle:myBUNDLE error:NULL];
         if (![RE matchString:left]) {
-            RE.forget;
+            [RE forget];
 			return [left compare:right];
         }
         NSInteger leftInteger = [[RE substringOfCaptureGroupWithName:iTM2MetaPostRENumberedNameGroupName] integerValue];
         if (![RE matchString:right]) {
-            RE.forget;
+            [RE forget];
 			return [left compare:right];
         }
         NSInteger rightInteger = [[RE substringOfCaptureGroupWithName:iTM2MetaPostRENumberedNameGroupName] integerValue];
-        RE.forget;
+        [RE forget];
 		return leftInteger>rightInteger? NSOrderedDescending:
 			(leftInteger<rightInteger? NSOrderedAscending: NSOrderedSame);
 	}
@@ -471,7 +471,7 @@ To Do List:
                 [result addObject:[NSNumber numberWithUnsignedInteger:[RE substringOfCaptureGroupWithName:iTM2MetaPostRENumberedNameGroupName].integerValue]];
             }
 		}
-        RE.forget;
+        [RE forget];
 		if (orderedPDFDocumentURLs.count != result.count) {
 			LOG4iTM3(@"Unexpected situation, things won't work properly... (bad file names)");
 		}
@@ -608,7 +608,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super synchronizeWithDocument];
-	self.synchronizePDFViewWithDocument;
+	[self synchronizePDFViewWithDocument];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  synchronizePDFViewWithDocument
@@ -623,7 +623,7 @@ To Do List:
 	[(NSMutableArray *)self.outputFigureNumbers setArray:[NSArray array]];
 	[self setOutputFigureNumbers:self.outputFigureNumbers];// side effects expected
 	[self.PDFThumbnails setArray:[NSArray array]];
-	self.updateThumbnailTable;
+	[self updateThumbnailTable];
 	[self setCurrentOutputFigure:self.currentOutputFigure];
     return;
 }
@@ -636,7 +636,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.updateThumbnailTable;
+	[self updateThumbnailTable];
 //END4iTM3;
     return;
 }
@@ -1081,7 +1081,7 @@ To Do List:
         [self highlightAndScrollToVisibleRange:[RE rangeOfCaptureGroupWithName:iTM2MetaPostREBeginFigNumberGroupName]];
     }
 //END4iTM3;
-    RE.forget;
+    [RE forget];
     return;
 }
 @end
@@ -1269,7 +1269,7 @@ To Do List:
 		pageIndex = ZER0;
 	inspector.currentOutputFigure = [inspector.outputFigureNumbers objectAtIndex:pageIndex];
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1294,7 +1294,7 @@ To Do List:
 	else
 		pageIndex = ZER0;
 	inspector.currentOutputFigure = [inspector.outputFigureNumbers objectAtIndex:pageIndex];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1318,7 +1318,7 @@ To Do List:
 	pageIndex += n;
 	inspector.currentOutputFigure = [inspector.outputFigureNumbers objectAtIndex:MIN(pageIndex, inspector.outputFigureNumbers.count - 1)];
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1338,7 +1338,7 @@ To Do List:
 	NSUInteger pageIndex = [inspector.outputFigureNumbers indexOfObject:inspector.currentOutputFigure];
 	pageIndex += n;
 	inspector.currentOutputFigure = [inspector.outputFigureNumbers objectAtIndex:MIN(pageIndex, inspector.outputFigureNumbers.count - 1)];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1465,7 +1465,7 @@ To Do List:
     while (RE.nextMatch) {
         S = [RE substringOfCaptureGroupWithName:iTM2MetaPostREBeginFigNumberGroupName];
     }
-    RE.forget;
+    [RE forget];
     if (S.length) {
         [self.window.windowController setCurrentOutputFigure:[NSNumber numberWithUnsignedInteger:S.integerValue]];
         return YES;
@@ -1614,7 +1614,7 @@ To Do List:
             [MD setObject:[NSMutableArray arrayWithObject:[NSValue valueWithRange:RE.rangeOfMatch]] forKey:K];
         }
     }
-    RE.forget;
+    [RE forget];
     NSMenu * figureMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
     [figureMenu setAutoenablesItems:YES];
     NSEnumerator * E = [[MD.allKeys sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
