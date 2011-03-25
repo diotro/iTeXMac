@@ -61,14 +61,13 @@ To Do List:
 	NSResponder * previous = NSApp;
 	NSResponder * next;
 	while((next = [previous nextResponder]))
-		if (next == self)
-		{
+		if (next == self) {
 			[previous setNextResponder:[next nextResponder]];
-			self.autorelease;
+			self = self.autorelease;
 			return;
-		}
-		else
+		} else {
 			previous = next;
+        }
 //END4iTM3;
     return;
 }
@@ -164,7 +163,7 @@ It would remove some previously registered responders and would cause unexpected
 /*"The receiver just send the #{autorelease} message to itself."*/
 {DIAGNOSTIC4iTM3;
     [DNC removeObserver:self name:nil object:nil];
-    self.autorelease;
+    self = self.autorelease;
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=  insertInResponderChainAfter:
