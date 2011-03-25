@@ -327,9 +327,9 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    if(([event clickCount]>2) && ![iTM2EventObserver isAlternateKeyDown])
+    if((event.clickCount>2) && ![iTM2EventObserver isAlternateKeyDown])
     {
-//NSLog(@"[event clickCount]: %i", [event clickCount]);
+//NSLog(@"event.clickCount: %i", event.clickCount);
         NSString * S = self.string;
         NSRange SR = self.selectedRange;
 //        NSRange GR = [S groupRangeForRange:SR];
@@ -627,7 +627,7 @@ To Do List: Nothing at first glance.
 			[S getLineStart:nil end:&nextStart contentsEnd:nil forRange:R];
 		}
 	}
-	self.willChangeSelectedRanges;
+	[self willChangeSelectedRanges];
 	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
 	{
 		NSUInteger shift = ZER0;
@@ -645,10 +645,10 @@ To Do List: Nothing at first glance.
 			[affectedRanges addObject:V];
 			++shift;
 		}
-		self.didChangeText;
+		[self didChangeText];
 		[self setSelectedRanges:affectedRanges];
 	}
-	self.didChangeSelectedRanges;
+	[self didChangeSelectedRanges];
 //END4iTM3;
     return;
 }
@@ -741,7 +741,7 @@ To Do List: Nothing at first glance.
 		}
 	}
 	// 4 - Proceed to the change
-	self.willChangeSelectedRanges;
+	[self willChangeSelectedRanges];
 	if([self shouldChangeTextInRanges:affectedRanges replacementStrings:replacementStrings])
 	{
 		NSEnumerator * E = [affectedRanges reverseObjectEnumerator];
@@ -750,10 +750,10 @@ To Do List: Nothing at first glance.
 			affectedRange = [V rangeValue];
 			[self replaceCharactersInRange:affectedRange withString:@""];
 		}
-		self.didChangeText;
+		[self didChangeText];
 		[self setSelectedRanges:newSelectedRanges];
 	}
-	self.didChangeSelectedRanges;
+	[self didChangeSelectedRanges];
 //END4iTM3;
     return;
 }
@@ -846,7 +846,7 @@ To Do List:
 					{
 						[self replaceCharactersInRange:actualCharRange withString:replacementString];
 						[self.implementation takeMetaValue:nil forKey:@"__expected selected range"];
-						self.didChangeText;
+						[self didChangeText];
 						[self setSelectedRange:expectedSelectedRange];
 					}
 				}
@@ -899,7 +899,7 @@ To Do List:
 		{
 			[self replaceCharactersInRange:[V rangeValue] withString:[map objectForKey:V]];
 		}
-		self.didChangeText;
+		[self didChangeText];
 	}
     return;
 }
@@ -945,7 +945,7 @@ To Do List:
 		for (V in [ranges reverseObjectEnumerator]) {
 			[self replaceCharactersInRange:[V rangeValue] withString:[map objectForKey:V]];
 		}
-		self.didChangeText;
+		[self didChangeText];
 	}
     return;
 }
