@@ -88,7 +88,7 @@ no_match:
 	ICURegEx * RE = [ICURegEx regExForKey:@"%!iTeXMac2..." error:NULL];
 	[RE setInputString:self range:aRange];
 	if (![RE nextMatch] || [RE numberOfCaptureGroups]!=1) {
-        RE.forget;
+        [RE forget];
 		goto no_match;
 	}
 	if (aRangePtr) * aRangePtr = [RE rangeOfCaptureGroupWithName:@"content"];
