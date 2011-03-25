@@ -1051,7 +1051,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 		NSAutoreleasePool * RP = [[NSAutoreleasePool alloc] init];
 		while (idx < top) {
 			if (--firewall == ZER0) {
-				RP.drain;
+				[RP drain];
 				RP = [[NSAutoreleasePool alloc] init];
 				firewall = 256;
 			}
@@ -1075,7 +1075,7 @@ NSLocalizedStringFromTableInBundle(@"Show problems", TABLE, BUNDLE, "Show pbms")
 			}
 			idx = iTM3MaxRange(R);
 		}
-		RP.drain;
+		[RP drain];
 		RP = nil;
 		// clean the pending stuff
 		if (length) {
@@ -1309,7 +1309,7 @@ To Do List:
 						if ([scrollerToolbar isKindOfClass:[iTM2ScrollerToolbar class]]
 								&& (scrollerToolbar.position4iTM3 == iTM2ScrollerToolbarPositionBottom)) {
 							[scrollerToolbar performSelector:@selector(class) withObject:nil afterDelay:1];
-							scrollerToolbar.removeFromSuperview;
+							[scrollerToolbar removeFromSuperview];
 						}
 					}
 					NSRect R = NSZeroRect;
@@ -1346,7 +1346,7 @@ To Do List:
 					[B setTag:[FCV tagFromMask:NSAlternateKeyMask]];
 					[FCV addSubview:B];
 					[scrollerToolbar addSubview:FCV];
-					FCV.computeIndexFromTag4iTM3;
+					[FCV computeIndexFromTag4iTM3];
 					R.origin.y = NSMaxY(R);
 					[FCV setFrame:R];
 					R.origin = NSZeroPoint;
@@ -1369,7 +1369,7 @@ To Do List:
 						if ([scrollerToolbar isKindOfClass:[iTM2ScrollerToolbar class]]
 								&& (scrollerToolbar.position4iTM3 == iTM2ScrollerToolbarPositionBottom)) {
 							[scrollerToolbar performSelector:@selector(class) withObject:nil afterDelay:1];
-							scrollerToolbar.removeFromSuperview;
+							[scrollerToolbar removeFromSuperview];
 						}
 					}
 					scrollerToolbar = [iTM2ScrollerToolbar scrollerToolbarForPosition:iTM2ScrollerToolbarPositionBottom];
@@ -1492,10 +1492,10 @@ To Do List:
     NSString * argument = [self.document stringRepresentation];
     if (!argument) argument = [NSString string];
     NSTextStorage * TS = self.textStorage;
-	TS.beginEditing;
+	[TS beginEditing];
 //LOG4iTM3(@"**** **** ****  ALL THE CHARACTERS ARE REPLACED");
 	[TS replaceCharactersInRange:iTM3MakeRange(ZER0, TS.length) withString:argument];
-	TS.endEditing;
+	[TS endEditing];
     return [super synchronizeWithDocument4iTM3Error:RORef];
 }
 #pragma mark =-=-=-=-=-=-=-= SETTERS/GETTERS
@@ -1946,7 +1946,7 @@ To Do List:
     iTM2TextInspector * inspector = [[[self.class alloc] initWithWindowNibName:NSStringFromClass(self.class)] autorelease];
 	NSDocument * document = self.document;
 	[document addWindowController:inspector];
-	inspector.window;
+	[inspector window];
 	id result = [[inspector.textView.enclosingScrollView retain] autorelease];
 	[document removeWindowController:inspector];
 	[result removeFromSuperviewWithoutNeedingDisplay];
@@ -2487,7 +2487,7 @@ To Do List:
 	}
 	else if ([E type] == NSLeftMouseDown)
 	{
-		NSUInteger clickCount = [E clickCount];
+		NSUInteger clickCount = E.clickCount;
 		if (clickCount > 2)
 		{
 			clickCount -= 2;
