@@ -369,61 +369,61 @@
     ICURegEx * RE = [ICURegEx regExWithSearchPattern:@"([a-z]*)(:)" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     
     RE = [ICURegEx regExForKey:@"URL scheme" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL network location" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL path" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL parameters" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL query" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL fragment" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
 
     RE = [ICURegEx regExForKey:@"URL debug - 1" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL debug - 2" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL debug - 3" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL debug - 4" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL debug - 5" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:@"URL" error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     RE = [ICURegEx regExForKey:iTM2RegExpURLKey error:NULL];
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
 
 #   define GOOD [NSNumber numberWithBool:YES]
 #   define BAD  [NSNumber numberWithBool:NO]
@@ -483,11 +483,11 @@
     #define DECLARE(WHAT)\
     NSEnumerator * WHAT##E = WHAT##RA.objectEnumerator;\
     NSString * WHAT##S = nil;\
-    NSString * WHAT##X = nil;\
     NSNumber * WHAT##N = nil;
     DECLARE(schemes);
     while ((schemesS = schemesE.nextObject) && (schemesN = schemesE.nextObject)) {
         DECLARE(locations);
+        NSString * locationsX = nil;
         while ((locationsS = locationsE.nextObject) && (locationsX = locationsE.nextObject) && (locationsN = locationsE.nextObject)) {
             DECLARE(paths);
             while ((pathsS = pathsE.nextObject) && (pathsN = pathsE.nextObject)) {
@@ -507,10 +507,10 @@
                                         (fragmentsS.length?([fragmentsS hasPrefix:@"#"]?fragmentsS:[@"#" stringByAppendingString:fragmentsS]):fragmentsS),
                                             nil];
                                 RE.inputString = input;
-                                RE.nextMatch;
+                                [RE nextMatch];
                                 //RE.displayMatchResult;
                                 #   define TEST(what,name)\
-                                    STAssertTrue([what isEqual:[RE substringOfCaptureGroupWithName:name]] || (RE.displayMatchResult,NO),@"MISSED",NULL)
+                                    STAssertTrue([what isEqual:[RE substringOfCaptureGroupWithName:name]] || ([RE displayMatchResult],NO),@"MISSED",NULL)
                                 if (schemesN.boolValue) {
                                     TEST(schemesS,iTM2RegExpURLSchemeName);
                                     if (locationsN.boolValue) {
@@ -543,11 +543,11 @@
     RE = [ICURegEx regExForKey:iTM2RegExpURLKey error:NULL];
     [RE setInputString:@"scheme://location"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     //
     [RE setInputString:@"scheme://location@yoyodine.net/the/path/../.;pa;ram/et;ers?que;ry#frag/me?nt"];
     STAssertTrue(RE.nextMatch,@"MISSED",NULL);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
     STAssertEqualObjects([RE substringOfCaptureGroupWithName:iTM2RegExpURLSchemeName], @"scheme",@"MISSED",NULL);
     STAssertEqualObjects([RE substringOfCaptureGroupWithName:iTM2RegExpURLLocationName], @"location@yoyodine.net",@"MISSED",NULL);
     STAssertEqualObjects([RE substringOfCaptureGroupWithName:iTM2RegExpURLPathName], @"/the/path/../.",@"MISSED",NULL);
