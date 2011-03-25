@@ -131,6 +131,7 @@ To Do List:
 
 void iTM2EventLoopIdleTimerProc( EventLoopTimerRef inTimer, EventLoopIdleTimerMessage inState, void *timer );
 
+#if 0
 
 static EventLoopIdleTimerUPP iTM2EventLoopIdleTimerUPP = NULL;
 
@@ -157,7 +158,7 @@ static EventLoopIdleTimerUPP iTM2EventLoopIdleTimerUPP = NULL;
 			  &timer);//EventLoopTimerRef *     outTimer);
 		if ( status != noErr )
 		{
-			self.release;
+			[self release];
 			return nil;
 		}
 		[info release];
@@ -214,6 +215,7 @@ void iTM2EventLoopIdleTimerProc( EventLoopTimerRef inTimer, EventLoopIdleTimerMe
 			return;
 	}
 }
+#endif
 
 @implementation iTM2MainInstaller(EventKit)
 + (void)prepareEventKitCompleteInstallation4iTM3;
