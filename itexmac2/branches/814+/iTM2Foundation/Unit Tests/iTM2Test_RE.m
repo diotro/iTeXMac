@@ -136,7 +136,7 @@
         TEST(@"TYPE",@"]");
         RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:NULL];
         RE.inputString = @"coucou SAL  [  last  - 23   ]: defaut valeur     ";
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST_MATCH;
         TEST(@"end",@"");
         TEST(@"-index",@"");
@@ -231,7 +231,7 @@
 #define OUPS ([NSString stringWithFormat:@"OUPS:%s:%lu\n",__FILE__,__LINE__])
 #define NEXT_MATCH(F1RST,LAST)\
         STAssertTrue(RE.nextMatch,OUPS,NULL);\
-        RE.displayMatchResult;\
+        [RE displayMatchResult];\
         STAssertTrue((NSEqualRanges(NSMakeRange(F1RST,LAST-F1RST+1),RE.rangeOfMatch) || (NSLog(@"R:%@",NSStringFromRange(RE.rangeOfMatch)),NO)),OUPS,NULL)
 #define TEST(NAME,RIGHT) STAssertTrue(([[RE substringOfCaptureGroupWithName:NAME] isEqual:RIGHT]),OUPS,NULL)
 #define FULL_TEST(END,INDEXFROMEND,INDEX,DEFAULT,COMMENT,TYPE,EOL)\
@@ -382,7 +382,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"last");
         TEST(iTM2RegExpMKIndexFromEndName,@"23");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -391,7 +391,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [ 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"23");
@@ -400,7 +400,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"last");
         TEST(iTM2RegExpMKIndexFromEndName,@"23");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -409,7 +409,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @" SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"last");
         TEST(iTM2RegExpMKIndexFromEndName,@"23");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -419,7 +419,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SEL  [  last  - 23   ]: defaut valeur     ";
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -427,9 +427,9 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         RE = [ICURegEx regExForKey:@"SEL|TYPE..." error:self.RORef4iTM3];
         STAssertTrue(!ROR,@"MISSED",nil);
         RE.inputString = @"coucou SAL  [  last  - 23   ]: defaut valeur     ";
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -457,7 +457,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
             @"middle __( SEL[1]: defaut valeur2  )__ after \n"
             ;
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
 
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
@@ -467,7 +467,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKEOLName,@"");
 
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -476,7 +476,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKEOLName,@"\n");
 
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -485,7 +485,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKEOLName,@"");
 
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -494,7 +494,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKEOLName,@"\n");
 
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"1");
@@ -503,7 +503,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
         TEST(iTM2RegExpMKEOLName,@"");
 
         STAssertTrue(RE.nextMatch,OUPS,NULL);
-        RE.displayMatchResult;
+        [RE displayMatchResult];
         TEST(iTM2RegExpMKEndName,@"");
         TEST(iTM2RegExpMKIndexFromEndName,@"");
         TEST(iTM2RegExpMKIndexName,@"");
@@ -560,7 +560,7 @@ STAssertTrue(([[RE substringOfCaptureGroupWithName:iTM2RegExpMKDefaultName] isEq
     STAssertFalse([[RE substringOfCaptureGroupAtIndex:3] isEqual:@"xxx"],@"MISSED 8d, error:%@", RE.error);
     STAssertFalse(RE.nextMatch,@"MISSED 9, error:%@", RE.error);
 	STAssertTrue([RE nextMatchAfterIndex:2],@"MISSED 10, error:%@", RE.error);
-    RE.displayMatchResult;
+    [RE displayMatchResult];
 	RE.replacementPattern = @"0:/$0/\n1:/$1/\n2:/$2/";
 	NSLog(@"RE.replacementString:<%@>XXXXX\n",RE.replacementString);
     STAssertNil(RE.error,@"MISSED 10",NULL);
