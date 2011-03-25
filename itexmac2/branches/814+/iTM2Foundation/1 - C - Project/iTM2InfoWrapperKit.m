@@ -1227,7 +1227,7 @@ main:
         //  Inheritancy is managed by baseNamesOfAncestorsForBaseProjectName:
 		name = P.fileURL.path;
 		E = [[SPC baseNamesOfAncestorsForBaseProjectName:name] objectEnumerator];
-		E.nextObject;// skip the first object: this is (quite) name 
+		[E nextObject];// skip the first object: this is (quite) name 
 	} else {
         //  This is not a base project
         //  Inherit from the base project
