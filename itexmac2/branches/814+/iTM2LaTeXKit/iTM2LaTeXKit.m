@@ -163,7 +163,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = [self context4iTM3BoolForKey:@"iTM2LaTeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContext4iTM3Bool: !old forKey:@"iTM2LaTeXToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -280,7 +280,7 @@ To Do List:
 			name: NSPopUpButtonWillPopUpNotification
 				object: self];
 	NSView * superview = self.superview;
-	self.removeFromSuperviewWithoutNeedingDisplay;
+	[self removeFromSuperviewWithoutNeedingDisplay];
 	[superview addSubview:self];
 //END4iTM3;
     return;
@@ -397,7 +397,7 @@ To Do List:
 			name: NSPopUpButtonWillPopUpNotification
 				object: self];
 	NSView * superview = self.superview;
-	self.removeFromSuperviewWithoutNeedingDisplay;
+	[self removeFromSuperviewWithoutNeedingDisplay];
 	[superview addSubview:self];
 //END4iTM3;
     return;
@@ -1349,9 +1349,9 @@ To Do List:
 "*/
 {
 //START4iTM3;
-    if(([event clickCount]>2) && ![iTM2EventObserver isAlternateKeyDown])
+    if((event.clickCount>2) && ![iTM2EventObserver isAlternateKeyDown])
     {
-//NSLog(@"[event clickCount]: %i", [event clickCount]);
+//NSLog(@"event.clickCount: %i", event.clickCount);
         NSString * S = self.string;
         NSRange SR = self.selectedRange;
 		// trimming the white spaces in the selected range 
@@ -3336,7 +3336,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
     INIT_POOL4iTM3;
 //START4iTM3;
-    self.registerParser;
+    [self registerParser];
     if(!_iTM2LaTeXLogColors)
         _iTM2LaTeXLogColors = [[NSDictionary dictionaryWithObjectsAndKeys:
             [NSColor blackColor], @"Normal",
