@@ -155,7 +155,7 @@ To Do List:
 	{
 		if(sender.numberOfItems<2)
         {
-			sender.removeAllItems;
+			[sender removeAllItems];
 			[sender.menu addItem:[NSMenuItem separatorItem]];// for the title...
 			NSArray * RA = [iTM2TeXDistributionController memsAtPath:[[self.document fileName] stringByDeletingLastPathComponent]];
 			if (RA.count) {
