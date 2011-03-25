@@ -226,7 +226,7 @@ To Do List:
 		return;
 	}
 	iVarFlags4iTM3|=1;
-	self.prepareChildren;
+	[self prepareChildren];
 //END4iTM3;
     return;
 }
@@ -239,7 +239,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
     return [iVarChildren4iTM3 copy];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  countOfChildren
@@ -252,7 +252,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
     return self.children.count;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  setCountOfChildren:
@@ -265,7 +265,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	if (argument < self.countOfChildren) {
 		do {
 			[iVarChildren4iTM3 removeLastObject];
@@ -289,7 +289,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
     return index < self.children.count? [iVarChildren4iTM3 objectAtIndex:index]:nil;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  indexOfObjectInChildren:
@@ -301,7 +301,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
     return iVarChildren4iTM3?[iVarChildren4iTM3 indexOfObject:anObject]:NSNotFound;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addObjectInChildren:
@@ -315,7 +315,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:self.children.count];
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
@@ -336,7 +336,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	if (!iVarChildren4iTM3) {
 		return;
 	}
@@ -359,7 +359,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 	[self willChange:NSKeyValueChangeInsertion valuesAtIndexes:IS forKey:@"children"];
@@ -380,7 +380,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	NSAssert1((!node || [node isKindOfClass:[iTM2TreeNode class]]), @"Bad node to be inserted; %@", node);
 	iTM2TreeNode * object = [iVarChildren4iTM3 objectAtIndex:index];
 	if (![object isEqual:node]) {
@@ -403,7 +403,7 @@ To Do List:
 {
 //START4iTM3;
     // implementation specific code
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	NSIndexSet * IS = [NSIndexSet indexSetWithIndex:index];
 	[self willChange:NSKeyValueChangeRemoval valuesAtIndexes:IS forKey:@"children"];
 	iTM2TreeNode * object = [iVarChildren4iTM3 objectAtIndex:index];
@@ -421,7 +421,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	iTM2TreeNode * N = nil;
 	if (anObject) {
 		for(N in self.children) {
@@ -447,7 +447,7 @@ To Do List:
 "*/
 {
 	//START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	iTM2TreeNode * N = nil;
 	if (anObject) {
 		for (N in self.children) {
@@ -473,7 +473,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	iTM2TreeNode * N = [self objectInChildrenWithValue:anObject];
 	if (N) {
 		return N;
@@ -494,7 +494,7 @@ To Do List:
 "*/
 {
 	//START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	iTM2TreeNode * N = [self objectInChildrenWithNonretainedValue:anObject];
 	if (N) {
 		return N;
@@ -515,7 +515,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	iTM2TreeNode * N = nil;
 	if (anObject) {
 		for(N in self.children) {
@@ -541,7 +541,7 @@ To Do List:
 "*/
 {
 //START4iTM3;
-	self.iVarprepareChildren4iTM3;
+	[self iVarprepareChildren4iTM3];
 	iTM2TreeNode * N = [self objectInChildrenWithValue:anObject forKeyPath:path];
 	if (N) {
 		return N;
@@ -586,6 +586,10 @@ To Do List:
 }
 @synthesize children=iVarChildren4iTM3;
 @synthesize flags=iVarFlags4iTM3;
+- (NSString *)longDescription;
+{
+    return self.description;
+}
 @end
 
 /*!
@@ -3898,7 +3902,7 @@ nextChild:
 		// the node is already detached
 		return;
 	}
-	self.updateCountOfObjectsInChildNodes;
+	[self updateCountOfObjectsInChildNodes];
 	self.parent = nil;
 	// now theNode is completely detached from its owning tree
 }
@@ -3944,7 +3948,7 @@ nextChild:
 	if (!self.lastChild) {
 		self.lastChild = sibling;
 	}
-	self.updateCountOfObjectsInChildNodes;
+	[self updateCountOfObjectsInChildNodes];
 }
 - (void)removeChildren;
 {
@@ -3955,7 +3959,7 @@ nextChild:
 	}
 	self.firstChild = nil;
 	self.lastChild = nil;
-	self.updateCountOfObjectsInChildNodes;
+	[self updateCountOfObjectsInChildNodes];
 }
 - (void)removeNextSibling;
 {
