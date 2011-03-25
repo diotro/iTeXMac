@@ -106,7 +106,7 @@
 	@abstract	Abstract forthcoming.
 	@discussion	YES iff '%' there is a comment character att the given index.
                 On return, indexRef points to the next character that is ont part the comment sequence.
-                An example of such a sequence is '//' but not '/*'
+                An example of such a sequence is '//' but not '/''*'
                 This is line centric, which means that we assume that comments end with the lines only
                 C like comments are not allowed.
                 The default implementation is just a wrapper over the isCommentCharacterAtIndex:inString: method.
