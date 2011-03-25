@@ -143,7 +143,7 @@ static id _iTM2MacroController = nil;
 	[SUD registerDefaults:d];
 	if ([self respondsToSelector:@selector(prefsInitBindings)])
 	{
-		self.prefsInitBindings;
+		[self prefsInitBindings];
 	}
 	return;
 }
