@@ -357,7 +357,7 @@ To Do List:
 	if (![SUD boolForKey:@"iTM2NoAutoFixInstallation"])
 	{
 		LOG4iTM3(@"INFO: STARTED...");
-		self.fixAllInstallations;
+		[self fixAllInstallations];
 		while(_iTM2_CompleteInstallation4iTM3Queue.count)
 		{
 			NSEnumerator * E = [_iTM2_CompleteInstallation4iTM3Queue objectEnumerator];
@@ -370,7 +370,7 @@ To Do List:
 				}
 				[O completeInstallation];
 			}
-			self.fixAllInstallations;
+			[self fixAllInstallations];
 		}
 		LOG4iTM3(@"INFO: FINISHED.");
 	}
@@ -424,7 +424,7 @@ To Do List:
 	NSUInteger i = PA.count;
 	while (i--) {
 		I.selector=(SEL)[PA pointerAtIndex:i];
-        I.invoke;
+        [I invoke];
 		[iTM2Runtime disableClassMethodSelector:I.selector forClass:self];
         if (RORef) {
             [I getArgument:&RORef atIndex:2];
@@ -451,7 +451,7 @@ To Do List:
 	NSUInteger i = PA.count;
 	while (i--) {
 		I.selector=(SEL)[PA pointerAtIndex:i];
-        I.invoke;
+        [I invoke];
 		[iTM2Runtime disableClassMethodSelector:[I selector] forClass:self.class];
         if (RORef) {
             [I getArgument:&RORef atIndex:2];
