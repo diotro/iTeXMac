@@ -85,7 +85,7 @@ static iTM2MailController * sharedMailController4iTM3;
 }
 - (IBAction)close:(id)sender;
 {
-	self.close;
+	[self close];
 }
 - (BOOL)canSend;
 {
@@ -131,7 +131,7 @@ static iTM2MailController * sharedMailController4iTM3;
 	if(![NSMailDelivery hasDeliveryClassBeenConfigured])
 	{
 		NSBeep();
-		self.close;
+		[self close];
 	}
 	else
 	{
@@ -153,7 +153,7 @@ static iTM2MailController * sharedMailController4iTM3;
 		}
 	}
 #endif
-	self.close;
+	[self close];
 	return;
 }
 @end
