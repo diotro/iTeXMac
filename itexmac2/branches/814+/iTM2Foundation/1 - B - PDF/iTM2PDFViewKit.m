@@ -414,7 +414,7 @@ To Do List:
     [self.backgroundColor set];
     [[NSBezierPath bezierPathWithRect:rect] fill];
     self.newPage = NO;
-    self.updateFocusInformation;
+    [self updateFocusInformation];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  addSubview:
@@ -720,7 +720,7 @@ To Do List:
                     [NSNumber numberWithInteger:aCurrentLogicalPage], @"NewLogicalPage",
                     [NSNumber numberWithInteger:[self.imageRepresentation pageCount]], @"PageCount", nil]];
         iVarCurrentLogicalPage = MIN(MAX(1, aCurrentLogicalPage), self.subviews.count);
-        self.currentPageDidChange;
+        [self currentPageDidChange];
         self.newPage = YES;
         [self.superview setNeedsDisplay:YES];
     }
@@ -773,7 +773,7 @@ To Do List:
     {
         [iVarImageRepresentation release];
         iVarImageRepresentation = [aImageRepresentation retain];
-        self.imageRepresentationDidChange;
+        [self imageRepresentationDidChange];
     }
     return;
 }
@@ -810,7 +810,7 @@ To Do List:
         [self selectViewWithTag:PC];
     }
     // the page layout must be set too:
-    self.pageLayoutDidChange;// maybe the number of rows | columns should change
+    [self pageLayoutDidChange];// maybe the number of rows | columns should change
     self.needsUpdateGeometry = YES;
     [self.superview setNeedsDisplay:YES];
     return;
@@ -862,7 +862,7 @@ To Do List:
 //START4iTM3;
     if (iVarMagnification != aMagnification) {
         iVarMagnification = aMagnification>0? aMagnification: 1;
-        self.magnificationDidChange;
+        [self magnificationDidChange];
     }
     return;
 }
@@ -958,7 +958,7 @@ To Do List:
     CGFloat scale = self.magnification;
     [self setFrameSize: NSMakeSize(nearbyint(maxSubviewWidth * scale), nearbyint(maxSubviewHeight * scale))];
     [self setBoundsSize:NSMakeSize(maxSubviewWidth, maxSubviewHeight)];
-    self.currentPageDidChange;
+    [self currentPageDidChange];
     [self.superview setNeedsDisplay:YES];
     return;
 }
@@ -1002,7 +1002,7 @@ To Do List:
 //START4iTM3;
     if (iVarPageLayout != PL) {
         iVarPageLayout = PL;
-        self.pageLayoutDidChange;
+        [self pageLayoutDidChange];
     }
     return;
 }
@@ -1015,7 +1015,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.updateGeometry;
+    [self updateGeometry];
     [self.superview setNeedsDisplay:YES];
     // the matrix size
     return;
@@ -1046,7 +1046,7 @@ To Do List:
     if (argument == 3) argument = -1;
     if (argument != iVarOrientationMode) {
         iVarOrientationMode = argument;
-        self.updateGeometry;
+        [self updateGeometry];
     }
     return;
 }
@@ -1075,7 +1075,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	BOOL result = [self.focusView loadContext4iTM3Error:RORef];
-	self.placeFocusPointInVisibleArea;// scroll to the page as side effect should be a wrapper for stuff below
+	[self placeFocusPointInVisibleArea];// scroll to the page as side effect should be a wrapper for stuff below
     return result;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  PDFViewCompleteSaveContext4iTM3Error:
