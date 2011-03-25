@@ -143,7 +143,7 @@
     pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
-    TD.close;
+    [TD close];
     STAssertTrue([SPC canGetNewProjectForURL:URL_F error:self.RORef4iTM3],@"MISSED",NULL);
     //  When using the initWithContentsOfURL:... method, no project is associated with the document
     TD = [[iTM2TextDocument alloc] initWithContentsOfURL:URL_F ofType:iTM3TextDocumentType error:self.RORef4iTM3];
@@ -154,7 +154,7 @@
     pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
-    TD.close;
+    [TD close];
     STAssertTrue([SPC canGetNewProjectForURL:URL_F error:self.RORef4iTM3],@"MISSED",NULL);
     TD = [SDC makeDocumentWithContentsOfURL:URL_F ofType:iTM3TextDocumentType error:self.RORef4iTM3];
     STAssertNotNil(TD,@"MISSED",NULL);
@@ -163,7 +163,7 @@
     pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
-    TD.close;
+    [TD close];
     STAssertTrue([SPC canGetNewProjectForURL:URL_F error:self.RORef4iTM3],@"MISSED",NULL);
     TD = [SDC openDocumentWithContentsOfURL:URL_F display:NO error:self.RORef4iTM3];
     STAssertNotNil(TD,@"MISSED",NULL);
@@ -172,7 +172,7 @@
     pd = [SPC projectForDocument:TD error:self.RORef4iTM3];
     STAssertNil(ROR,@"MISSED",NULL);
     STAssertNil(pd,@"MISSED",NULL);
-    TD.close;
+    [TD close];
      
     return;
 }
