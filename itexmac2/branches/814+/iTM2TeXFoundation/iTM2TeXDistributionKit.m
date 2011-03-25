@@ -566,7 +566,7 @@ To Do List:
 			[self updateChangeCount:NSChangeDone];
 		}
 		[self didChangeValueForKey:@"PATHPrefix"];
-		self.validateWindowsContents4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
 }
@@ -670,7 +670,7 @@ To Do List:
 			[self updateChangeCount:NSChangeDone];
 		}
 		[self didChangeValueForKey:@"PATHSuffix"];
-		self.validateWindowsContents4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
 }
@@ -1135,7 +1135,7 @@ To Do List:
     BOOL old = [[self metaInfo4iTM3ForKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil] boolValue];
     [self setMetaInfo4iTM3:[NSNumber numberWithBool:!old] forKeyPaths:iTM2DistributionUsePATHLoginShellKey,nil];
 	[self.document updateChangeCount:NSChangeDone];
-    [sender validateWindowContent4iTM3];
+    [sender isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1172,7 +1172,7 @@ To Do List:
 		{
 			[self.document setTeXMFDistribution:new];
 			[self.document updateChangeCount:NSChangeDone];
-			self.validateWindowContent4iTM3;
+			[self isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
@@ -1263,7 +1263,7 @@ To Do List:
 		if(![old pathIsEqual4iTM3:new])
 		{
 			[self.document updateChangeCount:NSChangeDone];
-			self.validateWindowContent4iTM3;
+			[self isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
@@ -1344,7 +1344,7 @@ To Do List:
 	{
 		[TPD setTeXMFProgramsPath:new];
 		[TPD updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -1377,7 +1377,7 @@ To Do List:
 	[self setTeXMFProgramsDistributionIsIntel:!self.TeXMFProgramsDistributionIsIntel];
     id TPD = (iTM2TeXProjectDocument *)self.document;
 	[TPD updateChangeCount:NSChangeDone];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1426,7 +1426,7 @@ To Do List:
 		if(![old pathIsEqual4iTM3:new])
 		{
 			[self.document updateChangeCount:NSChangeDone];
-			self.validateWindowContent4iTM3;
+			[self isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
@@ -1507,7 +1507,7 @@ To Do List:
 	{
 		[TPD setOtherProgramsPath:new];
 		[TPD updateChangeCount:NSChangeDone];
-		self.validateWindowContent4iTM3;
+		[self isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -1540,7 +1540,7 @@ To Do List:
 	[self setOtherProgramsDistributionIsIntel: !self.OtherProgramsDistributionIsIntel];
     id TPD = (iTM2TeXProjectDocument *)self.document;
 	[TPD updateChangeCount:NSChangeDone];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1611,7 +1611,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[tabView validateWindowContent4iTM3];
+	[tabView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1816,7 +1816,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[self.mainView validateWindowContent4iTM3];
+	[self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2005,7 +2005,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setBool: ![SUD boolForKey:iTM2DistributionUseOutputDirectoryKey] forKey:iTM2DistributionUseOutputDirectoryKey];
-    [self.mainView validateWindowContent4iTM3];
+    [self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2032,7 +2032,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setObject:[sender stringValue] forKey:iTM2DistributionOutputDirectoryKey];
-    [self.mainView validateWindowContent4iTM3];
+    [self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2066,7 +2066,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setBool: ![SUD boolForKey:iTM2DistributionUsePATHLoginShellKey] forKey:iTM2DistributionUsePATHLoginShellKey];
-    [self.mainView validateWindowContent4iTM3];
+    [self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2093,7 +2093,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setBool: ![SUD boolForKey:iTM2DistributionUsePATHPrefixKey] forKey:iTM2DistributionUsePATHPrefixKey];
-    [self.mainView validateWindowContent4iTM3];
+    [self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2120,7 +2120,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setObject:[sender stringValue] forKey:iTM2DistributionPATHPrefixKey];
-    [self.mainView validateWindowContent4iTM3];
+    [self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2153,7 +2153,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setBool:![SUD boolForKey:iTM2DistributionUsePATHSuffixKey] forKey:iTM2DistributionUsePATHSuffixKey];
-    [self.mainView validateWindowContent4iTM3];
+    [self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2180,7 +2180,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [SUD setObject:[sender stringValue] forKey:iTM2DistributionPATHSuffixKey];
-    [self.mainView validateWindowContent4iTM3];
+    [self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2463,7 +2463,7 @@ To Do List:
 		id new = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 		if(![old pathIsEqual4iTM3:new])
 		{
-			[self.mainView validateWindowContent4iTM3];
+			[self.mainView isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
@@ -2546,7 +2546,7 @@ To Do List:
 	if(![[SUD stringForKey:key] pathIsEqual4iTM3:new])
 	{
 		[SUD setObject:new forKey:key];
-		[self.mainView validateWindowContent4iTM3];
+		[self.mainView isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -2597,7 +2597,7 @@ To Do List:
 		id new = [SUD stringForKey:iTM2DistributionOtherPrograms];
 		if(![old pathIsEqual4iTM3:new])
 		{
-			[self.mainView validateWindowContent4iTM3];
+			[self.mainView isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
@@ -2680,7 +2680,7 @@ To Do List:
 	if(![[SUD stringForKey:key] pathIsEqual4iTM3:new])
 	{
 		[SUD setObject:new forKey:key];
-		[self.mainView validateWindowContent4iTM3];
+		[self.mainView isWindowContentValid4iTM3];
 	}
 //END4iTM3;
     return;
@@ -2721,7 +2721,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setTeXMFProgramsDistributionIsIntel: !self.TeXMFProgramsDistributionIsIntel];
-	[self.mainView validateWindowContent4iTM3];
+	[self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2759,7 +2759,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	[self setOtherProgramsDistributionIsIntel: !self.OtherProgramsDistributionIsIntel];
-	[self.mainView validateWindowContent4iTM3];
+	[self.mainView isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2828,7 +2828,7 @@ To Do List:
 		if(![[SUD stringForKey:key] pathIsEqual4iTM3:new])
 		{
 			[SUD setObject:new forKey:key];
-			[self.mainView validateWindowContent4iTM3];
+			[self.mainView isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
@@ -2898,7 +2898,7 @@ To Do List:
 		if(![[SUD stringForKey:key] pathIsEqual4iTM3:new])
 		{
 			[SUD setObject:new forKey:key];
-			[self.mainView validateWindowContent4iTM3];
+			[self.mainView isWindowContentValid4iTM3];
 		}
 	}
 //END4iTM3;
