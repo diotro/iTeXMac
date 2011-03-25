@@ -242,7 +242,7 @@ To Do List:
         [self.cell setHighlightsBy:NSChangeGrayCellMask];//[NSContentsCellMask];
         self.action = @selector(showHelp:);
         self.target = self;
-        self.fixImage;
+        [self fixImage];
         [self setBordered: YES];
     }
     return self;
@@ -281,7 +281,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [super awakeFromNib];
-    self.fixImage;
+    [self fixImage];
 //END4iTM3;
     return;
 }
