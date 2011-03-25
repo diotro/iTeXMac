@@ -247,7 +247,7 @@ To Do List:
 //END4iTM3;
 	if ([self loadDataRepresentation:D ofType:type error:RORef]) {
 		self.PDFDocumentStatus = iTM2PDFDocumentPendingStatus;
-		self.PDFDocument;
+		[self PDFDocument];
 		iTM2PDFDocumentStatus status = self.PDFDocumentStatus;
 		return status != iTM2PDFDocumentErrorStatus && status != iTM2PDFDocumentPendingStatus;
 	}
@@ -506,16 +506,16 @@ To Do List:
 //START4iTM3;
     ICURegEx * RE = [ICURegEx regExForKey:iTM2PDFKitRENumberedNameKey inBundle:myBUNDLE error:NULL];
     if (![RE matchString:self]) {
-        RE.forget;
+        [RE forget];
         return [self compare:component];
     }
     NSInteger leftInteger = [RE substringOfCaptureGroupWithName:iTM2PDFKitRENumberedNameGroupName].integerValue;
     if (![RE matchString:component]) {
-        RE.forget;
+        [RE forget];
         return [self compare:component];
     }
     NSInteger rightInteger = [RE substringOfCaptureGroupWithName:iTM2PDFKitRENumberedNameGroupName].integerValue;
-    RE.forget;
+    [RE forget];
     return leftInteger>rightInteger? NSOrderedDescending:
         (leftInteger<rightInteger? NSOrderedAscending: NSOrderedSame);
 }
@@ -529,7 +529,7 @@ To Do List:
 @implementation iTM2PDFKitWindow
 - (void)flagsChanged:(NSEvent *)theEvent;
 {
-	self.resetCursorRects;
+	[self resetCursorRects];
 	[super flagsChanged:theEvent];
 	return;
 }
@@ -633,8 +633,8 @@ To Do List:
 //LOG4iTM3(@"UPDATE:%@",NSStringFromRect(self.documentViewVisibleRect));
 		doc.delegate = self;
 		if ([_drawer state] == NSDrawerOpenState)
-			self.updateTabView;
-		self.context4iTM3DidChange;
+			[self updateTabView];
+		[self context4iTM3DidChange];
 	}
 	[INC addObserver:self selector:_cmd name:name object:nil];
 //END4iTM3;
@@ -707,7 +707,7 @@ To Do List:
 	[newCell setImageFrameStyle:[oldCell imageFrameStyle]];
 	[column setDataCell:newCell];
 	#endif
-	self.context4iTM3DidChange;
+	[self context4iTM3DidChange];
 //LOG4iTM3(@"Setting up the pdf inspector:DONE");
 //END4iTM3;
     return;
@@ -802,7 +802,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.updateTabView;
+	[self updateTabView];
 //END4iTM3;
     return;
 }
@@ -847,7 +847,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	NSDrawer * drawer = notification.object;
-    drawer.validateContent4iTM3;
+    [drawer isContentValid4iTM3];
 	NSSize contentSize = drawer.contentSize;
 	NSDictionary * D = [self context4iTM3ValueForKey:iTM2PDFKitKey domain:iTM2ContextAllDomainsMask];
 	NSString * string;
@@ -885,7 +885,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.updateTabView;
+	[self updateTabView];
 //END4iTM3;
     return;
 }
@@ -900,15 +900,15 @@ To Do List:
 //START4iTM3;
 	NSString * identifier = _pdfTabView.selectedTabViewItem.identifier;
 	if ([identifier isEqual:@"1"]) {
-		self.updateThumbnailTable;
+		[self updateThumbnailTable];
 		[_tabViewControl setSelected:YES forSegment:ZER0];
 	} else if([identifier isEqual:@"2"]) {
-		self.updateOutlineTable;
+		[self updateOutlineTable];
 		[_tabViewControl setSelected:YES forSegment:1];
 	} else {
 		[_tabViewControl setSelected:NO forSegment:ZER0];
 		[_tabViewControl setSelected:NO forSegment:1];
-		self.updateSearchTable;
+		[self updateSearchTable];
 	}
 //END4iTM3;
     return;
@@ -992,9 +992,9 @@ To Do List:
 //START4iTM3;
 	NSLock * L = [[NSLock alloc] init];
 loop:
-	L.lock;
+	[L lock];
 	NSMapTable * MT = [_iTM2PDFRenderInBackgroundThumbnails copy];
-	L.unlock;
+	[L unlock];
 	iTM2PDFKitInspector * inspector;
 	for (inspector in MT.keyEnumerator) {
 		for(NSWindow * w in [NSApp orderedWindows])
@@ -1002,12 +1002,12 @@ loop:
 			if([inspector isEqual:w.windowController])
 			{
 				// this is the real inspector
-				L.lock;
+				[L lock];
 				NSHashTable * HT = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:inspector];
 				if(HT.count)
 				{
 					[MT setObject:[HT copy] forKey:inspector];
-					L.unlock;
+					[L unlock];
 					for(id O in [MT objectForKey:inspector])
 					{
 						NSUInteger pageIndex = (NSUInteger)O;
@@ -1019,22 +1019,22 @@ loop:
 							PDFPage * page = [doc pageAtIndex:pageIndex];
 							NSData * D = [page dataRepresentation];
 							NSImage * I = [[[NSImage alloc] initWithData:D] autorelease];// tiff?
-							L.lock;
+							[L lock];
 							if (pageIndex < [[inspector PDFThumbnails] count]) {
 								[[inspector PDFThumbnails] replaceObjectAtIndex:pageIndex withObject:I];
 								[inspector performSelectorOnMainThread:@selector(updateThumbnailTable) withObject:nil waitUntilDone:NO];
 							}
-							L.unlock;
+							[L unlock];
 						}
 					}
 				} else {
-					L.unlock;
+					[L unlock];
 				}
 			}
 		}
 	}
 	// everything is made...
-	L.lock;
+	[L lock];
 	for (inspector in _iTM2PDFRenderInBackgroundThumbnails.keyEnumerator) {
 		NSMutableSet * set = [_iTM2PDFRenderInBackgroundThumbnails objectForKey:inspector];
 		[set minusSet:[MT objectForKey:inspector]];
@@ -1042,10 +1042,10 @@ loop:
 			[_iTM2PDFRenderInBackgroundThumbnails removeObjectForKey:inspector];
 		}
 	}
-	L.unlock;
+	[L unlock];
 	if(_iTM2PDFRenderInBackgroundThumbnails.count)
 		goto loop;
-	L.release;
+	[L release];
 	L = nil;
 	_iTM2PDFThreadedRenderInBackgroundThumbnails = NO;
 //END4iTM3;
@@ -1544,8 +1544,8 @@ To Do List:
 			newRect = NSMakeRect(0,0,1,1);// the whole view, this is necessary because the notification is posted before the new page is shown
 		}
 		[self setDocumentViewVisibleRect:newRect];
-		self.updatePDFOutlineInformation;
-		self.context4iTM3DidChangeComplete;
+		[self updatePDFOutlineInformation];
+		[self context4iTM3DidChangeComplete];
 	}
 //END4iTM3;
     return;
@@ -1564,7 +1564,7 @@ To Do List:
 	[self setScaleFactor:scale];
 	[self setAutoScales:[V autoScales]];
 	[[self.window toolbar] validateVisibleItems];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -1806,7 +1806,7 @@ LOG4iTM3(@"view      scale:%f",.);
 	{
 		LOG4iTM3(@"NO VIEW...");
 	}
-	self.context4iTM3DidChangeComplete;
+	[self context4iTM3DidChangeComplete];
 //END4iTM3;
     return;
 }
@@ -2044,8 +2044,8 @@ To Do List:
 //START4iTM3;
 	BOOL old = self.autoScales;
 	[self setAutoScales:!old];
-	self.context4iTM3DidChange;
-	self.validateWindowContent4iTM3;
+	[self context4iTM3DidChange];
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -2367,7 +2367,7 @@ To Do List:
 //START4iTM3;
 	BOOL old = [self context4iTM3BoolForKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
 	[self takeContext4iTM3Bool:!old forKey:@"iTM2PDFKitToolbarShareConfiguration" domain:iTM2ContextAllDomainsMask];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
 	return;
 }
@@ -2681,7 +2681,7 @@ To Do List:
 //START4iTM3;
 	self.pdfView.currentPage.rotation -= 90;
 	[self.pdfView setNeedsDisplay:YES];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -2696,7 +2696,7 @@ To Do List:
 //START4iTM3;
 	self.pdfView.currentPage.rotation += 90;
 	[self.pdfView setNeedsDisplay:YES];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -2720,7 +2720,7 @@ To Do List:
 	if(n<pageCount)
 		[self.pdfView goToPage:[document pageAtIndex:n]];
 //END4iTM3;
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
     return;
 }  
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateTakePageFrom:
@@ -2771,7 +2771,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 START4iTM3;
     self.pdfView.scaleFactor = sender.floatValue>ZER0?sender.floatValue:1;
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 END4iTM3;
     return;
 }  
@@ -2822,7 +2822,7 @@ To Do List:
 	} else {
 		[self.pdfView goBack:sender];
 	}
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }  
@@ -2863,7 +2863,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.toolMode = [sender.cell tagForSegment:sender.selectedSegment];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -3034,7 +3034,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.initImplementation;
+	[self initImplementation];
 	id V = [[[__iTM2PDFKitSynchronizationView alloc] initWithFrame:[self.documentView bounds]] autorelease];
 	[self.documentView addSubview:V];
 	V = [[[__iTM2PDFKitSelectView alloc] initWithFrame:[self.documentView bounds]] autorelease];
@@ -3054,7 +3054,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (self = [super initWithFrame:rect]) {
-		self.setupView;
+		[self setupView];
 	}
 //END4iTM3;
     return self;
@@ -3069,7 +3069,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (self = [super initWithCoder:aDecoder]) {
-		self.setupView;
+		[self setupView];
 	}
 //END4iTM3;
     return self;
@@ -3453,7 +3453,7 @@ To Do List:
 //START4iTM3;
 	NSUInteger modifierFlags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
 	NSView * documentView = self.documentView;
-	if(NSIsEmptyRect([documentView bounds]) || ([theEvent clickCount] != 1) || (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask) == ZER0))
+	if(NSIsEmptyRect([documentView bounds]) || (theEvent.clickCount != 1) || (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask) == ZER0))
 	{
 		return NO;
 	}
@@ -3683,7 +3683,7 @@ To Do List:
 		return;
 	}
 	NSLock * L = [[[NSLock alloc] init] autorelease];
-	L.lock;
+	[L lock];
 	NSInteger pageCount = self.pageCount;
     // __PageCharacterCounts[ZER0] is the total number of pages, in other words pageCount
     // __PageCharacterCounts[1] is the total amount of characters in page 1
@@ -3696,7 +3696,7 @@ To Do List:
 	if (__PageCharacterCounts = NSAllocateCollectable(sizeof(NSUInteger),pageCount+2)) {
 		__PageCharacterCounts[pageCount + 1] = ZER0;
 		__PageCharacterCounts[ZER0] = pageCount;
-		L.unlock;
+		[L unlock];
 		NSUInteger pageOff7 = ZER0;
 		NSUInteger pageIndex = ZER0;
         while (pageIndex < pageCount) {
@@ -3705,10 +3705,10 @@ To Do List:
             if (pageOff7 < UINT_MAX - NOC) {
                 pageOff7 += NOC;
                 ++pageIndex;
-                L.lock;
+                [L lock];
                 __PageCharacterCounts[pageIndex] = pageOff7;
                 __PageCharacterCounts[pageCount+1] = pageIndex;
-                L.unlock;
+                [L unlock];
             } else {
                 break;
             }
@@ -3726,7 +3726,7 @@ To Do List:
 		}
 		return;
 	} else {
-		L.unlock;
+		[L unlock];
 #warning THIS IS A BAD MANAGEMENT
 		LOG4iTM3(@"Memory management problem:no offest caching available...");
 		return;
@@ -5487,15 +5487,15 @@ startAgain:;
 	INIT_POOL4iTM3;
 //START4iTM3;
 	NSLock * L = [[NSLock alloc] init];
-	L.lock;
+	[L lock];
 	NSMutableArray * syncStack = self.syncStack;
 	if (syncStack.count>1) {
 		NSDictionary * hint = syncStack.lastObject;
-		syncStack.removeLastObject;
+		[syncStack removeLastObject];
 		NSDictionary * destinations = syncStack.lastObject;
-		syncStack.removeLastObject;
+		[syncStack removeLastObject];
 		PDFDestination * oldDestination = self.syncDestinations.count?[self.syncDestinations objectAtIndex:ZER0]:nil;
-		L.unlock;
+		[L unlock];
 		L = nil;
 		NSString * S = [hint objectForKey:@"container"];
 		if (S) {
@@ -5558,8 +5558,8 @@ startAgain:;
 		goto startAgain;
 	}
 	[syncStack setArray:[NSArray array]];
-	L.unlock;
-	L.release;
+	[L unlock];
+	[L release];
 	L = nil;
 //END4iTM3;
 	RELEASE_POOL4iTM3;
@@ -5577,14 +5577,14 @@ To Do List:
 	DEBUGLOG4iTM3(200,@"destinations:%@",destinations);
     DEBUGLOG4iTM3(200,@"hint:%@",hint);
 	NSLock * L = [[[NSLock alloc] init] autorelease];
-	L.lock;
+	[L lock];
 	NSMutableArray * syncStack = self.syncStack;
 	if (![syncStack isKindOfClass:[NSMutableArray class]]) {
 		syncStack = self.syncStack = [NSMutableArray array];
 	}
 	[syncStack addObject:destinations];
 	[syncStack addObject:hint];
-	L.unlock;
+	[L unlock];
 	#if 0
 	[NSThread detachNewThreadSelector:@selector(__threadedSynchronizeWithStoredDestinationsAndHints:)
 		toTarget:self withObject:nil];
@@ -5864,7 +5864,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    if ([theEvent clickCount] > ZER0) {
+    if (theEvent.clickCount > ZER0) {
 		NSUInteger modifierFlags = theEvent.modifierFlags;
 		if (modifierFlags & NSCommandKeyMask) {
 			if (modifierFlags & (NSShiftKeyMask|NSAlternateKeyMask)) {
@@ -5892,7 +5892,7 @@ To Do List:
 						newVisible.origin.x-=expectedHit.x-newHit.x;
 						newVisible.origin.y-=expectedHit.y-newHit.y;
 						[docView scrollRectToVisible:newVisible];
-						self.validateWindowContent4iTM3;
+						[self isWindowContentValid4iTM3];
 						iTM2PDFKitInspector * WC = window.windowController;
 						if ([WC respondsToSelector:@selector(setDocumentViewVisibleRect:)]) {
 							NSRect visibleRect = [docView visibleRect];
@@ -5928,7 +5928,7 @@ To Do List:
 			*/
 		}
 	}
-//LOG4iTM3(@"[theEvent clickCount] is:%i", [theEvent clickCount]);
+//LOG4iTM3(@"theEvent.clickCount is:%i", theEvent.clickCount);
     [super mouseDown:theEvent];
 //END4iTM3;
     return;
@@ -6110,7 +6110,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if ([theEvent clickCount] > 1) {
+	if (theEvent.clickCount > 1) {
 		// just switch to current source
 		NSDocument * D = [self.window.windowController document];
 		if ([D respondsToSelector:@selector(orderFrontCurrentSource)]) {
@@ -6171,7 +6171,7 @@ To Do List:
 			synchronizeWithLocation:point inPageAtIndex:pageIndex withHint:hint orderFront:NO];
 		return YES;
 	}
-//LOG4iTM3(@"[theEvent clickCount] is:%i", [theEvent clickCount]);
+//LOG4iTM3(@"theEvent.clickCount is:%i", theEvent.clickCount);
 //END4iTM3;
 	return NO;
 }
@@ -7760,7 +7760,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	self.pdfView.scaleFactor = 1.0;
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7792,7 +7792,7 @@ To Do List:
 		self.pdfView.scaleFactor *= n / 100.0;
     }
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7812,7 +7812,7 @@ To Do List:
 		self.pdfView.scaleFactor *= 100 / n;
     }
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7827,7 +7827,7 @@ To Do List:
 //START4iTM3;
 	// get the current page
 	[self.pdfView zoomToFit:sender];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7841,7 +7841,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	#warning NOT YET IMPLEMENTED
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7867,7 +7867,7 @@ To Do List:
 		index -= n;
 	[self.pdfView goToPage:[document pageAtIndex:index]];
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7895,7 +7895,7 @@ To Do List:
 		index = pageCount - 1;
 	[self.pdfView goToPage:[document pageAtIndex:index]];
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7909,7 +7909,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.pdfView goForward:sender];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7923,7 +7923,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self.pdfView goBack:sender];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7940,7 +7940,7 @@ To Do List:
     [[self.window keyStrokes4iTM3] getIntegerTrailer4iTM3:&n];
     [self.pdfView setScaleFactor:n/100.0];
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -7964,7 +7964,7 @@ To Do List:
 	if(--n<pageCount)
 		[self.pdfView goToPage:[document pageAtIndex:n]];
     [self.window flushKeyStrokeEvents4iTM3:self];
-	self.validateWindowContent4iTM3;
+	[self isWindowContentValid4iTM3];
 //END4iTM3;
     return;
 }
@@ -8002,7 +8002,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if (self = [super initWithCoder:aDecoder]) {
-		self.calcControlSize;
+		[self calcControlSize];
 	}
 	return self;
 }
@@ -8148,7 +8148,7 @@ To Do List:
 - (void)windowWillClose:(id)sender;
 {
 	[self setDefaultsController:nil];
-	self.autorelease;
+	[self autorelease];
 	iTM2PDFKitDefaultsController_sharedInstance = nil;
 	return;
 }
