@@ -73,7 +73,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	NSAssert(aKey != nil, @"Unexpected nil key");
     [self setObject:[aFont nameSizeDictionary] forKey:aKey];
-    self.notifyFontOrColorChangeNow;
+    [self notifyFontOrColorChangeNow];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerFont:forKey:
@@ -109,7 +109,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 	NSAssert(aKey != nil, @"Unexpected nil key");
     [self setObject:[aColor RGBADictionary] forKey:aKey];
-    self.notifyFontOrColorChangeNow;
+    [self notifyFontOrColorChangeNow];
     return;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  registerColor:forKey:
