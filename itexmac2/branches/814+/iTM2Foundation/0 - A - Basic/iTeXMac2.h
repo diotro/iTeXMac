@@ -66,13 +66,13 @@ extern NSMutableSet * ReachCodeTags4iTM3;
 
 #define START4iTM3 NSLog(@"%s %#x START(%@)", __PRETTY_FUNCTION__, self, [[NSDate date] description])
 #define END4iTM3   NSLog(@"%s %#x END", __PRETTY_FUNCTION__, self)
-#define LOG4iTM3(DESCRIPTION,...)\
+#define LOG4iTM3(DESCRIPTION,...) \
 do {\
 	NSLog(@"file:%s line:%i", __FILE__, __LINE__);\
 	NSLog(@"%s %#x", __PRETTY_FUNCTION__, self);\
 	NSLog(DESCRIPTION,##__VA_ARGS__,NULL);\
 } while(NO)
-#define DEBUGLOG4iTM3(LEVEL,DESCRIPTION,...)\
+#define DEBUGLOG4iTM3(LEVEL,DESCRIPTION,...) \
 do {\
     if (iTM2DebugEnabled > LEVEL) {\
         NSLog(@"file:%s line:%i", __FILE__, __LINE__);\
@@ -260,6 +260,7 @@ FOUNDATION_EXPORT NSRange iTM3ScaleRange(NSRange range, NSInteger delta);
 + (void) setRORef4iTM3:(NSError **)RORef;
 - (NSError **)RORef4iTM3;
 - (void) setRORef4iTM3:(NSError **)RORef;
+- (void) log4iTM3:(NSString *)format,...;
 
 @end
 
