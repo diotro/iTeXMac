@@ -134,7 +134,7 @@ static id iTM2SharedCompletionServer = nil;
 {
 	if (iTM2SharedCompletionServer)
 	{
-		self.release;
+		[self release];
 		return [iTM2SharedCompletionServer retain];
 	}
 	NSAssert((iTM2SharedCompletionServer = [super initWithWindow:window]),@"BUG, please report error iTM2 9669-1");
@@ -309,10 +309,10 @@ grosbois:
 	NSWindow * completionWindow = self.window;
 	if ([completionWindow parentWindow])
 	{
-		self.cancelCompletion;
+		[self cancelCompletion];
 		return 2;
 	}
-	self.cancelCompletion;
+	[self cancelCompletion];
 	
 	// is there something to complete with?
 	_RangeForUserCompletion = [aTextView rangeForUserCompletion];
@@ -472,8 +472,8 @@ grosbois:
 	[_TableView setAllowsMultipleSelection:NO];
 	[_TableView reloadData];
 	[_TableView selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedRow] byExtendingSelection:NO];
-	self.updateCompletion;
-	self.showCompletionWindow;
+	[self updateCompletion];
+	[self showCompletionWindow];
 	return ZER0;
 }
 - (void)updateCompletion;
@@ -787,7 +787,7 @@ grosbois:
 - (void)windowWillCloseNotified:(NSNotification *)aNotification;
 {
 	[[self.window parentWindow] removeChildWindow:self.window];// this will prevent an exception in the next call
-	self.cancelCompletion;
+	[self cancelCompletion];
 	return;
 }
 - (void)_concludeCompletion:(id)sender;
@@ -858,7 +858,7 @@ grosbois:
 		NSUInteger numberOfRows = _LongCandidates.count;
 		if (!numberOfRows)
 		{
-			self.cancelCompletion;
+			[self cancelCompletion];
 			return;
 		}
 		// where should I put this window
@@ -883,8 +883,8 @@ grosbois:
 		{
 			_EditedString = @"";
 		}
-		self.updateCompletion;
-		self.updateCompletionWindow;
+		[self updateCompletion];
+		[self updateCompletionWindow];
 	}
 	return;
 }
@@ -910,7 +910,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.updateCompletion;
+	[self updateCompletion];
 //END4iTM3;
 	return;
 }
