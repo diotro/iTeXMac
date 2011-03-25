@@ -564,7 +564,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super initWithFrame:frame]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
@@ -579,7 +579,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super initWithCoder:decoder]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
@@ -634,7 +634,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super initWithFrame:(NSRect) aFrame]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
@@ -649,7 +649,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super initWithCoder:(NSCoder *) decoder]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
@@ -681,12 +681,12 @@ To Do List:
                 __iTM2_PRETTY_FUNCTION__, argument];
         else if (_Subview != argument)
         {
-            self.willChangeCenteredSubview;
+            [self willChangeCenteredSubview];
             [_Subview removeFromSuperviewWithoutNeedingDisplay];
             [argument removeFromSuperviewWithoutNeedingDisplay];
             [self addSubview:argument];
             _Subview = argument;
-            self.didChangeCenteredSubview;
+            [self didChangeCenteredSubview];
         }
     }
     else
@@ -884,7 +884,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //NSLog(@"in awakeFromNib, iVarSubFrame4iTM3 isEqual to %#x", iVarSubFrame4iTM3);
     [super awakeFromNib];
-    self.computeIndexFromTag4iTM3;
+    [self computeIndexFromTag4iTM3];
     return;
 } 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-= computeIndexFromTag4iTM3
@@ -976,7 +976,7 @@ To Do List:
 //START4iTM3;
 	if ((self = [super initWithCoder:aDecoder]))
 	{
-		self.computeIndexFromTag4iTM3;
+		[self computeIndexFromTag4iTM3];
 		[self moveAwaySubviewAtIndex:iVarVisibleSubviewIndex4iTM3];
 		[aDecoder decodeValueOfObjCType:@encode(NSUInteger) at:&iVarVisibleSubviewIndex4iTM3];
 		[self moveCloserSubviewAtIndex:iVarVisibleSubviewIndex4iTM3];
@@ -998,7 +998,7 @@ To Do List:
 		[self moveCloserSubviewAtIndex:idx];
 	[super encodeWithCoder:aCoder];
 	[aCoder encodeValueOfObjCType:@encode(NSUInteger) at:&iVarVisibleSubviewIndex4iTM3];
-    self.computeIndexFromTag4iTM3;
+    [self computeIndexFromTag4iTM3];
 //END4iTM3;
 	return;
 }
@@ -1659,7 +1659,7 @@ To Do List:
 	NSView * V = notification.object;
 	if ([self isEqual:V.superview])
 	{
-		self.stackAndFit;
+		[self stackAndFit];
 	}
 	return;
 }
@@ -1677,7 +1677,7 @@ To Do List:
 			}
 			[self.orderedSubviews4iTM3 insertObject:aView atIndex:index];
 			[super addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView];
-			self.stackAndFit;
+			[self stackAndFit];
 			return;
 		}
 	}
@@ -1691,7 +1691,7 @@ To Do List:
 	{
 		[self.orderedSubviews4iTM3 replaceObjectAtIndex:index withObject:newView];
 		[super replaceSubview:oldView with:newView];
-		self.stackAndFit;
+		[self stackAndFit];
 		return;
 	}
 	[super replaceSubview:oldView with:newView];
@@ -1725,7 +1725,7 @@ To Do List:
 		}
 		[self.orderedSubviews4iTM3 insertObject:subview atIndex:index];
 		[super didAddSubview:subview];
-		self.stackAndFit;
+		[self stackAndFit];
 		return;
 	}
 	[super didAddSubview:subview];
@@ -1735,12 +1735,12 @@ To Do List:
 {
 	[super willRemoveSubview:(NSView *)subview];
 	[self.orderedSubviews4iTM3 removeObject:subview];
-	self.stackAndFit;
+	[self stackAndFit];
 	return;
 }
 - (void)resizeSubviewsWithOldSize:(NSSize)oldSize;
 {
-	self.stackAndFit;
+	[self stackAndFit];
 	return;
 }
 #if 1
