@@ -132,8 +132,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
     [self setImplementation:self.lazyImplementation];
-	self.fixImplementation;
-    self.observeImplementation;
+	[self fixImplementation];
+    [self observeImplementation];
 //END4iTM3;
     return;
 }
@@ -226,9 +226,9 @@ To Do List:
     id old = self.implementation;
     if (old != argument)
     {
-        self.implementationWillChange;
+        [self implementationWillChange];
         [self setImplementation:argument];
-        self.implementationDidChange;
+        [self implementationDidChange];
     }
 //END4iTM3;
     return;
@@ -703,7 +703,7 @@ To Do List:
                 [self readFromData:[fw regularFileContents] ofType:type error:RORef]);
         }
     }
-    self.updateChildren;
+    [self updateChildren];
     NSInvocation * I;
     [[NSInvocation getInvocation4iTM3:&I withTarget:self] readFromDirectoryWrapper:DW error:RORef];
     for (id child in self.children) {
@@ -1192,7 +1192,7 @@ To Do List:
 //START4iTM3;
     if ((self = [super init]))
     {
-        self.initImplementation;
+        [self initImplementation];
     }
     return self;
 }
@@ -1236,7 +1236,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    self.initImplementation;
+    [self initImplementation];
     return self;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initImplementation
@@ -1249,8 +1249,8 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //    [self setImplementation:self.lazyImplementation];
-	self.fixImplementation;
-    self.observeImplementation;
+	[self fixImplementation];
+    [self observeImplementation];
 //END4iTM3;
     return;
 }
