@@ -1,2 +1,1 @@
-#include "Development.xcconfig"
-#include "PlugIn"
+#include "PlugInDebug.xcconfig"
