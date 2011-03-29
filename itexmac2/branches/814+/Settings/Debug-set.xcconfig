@@ -1,3 +1,4 @@
+#include "Products-set.xcconfig"
 SKIP_INSTALL = NO
 GCC_OPTIMIZATION_LEVEL = 0
 GCC_WARN_UNINITIALIZED_AUTOS = NO
