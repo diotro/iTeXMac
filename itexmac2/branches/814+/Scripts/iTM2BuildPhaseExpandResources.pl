@@ -1,10 +1,11 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # run this script while building any bundle containing New Documents, projects, macros...
 use File::Basename;
 use Cwd;
 $FULL_PRODUCT_NAME="$ENV{FULL_PRODUCT_NAME}";
 $CONTENTS_FOLDER_PATH="$ENV{CONTENTS_FOLDER_PATH}";
 $TARGET_BUILD_DIR="$ENV{TARGET_BUILD_DIR}";
+$PROJECT_DIR="$ENV{PROJECT_DIR}";
 $UNLOCALIZED_RESOURCES_FOLDER_PATH="$ENV{UNLOCALIZED_RESOURCES_FOLDER_PATH}";
 my $FULL_UNLOCALIZED_RESOURCES_FOLDER_PATH="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH";
 my $FOLDER="$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH";
@@ -18,17 +19,17 @@ while(my $FILE = shift(@CANDIDATES))
     print "Expanding $FILE... DONE\n";
 }
 print "warning: iTeXMac2 INFO Creating the Macros summaries...\n";
-if(-d "$TARGET_BUILD_DIR/../Scripts")
+if(-d "$PROJECT_DIR/../Scripts")
 {
-	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/../Scripts" -regex ".*/iTM2MakeMacrosSummary" -print0`);
+	@CANDIDATES=split('\0', `find "$PROJECT_DIR/../Scripts" -regex ".*/iTM2MakeMacrosSummary" -print0`);
 }
-elsif(-d "$TARGET_BUILD_DIR/../../Scripts")
+elsif(-d "$PROJECT_DIR/../../Scripts")
 {
-	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/../../Scripts" -regex ".*/iTM2MakeMacrosSummary" -print0`);
+	@CANDIDATES=split('\0', `find "$PROJECT_DIR/../../Scripts" -regex ".*/iTM2MakeMacrosSummary" -print0`);
 }
-elsif(-d "$TARGET_BUILD_DIR/../../../Scripts")
+elsif(-d "$PROJECT_DIR/../../../Scripts")
 {
-	@CANDIDATES=split('\0', `find "$TARGET_BUILD_DIR/../../../Scripts" -regex ".*/iTM2MakeMacrosSummary" -print0`);
+	@CANDIDATES=split('\0', `find "$PROJECT_DIR/../../../Scripts" -regex ".*/iTM2MakeMacrosSummary" -print0`);
 }
 if( $iTM2MakeMacrosSummary = shift @CANDIDATES )
 {

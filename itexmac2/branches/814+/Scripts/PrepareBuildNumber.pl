@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # PrepareBuildNumber.pl
 # © Laurens'Tribune, Mardi 26 Septembre 2006
-printf "warning: Updating the build number\n";
+printf "message: Updating the build number\n";
 $CONFIGURATION = "$ENV{CONFIGURATION}";
 $TARGET_BUILD_DIR = "$ENV{TARGET_BUILD_DIR}";
 $REVISION=0;
@@ -31,7 +31,7 @@ print OUTPUT "#define SVN_BUILD_NUMBER $REVISION\n";
 $DATE=`date -u`;
 print OUTPUT "#define SVN_BUILD_DATE $DATE\n";
 close OUTPUT;
-printf "\nwarning: Updating the build number to revision $REVISION... DONE\n";
+printf "\nmessage: Updating the build number to revision $REVISION... DONE\n";
 exit 0;
 
 #
