@@ -1175,10 +1175,10 @@ U_CDECL_END
 	if ([self matchString:string]) {
 		self.replacementPattern = replacement;
 		NSString * replacement = self.replacementString;
-		self.forget;
+		[self forget];
 		return replacement;
 	}
-	self.forget;
+	[self forget];
 	return nil;
 }
 - (BOOL)matchesAtIndex:(NSInteger)idx extendToTheEnd:(BOOL)yorn;
@@ -1627,7 +1627,7 @@ groupName_found: {
 			if (errorRef) {
 				*errorRef = RE.error;
 			}
-            RE.forget;
+            [RE forget];
 			return ZER0;
 		}
 	}
@@ -1635,14 +1635,14 @@ groupName_found: {
 		if (errorRef) {
 			*errorRef = RE.error;
 		}
-        RE.forget;
+        [RE forget];
 		return ZER0;
 	}
 	NSEnumerator * E = [rangesAndReplacements reverseObjectEnumerator];
 	while((replacement = [E nextObject]) && (value = [E nextObject])) {
 		[self replaceCharactersInRange:value.rangeValue withString:replacement];
 	}
-    RE.forget;
+    [RE forget];
 	return rangesAndReplacements.count/2;
 }
 
