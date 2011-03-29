@@ -55,7 +55,7 @@ vi - remove the unused build phases
 B - The iTM2TeXFoundation project
 1 - the server
 a) create a cocoa command line tool target named "iTeXMac2 Server"
-b) add the source iTM2Server-main.m
+b) add the source iTM3Server-main.m
 c) set the prefix header
 z) build
 2 - the framework
