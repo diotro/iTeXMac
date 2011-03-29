@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51B736AB1341B01A00E7E772 /* Debug-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A21341B01A00E7E772 /* Debug-set.xcconfig */; };
+		51B736AC1341B01A00E7E772 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A31341B01A00E7E772 /* Debug.xcconfig */; };
+		51B736AD1341B01A00E7E772 /* DebugGC.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A41341B01A00E7E772 /* DebugGC.xcconfig */; };
+		51B736AE1341B01A00E7E772 /* FrameworkDebug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A51341B01A00E7E772 /* FrameworkDebug.xcconfig */; };
+		51B736AF1341B01A00E7E772 /* FrameworkRelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A61341B01A00E7E772 /* FrameworkRelease.xcconfig */; };
+		51B736B01341B01A00E7E772 /* PlugInDebug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A71341B01A00E7E772 /* PlugInDebug.xcconfig */; };
+		51B736B11341B01A00E7E772 /* PlugInRelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A81341B01A00E7E772 /* PlugInRelease.xcconfig */; };
+		51B736B21341B01A00E7E772 /* Release-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736A91341B01A00E7E772 /* Release-set.xcconfig */; };
+		51B736B31341B01A00E7E772 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 51B736AA1341B01A00E7E772 /* Release.xcconfig */; };
 		8D11072D0486CEB800E47090 /* iTM2Readme-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* iTM2Readme-main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		DC5129F80B3B056C0092B6C7 /* Documentation.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC5129F10B3B056C0092B6C7 /* Documentation.rtf */; };
@@ -21,16 +30,20 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* iTM2Readme-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2Readme-Prefix.pch"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* iTM2Readme-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "iTM2Readme-Info.plist"; sourceTree = "<group>"; };
+		51374720133D650C00C3E3AA /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		51374723133D650C00C3E3AA /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		51374724133D650C00C3E3AA /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		51B736A21341B01A00E7E772 /* Debug-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51B736A31341B01A00E7E772 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51B736A41341B01A00E7E772 /* DebugGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51B736A51341B01A00E7E772 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51B736A61341B01A00E7E772 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51B736A71341B01A00E7E772 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51B736A81341B01A00E7E772 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51B736A91341B01A00E7E772 /* Release-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51B736AA1341B01A00E7E772 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* iTM2Readme-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2Readme-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* iTM2Readme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTM2Readme.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC5129B20B3B019E0092B6C7 /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
-		DC5129B30B3B019E0092B6C7 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		DC5129B40B3B019E0092B6C7 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
-		DC5129B50B3B019E0092B6C7 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
-		DC5129B60B3B019E0092B6C7 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5129B70B3B019E0092B6C7 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
-		DC5129B80B3B019E0092B6C7 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
-		DC5129B90B3B019E0092B6C7 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5129F20B3B056C0092B6C7 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Documentation.rtf; sourceTree = "<group>"; };
 		DC5129F40B3B056C0092B6C7 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DC5129F50B3B056C0092B6C7 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = French.lproj/Documentation.rtf; sourceTree = "<group>"; };
@@ -89,9 +102,9 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				DC5129F00B3B056C0092B6C7 /* Resources */,
-				DC5129B10B3B019E0092B6C7 /* Settings */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				5137471A133D650C00C3E3AA /* Settings */,
 			);
 			name = iTM2Readme;
 			sourceTree = "<group>";
@@ -115,21 +128,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DC5129B10B3B019E0092B6C7 /* Settings */ = {
+		5137471A133D650C00C3E3AA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				DC5129B20B3B019E0092B6C7 /* Deployment.xcconfig */,
-				DC5129B30B3B019E0092B6C7 /* Development.xcconfig */,
-				DC5129B40B3B019E0092B6C7 /* Framework */,
-				DC5129B50B3B019E0092B6C7 /* FrameworkDeployment.xcconfig */,
-				DC5129B60B3B019E0092B6C7 /* FrameworkDevelopment.xcconfig */,
-				DC5129B70B3B019E0092B6C7 /* PlugIn */,
-				DC5129B80B3B019E0092B6C7 /* PlugInDeployment.xcconfig */,
-				DC5129B90B3B019E0092B6C7 /* PlugInDevelopment.xcconfig */,
+				51B736A21341B01A00E7E772 /* Debug-set.xcconfig */,
+				51B736A31341B01A00E7E772 /* Debug.xcconfig */,
+				51B736A41341B01A00E7E772 /* DebugGC.xcconfig */,
+				51B736A51341B01A00E7E772 /* FrameworkDebug.xcconfig */,
+				51B736A61341B01A00E7E772 /* FrameworkRelease.xcconfig */,
+				51B736A71341B01A00E7E772 /* PlugInDebug.xcconfig */,
+				51B736A81341B01A00E7E772 /* PlugInRelease.xcconfig */,
+				51B736A91341B01A00E7E772 /* Release-set.xcconfig */,
+				51B736AA1341B01A00E7E772 /* Release.xcconfig */,
+				51374720133D650C00C3E3AA /* Framework */,
+				51374723133D650C00C3E3AA /* GC-set.xcconfig */,
+				51374724133D650C00C3E3AA /* PlugIn */,
 			);
 			name = Settings;
-			path = ../Settings;
-			sourceTree = SOURCE_ROOT;
+			path = "/Users/itexmac2/dev/itexmac2/branches/814+/iTeXMac2/../Settings";
+			sourceTree = "<absolute>";
 		};
 		DC5129F00B3B056C0092B6C7 /* Resources */ = {
 			isa = PBXGroup;
@@ -169,7 +186,11 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iTM2Readme" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* iTM2Readme */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -187,6 +208,15 @@
 				DC5129F80B3B056C0092B6C7 /* Documentation.rtf in Resources */,
 				DC5129F90B3B056C0092B6C7 /* InfoPlist.strings in Resources */,
 				DC5129FA0B3B056C0092B6C7 /* rtf.icns in Resources */,
+				51B736AB1341B01A00E7E772 /* Debug-set.xcconfig in Resources */,
+				51B736AC1341B01A00E7E772 /* Debug.xcconfig in Resources */,
+				51B736AD1341B01A00E7E772 /* DebugGC.xcconfig in Resources */,
+				51B736AE1341B01A00E7E772 /* FrameworkDebug.xcconfig in Resources */,
+				51B736AF1341B01A00E7E772 /* FrameworkRelease.xcconfig in Resources */,
+				51B736B01341B01A00E7E772 /* PlugInDebug.xcconfig in Resources */,
+				51B736B11341B01A00E7E772 /* PlugInRelease.xcconfig in Resources */,
+				51B736B21341B01A00E7E772 /* Release-set.xcconfig in Resources */,
+				51B736B31341B01A00E7E772 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,17 +275,17 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5129B30B3B019E0092B6C7 /* Development.xcconfig */;
+			baseConfigurationReference = 51B736A31341B01A00E7E772 /* Debug.xcconfig */;
 			buildSettings = {
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5129B20B3B019E0092B6C7 /* Deployment.xcconfig */;
+			baseConfigurationReference = 51B736AA1341B01A00E7E772 /* Release.xcconfig */;
 			buildSettings = {
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 			};
 			name = Release;
 		};
