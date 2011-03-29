@@ -173,7 +173,7 @@ id ICsA, ICsB, EOLs;
 #import "iTM2Test6.h"
 #import "iTM2TesT7.h"
 
-#import "../../build/EmbeddedTestCases/iTM2FoundationTestCases.m"
+#include "iTM2FoundationTestCases.m"
 
 @interface iTM3TestCase(MORE)
 @end

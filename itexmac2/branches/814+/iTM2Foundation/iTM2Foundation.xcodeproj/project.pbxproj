@@ -59,35 +59,12 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 5185E6DE126F89E000AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
 			buildPhases = (
-				5185E6DA126F89C100AFA001 /* ShellScript */,
+				5185E6DA126F89C100AFA001 /* Prepare Milestones */,
 			);
 			dependencies = (
 			);
 			name = "Prepare Milestones";
 			productName = "Prepare Milestones";
-		};
-		DC2CA7A50855D53C00128F14 /* All */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DC1E8AA509462DC40037B13F /* Build configuration list for PBXAggregateTarget "All" */;
-			buildPhases = (
-			);
-			dependencies = (
-				DC5D6E9E0949CEF900EBA96C /* PBXTargetDependency */,
-				DC8A6020088D6F950016FAA2 /* PBXTargetDependency */,
-				DC8A601E088D6F930016FAA2 /* PBXTargetDependency */,
-			);
-			name = All;
-			productName = All;
-		};
-		DC8303B6086E9DA2004799EB /* Scripting Definition */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DC1E8AB109462DC40037B13F /* Build configuration list for PBXAggregateTarget "Scripting Definition" */;
-			buildPhases = (
-			);
-			dependencies = (
-			);
-			name = "Scripting Definition";
-			productName = "Scripting Definition";
 		};
 		DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */ = {
 			isa = PBXAggregateTarget;
@@ -99,17 +76,6 @@
 			);
 			name = "Prepare Build Number";
 			productName = "Prepare Build Number";
-		};
-		DCB200320858E250003659F3 /* Install iTM2Foundation */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DC1E8A9909462DC40037B13F /* Build configuration list for PBXAggregateTarget "Install iTM2Foundation" */;
-			buildPhases = (
-			);
-			dependencies = (
-				53985102108503E200E75451 /* PBXTargetDependency */,
-			);
-			name = "Install iTM2Foundation";
-			productName = "Install iTM2Foundation";
 		};
 /* End PBXAggregateTarget section */
 
@@ -193,7 +159,15 @@
 		5113C2D911731B7600F6D951 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
 		5113C2EE11731BBE00F6D951 /* iTM2Test3B.m in Sources */ = {isa = PBXBuildFile; fileRef = 5113C2EC11731BBE00F6D951 /* iTM2Test3B.m */; };
 		51167E2B10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51167E2A10975BD8007E76C8 /* iTM2StringControllerMacroTypes.plist */; };
+		511DF6AB13426EB5002324AF /* AlphaX.iTM2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCD7D6A70A43992D0096B1A9 /* AlphaX.iTM2 */; };
+		511DF6AC13426EB5002324AF /* BBEdit.iTM2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCD7D6B50A4399620096B1A9 /* BBEdit.iTM2 */; };
+		511DF6AD13426EB5002324AF /* BBEdit Lite.iTM2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCD7D6C30A4399790096B1A9 /* BBEdit Lite.iTM2 */; };
+		511DF6AE13426EB5002324AF /* Emacs.iTM2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCD7D6D30A4399990096B1A9 /* Emacs.iTM2 */; };
+		511DF6AF13426EB5002324AF /* TextWrangler.iTM2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCE5C57B0AC823950054C760 /* TextWrangler.iTM2 */; };
+		511DF6B013426EB5002324AF /* TextMate.iTM2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */; };
+		511DF6B113426EB5002324AF /* Skim.iTM2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */; };
 		5131527F0D0584F000862683 /* iTM2StringEncodingRegEx.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5131527E0D0584F000862683 /* iTM2StringEncodingRegEx.strings */; };
+		513B8919134211C3006CA861 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */; };
 		513ED9FC1193EE6D0069EFCA /* iTM2Test_RE.m in Sources */ = {isa = PBXBuildFile; fileRef = 5194557810BFE283006254DD /* iTM2Test_RE.m */; };
 		513ED9FD1193EE6D0069EFCA /* iTM2Test0A.m in Sources */ = {isa = PBXBuildFile; fileRef = 53767FAA108870F8007CCC1E /* iTM2Test0A.m */; };
 		513ED9FE1193EE6D0069EFCA /* iTM2Test0B.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C251731089E0EC002312DA /* iTM2Test0B.m */; };
@@ -219,9 +193,14 @@
 		515C95E11270DC8B0000C5BB /* iTeXMac2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 515C95DF1270DC8B0000C5BB /* iTeXMac2.xib */; };
 		5160E1D510CE8F8300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E1D610CE8F8300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
-		5160E1E110CE916300476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E29810CE9ABF00476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
 		5160E3C610CEBEC100476E56 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */; };
+		5170B68513427D74004F857A /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 5170B67813427D42004F857A /* GTMObjC2Runtime.m */; };
+		5170B68613427D74004F857A /* GTMRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 5170B67A13427D42004F857A /* GTMRegex.m */; };
+		5170B68713427D74004F857A /* GTMAppKitUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5170B67E13427D42004F857A /* GTMAppKitUnitTestingUtilities.m */; };
+		5170B68813427D74004F857A /* GTMFoundationUnitTestingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 5170B68013427D42004F857A /* GTMFoundationUnitTestingUtilities.m */; };
+		5170B68913427D74004F857A /* GTMSenTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5170B68213427D42004F857A /* GTMSenTestCase.m */; };
+		5170B68A13427D74004F857A /* GTMUnitTestDevLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5170B68413427D42004F857A /* GTMUnitTestDevLog.m */; };
 		5183F0E312CA6388009C5B3F /* iTM2Test3C.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F0E212CA6388009C5B3F /* iTM2Test3C.m */; };
 		5183F0E412CA6388009C5B3F /* iTM2Test3C.m in Sources */ = {isa = PBXBuildFile; fileRef = 5183F0E212CA6388009C5B3F /* iTM2Test3C.m */; };
 		5185EB5A12701C8400AFA001 /* Deployment-set.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */; };
@@ -1021,11 +1000,6 @@
 		533EB3A1108E6908001B3F81 /* iTM2HelpKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB39D108E6908001B3F81 /* iTM2HelpKit.m */; };
 		533EB3A2108E6908001B3F81 /* iTM2HelpKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB39D108E6908001B3F81 /* iTM2HelpKit.m */; };
 		533EB3F6108E6C59001B3F81 /* iTM2TextScriptingKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB3F3108E6C59001B3F81 /* iTM2TextScriptingKit.m */; };
-		537677D710885190007CCC1E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 537677C910885159007CCC1E /* InfoPlist.strings */; };
-		537677D810885192007CCC1E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 537677C710885159007CCC1E /* Credits.rtf */; };
-		537677D91088519A007CCC1E /* TestApp-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 537677CE10885159007CCC1E /* TestApp-main.m */; };
-		537677E0108851A0007CCC1E /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
-		537677E1108851A0007CCC1E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		5376784E108852E6007CCC1E /* dimple_nib_aqua.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C020854654B003F5F79 /* dimple_nib_aqua.tiff */; };
 		5376784F108852E6007CCC1E /* dimple_nib_grey_aqua.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C030854654B003F5F79 /* dimple_nib_grey_aqua.tiff */; };
 		53767850108852E6007CCC1E /* Basic.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCF61C040854654B003F5F79 /* Basic.strings */; };
@@ -1121,7 +1095,6 @@
 		537678F1108852E6007CCC1E /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6F8AB70BA3FF6600A75787 /* ExceptionHandling.framework */; };
 		537678F3108852E6007CCC1E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52B510C0F2F9900F2D5B9 /* libicucore.dylib */; };
 		537678F7108852E6007CCC1E /* iTM2CreateMacroIndex.pl in Copy Binaries */ = {isa = PBXBuildFile; fileRef = DC25E2E809917C6600545F27 /* iTM2CreateMacroIndex.pl */; };
-		53767D941088680C007CCC1E /* iTM2Foundation-debug.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 537678FF108852E6007CCC1E /* iTM2Foundation-debug.framework */; };
 		53768019108874C6007CCC1E /* iTM2Test0A.m in Sources */ = {isa = PBXBuildFile; fileRef = 53767FAA108870F8007CCC1E /* iTM2Test0A.m */; };
 		539E1BD71090F4FD00BAB1DB /* iTM2StringKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EB38C108E6808001B3F81 /* iTM2StringKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		539E1C001090F54600BAB1DB /* iTM2MiscKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 533EAFBD108E4785001B3F81 /* iTM2MiscKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1149,7 +1122,6 @@
 		539E1C481090F7B400BAB1DB /* iTM2MacroKit_String.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE3F108E087D001B3F81 /* iTM2MacroKit_String.m */; };
 		539E1C4A1090F7B400BAB1DB /* iTM2MacroKit_Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EAE41108E087D001B3F81 /* iTM2MacroKit_Tree.m */; };
 		539E1C4C1090F7B400BAB1DB /* iTM2TextCompletionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 533EB165108E5CF4001B3F81 /* iTM2TextCompletionKit.m */; };
-		539E1C811090F86500BAB1DB /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */; };
 		53C23FE410693C4A0000990A /* iTM2CompletionInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCA10693C4A0000990A /* iTM2CompletionInspector.xib */; };
 		53C23FE510693C4A0000990A /* iTM2CompletionServer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCC10693C4A0000990A /* iTM2CompletionServer.xib */; };
 		53C23FE610693C4A0000990A /* iTM2ExternalInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53C23FCE10693C4A0000990A /* iTM2ExternalInspector.xib */; };
@@ -1275,8 +1247,6 @@
 		DC13E6A2085587160063D5A5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		DC13E6A50855874D0063D5A5 /* Test Application-main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F7FA0854BBEE00F3EB8A /* Test Application-main.m */; };
 		DC13E6C2085588F20063D5A5 /* iTM2Foundation.framework in Copy framework */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */; };
-		DC13E6E80855A01A0063D5A5 /* External Text Editor.iTM2 in Copy Plug-Ins */ = {isa = PBXBuildFile; fileRef = DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */; };
-		DC13E6E90855A01A0063D5A5 /* External PDF Viewer.iTM2 in Copy Plug-Ins */ = {isa = PBXBuildFile; fileRef = DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */; };
 		DC165B4E08CDAE8F004B14C7 /* iTM2ButtonBack.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4B08CDAE8F004B14C7 /* iTM2ButtonBack.tiff */; };
 		DC165B4F08CDAE8F004B14C7 /* iTM2ButtonForward.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4C08CDAE8F004B14C7 /* iTM2ButtonForward.tiff */; };
 		DC165B5008CDAE8F004B14C7 /* iTM2ButtonHelp.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC165B4D08CDAE8F004B14C7 /* iTM2ButtonHelp.tiff */; };
@@ -1340,16 +1310,11 @@
 		DCC3CEAD092398D3005471BD /* iTM2TextStorageKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC3CEAC092398D3005471BD /* iTM2TextStorageKit.m */; };
 		DCC62E610A9A70B300073E93 /* iTM2MacroKeyCodes.xml in Resources */ = {isa = PBXBuildFile; fileRef = DCC62E600A9A70B300073E93 /* iTM2MacroKeyCodes.xml */; };
 		DCC7F34D0854A96000F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F34C0854A96000F3EB8A /* Carbon.framework */; };
-		DCC7F8BE0854DCBC00F3EB8A /* command in Copy Command */ = {isa = PBXBuildFile; fileRef = DCC7F8B60854DC0F00F3EB8A /* command */; };
-		DCC7F8C10854DCD700F3EB8A /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B70854DC0F00F3EB8A /* README.rtf */; };
-		DCC7F8E10854DE7500F3EB8A /* command in Copy Command */ = {isa = PBXBuildFile; fileRef = DCC7F8B20854DC0F00F3EB8A /* command */; };
-		DCC7F8E50854DE8D00F3EB8A /* README.rtf in Copy Readme.rtf */ = {isa = PBXBuildFile; fileRef = DCC7F8B40854DC0F00F3EB8A /* README.rtf */; };
 		DCC9FC2908742B59003279C2 /* iTM2SplitHorizontal.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FC2608742B59003279C2 /* iTM2SplitHorizontal.png */; };
 		DCC9FC2A08742B5A003279C2 /* iTM2SplitClose.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FC2708742B59003279C2 /* iTM2SplitClose.png */; };
 		DCC9FC2B08742B5A003279C2 /* iTM2SplitVertical.png in Resources */ = {isa = PBXBuildFile; fileRef = DCC9FC2808742B59003279C2 /* iTM2SplitVertical.png */; };
 		DCCD2E0C09E071760003EEF9 /* Project.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2E0A09E071760003EEF9 /* Project.strings */; };
 		DCCD2E4109E13E970003EEF9 /* Inspector.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCCD2E3F09E13E970003EEF9 /* Inspector.strings */; };
-		DCCDD15A08F4723700DAF639 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCDD15908F4723700DAF639 /* iTM2Foundation.framework */; };
 		DCCF02F50A5DC5C200B4B720 /* Aqua2_Add_Inactive.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02EF0A5DC5C100B4B720 /* Aqua2_Add_Inactive.tif */; };
 		DCCF02F60A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F00A5DC5C200B4B720 /* Aqua2_Add_Pressed.tif */; };
 		DCCF02F70A5DC5C200B4B720 /* Aqua2_Add.tif in Resources */ = {isa = PBXBuildFile; fileRef = DCCF02F10A5DC5C200B4B720 /* Aqua2_Add.tif */; };
@@ -1413,6 +1378,62 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		511DF69A1342512B002324AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
+		};
+		511DF69C13425132002324AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
+		};
+		511DF69E1342513A002324AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
+		};
+		511DF6A01342513F002324AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
+		};
+		511DF6A213425143002324AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
+		};
+		511DF6A413425147002324AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
+		};
+		511DF6A61342514C002324AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
+			remoteInfo = "Prepare Build Number";
+		};
+		513B891A134211F3006CA861 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = "iTM2Foundation Base";
+		};
 		514218BB109885FC00A01853 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1546,13 +1567,6 @@
 			remoteGlobalIDString = 5185E6DB126F89C100AFA001;
 			remoteInfo = "Prepare Milestones";
 		};
-		51A6873C10A2E269006E0065 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = iTM2Foundation;
-		};
 		51D7FE1B12987901009C0707 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1566,20 +1580,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 51FFE005127C648C0014BE72;
 			remoteInfo = iTM2Test6;
-		};
-		51EFB39B0DFD23BD0090E7D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		51EFB3C80DFD278C0090E7D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 51EFB3990DFD23BD0090E7D0;
-			remoteInfo = Skim;
 		};
 		5338F491108FA15C00842A70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1595,62 +1595,6 @@
 			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
 			remoteInfo = "Prepare Build Number";
 		};
-		53985101108503E200E75451 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = iTM2Foundation;
-		};
-		539E1C7B1090F84400BAB1DB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = iTM2Foundation;
-		};
-		DC5D6E9D0949CEF900EBA96C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = iTM2Foundation;
-		};
-		DC83042D086EADFF004799EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCC7F8980854DB8C00F3EB8A;
-			remoteInfo = "External Text Editor";
-		};
-		DC83042F086EAE02004799EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCC7F8CD0854DE0F00F3EB8A;
-			remoteInfo = "External PDF Viewer";
-		};
-		DC8A601D088D6F930016FAA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCC7F8CD0854DE0F00F3EB8A;
-			remoteInfo = "External PDF Viewer";
-		};
-		DC8A601F088D6F950016FAA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCC7F8980854DB8C00F3EB8A;
-			remoteInfo = "External Text Editor";
-		};
-		DC993AD3088DF11700F8BCE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC2CA7A50855D53C00128F14;
-			remoteInfo = All;
-		};
 		DCB0A02909AF015000D2A37C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1665,121 +1609,25 @@
 			remoteGlobalIDString = DCB1D93B0B4EACBC00B0704A;
 			remoteInfo = "Prepare Build Number";
 		};
-		DCB200450858E2A5003659F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCB2004D0858E2AF003659F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCB200520858E2B2003659F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCB7DEA10ADE49DE0084DE9D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCB7DEC10ADE4CF50084DE9D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB7DE9F0ADE49DE0084DE9D;
-			remoteInfo = TextMate;
-		};
-		DCBEF0C70A5B2F42000EB417 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC2CA7A50855D53C00128F14;
-			remoteInfo = All;
-		};
-		DCD7D69E0A43992D0096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCD7D6AD0A4399620096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCD7D6BB0A4399790096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCD7D6CB0A4399990096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCD7D6DE0A439A9F0096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCD7D6C90A4399990096B1A9;
-			remoteInfo = Emacs;
-		};
-		DCD7D6E00A439AA20096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCD7D6B90A4399790096B1A9;
-			remoteInfo = "BBEdit Lite";
-		};
-		DCD7D6E20A439AA40096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCD7D6AB0A4399620096B1A9;
-			remoteInfo = BBEdit;
-		};
-		DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCD7D69C0A43992D0096B1A9;
-			remoteInfo = "Alpha X";
-		};
-		DCE5C5740AC823940054C760 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCB200320858E250003659F3;
-			remoteInfo = "Install iTM2Foundation";
-		};
-		DCE5C5A00AC825EA0054C760 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DCE5C5720AC823940054C760;
-			remoteInfo = TextWrangler;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		511DF6AA13426E87002324AF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				511DF6AB13426EB5002324AF /* AlphaX.iTM2 in CopyFiles */,
+				511DF6AC13426EB5002324AF /* BBEdit.iTM2 in CopyFiles */,
+				511DF6AD13426EB5002324AF /* BBEdit Lite.iTM2 in CopyFiles */,
+				511DF6AE13426EB5002324AF /* Emacs.iTM2 in CopyFiles */,
+				511DF6AF13426EB5002324AF /* TextWrangler.iTM2 in CopyFiles */,
+				511DF6B013426EB5002324AF /* TextMate.iTM2 in CopyFiles */,
+				511DF6B113426EB5002324AF /* Skim.iTM2 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		51EFB39C0DFD23BD0090E7D0 /* Copy Command */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1813,26 +1661,6 @@
 			name = "Copy Binaries";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		53767D8E108867DF007CCC1E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "Copy Frameworks";
-			dstSubfolderSpec = 11;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		53767DA810886831007CCC1E /* Copy Framework */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 11;
-			files = (
-				53767D941088680C007CCC1E /* iTM2Foundation-debug.framework in Copy Framework */,
-			);
-			name = "Copy Framework";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		53F81EB11086742B0000F555 /* Copy Plug-Ins */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1864,18 +1692,6 @@
 			name = "Copy framework";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC13E6DC0855A00B0063D5A5 /* Copy Plug-Ins */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				DC13E6E80855A01A0063D5A5 /* External Text Editor.iTM2 in Copy Plug-Ins */,
-				DC13E6E90855A01A0063D5A5 /* External PDF Viewer.iTM2 in Copy Plug-Ins */,
-			);
-			name = "Copy Plug-Ins";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DC25E2E609917C0F00545F27 /* Copy Binaries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1896,50 +1712,6 @@
 				DCB7DEB40ADE4A0F0084DE9D /* textmate in Copy Command */,
 			);
 			name = "Copy Command";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DCC7F8BC0854DCA600F3EB8A /* Copy Command */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				DCC7F8BE0854DCBC00F3EB8A /* command in Copy Command */,
-			);
-			name = "Copy Command";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DCC7F8BF0854DCC700F3EB8A /* Copy Readme.rtf */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 1;
-			files = (
-				DCC7F8C10854DCD700F3EB8A /* README.rtf in Copy Readme.rtf */,
-			);
-			name = "Copy Readme.rtf";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DCC7F8D90854DE4900F3EB8A /* Copy Command */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				DCC7F8E10854DE7500F3EB8A /* command in Copy Command */,
-			);
-			name = "Copy Command";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DCC7F8E20854DE8200F3EB8A /* Copy Readme.rtf */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 1;
-			files = (
-				DCC7F8E50854DE8D00F3EB8A /* README.rtf in Copy Readme.rtf */,
-			);
-			name = "Copy Readme.rtf";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DCD7D69F0A43992D0096B1A9 /* Copy Command */ = {
@@ -2015,9 +1787,22 @@
 		5142191810988E0600A01853 /* iTM2StringControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StringControllerKit.m; sourceTree = "<group>"; };
 		515C95E01270DC8B0000C5BB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Test Application/English.lproj/iTeXMac2.xib"; sourceTree = "<group>"; };
 		5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
+		5170B67613427D42004F857A /* GTMGarbageCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
+		5170B67713427D42004F857A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
+		5170B67813427D42004F857A /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
+		5170B67913427D42004F857A /* GTMRegex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMRegex.h; sourceTree = "<group>"; };
+		5170B67A13427D42004F857A /* GTMRegex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMRegex.m; sourceTree = "<group>"; };
+		5170B67B13427D42004F857A /* GTMDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		5170B67D13427D42004F857A /* GTMAppKitUnitTestingUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMAppKitUnitTestingUtilities.h; sourceTree = "<group>"; };
+		5170B67E13427D42004F857A /* GTMAppKitUnitTestingUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMAppKitUnitTestingUtilities.m; sourceTree = "<group>"; };
+		5170B67F13427D42004F857A /* GTMFoundationUnitTestingUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMFoundationUnitTestingUtilities.h; sourceTree = "<group>"; };
+		5170B68013427D42004F857A /* GTMFoundationUnitTestingUtilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMFoundationUnitTestingUtilities.m; sourceTree = "<group>"; };
+		5170B68113427D42004F857A /* GTMSenTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMSenTestCase.h; sourceTree = "<group>"; };
+		5170B68213427D42004F857A /* GTMSenTestCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMSenTestCase.m; sourceTree = "<group>"; };
+		5170B68313427D42004F857A /* GTMUnitTestDevLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMUnitTestDevLog.h; sourceTree = "<group>"; };
+		5170B68413427D42004F857A /* GTMUnitTestDevLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GTMUnitTestDevLog.m; sourceTree = "<group>"; };
 		5183F0E112CA6388009C5B3F /* iTM2Test3C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test3C.h; sourceTree = "<group>"; };
 		5183F0E212CA6388009C5B3F /* iTM2Test3C.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test3C.m; sourceTree = "<group>"; };
-		5183F9D812CC076E009C5B3F /* iTM2FoundationTestCases.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM2FoundationTestCases.m; path = ../build/EmbeddedTestCases/iTM2FoundationTestCases.m; sourceTree = SOURCE_ROOT; };
 		5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
 		5185EB5712701C8400AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
 		5185EB5812701C8400AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
@@ -2099,7 +1884,6 @@
 		533EB39D108E6908001B3F81 /* iTM2HelpKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2HelpKit.m; sourceTree = "<group>"; };
 		533EB3F3108E6C59001B3F81 /* iTM2TextScriptingKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TextScriptingKit.m; sourceTree = "<group>"; };
 		533EB414108E6CAA001B3F81 /* iTM2TextScriptingKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TextScriptingKit.h; sourceTree = "<group>"; };
-		5376779C10885028007CCC1E /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537677C810885159007CCC1E /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		537677CA10885159007CCC1E /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		537677CD10885159007CCC1E /* TestApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TestApp-Info.plist"; sourceTree = "<group>"; };
@@ -2274,7 +2058,6 @@
 		DC5B69B50A4B6CD100F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2PreferenceTemplate.prePane; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6698AC08E128A2004FCA6D /* iTM2PreferenceTemplate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iTM2PreferenceTemplate-Info.plist"; sourceTree = "<group>"; };
 		DC691835088C6AEF00F00114 /* iTM2KeyStrokeSelectors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2KeyStrokeSelectors.plist; sourceTree = "<group>"; };
 		DC69184E088C6E9A00F00114 /* iTM2StartupKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StartupKit.h; sourceTree = "<group>"; };
@@ -2295,7 +2078,6 @@
 		DC8AD5410A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/KeyBindings.resources.tgz; sourceTree = "<group>"; };
 		DC8AD5420A3ABD44006C28A5 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/TextEditor.resources.tgz; sourceTree = "<group>"; };
 		DC90CE9D09976BBD00C79525 /* iTM2MacrosMenu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MacrosMenu.xml; sourceTree = "<group>"; };
-		DC951797088DED4B0011E823 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC99ECBF0A284EA800F50752 /* Project-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Project-Info.plist"; sourceTree = "<group>"; };
 		DC99ECC60A284EC600F50752 /* Projects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projects.h; sourceTree = "<group>"; };
 		DC99ECC70A284EC600F50752 /* Projects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Projects.m; sourceTree = "<group>"; };
@@ -2321,14 +2103,12 @@
 		DCC7F6910854B61300F3EB8A /* JAGUAR-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JAGUAR-Prefix.pch"; sourceTree = "<group>"; };
 		DCC7F7F70854BBEE00F3EB8A /* iTM2Foundation Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2Foundation Test-Info.plist"; sourceTree = "<group>"; };
 		DCC7F7FA0854BBEE00F3EB8A /* Test Application-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test Application-main.m"; sourceTree = "<group>"; };
-		DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "External Text Editor.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC7F8B20854DC0F00F3EB8A /* command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = command; sourceTree = "<group>"; };
 		DCC7F8B30854DC0F00F3EB8A /* External PDF Viewer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "External PDF Viewer-Info.plist"; sourceTree = "<group>"; };
 		DCC7F8B40854DC0F00F3EB8A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		DCC7F8B60854DC0F00F3EB8A /* command */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = command; sourceTree = "<group>"; };
 		DCC7F8B70854DC0F00F3EB8A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		DCC7F8B80854DC0F00F3EB8A /* External Text Editor-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "External Text Editor-Info.plist"; sourceTree = "<group>"; };
-		DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "External PDF Viewer.iTM2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCC9FC2608742B59003279C2 /* iTM2SplitHorizontal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SplitHorizontal.png; sourceTree = "<group>"; };
 		DCC9FC2708742B59003279C2 /* iTM2SplitClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SplitClose.png; sourceTree = "<group>"; };
 		DCC9FC2808742B59003279C2 /* iTM2SplitVertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTM2SplitVertical.png; sourceTree = "<group>"; };
@@ -2560,16 +2340,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5376779A10885028007CCC1E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				539E1C811090F86500BAB1DB /* iTM2Foundation.framework in Frameworks */,
-				537677E0108851A0007CCC1E /* ExceptionHandling.framework in Frameworks */,
-				537677E1108851A0007CCC1E /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		537678EB108852E6007CCC1E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2637,7 +2407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC13E6A2085587160063D5A5 /* Cocoa.framework in Frameworks */,
-				DCCDD15A08F4723700DAF639 /* iTM2Foundation.framework in Frameworks */,
+				513B8919134211C3006CA861 /* iTM2Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2646,13 +2416,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC25E5080991FA0B00545F27 /* Carbon.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DC6698A908E1289F004FCA6D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2682,11 +2445,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC2EF5B0486A6940098B216 /* iTM2Foundation.framework */,
-				DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */,
-				DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */,
 				DC13E68B0855867D0063D5A5 /* Test Application.app */,
-				DC951797088DED4B0011E823 /* iTeXMac2.app */,
-				DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */,
 				DC25E42E0991F5F000545F27 /* iTM2TaskKit Test.octest */,
 				DCB0A00A09AEF96E00D2A37C /* Alias Test.octest */,
 				DCD7D6A70A43992D0096B1A9 /* AlphaX.iTM2 */,
@@ -2700,7 +2459,6 @@
 				DCAD22760C144930005549DC /* ICU RegEx test.octest */,
 				51EFB3A30DFD23BD0090E7D0 /* Skim.iTM2 */,
 				53F81EBB1086742B0000F555 /* Test Application debug.app */,
-				5376779C10885028007CCC1E /* TestApp.app */,
 				537678FF108852E6007CCC1E /* iTM2Foundation-debug.framework */,
 				53767F7310887003007CCC1E /* iTM2Test0A.octest */,
 				53C251461089DF36002312DA /* iTM2Test0B.octest */,
@@ -2735,7 +2493,6 @@
 				DCF61BC40854654B003F5F79 /* 3 - Style */,
 				DC8303ED086EA056004799EB /* 4 - Scripting */,
 				DC66983708E0B554004FCA6D /* 5 - Preferences */,
-				51FAD91F12FF1BA300A59CD2 /* GTM */,
 				DCF61C000854654B003F5F79 /* Core Resources */,
 				DCF61C350854654B003F5F79 /* iTM2Foundation-Info.plist */,
 				DCF61C360854654B003F5F79 /* iTM2Foundation-Prefix.pch */,
@@ -2744,6 +2501,7 @@
 				DCC7F6910854B61300F3EB8A /* JAGUAR-Prefix.pch */,
 				DCC7F8B00854DC0F00F3EB8A /* External Inspectors */,
 				DCC7F7F70854BBEE00F3EB8A /* iTM2Foundation Test-Info.plist */,
+				5170B67413427D42004F857A /* GTM */,
 				DC25E43C0991F6B900545F27 /* Unit Tests */,
 				DC3B41C40A4ADEA400E83ABA /* Settings */,
 				DC25E42F0991F5F000545F27 /* iTM2TaskKit Test-Info.plist */,
@@ -2799,13 +2557,43 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		51FAD91F12FF1BA300A59CD2 /* GTM */ = {
+		5170B67413427D42004F857A /* GTM */ = {
 			isa = PBXGroup;
 			children = (
+				5170B67513427D42004F857A /* Foundation */,
+				5170B67B13427D42004F857A /* GTMDefines.h */,
+				5170B67C13427D42004F857A /* UnitTesting */,
 			);
 			name = GTM;
 			path = ../GTM;
-			sourceTree = SOURCE_ROOT;
+			sourceTree = "<group>";
+		};
+		5170B67513427D42004F857A /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				5170B67613427D42004F857A /* GTMGarbageCollection.h */,
+				5170B67713427D42004F857A /* GTMObjC2Runtime.h */,
+				5170B67813427D42004F857A /* GTMObjC2Runtime.m */,
+				5170B67913427D42004F857A /* GTMRegex.h */,
+				5170B67A13427D42004F857A /* GTMRegex.m */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		5170B67C13427D42004F857A /* UnitTesting */ = {
+			isa = PBXGroup;
+			children = (
+				5170B67D13427D42004F857A /* GTMAppKitUnitTestingUtilities.h */,
+				5170B67E13427D42004F857A /* GTMAppKitUnitTestingUtilities.m */,
+				5170B67F13427D42004F857A /* GTMFoundationUnitTestingUtilities.h */,
+				5170B68013427D42004F857A /* GTMFoundationUnitTestingUtilities.m */,
+				5170B68113427D42004F857A /* GTMSenTestCase.h */,
+				5170B68213427D42004F857A /* GTMSenTestCase.m */,
+				5170B68313427D42004F857A /* GTMUnitTestDevLog.h */,
+				5170B68413427D42004F857A /* GTMUnitTestDevLog.m */,
+			);
+			path = UnitTesting;
+			sourceTree = "<group>";
 		};
 		533EAE27108E087D001B3F81 /* 1 - A - Macros */ = {
 			isa = PBXGroup;
@@ -2957,7 +2745,6 @@
 		DC25E43C0991F6B900545F27 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				5183F9D812CC076E009C5B3F /* iTM2FoundationTestCases.m */,
 				51D1D48A1196037000BC8256 /* Sandbox */,
 				513EDA6411943CBA0069EFCA /* iTM3SenTestKit.h */,
 				513EDA6511943CBA0069EFCA /* iTM3SenTestKit.m */,
@@ -3427,7 +3214,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				51EFB39A0DFD23BD0090E7D0 /* PBXTargetDependency */,
+				511DF6A71342514C002324AF /* PBXTargetDependency */,
 			);
 			name = Skim;
 			productName = "External PDF Viewer";
@@ -3615,25 +3402,6 @@
 			productReference = 533EB35D108E652C001B3F81 /* iTM2Test1C.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		5376779B10885028007CCC1E /* TestApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 537677A110885029007CCC1E /* Build configuration list for PBXNativeTarget "TestApp" */;
-			buildPhases = (
-				5376779810885028007CCC1E /* Resources */,
-				5376779910885028007CCC1E /* Sources */,
-				5376779A10885028007CCC1E /* Frameworks */,
-				53767DA810886831007CCC1E /* Copy Framework */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				539E1C7C1090F84400BAB1DB /* PBXTargetDependency */,
-			);
-			name = TestApp;
-			productName = TestApp;
-			productReference = 5376779C10885028007CCC1E /* TestApp.app */;
-			productType = "com.apple.product-type.application";
-		};
 		537677FF108852E6007CCC1E /* iTM2Foundation-debug */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 537678FC108852E6007CCC1E /* Build configuration list for PBXNativeTarget "iTM2Foundation-debug" */;
@@ -3769,18 +3537,13 @@
 				DC13E6870855867D0063D5A5 /* Resources */,
 				DC13E6880855867D0063D5A5 /* Sources */,
 				DC13E6C0085588E20063D5A5 /* Copy framework */,
-				53767D8E108867DF007CCC1E /* CopyFiles */,
-				DC13E6DC0855A00B0063D5A5 /* Copy Plug-Ins */,
 				DC13E6890855867D0063D5A5 /* Frameworks */,
+				511DF6AA13426E87002324AF /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				51A6873D10A2E269006E0065 /* PBXTargetDependency */,
-				DCBEF0C80A5B2F42000EB417 /* PBXTargetDependency */,
-				DCB200530858E2B2003659F3 /* PBXTargetDependency */,
-				DC83042E086EADFF004799EB /* PBXTargetDependency */,
-				DC830430086EAE02004799EB /* PBXTargetDependency */,
+				513B891B134211F3006CA861 /* PBXTargetDependency */,
 			);
 			name = "Test Application";
 			productName = "Test Application";
@@ -3819,41 +3582,6 @@
 			productName = "Prepare OgreKit";
 			productReference = DC815F360ADC4DBE00AFCED2 /* Prepare CamelBones.framework */;
 			productType = "com.apple.product-type.framework";
-		};
-		DC6698AA08E1289F004FCA6D /* iTM2PreferencePane */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC1E8AB509462DC40037B13F /* Build configuration list for PBXNativeTarget "iTM2PreferencePane" */;
-			buildPhases = (
-				DC6698B908E12992004FCA6D /* ShellScript */,
-				DC6698A708E1289F004FCA6D /* Resources */,
-				DC6698A808E1289F004FCA6D /* Sources */,
-				DC6698A908E1289F004FCA6D /* Frameworks */,
-			);
-			buildRules = (
-			);
-			comments = "Unused stuff";
-			dependencies = (
-			);
-			name = iTM2PreferencePane;
-			productName = iTM2PreferenceTemplate;
-			productReference = DC6698AB08E1289F004FCA6D /* iTM2PreferenceTemplate.prePane */;
-			productType = "com.apple.product-type.bundle";
-		};
-		DC951796088DED4B0011E823 /* iTeXMac2 */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC1E8AAD09462DC40037B13F /* Build configuration list for PBXNativeTarget "iTeXMac2" */;
-			buildPhases = (
-				DC9517A1088DED5C0011E823 /* Really build iTeXMac2 */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DC993AD4088DF11700F8BCE1 /* PBXTargetDependency */,
-			);
-			name = iTeXMac2;
-			productName = iTeXMac2;
-			productReference = DC951797088DED4B0011E823 /* iTeXMac2.app */;
-			productType = "com.apple.product-type.application";
 		};
 		DCAD22750C144930005549DC /* ICU RegEx test */ = {
 			isa = PBXNativeTarget;
@@ -3901,52 +3629,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				DCB7DEA00ADE49DE0084DE9D /* PBXTargetDependency */,
+				511DF6A313425143002324AF /* PBXTargetDependency */,
 			);
 			name = TextMate;
 			productName = "External Text Editor";
 			productReference = DCB7DEA70ADE49DE0084DE9D /* TextMate.iTM2 */;
-			productType = "com.apple.product-type.bundle";
-		};
-		DCC7F8980854DB8C00F3EB8A /* External Text Editor */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC1E8A9D09462DC40037B13F /* Build configuration list for PBXNativeTarget "External Text Editor" */;
-			buildPhases = (
-				DCC7F8BC0854DCA600F3EB8A /* Copy Command */,
-				DCC7F8BF0854DCC700F3EB8A /* Copy Readme.rtf */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DCD7D6E50A439AA60096B1A9 /* PBXTargetDependency */,
-				DCD7D6E30A439AA40096B1A9 /* PBXTargetDependency */,
-				DCD7D6DF0A439A9F0096B1A9 /* PBXTargetDependency */,
-				DCD7D6E10A439AA20096B1A9 /* PBXTargetDependency */,
-				DCE5C5A10AC825EA0054C760 /* PBXTargetDependency */,
-				DCB7DEC20ADE4CF50084DE9D /* PBXTargetDependency */,
-				DCB200460858E2A5003659F3 /* PBXTargetDependency */,
-			);
-			name = "External Text Editor";
-			productName = "External Text Editor";
-			productReference = DCC7F8990854DB8C00F3EB8A /* External Text Editor.iTM2 */;
-			productType = "com.apple.product-type.bundle";
-		};
-		DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC1E8AA109462DC40037B13F /* Build configuration list for PBXNativeTarget "External PDF Viewer" */;
-			buildPhases = (
-				DCC7F8D90854DE4900F3EB8A /* Copy Command */,
-				DCC7F8E20854DE8200F3EB8A /* Copy Readme.rtf */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				51EFB3C90DFD278C0090E7D0 /* PBXTargetDependency */,
-				DCB2004E0858E2AF003659F3 /* PBXTargetDependency */,
-			);
-			name = "External PDF Viewer";
-			productName = "External PDF Viewer";
-			productReference = DCC7F8CE0854DE0F00F3EB8A /* External PDF Viewer.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
 		DCD7D69C0A43992D0096B1A9 /* AlphaX */ = {
@@ -3954,11 +3641,12 @@
 			buildConfigurationList = DCD7D6A30A43992D0096B1A9 /* Build configuration list for PBXNativeTarget "AlphaX" */;
 			buildPhases = (
 				DCD7D69F0A43992D0096B1A9 /* Copy Command */,
+				513B8910134207EB006CA861 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */,
+				511DF69D13425132002324AF /* PBXTargetDependency */,
 			);
 			name = AlphaX;
 			productName = "External Text Editor";
@@ -3974,7 +3662,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DCD7D6AC0A4399620096B1A9 /* PBXTargetDependency */,
+				511DF69F1342513A002324AF /* PBXTargetDependency */,
 			);
 			name = BBEdit;
 			productName = "External Text Editor";
@@ -3990,7 +3678,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DCD7D6BA0A4399790096B1A9 /* PBXTargetDependency */,
+				511DF69B1342512B002324AF /* PBXTargetDependency */,
 			);
 			name = "BBEdit Lite";
 			productName = "External Text Editor";
@@ -4006,7 +3694,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DCD7D6CA0A4399990096B1A9 /* PBXTargetDependency */,
+				511DF6A11342513F002324AF /* PBXTargetDependency */,
 			);
 			name = Emacs;
 			productName = "External Text Editor";
@@ -4022,7 +3710,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				DCE5C5730AC823940054C760 /* PBXTargetDependency */,
+				511DF6A513425147002324AF /* PBXTargetDependency */,
 			);
 			name = TextWrangler;
 			productName = "External Text Editor";
@@ -4039,6 +3727,7 @@
 			};
 			buildConfigurationList = DC1E8AB909462DC40037B13F /* Build configuration list for PBXProject "iTM2Foundation" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -4051,18 +3740,16 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				537677FF108852E6007CCC1E /* iTM2Foundation-debug */,
-				8DC2EF4F0486A6940098B216 /* iTM2Foundation */,
-				5376779B10885028007CCC1E /* TestApp */,
-				DC13E68A0855867D0063D5A5 /* Test Application */,
-				53F81EA21086742B0000F555 /* Test Application debug */,
 				DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */,
 				5185E6DB126F89C100AFA001 /* Prepare Milestones */,
 				5183F2AD12CACF04009C5B3F /* Prepare Embedded Tests */,
 				515C9691127106DD0000C5BB /* Prepare ICU */,
+				537677FF108852E6007CCC1E /* iTM2Foundation-debug */,
+				8DC2EF4F0486A6940098B216 /* iTM2Foundation */,
+				DC13E68A0855867D0063D5A5 /* Test Application */,
+				53F81EA21086742B0000F555 /* Test Application debug */,
 				DC0F125B0BFB74CA00108852 /* Prepare Lua */,
 				DC2732CD09645D0A008B4D56 /* Prepare CamelBones */,
-				DCB200320858E250003659F3 /* Install iTM2Foundation */,
 				DCD7D69C0A43992D0096B1A9 /* AlphaX */,
 				DCD7D6AB0A4399620096B1A9 /* BBEdit */,
 				DCD7D6B90A4399790096B1A9 /* BBEdit Lite */,
@@ -4070,12 +3757,6 @@
 				DCB7DE9F0ADE49DE0084DE9D /* TextMate */,
 				DCE5C5720AC823940054C760 /* TextWrangler */,
 				51EFB3990DFD23BD0090E7D0 /* Skim */,
-				DCC7F8980854DB8C00F3EB8A /* External Text Editor */,
-				DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */,
-				DC2CA7A50855D53C00128F14 /* All */,
-				DC951796088DED4B0011E823 /* iTeXMac2 */,
-				DC8303B6086E9DA2004799EB /* Scripting Definition */,
-				DC6698AA08E1289F004FCA6D /* iTM2PreferencePane */,
 				DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */,
 				DCB0A00909AEF96E00D2A37C /* Alias Test */,
 				DCAD22750C144930005549DC /* ICU RegEx test */,
@@ -4252,16 +3933,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5376779810885028007CCC1E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				537677D810885192007CCC1E /* Credits.rtf in Resources */,
-				5160E1E110CE916300476E56 /* iTM2RegularExpressions.plist in Resources */,
-				537677D710885190007CCC1E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4516,13 +4187,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC6698A708E1289F004FCA6D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DCAD22710C144930005549DC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4554,6 +4218,19 @@
 			shellPath = /bin/sh;
 			shellScript = "lipo -info \"${BUILD_DIR}/${EXECUTABLE_PATH}\"\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		513B8910134207EB006CA861 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 		515C9690127106DD0000C5BB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4584,19 +4261,20 @@
 			shellScript = "# shell script goes here\necho \"warning: preparing the embedded tests for ${PROJECT_NAME}\"\n\"${PROJECT_DIR}/../Scripts/iTM3EmbeddedTestsParser.py\" \"${PROJECT_DIR}\" \"${BUILD_ROOT}/EmbeddedTestCases/\"\necho \"warning: preparing the embedded tests for ${PROJECT_NAME}... DONE\"\nexit 0\n";
 			showEnvVarsInLog = 0;
 		};
-		5185E6DA126F89C100AFA001 /* ShellScript */ = {
+		5185E6DA126F89C100AFA001 /* Prepare Milestones */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Prepare Milestones";
 			outputPaths = (
 				"$(BUILD_ROOT)/Milestones/$(PRODUCT_NAME)MileStones.m",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\necho \"warning: preparing the embedded tests for ${PROJECT_NAME}\"\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}/Milestones/\"\necho \"warning: preparing the embedded tests for ${PROJECT_NAME}... DONE\"\nexit 0\n";
+			shellScript = "# shell script goes here\necho \"#warning: preparing the embedded tests for ${PROJECT_NAME}\"\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}/Milestones/\"\necho \"#warning: preparing the embedded tests for ${PROJECT_NAME}... DONE\"\nexit 0\n";
 			showEnvVarsInLog = 0;
 		};
 		51D7FE0212987886009C0707 /* ShellScript */ = {
@@ -4896,19 +4574,6 @@
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2SynchronizeCamelBones.sh\n";
 		};
-		DC6698B908E12992004FCA6D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo $TARGET_BUILD_DIR\nDIRECTORY=\".\"\ncd \"$DIRECTORY\"\nIFS='\n'\nTARGETS=\"`find . -name *.m -print`\"\necho COUCOU\nfor CURRENT in $TARGETS; do\n\tgrep -E \"NSString.*const\" \"$CURRENT\"\ndone\necho COUCOUCOUCOU\n";
-		};
 		DC81B1790887F28800943C99 /* Make the header documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4969,21 +4634,6 @@
 			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
 			showEnvVarsInLog = 0;
 		};
-		DC9517A1088DED5C0011E823 /* Really build iTeXMac2 */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Really build iTeXMac2";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
-			showEnvVarsInLog = 0;
-		};
 		DCAD22740C144930005549DC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5018,6 +4668,7 @@
 			inputPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/INFOPLIST_PREFIX_HEADER",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -5817,14 +5468,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5376779910885028007CCC1E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				537677D91088519A007CCC1E /* TestApp-main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		537678A6108852E6007CCC1E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5981,6 +5624,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC13E6A50855874D0063D5A5 /* Test Application-main.m in Sources */,
+				5170B68513427D74004F857A /* GTMObjC2Runtime.m in Sources */,
+				5170B68613427D74004F857A /* GTMRegex.m in Sources */,
+				5170B68713427D74004F857A /* GTMAppKitUnitTestingUtilities.m in Sources */,
+				5170B68813427D74004F857A /* GTMFoundationUnitTestingUtilities.m in Sources */,
+				5170B68913427D74004F857A /* GTMSenTestCase.m in Sources */,
+				5170B68A13427D74004F857A /* GTMUnitTestDevLog.m in Sources */,
 				513EDA7C119441160069EFCA /* iTM3SenTestKit.m in Sources */,
 				513ED9FC1193EE6D0069EFCA /* iTM2Test_RE.m in Sources */,
 				513ED9FD1193EE6D0069EFCA /* iTM2Test0A.m in Sources */,
@@ -6013,13 +5662,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC6698A808E1289F004FCA6D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DCAD22720C144930005549DC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -6041,6 +5683,46 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		511DF69B1342512B002324AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = 511DF69A1342512B002324AF /* PBXContainerItemProxy */;
+		};
+		511DF69D13425132002324AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = 511DF69C13425132002324AF /* PBXContainerItemProxy */;
+		};
+		511DF69F1342513A002324AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = 511DF69E1342513A002324AF /* PBXContainerItemProxy */;
+		};
+		511DF6A11342513F002324AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = 511DF6A01342513F002324AF /* PBXContainerItemProxy */;
+		};
+		511DF6A313425143002324AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = 511DF6A213425143002324AF /* PBXContainerItemProxy */;
+		};
+		511DF6A513425147002324AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = 511DF6A413425147002324AF /* PBXContainerItemProxy */;
+		};
+		511DF6A71342514C002324AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
+			targetProxy = 511DF6A61342514C002324AF /* PBXContainerItemProxy */;
+		};
+		513B891B134211F3006CA861 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
+			targetProxy = 513B891A134211F3006CA861 /* PBXContainerItemProxy */;
+		};
 		514218BC109885FC00A01853 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5338F59E108FAF7D00842A70 /* iTM2Test5 */;
@@ -6136,11 +5818,6 @@
 			target = 5185E6DB126F89C100AFA001 /* Prepare Milestones */;
 			targetProxy = 5185E6E1126F8A1600AFA001 /* PBXContainerItemProxy */;
 		};
-		51A6873D10A2E269006E0065 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
-			targetProxy = 51A6873C10A2E269006E0065 /* PBXContainerItemProxy */;
-		};
 		51D7FE1C12987901009C0707 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 51D7FDA812987886009C0707 /* iTM2Test7 */;
@@ -6150,16 +5827,6 @@
 			isa = PBXTargetDependency;
 			target = 51FFE005127C648C0014BE72 /* iTM2Test6 */;
 			targetProxy = 51D7FE1D12987901009C0707 /* PBXContainerItemProxy */;
-		};
-		51EFB39A0DFD23BD0090E7D0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = 51EFB39B0DFD23BD0090E7D0 /* PBXContainerItemProxy */;
-		};
-		51EFB3C90DFD278C0090E7D0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 51EFB3990DFD23BD0090E7D0 /* Skim */;
-			targetProxy = 51EFB3C80DFD278C0090E7D0 /* PBXContainerItemProxy */;
 		};
 		5338F492108FA15C00842A70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6171,46 +5838,6 @@
 			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
 			targetProxy = 53767801108852E6007CCC1E /* PBXContainerItemProxy */;
 		};
-		53985102108503E200E75451 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
-			targetProxy = 53985101108503E200E75451 /* PBXContainerItemProxy */;
-		};
-		539E1C7C1090F84400BAB1DB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
-			targetProxy = 539E1C7B1090F84400BAB1DB /* PBXContainerItemProxy */;
-		};
-		DC5D6E9E0949CEF900EBA96C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
-			targetProxy = DC5D6E9D0949CEF900EBA96C /* PBXContainerItemProxy */;
-		};
-		DC83042E086EADFF004799EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCC7F8980854DB8C00F3EB8A /* External Text Editor */;
-			targetProxy = DC83042D086EADFF004799EB /* PBXContainerItemProxy */;
-		};
-		DC830430086EAE02004799EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */;
-			targetProxy = DC83042F086EAE02004799EB /* PBXContainerItemProxy */;
-		};
-		DC8A601E088D6F930016FAA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCC7F8CD0854DE0F00F3EB8A /* External PDF Viewer */;
-			targetProxy = DC8A601D088D6F930016FAA2 /* PBXContainerItemProxy */;
-		};
-		DC8A6020088D6F950016FAA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCC7F8980854DB8C00F3EB8A /* External Text Editor */;
-			targetProxy = DC8A601F088D6F950016FAA2 /* PBXContainerItemProxy */;
-		};
-		DC993AD4088DF11700F8BCE1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC2CA7A50855D53C00128F14 /* All */;
-			targetProxy = DC993AD3088DF11700F8BCE1 /* PBXContainerItemProxy */;
-		};
 		DCB0A02A09AF015000D2A37C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DC2EF4F0486A6940098B216 /* iTM2Foundation */;
@@ -6220,86 +5847,6 @@
 			isa = PBXTargetDependency;
 			target = DCB1D93B0B4EACBC00B0704A /* Prepare Build Number */;
 			targetProxy = DCB1D93C0B4EACDB00B0704A /* PBXContainerItemProxy */;
-		};
-		DCB200460858E2A5003659F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCB200450858E2A5003659F3 /* PBXContainerItemProxy */;
-		};
-		DCB2004E0858E2AF003659F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCB2004D0858E2AF003659F3 /* PBXContainerItemProxy */;
-		};
-		DCB200530858E2B2003659F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCB200520858E2B2003659F3 /* PBXContainerItemProxy */;
-		};
-		DCB7DEA00ADE49DE0084DE9D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCB7DEA10ADE49DE0084DE9D /* PBXContainerItemProxy */;
-		};
-		DCB7DEC20ADE4CF50084DE9D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB7DE9F0ADE49DE0084DE9D /* TextMate */;
-			targetProxy = DCB7DEC10ADE4CF50084DE9D /* PBXContainerItemProxy */;
-		};
-		DCBEF0C80A5B2F42000EB417 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC2CA7A50855D53C00128F14 /* All */;
-			targetProxy = DCBEF0C70A5B2F42000EB417 /* PBXContainerItemProxy */;
-		};
-		DCD7D69D0A43992D0096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCD7D69E0A43992D0096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCD7D6AC0A4399620096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCD7D6AD0A4399620096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCD7D6BA0A4399790096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCD7D6BB0A4399790096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCD7D6CA0A4399990096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCD7D6CB0A4399990096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCD7D6DF0A439A9F0096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCD7D6C90A4399990096B1A9 /* Emacs */;
-			targetProxy = DCD7D6DE0A439A9F0096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCD7D6E10A439AA20096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCD7D6B90A4399790096B1A9 /* BBEdit Lite */;
-			targetProxy = DCD7D6E00A439AA20096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCD7D6E30A439AA40096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCD7D6AB0A4399620096B1A9 /* BBEdit */;
-			targetProxy = DCD7D6E20A439AA40096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCD7D6E50A439AA60096B1A9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCD7D69C0A43992D0096B1A9 /* AlphaX */;
-			targetProxy = DCD7D6E40A439AA60096B1A9 /* PBXContainerItemProxy */;
-		};
-		DCE5C5730AC823940054C760 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCB200320858E250003659F3 /* Install iTM2Foundation */;
-			targetProxy = DCE5C5740AC823940054C760 /* PBXContainerItemProxy */;
-		};
-		DCE5C5A10AC825EA0054C760 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DCE5C5720AC823940054C760 /* TextWrangler */;
-			targetProxy = DCE5C5A00AC825EA0054C760 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -6891,9 +6438,10 @@
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
-				INFOPLIST_FILE = "";
 				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_NAME = Skim;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_PDF_PREFIX)";
+				iTM3_PRODUCT_NAME = Skim;
 			};
 			name = Development;
 		};
@@ -6902,9 +6450,10 @@
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
 				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
-				INFOPLIST_FILE = "";
 				INFOPLIST_PREPROCESS = NO;
 				PRODUCT_NAME = Skim;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_PDF_PREFIX)";
+				iTM3_PRODUCT_NAME = Skim;
 			};
 			name = Deployment;
 		};
@@ -7584,56 +7133,6 @@
 			};
 			name = Deployment;
 		};
-		5376779F10885029007CCC1E /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/$(PRODUCT_NAME).pch";
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Info.plist";
-				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = TestApp;
-			};
-			name = Development;
-		};
-		537677A010885029007CCC1E /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/$(PRODUCT_NAME).pch";
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Info.plist";
-				INFOPLIST_PREPROCESS = NO;
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = TestApp;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
 		537678FD108852E6007CCC1E /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */;
@@ -7875,7 +7374,7 @@
 					"$(SRCROOT)/../ICU/icu/source/common",
 					"$(SRCROOT)/../ICU/icu/source/i18n",
 				);
-				PRODUCT_NAME = iTM2Foundation;
+				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Development;
 		};
@@ -7894,139 +7393,7 @@
 					"$(SRCROOT)/../ICU/icu/source/common",
 					"$(SRCROOT)/../ICU/icu/source/i18n",
 				);
-				PRODUCT_NAME = iTM2Foundation;
-			};
-			name = Deployment;
-		};
-		DC1E8A9A09462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2Foundation;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		DC1E8A9B09462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = iTM2Foundation;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC1E8A9E09462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
-				PRODUCT_NAME = "External Text Editor";
-			};
-			name = Development;
-		};
-		DC1E8A9F09462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
-				PRODUCT_NAME = "External Text Editor";
-			};
-			name = Deployment;
-		};
-		DC1E8AA209462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/PDF/$(iTM2_INFOPLIST_FILE)";
-				PRODUCT_NAME = "External PDF Viewer";
-			};
-			name = Development;
-		};
-		DC1E8AA309462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/PDF/$(iTM2_INFOPLIST_FILE)";
-				PRODUCT_NAME = "External PDF Viewer";
-			};
-			name = Deployment;
-		};
-		DC1E8AA609462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = "$(PROJECT_DIR)";
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		DC1E8AA709462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = "$(PROJECT_DIR)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
+				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Deployment;
 		};
@@ -8045,7 +7412,6 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = __iTM2_LIVE_TEST__;
 				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -8073,141 +7439,6 @@
 			};
 			name = Deployment;
 		};
-		DC1E8AAE09462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = iTeXMac2;
-			};
-			name = Development;
-		};
-		DC1E8AAF09462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = iTeXMac2;
-			};
-			name = Deployment;
-		};
-		DC1E8AB209462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "Scripting Definition";
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		DC1E8AB309462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "Scripting Definition";
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC1E8AB609462DC40037B13F /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_PREPROCESSOR_DEFINITIONS = __ELEPHANT_MODELINE__;
-				INFOPLIST_FILE = "iTM2PreferenceTemplate-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2PreferenceTemplate;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = prePane;
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		DC1E8AB709462DC40037B13F /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "iTM2PreferenceTemplate-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				LIBRARY_STYLE = BUNDLE;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = iTM2PreferenceTemplate;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = prePane;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
 		DC1E8ABA09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
@@ -8215,6 +7446,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				OTHER_CFLAGS = "-Wall";
 				SDKROOT = macosx10.6;
+				iTM3_BUILD_NAME_PRODUCT = "$(BUILD_PRODUCTS_DIR)/$(iTM3_PRODUCT_NAME)";
+				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Development;
 		};
@@ -8224,6 +7457,8 @@
 			buildSettings = {
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				SDKROOT = macosx10.6;
+				iTM3_BUILD_NAME_PRODUCT = "$(BUILD_PRODUCTS_DIR)/$(iTM3_PRODUCT_NAME)";
+				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Deployment;
 		};
@@ -8467,8 +7702,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = TextMate;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = TextMate;
 			};
 			name = Development;
 		};
@@ -8476,8 +7712,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = TextMate;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = TextMate;
 			};
 			name = Deployment;
 		};
@@ -8485,8 +7722,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = AlphaX;
+				SYMROOT = "$(BUILD_PRODUCTS_DIR)/$(iTM3_FOUNDATION_NAME)";
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = AlphaX;
 			};
 			name = Development;
 		};
@@ -8494,8 +7733,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = AlphaX;
+				SYMROOT = "$(BUILD_PRODUCTS_DIR)/$(iTM3_FOUNDATION_NAME)";
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = AlphaX;
 			};
 			name = Deployment;
 		};
@@ -8503,8 +7744,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = BBEdit;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = BBEdit;
 			};
 			name = Development;
 		};
@@ -8512,8 +7754,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = BBEdit;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = BBEdit;
 			};
 			name = Deployment;
 		};
@@ -8521,8 +7764,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "BBEdit Lite";
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = "BBEdit Lite";
 			};
 			name = Development;
 		};
@@ -8530,8 +7774,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = "BBEdit Lite";
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = "BBEdit Lite";
 			};
 			name = Deployment;
 		};
@@ -8539,8 +7784,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = Emacs;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = Emacs;
 			};
 			name = Development;
 		};
@@ -8548,8 +7794,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = Emacs;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = Emacs;
 			};
 			name = Deployment;
 		};
@@ -8557,8 +7804,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = TextWrangler;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = TextWrangler;
 			};
 			name = Development;
 		};
@@ -8566,8 +7814,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "External Inspectors/Text/$(iTM2_INFOPLIST_FILE)";
 				PRODUCT_NAME = TextWrangler;
+				iTM2_INFO_PREFIX = "$(iTM3_FOUNDATION_TEXT_PREFIX)";
+				iTM3_PRODUCT_NAME = TextWrangler;
 			};
 			name = Deployment;
 		};
@@ -8727,15 +7976,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		537677A110885029007CCC1E /* Build configuration list for PBXNativeTarget "TestApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5376779F10885029007CCC1E /* Development */,
-				537677A010885029007CCC1E /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
 		537678FC108852E6007CCC1E /* Build configuration list for PBXNativeTarget "iTM2Foundation-debug" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -8790,74 +8030,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		DC1E8A9909462DC40037B13F /* Build configuration list for PBXAggregateTarget "Install iTM2Foundation" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8A9A09462DC40037B13F /* Development */,
-				DC1E8A9B09462DC40037B13F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC1E8A9D09462DC40037B13F /* Build configuration list for PBXNativeTarget "External Text Editor" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8A9E09462DC40037B13F /* Development */,
-				DC1E8A9F09462DC40037B13F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC1E8AA109462DC40037B13F /* Build configuration list for PBXNativeTarget "External PDF Viewer" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8AA209462DC40037B13F /* Development */,
-				DC1E8AA309462DC40037B13F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC1E8AA509462DC40037B13F /* Build configuration list for PBXAggregateTarget "All" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8AA609462DC40037B13F /* Development */,
-				DC1E8AA709462DC40037B13F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
 		DC1E8AA909462DC40037B13F /* Build configuration list for PBXNativeTarget "Test Application" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC1E8AAA09462DC40037B13F /* Development */,
 				DC1E8AAB09462DC40037B13F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC1E8AAD09462DC40037B13F /* Build configuration list for PBXNativeTarget "iTeXMac2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8AAE09462DC40037B13F /* Development */,
-				DC1E8AAF09462DC40037B13F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC1E8AB109462DC40037B13F /* Build configuration list for PBXAggregateTarget "Scripting Definition" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8AB209462DC40037B13F /* Development */,
-				DC1E8AB309462DC40037B13F /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC1E8AB509462DC40037B13F /* Build configuration list for PBXNativeTarget "iTM2PreferencePane" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC1E8AB609462DC40037B13F /* Development */,
-				DC1E8AB709462DC40037B13F /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

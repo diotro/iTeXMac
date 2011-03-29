@@ -22,7 +22,7 @@
 */
 
 #import "iTM2ContextKit.h"
-#import "iTM2ResponderKit.h"w
+#import "iTM2ResponderKit.h"
 
 extern NSString * const iTM2AutoUpdateEnabledKey;
 extern NSString * const iTM2SmartUpdateEnabledKey;

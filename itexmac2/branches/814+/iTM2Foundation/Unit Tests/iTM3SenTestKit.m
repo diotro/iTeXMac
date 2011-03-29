@@ -1,5 +1,5 @@
 //
-//  Task.m
+//  iTM3SenTestKit.m
 //  iTM2Foundation
 //
 //  @version Subversion: $Id: Task.m 800 2009-10-22 21:10:32Z jlaurens $ 
@@ -8,14 +8,11 @@
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
 //
 
-#ifdef __iTM3_LIVE_TEST__
+#ifndef __iTM3_LIVE_TEST__
+#   error MISSING LIVE TEST
+#else
 #import "iTM3SenTestKit.h"
 #import <iTM2Foundation/iTM2Foundation.h>
-
-NSString *STComposeString(NSString * first, ...)
-{
-    return @"STComposeString";
-}
 
 NSString *getScalarDescription(NSValue *left)
 {

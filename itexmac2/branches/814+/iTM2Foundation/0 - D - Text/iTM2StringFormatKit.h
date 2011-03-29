@@ -192,7 +192,7 @@ extern NSString * const TWSEOLFileKey;
 	@param		None
 	@result		yorn.
 */
-@property (assign, setter = setStringEncodingHardCoded) BOOL isStringEncodingHardCoded;
+@property (assign, setter = setStringEncodingHardCoded:) BOOL isStringEncodingHardCoded;
 
 @property (copy) NSString * hardStringEncodingName;
 

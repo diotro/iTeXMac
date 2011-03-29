@@ -25,7 +25,8 @@
 - (void) failWithException:(NSException *) anException;
 @end
 #else
-#import <SenTestingKit/SenTestingKit.h>
+//#import <SenTestingKit/SenTestingKit.h>
+#import "GTMSenTestCase.h"
 @interface iTM3TestCase: SenTestCase {
 
 }

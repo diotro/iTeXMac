@@ -5885,7 +5885,8 @@ To Do List:
     ML.startOff7 = OFF7;\
     ML.EOLLength = EOL;\
     STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
-    STAssertReachCode4iTM3((![ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
+    BOOL yorn = NO; \
+    STAssertReachCode4iTM3((yorn = ![ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
     STAssertTrue(ML.isConsistent,@"MISSED",NULL);} while(NO)
 #   undef REACH_CODE_ARGS_1
 #   define REACH_CODE_ARGS_1(...) [[NSArray arrayWithObjects:@"_deleteSyntaxModesInLocalMakeRange", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
@@ -6299,7 +6300,8 @@ To Do List:
     ML.startOff7 = OFF7;\
     ML.EOLLength = EOL;\
     STAssertTrue(([ML appendSyntaxModesAndLengths: __VA_ARGS__,NULL]),@"MISSED",NULL);\
-    STAssertReachCode4iTM3((![ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
+    BOOL yorn = NO; \
+    STAssertReachCode4iTM3((yorn = ![ML deleteModesInGlobalMakeRange:(LOCATION):(LENGTH) error:NULL]));\
     STAssertTrue(ML.isConsistent,@"MISSED",NULL);} while (NO)
 #   undef REACH_CODE_ARGS_2
 #   define REACH_CODE_ARGS_2(...) [[NSArray arrayWithObjects:@"deleteModesInGlobalRange", __VA_ARGS__,NULL] componentsJoinedByString:@"-"]
