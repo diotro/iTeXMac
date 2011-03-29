@@ -29,17 +29,6 @@
 			name = "Prepare Embedded Tests";
 			productName = "Prepare Embedded Tests";
 		};
-		DC9E4F310858A8A300A86BED /* All */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DC6BB82109474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
-			buildPhases = (
-			);
-			dependencies = (
-				DCA24A53090E34A900548244 /* PBXTargetDependency */,
-			);
-			name = All;
-			productName = All;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -101,27 +90,6 @@
 			remoteGlobalIDString = DC1C6CC3090E1A64000F4FDE;
 			remoteInfo = iTM2NewDocumentKit;
 		};
-		DC5D70810949E2A900EBA96C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC5D70750949E27F00EBA96C;
-			remoteInfo = "Prepare iTM2TeXFoundation";
-		};
-		DC993C05088DF36700F8BCE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC9E4F310858A8A300A86BED;
-			remoteInfo = All;
-		};
-		DCA24A52090E34A900548244 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC1C6CC3090E1A64000F4FDE;
-			remoteInfo = iTM2NewDocumentKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -176,12 +144,20 @@
 		5106D5ED130EB95C00708989 /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iTM3SenTestKit.m; path = "../iTM2TeXFoundation/Unit Tests/iTM3SenTestKit.m"; sourceTree = SOURCE_ROOT; };
 		51167D2E1097299F007E76C8 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NewDocumentPrefPane.xib; sourceTree = "<group>"; };
 		51167D30109729AA007E76C8 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2NewDocumentPrefPane.xib; sourceTree = "<group>"; };
+		5137473A133D652600C3E3AA /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		5137473D133D652600C3E3AA /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		5137473E133D652600C3E3AA /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		5169BBFB0D4A021200BA5D57 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2NewDocumentAssistant.xib; sourceTree = "<group>"; };
 		5169BBFD0D4A021B00BA5D57 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2NewDocumentAssistant.xib; sourceTree = "<group>"; };
-		5185EDCC1270413200AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
-		5185EDCD1270414100AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
-		5185EDCE1270414100AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
-		5185EDCF1270414100AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
+		51B736D31341B1AE00E7E772 /* Debug-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51B736D41341B1AE00E7E772 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51B736D51341B1AE00E7E772 /* DebugGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51B736D61341B1AE00E7E772 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51B736D71341B1AE00E7E772 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51B736D81341B1AE00E7E772 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51B736D91341B1AE00E7E772 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51B736DA1341B1AE00E7E772 /* Release-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51B736DB1341B1AE00E7E772 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		51F071DF130C4F6E00D6A5F9 /* Test New TeX Document.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test New TeX Document.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC1C6CC4090E1A64000F4FDE /* iTM2NewDocumentKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2NewDocumentKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,17 +165,7 @@
 		DC2CA71A0855D19F00128F14 /* iTM2NewDocumentKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2NewDocumentKit-Info.plist"; sourceTree = "<group>"; };
 		DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2NewDocumentKit.h; sourceTree = "<group>"; };
 		DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2NewDocumentKit.m; sourceTree = "<group>"; };
-		DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
-		DC3B41890A4ADD2400E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
-		DC5B697C0A4B6B3400F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
-		DC5B697D0A4B6B3400F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
-		DC5B697E0A4B6B3400F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5B697F0A4B6B3400F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
-		DC5B69800A4B6B3400F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
-		DC5B69810A4B6B3400F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5BC74D08EC843C006635C4 /* iTM2NewDocumentPrefPane.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2NewDocumentPrefPane.tiff; sourceTree = "<group>"; };
-		DC5D70760949E27F00EBA96C /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2TeXFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC81AD80088718FA00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
@@ -253,7 +219,7 @@
 				5106D463130EAAEA00708989 /* GTM */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
-				DC3B41870A4ADD2400E83ABA /* Settings */,
+				51374734133D652600C3E3AA /* Settings */,
 			);
 			name = iTM2EDITORKit;
 			sourceTree = "<group>";
@@ -315,9 +281,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC81AD80088718FA00943C99 /* iTeXMac2.app */,
 				DC1C6CC4090E1A64000F4FDE /* iTM2NewDocumentKit.framework */,
-				DC5D70760949E27F00EBA96C /* iTM2TeXFoundation.framework */,
 				51F071DF130C4F6E00D6A5F9 /* Test New TeX Document.app */,
 			);
 			name = Products;
@@ -392,25 +356,25 @@
 			path = "Test New TeX Document";
 			sourceTree = "<group>";
 		};
-		DC3B41870A4ADD2400E83ABA /* Settings */ = {
+		51374734133D652600C3E3AA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				5185EDCE1270414100AFA001 /* Development-set.xcconfig */,
-				5185EDCF1270414100AFA001 /* Deployment-set.xcconfig */,
-				5185EDCC1270413200AFA001 /* GC-set.xcconfig */,
-				DC5B697C0A4B6B3400F7DE47 /* Framework */,
-				DC5B697D0A4B6B3400F7DE47 /* FrameworkDeployment.xcconfig */,
-				DC5B697E0A4B6B3400F7DE47 /* FrameworkDevelopment.xcconfig */,
-				DC5B697F0A4B6B3400F7DE47 /* PlugIn */,
-				DC5B69800A4B6B3400F7DE47 /* PlugInDeployment.xcconfig */,
-				DC5B69810A4B6B3400F7DE47 /* PlugInDevelopment.xcconfig */,
-				DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */,
-				DC3B41890A4ADD2400E83ABA /* Development.xcconfig */,
-				5185EDCD1270414100AFA001 /* DevelopmentGC.xcconfig */,
+				51B736D31341B1AE00E7E772 /* Debug-set.xcconfig */,
+				51B736D41341B1AE00E7E772 /* Debug.xcconfig */,
+				51B736D51341B1AE00E7E772 /* DebugGC.xcconfig */,
+				51B736D61341B1AE00E7E772 /* FrameworkDebug.xcconfig */,
+				51B736D71341B1AE00E7E772 /* FrameworkRelease.xcconfig */,
+				51B736D81341B1AE00E7E772 /* PlugInDebug.xcconfig */,
+				51B736D91341B1AE00E7E772 /* PlugInRelease.xcconfig */,
+				51B736DA1341B1AE00E7E772 /* Release-set.xcconfig */,
+				51B736DB1341B1AE00E7E772 /* Release.xcconfig */,
+				5137473A133D652600C3E3AA /* Framework */,
+				5137473D133D652600C3E3AA /* GC-set.xcconfig */,
+				5137473E133D652600C3E3AA /* PlugIn */,
 			);
 			name = Settings;
-			path = ../Settings;
-			sourceTree = SOURCE_ROOT;
+			path = "/Users/itexmac2/dev/itexmac2/branches/814+/iTeXMac2/../Settings";
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 
@@ -460,7 +424,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				DC5D70820949E2A900EBA96C /* PBXTargetDependency */,
 				5185EDDE1270417A00AFA001 /* PBXTargetDependency */,
 				51F071CE130C4ED600D6A5F9 /* PBXTargetDependency */,
 			);
@@ -469,38 +432,6 @@
 			productReference = DC1C6CC4090E1A64000F4FDE /* iTM2NewDocumentKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DC5D70750949E27F00EBA96C /* Prepare iTM2TeXFoundation */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC5D70780949E28000EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2TeXFoundation" */;
-			buildPhases = (
-				DC5D70830949E2B700EBA96C /* Synchronize */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Prepare iTM2TeXFoundation";
-			productName = "Prepare iTM2TeXFoundation";
-			productReference = DC5D70760949E27F00EBA96C /* iTM2TeXFoundation.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		DC81AD7F088718FA00943C99 /* iTeXMac2 */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC6BB82509474616004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */;
-			buildPhases = (
-				DC81AD860887192600943C99 /* Really build iTeXMac2 */,
-			);
-			buildRules = (
-			);
-			comments = "The only purpose of this target is to define iTeXMac2 executable as side effect.\nDon't remove it.\n";
-			dependencies = (
-				DC993C06088DF36700F8BCE1 /* PBXTargetDependency */,
-			);
-			name = iTeXMac2;
-			productName = iTeXMac2;
-			productReference = DC81AD80088718FA00943C99 /* iTeXMac2.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -508,6 +439,7 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB82909474616004B0A81 /* Build configuration list for PBXProject "iTM2NewDocumentKit" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -519,12 +451,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DC5D70750949E27F00EBA96C /* Prepare iTM2TeXFoundation */,
-				DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */,
-				DC9E4F310858A8A300A86BED /* All */,
-				DC81AD7F088718FA00943C99 /* iTeXMac2 */,
 				5185EDDA1270416B00AFA001 /* Prepare Milestones */,
 				51F071C5130C4EAF00D6A5F9 /* Prepare Embedded Tests */,
+				DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */,
 				51F071DE130C4F6E00D6A5F9 /* Test New TeX Document */,
 			);
 		};
@@ -601,35 +530,6 @@
 			shellPath = /bin/sh;
 			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
 		};
-		DC5D70830949E2B700EBA96C /* Synchronize */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Synchronize;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2SynchronizeFramework.sh iTM2TeXFoundation\n";
-			showEnvVarsInLog = 0;
-		};
-		DC81AD860887192600943C99 /* Really build iTeXMac2 */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Really build iTeXMac2";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
-		};
 		DCD7DB390A45F1E90096B1A9 /* Make the header documentation */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -687,21 +587,6 @@
 			isa = PBXTargetDependency;
 			target = DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */;
 			targetProxy = 51F071E5130C4FAB00D6A5F9 /* PBXContainerItemProxy */;
-		};
-		DC5D70820949E2A900EBA96C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC5D70750949E27F00EBA96C /* Prepare iTM2TeXFoundation */;
-			targetProxy = DC5D70810949E2A900EBA96C /* PBXContainerItemProxy */;
-		};
-		DC993C06088DF36700F8BCE1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC9E4F310858A8A300A86BED /* All */;
-			targetProxy = DC993C05088DF36700F8BCE1 /* PBXContainerItemProxy */;
-		};
-		DCA24A53090E34A900548244 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC1C6CC3090E1A64000F4FDE /* iTM2NewDocumentKit */;
-			targetProxy = DCA24A52090E34A900548244 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -848,6 +733,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "Test New TeX Document";
+				iTM3_PRODUCT_NAME = "$(iTM3_TEST_NEW_APPLICATION_NAME)";
 			};
 			name = Development;
 		};
@@ -879,30 +765,13 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = "Test New TeX Document";
 				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC5D70790949E28000EBA96C /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41890A4ADD2400E83ABA /* Development.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = iTM2TeXFoundation;
-				SYMROOT = "$(PROJECT_DIR)/build";
-			};
-			name = Development;
-		};
-		DC5D707A0949E28000EBA96C /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = iTM2TeXFoundation;
-				SYMROOT = "$(PROJECT_DIR)/build";
+				iTM3_PRODUCT_NAME = "$(iTM3_TEST_NEW_APPLICATION_NAME)";
 			};
 			name = Deployment;
 		};
 		DC6BB81E09474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B697E0A4B6B3400F7DE47 /* FrameworkDevelopment.xcconfig */;
+			baseConfigurationReference = 51B736D61341B1AE00E7E772 /* FrameworkDebug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -911,12 +780,13 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2NewDocumentKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2NEWDOCUMENTKIT_ADDRESS)";
+				iTM3_PRODUCT_NAME = "$(iTM3_NEW_DOCUMENT_KIT_NAME)";
 			};
 			name = Development;
 		};
 		DC6BB81F09474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B697D0A4B6B3400F7DE47 /* FrameworkDeployment.xcconfig */;
+			baseConfigurationReference = 51B736D71341B1AE00E7E772 /* FrameworkRelease.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -925,75 +795,13 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2NewDocumentKit;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2NEWDOCUMENTKIT_ADDRESS)";
-			};
-			name = Deployment;
-		};
-		DC6BB82209474616004B0A81 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		DC6BB82309474616004B0A81 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC6BB82609474616004B0A81 /* Development */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41890A4ADD2400E83ABA /* Development.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = iTeXMac2;
-			};
-			name = Development;
-		};
-		DC6BB82709474616004B0A81 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */;
-			buildSettings = {
-				PRODUCT_NAME = iTeXMac2;
+				iTM3_PRODUCT_NAME = "$(iTM3_NEW_DOCUMENT_KIT_NAME)";
 			};
 			name = Deployment;
 		};
 		DC6BB82A09474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41890A4ADD2400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = 51B736D41341B1AE00E7E772 /* Debug.xcconfig */;
 			buildSettings = {
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 			};
@@ -1001,7 +809,7 @@
 		};
 		DC6BB82B09474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41880A4ADD2400E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = 51B736DB1341B1AE00E7E772 /* Release.xcconfig */;
 			buildSettings = {
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
 			};
@@ -1037,38 +845,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		DC5D70780949E28000EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2TeXFoundation" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC5D70790949E28000EBA96C /* Development */,
-				DC5D707A0949E28000EBA96C /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
 		DC6BB81D09474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2NewDocumentKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC6BB81E09474616004B0A81 /* Development */,
 				DC6BB81F09474616004B0A81 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC6BB82109474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC6BB82209474616004B0A81 /* Development */,
-				DC6BB82309474616004B0A81 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC6BB82509474616004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC6BB82609474616004B0A81 /* Development */,
-				DC6BB82709474616004B0A81 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
