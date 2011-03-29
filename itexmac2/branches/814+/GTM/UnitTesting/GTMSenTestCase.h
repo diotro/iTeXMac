@@ -54,7 +54,7 @@
 #import "GTMDefines.h"
 
 //#if (!GTM_IPHONE_SDK) 
-#ifndef __iTM2_LIVE_TEST__ 
+#ifndef __iTM3_LIVE_TEST__ 
 #import <SenTestingKit/SenTestingKit.h>
 #else
 #import <Foundation/Foundation.h>
@@ -462,7 +462,7 @@ do { \
   } \
 } while(0)
 
-#ifdef __iTM2_LIVE_TEST__
+#ifdef __iTM3_LIVE_TEST__
 
 // SENTE_BEGIN
 /*" Generates a failure when !{ [a1 isEqualTo:a2] } is false 

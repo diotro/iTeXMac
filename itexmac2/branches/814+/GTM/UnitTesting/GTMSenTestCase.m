@@ -26,11 +26,11 @@
 #import "GTMObjC2Runtime.h"
 #import "GTMUnitTestDevLog.h"
 
-#ifndef __iTM2_LIVE_TEST__
+#ifndef __iTM3_LIVE_TEST__
 #import "GTMGarbageCollection.h"
 #endif  // !GTM_IPHONE_SDK
 
-#ifdef __iTM2_LIVE_TEST__
+#ifdef __iTM3_LIVE_TEST__
 #import <stdarg.h>
 
 @interface NSException (GTMSenTestPrivateAdditions)
@@ -474,7 +474,7 @@ static void _GTMRunLeaks(void) {
 
 static __attribute__((constructor)) void _GTMInstallLeaks(void) {
   BOOL checkLeaks = YES;
-#ifndef __iTM2_LIVE_TEST__
+#ifndef __iTM3_LIVE_TEST__
   checkLeaks = GTMIsGarbageCollectionEnabled() ? NO : YES;
 #endif  // !GTM_IPHONE_SDK
   if (checkLeaks) {
