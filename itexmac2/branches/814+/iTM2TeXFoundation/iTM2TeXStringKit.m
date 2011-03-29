@@ -82,11 +82,28 @@ To Do List:implement some kind of balance range for range
     iTM2StringController * SC = iTM2StringController.defaultController;
     NSRange R = iTM3VoidRange;
     NSAttributedString * AS = nil;
-#   define TEST(WHAT,WHERE,LOCATION,LENGTH) \
+#   define TEST1(WHAT,WHERE,LOCATION,LENGTH) \
     AS = [[NSAttributedString alloc] initWithString:WHAT]; \
     STAssertReachCode4iTM3((R = [SC rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:AS atIndex:WHERE])); \
     STAssertTrue((NSEqualRanges(R,iTM3MakeRange(LOCATION,LENGTH))||(LOG4iTM3(@"%@<!>(%lu,%lu)",NSStringFromRange(R),(LOCATION),(LENGTH)),NO)),@"MISSED",NULL);
-    TEST(@"X",0,0,1);
+// TEST(,0,0,1);
+AS = [[NSAttributedString alloc] initWithString:@"X"];
+do {
+    LOG4iTM3(@"ReachCode?%@",__CODE_TAG__);
+ResetReachCodeTags4iTM3;
+R = [SC rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:AS atIndex:1];
+STAssertTrue(HasReachedCode4iTM3(__CODE_TAG__)||(NSLog(@"MISSED:%@ not in %@",__CODE_TAG__, ReachCodeTags4iTM3),NO),@"MISSED",NULL);
+} while (NO);
+STAssertTrue((NSEqualRanges(R,iTM3MakeRange(0,1))||([self log4iTM3:@"%@<!>(%lu,%lu)",NSStringFromRange(R),(0),(1)],NO)),@"MISSED",NULL);
+#   define TEST(WHAT,WHERE,LOCATION,LENGTH) \
+AS = [[NSAttributedString alloc] initWithString:WHAT]; \
+do {\
+LOG4iTM3(@"ReachCode?%@",__CODE_TAG__);\
+ResetReachCodeTags4iTM3;\
+R = [SC rangeOfCharactersInSet:[NSCharacterSet letterCharacterSet] inAttributedString:AS atIndex:WHERE]; \
+STAssertTrue(HasReachedCode4iTM3(__CODE_TAG__)||(NSLog(@"MISSED:%@ not in %@",__CODE_TAG__, ReachCodeTags4iTM3),NO),@"MISSED",NULL);\
+} while (NO); \
+STAssertTrue((NSEqualRanges(R,iTM3MakeRange(LOCATION,LENGTH))||([self log4iTM3:@"%@<!>(%lu,%lu)",NSStringFromRange(R),(0),(1)],NO)),@"MISSED",NULL);
     TEST(@"XX",0,0,2);
     TEST(@"XX",1,0,2);
     TEST(@"XXX",0,0,3);

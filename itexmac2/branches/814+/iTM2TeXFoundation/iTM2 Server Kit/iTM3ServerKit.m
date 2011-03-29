@@ -21,47 +21,47 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2ServerKit.h"
-#import <iTM2TeXFoundation/iTM2ServerKeys.h>
+#import "iTM3ServerKit.h"
+#import <iTM2TeXFoundation/iTM3ServerKeys.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
 
-NSString * const iTM2ServerAllKey = @"-all";
-NSString * const iTM2ServerFileKey = @"-file";
-NSString * const iTM2ServerFilesKey = @"-files";
-NSString * const iTM2ServerColumnKey = @"-column";
-NSString * const iTM2ServerLineKey = @"-line";
-NSString * const iTM2ServerSourceKey = @"-source";
-NSString * const iTM2ServerProjectKey = @"-project";
-NSString * const iTM2ServerActionKey = @"-action";
-NSString * const iTM2ServerMasterKey = @"-master";
-NSString * const iTM2ServerEngineKey = @"-engine";
-NSString * const iTM2ServerDontOrderFrontKey = @"-dont-order-front";
-NSString * const iTM2ServerReasonKey = @"-reason";
-NSString * const iTM2ServerIdlingKey = @"-idling";
+NSString * const iTM3ServerAllKey = @"-all";
+NSString * const iTM3ServerFileKey = @"-file";
+NSString * const iTM3ServerFilesKey = @"-files";
+NSString * const iTM3ServerColumnKey = @"-column";
+NSString * const iTM3ServerLineKey = @"-line";
+NSString * const iTM3ServerSourceKey = @"-source";
+NSString * const iTM3ServerProjectKey = @"-project";
+NSString * const iTM3ServerActionKey = @"-action";
+NSString * const iTM3ServerMasterKey = @"-master";
+NSString * const iTM3ServerEngineKey = @"-engine";
+NSString * const iTM3ServerDontOrderFrontKey = @"-dont-order-front";
+NSString * const iTM3ServerReasonKey = @"-reason";
+NSString * const iTM3ServerIdlingKey = @"-idling";
 
 NSString * const iTM2ProcessInfoEnvironmentKey = @"iTM2ProcessInfoEnvironment";
 
-NSString * const iTM2ServerComwarnerNotification = @"iTM2ServerComwarner";
-NSString * const iTM2ServerConversationIDKey = @"ConversationID";
-NSString * const iTM2ServerCommentsKey = @"Comments";
-NSString * const iTM2ServerWarningsKey = @"Warnings";
-NSString * const iTM2ServerErrorsKey = @"Errors";
+NSString * const iTM3ServerComwarnerNotification = @"iTM3ServerComwarner";
+NSString * const iTM3ServerConversationIDKey = @"ConversationID";
+NSString * const iTM3ServerCommentsKey = @"Comments";
+NSString * const iTM3ServerWarningsKey = @"Warnings";
+NSString * const iTM3ServerErrorsKey = @"Errors";
 
-NSString * const iTM2ServerAppleScriptNotification = @"iTM2ServerAppleScript";
+NSString * const iTM3ServerAppleScriptNotification = @"iTM3ServerAppleScript";
 
-NSString * const iTM2ServerShouldInsertTextNotification = @"iTM2ServerShouldInsertTextNotification";
+NSString * const iTM3ServerShouldInsertTextNotification = @"iTM3ServerShouldInsertTextNotification";
 
-NSString * const iTM2ServerConversationIdentifierKey = @"conversation";
-NSString * const iTM2ServerScriptFileNameKey = @"script_file_name";
-NSString * const iTM2ServerInputTextKey = @"input_text";
-NSString * const iTM2ServerInputSelectedLocationKey = @"input_selected_location";
-NSString * const iTM2ServerInputSelectedLengthKey = @"input_selected_length";
-NSString * const iTM2ServerOutputTextKey = @"output_text";
-NSString * const iTM2ServerOutputSelectedLocationKey = @"output_selected_location";
-NSString * const iTM2ServerOutputSelectedLengthKey = @"output_selected_length";
-NSString * const iTM2ServerOutputInsertionLocationKey = @"output_insertion_location";
-NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length";
+NSString * const iTM3ServerConversationIdentifierKey = @"conversation";
+NSString * const iTM3ServerScriptFileNameKey = @"script_file_name";
+NSString * const iTM3ServerInputTextKey = @"input_text";
+NSString * const iTM3ServerInputSelectedLocationKey = @"input_selected_location";
+NSString * const iTM3ServerInputSelectedLengthKey = @"input_selected_length";
+NSString * const iTM3ServerOutputTextKey = @"output_text";
+NSString * const iTM3ServerOutputSelectedLocationKey = @"output_selected_location";
+NSString * const iTM3ServerOutputSelectedLengthKey = @"output_selected_length";
+NSString * const iTM3ServerOutputInsertionLocationKey = @"output_insertion_location";
+NSString * const iTM3ServerOutputInsertionLengthKey = @"output_insertion_length";
 
 #import <iTM2Foundation/iTM2BundleKit.h>
 
@@ -70,7 +70,7 @@ NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length"
 //#import <iTM2Foundation/iTM2InstallationKit.h>
 //#import <iTM2Foundation/iTM2Implementation.h>
 
-@interface iTM2ServerKit(PRIVATE)
+@interface iTM3ServerKit(PRIVATE)
 + (void)completeServerInstallation;
 + (NSString *)getVerbFromContext:(NSDictionary *)context;
 + (NSString *)getProjectNameFromContext:(NSDictionary *)context;
@@ -86,8 +86,8 @@ NSString * const iTM2ServerOutputInsertionLengthKey = @"output_insertion_length"
 @end
 
 @implementation iTM2MainInstaller(ServerKit)
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2ServerKitCompleteInstallation4iTM3
-+ (void)iTM2ServerKitCompleteInstallation4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM3ServerKitCompleteInstallation4iTM3
++ (void)iTM3ServerKitCompleteInstallation4iTM3;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 1.4: Fri Feb 20 13:19:00 GMT 2004
@@ -95,24 +95,24 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[iTM2ServerKit completeServerInstallation];
+	[iTM3ServerKit completeServerInstallation];
 //END4iTM3;
 	return;
 }
 @end
 
 #warning ATTENTION COCO
-NSString * const iTM2ServerSetupRelativePath = @"bin/iTeXMac2 Server Setup";
-NSString * const iTM2ServerRelativePath = @"bin/iTeXMac2 Server";
-NSString * const iTM2ServerPathKey = @"SERVER_PATH_4iTM3";
-NSString * const iTM2ServerBundlePathKey = @"BUNDLE_PATH_4iTM3";
-NSString * const iTM2ServerBundleNameKey = @"BUNDLE_NAME_4iTM3";
-NSString * const iTM2ServerDebugEnabledKey = @"DEBUG_ENABLED_4iTM3";
-NSString * const iTM2ServerHomeKey = @"HOME_4iTM3";
-NSString * const iTM2ServerTemporaryDirectoryKey = @"TEMPORARY_DIRECTORY_4iTM3";
+NSString * const iTM3ServerSetupRelativePath = @"bin/iTeXMac2 Server Setup";
+NSString * const iTM3ServerRelativePath = @"bin/iTeXMac2 Server";
+NSString * const iTM3ServerPathKey = @"SERVER_PATH_4iTM3";
+NSString * const iTM3ServerBundlePathKey = @"BUNDLE_PATH_4iTM3";
+NSString * const iTM3ServerBundleNameKey = @"BUNDLE_NAME_4iTM3";
+NSString * const iTM3ServerDebugEnabledKey = @"DEBUG_ENABLED_4iTM3";
+NSString * const iTM3ServerHomeKey = @"HOME_4iTM3";
+NSString * const iTM3ServerTemporaryDirectoryKey = @"TEMPORARY_DIRECTORY_4iTM3";
 
 
-@implementation iTM2ServerKit
+@implementation iTM3ServerKit
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= completeServerInstallation
 + (void)completeServerInstallation;
 /*"Description forthcoming.
@@ -125,7 +125,7 @@ To Do List: see the warning below
 //START4iTM3;
     [[NSDistributedNotificationCenter defaultCenter] addObserver: self
         selector: @selector(performProjectActionWithContextNotified:)
-            name: iTM2ServerPerformProjectActionWithContextNotification
+            name: iTM3ServerPerformProjectActionWithContextNotification
                 object: nil
                     suspensionBehavior:NSNotificationSuspensionBehaviorDeliverImmediately];
 #warning THIS SHOULD ONLY OCCUR WITH USER DEFAULT SETTINGS
@@ -134,21 +134,21 @@ To Do List: see the warning below
             name: iTM2SystemSignalSIGUSR1Notification
                 object: nil];
     NSTask * T = [[[NSTask alloc] init] autorelease];
-	NSURL * auxiliaryServerSetupURL = [myBUNDLE URLForAuxiliaryExecutable:iTM2ServerSetupRelativePath];
-	NSAssert1(auxiliaryServerSetupURL, @"***  ERROR: Missing \"%@\"", iTM2ServerSetupRelativePath);
+	NSURL * auxiliaryServerSetupURL = [myBUNDLE URLForAuxiliaryExecutable:iTM3ServerSetupRelativePath];
+	NSAssert1(auxiliaryServerSetupURL, @"***  ERROR: Missing \"%@\"", iTM3ServerSetupRelativePath);
     NSMutableDictionary * environment = [[[[NSProcessInfo processInfo] environment] mutableCopy] autorelease];
-    NSURL * serverURL = [myBUNDLE URLForAuxiliaryExecutable:iTM2ServerRelativePath];
+    NSURL * serverURL = [myBUNDLE URLForAuxiliaryExecutable:iTM3ServerRelativePath];
     if (serverURL.isFileURL) {
-        [environment setObject:serverURL.path forKey:iTM2ServerPathKey];
+        [environment setObject:serverURL.path forKey:iTM3ServerPathKey];
     } else {
         LOG4iTM3(@"ERROR: things won't certainly work as expected... no server available");
     }
     NSBundle * MB = NSBundle.mainBundle;
-    [environment setObject:MB.bundlePath forKey:iTM2ServerBundlePathKey];
-    [environment setObject:MB.bundlePath.lastPathComponent.stringByDeletingPathExtension forKey:iTM2ServerBundleNameKey];
-    [environment setObject:[NSString stringWithFormat:@"%li", iTM2DebugEnabled] forKey:iTM2ServerDebugEnabledKey];
-    [environment setObject:NSHomeDirectory() forKey:iTM2ServerHomeKey];
-    [environment setObject:MB.temporaryDirectoryURL4iTM3.path forKey:iTM2ServerTemporaryDirectoryKey];
+    [environment setObject:MB.bundlePath forKey:iTM3ServerBundlePathKey];
+    [environment setObject:MB.bundlePath.lastPathComponent.stringByDeletingPathExtension forKey:iTM3ServerBundleNameKey];
+    [environment setObject:[NSString stringWithFormat:@"%li", iTM2DebugEnabled] forKey:iTM3ServerDebugEnabledKey];
+    [environment setObject:NSHomeDirectory() forKey:iTM3ServerHomeKey];
+    [environment setObject:MB.temporaryDirectoryURL4iTM3.path forKey:iTM3ServerTemporaryDirectoryKey];
     [T setEnvironment:environment];
     [T setLaunchPath:auxiliaryServerSetupURL.path];
     [T setStandardError:[NSPipe pipe]];
@@ -156,7 +156,7 @@ To Do List: see the warning below
     [T setStandardInput:[NSPipe pipe]];
     [DNC addObserver: self selector: @selector(setupTaskDidTerminateNotified:)
         name: NSTaskDidTerminateNotification object: T];
-    [iTM2MileStone registerMileStone:@"iTeXMac2 Server is not properly setup" forKey:iTM2ServerSetupRelativePath];
+    [iTM2MileStone registerMileStone:@"iTeXMac2 Server is not properly setup" forKey:iTM3ServerSetupRelativePath];
     [[T retain] launch];// it will be reseased when termination is notified
 	RELEASE_POOL4iTM3;
 //END4iTM3;
@@ -171,7 +171,7 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[iTM2MileStone putMileStoneForKey:iTM2ServerSetupRelativePath];
+	[iTM2MileStone putMileStoneForKey:iTM3ServerSetupRelativePath];
 	NSTask * T = [notification.object autorelease];// the object was the task launched
 	LOG4iTM3(@"The Server Setup task did terminate with status %i and termination %li:",
         T.terminationStatus, T.terminationReason);
@@ -232,7 +232,7 @@ To Do List: see the warning below
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	if ([environment isKindOfClass:[NSDictionary class]]) {
-		NSString * temporaryDirectory4iTM3 = [environment objectForKey:iTM2ServerTemporaryDirectoryKey];
+		NSString * temporaryDirectory4iTM3 = [environment objectForKey:iTM3ServerTemporaryDirectoryKey];
 		if ([temporaryDirectory4iTM3 isKindOfClass:[NSString class]]) {
 //END4iTM3;
 			return [temporaryDirectory4iTM3 pathIsEqual4iTM3:NSBundle.mainBundle.temporaryDirectoryURL4iTM3.path] || !temporaryDirectory4iTM3.length;
@@ -266,14 +266,14 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while ((argument = E.nextObject)) {
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerConversationIDKey]) {
+		if([argument isEqual:iTM3ServerConversationIDKey]) {
 			argument = E.nextObject;
-		} else if([argument isEqual:iTM2ServerConnectionIDKey]) {
+		} else if([argument isEqual:iTM3ServerConnectionIDKey]) {
 			argument = E.nextObject;
 		} else {
 //END4iTM3;
@@ -293,8 +293,8 @@ To Do List: see the warning below
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //LOG4iTM3(@"context is: %@", context);
-	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
-	NSString * ID = [environment objectForKey:iTM2ServerConversationIDKey];
+	NSDictionary * environment = [context objectForKey:iTM3ServerEnvironmentKey];
+	NSString * ID = [environment objectForKey:iTM3ServerConversationIDKey];
 	if(![self acceptConversationWithID:ID]) {
 //END4iTM3;
 		return;
@@ -324,20 +324,20 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerProjectKey])
+		if([argument isEqual:iTM3ServerProjectKey])
 		{
 			argument = E.nextObject;// the project name is absolute
 //END4iTM3;
 			return argument;
 		}
 	}
-	NSDictionary * environment = [context objectForKey:iTM2ServerEnvironmentKey];
+	NSDictionary * environment = [context objectForKey:iTM3ServerEnvironmentKey];
 	argument = [environment objectForKey:TWSShellEnvironmentProjectKey];
 //END4iTM3;
     return argument;
@@ -353,12 +353,12 @@ To Do List: see the warning below
 //START4iTM3;
 	NSString * projectName  = [self getProjectNameFromContext:context];
 	NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName] error:NULL];
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while (argument = E.nextObject) {
 		argument = argument.lowercaseString;
-		if ([argument isEqual:iTM2ServerFileKey]) {
+		if ([argument isEqual:iTM3ServerFileKey]) {
 			argument = E.nextObject;
 			argument = [[NSURL URLWithPath4iTM3:argument relativeToURL:sourceURL] path];
 //END4iTM3;
@@ -384,12 +384,12 @@ To Do List: see the warning below
 	if (argument.length) {
 		[RA addObject:argument];
 	}
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     argument = E.nextObject;// ignore $0
 	while (argument = E.nextObject) {
 		argument = argument.lowercaseString;
-		if ([argument isEqual:iTM2ServerFilesKey]) {
+		if ([argument isEqual:iTM3ServerFilesKey]) {
 			while (argument = E.nextObject) {
 				if([argument hasPrefix:@"-"]) {
 //END4iTM3;
@@ -416,12 +416,12 @@ To Do List: see the warning below
 //START4iTM3;
 	NSString * projectName  = [self getProjectNameFromContext:context];
     NSURL * sourceURL = [SPC URLForFileKey:TWSContentsKey filter:iTM2PCFilterRegular inProjectWithURL:[NSURL fileURLWithPath:projectName] error:NULL];
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while (argument = E.nextObject) {
 		argument = [argument lowercaseString];
-		if ([argument isEqual:iTM2ServerSourceKey]) {
+		if ([argument isEqual:iTM3ServerSourceKey]) {
 			argument = E.nextObject;
 			argument = [[NSURL URLWithPath4iTM3:argument relativeToURL:sourceURL] path];
 //END4iTM3;
@@ -440,13 +440,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerLineKey])
+		if([argument isEqual:iTM3ServerLineKey])
 		{
 			argument = E.nextObject;
 //END4iTM3;
@@ -465,13 +465,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerColumnKey])
+		if([argument isEqual:iTM3ServerColumnKey])
 		{
 			argument = E.nextObject;
 //END4iTM3;
@@ -490,13 +490,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerDontOrderFrontKey])
+		if([argument isEqual:iTM3ServerDontOrderFrontKey])
 		{
 //END4iTM3;
 			return YES;
@@ -514,13 +514,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerReasonKey])
+		if([argument isEqual:iTM3ServerReasonKey])
 		{
 			argument = E.nextObject;
 //END4iTM3;
@@ -539,13 +539,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerIdlingKey])
+		if([argument isEqual:iTM3ServerIdlingKey])
 		{
 			argument = E.nextObject;
 			argument = [argument lowercaseString];
@@ -565,13 +565,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerMasterKey])
+		if([argument isEqual:iTM3ServerMasterKey])
 		{
 //END4iTM3;
 			return E.nextObject;
@@ -589,13 +589,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerActionKey])
+		if([argument isEqual:iTM3ServerActionKey])
 		{
 //END4iTM3;
 			return E.nextObject;
@@ -613,13 +613,13 @@ To Do List: see the warning below
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	while(argument = E.nextObject)
 	{
 		argument = [argument lowercaseString];
-		if([argument isEqual:iTM2ServerEngineKey])
+		if([argument isEqual:iTM3ServerEngineKey])
 		{
 //END4iTM3;
 			return E.nextObject;
@@ -847,7 +847,7 @@ To Do List: see the warning below
 	NSUInteger line = [self getLineFromContext:context];
 	NSUInteger column = [self getColumnFromContext:context];
     NSString * sourceName = [self getSourceNameFromContext:context];
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSDictionary * hints = [NSMutableDictionary dictionary];
 	NSEnumerator * E = arguments.objectEnumerator;
 	NSString * key = nil;
@@ -1026,7 +1026,7 @@ To Do List: None
         REPORTERRORINMAINTHREAD4iTM3(1,@"",ROR);
         return;
 	}
-	NSArray * arguments = [context objectForKey:iTM2ServerArgumentsKey];
+	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
 	argument = E.nextObject;// ignore "notify"
@@ -1266,7 +1266,7 @@ To Do List: see the warning below
 }
 @end
 
-@implementation iTM2ConnectionRoot(iTM2ServerKit)
+@implementation iTM2ConnectionRoot(iTM3ServerKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  performProjectActionWithContext:
 - (oneway void)performProjectActionWithContext:(id)context;
 /*"Description forthcoming.
@@ -1276,7 +1276,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	[iTM2ServerKit performSelectorOnMainThread:@selector(doPerformProjectActionWithContext:) withObject:context waitUntilDone:NO];
+	[iTM3ServerKit performSelectorOnMainThread:@selector(doPerformProjectActionWithContext:) withObject:context waitUntilDone:NO];
 	return;
 //END4iTM3;
 }

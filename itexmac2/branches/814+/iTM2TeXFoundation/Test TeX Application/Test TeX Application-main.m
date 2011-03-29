@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
 
 static id text = nil;
 
-#import "../../build/EmbeddedTestCases/iTM2TeXFoundationTestCases.m"
+#include "iTM2TeXFoundationTestCases.m"
 
 @implementation iTM2Application(Test)
 

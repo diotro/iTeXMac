@@ -1874,7 +1874,7 @@ To Do List:
 }
 @end
 
-#include "../build/Milestones/iTM2TeXFoundationMileStones.m"
+#include "iTM2TeXFoundationMileStones.m"
 
 #if 0
 

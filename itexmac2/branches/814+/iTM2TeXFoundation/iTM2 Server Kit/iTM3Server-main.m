@@ -24,7 +24,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#include "iTM2ServerKeys.m"
+#include "iTM3ServerKeys.m"
 
 #define ZER0 ((NSUInteger)0)
 
@@ -40,21 +40,17 @@ int main(int argc, const char *argv[])
     NSProcessInfo * processInfo = [NSProcessInfo processInfo];
 	NSArray * arguments = [processInfo arguments];
 	NSDictionary * environment = [processInfo environment];
-	NSDictionary * context = [NSDictionary dictionaryWithObjectsAndKeys:environment,iTM2ServerEnvironmentKey,arguments,iTM2ServerArgumentsKey,nil];
+	NSDictionary * context = [NSDictionary dictionaryWithObjectsAndKeys:environment,iTM3ServerEnvironmentKey,arguments,iTM3ServerArgumentsKey,nil];
 	NSString * connectionID = [environment objectForKey:@"iTM2ConnectionID"];
 //NSLog(@"connectionID is: %@", connectionID);
-	if(!connectionID)
-	{
+	if(!connectionID) {
 		NSEnumerator * E = arguments.objectEnumerator;
-		while(connectionID = E.nextObject)
-		{
-			if([connectionID isEqualToString:iTM2ServerConnectionIDKey])
+		while ((connectionID = E.nextObject)) {
+			if([connectionID isEqualToString:iTM3ServerConnectionIDKey])
 			{
 				connectionID = E.nextObject;
 				break;
-			}
-			else if([connectionID isEqualToString:@"-debug"])
-			{
+			} else if([connectionID isEqualToString:@"-debug"]) {
 				NSLog(@"Build Test fullfilled");
 				iTeXMac2Usage(argc, argv);
 				return ZER0;
@@ -63,18 +59,15 @@ int main(int argc, const char *argv[])
 	}
 //NSLog(@"connectionID is: %@", connectionID);
 	NSDistantObject <iTM2Connection>  *rootProxy = (NSDistantObject <iTM2Connection> *)[NSConnection rootProxyForConnectionWithRegisteredName:connectionID host:nil];
-	if(rootProxy)
-	{
+	if (rootProxy) {
 //NSLog(@"rootProxy is: %@", rootProxy);
 		[rootProxy setProtocolForProxy:@protocol(iTM2Connection)];
 		[rootProxy performProjectActionWithContext:context];
 		return ZER0;
-	}
-	else if(!connectionID.length && LaunchiTeXMac2IfNeeded(argc, argv))
-	{
-//NSLog(@"Distributed notification is: %@", iTM2ServerPerformProjectActionWithContextNotification);
+	} else if(!connectionID.length && LaunchiTeXMac2IfNeeded(argc, argv)) {
+//NSLog(@"Distributed notification is: %@", iTM3ServerPerformProjectActionWithContextNotification);
 				[[NSDistributedNotificationCenter defaultCenter]
-			postNotificationName: iTM2ServerPerformProjectActionWithContextNotification
+			postNotificationName: iTM3ServerPerformProjectActionWithContextNotification
 				object: nil
 					userInfo: context
 						deliverImmediately: YES];
@@ -115,8 +108,7 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
     NSDictionary * D;
     BOOL isRunning = NO;
 	NSString * applicationPath = nil;
-    while(D = E.nextObject)
-	{
+    while ((D = E.nextObject)) {
 		applicationPath = [D objectForKey:@"NSApplicationPath"];
 		NSBundle * applicationBundle = [NSBundle bundleWithPath:applicationPath];
 //NSLog(@"applicationPath: %@", applicationPath);
@@ -136,13 +128,10 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
 		applicationPath = [applicationPath stringByAppendingPathComponent: @"iTeXMac2.app"];
 		applicationPath = [applicationPath stringByStandardizingPath];
         NSLog(@"applicationPath: %@", applicationPath);
-        if(isRunning = [[NSWorkspace sharedWorkspace] launchApplication:applicationPath])
-        {
+        if ((isRunning = [[NSWorkspace sharedWorkspace] launchApplication:applicationPath])) {
             [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
 			NSLog(@"iTeXMac2 launched...");
-        }
-        else
-        {
+        } else {
             NSBeep();
             NSLog(@"Sorry, I could not open iTeXMac2");
         }
@@ -151,42 +140,42 @@ BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
 }
 void iTeXMac2Usage(int argc, const char *argv[])
 {
-    NSLog(@"Using %s as server (as 06/21/2006)", argv[ZER0]);
-    NSLog(@"");
+    NSLog(@"Using %s as server (as 06/21/2006)"
+          @"\n", argv[ZER0]);
     NSLog(@"To let iTeXMac2 edit one particular file:");
     NSLog(@"========================================");
     NSLog(@"  %s -conversation conversationID edit -file fileName [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[ZER0]);
-    NSLog(@"  When not absolute, path are relative to the current directory.");
-    NSLog(@"");
+    NSLog(@"  When not absolute, path are relative to the current directory."
+          @"\n");
     NSLog(@"To let iTeXMac2 display one particular file:");
     NSLog(@"===========================================");
     NSLog(@"  %s -conversation conversationID display -file fileName [-source sourceName] [-line lineNumber] [-column columnNumber] [-dont-order-front]", argv[ZER0]);
     NSLog(@"  When not absolute, fileName is relative to the current directory.");
-    NSLog(@"  When not absolute, sourceName is relative to the directory of fileName.");
-    NSLog(@"");
+    NSLog(@"  When not absolute, sourceName is relative to the directory of fileName."
+          @"\n");
     NSLog(@"To let iTeXMac2 update one particular file:");
     NSLog(@"==========================================");
     NSLog(@"  %s -conversation conversationID update -file fileName", argv[ZER0]);
-    NSLog(@"  When not absolute, fileName is relative to the current directory.");
-    NSLog(@"");
+    NSLog(@"  When not absolute, fileName is relative to the current directory."
+          @"\n");
 #if 0
     NSLog(@"To let iTeXMac2 update all its files:");
     NSLog(@"====================================");
     NSLog(@"  %s -conversation conversationID update -all", argv[ZER0]);
-    NSLog(@"");
+    NSLog(@"\n");
     NSLog(@"To notify iTeXMac2 of a comment:");
     NSLog(@"====================================");
     NSLog(@"  %s -conversation conversationID notify -comment \"The comment\"", argv[ZER0]);
-    NSLog(@"");
+    NSLog(@"\n");
     NSLog(@"To notify iTeXMac2 of a warning:");
     NSLog(@"====================================");
     NSLog(@"  %s -conversation conversationID notify -warning \"The warning message\"", argv[ZER0]);
-    NSLog(@"");
+    NSLog(@"\n");
     NSLog(@"To notify iTeXMac2 of an error:");
     NSLog(@"====================================");
-    NSLog(@"  %s -conversation conversationID notify -error \"The error message\"", argv[ZER0]);
-    NSLog(@"");
-    NSLog(@"");
+    NSLog(@"  %s -conversation conversationID notify -error \"The error message\""
+    NSLog(@"\n"
+    NSLog(@"\n", argv[ZER0]);
     NSLog(@"To ask iTeXMac2 to execute an applescript:");
     NSLog(@"====================================");
     NSLog(@"  %s -conversation conversationID applescript -source \"The applescript source\"", argv[ZER0]);

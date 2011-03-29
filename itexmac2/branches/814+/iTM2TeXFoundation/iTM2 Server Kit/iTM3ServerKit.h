@@ -21,48 +21,48 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-extern NSString * const iTM2ServerShouldEditFileNotification;
-extern NSString * const iTM2ServerShouldDisplayFileNotification;
-extern NSString * const iTM2ServerShouldUpdateFilesNotification;
-extern NSString * const iTM2ServerComwarnerNotification;
-extern NSString * const iTM2ServerAppleScriptNotification;
+extern NSString * const iTM3ServerShouldEditFileNotification;
+extern NSString * const iTM3ServerShouldDisplayFileNotification;
+extern NSString * const iTM3ServerShouldUpdateFilesNotification;
+extern NSString * const iTM3ServerComwarnerNotification;
+extern NSString * const iTM3ServerAppleScriptNotification;
 
 extern NSString * const iTM2ProcessInfoEnvironmentKey;
 
-extern NSString * const iTM2ServerAllKey;
-extern NSString * const iTM2ServerFileKey;
-extern NSString * const iTM2ServerFilesKey;
-extern NSString * const iTM2ServerColumnKey;
-extern NSString * const iTM2ServerLineKey;
-extern NSString * const iTM2ServerSourceKey;
-extern NSString * const iTM2ServerProjectKey;
-extern NSString * const iTM2ServerDontOrderFrontKey;
-extern NSString * const iTM2ServerReasonKey;
-extern NSString * const iTM2ServerIdlingKey;
+extern NSString * const iTM3ServerAllKey;
+extern NSString * const iTM3ServerFileKey;
+extern NSString * const iTM3ServerFilesKey;
+extern NSString * const iTM3ServerColumnKey;
+extern NSString * const iTM3ServerLineKey;
+extern NSString * const iTM3ServerSourceKey;
+extern NSString * const iTM3ServerProjectKey;
+extern NSString * const iTM3ServerDontOrderFrontKey;
+extern NSString * const iTM3ServerReasonKey;
+extern NSString * const iTM3ServerIdlingKey;
 
-extern NSString * const iTM2ServerConversationIDKey;
-extern NSString * const iTM2ServerCommentsKey;
-extern NSString * const iTM2ServerWarningsKey;
-extern NSString * const iTM2ServerErrorsKey;
+extern NSString * const iTM3ServerConversationIDKey;
+extern NSString * const iTM3ServerCommentsKey;
+extern NSString * const iTM3ServerWarningsKey;
+extern NSString * const iTM3ServerErrorsKey;
 
-extern NSString * const iTM2ServerConversationIdentifierKey;
-extern NSString * const iTM2ServerScriptFileNameKey;
-extern NSString * const iTM2ServerInputTextKey;
-extern NSString * const iTM2ServerInputSelectedLocationKey;
-extern NSString * const iTM2ServerInputSelectedLengthKey;
-extern NSString * const iTM2ServerOutputTextKey;
-extern NSString * const iTM2ServerOutputSelectedLocationKey;
-extern NSString * const iTM2ServerOutputSelectedLengthKey;
-extern NSString * const iTM2ServerOutputInsertionLocationKey;
-extern NSString * const iTM2ServerOutputInsertionLengthKey;
+extern NSString * const iTM3ServerConversationIdentifierKey;
+extern NSString * const iTM3ServerScriptFileNameKey;
+extern NSString * const iTM3ServerInputTextKey;
+extern NSString * const iTM3ServerInputSelectedLocationKey;
+extern NSString * const iTM3ServerInputSelectedLengthKey;
+extern NSString * const iTM3ServerOutputTextKey;
+extern NSString * const iTM3ServerOutputSelectedLocationKey;
+extern NSString * const iTM3ServerOutputSelectedLengthKey;
+extern NSString * const iTM3ServerOutputInsertionLocationKey;
+extern NSString * const iTM3ServerOutputInsertionLengthKey;
 
 /*! 
-	@class		iTM2ServerKit
+	@class		iTM3ServerKit
     @abstract   The server.
     @discussion The mehods defined here allow shell script to ask iTM2 to perform some tasks.
 */
 
-@interface iTM2ServerKit: iTM2Object
+@interface iTM3ServerKit: iTM2Object
 /*!
     @method     acceptConversationWithID:
     @abstract   Whether the given conversationID concerns an object of the application

@@ -2,8 +2,8 @@
 //
 //  @version Subversion: $Id$ 
 //
-//  Created by jlaurens AT users DOT sourceforge DOT net on Mon Dec 03 2001.
-//  Copyright © 2001-2004 Laurens'Tribune. All rights reserved.
+//  Created by jlaurens AT users DOT sourceforge DOT net on Sat Jan 15 15:36:51 GMT 2005.
+//  Copyright © 2001-2010 Laurens'Tribune. All rights reserved.
 //
 //  This program is free software; you can redistribute it and/or modify it under the terms
 //  of the GNU General Public License as published by the Free Software Foundation; either
@@ -21,17 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-extern NSString * const iTM2ServerEnvironmentKey;
-extern NSString * const iTM2ServerArgumentsKey;
-extern NSString * const iTM2ServerConnectionIDKey;
-extern NSString * const iTM2ServerPerformProjectActionWithContextNotification;
-
-/*
-	@class		iTM2ServerKeys
-	@abstract	Abstract forthcoming
-	@discussion	This header and the corresponding source file is used twice.
-				Once by iTeXMac2 to define and implement the above set of constants.
-				Once by the server to define and implement the above set of constants,
-				but also to implement the code to forward invocations to iTeXMac2.
-*/
-
+NSString * const iTM3ServerEnvironmentKey = @"environment";
+NSString * const iTM3ServerArgumentsKey = @"arguments";
+NSString * const iTM3ServerConnectionIDKey = @"-connection";
+NSString * const iTM3ServerPerformProjectActionWithContextNotification = @"iTM3ServerPerformProjectActionWithContextNotification";
