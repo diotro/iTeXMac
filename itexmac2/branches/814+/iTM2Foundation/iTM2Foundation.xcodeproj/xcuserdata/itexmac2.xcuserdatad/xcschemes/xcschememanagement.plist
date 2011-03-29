@@ -165,11 +165,6 @@
 			<key>orderHint</key>
 			<integer>44</integer>
 		</dict>
-		<key>iTM2Foundation Base.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>129</integer>
-		</dict>
 		<key>iTM2Foundation-debug.xcscheme</key>
 		<dict>
 			<key>isShown</key>

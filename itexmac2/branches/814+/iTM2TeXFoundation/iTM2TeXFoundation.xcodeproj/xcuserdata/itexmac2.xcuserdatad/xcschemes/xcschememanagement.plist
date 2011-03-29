@@ -39,7 +39,7 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>TeX Engines.xcscheme</key>
+		<key>TeX wrapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
