@@ -351,10 +351,18 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		512D9CE90D59F8B900FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
 		512D9CEB0D59F8C300FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
-		5185EE57127043E400AFA001 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
-		5185EE58127043E400AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
-		5185EE59127043E400AFA001 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
-		5185EE5A127043E400AFA001 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
+		51374754133D654F00C3E3AA /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		51374757133D654F00C3E3AA /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		51374758133D654F00C3E3AA /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		51B736C11341B0D000E7E772 /* Debug-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51B736C21341B0D000E7E772 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51B736C31341B0D000E7E772 /* DebugGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51B736C41341B0D000E7E772 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51B736C51341B0D000E7E772 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51B736C61341B0D000E7E772 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51B736C71341B0D000E7E772 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51B736C81341B0D000E7E772 /* Release-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51B736C91341B0D000E7E772 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		51E279810CEDDD7F003A0980 /* symbolPalette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = symbolPalette.png; sourceTree = "<group>"; };
 		532F3C711092FC3D00F18A18 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		532F3D231093009000F18A18 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -369,15 +377,7 @@
 		DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXSymbolsKit.m; sourceTree = "<group>"; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2LaTeXSymbolsKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2LaTeXSymbolsKit-Prefix.pch"; sourceTree = "<group>"; };
 		DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2LaTeXSymbolsKit-Info.plist"; sourceTree = "<group>"; };
-		DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
-		DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
-		DC5B69990A4B6BEC00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
-		DC5B699A0A4B6BEC00F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
-		DC5B699B0A4B6BEC00F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5B699C0A4B6BEC00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
-		DC5B699D0A4B6BEC00F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
-		DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2LaTeXKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC81AE8708871B9A00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
@@ -551,7 +551,7 @@
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				532F3D211093009000F18A18 /* Test */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
-				DC3B41AE0A4ADE1500E83ABA /* Settings */,
+				5137474E133D654F00C3E3AA /* Settings */,
 				DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */,
 			);
 			name = iTM2PDFKit;
@@ -632,6 +632,26 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		5137474E133D654F00C3E3AA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				51B736C11341B0D000E7E772 /* Debug-set.xcconfig */,
+				51B736C21341B0D000E7E772 /* Debug.xcconfig */,
+				51B736C31341B0D000E7E772 /* DebugGC.xcconfig */,
+				51B736C41341B0D000E7E772 /* FrameworkDebug.xcconfig */,
+				51B736C51341B0D000E7E772 /* FrameworkRelease.xcconfig */,
+				51B736C61341B0D000E7E772 /* PlugInDebug.xcconfig */,
+				51B736C71341B0D000E7E772 /* PlugInRelease.xcconfig */,
+				51B736C81341B0D000E7E772 /* Release-set.xcconfig */,
+				51B736C91341B0D000E7E772 /* Release.xcconfig */,
+				51374754133D654F00C3E3AA /* Framework */,
+				51374757133D654F00C3E3AA /* GC-set.xcconfig */,
+				51374758133D654F00C3E3AA /* PlugIn */,
+			);
+			name = Settings;
+			path = "/Users/itexmac2/dev/itexmac2/branches/814+/iTeXMac2/../Settings";
+			sourceTree = "<absolute>";
+		};
 		532F3D211093009000F18A18 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,26 +664,6 @@
 			);
 			path = Test;
 			sourceTree = "<group>";
-		};
-		DC3B41AE0A4ADE1500E83ABA /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				5185EE58127043E400AFA001 /* GC-set.xcconfig */,
-				5185EE59127043E400AFA001 /* Development-set.xcconfig */,
-				5185EE5A127043E400AFA001 /* Deployment-set.xcconfig */,
-				DC5B69990A4B6BEC00F7DE47 /* Framework */,
-				DC5B699A0A4B6BEC00F7DE47 /* FrameworkDeployment.xcconfig */,
-				DC5B699B0A4B6BEC00F7DE47 /* FrameworkDevelopment.xcconfig */,
-				DC5B699C0A4B6BEC00F7DE47 /* PlugIn */,
-				DC5B699D0A4B6BEC00F7DE47 /* PlugInDeployment.xcconfig */,
-				DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */,
-				DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */,
-				DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */,
-				5185EE57127043E400AFA001 /* DevelopmentGC.xcconfig */,
-			);
-			name = Settings;
-			path = ../Settings;
-			sourceTree = SOURCE_ROOT;
 		};
 		DC99E9410A2608A400F50752 /* AMS */ = {
 			isa = PBXGroup;
@@ -918,6 +918,7 @@
 			isa = PBXProject;
 			buildConfigurationList = DC6BB80109474616004B0A81 /* Build configuration list for PBXProject "iTM2LaTeXSymbolsKit" */;
 			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -1423,7 +1424,6 @@
 		};
 		DC5D709D0949E31300EBA96C /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = iTM2LaTeXKit;
 				SYMROOT = "$(PROJECT_DIR)/build";
@@ -1432,7 +1432,6 @@
 		};
 		DC5D709E0949E31300EBA96C /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = iTM2LaTeXKit;
 				SYMROOT = "$(PROJECT_DIR)/build";
@@ -1441,7 +1440,7 @@
 		};
 		DC6BB7F609474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B699E0A4B6BEC00F7DE47 /* PlugInDevelopment.xcconfig */;
+			baseConfigurationReference = 51B736C61341B0D000E7E772 /* PlugInDebug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1456,7 +1455,7 @@
 		};
 		DC6BB7F709474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B699D0A4B6BEC00F7DE47 /* PlugInDeployment.xcconfig */;
+			baseConfigurationReference = 51B736C71341B0D000E7E772 /* PlugInRelease.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1518,7 +1517,6 @@
 		};
 		DC6BB7FE09474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = iTeXMac2;
 			};
@@ -1526,7 +1524,6 @@
 		};
 		DC6BB7FF09474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = iTeXMac2;
 			};
@@ -1534,14 +1531,14 @@
 		};
 		DC6BB80209474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41B00A4ADE1500E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = 51B736C21341B0D000E7E772 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Development;
 		};
 		DC6BB80309474616004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41AF0A4ADE1500E83ABA /* Deployment.xcconfig */;
+			baseConfigurationReference = 51B736C91341B0D000E7E772 /* Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Deployment;
