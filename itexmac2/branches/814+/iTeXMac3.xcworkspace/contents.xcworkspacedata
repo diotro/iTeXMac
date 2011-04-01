@@ -2,10 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:iTM2Foundation/iTM2Foundation.xcodeproj">
+      location = "group:iTM2TeXFoundation/../iTM2Foundation/iTM3Foundation.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:iTM2Foundation/../iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj">
+      location = "absolute:/Users/itexmac2/dev/itexmac2/branches/814+/iTM2Foundation/../iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2TeXFoundation/../iTeXMac2/iTeXMac2.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:iTM2NewDocumentKit/iTM2NewDocumentKit.xcodeproj">
@@ -20,16 +23,13 @@
       location = "group:iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:iTM2LaTeXKit/iTM2LaTeXKitEngines/iTM2LaTeXKitEngines.xcodeproj">
+      location = "group:iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:iTM2MetaPostKit/iTM2MetaPostKit.xcodeproj">
@@ -39,9 +39,6 @@
    </FileRef>
    <FileRef
       location = "group:iTM2ReadMe/iTM2Readme.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:iTM2TeXFoundation/../iTeXMac2/iTeXMac2.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:replacements.command">

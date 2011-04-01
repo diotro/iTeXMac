@@ -74,8 +74,8 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2KeyBindingsKit.h>
-//#import <iTM2Foundation/iTM2CompatibilityChecker.h>
+#import <iTM3Foundation/iTM2KeyBindingsKit.h>
+//#import <iTM3Foundation/iTM2CompatibilityChecker.h>
 
 NSString * const iTM2XtdTeXParserSymbolsInspectorMode = @".iTM2XtdTeXParserSymbols";
 NSString * const iTM2XtdTeXParserAttributesInspectorType = @"iTM2XtdTeXParserAttributes";

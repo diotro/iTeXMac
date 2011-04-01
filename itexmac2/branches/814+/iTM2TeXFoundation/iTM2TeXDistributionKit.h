@@ -116,26 +116,37 @@ typedef enum
 */
 - (NSString *)commonCommandOutputDirectory;
 
-+ (NSString *)defaultTeXMFProgramsPath;
-+ (NSString *)defaultOtherProgramsPath;
-- (NSString *)TeXMFDistribution;// low level getter
-- (void)setTeXMFDistribution:(NSString *)argument;
++ (NSString *)defaultPathToTeXMFPrograms;
++ (NSString *)defaultPathToOtherPrograms;
+- (NSString *)nameOfTeXMFDistribution;// low level getter
+- (void)setNameOfTeXMFDistribution:(NSString *)argument;
 - (NSString *)TeXMFProgramsDistribution;// low level getter
 - (void)setTeXMFProgramsDistribution:(NSString *)argument;
-- (NSString *)OtherProgramsDistribution;// low level getter
-- (void)setOtherProgramsDistribution:(NSString *)argument;
+- (NSString *)nameOfOtherProgramsDistribution;// low level getter
+- (void)setNameOfOtherProgramsDistribution:(NSString *)argument;
 - (NSString *)getTeXMFProgramsPath;
-- (NSString *)TeXMFProgramsPath;
-- (void)setTeXMFProgramsPath:(NSString *)argument;
+- (NSString *)pathToTeXMFPrograms;
+- (void)setPathToTeXMFPrograms:(NSString *)argument;
 - (NSString *)getOtherProgramsPath;
-- (NSString *)OtherProgramsPath;
-- (void)setOtherProgramsPath:(NSString *)argument;
+- (NSString *)pathToOtherPrograms;
+- (void)setPathToOtherPrograms:(NSString *)argument;
 - (BOOL)getPATHUsesLoginShell;
 - (NSString *)getPATHPrefix;
 - (NSString *)getPATHSuffix;
 - (NSString *)getCompletePATHPrefix;
 - (NSString *)getCompletePATHSuffix;
 - (NSString *)getCompleteTEXMFOUTPUT;
+@end
+
+@interface iTM2TeXDistributionPrefPane: iTM2PreferencePane <NSTabViewDelegate, NSTableViewDelegate, NSOpenSavePanelDelegate>
+{
+@private
+    IBOutlet id controllerForTeXMFPrograms;
+    IBOutlet id controllerForOtherPrograms;
+}
+@property (readwrite,copy) NSString * pathToTeXMFPrograms;
+@property (readwrite,assign) NSArrayController * controllerForTeXMFPrograms;
+@property (readwrite,assign) NSArrayController * controllerForOtherPrograms;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2DistributionServer

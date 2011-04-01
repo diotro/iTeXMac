@@ -19,7 +19,7 @@
 */
 
 #import <Foundation/NSString.h>
-#import <iTM2Foundation/iTM2Foundation.h>
+#import <iTM3Foundation/iTM3Foundation.h>
 
 extern NSString * const iTM2UDTabAnchorStringKey;
 

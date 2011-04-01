@@ -1384,9 +1384,9 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2ResponderKit.h>
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
+#import <iTM3Foundation/iTM2ResponderKit.h>
+#import <iTM3Foundation/iTM2InstallationKit.h>
+#import <iTM3Foundation/iTM2Implementation.h>
 
 @interface iTM2PDFImageRepView(Synchronization_PRIVATE_9)
 - (BOOL)validateScrollSynchronizationPointToVisible:(NSMenuItem *)sender;
@@ -1623,9 +1623,9 @@ To Do List:
 @end
 
 NSString * const iTM2PDFSYNCExtension = @"pdfsync";
-#import <iTM2Foundation/iTM2StringKit.h>
-#import <iTM2Foundation/iTM2PDFViewKit.h>
-#import <iTM2Foundation/iTM2PathUtilities.h>
+#import <iTM3Foundation/iTM2StringKit.h>
+#import <iTM3Foundation/iTM2PDFViewKit.h>
+#import <iTM3Foundation/iTM2PathUtilities.h>
 #pragma mark -
 @implementation iTM2PDFDocument(SYNCKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= synchronizer
@@ -2155,7 +2155,7 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2ViewKit.h>
+#import <iTM3Foundation/iTM2ViewKit.h>
 
 @implementation iTM2PDFAlbumView(SYNCKit)
 /*"Description forthcoming."*/
@@ -2281,7 +2281,7 @@ To Do List:
 }
 @end
 
-#import <iTM2Foundation/iTM2PDFViewKit.h>
+#import <iTM3Foundation/iTM2PDFViewKit.h>
 
 @interface NSView(iTM2PDFSYNCKik)
 - (void)setSynchronizationPoint:(NSPoint)P;

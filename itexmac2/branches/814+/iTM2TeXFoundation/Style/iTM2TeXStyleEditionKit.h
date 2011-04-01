@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2TextStyleEditionKit.h>
+#import <iTM3Foundation/iTM2TextStyleEditionKit.h>
 
 extern NSString * const iTM2StyleSymbolsPboardType;
 

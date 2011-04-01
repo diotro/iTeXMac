@@ -6,8 +6,8 @@ DIR="$(dirname "$0")"
 DIR="$(dirname "$DIR")"
 cd "$DIR"
 mkdir -p build
-cd iTM2Foundation
-/Developer/usr/checker/scan-build -o "$DIR"/build/scan-build.htmld xcodebuild -target "iTM2Foundation" -configuration "Development" clean build
+cd iTM3Foundation
+/Developer/usr/checker/scan-build -o "$DIR"/build/scan-build.htmld xcodebuild -target "iTM3Foundation" -configuration "Development" clean build
 cd ..
 cd iTM2TeXFoundation
 /Developer/usr/checker/scan-build -o "$DIR"/build/scan-build.htmld xcodebuild -target "iTM2TeXFoundation" -configuration "Development" clean build

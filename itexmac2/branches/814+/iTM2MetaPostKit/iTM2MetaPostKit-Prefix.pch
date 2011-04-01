@@ -8,7 +8,7 @@
 //    #import "/Developer/SDKs/MacOSX10.2.8.sdk/System/Library/Frameworks/Carbon.framework/Headers/Carbon.h"
     #import <Carbon/Carbon.h>
 	#import <Quartz/Quartz.h>
-    #import <iTM2Foundation/iTM2Foundation.h>
+    #import <iTM3Foundation/iTM3Foundation.h>
     #import <iTM2TeXFoundation/iTM2TeXFoundation.h>
     #import <iTM2PDFKit/iTM2PDFKit.h>
 #endif

@@ -34,7 +34,7 @@ elsif(-d "$PROJECT_DIR/../../../Scripts")
 if( $iTM2MakeMacrosSummary = shift @CANDIDATES )
 {
 # damn where is the appropriate DTD?
-	my $DTD = "$ENV{SOURCE_ROOT}/../iTM2Foundation/DTDs/Actions.DTD";
+	my $DTD = "$ENV{SOURCE_ROOT}/../iTM3Foundation/DTDs/Actions.DTD";
 	@CANDIDATES=split('\0', `find "$FULL_UNLOCALIZED_RESOURCES_FOLDER_PATH" -regex ".*/Actions\.xml" -print0`);
 	while(my $FILE = shift(@CANDIDATES))
 	{

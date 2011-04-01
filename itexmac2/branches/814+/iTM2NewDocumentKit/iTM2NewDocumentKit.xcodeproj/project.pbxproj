@@ -32,7 +32,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		5106D3EF130EA94E00708989 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */; };
 		5106D3F0130EA94E00708989 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */; };
 		5106D448130EA95A00708989 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F530C0F3C8500F2D5B9 /* libicucore.dylib */; };
 		5106D449130EA95A00708989 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
@@ -59,7 +58,6 @@
 		DC1C6CD2090E1A85000F4FDE /* iTM2NewDocumentKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */; };
 		DC1C6CF4090E1A8F000F4FDE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		DC1C6CF5090E1A8F000F4FDE /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
-		DC1C6CF6090E1A8F000F4FDE /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */; };
 		DC1C6CF7090E1A8F000F4FDE /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC1C6D3E090E1CDF000F4FDE /* iTM2NewDocumentKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCAF9A7909D8111E00AFD95F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A6F09D8111E00AFD95F /* InfoPlist.strings */; };
@@ -166,7 +164,6 @@
 		DC30382808EC7E0E00FDB315 /* iTM2NewDocumentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2NewDocumentKit.h; sourceTree = "<group>"; };
 		DC30382908EC7E0E00FDB315 /* iTM2NewDocumentKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2NewDocumentKit.m; sourceTree = "<group>"; };
 		DC5BC74D08EC843C006635C4 /* iTM2NewDocumentPrefPane.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2NewDocumentPrefPane.tiff; sourceTree = "<group>"; };
-		DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		DCAF9A7009D8111E00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -183,7 +180,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5106D3EF130EA94E00708989 /* iTM2Foundation.framework in Frameworks */,
 				5106D3F0130EA94E00708989 /* iTM2TeXFoundation.framework in Frameworks */,
 				5106D6A4130FF7D400708989 /* iTM2NewDocumentKit.framework in Frameworks */,
 				5106D448130EA95A00708989 /* libicucore.dylib in Frameworks */,
@@ -199,7 +195,6 @@
 			files = (
 				DC1C6CF4090E1A8F000F4FDE /* Cocoa.framework in Frameworks */,
 				DC1C6CF5090E1A8F000F4FDE /* Quartz.framework in Frameworks */,
-				DC1C6CF6090E1A8F000F4FDE /* iTM2Foundation.framework in Frameworks */,
 				DC1C6CF7090E1A8F000F4FDE /* iTM2TeXFoundation.framework in Frameworks */,
 				DCE52F540C0F3C8500F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
@@ -259,7 +254,6 @@
 			isa = PBXGroup;
 			children = (
 				DCE52F530C0F3C8500F2D5B9 /* libicucore.dylib */,
-				DC8A626B088D84A00016FAA2 /* iTM2Foundation.framework */,
 				DC8A626C088D84A00016FAA2 /* iTM2TeXFoundation.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,

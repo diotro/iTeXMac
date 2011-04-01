@@ -25,7 +25,7 @@
 #import "iTM2TeXProjectFrontendKit.h"
 #import "iTM2TeXProjectTaskKit.h"
 #import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
-#import <iTM2Foundation/iTM2Foundation.h>
+#import <iTM3Foundation/iTM3Foundation.h>
 #import <Carbon/Carbon.h>
 #import <objc/runtime.h>
 
@@ -357,8 +357,8 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectFrontendKit
 /*"Description forthcoming."*/
 
-//#import <iTM2Foundation/iTM2MenuKit.h>
-//#import <iTM2Foundation/iTM2WindowKit.h>
+//#import <iTM3Foundation/iTM2MenuKit.h>
+//#import <iTM3Foundation/iTM2WindowKit.h>
 
 NSString * const iTM2TPFEContentKey = @"content";
 NSString * const iTM2TPFEShellKey = @"shell";
@@ -748,8 +748,8 @@ To Do List:
 
 NSString * const iTM2TPFEPDFOutput = @"PDF";
 
-//#import <iTM2Foundation/iTM2InstallationKit.h>
-//#import <iTM2Foundation/iTM2Implementation.h>
+//#import <iTM3Foundation/iTM2InstallationKit.h>
+//#import <iTM3Foundation/iTM2Implementation.h>
 
 @interface NSString(TeXPFrontend0)
 - (BOOL)isValidTeXProjectPath;
@@ -818,8 +818,8 @@ To Do List:
 }
 @end
 
-//#import <iTM2Foundation/iTM2PathUtilities.h>
-//#import <iTM2Foundation/iTM2BundleKit.h>
+//#import <iTM3Foundation/iTM2PathUtilities.h>
+//#import <iTM3Foundation/iTM2BundleKit.h>
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectDocumentKit
 
@@ -1801,7 +1801,7 @@ To Do List:
         NSDictionary * TPPs = [IMPLEMENTATION metaValueForKey:@"_TPPs"];
         NSEnumerator * E = TPPs.keyEnumerator;
         NSDictionary * keyD;
-        while(keyD = E.nextObject)
+        while((keyD = E.nextObject)) {
             if([[[keyD iVarMode] lowercaseString] isEqualToString:baseMode])
             {
 //LOG4iTM3(@"GOOD keyD is:%@", keyD);
@@ -1817,10 +1817,10 @@ To Do List:
             {
 //LOG4iTM3(@"BAD  keyD is:%@", keyD);
             }
+        }
         E = [[[MD allKeys] sortedArrayUsingSelector:@selector(compare:)] objectEnumerator];
         NSString * k;
-        while(k = E.nextObject)
-        {
+        while ((k = E.nextObject)) {
             [sender addItemWithTitle:[MD valueForKey:k]];
             sender.lastItem.representedObject = k;// the lowercase string
         }
@@ -2205,7 +2205,7 @@ To Do List:
 }
 @end
 
-//#import <iTM2Foundation/iTM2MenuKit.h>
+//#import <iTM3Foundation/iTM2MenuKit.h>
 
 NSString * const iTM2TPFEBaseProjectNameKey = @"BaseProjectName";
 

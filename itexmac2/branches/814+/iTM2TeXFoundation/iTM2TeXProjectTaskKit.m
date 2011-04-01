@@ -25,8 +25,8 @@
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
 #import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2ImageKit.h>
+#import <iTM3Foundation/iTM2BundleKit.h>
+#import <iTM3Foundation/iTM2ImageKit.h>
 
 NSString * const iTM2TeXProjectTaskTable = @"Task";
 
@@ -1413,7 +1413,7 @@ To Do List:
 }
 @end
 
-//#import <iTM2Foundation/iTM2ObjectServer.h>
+//#import <iTM3Foundation/iTM2ObjectServer.h>
 
 NSString * const iTM2TPFELogParserKey = @"iTM2LogParser";
 
@@ -1510,7 +1510,7 @@ To Do List:
 }
 @end
 
-//#import <iTM2Foundation/iTM2LiteScanner.h>
+//#import <iTM3Foundation/iTM2LiteScanner.h>
 extern NSString * const iTM2LineAttributeName;
 extern NSString * const iTM2LogInputAttributeName;
 #define diTM2IAN iTM2LogInputAttributeName

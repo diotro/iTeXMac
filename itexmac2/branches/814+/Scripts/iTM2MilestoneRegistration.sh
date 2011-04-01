@@ -14,6 +14,7 @@ function create_milestone_file {
 }
 WHERE="$my_DIR_ROOT/${myBase}Milestones.m"
 mkdir -p "$(dirname "$WHERE")"
+echo "create milestone file for $my_PROJECT_DIR in $WHERE"
 create_milestone_file "$my_PROJECT_DIR" > "$WHERE"
 exit 0
 

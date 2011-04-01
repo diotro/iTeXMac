@@ -1287,7 +1287,7 @@ To Do List:
 #warning %%%%%%%%%%%%%%%  ALL THE CLASSES HAVE BEEN DEFINED
 #undef DEFINECLASS
 
-////#import <iTM2Foundation/iTM2Runtime.h>
+////#import <iTM3Foundation/iTM2Runtime.h>
 
 @interface iTM2TeXPTypesetPerformer: iTM2TeXPCommandPerformer
 @end

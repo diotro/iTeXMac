@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-//#import <iTM2Foundation/iTM2DocumentKit.h>
+//#import <iTM3Foundation/iTM2DocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 

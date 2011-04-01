@@ -29,7 +29,7 @@
 #if 1
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectSpellKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM3Foundation/iTM2BundleKit.h>
 
 NSString * const TWSSpellingFileKey = @"spelling";
 NSString * const TWSSpellComponent = @"spell";

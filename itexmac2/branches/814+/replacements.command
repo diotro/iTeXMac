@@ -11,8 +11,8 @@ function find_and_replace {
     find . \( -name "*i*T*M*2*.h" -or -name "*i*T*M*2*.m" \) -exec egrep -q "$1" "{}" \; -print -exec open -a xcode "{}" \;
 }
 
+find_and_replace  'defaultOtherProgramsPath' 's/\bdefaultOtherProgramsPath\b/defaultPathToOtherPrograms/g'
 
-find_and_replace  'clickCount' 's/\[([a-zA-Z0-9_]*) clickCount\]/${1}.clickCount/g'
 
 exit 0
 
@@ -23,6 +23,19 @@ exit 0
 - (NSUInteger)contextStateForKey:(NSString *)aKey
 
 
+find_and_replace  'defaultTeXMFProgramsPath' 's/\bdefaultTeXMFProgramsPath\b/defaultPathToTeXMFPrograms/g'
+find_and_replace  'TeXMFDistribution' 's/\bTeXMFDistribution\b/nameOfTeXMFDistribution/g'
+find_and_replace  'TeXMFProgramsDistribution' 's/\bOtherProgramsDistribution\b/nameOfOtherProgramsDistribution/g'
+find_and_replace  'GhostScriptProgramsDistribution' 's/\bGhostScriptProgramsDistribution\b/nameOfGhostScriptProgramsDistribution/g'
+find_and_replace  'OtherProgramsDistribution' 's/\bOtherProgramsDistribution\b/nameOfOtherProgramsDistribution/g'
+find_and_replace  'TeXMFDistribution' 's/\bsetTeXMFDistribution\b/setNameOfTeXMFDistribution/g'
+find_and_replace  'TeXMFProgramsDistribution' 's/\bsetOtherProgramsDistribution\b/setNameOfOtherProgramsDistribution/g'
+find_and_replace  'GhostScriptProgramsDistribution' 's/\bsetGhostScriptProgramsDistribution\b/setNameOfGhostScriptProgramsDistribution/g'
+find_and_replace  'OtherProgramsDistribution' 's/\bsetOtherProgramsDistribution\b/setNameOfOtherProgramsDistribution/g'
+find_and_replace  'TeXMFProgramsPath' 's/\bTeXMFProgramsPath\b/pathToTeXMFPrograms/g'
+find_and_replace  'OtherProgramsPath' 's/\bOtherProgramsPath\b/pathToOtherPrograms/g'
+find_and_replace  'TeXMFProgramsPath' 's/\bsetTeXMFProgramsPath\b/setPathToTeXMFPrograms/g'
+find_and_replace  'OtherProgramsPath' 's/\bsetOtherProgramsPath\b/setPathToOtherPrograms/g'
 find_and_replace  'clickCount' 's/\[([a-zA-Z0-9_]*) clickCount\]/${1}.clickCount/g'
 find_and_replace  'ContextController4iTM3' 's/ContextController4iTM3/Context4iTM3Controller/g'
 find_and_replace  'iTM2SpellContext4iTM3' 's/iTM2SpellContext4iTM3/iTM3SpellContext/g'

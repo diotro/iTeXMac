@@ -21,7 +21,7 @@
 */
 
 #import "iTM2LaTeXKit.h"
-#import <iTM2Foundation/iTM2Foundation.h>
+#import <iTM3Foundation/iTM3Foundation.h>
 
 NSString * const iTM2LaTeXInspectorMode = @"LaTeX Mode";
 NSString * const iTM2LaTeXToolbarIdentifier = @"iTM2 LaTeX Toolbar: Tiger";

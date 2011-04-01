@@ -38,7 +38,7 @@ NSString * const iTM2NewDORGANIZATIONNAMEKey = @"__(ORGANIZATIONNAME)__";
 NSString * const iTM2NewDPathComponent = @"New Documents.localized";
 
 #ifdef __EMBEDDED_TEST_HEADER__
-#import <iTM2Foundation/iTM2Foundation.h>
+#import <iTM3Foundation/iTM3Foundation.h>
 #import <iTM2NewDocumentKit/iTM2NewDocumentKit.h>
 @interface NSFileWrapper(moreX)
 - (void) displayLongDescription4iTM3;

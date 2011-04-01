@@ -58,6 +58,16 @@ NSString * const iTM2DistributionDomainTeXMFFAQs = @"iTM2DistributionDomainTeXMF
 NSString * const iTM2DistributionsComponent = @"PATHs";
 NSString * const iTM2DistributionSDictionaryKey = @"PATHs dictionary";
 
+#ifdef __EMBEDDED_TEST_HEADER__
+#import "iTM2TeXDistributionKit.h"
+#endif
+
+#ifdef __EMBEDDED_TEST_SETUP__
+if (iTM2DebugEnabled<10000) {
+    iTM2DebugEnabled = 10000;
+}
+#endif
+
 @implementation iTM2MainInstaller(iTM2TeXDistributionKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  iTM2TeXProjectTaskKitCompleteInstallation4iTM3;
 + (void)iTM2TeXProjectTaskKitCompleteInstallation4iTM3;
@@ -94,126 +104,126 @@ To do list:
 	// we must make some diagnostic at a project level too
 	BOOL distributionWasNotCorrect = NO;
 	BOOL distributionIsStillNotCorrect = NO;
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	distributionWasNotCorrect = YES;
 	if([NSBundle isI386_4iTM3])
 	{
 		[SUD setObject:iTM2DistributionDefaultTeXDistIntel forKey:iTM2DistributionTeXMFPrograms];
-		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
-		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
-		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFPrograms];
-		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionTeXMFPrograms];
-		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionTeXMFPrograms];
-		path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto testOtherPrograms;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionTeXMFPrograms];
 	}
 	[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributiongwTeX forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	[SUD setObject:iTM2DistributionCustom forKey:iTM2DistributionTeXMFPrograms];
-	path = [iTM2TeXProjectDocument defaultTeXMFProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	// I have to inform the user that his configuration is not correct...
 	distributionIsStillNotCorrect = YES;
 testOtherPrograms:
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	distributionWasNotCorrect = YES;
 	[SUD setObject:iTM2DistributionBuiltIn forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	if([NSBundle isI386_4iTM3])
 	{
 		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
-		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionOtherPrograms];
-		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveIntel forKey:iTM2DistributionOtherPrograms];
-		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 		[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionOtherPrograms];
-		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 		[SUD setObject:iTM2DistributionTeXLiveDVDIntel forKey:iTM2DistributionOtherPrograms];
-		path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+		path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 		if([DFM fileExistsAtPath:path])
 			goto conclusion;// that's OK
 	}
 	[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	[SUD setObject:iTM2DistributionOldgwTeXIntel forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	[SUD setObject:iTM2DistributionOldgwTeX forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	[SUD setObject:iTM2DistributionFink forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	[SUD setObject:iTM2DistributionTeXLive forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	[SUD setObject:iTM2DistributionTeXLiveDVD forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	[SUD setObject:iTM2DistributionCustom forKey:iTM2DistributionOtherPrograms];
-	path = [iTM2TeXProjectDocument defaultOtherProgramsPath];
+	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
 	// I have to inform the user that his configuration is not correct...
@@ -266,12 +276,12 @@ To Do List:
 	[self setMetaInfo4iTM3:argument forKeyPaths:iTM2DistributionKey,iTM2KeyFromSelector(_cmd),nil];\
 	return;\
 }
-DISTRIBUTION(TeXMFDistribution, setTeXMFDistribution)
-DISTRIBUTION(TeXMFProgramsDistribution, setTeXMFProgramsDistribution)
-DISTRIBUTION(OtherProgramsDistribution, setOtherProgramsDistribution)
-DISTRIBUTION(GhostScriptProgramsDistribution, setGhostScriptProgramsDistribution)
-DISTRIBUTION(TeXMFProgramsPath, setTeXMFProgramsPath)
-DISTRIBUTION(OtherProgramsPath, setOtherProgramsPath)
+DISTRIBUTION(nameOfTeXMFDistribution, setNameOfTeXMFDistribution)
+DISTRIBUTION(nameOfTeXMFProgramsDistribution, setNameOfTeXMFProgramsDistribution)
+DISTRIBUTION(nameOfOtherProgramsDistribution, setNameOfOtherProgramsDistribution)
+DISTRIBUTION(nameOfGhostScriptProgramsDistribution, setNameOfGhostScriptProgramsDistribution)
+DISTRIBUTION(pathToTeXMFPrograms, setPathToTeXMFPrograms)
+DISTRIBUTION(pathToOtherPrograms, setPathToOtherPrograms)
 #undef DISTRIBUTION
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  getTeXMFProgramsPath
 - (NSString *)getTeXMFProgramsPath;
@@ -285,17 +295,17 @@ To Do List:
 	NSString * distribution = self.TeXMFProgramsDistribution;
 	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
-		return [self.class defaultTeXMFProgramsPath];
+		return [self.class defaultPathToTeXMFPrograms];
 	}
 	else if([distribution isEqualToString:iTM2DistributionCustom])
 	{
-		return self.TeXMFProgramsPath;
+		return self.pathToTeXMFPrograms;
 	}
 	else
 	{
 		NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
 		NSString * result = [SUD stringForKey:key];
-		return result.length? result:[self.class defaultTeXMFProgramsPath];
+		return result.length? result:[self.class defaultPathToTeXMFPrograms];
 	}
 //END4iTM3;
 }
@@ -308,20 +318,20 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * distribution = self.GhostScriptProgramsDistribution;
+	NSString * distribution = self.nameOfGhostScriptProgramsDistribution;
 	if(distribution)
 	{
-		[self setOtherProgramsDistribution:distribution];
-		[self setGhostScriptProgramsDistribution:nil];
+		[self setNameOfOtherProgramsDistribution:distribution];
+		[self setNameOfGhostScriptProgramsDistribution:nil];
 	}
-	distribution = self.OtherProgramsDistribution;
+	distribution = self.nameOfOtherProgramsDistribution;
 	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
-		return [self.class defaultOtherProgramsPath];
+		return [self.class defaultPathToOtherPrograms];
 	}
 	else if([distribution isEqualToString:iTM2DistributionCustom])
 	{
-		return self.OtherProgramsPath;
+		return self.pathToOtherPrograms;
 	}
 	else
 	{
@@ -339,12 +349,12 @@ To Do List:
 			[SUD setObject:result forKey:key];
 			return result;
 		}
-		return [self.class defaultOtherProgramsPath];
+		return [self.class defaultPathToOtherPrograms];
 	}
 //END4iTM3;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultTeXMFProgramsPath
-+ (NSString *)defaultTeXMFProgramsPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultPathToTeXMFPrograms
++ (NSString *)defaultPathToTeXMFPrograms;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -370,8 +380,8 @@ To Do List:
 //END4iTM3;
     return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultOtherProgramsPath
-+ (NSString *)defaultOtherProgramsPath;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  defaultPathToOtherPrograms
++ (NSString *)defaultPathToOtherPrograms;
 /*"Description forthcoming.
 Version History: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Fri Sep 23 23:02:08 GMT 2005
@@ -422,12 +432,12 @@ To Do List:
 //START4iTM3;
 	// testing the distributions
 	// the same code splitted for debugging purpose
-	NSString * distribution = self.TeXMFDistribution;
-	NSString * path = self.TeXMFProgramsPath;
+	NSString * distribution = self.nameOfTeXMFDistribution;
+	NSString * path = self.pathToTeXMFPrograms;
 	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return YES;
-	distribution = self.OtherProgramsDistribution;
-	path = self.OtherProgramsPath;
+	distribution = self.nameOfOtherProgramsDistribution;
+	path = self.pathToOtherPrograms;
 	if(![distribution isEqualToString:iTM2DistributionCustom] || [DFM fileExistsAtPath:path])
 		return YES;
 	[self performSelector:@selector(notifyUncompleteDistributionWarning:) withObject:nil afterDelay:0.01];
@@ -1037,7 +1047,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * distribution = [self.document OtherProgramsDistribution];
+	NSString * distribution = [self.document nameOfOtherProgramsDistribution];
 	if([distribution pathIsEqual4iTM3:iTM2DistributionDefaultTeXDistIntel])
 	{
 		return iTM2DistributionDefaultTeXDist;
@@ -1075,7 +1085,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * distribution = [self.document OtherProgramsDistribution];
+	NSString * distribution = [self.document nameOfOtherProgramsDistribution];
 //END4iTM3;
     return [distribution pathIsEqual4iTM3:iTM2DistributionDefaultTeXDistIntel]
 		|| [distribution pathIsEqual4iTM3:iTM2DistributiongwTeXIntel]
@@ -1094,30 +1104,30 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	id doc = self.document;
-	NSString * distribution = [doc OtherProgramsDistribution];
+	NSString * distribution = [doc nameOfOtherProgramsDistribution];
 	if([distribution pathIsEqual4iTM3:iTM2DistributionDefaultTeXDist])
 	{
-		[doc setOtherProgramsDistribution:iTM2DistributionDefaultTeXDistIntel];
+		[doc setNameOfOtherProgramsDistribution:iTM2DistributionDefaultTeXDistIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributiongwTeX])
 	{
-		[doc setOtherProgramsDistribution:iTM2DistributiongwTeXIntel];
+		[doc setNameOfOtherProgramsDistribution:iTM2DistributiongwTeXIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionOldgwTeX])
 	{
-		[doc setOtherProgramsDistribution:iTM2DistributionOldgwTeXIntel];
+		[doc setNameOfOtherProgramsDistribution:iTM2DistributionOldgwTeXIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionFink])
 	{
-		[doc setOtherProgramsDistribution:iTM2DistributionFinkIntel];
+		[doc setNameOfOtherProgramsDistribution:iTM2DistributionFinkIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionTeXLive])
 	{
-		[doc setOtherProgramsDistribution:iTM2DistributionTeXLiveIntel];
+		[doc setNameOfOtherProgramsDistribution:iTM2DistributionTeXLiveIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionTeXLiveDVD])
 	{
-		[doc setOtherProgramsDistribution:iTM2DistributionTeXLiveDVDIntel];
+		[doc setNameOfOtherProgramsDistribution:iTM2DistributionTeXLiveDVDIntel];
 	}
 //END4iTM3;
     return;
@@ -1167,10 +1177,10 @@ To Do List:
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
 		NSString * new = [sender representedObject];
-		NSString * old = [self.document TeXMFDistribution];
+		NSString * old = [self.document nameOfTeXMFDistribution];
 		if(![old pathIsEqual4iTM3:new])
 		{
-			[self.document setTeXMFDistribution:new];
+			[self.document setNameOfTeXMFDistribution:new];
 			[self.document updateChangeCount:NSChangeDone];
 			[self isWindowContentValid4iTM3];
 		}
@@ -1190,7 +1200,7 @@ To Do List:
 	if([theSender isKindOfClass:[NSPopUpButton class]])
 	{
         #define sender ((NSPopUpButton *)theSender)
-		NSString * distribution = [self.document TeXMFDistribution];
+		NSString * distribution = [self.document nameOfTeXMFDistribution];
 		NSUInteger index = [sender indexOfItemWithRepresentedObject:distribution];
 		if(index < [sender numberOfItems])
 			[sender selectItemAtIndex:index];
@@ -1340,9 +1350,9 @@ To Do List:
 //START4iTM3;
     id TPD = (iTM2TeXProjectDocument *)self.document;
 	id new = [sender stringValue];
-	if(![[TPD TeXMFProgramsPath] pathIsEqual4iTM3:new])
+	if(![[TPD pathToTeXMFPrograms] pathIsEqual4iTM3:new])
 	{
-		[TPD setTeXMFProgramsPath:new];
+		[TPD setPathToTeXMFPrograms:new];
 		[TPD updateChangeCount:NSChangeDone];
 		[self isWindowContentValid4iTM3];
 	}
@@ -1419,10 +1429,10 @@ To Do List:
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
 		BOOL isIntel = self.OtherProgramsDistributionIsIntel;
-		NSString * old = [self.document OtherProgramsDistribution];
-		[self.document setOtherProgramsDistribution:[sender representedObject]];
+		NSString * old = [self.document nameOfOtherProgramsDistribution];
+		[self.document setNameOfOtherProgramsDistribution:[sender representedObject]];
 		[self setOtherProgramsDistributionIsIntel:isIntel];
-		NSString * new = [self.document OtherProgramsDistribution];
+		NSString * new = [self.document nameOfOtherProgramsDistribution];
 		if(![old pathIsEqual4iTM3:new])
 		{
 			[self.document updateChangeCount:NSChangeDone];
@@ -1503,9 +1513,9 @@ To Do List:
 //START4iTM3;
     id TPD = (iTM2TeXProjectDocument *)self.document;
 	id new = [sender stringValue];
-	if(![[TPD OtherProgramsPath] pathIsEqual4iTM3:new])
+	if(![[TPD pathToOtherPrograms] pathIsEqual4iTM3:new])
 	{
-		[TPD setOtherProgramsPath:new];
+		[TPD setPathToOtherPrograms:new];
 		[TPD updateChangeCount:NSChangeDone];
 		[self isWindowContentValid4iTM3];
 	}
@@ -1526,7 +1536,7 @@ To Do List:
     id TPD = (iTM2TeXProjectDocument *)self.document;
 	[sender setStringValue:[TPD getOtherProgramsPath]];
 //END4iTM3;
-	return [[TPD OtherProgramsDistribution] pathIsEqual4iTM3:iTM2DistributionCustom];
+	return [[TPD nameOfOtherProgramsDistribution] pathIsEqual4iTM3:iTM2DistributionCustom];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  toggleOtherProgramsCPUType:
 - (IBAction)toggleOtherProgramsCPUType:(id)sender;
@@ -1559,7 +1569,7 @@ To Do List:
 		[sender setHidden:YES];
 		return YES;
 	}
-	if([[(id)self.document OtherProgramsDistribution] pathIsEqual4iTM3:iTM2DistributionCustom])
+	if([[(id)self.document nameOfOtherProgramsDistribution] pathIsEqual4iTM3:iTM2DistributionCustom])
 	{
 		sender.state = NSMixedState;
 		return NO;
@@ -1572,7 +1582,7 @@ To Do List:
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2DistributionServer
 
 #pragma mark -
-@interface iTM2TeXDistributionPrefPane: iTM2PreferencePane <NSTabViewDelegate, NSTableViewDelegate, NSOpenSavePanelDelegate>
+@interface iTM2TeXDistributionPrefPane()
 - (IBAction)toggleOutputDirectory:(id)sender;
 - (IBAction)takeOutputDirectoryFromStringValue:(id)sender;
 - (IBAction)togglePATHPrefix:(id)sender;
@@ -1584,6 +1594,31 @@ To Do List:
 - (NSMutableArray *)orderedEnvironmentVariableNames;
 - (void)setOrderedEnvironmentVariableNames:(id)argument;
 - (id)environmentVariables;
+@end
+
+@interface iTM3DistributionInfo:NSObject
+{
+    NSUInteger index;
+    NSString * name;
+}
+@property (assign) NSUInteger index;
+@property (readwrite,copy) NSString * name;
+- (id)initWithDictionary:(NSDictionary *)D;
+@end
+
+@implementation iTM3DistributionInfo:NSObject
+- (id)initWithDictionary:(NSDictionary *)D;
+{
+    if ((self = [super init])) {
+        self.name = [D objectForKey:@"name"];
+    }
+    return self;
+}
+- (NSString *)description;
+{
+    return [self.name localizedDescription4iTM3];
+}
+@synthesize name;
 @end
 
 @implementation iTM2TeXDistributionPrefPane
@@ -2443,6 +2478,49 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-  DISTRIBUTIONS
+@synthesize controllerForTeXMFPrograms;
+@synthesize controllerForOtherPrograms;
+- (iTM3DistributionInfo *) selectedDistributionsForTeXMFPrograms;
+{
+    NSMutableArray * MRA = [NSMutableArray array];
+    for (NSURL * url in [[NSBundle mainBundle] allURLsForResource4iTM3:@"Distributions" withExtension:@"plist"]) {
+        for (id O in [[NSArray alloc] initWithContentsOfURL:url]) {
+            [MRA addObject:[[iTM3DistributionInfo alloc] initWithDictionary:O]];
+        }
+    }
+    return MRA;
+}
+- (NSIndexSet *)selectionIndexesForTeXMFPrograms;
+{
+    NSString * distribution = self.lossyTeXMFProgramsDistribution;
+    NSArray * RA = self.arrayOfDistributionsForTeXMFPrograms;
+    NSUInteger i = 0;
+    for (i=0; i<RA.count;++i) {
+        iTM3DistributionInfo * DI = [RA objectAtIndex:i];
+        if ([DI.name isEqualToString:distribution]) {
+            return [NSIndexSet indexSetWithIndex:i];
+        }
+    }
+    return [NSIndexSet indexSetWithIndex:0];
+}
+- (void)setSelectionIndexesForTeXMFPrograms:(NSIndexSet *)newValue;
+{
+    NSUInteger i = newValue.firstIndex;
+    if (i<[self.controllerForTeXMFPrograms.arrangedObjects count]) {
+        [self willChangeValueForKey:@"selectionIndexesForTeXMFPrograms"];
+        iTM3DistributionInfo * DI = [self.controllerForTeXMFPrograms.arrangedObjects objectAtIndex:i];
+        [SUD setObject:DI.name forKey:iTM2DistributionTeXMFPrograms];
+        [self didChangeValueForKey:@"selectionIndexesForTeXMFPrograms"];
+    }
+}
+- (id) currentDistributionsForTeXMFPrograms;
+{
+    NSURL * url = [[[NSBundle mainBundle] allURLsForResource4iTM3:@"distributions" withExtension:@"plist"] lastObject];
+    return [[NSArray alloc] initWithContentsOfURL:url];
+}
+- (id) setCurrentDistributionsForTeXMFPrograms:(id) newValue;
+{
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsDistributionFromPopUp:
 - (IBAction)takeTeXMFProgramsDistributionFromPopUp:(id)sender;
 /*"Description forthcoming.
@@ -2532,6 +2610,72 @@ To Do List:
 	}
 	return YES;
 }
+- (NSString *) pathToTeXMFPrograms;
+{
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
+	NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
+    ReachCode4iTM3(@"pathToTeXMFPrograms...");
+#   ifdef __EMBEDDED_TEST__
+    iTM2TeXDistributionPrefPane * pane = iTM2TeXDistributionPrefPane.new;
+    NSString * old = pane.pathToTeXMFPrograms;
+    pane.pathToTeXMFPrograms = @"COUCOU";
+    NSString * S = nil;
+    STAssertReachCode4iTM3((S = pane.pathToTeXMFPrograms));
+    STAssertTrue([S isEqualToString:@"COUCOU"],@"MISSED",NULL);
+    ResetReachCodeTags4iTM3;
+    STAssertReachCode4iTM3(S = [pane valueForKey:@"pathToTeXMFPrograms"]);
+    STAssertTrue([S isEqualToString:@"COUCOU"],@"MISSED",NULL);
+    pane.pathToTeXMFPrograms = old;// beware, the pref pane is a singleton
+    STAssertTrue([pane.pathToTeXMFPrograms isEqualToString:old],@"MISSED",NULL);
+    STAssertTrue([[pane valueForKey:@"pathToTeXMFPrograms"] isEqualToString:old],@"MISSED",NULL);
+#   endif
+	return [SUD stringForKey:key]?: @"";
+}
+- (void) setPathToTeXMFPrograms:(NSString *)newPath;
+{DIAGNOSTIC4iTM3;
+    //START4iTM3;
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
+	NSString * key = [iTM2DistributionDomainTeXMFPrograms stringByAppendingPathExtension:distribution];
+	if (![[SUD stringForKey:key] pathIsEqual4iTM3:newPath]) {
+		[self willChangeValueForKey:@"pathToTeXMFPrograms"];
+		[SUD setObject:newPath forKey:key];
+		[self didChangeValueForKey:@"pathToTeXMFPrograms"];
+	}
+    //END4iTM3;
+    ReachCode4iTM3(@"setPathToTeXMFPrograms...");
+#   ifdef __EMBEDDED_TEST__
+    iTM2TeXDistributionPrefPane * pane = iTM2TeXDistributionPrefPane.new;
+    NSString * old = pane.pathToTeXMFPrograms;
+    STAssertReachCode4iTM3((pane.pathToTeXMFPrograms = @"COUCOU"));
+    STAssertTrue([pane.pathToTeXMFPrograms isEqualToString:@"COUCOU"],@"MISSED",NULL);
+    STAssertTrue([[pane valueForKey:@"pathToTeXMFPrograms"] isEqualToString:@"COUCOU"],@"MISSED",NULL);
+    ResetReachCodeTags4iTM3;
+    STAssertReachCode4iTM3([pane setValue:@"COUCOU" forKey:@"pathToTeXMFPrograms"]);
+    STAssertTrue([pane.pathToTeXMFPrograms isEqualToString:@"COUCOU"],@"MISSED",NULL);
+    STAssertTrue([[pane valueForKey:@"pathToTeXMFPrograms"] isEqualToString:@"COUCOU"],@"MISSED",NULL);
+    pane.pathToTeXMFPrograms = old;// beware, the pref pane is a singleton
+    STAssertTrue([pane.pathToTeXMFPrograms isEqualToString:old],@"MISSED",NULL);
+    STAssertTrue([[pane valueForKey:@"pathToTeXMFPrograms"] isEqualToString:old],@"MISSED",NULL);
+#   endif
+    return;
+}
+- (BOOL) validatePathToTeXMFPrograms:(NSString **)newPathRef error:(NSError **) RORef;
+{
+    if (!newPathRef
+        ||  ![*newPathRef length]
+        ||  ![DFM fileExistsAtPath:*newPathRef]) {
+terminate:
+        OUTERROR4iTM3(-1,@"The given path must point to a real location",NULL);
+        return NO;
+    }
+    NSString * path = [*newPathRef stringByAppendingPathComponent:@"tex"];
+    if (![DFM isExecutableFileAtPath:path]) {
+        goto terminate;
+    }
+    return YES;
+
+}
+@synthesize pathToTeXMFPrograms;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsPathFromStringValue:
 - (IBAction)takeTeXMFProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
@@ -2834,26 +2978,38 @@ To Do List:
 //END4iTM3;
     return;
 }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  isChooseTeXMFProgramsFromPanelHidden
+- (BOOL)isChooseTeXMFProgramsFromPanelHidden;
+/*"Description forthcoming.
+ Version History: jlaurens AT users DOT sourceforge DOT net
+ - 2.0: Thu Nov 18 07:53:25 GMT 2004
+ To Do List:
+ "*/
+{DIAGNOSTIC4iTM3;
+    //START4iTM3;
+	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
+	return ![distribution pathIsEqual4iTM3:iTM2DistributionCustom];
+}
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  validateChooseTeXMFProgramsFromPanel:
 - (BOOL)validateChooseTeXMFProgramsFromPanel:(id) sender;
 /*"Description forthcoming.
-Version History: jlaurens AT users DOT sourceforge DOT net
-- 2.0: Thu Nov 18 07:53:25 GMT 2004
-To Do List:
-"*/
+ Version History: jlaurens AT users DOT sourceforge DOT net
+ - 2.0: Thu Nov 18 07:53:25 GMT 2004
+ To Do List:
+ "*/
 {DIAGNOSTIC4iTM3;
-//START4iTM3;
+    //START4iTM3;
 	NSString * distribution = [SUD stringForKey:iTM2DistributionTeXMFPrograms];
 	if([distribution pathIsEqual4iTM3:iTM2DistributionCustom])
 	{
 		[sender setHidden:NO];
-//END4iTM3;
+        //END4iTM3;
 		return YES;
 	}
 	else
 	{
 		[sender setHidden:YES];
-//END4iTM3;
+        //END4iTM3;
 		return NO;
 	}
 }

@@ -18,164 +18,14 @@
 			name = "Prepare Milestones";
 			productName = "Prepare Milestones";
 		};
-		DC9E4F310858A8A300A86BED /* All */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = DC6BB7F909474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */;
-			buildPhases = (
-			);
-			dependencies = (
-				DC8A6215088D7E230016FAA2 /* PBXTargetDependency */,
-			);
-			name = All;
-			productName = All;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
 		512D9CEA0D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */; };
+		5170B9BB13447FE3004F857A /* iTM2LaTeXKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5170B9BA13447FE3004F857A /* iTM2LaTeXKit.framework */; };
 		51E279820CEDDD7F003A0980 /* symbolPalette.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E279810CEDDD7F003A0980 /* symbolPalette.png */; };
-		532F3C7B1092FE0D00F18A18 /* iTM2LaTeXSymbolsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */; };
-		532F3C871092FE2400F18A18 /* iTM2AMSArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */; };
-		532F3C881092FE2400F18A18 /* iTM2AMSArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9430A2608A400F50752 /* iTM2AMSArrowsMenu.dict */; };
-		532F3C891092FE2400F18A18 /* iTM2AMSArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9440A2608A400F50752 /* iTM2AMSArrowsMenu.tiff */; };
-		532F3C8A1092FE2400F18A18 /* iTM2AMSBinaryIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9450A2608A400F50752 /* iTM2AMSBinaryIcon.tiff */; };
-		532F3C8B1092FE2400F18A18 /* iTM2AMSBinaryMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9460A2608A400F50752 /* iTM2AMSBinaryMenu.dict */; };
-		532F3C8C1092FE2400F18A18 /* iTM2AMSBinaryMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9470A2608A400F50752 /* iTM2AMSBinaryMenu.tiff */; };
-		532F3C8D1092FE2400F18A18 /* iTM2AMSMathbbIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9480A2608A400F50752 /* iTM2AMSMathbbIcon.tiff */; };
-		532F3C8E1092FE2400F18A18 /* iTM2AMSMathbbMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9490A2608A400F50752 /* iTM2AMSMathbbMenu.dict */; };
-		532F3C8F1092FE2400F18A18 /* iTM2AMSMathbbMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94A0A2608A400F50752 /* iTM2AMSMathbbMenu.tiff */; };
-		532F3C901092FE2400F18A18 /* iTM2AMSMathfrakCapsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94B0A2608A400F50752 /* iTM2AMSMathfrakCapsIcon.tiff */; };
-		532F3C911092FE2400F18A18 /* iTM2AMSMathfrakCapsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94C0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.dict */; };
-		532F3C921092FE2400F18A18 /* iTM2AMSMathfrakCapsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94D0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.tiff */; };
-		532F3C931092FE2400F18A18 /* iTM2AMSMathfrakIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94E0A2608A400F50752 /* iTM2AMSMathfrakIcon.tiff */; };
-		532F3C941092FE2400F18A18 /* iTM2AMSMathfrakMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94F0A2608A400F50752 /* iTM2AMSMathfrakMenu.dict */; };
-		532F3C951092FE2400F18A18 /* iTM2AMSMathfrakMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9500A2608A400F50752 /* iTM2AMSMathfrakMenu.tiff */; };
-		532F3C961092FE2400F18A18 /* iTM2AMSMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9510A2608A400F50752 /* iTM2AMSMiscIcon.tiff */; };
-		532F3C971092FE2400F18A18 /* iTM2AMSMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9520A2608A400F50752 /* iTM2AMSMiscMenu.dict */; };
-		532F3C981092FE2400F18A18 /* iTM2AMSMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9530A2608A400F50752 /* iTM2AMSMiscMenu.tiff */; };
-		532F3C991092FE2400F18A18 /* iTM2AMSOrdinaryIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9540A2608A400F50752 /* iTM2AMSOrdinaryIcon.tiff */; };
-		532F3C9A1092FE2400F18A18 /* iTM2AMSOrdinaryMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9550A2608A400F50752 /* iTM2AMSOrdinaryMenu.dict */; };
-		532F3C9B1092FE2400F18A18 /* iTM2AMSOrdinaryMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9560A2608A400F50752 /* iTM2AMSOrdinaryMenu.tiff */; };
-		532F3C9C1092FE2400F18A18 /* iTM2AMSRelationCurlIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9570A2608A400F50752 /* iTM2AMSRelationCurlIcon.tiff */; };
-		532F3C9D1092FE2400F18A18 /* iTM2AMSRelationCurlMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9580A2608A400F50752 /* iTM2AMSRelationCurlMenu.dict */; };
-		532F3C9E1092FE2400F18A18 /* iTM2AMSRelationCurlMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9590A2608A400F50752 /* iTM2AMSRelationCurlMenu.tiff */; };
-		532F3C9F1092FE2400F18A18 /* iTM2AMSRelationIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95A0A2608A400F50752 /* iTM2AMSRelationIcon.tiff */; };
-		532F3CA01092FE2400F18A18 /* iTM2AMSRelationMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95B0A2608A400F50752 /* iTM2AMSRelationMenu.dict */; };
-		532F3CA11092FE2400F18A18 /* iTM2AMSRelationMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95C0A2608A400F50752 /* iTM2AMSRelationMenu.tiff */; };
-		532F3CA21092FE2400F18A18 /* iTM2AMSRelationSetIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95D0A2608A400F50752 /* iTM2AMSRelationSetIcon.tiff */; };
-		532F3CA31092FE2400F18A18 /* iTM2AMSRelationSetMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95E0A2608A400F50752 /* iTM2AMSRelationSetMenu.dict */; };
-		532F3CA41092FE2400F18A18 /* iTM2AMSRelationSetMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95F0A2608A400F50752 /* iTM2AMSRelationSetMenu.tiff */; };
-		532F3CA51092FE2400F18A18 /* iTM2AMSRelationSimIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9600A2608A400F50752 /* iTM2AMSRelationSimIcon.tiff */; };
-		532F3CA61092FE2400F18A18 /* iTM2AMSRelationSimMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9610A2608A400F50752 /* iTM2AMSRelationSimMenu.dict */; };
-		532F3CA71092FE2400F18A18 /* iTM2AMSRelationSimMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9620A2608A400F50752 /* iTM2AMSRelationSimMenu.tiff */; };
-		532F3CA81092FE2400F18A18 /* iTM2AMSRelationTriangleIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9630A2608A400F50752 /* iTM2AMSRelationTriangleIcon.tiff */; };
-		532F3CA91092FE2400F18A18 /* iTM2AMSRelationTriangleMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9640A2608A400F50752 /* iTM2AMSRelationTriangleMenu.dict */; };
-		532F3CAA1092FE2400F18A18 /* iTM2AMSRelationTriangleMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9650A2608A400F50752 /* iTM2AMSRelationTriangleMenu.tiff */; };
-		532F3CAB1092FE2400F18A18 /* iTM2MathbbCapsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9670A2608A400F50752 /* iTM2MathbbCapsIcon.tiff */; };
-		532F3CAC1092FE2400F18A18 /* iTM2MathbbCapsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9680A2608A400F50752 /* iTM2MathbbCapsMenu.dict */; };
-		532F3CAD1092FE2400F18A18 /* iTM2MathbbCapsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9690A2608A400F50752 /* iTM2MathbbCapsMenu.tiff */; };
-		532F3CAE1092FE2400F18A18 /* iTM2MathbbGreekIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96A0A2608A400F50752 /* iTM2MathbbGreekIcon.tiff */; };
-		532F3CAF1092FE2400F18A18 /* iTM2MathbbGreekMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96B0A2608A400F50752 /* iTM2MathbbGreekMenu.dict */; };
-		532F3CB01092FE2400F18A18 /* iTM2MathbbGreekMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96C0A2608A400F50752 /* iTM2MathbbGreekMenu.tiff */; };
-		532F3CB11092FE2400F18A18 /* iTM2MathbbIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96D0A2608A400F50752 /* iTM2MathbbIcon.tiff */; };
-		532F3CB21092FE2400F18A18 /* iTM2MathbbMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96E0A2608A400F50752 /* iTM2MathbbMenu.dict */; };
-		532F3CB31092FE2400F18A18 /* iTM2MathbbMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96F0A2608A400F50752 /* iTM2MathbbMenu.tiff */; };
-		532F3CB41092FE2400F18A18 /* iTM2MathbbNumIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9700A2608A400F50752 /* iTM2MathbbNumIcon.tiff */; };
-		532F3CB51092FE2400F18A18 /* iTM2MathbbNumMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9710A2608A400F50752 /* iTM2MathbbNumMenu.dict */; };
-		532F3CB61092FE2400F18A18 /* iTM2MathbbNumMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9720A2608A400F50752 /* iTM2MathbbNumMenu.tiff */; };
-		532F3CB71092FE2400F18A18 /* iTM2MathrsfsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9730A2608A400F50752 /* iTM2MathrsfsIcon.tiff */; };
-		532F3CB81092FE2400F18A18 /* iTM2MathrsfsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9740A2608A400F50752 /* iTM2MathrsfsMenu.dict */; };
-		532F3CB91092FE2400F18A18 /* iTM2MathrsfsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9750A2608A400F50752 /* iTM2MathrsfsMenu.tiff */; };
-		532F3CBA1092FE2400F18A18 /* iTM2LaTeXAccentIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9770A2608A400F50752 /* iTM2LaTeXAccentIcon.tiff */; };
-		532F3CBB1092FE2400F18A18 /* iTM2LaTeXAccentMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9780A2608A400F50752 /* iTM2LaTeXAccentMenu.dict */; };
-		532F3CBC1092FE2400F18A18 /* iTM2LaTeXAccentMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9790A2608A400F50752 /* iTM2LaTeXAccentMenu.tiff */; };
-		532F3CBD1092FE2400F18A18 /* iTM2LaTeXArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97A0A2608A400F50752 /* iTM2LaTeXArrowsIcon.tiff */; };
-		532F3CBE1092FE2400F18A18 /* iTM2LaTeXArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97B0A2608A400F50752 /* iTM2LaTeXArrowsMenu.dict */; };
-		532F3CBF1092FE2400F18A18 /* iTM2LaTeXArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97C0A2608A400F50752 /* iTM2LaTeXArrowsMenu.tiff */; };
-		532F3CC01092FE2400F18A18 /* iTM2LaTeXBinaryIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97D0A2608A400F50752 /* iTM2LaTeXBinaryIcon.tiff */; };
-		532F3CC11092FE2400F18A18 /* iTM2LaTeXBinaryMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97E0A2608A400F50752 /* iTM2LaTeXBinaryMenu.dict */; };
-		532F3CC21092FE2400F18A18 /* iTM2LaTeXBinaryMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97F0A2608A400F50752 /* iTM2LaTeXBinaryMenu.tiff */; };
-		532F3CC31092FE2400F18A18 /* iTM2LaTeXCalIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9800A2608A400F50752 /* iTM2LaTeXCalIcon.tiff */; };
-		532F3CC41092FE2400F18A18 /* iTM2LaTeXCalMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9810A2608A400F50752 /* iTM2LaTeXCalMenu.dict */; };
-		532F3CC51092FE2400F18A18 /* iTM2LaTeXCalMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9820A2608A400F50752 /* iTM2LaTeXCalMenu.tiff */; };
-		532F3CC61092FE2400F18A18 /* iTM2LaTeXForeignIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9830A2608A400F50752 /* iTM2LaTeXForeignIcon.tiff */; };
-		532F3CC71092FE2400F18A18 /* iTM2LaTeXForeignMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9840A2608A400F50752 /* iTM2LaTeXForeignMenu.dict */; };
-		532F3CC81092FE2400F18A18 /* iTM2LaTeXForeignMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9850A2608A400F50752 /* iTM2LaTeXForeignMenu.tiff */; };
-		532F3CC91092FE2400F18A18 /* iTM2LaTeXGreekCapsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9860A2608A400F50752 /* iTM2LaTeXGreekCapsIcon.tiff */; };
-		532F3CCA1092FE2400F18A18 /* iTM2LaTeXGreekCapsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9870A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.dict */; };
-		532F3CCB1092FE2400F18A18 /* iTM2LaTeXGreekCapsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9880A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.tiff */; };
-		532F3CCC1092FE2400F18A18 /* iTM2LaTeXGreekIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9890A2608A400F50752 /* iTM2LaTeXGreekIcon.tiff */; };
-		532F3CCD1092FE2400F18A18 /* iTM2LaTeXGreekMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98A0A2608A400F50752 /* iTM2LaTeXGreekMenu.dict */; };
-		532F3CCE1092FE2400F18A18 /* iTM2LaTeXGreekMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98B0A2608A400F50752 /* iTM2LaTeXGreekMenu.tiff */; };
-		532F3CCF1092FE2400F18A18 /* iTM2LaTeXMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98C0A2608A400F50752 /* iTM2LaTeXMiscIcon.tiff */; };
-		532F3CD01092FE2400F18A18 /* iTM2LaTeXMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98D0A2608A400F50752 /* iTM2LaTeXMiscMenu.dict */; };
-		532F3CD11092FE2400F18A18 /* iTM2LaTeXMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98E0A2608A400F50752 /* iTM2LaTeXMiscMenu.tiff */; };
-		532F3CD21092FE2400F18A18 /* iTM2LaTeXRelationsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98F0A2608A400F50752 /* iTM2LaTeXRelationsIcon.tiff */; };
-		532F3CD31092FE2400F18A18 /* iTM2LaTeXRelationsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9900A2608A400F50752 /* iTM2LaTeXRelationsMenu.dict */; };
-		532F3CD41092FE2400F18A18 /* iTM2LaTeXRelationsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9910A2608A400F50752 /* iTM2LaTeXRelationsMenu.tiff */; };
-		532F3CD51092FE2400F18A18 /* iTM2LaTeXRelationsNotIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9920A2608A400F50752 /* iTM2LaTeXRelationsNotIcon.tiff */; };
-		532F3CD61092FE2400F18A18 /* iTM2LaTeXRelationsNotMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9930A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.dict */; };
-		532F3CD71092FE2400F18A18 /* iTM2LaTeXRelationsNotMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9940A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.tiff */; };
-		532F3CD81092FE2400F18A18 /* iTM2LaTeXSymbolIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9950A2608A400F50752 /* iTM2LaTeXSymbolIcon.tiff */; };
-		532F3CD91092FE2400F18A18 /* iTM2LaTeXSymbolMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9960A2608A400F50752 /* iTM2LaTeXSymbolMenu.dict */; };
-		532F3CDA1092FE2400F18A18 /* iTM2LaTeXSymbolMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9970A2608A400F50752 /* iTM2LaTeXSymbolMenu.tiff */; };
-		532F3CDB1092FE2400F18A18 /* iTM2LaTeXVariableIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9980A2608A400F50752 /* iTM2LaTeXVariableIcon.tiff */; };
-		532F3CDC1092FE2400F18A18 /* iTM2LaTeXVariableMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9990A2608A400F50752 /* iTM2LaTeXVariableMenu.dict */; };
-		532F3CDD1092FE2400F18A18 /* iTM2LaTeXVariableMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99A0A2608A400F50752 /* iTM2LaTeXVariableMenu.tiff */; };
-		532F3CDE1092FE2400F18A18 /* iTM2MVSArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99C0A2608A400F50752 /* iTM2MVSArrowsIcon.tiff */; };
-		532F3CDF1092FE2400F18A18 /* iTM2MVSArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99D0A2608A400F50752 /* iTM2MVSArrowsMenu.dict */; };
-		532F3CE01092FE2400F18A18 /* iTM2MVSArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99E0A2608A400F50752 /* iTM2MVSArrowsMenu.tiff */; };
-		532F3CE11092FE2400F18A18 /* iTM2MVSDeskIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99F0A2608A400F50752 /* iTM2MVSDeskIcon.tiff */; };
-		532F3CE21092FE2400F18A18 /* iTM2MVSDeskMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A00A2608A400F50752 /* iTM2MVSDeskMenu.dict */; };
-		532F3CE31092FE2400F18A18 /* iTM2MVSDeskMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A10A2608A400F50752 /* iTM2MVSDeskMenu.tiff */; };
-		532F3CE41092FE2400F18A18 /* iTM2MVSMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A20A2608A400F50752 /* iTM2MVSMiscIcon.tiff */; };
-		532F3CE51092FE2400F18A18 /* iTM2MVSMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A30A2608A400F50752 /* iTM2MVSMiscMenu.dict */; };
-		532F3CE61092FE2400F18A18 /* iTM2MVSMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A40A2608A400F50752 /* iTM2MVSMiscMenu.tiff */; };
-		532F3CE71092FE2400F18A18 /* iTM2MVSNumbersIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A50A2608A400F50752 /* iTM2MVSNumbersIcon.tiff */; };
-		532F3CE81092FE2400F18A18 /* iTM2MVSNumbersMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A60A2608A400F50752 /* iTM2MVSNumbersMenu.dict */; };
-		532F3CE91092FE2400F18A18 /* iTM2MVSNumbersMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A70A2608A400F50752 /* iTM2MVSNumbersMenu.tiff */; };
-		532F3CEA1092FE2400F18A18 /* iTM2MVSZodiacIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A80A2608A400F50752 /* iTM2MVSZodiacIcon.tiff */; };
-		532F3CEB1092FE2400F18A18 /* iTM2MVSZodiacMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A90A2608A400F50752 /* iTM2MVSZodiacMenu.dict */; };
-		532F3CEC1092FE2400F18A18 /* iTM2MVSZodiacMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AA0A2608A400F50752 /* iTM2MVSZodiacMenu.tiff */; };
-		532F3CED1092FE2400F18A18 /* iTM2WSBoxIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AC0A2608A400F50752 /* iTM2WSBoxIcon.tiff */; };
-		532F3CEE1092FE2400F18A18 /* iTM2WSBoxMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AD0A2608A400F50752 /* iTM2WSBoxMenu.dict */; };
-		532F3CEF1092FE2400F18A18 /* iTM2WSBoxMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AE0A2608A400F50752 /* iTM2WSBoxMenu.tiff */; };
-		532F3CF01092FE2400F18A18 /* iTM2WSMathIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AF0A2608A400F50752 /* iTM2WSMathIcon.tiff */; };
-		532F3CF11092FE2400F18A18 /* iTM2WSMathMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B00A2608A400F50752 /* iTM2WSMathMenu.dict */; };
-		532F3CF21092FE2400F18A18 /* iTM2WSMathMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B10A2608A400F50752 /* iTM2WSMathMenu.tiff */; };
-		532F3CF31092FE2400F18A18 /* iTM2WSMhoIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B20A2608A400F50752 /* iTM2WSMhoIcon.tiff */; };
-		532F3CF41092FE2400F18A18 /* iTM2WSMhoMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B30A2608A400F50752 /* iTM2WSMhoMenu.dict */; };
-		532F3CF51092FE2400F18A18 /* iTM2WSMhoMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B40A2608A400F50752 /* iTM2WSMhoMenu.tiff */; };
-		532F3CF61092FE2400F18A18 /* iTM2WSMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B50A2608A400F50752 /* iTM2WSMiscIcon.tiff */; };
-		532F3CF71092FE2400F18A18 /* iTM2WSMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B60A2608A400F50752 /* iTM2WSMiscMenu.dict */; };
-		532F3CF81092FE2400F18A18 /* iTM2WSMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B70A2608A400F50752 /* iTM2WSMiscMenu.tiff */; };
-		532F3CF91092FE2400F18A18 /* iTM2WSZodiacIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B80A2608A400F50752 /* iTM2WSZodiacIcon.tiff */; };
-		532F3CFA1092FE2400F18A18 /* iTM2WSZodiacMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B90A2608A400F50752 /* iTM2WSZodiacMenu.dict */; };
-		532F3CFB1092FE2400F18A18 /* iTM2WSZodiacMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9BA0A2608A400F50752 /* iTM2WSZodiacMenu.tiff */; };
-		532F3CFC1092FE2400F18A18 /* iTM2PiFontArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */; };
-		532F3CFD1092FE2400F18A18 /* iTM2PiFontArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */; };
-		532F3CFE1092FE2400F18A18 /* iTM2PiFontArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */; };
-		532F3CFF1092FE2400F18A18 /* iTM2PiFontDigitsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FB0B50988600B0704A /* iTM2PiFontDigitsIcon.tiff */; };
-		532F3D001092FE2400F18A18 /* iTM2PiFontDigitsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FC0B50988600B0704A /* iTM2PiFontDigitsMenu.dict */; };
-		532F3D011092FE2400F18A18 /* iTM2PiFontDigitsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FD0B50988600B0704A /* iTM2PiFontDigitsMenu.tiff */; };
-		532F3D021092FE2400F18A18 /* iTM2PiFontMisc1Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FE0B50988600B0704A /* iTM2PiFontMisc1Icon.tiff */; };
-		532F3D031092FE2400F18A18 /* iTM2PiFontMisc1Menu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FF0B50988600B0704A /* iTM2PiFontMisc1Menu.dict */; };
-		532F3D041092FE2400F18A18 /* iTM2PiFontMisc1Menu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7000B50988600B0704A /* iTM2PiFontMisc1Menu.tiff */; };
-		532F3D051092FE2400F18A18 /* iTM2PiFontMisc2Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7010B50988600B0704A /* iTM2PiFontMisc2Icon.tiff */; };
-		532F3D061092FE2400F18A18 /* iTM2PiFontMisc2Menu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7020B50988600B0704A /* iTM2PiFontMisc2Menu.dict */; };
-		532F3D071092FE2400F18A18 /* iTM2PiFontMisc2Menu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7030B50988600B0704A /* iTM2PiFontMisc2Menu.tiff */; };
-		532F3D081092FE2400F18A18 /* iTM2PiFontStarsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */; };
-		532F3D091092FE2400F18A18 /* iTM2PiFontStarsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */; };
-		532F3D0A1092FE2400F18A18 /* iTM2PiFontStarsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */; };
-		532F3D0B1092FE2400F18A18 /* symbolPalette.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E279810CEDDD7F003A0980 /* symbolPalette.png */; };
-		532F3D0C1092FE2400F18A18 /* iTM2LaTeXSymbolsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */; };
-		532F3D2D1093009000F18A18 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 532F3D221093009000F18A18 /* Credits.rtf */; };
-		532F3D2E1093009000F18A18 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 532F3D241093009000F18A18 /* InfoPlist.strings */; };
-		532F3D321093009000F18A18 /* Test-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 532F3D2B1093009000F18A18 /* Test-main.m */; };
-		532F3D641093043400F18A18 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532F3D621093043400F18A18 /* MainMenu.xib */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		DC21DF9C08610F3700CA362C /* iTM2LaTeXSymbolsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */; };
-		DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */; };
 		DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */; };
 		DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */; };
 		DC99E9BB0A2608A400F50752 /* iTM2AMSArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */; };
@@ -322,27 +172,6 @@
 			remoteGlobalIDString = 5185EE5E127043FE00AFA001;
 			remoteInfo = "Prepare Milestones";
 		};
-		DC5D70B00949E3A200EBA96C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC5D70990949E31200EBA96C;
-			remoteInfo = "Prepare iTM2TeXFoundation";
-		};
-		DC8A6214088D7E230016FAA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
-			remoteInfo = iTM2LaTeXSymbolsKit;
-		};
-		DC993BEB088DF34F00F8BCE1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC9E4F310858A8A300A86BED;
-			remoteInfo = All;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -354,6 +183,7 @@
 		51374754133D654F00C3E3AA /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
 		51374757133D654F00C3E3AA /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
 		51374758133D654F00C3E3AA /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		5170B9BA13447FE3004F857A /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
 		51B736C11341B0D000E7E772 /* Debug-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
 		51B736C21341B0D000E7E772 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		51B736C31341B0D000E7E772 /* DebugGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
@@ -364,7 +194,6 @@
 		51B736C81341B0D000E7E772 /* Release-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
 		51B736C91341B0D000E7E772 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		51E279810CEDDD7F003A0980 /* symbolPalette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = symbolPalette.png; sourceTree = "<group>"; };
-		532F3C711092FC3D00F18A18 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		532F3D231093009000F18A18 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		532F3D251093009000F18A18 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		532F3D2A1093009000F18A18 /* Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
@@ -377,9 +206,6 @@
 		DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXSymbolsKit.m; sourceTree = "<group>"; };
 		DC2CA6BE0855D0CE00128F14 /* iTM2LaTeXSymbolsKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2LaTeXSymbolsKit-Prefix.pch"; sourceTree = "<group>"; };
 		DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2LaTeXSymbolsKit-Info.plist"; sourceTree = "<group>"; };
-		DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2LaTeXKit.framework; path = ../build/iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
-		DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2LaTeXKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC81AE8708871B9A00943C99 /* iTeXMac2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTeXMac2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
 		DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
 		DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSArrowsIcon.tiff; sourceTree = "<group>"; };
@@ -519,13 +345,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		532F3C6F1092FC3C00F18A18 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D5B49B3048680CD000E48DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -534,7 +353,7 @@
 				DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */,
 				DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */,
 				DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */,
-				DC53104F0B6642C400BD0276 /* iTM2LaTeXKit.framework in Frameworks */,
+				5170B9BB13447FE3004F857A /* iTM2LaTeXKit.framework in Frameworks */,
 				DCE52F430C0F3C5400F2D5B9 /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,7 +415,7 @@
 				DCE52F420C0F3C5400F2D5B9 /* libicucore.dylib */,
 				DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */,
 				DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */,
-				DC53104A0B6642C300BD0276 /* iTM2LaTeXKit.framework */,
+				5170B9BA13447FE3004F857A /* iTM2LaTeXKit.framework */,
 				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
 			);
@@ -617,9 +436,6 @@
 			isa = PBXGroup;
 			children = (
 				8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */,
-				DC81AE8708871B9A00943C99 /* iTeXMac2.app */,
-				DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */,
-				532F3C711092FC3D00F18A18 /* Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -842,23 +658,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		532F3C701092FC3C00F18A18 /* Test */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 532F3C761092FC4000F18A18 /* Build configuration list for PBXNativeTarget "Test" */;
-			buildPhases = (
-				532F3C6D1092FC3C00F18A18 /* Resources */,
-				532F3C6E1092FC3C00F18A18 /* Sources */,
-				532F3C6F1092FC3C00F18A18 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Test;
-			productName = Test;
-			productReference = 532F3C711092FC3D00F18A18 /* Test.app */;
-			productType = "com.apple.product-type.application";
-		};
 		8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC6BB7F509474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2LaTeXSymbolsKit" */;
@@ -870,7 +669,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				DC5D70B10949E3A200EBA96C /* PBXTargetDependency */,
 				5185EE621270441100AFA001 /* PBXTargetDependency */,
 			);
 			name = iTM2LaTeXSymbolsKit;
@@ -878,38 +676,6 @@
 			productName = iTM2PDFKit;
 			productReference = 8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */;
 			productType = "com.apple.product-type.bundle";
-		};
-		DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC5D709C0949E31300EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2LaTeXKit" */;
-			buildPhases = (
-				DC5D70A40949E32C00EBA96C /* Synchronize */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Prepare iTM2LaTeXKit";
-			productName = "Prepare iTM2TeXFoundation";
-			productReference = DC5D709A0949E31200EBA96C /* iTM2LaTeXKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		DC81AE8608871B9A00943C99 /* iTeXMac2 */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DC6BB7FD09474616004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */;
-			buildPhases = (
-				DC81AE8A08871BA700943C99 /* Really build iTeXMac2 */,
-			);
-			buildRules = (
-			);
-			comments = "The only purpose of this target is to define iTeXMac2 executable as side effect.\nDon't remove it.\n";
-			dependencies = (
-				DC993BEC088DF34F00F8BCE1 /* PBXTargetDependency */,
-			);
-			name = iTeXMac2;
-			productName = iTeXMac2;
-			productReference = DC81AE8708871B9A00943C99 /* iTeXMac2.app */;
-			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -930,161 +696,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */,
 				5185EE5E127043FE00AFA001 /* Prepare Milestones */,
 				8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */,
-				DC9E4F310858A8A300A86BED /* All */,
-				DC81AE8608871B9A00943C99 /* iTeXMac2 */,
-				532F3C701092FC3C00F18A18 /* Test */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		532F3C6D1092FC3C00F18A18 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				532F3C871092FE2400F18A18 /* iTM2AMSArrowsIcon.tiff in Resources */,
-				532F3C881092FE2400F18A18 /* iTM2AMSArrowsMenu.dict in Resources */,
-				532F3C891092FE2400F18A18 /* iTM2AMSArrowsMenu.tiff in Resources */,
-				532F3C8A1092FE2400F18A18 /* iTM2AMSBinaryIcon.tiff in Resources */,
-				532F3C8B1092FE2400F18A18 /* iTM2AMSBinaryMenu.dict in Resources */,
-				532F3C8C1092FE2400F18A18 /* iTM2AMSBinaryMenu.tiff in Resources */,
-				532F3C8D1092FE2400F18A18 /* iTM2AMSMathbbIcon.tiff in Resources */,
-				532F3C8E1092FE2400F18A18 /* iTM2AMSMathbbMenu.dict in Resources */,
-				532F3C8F1092FE2400F18A18 /* iTM2AMSMathbbMenu.tiff in Resources */,
-				532F3C901092FE2400F18A18 /* iTM2AMSMathfrakCapsIcon.tiff in Resources */,
-				532F3C911092FE2400F18A18 /* iTM2AMSMathfrakCapsMenu.dict in Resources */,
-				532F3C921092FE2400F18A18 /* iTM2AMSMathfrakCapsMenu.tiff in Resources */,
-				532F3C931092FE2400F18A18 /* iTM2AMSMathfrakIcon.tiff in Resources */,
-				532F3C941092FE2400F18A18 /* iTM2AMSMathfrakMenu.dict in Resources */,
-				532F3C951092FE2400F18A18 /* iTM2AMSMathfrakMenu.tiff in Resources */,
-				532F3C961092FE2400F18A18 /* iTM2AMSMiscIcon.tiff in Resources */,
-				532F3C971092FE2400F18A18 /* iTM2AMSMiscMenu.dict in Resources */,
-				532F3C981092FE2400F18A18 /* iTM2AMSMiscMenu.tiff in Resources */,
-				532F3C991092FE2400F18A18 /* iTM2AMSOrdinaryIcon.tiff in Resources */,
-				532F3C9A1092FE2400F18A18 /* iTM2AMSOrdinaryMenu.dict in Resources */,
-				532F3C9B1092FE2400F18A18 /* iTM2AMSOrdinaryMenu.tiff in Resources */,
-				532F3C9C1092FE2400F18A18 /* iTM2AMSRelationCurlIcon.tiff in Resources */,
-				532F3C9D1092FE2400F18A18 /* iTM2AMSRelationCurlMenu.dict in Resources */,
-				532F3C9E1092FE2400F18A18 /* iTM2AMSRelationCurlMenu.tiff in Resources */,
-				532F3C9F1092FE2400F18A18 /* iTM2AMSRelationIcon.tiff in Resources */,
-				532F3CA01092FE2400F18A18 /* iTM2AMSRelationMenu.dict in Resources */,
-				532F3CA11092FE2400F18A18 /* iTM2AMSRelationMenu.tiff in Resources */,
-				532F3CA21092FE2400F18A18 /* iTM2AMSRelationSetIcon.tiff in Resources */,
-				532F3CA31092FE2400F18A18 /* iTM2AMSRelationSetMenu.dict in Resources */,
-				532F3CA41092FE2400F18A18 /* iTM2AMSRelationSetMenu.tiff in Resources */,
-				532F3CA51092FE2400F18A18 /* iTM2AMSRelationSimIcon.tiff in Resources */,
-				532F3CA61092FE2400F18A18 /* iTM2AMSRelationSimMenu.dict in Resources */,
-				532F3CA71092FE2400F18A18 /* iTM2AMSRelationSimMenu.tiff in Resources */,
-				532F3CA81092FE2400F18A18 /* iTM2AMSRelationTriangleIcon.tiff in Resources */,
-				532F3CA91092FE2400F18A18 /* iTM2AMSRelationTriangleMenu.dict in Resources */,
-				532F3CAA1092FE2400F18A18 /* iTM2AMSRelationTriangleMenu.tiff in Resources */,
-				532F3CAB1092FE2400F18A18 /* iTM2MathbbCapsIcon.tiff in Resources */,
-				532F3CAC1092FE2400F18A18 /* iTM2MathbbCapsMenu.dict in Resources */,
-				532F3CAD1092FE2400F18A18 /* iTM2MathbbCapsMenu.tiff in Resources */,
-				532F3CAE1092FE2400F18A18 /* iTM2MathbbGreekIcon.tiff in Resources */,
-				532F3CAF1092FE2400F18A18 /* iTM2MathbbGreekMenu.dict in Resources */,
-				532F3CB01092FE2400F18A18 /* iTM2MathbbGreekMenu.tiff in Resources */,
-				532F3CB11092FE2400F18A18 /* iTM2MathbbIcon.tiff in Resources */,
-				532F3CB21092FE2400F18A18 /* iTM2MathbbMenu.dict in Resources */,
-				532F3CB31092FE2400F18A18 /* iTM2MathbbMenu.tiff in Resources */,
-				532F3CB41092FE2400F18A18 /* iTM2MathbbNumIcon.tiff in Resources */,
-				532F3CB51092FE2400F18A18 /* iTM2MathbbNumMenu.dict in Resources */,
-				532F3CB61092FE2400F18A18 /* iTM2MathbbNumMenu.tiff in Resources */,
-				532F3CB71092FE2400F18A18 /* iTM2MathrsfsIcon.tiff in Resources */,
-				532F3CB81092FE2400F18A18 /* iTM2MathrsfsMenu.dict in Resources */,
-				532F3CB91092FE2400F18A18 /* iTM2MathrsfsMenu.tiff in Resources */,
-				532F3CBA1092FE2400F18A18 /* iTM2LaTeXAccentIcon.tiff in Resources */,
-				532F3CBB1092FE2400F18A18 /* iTM2LaTeXAccentMenu.dict in Resources */,
-				532F3CBC1092FE2400F18A18 /* iTM2LaTeXAccentMenu.tiff in Resources */,
-				532F3CBD1092FE2400F18A18 /* iTM2LaTeXArrowsIcon.tiff in Resources */,
-				532F3CBE1092FE2400F18A18 /* iTM2LaTeXArrowsMenu.dict in Resources */,
-				532F3CBF1092FE2400F18A18 /* iTM2LaTeXArrowsMenu.tiff in Resources */,
-				532F3CC01092FE2400F18A18 /* iTM2LaTeXBinaryIcon.tiff in Resources */,
-				532F3CC11092FE2400F18A18 /* iTM2LaTeXBinaryMenu.dict in Resources */,
-				532F3CC21092FE2400F18A18 /* iTM2LaTeXBinaryMenu.tiff in Resources */,
-				532F3CC31092FE2400F18A18 /* iTM2LaTeXCalIcon.tiff in Resources */,
-				532F3CC41092FE2400F18A18 /* iTM2LaTeXCalMenu.dict in Resources */,
-				532F3CC51092FE2400F18A18 /* iTM2LaTeXCalMenu.tiff in Resources */,
-				532F3CC61092FE2400F18A18 /* iTM2LaTeXForeignIcon.tiff in Resources */,
-				532F3CC71092FE2400F18A18 /* iTM2LaTeXForeignMenu.dict in Resources */,
-				532F3CC81092FE2400F18A18 /* iTM2LaTeXForeignMenu.tiff in Resources */,
-				532F3CC91092FE2400F18A18 /* iTM2LaTeXGreekCapsIcon.tiff in Resources */,
-				532F3CCA1092FE2400F18A18 /* iTM2LaTeXGreekCapsMenu.dict in Resources */,
-				532F3CCB1092FE2400F18A18 /* iTM2LaTeXGreekCapsMenu.tiff in Resources */,
-				532F3CCC1092FE2400F18A18 /* iTM2LaTeXGreekIcon.tiff in Resources */,
-				532F3CCD1092FE2400F18A18 /* iTM2LaTeXGreekMenu.dict in Resources */,
-				532F3CCE1092FE2400F18A18 /* iTM2LaTeXGreekMenu.tiff in Resources */,
-				532F3CCF1092FE2400F18A18 /* iTM2LaTeXMiscIcon.tiff in Resources */,
-				532F3CD01092FE2400F18A18 /* iTM2LaTeXMiscMenu.dict in Resources */,
-				532F3CD11092FE2400F18A18 /* iTM2LaTeXMiscMenu.tiff in Resources */,
-				532F3CD21092FE2400F18A18 /* iTM2LaTeXRelationsIcon.tiff in Resources */,
-				532F3CD31092FE2400F18A18 /* iTM2LaTeXRelationsMenu.dict in Resources */,
-				532F3CD41092FE2400F18A18 /* iTM2LaTeXRelationsMenu.tiff in Resources */,
-				532F3CD51092FE2400F18A18 /* iTM2LaTeXRelationsNotIcon.tiff in Resources */,
-				532F3CD61092FE2400F18A18 /* iTM2LaTeXRelationsNotMenu.dict in Resources */,
-				532F3CD71092FE2400F18A18 /* iTM2LaTeXRelationsNotMenu.tiff in Resources */,
-				532F3CD81092FE2400F18A18 /* iTM2LaTeXSymbolIcon.tiff in Resources */,
-				532F3CD91092FE2400F18A18 /* iTM2LaTeXSymbolMenu.dict in Resources */,
-				532F3CDA1092FE2400F18A18 /* iTM2LaTeXSymbolMenu.tiff in Resources */,
-				532F3CDB1092FE2400F18A18 /* iTM2LaTeXVariableIcon.tiff in Resources */,
-				532F3CDC1092FE2400F18A18 /* iTM2LaTeXVariableMenu.dict in Resources */,
-				532F3CDD1092FE2400F18A18 /* iTM2LaTeXVariableMenu.tiff in Resources */,
-				532F3CDE1092FE2400F18A18 /* iTM2MVSArrowsIcon.tiff in Resources */,
-				532F3CDF1092FE2400F18A18 /* iTM2MVSArrowsMenu.dict in Resources */,
-				532F3CE01092FE2400F18A18 /* iTM2MVSArrowsMenu.tiff in Resources */,
-				532F3CE11092FE2400F18A18 /* iTM2MVSDeskIcon.tiff in Resources */,
-				532F3CE21092FE2400F18A18 /* iTM2MVSDeskMenu.dict in Resources */,
-				532F3CE31092FE2400F18A18 /* iTM2MVSDeskMenu.tiff in Resources */,
-				532F3CE41092FE2400F18A18 /* iTM2MVSMiscIcon.tiff in Resources */,
-				532F3CE51092FE2400F18A18 /* iTM2MVSMiscMenu.dict in Resources */,
-				532F3CE61092FE2400F18A18 /* iTM2MVSMiscMenu.tiff in Resources */,
-				532F3CE71092FE2400F18A18 /* iTM2MVSNumbersIcon.tiff in Resources */,
-				532F3CE81092FE2400F18A18 /* iTM2MVSNumbersMenu.dict in Resources */,
-				532F3CE91092FE2400F18A18 /* iTM2MVSNumbersMenu.tiff in Resources */,
-				532F3CEA1092FE2400F18A18 /* iTM2MVSZodiacIcon.tiff in Resources */,
-				532F3CEB1092FE2400F18A18 /* iTM2MVSZodiacMenu.dict in Resources */,
-				532F3CEC1092FE2400F18A18 /* iTM2MVSZodiacMenu.tiff in Resources */,
-				532F3CED1092FE2400F18A18 /* iTM2WSBoxIcon.tiff in Resources */,
-				532F3CEE1092FE2400F18A18 /* iTM2WSBoxMenu.dict in Resources */,
-				532F3CEF1092FE2400F18A18 /* iTM2WSBoxMenu.tiff in Resources */,
-				532F3CF01092FE2400F18A18 /* iTM2WSMathIcon.tiff in Resources */,
-				532F3CF11092FE2400F18A18 /* iTM2WSMathMenu.dict in Resources */,
-				532F3CF21092FE2400F18A18 /* iTM2WSMathMenu.tiff in Resources */,
-				532F3CF31092FE2400F18A18 /* iTM2WSMhoIcon.tiff in Resources */,
-				532F3CF41092FE2400F18A18 /* iTM2WSMhoMenu.dict in Resources */,
-				532F3CF51092FE2400F18A18 /* iTM2WSMhoMenu.tiff in Resources */,
-				532F3CF61092FE2400F18A18 /* iTM2WSMiscIcon.tiff in Resources */,
-				532F3CF71092FE2400F18A18 /* iTM2WSMiscMenu.dict in Resources */,
-				532F3CF81092FE2400F18A18 /* iTM2WSMiscMenu.tiff in Resources */,
-				532F3CF91092FE2400F18A18 /* iTM2WSZodiacIcon.tiff in Resources */,
-				532F3CFA1092FE2400F18A18 /* iTM2WSZodiacMenu.dict in Resources */,
-				532F3CFB1092FE2400F18A18 /* iTM2WSZodiacMenu.tiff in Resources */,
-				532F3CFC1092FE2400F18A18 /* iTM2PiFontArrowsIcon.tiff in Resources */,
-				532F3CFD1092FE2400F18A18 /* iTM2PiFontArrowsMenu.dict in Resources */,
-				532F3CFE1092FE2400F18A18 /* iTM2PiFontArrowsMenu.tiff in Resources */,
-				532F3CFF1092FE2400F18A18 /* iTM2PiFontDigitsIcon.tiff in Resources */,
-				532F3D001092FE2400F18A18 /* iTM2PiFontDigitsMenu.dict in Resources */,
-				532F3D011092FE2400F18A18 /* iTM2PiFontDigitsMenu.tiff in Resources */,
-				532F3D021092FE2400F18A18 /* iTM2PiFontMisc1Icon.tiff in Resources */,
-				532F3D031092FE2400F18A18 /* iTM2PiFontMisc1Menu.dict in Resources */,
-				532F3D041092FE2400F18A18 /* iTM2PiFontMisc1Menu.tiff in Resources */,
-				532F3D051092FE2400F18A18 /* iTM2PiFontMisc2Icon.tiff in Resources */,
-				532F3D061092FE2400F18A18 /* iTM2PiFontMisc2Menu.dict in Resources */,
-				532F3D071092FE2400F18A18 /* iTM2PiFontMisc2Menu.tiff in Resources */,
-				532F3D081092FE2400F18A18 /* iTM2PiFontStarsIcon.tiff in Resources */,
-				532F3D091092FE2400F18A18 /* iTM2PiFontStarsMenu.dict in Resources */,
-				532F3D0A1092FE2400F18A18 /* iTM2PiFontStarsMenu.tiff in Resources */,
-				532F3D0B1092FE2400F18A18 /* symbolPalette.png in Resources */,
-				532F3D0C1092FE2400F18A18 /* iTM2LaTeXSymbolsPanel.xib in Resources */,
-				532F3D2D1093009000F18A18 /* Credits.rtf in Resources */,
-				532F3D2E1093009000F18A18 /* InfoPlist.strings in Resources */,
-				532F3D641093043400F18A18 /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D5B49AF048680CD000E48DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1243,46 +861,9 @@
 			shellPath = /bin/sh;
 			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"${PROJECT_DIR}\" \"${BUILD_ROOT}/Milestones\"\nexit 0\n";
 		};
-		DC5D70A40949E32C00EBA96C /* Synchronize */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Synchronize;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2SynchronizeFramework.sh \"$PRODUCT_NAME\"\n";
-		};
-		DC81AE8A08871BA700943C99 /* Really build iTeXMac2 */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Really build iTeXMac2";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../Scripts/iTM2BuildiTeXMac2.sh\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		532F3C6E1092FC3C00F18A18 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				532F3C7B1092FE0D00F18A18 /* iTM2LaTeXSymbolsKit.m in Sources */,
-				532F3D321093009000F18A18 /* Test-main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8D5B49B1048680CD000E48DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1298,21 +879,6 @@
 			isa = PBXTargetDependency;
 			target = 5185EE5E127043FE00AFA001 /* Prepare Milestones */;
 			targetProxy = 5185EE611270441100AFA001 /* PBXContainerItemProxy */;
-		};
-		DC5D70B10949E3A200EBA96C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC5D70990949E31200EBA96C /* Prepare iTM2LaTeXKit */;
-			targetProxy = DC5D70B00949E3A200EBA96C /* PBXContainerItemProxy */;
-		};
-		DC8A6215088D7E230016FAA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */;
-			targetProxy = DC8A6214088D7E230016FAA2 /* PBXContainerItemProxy */;
-		};
-		DC993BEC088DF34F00F8BCE1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DC9E4F310858A8A300A86BED /* All */;
-			targetProxy = DC993BEB088DF34F00F8BCE1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1374,70 +940,6 @@
 			};
 			name = Deployment;
 		};
-		532F3C741092FC3F00F18A18 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Test;
-			};
-			name = Development;
-		};
-		532F3C751092FC3F00F18A18 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = Test;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC5D709D0949E31300EBA96C /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = iTM2LaTeXKit;
-				SYMROOT = "$(PROJECT_DIR)/build";
-			};
-			name = Development;
-		};
-		DC5D709E0949E31300EBA96C /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = iTM2LaTeXKit;
-				SYMROOT = "$(PROJECT_DIR)/build";
-			};
-			name = Deployment;
-		};
 		DC6BB7F609474616004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B736C61341B0D000E7E772 /* PlugInDebug.xcconfig */;
@@ -1446,6 +948,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(SRCROOT)\"",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
@@ -1461,71 +964,11 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(SRCROOT)\"",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
 				PRODUCT_NAME = iTM2LaTeXSymbolsKit;
-			};
-			name = Deployment;
-		};
-		DC6BB7FA09474616004B0A81 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
-		DC6BB7FB09474616004B0A81 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(SYMROOT)";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				OBJROOT = "$(SYMROOT)";
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = All;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "$(SRCROOT)/../build";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		DC6BB7FE09474616004B0A81 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = iTeXMac2;
-			};
-			name = Development;
-		};
-		DC6BB7FF09474616004B0A81 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = iTeXMac2;
 			};
 			name = Deployment;
 		};
@@ -1555,47 +998,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;
 		};
-		532F3C761092FC4000F18A18 /* Build configuration list for PBXNativeTarget "Test" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				532F3C741092FC3F00F18A18 /* Development */,
-				532F3C751092FC3F00F18A18 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC5D709C0949E31300EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2LaTeXKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC5D709D0949E31300EBA96C /* Development */,
-				DC5D709E0949E31300EBA96C /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
 		DC6BB7F509474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2LaTeXSymbolsKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC6BB7F609474616004B0A81 /* Development */,
 				DC6BB7F709474616004B0A81 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC6BB7F909474616004B0A81 /* Build configuration list for PBXAggregateTarget "All" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC6BB7FA09474616004B0A81 /* Development */,
-				DC6BB7FB09474616004B0A81 /* Deployment */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
-		};
-		DC6BB7FD09474616004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DC6BB7FE09474616004B0A81 /* Development */,
-				DC6BB7FF09474616004B0A81 /* Deployment */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Development;

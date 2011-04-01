@@ -26,16 +26,16 @@
 #import "iTM2TeXProjectDocumentKit.h"
 #import "iTM2TeXProjectFrontendKit.h"
 #import "iTM2TeXProjectTaskKit.h"
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2ContextKit.h>
-#import <iTM2Foundation/iTM2StringFormatKit.h>
-#import <iTM2Foundation/iTM2WindowKit.h>
-#import <iTM2Foundation/iTM2StringKit.h>
-#import <iTM2Foundation/iTM2TextKit.h>
-#import <iTM2Foundation/iTM2NotificationKit.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2KeyBindingsKit.h>
+#import <iTM3Foundation/iTM2InstallationKit.h>
+#import <iTM3Foundation/iTM2Implementation.h>
+#import <iTM3Foundation/iTM2ContextKit.h>
+#import <iTM3Foundation/iTM2StringFormatKit.h>
+#import <iTM3Foundation/iTM2WindowKit.h>
+#import <iTM3Foundation/iTM2StringKit.h>
+#import <iTM3Foundation/iTM2TextKit.h>
+#import <iTM3Foundation/iTM2NotificationKit.h>
+#import <iTM3Foundation/iTM2BundleKit.h>
+#import <iTM3Foundation/iTM2KeyBindingsKit.h>
 
 #define TABLE @"iTM2TextKit"
 #define BUNDLE [iTM2TextDocument classBundle4iTM3]

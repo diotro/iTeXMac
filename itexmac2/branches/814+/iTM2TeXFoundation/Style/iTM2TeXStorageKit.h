@@ -28,7 +28,7 @@
     @discussion Discussion forthcoming. 
 */
 
-#import <iTM2Foundation/iTM2TextStorageKit.h>
+#import <iTM3Foundation/iTM2TextStorageKit.h>
 
 extern NSString * const iTM2TextAttributesDraftSymbolsExtension;
 extern NSString * const iTM2Text2ndSymbolColorAttributeName;

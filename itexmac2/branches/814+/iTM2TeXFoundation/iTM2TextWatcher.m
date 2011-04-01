@@ -23,7 +23,7 @@
 
 #import "iTM2TextWatcher.h"
 #import "iTM2TeXStringKit.h"
-#import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM3Foundation/iTM2BundleKit.h>
 
 NSString * const iTM2UDMatchDelimiterKey = @"iTM2-Text: Match Delimiter";
 

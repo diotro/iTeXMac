@@ -246,7 +246,7 @@ static NSMutableDictionary * ICURegEx_by_key_cache = nil;
             if (errorRef) {
                 *errorRef = [NSError errorWithDomain:@"ICURegEx" code:-4
                     userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                        [NSString stringWithFormat:@"Missing iTM2Foundation regex for pattern key:"
+                        [NSString stringWithFormat:@"Missing iTM3Foundation regex for pattern key:"
                         @"%@",iTM2RegExpCommandKey,nil],
                         NSLocalizedDescriptionKey,
                             nil]];

@@ -24,9 +24,9 @@
 #import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
 #import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
 #import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
-#import <iTM2Foundation/iTM2Invocation.h>
-#import <iTM2Foundation/iTM2BundleKit.h>
-#import <iTM2Foundation/iTM2DocumentControllerKit.h>
+#import <iTM3Foundation/iTM2Invocation.h>
+#import <iTM3Foundation/iTM2BundleKit.h>
+#import <iTM3Foundation/iTM2DocumentControllerKit.h>
 
 NSString * const iTM2TeXProjectInfoComponent = @"Info";// = iTM2ProjectInfoComponent, unused
 
@@ -367,13 +367,13 @@ LOG4iTM3(@"result:%@",result);
 }
 @end
 
-//#import <iTM2Foundation/iTM2ValidationKit.h>
-//#import <iTM2Foundation/iTM2WindowKit.h>
+//#import <iTM3Foundation/iTM2ValidationKit.h>
+//#import <iTM3Foundation/iTM2WindowKit.h>
 
 @implementation iTM2TeXPFilesWindow
 @end
 
-//#import <iTM2Foundation/iTM2TextDocumentKit.h>
+//#import <iTM3Foundation/iTM2TextDocumentKit.h>
 
 NSString * iTM2ProjectLocalizedChooseMaster = nil;
 
@@ -805,7 +805,7 @@ To Do List:
 		{
 			enabled = NO;
 //multipleSelection:
-			title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM2FoundationBundle],"Description Forthcoming");
+			title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM3FoundationBundle],"Description Forthcoming");
 			MI = [[[NSMenuItem alloc] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
 			MI.target = nil;
 			[MI setEnabled:NO];
@@ -1441,7 +1441,7 @@ selectOneItem:
 				{
 					enabled = NO;
 multipleSelection:
-					title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM2FoundationBundle],"Description Forthcoming");
+					title = NSLocalizedStringFromTableInBundle(@"Multiple selection",iTM2ProjectTable,[NSBundle iTM3FoundationBundle],"Description Forthcoming");
 					MI = [[[NSMenuItem alloc] initWithTitle:title action:noop keyEquivalent:[NSString string]] autorelease];
 					MI.target = nil;
 					[MI setEnabled:NO];
@@ -1664,7 +1664,7 @@ To Do List:
 @end
 
 
-//#import <iTM2Foundation/iTM2PathUtilities.h>
+//#import <iTM3Foundation/iTM2PathUtilities.h>
 
 @implementation iTM2MainInstaller(TeXProjectDocument)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  iTM2TeXProjectControllerCompleteInstallation4iTM3

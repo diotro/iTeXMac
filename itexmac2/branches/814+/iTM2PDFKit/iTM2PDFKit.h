@@ -20,7 +20,7 @@
 //  to the actual developper team.
 */
 
-#import <iTM2Foundation/iTM2PDFDocumentKit.h>
+#import <iTM3Foundation/iTM2PDFDocumentKit.h>
 
 extern NSString * const iTM2PDFKitInspectorMode;
 extern NSString * const iTM2PDFKitToolbarIdentifier;

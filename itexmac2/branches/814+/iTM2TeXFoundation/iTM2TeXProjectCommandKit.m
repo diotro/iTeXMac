@@ -32,8 +32,8 @@ NSString * const iTM2TeXProjectHelpPage = @"pgs/004.htm";
 NSString * const iTM2TeXPCommandRegexKey = @"Command Name";
 NSString * const iTM2TeXPCommandRegexName = @"name";
 
-//#import <iTM2Foundation/iTM2MenuKit.h>
-//#import <iTM2Foundation/iTM2WindowKit.h>
+//#import <iTM3Foundation/iTM2MenuKit.h>
+//#import <iTM3Foundation/iTM2WindowKit.h>
 
 @interface iTM2TeXPCommandsInspector(FrontendKit)
 - (id)editedCommand;
@@ -1372,8 +1372,8 @@ To Do List:
 @end
 
 NSString * const iTM2TPFEDefaultEnvironmentKey = @"DefaultEnvironment";
-//#import <iTM2Foundation/iTM2Runtime.h>
-//#import <iTM2Foundation/iTM2BundleKit.h>
+//#import <iTM3Foundation/iTM2Runtime.h>
+//#import <iTM3Foundation/iTM2BundleKit.h>
 
 static NSMutableDictionary * _iTM2TeXPCommandInspectors = nil;
 
@@ -1458,9 +1458,9 @@ To Do List:
 }
 @end
 
-//#import <iTM2Foundation/iTM2BundleKit.h>
-//#import <iTM2Foundation/iTM2Runtime.h>
-//#import <iTM2Foundation/iTM2NotificationKit.h>
+//#import <iTM3Foundation/iTM2BundleKit.h>
+//#import <iTM3Foundation/iTM2Runtime.h>
+//#import <iTM3Foundation/iTM2NotificationKit.h>
 
 NSString * const TWSShellEnvironmentFrontKey = @"TWSFront";
 NSString * const TWSShellEnvironmentProjectKey = @"TWSProject";

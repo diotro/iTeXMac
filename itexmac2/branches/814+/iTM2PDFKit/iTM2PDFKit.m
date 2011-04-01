@@ -22,7 +22,7 @@
 
 //RAISE  *** Selector 'document' sent to dealloced instance 0x170e06c0 of class PDFPage.
 #import <iTM2PDFKit/iTM2PDFKit.h>
-#import <iTM2Foundation/iTM2Foundation.h>
+#import <iTM3Foundation/iTM3Foundation.h>
 #import <objc/objc-class.h>
 
 NSString * const iTM2PDFKitInspectorMode = @"Tiger";

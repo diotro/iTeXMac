@@ -21,9 +21,9 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2Foundation/iTM2InstallationKit.h>
-#import <iTM2Foundation/iTM2Implementation.h>
-#import <iTM2Foundation/iTM2ProjectDocumentKit.h>
+#import <iTM3Foundation/iTM2InstallationKit.h>
+#import <iTM3Foundation/iTM2Implementation.h>
+#import <iTM3Foundation/iTM2ProjectDocumentKit.h>
 
 @class 	iTM2TaskController;
 

@@ -27,9 +27,9 @@ Usefull for bug tracking.
 
 It is based on the folder named iTeXMac2
 
-A - The iTM2Foundation project
-1 - The iTM2Foundation frameword
-a) create a new cocoa framework project in XCode, name it iTM2Foundation, copy the resulting iTM2Foundation.xcode wrapper into the iTeXMac2 folder
+A - The iTM3Foundation project
+1 - The iTM3Foundation frameword
+a) create a new cocoa framework project in XCode, name it iTM3Foundation, copy the resulting iTM3Foundation.xcode wrapper into the iTeXMac2 folder
 b) make all the headers public except some regexp
 2 - the jaguar support bundle
 a) create a new cocoa bundle target
@@ -77,7 +77,7 @@ SOME NOTES FOR DEVELOPERS:
 2 Use the diff (filemerge) to validate the contents of a newly created app. FileMerge used with the show added/deleted option will focus on the file that may have disappeared from one release to the other.
 
 Note:
--seg1Addr 0X4E000000 iTM2Foundation.framework
+-seg1Addr 0X4E000000 iTM3Foundation.framework
 -seg1Addr 0X4C000000 iTM2TeXFoundation.framework
 -seg1Addr 0X4B000000 iTM2PDFKit.framework
 -seg1Addr 0X4A000000 iTM2LaTeXKit.framework

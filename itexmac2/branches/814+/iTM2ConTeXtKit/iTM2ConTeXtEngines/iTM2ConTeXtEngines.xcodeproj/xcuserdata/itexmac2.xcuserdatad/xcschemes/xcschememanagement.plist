@@ -9,35 +9,35 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>123</integer>
+			<integer>117</integer>
 		</dict>
 		<key>Install in ConTeXt Kit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>124</integer>
+			<integer>118</integer>
 		</dict>
 		<key>Prepare iTM2ConTeXtKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>120</integer>
+			<integer>114</integer>
 		</dict>
 		<key>TeXExec wrapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>122</integer>
+			<integer>116</integer>
 		</dict>
 		<key>iTeXMac2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>121</integer>
+			<integer>115</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

@@ -20,7 +20,7 @@
 //  Version history: (format "- date:contribution(contributor)") 
 //  To Do List: (format "- proposition(percentage actually done)")
 */
-#include <iTM2Foundation/ICURegEx.h>
+#include <iTM3Foundation/ICURegEx.h>
 
 #if 0
 @implementation iTM2TeXParser
@@ -871,7 +871,7 @@ CAS1(kiTM2TeXErrorSyntaxMode,					previousModeWithoutModifiers,				previousModif
 	}
 }
 #if 1
-#include <iTM2Foundation/iTM2Foundation.h>
+#include <iTM3Foundation/iTM3Foundation.h>
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  getSyntaxMode:forLocation:previousMode:effectiveLength:nextModeIn:before:
 - (NSUInteger)getSyntaxMode:(NSUInteger *)newModeRef forLocation:(NSUInteger)location previousMode:(NSUInteger)previousMode effectiveLength:(NSUInteger *)lengthRef nextModeIn:(NSUInteger *)nextModeRef before:(NSUInteger)beforeIndex;
 /*"Description forthcoming.

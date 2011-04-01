@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DC2741E7090CE39000C2D1D2"
-               BuildableName = "iTM2LaTeXKit.framework"
+               BuildableName = "iTM3LaTeXKit.framework"
                BlueprintName = "iTM2LaTeXKit"
                ReferencedContainer = "container:iTM2LaTeXKit.xcodeproj">
             </BuildableReference>

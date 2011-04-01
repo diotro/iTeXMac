@@ -60,9 +60,19 @@
 			<key>orderHint</key>
 			<integer>72</integer>
 		</dict>
+		<key>s.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>126</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>51019F5A13449564003CBFA4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5185EE25127042AC00AFA001</key>
 		<dict>
 			<key>primary</key>

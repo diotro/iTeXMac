@@ -63,12 +63,12 @@ NSString * const iTM3ServerOutputSelectedLengthKey = @"output_selected_length";
 NSString * const iTM3ServerOutputInsertionLocationKey = @"output_insertion_location";
 NSString * const iTM3ServerOutputInsertionLengthKey = @"output_insertion_length";
 
-#import <iTM2Foundation/iTM2BundleKit.h>
+#import <iTM3Foundation/iTM2BundleKit.h>
 
-//#import <iTM2Foundation/iTM2SystemSignalKit.h>
-//#import <iTM2Foundation/iTM2DocumentControllerKit.h>
-//#import <iTM2Foundation/iTM2InstallationKit.h>
-//#import <iTM2Foundation/iTM2Implementation.h>
+//#import <iTM3Foundation/iTM2SystemSignalKit.h>
+//#import <iTM3Foundation/iTM2DocumentControllerKit.h>
+//#import <iTM3Foundation/iTM2InstallationKit.h>
+//#import <iTM3Foundation/iTM2Implementation.h>
 
 @interface iTM3ServerKit(PRIVATE)
 + (void)completeServerInstallation;
@@ -327,11 +327,8 @@ To Do List: see the warning below
 	NSArray * arguments = [context objectForKey:iTM3ServerArgumentsKey];
 	NSEnumerator * E = arguments.objectEnumerator;
     NSString * argument = E.nextObject;// ignore $0
-	while(argument = E.nextObject)
-	{
-		argument = [argument lowercaseString];
-		if([argument isEqual:iTM3ServerProjectKey])
-		{
+	while((argument = E.nextObject)) {
+		if([argument.lowercaseString isEqual:iTM3ServerProjectKey]) {
 			argument = E.nextObject;// the project name is absolute
 //END4iTM3;
 			return argument;

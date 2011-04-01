@@ -1299,8 +1299,8 @@ To do list:
 }
 @end
 
-//#import <iTM2Foundation/iTM2BundleKit.h>
-//#import <iTM2Foundation/iTM2Runtime.h>
+//#import <iTM3Foundation/iTM2BundleKit.h>
+//#import <iTM3Foundation/iTM2Runtime.h>
 
 @implementation NSBundle(iTM2CompileWrapperKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  installBinaryWithName:error:
