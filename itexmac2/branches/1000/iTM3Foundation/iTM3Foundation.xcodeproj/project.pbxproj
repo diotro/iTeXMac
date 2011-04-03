@@ -1661,6 +1661,16 @@
 		51B7732E0E06B98C00322495 /* NERedArrow-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NERedArrow-16.png"; sourceTree = "<group>"; };
 		51D1D48A1196037000BC8256 /* Sandbox */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Sandbox; sourceTree = "<group>"; };
 		51D1D5B81196F2C700BC8256 /* iTM2RegExTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegExTests.plist; sourceTree = "<group>"; };
+		51D56AA413485C2400240F31 /* Debug-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51D56AA513485C2400240F31 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51D56AA613485C2400240F31 /* DebugGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51D56AA713485C2400240F31 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51D56AA813485C2400240F31 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51D56AA913485C2400240F31 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51D56AAA13485C2400240F31 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51D56AAB13485C2400240F31 /* Products-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Products-set.xcconfig"; sourceTree = "<group>"; };
+		51D56AAC13485C2400240F31 /* Release-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51D56AAD13485C2400240F31 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		51D7FD7E129877C6009C0707 /* iTM2Test7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2Test7.h; sourceTree = "<group>"; };
 		51D7FD7F129877C6009C0707 /* iTM2Test7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2Test7.m; sourceTree = "<group>"; };
 		51D7FE0612987886009C0707 /* iTM2Test6.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test6.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1896,10 +1906,10 @@
 		DC40694C0BAFEEAE00E87B0C /* iTM2CancelCursor.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2CancelCursor.tiff; sourceTree = "<group>"; };
 		DC4B41070BAC98F500288F8D /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
 		DC4B41090BAC990600288F8D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = French; path = French.lproj/iTM2HumanReadableActionNames.plist; sourceTree = "<group>"; };
-		DC5B69B20A4B6CD100F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B69B20A4B6CD100F7DE47 /* Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; path = Framework.xcconfig; sourceTree = "<group>"; };
 		DC5B69B30A4B6CD100F7DE47 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
-		DC5B69B50A4B6CD100F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5B69B50A4B6CD100F7DE47 /* PlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; path = PlugIn.xcconfig; sourceTree = "<group>"; };
 		DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
 		DC6698AC08E128A2004FCA6D /* iTM2PreferenceTemplate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iTM2PreferenceTemplate-Info.plist"; sourceTree = "<group>"; };
@@ -2617,12 +2627,22 @@
 			isa = PBXGroup;
 			children = (
 				5185EB5612701C8400AFA001 /* Deployment-set.xcconfig */,
+				51D56AA413485C2400240F31 /* Debug-set.xcconfig */,
+				51D56AA513485C2400240F31 /* Debug.xcconfig */,
+				51D56AA613485C2400240F31 /* DebugGC.xcconfig */,
+				51D56AA713485C2400240F31 /* FrameworkDebug.xcconfig */,
+				51D56AA813485C2400240F31 /* FrameworkRelease.xcconfig */,
+				51D56AA913485C2400240F31 /* PlugInDebug.xcconfig */,
+				51D56AAA13485C2400240F31 /* PlugInRelease.xcconfig */,
+				51D56AAB13485C2400240F31 /* Products-set.xcconfig */,
+				51D56AAC13485C2400240F31 /* Release-set.xcconfig */,
+				51D56AAD13485C2400240F31 /* Release.xcconfig */,
 				5185EB5712701C8400AFA001 /* Development-set.xcconfig */,
 				5185EB5912701C8400AFA001 /* GC-set.xcconfig */,
-				DC5B69B20A4B6CD100F7DE47 /* Framework */,
+				DC5B69B20A4B6CD100F7DE47 /* Framework.xcconfig */,
 				DC5B69B30A4B6CD100F7DE47 /* FrameworkDeployment.xcconfig */,
 				DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */,
-				DC5B69B50A4B6CD100F7DE47 /* PlugIn */,
+				DC5B69B50A4B6CD100F7DE47 /* PlugIn.xcconfig */,
 				DC5B69B60A4B6CD100F7DE47 /* PlugInDeployment.xcconfig */,
 				DC5B69B70A4B6CD100F7DE47 /* PlugInDevelopment.xcconfig */,
 				DC3B41C50A4ADEA400E83ABA /* Deployment.xcconfig */,
@@ -5789,7 +5809,7 @@
 /* Begin XCBuildConfiguration section */
 		51019E5F134488A5003CBFA4 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC5B69B40A4B6CD100F7DE47 /* FrameworkDevelopment.xcconfig */;
+			baseConfigurationReference = 51D56AA713485C2400240F31 /* FrameworkDebug.xcconfig */;
 			buildSettings = {
 				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
@@ -6863,7 +6883,6 @@
 		};
 		53F81EB91086742B0000F555 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6921,7 +6940,6 @@
 		};
 		DC1E8AAA09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6963,7 +6981,7 @@
 		};
 		DC1E8ABA09462DC40037B13F /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
+			baseConfigurationReference = 51D56AA513485C2400240F31 /* Debug.xcconfig */;
 			buildSettings = {
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
@@ -7041,7 +7059,6 @@
 		};
 		DC2732D009645D0A008B4D56 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC3B41C60A4ADEA400E83ABA /* Development.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Prepare CamelBones";
 			};
