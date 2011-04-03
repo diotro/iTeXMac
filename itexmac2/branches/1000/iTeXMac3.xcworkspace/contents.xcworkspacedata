@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:iTM2TeXFoundation/../iTM2Foundation/iTM3Foundation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "absolute:/Users/itexmac2/dev/itexmac2/branches/814+/iTM2Foundation/../iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2TeXFoundation/../iTeXMac2/iTeXMac2.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2NewDocumentKit/iTM2NewDocumentKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2PDFKit/iTM2PDFKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2BibTeXSupportKit/iTM2BibTeXSupportKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2LaTeXKit/iTM2LaTeXKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2LaTeXSymbolsKit/iTM2LaTeXSymbolsKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2ConTeXtKit/iTM2ConTeXtKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2ConTeXtKit/iTM2ConTeXtEngines/iTM2ConTeXtEngines.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2MetaPostKit/iTM2MetaPostKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2TEMPLATE_PLUGIN/iTM2TEMPLATE_PLUGIN.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iTM2ReadMe/iTM2Readme.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:replacements.command">
+   </FileRef>
+   <Group
+      location = "group:Scripts"
+      name = "Scripts">
+      <FileRef
+         location = "group:BuildAll-sudo.command">
+      </FileRef>
+      <FileRef
+         location = "group:BuildAll.command">
+      </FileRef>
+      <FileRef
+         location = "group:BuildiTeXMac2-sudo.command">
+      </FileRef>
+      <FileRef
+         location = "group:BuildiTeXMac2.command">
+      </FileRef>
+      <FileRef
+         location = "group:BuildLua-sudo.command">
+      </FileRef>
+      <FileRef
+         location = "group:BuildLua.command">
+      </FileRef>
+      <FileRef
+         location = "group:BuildSparkle-sudo.command">
+      </FileRef>
+      <FileRef
+         location = "group:BuildSparkle.command">
+      </FileRef>
+      <FileRef
+         location = "group:CleanSourceTree-sudo.command">
+      </FileRef>
+      <FileRef
+         location = "group:CleanSourceTree.command">
+      </FileRef>
+      <FileRef
+         location = "group:createPlugIn">
+      </FileRef>
+      <FileRef
+         location = "group:double click to archive.pl">
+      </FileRef>
+      <FileRef
+         location = "group:DownloadAll.command">
+      </FileRef>
+      <FileRef
+         location = "group:DownloadLua.command">
+      </FileRef>
+      <FileRef
+         location = "group:DownloadLuaObjcBridge.command">
+      </FileRef>
+      <FileRef
+         location = "group:DownloadSparkle.command">
+      </FileRef>
+      <FileRef
+         location = "group:DownloadSyncTeX.command">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2BuildiTeXMac2.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2BuildPhaseExpandResources.pl">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2CheckExecutable.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2CreateMacroIndex.pl">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2DynamicTests.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2GetRevision.pl">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2InstallEnginesInParent.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2MakeHeaderdoc.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2MakeMacrosSummary">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2MergeTheFrameworkHeaders.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2MilestoneRegistration.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2SynchronizeApplication.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2SynchronizeCamelBones.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2SynchronizeEngines.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2SynchronizeFramework.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2SynchronizeHDCrashReporter.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2SynchronizePlugIn.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM2SynchronizeSparkle.sh">
+      </FileRef>
+      <FileRef
+         location = "group:iTM3EmbeddedTestsParser.py">
+      </FileRef>
+      <FileRef
+         location = "group:myFirstPython.py">
+      </FileRef>
+      <FileRef
+         location = "group:PrepareBuildNumber.pl">
+      </FileRef>
+      <FileRef
+         location = "group:profileInfo.html">
+      </FileRef>
+      <FileRef
+         location = "group:README.txt">
+      </FileRef>
+      <FileRef
+         location = "group:ScanBuildiTeXMac2.command">
+      </FileRef>
+      <FileRef
+         location = "group:templates">
+      </FileRef>
+      <FileRef
+         location = "group:TEST">
+      </FileRef>
+      <FileRef
+         location = "group:webloc2urlConvertor.app">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:Settings"
+      name = "Settings">
+      <FileRef
+         location = "group:Debug.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Products-set.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:DebugGC.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:FrameworkRelease.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:PlugInDebug.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:PlugInRelease.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Release.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:FrameworkDebug.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Release-set.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Debug-set.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Deployment-set.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Deployment.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Development-set.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Development.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:DevelopmentGC.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:Framework">
+      </FileRef>
+      <FileRef
+         location = "group:GC-set.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:FrameworkDeployment.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:FrameworkDevelopment.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:PlugIn">
+      </FileRef>
+      <FileRef
+         location = "group:PlugInDeployment.xcconfig">
+      </FileRef>
+      <FileRef
+         location = "group:PlugInDevelopment.xcconfig">
+      </FileRef>
+   </Group>
+</Workspace>

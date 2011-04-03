@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# this is Server_Setup_4iTM3 for iTeXMac2 2.0
+# © 2010 jlaurens AT users DOT sourceforge DOT net
+# setting the links
+# Server_Setup_4iTM3 "path to iTeXMac2 server binary" "iTeXMac2" "path to the iTeXMac2.app" "iTeXMac2.app"
+# this is expected to be the very first setup script to perform
+# The direct parameters are changed to shell environment variables
+# $BUNDLE_NAME_4iTM3: name of the .app bundle
+# $SERVER_PATH4_iTM3: path to iTeXMac2 server binary
+# $BUNDLE_PATH4_iTM3: full path to the .app bundle
+# $TEMPORARY_DIRECTORY_4iTM3: temporary directory
+# $HOME_4iTM3: home directory
+# $LOG_4iTM3: file name where output is redirected
+# $DEBUG_ENABLED_4iTM3: level of debugging
+echo "This is \"$0\" speaking"
+echo "setting up ${BUNDLE_NAME_4iTM3} from environment"
+printenv
+echo "- Setting up the log output file:"
+if [ ${#LOG_4iTM3} -eq 0 ]
+then
+    LOG_4iTM3="/dev/null"
+fi
+echo "OK"
+echo "- Setting up the .../Library/TeX directory:"
+if ! [ -e "${HOME_4iTM3}/Library/TeX" ]
+then
+	echo "creating ${HOME_4iTM3}/Library/TeX"
+	mkdir -p "${HOME_4iTM3}/Library/TeX"
+fi
+cd "${HOME_4iTM3}/Library/TeX"
+echo "The current directory should be .../TeX:"
+pwd
+echo "OK"
+echo "- Setting up the main bundle path:"
+if [ -e "${BUNDLE_PATH_4iTM3}" ]
+then
+    rm -f "${BUNDLE_NAME_4iTM3}.app" >> "${LOG_4iTM3}"
+    echo "ln -s \"${BUNDLE_PATH_4iTM3}\" \"${BUNDLE_NAME_4iTM3}.app\"" >> "${LOG_4iTM3}"
+    ln -s "${BUNDLE_PATH_4iTM3}" "${BUNDLE_NAME_4iTM3}.app"
+    echo "link to ${BUNDLE_PATH_4iTM3} installed"
+else
+    echo "No application bundle to link, is it EXPECTED?"
+fi
+echo "OK"
+echo "- Setting up the .../Library/TeX/bin directory:"
+if ! [ -e "bin" ]
+then
+	echo "creating ${HOME_4iTM3}/Library/TeX/bin"
+	mkdir -p "bin"
+fi
+cd "bin"
+echo "The current directory should be .../Library/TeX/bin:"
+pwd
+echo "OK"
+echo "- Setting up the server command:"
+if [ -x "${SERVER_PATH_4iTM3}" ]
+then
+    rm -f "${BUNDLE_NAME_4iTM3}" >> "${LOG_4iTM3}"
+    echo "ln -s \"${SERVER_PATH_4iTM3}\" \"${BUNDLE_NAME_4iTM3}\"" >> "${LOG_4iTM3}"
+    ln -s "${SERVER_PATH_4iTM3}" "${BUNDLE_NAME_4iTM3}"
+    echo "link to ${SERVER_PATH_4iTM3} installed"
+else
+    echo "No application server to link, is it EXPECTED?"
+fi
+echo "OK"
+cd ..
+echo "This is $0,
+${BUNDLE_NAME_4iTM3} first set up task,
+2 soft links should be there.
+The content of $(pwd) is now
+$(ls -lR)"
+if ! [ -e "${TEMPORARY_DIRECTORY_4iTM3}" ]
+then
+	echo "Missing temporary directory at ${TEMPORARY_DIRECTORY_4iTM3}."
+    exit 1
+fi
+cd "${TEMPORARY_DIRECTORY_4iTM3}"
+echo "The temporary directory is: $(pwd)"
+if [ -e "${BUNDLE_PATH_4iTM3}" ]
+then
+    rm -f "${BUNDLE_NAME_4iTM3}.app" >> "${LOG_4iTM3}"
+    ln -s "${BUNDLE_PATH_4iTM3}" "${BUNDLE_NAME_4iTM3}.app"
+    echo "link to ${BUNDLE_PATH_4iTM3} installed"
+else
+    echo "No application to link, is it EXPECTED?"
+fi
+if ! [ -e "bin" ]
+then
+	echo "creating ${TEMPORARY_DIRECTORY_4iTM3}/bin"
+	mkdir "bin"
+fi
+cd "bin"
+if [ -x "${SERVER_PATH_4iTM3}" ]
+then
+    rm -f "${BUNDLE_NAME_4iTM3}" >> "${LOG_4iTM3}"
+    ln -s "${SERVER_PATH_4iTM3}" "${BUNDLE_NAME_4iTM3}"
+    echo "link to ${SERVER_PATH_4iTM3} installed"
+else
+    echo "No server to link with, is it EXPECTED?"
+fi
+cd ..
+echo "This is $0,
+${BUNDLE_NAME_4iTM3} second set up task,
+the content of $(pwd) is
+$(ls -lR)"
+if [ "${Debug_4iTM3:-0}" != "0" ]
+then
+	"${TEMPORARY_DIRECTORY_4iTM3}/bin/${BUNDLE_NAME_4iTM3}" notify -comment "${BUNDLE_NAME_4iTM3} should be properly set up"
+fi
+exit 0

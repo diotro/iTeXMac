@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>MP</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>MetaPost Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>iTM2MetaPostDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>XML</string>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>iTM2MetaPostkit</string>
+	<key>CFBundleIdentifier</key>
+	<string>comp.text.tex.iTeXMac.MetaPost</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleSignature</key>
+	<string>i™@c</string>
+	<key>CFBundleVersion</key>
+	<string>1.0 (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
+	<key>NSPrincipalClass</key>
+	<string>iTM2MetaPostDocument</string>
+</dict>
+</plist>

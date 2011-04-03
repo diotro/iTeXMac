@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'iTM2MakeMacrosSummary' target in the 'iTM2MakeMacrosSummary' project.
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+\usepackage{pifont}
+\begin{document}
+\newbox\shipoutbox
+%%%% Misc2
+\setbox\shipoutbox=\hbox{%
+\arraycolsep0pt
+\begin{tabular}{cccccc}
+\ding{51}&\ding{52}&\ding{55}&\ding{56}&\ding{108}&\ding{109}\\
+\ding{110}&\ding{111}&\ding{112}&\ding{113}&\ding{114}&\ding{115}\\
+\ding{116}&\ding{117}&\ding{118}&\ding{119}&\ding{120}&\ding{121}\\
+\ding{122}&\ding{123}&\ding{124}&\ding{125}&\ding{126}&\ding{127}\\
+\ding{160}&\ding{161}&\ding{162}&\ding{163}&\ding{164}&\ding{165}\\
+\ding{166}&\ding{167}&\ding{168}&\ding{169}&\ding{170}&\ding{171}\\
+\ding{51}&\ding{52}&\ding{55}&\ding{56}&\ding{108}&\ding{109}\\
+\ding{110}&\ding{111}&\ding{112}&\ding{113}&\ding{114}&\ding{115}\\
+\ding{116}&\ding{117}&\ding{118}&\ding{119}&\ding{120}&\ding{121}\\
+\ding{122}&\ding{123}&\ding{124}&\ding{125}&\ding{126}&\ding{127}\\
+\ding{160}&\ding{161}&\ding{162}&\ding{163}&\ding{164}&\ding{165}\\
+\ding{166}&\ding{167}&\ding{168}&\ding{169}&\ding{170}&\ding{171}
+\end{tabular}%
+}%
+%\setbox0=\vbox to 1.02\wd\shipoutbox{\kern-1truein\kern0.05\ht\shipoutbox\kern0.05\dp\shipoutbox
+\setbox0=\vbox{\kern-1truein
+   \hbox{\kern-1truein%\kern0.01\wd\shipoutbox
+    %\framebox{\box\shipoutbox }%
+    \copy\shipoutbox%
+    \kern1truein}%
+   \kern1truein}%
+\pdfpageheight\ht0%
+\advance\pdfpageheight\dp0%
+%\advance\pdfpageheight0.1\ht\shipoutbox
+%\advance\pdfpageheight0.1\dp\shipoutbox
+\pdfpagewidth\wd0%
+%\advance\pdfpagewidth0.02\wd\shipoutbox
+\shipout\box0%
+\end{document}

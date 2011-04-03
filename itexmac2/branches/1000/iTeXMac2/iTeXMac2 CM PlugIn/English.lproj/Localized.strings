@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Convert "%@" to a TeX Wrapper</key>
+	<string>Convert "%@" to a TeX Wrapper</string>
+	<key>Convert %i Folders to TeX Directories</key>
+	<string>Convert %i Folders to TeX Directories</string>
+	<key>Convert "%@" to a Folder</key>
+	<string>Convert "%@" to a Folder</string>
+	<key>Convert %i TeX Directories to Folders</key>
+	<string>Convert %i TeX Directories to Folders</string>
+	<key>Gather %1$i Documents in "%2$@"</key>
+	<string>Gather %1$i Documents in "%2$@"</string>
+	<key>New TeX Directory for %i Documents</key>
+	<string>New TeX Directory for %i Documents</string>
+	<key>Export "%@" As "%@"</key>
+	<string>Export "%@" As "%@"</string>
+</dict>
+</plist>

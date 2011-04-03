@@ -1,0 +1,1329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>iTM2MetaPostKit.framework</ProjName>
+
+<!--                                                   -->
+<!--    iTM2MetaPostKit.framework/../Engine.strings    -->
+<!--                                                   -->
+<File>
+<Filepath>iTM2MetaPostKit.framework/Versions/A/Resources/English.lproj/Engine.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>iTM2_Engine_mpost</Position>
+<TranslationSet>
+
+	<base loc="en"          >mp→ps or pdf filter (MetaPost)</base>
+	<tran loc="fr" origin="">Filtre mp→ps or pdf (MetaPost)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>iTM2_Engine_mptopdf</Position>
+<TranslationSet>
+
+	<base loc="en"          >mp→pdf filter (MPtoPDF)</base>
+	<tran loc="fr" origin="">Filtre mp→ps or pdf (MPtoPDF</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                  -->
+<!--    iTM2MetaPostKit.framework/../iTM2EngineMPS2PDF.nib.strings    -->
+<!--                                                                  -->
+<File>
+<Filepath>iTM2MetaPostKit.framework/Versions/A/Resources/English.lproj/iTM2EngineMPS2PDF.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (Options for the MPS2PDF engine:) : &lt;title:Options for the MPS2PDF engine:&gt; (oid:11) </Description>
+<Position>11</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options for the MPS2PDF engine:</base>
+	<tran loc="fr" origin="">Options pour le moteur MPS2PDF :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (This filter converts MetaPost output PostScript (MPS) files into PDF. It makes better sense if your MetaPost source file starts with:) : &lt;title:This filter converts MetaPost output PostScript (MPS) files into PDF.!#x000a;It makes better sense if your MetaPost source file starts with:&gt; (oid:312) </Description>
+<Position>312</Position>
+<TranslationSet>
+
+	<base loc="en"          >This filter converts MetaPost output PostScript (MPS) files into PDF.\nIt makes better sense if your MetaPost source file starts with:</base>
+	<tran loc="fr" origin="">Ce filtre convertit du PostScript issu de MetaPost (MPS) en PDF.\nCela semble meilleur si le fichier MetaPost commence par :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Ok) : &lt;title:Ok&gt; (oid:318) </Description>
+<Position>318.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ok</base>
+	<tran loc="fr" origin="">Ok</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (prologues := 0) : &lt;title:prologues := 0&gt; (oid:475) </Description>
+<Position>475</Position>
+<TranslationSet>
+
+	<base loc="en"          >prologues := 0</base>
+	<tran loc="fr" origin="">prologues := 0</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (1) MPS → DVI) : &lt;title:1) MPS → DVI&gt; (oid:476) </Description>
+<Position>476</Position>
+<TranslationSet>
+
+	<base loc="en"          >1) MPS → DVI</base>
+	<tran loc="fr" origin="">1) MPS → DVI</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (2) DVI → EPS) : &lt;title:2) DVI → EPS&gt; (oid:477) </Description>
+<Position>477</Position>
+<TranslationSet>
+
+	<base loc="en"          >2) DVI → EPS</base>
+	<tran loc="fr" origin="">2) DVI → EPS</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (3) EPS → PDF) : &lt;title:3) EPS → PDF&gt; (oid:478) </Description>
+<Position>478</Position>
+<TranslationSet>
+
+	<base loc="en"          >3) EPS → PDF</base>
+	<tran loc="fr" origin="">3) EPS → PDF</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (TeX options:) : &lt;title:TeX options:&gt; (oid:479) </Description>
+<Position>479.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX options:</base>
+	<tran loc="fr" origin="">Options TeX :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (DviPS options:) : &lt;title:DviPS options:&gt; (oid:480) </Description>
+<Position>480.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >DviPS options:</base>
+	<tran loc="fr" origin="">Options DviPS :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (epstopdf options:) : &lt;title:epstopdf options:&gt; (oid:481) </Description>
+<Position>481.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >epstopdf options:</base>
+	<tran loc="fr" origin="">Options epstopdf :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Check this box to use special TeX options.!#x000a;No option for default.&gt; (oid:485) </Description>
+<Position>485</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check this box to use special TeX options.\nNo option for default.</base>
+	<tran loc="fr" origin="">Cocher cette case pour employer des options TeX.\nAucune option par défaut.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Check this box to use special DviPS options.!#x000a;No option for default.&gt; (oid:486) </Description>
+<Position>486</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check this box to use special DviPS options.\nNo option for default.</base>
+	<tran loc="fr" origin="">Cocher cette case pour employer des options DviPS.\nAucune option par défaut.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Check this box to use special EPStoPDF options.!#x000a;No option for default.&gt; (oid:487) </Description>
+<Position>487</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check this box to use special EPStoPDF options.\nNo option for default.</base>
+	<tran loc="fr" origin="">Cocher cette case pour employer des options EPStoPDF.\nAucune option par défaut.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Firstly, TeX is used to cenvert MetaPost output to a DVI file.&gt; (oid:488) </Description>
+<Position>488</Position>
+<TranslationSet>
+
+	<base loc="en"          >Firstly, TeX is used to cenvert MetaPost output to a DVI file.</base>
+	<tran loc="fr" origin="">Premièrement, TeX est employé pour convertir du MetaPost en DVI.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Secondly, DviPS is used to convert the DVI file to an EPS one.&gt; (oid:489) </Description>
+<Position>489</Position>
+<TranslationSet>
+
+	<base loc="en"          >Secondly, DviPS is used to convert the DVI file to an EPS one.</base>
+	<tran loc="fr" origin="">Deuxièmement, DviPS est employé pour convertir le DVI en EPS.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Finally, EPStoPDF is used to convert the EPS file to a PDF file.&gt; (oid:490) </Description>
+<Position>490</Position>
+<TranslationSet>
+
+	<base loc="en"          >Finally, EPStoPDF is used to convert the EPS file to a PDF file.</base>
+	<tran loc="fr" origin="">Enfin, EPStoPDF est employé pour convertir l&apos;EPS en PDF.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Enter the extra TeX options used&gt; (oid:491) </Description>
+<Position>491</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enter the extra TeX options used</base>
+	<tran loc="fr" origin="">Entrer les options supplémentaires TeX utilisées</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Enter the extra DviPS options used.!#x000a;These options will be prepended to &quot;-E -j&quot;.&gt; (oid:492) </Description>
+<Position>492</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enter the extra DviPS options used.\nThese options will be prepended to \&quot;-E -j\&quot;.</base>
+	<tran loc="fr" origin="">Entrez les options supplémentaires de DviPS utilisées.\nCes options seront ajoutées avant \&quot;-E -j\&quot;.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Tooltips may help) : &lt;title:Tooltips may help&gt; (oid:497) </Description>
+<Position>497</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tooltips may help</base>
+	<tran loc="fr" origin="">Les indications peuvent aider</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (mps2pdf settings) : &lt;title:mps2pdf settings&gt; (oid:6) </Description>
+<Position>6</Position>
+<TranslationSet>
+
+	<base loc="en"          >mps2pdf settings</base>
+	<tran loc="fr" origin="">Réglages de mps2pdf</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                  -->
+<!--    iTM2MetaPostKit.framework/../iTM2EngineMPtoPDF.nib.strings    -->
+<!--                                                                  -->
+<File>
+<Filepath>iTM2MetaPostKit.framework/Versions/A/Resources/English.lproj/iTM2EngineMPtoPDF.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (Options for the MPtoPDF engine:) : &lt;title:Options for the MPtoPDF engine:&gt; (oid:11) </Description>
+<Position>11</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options for the MPtoPDF engine:</base>
+	<tran loc="fr" origin="">Options pour le moteur MPtoPDF :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The MPtoPDF filter is a ConTeXt module based upon TeXexec to turn MetaPost code into PDF documents. In general, this gives better results than a standard mpost→epstopdf process.) : &lt;title:The MPtoPDF filter is a ConTeXt module based upon TeXexec to turn MetaPost code into PDF documents. In general, this gives better results than a standard mpost→epstopdf process.&gt; (oid:312) </Description>
+<Position>312</Position>
+<TranslationSet>
+
+	<base loc="en"          >The MPtoPDF filter is a ConTeXt module based upon TeXexec to turn MetaPost code into PDF documents. In general, this gives better results than a standard mpost→epstopdf process.</base>
+	<tran loc="fr" origin="">Le filtre  MPtoPDF est un module de ConTeXt basé sur TeXexec pour convertir du MetaPost en PDF.  En général, ceci donne de meilleurs résultats qu&apos;un processus standard mpost→epstopdf.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Ok) : &lt;title:Ok&gt; (oid:318) </Description>
+<Position>318.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ok</base>
+	<tran loc="fr" origin="">Ok</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (LaTeX) : &lt;title:LaTeX&gt; (oid:454) </Description>
+<Position>454.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX</base>
+	<tran loc="fr" origin="">LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Raw MetaPost) : &lt;title:Raw MetaPost&gt; (oid:455) </Description>
+<Position>455.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Raw MetaPost</base>
+	<tran loc="fr" origin="">MetaPost cru</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Additional TeXexec options:) : &lt;title:Additional TeXexec options:&gt; (oid:456) </Description>
+<Position>456.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Additional TeXexec options:</base>
+	<tran loc="fr" origin="">Options additionnelles de TeXexec :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Tooltips may help) : &lt;title:Tooltips may help&gt; (oid:473) </Description>
+<Position>473</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tooltips may help</base>
+	<tran loc="fr" origin="">Les indications peuvent aider</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Check this box if the MetaPost source relies on LaTeX&gt; (oid:474) </Description>
+<Position>474</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check this box if the MetaPost source relies on LaTeX</base>
+	<tran loc="fr" origin="">Cocher cette case si la source MetaPost utilise LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Check this box to disable any post processing&gt; (oid:475) </Description>
+<Position>475</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check this box to disable any post processing</base>
+	<tran loc="fr" origin="">Cocher cette case pour empêcher tout post traitement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Check this box to use additional TeXexec options&gt; (oid:476) </Description>
+<Position>476</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check this box to use additional TeXexec options</base>
+	<tran loc="fr" origin="">Cocher cette case pour employer des options de TeXExec additionnelles</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Enter TeXexec options here.&gt; (oid:477) </Description>
+<Position>477</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enter TeXexec options here.</base>
+	<tran loc="fr" origin="">Entrez les options de TeXExec ici.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (mptopdf settings) : &lt;title:mptopdf settings&gt; (oid:6) </Description>
+<Position>6</Position>
+<TranslationSet>
+
+	<base loc="en"          >mptopdf settings</base>
+	<tran loc="fr" origin="">Réglages de mptopdf</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                   -->
+<!--    iTM2MetaPostKit.framework/../iTM2EngineMetaPost.nib.strings    -->
+<!--                                                                   -->
+<File>
+<Filepath>iTM2MetaPostKit.framework/Versions/A/Resources/English.lproj/iTM2EngineMetaPost.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (Options for the mpost engine:) : &lt;title:Options for the mpost engine:&gt; (oid:11) </Description>
+<Position>11</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options for the mpost engine:</base>
+	<tran loc="fr" origin="">Options pour le moteur mpost :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Format&gt; (oid:239) </Description>
+<Position>239</Position>
+<TranslationSet>
+
+	<base loc="en"          >Format</base>
+	<tran loc="fr" origin="">Format</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Advanced&gt; (oid:240) </Description>
+<Position>240</Position>
+<TranslationSet>
+
+	<base loc="en"          >Advanced</base>
+	<tran loc="fr" origin="">Avancé</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Debug&gt; (oid:248) </Description>
+<Position>248</Position>
+<TranslationSet>
+
+	<base loc="en"          >Debug</base>
+	<tran loc="fr" origin="">Déboguage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Use format:) : &lt;title:Use format:&gt; (oid:251) </Description>
+<Position>251.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use format:</base>
+	<tran loc="fr" origin="">Utiliser le format :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (or parse the first line of the main input file) : &lt;title:or parse the first line of the main input file&gt; (oid:252) </Description>
+<Position>252.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >or parse the first line of the main input file</base>
+	<tran loc="fr" origin="">ou analyser la première ligne du fichier principal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use TROFF output) : &lt;title:Use TROFF output&gt; (oid:259) </Description>
+<Position>259.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use TROFF output</base>
+	<tran loc="fr" origin="">Employer TROFF</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Be inimpost, for dumping formats) : &lt;title:Be inimpost, for dumping formats&gt; (oid:260) </Description>
+<Position>260.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Be inimpost, for dumping formats</base>
+	<tran loc="fr" origin="">Utiliser inimpost pour précompiler les formats</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Standard error messages.) : &lt;title:Standard error messages.&gt; (oid:272) </Description>
+<Position>272.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Standard error messages.</base>
+	<tran loc="fr" origin="">Messages d&apos;erreur type.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable the filename recorder) : &lt;title:Enable the filename recorder&gt; (oid:273) </Description>
+<Position>273.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable the filename recorder</base>
+	<tran loc="fr" origin="">Activer l&apos;enregistreur de nom de fichier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Custom output file name:) : &lt;title:Custom output file name:&gt; (oid:307) </Description>
+<Position>307.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Custom output file name:</base>
+	<tran loc="fr" origin="">Nom de fichier de sortie personnalisé :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Custom base format:) : &lt;title:Custom base format:&gt; (oid:309) </Description>
+<Position>309.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Custom base format:</base>
+	<tran loc="fr" origin="">Format de base personnalisé :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The mpost program interprets the MetaPost language and produces PostScript® pictures. MetaPost is a powerful graphics language created by John D. Hobby which extends Donald E. Knuth&apos;s METAFONT. It comes with PostScript output and facilities for including TeX or troff typeset text.) : &lt;title:The mpost program interprets the MetaPost language and produces PostScript® pictures. MetaPost is a powerful graphics language created by John D. Hobby which extends Donald E. Knuth&apos;s METAFONT. It comes with PostScript output and facilities for including TeX or troff typeset text.&gt; (oid:312) </Description>
+<Position>312</Position>
+<TranslationSet>
+
+	<base loc="en"          >The mpost program interprets the MetaPost language and produces PostScript® pictures. MetaPost is a powerful graphics language created by John D. Hobby which extends Donald E. Knuth&apos;s METAFONT. It comes with PostScript output and facilities for including TeX or troff typeset text.</base>
+	<tran loc="fr" origin="">Le programme mpost interprète le language MetaPost et produit des images PostScript®. MetaPost est un language graphique puissant créé par John D. Hobby qui étend MetaFont de Donald E. Knuth. Il permet de produire du PostScript, d&apos;inclure du TeX ou troff.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Ok) : &lt;title:Ok&gt; (oid:318) </Description>
+<Position>318.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ok</base>
+	<tran loc="fr" origin="">Ok</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:326) </Description>
+<Position>326</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton (Item1) : &lt;title:Item1&gt; (oid:327) </Description>
+<Position>327</Position>
+<TranslationSet>
+
+	<base loc="en"          >Item1</base>
+	<tran loc="fr" origin="">Item1</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item1&gt; (oid:328) </Description>
+<Position>328</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item1</base>
+	<tran loc="fr" origin="Default Names List matched text">Item1</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (sdf) : &lt;title:sdf&gt; (oid:329) </Description>
+<Position>329</Position>
+<TranslationSet>
+
+	<base loc="en"          >sdf</base>
+	<tran loc="fr" origin="">sdf</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton (Item1) : &lt;title:Item1&gt; (oid:330) </Description>
+<Position>330</Position>
+<TranslationSet>
+
+	<base loc="en"          >Item1</base>
+	<tran loc="fr" origin="">Item1</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (sdf) : &lt;title:sdf&gt; (oid:331) </Description>
+<Position>331</Position>
+<TranslationSet>
+
+	<base loc="en"          >sdf</base>
+	<tran loc="fr" origin="">sdf</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item1&gt; (oid:333) </Description>
+<Position>333</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item1</base>
+	<tran loc="fr" origin="Default Names List matched text">Item1</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:334) </Description>
+<Position>334</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Custom output directory:) : &lt;title:Custom output directory:&gt; (oid:340) </Description>
+<Position>340.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Custom output directory:</base>
+	<tran loc="fr" origin="">Dossier de sortie personnalisé :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (s s s) : &lt;title:s!#x000a;s!#x000a;s&gt; (oid:341) </Description>
+<Position>341</Position>
+<TranslationSet>
+
+	<base loc="en"          >s\ns\ns</base>
+	<tran loc="fr" origin="">s\ns\ns</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Precompile MetaPost macros into .mem format files.&gt; (oid:351) </Description>
+<Position>351</Position>
+<TranslationSet>
+
+	<base loc="en"          >Precompile MetaPost macros into .mem format files.</base>
+	<tran loc="fr" origin="">Precompiler les macros MetaPost en format de fichier .mem.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:troff is another unix text processor&gt; (oid:352) </Description>
+<Position>352</Position>
+<TranslationSet>
+
+	<base loc="en"          >troff is another unix text processor</base>
+	<tran loc="fr" origin="">troff est un autre processeur de texte unix</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:A MetaPost format is a set of precompiled macros wrapped in a .mem file.&gt; (oid:384) </Description>
+<Position>384</Position>
+<TranslationSet>
+
+	<base loc="en"          >A MetaPost format is a set of precompiled macros wrapped in a .mem file.</base>
+	<tran loc="fr" origin="">Un format MetaPost est un ensemble de macros precompilées dans un fichier mem.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:If the main input file starts with &quot;%&amp;name&quot;, name is used as format.!#x000a;Avoid this feature as far as possible.!#x000a;This option works for translation too.&gt; (oid:385) </Description>
+<Position>385</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the main input file starts with \&quot;%&amp;name\&quot;, name is used as format.\nAvoid this feature as far as possible.\nThis option works for translation too.</base>
+	<tran loc="fr" origin="">Si le fichier principal commence par \&quot;%&amp;name\&quot;, name est employé comme format.\nMais éviter ce dispositif autant que possible.\nCette option fonctionne pour la traduction aussi.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/metapost/... folders.&gt; (oid:386) </Description>
+<Position>386</Position>
+<TranslationSet>
+
+	<base loc="en"          >The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/metapost/... folders.</base>
+	<tran loc="fr" origin="">Le nom du format de base est employé pour trouver les dossiers auxiliaires dans la structure arborescente de TeX, en général les différents dossiers .../Library/texmf/metapost/...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Set the user interaction level:) : &lt;title:Set the user interaction level:&gt; (oid:403) </Description>
+<Position>403</Position>
+<TranslationSet>
+
+	<base loc="en"          >Set the user interaction level:</base>
+	<tran loc="fr" origin="">Régler le niveau d&apos;interaction d&apos;utilisateur:</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:All errors are written to the log file (masterFileName.log).&gt; (oid:405) </Description>
+<Position>405</Position>
+<TranslationSet>
+
+	<base loc="en"          >All errors are written to the log file (masterFileName.log).</base>
+	<tran loc="fr" origin="">Toutes les erreurs sont écrites dans le log (masterFileName.log).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form &quot;file:line:error&quot; which is similar to the way many compilers format them.!#x000a;The latter is best for iTeXMac.&gt; (oid:409) </Description>
+<Position>409</Position>
+<TranslationSet>
+
+	<base loc="en"          >When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form \&quot;file:line:error\&quot; which is similar to the way many compilers format them.\nThe latter is best for iTeXMac.</base>
+	<tran loc="fr" origin="">Si coché, messages d&apos;erreur plus lisibles. Par défault les messages d&apos;erreur ont la forme \&quot;file:line:error\&quot; comme la plupart des compilateurs les composent.\nC&apos;est préférable pour iTeXMac2.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:This leaves a trace of the files opened for input and output in a file with extension .fls.&gt; (oid:410) </Description>
+<Position>410</Position>
+<TranslationSet>
+
+	<base loc="en"          >This leaves a trace of the files opened for input and output in a file with extension .fls.</base>
+	<tran loc="fr" origin="">Ceci laisse une trace des fichiers ouverts pour l&apos;entrée/sortie dans un fichier avec extension fls.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (or parse the first line of the main input) : &lt;title:or parse the first line of the main input&gt; (oid:413) </Description>
+<Position>413.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >or parse the first line of the main input</base>
+	<tran loc="fr" origin="">ou analysez la première ligne du fichier principale</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (use table:) : &lt;title:use table:&gt; (oid:414) </Description>
+<Position>414.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >use table:</base>
+	<tran loc="fr" origin="">utiliser la table :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (For tcx translation,) : &lt;title:For tcx translation,&gt; (oid:416) </Description>
+<Position>416</Position>
+<TranslationSet>
+
+	<base loc="en"          >For tcx translation,</base>
+	<tran loc="fr" origin="">Pour la traduction tcx,</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:If the main input file contains a translation directive!#x000a;%&amp; --transate-file tcxname!#x000a;in its first line, use the translation table named tcxname.!#x000a;Avoid this %&amp;... feature as far as possible.!#x000a;This option holds for the format and is changed from the format pane.&gt; (oid:417) </Description>
+<Position>417</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the main input file contains a translation directive\n%&amp; --transate-file tcxname\nin its first line, use the translation table named tcxname.\nAvoid this %&amp;... feature as far as possible.\nThis option holds for the format and is changed from the format pane.</base>
+	<tran loc="fr" origin="">Si le fichier principal contient dans sa première ligne une directive de traduction tcx\n%&amp; --transate-file tcxname\n, employer la table de traduction nommée tcxname.\nÉviter ce dispositif %&amp;... autant que possible.\nDisponible seulement si la première ligne est analysée (voir le panel de format).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (batch mode) : &lt;title:batch mode&gt; (oid:430) </Description>
+<Position>430.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >batch mode</base>
+	<tran loc="fr" origin="">mode batch :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (non stop mode) : &lt;title:non stop mode&gt; (oid:431) </Description>
+<Position>431.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >non stop mode</base>
+	<tran loc="fr" origin="">mode non stop</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (scroll mode) : &lt;title:scroll mode&gt; (oid:432) </Description>
+<Position>432.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >scroll mode</base>
+	<tran loc="fr" origin="">mode défilement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (error stop mode) : &lt;title:error stop mode&gt; (oid:433) </Description>
+<Position>433.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >error stop mode</base>
+	<tran loc="fr" origin="">mode error stop</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:No interaction.!#x000a;Prevents all output in addition to that (intended for use in automated scripts).&gt; (oid:434) </Description>
+<Position>434</Position>
+<TranslationSet>
+
+	<base loc="en"          >No interaction.\nPrevents all output in addition to that (intended for use in automated scripts).</base>
+	<tran loc="fr" origin="">Aucune interaction.\nEmpêche tout le rendement en plus de celui (destiné à l&apos;utilisation en script automatisés).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Diagnostic but no interaction.!#x000a;Does not request input after serious errors but stops processing altogether.&gt; (oid:435) </Description>
+<Position>435</Position>
+<TranslationSet>
+
+	<base loc="en"          >Diagnostic but no interaction.\nDoes not request input after serious errors but stops processing altogether.</base>
+	<tran loc="fr" origin="">Diagnostic mais aucune interaction.\nNe demande rien après des erreurs sérieuses mais cesse la compilation.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Does not stop on errors in the source but requests input when a more serious error like a missing file occurs.&gt; (oid:436) </Description>
+<Position>436</Position>
+<TranslationSet>
+
+	<base loc="en"          >Does not stop on errors in the source but requests input when a more serious error like a missing file occurs.</base>
+	<tran loc="fr" origin="">Pas d&apos;arrêt sur des erreurs dans la source mais demande de l&apos;aide quand une erreur plus sérieuse comme un dossier absent se produit.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Stops on all errors, whether they are MetaPost errors in the source code or non-existent files, request user assistance.&gt; (oid:437) </Description>
+<Position>437</Position>
+<TranslationSet>
+
+	<base loc="en"          >Stops on all errors, whether they are MetaPost errors in the source code or non-existent files, request user assistance.</base>
+	<tran loc="fr" origin="">Arrêts sur toutes les erreurs, qu&apos;elles soient de la syntaxe MetaPost ou de fichier absents, demande l&apos;assistance de l&apos;utilisateur.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (Use TeX format:) : &lt;title:Use TeX format:&gt; (oid:439) </Description>
+<Position>439.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use TeX format:</base>
+	<tran loc="fr" origin="">Employez le format TeX :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (or parse the first line of the main input file) : &lt;title:or parse the first line of the main input file&gt; (oid:440) </Description>
+<Position>440.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >or parse the first line of the main input file</base>
+	<tran loc="fr" origin="">ou analyser la première ligne du fichier principal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton (Item1) : &lt;title:Item1&gt; (oid:441) </Description>
+<Position>441</Position>
+<TranslationSet>
+
+	<base loc="en"          >Item1</base>
+	<tran loc="fr" origin="">Item1</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:442) </Description>
+<Position>442</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item1&gt; (oid:443) </Description>
+<Position>443</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item1</base>
+	<tran loc="fr" origin="Default Names List matched text">Item1</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (sdf) : &lt;title:sdf&gt; (oid:444) </Description>
+<Position>444</Position>
+<TranslationSet>
+
+	<base loc="en"          >sdf</base>
+	<tran loc="fr" origin="">sdf</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:The TeX format is used to typeset commands enclosed in btex...etex and verbatimtex...etex groups.&gt; (oid:445) </Description>
+<Position>445</Position>
+<TranslationSet>
+
+	<base loc="en"          >The TeX format is used to typeset commands enclosed in btex...etex and verbatimtex...etex groups.</base>
+	<tran loc="fr" origin="">Le format de TeX est employé pour composer des commandes incluses dans des groupes btex...etex and verbatimtex...etex.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:If the commands enclosed in a verbatimtex group start with &quot;%&amp;name&quot;, name is used as format.!#x000a;Avoid this feature as far as possible.&gt; (oid:446) </Description>
+<Position>446</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the commands enclosed in a verbatimtex group start with \&quot;%&amp;name\&quot;, name is used as format.\nAvoid this feature as far as possible.</base>
+	<tran loc="fr" origin="">Si les commandes incluses dans un groupe verbatimtex commencent par \&quot;%&amp;name\&quot;, le format name est utilisé.\nÉvitez ce dispositif autant que possible.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Convert MetaPost output (MPS) to PDF:) : &lt;title:Convert MetaPost output (MPS) to PDF:&gt; (oid:450) </Description>
+<Position>450.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Convert MetaPost output (MPS) to PDF:</base>
+	<tran loc="fr" origin="">Convertir le résultat MetaPost (MPS) en PDF :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Check this box to allow iTeXMac to display the figures.!#x000a;Change the filtering engine if things don&apos;t work as expected...&gt; (oid:452) </Description>
+<Position>452</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check this box to allow iTeXMac to display the figures.\nChange the filtering engine if things don&apos;t work as expected...</base>
+	<tran loc="fr" origin="">Cocheer cette case pour permettre à iTeXMac2 de montrer les figures.\nChanger le moteur filtre si les choses ne se passent pas comme prévu...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Use the MPToPDF ConTeXt tool to convert the MetaPost output into a PDF file.&gt; (oid:479) </Description>
+<Position>479</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the MPToPDF ConTeXt tool to convert the MetaPost output into a PDF file.</base>
+	<tran loc="fr" origin="">Utiliser l&apos;outil MPToPDF de ConTeXt pour convertir du MetaPost en PDF.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (MPS → EPS → PDF (built in script)) : &lt;title:MPS → EPS → PDF (built in script)&gt; (oid:499) </Description>
+<Position>499.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >MPS → EPS → PDF (built in script)</base>
+	<tran loc="fr" origin="">MPS → EPS → PDF (script intégré)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (MPS → PDF (mptopdf from ConTeXt)) : &lt;title:MPS → PDF (mptopdf from ConTeXt)&gt; (oid:500) </Description>
+<Position>500.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >MPS → PDF (mptopdf from ConTeXt)</base>
+	<tran loc="fr" origin="">MPS → PDF (mptopdf de ConTeXt)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (EPS → PDF (prologues:=1; and epstopdf)) : &lt;title:EPS → PDF (prologues:=1; and epstopdf)&gt; (oid:501) </Description>
+<Position>501.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >EPS → PDF (prologues:=1; and epstopdf)</base>
+	<tran loc="fr" origin="">EPS → PDF (prologues:=1; et epstopdf)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Use the provided pms2eps script then epstopdf shell command to convert the MetaPost output into a PDF file.&gt; (oid:502) </Description>
+<Position>502</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the provided pms2eps script then epstopdf shell command to convert the MetaPost output into a PDF file.</base>
+	<tran loc="fr" origin="">Utiliser le script donné pms2eps ensuite lacommande shell epstopdf pour convertir du MetaPost en PDF.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Use the MPToPDF ConTeXt tool to convert the MetaPost output into a PDF file.&gt; (oid:503) </Description>
+<Position>503</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the MPToPDF ConTeXt tool to convert the MetaPost output into a PDF file.</base>
+	<tran loc="fr" origin="">Utiliser l&apos;outil MPToPDF de ConTeXt pour convertir du MetaPost en PDF.????</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Use the epstopdf shell command to convert the MetaPost output into a PDF file.!#x000a;You must use prologues:=1; at least in your MetaPost source file.&gt; (oid:504) </Description>
+<Position>504</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the epstopdf shell command to convert the MetaPost output into a PDF file.\nYou must use prologues:=1; at least in your MetaPost source file.</base>
+	<tran loc="fr" origin="">Utiliser la commande shell epstopdf pour convertir du MetaPost en PDF.\nEmployer prologues:=1; au moins dans le source MetaPost.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Tooltips may help) : &lt;title:Tooltips may help&gt; (oid:505) </Description>
+<Position>505</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tooltips may help</base>
+	<tran loc="fr" origin="">Les indications peuvent aider</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (mpost settings) : &lt;title:mpost settings&gt; (oid:6) </Description>
+<Position>6</Position>
+<TranslationSet>
+
+	<base loc="en"          >mpost settings</base>
+	<tran loc="fr" origin="">Réglages mpost</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                       -->
+<!--    iTM2MetaPostKit.framework/../iTM2MetaPostFigureMenu.nib.strings    -->
+<!--                                                                       -->
+<File>
+<Filepath>iTM2MetaPostKit.framework/Versions/A/Resources/English.lproj/iTM2MetaPostFigureMenu.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Figure&gt; (oid:107) </Description>
+<Position>107</Position>
+<TranslationSet>
+
+	<base loc="en"          >Figure</base>
+	<tran loc="fr" origin="">Figure</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Go To&gt; (oid:122) </Description>
+<Position>122</Position>
+<TranslationSet>
+
+	<base loc="en"          >Go To</base>
+	<tran loc="fr" origin="">Aller à</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Figures&gt; (oid:173) </Description>
+<Position>173</Position>
+<TranslationSet>
+
+	<base loc="en"          >Figures</base>
+	<tran loc="fr" origin="">Figures</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Menu&gt; (oid:95) </Description>
+<Position>95</Position>
+<TranslationSet>
+
+	<base loc="en"          >Menu</base>
+	<tran loc="fr" origin="">Menu</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Insert:&gt; (oid:96) </Description>
+<Position>96</Position>
+<TranslationSet>
+
+	<base loc="en"          >Insert:</base>
+	<tran loc="fr" origin="">Insérer :</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                      -->
+<!--    iTM2MetaPostKit.framework/../iTM2MetaPostInspector.nib.strings    -->
+<!--                                                                      -->
+<File>
+<Filepath>iTM2MetaPostKit.framework/Versions/A/Resources/English.lproj/iTM2MetaPostInspector.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:20) </Description>
+<Position>20</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:123&gt; (oid:23) </Description>
+<Position>23</Position>
+<TranslationSet>
+
+	<base loc="en"          >123</base>
+	<tran loc="fr" origin="">123</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Figure:) : &lt;title:Figure:&gt; (oid:24) </Description>
+<Position>24</Position>
+<TranslationSet>
+
+	<base loc="en"          >Figure:</base>
+	<tran loc="fr" origin="">Figure :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> iTM2MetaPostWindow (Window) : &lt;title:Window&gt; (oid:5) </Description>
+<Position>5</Position>
+<TranslationSet>
+
+	<base loc="en"          >Window</base>
+	<tran loc="fr" origin="">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> iTM2MetaPostFigureButton (                     ) : &lt;title:                     &gt; (oid:88) </Description>
+<Position>88</Position>
+<TranslationSet>
+
+	<base loc="en"          >                     </base>
+	<tran loc="fr" origin="">                     </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> iTM2MetaPostFigureButton (                     ) : &lt;title:                     &gt; (oid:88) </Description>
+<Position>88</Position>
+<TranslationSet>
+
+	<base loc="en"          ></base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:89) </Description>
+<Position>89</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item2&gt; (oid:90) </Description>
+<Position>90</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item2</base>
+	<tran loc="fr" origin="Default Names List matched text">Item2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:                     &gt; (oid:91) </Description>
+<Position>91</Position>
+<TranslationSet>
+
+	<base loc="en"          >                     </base>
+	<tran loc="fr" origin="">                     </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:                     &gt; (oid:91) </Description>
+<Position>91</Position>
+<TranslationSet>
+
+	<base loc="en"          ></base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Item3&gt; (oid:92) </Description>
+<Position>92</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Item3</base>
+	<tran loc="fr" origin="Default Names List matched text">Item3</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Figure ) : &lt;title:Figure!#x000a;&gt; (oid:93) </Description>
+<Position>93</Position>
+<TranslationSet>
+
+	<base loc="en"          >Figure\n</base>
+	<tran loc="fr" origin="">Figure\n</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Tools forthcoming) : &lt;title:Tools forthcoming&gt; (oid:96) </Description>
+<Position>96</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tools forthcoming</base>
+	<tran loc="fr" origin="">Outils à venir</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

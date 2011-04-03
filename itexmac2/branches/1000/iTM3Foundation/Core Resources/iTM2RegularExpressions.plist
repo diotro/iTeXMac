@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>...__(</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+		</array>
+		<key>format</key>
+		<string>⌘⌘</string>
+	</dict>
+	<key>__(</key>
+	<dict>
+		<key>search</key>
+		<string>(?&lt;!\))__\(</string>
+	</dict>
+	<key>)__</key>
+	<dict>
+		<key>search</key>
+		<string>\)__</string>
+	</dict>
+	<key>__(|)__</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+			<string>)__</string>
+		</array>
+		<key>format</key>
+		<string>(?s:⌘)⌘|⌘</string>
+	</dict>
+	<key>⌘</key>
+	<dict>
+		<key>%</key>
+		<string>Optional dictionary to define the format of the ⌘ argv entries (escaped or not)</string>
+		<key>replace</key>
+		<string>${1}</string>
+		<key>search</key>
+		<string>$\{(⌘)\}|⌘</string>
+	</dict>
+	<key>%</key>
+	<dict>
+		<key>replace</key>
+		<string>${1}${2}</string>
+		<key>search</key>
+		<string>(?x:# match %% or string between %%s
+    (%)%# 2 consecutive %
+    |((?&gt;%?\\.|%?[^\\%])*)# escaped chars, no single % or \
+)</string>
+	</dict>
+	<key>\\</key>
+	<dict>
+		<key>search</key>
+		<string>\\</string>
+	</dict>
+	<key>__(SEL...)__</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+			<string>SEL...</string>
+			<string>)__</string>
+		</array>
+		<key>format</key>
+		<string>(?s:⌘)⌘⌘⌘</string>
+	</dict>
+	<key>__(SEL...)__|EOL</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+			<string>SEL...</string>
+			<string>)__</string>
+			<string>EOL</string>
+		</array>
+		<key>format</key>
+		<string>⌘⌘⌘⌘|⌘</string>
+	</dict>
+	<key>__(SEL|TYPE...)__</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+			<string>SEL|TYPE...</string>
+			<string>)__</string>
+		</array>
+		<key>format</key>
+		<string>(?s:⌘)⌘⌘⌘</string>
+	</dict>
+	<key>__(SEL|TYPE...)__|EOL</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+			<string>SEL|TYPE...</string>
+			<string>)__</string>
+			<string>EOL</string>
+		</array>
+		<key>format</key>
+		<string>⌘⌘⌘⌘|⌘</string>
+	</dict>
+	<key>__(TYPE...)__</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+			<string>TYPE...</string>
+			<string>)__</string>
+		</array>
+		<key>format</key>
+		<string>(?s:⌘)⌘⌘⌘</string>
+	</dict>
+	<key>To mark</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>.</string>
+		</array>
+		<key>search</key>
+		<string>((?&gt;\\.|.)*?)(?=__\()</string>
+	</dict>
+	<key>Comment</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>.</string>
+		</array>
+		<key>search</key>
+		<string>(?sx:# match &quot;%…&quot;
+    %(.*?)# Whatever follows a %
+    (?=\)__|$)# lookahead stop placeholder or EOF
+)</string>
+	</dict>
+	<key>Default</key>
+	<dict>
+		<key>unescape comments</key>
+		<array>
+			<integer>1</integer>
+		</array>
+		<key>group names</key>
+		<array>
+			<string>.</string>
+		</array>
+		<key>search</key>
+		<string>(?sx:# match &quot;:…&quot;
+    \s*:# colon is the left delimiter
+    ((?:%%|\\.|[^%\\])*?)# default value including double % and escaped characters
+    (?=%(?!%)|\)__|$)# lookahead EOF or stop placeholder delimiter
+)</string>
+	</dict>
+	<key>EOL</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>.</string>
+		</array>
+		<key>search</key>
+		<string>(\r\n|\n|\r|\f|\u0085|\u2028|\u2029)</string>
+	</dict>
+	<key>SEL</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>end</string>
+			<string>-index</string>
+			<string>index</string>
+		</array>
+		<key>search</key>
+		<string>(?x:# match &quot;SEL[421]&quot;
+    \s*\bSEL\b\s*#
+    (?:#
+       \[\s*#
+        (?:# Alternative
+            (end|last)\s*(?:-\s*(\d+))?|# from the end
+            (\d+)# direct index
+        )#
+        \s*\]#
+    )?#
+)</string>
+	</dict>
+	<key>SEL...</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>SEL</string>
+			<string>Default</string>
+			<string>Comment</string>
+		</array>
+		<key>format</key>
+		<string>(?&gt;⌘)(?:⌘)?(?:⌘)?</string>
+	</dict>
+	<key>SEL|TYPE...</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>SEL</string>
+			<string>TYPE</string>
+			<string>Default</string>
+			<string>Comment</string>
+		</array>
+		<key>format</key>
+		<string>\s*(?&gt;⌘|⌘)(?:⌘)?(?:⌘)?</string>
+	</dict>
+	<key>TYPE</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>.</string>
+		</array>
+		<key>search</key>
+		<string>(?mx:# match a TYPE
+    \s*([^%:\s]# Not starting with % or :
+    \S*?)\s*# no space
+    (?=:|%|$|\)__)# positive lookahead
+)</string>
+	</dict>
+	<key>TYPE...</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>TYPE</string>
+			<string>Default</string>
+			<string>Comment</string>
+		</array>
+		<key>format</key>
+		<string>(?&gt;⌘)(?:⌘)?(?:⌘)?</string>
+	</dict>
+	<key>...__(|EOL</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>To mark</string>
+			<string>__(</string>
+			<string>EOL</string>
+		</array>
+		<key>format</key>
+		<string>⌘⌘⌘</string>
+	</dict>
+	<key>%!iTeXMac2...</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>content</string>
+		</array>
+		<key>search</key>
+		<string>%\s*?!\s*?(?i-:itexmac[:digit:][*)\s*?\(\s*?%@\s*?\)\s*?(?:=|:)\s*?(\S+)</string>
+	</dict>
+	<key>.emacs</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>encoding</string>
+		</array>
+		<key>search</key>
+		<string>^.*-\*-\s*coding\s*:\s*(.*?)\s*(?:;|-\*-)</string>
+	</dict>
+	<key>.inputenc</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>encoding</string>
+		</array>
+		<key>search</key>
+		<string>(?m)^\s*(?!%|\s).*\\usepackage\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]\s*\{\s*inputenc\s*\}</string>
+	</dict>
+	<key>.itexmac2</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>encoding</string>
+		</array>
+		<key>search</key>
+		<string>(?m)^\s*%!\s*(?i:itexmac[:digit:]*)\s*\(\s*(?:charset|codeset|encoding)\s*\)\s*(?:=|:)\s*([[:letter:][:digit:][-]_]+)</string>
+	</dict>
+	<key>.regime</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>encoding</string>
+		</array>
+		<key>search</key>
+		<string>(?m)^\s*(?!%|\s).*\\enableregime\s*\[\s*([[:letter:][:digit:][-]_]+)\s*\]</string>
+	</dict>
+	<key>.texshop</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>encoding</string>
+		</array>
+		<key>search</key>
+		<string>(?m)^\s*%!\s*TEX\s*encoding\s*(?:=|:)\s*([[:letter:][:digit:][-]_]+)</string>
+	</dict>
+	<key>encoding</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>.emacs</string>
+			<string>.inputenc</string>
+			<string>.itexmac2</string>
+			<string>.regime</string>
+			<string>.texshop</string>
+		</array>
+		<key>format</key>
+		<string>⌘|⌘|⌘|⌘|⌘</string>
+	</dict>
+	<key>iTM2Mode</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>mode</string>
+			<string>background</string>
+			<string>cursor</string>
+			<string>other</string>
+		</array>
+		<key>search</key>
+		<string>@&quot;^\w*(?:#*|%*|(mode\w*:)|(iTM2NoBackgroundAttribute)|(iTM2CursorIsWhiteAttribute)|(.*?)\w*$)</string>
+	</dict>
+	<key>URL scheme</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>scheme</string>
+		</array>
+		<key>search</key>
+		<string>([a-zA-Z0-9+\-\.]+):</string>
+	</dict>
+	<key>URL network location</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>network location</string>
+		</array>
+		<key>search</key>
+		<string>//((?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),:@&amp;=;?]|%[0-9a-fA-F]{2})*)</string>
+	</dict>
+	<key>URL path</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>path</string>
+			<string>slash dots path trailer</string>
+		</array>
+		<key>search</key>
+		<string>(?x:
+(/?# &lt;- optional leading slash
+(?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),:@&amp;=]|%[0-9a-fA-F]{2})+# &lt;- non void component
+(?:/(?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),:@&amp;=]|%[0-9a-fA-F]{2})*(?=/))*# &lt;- next components
+(?:(?:#
+/\.?(?:[a-zA-Z0-9\$\-_+!*&apos;&apos;(),:@&amp;=]|%[0-9a-fA-F]{2})(?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),:@&amp;=]|%[0-9a-fA-F]{2})*#
+|/\.\.(?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),:@&amp;=]|%[0-9a-fA-F]{2})+#
+|(/\.{0,2}))# &lt;- last component
+#(?:(/\.{0,2})|/(?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),:@&amp;=]|%[0-9a-fA-F]{2})*)# last component, if any
+)?#
+)#
+)</string>
+	</dict>
+	<key>URL parameters</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>parameters</string>
+		</array>
+		<key>search</key>
+		<string>;((?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),:@&amp;=/;]|%[0-9a-fA-F]{2})*)</string>
+	</dict>
+	<key>URL query</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>query</string>
+		</array>
+		<key>search</key>
+		<string>\?((?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),;/?:@&amp;=]|%[0-9a-fA-F]{2})*)</string>
+	</dict>
+	<key>URL fragment</key>
+	<dict>
+		<key>group names</key>
+		<array>
+			<string>fragment</string>
+		</array>
+		<key>search</key>
+		<string>\#((?:[a-zA-Z0-9\$\-_+\.!*&apos;&apos;(),;/?:@&amp;=\#]|%[0-9a-fA-F]{2})*)</string>
+	</dict>
+	<key>URL</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>URL scheme</string>
+			<string>URL network location</string>
+			<string>URL path</string>
+			<string>URL parameters</string>
+			<string>URL query</string>
+			<string>URL fragment</string>
+		</array>
+		<key>format</key>
+		<string>⌘(?:⌘)?⌘(?:⌘)?(?:⌘)?(?:⌘)?</string>
+	</dict>
+	<key>URL debug - 1</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>URL scheme</string>
+			<string>URL network location</string>
+		</array>
+		<key>format</key>
+		<string>⌘(?:⌘)?</string>
+	</dict>
+	<key>URL debug - 2</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>URL debug - 1</string>
+			<string>URL path</string>
+		</array>
+		<key>format</key>
+		<string>⌘⌘</string>
+	</dict>
+	<key>URL debug - 3</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>URL debug - 2</string>
+			<string>URL parameters</string>
+		</array>
+		<key>format</key>
+		<string>⌘(?:⌘)?</string>
+	</dict>
+	<key>URL debug - 4</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>URL debug - 3</string>
+			<string>URL query</string>
+		</array>
+		<key>format</key>
+		<string>⌘(?:⌘)?</string>
+	</dict>
+	<key>URL debug - 5</key>
+	<dict>
+		<key>argv</key>
+		<array>
+			<string>URL debug - 4</string>
+			<string>URL fragment</string>
+		</array>
+		<key>format</key>
+		<string>⌘(?:⌘)?</string>
+	</dict>
+</dict>
+</plist>

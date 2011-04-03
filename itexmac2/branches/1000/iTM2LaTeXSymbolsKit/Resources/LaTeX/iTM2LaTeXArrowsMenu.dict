@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\leftarrow </string>
+		<string>\rightarrow </string>
+		<string>\leftrightarrow </string>
+		<string>\uparrow </string>
+		<string>\Leftarrow </string>
+		<string>\Rightarrow </string>
+		<string>\Leftrightarrow </string>
+		<string>\Uparrow </string>
+		<string>\longleftarrow </string>
+		<string>\longrightarrow </string>
+		<string>\longleftrightarrow </string>
+		<string>\downarrow </string>
+		<string>\Longleftarrow </string>
+		<string>\Longrightarrow </string>
+		<string>\Longleftrightarrow </string>
+		<string>\Downarrow </string>
+		<string>\leftharpoonup </string>
+		<string>\rightharpoonup </string>
+		<string>\rightleftharpoons </string>
+		<string>\updownarrow </string>
+		<string>\leftharpoondown </string>
+		<string>\rightharpoondown </string>
+		<string>\mapsto </string>
+		<string>\Updownarrow </string>
+		<string>\hookleftarrow </string>
+		<string>\hookrightarrow </string>
+		<string>\longmapsto </string>
+		<string>\to </string>
+		<string>\nearrow </string>
+		<string>\searrow </string>
+		<string>\swarrow </string>
+		<string>\nwarrow </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

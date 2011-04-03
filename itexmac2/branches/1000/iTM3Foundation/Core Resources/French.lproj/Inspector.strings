@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Default Type</key>
+	<string>Défaut</string>
+	<key>Default Mode</key>
+	<string>Défaut</string>
+	<key>Default Variant</key>
+	<string>Défaut</string>
+	<key>Text</key>
+	<string>Texte</string>
+	<key>Project</key>
+	<string>Projet</string>
+	<key>Project Subdocuments Mode</key>
+	<string>Documents du projet</string>
+	<key>Wrapper</key>
+	<string>Paquet</string>
+	<key>PDF Graphics</key>
+	<string>Graphique PDF</string>
+	<key>PDF</key>
+	<string>PDF</string>
+	<key>TextStyle</key>
+	<string>Style de syntaxe</string>
+	<key>TextSyntaxParserAttributes</key>
+	<string>Attributs de syntaxe</string>
+</dict>
+</plist>

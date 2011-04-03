@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>$</key>
+	<string>insertDollar:</string>
+	<key>(</key>
+	<string>insertOpenParenthesis:</string>
+	<key>M</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{bmatrix}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{bmatrix}
+ </string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>matrices avec [] </string>
+	</dict>
+	<key>S</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>}{}</string>
+			<key>before</key>
+			<string>\stackrel{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Empilement celui du bas sur base</string>
+	</dict>
+	<key>[</key>
+	<string>insertOpenBracket:</string>
+	<key>\</key>
+	<string>insertBackslash:</string>
+	<key>^</key>
+	<string>insertHat:</string>
+	<key>^:</key>
+	<dict>
+		<key>argument</key>
+		<string>\cdots </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^=</key>
+	<dict>
+		<key>argument</key>
+		<string>\vdots </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^c</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{center}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{center}
+</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>center</string>
+	</dict>
+	<key>^k</key>
+	<dict>
+		<key>argument</key>
+		<string>\usepackage{multicol} </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^l</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{landscape}</string>
+			<key>before</key>
+			<string>\begin{landscape}</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>pour des pages en mode paysage</string>
+	</dict>
+	<key>^m</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{matrix}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{matrix}
+ </string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>matrices sans cadre </string>
+	</dict>
+	<key>^s</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\choose &lt;#TAB#&gt;}</string>
+			<key>before</key>
+			<string>{ </string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Empilement comme fraction sans trait avec parentheses (binome)</string>
+	</dict>
+	<key>^~:</key>
+	<dict>
+		<key>argument</key>
+		<string>\ddots </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>^~=</key>
+	<dict>
+		<key>argument</key>
+		<string>\ldots </string>
+		<key>selector</key>
+		<string>insertText:</string>
+	</dict>
+	<key>_</key>
+	<string>insertUnderscore:</string>
+	<key>c</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&amp;\text{}\\
+&lt;#TAB#&gt;&amp;\text{}
+\end{cases}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{cases}
+</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>enumeration de cas avec accolade </string>
+	</dict>
+	<key>e</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+
+\end{enumerate}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{enumerate}
+\item  </string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>enumerate </string>
+	</dict>
+	<key>g</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>cm]{}</string>
+			<key>before</key>
+			<string>\includegraphics[width=</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>graphiques pdf </string>
+	</dict>
+	<key>i</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{itemize}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{itemize}
+\item  </string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>itemize </string>
+	</dict>
+	<key>k</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{multicols}</string>
+			<key>before</key>
+			<string>\begin{multicols}{2}
+ </string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Multicolonnes</string>
+	</dict>
+	<key>l</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\\&lt;#TAB#&gt;
+\end{multline*}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{multline*} </string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>pour des calculs de plusieurs lignes</string>
+	</dict>
+	<key>m</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{pmatrix}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{pmatrix}
+ </string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>matrices avec () </string>
+	</dict>
+	<key>p</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string> ,&lt;#TAB#&gt;)% (largeur, hauteur) unit par d{\'e}faut un point. Pour changer : \setlength{\unitlength} ci dessus.
+\end{picture}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>
+%\setlength{\unitlength}{1cm}
+\begin{picture}(</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Picture </string>
+	</dict>
+	<key>q</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{minipage}</string>
+			<key>before</key>
+			<string>\begin{minipage}[b]{7.5cm}
+</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>verbatim</string>
+	</dict>
+	<key>s</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>\atop &lt;#TAB#&gt;}</string>
+			<key>before</key>
+			<string>{ </string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Empilement comme fraction sans trait</string>
+	</dict>
+	<key>t</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string> }% Du type {cl|r}pour chaque colonne : c pour centre l pour gauche r pour droite et | pour une sparation par un trait vertical.
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{tabular}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>
+\begin{tabular}{</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Picture </string>
+	</dict>
+	<key>v</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>
+\end{verbatim}</string>
+			<key>before</key>
+			<string>\begin{verbatim}
+</string>
+			<key>selected</key>
+			<string>@@"@@.</string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>verbatim</string>
+	</dict>
+	<key>{</key>
+	<string>insertOpenBrace:</string>
+	<key>~m</key>
+	<dict>
+		<key>argument</key>
+		<dict>
+			<key>after</key>
+			<string>&amp;&lt;#TAB#&gt;\\
+&lt;#TAB#&gt;&amp;&lt;#TAB#&gt;
+\end{vmatrix}&lt;#TAB#&gt;</string>
+			<key>before</key>
+			<string>\begin{vmatrix}
+ </string>
+		</dict>
+		<key>selector</key>
+		<string>insertMacro:</string>
+		<key>toolTip</key>
+		<string>Dterminants </string>
+	</dict>
+	<key>æ</key>
+	<string>\ insertDollar: </string>
+</dict>
+</plist>

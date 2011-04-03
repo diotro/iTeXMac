@@ -1,0 +1,134 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Development;
+		activeExecutable = 53E564B4106BAA410077B6FD /* iTeXMac2 */;
+		activeTarget = 8D5B49AC048680CD000E48DA /* iTM2BibTeXSupportKit */;
+		codeSenseManager = 53E564C0106BAA610077B6FD /* Code sense */;
+		executables = (
+			53E564B4106BAA410077B6FD /* iTeXMac2 */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					341,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 276964465;
+			PBXWorkspaceStateSaveDate = 276964465;
+		};
+		perUserProjectItems = {
+			53AB6A601082245400657A25 /* PBXTextBookmark */ = 53AB6A601082245400657A25 /* PBXTextBookmark */;
+			53AB6A7E1082247700657A25 /* PBXTextBookmark */ = 53AB6A7E1082247700657A25 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 53E564BF106BAA610077B6FD /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	53AB6A601082245400657A25 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 53AB6A611082245400657A25 /* iTM2TextStorageKit.h */;
+		name = "iTM2TextStorageKit.h: 876";
+		rLen = 83;
+		rLoc = 36820;
+		rType = 0;
+		vrLen = 652;
+		vrLoc = 36592;
+	};
+	53AB6A611082245400657A25 /* iTM2TextStorageKit.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = iTM2TextStorageKit.h;
+		path = /Users/laurenstribune/itexmac2/trunk/iTM2PDFKit/../build/iTM2Foundation.framework/Headers/iTM2TextStorageKit.h;
+		sourceTree = "<absolute>";
+	};
+	53AB6A7E1082247700657A25 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 53AB6A7F1082247700657A25 /* iTM2TextStorageKit.h */;
+		name = "iTM2TextStorageKit.h: 876";
+		rLen = 83;
+		rLoc = 36820;
+		rType = 0;
+		vrLen = 627;
+		vrLoc = 36592;
+	};
+	53AB6A7F1082247700657A25 /* iTM2TextStorageKit.h */ = {
+		isa = PBXFileReference;
+		name = iTM2TextStorageKit.h;
+		path = /Users/laurenstribune/itexmac2/trunk/iTM2PDFKit/../build/iTM2Foundation.framework/Headers/iTM2TextStorageKit.h;
+		sourceTree = "<absolute>";
+	};
+	53E564B4106BAA410077B6FD /* iTeXMac2 */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = iTeXMac2;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	53E564BF106BAA610077B6FD /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	53E564C0106BAA610077B6FD /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	8D5B49AC048680CD000E48DA /* iTM2BibTeXSupportKit */ = {
+		activeExec = 0;
+	};
+	DC5D7420094A579800EBA96C /* Prepare iTM2TeXFoundation */ = {
+		activeExec = 0;
+	};
+	DC81AD7F088718FA00943C99 /* iTeXMac2 */ = {
+		activeExec = 0;
+		executables = (
+			53E564B4106BAA410077B6FD /* iTeXMac2 */,
+		);
+	};
+	DC9E4F310858A8A300A86BED /* All */ = {
+		activeExec = 0;
+	};
+}

@@ -1,0 +1,4 @@
+#/bi/sh
+# finding everything but nib related files and folders
+
+find -E . \! -regex ".*\.nib(/.*|.*)" -print

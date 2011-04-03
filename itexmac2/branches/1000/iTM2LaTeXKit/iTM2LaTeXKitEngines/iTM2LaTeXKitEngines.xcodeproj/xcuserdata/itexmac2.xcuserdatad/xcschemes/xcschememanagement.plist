@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>All.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>94</integer>
+		</dict>
+		<key>Install in iTM2LaTeXKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>96</integer>
+		</dict>
+		<key>LaTeX Doc Extractor.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>95</integer>
+		</dict>
+		<key>LaTeX Installer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>93</integer>
+		</dict>
+		<key>Prepare iTM2LaTeXKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>92</integer>
+		</dict>
+		<key>build iTeXMac2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>97</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>DC0EF842094856570018276F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC0EF94A094899550018276F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC3865880948B02100352215</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC5D6D0E0949A97100EBA96C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC9BC2F60ABA054500FAC59E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC9DC6E5094844DF0079E1B3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE SUMMARY [
+<!ELEMENT SUMMARY (LIST,CUTS)>
+<!ELEMENT LIST (ITEM)*><!-- KEY ordered list of ITEMs -->
+<!ELEMENT ITEM EMPTY>
+<!ELEMENT CUTS (CUT)*><!-- CUT ordered list of CUTs -->
+<!ELEMENT CUT EMPTY>
+<!ATTLIST ITEM KEY ID #REQUIRED>
+<!ATTLIST CUT KEY IDREF #REQUIRED><!-- one of the KEYs of an EMPTY element -->
+<!ATTLIST CUT CUT CDATA #REQUIRED><!-- The shortcut -->
+<!ATTLIST LIST KEY CDATA #IMPLIED>
+]>
+
+<SUMMARY>
+    <LIST>
+        <ITEM KEY="%!iTeXMac/bibtex"/>
+        <ITEM KEY="%!iTeXMac/compile"/>
+        <ITEM KEY="%!iTeXMac/input"/>
+        <ITEM KEY="%!iTeXMac/makeindex"/>
+        <ITEM KEY="%!iTeXMac/project"/>
+        <ITEM KEY="%!iTeXMac/typeset"/>
+        <ITEM KEY="Format/footnote/caption"/>
+        <ITEM KEY="Format/footnote/footnote"/>
+        <ITEM KEY="Format/footnote/footnotemark"/>
+        <ITEM KEY="Format/footnote/footnotetext"/>
+        <ITEM KEY="Format/footnote/parameters/footnoterule"/>
+        <ITEM KEY="Format/footnote/parameters/footnotesep"/>
+        <ITEM KEY="Format/footnote/vspace"/>
+        <ITEM KEY="Format/marginal_notes/marginpar"/>
+        <ITEM KEY="Format/marginal_notes/normalmarginpar"/>
+        <ITEM KEY="Format/marginal_notes/parameters/marginparpush"/>
+        <ITEM KEY="Format/marginal_notes/parameters/marginparsep"/>
+        <ITEM KEY="Format/marginal_notes/parameters/marginparwidth"/>
+        <ITEM KEY="Format/marginal_notes/reversemarginpar"/>
+        <ITEM KEY="Format/numbering/addtocounter"/>
+        <ITEM KEY="Format/numbering/fnsymbol"/>
+        <ITEM KEY="Format/numbering/newcounter"/>
+        <ITEM KEY="Format/numbering/refstepcounter"/>
+        <ITEM KEY="Format/numbering/setcounter"/>
+        <ITEM KEY="Format/numbering/stepcounter"/>
+        <ITEM KEY="Format/numbering/style/Alph"/>
+        <ITEM KEY="Format/numbering/style/Roman"/>
+        <ITEM KEY="Format/numbering/style/alph"/>
+        <ITEM KEY="Format/numbering/style/arabic"/>
+        <ITEM KEY="Format/numbering/style/roman"/>
+        <ITEM KEY="Format/numbering/the"/>
+        <ITEM KEY="Format/numbering/value"/>
+        <ITEM KEY="Format/paragraph/indent"/>
+        <ITEM KEY="Format/paragraph/noindent"/>
+        <ITEM KEY="Format/paragraph/par"/>
+        <ITEM KEY="Format/paragraph/parameters/baselineskip"/>
+        <ITEM KEY="Format/paragraph/parameters/baselinestretch"/>
+        <ITEM KEY="Format/paragraph/parameters/linewidth"/>
+        <ITEM KEY="Format/paragraph/parameters/parindent"/>
+        <ITEM KEY="Format/paragraph/parameters/parskip"/>
+        <ITEM KEY="Format/paragraph/parameters/textwidth"/>
+        <ITEM KEY="Layout/Use_lscape_Pkg"/>
+        <ITEM KEY="Layout/landscape"/>
+        <ITEM KEY="Page_Style/page_numbering/Alph"/>
+        <ITEM KEY="Page_Style/page_numbering/Roman"/>
+        <ITEM KEY="Page_Style/page_numbering/alph"/>
+        <ITEM KEY="Page_Style/page_numbering/arabic"/>
+        <ITEM KEY="Page_Style/page_numbering/roman"/>
+        <ITEM KEY="Page_Style/page_style/empty"/>
+        <ITEM KEY="Page_Style/page_style/headings"/>
+        <ITEM KEY="Page_Style/page_style/myheadings"/>
+        <ITEM KEY="Page_Style/page_style/plain"/>
+        <ITEM KEY="Page_Style/this_page_style/Both_headings"/>
+        <ITEM KEY="Page_Style/this_page_style/Left_heading"/>
+        <ITEM KEY="Page_Style/this_page_style/Right_heading"/>
+        <ITEM KEY="Page_Style/this_page_style/empty"/>
+        <ITEM KEY="Page_Style/this_page_style/headings"/>
+        <ITEM KEY="Page_Style/this_page_style/myheadings"/>
+        <ITEM KEY="Page_Style/this_page_style/plain"/>
+        <ITEM KEY="Page_Style/title_page"/>
+        <ITEM KEY="chapter"/>
+        <ITEM KEY="document/Options/Dimensions/evensidemargin"/>
+        <ITEM KEY="document/Options/Dimensions/footskip"/>
+        <ITEM KEY="document/Options/Dimensions/headheight"/>
+        <ITEM KEY="document/Options/Dimensions/headsep"/>
+        <ITEM KEY="document/Options/Dimensions/marginparsep"/>
+        <ITEM KEY="document/Options/Dimensions/marginparwidth"/>
+        <ITEM KEY="document/Options/Dimensions/oddsidemargin"/>
+        <ITEM KEY="document/Options/Dimensions/pageheight"/>
+        <ITEM KEY="document/Options/Dimensions/pagewidth"/>
+        <ITEM KEY="document/Options/Dimensions/textheight"/>
+        <ITEM KEY="document/Options/Dimensions/textwidth"/>
+        <ITEM KEY="document/Options/Dimensions/topmargin"/>
+        <ITEM KEY="document/Options/columns/one_column"/>
+        <ITEM KEY="document/Options/columns/two_columns"/>
+        <ITEM KEY="document/Options/draft"/>
+        <ITEM KEY="document/Options/equation/left"/>
+        <ITEM KEY="document/Options/equation/left_align"/>
+        <ITEM KEY="document/Options/landscape"/>
+        <ITEM KEY="document/Options/openbib"/>
+        <ITEM KEY="document/Options/paper/B5_paper"/>
+        <ITEM KEY="document/Options/paper/a4_paper"/>
+        <ITEM KEY="document/Options/paper/a5_paper"/>
+        <ITEM KEY="document/Options/paper/executive_paper"/>
+        <ITEM KEY="document/Options/paper/legal_paper"/>
+        <ITEM KEY="document/Options/paper/letter_paper"/>
+        <ITEM KEY="document/Options/sides/one_side"/>
+        <ITEM KEY="document/Options/sides/two_sides"/>
+        <ITEM KEY="document/Options/title/no_title_page"/>
+        <ITEM KEY="document/Options/title/title_page"/>
+        <ITEM KEY="document/amsart/10pt"/>
+        <ITEM KEY="document/amsart/11pt"/>
+        <ITEM KEY="document/amsart/12pt"/>
+        <ITEM KEY="document/amsbook/10pt"/>
+        <ITEM KEY="document/amsbook/11pt"/>
+        <ITEM KEY="document/amsbook/12pt"/>
+        <ITEM KEY="document/article/10pt"/>
+        <ITEM KEY="document/article/11pt"/>
+        <ITEM KEY="document/article/12pt"/>
+        <ITEM KEY="document/book/10pt"/>
+        <ITEM KEY="document/book/11pt"/>
+        <ITEM KEY="document/book/12pt"/>
+        <ITEM KEY="document/letter/10pt"/>
+        <ITEM KEY="document/letter/11pt"/>
+        <ITEM KEY="document/letter/12pt"/>
+        <ITEM KEY="document/letter/macros/address"/>
+        <ITEM KEY="document/letter/macros/begin/end_doc/letter"/>
+        <ITEM KEY="document/letter/macros/cc"/>
+        <ITEM KEY="document/letter/macros/closing"/>
+        <ITEM KEY="document/letter/macros/date"/>
+        <ITEM KEY="document/letter/macros/encl"/>
+        <ITEM KEY="document/letter/macros/name"/>
+        <ITEM KEY="document/letter/macros/opening"/>
+        <ITEM KEY="document/letter/macros/signature"/>
+        <ITEM KEY="document/report/10pt"/>
+        <ITEM KEY="document/report/11pt"/>
+        <ITEM KEY="document/report/12pt"/>
+        <ITEM KEY="paragraph"/>
+        <ITEM KEY="part"/>
+        <ITEM KEY="section"/>
+        <ITEM KEY="subparagraph"/>
+        <ITEM KEY="subsection"/>
+        <ITEM KEY="subsubsection"/>
+    </LIST>
+    <CUTS>
+        <CUT KEY="Format/numbering/style/Alph" CUT="\Al"/>
+        <CUT KEY="Format/numbering/style/Roman" CUT="\Ro"/>
+        <CUT KEY="document/letter/macros/address" CUT="\ad"/>
+        <CUT KEY="Format/numbering/addtocounter" CUT="\ad"/>
+        <CUT KEY="Format/numbering/style/alph" CUT="\al"/>
+        <CUT KEY="Format/numbering/style/arabic" CUT="\ar"/>
+        <CUT KEY="Format/paragraph/parameters/baselineskip" CUT="\ba"/>
+        <CUT KEY="Format/paragraph/parameters/baselinestretch" CUT="\ba"/>
+        <CUT KEY="document/letter/macros/begin/end_doc/letter" CUT="\be"/>
+        <CUT KEY="Layout/landscape" CUT="\be"/>
+        <CUT KEY="Format/footnote/caption" CUT="\ca"/>
+        <CUT KEY="document/letter/macros/cc" CUT="\cc"/>
+        <CUT KEY="chapter" CUT="\ch"/>
+        <CUT KEY="document/letter/macros/closing" CUT="\cl"/>
+        <CUT KEY="document/letter/macros/date" CUT="\da"/>
+        <CUT KEY="document/amsart/11pt" CUT="\do"/>
+        <CUT KEY="document/amsbook/11pt" CUT="\do"/>
+        <CUT KEY="document/article/11pt" CUT="\do"/>
+        <CUT KEY="document/book/11pt" CUT="\do"/>
+        <CUT KEY="document/letter/11pt" CUT="\do"/>
+        <CUT KEY="document/report/11pt" CUT="\do"/>
+        <CUT KEY="document/amsart/12pt" CUT="\do"/>
+        <CUT KEY="document/amsbook/12pt" CUT="\do"/>
+        <CUT KEY="document/article/12pt" CUT="\do"/>
+        <CUT KEY="document/book/12pt" CUT="\do"/>
+        <CUT KEY="document/letter/12pt" CUT="\do"/>
+        <CUT KEY="document/report/12pt" CUT="\do"/>
+        <CUT KEY="document/amsart/10pt" CUT="\do"/>
+        <CUT KEY="document/amsbook/10pt" CUT="\do"/>
+        <CUT KEY="document/article/10pt" CUT="\do"/>
+        <CUT KEY="document/book/10pt" CUT="\do"/>
+        <CUT KEY="document/letter/10pt" CUT="\do"/>
+        <CUT KEY="document/report/10pt" CUT="\do"/>
+        <CUT KEY="document/letter/macros/encl" CUT="\en"/>
+        <CUT KEY="document/Options/Dimensions/evensidemargin" CUT="\ev"/>
+        <CUT KEY="Format/numbering/fnsymbol" CUT="\fn"/>
+        <CUT KEY="Format/footnote/footnote" CUT="\fo"/>
+        <CUT KEY="Format/footnote/footnotemark" CUT="\fo"/>
+        <CUT KEY="Format/footnote/parameters/footnoterule" CUT="\fo"/>
+        <CUT KEY="Format/footnote/parameters/footnotesep" CUT="\fo"/>
+        <CUT KEY="Format/footnote/footnotetext" CUT="\fo"/>
+        <CUT KEY="document/Options/Dimensions/footskip" CUT="\fo"/>
+        <CUT KEY="document/Options/Dimensions/headheight" CUT="\he"/>
+        <CUT KEY="document/Options/Dimensions/headsep" CUT="\he"/>
+        <CUT KEY="Format/paragraph/indent" CUT="\in"/>
+        <CUT KEY="Format/paragraph/parameters/linewidth" CUT="\li"/>
+        <CUT KEY="Format/marginal_notes/marginpar" CUT="\ma"/>
+        <CUT KEY="Format/marginal_notes/parameters/marginparpush" CUT="\ma"/>
+        <CUT KEY="Format/marginal_notes/parameters/marginparsep" CUT="\ma"/>
+        <CUT KEY="Format/marginal_notes/parameters/marginparwidth" CUT="\ma"/>
+        <CUT KEY="Page_Style/this_page_style/Both_headings" CUT="\ma"/>
+        <CUT KEY="Page_Style/this_page_style/Left_heading" CUT="\ma"/>
+        <CUT KEY="Page_Style/this_page_style/Right_heading" CUT="\ma"/>
+        <CUT KEY="document/letter/macros/name" CUT="\na"/>
+        <CUT KEY="Format/numbering/newcounter" CUT="\ne"/>
+        <CUT KEY="Format/paragraph/noindent" CUT="\no"/>
+        <CUT KEY="Format/marginal_notes/normalmarginpar" CUT="\no"/>
+        <CUT KEY="document/Options/Dimensions/oddsidemargin" CUT="\od"/>
+        <CUT KEY="document/letter/macros/opening" CUT="\op"/>
+        <CUT KEY="document/Options/Dimensions/pageheight" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_numbering/Alph" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_numbering/Roman" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_numbering/alph" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_numbering/arabic" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_numbering/roman" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_style/empty" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_style/headings" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_style/myheadings" CUT="\pa"/>
+        <CUT KEY="Page_Style/page_style/plain" CUT="\pa"/>
+        <CUT KEY="document/Options/Dimensions/pagewidth" CUT="\pa"/>
+        <CUT KEY="Format/paragraph/par" CUT="\pa"/>
+        <CUT KEY="paragraph" CUT="\pa"/>
+        <CUT KEY="Format/paragraph/parameters/parindent" CUT="\pa"/>
+        <CUT KEY="Format/paragraph/parameters/parskip" CUT="\pa"/>
+        <CUT KEY="part" CUT="\pa"/>
+        <CUT KEY="Format/numbering/refstepcounter" CUT="\re"/>
+        <CUT KEY="Format/marginal_notes/reversemarginpar" CUT="\re"/>
+        <CUT KEY="Format/numbering/style/roman" CUT="\ro"/>
+        <CUT KEY="section" CUT="\se"/>
+        <CUT KEY="Format/numbering/setcounter" CUT="\se"/>
+        <CUT KEY="document/letter/macros/signature" CUT="\si"/>
+        <CUT KEY="Format/numbering/stepcounter" CUT="\st"/>
+        <CUT KEY="subparagraph" CUT="\su"/>
+        <CUT KEY="subsection" CUT="\su"/>
+        <CUT KEY="subsubsection" CUT="\su"/>
+        <CUT KEY="document/Options/Dimensions/textheight" CUT="\te"/>
+        <CUT KEY="Format/paragraph/parameters/textwidth" CUT="\te"/>
+        <CUT KEY="Format/numbering/the" CUT="\th"/>
+        <CUT KEY="Page_Style/this_page_style/empty" CUT="\th"/>
+        <CUT KEY="Page_Style/this_page_style/headings" CUT="\th"/>
+        <CUT KEY="Page_Style/this_page_style/myheadings" CUT="\th"/>
+        <CUT KEY="Page_Style/this_page_style/plain" CUT="\th"/>
+        <CUT KEY="Page_Style/title_page" CUT="\ti"/>
+        <CUT KEY="document/Options/Dimensions/topmargin" CUT="\to"/>
+        <CUT KEY="Layout/Use_lscape_Pkg" CUT="\us"/>
+        <CUT KEY="Format/numbering/value" CUT="\va"/>
+        <CUT KEY="Format/footnote/vspace" CUT="\vs"/>
+        <CUT KEY="document/Options/paper/a4_paper" CUT="a4p"/>
+        <CUT KEY="document/Options/paper/a5_paper" CUT="a5p"/>
+        <CUT KEY="document/Options/paper/B5_paper" CUT="b5p"/>
+        <CUT KEY="document/Options/draft" CUT="dra"/>
+        <CUT KEY="document/Options/paper/executive_paper" CUT="exe"/>
+        <CUT KEY="document/Options/equation/left_align" CUT="fle"/>
+        <CUT KEY="document/Options/landscape" CUT="lan"/>
+        <CUT KEY="document/Options/paper/legal_paper" CUT="leg"/>
+        <CUT KEY="document/Options/equation/left" CUT="leq"/>
+        <CUT KEY="document/Options/paper/letter_paper" CUT="let"/>
+        <CUT KEY="document/Options/title/no_title_page" CUT="not"/>
+        <CUT KEY="document/Options/columns/one_column" CUT="one"/>
+        <CUT KEY="document/Options/sides/one_side" CUT="one"/>
+        <CUT KEY="document/Options/openbib" CUT="ope"/>
+        <CUT KEY="document/Options/title/title_page" CUT="tit"/>
+        <CUT KEY="document/Options/columns/two_columns" CUT="two"/>
+        <CUT KEY="document/Options/sides/two_sides" CUT="two"/>
+    </CUTS>
+</SUMMARY>

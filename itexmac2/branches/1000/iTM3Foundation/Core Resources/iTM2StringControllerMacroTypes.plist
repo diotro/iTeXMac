@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>ACTION</string>
+	<string>PATH</string>
+	<string>COMMAND</string>
+	<string>COPY</string>
+	<string>MATH</string>
+	<string>INPUT_PATH</string>
+	<string>INPUT_ALL</string>
+	<string>INPUT_SELECTION</string>
+	<string>INPUT_LINE</string>
+	<string>PERL_INPUT_ALL</string>
+	<string>PERL_INPUT_SELECTION</string>
+	<string>PERL_INPUT_LINE</string>
+	<string>PERL_REPLACE_SELECTION</string>
+	<string>PERL_REPLACE_LINE</string>
+	<string>PERL_REPLACE_ALL</string>
+	<string>RUBY_INPUT_ALL</string>
+	<string>RUBY_INPUT_SELECTION</string>
+	<string>RUBY_INPUT_LINE</string>
+	<string>RUBY_REPLACE_SELECTION</string>
+	<string>RUBY_REPLACE_LINE</string>
+	<string>RUBY_REPLACE_ALL</string>
+	<string>PREPEND_SELECTION</string>
+	<string>SELECTION</string>
+	<string>REPLACE_SELECTION</string>
+	<string>APPEND_SELECTION</string>
+	<string>PREPEND_LINE</string>
+	<string>REPLACE_LINE</string>
+	<string>LINE</string>
+	<string>APPEND_LINE</string>
+	<string>PREPEND_ALL</string>
+	<string>REPLACE_ALL</string>
+	<string>ALL</string>
+	<string>APPEND_ALL</string>
+</array>
+</plist>

@@ -1,0 +1,10 @@
+//
+// Prefix header for all source files of the 'iTM2NewDocumentKit' target in the 'iTM2NewDocumentKit' project.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+    #import <iTM3Foundation/iTM3Foundation.h>
+    #import <iTM2TeXFoundation/iTM2TeXFoundation.h>
+	#import <Quartz/Quartz.h>
+#endif

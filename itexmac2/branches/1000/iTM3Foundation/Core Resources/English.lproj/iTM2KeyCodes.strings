@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NUL</key>
+	<string>Null (␀)</string>
+	<key>SOH</key>
+	<string>Start of Header (␁)</string>
+	<key>STX</key>
+	<string>Start of Text (␂)</string>
+	<key>ETX</key>
+	<string>End of Text (␃)</string>
+	<key>EOT</key>
+	<string>End of Transmission (␄)</string>
+	<key>ENQ</key>
+	<string>Enquiry (␅)</string>
+	<key>ACK</key>
+	<string>Acknowledge (␆)</string>
+	<key>BEL</key>
+	<string>Bell (␇)</string>
+	<key>BS</key>
+	<string>Backspace (␈)</string>
+	<key>HT</key>
+	<string>Horizontal Tab (⇥)</string>
+	<key>LF</key>
+	<string>Line Feed (␊)</string>
+	<key>VT</key>
+	<string>Vertical Tab (⤓)</string>
+	<key>FF</key>
+	<string>Form Feed (␌)</string>
+	<key>CR</key>
+	<string>Carriage Return (␍)</string>
+	<key>SO</key>
+	<string>Shift Out (␎)</string>
+	<key>SI</key>
+	<string>Shift In (␏)</string>
+	<key>DLE</key>
+	<string>Data Link Escape (␐)</string>
+	<key>DC1</key>
+	<string>DC1 (␑)</string>
+	<key>DC2</key>
+	<string>DC2 (␒)</string>
+	<key>DC3</key>
+	<string>DC3 (␓)</string>
+	<key>DC4</key>
+	<string>DC4 (␔)</string>
+	<key>NAK</key>
+	<string>Negative Acknowledge (␕)</string>
+	<key>SYN</key>
+	<string>Synchronous Idle (␖)</string>
+	<key>ETB</key>
+	<string>End of Transmission Block (␗)</string>
+	<key>CAN</key>
+	<string>Cancel (␘)</string>
+	<key>EM</key>
+	<string>End of Medium (␙)</string>
+	<key>SUB</key>
+	<string>Substitute (␚)</string>
+	<key>ESC</key>
+	<string>Escape (␛)</string>
+	<key>FS</key>
+	<string>File Separator (␜)</string>
+	<key>GS</key>
+	<string>Group Separator (␝)</string>
+	<key>RS</key>
+	<string>Record Separator (␞)</string>
+	<key>US</key>
+	<string>Unit Separator (␟)</string>
+	<key>SP</key>
+	<string>Space</string>
+	<key>DEL</key>
+	<string>Delete (⌫)</string>
+	<key>NSUpArrowFunctionKey</key>
+	<string>Up Arrow (↑)</string>
+	<key>NSDownArrowFunctionKey</key>
+	<string>Down Arrow (↓)</string>
+	<key>NSLeftArrowFunctionKey</key>
+	<string>Left Arrow (←)</string>
+	<key>NSRightArrowFunctionKey</key>
+	<string>Right Arrow (→)</string>
+	<key>NSF1FunctionKey</key>
+	<string>F1</string>
+	<key>NSF2FunctionKey</key>
+	<string>F2</string>
+	<key>NSF3FunctionKey</key>
+	<string>F3</string>
+	<key>NSF4FunctionKey</key>
+	<string>F4</string>
+	<key>NSF5FunctionKey</key>
+	<string>F5</string>
+	<key>NSF6FunctionKey</key>
+	<string>F6</string>
+	<key>NSF7FunctionKey</key>
+	<string>F7</string>
+	<key>NSF8FunctionKey</key>
+	<string>F8</string>
+	<key>NSF9FunctionKey</key>
+	<string>F9</string>
+	<key>NSF10FunctionKey</key>
+	<string>F10</string>
+	<key>NSF11FunctionKey</key>
+	<string>F11</string>
+	<key>NSF12FunctionKey</key>
+	<string>F12</string>
+	<key>NSF13FunctionKey</key>
+	<string>F13</string>
+	<key>NSF14FunctionKey</key>
+	<string>F14</string>
+	<key>NSF15FunctionKey</key>
+	<string>F15</string>
+	<key>NSF16FunctionKey</key>
+	<string>F16</string>
+	<key>NSF17FunctionKey</key>
+	<string>F17</string>
+	<key>NSF18FunctionKey</key>
+	<string>F18</string>
+	<key>NSF19FunctionKey</key>
+	<string>F19</string>
+	<key>NSF20FunctionKey</key>
+	<string>F20</string>
+	<key>NSF21FunctionKey</key>
+	<string>F21</string>
+	<key>NSF22FunctionKey</key>
+	<string>F22</string>
+	<key>NSF23FunctionKey</key>
+	<string>F23</string>
+	<key>NSF24FunctionKey</key>
+	<string>F24</string>
+	<key>NSF25FunctionKey</key>
+	<string>F25</string>
+	<key>NSF26FunctionKey</key>
+	<string>F26</string>
+	<key>NSF27FunctionKey</key>
+	<string>F27</string>
+	<key>NSF28FunctionKey</key>
+	<string>F28</string>
+	<key>NSF29FunctionKey</key>
+	<string>F29</string>
+	<key>NSF30FunctionKey</key>
+	<string>F30</string>
+	<key>NSF31FunctionKey</key>
+	<string>F31</string>
+	<key>NSF32FunctionKey</key>
+	<string>F32</string>
+	<key>NSF33FunctionKey</key>
+	<string>F33</string>
+	<key>NSF34FunctionKey</key>
+	<string>F34</string>
+	<key>NSF35FunctionKey</key>
+	<string>F35</string>
+	<key>NSInsertFunctionKey</key>
+	<string>Insert</string>
+	<key>NSDeleteFunctionKey</key>
+	<string>Delete</string>
+	<key>NSHomeFunctionKey</key>
+	<string>Home</string>
+	<key>NSBeginFunctionKey</key>
+	<string>Begin</string>
+	<key>NSEndFunctionKey</key>
+	<string>End</string>
+	<key>NSPageUpFunctionKey</key>
+	<string>Page Up (⇞)</string>
+	<key>NSPageDownFunctionKey</key>
+	<string>Page Down (⇟)</string>
+	<key>NSPrintScreenFunctionKey</key>
+	<string>Print Screen</string>
+	<key>NSScrollLockFunctionKey</key>
+	<string>Scroll Lock</string>
+	<key>NSPauseFunctionKey</key>
+	<string>Pause</string>
+	<key>NSSysReqFunctionKey</key>
+	<string>System Req</string>
+	<key>NSBreakFunctionKey</key>
+	<string>Break</string>
+	<key>NSResetFunctionKey</key>
+	<string>Reset</string>
+	<key>NSStopFunctionKey</key>
+	<string>Stop</string>
+	<key>NSMenuFunctionKey</key>
+	<string>Menu</string>
+	<key>NSUserFunctionKey</key>
+	<string>User</string>
+	<key>NSSystemFunctionKey</key>
+	<string>System</string>
+	<key>NSPrintFunctionKey</key>
+	<string>Print</string>
+	<key>NSClearLineFunctionKey</key>
+	<string>Clear Line</string>
+	<key>NSClearDisplayFunctionKey</key>
+	<string>Clear Display</string>
+	<key>NSInsertLineFunctionKey</key>
+	<string>Insert Line</string>
+	<key>NSDeleteLineFunctionKey</key>
+	<string>Delete Line</string>
+	<key>NSInsertCharFunctionKey</key>
+	<string>Insert Character</string>
+	<key>NSDeleteCharFunctionKey</key>
+	<string>Delete Character</string>
+	<key>NSPrevFunctionKey</key>
+	<string>Previous</string>
+	<key>NSNextFunctionKey</key>
+	<string>Next</string>
+	<key>NSSelectFunctionKey</key>
+	<string>Select</string>
+	<key>NSExecuteFunctionKey</key>
+	<string>Execute</string>
+	<key>NSUndoFunctionKey</key>
+	<string>Undo</string>
+	<key>NSRedoFunctionKey</key>
+	<string>Redo</string>
+	<key>NSFindFunctionKey</key>
+	<string>Find</string>
+	<key>NSHelpFunctionKey</key>
+	<string>Help</string>
+	<key>NSModeSwitchFunctionKey</key>
+	<string>Mode Switch</string>
+</dict>
+</plist>

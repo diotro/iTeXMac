@@ -1,0 +1,2413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>TeX Engines.iTM2</ProjName>
+
+<!--                                          -->
+<!--    TeX Engines.iTM2/../Engine.strings    -->
+<!--                                          -->
+<File>
+<Filepath>TeX Engines.iTM2/Contents/Resources/English.lproj/Engine.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>No project format</Position>
+<TranslationSet>
+
+	<base loc="en"          >No project format</base>
+	<tran loc="fr" origin="">Aucun format de projet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>Other formats(Project)</Position>
+<TranslationSet>
+
+	<base loc="en"          >Other formats(Project)</base>
+	<tran loc="fr" origin="">Autre formats(Projet)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>Other formats</Position>
+<TranslationSet>
+
+	<base loc="en"          >Other formats</base>
+	<tran loc="fr" origin="">Autres formats</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>PDFTeX formats(Project)</Position>
+<TranslationSet>
+
+	<base loc="en"          >PDFTeX formats(Project)</base>
+	<tran loc="fr" origin="">Formats PDFTeX (Projet)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>TeX formats(Project)</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX formats(Project)</base>
+	<tran loc="fr" origin="">Formats TeX (Projet)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>TeX formats</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX formats</base>
+	<tran loc="fr" origin="">Formats TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>XeTeX formats(Project)</Position>
+<TranslationSet>
+
+	<base loc="en"          >XeTeX formats(Project)</base>
+	<tran loc="fr" origin="">Formats XeTeX (Projet)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>iTM2_Engine_PDFTeX</Position>
+<TranslationSet>
+
+	<base loc="en"          >PDF Extended (PDFTeX)</base>
+	<tran loc="fr" origin="">PDF étendu (PDFTeX)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>iTM2_Engine_TeX</Position>
+<TranslationSet>
+
+	<base loc="en"          >Original TeX</base>
+	<tran loc="fr" origin="">TeX Original</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>iTM2_Engine_XeTeX</Position>
+<TranslationSet>
+
+	<base loc="en"          >Mac OS X Extended (XeTeX)</base>
+	<tran loc="fr" origin="">Mac OS X Étendu (XeTeX)</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                        -->
+<!--    TeX Engines.iTM2/../iTM2EnginePDFTeX.nib.strings    -->
+<!--                                                        -->
+<File>
+<Filepath>TeX Engines.iTM2/Contents/Resources/English.lproj/iTM2EnginePDFTeX.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (Options for the pdftex engine:) : &lt;title:Options for the pdftex engine:&gt; (oid:11) </Description>
+<Position>11</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options for the pdftex engine:</base>
+	<tran loc="fr" origin="">OPtions du moteur PDFTeX :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Format&gt; (oid:239) </Description>
+<Position>239</Position>
+<TranslationSet>
+
+	<base loc="en"          >Format</base>
+	<tran loc="fr" origin="">Format</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Advanced&gt; (oid:240) </Description>
+<Position>240</Position>
+<TranslationSet>
+
+	<base loc="en"          >Advanced</base>
+	<tran loc="fr" origin="">Avancé</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Interaction&gt; (oid:244) </Description>
+<Position>244</Position>
+<TranslationSet>
+
+	<base loc="en"          >Interaction</base>
+	<tran loc="fr" origin="">Interaction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Translation&gt; (oid:246) </Description>
+<Position>246</Position>
+<TranslationSet>
+
+	<base loc="en"          >Translation</base>
+	<tran loc="fr" origin="">Traduction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Debug&gt; (oid:248) </Description>
+<Position>248</Position>
+<TranslationSet>
+
+	<base loc="en"          >Debug</base>
+	<tran loc="fr" origin="">Déboguage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (use format:) : &lt;title:use format:&gt; (oid:251) </Description>
+<Position>251.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >use format:</base>
+	<tran loc="fr" origin="">Utiliser le format :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (or parse the first line of the main input file) : &lt;title:or parse the first line of the main input file&gt; (oid:252) </Description>
+<Position>252.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >or parse the first line of the main input file</base>
+	<tran loc="fr" origin="">ou lire la première ligne du fichier principal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable the \write18{&quot;shell command line&quot;} construct) : &lt;title:Enable the \write18{&quot;shell command line&quot;} construct&gt; (oid:258) </Description>
+<Position>258.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable the \\write18{\&quot;shell command line\&quot;} construct</base>
+	<tran loc="fr" origin="">Activer \\write18{\&quot;commande shell\&quot;}</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (non stop mode: diagnostic but no interaction) : &lt;title:non stop mode: diagnostic but no interaction&gt; (oid:263) </Description>
+<Position>263.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >non stop mode: diagnostic but no interaction</base>
+	<tran loc="fr" origin="">mode non stop : diagnostic mais aucune interaction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (scroll mode) : &lt;title:scroll mode&gt; (oid:264) </Description>
+<Position>264.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >scroll mode</base>
+	<tran loc="fr" origin="">mode défilement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (batch mode: no interaction, no output) : &lt;title:batch mode: no interaction, no output&gt; (oid:265) </Description>
+<Position>265.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >batch mode: no interaction, no output</base>
+	<tran loc="fr" origin="">mode batch : aucune interaction, aucun rapport</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (error stop mode) : &lt;title:error stop mode&gt; (oid:266) </Description>
+<Position>266.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >error stop mode</base>
+	<tran loc="fr" origin="">mode error stop</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Standard error messages.) : &lt;title:Standard error messages.&gt; (oid:272) </Description>
+<Position>272.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Standard error messages.</base>
+	<tran loc="fr" origin="">Messages d&apos;erreur type</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Halt on error) : &lt;title:Halt on error&gt; (oid:273) </Description>
+<Position>273.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Halt on error</base>
+	<tran loc="fr" origin="">Halte sur erreur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (For tcx translation,) : &lt;title:For tcx translation,&gt; (oid:291) </Description>
+<Position>291</Position>
+<TranslationSet>
+
+	<base loc="en"          >For tcx translation,</base>
+	<tran loc="fr" origin="">Pour la traduction tcx</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Customized job name:) : &lt;title:Customized job name:&gt; (oid:307) </Description>
+<Position>307.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Customized job name:</base>
+	<tran loc="fr" origin="">Nom de tâche personnalisé :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use base format name:) : &lt;title:Use base format name:&gt; (oid:309) </Description>
+<Position>309.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use base format name:</base>
+	<tran loc="fr" origin="">Employer le nom du format de base :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Ok) : &lt;title:Ok&gt; (oid:313) </Description>
+<Position>313.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ok</base>
+	<tran loc="fr" origin="">OK</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The pdftex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI or an Adobe® Portable Document Format file. Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.) : &lt;title:The pdftex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI or an Adobe® Portable Document Format file. Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.&gt; (oid:318) </Description>
+<Position>318</Position>
+<TranslationSet>
+
+	<base loc="en"          >The pdftex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI or an Adobe® Portable Document Format file. Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.</base>
+	<tran loc="fr" origin="">Le programme pdftex compose le texte et les commandes TeX entremêlés contenus dans un fichier principal et produit un DVI ou un fichier PDF d&apos;Adobe®. Les possibilités et le langage TeX de Donald E. Knuth sont décrits dans le TeXbook. TeX est normalement employé avec un ensemble de macros précompilées, et il y a plusieurs systèmes spécifiques de formatage, comme LaTeX, qui exigent l&apos;appui de plusieurs fichiers de macros.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (A pdftex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.) : &lt;title:A pdftex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.&gt; (oid:319) </Description>
+<Position>319</Position>
+<TranslationSet>
+
+	<base loc="en"          >A pdftex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.</base>
+	<tran loc="fr" origin="">Un format pdftex est un ensemble de macros precompilées dans un fichier à l&apos;extension fmt. Les formats pour pdftex et TeX sont différent, même venant d&apos;une source commune.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use  format as the name of the format to be used.) : &lt;title:Use  format as the name of the format to be used.&gt; (oid:320) </Description>
+<Position>320</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use  format as the name of the format to be used.</base>
+	<tran loc="fr" origin="">Employer le format comme nom du format à employer.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/pdftex/... folders.) : &lt;title:The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/pdftex/... folders.&gt; (oid:321) </Description>
+<Position>321</Position>
+<TranslationSet>
+
+	<base loc="en"          >The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/pdftex/... folders.</base>
+	<tran loc="fr" origin="">Le nom du format de base est employé pour trouver les fichiers auxiliaires dans la structure d&apos;annuaire de TeX, en général les différent dossiers .../Library/texmf/pdftex/...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX. Beware, this is a security hole, use it with care.) : &lt;title:Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX.!#x000a;Beware, this is a security hole, use it with care.&gt; (oid:323) </Description>
+<Position>323</Position>
+<TranslationSet>
+
+	<base loc="en"          >Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX.\nBeware, this is a security hole, use it with care.</base>
+	<tran loc="fr" origin="">Quelques paquets (comme epstopdf.sty de Heiko Oberdiek ou ucs.sty Dominique P. G. Unru) doivent exécuter des commandes shell depuis TeX.\nPrenez garde, ceci est un trou de sécurité, utiliser avec modération.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Set the user interaction level:) : &lt;title:Set the user interaction level:&gt; (oid:324) </Description>
+<Position>324</Position>
+<TranslationSet>
+
+	<base loc="en"          >Set the user interaction level:</base>
+	<tran loc="fr" origin="">Régler le niveau d&apos;interaction utilisateur :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance. • scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs. • nonstopmode does not request input after serious errors but stops processing altogether. • batchmode prevents all output in addition to that (intended for use in automated scripts). In all cases, all errors are written to the log file (masterFileName.log).) : &lt;title:• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance.!#x000a;• scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs.!#x000a;• nonstopmode does not request input after serious errors but stops processing altogether.!#x000a;• batchmode prevents all output in addition to that (intended for use in automated scripts).!#x000a;In all cases, all errors are written to the log file (masterFileName.log).&gt; (oid:325) </Description>
+<Position>325</Position>
+<TranslationSet>
+
+	<base loc="en"          >• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance.\n• scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs.\n• nonstopmode does not request input after serious errors but stops processing altogether.\n• batchmode prevents all output in addition to that (intended for use in automated scripts).\nIn all cases, all errors are written to the log file (masterFileName.log).</base>
+	<tran loc="fr" origin="">• errorstopmode  arrêts sur toutes les erreurs, de syntaxe TeX dans le code source ou des fichiers inexistants, demande l&apos;assistance de l&apos;utilisateur.\n• scrollmode pas d&apos;arrêt aux erreurs dans le fichier source mais requiert l&apos;assistance de l&apos;utilisateur quand une erreur plus sérieuse comme un fichier absent se produit.\n• nonstopmode ne demande pas d&apos;aide pour des erreurs sérieuses mais cesse de compiler.\n• batchmode empêche toute sortie en plus de ça (destiné à l&apos;utilisation en script automatisés).\nDans tous les cas, toutes les erreurs sont rapportées dans le fichier log (masterFileName.log).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (If the main input file contains a translation directive %&amp; --transate-file tcxname in its first line, use the translation table named tcxname. Available only if the first line is parsed (see the Format pane).) : &lt;title:If the main input file contains a translation directive!#x000a;%&amp; --transate-file tcxname!#x000a;in its first line, use the translation table named tcxname.!#x000a;Available only if the first line is parsed (see the Format pane).&gt; (oid:326) </Description>
+<Position>326</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the main input file contains a translation directive\n%&amp; --transate-file tcxname\nin its first line, use the translation table named tcxname.\nAvailable only if the first line is parsed (see the Format pane).</base>
+	<tran loc="fr" origin="">Si le fichier principal contient dans sa première ligne une directive de traduction tcx\n%&amp; --transate-file tcxname\n, employer la table de traduction nommée tcxname.\nDisponible seulement si la première ligne est analysée (voir le panel de format).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form &quot;file:line:error&quot; which is similar to the way many compilers format them. The latter is best for iTeXMac.) : &lt;title:When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form &quot;file:line:error&quot; which is similar to the way many compilers format them.!#x000a;The latter is best for iTeXMac.&gt; (oid:327) </Description>
+<Position>327</Position>
+<TranslationSet>
+
+	<base loc="en"          >When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form \&quot;file:line:error\&quot; which is similar to the way many compilers format them.\nThe latter is best for iTeXMac.</base>
+	<tran loc="fr" origin="">Si coché, messages d&apos;erreur de console plus lisibles. Par défaut, imprime des messages d&apos;erreur sous la forme \&quot;file:line:error\&quot; comme la plupart des compilateurs les composent.\nCe dernier est préférable pour l&apos;iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Exit with an error code when an error is encountered during processing) : &lt;title:Exit with an error code when an error is encountered during processing&gt; (oid:328) </Description>
+<Position>328</Position>
+<TranslationSet>
+
+	<base loc="en"          >Exit with an error code when an error is encountered during processing</base>
+	<tran loc="fr" origin="">Sortie avec un code d&apos;erreur quand une erreur s&apos;est produite pendant le traitement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Cancel) : &lt;title:Cancel&gt; (oid:329) </Description>
+<Position>329.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cancel</base>
+	<tran loc="fr" origin="">Annuler</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option. Avoid this %&amp;... feature as far as possible.) : &lt;title:If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option.!#x000a;Avoid this %&amp;... feature as far as possible.&gt; (oid:331) </Description>
+<Position>331</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option.\nAvoid this %&amp;... feature as far as possible.</base>
+	<tran loc="fr" origin="">Si la première ligne du fichier d&apos;entrée principal commence par %&amp; analyser pour rechercher un nom de format ou une option -translate-file.\nUtiliser avec modération.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (This leaves a trace of the files opened for input and output in a file with extension .fls.) : &lt;title:This leaves a trace of the files opened for input and output in a file with extension .fls.&gt; (oid:332) </Description>
+<Position>332</Position>
+<TranslationSet>
+
+	<base loc="en"          >This leaves a trace of the files opened for input and output in a file with extension .fls.</base>
+	<tran loc="fr" origin="">Laisse une trace des fichiers ouverts pour l&apos;entrée/sortie dans un fichier avec extension fls.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable the filename recorder) : &lt;title:Enable the filename recorder&gt; (oid:333) </Description>
+<Position>333.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable the filename recorder</base>
+	<tran loc="fr" origin="">Activer l&apos;enregistreur de nom de fichiers</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (use table:) : &lt;title:use table:&gt; (oid:342) </Description>
+<Position>342.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >use table:</base>
+	<tran loc="fr" origin="">utilise la table :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use the translation table to set the mapping of input characters and remapping of output characters.) : &lt;title:Use the translation table to set the mapping of input characters and remapping of output characters.&gt; (oid:343) </Description>
+<Position>343</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the translation table to set the mapping of input characters and remapping of output characters.</base>
+	<tran loc="fr" origin="">Employer la table de traduction pour le codage des caractères d&apos;entrée et de sortie.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Parsed first line takes precedence) : &lt;title:Parsed first line takes precedence&gt; (oid:344) </Description>
+<Position>344.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Parsed first line takes precedence</base>
+	<tran loc="fr" origin="">La première ligne analysée a la priorité.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Output&gt; (oid:347) </Description>
+<Position>347</Position>
+<TranslationSet>
+
+	<base loc="en"          >Output</base>
+	<tran loc="fr" origin="">Sortie</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Dump&gt; (oid:349) </Description>
+<Position>349</Position>
+<TranslationSet>
+
+	<base loc="en"          >Dump</base>
+	<tran loc="fr" origin="">Dump</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable encTeX extension by Petr Olsak) : &lt;title:Enable encTeX extension by Petr Olsak&gt; (oid:351) </Description>
+<Position>351.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable encTeX extension by Petr Olsak</base>
+	<tran loc="fr" origin="">Activer l&apos;extension encTeX de Petr Olsak</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable MLTeX extensions.) : &lt;title:Enable MLTeX extensions.&gt; (oid:352) </Description>
+<Position>352.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable MLTeX extensions.</base>
+	<tran loc="fr" origin="">Activer l&apos;extension MLTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Be pdfinitex, for precompiling (\dump&apos;ing) formats) : &lt;title:Be pdfinitex, for precompiling (\dump&apos;ing) formats&gt; (oid:353) </Description>
+<Position>353.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Be pdfinitex, for precompiling (\\dump&apos;ing) formats</base>
+	<tran loc="fr" origin="">Utiliser pdfinitex, pour précompiler (\\dump&apos;ing) des formats</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The multilingual TeX extension from Michael  J. Ferguson.) : &lt;title:The multilingual TeX extension from Michael  J. Ferguson.&gt; (oid:354) </Description>
+<Position>354</Position>
+<TranslationSet>
+
+	<base loc="en"          >The multilingual TeX extension from Michael  J. Ferguson.</base>
+	<tran loc="fr" origin="">L&apos;extension TeX multilingue de Michael J. Ferguson</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.) : &lt;title:Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.&gt; (oid:355) </Description>
+<Position>355</Position>
+<TranslationSet>
+
+	<base loc="en"          >Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.</base>
+	<tran loc="fr" origin="">Autoriser le réencodage flexible d&apos;entrée-sortie par de nouvelles primitives d&apos;encTeX, avec traitement Utf-8 par le standard 8 bits de TeX. Voir encdoce.pdf.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Precompile TeX macros in a .fmt file. See David Carlisle&apos;s mylatex package for an example of dumping formats.) : &lt;title:Precompile TeX macros in a .fmt file.!#x000a;See David Carlisle&apos;s mylatex package for an example of dumping formats.&gt; (oid:357) </Description>
+<Position>357</Position>
+<TranslationSet>
+
+	<base loc="en"          >Precompile TeX macros in a .fmt file.\nSee David Carlisle&apos;s mylatex package for an example of dumping formats.</base>
+	<tran loc="fr" origin="">Précompiler les macros TeX macros dans un fichier .fmt.\nVoir le paquet mylatex de David Carlisle pour un exemple d&apos;utilisation.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.) : &lt;title:The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.&gt; (oid:358) </Description>
+<Position>358</Position>
+<TranslationSet>
+
+	<base loc="en"          >The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.</base>
+	<tran loc="fr" origin="">Les source specials sont employés pour synchroniser de la source à la sortie DVI, dès qu&apos;un visionneur DVI et un éditeur de texte compatibles sont utilisés. Voir MacDVIX et xdvi pour des exemples.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use DVI source specials (Not available when dumping)) : &lt;title:Use DVI source specials (Not available when dumping)&gt; (oid:360) </Description>
+<Position>360.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use DVI source specials (Not available when dumping)</base>
+	<tran loc="fr" origin="">Activer les DVI source specials (Non disponible en dumpant)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (cr) : &lt;title:cr&gt; (oid:375) </Description>
+<Position>375.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >cr</base>
+	<tran loc="fr" origin="">cr</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (display) : &lt;title:display&gt; (oid:376) </Description>
+<Position>376.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >display</base>
+	<tran loc="fr" origin="">display</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (hbox) : &lt;title:hbox&gt; (oid:377) </Description>
+<Position>377.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >hbox</base>
+	<tran loc="fr" origin="">hbox</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (paren) : &lt;title:paren&gt; (oid:378) </Description>
+<Position>378.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >paren</base>
+	<tran loc="fr" origin="">paren</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (par) : &lt;title:par&gt; (oid:379) </Description>
+<Position>379.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >par</base>
+	<tran loc="fr" origin="">par</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (math) : &lt;title:math&gt; (oid:380) </Description>
+<Position>380.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >math</base>
+	<tran loc="fr" origin="">math</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (vbox) : &lt;title:vbox&gt; (oid:381) </Description>
+<Position>381.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >vbox</base>
+	<tran loc="fr" origin="">vbox</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (pdfsync support allows synchronization from source to pdf output. Additional macros must be used, see the pdfsync documentation.) : &lt;title:pdfsync support allows synchronization from source to pdf output.!#x000a;Additional macros must be used, see the pdfsync documentation.&gt; (oid:384) </Description>
+<Position>384</Position>
+<TranslationSet>
+
+	<base loc="en"          >pdfsync support allows synchronization from source to pdf output.\nAdditional macros must be used, see the pdfsync documentation.</base>
+	<tran loc="fr" origin="">pdfsync permet la synchronisation de la source à la sortie pdf.\nDes macros additionnelles doivent être employées, voir la documentation de pdfsync.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable pdfsync support) : &lt;title:Enable pdfsync support&gt; (oid:385) </Description>
+<Position>385.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable pdfsync support</base>
+	<tran loc="fr" origin="">Activer le support pdfsync</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Working directory:) : &lt;title:Working directory:&gt; (oid:391) </Description>
+<Position>391.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Working directory:</base>
+	<tran loc="fr" origin="">Dossier de travail :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use a customized name for the job name, instead of deriving it from the  name of the input file.) : &lt;title:Use a customized name for the job name, instead of deriving it from the  name of the input file.&gt; (oid:394) </Description>
+<Position>394</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use a customized name for the job name, instead of deriving it from the  name of the input file.</base>
+	<tran loc="fr" origin="">Utiliser un nom personnalisé pour la tâche, au lieu du nom du fichier d&apos;entrée.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.) : &lt;title:Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.&gt; (oid:395) </Description>
+<Position>395</Position>
+<TranslationSet>
+
+	<base loc="en"          >Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.</base>
+	<tran loc="fr" origin="">Dossier utiliser au lieu du dossier courant du nom du fichier d&apos;entrée. Rechercher les fichiers d&apos;entrée dans ce dossier d&apos;abord, puis normalement.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (DVI (Format of original tex output, depends on the distribution)) : &lt;title:DVI (Format of original tex output, depends on the distribution)&gt; (oid:396) </Description>
+<Position>396.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >DVI (Format of original tex output, depends on the distribution)</base>
+	<tran loc="fr" origin="">DVI (Le format de sortie original de TeX, dépend de la distribution)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (PDF (Preferred)) : &lt;title:PDF (Preferred)&gt; (oid:398) </Description>
+<Position>398.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >PDF (Preferred)</base>
+	<tran loc="fr" origin="">PDF (Préféré)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Ouput format:) : &lt;title:Ouput format:&gt; (oid:400) </Description>
+<Position>400</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ouput format:</base>
+	<tran loc="fr" origin="">Format de sortie :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Exclude:) : &lt;title:Exclude:&gt; (oid:406) </Description>
+<Position>406</Position>
+<TranslationSet>
+
+	<base loc="en"          >Exclude:</base>
+	<tran loc="fr" origin="">Exclure :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Comment:) : &lt;title:Comment:&gt; (oid:408) </Description>
+<Position>408.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Comment:</base>
+	<tran loc="fr" origin="">Commentaire :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use the string for the DVI file comment instead of the date.) : &lt;title:Use the string for the DVI file comment instead of the date.&gt; (oid:409) </Description>
+<Position>409</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the string for the DVI file comment instead of the date.</base>
+	<tran loc="fr" origin="">Utiliser le texte comme commentaire DVI au lieu de la date.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The box menus above are expected to list the contents of the web2c folder where all the formats are stored) : &lt;title:The box menus above are expected to list the contents of the web2c folder where all the formats are stored&gt; (oid:410) </Description>
+<Position>410</Position>
+<TranslationSet>
+
+	<base loc="en"          >The box menus above are expected to list the contents of the web2c folder where all the formats are stored</base>
+	<tran loc="fr" origin="">Les menus ci-dessus doivent énumérer le contenu de du dossier web2c où les formats sont enregistés.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:414) </Description>
+<Position>414</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title: &gt; (oid:415) </Description>
+<Position>415</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton ( ) : &lt;title: &gt; (oid:416) </Description>
+<Position>416</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title: &gt; (oid:418) </Description>
+<Position>418</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton ( ) : &lt;title: &gt; (oid:419) </Description>
+<Position>419</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:421) </Description>
+<Position>421</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (Window) : &lt;title:Window&gt; (oid:6) </Description>
+<Position>6</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Window</base>
+	<tran loc="fr" origin="Default Names List matched text">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                     -->
+<!--    TeX Engines.iTM2/../iTM2EngineTeX.nib.strings    -->
+<!--                                                     -->
+<File>
+<Filepath>TeX Engines.iTM2/Contents/Resources/English.lproj/iTM2EngineTeX.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (Options for the tex engine:) : &lt;title:Options for the tex engine:&gt; (oid:11) </Description>
+<Position>11</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options for the tex engine:</base>
+	<tran loc="fr" origin="">Options pour le moteur TeX :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Format&gt; (oid:239) </Description>
+<Position>239</Position>
+<TranslationSet>
+
+	<base loc="en"          >Format</base>
+	<tran loc="fr" origin="">Format</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Advanced&gt; (oid:240) </Description>
+<Position>240</Position>
+<TranslationSet>
+
+	<base loc="en"          >Advanced</base>
+	<tran loc="fr" origin="">Avançé</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Interaction&gt; (oid:244) </Description>
+<Position>244</Position>
+<TranslationSet>
+
+	<base loc="en"          >Interaction</base>
+	<tran loc="fr" origin="">Interaction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Translation&gt; (oid:246) </Description>
+<Position>246</Position>
+<TranslationSet>
+
+	<base loc="en"          >Translation</base>
+	<tran loc="fr" origin="">Traduction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Debug&gt; (oid:248) </Description>
+<Position>248</Position>
+<TranslationSet>
+
+	<base loc="en"          >Debug</base>
+	<tran loc="fr" origin="">Déboguage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (use format:) : &lt;title:use format:&gt; (oid:251) </Description>
+<Position>251.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >use format:</base>
+	<tran loc="fr" origin="">Utiliser le format :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (or parse the first line of the main input file) : &lt;title:or parse the first line of the main input file&gt; (oid:252) </Description>
+<Position>252.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >or parse the first line of the main input file</base>
+	<tran loc="fr" origin="">ou lire la première ligne du fichier d&apos;entrée principal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable the \write18{&quot;shell command line&quot;} construct) : &lt;title:Enable the \write18{&quot;shell command line&quot;} construct&gt; (oid:258) </Description>
+<Position>258.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable the \\write18{\&quot;shell command line\&quot;} construct</base>
+	<tran loc="fr" origin="">Activer la commande \\write18{\&quot;commandes shell\&quot;}</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (non stop mode: diagnostic but no interaction) : &lt;title:non stop mode: diagnostic but no interaction&gt; (oid:263) </Description>
+<Position>263.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >non stop mode: diagnostic but no interaction</base>
+	<tran loc="fr" origin="">mode non stop : diagnostic mais aucune interaction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (scroll mode) : &lt;title:scroll mode&gt; (oid:264) </Description>
+<Position>264.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >scroll mode</base>
+	<tran loc="fr" origin="">mode défilement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (batch mode: no interaction, no output) : &lt;title:batch mode: no interaction, no output&gt; (oid:265) </Description>
+<Position>265.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >batch mode: no interaction, no output</base>
+	<tran loc="fr" origin="">mode batch : aucune interaction, aucun rendement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (error stop mode) : &lt;title:error stop mode&gt; (oid:266) </Description>
+<Position>266.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >error stop mode</base>
+	<tran loc="fr" origin="">mode error stop</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Standard error messages.) : &lt;title:Standard error messages.&gt; (oid:272) </Description>
+<Position>272.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Standard error messages.</base>
+	<tran loc="fr" origin="">Messages d&apos;erreur type.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Halt on error) : &lt;title:Halt on error&gt; (oid:273) </Description>
+<Position>273.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Halt on error</base>
+	<tran loc="fr" origin="">Halte sur erreur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (For tcx translation,) : &lt;title:For tcx translation,&gt; (oid:291) </Description>
+<Position>291</Position>
+<TranslationSet>
+
+	<base loc="en"          >For tcx translation,</base>
+	<tran loc="fr" origin="">Pour la traduction tcx,</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Customized job name:) : &lt;title:Customized job name:&gt; (oid:307) </Description>
+<Position>307.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Customized job name:</base>
+	<tran loc="fr" origin="">Nom de tâche personnalisé :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use base format name:) : &lt;title:Use base format name:&gt; (oid:309) </Description>
+<Position>309.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use base format name:</base>
+	<tran loc="fr" origin="">Utiliser le nom du format de base :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Ok) : &lt;title:Ok&gt; (oid:313) </Description>
+<Position>313.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ok</base>
+	<tran loc="fr" origin="">OK</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The tex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI file (for DeVice Independent). Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.) : &lt;title:The tex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI file (for DeVice Independent). Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.&gt; (oid:318) </Description>
+<Position>318</Position>
+<TranslationSet>
+
+	<base loc="en"          >The tex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI file (for DeVice Independent). Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.</base>
+	<tran loc="fr" origin="">Le programme TeX compose le texte et les commandes entremêlés contenus dans un fichier principal et produit un fichier DVI (pour DeVice Independent). Les possibilités et la langage TeX de Donald E. Knuth sont décrits dans le TeXbook. TeX est normalement employé avec un grand nombre de macros précompilées, et il y a plusieurs systèmes spécifiques de formatage, tels que LaTeX, qui exigent l&apos;appui de plusieurs fichiers de macros.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (A tex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.) : &lt;title:A tex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.&gt; (oid:319) </Description>
+<Position>319</Position>
+<TranslationSet>
+
+	<base loc="en"          >A tex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.</base>
+	<tran loc="fr" origin="">Un format TeX est un ensemble de macros précompilées dans un fichier d&apos;extension fmt. Les formats pdftex et TeX sont différents, même venant d&apos;une source commune.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use  format as the name of the format to be used.) : &lt;title:Use  format as the name of the format to be used.&gt; (oid:320) </Description>
+<Position>320</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use  format as the name of the format to be used.</base>
+	<tran loc="fr" origin="">Employer format comme nom du format à employer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/tex/... folders.) : &lt;title:The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/tex/... folders.&gt; (oid:321) </Description>
+<Position>321</Position>
+<TranslationSet>
+
+	<base loc="en"          >The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/tex/... folders.</base>
+	<tran loc="fr" origin="">Le nom du format de base est employé pour trouver les fichiers auxiliaires dans l&apos;arborescence TeX, en général dans les differents dossiers .../Library/texmf/tex/...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX. Beware, this is a security hole, use it with care.) : &lt;title:Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX.!#x000a;Beware, this is a security hole, use it with care.&gt; (oid:323) </Description>
+<Position>323</Position>
+<TranslationSet>
+
+	<base loc="en"          >Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX.\nBeware, this is a security hole, use it with care.</base>
+	<tran loc="fr" origin="">Quelques paquets (comme epstopdf.sty de Heiko Oberdiek ou ucs.sty de Dominique P. G. Unruh) doivent exécuter des commandes shell dans TeX.\nAttention, ceci est un trou de sécurité, utiliser avec circonspection.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Set the user interaction level:) : &lt;title:Set the user interaction level:&gt; (oid:324) </Description>
+<Position>324</Position>
+<TranslationSet>
+
+	<base loc="en"          >Set the user interaction level:</base>
+	<tran loc="fr" origin="">Régler le niveau d&apos;interaction de l&apos;utilisateur :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance. • scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs. • nonstopmode does not request input after serious errors but stops processing altogether. • batchmode prevents all output in addition to that (intended for use in automated scripts). In all cases, all errors are written to the log file (masterFileName.log).) : &lt;title:• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance.!#x000a;• scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs.!#x000a;• nonstopmode does not request input after serious errors but stops processing altogether.!#x000a;• batchmode prevents all output in addition to that (intended for use in automated scripts).!#x000a;In all cases, all errors are written to the log file (masterFileName.log).&gt; (oid:325) </Description>
+<Position>325</Position>
+<TranslationSet>
+
+	<base loc="en"          >• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance.\n• scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs.\n• nonstopmode does not request input after serious errors but stops processing altogether.\n• batchmode prevents all output in addition to that (intended for use in automated scripts).\nIn all cases, all errors are written to the log file (masterFileName.log).</base>
+	<tran loc="fr" origin="">• errorstopmode  arrêt sur toute erreur, de TeX dans le code source ou de fichier inexistant, demande l&apos;aide de l&apos;utilisateur.\n• scrollmode pas d&apos;arrêt en cas d&apos;erreur mais requiert une aide quand une erreur plus sérieuse comme un fichier absent se produit.\n• nonstopmode ne requiert pas d&apos;aide en cas d&apos;erreur sérieuse mais arrête la compilation.\n• batchmode en plus de ça empêche toute sortie (destiné à l&apos;utilisation en script automatisés).\nDans tous les cas, toutes les erreurs sont rapportées dans le fichier log (masterFileName.log).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (If the main input file contains a translation directive %&amp; --transate-file tcxname in its first line, use the translation table named tcxname. Available only if the first line is parsed (see the Format pane).) : &lt;title:If the main input file contains a translation directive!#x000a;%&amp; --transate-file tcxname!#x000a;in its first line, use the translation table named tcxname.!#x000a;Available only if the first line is parsed (see the Format pane).&gt; (oid:326) </Description>
+<Position>326</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the main input file contains a translation directive\n%&amp; --transate-file tcxname\nin its first line, use the translation table named tcxname.\nAvailable only if the first line is parsed (see the Format pane).</base>
+	<tran loc="fr" origin="">Si le fichier principal contient une directive de traduction\n%&amp; --transate-file tcxname\ndans sa première ligne, employer la table de traduction tcxname.\nDisponible seulement si la première ligne est analysée (voir le panneau de format).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form &quot;file:line:error&quot; which is similar to the way many compilers format them. The latter is best for iTeXMac.) : &lt;title:When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form &quot;file:line:error&quot; which is similar to the way many compilers format them.!#x000a;The latter is best for iTeXMac.&gt; (oid:327) </Description>
+<Position>327</Position>
+<TranslationSet>
+
+	<base loc="en"          >When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form \&quot;file:line:error\&quot; which is similar to the way many compilers format them.\nThe latter is best for iTeXMac.</base>
+	<tran loc="fr" origin="">Si coché, affichage plus lisible des message d&apos;erreur. Par défaut, les messages ont pour forme \&quot;file:line:error\&quot; comme les composent la plupart des compilateurs.\nC&apos;est le mieux pour iTeXMac2.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Exit with an error code when an error is encountered during processing) : &lt;title:Exit with an error code when an error is encountered during processing&gt; (oid:328) </Description>
+<Position>328</Position>
+<TranslationSet>
+
+	<base loc="en"          >Exit with an error code when an error is encountered during processing</base>
+	<tran loc="fr" origin="">Sortie avec un code d&apos;erreur quand une erreur est produite pendant le traitement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Cancel) : &lt;title:Cancel&gt; (oid:329) </Description>
+<Position>329.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cancel</base>
+	<tran loc="fr" origin="">Annuler</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option. Avoid this %&amp;... feature as far as possible.) : &lt;title:If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option.!#x000a;Avoid this %&amp;... feature as far as possible.&gt; (oid:331) </Description>
+<Position>331</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option.\nAvoid this %&amp;... feature as far as possible.</base>
+	<tran loc="fr" origin="">Si la première ligne du dossier d&apos;entrée principal commence par %&amp;, y rechercher un nom de format ou une directive -translate-file.\nÀ éviter autant que possible.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (This leaves a trace of the files opened for input and output in a file with extension .fls.) : &lt;title:This leaves a trace of the files opened for input and output in a file with extension .fls.&gt; (oid:332) </Description>
+<Position>332</Position>
+<TranslationSet>
+
+	<base loc="en"          >This leaves a trace of the files opened for input and output in a file with extension .fls.</base>
+	<tran loc="fr" origin="">Ceci laisse une trace des fichiers ouverts pour l&apos;entrée/sortie dans un fichier d&apos;extension fls.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable the filename recorder) : &lt;title:Enable the filename recorder&gt; (oid:333) </Description>
+<Position>333.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable the filename recorder</base>
+	<tran loc="fr" origin="">Activer l&apos;enregistreur de noms de fichiers</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (use table:) : &lt;title:use table:&gt; (oid:342) </Description>
+<Position>342.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >use table:</base>
+	<tran loc="fr" origin="">Utiliser une table :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use the translation table to set the mapping of input characters and remapping of output characters.) : &lt;title:Use the translation table to set the mapping of input characters and remapping of output characters.&gt; (oid:343) </Description>
+<Position>343</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the translation table to set the mapping of input characters and remapping of output characters.</base>
+	<tran loc="fr" origin="">Employer la table de traduction pour le codage des caractères en entrée et sortie.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Parsed first line takes precedence) : &lt;title:Parsed first line takes precedence&gt; (oid:344) </Description>
+<Position>344.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Parsed first line takes precedence</base>
+	<tran loc="fr" origin="">La première ligne analysée a la priorité</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:DVI&gt; (oid:347) </Description>
+<Position>347</Position>
+<TranslationSet>
+
+	<base loc="en"          >DVI</base>
+	<tran loc="fr" origin="">DVI</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Dump&gt; (oid:349) </Description>
+<Position>349</Position>
+<TranslationSet>
+
+	<base loc="en"          >Dump</base>
+	<tran loc="fr" origin="">Dump</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable encTeX extension by Petr Olsak) : &lt;title:Enable encTeX extension by Petr Olsak&gt; (oid:351) </Description>
+<Position>351.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable encTeX extension by Petr Olsak</base>
+	<tran loc="fr" origin="">Activer l&apos;extension encTeX de Petr Olsak</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable MLTeX extensions.) : &lt;title:Enable MLTeX extensions.&gt; (oid:352) </Description>
+<Position>352.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable MLTeX extensions.</base>
+	<tran loc="fr" origin="">Activer les extension MLTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Be initex, for precompiling (\dump&apos;ing) formats) : &lt;title:Be initex, for precompiling (\dump&apos;ing) formats&gt; (oid:353) </Description>
+<Position>353.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Be initex, for precompiling (\\dump&apos;ing) formats</base>
+	<tran loc="fr" origin="">Utiliser initex, pour précompiler (\\dump&apos;ing) les formats</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The multilingual TeX extension from Michael  J. Ferguson.) : &lt;title:The multilingual TeX extension from Michael  J. Ferguson.&gt; (oid:354) </Description>
+<Position>354</Position>
+<TranslationSet>
+
+	<base loc="en"          >The multilingual TeX extension from Michael  J. Ferguson.</base>
+	<tran loc="fr" origin="">L&apos;extension TeX multilingue de Michael J. Ferguson.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.) : &lt;title:Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.&gt; (oid:355) </Description>
+<Position>355</Position>
+<TranslationSet>
+
+	<base loc="en"          >Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.</base>
+	<tran loc="fr" origin="">Activer le réencodage flexible d&apos;entrée-sortie par de nouvelles primitives d&apos;encTeX, avec traitement Utf-8 par le 8 bits standard de TeX. Voir encdoce.pdf.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Precompile TeX macros in a .fmt file. See David Carlisle&apos;s mylatex package for an example of dumping formats.) : &lt;title:Precompile TeX macros in a .fmt file.!#x000a;See David Carlisle&apos;s mylatex package for an example of dumping formats.&gt; (oid:357) </Description>
+<Position>357</Position>
+<TranslationSet>
+
+	<base loc="en"          >Precompile TeX macros in a .fmt file.\nSee David Carlisle&apos;s mylatex package for an example of dumping formats.</base>
+	<tran loc="fr" origin="">Précompiler les macros TeX dans un fichier fmt.\nVoir le paquet mylatex de David Carlislepour un exemple d&apos;utilisation.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.) : &lt;title:The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.&gt; (oid:358) </Description>
+<Position>358</Position>
+<TranslationSet>
+
+	<base loc="en"          >The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.</base>
+	<tran loc="fr" origin="">&gt;Les source specials sont employés pour synchroniser de la source à la sortie DVI, dès qu&apos;un visionneur DVI et un éditeur de texte adaptés sont employés. Voir MacDVIX et xdvi par exemple.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use DVI source specials (Not available when dumping)) : &lt;title:Use DVI source specials (Not available when dumping)&gt; (oid:360) </Description>
+<Position>360.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use DVI source specials (Not available when dumping)</base>
+	<tran loc="fr" origin="">Utiliser les source specials DVI (Indisponible au dumping)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (cr) : &lt;title:cr&gt; (oid:375) </Description>
+<Position>375.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >cr</base>
+	<tran loc="fr" origin="">cr</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (display) : &lt;title:display&gt; (oid:376) </Description>
+<Position>376.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >display</base>
+	<tran loc="fr" origin="">display</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (hbox) : &lt;title:hbox&gt; (oid:377) </Description>
+<Position>377.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >hbox</base>
+	<tran loc="fr" origin="">hbox</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (paren) : &lt;title:paren&gt; (oid:378) </Description>
+<Position>378.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >paren</base>
+	<tran loc="fr" origin="">paren</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (par) : &lt;title:par&gt; (oid:379) </Description>
+<Position>379.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >par</base>
+	<tran loc="fr" origin="">par</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (math) : &lt;title:math&gt; (oid:380) </Description>
+<Position>380.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >math</base>
+	<tran loc="fr" origin="">math</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (vbox) : &lt;title:vbox&gt; (oid:381) </Description>
+<Position>381.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >vbox</base>
+	<tran loc="fr" origin="">vbox</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Working directory:) : &lt;title:Working directory:&gt; (oid:391) </Description>
+<Position>391.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Working directory:</base>
+	<tran loc="fr" origin="">Dossier de travail :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use a customized name for the job name, instead of deriving it from the  name of the input file.) : &lt;title:Use a customized name for the job name, instead of deriving it from the  name of the input file.&gt; (oid:394) </Description>
+<Position>394</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use a customized name for the job name, instead of deriving it from the  name of the input file.</base>
+	<tran loc="fr" origin="">Utiliser un nom personnalisé pour cette tâche, au lieu du nom de fichier principal.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.) : &lt;title:Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.&gt; (oid:395) </Description>
+<Position>395</Position>
+<TranslationSet>
+
+	<base loc="en"          >Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.</base>
+	<tran loc="fr" origin="">Dossier remplaçant celui du nom du fichier d&apos;entrée. La recherche a lieu d&apos;abord ici, puis normalement dans l&apos;arborescence TeX.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Exclude:) : &lt;title:Exclude:&gt; (oid:406) </Description>
+<Position>406</Position>
+<TranslationSet>
+
+	<base loc="en"          >Exclude:</base>
+	<tran loc="fr" origin="">Exclure :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Comment:) : &lt;title:Comment:&gt; (oid:408) </Description>
+<Position>408.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Comment:</base>
+	<tran loc="fr" origin="">Commentaire :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use the string for the DVI file comment instead of the date.) : &lt;title:Use the string for the DVI file comment instead of the date.&gt; (oid:409) </Description>
+<Position>409</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the string for the DVI file comment instead of the date.</base>
+	<tran loc="fr" origin="">Employer le texte comme commentaire DVI au lieu de la date.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The box menus above are listing the contents of the web2c folder where all the formats are stored) : &lt;title:The box menus above are listing the contents of the web2c folder where all the formats are stored&gt; (oid:410) </Description>
+<Position>410</Position>
+<TranslationSet>
+
+	<base loc="en"          >The box menus above are listing the contents of the web2c folder where all the formats are stored</base>
+	<tran loc="fr" origin="">Les menus de boîte ci-dessus énumèrent le contenu du dossier web2c où sont enregistrer les formats</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title: &gt; (oid:414) </Description>
+<Position>414</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:417) </Description>
+<Position>417</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton ( ) : &lt;title: &gt; (oid:418) </Description>
+<Position>418</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:421) </Description>
+<Position>421</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title: &gt; (oid:422) </Description>
+<Position>422</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton ( ) : &lt;title: &gt; (oid:423) </Description>
+<Position>423</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (Window) : &lt;title:Window&gt; (oid:6) </Description>
+<Position>6</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Window</base>
+	<tran loc="fr" origin="Default Names List matched text">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                       -->
+<!--    TeX Engines.iTM2/../iTM2EngineXeTeX.nib.strings    -->
+<!--                                                       -->
+<File>
+<Filepath>TeX Engines.iTM2/Contents/Resources/English.lproj/iTM2EngineXeTeX.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (Options for the XeTeX engine:) : &lt;title:Options for the XeTeX engine:&gt; (oid:11) </Description>
+<Position>11</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options for the XeTeX engine:</base>
+	<tran loc="fr" origin="">Options pour le moteur XeTeX:</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Format&gt; (oid:239) </Description>
+<Position>239</Position>
+<TranslationSet>
+
+	<base loc="en"          >Format</base>
+	<tran loc="fr" origin="">Format</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Advanced&gt; (oid:240) </Description>
+<Position>240</Position>
+<TranslationSet>
+
+	<base loc="en"          >Advanced</base>
+	<tran loc="fr" origin="">Avancé</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Interaction&gt; (oid:244) </Description>
+<Position>244</Position>
+<TranslationSet>
+
+	<base loc="en"          >Interaction</base>
+	<tran loc="fr" origin="">Interaction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Translation&gt; (oid:246) </Description>
+<Position>246</Position>
+<TranslationSet>
+
+	<base loc="en"          >Translation</base>
+	<tran loc="fr" origin="">Traduction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Debug&gt; (oid:248) </Description>
+<Position>248</Position>
+<TranslationSet>
+
+	<base loc="en"          >Debug</base>
+	<tran loc="fr" origin="">Déboggage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (use format:) : &lt;title:use format:&gt; (oid:251) </Description>
+<Position>251.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >use format:</base>
+	<tran loc="fr" origin="">Utiliser le format :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (or parse the first line of the main input file) : &lt;title:or parse the first line of the main input file&gt; (oid:252) </Description>
+<Position>252.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >or parse the first line of the main input file</base>
+	<tran loc="fr" origin="">ou analyser la première ligne du fichier principal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable the \write18{&quot;shell command line&quot;} construct) : &lt;title:Enable the \write18{&quot;shell command line&quot;} construct&gt; (oid:258) </Description>
+<Position>258.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable the \\write18{\&quot;shell command line\&quot;} construct</base>
+	<tran loc="fr" origin="">Activer la commande \\write18{\&quot;commandes shell\&quot;}</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (non stop mode: diagnostic but no interaction) : &lt;title:non stop mode: diagnostic but no interaction&gt; (oid:263) </Description>
+<Position>263.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >non stop mode: diagnostic but no interaction</base>
+	<tran loc="fr" origin="">mode sans arrêt : diagnostic mais aucune interaction</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (scroll mode) : &lt;title:scroll mode&gt; (oid:264) </Description>
+<Position>264.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >scroll mode</base>
+	<tran loc="fr" origin="">mode défilement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (batch mode: no interaction, no output) : &lt;title:batch mode: no interaction, no output&gt; (oid:265) </Description>
+<Position>265.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >batch mode: no interaction, no output</base>
+	<tran loc="fr" origin="">mode batch : aucune interaction, aucun rendement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (error stop mode) : &lt;title:error stop mode&gt; (oid:266) </Description>
+<Position>266.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >error stop mode</base>
+	<tran loc="fr" origin="">mode error stop</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Standard error messages.) : &lt;title:Standard error messages.&gt; (oid:272) </Description>
+<Position>272.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Standard error messages.</base>
+	<tran loc="fr" origin="">Messages d&apos;erreur type.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Halt on error) : &lt;title:Halt on error&gt; (oid:273) </Description>
+<Position>273.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Halt on error</base>
+	<tran loc="fr" origin="">Arrêt sur erreur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (For tcx translation,) : &lt;title:For tcx translation,&gt; (oid:291) </Description>
+<Position>291</Position>
+<TranslationSet>
+
+	<base loc="en"          >For tcx translation,</base>
+	<tran loc="fr" origin="">Pour la traduction tcx,</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Customized job name:) : &lt;title:Customized job name:&gt; (oid:307) </Description>
+<Position>307.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Customized job name:</base>
+	<tran loc="fr" origin="">Nom de tâche personnalisé :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use base format name:) : &lt;title:Use base format name:&gt; (oid:309) </Description>
+<Position>309.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use base format name:</base>
+	<tran loc="fr" origin="">Utiliser le format de base :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Ok) : &lt;title:Ok&gt; (oid:313) </Description>
+<Position>313.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ok</base>
+	<tran loc="fr" origin="">Ok</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The tex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI file (for DeVice Independent). Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files. XeTeX is an extension of TeX suitable for Mac OS X developed by J. Kew. You can obtain XeTeX engin from G. Wierda&apos;s iinstaller or from http://scripts.sil.org/xetex) : &lt;title:The tex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI file (for DeVice Independent). Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.!#x000a;XeTeX is an extension of TeX suitable for Mac OS X developed by J. Kew. You can obtain XeTeX engin from G. Wierda&apos;s iinstaller or from http://scripts.sil.org/xetex&gt; (oid:318) </Description>
+<Position>318</Position>
+<TranslationSet>
+
+	<base loc="en"          >The tex program formats the interspersed text and TeX commands contained in a master file and outputs a DVI file (for DeVice Independent). Donald E. Knuth&apos;s TeX&apos;s capabilities and language are described in The TeXbook. TeX is normally used with a large body of precompiled macros, and there are several specific formatting systems, such as LaTeX, which require the support of several macro files.\nXeTeX is an extension of TeX suitable for Mac OS X developed by J. Kew. You can obtain XeTeX engin from G. Wierda&apos;s iinstaller or from http://scripts.sil.org/xetex</base>
+	<tran loc="fr" origin="">Le programme TeX compose le texte et les commandes TeX entremêlés dans un fichier principal et produit un fichier DVI (pour DeVice Independent). Les possibilités et le langage TeX de Donald E. Knuth sont décrites dans le TeXbook. TeX est normalement employé avec un grand nombre de macros précompilées, et il y a plusieurs systèmes spécifiques de formatage, tels que LaTeX, qui exigent l&apos;appui de plusieurs fichiers macros.\nXeTeX est une extension de TeX appropriée à Mac OS X développé par J. Kew. Vous pouvez obtenir le moteur XeTeX par l&apos;iinstalleur de G. Wierda ou par http://scripts.sil.org/xetex</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (A tex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.) : &lt;title:A tex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.&gt; (oid:319) </Description>
+<Position>319</Position>
+<TranslationSet>
+
+	<base loc="en"          >A tex format is a set of precompiled macros wrapped in a file with extension fmt. Formats for pdftex and tex are different, even coming from a common source.</base>
+	<tran loc="fr" origin="">Un format TeX est un ensemble de macros précompilées dans un fichier d&apos;extension fmt. Les formats pdftex et TeX sont différents, même provenant d&apos;une source commune.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use  format as the name of the format to be used.) : &lt;title:Use  format as the name of the format to be used.&gt; (oid:320) </Description>
+<Position>320</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use  format as the name of the format to be used.</base>
+	<tran loc="fr" origin="">Utiliser format comme nom de format à employer.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/tex/... folders.) : &lt;title:The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/tex/... folders.&gt; (oid:321) </Description>
+<Position>321</Position>
+<TranslationSet>
+
+	<base loc="en"          >The base format name is used to find auxiliary files in the TeX Directory Structure, in general the different .../Library/texmf/tex/... folders.</base>
+	<tran loc="fr" origin="">Le nom du format de base est utilisé pour trouver les fichiers auxiliaires dans l&apos;arborescence TeX, en général un dossier .../Library/texmf/tex/...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX. Beware, this is a security hole, use it with care.) : &lt;title:Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX.!#x000a;Beware, this is a security hole, use it with care.&gt; (oid:323) </Description>
+<Position>323</Position>
+<TranslationSet>
+
+	<base loc="en"          >Some packages (like Heiko Oberdiek&apos;s epstopdf.sty or Dominique P. G. Unruh&apos;s ucs.sty) may need to execute shell commands from within TeX.\nBeware, this is a security hole, use it with care.</base>
+	<tran loc="fr" origin="">Quelques paquets (comme epstopdf.sty de Heiko Oberdiek ou ucs.sty de Dominique P. G. Unruh) doivent exécuter des commandes shell dans TeX.\nAttention, c&apos;est un trou de sécurité, l&apos;employer avec circonspection.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Set the user interaction level:) : &lt;title:Set the user interaction level:&gt; (oid:324) </Description>
+<Position>324</Position>
+<TranslationSet>
+
+	<base loc="en"          >Set the user interaction level:</base>
+	<tran loc="fr" origin="">Régler le niveau d&apos;interaction d&apos;utilisateur:</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance. • scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs. • nonstopmode does not request input after serious errors but stops processing altogether. • batchmode prevents all output in addition to that (intended for use in automated scripts). In all cases, all errors are written to the log file (masterFileName.log).) : &lt;title:• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance.!#x000a;• scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs.!#x000a;• nonstopmode does not request input after serious errors but stops processing altogether.!#x000a;• batchmode prevents all output in addition to that (intended for use in automated scripts).!#x000a;In all cases, all errors are written to the log file (masterFileName.log).&gt; (oid:325) </Description>
+<Position>325</Position>
+<TranslationSet>
+
+	<base loc="en"          >• errorstopmode  stops on all errors, whether they are TeX errors in the source code or non-existent files, request user assistance.\n• scrollmode doesn&apos;t stop on errors in the source but requests input when a more serious error like a missing file occurs.\n• nonstopmode does not request input after serious errors but stops processing altogether.\n• batchmode prevents all output in addition to that (intended for use in automated scripts).\nIn all cases, all errors are written to the log file (masterFileName.log).</base>
+	<tran loc="fr" origin="">• errorstopmode  arrêt sur toutes les erreurs, de TeX dans le code source ou pour les fichiers inexistants, requiert l&apos;assistance de l&apos;utilisateur.\n• scrollmode pas d&apos;arrêt sur les erreurs du source mais requiert une assistance quand une erreur plus sérieuse comme un fichier absent se produit.\n• nonstopmode pas d&apos;assistance après les erreurs sérieuses mais cesse la compilation.\n• batchmode empêche toute sortie en plus de ça (destiné à l&apos;utilisation en scripts automatisés).\nDans tous les cas, toutes les erreurs sont rapportées au fihier log (masterFileName.log).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (If the main input file contains a translation directive %&amp; --transate-file tcxname in its first line, use the translation table named tcxname. Available only if the first line is parsed (see the Format pane).) : &lt;title:If the main input file contains a translation directive!#x000a;%&amp; --transate-file tcxname!#x000a;in its first line, use the translation table named tcxname.!#x000a;Available only if the first line is parsed (see the Format pane).&gt; (oid:326) </Description>
+<Position>326</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the main input file contains a translation directive\n%&amp; --transate-file tcxname\nin its first line, use the translation table named tcxname.\nAvailable only if the first line is parsed (see the Format pane).</base>
+	<tran loc="fr" origin="">Si le fichier d&apos;entrée principal contient une directive de traduction tcx\n%&amp; --transate-file tcxname\ndans sa première ligne, utiliser la table de traduction nommée tcxname.\nDisponible seulement si la première ligne est analysée (voyez le panneau de format).</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form &quot;file:line:error&quot; which is similar to the way many compilers format them. The latter is best for iTeXMac.) : &lt;title:When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form &quot;file:line:error&quot; which is similar to the way many compilers format them.!#x000a;The latter is best for iTeXMac.&gt; (oid:327) </Description>
+<Position>327</Position>
+<TranslationSet>
+
+	<base loc="en"          >When checked, display console error messages in a more human readable way. Default behaviour prints error messages in the form \&quot;file:line:error\&quot; which is similar to the way many compilers format them.\nThe latter is best for iTeXMac.</base>
+	<tran loc="fr" origin="">Si coché, messages d&apos;erreur plus lisibles. Par défault les messages d&apos;erreur ont la forme \&quot;file:line:error\&quot; comme la plupart des compilateurs les composent.\nC&apos;est préférable pour iTeXMac2.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Exit with an error code when an error is encountered during processing) : &lt;title:Exit with an error code when an error is encountered during processing&gt; (oid:328) </Description>
+<Position>328</Position>
+<TranslationSet>
+
+	<base loc="en"          >Exit with an error code when an error is encountered during processing</base>
+	<tran loc="fr" origin="">Sortie avec un code d&apos;erreur quand une erreur est produite pendant le traitement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Cancel) : &lt;title:Cancel&gt; (oid:329) </Description>
+<Position>329.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cancel</base>
+	<tran loc="fr" origin="">Annuler</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option. Avoid this %&amp;... feature as far as possible.) : &lt;title:If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option.!#x000a;Avoid this %&amp;... feature as far as possible.&gt; (oid:331) </Description>
+<Position>331</Position>
+<TranslationSet>
+
+	<base loc="en"          >If the first line of the main input file begins with %&amp; parse it to look for a dump name or a -translate-file option.\nAvoid this %&amp;... feature as far as possible.</base>
+	<tran loc="fr" origin="">Si la première ligne du fichier d&apos;entrée principal commence par %&amp; y rechercher un nom de format ou une optio -translate-file.\nÉviter cette option %&amp;... autant que faire se peut.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (This leaves a trace of the files opened for input and output in a file with extension .fls.) : &lt;title:This leaves a trace of the files opened for input and output in a file with extension .fls.&gt; (oid:332) </Description>
+<Position>332</Position>
+<TranslationSet>
+
+	<base loc="en"          >This leaves a trace of the files opened for input and output in a file with extension .fls.</base>
+	<tran loc="fr" origin="">Ceci laisse une trace des fichiers ouverts pour l&apos;entrée/sortie dans un fichier avec extension fls.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable the filename recorder) : &lt;title:Enable the filename recorder&gt; (oid:333) </Description>
+<Position>333.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable the filename recorder</base>
+	<tran loc="fr" origin="">Activer l&apos;enregistreur de nom de fichier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (use table:) : &lt;title:use table:&gt; (oid:342) </Description>
+<Position>342.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >use table:</base>
+	<tran loc="fr" origin="">utiliser la table :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use the translation table to set the mapping of input characters and remapping of output characters.) : &lt;title:Use the translation table to set the mapping of input characters and remapping of output characters.&gt; (oid:343) </Description>
+<Position>343</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the translation table to set the mapping of input characters and remapping of output characters.</base>
+	<tran loc="fr" origin="">Employez la table de traduction pour coder les caractères d&apos;entrée et sortie.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Parsed first line takes precedence) : &lt;title:Parsed first line takes precedence&gt; (oid:344) </Description>
+<Position>344.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Parsed first line takes precedence</base>
+	<tran loc="fr" origin="">La première ligne analysée a la priorité</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:DVI&gt; (oid:347) </Description>
+<Position>347</Position>
+<TranslationSet>
+
+	<base loc="en"          >DVI</base>
+	<tran loc="fr" origin="">DVI</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTabViewItem : &lt;title:Dump&gt; (oid:349) </Description>
+<Position>349</Position>
+<TranslationSet>
+
+	<base loc="en"          >Dump</base>
+	<tran loc="fr" origin="">Dump</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable encTeX extension by Petr Olsak) : &lt;title:Enable encTeX extension by Petr Olsak&gt; (oid:351) </Description>
+<Position>351.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable encTeX extension by Petr Olsak</base>
+	<tran loc="fr" origin="">Activer l&apos;extensionencTeX de Petr Olsak</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Enable MLTeX extensions.) : &lt;title:Enable MLTeX extensions.&gt; (oid:352) </Description>
+<Position>352.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable MLTeX extensions.</base>
+	<tran loc="fr" origin="">Activer l&apos;extension MLTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Be initex, for precompiling (\dump&apos;ing) formats) : &lt;title:Be initex, for precompiling (\dump&apos;ing) formats&gt; (oid:353) </Description>
+<Position>353.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Be initex, for precompiling (\\dump&apos;ing) formats</base>
+	<tran loc="fr" origin="">Utiliser initex, pour précompiler (\\dump&apos;ing) les formats</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The multilingual TeX extension from Michael  J. Ferguson.) : &lt;title:The multilingual TeX extension from Michael  J. Ferguson.&gt; (oid:354) </Description>
+<Position>354</Position>
+<TranslationSet>
+
+	<base loc="en"          >The multilingual TeX extension from Michael  J. Ferguson.</base>
+	<tran loc="fr" origin="">L&apos;extension TeX multilingue de Michael J. Ferguson.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.) : &lt;title:Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.&gt; (oid:355) </Description>
+<Position>355</Position>
+<TranslationSet>
+
+	<base loc="en"          >Allow flexible input/output reencoding by new encTeX primitives, with full UTF-8 processing in standard 8-bit TeX. More info in encdoce.pdf.</base>
+	<tran loc="fr" origin="">Activer le réencodage flexible d&apos;entrée-sortie par de nouvelles primitives d&apos;encTeX, avec traitement Utf-8 par le 8 bits standard de TeX. Voir encdoce.pdf.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Precompile TeX macros in a .fmt file. See David Carlisle&apos;s mylatex package for an example of dumping formats.) : &lt;title:Precompile TeX macros in a .fmt file.!#x000a;See David Carlisle&apos;s mylatex package for an example of dumping formats.&gt; (oid:357) </Description>
+<Position>357</Position>
+<TranslationSet>
+
+	<base loc="en"          >Precompile TeX macros in a .fmt file.\nSee David Carlisle&apos;s mylatex package for an example of dumping formats.</base>
+	<tran loc="fr" origin="">Précompiler les macros TeX dans un fichier fmt.\nVoir le paquet mylatex de David Carlislepour un exemple d&apos;utilisation.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.) : &lt;title:The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.&gt; (oid:358) </Description>
+<Position>358</Position>
+<TranslationSet>
+
+	<base loc="en"          >The source specials are used to synchronize from the source to the DVI output, as soon as a DVI viewer and a text editor supporting this feature are used. See MacDVIX and xdvi for examples.</base>
+	<tran loc="fr" origin="">Les source specials sont employés pour synchroniser de la source à la sortie DVI, dès qu&apos;un visionneur DVI et un éditeur de texte adaptés sont employés. Voir MacDVIX et xdvi par exemple.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Use DVI source specials (Not available when dumping)) : &lt;title:Use DVI source specials (Not available when dumping)&gt; (oid:360) </Description>
+<Position>360.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use DVI source specials (Not available when dumping)</base>
+	<tran loc="fr" origin="">Employez les source specials de DVI (Non disponible en dump)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (cr) : &lt;title:cr&gt; (oid:375) </Description>
+<Position>375.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >cr</base>
+	<tran loc="fr" origin="">cr</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (display) : &lt;title:display&gt; (oid:376) </Description>
+<Position>376.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >display</base>
+	<tran loc="fr" origin="">display</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (hbox) : &lt;title:hbox&gt; (oid:377) </Description>
+<Position>377.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >hbox</base>
+	<tran loc="fr" origin="">hbox</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (paren) : &lt;title:paren&gt; (oid:378) </Description>
+<Position>378.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >paren</base>
+	<tran loc="fr" origin="">paren</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (par) : &lt;title:par&gt; (oid:379) </Description>
+<Position>379.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >par</base>
+	<tran loc="fr" origin="">par</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (math) : &lt;title:math&gt; (oid:380) </Description>
+<Position>380.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >math</base>
+	<tran loc="fr" origin="">math</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButtonCell (vbox) : &lt;title:vbox&gt; (oid:381) </Description>
+<Position>381.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >vbox</base>
+	<tran loc="fr" origin="">vbox</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Working directory:) : &lt;title:Working directory:&gt; (oid:391) </Description>
+<Position>391.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Working directory:</base>
+	<tran loc="fr" origin="">Dossier courant :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use a customized name for the job name, instead of deriving it from the  name of the input file.) : &lt;title:Use a customized name for the job name, instead of deriving it from the  name of the input file.&gt; (oid:394) </Description>
+<Position>394</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use a customized name for the job name, instead of deriving it from the  name of the input file.</base>
+	<tran loc="fr" origin="">Employez un nom personnalisé pour le nom de JOB, au lieu de le dériver du nom du fichier d&apos;entrée</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.) : &lt;title:Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.&gt; (oid:395) </Description>
+<Position>395</Position>
+<TranslationSet>
+
+	<base loc="en"          >Directory instead of the current directory derived from the  name of the input file. Look up input files in this directory first, then along the normal search path.</base>
+	<tran loc="fr" origin="">Dossier remplaçant le dossier courant dérivé du nom du fichier d&apos;entrée.  Recherchez les fichiers d&apos;entrée dans ce dossier d&apos;abord, puis suivant chemin normal.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Exclude:) : &lt;title:Exclude:&gt; (oid:406) </Description>
+<Position>406</Position>
+<TranslationSet>
+
+	<base loc="en"          >Exclude:</base>
+	<tran loc="fr" origin="">Exclure :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSButton (Comment:) : &lt;title:Comment:&gt; (oid:408) </Description>
+<Position>408.1</Position>
+<TranslationSet>
+
+	<base loc="en"          >Comment:</base>
+	<tran loc="fr" origin="">Commentaire :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (Use the string for the DVI file comment instead of the date.) : &lt;title:Use the string for the DVI file comment instead of the date.&gt; (oid:409) </Description>
+<Position>409</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use the string for the DVI file comment instead of the date.</base>
+	<tran loc="fr" origin="">Employez le texte pour le commentaire de fichier de DVI au lieu de la date.</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSTextField (The box menus above are listing the contents of the web2c folder where all the formats are stored) : &lt;title:The box menus above are listing the contents of the web2c folder where all the formats are stored&gt; (oid:410) </Description>
+<Position>410</Position>
+<TranslationSet>
+
+	<base loc="en"          >The box menus above are listing the contents of the web2c folder where all the formats are stored</base>
+	<tran loc="fr" origin="">Les menus de boîte ci-dessus énumèrent le contenu du dossier web2c où tous les formats sont stockés</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title: &gt; (oid:414) </Description>
+<Position>414</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:417) </Description>
+<Position>417</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton ( ) : &lt;title: &gt; (oid:418) </Description>
+<Position>418</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:OtherViews&gt; (oid:421) </Description>
+<Position>421</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >OtherViews</base>
+	<tran loc="fr" origin="Default Names List matched text">OtherViews</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title: &gt; (oid:422) </Description>
+<Position>422</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSPopUpButton ( ) : &lt;title: &gt; (oid:423) </Description>
+<Position>423</Position>
+<TranslationSet>
+
+	<base loc="en"          > </base>
+	<tran loc="fr" origin=""> </tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (Window) : &lt;title:Window&gt; (oid:6) </Description>
+<Position>6</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Window</base>
+	<tran loc="fr" origin="Default Names List matched text">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

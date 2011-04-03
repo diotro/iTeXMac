@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>iTM2BibTeXSupportKit.iTM2</ProjName>
+
+<!--                                                                    -->
+<!--    iTM2BibTeXSupportKit.iTM2/../iTM2BibTeXInspector.nib.strings    -->
+<!--                                                                    -->
+<File>
+<Filepath>iTM2BibTeXSupportKit.iTM2/Contents/Resources/English.lproj/iTM2BibTeXInspector.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (It is highly recommanded to use BibDesk for these files) : &lt;title:It is highly recommanded to use BibDesk for these files&gt; (oid:13) </Description>
+<Position>13</Position>
+<TranslationSet>
+
+	<base loc="en"          >It is highly recommanded to use BibDesk for these files</base>
+	<tran loc="fr" origin="">Il est fortement recommandé d&apos;employer BibDesk pour ces fichiers</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> iTM2TextWindow (Window) : &lt;title:Window&gt; (oid:5) </Description>
+<Position>5</Position>
+<TranslationSet>
+
+	<base loc="en"          >Window</base>
+	<tran loc="fr" origin="">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                                    -->
+<!--    iTM2BibTeXSupportKit.iTM2/../Inspector.strings    -->
+<!--                                                                    -->
+<File>
+<Filepath>iTM2BibTeXSupportKit.iTM2/Contents/Resources/English.lproj/Inspector.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>text.bibtex</Position>
+<TranslationSet>
+
+	<base loc="en"          >BibTeX</base>
+	<tran loc="fr" origin="">BibTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array/>
+	<key>CFBundleExecutable</key>
+	<string>TextMate</string>
+	<key>CFBundleIdentifier</key>
+	<string>comp.text.tex.iTeXMac2.TextMate</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleSignature</key>
+	<string>i™@2</string>
+	<key>CFBundleVersion</key>
+	<string>1.0.0d1 (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
+	<key>iTM2ExternalDocumentClass</key>
+	<string>iTM2TextDocument</string>
+	<key>iTM2ExternalInspectorCommand</key>
+	<string>textmate</string>
+	<key>iTM2ExternalInspectorVariant</key>
+	<string>TextMate</string>
+</dict>
+</plist>

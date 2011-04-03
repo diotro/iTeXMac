@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>All.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>117</integer>
+		</dict>
+		<key>Install in ConTeXt Kit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>118</integer>
+		</dict>
+		<key>Prepare iTM2ConTeXtKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>114</integer>
+		</dict>
+		<key>TeXExec wrapper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>116</integer>
+		</dict>
+		<key>iTeXMac2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>115</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>DC2CA78D0855D4F500128F14</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC5D6CDD0949A48100EBA96C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC81AE6D08871B4600943C99</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC892D8B08FB92CF007A4673</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC9815C3092A2FBE0011D8DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,715 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		517319A0134248A1000B2668 /* Prepare Embedded Tests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 517319A2134248A1000B2668 /* Build configuration list for PBXAggregateTarget "Prepare Embedded Tests" */;
+			buildPhases = (
+				517319A1134248A1000B2668 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Embedded Tests";
+			productName = "Prepare Milestones";
+		};
+		5185ED5212702A4F00AFA001 /* Prepare Milestones */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5185ED5A12702A8000AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
+			buildPhases = (
+				5185ED5112702A4F00AFA001 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Milestones";
+			productName = "Prepare Milestones";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		512D9CC80D59F81F00FF9F6F /* iTM2PDFKitDefaultsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CC20D59F81F00FF9F6F /* iTM2PDFKitDefaultsController.xib */; };
+		512D9CC90D59F81F00FF9F6F /* iTM2PDFKitInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CC40D59F81F00FF9F6F /* iTM2PDFKitInspector.xib */; };
+		512D9CCA0D59F81F00FF9F6F /* iTM2PDFKitPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CC60D59F81F00FF9F6F /* iTM2PDFKitPrefPane.xib */; };
+		51D464BE114A7A4300A66A19 /* iTM2RegularExpressions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51D464BD114A7A4300A66A19 /* iTM2RegularExpressions.plist */; };
+		DC0C1B3408FF02E200C46507 /* template.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1B3308FF02E200C46507 /* template.pdf */; };
+		DC0C1CCD08FFF95000C46507 /* ThumbnailViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */; };
+		DC0C1CCE08FFF95400C46507 /* TOCViewAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */; };
+		DC0C1D1A0900107000C46507 /* Generic.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC0C1D190900106F00C46507 /* Generic.icns */; };
+		DC4E1A520CCDD90200F5CE3E /* actualSize.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A440CCDD90200F5CE3E /* actualSize.png */; };
+		DC4E1A530CCDD90200F5CE3E /* Crop.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A450CCDD90200F5CE3E /* Crop.png */; };
+		DC4E1A540CCDD90200F5CE3E /* DrawerToggle.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A460CCDD90200F5CE3E /* DrawerToggle.png */; };
+		DC4E1A550CCDD90200F5CE3E /* goToNextPage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A470CCDD90200F5CE3E /* goToNextPage.png */; };
+		DC4E1A560CCDD90200F5CE3E /* goToPreviousPage.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A480CCDD90200F5CE3E /* goToPreviousPage.png */; };
+		DC4E1A590CCDD90200F5CE3E /* rotateLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4B0CCDD90200F5CE3E /* rotateLeft.png */; };
+		DC4E1A5A0CCDD90200F5CE3E /* rotateRight.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4C0CCDD90200F5CE3E /* rotateRight.png */; };
+		DC4E1A5B0CCDD90200F5CE3E /* toggleDrawer.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4D0CCDD90200F5CE3E /* toggleDrawer.png */; };
+		DC4E1A5C0CCDD90200F5CE3E /* zoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4E0CCDD90200F5CE3E /* zoomIn.png */; };
+		DC4E1A5D0CCDD90200F5CE3E /* zoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A4F0CCDD90200F5CE3E /* zoomOut.png */; };
+		DC4E1A5E0CCDD90200F5CE3E /* zoomToFit.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A500CCDD90200F5CE3E /* zoomToFit.png */; };
+		DC4E1A5F0CCDD90200F5CE3E /* zoomToSelection.png in Resources */ = {isa = PBXBuildFile; fileRef = DC4E1A510CCDD90200F5CE3E /* zoomToSelection.png */; };
+		DC70FBE60BFCAB86006C6A76 /* Macros.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = DC70FBE40BFCAB86006C6A76 /* Macros.resources.tgz */; };
+		DCAF9A5509D810EE00AFD95F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */; };
+		DCAF9A5909D810EE00AFD95F /* iTM2PDFKitPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A4F09D810EE00AFD95F /* iTM2PDFKitPrefPane.strings */; };
+		DCAF9A5B09D810EE00AFD95F /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9A5309D810EE00AFD95F /* Toolbar.strings */; };
+		DCC3EE6A08FE666500A74157 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		DCC3EE6B08FE666500A74157 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
+		DCC3EE6C08FE666500A74157 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6394088D97F50016FAA2 /* iTM2Foundation.framework */; };
+		DCC3EE6D08FE666500A74157 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6395088D97F50016FAA2 /* iTM2TeXFoundation.framework */; };
+		DCC3EE6E08FE666D00A74157 /* iTM2PDFKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2CA6700855D08300128F14 /* iTM2PDFKit.m */; };
+		DCC3EE6F08FE668E00A74157 /* A aliased.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6730855D0B200128F14 /* A aliased.png */; };
+		DCC3EE7008FE668E00A74157 /* A unaliased.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6740855D0B200128F14 /* A unaliased.png */; };
+		DCC3EE7208FE668E00A74157 /* AnnotateTool1Adorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6760855D0B200128F14 /* AnnotateTool1Adorn.tif */; };
+		DCC3EE7308FE668E00A74157 /* AnnotateTool1AdornDisclosure.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6770855D0B200128F14 /* AnnotateTool1AdornDisclosure.tif */; };
+		DCC3EE7408FE668E00A74157 /* AnnotateTool2Adorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6780855D0B200128F14 /* AnnotateTool2Adorn.tif */; };
+		DCC3EE7508FE668E00A74157 /* AnnotateTool2AdornDisclosure.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6790855D0B200128F14 /* AnnotateTool2AdornDisclosure.tif */; };
+		DCC3EE7608FE668E00A74157 /* BackAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67A0855D0B200128F14 /* BackAdorn.tif */; };
+		DCC3EE7708FE668E00A74157 /* C_Hand.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67B0855D0B200128F14 /* C_Hand.tiff */; };
+		DCC3EE7808FE668E00A74157 /* C_ZoomIn.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */; };
+		DCC3EE7908FE668E00A74157 /* C_ZoomLimit.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */; };
+		DCC3EE7A08FE668E00A74157 /* C_ZoomOut.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */; };
+		DCC3EE7D08FE668E00A74157 /* ForwardAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */; };
+		DCC3EE8008FE668E00A74157 /* MoveToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */; };
+		DCC3EE8308FE668E00A74157 /* SelectToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */; };
+		DCC3EE8408FE668E00A74157 /* TextToolAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */; };
+		DCC3EE9008FE668E00A74157 /* iTM2PDFKitPrefPane.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */; };
+		DCC3EE9108FE66A600A74157 /* iTM2PDFKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DCE52F660C0F3C9D00F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5185ED5812702A5C00AFA001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5185ED5212702A4F00AFA001;
+			remoteInfo = "Prepare Milestones";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		512D9CC30D59F81F00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2PDFKitDefaultsController.xib; sourceTree = "<group>"; };
+		512D9CC50D59F81F00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2PDFKitInspector.xib; sourceTree = "<group>"; };
+		512D9CC70D59F81F00FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2PDFKitPrefPane.xib; sourceTree = "<group>"; };
+		512D9CCB0D59F82B00FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2PDFKitDefaultsController.xib; sourceTree = "<group>"; };
+		512D9CCC0D59F82B00FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2PDFKitInspector.xib; sourceTree = "<group>"; };
+		512D9CCD0D59F82B00FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2PDFKitPrefPane.xib; sourceTree = "<group>"; };
+		5185ED4E12702A2F00AFA001 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		51B736DC1341B20500E7E772 /* Debug-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51B736DD1341B20500E7E772 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51B736DE1341B20500E7E772 /* DebugGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51B736DF1341B20500E7E772 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51B736E01341B20500E7E772 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51B736E11341B20600E7E772 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51B736E21341B20600E7E772 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51B736E31341B20600E7E772 /* Release-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51B736E41341B20600E7E772 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		51D464BD114A7A4300A66A19 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
+		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		DC0C1B3308FF02E200C46507 /* template.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = template.pdf; sourceTree = "<group>"; };
+		DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ThumbnailViewAdorn.tif; sourceTree = "<group>"; };
+		DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TOCViewAdorn.tif; sourceTree = "<group>"; };
+		DC0C1D190900106F00C46507 /* Generic.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Generic.icns; sourceTree = "<group>"; };
+		DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2PDFKit.h; sourceTree = "<group>"; };
+		DC2CA6700855D08300128F14 /* iTM2PDFKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iTM2PDFKit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		DC2CA6730855D0B200128F14 /* A aliased.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "A aliased.png"; sourceTree = "<group>"; };
+		DC2CA6740855D0B200128F14 /* A unaliased.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "A unaliased.png"; sourceTree = "<group>"; };
+		DC2CA6760855D0B200128F14 /* AnnotateTool1Adorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool1Adorn.tif; sourceTree = "<group>"; };
+		DC2CA6770855D0B200128F14 /* AnnotateTool1AdornDisclosure.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool1AdornDisclosure.tif; sourceTree = "<group>"; };
+		DC2CA6780855D0B200128F14 /* AnnotateTool2Adorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool2Adorn.tif; sourceTree = "<group>"; };
+		DC2CA6790855D0B200128F14 /* AnnotateTool2AdornDisclosure.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AnnotateTool2AdornDisclosure.tif; sourceTree = "<group>"; };
+		DC2CA67A0855D0B200128F14 /* BackAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BackAdorn.tif; sourceTree = "<group>"; };
+		DC2CA67B0855D0B200128F14 /* C_Hand.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_Hand.tiff; sourceTree = "<group>"; };
+		DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomIn.tiff; sourceTree = "<group>"; };
+		DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomLimit.tiff; sourceTree = "<group>"; };
+		DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = C_ZoomOut.tiff; sourceTree = "<group>"; };
+		DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ForwardAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = MoveToolAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SelectToolAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = TextToolAdorn.tif; sourceTree = "<group>"; };
+		DC2CA6BE0855D0CE00128F14 /* iTM2PDFKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2PDFKit-Prefix.pch"; sourceTree = "<group>"; };
+		DC2CA71A0855D19F00128F14 /* iTM2PDFKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2PDFKit-Info.plist"; sourceTree = "<group>"; };
+		DC4E1A440CCDD90200F5CE3E /* actualSize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = actualSize.png; sourceTree = "<group>"; };
+		DC4E1A450CCDD90200F5CE3E /* Crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Crop.png; sourceTree = "<group>"; };
+		DC4E1A460CCDD90200F5CE3E /* DrawerToggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DrawerToggle.png; sourceTree = "<group>"; };
+		DC4E1A470CCDD90200F5CE3E /* goToNextPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goToNextPage.png; sourceTree = "<group>"; };
+		DC4E1A480CCDD90200F5CE3E /* goToPreviousPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goToPreviousPage.png; sourceTree = "<group>"; };
+		DC4E1A4B0CCDD90200F5CE3E /* rotateLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotateLeft.png; sourceTree = "<group>"; };
+		DC4E1A4C0CCDD90200F5CE3E /* rotateRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotateRight.png; sourceTree = "<group>"; };
+		DC4E1A4D0CCDD90200F5CE3E /* toggleDrawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toggleDrawer.png; sourceTree = "<group>"; };
+		DC4E1A4E0CCDD90200F5CE3E /* zoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomIn.png; sourceTree = "<group>"; };
+		DC4E1A4F0CCDD90200F5CE3E /* zoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomOut.png; sourceTree = "<group>"; };
+		DC4E1A500CCDD90200F5CE3E /* zoomToFit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomToFit.png; sourceTree = "<group>"; };
+		DC4E1A510CCDD90200F5CE3E /* zoomToSelection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoomToSelection.png; sourceTree = "<group>"; };
+		DC5B696F0A4B6AD500F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
+		DC5B69720A4B6AD500F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
+		DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PDFKitPrefPane.tiff; sourceTree = "<group>"; };
+		DC5D702F0949E0B100EBA96C /* Prepare iTM2TeXFoundation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Prepare iTM2TeXFoundation-Info.plist"; sourceTree = "<group>"; };
+		DC70FBE50BFCAB86006C6A76 /* French */ = {isa = PBXFileReference; lastKnownFileType = file; name = French; path = French.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
+		DC70FBE70BFCAB96006C6A76 /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/Macros.resources.tgz; sourceTree = "<group>"; };
+		DC8A6394088D97F50016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
+		DC8A6395088D97F50016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
+		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		DCAF9A4809D810EE00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCAF9A5009D810EE00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/iTM2PDFKitPrefPane.strings; sourceTree = "<group>"; };
+		DCAF9A5409D810EE00AFD95F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Toolbar.strings; sourceTree = "<group>"; };
+		DCAF9A5C09D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DCAF9A6009D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/iTM2PDFKitPrefPane.strings; sourceTree = "<group>"; };
+		DCAF9A6209D810F900AFD95F /* French */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = French; path = French.lproj/Toolbar.strings; sourceTree = "<group>"; };
+		DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2PDFKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCC3EDF708FE65DC00A74157 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE6A08FE666500A74157 /* Cocoa.framework in Frameworks */,
+				DCC3EE6B08FE666500A74157 /* Quartz.framework in Frameworks */,
+				DCC3EE6C08FE666500A74157 /* iTM2Foundation.framework in Frameworks */,
+				DCC3EE6D08FE666500A74157 /* iTM2TeXFoundation.framework in Frameworks */,
+				DCE52F660C0F3C9D00F2D5B9 /* libicucore.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iTM2XtdPDFKit */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CA71A0855D19F00128F14 /* iTM2PDFKit-Info.plist */,
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				32C88E010371C26100C91783 /* Other Sources */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				DC2CA6720855D0B200128F14 /* Images */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+				DC3B41820A4ADCEE00E83ABA /* Settings */,
+			);
+			name = iTM2XtdPDFKit;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				51D464BD114A7A4300A66A19 /* iTM2RegularExpressions.plist */,
+				512D9CC20D59F81F00FF9F6F /* iTM2PDFKitDefaultsController.xib */,
+				512D9CC40D59F81F00FF9F6F /* iTM2PDFKitInspector.xib */,
+				512D9CC60D59F81F00FF9F6F /* iTM2PDFKitPrefPane.xib */,
+				DC70FBE40BFCAB86006C6A76 /* Macros.resources.tgz */,
+				DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */,
+				DCAF9A4F09D810EE00AFD95F /* iTM2PDFKitPrefPane.strings */,
+				DCAF9A5309D810EE00AFD95F /* Toolbar.strings */,
+				DC0C1B3308FF02E200C46507 /* template.pdf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CA66F0855D08300128F14 /* iTM2PDFKit.h */,
+				DC2CA6700855D08300128F14 /* iTM2PDFKit.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCE52F650C0F3C9D00F2D5B9 /* libicucore.dylib */,
+				DC8A6394088D97F50016FAA2 /* iTM2Foundation.framework */,
+				DC8A6395088D97F50016FAA2 /* iTM2TeXFoundation.framework */,
+				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C88E010371C26100C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CA6BE0855D0CE00128F14 /* iTM2PDFKit-Prefix.pch */,
+				DC5D702F0949E0B100EBA96C /* Prepare iTM2TeXFoundation-Info.plist */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		DC2CA6720855D0B200128F14 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				DC4E1A440CCDD90200F5CE3E /* actualSize.png */,
+				DC4E1A450CCDD90200F5CE3E /* Crop.png */,
+				DC4E1A460CCDD90200F5CE3E /* DrawerToggle.png */,
+				DC4E1A470CCDD90200F5CE3E /* goToNextPage.png */,
+				DC4E1A480CCDD90200F5CE3E /* goToPreviousPage.png */,
+				DC4E1A4B0CCDD90200F5CE3E /* rotateLeft.png */,
+				DC4E1A4C0CCDD90200F5CE3E /* rotateRight.png */,
+				DC4E1A4D0CCDD90200F5CE3E /* toggleDrawer.png */,
+				DC4E1A4E0CCDD90200F5CE3E /* zoomIn.png */,
+				DC4E1A4F0CCDD90200F5CE3E /* zoomOut.png */,
+				DC4E1A500CCDD90200F5CE3E /* zoomToFit.png */,
+				DC4E1A510CCDD90200F5CE3E /* zoomToSelection.png */,
+				DC5BC88008ECB09C006635C4 /* iTM2PDFKitPrefPane.tiff */,
+				DC2CA6730855D0B200128F14 /* A aliased.png */,
+				DC2CA6740855D0B200128F14 /* A unaliased.png */,
+				DC2CA67B0855D0B200128F14 /* C_Hand.tiff */,
+				DC2CA67C0855D0B200128F14 /* C_ZoomIn.tiff */,
+				DC2CA67D0855D0B200128F14 /* C_ZoomLimit.tiff */,
+				DC2CA67E0855D0B200128F14 /* C_ZoomOut.tiff */,
+				DC2CA6840855D0B200128F14 /* MoveToolAdorn.tif */,
+				DC2CA6870855D0B200128F14 /* SelectToolAdorn.tif */,
+				DC2CA6880855D0B200128F14 /* TextToolAdorn.tif */,
+				DC0C1CCB08FFF95000C46507 /* ThumbnailViewAdorn.tif */,
+				DC0C1CCC08FFF95000C46507 /* TOCViewAdorn.tif */,
+				DC2CA67A0855D0B200128F14 /* BackAdorn.tif */,
+				DC2CA6810855D0B200128F14 /* ForwardAdorn.tif */,
+				DC0C1D190900106F00C46507 /* Generic.icns */,
+				DC2CA6760855D0B200128F14 /* AnnotateTool1Adorn.tif */,
+				DC2CA6770855D0B200128F14 /* AnnotateTool1AdornDisclosure.tif */,
+				DC2CA6780855D0B200128F14 /* AnnotateTool2Adorn.tif */,
+				DC2CA6790855D0B200128F14 /* AnnotateTool2AdornDisclosure.tif */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		DC3B41820A4ADCEE00E83ABA /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				51B736DC1341B20500E7E772 /* Debug-set.xcconfig */,
+				51B736DD1341B20500E7E772 /* Debug.xcconfig */,
+				51B736DE1341B20500E7E772 /* DebugGC.xcconfig */,
+				51B736DF1341B20500E7E772 /* FrameworkDebug.xcconfig */,
+				51B736E01341B20500E7E772 /* FrameworkRelease.xcconfig */,
+				51B736E11341B20600E7E772 /* PlugInDebug.xcconfig */,
+				51B736E21341B20600E7E772 /* PlugInRelease.xcconfig */,
+				51B736E31341B20600E7E772 /* Release-set.xcconfig */,
+				51B736E41341B20600E7E772 /* Release.xcconfig */,
+				5185ED4E12702A2F00AFA001 /* GC-set.xcconfig */,
+				DC5B696F0A4B6AD500F7DE47 /* Framework */,
+				DC5B69720A4B6AD500F7DE47 /* PlugIn */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DCC3EDF408FE65DC00A74157 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE9108FE66A600A74157 /* iTM2PDFKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6BB83109474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2PDFKit" */;
+			buildPhases = (
+				DCC3EDF408FE65DC00A74157 /* Headers */,
+				DCC3EDF508FE65DC00A74157 /* Resources */,
+				DCC3EDF608FE65DC00A74157 /* Sources */,
+				DCC3EDF708FE65DC00A74157 /* Frameworks */,
+				DCD7DB2B0A45F11D0096B1A9 /* Make the header documentation */,
+				DC5896C609D455C700E8F33C /* Expand compressed resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5185ED5912702A5C00AFA001 /* PBXTargetDependency */,
+			);
+			name = iTM2PDFKit;
+			productName = iTM2PDFKit;
+			productReference = DCC3EDF908FE65DC00A74157 /* iTM2PDFKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = DC6BB83D09474616004B0A81 /* Build configuration list for PBXProject "iTM2PDFKit" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iTM2XtdPDFKit */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5185ED5212702A4F00AFA001 /* Prepare Milestones */,
+				517319A0134248A1000B2668 /* Prepare Embedded Tests */,
+				DCC3EDF808FE65DC00A74157 /* iTM2PDFKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCC3EDF508FE65DC00A74157 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE6F08FE668E00A74157 /* A aliased.png in Resources */,
+				DCC3EE7008FE668E00A74157 /* A unaliased.png in Resources */,
+				DCC3EE7208FE668E00A74157 /* AnnotateTool1Adorn.tif in Resources */,
+				DCC3EE7308FE668E00A74157 /* AnnotateTool1AdornDisclosure.tif in Resources */,
+				DCC3EE7408FE668E00A74157 /* AnnotateTool2Adorn.tif in Resources */,
+				DCC3EE7508FE668E00A74157 /* AnnotateTool2AdornDisclosure.tif in Resources */,
+				DCC3EE7608FE668E00A74157 /* BackAdorn.tif in Resources */,
+				DCC3EE7708FE668E00A74157 /* C_Hand.tiff in Resources */,
+				DCC3EE7808FE668E00A74157 /* C_ZoomIn.tiff in Resources */,
+				DCC3EE7908FE668E00A74157 /* C_ZoomLimit.tiff in Resources */,
+				DCC3EE7A08FE668E00A74157 /* C_ZoomOut.tiff in Resources */,
+				DCC3EE7D08FE668E00A74157 /* ForwardAdorn.tif in Resources */,
+				DCC3EE8008FE668E00A74157 /* MoveToolAdorn.tif in Resources */,
+				DCC3EE8308FE668E00A74157 /* SelectToolAdorn.tif in Resources */,
+				DCC3EE8408FE668E00A74157 /* TextToolAdorn.tif in Resources */,
+				DCC3EE9008FE668E00A74157 /* iTM2PDFKitPrefPane.tiff in Resources */,
+				DC0C1B3408FF02E200C46507 /* template.pdf in Resources */,
+				DC0C1CCD08FFF95000C46507 /* ThumbnailViewAdorn.tif in Resources */,
+				DC0C1CCE08FFF95400C46507 /* TOCViewAdorn.tif in Resources */,
+				DC0C1D1A0900107000C46507 /* Generic.icns in Resources */,
+				DCAF9A5509D810EE00AFD95F /* InfoPlist.strings in Resources */,
+				DCAF9A5909D810EE00AFD95F /* iTM2PDFKitPrefPane.strings in Resources */,
+				DCAF9A5B09D810EE00AFD95F /* Toolbar.strings in Resources */,
+				DC70FBE60BFCAB86006C6A76 /* Macros.resources.tgz in Resources */,
+				DC4E1A520CCDD90200F5CE3E /* actualSize.png in Resources */,
+				DC4E1A530CCDD90200F5CE3E /* Crop.png in Resources */,
+				DC4E1A540CCDD90200F5CE3E /* DrawerToggle.png in Resources */,
+				DC4E1A550CCDD90200F5CE3E /* goToNextPage.png in Resources */,
+				DC4E1A560CCDD90200F5CE3E /* goToPreviousPage.png in Resources */,
+				DC4E1A590CCDD90200F5CE3E /* rotateLeft.png in Resources */,
+				DC4E1A5A0CCDD90200F5CE3E /* rotateRight.png in Resources */,
+				DC4E1A5B0CCDD90200F5CE3E /* toggleDrawer.png in Resources */,
+				DC4E1A5C0CCDD90200F5CE3E /* zoomIn.png in Resources */,
+				DC4E1A5D0CCDD90200F5CE3E /* zoomOut.png in Resources */,
+				DC4E1A5E0CCDD90200F5CE3E /* zoomToFit.png in Resources */,
+				DC4E1A5F0CCDD90200F5CE3E /* zoomToSelection.png in Resources */,
+				512D9CC80D59F81F00FF9F6F /* iTM2PDFKitDefaultsController.xib in Resources */,
+				512D9CC90D59F81F00FF9F6F /* iTM2PDFKitInspector.xib in Resources */,
+				512D9CCA0D59F81F00FF9F6F /* iTM2PDFKitPrefPane.xib in Resources */,
+				51D464BE114A7A4300A66A19 /* iTM2RegularExpressions.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		517319A1134248A1000B2668 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}\"\n\"${PROJECT_DIR}/../Scripts/iTM3EmbeddedTestsParser.py\" \"${PROJECT_DIR}\" \"${BUILD_ROOT}/EmbeddedTestCases/\"\necho \"warning: preparing the embedded tests for ${PROJECT_DIR}... DONE\"\nexit 0\n";
+			showEnvVarsInLog = 0;
+		};
+		5185ED5112702A4F00AFA001 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(BUILD_ROOT)/Milestones/$(PRODUCT_NAME)MileStones.m",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"$PROJECT_DIR\" \"${BUILD_ROOT}/Milestones\"\nexit 0\n";
+		};
+		DC5896C609D455C700E8F33C /* Expand compressed resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Expand compressed resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2BuildPhaseExpandResources.pl\n";
+		};
+		DCD7DB2B0A45F11D0096B1A9 /* Make the header documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Make the header documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "../Scripts/iTM2MakeHeaderdoc.sh iTM2PDFKit\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCC3EDF608FE65DC00A74157 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC3EE6E08FE666D00A74157 /* iTM2PDFKit.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5185ED5912702A5C00AFA001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5185ED5212702A4F00AFA001 /* Prepare Milestones */;
+			targetProxy = 5185ED5812702A5C00AFA001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		512D9CC20D59F81F00FF9F6F /* iTM2PDFKitDefaultsController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CC30D59F81F00FF9F6F /* English */,
+				512D9CCB0D59F82B00FF9F6F /* French */,
+			);
+			name = iTM2PDFKitDefaultsController.xib;
+			sourceTree = "<group>";
+		};
+		512D9CC40D59F81F00FF9F6F /* iTM2PDFKitInspector.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CC50D59F81F00FF9F6F /* English */,
+				512D9CCC0D59F82B00FF9F6F /* French */,
+			);
+			name = iTM2PDFKitInspector.xib;
+			sourceTree = "<group>";
+		};
+		512D9CC60D59F81F00FF9F6F /* iTM2PDFKitPrefPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CC70D59F81F00FF9F6F /* English */,
+				512D9CCD0D59F82B00FF9F6F /* French */,
+			);
+			name = iTM2PDFKitPrefPane.xib;
+			sourceTree = "<group>";
+		};
+		DC70FBE40BFCAB86006C6A76 /* Macros.resources.tgz */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC70FBE70BFCAB96006C6A76 /* English */,
+				DC70FBE50BFCAB86006C6A76 /* French */,
+			);
+			name = Macros.resources.tgz;
+			sourceTree = "<group>";
+		};
+		DCAF9A4709D810EE00AFD95F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A4809D810EE00AFD95F /* English */,
+				DCAF9A5C09D810F900AFD95F /* French */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DCAF9A4F09D810EE00AFD95F /* iTM2PDFKitPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A5009D810EE00AFD95F /* English */,
+				DCAF9A6009D810F900AFD95F /* French */,
+			);
+			name = iTM2PDFKitPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		DCAF9A5309D810EE00AFD95F /* Toolbar.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DCAF9A5409D810EE00AFD95F /* English */,
+				DCAF9A6209D810F900AFD95F /* French */,
+			);
+			name = Toolbar.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		517319A3134248A1000B2668 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare Milestones copy";
+			};
+			name = Development;
+		};
+		517319A4134248A1000B2668 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare Milestones copy";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		5185ED5312702A4F00AFA001 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare Milestones";
+			};
+			name = Development;
+		};
+		5185ED5412702A4F00AFA001 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare Milestones";
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		DC6BB83209474616004B0A81 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B736DF1341B20500E7E772 /* FrameworkDebug.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				PRODUCT_NAME = iTM2PDFKit;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2PDFKIT_ADDRESS)";
+				iTM3_PRODUCT_NAME = "$(iTM3_PDFKIT_NAME)";
+			};
+			name = Development;
+		};
+		DC6BB83309474616004B0A81 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B736E01341B20500E7E772 /* FrameworkRelease.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				PRODUCT_NAME = iTM2PDFKit;
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM2PDFKIT_ADDRESS)";
+				iTM3_PRODUCT_NAME = "$(iTM3_PDFKIT_NAME)";
+			};
+			name = Deployment;
+		};
+		DC6BB83E09474616004B0A81 /* Development */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51B736DD1341B20500E7E772 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		DC6BB83F09474616004B0A81 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		517319A2134248A1000B2668 /* Build configuration list for PBXAggregateTarget "Prepare Embedded Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				517319A3134248A1000B2668 /* Development */,
+				517319A4134248A1000B2668 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		5185ED5A12702A8000AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5185ED5312702A4F00AFA001 /* Development */,
+				5185ED5412702A4F00AFA001 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		DC6BB83109474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2PDFKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB83209474616004B0A81 /* Development */,
+				DC6BB83309474616004B0A81 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		DC6BB83D09474616004B0A81 /* Build configuration list for PBXProject "iTM2PDFKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB83E09474616004B0A81 /* Development */,
+				DC6BB83F09474616004B0A81 /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
