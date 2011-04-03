@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:iTM2TeXFoundation/../iTM2Foundation/iTM3Foundation.xcodeproj">
+      location = "group:iTM3Foundation/iTM3Foundation.xcodeproj">
    </FileRef>
    <FileRef
       location = "absolute:/Users/itexmac2/dev/itexmac2/branches/814+/iTM2Foundation/../iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj">

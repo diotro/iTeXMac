@@ -185,7 +185,7 @@
 		51019F49134494E5003CBFA4 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineTeXExec.xib; sourceTree = "<group>"; };
 		51019F4A134494E5003CBFA4 /* TeXExec wrapper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeXExec wrapper-Info.plist"; sourceTree = "<group>"; };
 		51019F4B134494E5003CBFA4 /* TeXExec wrapper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeXExec wrapper-Prefix.pch"; sourceTree = "<group>"; };
-		51019F5B13449564003CBFA4 /* iTM3ConTeXtKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM3ConTeXtKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		51019F5B13449564003CBFA4 /* iTM3ConTeXtKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM3ConTeXtKit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
 		51019F6D134495E2003CBFA4 /* Debug-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
 		51019F6E134495E2003CBFA4 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		51019F6F134495E2003CBFA4 /* DebugGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
@@ -217,7 +217,10 @@
 		5137478C133D658200C3E3AA /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		5137478D133D658200C3E3AA /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
 		5137478E133D658200C3E3AA /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		51B736B51341B07300E7E772 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51B736BB1341B07300E7E772 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
 		51B736BD1341B07300E7E772 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51B736BE1341B07300E7E772 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
 		51B736C01341B07300E7E772 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC2741E8090CE39000C2D1D2 /* iTM3ConTeXtKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM3ConTeXtKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,7 +300,6 @@
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 				51374782133D658200C3E3AA /* Settings */,
 				DC5D6C1609498CF300EBA96C /* Prepare iTM2TeXFoundation-Info.plist */,
-				51001E021344A31C004656B3 /* Recovered References */,
 			);
 			name = iTM2LaTeXKit;
 			sourceTree = "<group>";
@@ -349,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				DC2741E8090CE39000C2D1D2 /* iTM3ConTeXtKit.framework */,
-				51019F5B13449564003CBFA4 /* iTM3ConTeXtKit.bundle */,
+				51019F5B13449564003CBFA4 /* iTM3ConTeXtKit.iTM2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -361,15 +363,6 @@
 				DC98137F0929CF830011D8DA /* iTM2ConTeXtKit-Prefix.pch */,
 			);
 			name = "Other Sources";
-			sourceTree = "<group>";
-		};
-		51001E021344A31C004656B3 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				51B736C01341B07300E7E772 /* Release.xcconfig */,
-				51B736BD1341B07300E7E772 /* PlugInDebug.xcconfig */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		51019EED134494E4003CBFA4 /* iTM2ConTeXtEngines */ = {
@@ -666,7 +659,7 @@
 			);
 			name = "TeXexec wrapper";
 			productName = s;
-			productReference = 51019F5B13449564003CBFA4 /* iTM3ConTeXtKit.bundle */;
+			productReference = 51019F5B13449564003CBFA4 /* iTM3ConTeXtKit.iTM2 */;
 			productType = "com.apple.product-type.bundle";
 		};
 		DC2741E7090CE39000C2D1D2 /* iTM2ConTeXtKit */ = {
@@ -1085,7 +1078,7 @@
 		};
 		51019F6C13449565003CBFA4 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51019F73134495E2003CBFA4 /* PlugInRelease.xcconfig */;
+			baseConfigurationReference = 51B736BE1341B07300E7E772 /* PlugInRelease.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1120,7 +1113,7 @@
 		};
 		DC6BB7B309474611004B0A81 /* Deployment */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51019F71134495E2003CBFA4 /* FrameworkRelease.xcconfig */;
+			baseConfigurationReference = 51B736BB1341B07300E7E772 /* FrameworkRelease.xcconfig */;
 			buildSettings = {
 				iTM3_PRODUCT_NAME = "$(iTM3_CONTEXTKIT_NAME)";
 			};
@@ -1128,7 +1121,7 @@
 		};
 		DC6BB7C609474611004B0A81 /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51019F6E134495E2003CBFA4 /* Debug.xcconfig */;
+			baseConfigurationReference = 51B736B51341B07300E7E772 /* Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Development;

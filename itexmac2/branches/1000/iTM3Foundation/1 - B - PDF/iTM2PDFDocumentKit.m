@@ -563,7 +563,7 @@ To Do List:
     }
     LOG4iTM3(@"WARNING: Missing a  expected dictionary as userInfo or a number for key @\"magnification\"");
 #endif
-//END4iTM3;/Users/itexmac2/dev/814+/iTM3Foundation/1 - B - PDF/iTM2PDFDocumentKit.m:2181:0 #warning NYI this is needed for live sizing
+//END4iTM3;/Users/itexmac2/dev/1000/iTM3Foundation/1 - B - PDF/iTM2PDFDocumentKit.m:2181:0 #warning NYI this is needed for live sizing
 
 
     return;
