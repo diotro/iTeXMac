@@ -128,6 +128,18 @@
 		51B736BE1341B07300E7E772 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
 		51B736BF1341B07300E7E772 /* Release-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
 		51B736C01341B07300E7E772 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		51D56B4E1348688D00240F31 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B4F1348688D00240F31 /* Deployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		51D56B501348688D00240F31 /* Development-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B511348688D00240F31 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		51D56B521348688D00240F31 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
+		51D56B531348688D00240F31 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		51D56B541348688D00240F31 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		51D56B551348688D00240F31 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		51D56B561348688D00240F31 /* PlugIn.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugIn.xcconfig; sourceTree = "<group>"; };
+		51D56B571348688D00240F31 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		51D56B581348688D00240F31 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		51D56B591348688D00240F31 /* Products-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Products-set.xcconfig"; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		DC55F5AF092AA17B00713576 /* Engine_pdfarrange4iTM3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = Engine_pdfarrange4iTM3; sourceTree = "<group>"; };
 		DC55F5B0092AA17B00713576 /* Engine_pdfcombine4iTM3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = Engine_pdfcombine4iTM3; sourceTree = "<group>"; };
@@ -139,8 +151,6 @@
 		DC55F615092AA3F300713576 /* iTM2TeXExecWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXExecWrapperKit.h; sourceTree = "<group>"; };
 		DC55F616092AA3F300713576 /* iTM2TeXExecWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXExecWrapperKit.m; sourceTree = "<group>"; };
 		DC55F617092AA3F300713576 /* TeXExec wrapper-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TeXExec wrapper-Info.plist"; sourceTree = "<group>"; };
-		DC5B69D70A4B6E5C00F7DE47 /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
-		DC5B69DA0A4B6E5C00F7DE47 /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
 		DC5D6CDE0949A48100EBA96C /* iTM2ConTeXtKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM2ConTeXtKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5D6CDF0949A48100EBA96C /* Prepare iTM2ConTeXtKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Prepare iTM2ConTeXtKit-Info.plist"; sourceTree = "<group>"; };
 		DC618FEE093C7BCF0044795A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = English; path = English.lproj/Engine.strings; sourceTree = "<group>"; };
@@ -249,8 +259,19 @@
 		DC3B41E30A4ADF6900E83ABA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				DC5B69D70A4B6E5C00F7DE47 /* Framework */,
 				51B736B41341B07300E7E772 /* Debug-set.xcconfig */,
+				51D56B4E1348688D00240F31 /* Deployment-set.xcconfig */,
+				51D56B4F1348688D00240F31 /* Deployment.xcconfig */,
+				51D56B501348688D00240F31 /* Development-set.xcconfig */,
+				51D56B511348688D00240F31 /* Development.xcconfig */,
+				51D56B521348688D00240F31 /* DevelopmentGC.xcconfig */,
+				51D56B531348688D00240F31 /* Framework.xcconfig */,
+				51D56B541348688D00240F31 /* FrameworkDeployment.xcconfig */,
+				51D56B551348688D00240F31 /* FrameworkDevelopment.xcconfig */,
+				51D56B561348688D00240F31 /* PlugIn.xcconfig */,
+				51D56B571348688D00240F31 /* PlugInDeployment.xcconfig */,
+				51D56B581348688D00240F31 /* PlugInDevelopment.xcconfig */,
+				51D56B591348688D00240F31 /* Products-set.xcconfig */,
 				51B736B51341B07300E7E772 /* Debug.xcconfig */,
 				51B736B61341B07300E7E772 /* DebugGC.xcconfig */,
 				51B736BA1341B07300E7E772 /* FrameworkDebug.xcconfig */,
@@ -260,7 +281,6 @@
 				51B736BE1341B07300E7E772 /* PlugInRelease.xcconfig */,
 				51B736BF1341B07300E7E772 /* Release-set.xcconfig */,
 				51B736C01341B07300E7E772 /* Release.xcconfig */,
-				DC5B69DA0A4B6E5C00F7DE47 /* PlugIn */,
 			);
 			name = Settings;
 			path = ../../Settings;
@@ -528,7 +548,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		DC5D6CE10949A48200EBA96C /* Development */ = {
+		DC5D6CE10949A48200EBA96C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "";
@@ -536,9 +556,9 @@
 				SYMROOT = "$(PROJECT_DIR)/build";
 				WRAPPER_EXTENSION = framework;
 			};
-			name = Development;
+			name = Debug;
 		};
-		DC5D6CE20949A48200EBA96C /* Deployment */ = {
+		DC5D6CE20949A48200EBA96C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "";
@@ -546,21 +566,23 @@
 				SYMROOT = "$(PROJECT_DIR)/build";
 				WRAPPER_EXTENSION = framework;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		DC6BB79A09474611004B0A81 /* Development */ = {
+		DC6BB79A09474611004B0A81 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56B561348688D00240F31 /* PlugIn.xcconfig */;
 			buildSettings = {
 			};
-			name = Development;
+			name = Debug;
 		};
-		DC6BB79B09474611004B0A81 /* Deployment */ = {
+		DC6BB79B09474611004B0A81 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56B561348688D00240F31 /* PlugIn.xcconfig */;
 			buildSettings = {
 			};
-			name = Deployment;
+			name = Release;
 		};
-		DC6BB79E09474611004B0A81 /* Development */ = {
+		DC6BB79E09474611004B0A81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -583,9 +605,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = Development;
+			name = Debug;
 		};
-		DC6BB79F09474611004B0A81 /* Deployment */ = {
+		DC6BB79F09474611004B0A81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -606,9 +628,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		DC6BB7A209474611004B0A81 /* Development */ = {
+		DC6BB7A209474611004B0A81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -631,9 +653,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = Development;
+			name = Debug;
 		};
-		DC6BB7A309474611004B0A81 /* Deployment */ = {
+		DC6BB7A309474611004B0A81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -653,9 +675,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		DC6BB7A609474611004B0A81 /* Development */ = {
+		DC6BB7A609474611004B0A81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "";
@@ -663,9 +685,9 @@
 				SYMROOT = "$(PROJECT_DIR)/../../build";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Development;
+			name = Debug;
 		};
-		DC6BB7A709474611004B0A81 /* Deployment */ = {
+		DC6BB7A709474611004B0A81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "";
@@ -673,21 +695,21 @@
 				SYMROOT = "$(PROJECT_DIR)/../../build";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Deployment;
+			name = Release;
 		};
-		DC6BB7AA09474611004B0A81 /* Development */ = {
+		DC6BB7AA09474611004B0A81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B736B51341B07300E7E772 /* Debug.xcconfig */;
 			buildSettings = {
 			};
-			name = Development;
+			name = Debug;
 		};
-		DC6BB7AB09474611004B0A81 /* Deployment */ = {
+		DC6BB7AB09474611004B0A81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51B736C01341B07300E7E772 /* Release.xcconfig */;
 			buildSettings = {
 			};
-			name = Deployment;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -695,56 +717,56 @@
 		DC5D6CE00949A48200EBA96C /* Build configuration list for PBXNativeTarget "Prepare iTM2ConTeXtKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DC5D6CE10949A48200EBA96C /* Development */,
-				DC5D6CE20949A48200EBA96C /* Deployment */,
+				DC5D6CE10949A48200EBA96C /* Debug */,
+				DC5D6CE20949A48200EBA96C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		DC6BB79909474611004B0A81 /* Build configuration list for PBXNativeTarget "TeXExec wrapper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DC6BB79A09474611004B0A81 /* Development */,
-				DC6BB79B09474611004B0A81 /* Deployment */,
+				DC6BB79A09474611004B0A81 /* Debug */,
+				DC6BB79B09474611004B0A81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		DC6BB79D09474611004B0A81 /* Build configuration list for PBXAggregateTarget "Install in ConTeXt Kit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DC6BB79E09474611004B0A81 /* Development */,
-				DC6BB79F09474611004B0A81 /* Deployment */,
+				DC6BB79E09474611004B0A81 /* Debug */,
+				DC6BB79F09474611004B0A81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		DC6BB7A109474611004B0A81 /* Build configuration list for PBXAggregateTarget "All" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DC6BB7A209474611004B0A81 /* Development */,
-				DC6BB7A309474611004B0A81 /* Deployment */,
+				DC6BB7A209474611004B0A81 /* Debug */,
+				DC6BB7A309474611004B0A81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		DC6BB7A509474611004B0A81 /* Build configuration list for PBXNativeTarget "iTeXMac2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DC6BB7A609474611004B0A81 /* Development */,
-				DC6BB7A709474611004B0A81 /* Deployment */,
+				DC6BB7A609474611004B0A81 /* Debug */,
+				DC6BB7A709474611004B0A81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 		DC6BB7A909474611004B0A81 /* Build configuration list for PBXProject "iTM2ConTeXtEngines" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DC6BB7AA09474611004B0A81 /* Development */,
-				DC6BB7AB09474611004B0A81 /* Deployment */,
+				DC6BB7AA09474611004B0A81 /* Debug */,
+				DC6BB7AB09474611004B0A81 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
