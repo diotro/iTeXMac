@@ -40,7 +40,7 @@
 #endif
 //  We assume that the mutable set below is defined in iTM3Foundation
 //  This is true if this framework was built with the development build configuration.
-#if __iTM3_DEVELOPMENT__
+#if __iTM3_DEBUG__
 #   warning: This is in development mode
 extern NSMutableSet * ReachCodeTags4iTM3;
 #   define HasReachedCode4iTM3(TAG) [ReachCodeTags4iTM3 containsObject:TAG]

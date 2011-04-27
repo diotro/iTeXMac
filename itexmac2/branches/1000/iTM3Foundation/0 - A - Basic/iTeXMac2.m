@@ -33,7 +33,7 @@ NSString * const iTM3FoundationErrorDomain = @"iTM2 Foundation Error Domain";
 
 NSInteger iTM2DebugEnabled_FLAGS = ZER0;
 
-#if __iTM3_DEVELOPMENT__
+#if __iTM3_DEBUG__
 NSMutableSet * ReachCodeTags4iTM3 = nil;
 #endif
 
@@ -168,7 +168,7 @@ To Do List:
 	strncpy(iTM2Application_sendApplicationDefinedEvent,name,strlen(name));
 	iTM2Application_sendApplicationDefinedEvent[strlen(name)+1]='\0';
     [self setupRORef4iTM3];
-#if __iTM3_DEVELOPMENT__
+#if __iTM3_DEBUG__
     ReachCodeTags4iTM3 = NSMutableSet.set;
 #endif
 //END4iTM3;

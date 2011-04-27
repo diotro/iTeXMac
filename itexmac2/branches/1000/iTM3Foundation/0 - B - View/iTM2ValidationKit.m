@@ -335,7 +335,7 @@ To Do List:
  To Do List:
  "*/
 {DIAGNOSTIC4iTM3;
-#if __iTM3_DEVELOPMENT__
+#if __iTM3_DEBUG__
     printf("Currently validating: %s from document %s in zone %#lx\n", [self.title UTF8String],
            [[[self.windowController document] description] UTF8String], (NSUInteger)self.zone);
 #endif

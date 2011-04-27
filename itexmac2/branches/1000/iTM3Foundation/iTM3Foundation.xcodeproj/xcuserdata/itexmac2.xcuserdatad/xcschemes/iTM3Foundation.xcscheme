@@ -13,9 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DCD7D6AB0A4399620096B1A9"
-               BuildableName = "BBEdit.iTM2"
-               BlueprintName = "BBEdit"
+               BlueprintIdentifier = "51019D65134488A5003CBFA4"
+               BuildableName = "iTM3Foundation.framework"
+               BlueprintName = "iTM3Foundation"
                ReferencedContainer = "container:iTM3Foundation.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

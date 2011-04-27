@@ -77,12 +77,13 @@ extern NSString * const iTM2BundleContentsComponent;
 @interface NSBundle(iTeXMac2)
 
 /*!
-    @method 	isI386_4iTM3
+    @method 	isX86_4iTM3
     @abstract	Abstract forthcoming.
     @discussion	Discussion forthcoming.
     @result		yorn.
 */
-+ (BOOL)isI386_4iTM3;
++ (BOOL)isX86_4iTM3;
++ (BOOL)hasABI64_4iTM3;
 
 /*!
     @method 	iTM3FoundationBundle

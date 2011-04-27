@@ -125,8 +125,8 @@ To Do List:
 //END4iTM3;
 	return result;
 }
-//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isI3864_iTM3
-+ (BOOL)isI386_4iTM3;
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  isX86_4iTM3
++ (BOOL)isX86_4iTM3;
 /*"Description Forthcoming.
 Version history: jlaurens AT users DOT sourceforge DOT net
 - 2.0: Thu Jul 21 22:54:06 GMT 2005
@@ -138,7 +138,22 @@ To Do List:
 	size_t length = sizeof(cpu_type);
 	sysctlbyname("hw.cputype", &cpu_type, &length, NULL, ZER0);
 //END4iTM3;
-	return cpu_type == CPU_TYPE_I386;
+	return cpu_type & ~CPU_ARCH_ABI64 == CPU_TYPE_X86;
+}
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  hasABI64_4iTM3
++ (BOOL)hasABI64_4iTM3;
+/*"Description Forthcoming.
+Version history: jlaurens AT users DOT sourceforge DOT net
+- 2.0: Thu Jul 21 22:54:06 GMT 2005
+To Do List:
+"*/
+{DIAGNOSTIC4iTM3;
+//START4iTM3;
+	int cpu_type;
+	size_t length = sizeof(cpu_type);
+	sysctlbyname("hw.cputype", &cpu_type, &length, NULL, ZER0);
+//END4iTM3;
+	return cpu_type | CPU_ARCH_ABI64;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  plugInPathExtension4iTM3
 - (NSString *)plugInPathExtension4iTM3;

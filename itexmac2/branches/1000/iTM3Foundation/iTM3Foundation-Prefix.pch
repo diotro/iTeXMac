@@ -1,9 +1,0 @@
-//
-// Prefix header for all source files of the 'iTM2' target in the 'iTM2' project
-//
-
-#ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-    #import <Carbon/Carbon.h>
-    #import "iTeXMac2.h"
-#endif

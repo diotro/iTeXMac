@@ -1455,6 +1455,13 @@
 			remoteGlobalIDString = DC25E42D0991F5F000545F27;
 			remoteInfo = "iTM2TaskKit Test";
 		};
+		5147B300136859A700E501F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51019D65134488A5003CBFA4 /* iTM3Foundation */;
+			remoteInfo = iTM3Foundation;
+		};
 		51D7FE1B12987901009C0707 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -1620,7 +1627,6 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		51019E61134488A5003CBFA4 /* iTM3Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM3Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51019E6713448C30003CBFA4 /* iTM3Foundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM3Foundation-Info.plist"; sourceTree = "<group>"; };
 		510F9BBF1156941E002E6E48 /* iTM2ToggleProjectWrapperInspector.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = iTM2ToggleProjectWrapperInspector.xib; sourceTree = "<group>"; };
 		5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2Test3B.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1632,6 +1638,7 @@
 		513EDA6511943CBA0069EFCA /* iTM3SenTestKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM3SenTestKit.m; sourceTree = "<group>"; };
 		5142191710988E0600A01853 /* iTM2StringControllerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2StringControllerKit.h; sourceTree = "<group>"; };
 		5142191810988E0600A01853 /* iTM2StringControllerKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2StringControllerKit.m; sourceTree = "<group>"; };
+		5147B27313672FD500E501F9 /* iTM3Foundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iTM3Foundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		515C95E01270DC8B0000C5BB /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "Test Application/English.lproj/iTeXMac2.xib"; sourceTree = "<group>"; };
 		5160E1D410CE8F8200476E56 /* iTM2RegularExpressions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iTM2RegularExpressions.plist; sourceTree = "<group>"; };
 		5170B67613427D42004F857A /* GTMGarbageCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
@@ -2307,7 +2314,7 @@
 				5113C2DE11731B7600F6D951 /* iTM2Test3B.octest */,
 				51FFE063127C648D0014BE72 /* iTM2Test6.octest */,
 				51D7FE0612987886009C0707 /* iTM2Test6.octest */,
-				51019E61134488A5003CBFA4 /* iTM3Foundation.framework */,
+				5147B27313672FD500E501F9 /* iTM3Foundation.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3029,7 +3036,7 @@
 			name = iTM3Foundation;
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = iTM2Foundation;
-			productReference = 51019E61134488A5003CBFA4 /* iTM3Foundation.framework */;
+			productReference = 5147B27313672FD500E501F9 /* iTM3Foundation.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		5113C28A11731B7600F6D951 /* iTM2Test3B */ = {
@@ -3348,6 +3355,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5147B301136859A700E501F9 /* PBXTargetDependency */,
 			);
 			name = "Test Application";
 			productName = "Test Application";
@@ -4319,12 +4327,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/INFOPLIST_PREFIX_HEADER",
+				"$(SYMROOT)/INFOPLIST_PREFIX_HEADER",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ../Scripts/PrepareBuildNumber.pl;
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5437,6 +5444,11 @@
 			target = DC25E42D0991F5F000545F27 /* iTM2TaskKit Test */;
 			targetProxy = 514218D5109885FC00A01853 /* PBXContainerItemProxy */;
 		};
+		5147B301136859A700E501F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51019D65134488A5003CBFA4 /* iTM3Foundation */;
+			targetProxy = 5147B300136859A700E501F9 /* PBXContainerItemProxy */;
+		};
 		51D7FE1C12987901009C0707 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 51D7FDA812987886009C0707 /* iTM2Test7 */;
@@ -5811,6 +5823,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51D56AAF1348647200240F31 /* Framework.xcconfig */;
 			buildSettings = {
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM3FOUNDATION_ADDRESS)";
 				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Debug;
@@ -5819,6 +5832,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51D56AAF1348647200240F31 /* Framework.xcconfig */;
 			buildSettings = {
+				iTM2_FRAMEWORK_ADDRESS = "$(iTM3FOUNDATION_ADDRESS)";
 				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Release;
@@ -5941,7 +5955,7 @@
 					"$(inherited)",
 					"-lgcov",
 				);
-				PRODUCT_NAME = "Prepare Milestones";
+				PRODUCT_NAME = "Prepare Embedded Tests";
 			};
 			name = Debug;
 		};
@@ -5951,7 +5965,7 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Prepare Milestones";
+				PRODUCT_NAME = "Prepare Embedded Tests";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -6951,7 +6965,7 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Prefix.pch";
-				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
+				INFOPLIST_FILE = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Info.plist";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lgcov",
@@ -6972,7 +6986,7 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_FRAMEWORKS_DIR)\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Prefix.pch";
-				INFOPLIST_FILE = "Test Application/Test Application-Info.plist";
+				INFOPLIST_FILE = "$(PRODUCT_NAME)/$(PRODUCT_NAME)-Info.plist";
 				PRODUCT_NAME = "Test Application";
 			};
 			name = Release;
@@ -6981,8 +6995,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51D56AA513485C2400240F31 /* Debug.xcconfig */;
 			buildSettings = {
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Debug;
 		};
@@ -6990,8 +7002,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 51D56AAD13485C2400240F31 /* Release.xcconfig */;
 			buildSettings = {
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				iTM3_PRODUCT_NAME = "$(iTM3_FOUNDATION_NAME)";
 			};
 			name = Release;
 		};
