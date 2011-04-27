@@ -1533,7 +1533,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-#if __iTM3_DEVELOPMENT__
+#if __iTM3_DEBUG__
 #warning *** BUG TRACKING: OTHER TeX menu management
 #pragma mark BUG TRACKING
 	NSMenuItem * MI = (NSMenuItem *)[[NSApp mainMenu] deepItemWithAction4iTM3:@selector(projectCurrent:)];

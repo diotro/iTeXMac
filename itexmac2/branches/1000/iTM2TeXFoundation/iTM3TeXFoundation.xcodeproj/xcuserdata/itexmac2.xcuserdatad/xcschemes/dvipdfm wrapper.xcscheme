@@ -13,10 +13,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
-               BuildableName = "Test TeX Application.app"
-               BlueprintName = "Test TeX Application"
-               ReferencedContainer = "container:iTM2TeXFoundation.xcodeproj">
+               BlueprintIdentifier = "51B736361340F04500E7E772"
+               BuildableName = "dvipdfm wrapper.iTM2"
+               BlueprintName = "dvipdfm wrapper"
+               ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -25,7 +25,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Development">
+      buildConfiguration = "Debug">
       <Testables>
       </Testables>
    </TestAction>
@@ -36,23 +36,7 @@
       displayScale = "1.00"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Development">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
-            BuildableName = "Test TeX Application.app"
-            BlueprintName = "Test TeX Application"
-            ReferencedContainer = "container:iTM2TeXFoundation.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "DYLD_FALLBACK_FRAMEWORK_PATH"
-            value = "/Developer/Library/Framework"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      buildConfiguration = "Debug">
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -62,22 +46,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Deployment">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
-            BuildableName = "Test TeX Application.app"
-            BlueprintName = "Test TeX Application"
-            ReferencedContainer = "container:iTM2TeXFoundation.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
+      buildConfiguration = "Release">
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Development">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Deployment"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

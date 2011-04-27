@@ -21,12 +21,10 @@
 //  To Do List:(format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
-#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
-#import <iTM3Foundation/iTM2Invocation.h>
-#import <iTM3Foundation/iTM2BundleKit.h>
-#import <iTM3Foundation/iTM2DocumentControllerKit.h>
+#import "iTM2TeXProjectDocumentKit.h"
+#import "iTM2TeXProjectFrontendKit.h"
+#import "iTM2TeXInfoWrapperKit.h"
+#import <iTM3Foundation/iTM3Foundation.h>
 
 NSString * const iTM2TeXProjectInfoComponent = @"Info";// = iTM2ProjectInfoComponent, unused
 
@@ -1964,7 +1962,7 @@ To Do List:
 }
 @end
 
-#import <iTM2TeXFoundation/iTM2TeXDocumentKit.h>
+#import "iTM2TeXDocumentKit.h"
 
 @implementation iTM2TeXDocument(TeXProjectDocumentKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  environmentForExternalHelper

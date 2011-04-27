@@ -9,7 +9,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      buildConfiguration = "Development">
+      buildConfiguration = "Debug">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -18,7 +18,7 @@
                BlueprintIdentifier = "DC4E16D40CCD04FF00F5CE3E"
                BuildableName = "Test Suite.octest"
                BlueprintName = "Test Suite"
-               ReferencedContainer = "container:iTM2TeXFoundation.xcodeproj">
+               ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -30,7 +30,7 @@
       displayScale = "1.00"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Development">
+      buildConfiguration = "Debug">
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -40,13 +40,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Deployment">
+      buildConfiguration = "Release">
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Development">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Deployment"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

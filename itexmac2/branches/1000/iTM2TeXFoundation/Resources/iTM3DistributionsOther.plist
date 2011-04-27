@@ -7,54 +7,72 @@
 		<string>Default</string>
 		<key>tag</key>
 		<integer>-3</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Built in</string>
 		<key>tag</key>
 		<integer>1</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>old gwTeX (teTeX)</string>
 		<key>tag</key>
 		<integer>2</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>gwTeX (TeX Live)</string>
 		<key>tag</key>
 		<integer>6</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Fink</string>
 		<key>tag</key>
 		<integer>3</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>MacPorts</string>
 		<key>tag</key>
 		<integer>7</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>TeX Live</string>
 		<key>tag</key>
 		<integer>4</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>TeX Live Inserted CD</string>
 		<key>tag</key>
 		<integer>5</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Alternate Location</string>
 		<key>tag</key>
 		<integer>-2</integer>
+		<key>path</key>
+		<string>Default</string>
 	</dict>
 </array>
 </plist>

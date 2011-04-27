@@ -68,6 +68,67 @@ if (iTM2DebugEnabled<10000) {
 }
 #endif
 
+@interface iTM3DistributionInfo:NSObject
+{
+    NSUInteger tag;
+    NSString * name;
+    NSString * path;
+    BOOL hasABI64;
+    BOOL isIntel;
+}
+@property (assign) NSUInteger tag;
+@property (assign) BOOL hasABI64;
+@property (assign) BOOL isIntel;
+@property (readwrite,copy) NSString * name;
+@property (readwrite,copy) NSString * path;
+- (id)initWithDictionary:(NSDictionary *)D;
+@end
+
+@implementation iTM3DistributionInfo:NSObject
+- (id)initWithDictionary:(NSDictionary *)D;
+{
+    if ((self = [super init])) {
+        self.name = [D objectForKey:@"name"];
+        self.path = [D objectForKey:@"path"];
+        NS_DURING
+        self.tag = [[D objectForKey:@"tag"] unsignedIntegerValue];
+        NS_HANDLER
+        self.tag = NSUIntegerMax;
+        NS_ENDHANDLER
+    }
+    return self;
+}
+- (NSString *)description;
+{
+    return [self.name localizedDescription4iTM3];
+}
+- (BOOL) isEqual:(iTM3DistributionInfo *)rhs;
+{
+    return [rhs isKindOfClass:[iTM3DistributionInfo class]]
+    && [rhs.name isEqual:self.name]
+    && [rhs.path isEqual:self.path]
+    && iTM3EqualsBOOL(rhs.hasABI64,self.hasABI64)
+    && iTM3EqualsBOOL(rhs.isIntel,self.isIntel);
+}
+@synthesize tag;
+@synthesize name;
+@synthesize path;
+@synthesize isIntel;
+@synthesize hasABI64;
+@end
+
+@implementation iTM3CustomDistributionInfo:iTM3DistributionInfo
+- (NSString *) path;
+{
+    return @"NONE";
+}
+- (void) setPath:(NSString *)newValue;
+{
+    return;
+}
+@end
+
+
 @implementation iTM2MainInstaller(iTM2TeXDistributionKit)
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==  iTM2TeXProjectTaskKitCompleteInstallation4iTM3;
 + (void)iTM2TeXProjectTaskKitCompleteInstallation4iTM3;
@@ -78,7 +139,7 @@ To do list:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * distribution = [NSBundle isI386_4iTM3]? iTM2DistributionDefaultTeXDistIntel: iTM2DistributionDefaultTeXDist;
+	NSString * distribution = [NSBundle isX86_4iTM3]? iTM2DistributionDefaultTeXDistIntel: iTM2DistributionDefaultTeXDist;
     [SUD registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
 					distribution, iTM2DistributionTeXMFPrograms,
 					distribution, iTM2DistributionOtherPrograms,
@@ -108,7 +169,7 @@ To do list:
 	if([DFM fileExistsAtPath:path])
 		goto testOtherPrograms;// that's OK
 	distributionWasNotCorrect = YES;
-	if([NSBundle isI386_4iTM3])
+	if([NSBundle isX86_4iTM3])
 	{
 		[SUD setObject:iTM2DistributionDefaultTeXDistIntel forKey:iTM2DistributionTeXMFPrograms];
 		path = [iTM2TeXProjectDocument defaultPathToTeXMFPrograms];
@@ -175,7 +236,7 @@ testOtherPrograms:
 	path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
 	if([DFM fileExistsAtPath:path])
 		goto conclusion;// that's OK
-	if([NSBundle isI386_4iTM3])
+	if([NSBundle isX86_4iTM3])
 	{
 		[SUD setObject:iTM2DistributiongwTeXIntel forKey:iTM2DistributionOtherPrograms];
 		path = [iTM2TeXProjectDocument defaultPathToOtherPrograms];
@@ -1400,7 +1461,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(![NSBundle isI386_4iTM3])
+	if(![NSBundle isX86_4iTM3])
 	{
 		sender.action = NULL;
 		[sender setHidden:YES];
@@ -1563,7 +1624,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(![NSBundle isI386_4iTM3])
+	if(![NSBundle isX86_4iTM3])
 	{
 		sender.action = NULL;
 		[sender setHidden:YES];
@@ -1594,31 +1655,6 @@ To Do List:
 - (NSMutableArray *)orderedEnvironmentVariableNames;
 - (void)setOrderedEnvironmentVariableNames:(id)argument;
 - (id)environmentVariables;
-@end
-
-@interface iTM3DistributionInfo:NSObject
-{
-    NSUInteger index;
-    NSString * name;
-}
-@property (assign) NSUInteger index;
-@property (readwrite,copy) NSString * name;
-- (id)initWithDictionary:(NSDictionary *)D;
-@end
-
-@implementation iTM3DistributionInfo:NSObject
-- (id)initWithDictionary:(NSDictionary *)D;
-{
-    if ((self = [super init])) {
-        self.name = [D objectForKey:@"name"];
-    }
-    return self;
-}
-- (NSString *)description;
-{
-    return [self.name localizedDescription4iTM3];
-}
-@synthesize name;
 @end
 
 @implementation iTM2TeXDistributionPrefPane
@@ -2480,46 +2516,50 @@ To Do List:
 #pragma mark =-=-=-=-=-  DISTRIBUTIONS
 @synthesize controllerForTeXMFPrograms;
 @synthesize controllerForOtherPrograms;
-- (iTM3DistributionInfo *) selectedDistributionsForTeXMFPrograms;
+- (NSArray *) arrayOfDistributionsForTeXMFPrograms;
 {
     NSMutableArray * MRA = [NSMutableArray array];
-    for (NSURL * url in [[NSBundle mainBundle] allURLsForResource4iTM3:@"Distributions" withExtension:@"plist"]) {
+    for (NSURL * url in [[NSBundle mainBundle] allURLsForResource4iTM3:@"iTM2DistributionsTeXMF" withExtension:@"plist"]) {
         for (id O in [[NSArray alloc] initWithContentsOfURL:url]) {
-            [MRA addObject:[[iTM3DistributionInfo alloc] initWithDictionary:O]];
+            iTM3DistributionInfo * DI = [[iTM3DistributionInfo alloc] initWithDictionary:O];
+            [MRA addObject:DI];
         }
     }
+    NSSortDescriptor * SD = [NSSortDescriptor sortDescriptorWithKey:@"tag" ascending:YES];
+    [MRA sortUsingDescriptors:[NSArray arrayWithObject:SD]];
     return MRA;
 }
-- (NSIndexSet *)selectionIndexesForTeXMFPrograms;
+- (NSArray *) arrayOfDistributionsForOtherPrograms;
 {
-    NSString * distribution = self.lossyTeXMFProgramsDistribution;
-    NSArray * RA = self.arrayOfDistributionsForTeXMFPrograms;
-    NSUInteger i = 0;
-    for (i=0; i<RA.count;++i) {
-        iTM3DistributionInfo * DI = [RA objectAtIndex:i];
-        if ([DI.name isEqualToString:distribution]) {
-            return [NSIndexSet indexSetWithIndex:i];
+    NSMutableArray * MRA = [NSMutableArray array];
+    for (NSURL * url in [[NSBundle mainBundle] allURLsForResource4iTM3:@"iTM2DistributionsOther" withExtension:@"plist"]) {
+        for (id O in [[NSArray alloc] initWithContentsOfURL:url]) {
+            iTM3DistributionInfo * DI = [[iTM3DistributionInfo alloc] initWithDictionary:O];
+            [MRA addObject:DI];
         }
     }
-    return [NSIndexSet indexSetWithIndex:0];
+    NSSortDescriptor * SD = [NSSortDescriptor sortDescriptorWithKey:@"tag" ascending:YES];
+    [MRA sortUsingDescriptors:[NSArray arrayWithObject:SD]];
+    return MRA;
 }
-- (void)setSelectionIndexesForTeXMFPrograms:(NSIndexSet *)newValue;
-{
-    NSUInteger i = newValue.firstIndex;
-    if (i<[self.controllerForTeXMFPrograms.arrangedObjects count]) {
-        [self willChangeValueForKey:@"selectionIndexesForTeXMFPrograms"];
-        iTM3DistributionInfo * DI = [self.controllerForTeXMFPrograms.arrangedObjects objectAtIndex:i];
-        [SUD setObject:DI.name forKey:iTM2DistributionTeXMFPrograms];
-        [self didChangeValueForKey:@"selectionIndexesForTeXMFPrograms"];
+- (iTM3DistributionInfo *)selectedDistributionForTeXMFPrograms;
+{DIAGNOSTIC4iTM3;
+    //START4iTM3;
+    NSString * distribution = self.lossyTeXMFProgramsDistribution;
+    for (iTM3DistributionInfo * DI in self.arrayOfDistributionsForTeXMFPrograms) {
+        if ([DI.path pathIsEqual4iTM3:distribution]) {
+            return DI;
+        }
     }
+    return self.arrayOfDistributionsForTeXMFPrograms.lastObject;
 }
-- (id) currentDistributionsForTeXMFPrograms;
+- (void)setSelectedDistributionForTeXMFPrograms:(iTM3DistributionInfo *)newValue;
 {
-    NSURL * url = [[[NSBundle mainBundle] allURLsForResource4iTM3:@"distributions" withExtension:@"plist"] lastObject];
-    return [[NSArray alloc] initWithContentsOfURL:url];
-}
-- (id) setCurrentDistributionsForTeXMFPrograms:(id) newValue;
-{
+    [self willChangeValueForKey:@"selectedDistributionForTeXMFPrograms"];
+    BOOL isIntel = self.TeXMFProgramsDistributionIsIntel;
+    [SUD setObject:newValue.path forKey:iTM2DistributionTeXMFPrograms];
+    [self setTeXMFProgramsDistributionIsIntel:isIntel];
+    [self didChangeValueForKey:@"selectedDistributionForTeXMFPrograms"];
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsDistributionFromPopUp:
 - (IBAction)takeTeXMFProgramsDistributionFromPopUp:(id)sender;
@@ -2675,7 +2715,6 @@ terminate:
     return YES;
 
 }
-@synthesize pathToTeXMFPrograms;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  takeTeXMFProgramsPathFromStringValue:
 - (IBAction)takeTeXMFProgramsPathFromStringValue:(id)sender;
 /*"Description forthcoming.
@@ -2878,7 +2917,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(![NSBundle isI386_4iTM3])
+	if(![NSBundle isX86_4iTM3])
 	{
 		sender.action = NULL;
 		[sender setHidden:YES];
@@ -2916,7 +2955,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	if(![NSBundle isI386_4iTM3])
+	if(![NSBundle isX86_4iTM3])
 	{
 		sender.action = NULL;
 		[sender setHidden:YES];

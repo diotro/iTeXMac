@@ -13,10 +13,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "51F00C1612E63B98002A4013"
-               BuildableName = "Prepare embedded Tests"
-               BlueprintName = "Prepare embedded Tests"
-               ReferencedContainer = "container:iTM2TeXFoundation.xcodeproj">
+               BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
+               BuildableName = "Test TeX Application.app"
+               BlueprintName = "Test TeX Application"
+               ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,11 +32,27 @@
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
-      displayScaleIsEnabled = "NO"
-      displayScale = "1.00"
+      displayScaleIsEnabled = "YES"
+      displayScale = "1.25"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Development">
+      buildConfiguration = "Debug">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
+            BuildableName = "Test TeX Application.app"
+            BlueprintName = "Test TeX Application"
+            ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "DYLD_FALLBACK_FRAMEWORK_PATH"
+            value = "/Developer/Library/Framework"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -47,6 +63,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Deployment">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
+            BuildableName = "Test TeX Application.app"
+            BlueprintName = "Test TeX Application"
+            ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Development">

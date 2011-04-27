@@ -21,8 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
-#import <iTM2TeXFoundation/iTM2TeXDistributionKit.h>
+#import "iTM2TeXProjectDocumentKit.h"
+#import "iTM2TeXDistributionKit.h"
 //#import <iTM3Foundation/iTM2WindowKit.h>
 
 extern NSString * const iTM2TPFEContentKey;
