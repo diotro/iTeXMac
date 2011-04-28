@@ -1466,56 +1466,56 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 51EFB3990DFD23BD0090E7D0 /* Skim */;
+			remoteGlobalIDString = 51EFB3990DFD23BD0090E7D0;
 			remoteInfo = Skim;
 		};
 		5150D482136869B1004C9714 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DCE5C5720AC823940054C760 /* TextWrangler */;
+			remoteGlobalIDString = DCE5C5720AC823940054C760;
 			remoteInfo = TextWrangler;
 		};
 		5150D484136869B1004C9714 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DCB7DE9F0ADE49DE0084DE9D /* TextMate */;
+			remoteGlobalIDString = DCB7DE9F0ADE49DE0084DE9D;
 			remoteInfo = TextMate;
 		};
 		5150D486136869B1004C9714 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DCD7D6C90A4399990096B1A9 /* Emacs */;
+			remoteGlobalIDString = DCD7D6C90A4399990096B1A9;
 			remoteInfo = Emacs;
 		};
 		5150D488136869B1004C9714 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DCD7D6B90A4399790096B1A9 /* BBEdit Lite */;
+			remoteGlobalIDString = DCD7D6B90A4399790096B1A9;
 			remoteInfo = "BBEdit Lite";
 		};
 		5150D48A136869B1004C9714 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DCD7D6AB0A4399620096B1A9 /* BBEdit */;
+			remoteGlobalIDString = DCD7D6AB0A4399620096B1A9;
 			remoteInfo = BBEdit;
 		};
 		5150D7F713686AA4004C9714 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5150D72413686AA3004C9714 /* iTM2MakeMacrosSummary.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76FA10486AA7600D96B5E /* iTM2MakeMacrosSummary */;
+			remoteGlobalIDString = 8DD76FA10486AA7600D96B5E;
 			remoteInfo = iTM2MakeMacrosSummary;
 		};
 		5150D7FE13686AA4004C9714 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5150D78413686AA3004C9714 /* Translator.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76FA10486AA7600D96B5E /* Translator */;
+			remoteGlobalIDString = 8DD76FA10486AA7600D96B5E;
 			remoteInfo = Translator;
 		};
 		51D7FE1B12987901009C0707 /* PBXContainerItemProxy */ = {
@@ -5277,7 +5277,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC1E8AA909462DC40037B13F /* Build configuration list for PBXNativeTarget "Test Application" */;
 			buildPhases = (
-				5147B44C1368656B00E501F9 /* ShellScript */,
 				DC13E6870855867D0063D5A5 /* Resources */,
 				DC13E6880855867D0063D5A5 /* Sources */,
 				DC13E6C0085588E20063D5A5 /* Copy framework */,
@@ -6004,19 +6003,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "";
-		};
-		5147B44C1368656B00E501F9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"COUCOU\"";
 		};
 		515C9690127106DD0000C5BB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

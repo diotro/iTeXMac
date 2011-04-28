@@ -367,21 +367,21 @@ To Do List:
                 * RORef = [NSError errorWithDomain:iTM3FoundationErrorDomain code:1 userInfo:
                     [NSDictionary dictionaryWithObjectsAndKeys:
                         NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, self.classBundle4iTM3, ""), NSLocalizedDescriptionKey,
-                        [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT remove existing file at %@", iTM2LocalizedExtension, self.classBundle4iTM3, ""), link], NSLocalizedFailureReasonErrorKey,
-                        [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Remove file at %@", iTM2LocalizedExtension, self.classBundle4iTM3, ""), link], NSLocalizedRecoverySuggestionErrorKey,
+                        [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT remove existing file at %@", iTM2LocalizedExtension, self.classBundle4iTM3, ""), path], NSLocalizedFailureReasonErrorKey,
+                        [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Remove file at %@", iTM2LocalizedExtension, self.classBundle4iTM3, ""), path], NSLocalizedRecoverySuggestionErrorKey,
                             nil]];
             }
         } else if ([DFM createSymbolicLinkAtPath:path withDestinationPath:executableURL.path error:RORef]) {
             if (iTM2DebugEnabled) {
-                LOG4iTM3(@"INFO: new soft link from\n%@\nto %@...", link, executableURL.path);
+                LOG4iTM3(@"INFO: new soft link from\n%@\nto %@...", path, executableURL.path);
             }
             return YES;
         } else if (RORef && !*RORef) {
             * RORef = [NSError errorWithDomain:iTM3FoundationErrorDomain code:1 userInfo:
                 [NSDictionary dictionaryWithObjectsAndKeys:
                     NSLocalizedStringFromTableInBundle(@"Setup failure", iTM2LocalizedExtension, self.classBundle4iTM3, ""), NSLocalizedDescriptionKey,
-                    [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, myBUNDLE, ""), link, executableURL.path], NSLocalizedFailureReasonErrorKey,
-                    [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Please make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, myBUNDLE, ""), link, executableURL.path], NSLocalizedRecoverySuggestionErrorKey,
+                    [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"I CANNOT make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, myBUNDLE, ""), path, executableURL.path], NSLocalizedFailureReasonErrorKey,
+                    [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Please make a soft link to\n%@\nfrom\n%@", iTM2LocalizedExtension, myBUNDLE, ""), path, executableURL.path], NSLocalizedRecoverySuggestionErrorKey,
                         nil]];
         }
     }
