@@ -22,8 +22,8 @@
 */
 
 //#import <iTM3Foundation/iTM2DocumentKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
+#import "iTM2TeXProjectFrontendKit.h"
+#import "iTM2TeXProjectDocumentKit.h"
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2TeXProjectIndex
 

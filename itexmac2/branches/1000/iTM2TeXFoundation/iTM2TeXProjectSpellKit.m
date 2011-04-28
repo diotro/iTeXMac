@@ -27,8 +27,8 @@
 #else
 #endif
 #if 1
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectSpellKit.h>
+#import "iTM2TeXProjectDocumentKit.h"
+#import "iTM2TeXProjectSpellKit.h"
 #import <iTM3Foundation/iTM2BundleKit.h>
 
 NSString * const TWSSpellingFileKey = @"spelling";

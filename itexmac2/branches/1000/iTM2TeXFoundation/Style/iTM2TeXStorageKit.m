@@ -21,8 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
-#import <iTM2TeXFoundation/iTM2TeXStringKit.h>
+#import "iTM2TeXStorageKit.h"
+#import "iTM2TeXStringKit.h"
 
 NSString * const iTM2TextAttributesRegExComponent = @"regex";
 NSString * const iTM2TextAttributesDraftSymbolsExtension = @"DraftSymbols";

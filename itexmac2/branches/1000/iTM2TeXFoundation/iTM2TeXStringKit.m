@@ -19,13 +19,13 @@
 */
 
 #import <iTM3Foundation/iTM3Foundation.h>
-#import <iTM2TeXFoundation/iTM2TeXStringKit.h>
-#import <iTM2TeXFoundation/iTM2TeXDocumentKit.h>
+#import "iTM2TeXStringKit.h"
+#import "iTM2TeXDocumentKit.h"
 
 #define ANCS [NSCharacterSet alphanumericCharacterSet]
 
 #ifdef __EMBEDDED_TEST_HEADER__
-#import <iTM2TeXFoundation/iTM2TeXStringKit.h>
+#import "iTM2TeXStringKit.h"
 #endif
 
 #ifdef __EMBEDDED_TEST_SETUP__

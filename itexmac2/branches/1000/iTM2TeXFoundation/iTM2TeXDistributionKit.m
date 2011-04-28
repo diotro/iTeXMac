@@ -21,10 +21,10 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXDistributionKit.h>
-#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
+#import "iTM2TeXDistributionKit.h"
+#import "iTM2TeXInfoWrapperKit.h"
+#import "iTM2TeXProjectFrontendKit.h"
+#import "iTM2TeXProjectCommandKit.h"
 
 NSString * const iTM2DistributionTeXMFPrograms = @"iTM2DistributionTeXMFBinaries";
 NSString * const iTM2DistributionOtherPrograms = @"iTM2DistributionGhostScriptBinaries";
@@ -117,7 +117,10 @@ if (iTM2DebugEnabled<10000) {
 @synthesize hasABI64;
 @end
 
-@implementation iTM3CustomDistributionInfo:iTM3DistributionInfo
+@interface iTM3CustomDistributionInfo:iTM3DistributionInfo
+@end
+
+@implementation iTM3CustomDistributionInfo
 - (NSString *) path;
 {
     return @"NONE";

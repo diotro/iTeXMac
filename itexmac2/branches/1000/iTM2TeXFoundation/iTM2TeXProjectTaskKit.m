@@ -21,10 +21,10 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
-#import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
+#import "iTM2TeXInfoWrapperKit.h"
+#import "iTM2TeXProjectDocumentKit.h"
+#import "iTM2TeXProjectTaskKit.h"
+#import "iTM2TeXStorageKit.h"
 #import <iTM3Foundation/iTM2BundleKit.h>
 #import <iTM3Foundation/iTM2ImageKit.h>
 
@@ -1384,7 +1384,7 @@ To Do List:
 - (NSInteger)length;
 @end
 
-#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
+#import "iTM2TeXProjectFrontendKit.h"
 
 @implementation iTM2MainInstaller(TeXProjectTaskKit)
 + (void)prepareTeXProjectTaskKitCompleteInstallation4iTM3;

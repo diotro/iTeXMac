@@ -479,6 +479,7 @@
 		513B8A9D13421EA4006CA861 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2EngineXeTeX.xib; sourceTree = "<group>"; };
 		513B8A9E13421EA4006CA861 /* TeX wrapper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeX wrapper-Info.plist"; sourceTree = "<group>"; };
 		513B8A9F13421EA4006CA861 /* TeX wrapper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeX wrapper-Prefix.pch"; sourceTree = "<group>"; };
+		5140A4F8136969AA00BA3A7F /* iTM3TeXFoundation-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM3TeXFoundation-Prefix.pch"; sourceTree = "<group>"; };
 		5150EC8A0E8139C300578A0A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
 		5170B68E13431BD3004F857A /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/iTeXMac3-frzmgsbrlxrvoghffwppalpjjcbb/Build/Products/iTM2TeXFoundation.framework"; sourceTree = "<group>"; };
 		5193AF471348E5DC00CACC84 /* Debug-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
@@ -628,7 +629,6 @@
 		DCC7F3DD0854AC9200F3EB8A /* iTM2TeXDocumentKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXDocumentKit.h; sourceTree = "<group>"; };
 		DCC7F3DE0854AC9200F3EB8A /* iTM2TeXDocumentKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iTM2TeXDocumentKit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DCC7F3DF0854AC9200F3EB8A /* iTM3TeXFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM3TeXFoundation-Info.plist"; sourceTree = "<group>"; };
-		DCC7F3E00854AC9200F3EB8A /* iTM2TeXFoundation-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2TeXFoundation-Prefix.pch"; sourceTree = "<group>"; };
 		DCC7F3E10854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXPCommandWrapperKit.h; sourceTree = "<group>"; };
 		DCC7F3E20854AC9200F3EB8A /* iTM2TeXPCommandWrapperKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXPCommandWrapperKit.m; sourceTree = "<group>"; };
 		DCC7F3E30854AC9200F3EB8A /* iTM2TeXPCompileWrapperKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXPCompileWrapperKit.h; sourceTree = "<group>"; };
@@ -921,6 +921,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		5140A4F7136969AA00BA3A7F /* iTM3TeXFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				5140A4F8136969AA00BA3A7F /* iTM3TeXFoundation-Prefix.pch */,
+			);
+			path = iTM3TeXFoundation;
+			sourceTree = "<group>";
+		};
 		5193AF461348E5DC00CACC84 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1104,7 +1112,6 @@
 				DC7E918908903606007D0CB2 /* Style */,
 				DCC7F3DF0854AC9200F3EB8A /* iTM3TeXFoundation-Info.plist */,
 				DCA45CBB085EEA6B00AF1C1F /* iTM2TeXFoundation.hdoc */,
-				DCC7F3E00854AC9200F3EB8A /* iTM2TeXFoundation-Prefix.pch */,
 				DCC3EC6908FDC4B900A74157 /* iTM2TeXFoundationErrors.h */,
 				DCC3EC6A08FDC4B900A74157 /* iTM2TeXFoundationErrors.m */,
 				DCC7F3DB0854AC9200F3EB8A /* iTM2PDFSYNCKit.h */,
@@ -1140,6 +1147,7 @@
 				DC99EA05088315BD007AF81F /* Binaries */,
 				DC99EA47088315BD007AF81F /* iTM2 Server Kit */,
 				DCC7F3F10854AC9200F3EB8A /* Resources */,
+				5140A4F7136969AA00BA3A7F /* iTM3TeXFoundation */,
 			);
 			name = iTM2TeXFoundation;
 			sourceTree = "<group>";

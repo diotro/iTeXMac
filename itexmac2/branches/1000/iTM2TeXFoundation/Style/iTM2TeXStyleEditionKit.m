@@ -21,8 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXStyleEditionKit.h>
-#import <iTM2TeXFoundation/iTM2TeXStorageKit.h>
+#import "iTM2TeXStyleEditionKit.h"
+#import "iTM2TeXStorageKit.h"
 
 #define iTM2TSSMenuItemIndentationLevel [self context4iTM3IntegerForKey:@"iTM2TextSyntaxStyleMenuItemIndentationLevel" domain:iTM2ContextAllDomainsMask]
 #define TABLE @"TextStyle"

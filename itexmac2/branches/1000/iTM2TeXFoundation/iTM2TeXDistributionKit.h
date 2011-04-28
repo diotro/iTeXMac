@@ -103,7 +103,7 @@ typedef enum
       iTM2TeXDistributionCustomTag = -2
 } iTM2TeXDistributionTag;
 
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
+#import "iTM2TeXProjectDocumentKit.h"
 
 @interface iTM2TeXProjectDocument(TeXDistributionKit)
 

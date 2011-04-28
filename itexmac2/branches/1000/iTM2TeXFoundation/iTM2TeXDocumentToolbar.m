@@ -55,7 +55,7 @@ To Do List:
 #define DEFINE_TOOLBAR_ITEM(SELECTOR)\
 + (NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier4iTM3:[self identifierFromSelector4iTM3:_cmd] inBundle:[iTM2TeXInspector classBundle4iTM3]];}
 
-#import <iTM2TeXFoundation/iTM2TeXPCommandWrapperKit.h>
+#import "iTM2TeXPCommandWrapperKit.h"
 
 @implementation NSToolbarItem(iTM2TeX)
 DEFINE_TOOLBAR_ITEM(bookmarkToolbarItem)

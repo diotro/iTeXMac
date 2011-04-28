@@ -21,8 +21,8 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
+#import "iTM2TeXProjectCommandKit.h"
+#import "iTM2TeXProjectFrontendKit.h"
 
 extern NSString * const iTM2ToolbarTypesetItemIdentifier;
 

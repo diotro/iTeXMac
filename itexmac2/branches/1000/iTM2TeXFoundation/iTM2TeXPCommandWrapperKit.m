@@ -21,10 +21,10 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
-#import <iTM2TeXFoundation/iTM2TeXPCommandWrapperKit.h>
+#import "iTM2TeXInfoWrapperKit.h"
+#import "iTM2TeXProjectDocumentKit.h"
+#import "iTM2TeXProjectFrontendKit.h"
+#import "iTM2TeXPCommandWrapperKit.h"
 //#import "iTM2TeXProjectEngineerKit.h"
 ////#import "iTM2ValidationKit.h"
 
@@ -1315,7 +1315,7 @@ To Do List:
 }
 @end
 
-#import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
+#import "iTM2TeXProjectTaskKit.h"
 
 @interface iTM2TeXPStopPerformer: iTM2TeXPCommandPerformer
 @end

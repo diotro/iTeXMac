@@ -21,9 +21,9 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import <iTM2TeXFoundation/iTM2TeXProjectFrontendKit.h>
-#import <iTM2TeXFoundation/iTM2TeXPCompileWrapperKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectDocumentKit.h>
+#import "iTM2TeXProjectFrontendKit.h"
+#import "iTM2TeXPCompileWrapperKit.h"
+#import "iTM2TeXProjectDocumentKit.h"
 
 extern NSString * const iTM2TeXProjectFrontendTable;
 

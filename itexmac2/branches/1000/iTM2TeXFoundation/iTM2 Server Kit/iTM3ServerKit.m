@@ -22,9 +22,9 @@
 */
 
 #import "iTM3ServerKit.h"
-#import <iTM2TeXFoundation/iTM3ServerKeys.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectCommandKit.h>
-#import <iTM2TeXFoundation/iTM2TeXProjectTaskKit.h>
+#import "iTM3ServerKeys.h"
+#import "iTM2TeXProjectCommandKit.h"
+#import "iTM2TeXProjectTaskKit.h"
 
 NSString * const iTM3ServerAllKey = @"-all";
 NSString * const iTM3ServerFileKey = @"-file";

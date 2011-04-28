@@ -24,7 +24,7 @@
 #import "iTM2TeXProjectDocumentKit.h"
 #import "iTM2TeXProjectFrontendKit.h"
 #import "iTM2TeXProjectTaskKit.h"
-#import <iTM2TeXFoundation/iTM2TeXInfoWrapperKit.h>
+#import "iTM2TeXInfoWrapperKit.h"
 #import <iTM3Foundation/iTM3Foundation.h>
 #import <Carbon/Carbon.h>
 #import <objc/runtime.h>
@@ -2638,7 +2638,7 @@ To Do List:
 #define DEFINE_TOOLBAR_ITEM(SELECTOR)\
 + (NSToolbarItem *)SELECTOR;{return [self toolbarItemWithIdentifier4iTM3:[self identifierFromSelector4iTM3:_cmd] inBundle:[iTM2TeXProjectInspector classBundle4iTM3]];}
 
-#import <iTM2TeXFoundation/iTM2TeXPCommandWrapperKit.h>
+#import "iTM2TeXPCommandWrapperKit.h"
 
 @implementation NSToolbarItem(iTM2TeXProject)
 DEFINE_TOOLBAR_ITEM(showCurrentProjectSettingsToolbarItem)

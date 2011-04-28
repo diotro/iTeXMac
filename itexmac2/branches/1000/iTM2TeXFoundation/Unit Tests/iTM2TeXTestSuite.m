@@ -8,7 +8,7 @@
 
 #import "iTM2TeXTestSuite.h"
 #import <iTM3Foundation/iTM3Foundation.h>
-#import <iTM2TeXFoundation/iTM2TeXFoundation.h>
+#import "iTM2TeXFoundation.h"
 
 
 @implementation iTM2TeXTestSuite
