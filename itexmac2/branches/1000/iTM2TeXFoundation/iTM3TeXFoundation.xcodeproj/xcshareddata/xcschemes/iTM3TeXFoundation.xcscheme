@@ -13,9 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
-               BuildableName = "Test TeX Application.app"
-               BlueprintName = "Test TeX Application"
+               BlueprintIdentifier = "8DC2EF4F0486A6940098B216"
+               BuildableName = "iTM3TeXFoundation.framework"
+               BlueprintName = "iTM3TeXFoundation"
                ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -37,15 +37,6 @@
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
-            BuildableName = "Test TeX Application.app"
-            BlueprintName = "Test TeX Application"
-            ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -56,15 +47,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DC1C6B31090D983F000F4FDE"
-            BuildableName = "Test TeX Application.app"
-            BlueprintName = "Test TeX Application"
-            ReferencedContainer = "container:iTM3TeXFoundation.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -535,29 +535,22 @@ To Do List:
         // cleaning the lines and the pages:we only keep line infos for which there exists a synchronization point.
         [NSThread setThreadPriority:[self context4iTM3FloatForKey:iTM2PDFSyncPriorityKey domain:iTM2ContextAllDomainsMask]];
 #if 1
-        NSEnumerator * E = pages.objectEnumerator;
-        id O;
+        NSMutableDictionary * O;
         NSMutableArray * allRecordIndices = [NSMutableArray array];
-        for(O in pages)
-            [allRecordIndices addObjectsFromArray:[O allKeys]];// EXC_BAD_ACCESS Here?
-        E = lines.objectEnumerator;
+        for (O in pages)
+            [allRecordIndices addObjectsFromArray:O.allKeys];// EXC_BAD_ACCESS Here?
+        NSEnumerator * E = lines.objectEnumerator;
         NSUInteger saved = ZER0;
         NSUInteger total = ZER0;
-        while(E.nextObject && (O = E.nextObject))
-        {
-            NSEnumerator * e = [[O allKeys] objectEnumerator];
-            id K;
-            while(K = e.nextObject)
-            {
+        while (E.nextObject && (O = E.nextObject)) {
+            for (id K in O.allKeys) {
                 ++total;
-                if(![allRecordIndices containsObject:K])
-                {
+                if (![allRecordIndices containsObject:K]) {
 //NSLog(@"removing line record index:%@", K);
                     [O removeObjectForKey:K];
                     ++saved;
                 }
-                if(!_IsLocked)
-                {
+                if (!_IsLocked) {
 //NSLog(@"pdfsync stopped");
                     goto kauehi;
                 }

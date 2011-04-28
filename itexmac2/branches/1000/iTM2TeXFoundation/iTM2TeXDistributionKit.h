@@ -141,11 +141,12 @@ typedef enum
 @interface iTM2TeXDistributionPrefPane: iTM2PreferencePane <NSTabViewDelegate, NSTableViewDelegate, NSOpenSavePanelDelegate>
 {
 @private
-    IBOutlet id controllerForTeXMFPrograms;
+    IBOutlet id controllerForTeXDistributions;
     IBOutlet id controllerForOtherPrograms;
+    NSTextView * iVarEnvironmentTableView;
 }
 @property (readwrite,copy) NSString * pathToTeXMFPrograms;
-@property (readwrite,assign) NSArrayController * controllerForTeXMFPrograms;
+@property (readwrite,assign) NSArrayController * controllerForTeXDistributions;
 @property (readwrite,assign) NSArrayController * controllerForOtherPrograms;
 @end
 

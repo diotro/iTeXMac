@@ -1658,6 +1658,7 @@ To Do List:
 - (NSMutableArray *)orderedEnvironmentVariableNames;
 - (void)setOrderedEnvironmentVariableNames:(id)argument;
 - (id)environmentVariables;
+@property (readwrite,assign) NSTextView * environmentTableView;
 @end
 
 @implementation iTM2TeXDistributionPrefPane
@@ -1758,6 +1759,7 @@ To Do List:
 //END4iTM3;
     return result;
 }
+@synthesize environmentTableView = iVarEnvironmentTableView;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentTableView
 - (NSTableView *)environmentTableView;
 /*"Description Forthcoming.
@@ -1768,7 +1770,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return metaGETTER;
+    return self.environmentTableView;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setEnvironmentTableView:
 - (void)setEnvironmentTableView:(NSTableView *)argument;
@@ -1779,8 +1781,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	metaSETTER(argument);
-	argument.delegate = self;
+	self.environmentTableView.delegate = nil;
+	self.environmentTableView = argument;
+	self.environmentTableView.delegate = self;
 //END4iTM3;
     return;
 }
@@ -2517,7 +2520,7 @@ To Do List:
     return;
 }
 #pragma mark =-=-=-=-=-  DISTRIBUTIONS
-@synthesize controllerForTeXMFPrograms;
+@synthesize controllerForTeXDistributions;
 @synthesize controllerForOtherPrograms;
 - (NSArray *) arrayOfDistributionsForTeXMFPrograms;
 {

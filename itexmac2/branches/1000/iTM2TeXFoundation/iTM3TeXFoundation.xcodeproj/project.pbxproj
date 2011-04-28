@@ -85,7 +85,6 @@
 		513B8AB8134221CE006CA861 /* stock-hchain-broken-24.png in Resources */ = {isa = PBXBuildFile; fileRef = 513B8A7413421EA4006CA861 /* stock-hchain-broken-24.png */; };
 		513B8AB9134221DF006CA861 /* Engine_dvips4iTM3.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = 513B8A6513421EA4006CA861 /* Engine_dvips4iTM3.rb */; };
 		5150EC8B0E8139C300578A0A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5150EC8A0E8139C300578A0A /* libz.dylib */; };
-		5170B69013431BDC004F857A /* iTM2TeXFoundation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5170B68E13431BD3004F857A /* iTM2TeXFoundation.framework */; };
 		5170B710134478E9004F857A /* iTM3TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC3C4F08794A5E0060EC0F /* iTM3TeXFoundation.framework */; };
 		51731919134226F2000B2668 /* iTM2PStoPDFWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 513B8A7813421EA4006CA861 /* iTM2PStoPDFWrapperKit.m */; };
 		5173191A13422702000B2668 /* BaseProjects.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = 513B8A7D13421EA4006CA861 /* BaseProjects.resources.tgz */; };
@@ -93,8 +92,6 @@
 		5173191C13422702000B2668 /* iTM2EnginePStoPDF.xib in Resources */ = {isa = PBXBuildFile; fileRef = 513B8A8113421EA4006CA861 /* iTM2EnginePStoPDF.xib */; };
 		5173191D13422713000B2668 /* Engine_pstopdf4iTM3.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = 513B8A7613421EA4006CA861 /* Engine_pstopdf4iTM3.rb */; };
 		51999E360D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51999E340D92D744004F0D09 /* iTM2XtdTeXParserSymbolsInspector.xib */; };
-		519A8878136714890079C210 /* iTM2TeXDistributionKitTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 519A8876136714890079C210 /* iTM2TeXDistributionKitTestCases.m */; };
-		519A8879136714890079C210 /* iTM2TeXStringKitTestCases.m in Sources */ = {isa = PBXBuildFile; fileRef = 519A8877136714890079C210 /* iTM2TeXStringKitTestCases.m */; };
 		519A887C136714ED0079C210 /* iTM3SenTestKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 519A887B136714ED0079C210 /* iTM3SenTestKit.m */; };
 		51B73629133EAB6F00E7E772 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		51B7362A133EAB6F00E7E772 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F710C0F3CC700F2D5B9 /* libicucore.dylib */; };
@@ -281,19 +278,16 @@
 			remoteGlobalIDString = 51F00C1612E63B98002A4013;
 			remoteInfo = "Prepare embedded Tests";
 		};
+		51FB281A1369A08C00A544B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = iTM3TeXFoundation;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		5170B68B13431B71004F857A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 11;
-			files = (
-				5170B69013431BDC004F857A /* iTM2TeXFoundation.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		51B73630133EAC0E00E7E772 /* Copy Binaries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1378,12 +1372,12 @@
 				DC1C6B2E090D983F000F4FDE /* Resources */,
 				DC1C6B2F090D983F000F4FDE /* Sources */,
 				DC1C6B30090D983F000F4FDE /* Frameworks */,
-				5170B68B13431B71004F857A /* CopyFiles */,
 				DCBE56970BC3D04200899B35 /* Install all the plugins */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				51FB281B1369A08C00A544B1 /* PBXTargetDependency */,
 			);
 			name = "Test TeX Application";
 			productName = "Test Application";
@@ -1894,8 +1888,6 @@
 				51FAD9B9130298C900A59CD2 /* GTMUnitTestDevLog.m in Sources */,
 				51FAD9BC130298D300A59CD2 /* GTMObjC2Runtime.m in Sources */,
 				51FAD9CE1302D33C00A59CD2 /* GTMRegex.m in Sources */,
-				519A8878136714890079C210 /* iTM2TeXDistributionKitTestCases.m in Sources */,
-				519A8879136714890079C210 /* iTM2TeXStringKitTestCases.m in Sources */,
 				519A887C136714ED0079C210 /* iTM3SenTestKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1952,6 +1944,11 @@
 			isa = PBXTargetDependency;
 			target = 51F00C1612E63B98002A4013 /* Prepare embedded Tests */;
 			targetProxy = 51F00C4D12E64139002A4013 /* PBXContainerItemProxy */;
+		};
+		51FB281B1369A08C00A544B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* iTM3TeXFoundation */;
+			targetProxy = 51FB281A1369A08C00A544B1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2677,26 +2674,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5193AF481348E5DC00CACC84 /* Debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iTeXMac3-frzmgsbrlxrvoghffwppalpjjcbb/Build/Products\"",
-					"\"$(SRCROOT)\"",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
-				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
-				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
-				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = /Developer/Library/Frameworks;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-lgcov",
-				);
-				PRODUCT_NAME = "Test TeX Application";
 				iTM3_PRODUCT_NAME = "$(iTM3_TEST_TEX_APPLICATION_NAME)";
 			};
 			name = Debug;
@@ -2704,20 +2681,6 @@
 		DC6BB87309474619004B0A81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iTeXMac3-frzmgsbrlxrvoghffwppalpjjcbb/Build/Products\"",
-					"\"$(SRCROOT)\"",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
-				GCC_PREFIX_HEADER = "Test TeX Application/$(iTM2_PREFIX_HEADER)";
-				INFOPLIST_FILE = "Test TeX Application/Test TeX Application-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = /Developer/Library/Frameworks;
-				PRODUCT_NAME = "Test TeX Application";
 				iTM3_PRODUCT_NAME = "$(iTM3_TEST_TEX_APPLICATION_NAME)";
 			};
 			name = Release;
