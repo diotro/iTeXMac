@@ -2658,11 +2658,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5193AF4F1348E5DC00CACC84 /* Framework.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
 				INFOPLIST_FILE = "iTM3TeXFoundation-Info.plist";
 				PRODUCT_NAME = iTM3TeXFoundation;
 				iTM2_FRAMEWORK_ADDRESS = "$(iTM2TEXFOUNDATION_ADDRESS)";
