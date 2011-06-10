@@ -1,5 +1,5 @@
 /* 
-Copyright (c) 2008, 2009, 2010 , 2011 jerome DOT laurens AT u-bourgogne DOT fr
+Copyright (c) 2008, 2009, 2010, 2011 jerome DOT laurens AT u-bourgogne DOT fr
 
 This file is part of the SyncTeX package.
 
@@ -92,7 +92,7 @@ synctex_bool_t _synctex_is_equivalent_file_name(const char *lhs, const char *rhs
 synctex_bool_t _synctex_path_is_absolute(const char * name);
 
 /*	Description forthcoming...*/
-char * _synctex_last_path_component(const char * name);
+const char * _synctex_last_path_component(const char * name);
 
 /*	If the core of the last path component of src is not already enclosed with double quotes ('"')
  *  and contains a space character (' '), then a new buffer is created, the src is copied and quotes are added.
@@ -106,8 +106,8 @@ char * _synctex_last_path_component(const char * name);
 int _synctex_copy_with_quoting_last_path_component(const char * src, char ** dest_ref, size_t size);
 
 /*  These are the possible extensions of the synctex file */
-static const char * synctex_suffix = ".synctex";
-static const char * synctex_suffix_gz = ".gz";
+extern const char * synctex_suffix;
+extern const char * synctex_suffix_gz;
 
 typedef unsigned int synctex_io_mode_t;
 
@@ -116,9 +116,10 @@ typedef enum {
     synctex_io_gz_mask = synctex_io_append_mask<<1
 } synctex_io_mode_masks_t;
 
-enum {
-    synctex_io_mode_read = 0
-};
+typedef enum {
+	synctex_compress_mode_none = 0,
+	synctex_compress_mode_gz = 1
+} synctex_compress_mode_t;
 
 int _synctex_get_name(const char * output, const char * build_directory, char ** synctex_name_ref, synctex_io_mode_t * io_mode_ref);
 
