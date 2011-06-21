@@ -143,7 +143,7 @@ typedef enum
 @private
     IBOutlet id controllerForTeXDistributions;
     IBOutlet id controllerForOtherPrograms;
-    NSTextView * iVarEnvironmentTableView;
+    NSTableView * iVarEnvironmentTableView;
 }
 @property (readwrite,copy) NSString * pathToTeXMFPrograms;
 @property (readwrite,assign) NSArrayController * controllerForTeXDistributions;

@@ -1658,7 +1658,7 @@ To Do List:
 - (NSMutableArray *)orderedEnvironmentVariableNames;
 - (void)setOrderedEnvironmentVariableNames:(id)argument;
 - (id)environmentVariables;
-@property (readwrite,assign) NSTextView * environmentTableView;
+@property (readwrite,assign) NSTableView * _environmentTableView;
 @end
 
 @implementation iTM2TeXDistributionPrefPane
@@ -1749,8 +1749,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	id result = metaGETTER;
-	if(!result)
-	{
+	if (!result) {
 		NSDictionary * seed = [SUD dictionaryForKey:iTM2EnvironmentVariablesKey];
 		result = seed? [NSMutableDictionary dictionaryWithDictionary:seed]:[NSMutableDictionary dictionary];
 		metaSETTER(result);
@@ -1759,7 +1758,7 @@ To Do List:
 //END4iTM3;
     return result;
 }
-@synthesize environmentTableView = iVarEnvironmentTableView;
+@synthesize _environmentTableView = iVarEnvironmentTableView;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= environmentTableView
 - (NSTableView *)environmentTableView;
 /*"Description Forthcoming.
@@ -1770,7 +1769,7 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 //END4iTM3;
-    return self.environmentTableView;
+    return self._environmentTableView;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= setEnvironmentTableView:
 - (void)setEnvironmentTableView:(NSTableView *)argument;
@@ -1781,9 +1780,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	self.environmentTableView.delegate = nil;
-	self.environmentTableView = argument;
-	self.environmentTableView.delegate = self;
+	self._environmentTableView.delegate = nil;
+	self._environmentTableView = argument;
+	self._environmentTableView.delegate = self;
 //END4iTM3;
     return;
 }

@@ -19,7 +19,7 @@
 //  to the actual developper team.
 */
 
-#import "iTM2TeXFoundation/synctex_parser.h"
+#import "iTM3TeXFoundation/synctex_parser.h"
 
 extern NSString * const iTM2PDFSyncParsedNotificationName;
 extern NSString * const iTM2PDFNoSynchronizationKey;

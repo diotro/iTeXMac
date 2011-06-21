@@ -6015,7 +6015,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# shell script goes here\ncd \"${PROJECT_DIR}/../ICU\"\nif ! [ -d \"icu\" ]\nthen\n\tunzip -oq icu.zip\nfi\nexit 0";
+			shellScript = "# shell script goes here\ncd \"${PROJECT_DIR}/../ICU\"\nif ! [ -d \"icu\" ]\nthen\n\tunzip -oq icu.zip\nfi\nif ! [ -d \"icu\" ]\nthen\n\techo \"FAILURE... missing icu\"\n\texit 1\nfi\nif ! [ -d \"unicode\" ]\nthen\n\tunzip -oq unicode.zip\nfi\nif ! [ -d \"unicode\" ]\nthen\n\techo \"FAILURE... missing unicode\"\n\texit 1\nfi\nexit 0";
 		};
 		5183F2AE12CACF04009C5B3F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
