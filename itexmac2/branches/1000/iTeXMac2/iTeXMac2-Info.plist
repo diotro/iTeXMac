@@ -930,7 +930,7 @@
 	<key>CFBundleIconFile</key>
 	<string>iTeXMac2.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>comp.text.tex.iTeXMac2</string>
+	<string>${iTeXMac2BundleIdentifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -949,6 +949,12 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
+	<string>SVN_BUILD_NUMBER</string>
+	<key>iTM2CompanyEmail</key>
+	<string>jlaurens@users.sourceforge.net</string>
+	<key>iTM2CompanyName</key>
+	<string>Laurens&apos;Tribune</string>
+	<key>iTM2SourceVersion</key>
 	<string>SVN_BUILD_NUMBER</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
@@ -976,12 +982,12 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>TeX File</string>
+			<key>UTTypeIconFile</key>
+			<string>TEX</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.tug.tex</string>
 			<key>UTTypeReferenceURL</key>
 			<string>http://www.tug.org</string>
-			<key>UTTypeIconFile</key>
-			<string>TEX</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -2725,11 +2731,5 @@
 	</array>
 	<key>XCFBundleVersion</key>
 	<string>2.0 preview  (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
-	<key>iTM2CompanyEmail</key>
-	<string>jlaurens@users.sourceforge.net</string>
-	<key>iTM2CompanyName</key>
-	<string>Laurens&apos;Tribune</string>
-	<key>iTM2SourceVersion</key>
-	<string>SVN_BUILD_NUMBER</string>
 </dict>
 </plist>

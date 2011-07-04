@@ -9,28 +9,28 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>110</integer>
+			<integer>93</integer>
 		</dict>
 		<key>Prepare Framework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>111</integer>
+			<integer>94</integer>
 		</dict>
 		<key>iTM2TEMPLATE_PLUGIN.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>112</integer>
+			<integer>95</integer>
 		</dict>
 		<key>iTeXMac2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>109</integer>
+			<integer>92</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

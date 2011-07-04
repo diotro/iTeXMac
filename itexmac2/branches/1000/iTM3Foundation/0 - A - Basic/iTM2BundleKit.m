@@ -40,10 +40,6 @@ NSString * const iTM2SupportBinaryComponent = @"bin";
 
 NSString * const iTM2SupportTextComponent = @"Text Editor.localized";
 
-NSString * const iTeXMac2BundleIdentifier = @"comp.text.tex.iTeXMac2";
-NSString * const iTM3FoundationBundleIdentifier = @"comp.text.tex.iTM3Foundation";
-NSString * const iTM2TeXFoundationBundleIdentifier = @"comp.text.tex.iTM2TeXFoundation";
-
 NSString * const iTM2BundleDidLoadNotification = @"iTM2BundleDidLoad";
 
 NSString * const iTM2BundleContentsComponent = @"Contents";

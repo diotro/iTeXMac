@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>iTM3Foundation</string>
 	<key>CFBundleIdentifier</key>
-	<string>comp.text.tex.iTM3Foundation</string>
+	<string>$(iTM3FoundationBundleIdentifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>

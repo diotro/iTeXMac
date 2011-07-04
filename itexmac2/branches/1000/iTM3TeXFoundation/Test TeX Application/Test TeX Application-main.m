@@ -1,5 +1,5 @@
 //
-//  iTeXMac2-main.m
+//  Test TeX Application-main.m
 //  iTM2
 //
 //  @version Subversion: $Id$ 
@@ -31,13 +31,13 @@ int main(int argc, char *argv[]) {
 
 static id text = nil;
 
-#include "iTM2TeXFoundationTestCases.m"
+#include "iTM3TeXFoundationTestCases.m"
 
 @implementation iTM2Application(Test)
 
 - (void)prepare000000000CompleteDidFinishLaunching4iTM3;
 {
-    invoke_iTM2TeXFoundation_testCases();
+    invoke_iTM3TeXFoundation_testCases();
 #if 0
     [[[iTM2Test_RE alloc] init]invokeTest];
     [[[iTM2Test0A alloc] init]invokeTest];

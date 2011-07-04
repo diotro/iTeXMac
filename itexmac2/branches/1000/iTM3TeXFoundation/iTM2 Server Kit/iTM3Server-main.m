@@ -77,10 +77,6 @@ int main(int argc, const char *argv[])
     return 1;
 }
 
-#warning *** FRAGILE design: iTeXMac2BundleIdentifier
-#pragma mark *** FRAGILE design: iTeXMac2BundleIdentifier
-NSString * const iTeXMac2BundleIdentifier = @"comp.text.tex.iTeXMac2";
-
 BOOL LaunchiTeXMac2IfNeeded(int argc, const char *argv[])
 {
     #if __TEST__

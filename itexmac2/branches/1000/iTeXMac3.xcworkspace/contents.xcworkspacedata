@@ -5,7 +5,7 @@
       location = "group:iTM3Foundation/iTM3Foundation.xcodeproj">
    </FileRef>
    <FileRef
-      location = "absolute:/Users/itexmac2/dev/itexmac2/branches/814+/iTM2Foundation/../iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj">
+      location = "group:iTM3TeXFoundation/iTM3TeXFoundation.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:iTM2TeXFoundation/../iTeXMac2/iTeXMac2.xcodeproj">
@@ -228,9 +228,6 @@
          location = "group:DevelopmentGC.xcconfig">
       </FileRef>
       <FileRef
-         location = "group:Framework">
-      </FileRef>
-      <FileRef
          location = "group:GC-set.xcconfig">
       </FileRef>
       <FileRef
@@ -238,9 +235,6 @@
       </FileRef>
       <FileRef
          location = "group:FrameworkDevelopment.xcconfig">
-      </FileRef>
-      <FileRef
-         location = "group:PlugIn">
       </FileRef>
       <FileRef
          location = "group:PlugInDeployment.xcconfig">

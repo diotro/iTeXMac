@@ -216,58 +216,58 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		5170B700134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E830813C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = DCF2E57E095240C600EE54E2;
 			remoteInfo = "iTeXMac2 Server";
 		};
-		5170B702134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E830A13C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = DCCC3C4F08794A5E0060EC0F;
-			remoteInfo = iTM2TeXFoundation;
+			remoteInfo = iTM3TeXFoundation;
 		};
-		5170B704134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E830C13C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = DC1C6B32090D983F000F4FDE;
 			remoteInfo = "Test TeX Application";
 		};
-		5170B706134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E830E13C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = DC4E16D50CCD04FF00F5CE3E;
 			remoteInfo = "Test Suite";
 		};
-		5170B708134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E831013C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 51B733C5133EA9CB00E7E772;
 			remoteInfo = "TeX wrapper";
 		};
-		5170B70A134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E831213C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 51B7364D1340F04500E7E772;
 			remoteInfo = "dvipdfm wrapper";
 		};
-		5170B70C134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E831413C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 51B7366F1340F0D400E7E772;
 			remoteInfo = "dvips wrapper";
 		};
-		5170B70E134477E5004F857A /* PBXContainerItemProxy */ = {
+		516E831613C219B9000F7244 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+			containerPortal = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 51B736871340F1BB00E7E772;
 			remoteInfo = "pstopdf wrapper";
@@ -341,7 +341,7 @@
 		51374707133D64F600C3E3AA /* Framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Framework; sourceTree = "<group>"; };
 		5137470A133D64F600C3E3AA /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
 		5137470B133D64F600C3E3AA /* PlugIn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlugIn; sourceTree = "<group>"; };
-		5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iTM2TeXFoundation.xcodeproj; path = "/Users/itexmac2/dev/itexmac2/branches/814+/iTM2Foundation/../iTM2TeXFoundation/iTM2TeXFoundation.xcodeproj"; sourceTree = "<absolute>"; };
+		516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iTM3TeXFoundation.xcodeproj; path = ../iTM3TeXFoundation/iTM3TeXFoundation.xcodeproj; sourceTree = "<group>"; };
 		51B736EE1341B28000E7E772 /* Debug-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
 		51B736EF1341B28000E7E772 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		51B736F01341B28000E7E772 /* DebugGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
@@ -592,7 +592,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* iTeXMac2 */ = {
 			isa = PBXGroup;
 			children = (
-				5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */,
+				516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */,
 				DCB93A4607D6FFAA005E5B38 /* README.txt */,
 				DCB530100B59B8A700CD713D /* GetSourceVersion */,
 				DCB93A5107D6FFC1005E5B38 /* iTeXMac2 */,
@@ -601,6 +601,7 @@
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				51374701133D64F600C3E3AA /* Settings */,
 				53E56524106BD64B0077B6FD /* Mail.app */,
+				5107A2C213C20F16004C7B72 /* Recovered References */,
 			);
 			name = iTeXMac2;
 			sourceTree = "<group>";
@@ -612,6 +613,14 @@
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5107A2C213C20F16004C7B72 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				51D56AC11348655E00240F31 /* PlugIn.xcconfig */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		51374701133D64F600C3E3AA /* Settings */ = {
@@ -634,17 +643,17 @@
 			path = ../Settings;
 			sourceTree = "<group>";
 		};
-		5170B6F4134477E4004F857A /* Products */ = {
+		516E82FC13C219B9000F7244 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5170B701134477E5004F857A /* iTeXMac2 Server */,
-				5170B703134477E5004F857A /* iTM2TeXFoundation.framework */,
-				5170B705134477E5004F857A /* Test TeX Application.app */,
-				5170B707134477E5004F857A /* Test Suite.octest */,
-				5170B709134477E5004F857A /* TeX wrapper.iTM2 */,
-				5170B70B134477E5004F857A /* dvipdfm wrapper.iTM2 */,
-				5170B70D134477E5004F857A /* dvips wrapper.iTM2 */,
-				5170B70F134477E5004F857A /* pstopdf wrapper.iTM2 */,
+				516E830913C219B9000F7244 /* iTeXMac2 Server */,
+				516E830B13C219B9000F7244 /* iTM3TeXFoundation.framework */,
+				516E830D13C219B9000F7244 /* Test TeX Application.app */,
+				516E830F13C219B9000F7244 /* Test Suite.octest */,
+				516E831113C219B9000F7244 /* TeX wrapper.iTM2 */,
+				516E831313C219B9000F7244 /* dvipdfm wrapper.iTM2 */,
+				516E831513C219B9000F7244 /* dvips wrapper.iTM2 */,
+				516E831713C219B9000F7244 /* pstopdf wrapper.iTM2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -913,8 +922,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 5170B6F4134477E4004F857A /* Products */;
-					ProjectRef = 5170B6F3134477E4004F857A /* iTM2TeXFoundation.xcodeproj */;
+					ProductGroup = 516E82FC13C219B9000F7244 /* Products */;
+					ProjectRef = 516E82FB13C219B9000F7244 /* iTM3TeXFoundation.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -931,60 +940,60 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		5170B701134477E5004F857A /* iTeXMac2 Server */ = {
+		516E830913C219B9000F7244 /* iTeXMac2 Server */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = "iTeXMac2 Server";
-			remoteRef = 5170B700134477E5004F857A /* PBXContainerItemProxy */;
+			remoteRef = 516E830813C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5170B703134477E5004F857A /* iTM2TeXFoundation.framework */ = {
+		516E830B13C219B9000F7244 /* iTM3TeXFoundation.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = iTM2TeXFoundation.framework;
-			remoteRef = 5170B702134477E5004F857A /* PBXContainerItemProxy */;
+			path = iTM3TeXFoundation.framework;
+			remoteRef = 516E830A13C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5170B705134477E5004F857A /* Test TeX Application.app */ = {
+		516E830D13C219B9000F7244 /* Test TeX Application.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "Test TeX Application.app";
-			remoteRef = 5170B704134477E5004F857A /* PBXContainerItemProxy */;
+			remoteRef = 516E830C13C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5170B707134477E5004F857A /* Test Suite.octest */ = {
+		516E830F13C219B9000F7244 /* Test Suite.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "Test Suite.octest";
-			remoteRef = 5170B706134477E5004F857A /* PBXContainerItemProxy */;
+			remoteRef = 516E830E13C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5170B709134477E5004F857A /* TeX wrapper.iTM2 */ = {
+		516E831113C219B9000F7244 /* TeX wrapper.iTM2 */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "TeX wrapper.iTM2";
-			remoteRef = 5170B708134477E5004F857A /* PBXContainerItemProxy */;
+			remoteRef = 516E831013C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5170B70B134477E5004F857A /* dvipdfm wrapper.iTM2 */ = {
+		516E831313C219B9000F7244 /* dvipdfm wrapper.iTM2 */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "dvipdfm wrapper.iTM2";
-			remoteRef = 5170B70A134477E5004F857A /* PBXContainerItemProxy */;
+			remoteRef = 516E831213C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5170B70D134477E5004F857A /* dvips wrapper.iTM2 */ = {
+		516E831513C219B9000F7244 /* dvips wrapper.iTM2 */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "dvips wrapper.iTM2";
-			remoteRef = 5170B70C134477E5004F857A /* PBXContainerItemProxy */;
+			remoteRef = 516E831413C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5170B70F134477E5004F857A /* pstopdf wrapper.iTM2 */ = {
+		516E831713C219B9000F7244 /* pstopdf wrapper.iTM2 */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "pstopdf wrapper.iTM2";
-			remoteRef = 5170B70E134477E5004F857A /* PBXContainerItemProxy */;
+			remoteRef = 516E831613C219B9000F7244 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DC9815C3092A2FBE0011D8DA"
-               BuildableName = "NONE.bundle"
+               BuildableName = "NONE.iTM2"
                BlueprintName = "TeXExec wrapper"
                ReferencedContainer = "container:iTM2ConTeXtEngines.xcodeproj">
             </BuildableReference>

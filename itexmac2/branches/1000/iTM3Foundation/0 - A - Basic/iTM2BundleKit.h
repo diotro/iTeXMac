@@ -32,8 +32,6 @@ extern NSString * const iTM2SupportTextComponent;
 
 extern NSString * const iTM2LocalizedExtension;
 
-extern NSString * const iTeXMac2BundleIdentifier;
-
 extern NSString * const iTM2BundleDidLoadNotification;
 
 extern NSString * const iTM2BundleContentsComponent;
