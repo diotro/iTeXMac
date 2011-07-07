@@ -1,0 +1,120 @@
+// !$*UTF8*$!
+{
+	51EDCD3B13C6559100B505A7 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeTarget = 51EDCD7813C6586400B505A7 /* TeXDist */;
+		addToTargets = (
+		);
+		codeSenseManager = 51EDCD4013C6559100B505A7 /* Code sense */;
+		ignoreBreakpointsInProjectsDict = {
+		};
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					229,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					341,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					301,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 331766069;
+			PBXWorkspaceStateSaveDate = 331766069;
+		};
+		perUserProjectItems = {
+			51EDCDA813C6598900B505A7 /* PlistBookmark */ = 51EDCDA813C6598900B505A7 /* PlistBookmark */;
+			51EDCDA913C6598900B505A7 /* PlistBookmark */ = 51EDCDA913C6598900B505A7 /* PlistBookmark */;
+		};
+		sourceControlManager = 51EDCD3F13C6559100B505A7 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	51EDCD3F13C6559100B505A7 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	51EDCD4013C6559100B505A7 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	51EDCD7813C6586400B505A7 /* TeXDist */ = {
+		activeExec = 0;
+	};
+	51EDCDA813C6598900B505A7 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 51EDCDA213C6595500B505A7 /* TeXDist-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/itexmac2/dev/itexmac/itexmac2/branches/1000/TeXDist/TeXDist-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	51EDCDA913C6598900B505A7 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 51EDCDA213C6595500B505A7 /* TeXDist-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/itexmac2/dev/itexmac/itexmac2/branches/1000/TeXDist/TeXDist-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+}

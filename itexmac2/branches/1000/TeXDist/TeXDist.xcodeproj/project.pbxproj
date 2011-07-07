@@ -1,0 +1,256 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		51EDCD8213C6589700B505A7 /* TeXDist.bz2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 51EDCD4A13C6561D00B505A7 /* TeXDist.bz2 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		51EDCD8813C658BD00B505A7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = tmp;
+			dstSubfolderSpec = 16;
+			files = (
+				51EDCD8213C6589700B505A7 /* TeXDist.bz2 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		51EDCD4A13C6561D00B505A7 /* TeXDist.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = TeXDist.bz2; sourceTree = "<group>"; };
+		51EDCD5513C6572D00B505A7 /* Debug-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51EDCD5613C6572D00B505A7 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51EDCD5713C6572D00B505A7 /* DebugGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51EDCD5813C6572D00B505A7 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
+		51EDCD5913C6572D00B505A7 /* Deployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		51EDCD5A13C6572D00B505A7 /* Development-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
+		51EDCD5B13C6572D00B505A7 /* Development.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		51EDCD5C13C6572D00B505A7 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
+		51EDCD5D13C6572D00B505A7 /* Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		51EDCD5E13C6572D00B505A7 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51EDCD5F13C6572D00B505A7 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		51EDCD6013C6572D00B505A7 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		51EDCD6113C6572D00B505A7 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51EDCD6213C6572D00B505A7 /* GC-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		51EDCD6313C6572D00B505A7 /* PlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugIn.xcconfig; sourceTree = "<group>"; };
+		51EDCD6413C6572D00B505A7 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51EDCD6513C6572D00B505A7 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		51EDCD6613C6572D00B505A7 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		51EDCD6713C6572D00B505A7 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51EDCD6813C6572D00B505A7 /* Products-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Products-set.xcconfig"; sourceTree = "<group>"; };
+		51EDCD6913C6572D00B505A7 /* Release-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51EDCD6A13C6572D00B505A7 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		51EDCD7913C6586400B505A7 /* TeXDist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TeXDist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51EDCDA213C6595500B505A7 /* TeXDist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeXDist-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		51EDCD3913C6559100B505A7 = {
+			isa = PBXGroup;
+			children = (
+				51EDCD4A13C6561D00B505A7 /* TeXDist.bz2 */,
+				51EDCD5413C6572D00B505A7 /* Settings */,
+				51EDCD7A13C6586400B505A7 /* Products */,
+				51EDCDA213C6595500B505A7 /* TeXDist-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		51EDCD5413C6572D00B505A7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				51EDCD5513C6572D00B505A7 /* Debug-set.xcconfig */,
+				51EDCD5613C6572D00B505A7 /* Debug.xcconfig */,
+				51EDCD5713C6572D00B505A7 /* DebugGC.xcconfig */,
+				51EDCD5813C6572D00B505A7 /* Deployment-set.xcconfig */,
+				51EDCD5913C6572D00B505A7 /* Deployment.xcconfig */,
+				51EDCD5A13C6572D00B505A7 /* Development-set.xcconfig */,
+				51EDCD5B13C6572D00B505A7 /* Development.xcconfig */,
+				51EDCD5C13C6572D00B505A7 /* DevelopmentGC.xcconfig */,
+				51EDCD5D13C6572D00B505A7 /* Framework.xcconfig */,
+				51EDCD5E13C6572D00B505A7 /* FrameworkDebug.xcconfig */,
+				51EDCD5F13C6572D00B505A7 /* FrameworkDeployment.xcconfig */,
+				51EDCD6013C6572D00B505A7 /* FrameworkDevelopment.xcconfig */,
+				51EDCD6113C6572D00B505A7 /* FrameworkRelease.xcconfig */,
+				51EDCD6213C6572D00B505A7 /* GC-set.xcconfig */,
+				51EDCD6313C6572D00B505A7 /* PlugIn.xcconfig */,
+				51EDCD6413C6572D00B505A7 /* PlugInDebug.xcconfig */,
+				51EDCD6513C6572D00B505A7 /* PlugInDeployment.xcconfig */,
+				51EDCD6613C6572D00B505A7 /* PlugInDevelopment.xcconfig */,
+				51EDCD6713C6572D00B505A7 /* PlugInRelease.xcconfig */,
+				51EDCD6813C6572D00B505A7 /* Products-set.xcconfig */,
+				51EDCD6913C6572D00B505A7 /* Release-set.xcconfig */,
+				51EDCD6A13C6572D00B505A7 /* Release.xcconfig */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = SOURCE_ROOT;
+		};
+		51EDCD7A13C6586400B505A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				51EDCD7913C6586400B505A7 /* TeXDist.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		51EDCD7813C6586400B505A7 /* TeXDist */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51EDCD7E13C6586500B505A7 /* Build configuration list for PBXNativeTarget "TeXDist" */;
+			buildPhases = (
+				51EDCD8813C658BD00B505A7 /* CopyFiles */,
+				51EDCD8613C658A500B505A7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TeXDist;
+			productName = TeXDist;
+			productReference = 51EDCD7913C6586400B505A7 /* TeXDist.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		51EDCD3B13C6559100B505A7 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 51EDCD3E13C6559100B505A7 /* Build configuration list for PBXProject "TeXDist" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 51EDCD3913C6559100B505A7;
+			productRefGroup = 51EDCD7A13C6586400B505A7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				51EDCD7813C6586400B505A7 /* TeXDist */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		51EDCD8613C658A500B505A7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find \"${BUILT_PRODUCTS_DIR}/tmp/\" -name \"*.bz2\" -exec tar -xvzf \"{}\"  -C \"${BUILT_PRODUCTS_DIR}\" \\; -print";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		51EDCD3C13C6559100B505A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51EDCD5613C6572D00B505A7 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		51EDCD3D13C6559100B505A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51EDCD6A13C6572D00B505A7 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		51EDCD7C13C6586500B505A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "TeXDist-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TeXDist;
+			};
+			name = Debug;
+		};
+		51EDCD7D13C6586500B505A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "TeXDist-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = TeXDist;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		51EDCD3E13C6559100B505A7 /* Build configuration list for PBXProject "TeXDist" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51EDCD3C13C6559100B505A7 /* Debug */,
+				51EDCD3D13C6559100B505A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		51EDCD7E13C6586500B505A7 /* Build configuration list for PBXNativeTarget "TeXDist" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51EDCD7C13C6586500B505A7 /* Debug */,
+				51EDCD7D13C6586500B505A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 51EDCD3B13C6559100B505A7 /* Project object */;
+}
