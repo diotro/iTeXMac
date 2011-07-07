@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:TeXDist/TeXDist.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:iTM3Foundation/iTM3Foundation.xcodeproj">
    </FileRef>
    <FileRef

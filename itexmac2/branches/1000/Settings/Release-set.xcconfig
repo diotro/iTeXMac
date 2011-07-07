@@ -24,7 +24,7 @@ GCC_ENABLE_OBJC_EXCEPTIONS = YES
 GCC_ENABLE_OBJC_GC = required
 PREBINDING = NO
 GCC_PREFIX_HEADER = $(iTM2_PREFIX_HEADER)
-GCC_PREPROCESSOR_DEFINITIONS_RELEASE = __SYNCTEX_STRONG_DISPLAY_QUERY__ iTeXMac2BundleIdentifier=\"$(iTeXMac2BundleIdentifier)\" iTM3FoundationBundleIdentifier=\"$(iTM3FoundationBundleIdentifier)\" iTM2TeXFoundationBundleIdentifier=\"$(iTM2TeXFoundationBundleIdentifier)\"
+GCC_PREPROCESSOR_DEFINITIONS_RELEASE = __SYNCTEX_STRONG_DISPLAY_QUERY__ iTeXMac2BundleIdentifier=@\"$(iTeXMac2BundleIdentifier)\" iTM3FoundationBundleIdentifier=@\"$(iTM3FoundationBundleIdentifier)\" iTM2TeXFoundationBundleIdentifier=@\"$(iTM2TeXFoundationBundleIdentifier)\"
 //"
 INFOPLIST_FILE = $(iTM2_INFOPLIST_FILE)
 INFOPLIST_OUTPUT_FORMAT = xml
@@ -37,9 +37,9 @@ FRAMEWORK_SEARCH_PATHS_QUOTED_1 = $(BUILD_DIR) $(BUILD_DIR)/Lua.framework/Header
 HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS_QUOTED_1) $(inherited)
 HEADER_SEARCH_PATHS_QUOTED_1 = $(BUILD_DIR)  $(BUILD_DIR)/EmbeddedTestCases $(BUILD_DIR)/Lua.framework/Headers $(SRCROOT)/../ICU/icu/source/common $(SRCROOT)/../ICU/icu/source/i18n
 LD_RUNPATH_SEARCH_PATHS = $(iTM3_DEVROOT)/Library/Frameworks
-iTeXMac2BundleIdentifier = @"comp.text.tex.iTeXMac2"
-iTeXMac3BundleIdentifier = @"comp.text.tex.iTeXMac3"
-iTM3FoundationBundleIdentifier = @"comp.text.tex.iTM3Foundation"
-iTM2TeXFoundationBundleIdentifier = @"comp.text.tex.iTM2TeXFoundation"
+iTeXMac2BundleIdentifier = comp.text.tex.iTeXMac2
+iTeXMac3BundleIdentifier = comp.text.tex.iTeXMac3
+iTM3FoundationBundleIdentifier = comp.text.tex.iTM3Foundation
+iTM2TeXFoundationBundleIdentifier = comp.text.tex.iTM2TeXFoundation
 
 

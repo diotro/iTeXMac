@@ -9,56 +9,56 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>61</integer>
+			<integer>92</integer>
 		</dict>
 		<key>Build &amp; Install Engines.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>58</integer>
+			<integer>89</integer>
 		</dict>
 		<key>ConTeXt Garden.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>49</integer>
+			<integer>81</integer>
 		</dict>
 		<key>Install Engines.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>53</integer>
+			<integer>85</integer>
 		</dict>
 		<key>Prepare Milestones.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>57</integer>
+			<integer>88</integer>
 		</dict>
 		<key>Prepare iTM2TeXFoundation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>55</integer>
+			<integer>86</integer>
 		</dict>
 		<key>iTM2ConTeXtKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>59</integer>
+			<integer>90</integer>
 		</dict>
 		<key>iTeXMac2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>51</integer>
+			<integer>83</integer>
 		</dict>
 		<key>s.xcscheme</key>
 		<dict>

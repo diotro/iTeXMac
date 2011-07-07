@@ -148,13 +148,13 @@ To Do List:
     }
     NSString * mode;
     BOOL result = YES;
-    for(mode in [self.spellContexts keyEnumerator])
+    for (mode in [self.spellContexts keyEnumerator])
     {
 		NSString * component = [mode stringByAppendingPathExtension:TWSSpellExtension];
 		NSString * path = [directoryName stringByAppendingPathComponent:component];
 		NSURL * url = [NSURL fileURLWithPath:path];
 		NSError * error = nil;
-        if(![[self spellContextForMode:mode] writeToURL:url error:&error])
+        if (![[self spellContextForMode:mode] writeToURL:url error:&error])
 		{
 			if(iTM2DebugEnabled && (error!=nil))
 				[SDC presentError:error];

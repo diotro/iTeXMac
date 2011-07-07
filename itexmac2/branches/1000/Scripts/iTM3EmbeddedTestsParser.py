@@ -190,12 +190,16 @@ def main():
                     testCases.append("#import \"%s/%s.m\""%(frmk_name,class_name))
                     testCaseInvocations.append("    [[[%s alloc] init] invokeTest];"%class_name)
     if len(testCases):
-        testCases.append("#warning %s\nvoid invoke_%s_testCases(void);\nvoid invoke_%s_testCases(void) {"%(frmk_name,frmk_name,frmk_name))
+        main_function_name = "invoke_%s_testCases"%frmk_name
+        testCases.append("%s\nvoid %s(void);\nvoid %s(void) {"%(frmk_name,main_function_name,main_function_name))
         testCases.extend(testCaseInvocations)
         testCases.append("}")
         testCases.insert(0,"//This file was generated automatically by the 'Prepare Embedded Tests' build phase.")
         try:
-            f = open(os.path.join(test_dir,"%sTestCases.m"%frmk_name), "w")
+            where = os.path.join(test_dir,"%sTestCases.m"%frmk_name)
+            f = open(where, "w")
+            print "Tests file: "+where
+            print "Main function name: "+main_function_name
             try:
                 f.write("\n".join(testCases))
             finally:

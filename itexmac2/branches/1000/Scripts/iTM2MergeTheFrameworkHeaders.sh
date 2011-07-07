@@ -12,7 +12,7 @@ fi
 targets="`ls -1 -R *.h`$IFS"
 echo "// ${PRODUCT_NAME} merged headers" > "${header}"
 echo "// Automatically created when building project ${PROJECT_NAME}" >> "${header}"
-echo "// Created on `date "+Created on %m/%d/%y at %H:%M:%S"`" >> "${header}"
+echo "// $(date "+Created on %m/%d/%y at %H:%M:%S")" >> "${header}"
 for var in ${targets}
 do
 	echo "#import <${PRODUCT_NAME}/$var>" >> "${header}"

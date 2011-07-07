@@ -9,42 +9,42 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>89</integer>
+			<integer>120</integer>
 		</dict>
 		<key>Prepare Milestones.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>88</integer>
+			<integer>119</integer>
 		</dict>
 		<key>Prepare embedded Tests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>102</integer>
+			<integer>133</integer>
 		</dict>
 		<key>Prepare iTM2TeXFoundation.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>91</integer>
+			<integer>122</integer>
 		</dict>
 		<key>iTM2PDFKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>87</integer>
+			<integer>118</integer>
 		</dict>
 		<key>iTeXMac2.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>90</integer>
+			<integer>121</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
