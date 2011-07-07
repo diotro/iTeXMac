@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51EDCD8213C6589700B505A7 /* TeXDist.bz2 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 51EDCD4A13C6561D00B505A7 /* TeXDist.bz2 */; };
+		51EDCE4F13C65E6800B505A7 /* TeXDist-Info.plist in CopyFiles */ = {isa = PBXBuildFile; fileRef = 51EDCE4E13C65E6800B505A7 /* TeXDist-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,6 +19,7 @@
 			dstSubfolderSpec = 16;
 			files = (
 				51EDCD8213C6589700B505A7 /* TeXDist.bz2 in CopyFiles */,
+				51EDCE4F13C65E6800B505A7 /* TeXDist-Info.plist in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,7 +50,7 @@
 		51EDCD6913C6572D00B505A7 /* Release-set.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
 		51EDCD6A13C6572D00B505A7 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		51EDCD7913C6586400B505A7 /* TeXDist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TeXDist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		51EDCDA213C6595500B505A7 /* TeXDist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeXDist-Info.plist"; sourceTree = "<group>"; };
+		51EDCE4E13C65E6800B505A7 /* TeXDist-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TeXDist-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -56,9 +58,9 @@
 			isa = PBXGroup;
 			children = (
 				51EDCD4A13C6561D00B505A7 /* TeXDist.bz2 */,
+				51EDCE4D13C65E6800B505A7 /* TeXDist */,
 				51EDCD5413C6572D00B505A7 /* Settings */,
 				51EDCD7A13C6586400B505A7 /* Products */,
-				51EDCDA213C6595500B505A7 /* TeXDist-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +100,14 @@
 				51EDCD7913C6586400B505A7 /* TeXDist.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		51EDCE4D13C65E6800B505A7 /* TeXDist */ = {
+			isa = PBXGroup;
+			children = (
+				51EDCE4E13C65E6800B505A7 /* TeXDist-Info.plist */,
+			);
+			path = TeXDist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,54 +188,19 @@
 		51EDCD7C13C6586500B505A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "TeXDist-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = TeXDist;
+				iTM3_PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		51EDCD7D13C6586500B505A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "TeXDist-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Frameworks";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = TeXDist;
-				ZERO_LINK = NO;
+				iTM3_PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
