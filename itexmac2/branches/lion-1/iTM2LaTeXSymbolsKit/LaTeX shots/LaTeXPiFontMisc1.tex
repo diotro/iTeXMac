@@ -1,0 +1,37 @@
+\documentclass[11pt]{article}
+\usepackage{pifont}
+\begin{document}
+\newbox\shipoutbox
+%%%% Misc1
+\setbox\shipoutbox=\hbox{%
+\arraycolsep0pt
+\begin{tabular}{ccc}
+\ding{33}&\ding{34}&\ding{35}\\
+\ding{36}&\ding{37}&\ding{38}\\
+\ding{39}&\ding{40}&\ding{41}\\
+\ding{42}&\ding{43}&\ding{44}\\
+\ding{45}&\ding{46}&\ding{47}\\
+\ding{48}&\ding{49}&\ding{50}\\
+\ding{33}&\ding{34}&\ding{35}\\
+\ding{36}&\ding{37}&\ding{38}\\
+\ding{39}&\ding{40}&\ding{41}\\
+\ding{42}&\ding{43}&\ding{44}\\
+\ding{45}&\ding{46}&\ding{47}\\
+\ding{48}&\ding{49}&\ding{50}
+\end{tabular}%
+}%
+%\setbox0=\vbox to 1.02\wd\shipoutbox{\kern-1truein\kern0.05\ht\shipoutbox\kern0.05\dp\shipoutbox
+\setbox0=\vbox{\kern-1truein
+   \hbox{\kern-1truein%\kern0.01\wd\shipoutbox
+    %\framebox{\box\shipoutbox }%
+    \copy\shipoutbox%
+    \kern1truein}%
+   \kern1truein}%
+\pdfpageheight\ht0%
+\advance\pdfpageheight\dp0%
+%\advance\pdfpageheight0.1\ht\shipoutbox
+%\advance\pdfpageheight0.1\dp\shipoutbox
+\pdfpagewidth\wd0%
+%\advance\pdfpagewidth0.02\wd\shipoutbox
+\shipout\box0%
+\end{document}

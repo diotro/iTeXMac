@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CompatibleVersion</key>
+	<integer>0</integer>
+	<key>RawQuery</key>
+	<string>(* = "French.lproj*"wcd || kMDItemTextContent = "French.lproj*"cd) &amp;&amp; (kMDItemContentType != com.apple.mail.emlx) &amp;&amp; (kMDItemContentType != public.vcard)</string>
+	<key>SearchCriteria</key>
+	<dict>
+		<key>AnyAttributeContains</key>
+		<string>French.lproj</string>
+		<key>CurrentFolderPath</key>
+		<array/>
+		<key>FXCriteriaSlices</key>
+		<array/>
+		<key>FXScope</key>
+		<integer>1396925286</integer>
+		<key>FXScopeArrayOfPaths</key>
+		<array/>
+	</dict>
+	<key>Version</key>
+	<string>10.4.6</string>
+	<key>ViewOptions</key>
+	<dict>
+		<key>GroupViewOptions</key>
+		<dict>
+			<key>GroupsDictionary</key>
+			<dict>
+				<key>DIRECTORIES</key>
+				<dict>
+					<key>IsSummarized</key>
+					<false/>
+				</dict>
+			</dict>
+		</dict>
+		<key>SidebarWidth</key>
+		<integer>173</integer>
+		<key>ToolbarVisible</key>
+		<true/>
+		<key>ViewHeight</key>
+		<integer>705</integer>
+		<key>ViewStyle</key>
+		<string>qrsb</string>
+		<key>WindowBounds</key>
+		<dict>
+			<key>bottom</key>
+			<integer>784</integer>
+			<key>left</key>
+			<integer>5</integer>
+			<key>right</key>
+			<integer>1101</integer>
+			<key>top</key>
+			<integer>79</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>

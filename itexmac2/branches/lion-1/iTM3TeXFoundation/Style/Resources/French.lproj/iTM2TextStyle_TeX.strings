@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Style</key>
+	<string>TeX</string>
+	<key>command</key>
+	<string>Command TeX (commençant par \)</string>
+	<key>comment</key>
+	<string>Commentaire TeX (commençant par %)</string>
+	<key>delimiter</key>
+	<string>Délimiteurs</string>
+	<key>group</key>
+	<string>Grouper</string>
+	<key>mark</key>
+	<string>Marques iTeXMac2</string>
+	<key>math</key>
+	<string>Commutateur de mode math</string>
+	<key>subscript</key>
+	<string>Indice</string>
+	<key>superscript</key>
+	<string>Exposant</string>
+</dict>
+</plist>

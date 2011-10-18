@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Built-in</key>
+	<dict>
+		<key>default</key>
+		<dict>
+			<key>default</key>
+			<dict>
+				<key>path</key>
+				<string>Not yet implemented</string>
+			</dict>
+		</dict>
+		<key>tag</key>
+		<integer>1</integer>
+	</dict>
+	<key>Custom...</key>
+	<dict>
+		<key>tag</key>
+		<integer>9999</integer>
+	</dict>
+	<key>Default</key>
+	<dict>
+		<key>default</key>
+		<dict>
+			<key>default</key>
+			<dict>
+				<key>path</key>
+				<string>/usr/local/bin</string>
+			</dict>
+		</dict>
+		<key>tag</key>
+		<integer>0</integer>
+	</dict>
+	<key>Fink</key>
+	<dict>
+		<key>default</key>
+		<dict>
+			<key>default</key>
+			<dict>
+				<key>path</key>
+				<string>/sw/bin</string>
+			</dict>
+		</dict>
+		<key>tag</key>
+		<integer>3</integer>
+	</dict>
+	<key>MacPorts</key>
+	<dict>
+		<key>default</key>
+		<dict>
+			<key>default</key>
+			<dict>
+				<key>path</key>
+				<string>/opt/local/bin</string>
+			</dict>
+		</dict>
+		<key>tag</key>
+		<integer>2</integer>
+	</dict>
+</dict>
+</plist>

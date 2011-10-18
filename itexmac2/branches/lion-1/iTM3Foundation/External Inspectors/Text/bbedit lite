@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# this is bbedit lite shell script for iTeXMac 2.0 version ?
+# © 2003 jlaurens AT users DOT sourceforge DOT net
+command="bbeditlite"
+if [ ${#file} -gt 0 ]
+then
+    options="+${line:-0}"
+    echo "\"${command}\" ${options} \"${file}\""
+    ${command} ${options} "${file}"
+else
+    "${command}"
+fi
+exit

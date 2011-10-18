@@ -1,0 +1,13 @@
+//
+// Prefix header for all source files of the 'iTM2TeXFoundation' target in the 'iTM2' project
+//
+
+#ifdef __OBJC__
+//    #import "/Developer/SDKs/MacOSX10.2.8.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h"
+    #import <Cocoa/Cocoa.h>
+//    #import "/Developer/SDKs/MacOSX10.2.8.sdk/System/Library/Frameworks/Carbon.framework/Headers/Carbon.h"
+    #import <Carbon/Carbon.h>
+//    #import <OgreKit/OgreKit.h>
+    #import <iTM3Foundation/iTM3Foundation.h>
+    #import "iTM2TeXFoundationErrors.h"
+#endif

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+		<string>\mathcal{}</string>
+		<string>noop:</string>
+		<string>mathbb{}|A</string>
+		<string>mathbb{}|B</string>
+		<string>mathbb{}|C</string>
+		<string>mathbb{}|D</string>
+		<string>mathbb{}|E</string>
+		<string>mathbb{}|F</string>
+		<string>mathbb{}|G</string>
+		<string>mathbb{}|H</string>
+		<string>mathbb{}|I</string>
+		<string>mathbb{}|J</string>
+		<string>mathbb{}|K</string>
+		<string>mathbb{}|L</string>
+		<string>mathbb{}|M</string>
+		<string>mathbb{}|N</string>
+		<string>mathbb{}|O</string>
+		<string>mathbb{}|P</string>
+		<string>mathbb{}|Q</string>
+		<string>mathbb{}|R</string>
+		<string>mathbb{}|S</string>
+		<string>mathbb{}|T</string>
+		<string>mathbb{}|U</string>
+		<string>mathbb{}|V</string>
+		<string>mathbb{}|W</string>
+		<string>mathbb{}|X</string>
+		<string>mathbb{}|Y</string>
+		<string>mathbb{}|Z</string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

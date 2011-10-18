@@ -1,0 +1,307 @@
+{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf420
+{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww19220\viewh15820\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Notes on project consistency.\
+\
+In iTeXMac2, files belong to projects. There is no binding for such a purpose in the file system.\
+The current design for such a binding is:\
+\
+Any document keeps 7 tracks of its project and itself as private metada:\
+1 Finder Alias to the project\
+2 Full path of the project\
+3 Path of the project relative to the document's enclosing directory\
+4 Finder Alias to itself\
+5 Own full path\
+6 Own path relative to its project\
+7 key in the project (key are unique identifiers of project subdocuments)\
+\
+NB: problems with mounted points\
+\
+From the project side, some kind of reverse information is recorded.\
+The projects keeps tracks of its documents through bindings identified by keys. Each binding contains\
+1 a Finder Alias\
+2 Full path of the document as symlink\
+3 Path of the document relative to the project's parent directory\
+4 document key (see above)\
+Moreover, the project keeps tracks of itself with\
+5 Finder Alias to itself\
+6 Own full path as symlink\
+\
+We say that a project is strongly bound to a given file, F, or its file name, FN, for the binding key K when FN  is exactly the absolute file name of the project's binding identified by K.\
+Other links are soft.\
+\
+There are some problems specific to faraway (or put aside or standalone projects). They will be discussed later on.\
+\
+There are situations where this binding was naturally broken out of iTeXMac2 control, for example from the Finder.\
+More precisely when files are moved, removed, duplicated, remounted, the binding will most certainly be broken.\
+\
+The question is to explain how to recover a consistent state.\
+\
+First we discuss all the possible ways of breaking the binding.\
+\
+Projects can be\
+- untouched\
+- renamed,\
+- moved,\
+- moved and renamed\
+- removed,\
+- duplicated\
+\
+When projects are removed, there is nothing we can do except retrieve from an archive.\
+\
+The same holds for the documents, files can be\
+- untouched\
+- renamed,\
+- moved,\
+- moved and renamed\
+- removed,\
+- duplicated\
+\
+Now removed documents must be considered.\
+\
+If the project is included in a wrapper, it is unlikely that the whole project will be broken, but we must consider this situation as well.\
+\
+How do we know that files or projects have been modified since the last save?\
+The proper question is "How do we decide that files or projects have been modified since the last save?"\
+This is based on the Alias and full path information.\
+\
+Let us forget for a little while project design.\
+For each document including projects, we have 3 informations:\
+- the old file name: OFN\
+- the resolved file name (Alias resolved): RFN\
+- the actual file name: AFN\
+In general, we have\
+OFN=RFN=AFN: untouched\
+OFN=RFN\'adAFN: duplicated or remounted\
+OFN=AFN\'adRFN: duplicated or remounted + possibly renamed\
+RFN=AFN\'adOFN: moved even with no OFN\
+OFN\'adAFN\'adRFN\'adOFN: messed around\
+If we miss the OFN or RFN, things are more complicated.\
+This situation might occur for pdf documents\
+\
+Given a document that is not itself a project, how do we retrieve the project it belongs to?\
+\
+1 - if the document is contained in a wrapper, no problem except possible inconsistency.\
+If the wrapper does not contain any project, this is a big problem\
+We create a project at the proper location then feed it with informations relative to the document\
+If the wrapper contains one project, we must see if this is consistent with the document.\
+the file name->key->file name should cycle\
+\
+The key->file name->key cycle consistency\
+\
+If the project already has a key for the document file name,\
+If this key is the one the document remembers, it is ok.\
+Otherwise, the document was previously known with a different key.\
+It has certainly been renamed.\
+\
+We always have to update the private context!\
+\
+If the given document knows its own key, we see if the project also knows this key\
+If yes, get the relative file name associated with this key\
+If this corresponds to the document file name relative to the project, we are done.\
+If not, \
+If the project does not know the document key, may be it registered the document with another key (how?)\
+Get the project key for the document file name. \
+\
+Rules for binding when not in a .texd wrapper\
+From the project side.\
+A project document is bound to other documents. The other documents are expected to belong to the parent directory of the project.\
+They should not belong to anything else, but this is not strictly forbidden yet.\
+\
+The problem is that a document can be referenced from multiple projects. This is the case for bibliography data base for example, which is by essence common to many documents. This can also be true for other kind of shared documents (logos, styles, packages...) For these documents, one solution would be to forbid binding but it is not realistic because the status can change over times.  No solution is found yet.\
+\
+A project is consistent when all the duplicate informations it contains are identical.\
+\
+What kind of inconsistencies should we fix?\
+\
+If different projects correspond to one filename, what is the preferred one?\
+We must define a total order to make a unique choice.\
+\
+Given a file name FN, what is its project.\
+\
+1 if there is a context stored for file name, get the project information stored: OFN, RFN. There is no AFN because we do not know for sure what is the actual file name.\
+What might be available from the context:\
+Old Project File Name (OPFN)\
+Old Resolved Project File Name (ORPFN)\
+Old Key (OK)\
+\
+Situation : duplicate a file bound to a project, remove the file from the project and the finder, move the duplicated file to the model location. We should be able to bind to the old project. This is possible because the key is kept.\
+\
+\
+if there is a project at location OPFN,\
+\
+	if this project declares FN as the absolute file name for key OK,\
+\
+		then we state that FN belongs to that project.\
+		Basically files were not moved since the last time both objects were open by iTeXMac2.\
+\
+if there is a project at location ORPFN,\
+\
+	if this project declares FN as the absolute file name for key OK,\
+\
+		then we state that FN belongs to that project.\
+		Basically files were moved accordingly.\
+\
+If the project belongs to a wrapper\
+\
+	if the wrapper contains a project\
+		\
+		if this project declares FN as the absolute file name for key OK,\
+\
+			then we state that FN belongs to that project.\
+\
+	if that wrapper contains no project\
+\
+		if there is a project at location OPFN,\
+\
+			if this project whould be the good one if it were duplicated/moved inside the wrapper\
+\
+				move it if it would not break existing hard binding\
+				otherwise duplicate it\
+				\
+		if there is a project at location ORPFN,\
+\
+			if this project whould be the good one if it were duplicated/moved inside the wrapper\
+\
+				move it if it would not break existing hard binding\
+				otherwise duplicate it\
+				\
+		Create a new project\
+\
+\
+For all the projects in containing folders\
+\
+	if this project declares FN as one of it's bindings' absolute file name,\
+\
+		the correct binding is found.\
+\
+For all the projects in the faraway containing folders\
+\
+	if this project declares FN as one of it's bindings' absolute file name,\
+\
+		the correct binding is found.\
+\
+if there is a project at location OPFN,\
+\
+	if this project declares FN as the absolute file name for a key different than OK,\
+\
+		the correct binding is found.\
+\
+if there is a project at location ORPFN,\
+\
+	if this project declares FN as the absolute file name for a key different than OK,\
+\
+		the correct binding is found.\
+\
+\
+For all the projects in containing folders\
+\
+	if this project declares FN as one of it's bindings' old absolute file name,\
+\
+		if the absolute file name for this binding's key points to no file\
+\
+			the correct binding is found.\
+\
+For all the projects in the faraway containing folders\
+\
+	if this project declares FN as one of it's bindings' old  absolute file name,\
+\
+		if the absolute file name for this binding's key points to no file\
+\
+			the correct binding is found.\
+\
+if there is a project at location OPFN,\
+\
+	if this project declares FN as an old absolute file name,\
+\
+		if the absolute file name for this binding's key points to no file\
+\
+			the correct binding is found.\
+\
+if there is a project at location ORPFN,\
+\
+	if this project declares FN as an old absolute file name,\
+\
+		if the absolute file name for this binding's key points to no file\
+\
+			the correct binding is found.\
+\
+\
+For all the projects in containing folders\
+\
+	if this project declares FN as one of it's bindings' old file name,\
+\
+		if the absolute file name of this binding points to nothing\
+\
+			the correct binding is found.\
+\
+For all the projects in the faraway containing folders\
+\
+	if this project declares FN as one of it's bindings'  old file name,\
+\
+		the correct binding is found.\
+\
+if there is a project at location OPFN,\
+\
+	if this project declares FN as one of it's bindings'  old file name,\
+\
+		the correct binding is found.\
+\
+if there is a project at location ORPFN,\
+\
+	if this project declares FN as one of it's bindings'  old file name,\
+\
+		the correct binding is found.\
+\
+\
+\
+	Files and projects were moved, renamed relative to each other.\
+\
+	the file changed its name, but the project did not\
+	\
+	\
+	first check if this project was moved\
+	get the old file name,\
+	if the old file name is not the same\
+	then\
+		if there is a project at this old location\
+		then\
+			the old file name is obsolete\
+			it represents another project, APFN, with possible links to FN\
+		\
+\
+	if this project declares FN as the absolute file name for another key, say AOK, something has changed.\
+\
+		If the project does not declare a different existing file name for the key OK,\
+\
+			then we found the binding\
+			Two files names have been switched\
+\
+	if this project declares FN as an old absolute file name\
+		if there is no existing file for the corresponding key,\
+			then we can state that this is the expected project.\
+			Either the project has moved around, or thef ile has moved around.\
+\
+	if this project declares the file name as an old file name, and if there is no existing file for the corresponding key,\
+\
+		then we can state that this is the expected project.\
+		Either the project has moved around, or thef ile has moved around.\
+\
+internal consistency: the recorded filename should not be pointing to the same old file name, for aliases or symlinks, this can occur when we remove a file and move another one to this new location, all this without notifying the finder.\
+\
+\
+Note about non writable projects.\
+Non writable projects should have a writable counterpart.\
+This counterpart should live in the standalone part.\
+For the project\
+/Users/me/Documents/project.texp\
+The counterpart is\
+/Users/me/Library/Application Support/iTeXMac2/Projects.put_aside/Projects/Users/me/Documents/project.texd/project.texp\
+For the project\
+/Users/me/Documents/project.texd/project.texp\
+The counterpart is\
+/Users/me/Library/Application Support/iTeXMac2/Projects.put_aside/Wrappers/Users/me/Documents/project.texd/project.texp\
+}

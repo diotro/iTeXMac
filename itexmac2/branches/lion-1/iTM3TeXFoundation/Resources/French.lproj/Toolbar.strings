@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>?Label</key>
+	<string></string>
+	<key>?PaletteLabel</key>
+	<string></string>
+	<key>?ToolTip</key>
+	<string></string>
+	<key>bookmarkLabel</key>
+	<string>signet</string>
+	<key>bookmarkPaletteLabel</key>
+	<string>signet</string>
+	<key>bookmarkToolTip</key>
+	<string>signet</string>
+	<key>showCurrentProjectFilesLabel</key>
+	<string>Fichiers</string>
+	<key>showCurrentProjectFilesPaletteLabel</key>
+	<string>Fichiers du projet</string>
+	<key>showCurrentProjectFilesToolTip</key>
+	<string>Fichiers du projet</string>
+	<key>showCurrentProjectSettingsLabel</key>
+	<string>Options</string>
+	<key>showCurrentProjectSettingsPaletteLabel</key>
+	<string>Options du projet</string>
+	<key>showCurrentProjectSettingsToolTip</key>
+	<string>Options du projet</string>
+	<key>showCurrentProjectTerminalLabel</key>
+	<string>Terminal</string>
+	<key>showCurrentProjectTerminalPaletteLabel</key>
+	<string>Terminal du projet</string>
+	<key>showCurrentProjectTerminalToolTip</key>
+	<string>Terminal du projet</string>
+	<key>typesetCurrentProjectLabel</key>
+	<string>Composer</string>
+	<key>typesetCurrentProjectPaletteLabel</key>
+	<string>Composer</string>
+	<key>typesetCurrentProjectToolTip</key>
+	<string>Composer</string>
+</dict>
+</plist>

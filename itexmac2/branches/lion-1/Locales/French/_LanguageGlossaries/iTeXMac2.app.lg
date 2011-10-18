@@ -1,0 +1,3659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Comment here. (1.0a10c2) -->
+<Proj>
+<ProjName>iTeXMac2.app</ProjName>
+
+<!--                                         -->
+<!--    iTeXMac2.app/../InfoPlist.strings    -->
+<!--                                         -->
+<File>
+<Filepath>iTeXMac2.app/Contents/Resources/English.lproj/InfoPlist.strings</Filepath>
+
+<TextItem>
+<Description></Description>
+<Position>CFBundleName</Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2</base>
+	<tran loc="fr" origin="">iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position>NSHumanReadableCopyright</Position>
+<TranslationSet>
+
+	<base loc="en"          >© Laurens&apos;Tribune, 2005</base>
+	<tran loc="fr" origin="">© Laurens&apos;Tribune, 2006</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >(La)TeX configuration</base>
+	<tran loc="fr" origin="">Configuration (La)TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >Definitions (La)TeX </base>
+	<tran loc="fr" origin="">Définitions (La)TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >BibTeX auxiliary file</base>
+	<tran loc="fr" origin="">Fichier auxiliaire BibTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >BibTeX bibliography</base>
+	<tran loc="fr" origin="">Bibliographie BibTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >BibTeX bibliography style</base>
+	<tran loc="fr" origin="">Style de bibliographie BibTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >BibTeX log</base>
+	<tran loc="fr" origin="">log BibTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >BibTeX resource</base>
+	<tran loc="fr" origin="">Ressource BibTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >BibTeX sorting order</base>
+	<tran loc="fr" origin="">Classement BibTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >ConTeXt resource</base>
+	<tran loc="fr" origin="">Ressource ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >Configuration file</base>
+	<tran loc="fr" origin="">Fichier de configuration</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX auxiliary file</base>
+	<tran loc="fr" origin="">Fichier auxiliaire LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX class</base>
+	<tran loc="fr" origin="">Classe LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX class options</base>
+	<tran loc="fr" origin="">Options de classe LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX font definition</base>
+	<tran loc="fr" origin="">Définition de fonte LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX installation</base>
+	<tran loc="fr" origin="">Installation LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX koma-script resource</base>
+	<tran loc="fr" origin="">Ressource koma-script LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX language resource</base>
+	<tran loc="fr" origin="">Ressource de langue LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX list of figures</base>
+	<tran loc="fr" origin="">Liste des figures LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX list of table</base>
+	<tran loc="fr" origin="">Liste des tableaux LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX log file (or other)</base>
+	<tran loc="fr" origin="">Fichier log LaTeX (ou autre)</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX minitoc resource</base>
+	<tran loc="fr" origin="">Ressource minitoc LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX ntheorem resource</base>
+	<tran loc="fr" origin="">Ressource ntheorem LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX package</base>
+	<tran loc="fr" origin="">Paquet LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX package source</base>
+	<tran loc="fr" origin="">Source de paquet LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX resource</base>
+	<tran loc="fr" origin="">Ressource LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX revtex resource</base>
+	<tran loc="fr" origin="">Ressource revtex de LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX source</base>
+	<tran loc="fr" origin="">Source LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX table of contents</base>
+	<tran loc="fr" origin="">Table des matières LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX titlesec resource</base>
+	<tran loc="fr" origin="">Ressource titlesec de LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MakeIndex input</base>
+	<tran loc="fr" origin="">Entrée de MakeIndex</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MakeIndex log</base>
+	<tran loc="fr" origin="">Fichier log de MakeIndex</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MakeIndex output</base>
+	<tran loc="fr" origin="">Sortie de MakeIndex</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MakeIndex style</base>
+	<tran loc="fr" origin="">Style de MakeIndex</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaFont format</base>
+	<tran loc="fr" origin="">Format MetaFont</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaFont source</base>
+	<tran loc="fr" origin="">Source MetaFont</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaPost Document</base>
+	<tran loc="fr" origin="">Document MetaPost</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaPost Macro File</base>
+	<tran loc="fr" origin="">Fichier de macros MetaPost</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaPost Special Document</base>
+	<tran loc="fr" origin="">Document spécial MetaPost</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaPost resource</base>
+	<tran loc="fr" origin="">Ressource MetaPost</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >MetaPost resource for ConTeXt</base>
+	<tran loc="fr" origin="">Ressource MetaPost pour ConTeXt</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >Omega font resource</base>
+	<tran loc="fr" origin="">Ressource de fonte pour Omega</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >Omega resource</base>
+	<tran loc="fr" origin="">Ressource Omega</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >Omega virtual font resource</base>
+	<tran loc="fr" origin="">Ressource de fonte virtuelle pour Omega</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >PSTricks resource file</base>
+	<tran loc="fr" origin="">Ressources PSTricks</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX Contextual Menu Plug-In</base>
+	<tran loc="fr" origin="">Extension du menu contextuel TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX Document</base>
+	<tran loc="fr" origin="">Document TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX Project Document</base>
+	<tran loc="fr" origin="">Project TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX Project Wrapper</base>
+	<tran loc="fr" origin="">Paquet TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX dvips resource</base>
+	<tran loc="fr" origin="">Ressource dvips pour TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX font encoding</base>
+	<tran loc="fr" origin="">Encodage de caractères TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX font map</base>
+	<tran loc="fr" origin="">Carte de fonte TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX font metrics</base>
+	<tran loc="fr" origin="">Métriques de fontes TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX font resource</base>
+	<tran loc="fr" origin="">Ressource de fonte TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX font translation table</base>
+	<tran loc="fr" origin="">Table de traduction de fonte TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX format</base>
+	<tran loc="fr" origin="">Format TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX resource</base>
+	<tran loc="fr" origin="">Ressource TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX virtual font</base>
+	<tran loc="fr" origin="">Fonte virtuelle TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX4ht font resource</base>
+	<tran loc="fr" origin="">Ressource de fonte pour TeX4ht</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX4ht resource</base>
+	<tran loc="fr" origin="">Ressource pour TeX4ht</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >TeXUtil Document</base>
+	<tran loc="fr" origin="">Document TeXUtil</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >Web2c configuration file</base>
+	<tran loc="fr" origin="">Fichier de configuration Web2c</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >Wildcard Document</base>
+	<tran loc="fr" origin="">Document Joker</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >XeTeX output</base>
+	<tran loc="fr" origin="">Sortie XeTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2 Plug-In</base>
+	<tran loc="fr" origin="">Extension pour iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2 Style</base>
+	<tran loc="fr" origin="">Style de syntaxe iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2 Style Symbols</base>
+	<tran loc="fr" origin="">Symboles de syntaxe iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+
+<TextItem>
+<Description></Description>
+<Position></Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2 Style Variant</base>
+	<tran loc="fr" origin="">Variante de style de syntaxe iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                                       -->
+<!--    iTeXMac2.app/../iTM2StartupDocument.nib.strings    -->
+<!--                                                       -->
+<File>
+<Filepath>iTeXMac2.app/Contents/Resources/English.lproj/iTM2StartupDocument.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSTextField (Your document contents here) : &lt;title:Your document contents here&gt; (oid:20) </Description>
+<Position>20</Position>
+<TranslationSet>
+
+	<base loc="en"          >Your document contents here</base>
+	<tran loc="fr" origin="">Votre contenu de document ici</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSWindow (Window) : &lt;title:Window&gt; (oid:5) </Description>
+<Position>5</Position>
+<TranslationSet>
+
+	<base loc="en"                                         >Window</base>
+	<tran loc="fr" origin="Default Names List matched text">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+
+<!--                                            -->
+<!--    iTeXMac2.app/../iTeXMac2.nib.strings    -->
+<!--                                            -->
+<File>
+<Filepath>iTeXMac2.app/Contents/Resources/English.lproj/iTeXMac2.nib.strings</Filepath>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Format&gt; (oid:1127) </Description>
+<Position>1127</Position>
+<TranslationSet>
+
+	<base loc="en"          >Format</base>
+	<tran loc="fr" origin="">Format</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Format&gt; (oid:1132) </Description>
+<Position>1132</Position>
+<TranslationSet>
+
+	<base loc="en"          >Format</base>
+	<tran loc="fr" origin="">Format</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:teTeX Help...&gt; (oid:1312) </Description>
+<Position>1312</Position>
+<TranslationSet>
+
+	<base loc="en"          >teTeX Help...</base>
+	<tran loc="fr" origin="">Aide de teTeX...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Help&gt; (oid:136) </Description>
+<Position>136</Position>
+<TranslationSet>
+
+	<base loc="en"          >Help</base>
+	<tran loc="fr" origin="">Aide</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Help&gt; (oid:137) </Description>
+<Position>137</Position>
+<TranslationSet>
+
+	<base loc="en"          >Help</base>
+	<tran loc="fr" origin="">Aide</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:iTeXMac2 Help&gt; (oid:138) </Description>
+<Position>138</Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2 Help</base>
+	<tran loc="fr" origin="">Aide iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Zoom&gt; (oid:140) </Description>
+<Position>140</Position>
+<TranslationSet>
+
+	<base loc="en"          >Zoom</base>
+	<tran loc="fr" origin="">Zoom pour adapter à la fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Show Toolbar&gt; (oid:1578) </Description>
+<Position>1578</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show Toolbar</base>
+	<tran loc="fr" origin="">Afficher la barre d&apos;outils</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Customize Toolbar...&gt; (oid:1579) </Description>
+<Position>1579</Position>
+<TranslationSet>
+
+	<base loc="en"          >Customize Toolbar...</base>
+	<tran loc="fr" origin="">Personnaliser la barre d&apos;outils</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Formatter&gt; (oid:1624) </Description>
+<Position>1624</Position>
+<TranslationSet>
+
+	<base loc="en"          >Formatter</base>
+	<tran loc="fr" origin="">Formatter</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Formatter&gt; (oid:1625) </Description>
+<Position>1625</Position>
+<TranslationSet>
+
+	<base loc="en"          >Formatter</base>
+	<tran loc="fr" origin="">Formatter</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Comment&gt; (oid:1626) </Description>
+<Position>1626</Position>
+<TranslationSet>
+
+	<base loc="en"          >Comment</base>
+	<tran loc="fr" origin="">Commenter</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Uncomment&gt; (oid:1637) </Description>
+<Position>1637</Position>
+<TranslationSet>
+
+	<base loc="en"          >Uncomment</base>
+	<tran loc="fr" origin="">Décommenter</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Shift Left&gt; (oid:1639) </Description>
+<Position>1639</Position>
+<TranslationSet>
+
+	<base loc="en"          >Shift Left</base>
+	<tran loc="fr" origin="">Décaler à gauche</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Shift Right&gt; (oid:1642) </Description>
+<Position>1642</Position>
+<TranslationSet>
+
+	<base loc="en"          >Shift Right</base>
+	<tran loc="fr" origin="">Décaler à droite</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Wrap&gt; (oid:1643) </Description>
+<Position>1643</Position>
+<TranslationSet>
+
+	<base loc="en"          >Wrap</base>
+	<tran loc="fr" origin="">Cadrer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Align Left&gt; (oid:1709) </Description>
+<Position>1709</Position>
+<TranslationSet>
+
+	<base loc="en"          >Align Left</base>
+	<tran loc="fr" origin="">Aligner à gauche</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Text&gt; (oid:1710) </Description>
+<Position>1710</Position>
+<TranslationSet>
+
+	<base loc="en"          >Text</base>
+	<tran loc="fr" origin="">Texte</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Paste Ruler&gt; (oid:1711) </Description>
+<Position>1711</Position>
+<TranslationSet>
+
+	<base loc="en"          >Paste Ruler</base>
+	<tran loc="fr" origin="">Coller la règle</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Copy Ruler&gt; (oid:1712) </Description>
+<Position>1712</Position>
+<TranslationSet>
+
+	<base loc="en"          >Copy Ruler</base>
+	<tran loc="fr" origin="">Copier la règle</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Center&gt; (oid:1713) </Description>
+<Position>1713</Position>
+<TranslationSet>
+
+	<base loc="en"          >Center</base>
+	<tran loc="fr" origin="">Centrer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Text&gt; (oid:1714) </Description>
+<Position>1714</Position>
+<TranslationSet>
+
+	<base loc="en"          >Text</base>
+	<tran loc="fr" origin="">Texte</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Align Right&gt; (oid:1715) </Description>
+<Position>1715</Position>
+<TranslationSet>
+
+	<base loc="en"          >Align Right</base>
+	<tran loc="fr" origin="">Aligner à droite</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Justify&gt; (oid:1716) </Description>
+<Position>1716</Position>
+<TranslationSet>
+
+	<base loc="en"          >Justify</base>
+	<tran loc="fr" origin="">Justifier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Show Ruler&gt; (oid:1717) </Description>
+<Position>1717</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show Ruler</base>
+	<tran loc="fr" origin="">Montrer la règle</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:LaTeX Help&gt; (oid:1738) </Description>
+<Position>1738</Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX Help</base>
+	<tran loc="fr" origin="">Aide LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:TeX Catalogue OnLine&gt; (oid:1739) </Description>
+<Position>1739</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX Catalogue OnLine</base>
+	<tran loc="fr" origin="">TeX Catalogue OnLine</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Shift like Previous&gt; (oid:1764) </Description>
+<Position>1764</Position>
+<TranslationSet>
+
+	<base loc="en"          >Shift like Previous</base>
+	<tran loc="fr" origin="">Décaler comme avant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Align to Previous&gt; (oid:1765) </Description>
+<Position>1765</Position>
+<TranslationSet>
+
+	<base loc="en"          >Align to Previous</base>
+	<tran loc="fr" origin="">Aligner comme avant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:iTeXMac2&gt; (oid:1933) </Description>
+<Position>1933</Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2</base>
+	<tran loc="fr" origin="">iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:iTeXMac2&gt; (oid:1937) </Description>
+<Position>1937</Position>
+<TranslationSet>
+
+	<base loc="en"          >iTeXMac2</base>
+	<tran loc="fr" origin="">iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Services&gt; (oid:1943) </Description>
+<Position>1943</Position>
+<TranslationSet>
+
+	<base loc="en"          >Services</base>
+	<tran loc="fr" origin="">Services</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Hide iTeXMac2&gt; (oid:1944) </Description>
+<Position>1944</Position>
+<TranslationSet>
+
+	<base loc="en"          >Hide iTeXMac2</base>
+	<tran loc="fr" origin="">Cacher iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Quit iTeXMac2&gt; (oid:1945) </Description>
+<Position>1945</Position>
+<TranslationSet>
+
+	<base loc="en"          >Quit iTeXMac2</base>
+	<tran loc="fr" origin="">Quitter iTeXMac2</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Show All&gt; (oid:1946) </Description>
+<Position>1946</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show All</base>
+	<tran loc="fr" origin="">Tout montrer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Services&gt; (oid:1947) </Description>
+<Position>1947</Position>
+<TranslationSet>
+
+	<base loc="en"          >Services</base>
+	<tran loc="fr" origin="">Services</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Hide Others&gt; (oid:1951) </Description>
+<Position>1951</Position>
+<TranslationSet>
+
+	<base loc="en"          >Hide Others</base>
+	<tran loc="fr" origin="">Cacher les autres</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Check For Update&gt; (oid:1953) </Description>
+<Position>1953</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check For Update</base>
+	<tran loc="fr" origin="">Vérifiez les mise à jour</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Preferences...&gt; (oid:1954) </Description>
+<Position>1954</Position>
+<TranslationSet>
+
+	<base loc="en"          >Preferences...</base>
+	<tran loc="fr" origin="">Préférences...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:About iTeXMac2...&gt; (oid:1955) </Description>
+<Position>1955</Position>
+<TranslationSet>
+
+	<base loc="en"          >About iTeXMac2...</base>
+	<tran loc="fr" origin="">À propos d&apos;iTeXMac2...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Release Notes&gt; (oid:1963) </Description>
+<Position>1963</Position>
+<TranslationSet>
+
+	<base loc="en"          >Release Notes</base>
+	<tran loc="fr" origin="">Notes de version</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Documentation&gt; (oid:1967) </Description>
+<Position>1967</Position>
+<TranslationSet>
+
+	<base loc="en"          >Documentation</base>
+	<tran loc="fr" origin="">Documentation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Documentation&gt; (oid:1968) </Description>
+<Position>1968</Position>
+<TranslationSet>
+
+	<base loc="en"          >Documentation</base>
+	<tran loc="fr" origin="">Documentation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Window&gt; (oid:19) </Description>
+<Position>19</Position>
+<TranslationSet>
+
+	<base loc="en"          >Window</base>
+	<tran loc="fr" origin="">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Edit&gt; (oid:2010) </Description>
+<Position>2010</Position>
+<TranslationSet>
+
+	<base loc="en"          >Edit</base>
+	<tran loc="fr" origin="">Éditer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Close LaTeX Environment&gt; (oid:2015) </Description>
+<Position>2015</Position>
+<TranslationSet>
+
+	<base loc="en"          >Close LaTeX Environment</base>
+	<tran loc="fr" origin="">Fermer l&apos;environnement LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:  Previous TeX Error&gt; (oid:2018) </Description>
+<Position>2018</Position>
+<TranslationSet>
+
+	<base loc="en"          >  Previous TeX Error</base>
+	<tran loc="fr" origin="">  Erreur TeX précédente</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Options&gt; (oid:2019) </Description>
+<Position>2019</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options</base>
+	<tran loc="fr" origin="">Options</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Select All&gt; (oid:2020) </Description>
+<Position>2020</Position>
+<TranslationSet>
+
+	<base loc="en"          >Select All</base>
+	<tran loc="fr" origin="">Tout sélectionner</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Spelling&gt; (oid:2021) </Description>
+<Position>2021</Position>
+<TranslationSet>
+
+	<base loc="en"          >Spelling</base>
+	<tran loc="fr" origin="">Orthographe</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Pasteboards&gt; (oid:2022) </Description>
+<Position>2022</Position>
+<TranslationSet>
+
+	<base loc="en"          >Pasteboards</base>
+	<tran loc="fr" origin="">Presse-papier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Undo&gt; (oid:2023) </Description>
+<Position>2023</Position>
+<TranslationSet>
+
+	<base loc="en"          >Undo</base>
+	<tran loc="fr" origin="">Annuler</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Find&gt; (oid:2024) </Description>
+<Position>2024</Position>
+<TranslationSet>
+
+	<base loc="en"          >Find</base>
+	<tran loc="fr" origin="">Rechercher</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Redo&gt; (oid:2025) </Description>
+<Position>2025</Position>
+<TranslationSet>
+
+	<base loc="en"          >Redo</base>
+	<tran loc="fr" origin="">Refaire</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Spell Checker...&gt; (oid:2027) </Description>
+<Position>2027</Position>
+<TranslationSet>
+
+	<base loc="en"          >Spell Checker...</base>
+	<tran loc="fr" origin="">Orthographe...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Copy in:&gt; (oid:2028) </Description>
+<Position>2028</Position>
+<TranslationSet>
+
+	<base loc="en"          >Copy in:</base>
+	<tran loc="fr" origin="">Copier dans :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Edit Key Binding&gt; (oid:2032) </Description>
+<Position>2032</Position>
+<TranslationSet>
+
+	<base loc="en"          >Edit Key Binding</base>
+	<tran loc="fr" origin="">Éditer les raccourcis clavier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Find&gt; (oid:2033) </Description>
+<Position>2033</Position>
+<TranslationSet>
+
+	<base loc="en"          >Find</base>
+	<tran loc="fr" origin="">Trouver</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Delete&gt; (oid:2035) </Description>
+<Position>2035</Position>
+<TranslationSet>
+
+	<base loc="en"          >Delete</base>
+	<tran loc="fr" origin="">Supprimer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Smart Insert&gt; (oid:2037) </Description>
+<Position>2037</Position>
+<TranslationSet>
+
+	<base loc="en"          >Smart Insert</base>
+	<tran loc="fr" origin="">Insertion Intelligente</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Cut&gt; (oid:2038) </Description>
+<Position>2038</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cut</base>
+	<tran loc="fr" origin="">Couper</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:  Previous Place Holder&gt; (oid:2039) </Description>
+<Position>2039</Position>
+<TranslationSet>
+
+	<base loc="en"          >  Previous Place Holder</base>
+	<tran loc="fr" origin="">  Emplacement précédent</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Check Spell&gt; (oid:2042) </Description>
+<Position>2042</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check Spell</base>
+	<tran loc="fr" origin="">Vérifier l&apos;orthographe</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Copy&gt; (oid:2043) </Description>
+<Position>2043</Position>
+<TranslationSet>
+
+	<base loc="en"          >Copy</base>
+	<tran loc="fr" origin="">Copier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Jump To:&gt; (oid:2044) </Description>
+<Position>2044</Position>
+<TranslationSet>
+
+	<base loc="en"          >Jump To:</base>
+	<tran loc="fr" origin="">Aller à :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Pasteboards&gt; (oid:2045) </Description>
+<Position>2045</Position>
+<TranslationSet>
+
+	<base loc="en"          >Pasteboards</base>
+	<tran loc="fr" origin="">Presse-papiers</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Paste:&gt; (oid:2046) </Description>
+<Position>2046</Position>
+<TranslationSet>
+
+	<base loc="en"          >Paste:</base>
+	<tran loc="fr" origin="">Coller :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Spelling&gt; (oid:2047) </Description>
+<Position>2047</Position>
+<TranslationSet>
+
+	<base loc="en"          >Spelling</base>
+	<tran loc="fr" origin="">Orthographe</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:  Next Place Holder&gt; (oid:2048) </Description>
+<Position>2048</Position>
+<TranslationSet>
+
+	<base loc="en"          >  Next Place Holder</base>
+	<tran loc="fr" origin="">  Emplacement suivant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:  Next TeX Error&gt; (oid:2049) </Description>
+<Position>2049</Position>
+<TranslationSet>
+
+	<base loc="en"          >  Next TeX Error</base>
+	<tran loc="fr" origin="">  Erreur TeX suivante</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Edit&gt; (oid:2050) </Description>
+<Position>2050</Position>
+<TranslationSet>
+
+	<base loc="en"          >Edit</base>
+	<tran loc="fr" origin="">Éditer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Paste&gt; (oid:2051) </Description>
+<Position>2051</Position>
+<TranslationSet>
+
+	<base loc="en"          >Paste</base>
+	<tran loc="fr" origin="">Coller</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Cut in:&gt; (oid:2052) </Description>
+<Position>2052</Position>
+<TranslationSet>
+
+	<base loc="en"          >Cut in:</base>
+	<tran loc="fr" origin="">Couper dans :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:  Selection&gt; (oid:2053) </Description>
+<Position>2053</Position>
+<TranslationSet>
+
+	<base loc="en"          >  Selection</base>
+	<tran loc="fr" origin="">  Sélection</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Options&gt; (oid:2054) </Description>
+<Position>2054</Position>
+<TranslationSet>
+
+	<base loc="en"          >Options</base>
+	<tran loc="fr" origin="">Options</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Advanced Find...&gt; (oid:2055) </Description>
+<Position>2055</Position>
+<TranslationSet>
+
+	<base loc="en"          >Advanced Find...</base>
+	<tran loc="fr" origin="">Recherche avancée...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Check Spelling As You Type&gt; (oid:2057) </Description>
+<Position>2057</Position>
+<TranslationSet>
+
+	<base loc="en"          >Check Spelling As You Type</base>
+	<tran loc="fr" origin="">Vérifier l&apos;orthographe lors de la frappe</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Smart Selection&gt; (oid:2087) </Description>
+<Position>2087</Position>
+<TranslationSet>
+
+	<base loc="en"          >Smart Selection</base>
+	<tran loc="fr" origin="">Sélection intelligente</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Match Delimiter&gt; (oid:2088) </Description>
+<Position>2088</Position>
+<TranslationSet>
+
+	<base loc="en"          >Match Delimiter</base>
+	<tran loc="fr" origin="">Trouve l&apos;autre délimiteur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Fix Symbol Drawer Bug&gt; (oid:2089) </Description>
+<Position>2089</Position>
+<TranslationSet>
+
+	<base loc="en"          >Fix Symbol Drawer Bug</base>
+	<tran loc="fr" origin="">Corriger le tiroir symboles</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Shift Delete&gt; (oid:2090) </Description>
+<Position>2090</Position>
+<TranslationSet>
+
+	<base loc="en"          >Shift Delete</base>
+	<tran loc="fr" origin="">Autre supprimer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:LaTeX Symbols Panel&gt; (oid:2097) </Description>
+<Position>2097</Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX Symbols Panel</base>
+	<tran loc="fr" origin="">Panneau des symboles LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Reload Macros&gt; (oid:2099) </Description>
+<Position>2099</Position>
+<TranslationSet>
+
+	<base loc="en"          >Reload Macros</base>
+	<tran loc="fr" origin="">Recharger les macros</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:LaTeX Environment&gt; (oid:2129) </Description>
+<Position>2129</Position>
+<TranslationSet>
+
+	<base loc="en"          >LaTeX Environment</base>
+	<tran loc="fr" origin="">Environnement LaTeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Preserve Indentation&gt; (oid:2135) </Description>
+<Position>2135</Position>
+<TranslationSet>
+
+	<base loc="en"          >Preserve Indentation</base>
+	<tran loc="fr" origin="">Respecter l&apos;indentation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:TeX&gt; (oid:2161) </Description>
+<Position>2161</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX</base>
+	<tran loc="fr" origin="">TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:TeX&gt; (oid:2172) </Description>
+<Position>2172</Position>
+<TranslationSet>
+
+	<base loc="en"          >TeX</base>
+	<tran loc="fr" origin="">TeX</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Close Project&gt; (oid:2225) </Description>
+<Position>2225</Position>
+<TranslationSet>
+
+	<base loc="en"          >Close Project</base>
+	<tran loc="fr" origin="">Fermer le projet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:File&gt; (oid:2226) </Description>
+<Position>2226</Position>
+<TranslationSet>
+
+	<base loc="en"          >File</base>
+	<tran loc="fr" origin="">Fichier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:New&gt; (oid:2228) </Description>
+<Position>2228</Position>
+<TranslationSet>
+
+	<base loc="en"          >New</base>
+	<tran loc="fr" origin="">Nouveau</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Open&gt; (oid:2229) </Description>
+<Position>2229</Position>
+<TranslationSet>
+
+	<base loc="en"          >Open</base>
+	<tran loc="fr" origin="">Ouvrir</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Save All&gt; (oid:2231) </Description>
+<Position>2231</Position>
+<TranslationSet>
+
+	<base loc="en"          >Save All</base>
+	<tran loc="fr" origin="">Tout enregistrer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Revert To Saved&gt; (oid:2232) </Description>
+<Position>2232</Position>
+<TranslationSet>
+
+	<base loc="en"          >Revert To Saved</base>
+	<tran loc="fr" origin="">Revenir à la version enregistrée</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Close&gt; (oid:2236) </Description>
+<Position>2236</Position>
+<TranslationSet>
+
+	<base loc="en"          >Close</base>
+	<tran loc="fr" origin="">Fermer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Save a Copy as...&gt; (oid:2237) </Description>
+<Position>2237</Position>
+<TranslationSet>
+
+	<base loc="en"          >Save a Copy as...</base>
+	<tran loc="fr" origin="">Enregistrer une copie sous...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Page Layout&gt; (oid:2238) </Description>
+<Position>2238</Position>
+<TranslationSet>
+
+	<base loc="en"          >Page Layout</base>
+	<tran loc="fr" origin="">Format d&apos;impression...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Save as...&gt; (oid:2239) </Description>
+<Position>2239</Position>
+<TranslationSet>
+
+	<base loc="en"          >Save as...</base>
+	<tran loc="fr" origin="">Enregistrer sous...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Open Recent&gt; (oid:2240) </Description>
+<Position>2240</Position>
+<TranslationSet>
+
+	<base loc="en"          >Open Recent</base>
+	<tran loc="fr" origin="">Ouvrir récent</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Open Selection&gt; (oid:2241) </Description>
+<Position>2241</Position>
+<TranslationSet>
+
+	<base loc="en"          >Open Selection</base>
+	<tran loc="fr" origin="">Ouvrir la sélection</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Print...&gt; (oid:2242) </Description>
+<Position>2242</Position>
+<TranslationSet>
+
+	<base loc="en"          >Print...</base>
+	<tran loc="fr" origin="">Imprimer...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Save&gt; (oid:2243) </Description>
+<Position>2243</Position>
+<TranslationSet>
+
+	<base loc="en"          >Save</base>
+	<tran loc="fr" origin="">Enregistrer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Open Recent&gt; (oid:2244) </Description>
+<Position>2244</Position>
+<TranslationSet>
+
+	<base loc="en"          >Open Recent</base>
+	<tran loc="fr" origin="">Ouvrir récent</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Clear Menu&gt; (oid:2246) </Description>
+<Position>2246</Position>
+<TranslationSet>
+
+	<base loc="en"          >Clear Menu</base>
+	<tran loc="fr" origin="">Effacer le menu</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:File&gt; (oid:2247) </Description>
+<Position>2247</Position>
+<TranslationSet>
+
+	<base loc="en"          >File</base>
+	<tran loc="fr" origin="">Fichier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Mail for help...&gt; (oid:2271) </Description>
+<Position>2271</Position>
+<TranslationSet>
+
+	<base loc="en"          >Mail for help...</base>
+	<tran loc="fr" origin="">Envoyer un courrier d&apos;aide...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Request feature...&gt; (oid:2272) </Description>
+<Position>2272</Position>
+<TranslationSet>
+
+	<base loc="en"          >Request feature...</base>
+	<tran loc="fr" origin="">Demander une amélioration...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Report bug...&gt; (oid:2274) </Description>
+<Position>2274</Position>
+<TranslationSet>
+
+	<base loc="en"          >Report bug...</base>
+	<tran loc="fr" origin="">Indiquer un bogue...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Inspector&gt; (oid:2298) </Description>
+<Position>2298</Position>
+<TranslationSet>
+
+	<base loc="en"          >Inspector</base>
+	<tran loc="fr" origin="">Inspecteur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Project : %@&gt; (oid:2332) </Description>
+<Position>2332</Position>
+<TranslationSet>
+
+	<base loc="en"          >Project : %@</base>
+	<tran loc="fr" origin="">Projet : %@</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Project Settings...&gt; (oid:2333) </Description>
+<Position>2333</Position>
+<TranslationSet>
+
+	<base loc="en"          >Project Settings...</base>
+	<tran loc="fr" origin="">Options de projet...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:No active project&gt; (oid:2334) </Description>
+<Position>2334</Position>
+<TranslationSet>
+
+	<base loc="en"          >No active project</base>
+	<tran loc="fr" origin="">Pas de projet actif</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Add Document...&gt; (oid:2357) </Description>
+<Position>2357</Position>
+<TranslationSet>
+
+	<base loc="en"          >Add Document...</base>
+	<tran loc="fr" origin="">Ajouter un document...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:&lt;PRIVATE: project submenu&gt;&gt; (oid:2358) </Description>
+<Position>2358</Position>
+<TranslationSet>
+
+	<base loc="en"          >&lt;PRIVATE: project submenu&gt;</base>
+	<tran loc="fr" origin="">&lt;PRIVATE: project submenu&gt;</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:&lt;PRIVATE: project submenu&gt;&gt; (oid:2359) </Description>
+<Position>2359</Position>
+<TranslationSet>
+
+	<base loc="en"          >&lt;PRIVATE: project submenu&gt;</base>
+	<tran loc="fr" origin="">&lt;PRIVATE: project submenu&gt;</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:No document&gt; (oid:2360) </Description>
+<Position>2360</Position>
+<TranslationSet>
+
+	<base loc="en"          >No document</base>
+	<tran loc="fr" origin="">Aucun document</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Documents :&gt; (oid:2362) </Description>
+<Position>2362</Position>
+<TranslationSet>
+
+	<base loc="en"          >Documents :</base>
+	<tran loc="fr" origin="">Documents :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Edit...&gt; (oid:2368) </Description>
+<Position>2368</Position>
+<TranslationSet>
+
+	<base loc="en"          >Edit...</base>
+	<tran loc="fr" origin="">Éditer...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Enable Styles&gt; (oid:2369) </Description>
+<Position>2369</Position>
+<TranslationSet>
+
+	<base loc="en"          >Enable Styles</base>
+	<tran loc="fr" origin="">Activer les styles</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Style&gt; (oid:2370) </Description>
+<Position>2370</Position>
+<TranslationSet>
+
+	<base loc="en"          >Style</base>
+	<tran loc="fr" origin="">Style</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Style&gt; (oid:2371) </Description>
+<Position>2371</Position>
+<TranslationSet>
+
+	<base loc="en"          >Style</base>
+	<tran loc="fr" origin="">Style</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Open or create a project first&gt; (oid:2375) </Description>
+<Position>2375</Position>
+<TranslationSet>
+
+	<base loc="en"          >Open or create a project first</base>
+	<tran loc="fr" origin="">D&apos;abord ouvrir ou créer un projet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Customize Encodings List…&gt; (oid:2384) </Description>
+<Position>2384</Position>
+<TranslationSet>
+
+	<base loc="en"          >Customize Encodings List…</base>
+	<tran loc="fr" origin="">Personnaliser la liste des encodages</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:File Encoding&gt; (oid:2385) </Description>
+<Position>2385</Position>
+<TranslationSet>
+
+	<base loc="en"          >File Encoding</base>
+	<tran loc="fr" origin="">Encodage du fichier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:File Encoding&gt; (oid:2386) </Description>
+<Position>2386</Position>
+<TranslationSet>
+
+	<base loc="en"          >File Encoding</base>
+	<tran loc="fr" origin="">Encodage du fichier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Automatic&gt; (oid:2388) </Description>
+<Position>2388</Position>
+<TranslationSet>
+
+	<base loc="en"          >Automatic</base>
+	<tran loc="fr" origin="">Automatique</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Open Quickly&gt; (oid:2390) </Description>
+<Position>2390</Position>
+<TranslationSet>
+
+	<base loc="en"          >Open Quickly</base>
+	<tran loc="fr" origin="">Ouvrir vite</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Open Quickly&gt; (oid:2391) </Description>
+<Position>2391</Position>
+<TranslationSet>
+
+	<base loc="en"          >Open Quickly</base>
+	<tran loc="fr" origin="">Ouvrir vite</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Text&gt; (oid:2392) </Description>
+<Position>2392</Position>
+<TranslationSet>
+
+	<base loc="en"          >Text</base>
+	<tran loc="fr" origin="">Texte</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Other&gt; (oid:2393) </Description>
+<Position>2393</Position>
+<TranslationSet>
+
+	<base loc="en"          >Other</base>
+	<tran loc="fr" origin="">Autre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Graphics&gt; (oid:2394) </Description>
+<Position>2394</Position>
+<TranslationSet>
+
+	<base loc="en"          >Graphics</base>
+	<tran loc="fr" origin="">Graphiques</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Line Endings&gt; (oid:2398) </Description>
+<Position>2398</Position>
+<TranslationSet>
+
+	<base loc="en"          >Line Endings</base>
+	<tran loc="fr" origin="">Fins de lignes</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Unchanged&gt; (oid:2399) </Description>
+<Position>2399</Position>
+<TranslationSet>
+
+	<base loc="en"          >Unchanged</base>
+	<tran loc="fr" origin="">Inchangé</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Minimize&gt; (oid:23) </Description>
+<Position>23</Position>
+<TranslationSet>
+
+	<base loc="en"          >Minimize</base>
+	<tran loc="fr" origin="">Minimiser</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Line Endings&gt; (oid:2400) </Description>
+<Position>2400</Position>
+<TranslationSet>
+
+	<base loc="en"          >Line Endings</base>
+	<tran loc="fr" origin="">Fins de lignes</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Macintosh CR&gt; (oid:2403) </Description>
+<Position>2403</Position>
+<TranslationSet>
+
+	<base loc="en"          >Macintosh CR</base>
+	<tran loc="fr" origin="">Macintosh (CR)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Windows CR/LF&gt; (oid:2404) </Description>
+<Position>2404</Position>
+<TranslationSet>
+
+	<base loc="en"          >Windows CR/LF</base>
+	<tran loc="fr" origin="">Windows (CR/LF)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:UNIX LF&gt; (oid:2405) </Description>
+<Position>2405</Position>
+<TranslationSet>
+
+	<base loc="en"          >UNIX LF</base>
+	<tran loc="fr" origin="">UNIX (LF)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Unknown&gt; (oid:2412) </Description>
+<Position>2412</Position>
+<TranslationSet>
+
+	<base loc="en"          >Unknown</base>
+	<tran loc="fr" origin="">Inconnu</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Master Document&gt; (oid:2414) </Description>
+<Position>2414</Position>
+<TranslationSet>
+
+	<base loc="en"          >Master Document</base>
+	<tran loc="fr" origin="">Document maître</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Add To Project&gt; (oid:2419) </Description>
+<Position>2419</Position>
+<TranslationSet>
+
+	<base loc="en"          >Add To Project</base>
+	<tran loc="fr" origin="">Ajouter au projet</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Style:&gt; (oid:2422) </Description>
+<Position>2422</Position>
+<TranslationSet>
+
+	<base loc="en"          >Style:</base>
+	<tran loc="fr" origin="">Style :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:%@ (%@ Variant)&gt; (oid:2423) </Description>
+<Position>2423</Position>
+<TranslationSet>
+
+	<base loc="en"          >%@ (%@ Variant)</base>
+	<tran loc="fr" origin="">%@ (Variante %@)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Variant:&gt; (oid:2424) </Description>
+<Position>2424</Position>
+<TranslationSet>
+
+	<base loc="en"          >Variant:</base>
+	<tran loc="fr" origin="">Variante :</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Subscript&gt; (oid:2428) </Description>
+<Position>2428</Position>
+<TranslationSet>
+
+	<base loc="en"          >Subscript</base>
+	<tran loc="fr" origin="">Indoce</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Use None&gt; (oid:2430) </Description>
+<Position>2430</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use None</base>
+	<tran loc="fr" origin="">Aucun</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Bold&gt; (oid:2431) </Description>
+<Position>2431</Position>
+<TranslationSet>
+
+	<base loc="en"          >Bold</base>
+	<tran loc="fr" origin="">Gras</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Font&gt; (oid:2432) </Description>
+<Position>2432</Position>
+<TranslationSet>
+
+	<base loc="en"          >Font</base>
+	<tran loc="fr" origin="">Police</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Use Default&gt; (oid:2433) </Description>
+<Position>2433</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use Default</base>
+	<tran loc="fr" origin="">Valeur par défaut</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Use None&gt; (oid:2435) </Description>
+<Position>2435</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use None</base>
+	<tran loc="fr" origin="">Aucun</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Ligature&gt; (oid:2436) </Description>
+<Position>2436</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ligature</base>
+	<tran loc="fr" origin="">Ligature</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Copy Style&gt; (oid:2437) </Description>
+<Position>2437</Position>
+<TranslationSet>
+
+	<base loc="en"          >Copy Style</base>
+	<tran loc="fr" origin="">Copier le style</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Baseline&gt; (oid:2438) </Description>
+<Position>2438</Position>
+<TranslationSet>
+
+	<base loc="en"          >Baseline</base>
+	<tran loc="fr" origin="">Ligne de base</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Kern&gt; (oid:2439) </Description>
+<Position>2439</Position>
+<TranslationSet>
+
+	<base loc="en"          >Kern</base>
+	<tran loc="fr" origin="">Crénage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Bigger&gt; (oid:2440) </Description>
+<Position>2440</Position>
+<TranslationSet>
+
+	<base loc="en"          >Bigger</base>
+	<tran loc="fr" origin="">Plus grand</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Raise&gt; (oid:2442) </Description>
+<Position>2442</Position>
+<TranslationSet>
+
+	<base loc="en"          >Raise</base>
+	<tran loc="fr" origin="">Élever</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Superscript&gt; (oid:2443) </Description>
+<Position>2443</Position>
+<TranslationSet>
+
+	<base loc="en"          >Superscript</base>
+	<tran loc="fr" origin="">Exposant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Italic&gt; (oid:2444) </Description>
+<Position>2444</Position>
+<TranslationSet>
+
+	<base loc="en"          >Italic</base>
+	<tran loc="fr" origin="">Italique</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Show Fonts&gt; (oid:2446) </Description>
+<Position>2446</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show Fonts</base>
+	<tran loc="fr" origin="">Afficher les polices</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Use All&gt; (oid:2447) </Description>
+<Position>2447</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use All</base>
+	<tran loc="fr" origin="">Tout utiliser</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Tighten&gt; (oid:2448) </Description>
+<Position>2448</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tighten</base>
+	<tran loc="fr" origin="">Resserrer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Baseline&gt; (oid:2449) </Description>
+<Position>2449</Position>
+<TranslationSet>
+
+	<base loc="en"          >Baseline</base>
+	<tran loc="fr" origin="">Ligne de base</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Use Default&gt; (oid:2450) </Description>
+<Position>2450</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use Default</base>
+	<tran loc="fr" origin="">Valeur par défaut</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Underline&gt; (oid:2451) </Description>
+<Position>2451</Position>
+<TranslationSet>
+
+	<base loc="en"          >Underline</base>
+	<tran loc="fr" origin="">Souligner</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Paste Style&gt; (oid:2452) </Description>
+<Position>2452</Position>
+<TranslationSet>
+
+	<base loc="en"          >Paste Style</base>
+	<tran loc="fr" origin="">Coller le style</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Use Default&gt; (oid:2453) </Description>
+<Position>2453</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use Default</base>
+	<tran loc="fr" origin="">Valeur par défaut</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Lower&gt; (oid:2454) </Description>
+<Position>2454</Position>
+<TranslationSet>
+
+	<base loc="en"          >Lower</base>
+	<tran loc="fr" origin="">Abaisser</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Show Colors&gt; (oid:2455) </Description>
+<Position>2455</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show Colors</base>
+	<tran loc="fr" origin="">Afficher les couleurs</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Ligature&gt; (oid:2456) </Description>
+<Position>2456</Position>
+<TranslationSet>
+
+	<base loc="en"          >Ligature</base>
+	<tran loc="fr" origin="">Ligature</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Kern&gt; (oid:2457) </Description>
+<Position>2457</Position>
+<TranslationSet>
+
+	<base loc="en"          >Kern</base>
+	<tran loc="fr" origin="">Crénage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Loosen&gt; (oid:2458) </Description>
+<Position>2458</Position>
+<TranslationSet>
+
+	<base loc="en"          >Loosen</base>
+	<tran loc="fr" origin="">Desserrer</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Font&gt; (oid:2459) </Description>
+<Position>2459</Position>
+<TranslationSet>
+
+	<base loc="en"          >Font</base>
+	<tran loc="fr" origin="">Police</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Smaller&gt; (oid:2460) </Description>
+<Position>2460</Position>
+<TranslationSet>
+
+	<base loc="en"          >Smaller</base>
+	<tran loc="fr" origin="">Plus petit</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Find…&gt; (oid:2496) </Description>
+<Position>2496</Position>
+<TranslationSet>
+
+	<base loc="en"          >Find…</base>
+	<tran loc="fr" origin="">Rechercher...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Use Selection for Find&gt; (oid:2497) </Description>
+<Position>2497</Position>
+<TranslationSet>
+
+	<base loc="en"          >Use Selection for Find</base>
+	<tran loc="fr" origin="">Rechercher la sélection</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Find Previous&gt; (oid:2498) </Description>
+<Position>2498</Position>
+<TranslationSet>
+
+	<base loc="en"          >Find Previous</base>
+	<tran loc="fr" origin="">Rechercher le précédent</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Find Next&gt; (oid:2499) </Description>
+<Position>2499</Position>
+<TranslationSet>
+
+	<base loc="en"          >Find Next</base>
+	<tran loc="fr" origin="">Recherhcer le suivant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Window&gt; (oid:24) </Description>
+<Position>24</Position>
+<TranslationSet>
+
+	<base loc="en"          >Window</base>
+	<tran loc="fr" origin="">Fenêtre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:New board...&gt; (oid:2515) </Description>
+<Position>2515</Position>
+<TranslationSet>
+
+	<base loc="en"          >New board...</base>
+	<tran loc="fr" origin="">Nouveau presse-papier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Preferences...&gt; (oid:2520) </Description>
+<Position>2520</Position>
+<TranslationSet>
+
+	<base loc="en"          >Preferences...</base>
+	<tran loc="fr" origin="">Préférences...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Preferences&gt; (oid:2524) </Description>
+<Position>2524</Position>
+<TranslationSet>
+
+	<base loc="en"          >Preferences</base>
+	<tran loc="fr" origin="">Préférences</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Preferences&gt; (oid:2525) </Description>
+<Position>2525</Position>
+<TranslationSet>
+
+	<base loc="en"          >Preferences</base>
+	<tran loc="fr" origin="">Préférences</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Auto Update&gt; (oid:2526) </Description>
+<Position>2526</Position>
+<TranslationSet>
+
+	<base loc="en"          >Auto Update</base>
+	<tran loc="fr" origin="">Mise à jour automatique</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Smart Update&gt; (oid:2528) </Description>
+<Position>2528</Position>
+<TranslationSet>
+
+	<base loc="en"          >Smart Update</base>
+	<tran loc="fr" origin="">Mise à jour intelligente</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Writing Direction&gt; (oid:2605) </Description>
+<Position>2605</Position>
+<TranslationSet>
+
+	<base loc="en"          >Writing Direction</base>
+	<tran loc="fr" origin="">Direction d&apos;écriture</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Writing Direction&gt; (oid:2606) </Description>
+<Position>2606</Position>
+<TranslationSet>
+
+	<base loc="en"          >Writing Direction</base>
+	<tran loc="fr" origin="">Direction d&apos;écriture</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Right to Left&gt; (oid:2607) </Description>
+<Position>2607</Position>
+<TranslationSet>
+
+	<base loc="en"          >Right to Left</base>
+	<tran loc="fr" origin="">Droite à gauche</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Prevent Editing&gt; (oid:2626) </Description>
+<Position>2626</Position>
+<TranslationSet>
+
+	<base loc="en"          >Prevent Editing</base>
+	<tran loc="fr" origin="">Empêcher l&apos;édition</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Default: %@&gt; (oid:2630) </Description>
+<Position>2630</Position>
+<TranslationSet>
+
+	<base loc="en"          >Default: %@</base>
+	<tran loc="fr" origin="">Par défaut : %@</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Default: %@&gt; (oid:2632) </Description>
+<Position>2632</Position>
+<TranslationSet>
+
+	<base loc="en"          >Default: %@</base>
+	<tran loc="fr" origin="">Par défaut : %@</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:String Encoding: %@&gt; (oid:2634) </Description>
+<Position>2634</Position>
+<TranslationSet>
+
+	<base loc="en"          >String Encoding: %@</base>
+	<tran loc="fr" origin="">Encodage : %@</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:View&gt; (oid:2653) </Description>
+<Position>2653</Position>
+<TranslationSet>
+
+	<base loc="en"          >View</base>
+	<tran loc="fr" origin="">Présentation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:View&gt; (oid:2654) </Description>
+<Position>2654</Position>
+<TranslationSet>
+
+	<base loc="en"          >View</base>
+	<tran loc="fr" origin="">Présentation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:PDF Display&gt; (oid:2657) </Description>
+<Position>2657</Position>
+<TranslationSet>
+
+	<base loc="en"          >PDF Display</base>
+	<tran loc="fr" origin="">Affichage des documents PDF</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:PDF Display&gt; (oid:2658) </Description>
+<Position>2658</Position>
+<TranslationSet>
+
+	<base loc="en"          >PDF Display</base>
+	<tran loc="fr" origin="">Affichage des documents PDF</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Media Box&gt; (oid:2659) </Description>
+<Position>2659</Position>
+<TranslationSet>
+
+	<base loc="en"          >Media Box</base>
+	<tran loc="fr" origin="">Zone de donnée</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Crop Box&gt; (oid:2660) </Description>
+<Position>2660</Position>
+<TranslationSet>
+
+	<base loc="en"          >Crop Box</base>
+	<tran loc="fr" origin="">Zone de rognage</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Single Pages&gt; (oid:2661) </Description>
+<Position>2661</Position>
+<TranslationSet>
+
+	<base loc="en"          >Single Pages</base>
+	<tran loc="fr" origin="">Pages uniques</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Facing Pages&gt; (oid:2662) </Description>
+<Position>2662</Position>
+<TranslationSet>
+
+	<base loc="en"          >Facing Pages</base>
+	<tran loc="fr" origin="">Pages opposées</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Continuous&gt; (oid:2664) </Description>
+<Position>2664</Position>
+<TranslationSet>
+
+	<base loc="en"          >Continuous</base>
+	<tran loc="fr" origin="">En continu</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Book Mode&gt; (oid:2665) </Description>
+<Position>2665</Position>
+<TranslationSet>
+
+	<base loc="en"          >Book Mode</base>
+	<tran loc="fr" origin="">Mode livre</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Page Breaks&gt; (oid:2666) </Description>
+<Position>2666</Position>
+<TranslationSet>
+
+	<base loc="en"          >Page Breaks</base>
+	<tran loc="fr" origin="">Sauts de page</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Slideshow&gt; (oid:2669) </Description>
+<Position>2669</Position>
+<TranslationSet>
+
+	<base loc="en"          >Slideshow</base>
+	<tran loc="fr" origin="">Diaporama</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Automatically Resize&gt; (oid:2670) </Description>
+<Position>2670</Position>
+<TranslationSet>
+
+	<base loc="en"          >Automatically Resize</base>
+	<tran loc="fr" origin="">Redimensioner automatiquement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Zoom In&gt; (oid:2671) </Description>
+<Position>2671</Position>
+<TranslationSet>
+
+	<base loc="en"          >Zoom In</base>
+	<tran loc="fr" origin="">Zoom avant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Zoom Out&gt; (oid:2673) </Description>
+<Position>2673</Position>
+<TranslationSet>
+
+	<base loc="en"          >Zoom Out</base>
+	<tran loc="fr" origin="">Zoom arrière</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Actual Size&gt; (oid:2674) </Description>
+<Position>2674</Position>
+<TranslationSet>
+
+	<base loc="en"          >Actual Size</base>
+	<tran loc="fr" origin="">Taille réelle</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Zoom to Selection&gt; (oid:2675) </Description>
+<Position>2675</Position>
+<TranslationSet>
+
+	<base loc="en"          >Zoom to Selection</base>
+	<tran loc="fr" origin="">Ajuster à la sélection</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Drawer&gt; (oid:2677) </Description>
+<Position>2677</Position>
+<TranslationSet>
+
+	<base loc="en"          >Drawer</base>
+	<tran loc="fr" origin="">Tiroir</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Go&gt; (oid:2679) </Description>
+<Position>2679</Position>
+<TranslationSet>
+
+	<base loc="en"          >Go</base>
+	<tran loc="fr" origin="">Aller</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Go&gt; (oid:2680) </Description>
+<Position>2680</Position>
+<TranslationSet>
+
+	<base loc="en"          >Go</base>
+	<tran loc="fr" origin="">Aller</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Next&gt; (oid:2681) </Description>
+<Position>2681</Position>
+<TranslationSet>
+
+	<base loc="en"          >Next</base>
+	<tran loc="fr" origin="">Page suivante</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Last&gt; (oid:2682) </Description>
+<Position>2682</Position>
+<TranslationSet>
+
+	<base loc="en"          >Last</base>
+	<tran loc="fr" origin="">Dernier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Previous&gt; (oid:2683) </Description>
+<Position>2683</Position>
+<TranslationSet>
+
+	<base loc="en"          >Previous</base>
+	<tran loc="fr" origin="">Page précédente</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Back&gt; (oid:2685) </Description>
+<Position>2685</Position>
+<TranslationSet>
+
+	<base loc="en"          >Back</base>
+	<tran loc="fr" origin="">Précédent</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Go to Page…&gt; (oid:2686) </Description>
+<Position>2686</Position>
+<TranslationSet>
+
+	<base loc="en"          >Go to Page…</base>
+	<tran loc="fr" origin="">Aller à la page...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Forward&gt; (oid:2687) </Description>
+<Position>2687</Position>
+<TranslationSet>
+
+	<base loc="en"          >Forward</base>
+	<tran loc="fr" origin="">Suivant</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:First&gt; (oid:2689) </Description>
+<Position>2689</Position>
+<TranslationSet>
+
+	<base loc="en"          >First</base>
+	<tran loc="fr" origin="">Premier</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Tools&gt; (oid:2690) </Description>
+<Position>2690</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tools</base>
+	<tran loc="fr" origin="">Outils</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Tools&gt; (oid:2691) </Description>
+<Position>2691</Position>
+<TranslationSet>
+
+	<base loc="en"          >Tools</base>
+	<tran loc="fr" origin="">Outils</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Match to Profile…&gt; (oid:2692) </Description>
+<Position>2692</Position>
+<TranslationSet>
+
+	<base loc="en"          >Match to Profile…</base>
+	<tran loc="fr" origin="">Faire correspondre au profil...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Assign Profile…&gt; (oid:2693) </Description>
+<Position>2693</Position>
+<TranslationSet>
+
+	<base loc="en"          >Assign Profile…</base>
+	<tran loc="fr" origin="">Assigner un profil...</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Show Colors&gt; (oid:2694) </Description>
+<Position>2694</Position>
+<TranslationSet>
+
+	<base loc="en"          >Show Colors</base>
+	<tran loc="fr" origin="">Afficher les couleurs</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Get Info&gt; (oid:2695) </Description>
+<Position>2695</Position>
+<TranslationSet>
+
+	<base loc="en"          >Get Info</base>
+	<tran loc="fr" origin="">Lire les informations</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Image Correction…&gt; (oid:2697) </Description>
+<Position>2697</Position>
+<TranslationSet>
+
+	<base loc="en"          >Image Correction…</base>
+	<tran loc="fr" origin="">Correction d&apos;image</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:My Rating&gt; (oid:2699) </Description>
+<Position>2699</Position>
+<TranslationSet>
+
+	<base loc="en"          >My Rating</base>
+	<tran loc="fr" origin="">Mon score</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:My Rating&gt; (oid:2700) </Description>
+<Position>2700</Position>
+<TranslationSet>
+
+	<base loc="en"          >My Rating</base>
+	<tran loc="fr" origin="">Mon score</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:None&gt; (oid:2701) </Description>
+<Position>2701</Position>
+<TranslationSet>
+
+	<base loc="en"          >None</base>
+	<tran loc="fr" origin="">Aucun</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:★&gt; (oid:2702) </Description>
+<Position>2702</Position>
+<TranslationSet>
+
+	<base loc="en"          >★</base>
+	<tran loc="fr" origin="">★</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:★★&gt; (oid:2703) </Description>
+<Position>2703</Position>
+<TranslationSet>
+
+	<base loc="en"          >★★</base>
+	<tran loc="fr" origin="">★★</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:★★★&gt; (oid:2704) </Description>
+<Position>2704</Position>
+<TranslationSet>
+
+	<base loc="en"          >★★★</base>
+	<tran loc="fr" origin="">★★★</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:★★★★&gt; (oid:2705) </Description>
+<Position>2705</Position>
+<TranslationSet>
+
+	<base loc="en"          >★★★★</base>
+	<tran loc="fr" origin="">★★★★</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:★★★★★&gt; (oid:2706) </Description>
+<Position>2706</Position>
+<TranslationSet>
+
+	<base loc="en"          >★★★★★</base>
+	<tran loc="fr" origin="">★★★★★</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Rotate Left&gt; (oid:2707) </Description>
+<Position>2707</Position>
+<TranslationSet>
+
+	<base loc="en"          >Rotate Left</base>
+	<tran loc="fr" origin="">Rotation à gauche</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Scroll Tool&gt; (oid:2708) </Description>
+<Position>2708</Position>
+<TranslationSet>
+
+	<base loc="en"          >Scroll Tool</base>
+	<tran loc="fr" origin="">Outil de défilement</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Rotate Right&gt; (oid:2709) </Description>
+<Position>2709</Position>
+<TranslationSet>
+
+	<base loc="en"          >Rotate Right</base>
+	<tran loc="fr" origin="">Rotation à droite</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Text Tool&gt; (oid:2710) </Description>
+<Position>2710</Position>
+<TranslationSet>
+
+	<base loc="en"          >Text Tool</base>
+	<tran loc="fr" origin="">Outil de texte</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Flip Horizontal&gt; (oid:2711) </Description>
+<Position>2711</Position>
+<TranslationSet>
+
+	<base loc="en"          >Flip Horizontal</base>
+	<tran loc="fr" origin="">Retournement horizontal</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Select Tool&gt; (oid:2712) </Description>
+<Position>2712</Position>
+<TranslationSet>
+
+	<base loc="en"          >Select Tool</base>
+	<tran loc="fr" origin="">Outil de sélection</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Flip Vertical&gt; (oid:2713) </Description>
+<Position>2713</Position>
+<TranslationSet>
+
+	<base loc="en"          >Flip Vertical</base>
+	<tran loc="fr" origin="">Retournement vertical</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Annotate Tool&gt; (oid:2714) </Description>
+<Position>2714</Position>
+<TranslationSet>
+
+	<base loc="en"          >Annotate Tool</base>
+	<tran loc="fr" origin="">Outil d&apos;annotation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Crop&gt; (oid:2715) </Description>
+<Position>2715</Position>
+<TranslationSet>
+
+	<base loc="en"          >Crop</base>
+	<tran loc="fr" origin="">Rogner</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Annotation&gt; (oid:2716) </Description>
+<Position>2716</Position>
+<TranslationSet>
+
+	<base loc="en"          >Annotation</base>
+	<tran loc="fr" origin="">Annotation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:Annotation&gt; (oid:2717) </Description>
+<Position>2717</Position>
+<TranslationSet>
+
+	<base loc="en"          >Annotation</base>
+	<tran loc="fr" origin="">Annotation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Oval Annotation&gt; (oid:2718) </Description>
+<Position>2718</Position>
+<TranslationSet>
+
+	<base loc="en"          >Oval Annotation</base>
+	<tran loc="fr" origin="">Annotation ovale</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Text Annotation&gt; (oid:2719) </Description>
+<Position>2719</Position>
+<TranslationSet>
+
+	<base loc="en"          >Text Annotation</base>
+	<tran loc="fr" origin="">Annotation textuelle</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Synchronization point&gt; (oid:2766) </Description>
+<Position>2766</Position>
+<TranslationSet>
+
+	<base loc="en"          >Synchronization point</base>
+	<tran loc="fr" origin="">Point de synchronisation</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Viewer Preferences...&gt; (oid:2769) </Description>
+<Position>2769</Position>
+<TranslationSet>
+
+	<base loc="en"          >Viewer Preferences...</base>
+	<tran loc="fr" origin="">Préférences du visionneur</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Share Toolbar&gt; (oid:2777) </Description>
+<Position>2777</Position>
+<TranslationSet>
+
+	<base loc="en"          >Share Toolbar</base>
+	<tran loc="fr" origin="">Partager la barre d&apos;outils</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Find(Ogre)&gt; (oid:2780) </Description>
+<Position>2780</Position>
+<TranslationSet>
+
+	<base loc="en"          >Find(Ogre)</base>
+	<tran loc="fr" origin="">Rechercher (Ogre)</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:TEST PERL&gt; (oid:2797) </Description>
+<Position>2797</Position>
+<TranslationSet>
+
+	<base loc="en"          >TEST PERL</base>
+	<tran loc="fr" origin="">TEST PERL</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSIBHelpConnector : &lt;title:Arrange PDF documents: add empty pages, cutmarks, change layout&gt; (oid:2798) </Description>
+<Position>2798</Position>
+<TranslationSet>
+
+	<base loc="en"          >Arrange PDF documents: add empty pages, cutmarks, change layout</base>
+	<tran loc="fr" origin="">Arranger les documents pdf:  ajouter des pages vides, marques de coupe, changer de disposition</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenu : &lt;title:iTMMainMenu&gt; (oid:29) </Description>
+<Position>29</Position>
+<TranslationSet>
+
+	<base loc="en"          >iTMMainMenu</base>
+	<tran loc="fr" origin="">iTMMainMenu</tran>
+
+</TranslationSet>
+</TextItem>
+
+<TextItem>
+<Description> NSMenuItem : &lt;title:Bring All to Front&gt; (oid:5) </Description>
+<Position>5</Position>
+<TranslationSet>
+
+	<base loc="en"          >Bring All to Front</base>
+	<tran loc="fr" origin="">Tout ramener au premier plan</tran>
+
+</TranslationSet>
+</TextItem>
+
+</File>
+</Proj>

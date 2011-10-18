@@ -1,0 +1,318 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D11072D0486CEB800E47090 /* iTM2Readme-main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* iTM2Readme-main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		DC5129F80B3B056C0092B6C7 /* Documentation.rtf in Resources */ = {isa = PBXBuildFile; fileRef = DC5129F10B3B056C0092B6C7 /* Documentation.rtf */; };
+		DC5129F90B3B056C0092B6C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC5129F30B3B056C0092B6C7 /* InfoPlist.strings */; };
+		DC5129FA0B3B056C0092B6C7 /* rtf.icns in Resources */ = {isa = PBXBuildFile; fileRef = DC5129F70B3B056C0092B6C7 /* rtf.icns */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* iTM2Readme-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iTM2Readme-main.m"; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* iTM2Readme-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2Readme-Prefix.pch"; sourceTree = "<group>"; };
+		51D56B8C1348698200240F31 /* Debug-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B8D1348698200240F31 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51D56B8E1348698200240F31 /* DebugGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51D56B8F1348698200240F31 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B901348698200240F31 /* Deployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		51D56B911348698200240F31 /* Development-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B921348698200240F31 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		51D56B931348698200240F31 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
+		51D56B941348698200240F31 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		51D56B951348698200240F31 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51D56B961348698200240F31 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		51D56B971348698200240F31 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		51D56B981348698200240F31 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51D56B991348698200240F31 /* GC-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B9A1348698200240F31 /* PlugIn.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugIn.xcconfig; sourceTree = "<group>"; };
+		51D56B9B1348698200240F31 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51D56B9C1348698200240F31 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		51D56B9D1348698200240F31 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		51D56B9E1348698200240F31 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51D56B9F1348698200240F31 /* Products-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Products-set.xcconfig"; sourceTree = "<group>"; };
+		51D56BA01348698200240F31 /* Release-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51D56BA11348698200240F31 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* iTM2Readme-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2Readme-Info.plist"; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* iTM2Readme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTM2Readme.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC5129F20B3B056C0092B6C7 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Documentation.rtf; sourceTree = "<group>"; };
+		DC5129F40B3B056C0092B6C7 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DC5129F50B3B056C0092B6C7 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = French.lproj/Documentation.rtf; sourceTree = "<group>"; };
+		DC5129F60B3B056C0092B6C7 /* French */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DC5129F70B3B056C0092B6C7 /* rtf.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = rtf.icns; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* iTM2Readme.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* iTM2Readme */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				DC5129F00B3B056C0092B6C7 /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				51D56B8B1348698200240F31 /* Settings */,
+			);
+			name = iTM2Readme;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* iTM2Readme-Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* iTM2Readme-main.m */,
+				8D1107310486CEB800E47090 /* iTM2Readme-Info.plist */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		51D56B8B1348698200240F31 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				51D56B8C1348698200240F31 /* Debug-set.xcconfig */,
+				51D56B8D1348698200240F31 /* Debug.xcconfig */,
+				51D56B8E1348698200240F31 /* DebugGC.xcconfig */,
+				51D56B8F1348698200240F31 /* Deployment-set.xcconfig */,
+				51D56B901348698200240F31 /* Deployment.xcconfig */,
+				51D56B911348698200240F31 /* Development-set.xcconfig */,
+				51D56B921348698200240F31 /* Development.xcconfig */,
+				51D56B931348698200240F31 /* DevelopmentGC.xcconfig */,
+				51D56B941348698200240F31 /* Framework.xcconfig */,
+				51D56B951348698200240F31 /* FrameworkDebug.xcconfig */,
+				51D56B961348698200240F31 /* FrameworkDeployment.xcconfig */,
+				51D56B971348698200240F31 /* FrameworkDevelopment.xcconfig */,
+				51D56B981348698200240F31 /* FrameworkRelease.xcconfig */,
+				51D56B991348698200240F31 /* GC-set.xcconfig */,
+				51D56B9A1348698200240F31 /* PlugIn.xcconfig */,
+				51D56B9B1348698200240F31 /* PlugInDebug.xcconfig */,
+				51D56B9C1348698200240F31 /* PlugInDeployment.xcconfig */,
+				51D56B9D1348698200240F31 /* PlugInDevelopment.xcconfig */,
+				51D56B9E1348698200240F31 /* PlugInRelease.xcconfig */,
+				51D56B9F1348698200240F31 /* Products-set.xcconfig */,
+				51D56BA01348698200240F31 /* Release-set.xcconfig */,
+				51D56BA11348698200240F31 /* Release.xcconfig */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = "<group>";
+		};
+		DC5129F00B3B056C0092B6C7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DC5129F10B3B056C0092B6C7 /* Documentation.rtf */,
+				DC5129F30B3B056C0092B6C7 /* InfoPlist.strings */,
+				DC5129F70B3B056C0092B6C7 /* rtf.icns */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* iTM2Readme */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "iTM2Readme" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iTM2Readme;
+			productInstallPath = "$(HOME)/Applications";
+			productName = iTM2Readme;
+			productReference = 8D1107320486CEB800E47090 /* iTM2Readme.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iTM2Readme" */;
+			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* iTM2Readme */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* iTM2Readme */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC5129F80B3B056C0092B6C7 /* Documentation.rtf in Resources */,
+				DC5129F90B3B056C0092B6C7 /* InfoPlist.strings in Resources */,
+				DC5129FA0B3B056C0092B6C7 /* rtf.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* iTM2Readme-main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DC5129F10B3B056C0092B6C7 /* Documentation.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC5129F20B3B056C0092B6C7 /* English */,
+				DC5129F50B3B056C0092B6C7 /* French */,
+			);
+			name = Documentation.rtf;
+			sourceTree = "<group>";
+		};
+		DC5129F30B3B056C0092B6C7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC5129F40B3B056C0092B6C7 /* English */,
+				DC5129F60B3B056C0092B6C7 /* French */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "$(iTM2_INFOPLIST_FILE)";
+				PRODUCT_NAME = iTM2Readme;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "$(iTM2_INFOPLIST_FILE)";
+				PRODUCT_NAME = iTM2Readme;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56B8D1348698200240F31 /* Debug.xcconfig */;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56BA11348698200240F31 /* Release.xcconfig */;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "iTM2Readme" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iTM2Readme" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

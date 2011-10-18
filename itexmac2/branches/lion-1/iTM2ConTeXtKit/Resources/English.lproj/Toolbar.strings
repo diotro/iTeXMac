@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>?Label</key>
+	<string></string>
+	<key>?PaletteLabel</key>
+	<string></string>
+	<key>?ToolTip</key>
+	<string></string>
+	<key>ConTeXtLabelLabel</key>
+	<string>Label</string>
+	<key>ConTeXtLabelPaletteLabel</key>
+	<string>Label</string>
+	<key>ConTeXtLabelToolTip</key>
+	<string>Label</string>
+	<key>ConTeXtSectionLabel</key>
+	<string>Section</string>
+	<key>ConTeXtSectionPaletteLabel</key>
+	<string>Section</string>
+	<key>ConTeXtSectionToolTip</key>
+	<string>Section</string>
+	<key>ConTeXtAtGardenLabel</key>
+	<string>Garden</string>
+	<key>ConTeXtAtGardenPaletteLabel</key>
+	<string>Context Garden</string>
+	<key>ConTeXtAtGardenToolTip</key>
+	<string>Connect to the Context Garden Garden</string>
+	<key>ConTeXtAtPragmaADELabel</key>
+	<string>WEB</string>
+	<key>ConTeXtAtPragmaADEPaletteLabel</key>
+	<string>Connect to ConTeXt</string>
+	<key>ConTeXtAtPragmaADEToolTip</key>
+	<string>Connect to the ConTeXt main web site</string>
+	<key>ConTeXtManualsLabel</key>
+	<string>Manuals</string>
+	<key>ConTeXtManualsPaletteLabel</key>
+	<string>Manuals</string>
+	<key>ConTeXtManualsToolTip</key>
+	<string>See ConTeXt manuals</string>
+</dict>
+</plist>
+
+

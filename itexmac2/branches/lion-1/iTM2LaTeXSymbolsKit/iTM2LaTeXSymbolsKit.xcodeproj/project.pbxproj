@@ -1,0 +1,1042 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		5185EE5E127043FE00AFA001 /* Prepare Milestones */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5185EE6D1270442700AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */;
+			buildPhases = (
+				5185EE5D127043FE00AFA001 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Milestones";
+			productName = "Prepare Milestones";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		512D9CEA0D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */; };
+		5170B9BB13447FE3004F857A /* iTM2LaTeXKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5170B9BA13447FE3004F857A /* iTM2LaTeXKit.framework */; };
+		51E279820CEDDD7F003A0980 /* symbolPalette.png in Resources */ = {isa = PBXBuildFile; fileRef = 51E279810CEDDD7F003A0980 /* symbolPalette.png */; };
+		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		DC21DF9C08610F3700CA362C /* iTM2LaTeXSymbolsKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */; };
+		DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */; };
+		DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */; };
+		DC99E9BB0A2608A400F50752 /* iTM2AMSArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */; };
+		DC99E9BC0A2608A400F50752 /* iTM2AMSArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9430A2608A400F50752 /* iTM2AMSArrowsMenu.dict */; };
+		DC99E9BD0A2608A400F50752 /* iTM2AMSArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9440A2608A400F50752 /* iTM2AMSArrowsMenu.tiff */; };
+		DC99E9BE0A2608A400F50752 /* iTM2AMSBinaryIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9450A2608A400F50752 /* iTM2AMSBinaryIcon.tiff */; };
+		DC99E9BF0A2608A400F50752 /* iTM2AMSBinaryMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9460A2608A400F50752 /* iTM2AMSBinaryMenu.dict */; };
+		DC99E9C00A2608A400F50752 /* iTM2AMSBinaryMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9470A2608A400F50752 /* iTM2AMSBinaryMenu.tiff */; };
+		DC99E9C10A2608A400F50752 /* iTM2AMSMathbbIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9480A2608A400F50752 /* iTM2AMSMathbbIcon.tiff */; };
+		DC99E9C20A2608A400F50752 /* iTM2AMSMathbbMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9490A2608A400F50752 /* iTM2AMSMathbbMenu.dict */; };
+		DC99E9C30A2608A400F50752 /* iTM2AMSMathbbMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94A0A2608A400F50752 /* iTM2AMSMathbbMenu.tiff */; };
+		DC99E9C40A2608A400F50752 /* iTM2AMSMathfrakCapsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94B0A2608A400F50752 /* iTM2AMSMathfrakCapsIcon.tiff */; };
+		DC99E9C50A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94C0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.dict */; };
+		DC99E9C60A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94D0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.tiff */; };
+		DC99E9C70A2608A400F50752 /* iTM2AMSMathfrakIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94E0A2608A400F50752 /* iTM2AMSMathfrakIcon.tiff */; };
+		DC99E9C80A2608A400F50752 /* iTM2AMSMathfrakMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E94F0A2608A400F50752 /* iTM2AMSMathfrakMenu.dict */; };
+		DC99E9C90A2608A400F50752 /* iTM2AMSMathfrakMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9500A2608A400F50752 /* iTM2AMSMathfrakMenu.tiff */; };
+		DC99E9CA0A2608A400F50752 /* iTM2AMSMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9510A2608A400F50752 /* iTM2AMSMiscIcon.tiff */; };
+		DC99E9CB0A2608A400F50752 /* iTM2AMSMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9520A2608A400F50752 /* iTM2AMSMiscMenu.dict */; };
+		DC99E9CC0A2608A400F50752 /* iTM2AMSMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9530A2608A400F50752 /* iTM2AMSMiscMenu.tiff */; };
+		DC99E9CD0A2608A400F50752 /* iTM2AMSOrdinaryIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9540A2608A400F50752 /* iTM2AMSOrdinaryIcon.tiff */; };
+		DC99E9CE0A2608A400F50752 /* iTM2AMSOrdinaryMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9550A2608A400F50752 /* iTM2AMSOrdinaryMenu.dict */; };
+		DC99E9CF0A2608A400F50752 /* iTM2AMSOrdinaryMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9560A2608A400F50752 /* iTM2AMSOrdinaryMenu.tiff */; };
+		DC99E9D00A2608A400F50752 /* iTM2AMSRelationCurlIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9570A2608A400F50752 /* iTM2AMSRelationCurlIcon.tiff */; };
+		DC99E9D10A2608A400F50752 /* iTM2AMSRelationCurlMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9580A2608A400F50752 /* iTM2AMSRelationCurlMenu.dict */; };
+		DC99E9D20A2608A400F50752 /* iTM2AMSRelationCurlMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9590A2608A400F50752 /* iTM2AMSRelationCurlMenu.tiff */; };
+		DC99E9D30A2608A400F50752 /* iTM2AMSRelationIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95A0A2608A400F50752 /* iTM2AMSRelationIcon.tiff */; };
+		DC99E9D40A2608A400F50752 /* iTM2AMSRelationMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95B0A2608A400F50752 /* iTM2AMSRelationMenu.dict */; };
+		DC99E9D50A2608A400F50752 /* iTM2AMSRelationMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95C0A2608A400F50752 /* iTM2AMSRelationMenu.tiff */; };
+		DC99E9D60A2608A400F50752 /* iTM2AMSRelationSetIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95D0A2608A400F50752 /* iTM2AMSRelationSetIcon.tiff */; };
+		DC99E9D70A2608A400F50752 /* iTM2AMSRelationSetMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95E0A2608A400F50752 /* iTM2AMSRelationSetMenu.dict */; };
+		DC99E9D80A2608A400F50752 /* iTM2AMSRelationSetMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E95F0A2608A400F50752 /* iTM2AMSRelationSetMenu.tiff */; };
+		DC99E9D90A2608A400F50752 /* iTM2AMSRelationSimIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9600A2608A400F50752 /* iTM2AMSRelationSimIcon.tiff */; };
+		DC99E9DA0A2608A400F50752 /* iTM2AMSRelationSimMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9610A2608A400F50752 /* iTM2AMSRelationSimMenu.dict */; };
+		DC99E9DB0A2608A400F50752 /* iTM2AMSRelationSimMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9620A2608A400F50752 /* iTM2AMSRelationSimMenu.tiff */; };
+		DC99E9DC0A2608A400F50752 /* iTM2AMSRelationTriangleIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9630A2608A400F50752 /* iTM2AMSRelationTriangleIcon.tiff */; };
+		DC99E9DD0A2608A400F50752 /* iTM2AMSRelationTriangleMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9640A2608A400F50752 /* iTM2AMSRelationTriangleMenu.dict */; };
+		DC99E9DE0A2608A400F50752 /* iTM2AMSRelationTriangleMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9650A2608A400F50752 /* iTM2AMSRelationTriangleMenu.tiff */; };
+		DC99E9DF0A2608A400F50752 /* iTM2MathbbCapsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9670A2608A400F50752 /* iTM2MathbbCapsIcon.tiff */; };
+		DC99E9E00A2608A400F50752 /* iTM2MathbbCapsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9680A2608A400F50752 /* iTM2MathbbCapsMenu.dict */; };
+		DC99E9E10A2608A400F50752 /* iTM2MathbbCapsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9690A2608A400F50752 /* iTM2MathbbCapsMenu.tiff */; };
+		DC99E9E20A2608A400F50752 /* iTM2MathbbGreekIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96A0A2608A400F50752 /* iTM2MathbbGreekIcon.tiff */; };
+		DC99E9E30A2608A400F50752 /* iTM2MathbbGreekMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96B0A2608A400F50752 /* iTM2MathbbGreekMenu.dict */; };
+		DC99E9E40A2608A400F50752 /* iTM2MathbbGreekMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96C0A2608A400F50752 /* iTM2MathbbGreekMenu.tiff */; };
+		DC99E9E50A2608A400F50752 /* iTM2MathbbIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96D0A2608A400F50752 /* iTM2MathbbIcon.tiff */; };
+		DC99E9E60A2608A400F50752 /* iTM2MathbbMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96E0A2608A400F50752 /* iTM2MathbbMenu.dict */; };
+		DC99E9E70A2608A400F50752 /* iTM2MathbbMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E96F0A2608A400F50752 /* iTM2MathbbMenu.tiff */; };
+		DC99E9E80A2608A400F50752 /* iTM2MathbbNumIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9700A2608A400F50752 /* iTM2MathbbNumIcon.tiff */; };
+		DC99E9E90A2608A400F50752 /* iTM2MathbbNumMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9710A2608A400F50752 /* iTM2MathbbNumMenu.dict */; };
+		DC99E9EA0A2608A400F50752 /* iTM2MathbbNumMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9720A2608A400F50752 /* iTM2MathbbNumMenu.tiff */; };
+		DC99E9EB0A2608A400F50752 /* iTM2MathrsfsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9730A2608A400F50752 /* iTM2MathrsfsIcon.tiff */; };
+		DC99E9EC0A2608A400F50752 /* iTM2MathrsfsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9740A2608A400F50752 /* iTM2MathrsfsMenu.dict */; };
+		DC99E9ED0A2608A400F50752 /* iTM2MathrsfsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9750A2608A400F50752 /* iTM2MathrsfsMenu.tiff */; };
+		DC99E9EE0A2608A400F50752 /* iTM2LaTeXAccentIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9770A2608A400F50752 /* iTM2LaTeXAccentIcon.tiff */; };
+		DC99E9EF0A2608A400F50752 /* iTM2LaTeXAccentMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9780A2608A400F50752 /* iTM2LaTeXAccentMenu.dict */; };
+		DC99E9F00A2608A400F50752 /* iTM2LaTeXAccentMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9790A2608A400F50752 /* iTM2LaTeXAccentMenu.tiff */; };
+		DC99E9F10A2608A400F50752 /* iTM2LaTeXArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97A0A2608A400F50752 /* iTM2LaTeXArrowsIcon.tiff */; };
+		DC99E9F20A2608A400F50752 /* iTM2LaTeXArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97B0A2608A400F50752 /* iTM2LaTeXArrowsMenu.dict */; };
+		DC99E9F30A2608A400F50752 /* iTM2LaTeXArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97C0A2608A400F50752 /* iTM2LaTeXArrowsMenu.tiff */; };
+		DC99E9F40A2608A400F50752 /* iTM2LaTeXBinaryIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97D0A2608A400F50752 /* iTM2LaTeXBinaryIcon.tiff */; };
+		DC99E9F50A2608A400F50752 /* iTM2LaTeXBinaryMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97E0A2608A400F50752 /* iTM2LaTeXBinaryMenu.dict */; };
+		DC99E9F60A2608A400F50752 /* iTM2LaTeXBinaryMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E97F0A2608A400F50752 /* iTM2LaTeXBinaryMenu.tiff */; };
+		DC99E9F70A2608A400F50752 /* iTM2LaTeXCalIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9800A2608A400F50752 /* iTM2LaTeXCalIcon.tiff */; };
+		DC99E9F80A2608A400F50752 /* iTM2LaTeXCalMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9810A2608A400F50752 /* iTM2LaTeXCalMenu.dict */; };
+		DC99E9F90A2608A400F50752 /* iTM2LaTeXCalMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9820A2608A400F50752 /* iTM2LaTeXCalMenu.tiff */; };
+		DC99E9FA0A2608A400F50752 /* iTM2LaTeXForeignIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9830A2608A400F50752 /* iTM2LaTeXForeignIcon.tiff */; };
+		DC99E9FB0A2608A400F50752 /* iTM2LaTeXForeignMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9840A2608A400F50752 /* iTM2LaTeXForeignMenu.dict */; };
+		DC99E9FC0A2608A400F50752 /* iTM2LaTeXForeignMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9850A2608A400F50752 /* iTM2LaTeXForeignMenu.tiff */; };
+		DC99E9FD0A2608A400F50752 /* iTM2LaTeXGreekCapsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9860A2608A400F50752 /* iTM2LaTeXGreekCapsIcon.tiff */; };
+		DC99E9FE0A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9870A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.dict */; };
+		DC99E9FF0A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9880A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.tiff */; };
+		DC99EA000A2608A400F50752 /* iTM2LaTeXGreekIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9890A2608A400F50752 /* iTM2LaTeXGreekIcon.tiff */; };
+		DC99EA010A2608A400F50752 /* iTM2LaTeXGreekMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98A0A2608A400F50752 /* iTM2LaTeXGreekMenu.dict */; };
+		DC99EA020A2608A400F50752 /* iTM2LaTeXGreekMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98B0A2608A400F50752 /* iTM2LaTeXGreekMenu.tiff */; };
+		DC99EA030A2608A400F50752 /* iTM2LaTeXMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98C0A2608A400F50752 /* iTM2LaTeXMiscIcon.tiff */; };
+		DC99EA040A2608A400F50752 /* iTM2LaTeXMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98D0A2608A400F50752 /* iTM2LaTeXMiscMenu.dict */; };
+		DC99EA050A2608A400F50752 /* iTM2LaTeXMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98E0A2608A400F50752 /* iTM2LaTeXMiscMenu.tiff */; };
+		DC99EA060A2608A400F50752 /* iTM2LaTeXRelationsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E98F0A2608A400F50752 /* iTM2LaTeXRelationsIcon.tiff */; };
+		DC99EA070A2608A400F50752 /* iTM2LaTeXRelationsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9900A2608A400F50752 /* iTM2LaTeXRelationsMenu.dict */; };
+		DC99EA080A2608A400F50752 /* iTM2LaTeXRelationsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9910A2608A400F50752 /* iTM2LaTeXRelationsMenu.tiff */; };
+		DC99EA090A2608A400F50752 /* iTM2LaTeXRelationsNotIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9920A2608A400F50752 /* iTM2LaTeXRelationsNotIcon.tiff */; };
+		DC99EA0A0A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9930A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.dict */; };
+		DC99EA0B0A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9940A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.tiff */; };
+		DC99EA0C0A2608A400F50752 /* iTM2LaTeXSymbolIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9950A2608A400F50752 /* iTM2LaTeXSymbolIcon.tiff */; };
+		DC99EA0D0A2608A400F50752 /* iTM2LaTeXSymbolMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9960A2608A400F50752 /* iTM2LaTeXSymbolMenu.dict */; };
+		DC99EA0E0A2608A400F50752 /* iTM2LaTeXSymbolMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9970A2608A400F50752 /* iTM2LaTeXSymbolMenu.tiff */; };
+		DC99EA0F0A2608A400F50752 /* iTM2LaTeXVariableIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9980A2608A400F50752 /* iTM2LaTeXVariableIcon.tiff */; };
+		DC99EA100A2608A400F50752 /* iTM2LaTeXVariableMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9990A2608A400F50752 /* iTM2LaTeXVariableMenu.dict */; };
+		DC99EA110A2608A400F50752 /* iTM2LaTeXVariableMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99A0A2608A400F50752 /* iTM2LaTeXVariableMenu.tiff */; };
+		DC99EA120A2608A400F50752 /* iTM2MVSArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99C0A2608A400F50752 /* iTM2MVSArrowsIcon.tiff */; };
+		DC99EA130A2608A400F50752 /* iTM2MVSArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99D0A2608A400F50752 /* iTM2MVSArrowsMenu.dict */; };
+		DC99EA140A2608A400F50752 /* iTM2MVSArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99E0A2608A400F50752 /* iTM2MVSArrowsMenu.tiff */; };
+		DC99EA150A2608A400F50752 /* iTM2MVSDeskIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E99F0A2608A400F50752 /* iTM2MVSDeskIcon.tiff */; };
+		DC99EA160A2608A400F50752 /* iTM2MVSDeskMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A00A2608A400F50752 /* iTM2MVSDeskMenu.dict */; };
+		DC99EA170A2608A400F50752 /* iTM2MVSDeskMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A10A2608A400F50752 /* iTM2MVSDeskMenu.tiff */; };
+		DC99EA180A2608A400F50752 /* iTM2MVSMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A20A2608A400F50752 /* iTM2MVSMiscIcon.tiff */; };
+		DC99EA190A2608A400F50752 /* iTM2MVSMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A30A2608A400F50752 /* iTM2MVSMiscMenu.dict */; };
+		DC99EA1A0A2608A400F50752 /* iTM2MVSMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A40A2608A400F50752 /* iTM2MVSMiscMenu.tiff */; };
+		DC99EA1B0A2608A400F50752 /* iTM2MVSNumbersIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A50A2608A400F50752 /* iTM2MVSNumbersIcon.tiff */; };
+		DC99EA1C0A2608A400F50752 /* iTM2MVSNumbersMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A60A2608A400F50752 /* iTM2MVSNumbersMenu.dict */; };
+		DC99EA1D0A2608A400F50752 /* iTM2MVSNumbersMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A70A2608A400F50752 /* iTM2MVSNumbersMenu.tiff */; };
+		DC99EA1E0A2608A400F50752 /* iTM2MVSZodiacIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A80A2608A400F50752 /* iTM2MVSZodiacIcon.tiff */; };
+		DC99EA1F0A2608A400F50752 /* iTM2MVSZodiacMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9A90A2608A400F50752 /* iTM2MVSZodiacMenu.dict */; };
+		DC99EA200A2608A400F50752 /* iTM2MVSZodiacMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AA0A2608A400F50752 /* iTM2MVSZodiacMenu.tiff */; };
+		DC99EA210A2608A400F50752 /* iTM2WSBoxIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AC0A2608A400F50752 /* iTM2WSBoxIcon.tiff */; };
+		DC99EA220A2608A400F50752 /* iTM2WSBoxMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AD0A2608A400F50752 /* iTM2WSBoxMenu.dict */; };
+		DC99EA230A2608A400F50752 /* iTM2WSBoxMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AE0A2608A400F50752 /* iTM2WSBoxMenu.tiff */; };
+		DC99EA240A2608A400F50752 /* iTM2WSMathIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9AF0A2608A400F50752 /* iTM2WSMathIcon.tiff */; };
+		DC99EA250A2608A400F50752 /* iTM2WSMathMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B00A2608A400F50752 /* iTM2WSMathMenu.dict */; };
+		DC99EA260A2608A400F50752 /* iTM2WSMathMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B10A2608A400F50752 /* iTM2WSMathMenu.tiff */; };
+		DC99EA270A2608A400F50752 /* iTM2WSMhoIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B20A2608A400F50752 /* iTM2WSMhoIcon.tiff */; };
+		DC99EA280A2608A400F50752 /* iTM2WSMhoMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B30A2608A400F50752 /* iTM2WSMhoMenu.dict */; };
+		DC99EA290A2608A400F50752 /* iTM2WSMhoMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B40A2608A400F50752 /* iTM2WSMhoMenu.tiff */; };
+		DC99EA2A0A2608A400F50752 /* iTM2WSMiscIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B50A2608A400F50752 /* iTM2WSMiscIcon.tiff */; };
+		DC99EA2B0A2608A400F50752 /* iTM2WSMiscMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B60A2608A400F50752 /* iTM2WSMiscMenu.dict */; };
+		DC99EA2C0A2608A400F50752 /* iTM2WSMiscMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B70A2608A400F50752 /* iTM2WSMiscMenu.tiff */; };
+		DC99EA2D0A2608A400F50752 /* iTM2WSZodiacIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B80A2608A400F50752 /* iTM2WSZodiacIcon.tiff */; };
+		DC99EA2E0A2608A400F50752 /* iTM2WSZodiacMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9B90A2608A400F50752 /* iTM2WSZodiacMenu.dict */; };
+		DC99EA2F0A2608A400F50752 /* iTM2WSZodiacMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DC99E9BA0A2608A400F50752 /* iTM2WSZodiacMenu.tiff */; };
+		DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC9F9C820826DE0600D29D80 /* Quartz.framework */; };
+		DCB1E7070B50988700B0704A /* iTM2PiFontArrowsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */; };
+		DCB1E7080B50988700B0704A /* iTM2PiFontArrowsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */; };
+		DCB1E7090B50988700B0704A /* iTM2PiFontArrowsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */; };
+		DCB1E70A0B50988700B0704A /* iTM2PiFontDigitsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FB0B50988600B0704A /* iTM2PiFontDigitsIcon.tiff */; };
+		DCB1E70B0B50988700B0704A /* iTM2PiFontDigitsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FC0B50988600B0704A /* iTM2PiFontDigitsMenu.dict */; };
+		DCB1E70C0B50988700B0704A /* iTM2PiFontDigitsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FD0B50988600B0704A /* iTM2PiFontDigitsMenu.tiff */; };
+		DCB1E70D0B50988700B0704A /* iTM2PiFontMisc1Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FE0B50988600B0704A /* iTM2PiFontMisc1Icon.tiff */; };
+		DCB1E70E0B50988700B0704A /* iTM2PiFontMisc1Menu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E6FF0B50988600B0704A /* iTM2PiFontMisc1Menu.dict */; };
+		DCB1E70F0B50988800B0704A /* iTM2PiFontMisc1Menu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7000B50988600B0704A /* iTM2PiFontMisc1Menu.tiff */; };
+		DCB1E7100B50988800B0704A /* iTM2PiFontMisc2Icon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7010B50988600B0704A /* iTM2PiFontMisc2Icon.tiff */; };
+		DCB1E7110B50988800B0704A /* iTM2PiFontMisc2Menu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7020B50988600B0704A /* iTM2PiFontMisc2Menu.dict */; };
+		DCB1E7120B50988800B0704A /* iTM2PiFontMisc2Menu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7030B50988600B0704A /* iTM2PiFontMisc2Menu.tiff */; };
+		DCB1E7130B50988800B0704A /* iTM2PiFontStarsIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */; };
+		DCB1E7140B50988800B0704A /* iTM2PiFontStarsMenu.dict in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */; };
+		DCB1E7150B50988800B0704A /* iTM2PiFontStarsMenu.tiff in Resources */ = {isa = PBXBuildFile; fileRef = DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */; };
+		DCE52F430C0F3C5400F2D5B9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE52F420C0F3C5400F2D5B9 /* libicucore.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5185EE611270441100AFA001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5185EE5E127043FE00AFA001;
+			remoteInfo = "Prepare Milestones";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		512D9CE90D59F8B900FF9F6F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
+		512D9CEB0D59F8C300FF9F6F /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/iTM2LaTeXSymbolsPanel.xib; sourceTree = "<group>"; };
+		5170B9BA13447FE3004F857A /* iTM2LaTeXKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iTM2LaTeXKit.framework; sourceTree = SOURCE_ROOT; };
+		51D56B20134867B400240F31 /* Debug-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B21134867B400240F31 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		51D56B22134867B400240F31 /* DebugGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
+		51D56B23134867B400240F31 /* Deployment-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Deployment-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B24134867B400240F31 /* Deployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Deployment.xcconfig; sourceTree = "<group>"; };
+		51D56B25134867B400240F31 /* Development-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Development-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B26134867B400240F31 /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
+		51D56B27134867B400240F31 /* DevelopmentGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DevelopmentGC.xcconfig; sourceTree = "<group>"; };
+		51D56B28134867B400240F31 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		51D56B29134867B400240F31 /* FrameworkDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDebug.xcconfig; sourceTree = "<group>"; };
+		51D56B2A134867B400240F31 /* FrameworkDeployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDeployment.xcconfig; sourceTree = "<group>"; };
+		51D56B2B134867B400240F31 /* FrameworkDevelopment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkDevelopment.xcconfig; sourceTree = "<group>"; };
+		51D56B2C134867B400240F31 /* FrameworkRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = FrameworkRelease.xcconfig; sourceTree = "<group>"; };
+		51D56B2D134867B400240F31 /* GC-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "GC-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B2E134867B400240F31 /* PlugIn.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugIn.xcconfig; sourceTree = "<group>"; };
+		51D56B2F134867B400240F31 /* PlugInDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDebug.xcconfig; sourceTree = "<group>"; };
+		51D56B30134867B400240F31 /* PlugInDeployment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDeployment.xcconfig; sourceTree = "<group>"; };
+		51D56B31134867B400240F31 /* PlugInDevelopment.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInDevelopment.xcconfig; sourceTree = "<group>"; };
+		51D56B32134867B400240F31 /* PlugInRelease.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlugInRelease.xcconfig; sourceTree = "<group>"; };
+		51D56B33134867B400240F31 /* Products-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Products-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B34134867B400240F31 /* Release-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-set.xcconfig"; sourceTree = "<group>"; };
+		51D56B35134867B400240F31 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		51E279810CEDDD7F003A0980 /* symbolPalette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = symbolPalette.png; sourceTree = "<group>"; };
+		532F3D231093009000F18A18 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		532F3D251093009000F18A18 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		532F3D2A1093009000F18A18 /* Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; sourceTree = "<group>"; };
+		532F3D2B1093009000F18A18 /* Test-main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Test-main.m"; sourceTree = "<group>"; };
+		532F3D2C1093009000F18A18 /* Test-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Test-Prefix.pch"; sourceTree = "<group>"; };
+		532F3D631093043400F18A18 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTM2LaTeXSymbolsKit.iTM2; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2LaTeXSymbolsKit.h; sourceTree = "<group>"; };
+		DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2LaTeXSymbolsKit.m; sourceTree = "<group>"; };
+		DC2CA6BE0855D0CE00128F14 /* iTM2LaTeXSymbolsKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM2LaTeXSymbolsKit-Prefix.pch"; sourceTree = "<group>"; };
+		DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iTM2LaTeXSymbolsKit-Info.plist"; sourceTree = "<group>"; };
+		DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2Foundation.framework; path = ../build/iTM2Foundation.framework; sourceTree = SOURCE_ROOT; };
+		DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = ../build/iTM2TeXFoundation.framework; sourceTree = SOURCE_ROOT; };
+		DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSArrowsIcon.tiff; sourceTree = "<group>"; };
+		DC99E9430A2608A400F50752 /* iTM2AMSArrowsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSArrowsMenu.dict; sourceTree = "<group>"; };
+		DC99E9440A2608A400F50752 /* iTM2AMSArrowsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSArrowsMenu.tiff; sourceTree = "<group>"; };
+		DC99E9450A2608A400F50752 /* iTM2AMSBinaryIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSBinaryIcon.tiff; sourceTree = "<group>"; };
+		DC99E9460A2608A400F50752 /* iTM2AMSBinaryMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSBinaryMenu.dict; sourceTree = "<group>"; };
+		DC99E9470A2608A400F50752 /* iTM2AMSBinaryMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSBinaryMenu.tiff; sourceTree = "<group>"; };
+		DC99E9480A2608A400F50752 /* iTM2AMSMathbbIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMathbbIcon.tiff; sourceTree = "<group>"; };
+		DC99E9490A2608A400F50752 /* iTM2AMSMathbbMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSMathbbMenu.dict; sourceTree = "<group>"; };
+		DC99E94A0A2608A400F50752 /* iTM2AMSMathbbMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMathbbMenu.tiff; sourceTree = "<group>"; };
+		DC99E94B0A2608A400F50752 /* iTM2AMSMathfrakCapsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMathfrakCapsIcon.tiff; sourceTree = "<group>"; };
+		DC99E94C0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSMathfrakCapsMenu.dict; sourceTree = "<group>"; };
+		DC99E94D0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMathfrakCapsMenu.tiff; sourceTree = "<group>"; };
+		DC99E94E0A2608A400F50752 /* iTM2AMSMathfrakIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMathfrakIcon.tiff; sourceTree = "<group>"; };
+		DC99E94F0A2608A400F50752 /* iTM2AMSMathfrakMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSMathfrakMenu.dict; sourceTree = "<group>"; };
+		DC99E9500A2608A400F50752 /* iTM2AMSMathfrakMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMathfrakMenu.tiff; sourceTree = "<group>"; };
+		DC99E9510A2608A400F50752 /* iTM2AMSMiscIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMiscIcon.tiff; sourceTree = "<group>"; };
+		DC99E9520A2608A400F50752 /* iTM2AMSMiscMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSMiscMenu.dict; sourceTree = "<group>"; };
+		DC99E9530A2608A400F50752 /* iTM2AMSMiscMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSMiscMenu.tiff; sourceTree = "<group>"; };
+		DC99E9540A2608A400F50752 /* iTM2AMSOrdinaryIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSOrdinaryIcon.tiff; sourceTree = "<group>"; };
+		DC99E9550A2608A400F50752 /* iTM2AMSOrdinaryMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSOrdinaryMenu.dict; sourceTree = "<group>"; };
+		DC99E9560A2608A400F50752 /* iTM2AMSOrdinaryMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSOrdinaryMenu.tiff; sourceTree = "<group>"; };
+		DC99E9570A2608A400F50752 /* iTM2AMSRelationCurlIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationCurlIcon.tiff; sourceTree = "<group>"; };
+		DC99E9580A2608A400F50752 /* iTM2AMSRelationCurlMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSRelationCurlMenu.dict; sourceTree = "<group>"; };
+		DC99E9590A2608A400F50752 /* iTM2AMSRelationCurlMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationCurlMenu.tiff; sourceTree = "<group>"; };
+		DC99E95A0A2608A400F50752 /* iTM2AMSRelationIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationIcon.tiff; sourceTree = "<group>"; };
+		DC99E95B0A2608A400F50752 /* iTM2AMSRelationMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSRelationMenu.dict; sourceTree = "<group>"; };
+		DC99E95C0A2608A400F50752 /* iTM2AMSRelationMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationMenu.tiff; sourceTree = "<group>"; };
+		DC99E95D0A2608A400F50752 /* iTM2AMSRelationSetIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationSetIcon.tiff; sourceTree = "<group>"; };
+		DC99E95E0A2608A400F50752 /* iTM2AMSRelationSetMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSRelationSetMenu.dict; sourceTree = "<group>"; };
+		DC99E95F0A2608A400F50752 /* iTM2AMSRelationSetMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationSetMenu.tiff; sourceTree = "<group>"; };
+		DC99E9600A2608A400F50752 /* iTM2AMSRelationSimIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationSimIcon.tiff; sourceTree = "<group>"; };
+		DC99E9610A2608A400F50752 /* iTM2AMSRelationSimMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSRelationSimMenu.dict; sourceTree = "<group>"; };
+		DC99E9620A2608A400F50752 /* iTM2AMSRelationSimMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationSimMenu.tiff; sourceTree = "<group>"; };
+		DC99E9630A2608A400F50752 /* iTM2AMSRelationTriangleIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationTriangleIcon.tiff; sourceTree = "<group>"; };
+		DC99E9640A2608A400F50752 /* iTM2AMSRelationTriangleMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2AMSRelationTriangleMenu.dict; sourceTree = "<group>"; };
+		DC99E9650A2608A400F50752 /* iTM2AMSRelationTriangleMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2AMSRelationTriangleMenu.tiff; sourceTree = "<group>"; };
+		DC99E9670A2608A400F50752 /* iTM2MathbbCapsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbCapsIcon.tiff; sourceTree = "<group>"; };
+		DC99E9680A2608A400F50752 /* iTM2MathbbCapsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MathbbCapsMenu.dict; sourceTree = "<group>"; };
+		DC99E9690A2608A400F50752 /* iTM2MathbbCapsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbCapsMenu.tiff; sourceTree = "<group>"; };
+		DC99E96A0A2608A400F50752 /* iTM2MathbbGreekIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbGreekIcon.tiff; sourceTree = "<group>"; };
+		DC99E96B0A2608A400F50752 /* iTM2MathbbGreekMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MathbbGreekMenu.dict; sourceTree = "<group>"; };
+		DC99E96C0A2608A400F50752 /* iTM2MathbbGreekMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbGreekMenu.tiff; sourceTree = "<group>"; };
+		DC99E96D0A2608A400F50752 /* iTM2MathbbIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbIcon.tiff; sourceTree = "<group>"; };
+		DC99E96E0A2608A400F50752 /* iTM2MathbbMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MathbbMenu.dict; sourceTree = "<group>"; };
+		DC99E96F0A2608A400F50752 /* iTM2MathbbMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbMenu.tiff; sourceTree = "<group>"; };
+		DC99E9700A2608A400F50752 /* iTM2MathbbNumIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbNumIcon.tiff; sourceTree = "<group>"; };
+		DC99E9710A2608A400F50752 /* iTM2MathbbNumMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MathbbNumMenu.dict; sourceTree = "<group>"; };
+		DC99E9720A2608A400F50752 /* iTM2MathbbNumMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathbbNumMenu.tiff; sourceTree = "<group>"; };
+		DC99E9730A2608A400F50752 /* iTM2MathrsfsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathrsfsIcon.tiff; sourceTree = "<group>"; };
+		DC99E9740A2608A400F50752 /* iTM2MathrsfsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MathrsfsMenu.dict; sourceTree = "<group>"; };
+		DC99E9750A2608A400F50752 /* iTM2MathrsfsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MathrsfsMenu.tiff; sourceTree = "<group>"; };
+		DC99E9770A2608A400F50752 /* iTM2LaTeXAccentIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXAccentIcon.tiff; sourceTree = "<group>"; };
+		DC99E9780A2608A400F50752 /* iTM2LaTeXAccentMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXAccentMenu.dict; sourceTree = "<group>"; };
+		DC99E9790A2608A400F50752 /* iTM2LaTeXAccentMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXAccentMenu.tiff; sourceTree = "<group>"; };
+		DC99E97A0A2608A400F50752 /* iTM2LaTeXArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXArrowsIcon.tiff; sourceTree = "<group>"; };
+		DC99E97B0A2608A400F50752 /* iTM2LaTeXArrowsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXArrowsMenu.dict; sourceTree = "<group>"; };
+		DC99E97C0A2608A400F50752 /* iTM2LaTeXArrowsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXArrowsMenu.tiff; sourceTree = "<group>"; };
+		DC99E97D0A2608A400F50752 /* iTM2LaTeXBinaryIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXBinaryIcon.tiff; sourceTree = "<group>"; };
+		DC99E97E0A2608A400F50752 /* iTM2LaTeXBinaryMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXBinaryMenu.dict; sourceTree = "<group>"; };
+		DC99E97F0A2608A400F50752 /* iTM2LaTeXBinaryMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXBinaryMenu.tiff; sourceTree = "<group>"; };
+		DC99E9800A2608A400F50752 /* iTM2LaTeXCalIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXCalIcon.tiff; sourceTree = "<group>"; };
+		DC99E9810A2608A400F50752 /* iTM2LaTeXCalMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXCalMenu.dict; sourceTree = "<group>"; };
+		DC99E9820A2608A400F50752 /* iTM2LaTeXCalMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXCalMenu.tiff; sourceTree = "<group>"; };
+		DC99E9830A2608A400F50752 /* iTM2LaTeXForeignIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXForeignIcon.tiff; sourceTree = "<group>"; };
+		DC99E9840A2608A400F50752 /* iTM2LaTeXForeignMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXForeignMenu.dict; sourceTree = "<group>"; };
+		DC99E9850A2608A400F50752 /* iTM2LaTeXForeignMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXForeignMenu.tiff; sourceTree = "<group>"; };
+		DC99E9860A2608A400F50752 /* iTM2LaTeXGreekCapsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXGreekCapsIcon.tiff; sourceTree = "<group>"; };
+		DC99E9870A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXGreekCapsMenu.dict; sourceTree = "<group>"; };
+		DC99E9880A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXGreekCapsMenu.tiff; sourceTree = "<group>"; };
+		DC99E9890A2608A400F50752 /* iTM2LaTeXGreekIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXGreekIcon.tiff; sourceTree = "<group>"; };
+		DC99E98A0A2608A400F50752 /* iTM2LaTeXGreekMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXGreekMenu.dict; sourceTree = "<group>"; };
+		DC99E98B0A2608A400F50752 /* iTM2LaTeXGreekMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXGreekMenu.tiff; sourceTree = "<group>"; };
+		DC99E98C0A2608A400F50752 /* iTM2LaTeXMiscIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXMiscIcon.tiff; sourceTree = "<group>"; };
+		DC99E98D0A2608A400F50752 /* iTM2LaTeXMiscMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXMiscMenu.dict; sourceTree = "<group>"; };
+		DC99E98E0A2608A400F50752 /* iTM2LaTeXMiscMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXMiscMenu.tiff; sourceTree = "<group>"; };
+		DC99E98F0A2608A400F50752 /* iTM2LaTeXRelationsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXRelationsIcon.tiff; sourceTree = "<group>"; };
+		DC99E9900A2608A400F50752 /* iTM2LaTeXRelationsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXRelationsMenu.dict; sourceTree = "<group>"; };
+		DC99E9910A2608A400F50752 /* iTM2LaTeXRelationsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXRelationsMenu.tiff; sourceTree = "<group>"; };
+		DC99E9920A2608A400F50752 /* iTM2LaTeXRelationsNotIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXRelationsNotIcon.tiff; sourceTree = "<group>"; };
+		DC99E9930A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXRelationsNotMenu.dict; sourceTree = "<group>"; };
+		DC99E9940A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXRelationsNotMenu.tiff; sourceTree = "<group>"; };
+		DC99E9950A2608A400F50752 /* iTM2LaTeXSymbolIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXSymbolIcon.tiff; sourceTree = "<group>"; };
+		DC99E9960A2608A400F50752 /* iTM2LaTeXSymbolMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXSymbolMenu.dict; sourceTree = "<group>"; };
+		DC99E9970A2608A400F50752 /* iTM2LaTeXSymbolMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXSymbolMenu.tiff; sourceTree = "<group>"; };
+		DC99E9980A2608A400F50752 /* iTM2LaTeXVariableIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXVariableIcon.tiff; sourceTree = "<group>"; };
+		DC99E9990A2608A400F50752 /* iTM2LaTeXVariableMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2LaTeXVariableMenu.dict; sourceTree = "<group>"; };
+		DC99E99A0A2608A400F50752 /* iTM2LaTeXVariableMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2LaTeXVariableMenu.tiff; sourceTree = "<group>"; };
+		DC99E99C0A2608A400F50752 /* iTM2MVSArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSArrowsIcon.tiff; sourceTree = "<group>"; };
+		DC99E99D0A2608A400F50752 /* iTM2MVSArrowsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MVSArrowsMenu.dict; sourceTree = "<group>"; };
+		DC99E99E0A2608A400F50752 /* iTM2MVSArrowsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSArrowsMenu.tiff; sourceTree = "<group>"; };
+		DC99E99F0A2608A400F50752 /* iTM2MVSDeskIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSDeskIcon.tiff; sourceTree = "<group>"; };
+		DC99E9A00A2608A400F50752 /* iTM2MVSDeskMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MVSDeskMenu.dict; sourceTree = "<group>"; };
+		DC99E9A10A2608A400F50752 /* iTM2MVSDeskMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSDeskMenu.tiff; sourceTree = "<group>"; };
+		DC99E9A20A2608A400F50752 /* iTM2MVSMiscIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSMiscIcon.tiff; sourceTree = "<group>"; };
+		DC99E9A30A2608A400F50752 /* iTM2MVSMiscMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MVSMiscMenu.dict; sourceTree = "<group>"; };
+		DC99E9A40A2608A400F50752 /* iTM2MVSMiscMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSMiscMenu.tiff; sourceTree = "<group>"; };
+		DC99E9A50A2608A400F50752 /* iTM2MVSNumbersIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSNumbersIcon.tiff; sourceTree = "<group>"; };
+		DC99E9A60A2608A400F50752 /* iTM2MVSNumbersMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MVSNumbersMenu.dict; sourceTree = "<group>"; };
+		DC99E9A70A2608A400F50752 /* iTM2MVSNumbersMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSNumbersMenu.tiff; sourceTree = "<group>"; };
+		DC99E9A80A2608A400F50752 /* iTM2MVSZodiacIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSZodiacIcon.tiff; sourceTree = "<group>"; };
+		DC99E9A90A2608A400F50752 /* iTM2MVSZodiacMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2MVSZodiacMenu.dict; sourceTree = "<group>"; };
+		DC99E9AA0A2608A400F50752 /* iTM2MVSZodiacMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2MVSZodiacMenu.tiff; sourceTree = "<group>"; };
+		DC99E9AC0A2608A400F50752 /* iTM2WSBoxIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSBoxIcon.tiff; sourceTree = "<group>"; };
+		DC99E9AD0A2608A400F50752 /* iTM2WSBoxMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2WSBoxMenu.dict; sourceTree = "<group>"; };
+		DC99E9AE0A2608A400F50752 /* iTM2WSBoxMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSBoxMenu.tiff; sourceTree = "<group>"; };
+		DC99E9AF0A2608A400F50752 /* iTM2WSMathIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSMathIcon.tiff; sourceTree = "<group>"; };
+		DC99E9B00A2608A400F50752 /* iTM2WSMathMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2WSMathMenu.dict; sourceTree = "<group>"; };
+		DC99E9B10A2608A400F50752 /* iTM2WSMathMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSMathMenu.tiff; sourceTree = "<group>"; };
+		DC99E9B20A2608A400F50752 /* iTM2WSMhoIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSMhoIcon.tiff; sourceTree = "<group>"; };
+		DC99E9B30A2608A400F50752 /* iTM2WSMhoMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2WSMhoMenu.dict; sourceTree = "<group>"; };
+		DC99E9B40A2608A400F50752 /* iTM2WSMhoMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSMhoMenu.tiff; sourceTree = "<group>"; };
+		DC99E9B50A2608A400F50752 /* iTM2WSMiscIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSMiscIcon.tiff; sourceTree = "<group>"; };
+		DC99E9B60A2608A400F50752 /* iTM2WSMiscMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2WSMiscMenu.dict; sourceTree = "<group>"; };
+		DC99E9B70A2608A400F50752 /* iTM2WSMiscMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSMiscMenu.tiff; sourceTree = "<group>"; };
+		DC99E9B80A2608A400F50752 /* iTM2WSZodiacIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSZodiacIcon.tiff; sourceTree = "<group>"; };
+		DC99E9B90A2608A400F50752 /* iTM2WSZodiacMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2WSZodiacMenu.dict; sourceTree = "<group>"; };
+		DC99E9BA0A2608A400F50752 /* iTM2WSZodiacMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2WSZodiacMenu.tiff; sourceTree = "<group>"; };
+		DC9F9C820826DE0600D29D80 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
+		DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontArrowsIcon.tiff; sourceTree = "<group>"; };
+		DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontArrowsMenu.dict; sourceTree = "<group>"; };
+		DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontArrowsMenu.tiff; sourceTree = "<group>"; };
+		DCB1E6FB0B50988600B0704A /* iTM2PiFontDigitsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontDigitsIcon.tiff; sourceTree = "<group>"; };
+		DCB1E6FC0B50988600B0704A /* iTM2PiFontDigitsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontDigitsMenu.dict; sourceTree = "<group>"; };
+		DCB1E6FD0B50988600B0704A /* iTM2PiFontDigitsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontDigitsMenu.tiff; sourceTree = "<group>"; };
+		DCB1E6FE0B50988600B0704A /* iTM2PiFontMisc1Icon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc1Icon.tiff; sourceTree = "<group>"; };
+		DCB1E6FF0B50988600B0704A /* iTM2PiFontMisc1Menu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontMisc1Menu.dict; sourceTree = "<group>"; };
+		DCB1E7000B50988600B0704A /* iTM2PiFontMisc1Menu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc1Menu.tiff; sourceTree = "<group>"; };
+		DCB1E7010B50988600B0704A /* iTM2PiFontMisc2Icon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc2Icon.tiff; sourceTree = "<group>"; };
+		DCB1E7020B50988600B0704A /* iTM2PiFontMisc2Menu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontMisc2Menu.dict; sourceTree = "<group>"; };
+		DCB1E7030B50988600B0704A /* iTM2PiFontMisc2Menu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontMisc2Menu.tiff; sourceTree = "<group>"; };
+		DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontStarsIcon.tiff; sourceTree = "<group>"; };
+		DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iTM2PiFontStarsMenu.dict; sourceTree = "<group>"; };
+		DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = iTM2PiFontStarsMenu.tiff; sourceTree = "<group>"; };
+		DCE52F420C0F3C5400F2D5B9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+				DC9F9C830826DE0600D29D80 /* Quartz.framework in Frameworks */,
+				DC8A6378088D955D0016FAA2 /* iTM2Foundation.framework in Frameworks */,
+				DC8A6379088D955D0016FAA2 /* iTM2TeXFoundation.framework in Frameworks */,
+				5170B9BB13447FE3004F857A /* iTM2LaTeXKit.framework in Frameworks */,
+				DCE52F430C0F3C5400F2D5B9 /* libicucore.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* iTM2PDFKit */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				32C88E010371C26100C91783 /* Other Sources */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				532F3D211093009000F18A18 /* Test */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+				DC2CA71A0855D19F00128F14 /* iTM2LaTeXSymbolsKit-Info.plist */,
+				51D56B1F134867B400240F31 /* Settings */,
+			);
+			name = iTM2PDFKit;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */,
+				51E279810CEDDD7F003A0980 /* symbolPalette.png */,
+				DC99E9410A2608A400F50752 /* AMS */,
+				DC99E9660A2608A400F50752 /* jknappen */,
+				DC99E9760A2608A400F50752 /* LaTeX */,
+				DC99E99B0A2608A400F50752 /* MarVoSym */,
+				DCB1E6F70B50988600B0704A /* PiFont */,
+				DC99E9AB0A2608A400F50752 /* WasySym */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DC21DF9908610F3700CA362C /* iTM2LaTeXSymbolsKit.h */,
+				DC21DF9A08610F3700CA362C /* iTM2LaTeXSymbolsKit.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCE52F420C0F3C5400F2D5B9 /* libicucore.dylib */,
+				DC8A6376088D955D0016FAA2 /* iTM2Foundation.framework */,
+				DC8A6377088D955D0016FAA2 /* iTM2TeXFoundation.framework */,
+				5170B9BA13447FE3004F857A /* iTM2LaTeXKit.framework */,
+				DC9F9C820826DE0600D29D80 /* Quartz.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32C88E010371C26100C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DC2CA6BE0855D0CE00128F14 /* iTM2LaTeXSymbolsKit-Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		51D56B1F134867B400240F31 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				51D56B20134867B400240F31 /* Debug-set.xcconfig */,
+				51D56B21134867B400240F31 /* Debug.xcconfig */,
+				51D56B22134867B400240F31 /* DebugGC.xcconfig */,
+				51D56B23134867B400240F31 /* Deployment-set.xcconfig */,
+				51D56B24134867B400240F31 /* Deployment.xcconfig */,
+				51D56B25134867B400240F31 /* Development-set.xcconfig */,
+				51D56B26134867B400240F31 /* Development.xcconfig */,
+				51D56B27134867B400240F31 /* DevelopmentGC.xcconfig */,
+				51D56B28134867B400240F31 /* Framework.xcconfig */,
+				51D56B29134867B400240F31 /* FrameworkDebug.xcconfig */,
+				51D56B2A134867B400240F31 /* FrameworkDeployment.xcconfig */,
+				51D56B2B134867B400240F31 /* FrameworkDevelopment.xcconfig */,
+				51D56B2C134867B400240F31 /* FrameworkRelease.xcconfig */,
+				51D56B2D134867B400240F31 /* GC-set.xcconfig */,
+				51D56B2E134867B400240F31 /* PlugIn.xcconfig */,
+				51D56B2F134867B400240F31 /* PlugInDebug.xcconfig */,
+				51D56B30134867B400240F31 /* PlugInDeployment.xcconfig */,
+				51D56B31134867B400240F31 /* PlugInDevelopment.xcconfig */,
+				51D56B32134867B400240F31 /* PlugInRelease.xcconfig */,
+				51D56B33134867B400240F31 /* Products-set.xcconfig */,
+				51D56B34134867B400240F31 /* Release-set.xcconfig */,
+				51D56B35134867B400240F31 /* Release.xcconfig */,
+			);
+			name = Settings;
+			path = ../Settings;
+			sourceTree = "<group>";
+		};
+		532F3D211093009000F18A18 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				532F3D621093043400F18A18 /* MainMenu.xib */,
+				532F3D221093009000F18A18 /* Credits.rtf */,
+				532F3D241093009000F18A18 /* InfoPlist.strings */,
+				532F3D2A1093009000F18A18 /* Test-Info.plist */,
+				532F3D2B1093009000F18A18 /* Test-main.m */,
+				532F3D2C1093009000F18A18 /* Test-Prefix.pch */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		DC99E9410A2608A400F50752 /* AMS */ = {
+			isa = PBXGroup;
+			children = (
+				DC99E9420A2608A400F50752 /* iTM2AMSArrowsIcon.tiff */,
+				DC99E9430A2608A400F50752 /* iTM2AMSArrowsMenu.dict */,
+				DC99E9440A2608A400F50752 /* iTM2AMSArrowsMenu.tiff */,
+				DC99E9450A2608A400F50752 /* iTM2AMSBinaryIcon.tiff */,
+				DC99E9460A2608A400F50752 /* iTM2AMSBinaryMenu.dict */,
+				DC99E9470A2608A400F50752 /* iTM2AMSBinaryMenu.tiff */,
+				DC99E9480A2608A400F50752 /* iTM2AMSMathbbIcon.tiff */,
+				DC99E9490A2608A400F50752 /* iTM2AMSMathbbMenu.dict */,
+				DC99E94A0A2608A400F50752 /* iTM2AMSMathbbMenu.tiff */,
+				DC99E94B0A2608A400F50752 /* iTM2AMSMathfrakCapsIcon.tiff */,
+				DC99E94C0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.dict */,
+				DC99E94D0A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.tiff */,
+				DC99E94E0A2608A400F50752 /* iTM2AMSMathfrakIcon.tiff */,
+				DC99E94F0A2608A400F50752 /* iTM2AMSMathfrakMenu.dict */,
+				DC99E9500A2608A400F50752 /* iTM2AMSMathfrakMenu.tiff */,
+				DC99E9510A2608A400F50752 /* iTM2AMSMiscIcon.tiff */,
+				DC99E9520A2608A400F50752 /* iTM2AMSMiscMenu.dict */,
+				DC99E9530A2608A400F50752 /* iTM2AMSMiscMenu.tiff */,
+				DC99E9540A2608A400F50752 /* iTM2AMSOrdinaryIcon.tiff */,
+				DC99E9550A2608A400F50752 /* iTM2AMSOrdinaryMenu.dict */,
+				DC99E9560A2608A400F50752 /* iTM2AMSOrdinaryMenu.tiff */,
+				DC99E9570A2608A400F50752 /* iTM2AMSRelationCurlIcon.tiff */,
+				DC99E9580A2608A400F50752 /* iTM2AMSRelationCurlMenu.dict */,
+				DC99E9590A2608A400F50752 /* iTM2AMSRelationCurlMenu.tiff */,
+				DC99E95A0A2608A400F50752 /* iTM2AMSRelationIcon.tiff */,
+				DC99E95B0A2608A400F50752 /* iTM2AMSRelationMenu.dict */,
+				DC99E95C0A2608A400F50752 /* iTM2AMSRelationMenu.tiff */,
+				DC99E95D0A2608A400F50752 /* iTM2AMSRelationSetIcon.tiff */,
+				DC99E95E0A2608A400F50752 /* iTM2AMSRelationSetMenu.dict */,
+				DC99E95F0A2608A400F50752 /* iTM2AMSRelationSetMenu.tiff */,
+				DC99E9600A2608A400F50752 /* iTM2AMSRelationSimIcon.tiff */,
+				DC99E9610A2608A400F50752 /* iTM2AMSRelationSimMenu.dict */,
+				DC99E9620A2608A400F50752 /* iTM2AMSRelationSimMenu.tiff */,
+				DC99E9630A2608A400F50752 /* iTM2AMSRelationTriangleIcon.tiff */,
+				DC99E9640A2608A400F50752 /* iTM2AMSRelationTriangleMenu.dict */,
+				DC99E9650A2608A400F50752 /* iTM2AMSRelationTriangleMenu.tiff */,
+			);
+			path = AMS;
+			sourceTree = "<group>";
+		};
+		DC99E9660A2608A400F50752 /* jknappen */ = {
+			isa = PBXGroup;
+			children = (
+				DC99E9670A2608A400F50752 /* iTM2MathbbCapsIcon.tiff */,
+				DC99E9680A2608A400F50752 /* iTM2MathbbCapsMenu.dict */,
+				DC99E9690A2608A400F50752 /* iTM2MathbbCapsMenu.tiff */,
+				DC99E96A0A2608A400F50752 /* iTM2MathbbGreekIcon.tiff */,
+				DC99E96B0A2608A400F50752 /* iTM2MathbbGreekMenu.dict */,
+				DC99E96C0A2608A400F50752 /* iTM2MathbbGreekMenu.tiff */,
+				DC99E96D0A2608A400F50752 /* iTM2MathbbIcon.tiff */,
+				DC99E96E0A2608A400F50752 /* iTM2MathbbMenu.dict */,
+				DC99E96F0A2608A400F50752 /* iTM2MathbbMenu.tiff */,
+				DC99E9700A2608A400F50752 /* iTM2MathbbNumIcon.tiff */,
+				DC99E9710A2608A400F50752 /* iTM2MathbbNumMenu.dict */,
+				DC99E9720A2608A400F50752 /* iTM2MathbbNumMenu.tiff */,
+				DC99E9730A2608A400F50752 /* iTM2MathrsfsIcon.tiff */,
+				DC99E9740A2608A400F50752 /* iTM2MathrsfsMenu.dict */,
+				DC99E9750A2608A400F50752 /* iTM2MathrsfsMenu.tiff */,
+			);
+			path = jknappen;
+			sourceTree = "<group>";
+		};
+		DC99E9760A2608A400F50752 /* LaTeX */ = {
+			isa = PBXGroup;
+			children = (
+				DC99E9770A2608A400F50752 /* iTM2LaTeXAccentIcon.tiff */,
+				DC99E9780A2608A400F50752 /* iTM2LaTeXAccentMenu.dict */,
+				DC99E9790A2608A400F50752 /* iTM2LaTeXAccentMenu.tiff */,
+				DC99E97A0A2608A400F50752 /* iTM2LaTeXArrowsIcon.tiff */,
+				DC99E97B0A2608A400F50752 /* iTM2LaTeXArrowsMenu.dict */,
+				DC99E97C0A2608A400F50752 /* iTM2LaTeXArrowsMenu.tiff */,
+				DC99E97D0A2608A400F50752 /* iTM2LaTeXBinaryIcon.tiff */,
+				DC99E97E0A2608A400F50752 /* iTM2LaTeXBinaryMenu.dict */,
+				DC99E97F0A2608A400F50752 /* iTM2LaTeXBinaryMenu.tiff */,
+				DC99E9800A2608A400F50752 /* iTM2LaTeXCalIcon.tiff */,
+				DC99E9810A2608A400F50752 /* iTM2LaTeXCalMenu.dict */,
+				DC99E9820A2608A400F50752 /* iTM2LaTeXCalMenu.tiff */,
+				DC99E9830A2608A400F50752 /* iTM2LaTeXForeignIcon.tiff */,
+				DC99E9840A2608A400F50752 /* iTM2LaTeXForeignMenu.dict */,
+				DC99E9850A2608A400F50752 /* iTM2LaTeXForeignMenu.tiff */,
+				DC99E9860A2608A400F50752 /* iTM2LaTeXGreekCapsIcon.tiff */,
+				DC99E9870A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.dict */,
+				DC99E9880A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.tiff */,
+				DC99E9890A2608A400F50752 /* iTM2LaTeXGreekIcon.tiff */,
+				DC99E98A0A2608A400F50752 /* iTM2LaTeXGreekMenu.dict */,
+				DC99E98B0A2608A400F50752 /* iTM2LaTeXGreekMenu.tiff */,
+				DC99E98C0A2608A400F50752 /* iTM2LaTeXMiscIcon.tiff */,
+				DC99E98D0A2608A400F50752 /* iTM2LaTeXMiscMenu.dict */,
+				DC99E98E0A2608A400F50752 /* iTM2LaTeXMiscMenu.tiff */,
+				DC99E98F0A2608A400F50752 /* iTM2LaTeXRelationsIcon.tiff */,
+				DC99E9900A2608A400F50752 /* iTM2LaTeXRelationsMenu.dict */,
+				DC99E9910A2608A400F50752 /* iTM2LaTeXRelationsMenu.tiff */,
+				DC99E9920A2608A400F50752 /* iTM2LaTeXRelationsNotIcon.tiff */,
+				DC99E9930A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.dict */,
+				DC99E9940A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.tiff */,
+				DC99E9950A2608A400F50752 /* iTM2LaTeXSymbolIcon.tiff */,
+				DC99E9960A2608A400F50752 /* iTM2LaTeXSymbolMenu.dict */,
+				DC99E9970A2608A400F50752 /* iTM2LaTeXSymbolMenu.tiff */,
+				DC99E9980A2608A400F50752 /* iTM2LaTeXVariableIcon.tiff */,
+				DC99E9990A2608A400F50752 /* iTM2LaTeXVariableMenu.dict */,
+				DC99E99A0A2608A400F50752 /* iTM2LaTeXVariableMenu.tiff */,
+			);
+			path = LaTeX;
+			sourceTree = "<group>";
+		};
+		DC99E99B0A2608A400F50752 /* MarVoSym */ = {
+			isa = PBXGroup;
+			children = (
+				DC99E99C0A2608A400F50752 /* iTM2MVSArrowsIcon.tiff */,
+				DC99E99D0A2608A400F50752 /* iTM2MVSArrowsMenu.dict */,
+				DC99E99E0A2608A400F50752 /* iTM2MVSArrowsMenu.tiff */,
+				DC99E99F0A2608A400F50752 /* iTM2MVSDeskIcon.tiff */,
+				DC99E9A00A2608A400F50752 /* iTM2MVSDeskMenu.dict */,
+				DC99E9A10A2608A400F50752 /* iTM2MVSDeskMenu.tiff */,
+				DC99E9A20A2608A400F50752 /* iTM2MVSMiscIcon.tiff */,
+				DC99E9A30A2608A400F50752 /* iTM2MVSMiscMenu.dict */,
+				DC99E9A40A2608A400F50752 /* iTM2MVSMiscMenu.tiff */,
+				DC99E9A50A2608A400F50752 /* iTM2MVSNumbersIcon.tiff */,
+				DC99E9A60A2608A400F50752 /* iTM2MVSNumbersMenu.dict */,
+				DC99E9A70A2608A400F50752 /* iTM2MVSNumbersMenu.tiff */,
+				DC99E9A80A2608A400F50752 /* iTM2MVSZodiacIcon.tiff */,
+				DC99E9A90A2608A400F50752 /* iTM2MVSZodiacMenu.dict */,
+				DC99E9AA0A2608A400F50752 /* iTM2MVSZodiacMenu.tiff */,
+			);
+			path = MarVoSym;
+			sourceTree = "<group>";
+		};
+		DC99E9AB0A2608A400F50752 /* WasySym */ = {
+			isa = PBXGroup;
+			children = (
+				DC99E9AC0A2608A400F50752 /* iTM2WSBoxIcon.tiff */,
+				DC99E9AD0A2608A400F50752 /* iTM2WSBoxMenu.dict */,
+				DC99E9AE0A2608A400F50752 /* iTM2WSBoxMenu.tiff */,
+				DC99E9AF0A2608A400F50752 /* iTM2WSMathIcon.tiff */,
+				DC99E9B00A2608A400F50752 /* iTM2WSMathMenu.dict */,
+				DC99E9B10A2608A400F50752 /* iTM2WSMathMenu.tiff */,
+				DC99E9B20A2608A400F50752 /* iTM2WSMhoIcon.tiff */,
+				DC99E9B30A2608A400F50752 /* iTM2WSMhoMenu.dict */,
+				DC99E9B40A2608A400F50752 /* iTM2WSMhoMenu.tiff */,
+				DC99E9B50A2608A400F50752 /* iTM2WSMiscIcon.tiff */,
+				DC99E9B60A2608A400F50752 /* iTM2WSMiscMenu.dict */,
+				DC99E9B70A2608A400F50752 /* iTM2WSMiscMenu.tiff */,
+				DC99E9B80A2608A400F50752 /* iTM2WSZodiacIcon.tiff */,
+				DC99E9B90A2608A400F50752 /* iTM2WSZodiacMenu.dict */,
+				DC99E9BA0A2608A400F50752 /* iTM2WSZodiacMenu.tiff */,
+			);
+			path = WasySym;
+			sourceTree = "<group>";
+		};
+		DCB1E6F70B50988600B0704A /* PiFont */ = {
+			isa = PBXGroup;
+			children = (
+				DCB1E6F80B50988600B0704A /* iTM2PiFontArrowsIcon.tiff */,
+				DCB1E6F90B50988600B0704A /* iTM2PiFontArrowsMenu.dict */,
+				DCB1E6FA0B50988600B0704A /* iTM2PiFontArrowsMenu.tiff */,
+				DCB1E6FB0B50988600B0704A /* iTM2PiFontDigitsIcon.tiff */,
+				DCB1E6FC0B50988600B0704A /* iTM2PiFontDigitsMenu.dict */,
+				DCB1E6FD0B50988600B0704A /* iTM2PiFontDigitsMenu.tiff */,
+				DCB1E6FE0B50988600B0704A /* iTM2PiFontMisc1Icon.tiff */,
+				DCB1E6FF0B50988600B0704A /* iTM2PiFontMisc1Menu.dict */,
+				DCB1E7000B50988600B0704A /* iTM2PiFontMisc1Menu.tiff */,
+				DCB1E7010B50988600B0704A /* iTM2PiFontMisc2Icon.tiff */,
+				DCB1E7020B50988600B0704A /* iTM2PiFontMisc2Menu.dict */,
+				DCB1E7030B50988600B0704A /* iTM2PiFontMisc2Menu.tiff */,
+				DCB1E7040B50988600B0704A /* iTM2PiFontStarsIcon.tiff */,
+				DCB1E7050B50988600B0704A /* iTM2PiFontStarsMenu.dict */,
+				DCB1E7060B50988600B0704A /* iTM2PiFontStarsMenu.tiff */,
+			);
+			path = PiFont;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6BB7F509474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2LaTeXSymbolsKit" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5185EE621270441100AFA001 /* PBXTargetDependency */,
+			);
+			name = iTM2LaTeXSymbolsKit;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = iTM2PDFKit;
+			productReference = 8D5B49B6048680CD000E48DA /* iTM2LaTeXSymbolsKit.iTM2 */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = DC6BB80109474616004B0A81 /* Build configuration list for PBXProject "iTM2LaTeXSymbolsKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* iTM2PDFKit */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5185EE5E127043FE00AFA001 /* Prepare Milestones */,
+				8D5B49AC048680CD000E48DA /* iTM2LaTeXSymbolsKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC99E9BB0A2608A400F50752 /* iTM2AMSArrowsIcon.tiff in Resources */,
+				DC99E9BC0A2608A400F50752 /* iTM2AMSArrowsMenu.dict in Resources */,
+				DC99E9BD0A2608A400F50752 /* iTM2AMSArrowsMenu.tiff in Resources */,
+				DC99E9BE0A2608A400F50752 /* iTM2AMSBinaryIcon.tiff in Resources */,
+				DC99E9BF0A2608A400F50752 /* iTM2AMSBinaryMenu.dict in Resources */,
+				DC99E9C00A2608A400F50752 /* iTM2AMSBinaryMenu.tiff in Resources */,
+				DC99E9C10A2608A400F50752 /* iTM2AMSMathbbIcon.tiff in Resources */,
+				DC99E9C20A2608A400F50752 /* iTM2AMSMathbbMenu.dict in Resources */,
+				DC99E9C30A2608A400F50752 /* iTM2AMSMathbbMenu.tiff in Resources */,
+				DC99E9C40A2608A400F50752 /* iTM2AMSMathfrakCapsIcon.tiff in Resources */,
+				DC99E9C50A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.dict in Resources */,
+				DC99E9C60A2608A400F50752 /* iTM2AMSMathfrakCapsMenu.tiff in Resources */,
+				DC99E9C70A2608A400F50752 /* iTM2AMSMathfrakIcon.tiff in Resources */,
+				DC99E9C80A2608A400F50752 /* iTM2AMSMathfrakMenu.dict in Resources */,
+				DC99E9C90A2608A400F50752 /* iTM2AMSMathfrakMenu.tiff in Resources */,
+				DC99E9CA0A2608A400F50752 /* iTM2AMSMiscIcon.tiff in Resources */,
+				DC99E9CB0A2608A400F50752 /* iTM2AMSMiscMenu.dict in Resources */,
+				DC99E9CC0A2608A400F50752 /* iTM2AMSMiscMenu.tiff in Resources */,
+				DC99E9CD0A2608A400F50752 /* iTM2AMSOrdinaryIcon.tiff in Resources */,
+				DC99E9CE0A2608A400F50752 /* iTM2AMSOrdinaryMenu.dict in Resources */,
+				DC99E9CF0A2608A400F50752 /* iTM2AMSOrdinaryMenu.tiff in Resources */,
+				DC99E9D00A2608A400F50752 /* iTM2AMSRelationCurlIcon.tiff in Resources */,
+				DC99E9D10A2608A400F50752 /* iTM2AMSRelationCurlMenu.dict in Resources */,
+				DC99E9D20A2608A400F50752 /* iTM2AMSRelationCurlMenu.tiff in Resources */,
+				DC99E9D30A2608A400F50752 /* iTM2AMSRelationIcon.tiff in Resources */,
+				DC99E9D40A2608A400F50752 /* iTM2AMSRelationMenu.dict in Resources */,
+				DC99E9D50A2608A400F50752 /* iTM2AMSRelationMenu.tiff in Resources */,
+				DC99E9D60A2608A400F50752 /* iTM2AMSRelationSetIcon.tiff in Resources */,
+				DC99E9D70A2608A400F50752 /* iTM2AMSRelationSetMenu.dict in Resources */,
+				DC99E9D80A2608A400F50752 /* iTM2AMSRelationSetMenu.tiff in Resources */,
+				DC99E9D90A2608A400F50752 /* iTM2AMSRelationSimIcon.tiff in Resources */,
+				DC99E9DA0A2608A400F50752 /* iTM2AMSRelationSimMenu.dict in Resources */,
+				DC99E9DB0A2608A400F50752 /* iTM2AMSRelationSimMenu.tiff in Resources */,
+				DC99E9DC0A2608A400F50752 /* iTM2AMSRelationTriangleIcon.tiff in Resources */,
+				DC99E9DD0A2608A400F50752 /* iTM2AMSRelationTriangleMenu.dict in Resources */,
+				DC99E9DE0A2608A400F50752 /* iTM2AMSRelationTriangleMenu.tiff in Resources */,
+				DC99E9DF0A2608A400F50752 /* iTM2MathbbCapsIcon.tiff in Resources */,
+				DC99E9E00A2608A400F50752 /* iTM2MathbbCapsMenu.dict in Resources */,
+				DC99E9E10A2608A400F50752 /* iTM2MathbbCapsMenu.tiff in Resources */,
+				DC99E9E20A2608A400F50752 /* iTM2MathbbGreekIcon.tiff in Resources */,
+				DC99E9E30A2608A400F50752 /* iTM2MathbbGreekMenu.dict in Resources */,
+				DC99E9E40A2608A400F50752 /* iTM2MathbbGreekMenu.tiff in Resources */,
+				DC99E9E50A2608A400F50752 /* iTM2MathbbIcon.tiff in Resources */,
+				DC99E9E60A2608A400F50752 /* iTM2MathbbMenu.dict in Resources */,
+				DC99E9E70A2608A400F50752 /* iTM2MathbbMenu.tiff in Resources */,
+				DC99E9E80A2608A400F50752 /* iTM2MathbbNumIcon.tiff in Resources */,
+				DC99E9E90A2608A400F50752 /* iTM2MathbbNumMenu.dict in Resources */,
+				DC99E9EA0A2608A400F50752 /* iTM2MathbbNumMenu.tiff in Resources */,
+				DC99E9EB0A2608A400F50752 /* iTM2MathrsfsIcon.tiff in Resources */,
+				DC99E9EC0A2608A400F50752 /* iTM2MathrsfsMenu.dict in Resources */,
+				DC99E9ED0A2608A400F50752 /* iTM2MathrsfsMenu.tiff in Resources */,
+				DC99E9EE0A2608A400F50752 /* iTM2LaTeXAccentIcon.tiff in Resources */,
+				DC99E9EF0A2608A400F50752 /* iTM2LaTeXAccentMenu.dict in Resources */,
+				DC99E9F00A2608A400F50752 /* iTM2LaTeXAccentMenu.tiff in Resources */,
+				DC99E9F10A2608A400F50752 /* iTM2LaTeXArrowsIcon.tiff in Resources */,
+				DC99E9F20A2608A400F50752 /* iTM2LaTeXArrowsMenu.dict in Resources */,
+				DC99E9F30A2608A400F50752 /* iTM2LaTeXArrowsMenu.tiff in Resources */,
+				DC99E9F40A2608A400F50752 /* iTM2LaTeXBinaryIcon.tiff in Resources */,
+				DC99E9F50A2608A400F50752 /* iTM2LaTeXBinaryMenu.dict in Resources */,
+				DC99E9F60A2608A400F50752 /* iTM2LaTeXBinaryMenu.tiff in Resources */,
+				DC99E9F70A2608A400F50752 /* iTM2LaTeXCalIcon.tiff in Resources */,
+				DC99E9F80A2608A400F50752 /* iTM2LaTeXCalMenu.dict in Resources */,
+				DC99E9F90A2608A400F50752 /* iTM2LaTeXCalMenu.tiff in Resources */,
+				DC99E9FA0A2608A400F50752 /* iTM2LaTeXForeignIcon.tiff in Resources */,
+				DC99E9FB0A2608A400F50752 /* iTM2LaTeXForeignMenu.dict in Resources */,
+				DC99E9FC0A2608A400F50752 /* iTM2LaTeXForeignMenu.tiff in Resources */,
+				DC99E9FD0A2608A400F50752 /* iTM2LaTeXGreekCapsIcon.tiff in Resources */,
+				DC99E9FE0A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.dict in Resources */,
+				DC99E9FF0A2608A400F50752 /* iTM2LaTeXGreekCapsMenu.tiff in Resources */,
+				DC99EA000A2608A400F50752 /* iTM2LaTeXGreekIcon.tiff in Resources */,
+				DC99EA010A2608A400F50752 /* iTM2LaTeXGreekMenu.dict in Resources */,
+				DC99EA020A2608A400F50752 /* iTM2LaTeXGreekMenu.tiff in Resources */,
+				DC99EA030A2608A400F50752 /* iTM2LaTeXMiscIcon.tiff in Resources */,
+				DC99EA040A2608A400F50752 /* iTM2LaTeXMiscMenu.dict in Resources */,
+				DC99EA050A2608A400F50752 /* iTM2LaTeXMiscMenu.tiff in Resources */,
+				DC99EA060A2608A400F50752 /* iTM2LaTeXRelationsIcon.tiff in Resources */,
+				DC99EA070A2608A400F50752 /* iTM2LaTeXRelationsMenu.dict in Resources */,
+				DC99EA080A2608A400F50752 /* iTM2LaTeXRelationsMenu.tiff in Resources */,
+				DC99EA090A2608A400F50752 /* iTM2LaTeXRelationsNotIcon.tiff in Resources */,
+				DC99EA0A0A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.dict in Resources */,
+				DC99EA0B0A2608A400F50752 /* iTM2LaTeXRelationsNotMenu.tiff in Resources */,
+				DC99EA0C0A2608A400F50752 /* iTM2LaTeXSymbolIcon.tiff in Resources */,
+				DC99EA0D0A2608A400F50752 /* iTM2LaTeXSymbolMenu.dict in Resources */,
+				DC99EA0E0A2608A400F50752 /* iTM2LaTeXSymbolMenu.tiff in Resources */,
+				DC99EA0F0A2608A400F50752 /* iTM2LaTeXVariableIcon.tiff in Resources */,
+				DC99EA100A2608A400F50752 /* iTM2LaTeXVariableMenu.dict in Resources */,
+				DC99EA110A2608A400F50752 /* iTM2LaTeXVariableMenu.tiff in Resources */,
+				DC99EA120A2608A400F50752 /* iTM2MVSArrowsIcon.tiff in Resources */,
+				DC99EA130A2608A400F50752 /* iTM2MVSArrowsMenu.dict in Resources */,
+				DC99EA140A2608A400F50752 /* iTM2MVSArrowsMenu.tiff in Resources */,
+				DC99EA150A2608A400F50752 /* iTM2MVSDeskIcon.tiff in Resources */,
+				DC99EA160A2608A400F50752 /* iTM2MVSDeskMenu.dict in Resources */,
+				DC99EA170A2608A400F50752 /* iTM2MVSDeskMenu.tiff in Resources */,
+				DC99EA180A2608A400F50752 /* iTM2MVSMiscIcon.tiff in Resources */,
+				DC99EA190A2608A400F50752 /* iTM2MVSMiscMenu.dict in Resources */,
+				DC99EA1A0A2608A400F50752 /* iTM2MVSMiscMenu.tiff in Resources */,
+				DC99EA1B0A2608A400F50752 /* iTM2MVSNumbersIcon.tiff in Resources */,
+				DC99EA1C0A2608A400F50752 /* iTM2MVSNumbersMenu.dict in Resources */,
+				DC99EA1D0A2608A400F50752 /* iTM2MVSNumbersMenu.tiff in Resources */,
+				DC99EA1E0A2608A400F50752 /* iTM2MVSZodiacIcon.tiff in Resources */,
+				DC99EA1F0A2608A400F50752 /* iTM2MVSZodiacMenu.dict in Resources */,
+				DC99EA200A2608A400F50752 /* iTM2MVSZodiacMenu.tiff in Resources */,
+				DC99EA210A2608A400F50752 /* iTM2WSBoxIcon.tiff in Resources */,
+				DC99EA220A2608A400F50752 /* iTM2WSBoxMenu.dict in Resources */,
+				DC99EA230A2608A400F50752 /* iTM2WSBoxMenu.tiff in Resources */,
+				DC99EA240A2608A400F50752 /* iTM2WSMathIcon.tiff in Resources */,
+				DC99EA250A2608A400F50752 /* iTM2WSMathMenu.dict in Resources */,
+				DC99EA260A2608A400F50752 /* iTM2WSMathMenu.tiff in Resources */,
+				DC99EA270A2608A400F50752 /* iTM2WSMhoIcon.tiff in Resources */,
+				DC99EA280A2608A400F50752 /* iTM2WSMhoMenu.dict in Resources */,
+				DC99EA290A2608A400F50752 /* iTM2WSMhoMenu.tiff in Resources */,
+				DC99EA2A0A2608A400F50752 /* iTM2WSMiscIcon.tiff in Resources */,
+				DC99EA2B0A2608A400F50752 /* iTM2WSMiscMenu.dict in Resources */,
+				DC99EA2C0A2608A400F50752 /* iTM2WSMiscMenu.tiff in Resources */,
+				DC99EA2D0A2608A400F50752 /* iTM2WSZodiacIcon.tiff in Resources */,
+				DC99EA2E0A2608A400F50752 /* iTM2WSZodiacMenu.dict in Resources */,
+				DC99EA2F0A2608A400F50752 /* iTM2WSZodiacMenu.tiff in Resources */,
+				DCB1E7070B50988700B0704A /* iTM2PiFontArrowsIcon.tiff in Resources */,
+				DCB1E7080B50988700B0704A /* iTM2PiFontArrowsMenu.dict in Resources */,
+				DCB1E7090B50988700B0704A /* iTM2PiFontArrowsMenu.tiff in Resources */,
+				DCB1E70A0B50988700B0704A /* iTM2PiFontDigitsIcon.tiff in Resources */,
+				DCB1E70B0B50988700B0704A /* iTM2PiFontDigitsMenu.dict in Resources */,
+				DCB1E70C0B50988700B0704A /* iTM2PiFontDigitsMenu.tiff in Resources */,
+				DCB1E70D0B50988700B0704A /* iTM2PiFontMisc1Icon.tiff in Resources */,
+				DCB1E70E0B50988700B0704A /* iTM2PiFontMisc1Menu.dict in Resources */,
+				DCB1E70F0B50988800B0704A /* iTM2PiFontMisc1Menu.tiff in Resources */,
+				DCB1E7100B50988800B0704A /* iTM2PiFontMisc2Icon.tiff in Resources */,
+				DCB1E7110B50988800B0704A /* iTM2PiFontMisc2Menu.dict in Resources */,
+				DCB1E7120B50988800B0704A /* iTM2PiFontMisc2Menu.tiff in Resources */,
+				DCB1E7130B50988800B0704A /* iTM2PiFontStarsIcon.tiff in Resources */,
+				DCB1E7140B50988800B0704A /* iTM2PiFontStarsMenu.dict in Resources */,
+				DCB1E7150B50988800B0704A /* iTM2PiFontStarsMenu.tiff in Resources */,
+				51E279820CEDDD7F003A0980 /* symbolPalette.png in Resources */,
+				512D9CEA0D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5185EE5D127043FE00AFA001 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(BUILD_ROOT)/Milestones/$(PRODUCT_NAME)MileStones.m",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\n../Scripts/iTM2MilestoneRegistration.sh \"${PROJECT_DIR}\" \"${BUILD_ROOT}/Milestones\"\nexit 0\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC21DF9C08610F3700CA362C /* iTM2LaTeXSymbolsKit.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5185EE621270441100AFA001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5185EE5E127043FE00AFA001 /* Prepare Milestones */;
+			targetProxy = 5185EE611270441100AFA001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		512D9CE80D59F8B900FF9F6F /* iTM2LaTeXSymbolsPanel.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				512D9CE90D59F8B900FF9F6F /* English */,
+				512D9CEB0D59F8C300FF9F6F /* French */,
+			);
+			name = iTM2LaTeXSymbolsPanel.xib;
+			sourceTree = "<group>";
+		};
+		532F3D221093009000F18A18 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				532F3D231093009000F18A18 /* English */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		532F3D241093009000F18A18 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				532F3D251093009000F18A18 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		532F3D621093043400F18A18 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				532F3D631093043400F18A18 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5185EE5F127043FE00AFA001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Prepare Milestones";
+			};
+			name = Debug;
+		};
+		5185EE60127043FE00AFA001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Prepare Milestones";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		DC6BB7F609474616004B0A81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56B2E134867B400240F31 /* PlugIn.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(SRCROOT)\"",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
+				PRODUCT_NAME = iTM2LaTeXSymbolsKit;
+			};
+			name = Debug;
+		};
+		DC6BB7F709474616004B0A81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56B2E134867B400240F31 /* PlugIn.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"\"$(SRCROOT)\"",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../build\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../build\"";
+				PRODUCT_NAME = iTM2LaTeXSymbolsKit;
+			};
+			name = Release;
+		};
+		DC6BB80209474616004B0A81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56B21134867B400240F31 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		DC6BB80309474616004B0A81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51D56B35134867B400240F31 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5185EE6D1270442700AFA001 /* Build configuration list for PBXAggregateTarget "Prepare Milestones" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5185EE5F127043FE00AFA001 /* Debug */,
+				5185EE60127043FE00AFA001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DC6BB7F509474616004B0A81 /* Build configuration list for PBXNativeTarget "iTM2LaTeXSymbolsKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB7F609474616004B0A81 /* Debug */,
+				DC6BB7F709474616004B0A81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DC6BB80109474616004B0A81 /* Build configuration list for PBXProject "iTM2LaTeXSymbolsKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6BB80209474616004B0A81 /* Debug */,
+				DC6BB80309474616004B0A81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

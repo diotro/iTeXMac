@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TYPE...</key>
+	<dict>
+		<key>wxc co :uc%%ou</key>
+		<dict>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>uc%ou</string>
+			<key>TYPE</key>
+			<string>co</string>
+		</dict>
+		<key>wxc co :uc%ou</key>
+		<dict>
+			<key>Comment</key>
+			<string>ou</string>
+			<key>Default</key>
+			<string>uc</string>
+			<key>TYPE</key>
+			<string>co</string>
+		</dict>
+		<key>wxc couc%%ou</key>
+		<dict>
+			<key>Comment</key>
+			<string>%ou</string>
+			<key>Default</key>
+			<string></string>
+			<key>TYPE</key>
+			<string>couc</string>
+		</dict>
+		<key>wxc couc 
+ou</key>
+		<dict>
+			<key>Default</key>
+			<string></string>
+			<key>Comment</key>
+			<string></string>
+			<key>TYPE</key>
+			<string>couc</string>
+		</dict>
+		<key>wxc coucou </key>
+		<dict>
+			<key>Default</key>
+			<string></string>
+			<key>Comment</key>
+			<string></string>
+			<key>TYPE</key>
+			<string>coucou</string>
+		</dict>
+		<key>wxc co :ucou</key>
+		<dict>
+			<key>Default</key>
+			<string>ucou</string>
+			<key>Comment</key>
+			<string></string>
+			<key>TYPE</key>
+			<string>co</string>
+		</dict>
+		<key>wxc couc%ou</key>
+		<dict>
+			<key>Comment</key>
+			<string>ou</string>
+			<key>Default</key>
+			<string></string>
+			<key>TYPE</key>
+			<string>couc</string>
+		</dict>
+	</dict>
+	<key>TYPE</key>
+	<dict>
+		<key>wxc couc%ou</key>
+		<dict>
+			<key>TYPE</key>
+			<string>couc</string>
+		</dict>
+		<key>wxc co :ucou</key>
+		<dict>
+			<key>TYPE</key>
+			<string>co</string>
+		</dict>
+		<key>wxc couc 
+ou</key>
+		<dict>
+			<key>TYPE</key>
+			<string>couc</string>
+		</dict>
+		<key>wxc coucou </key>
+		<dict>
+			<key>TYPE</key>
+			<string>coucou</string>
+		</dict>
+	</dict>
+	<key>SEL</key>
+	<dict>
+		<key>wxc   SEL     [ end  - 23  ]    </key>
+		<dict>
+			<key>-index</key>
+			<string>23</string>
+			<key>index</key>
+			<string></string>
+			<key>end</key>
+			<string>end</string>
+		</dict>
+		<key>wxc   SEL     [ last  - 23  ]   </key>
+		<dict>
+			<key>-index</key>
+			<string>23</string>
+			<key>index</key>
+			<string></string>
+			<key>end</key>
+			<string>last</string>
+		</dict>
+		<key>wxc   SEL     [ 23  ]  </key>
+		<dict>
+			<key>-index</key>
+			<string></string>
+			<key>end</key>
+			<string></string>
+			<key>index</key>
+			<string>23</string>
+		</dict>
+		<key>wxc   SEL    </key>
+		<dict>
+			<key>.</key>
+			<string></string>
+		</dict>
+		<key>SEL</key>
+		<dict>
+			<key>.</key>
+			<string></string>
+		</dict>
+		<key>SEL - 2</key>
+		<dict>
+			<key>.</key>
+			<string></string>
+		</dict>
+	</dict>
+	<key>Default</key>
+	<dict>
+		<key>wxc : cou%%co%u</key>
+		<dict>
+			<key>Default</key>
+			<string> cou%co</string>
+		</dict>
+		<key>wxc : cou%cou </key>
+		<dict>
+			<key>Default</key>
+			<string> cou</string>
+		</dict>
+		<key>wxc : cou)__cou</key>
+		<dict>
+			<key>Default</key>
+			<string> cou</string>
+		</dict>
+		<key>wxc : cou
+c%ou </key>
+		<dict>
+			<key>Default</key>
+			<string> cou
+c</string>
+		</dict>
+		<key>wxc : cou
+cou </key>
+		<dict>
+			<key>Default</key>
+			<string> cou
+cou </string>
+		</dict>
+		<key>wxc : coucou </key>
+		<dict>
+			<key>Default</key>
+			<string> coucou </string>
+		</dict>
+	</dict>
+	<key>Comment</key>
+	<dict>
+		<key>wxc % co)__u
+cou - 2</key>
+		<dict>
+			<key>Comment</key>
+			<string> co</string>
+		</dict>
+		<key>wxc % cou
+cou</key>
+		<dict>
+			<key>Comment</key>
+			<string> cou
+cou</string>
+		</dict>
+		<key>wxc % coucou </key>
+		<dict>
+			<key>Comment</key>
+			<string> coucou </string>
+		</dict>
+		<key>wxc</key>
+		<dict/>
+	</dict>
+</dict>
+</plist>

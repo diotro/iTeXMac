@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>iTM2_Engine_dvipdfm</key>
+	<string>Filtre dvi→pdf (dvipdfm)</string>
+	<key>iTM2_Engine_dvipdfmx</key>
+	<string>Filtre dvi→pdf avancé (dvipdfmx)</string>
+	<key>iTM2_Engine_xdv2pdf</key>
+	<string>Filtre xdv→pdf (xdv2pdf)</string>
+	<key>iTM2_Engine_xdvipdfmx</key>
+	<string>Filtre xdv→pdf avancé (xdvipdfmx)</string>
+</dict>
+</plist>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>items</key>
+	<array>
+                <string>\oe </string>
+                <string>\aa </string>
+                <string>\l </string>
+                <string>?`</string>
+                <string>\OE </string>
+                <string>\AA </string>
+                <string>\L </string>
+                <string>!`</string>
+                <string>\ae </string>
+                <string>\o </string>
+                <string>\ss </string>
+                <string>noop:</string>
+                <string>\AE </string>
+                <string>\O </string>
+	</array>
+	<key>numberOfColumns</key>
+	<integer>4</integer>
+</dict>
+</plist>

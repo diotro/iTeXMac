@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LIST>
+    <ACTION KEY="$" SELECTOR="insertDollar:" />
+    <ACTION KEY="{" SELECTOR="insertOpenBrace:" />
+    <ACTION KEY="(" SELECTOR="insertOpenParenthesis:" />
+    <ACTION KEY="[" SELECTOR="insertOpenBracket:" />
+    <ACTION KEY="\" SELECTOR="insertBackslash:" />
+    <ACTION KEY="^" SELECTOR="insertHat:" />
+    <ACTION KEY="_" SELECTOR="insertUnderscore:" />
+    <ACTION KEY="1" TOOLTIP="dfrac ">\bigl(__(SEL:)__\bigr)__(TAB)__</ACTION>
+    <ACTION KEY="2" TOOLTIP="dfrac ">\Bigl(__(SEL:)__\Bigr)__(TAB)__</ACTION>
+    <ACTION KEY="3" TOOLTIP="dfrac ">\biggl(__(SEL:)__\biggr)__(TAB)__</ACTION>
+    <ACTION KEY="4" TOOLTIP="dfrac ">\Biggl(__(SEL:)__\Biggr)__(TAB)__</ACTION>
+    <ACTION KEY="5" TOOLTIP="dfrac ">[\hskip -1pt [__(SEL:)__]\hskip -1pt ]__(TAB)__</ACTION>
+    <ACTION KEY="^$1" TOOLTIP="dfrac ">\bigl\{__(SEL:)__\bigr\}__(TAB)__</ACTION>
+    <ACTION KEY="^$2" TOOLTIP="dfrac ">\Bigl\{__(SEL:)__\Bigr\}__(TAB)__</ACTION>
+    <ACTION KEY="^$3" TOOLTIP="dfrac ">\biggl\{__(SEL:)__\biggr\}__(TAB)__</ACTION>
+    <ACTION KEY="^$4" TOOLTIP="dfrac ">\Biggl\{__(SEL:)__\Biggr\}__(TAB)__</ACTION>
+    <ACTION KEY="^1" TOOLTIP="dfrac ">\bigl[__(SEL:)__\bigr]__(TAB)__</ACTION>
+    <ACTION KEY="^2" TOOLTIP="dfrac ">\Bigl[__(SEL:)__\Bigr]__(TAB)__</ACTION>
+    <ACTION KEY="^3" TOOLTIP="dfrac ">\biggl[__(SEL:)__\biggr]__(TAB)__</ACTION>
+    <ACTION KEY="^4" TOOLTIP="dfrac ">\Biggl[__(SEL:)__\Biggr]__(TAB)__</ACTION>
+    <ACTION KEY="D">\Delta </ACTION>
+    <ACTION KEY="F">\Phi </ACTION>
+    <ACTION KEY="G">\Gamma </ACTION>
+    <ACTION KEY="J">\Theta </ACTION>
+    <ACTION KEY="L">\Lambda </ACTION>
+    <ACTION KEY="P">\Pi </ACTION>
+    <ACTION KEY="Q">\Psi </ACTION>
+    <ACTION KEY="S">\Sigma </ACTION>
+    <ACTION KEY="U">\Upsilon </ACTION>
+    <ACTION KEY="W">\Omega </ACTION>
+    <ACTION KEY="X">\Xi </ACTION>
+    <ACTION KEY="Z">\Zeta </ACTION>
+    <ACTION KEY="a">\alpha </ACTION>
+    <ACTION KEY="b">\beta </ACTION>
+    <ACTION KEY="c">\chi </ACTION>
+    <ACTION KEY="d">\delta </ACTION>
+    <ACTION KEY="e">\varepsilon </ACTION>
+    <ACTION KEY="f">\varphi </ACTION>
+    <ACTION KEY="g">\gamma </ACTION>
+    <ACTION KEY="h">\eta </ACTION>
+    <ACTION KEY="i">\iota </ACTION>
+    <ACTION KEY="j">\theta </ACTION>
+    <ACTION KEY="k">\kappa </ACTION>
+    <ACTION KEY="l">\lambda </ACTION>
+    <ACTION KEY="m">\mu </ACTION>
+    <ACTION KEY="p">\pi </ACTION>
+    <ACTION KEY="q">\psi </ACTION>
+    <ACTION KEY="r">\rho </ACTION>
+    <ACTION KEY="s">\sigma </ACTION>
+    <ACTION KEY="t">\tau </ACTION>
+    <ACTION KEY="u">\upsilon </ACTION>
+    <ACTION KEY="v">\nu </ACTION>
+    <ACTION KEY="w">\omega </ACTION>
+    <ACTION KEY="x">\xi </ACTION>
+    <ACTION KEY="z">\zeta </ACTION>
+    <ACTION KEY="~e">\epsilon </ACTION>
+    <ACTION KEY="~f">\phi </ACTION>
+    <ACTION KEY="~j">\vartheta </ACTION>
+    <ACTION KEY="~p">\varpi </ACTION>
+    <ACTION KEY="~r">\varrho </ACTION>
+    <ACTION KEY="~s">\varsigma </ACTION>
+</LIST>

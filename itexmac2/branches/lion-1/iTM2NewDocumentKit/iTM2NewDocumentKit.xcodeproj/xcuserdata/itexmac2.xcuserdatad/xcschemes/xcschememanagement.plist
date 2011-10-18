@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>All.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>96</integer>
+		</dict>
+		<key>Prepare Embedded Tests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>91</integer>
+		</dict>
+		<key>Prepare Milestones.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>87</integer>
+		</dict>
+		<key>Prepare iTM2TeXFoundation.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>94</integer>
+		</dict>
+		<key>Test New TeX Document.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>95</integer>
+		</dict>
+		<key>iTM2NewDocumentKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>92</integer>
+		</dict>
+		<key>iTeXMac2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>93</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>5185EDDA1270416B00AFA001</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>51F071C5130C4EAF00D6A5F9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>51F071DE130C4F6E00D6A5F9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC1C6CC3090E1A64000F4FDE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC5D70750949E27F00EBA96C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC81AD7F088718FA00943C99</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC9E4F310858A8A300A86BED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

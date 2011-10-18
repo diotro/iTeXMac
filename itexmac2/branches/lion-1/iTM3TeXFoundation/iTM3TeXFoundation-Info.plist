@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>fmt</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>FMT</string>
+			<key>CFBundleTypeName</key>
+			<string>TeX Format</string>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>NSDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>XML</string>
+		</dict>
+	</array>
+	<key>CFBundleExecutable</key>
+	<string>iTM3TeXFoundation</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(iTM3FoundationBundleIdentifier)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleSignature</key>
+	<string>i™ac</string>
+	<key>CFBundleVersion</key>
+	<string>1.0 (build SVN_BUILD_NUMBER on SVN_BUILD_DATE)</string>
+</dict>
+</plist>

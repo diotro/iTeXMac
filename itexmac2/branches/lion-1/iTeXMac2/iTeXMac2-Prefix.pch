@@ -1,0 +1,12 @@
+//
+// Prefix header for all source files of the 'iTM2' target in the 'iTM2' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+    #import <Message/NSMailDelivery.h>
+    #import <AddressBook/AddressBook.h>
+    #import <iTM3Foundation/iTeXMac2.h>
+    #import <iTM3Foundation/iTM3Foundation.h>
+    #import <iTM2TeXFoundation/iTM2TeXFoundation.h>
+#endif
