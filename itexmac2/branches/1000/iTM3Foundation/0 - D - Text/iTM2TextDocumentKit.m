@@ -47,6 +47,7 @@ NSString * const iTM2TextViewsDontUseStandardFindPanelKey = @"iTM2TextViewsDontU
 NSString * const iTM2TextViewsOverwriteKey = @"iTM2TextViewsOverwrite";
 
 @implementation iTM2TextDocument
+@synthesize focusRange = iVarFocusRange;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  initialize
 + (void)initialize;
 /*"Description Forthcoming.
@@ -2015,9 +2016,9 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    NSTextView * TV = [argument object];
+    NSTextView * TV = argument.object;
     if ((id)TV.textStorage == self.textStorage) {
-        [IMPLEMENTATION takeMetaValue:[NSValue valueWithRange:TV.selectedRange] forKey:@"_FocusRange"];
+        self.focusRange = TV.selectedRange;
     }
 //END4iTM3;
     return;
@@ -2046,8 +2047,7 @@ To Do List:
                     withString: text];
         else {
             // the script gave us an index
-			NSRange _FocusRange = [[IMPLEMENTATION metaValueForKey:@"_FocusRange"] rangeValue];
-            [self replaceCharactersInRange:_FocusRange withString:text];
+            [self replaceCharactersInRange:self.focusRange withString:text];
 		}
     }
     else
@@ -2072,8 +2072,7 @@ To Do List:
 		}
     } else {
         [self.textStorage replaceCharactersInRange:range withString:string];
-		NSRange _FocusRange = [[IMPLEMENTATION metaValueForKey:@"_FocusRange"] rangeValue];
-        [IMPLEMENTATION takeMetaValue:[NSValue valueWithRange:iTM3MakeRange(_FocusRange.location + string.length,ZER0)] forKey:@"_FocusRange"];
+		self.focusRange = iTM3MakeRange(self.focusRange.location + string.length,ZER0);
     }
     return;
 }

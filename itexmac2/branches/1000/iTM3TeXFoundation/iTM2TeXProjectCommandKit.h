@@ -56,7 +56,6 @@
 extern NSString * const TWSShellEnvironmentFrontKey;// only if the master key means "typeset the front document"
 extern NSString * const TWSShellEnvironmentProjectKey;
 
-#warning ! THESE should live somewhere else
 extern NSString * const iTM2TPFEEnvironmentModeKey;
 extern NSString * const iTM2TPFEScriptModeKey;
 

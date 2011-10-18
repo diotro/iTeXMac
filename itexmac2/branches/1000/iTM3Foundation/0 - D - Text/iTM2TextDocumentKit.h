@@ -41,7 +41,9 @@ extern NSString * const iTM2TextInspectorType;
 @private
     NSString * iVarStringRepresentation4iTM3;
     iTM2StringFormatController * iVarStringFormatter4iTM3;
+    NSRange iVarFocusRange;
 }
+@property (assign) NSRange focusRange;
 /*!
 	@method		inspectorType4iTM3
 	@abstract	Simply 'Text type'.

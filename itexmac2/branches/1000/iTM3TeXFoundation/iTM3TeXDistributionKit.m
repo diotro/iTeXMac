@@ -21,7 +21,7 @@
 //  To Do List: (format "- proposition(percentage actually done)")
 */
 
-#import "iTM2TeXDistributionKit.h"
+#import "iTM3TeXDistributionKit.h"
 #import "iTM2TeXInfoWrapperKit.h"
 #import "iTM2TeXProjectFrontendKit.h"
 #import "iTM2TeXProjectCommandKit.h"
@@ -356,7 +356,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * distribution = self.TeXMFProgramsDistribution;
+	NSString * distribution = self.nameOfTeXMFProgramsDistribution;
 	if([distribution isEqualToString:iTM2DistributionDefault])
 	{
 		return [self.class defaultPathToTeXMFPrograms];
@@ -1017,7 +1017,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * distribution = [self.document TeXMFProgramsDistribution];
+	NSString * distribution = [self.document nameOfTeXMFProgramsDistribution];
 	if([distribution pathIsEqual4iTM3:iTM2DistributionDefaultTeXDistIntel])
 	{
 		return iTM2DistributionDefaultTeXDist;
@@ -1055,7 +1055,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSString * distribution = [self.document TeXMFProgramsDistribution];
+	NSString * distribution = [self.document nameOfTeXMFProgramsDistribution];
 //END4iTM3;
     return [distribution pathIsEqual4iTM3:iTM2DistributionDefaultTeXDistIntel]
 		|| [distribution pathIsEqual4iTM3:iTM2DistributiongwTeXIntel]
@@ -1074,30 +1074,30 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	id doc = self.document;
-	NSString * distribution = [doc TeXMFProgramsDistribution];
+	NSString * distribution = [doc nameOfTeXMFProgramsDistribution];
 	if([distribution pathIsEqual4iTM3:iTM2DistributionDefaultTeXDist])
 	{
-		[doc setTeXMFProgramsDistribution:iTM2DistributionDefaultTeXDistIntel];
+		[doc setNameOfTeXMFProgramsDistribution:iTM2DistributionDefaultTeXDistIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributiongwTeX])
 	{
-		[doc setTeXMFProgramsDistribution:iTM2DistributiongwTeXIntel];
+		[doc setNameOfTeXMFProgramsDistribution:iTM2DistributiongwTeXIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionOldgwTeX])
 	{
-		[doc setTeXMFProgramsDistribution:iTM2DistributionOldgwTeXIntel];
+		[doc setNameOfTeXMFProgramsDistribution:iTM2DistributionOldgwTeXIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionFink])
 	{
-		[doc setTeXMFProgramsDistribution:iTM2DistributionFinkIntel];
+		[doc setNameOfTeXMFProgramsDistribution:iTM2DistributionFinkIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionTeXLive])
 	{
-		[doc setTeXMFProgramsDistribution:iTM2DistributionTeXLiveIntel];
+		[doc setNameOfTeXMFProgramsDistribution:iTM2DistributionTeXLiveIntel];
 	}
 	else if([distribution pathIsEqual4iTM3:iTM2DistributionTeXLiveDVD])
 	{
-		[doc setTeXMFProgramsDistribution:iTM2DistributionTeXLiveDVDIntel];
+		[doc setNameOfTeXMFProgramsDistribution:iTM2DistributionTeXLiveDVDIntel];
 	}
 //END4iTM3;
     return;
@@ -1330,10 +1330,10 @@ To Do List:
 	if([sender isKindOfClass:[NSMenuItem class]])
 	{
 		BOOL isIntel = self.TeXMFProgramsDistributionIsIntel;
-		NSString * old = [self.document TeXMFProgramsDistribution];
-		[self.document setTeXMFProgramsDistribution:[sender representedObject]];
+		NSString * old = [self.document nameOfTeXMFProgramsDistribution];
+		[self.document setNameOfTeXMFProgramsDistribution:[sender representedObject]];
 		[self setTeXMFProgramsDistributionIsIntel:isIntel];
-		NSString * new = [self.document TeXMFProgramsDistribution];
+		NSString * new = [self.document nameOfTeXMFProgramsDistribution];
 		if(![old pathIsEqual4iTM3:new])
 		{
 			[self.document updateChangeCount:NSChangeDone];
@@ -1659,9 +1659,11 @@ To Do List:
 - (void)setOrderedEnvironmentVariableNames:(id)argument;
 - (id)environmentVariables;
 @property (readwrite,assign) NSTableView * _environmentTableView;
+@property (readwrite,retain) NSArray * distributions;
 @end
 
 @implementation iTM2TeXDistributionPrefPane
+@synthesize distributions = iVarDistributions;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= initialize
 + (void)initialize;
 /*"Description Forthcoming.

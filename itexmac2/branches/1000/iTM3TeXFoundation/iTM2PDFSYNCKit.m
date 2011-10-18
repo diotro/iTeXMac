@@ -2241,13 +2241,12 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 #warning DEBUGGGG:I DONT KNOW WHY THIS SHOULD WORK!!!
-    if([self.centeredSubview takeCurrentPhysicalPage:aCurrentPhysicalPage synchronizationPoint:P withHint:hint])
-    {
+    if ([self.centeredSubview takeCurrentPhysicalPage:aCurrentPhysicalPage synchronizationPoint:P withHint:hint]) {
         [self setParametersHaveChanged:YES];
         return YES;
-    }
-    else
+    } else {
         return NO;
+    }
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=  scrollSynchronizationPointToVisible:
 - (void)scrollSynchronizationPointToVisible:(id)sender;

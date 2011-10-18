@@ -120,8 +120,8 @@ typedef enum
 + (NSString *)defaultPathToOtherPrograms;
 - (NSString *)nameOfTeXMFDistribution;// low level getter
 - (void)setNameOfTeXMFDistribution:(NSString *)argument;
-- (NSString *)TeXMFProgramsDistribution;// low level getter
-- (void)setTeXMFProgramsDistribution:(NSString *)argument;
+- (NSString *)nameOfTeXMFProgramsDistribution;// low level getter
+- (void)setNameOfTeXMFProgramsDistribution:(NSString *)argument;
 - (NSString *)nameOfOtherProgramsDistribution;// low level getter
 - (void)setNameOfOtherProgramsDistribution:(NSString *)argument;
 - (NSString *)getTeXMFProgramsPath;
@@ -144,10 +144,12 @@ typedef enum
     IBOutlet id controllerForTeXDistributions;
     IBOutlet id controllerForOtherPrograms;
     NSTableView * iVarEnvironmentTableView;
+    NSArray * iVarDistributions;
 }
 @property (readwrite,copy) NSString * pathToTeXMFPrograms;
 @property (readwrite,assign) NSArrayController * controllerForTeXDistributions;
 @property (readwrite,assign) NSArrayController * controllerForOtherPrograms;
+@property (readonly,retain) NSArray * distributions;
 @end
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= iTM2DistributionServer

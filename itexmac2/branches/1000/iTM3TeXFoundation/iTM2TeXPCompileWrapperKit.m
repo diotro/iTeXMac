@@ -115,31 +115,25 @@ To Do List:
 	// get all the possible engines
 	NSEnumerator * E = [[self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,nil] keyEnumerator];
 	NSString * K;
-	while(K = E.nextObject)
-	{
+	while ((K = E.nextObject)) {
 		NSString * mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEScriptModeKey,nil];
-		if([mode isEqualToString:iTM2TPFEBaseMode])
-		{
+		if ([mode isEqualToString:iTM2TPFEBaseMode]) {
 			[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEScriptModeKey,nil];
 		}
 		mode = [self info4iTM3ForKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEEnvironmentModeKey,nil];
-		if([mode isEqualToString:iTM2TPFEBaseMode])
-		{
+		if ([mode isEqualToString:iTM2TPFEBaseMode]) {
 			[self setInfo4TM3:nil forKeyPaths:iTM2TPFECommandsKey,K,iTM2TPFEEnvironmentModeKey,nil];
 		}
 	}
 	[self saveChanges4iTM3ForKeyPaths:iTM2TPFECommandsKey, nil];
 	E = [[self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,nil] keyEnumerator];
-	while(K = E.nextObject)
-	{
+	while ((K = E.nextObject)) {
 		NSString * mode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEScriptModeKey,nil];
-		if([mode isEqualToString:iTM2TPFEBaseMode])
-		{
+		if ([mode isEqualToString:iTM2TPFEBaseMode]) {
 			[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEScriptModeKey,nil];
 		}
 		mode = [self info4iTM3ForKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEEnvironmentModeKey,nil];
-		if([mode isEqualToString:iTM2TPFEBaseMode])
-		{
+		if ([mode isEqualToString:iTM2TPFEBaseMode]) {
 			[self setInfo4TM3:nil forKeyPaths:iTM2TPFEEnginesKey,K,iTM2TPFEEnvironmentModeKey,nil];
 		}
 	}

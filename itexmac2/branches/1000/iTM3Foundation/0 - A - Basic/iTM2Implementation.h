@@ -501,7 +501,7 @@ NSString * iTM2KeyFromSelector(SEL selector);
 					[self.implementation takeMetaValueForSelector:_cmd];
 					return;
 				}
-				Will replace the impolementation meta object for key: @"MyMetaValue" with the given one.
+				Will replace the implementation meta object for key: @"MyMetaValue" with the given one.
 	@param		argument is an object.
 	@param		A setter selector
 	@result		None.

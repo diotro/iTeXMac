@@ -1284,7 +1284,6 @@ To Do List:
 + (NSInteger)commandLevel;{return ZER0;}
 @end
 
-#warning %%%%%%%%%%%%%%%  ALL THE CLASSES HAVE BEEN DEFINED
 #undef DEFINECLASS
 
 ////#import <iTM3Foundation/iTM2Runtime.h>

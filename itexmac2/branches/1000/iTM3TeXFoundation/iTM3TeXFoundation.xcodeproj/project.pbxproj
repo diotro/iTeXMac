@@ -85,6 +85,7 @@
 		513B8AB8134221CE006CA861 /* stock-hchain-broken-24.png in Resources */ = {isa = PBXBuildFile; fileRef = 513B8A7413421EA4006CA861 /* stock-hchain-broken-24.png */; };
 		513B8AB9134221DF006CA861 /* Engine_dvips4iTM3.rb in Copy Binaries */ = {isa = PBXBuildFile; fileRef = 513B8A6513421EA4006CA861 /* Engine_dvips4iTM3.rb */; };
 		5150EC8B0E8139C300578A0A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5150EC8A0E8139C300578A0A /* libz.dylib */; };
+		516E8C9213C65F71000F7244 /* TeXDist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516E8C9113C65F71000F7244 /* TeXDist.framework */; };
 		5170B710134478E9004F857A /* iTM3TeXFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCC3C4F08794A5E0060EC0F /* iTM3TeXFoundation.framework */; };
 		51731919134226F2000B2668 /* iTM2PStoPDFWrapperKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 513B8A7813421EA4006CA861 /* iTM2PStoPDFWrapperKit.m */; };
 		5173191A13422702000B2668 /* BaseProjects.resources.tgz in Resources */ = {isa = PBXBuildFile; fileRef = 513B8A7D13421EA4006CA861 /* BaseProjects.resources.tgz */; };
@@ -210,8 +211,8 @@
 		DCC7F4800854AC9200F3EB8A /* iTM2TeXProjectTaskKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F3EC0854AC9200F3EB8A /* iTM2TeXProjectTaskKit.m */; };
 		DCC7F4810854AC9200F3EB8A /* iTM2TeXStringKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F3ED0854AC9200F3EB8A /* iTM2TeXStringKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCC7F4820854AC9200F3EB8A /* iTM2TeXStringKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F3EE0854AC9200F3EB8A /* iTM2TeXStringKit.m */; };
-		DCC7F4830854AC9200F3EB8A /* iTM2TeXDistributionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F3EF0854AC9200F3EB8A /* iTM2TeXDistributionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DCC7F4840854AC9200F3EB8A /* iTM2TeXDistributionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */; };
+		DCC7F4830854AC9200F3EB8A /* iTM3TeXDistributionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DCC7F3EF0854AC9200F3EB8A /* iTM3TeXDistributionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DCC7F4840854AC9200F3EB8A /* iTM3TeXDistributionKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC7F3F00854AC9200F3EB8A /* iTM3TeXDistributionKit.m */; };
 		DCC7F4850854AC9200F3EB8A /* CompileFileExtensions.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCC7F3F20854AC9200F3EB8A /* CompileFileExtensions.plist */; };
 		DCC7F4BF0854AC9200F3EB8A /* PATHs.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCC7F45F0854AC9200F3EB8A /* PATHs.plist */; };
 		DCC7F4C80854ACD700F3EB8A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC7F4C70854ACD700F3EB8A /* Carbon.framework */; };
@@ -235,6 +236,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DCF2E57D095240C600EE54E2;
 			remoteInfo = "iTeXMac2 Server";
+		};
+		516E8C8F13C65F23000F7244 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 516E8C8B13C65F23000F7244 /* TeXDist.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 51EDCD7913C6586400B505A7;
+			remoteInfo = TeXDist;
 		};
 		5185ED7C12702B7F00AFA001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -678,7 +686,8 @@
 		513B8A9F13421EA4006CA861 /* TeX wrapper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeX wrapper-Prefix.pch"; sourceTree = "<group>"; };
 		5140A4F8136969AA00BA3A7F /* iTM3TeXFoundation-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTM3TeXFoundation-Prefix.pch"; sourceTree = "<group>"; };
 		5150EC8A0E8139C300578A0A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = /usr/lib/libz.dylib; sourceTree = "<absolute>"; };
-		5170B68E13431BD3004F857A /* iTM2TeXFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTM2TeXFoundation.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/iTeXMac3-frzmgsbrlxrvoghffwppalpjjcbb/Build/Products/iTM2TeXFoundation.framework"; sourceTree = "<group>"; };
+		516E8C8B13C65F23000F7244 /* TeXDist.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TeXDist.xcodeproj; path = ../TeXDist/TeXDist.xcodeproj; sourceTree = "<group>"; };
+		516E8C9113C65F71000F7244 /* TeXDist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TeXDist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5193AF471348E5DC00CACC84 /* Debug-set.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-set.xcconfig"; sourceTree = "<group>"; };
 		5193AF481348E5DC00CACC84 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		5193AF491348E5DC00CACC84 /* DebugGC.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugGC.xcconfig; sourceTree = "<group>"; };
@@ -841,8 +850,8 @@
 		DCC7F3EC0854AC9200F3EB8A /* iTM2TeXProjectTaskKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXProjectTaskKit.m; sourceTree = "<group>"; };
 		DCC7F3ED0854AC9200F3EB8A /* iTM2TeXStringKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXStringKit.h; sourceTree = "<group>"; };
 		DCC7F3EE0854AC9200F3EB8A /* iTM2TeXStringKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXStringKit.m; sourceTree = "<group>"; };
-		DCC7F3EF0854AC9200F3EB8A /* iTM2TeXDistributionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM2TeXDistributionKit.h; sourceTree = "<group>"; };
-		DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM2TeXDistributionKit.m; sourceTree = "<group>"; };
+		DCC7F3EF0854AC9200F3EB8A /* iTM3TeXDistributionKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTM3TeXDistributionKit.h; sourceTree = "<group>"; };
+		DCC7F3F00854AC9200F3EB8A /* iTM3TeXDistributionKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iTM3TeXDistributionKit.m; sourceTree = "<group>"; };
 		DCC7F3F20854AC9200F3EB8A /* CompileFileExtensions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CompileFileExtensions.plist; sourceTree = "<group>"; };
 		DCC7F45F0854AC9200F3EB8A /* PATHs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PATHs.plist; sourceTree = "<group>"; };
 		DCC7F4C70854ACD700F3EB8A /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -906,6 +915,7 @@
 				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
 				DCC7F4C80854ACD700F3EB8A /* Carbon.framework in Frameworks */,
 				DCFFC5F508E3EA1B0011D2B7 /* PreferencePanes.framework in Frameworks */,
+				516E8C9213C65F71000F7244 /* TeXDist.framework in Frameworks */,
 				DCE52F720C0F3CC700F2D5B9 /* libicucore.dylib in Frameworks */,
 				5150EC8B0E8139C300578A0A /* libz.dylib in Frameworks */,
 			);
@@ -964,7 +974,9 @@
 		0867D691FE84028FC02AAC07 /* iTM2TeXFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				516E8C9113C65F71000F7244 /* TeXDist.framework */,
 				51F14DCF138D372300CD5F4B /* iTM3Foundation.xcodeproj */,
+				516E8C8B13C65F23000F7244 /* TeXDist.xcodeproj */,
 				DCC7F3CA0854AC9200F3EB8A /* iTM2TeXFoundation */,
 				51B733D8133EAA5700E7E772 /* iTM2TeXFoundationEngines */,
 				51FAD9381302909D00A59CD2 /* GTM */,
@@ -991,7 +1003,6 @@
 			isa = PBXGroup;
 			children = (
 				51019E6B13448EEB003CBFA4 /* iTM3Foundation.framework */,
-				5170B68E13431BD3004F857A /* iTM2TeXFoundation.framework */,
 				DCC7F4C70854ACD700F3EB8A /* Carbon.framework */,
 				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
 				DCFFC5F408E3EA1B0011D2B7 /* PreferencePanes.framework */,
@@ -1126,6 +1137,14 @@
 				5140A4F8136969AA00BA3A7F /* iTM3TeXFoundation-Prefix.pch */,
 			);
 			path = iTM3TeXFoundation;
+			sourceTree = "<group>";
+		};
+		516E8C8C13C65F23000F7244 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				516E8C9013C65F23000F7244 /* TeXDist.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5193AF461348E5DC00CACC84 /* Settings */ = {
@@ -1373,8 +1392,8 @@
 				DCC7F3EC0854AC9200F3EB8A /* iTM2TeXProjectTaskKit.m */,
 				DCC7F3ED0854AC9200F3EB8A /* iTM2TeXStringKit.h */,
 				DCC7F3EE0854AC9200F3EB8A /* iTM2TeXStringKit.m */,
-				DCC7F3EF0854AC9200F3EB8A /* iTM2TeXDistributionKit.h */,
-				DCC7F3F00854AC9200F3EB8A /* iTM2TeXDistributionKit.m */,
+				DCC7F3EF0854AC9200F3EB8A /* iTM3TeXDistributionKit.h */,
+				DCC7F3F00854AC9200F3EB8A /* iTM3TeXDistributionKit.m */,
 				DCC3D1680926A425005471BD /* iTM2TextWatcher.h */,
 				DCC3D1690926A425005471BD /* iTM2TextWatcher.m */,
 				DC7888810C46801900E30CB0 /* iTM2DVIKit.h */,
@@ -1481,7 +1500,7 @@
 				DCC7F47D0854AC9200F3EB8A /* iTM2TeXProjectSpellKit.h in Headers */,
 				DCC7F47F0854AC9200F3EB8A /* iTM2TeXProjectTaskKit.h in Headers */,
 				DCC7F4810854AC9200F3EB8A /* iTM2TeXStringKit.h in Headers */,
-				DCC7F4830854AC9200F3EB8A /* iTM2TeXDistributionKit.h in Headers */,
+				DCC7F4830854AC9200F3EB8A /* iTM3TeXDistributionKit.h in Headers */,
 				DC99EA87088315BD007AF81F /* iTM3ServerKeys.h in Headers */,
 				DC99EA89088315BD007AF81F /* iTM3ServerKit.h in Headers */,
 				DC7E91B808903606007D0CB2 /* iTM2TeXStorageKit.h in Headers */,
@@ -1687,6 +1706,10 @@
 					ProductGroup = 51F14DD0138D372300CD5F4B /* Products */;
 					ProjectRef = 51F14DCF138D372300CD5F4B /* iTM3Foundation.xcodeproj */;
 				},
+				{
+					ProductGroup = 516E8C8C13C65F23000F7244 /* Products */;
+					ProjectRef = 516E8C8B13C65F23000F7244 /* TeXDist.xcodeproj */;
+				},
 			);
 			projectRoots = (
 				"",
@@ -1708,6 +1731,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		516E8C9013C65F23000F7244 /* TeXDist.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TeXDist.framework;
+			remoteRef = 516E8C8F13C65F23000F7244 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		51F14E05138D372400CD5F4B /* iTM3Foundation.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -2319,7 +2349,7 @@
 				DCC7F47E0854AC9200F3EB8A /* iTM2TeXProjectSpellKit.m in Sources */,
 				DCC7F4800854AC9200F3EB8A /* iTM2TeXProjectTaskKit.m in Sources */,
 				DCC7F4820854AC9200F3EB8A /* iTM2TeXStringKit.m in Sources */,
-				DCC7F4840854AC9200F3EB8A /* iTM2TeXDistributionKit.m in Sources */,
+				DCC7F4840854AC9200F3EB8A /* iTM3TeXDistributionKit.m in Sources */,
 				DC99EA88088315BD007AF81F /* iTM3ServerKeys.m in Sources */,
 				DC99EA8A088315BD007AF81F /* iTM3ServerKit.m in Sources */,
 				DC7E91B908903606007D0CB2 /* iTM2TeXStorageKit.m in Sources */,

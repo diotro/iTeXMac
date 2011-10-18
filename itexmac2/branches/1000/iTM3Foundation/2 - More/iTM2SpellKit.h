@@ -147,6 +147,12 @@ extern NSString * const TWSSpellDefaultContextMode;
 */
 
 @interface iTM2SpellContextController: iTM2Object
+{
+@private
+    NSInteger iVarChangeCount;
+}
+
+@property (readonly) NSInteger changeCount;
 
 /*!
     @method		defaultSpellContextController
@@ -431,9 +437,11 @@ extern NSString * const TWSSpellDefaultContextMode;
 @private
     id			_iVarPrivateImplementation;
 	id __weak	_iVarCurrentText;
+    BOOL        _iVarSynchronizing;
 }
 @property (assign) id implementation;
 @property (assign) __weak NSText * currentText;
+@property (assign) BOOL isSynchronizing;
 
 /*!
     @method		sharedHelper

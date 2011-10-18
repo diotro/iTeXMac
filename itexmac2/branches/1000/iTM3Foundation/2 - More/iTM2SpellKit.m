@@ -360,8 +360,12 @@ To Do List:
 	return;
 }
 @end
+@interface iTM2SpellContextController()
+@property (readwrite) NSInteger changeCount;
+@end
 @implementation iTM2SpellContextController
-static id _iTM2SpellContextController = nil;
+@synthesize changeCount = iVarChangeCount;
+static iTM2SpellContextController * _iTM2SpellContextController = nil;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  completeInitialization
 + (void)completeInitialization;
 /*"Description Forthcoming.
@@ -758,7 +762,7 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-    return [[self.implementation metaValueForKey:@"ChangeCount"] integerValue] != ZER0;
+    return self.changeCount != ZER0;
 }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  updateChangeCount
 - (void)updateChangeCount:(NSDocumentChangeType)change;
@@ -769,14 +773,12 @@ To Do List:
 "*/
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
-	NSInteger changeCount = [[self.implementation metaValueForKey:@"ChangeCount"] integerValue];
     if (change == NSChangeDone)
-        ++changeCount;
+        ++self.changeCount;
     else if (change == NSChangeUndone)
-        --changeCount;
+        --self.changeCount;
     else
-        changeCount = ZER0;
-	[self.implementation takeMetaValue:[NSNumber numberWithInteger:changeCount] forKey:@"ChangeCount"];
+        self.changeCount = ZER0;
 //END4iTM3;
     return;
 }
@@ -1417,6 +1419,7 @@ To Do List:
 @implementation iTM2SpellCheckerHelper
 @synthesize implementation=_iVarPrivateImplementation;
 @synthesize currentText=_iVarCurrentText;
+@synthesize isSynchronizing = _iVarIsSynchronizing;
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-  sharedHelper
 + (id)sharedHelper;
 /*"Description forthcoming.
@@ -1798,10 +1801,11 @@ To Do List:
 {DIAGNOSTIC4iTM3;
 //START4iTM3;
 	// reentrant part
-	if ([[IMPLEMENTATION metaValueForKey:@"Synchronizing"] boolValue])
+	if (self.isSynchronizing) {
 		return;
-	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:YES] forKey:@"Synchronizing"];
-    NSText * text = self.currentText;
+    }
+    self.isSynchronizing = YES;
+	NSText * text = self.currentText;
 	// this is the crucial part that needs reentrant management
 	iTM3SpellContext * SC = [text spellContext4iTM3];
 	NSString * language = SC.spellLanguage;
@@ -1823,7 +1827,7 @@ To Do List:
         }
     }
 //LOG4iTM3(@"[SSC language] is:%@", [SSC language]);
-	[IMPLEMENTATION takeMetaValue:[NSNumber numberWithBool:NO] forKey:@"Synchronizing"];
+	self.isSynchronizing = NO;
     if (!self.isWindowContentValid4iTM3) DEBUGLOG4iTM3(100, @"invalid GUI");
 //END4iTM3;
     return;
